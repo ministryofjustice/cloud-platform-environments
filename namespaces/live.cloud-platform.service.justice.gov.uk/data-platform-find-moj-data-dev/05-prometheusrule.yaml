@@ -75,16 +75,17 @@ spec:
           for: 15m
           labels:
             severity: find-moj-data-dev
+
     - name: request-latency
       rules:
         - alert: HighLatencyByViewAndMethod
           annotations:
-            message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 2 seconds for a 2 minute period."
+            message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 3 seconds for a 5 minute period."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
           expr: >-
             rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-dev',method='GET'}[1m])/
             rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-dev',method='GET'}[1m])
-            > 2
-          for: 2m
+            > 3
+          for: 5m
           labels:
             severity: find-moj-data-dev
