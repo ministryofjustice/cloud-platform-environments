@@ -17,8 +17,8 @@ module "opensearch" {
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
-    dedicated_master_count   = 5 # can only either be 3 or 5
-    dedicated_master_type    = "m6g.large.search"
+    dedicated_master_count   = 3 # can only either be 3 or 5
+    dedicated_master_type    = "m7g.xlarge.search"
 
     # Ultrawarm nodes (omit if you aren't going to use this)
     warm_enabled = false
@@ -34,7 +34,7 @@ module "opensearch" {
 
   ebs_options = {
     volume_type = "gp3"
-    volume_size = 2048 # Storage (GBs per node)
+    volume_size = 512 # Storage (GBs per node)
     throughput  = 250
     iops        = 8000
   }
