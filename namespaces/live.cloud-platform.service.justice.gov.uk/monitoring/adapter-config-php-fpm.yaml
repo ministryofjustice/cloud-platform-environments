@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adapter-config-php-fpm
+  namespace: monitoring
+data:
+  config.yaml: |
+    rules:
+    - seriesQuery: 'phpfpm_active_processes{namespace!="",pod_name!=""}'
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod_name:
+            resource: pod
+      name:
+        matches: "phpfpm_active_processes"
+        as: "phpfpm_active_processes_utilization"
+      metricsQuery: avg(phpfpm_active_processes{<<.LabelMatchers>>} / phpfpm_total_processes{<<.LabelMatchers>>}) by (<<.GroupBy>>)
