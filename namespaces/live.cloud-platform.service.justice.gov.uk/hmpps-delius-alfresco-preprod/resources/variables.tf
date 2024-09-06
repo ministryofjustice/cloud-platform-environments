@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-delius-alfresco-stage"
+  default     = "hmpps-delius-alfresco-preprod"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "stage"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {

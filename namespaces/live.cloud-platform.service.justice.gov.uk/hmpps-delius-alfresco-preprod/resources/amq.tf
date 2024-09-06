@@ -85,7 +85,7 @@ resource "aws_mq_broker" "this" {
     username       = local.mq_admin_user
     password       = local.mq_admin_password
     groups         = ["admin"]
-    console_access = false
+    console_access = true
   }
 
 
