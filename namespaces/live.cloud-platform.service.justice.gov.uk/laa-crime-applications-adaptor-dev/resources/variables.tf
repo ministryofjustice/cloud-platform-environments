@@ -106,6 +106,11 @@ variable "cognito_user_pool_client_name" {
   default     = "caa-api-dev"
 }
 
+variable "cognito_user_pool_crime_apply_client_name" {
+  description = "Cognito user pool Crime Apply client name"
+  default     = "crime-apply-dev"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "caa-api-dev"
