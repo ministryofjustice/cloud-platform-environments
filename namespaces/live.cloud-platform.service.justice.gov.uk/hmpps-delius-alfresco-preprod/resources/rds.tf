@@ -20,7 +20,7 @@ module "rds_alfresco" {
   prepare_for_major_upgrade = false
   db_engine_version         = "14.10"
   rds_family                = "postgres14"
-  db_instance_class         = "db.m6i.xlarge"
+  db_instance_class         = "db.m7g.xlarge"
 
   # Tagst
   application            = var.application
@@ -39,10 +39,12 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    RDS_INSTANCE_ENDPOINT = module.rds_alfresco.rds_instance_endpoint
-    DATABASE_NAME         = module.rds_alfresco.database_name
-    DATABASE_USERNAME     = module.rds_alfresco.database_username
-    DATABASE_PASSWORD     = module.rds_alfresco.database_password
-    RDS_INSTANCE_ADDRESS  = module.rds_alfresco.rds_instance_address
+    RDS_INSTANCE_ENDPOINT   = module.rds_alfresco.rds_instance_endpoint
+    RDS_INSTANCE_IDENTIFIER = module.rds_alfresco.db_identifier
+    DATABASE_NAME           = module.rds_alfresco.database_name
+    DATABASE_USERNAME       = module.rds_alfresco.database_username
+    DATABASE_PASSWORD       = module.rds_alfresco.database_password
+    RDS_INSTANCE_ADDRESS    = module.rds_alfresco.rds_instance_address
+    RDS_JDBC_URL            = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
   }
 }
