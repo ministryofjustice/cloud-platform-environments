@@ -5,4 +5,4 @@ metadata:
   namespace: hmpps-delius-alfresco-preprod
 spec:
   hard:
-    pods: "150"
+    pods: "100"
