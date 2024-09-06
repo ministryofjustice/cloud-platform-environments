@@ -20,12 +20,6 @@ variable "namespace" {
   default     = "stability-inspector-dev"
 }
 
-variable "archive_date" {
-  description = "The date we want to see in the archive"
-  type        = string
-  default     = "stability-inspector-dev"
-}
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   type        = string
@@ -83,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "justice-website-archive"
+  default     = "stability-inspector"
 }
