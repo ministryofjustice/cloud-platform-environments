@@ -119,7 +119,7 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = aws_mq_broker.this.instances[0].endpoints[0]
+    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})"
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
