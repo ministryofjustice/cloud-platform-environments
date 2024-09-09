@@ -7,8 +7,9 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
-    s3             = module.s3_bucket.irsa_policy_arn
-    migration      = aws_iam_policy.migration_policy.arn
+    s3        = module.s3_bucket.irsa_policy_arn
+    migration = aws_iam_policy.migration_policy.arn
+    amq       = aws_iam_policy.amq.arn
   }
 
   # Tags
