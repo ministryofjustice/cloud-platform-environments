@@ -28,15 +28,13 @@ spec:
             severity: find-moj-data-prod
     - name: resource-alert
       rules:
-        - alert: CpuUsageHigh
+        - alert: MaxedOutAutoscaling
           annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
+            message: ":warning: Find MoJ data is running the maximum number of replicas."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
           expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-find-moj-data-prod", container="find-moj-data"}[5m])) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-find-moj-data-prod", container="find-moj-data", unit="core"})) * 100  
-            > 90
-          for: 1m
+            kube_horizontalpodautoscaler_status_current_replicas{namespace="data-platform-find-moj-data-prod"} / kube_horizontalpodautoscaler_spec_max_replicas{namespace="data-platform-find-moj-data-prod"} >= 1
+          for: 30m
           labels:
             severity: find-moj-data-prod
         - alert: MemUsageHigh
@@ -79,12 +77,12 @@ spec:
       rules:
         - alert: HighLatencyByViewAndMethod
           annotations:
-            message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 2 seconds for a 2 minute period."
+            message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 3 seconds for a 5 minute period."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
           expr: >-
             rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])/
             rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])
-            > 2
-          for: 2m
+            > 3
+          for: 5m
           labels:
             severity: find-moj-data-prod
