@@ -31,9 +31,10 @@ resource "kubernetes_secret" "hmpps_hpa_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_hpa_rds.rds_instance_endpoint
-    database_username     = module.hmpps_hpa_rds.database_username
-    database_password     = module.hmpps_hpa_rds.database_password
+    DB_SERVER = module.hmpps_hpa_rds.rds_instance_endpoint
+    DB_USER     = module.hmpps_hpa_rds.database_username
+    DB_PASS     = module.hmpps_hpa_rds.database_password
+    DB_NAME     = "iis"
     rds_instance_address  = module.hmpps_hpa_rds.rds_instance_address
   }
 }
