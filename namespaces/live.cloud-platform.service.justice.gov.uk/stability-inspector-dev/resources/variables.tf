@@ -11,7 +11,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of Application you are deploying"
   type        = string
-  default     = "Justice Gov UK Archive"
+  default     = "Stability Inspector"
 }
 
 variable "namespace" {
