@@ -51,6 +51,22 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-prison-person-api-prod"
+  }
+
+  data = {
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
 # Configmap to store non-sensitive data related to the RDS instance
 resource "kubernetes_config_map" "rds" {
   metadata {
