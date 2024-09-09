@@ -124,3 +124,35 @@ resource "kubernetes_secret" "amazon_mq" {
     BROKER_PASSWORD    = local.mq_admin_password
   }
 }
+
+data "aws_iam_document_policy" "amq" {
+  name = "cloud-platform-mq-${random_id.amq_id.hex}"
+  statement {
+    actions = [
+      "mq:CreateConfiguration",
+      "mq:CreateUser",
+      "mq:DeleteUser",
+      "mq:DescribeBroker",
+      "mq:DescribeBrokerEngineTypes",
+      "mq:DescribeBrokerInstanceOptions",
+      "mq:DescribeConfiguration",
+      "mq:DescribeConfigurationRevision",
+      "mq:DescribeUser",
+      "mq:ListBrokers",
+      "mq:ListConfigurationRevisions",
+      "mq:ListConfigurations",
+      "mq:ListUsers",
+      "mq:RebootBroker",
+      "mq:UpdateBroker",
+      "mq:UpdateConfiguration",
+      "mq:UpdateUser"
+    ]
+    resources = [aws_mq_broker.this.arn]
+  }
+}
+
+resource "aws_iam_policy" "amq" {
+  name        = "mq"
+  description = "IAM policy for Amazon MQ"
+  policy      = data.aws_iam_document_policy.amq.json
+}
