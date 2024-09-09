@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: moj-frontend-prod-cert
+  namespace: moj-frontend
+spec:
+  secretName: moj-frontend-prod-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - design-patterns.service.justice.gov.uk
