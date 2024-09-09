@@ -125,8 +125,7 @@ resource "kubernetes_secret" "amazon_mq" {
   }
 }
 
-data "aws_iam_document_policy" "amq" {
-  name = "cloud-platform-mq-${random_id.amq_id.hex}"
+data "aws_iam_policy_document" "amq" {
   statement {
     actions = [
       "mq:CreateConfiguration",
@@ -152,7 +151,7 @@ data "aws_iam_document_policy" "amq" {
 }
 
 resource "aws_iam_policy" "amq" {
-  name        = "mq"
+  name        = "cloud-platform-mq-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
-  policy      = data.aws_iam_document_policy.amq.json
+  policy      = data.aws_iam_policy_document.amq.json
 }
