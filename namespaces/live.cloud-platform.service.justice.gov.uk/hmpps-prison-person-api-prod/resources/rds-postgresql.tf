@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-to-gp3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
 
   deletion_protection = true
 
