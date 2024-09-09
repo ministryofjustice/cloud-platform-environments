@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: stability-inspector-dev
+spec:
+  hard:
+    pods: "10"
