@@ -11,25 +11,10 @@ module "secrets" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "secret_key_base" = {
-      description             = "Rails application secret key base",
+    "lfa-secrets" = {
+      description             = "legal-framework-api-uat secrets",
       recovery_window_in_days = 7
-      k8s_secret_name         = "secret-key-base"
-    },
-    "postgres_username" = {
-      description             = "PostgreSQL username",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "postgres-username"
-    },
-    "postgres_password" = {
-      description             = "PostgreSQL password",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "postgres-password"
-    },
-    "sentry_dsn" = {
-      description             = "Sentry DSN",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "sentry-dsn"
-    },
+      k8s_secret_name         = "lfa-secrets"
+    }
   }
 }
