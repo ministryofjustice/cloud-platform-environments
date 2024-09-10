@@ -69,5 +69,5 @@ module "serviceaccount_circleci" {
   serviceaccount_name  = "circleci"
   role_name            = "circleci"
   serviceaccount_rules = local.sa_rules
-  rolebinding_name     = "serviceaccount-rolebinding"
+  rolebinding_name     = "circleci"
 }
