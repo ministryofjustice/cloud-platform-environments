@@ -31,10 +31,10 @@ resource "kubernetes_secret" "hmpps_hpa_rds" {
   }
 
   data = {
-    DB_SERVER = module.hmpps_hpa_rds.rds_instance_endpoint
+    DB_SERVER   = module.hmpps_hpa_rds.rds_instance_endpoint
     DB_USER     = module.hmpps_hpa_rds.database_username
     DB_PASS     = module.hmpps_hpa_rds.database_password
-    DB_NAME     = "iis"
+    DB_NAME     = "iis-stage"
     rds_instance_address  = module.hmpps_hpa_rds.rds_instance_address
   }
 }
