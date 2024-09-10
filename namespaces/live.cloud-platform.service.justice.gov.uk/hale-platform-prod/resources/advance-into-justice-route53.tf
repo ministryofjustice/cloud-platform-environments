@@ -18,6 +18,7 @@ resource "kubernetes_secret" "advance_into_justice_route53_zone_sec" {
   }
 
   data = {
-    zone_id = aws_route53_zone.advance_into_justice_route53_zone.zone_id
+    zone_id     = aws_route53_zone.advance_into_justice_route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.advance_into_justice_route53_zone.name_servers)
   }
 }
