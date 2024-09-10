@@ -56,6 +56,8 @@ variable "domains" {
     "www.seewhatsontheinside.co.uk"                  = "swoti-uk-www"
     "iapondeathsincustody.org"                       = "iapdc"
     "www.iapondeathsincustody.org"                   = "iapdc-www"
+    "advance-into-justice.service.justice.gov.uk"    = "advance-into-justice"
+    "www.advance-into-justice.service.justice.gov.uk" = "advance-into-justice-www"
   }
 }
 
