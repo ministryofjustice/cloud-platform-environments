@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "stability-inspector-dev"
 }
 
+variable "serviceaccount_name" {
+  description = "The name of the serviceaccount"
+  default     = "stability-inspector-dev"
+  type        = string
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   type        = string
