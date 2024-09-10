@@ -75,3 +75,12 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the cluster"
 }
+
+variable "github_repositories" {
+  type        = list(string)
+  description = "GitHub repositories deployed to this namespace"
+  default     = [
+    "hmpps-electronic-monitoring-create-an-order",
+    "hmpps-electronic-monitoring-create-an-order-api"
+  ]
+}
