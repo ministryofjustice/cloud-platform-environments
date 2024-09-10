@@ -1,0 +1,18 @@
+ this namespace is causing our pipeline to fail
+
+ 2024/09/10 09:19:31 Running Terraform Apply for namespace: laa-crown-court-litigator-fees-uat
+
+FATA[4553] error running terraform on namespace laa-crown-court-litigator-fees-uat: unable to apply Terraform: exit status 1
+
+
+Error: updating RDS DB Instance (cloud-platform-73d0dce4a90613e1): operation error RDS: ModifyDBInstance, https response error StatusCode: 400, RequestID: 6e06f2fe-82db-4b87-9945-3353514c38d9, api error InvalidParameterCombination: Cannot upgrade oracle-se2 from 19.0.0.0.ru-2024-07.rur-2024-07.r1 to 19.0.0.0.ru-2024-04.rur-2024-04.r1
+
+
+  with module.rds-instance.aws_db_instance.rds,
+
+  on .terraform/modules/rds-instance/main.tf line 144, in resource "aws_db_instance" "rds":
+
+ 144: resource "aws_db_instance" "rds" {
+
+
+https://concourse.cloud-platform.service.justice.gov.uk/teams/main/pipelines/environments-live/jobs/apply-live-d/builds/3309
