@@ -10,7 +10,7 @@ module "serviceaccount" {
 
   # list of github environments, to create the service account secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  github_environments = ["development"]
+  github_environments = ["design-system"]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
