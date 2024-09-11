@@ -58,6 +58,8 @@ variable "domains" {
     "www.iapondeathsincustody.org"                   = "iapdc-www"
     "advance-into-justice.service.justice.gov.uk"    = "advance-into-justice"
     "www.advance-into-justice.service.justice.gov.uk" = "advance-into-justice-www"
+    "legalaidlearning.justice.gov.uk"                = "legalaidlearning"
+    "www.legalaidlearning.justice.gov.uk"            = "legalaidlearning-www"
   }
 }
 
