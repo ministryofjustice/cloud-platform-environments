@@ -79,6 +79,8 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
+  apply_immediately = true
+
   storage_type = "ebs"
 
   user {
