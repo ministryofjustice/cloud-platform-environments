@@ -20,8 +20,8 @@ variable "namespace" {
   default     = "stability-inspector-dev"
 }
 
-variable "serviceaccount_name" {
-  description = "The name of the serviceaccount"
+variable "service_account_name" {
+  description = "The name of the service account"
   default     = "stability-inspector-dev"
   type        = string
 }
