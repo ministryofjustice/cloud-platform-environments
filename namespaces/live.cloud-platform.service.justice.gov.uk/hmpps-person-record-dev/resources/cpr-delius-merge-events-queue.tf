@@ -7,7 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_merge_domain_events_subscripti
   filter_policy = jsonencode({
     eventType = [
       "probation-case.merge.completed",
-      "probation-case-unmerge-completed"
+      "probation-case.unmerge.completed"
     ]
   })
 }
