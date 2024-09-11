@@ -3,6 +3,12 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "repository_name" {
+  description = "The name of the GitHub repository for the application"
+  type        = string
+  default     = "operations-engineering-flask-template"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -17,7 +23,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-join-github-dev"
+  default     = "operations-engineering-flask-template"
 }
 
 variable "business_unit" {
@@ -73,7 +79,3 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "domain" {
-  default = "dev.join-github.service.justice.gov.uk"
-  type    = string
-}
