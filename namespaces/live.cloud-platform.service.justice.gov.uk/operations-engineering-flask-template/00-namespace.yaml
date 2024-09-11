@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
     cloud-platform.justice.gov.uk/slack-channel: "operations-engineering"
-    cloud-platform.justice.gov.uk/application: "Join a Ministry of Justice GitHub Org"
+    cloud-platform.justice.gov.uk/application: "Application template for Operations Engineering"
     cloud-platform.justice.gov.uk/owner: "operations-engineering: operations-engineering@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/operations-engineering-flask-template"
     cloud-platform.justice.gov.uk/team-name: "operations-engineering"
