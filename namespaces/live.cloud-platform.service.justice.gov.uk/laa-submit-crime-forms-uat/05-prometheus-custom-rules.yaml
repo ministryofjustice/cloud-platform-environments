@@ -36,6 +36,7 @@ spec:
         # To achieve this we use "or" to fall back to a value of C - 1, so that our subtraction becomes {X: 1} - {X: 0} = {X: 1}
         # 
         # Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that are not positive.
+            (hour() > 7 < 21) AND ON()
             sum by (ingress) (
               nginx_ingress_controller_requests{exported_namespace="laa-submit-crime-forms-uat",status=~"500|502|503|504"}
             )
@@ -83,7 +84,7 @@ spec:
 
     - alert: KubePodCrashLooping
       expr: |-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-submit-crime-forms-uat"}[15m]) * 60 * 5 > 0
+        (hour() > 7 < 21) AND ON() rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-submit-crime-forms-uat"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
         severity: laa-crime-forms-team-pre-prod
