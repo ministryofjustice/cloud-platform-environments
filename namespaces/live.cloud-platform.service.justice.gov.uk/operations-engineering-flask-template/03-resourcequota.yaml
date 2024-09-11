@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: operations-engineering-join-github-dev
+  namespace: operations-engineering-flask-template
 spec:
   hard:
     pods: "50"

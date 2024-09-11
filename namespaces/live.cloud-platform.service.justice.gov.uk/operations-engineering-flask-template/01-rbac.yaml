@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: operations-engineering-join-github-dev-admin
-  namespace: operations-engineering-join-github-dev
+  name: operations-engineering-flask-template-admin
+  namespace: operations-engineering-flask-template
 subjects:
   - kind: Group
     name: "github:operations-engineering"
