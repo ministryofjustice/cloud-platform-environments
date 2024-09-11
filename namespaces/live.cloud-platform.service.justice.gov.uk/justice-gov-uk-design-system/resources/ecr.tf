@@ -13,8 +13,8 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers = ["github"]
   github_repositories = ["justice-gov-uk"]
-  github_environments = ["development"]
-  github_actions_prefix = "development"
+  github_environments = ["design-system"]
+  github_actions_prefix = "design-system"
 
   # Tags
   business_unit          = var.business_unit
