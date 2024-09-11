@@ -116,7 +116,7 @@ resource "kubernetes_secret" "kendra" {
     namespace = var.namespace
   }
   data = {
-    kendra_index_arn  = aws_kendra_index.main.arn 
+    kendra_index_arn  = aws_kendra_index.main.arn
     kendra_index_name = aws_kendra_index.main.name
   }
 }
