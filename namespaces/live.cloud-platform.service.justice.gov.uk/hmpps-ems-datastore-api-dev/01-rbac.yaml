@@ -5,10 +5,7 @@ metadata:
   namespace: hmpps-ems-datastore-api-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-electronic-monitoring-data-store"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:analytics-hq"
+    name: "github:hmpps-electronic-monitoring"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
