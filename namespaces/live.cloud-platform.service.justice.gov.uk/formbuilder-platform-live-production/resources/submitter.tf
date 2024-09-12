@@ -11,7 +11,7 @@ module "submitter-rds-instance-2" {
   team_name                  = var.team_name
   business_unit              = "Platforms"
   prepare_for_major_upgrade  = true
-  db_engine_version          = "15.5"
+  db_engine_version          = "15.7"
   rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 
