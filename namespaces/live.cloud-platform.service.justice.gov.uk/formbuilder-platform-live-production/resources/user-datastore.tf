@@ -18,7 +18,7 @@ module "user-datastore-rds-instance-2" {
   providers = {
     aws = aws.london
   }
-}
+} 
 
 resource "kubernetes_secret" "user-datastore-rds-instance-2" {
   metadata {

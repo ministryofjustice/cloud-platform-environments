@@ -18,7 +18,7 @@ module "submitter-rds-instance-2" {
   providers = {
     aws = aws.london
   }
-}
+} 
 
 resource "kubernetes_secret" "submitter-rds-instance-2" {
   metadata {
