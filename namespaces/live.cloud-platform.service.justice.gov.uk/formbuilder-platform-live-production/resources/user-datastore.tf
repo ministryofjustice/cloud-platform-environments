@@ -14,7 +14,7 @@ module "user-datastore-rds-instance-2" {
   db_engine_version          = "15.7"
   rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
-  db_allocated_storage       = "100"
+  db_allocated_storage       = "100" 
 
   providers = {
     aws = aws.london
