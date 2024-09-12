@@ -1,5 +1,5 @@
 module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=sns-fifo" # use the latest release
 
   # Configuration
   topic_display_name = "example-sns"
