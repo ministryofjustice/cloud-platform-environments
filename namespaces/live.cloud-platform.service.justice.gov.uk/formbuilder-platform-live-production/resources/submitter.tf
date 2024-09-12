@@ -30,4 +30,4 @@ resource "kubernetes_secret" "submitter-rds-instance-2" {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
     url = "postgres://${module.submitter-rds-instance-2.database_username}:${module.submitter-rds-instance-2.database_password}@${module.submitter-rds-instance-2.rds_instance_endpoint}/${module.submitter-rds-instance-2.database_name}"
   }
-}
+} 

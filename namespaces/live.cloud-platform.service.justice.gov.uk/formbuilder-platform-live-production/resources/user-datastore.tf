@@ -18,7 +18,7 @@ module "user-datastore-rds-instance-2" {
   providers = {
     aws = aws.london
   }
-} 
+}
 
 resource "kubernetes_secret" "user-datastore-rds-instance-2" {
   metadata {
@@ -30,4 +30,4 @@ resource "kubernetes_secret" "user-datastore-rds-instance-2" {
     # postgres://USER:PASSWORD@HOST:PORT/NAME
     url = "postgres://${module.user-datastore-rds-instance-2.database_username}:${module.user-datastore-rds-instance-2.database_password}@${module.user-datastore-rds-instance-2.rds_instance_endpoint}/${module.user-datastore-rds-instance-2.database_name}"
   }
-}
+} 
