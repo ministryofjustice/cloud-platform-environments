@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS EMS Datastore API"
+  default     = "HMPPS Electronic Monitoring Datastore API"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-ems-datastore-api-dev"
+  default     = "hmpps-electronic-monitoring-datastore-api-dev"
 }
 
 variable "business_unit" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-electronic-monitoring-data-store"
+  default     = "hmpps-electronic-monitoring"
 }
 
 variable "environment" {
