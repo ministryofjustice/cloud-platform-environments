@@ -1,5 +1,5 @@
 module "hmpps_dpr_fake_dps_service_ui_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
