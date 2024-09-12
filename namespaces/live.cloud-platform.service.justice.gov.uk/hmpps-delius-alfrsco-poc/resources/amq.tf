@@ -20,8 +20,20 @@ data "aws_subnets" "this" {
   }
 }
 
-data "aws_subnet" "this" {
-  for_each = toset(data.aws_subnets.this.ids)
+data "aws_subnets" "eks_private" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["EKS-Private"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+}
+
+data "aws_subnet" "eks_private" {
+  for_each = toset(data.aws_subnets.eks_private.ids)
   id       = each.value
 }
 
@@ -55,14 +67,20 @@ resource "aws_security_group" "broker_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 }
 
