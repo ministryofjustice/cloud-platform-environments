@@ -29,5 +29,5 @@ func Validate(client *github.Client, org string, annotations *Annotations) (bool
 		return false, fmt.Sprintf("The team %s does not exist or the PR owner isn't a member.", team)
 	}
 
-	return true, fmt.Sprintf("Annotations successfully validated")
+	return true, fmt.Sprintf("Annotations successfully validated.")
 }
