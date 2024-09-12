@@ -1,5 +1,5 @@
 module "hmpps_manage_adjudications" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
   vpc_name                = var.vpc_name
   application             = var.application
   environment_name        = var.environment-name
