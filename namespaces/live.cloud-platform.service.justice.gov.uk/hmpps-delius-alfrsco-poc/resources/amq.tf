@@ -20,6 +20,11 @@ data "aws_subnets" "this" {
   }
 }
 
+data "aws_subnet" "this" {
+  for_each = toset(data.aws_subnets.this.ids)
+  id       = each.value
+}
+
 data "aws_subnets" "eks_private" {
   filter {
     name   = "tag:SubnetType"
