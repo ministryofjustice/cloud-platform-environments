@@ -25,6 +25,23 @@ data "aws_subnet" "this" {
   id       = each.value
 }
 
+data "aws_subnets" "eks_private" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["EKS-Private"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+}
+
+data "aws_subnet" "eks_private" {
+  for_each = toset(data.aws_subnets.eks_private.ids)
+  id       = each.value
+}
+
 resource "random_id" "amq_id" {
   byte_length = 8
 }
@@ -55,14 +72,20 @@ resource "aws_security_group" "broker_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 }
 
@@ -79,13 +102,15 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
+  apply_immediately = true
+
   storage_type = "ebs"
 
   user {
     username       = local.mq_admin_user
     password       = local.mq_admin_password
     groups         = ["admin"]
-    console_access = false
+    console_access = true
   }
 
 
@@ -119,8 +144,39 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = aws_mq_broker.this.instances[0].endpoints[0]
+    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})"
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
+}
+
+data "aws_iam_policy_document" "amq" {
+  statement {
+    actions = [
+      "mq:CreateConfiguration",
+      "mq:CreateUser",
+      "mq:DeleteUser",
+      "mq:DescribeBroker",
+      "mq:DescribeBrokerEngineTypes",
+      "mq:DescribeBrokerInstanceOptions",
+      "mq:DescribeConfiguration",
+      "mq:DescribeConfigurationRevision",
+      "mq:DescribeUser",
+      "mq:ListBrokers",
+      "mq:ListConfigurationRevisions",
+      "mq:ListConfigurations",
+      "mq:ListUsers",
+      "mq:RebootBroker",
+      "mq:UpdateBroker",
+      "mq:UpdateConfiguration",
+      "mq:UpdateUser"
+    ]
+    resources = [aws_mq_broker.this.arn]
+  }
+}
+
+resource "aws_iam_policy" "amq" {
+  name        = "cloud-platform-mq-${random_id.amq_id.hex}"
+  description = "IAM policy for Amazon MQ"
+  policy      = data.aws_iam_policy_document.amq.json
 }

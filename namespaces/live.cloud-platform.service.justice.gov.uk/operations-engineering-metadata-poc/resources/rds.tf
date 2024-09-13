@@ -1,12 +1,12 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
   db_engine                   = "postgres"
-  db_engine_version           = "15.5"
+  db_engine_version           = "15.7"
   rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"

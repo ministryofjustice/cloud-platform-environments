@@ -3,14 +3,14 @@ resource "random_id" "id" {
 }
 
 module "dps_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "15.5"
+  db_engine_version        = "15.7"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500" # maximum storage for autoscaling
   environment_name         = var.environment_name

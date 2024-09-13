@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -55,7 +55,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -79,9 +79,6 @@ module "cla_backend_rds_postgres_14_replica" {
   rds_family = "postgres14"
   # It is mandatory to set the below values to create read replica instance
 
-  # Set the database_name of the source db
-  db_name = null # "db_name": conflicts with replicate_source_db
-
   # Set the db_identifier of the source db
   replicate_source_db = module.cla_backend_rds_postgres_14.db_identifier
 
@@ -102,7 +99,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
