@@ -1,3 +1,23 @@
 
 Needed to make database large temporarily
 
+# module.dps_rds.aws_db_instance.rds will be updated in-place
+  ~ resource "aws_db_instance" "rds" {
+        id                                    = "cloud-platform-blah"
+      ~ iops                                  = 3000 -> 0
+        name                                  = "blah"
+      ~ storage_type                          = "gp3" -> "gp2"
+        tags                                  = {
+            "application"            = "hmpps-nomis-mapping-service-preprod"
+            "business-unit"          = "HMPPS"
+            "environment-name"       = "preprod"
+            "infrastructure-support" = "dps-hmpps@digital.justice.gov.uk"
+            "is-production"          = "false"
+            "namespace"              = "hmpps-nomis-mapping-service-preprod"
+            "owner"                  = "syscon-devs"
+        }
+        # (65 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+

@@ -1,0 +1,16 @@
+│ Error: setting SQS Queue (https://sqs.eu-west-2.amazonaws.com/7/laa-get-paid-staging-cccd-claims-for-ccr) attribute (Policy): InvalidAttributeValue: Invalid value for the parameter Policy.
+│       status code: 400, request id: 941df176-bc79-52c5-aae9-ae289f1dcdaa
+│
+│   with aws_sqs_queue_policy.claims_for_ccr_policy,
+│   on messaging.tf line 48, in resource "aws_sqs_queue_policy" "claims_for_ccr_policy":
+│   48: resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
+│
+╵
+╷
+│ Error: setting SQS Queue (https://sqs.eu-west-2.amazonaws.com/7/laa-get-paid-staging-responses-for-cccd) attribute (Policy): InvalidAttributeValue: Invalid value for the parameter Policy.
+│       status code: 400, request id: b0d66106-36c9-5ce5-baac-3e5815ad2ed6
+│
+│   with aws_sqs_queue_policy.responses_for_cccd,
+│   on messaging.tf line 185, in resource "aws_sqs_queue_policy" "responses_for_cccd":
+│  185: resource "aws_sqs_queue_policy" "responses_for_cccd" {
+
