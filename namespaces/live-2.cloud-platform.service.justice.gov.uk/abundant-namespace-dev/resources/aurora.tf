@@ -28,7 +28,7 @@ module "aurora_db" {
 resource "kubernetes_secret" "aurora_db" {
   metadata {
     name      = "aurora-db-secret"
-    namespace = "abundant-namespace-dev"
+    namespace = "abundant-namespace-live-2"
   }
 
   data = {
