@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-electronic-monitoring-create-an-order.hmpps.service.justice.gov.uk
+    - hmpps-electronic-monitoring-create-an-order-api.hmpps.service.justice.gov.uk
