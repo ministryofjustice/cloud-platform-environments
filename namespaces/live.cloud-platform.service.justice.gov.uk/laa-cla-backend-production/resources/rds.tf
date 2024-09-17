@@ -19,8 +19,8 @@ module "cla_backend_rds_postgres_14" {
 
   db_name = "cla_backend"
   # Settings from current setup
-  db_instance_class        = "db.t4g.2xlarge"
-  db_allocated_storage     = "100"
+  db_instance_class       = "db.t4g.2xlarge"
+  db_allocated_storage    = "100"
   db_max_allocated_storage = "1000"
   performance_insights_enabled = true
 
@@ -67,8 +67,8 @@ module "cla_backend_rds_postgres_14_replica" {
   namespace              = var.namespace
 
   # Settings from current setup
-  db_instance_class        = "db.t4g.2xlarge"
-  db_allocated_storage     = "100"
+  db_instance_class       = "db.t4g.2xlarge"
+  db_allocated_storage    = "100"
   db_max_allocated_storage = "1000"
 
   # change the postgres version as you see fit.
