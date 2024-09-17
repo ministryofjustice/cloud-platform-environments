@@ -21,7 +21,7 @@ module "s3_bucket" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = module.irsa.aws_iam_role_arn
+          AWS = module.irsa.role_arn
         }
         Action = [
           "s3:PutObject",
