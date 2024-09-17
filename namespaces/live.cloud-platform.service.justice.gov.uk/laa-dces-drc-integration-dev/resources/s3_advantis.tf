@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 resource "kubernetes_secret" "s3_advantis_bucket-secret" {
   metadata {
-    name      = "s3_advantis_bucket-output"
+    name      = "s3-advantis-bucket-output"
     namespace = var.namespace
   }
 
