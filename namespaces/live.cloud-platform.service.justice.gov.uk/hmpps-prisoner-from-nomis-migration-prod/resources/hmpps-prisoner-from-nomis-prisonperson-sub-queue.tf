@@ -111,7 +111,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_prisonperson_subscrip
   endpoint  = module.prisoner_from_nomis_prisonperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "OFFENDER_PHYSICAL_ATTRIBUTES-CHANGED"
+      "OFFENDER_PHYSICAL_ATTRIBUTES-CHANGED",
+      "OFFENDER_PHYSICAL_DETAILS-CHANGED",
     ]
   })
 }
