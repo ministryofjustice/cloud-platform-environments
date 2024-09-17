@@ -8,8 +8,7 @@ module "s3_advantis_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-
-  version = true
+  versioning             = true
 
   providers = {
     aws = aws.london
