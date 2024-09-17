@@ -4,6 +4,9 @@
  * releases page of this repository.
  *
  */
+
+data "aws_caller_identity" "current" {}
+
 module "s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   
@@ -21,12 +24,16 @@ module "s3_bucket" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = module.irsa.role_arn
+          AWS = [
+            module.irsa.role_arn,
+            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cloud-platform-ecr-9eb5479f09a839b9-circleci"
+          ]
         }
         Action = [
           "s3:PutObject",
           "s3:GetObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:DeleteObject"
         ]
         Resource = [
           "$${bucket_arn}",
