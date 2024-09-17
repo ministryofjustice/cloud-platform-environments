@@ -19,10 +19,9 @@ module "s3_bucket" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "AllowCircleCIAccess"
         Effect = "Allow"
         Principal = {
-          AWS = module.serviceaccount_circleci.aws_iam_role_arn
+          AWS = module.irsa.aws_iam_role_arn
         }
         Action = [
           "s3:PutObject",
