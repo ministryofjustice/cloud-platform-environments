@@ -26,7 +26,7 @@ module "s3_bucket" {
         Principal = {
           AWS = [
             module.irsa.role_arn,
-            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cloud-platform-ecr-9eb5479f09a839b9-circleci"
+            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.circleci_role_name}"
           ]
         }
         Action = [
