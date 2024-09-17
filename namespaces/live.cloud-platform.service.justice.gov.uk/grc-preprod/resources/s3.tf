@@ -7,6 +7,14 @@
 
 data "aws_caller_identity" "current" {}
 
+data "aws_iam_roles" "circleci_roles" {
+  name_regex = "^cloud-platform-ecr-.*-circleci$"
+}
+
+locals {
+  circleci_role_name = length(data.aws_iam_roles.circleci_roles.names) > 0 ? tolist(data.aws_iam_roles.circleci_roles.names)[0] : "default-circleci-role"
+}
+
 module "s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   
@@ -26,7 +34,7 @@ module "s3_bucket" {
         Principal = {
           AWS = [
             module.irsa.role_arn,
-            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.circleci_role_name}"
+            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.circleci_role_name}"
           ]
         }
         Action = [
