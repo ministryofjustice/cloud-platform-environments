@@ -12,7 +12,7 @@ data "aws_iam_roles" "circleci_roles" {
 }
 
 locals {
-  circleci_role_name = length(data.aws_iam_roles.circleci_roles.names) > 0 ? data.aws_iam_roles.circleci_roles.names[0] : "default-circleci-role"
+  circleci_role_name = length(data.aws_iam_roles.circleci_roles.names) > 0 ? tolist(data.aws_iam_roles.circleci_roles.names)[0] : "default-circleci-role"
 }
 
 
