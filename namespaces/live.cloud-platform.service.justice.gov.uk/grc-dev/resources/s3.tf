@@ -34,6 +34,7 @@ module "s3_bucket" {
         Effect = "Allow"
         Principal = {
           AWS = [
+            module.irsa.role_arn,
             "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.circleci_role_name}"
           ]
         }
