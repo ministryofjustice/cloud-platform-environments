@@ -58,8 +58,3 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
-
-variable "circleci_role_name" {
-  description = "The name of the CircleCI role"
-  default     = "cloud-platform-ecr-9eb5479f09a839b9-circleci"
-}
