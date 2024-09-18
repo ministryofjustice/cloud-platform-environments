@@ -1,5 +1,5 @@
 module "dynamodb_users_table" {
-  source = "https://github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
