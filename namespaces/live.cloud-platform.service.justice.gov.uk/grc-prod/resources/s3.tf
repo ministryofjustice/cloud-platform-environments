@@ -4,9 +4,20 @@
  * releases page of this repository.
  *
  */
-module "s3_bucket" {
 
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_roles" "circleci_roles" {
+  name_regex = "^cloud-platform-ecr-.*-circleci$"
+}
+
+locals {
+  circleci_role_name = length(data.aws_iam_roles.circleci_roles.names) > 0 ? tolist(data.aws_iam_roles.circleci_roles.names)[0] : "default-circleci-role"
+}
+
+module "s3_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -14,6 +25,30 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.circleci_role_name}"
+          ]
+        }
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  })
 
   /*
 
