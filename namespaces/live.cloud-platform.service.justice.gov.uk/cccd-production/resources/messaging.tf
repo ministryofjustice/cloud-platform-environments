@@ -59,7 +59,8 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD"
+            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD",
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-f825723bcfd1125d-live"
               ]
           },
           "Resource": "${module.claims_for_ccr.sqs_arn}",
