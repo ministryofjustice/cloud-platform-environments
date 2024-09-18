@@ -25,7 +25,7 @@ module "dynamodb_users_table" {
 
 resource "kubernetes_secret" "dynamodb_users_table_output" {
   metadata {
-    name      = "dynamodb_users_table_output"
+    name      = "dynamodb-users-table-output"
     namespace = var.namespace
   }
 
