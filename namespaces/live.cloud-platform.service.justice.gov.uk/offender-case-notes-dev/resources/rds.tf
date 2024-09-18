@@ -8,8 +8,8 @@ module "dps_rds" {
   namespace                     = var.namespace
   environment_name              = var.environment-name
   infrastructure_support        = var.infrastructure_support
-  db_instance_class             = "db.t4g.micro"
-  db_max_allocated_storage      = "500"
+  db_instance_class             = "db.t4g.xlarge"
+  db_max_allocated_storage      = "1000"
   deletion_protection           = true
   prepare_for_major_upgrade     = false
   rds_family                    = "postgres16"
