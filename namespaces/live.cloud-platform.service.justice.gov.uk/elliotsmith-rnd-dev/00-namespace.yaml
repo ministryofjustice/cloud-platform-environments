@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "research_and_development"
-    cloud-platform.justice.gov.uk/application: "Experiments for R&D by Elliot Smith"
+    cloud-platform.justice.gov.uk/application: "elliotsmith-rnd-experiments"
     cloud-platform.justice.gov.uk/owner: "Research and Development: research-and-development@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/rnd_elliot_learning"
     cloud-platform.justice.gov.uk/team-name: "research-and-development"
