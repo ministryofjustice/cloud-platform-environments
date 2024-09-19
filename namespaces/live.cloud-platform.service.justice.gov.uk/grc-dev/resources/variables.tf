@@ -1,8 +1,5 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "kubernetes_cluster" {
 }
