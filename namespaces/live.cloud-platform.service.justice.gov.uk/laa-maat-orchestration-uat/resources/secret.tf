@@ -80,5 +80,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "validation-api-oauth-client-secret"
     },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for Orchestration UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "internal-allowlist-source-range"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Orchestration UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }

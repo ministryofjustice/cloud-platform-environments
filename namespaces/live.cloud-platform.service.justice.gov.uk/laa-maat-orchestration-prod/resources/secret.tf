@@ -85,5 +85,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "maat-orchestration-alert-webhook-prod"
     }
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "internal-allowlist-source-range"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }
