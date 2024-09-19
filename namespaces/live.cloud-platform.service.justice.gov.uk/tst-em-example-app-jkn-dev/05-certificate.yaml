@@ -9,5 +9,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-electronic-monitoring-datastore-api-dev.hmpps.service.justice.gov.uk
-    - hmpps-electronic-monitoring-datastore-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-datastore-api-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-datastore-dev.hmpps.service.justice.gov.uk
