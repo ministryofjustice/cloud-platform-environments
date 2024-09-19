@@ -9,6 +9,7 @@ module "dps_rds" {
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
   db_instance_class         = "db.t4g.xlarge"
+  db_allocated_storage      = "50"
   db_max_allocated_storage  = "100000"
   deletion_protection       = true
   prepare_for_major_upgrade = false
