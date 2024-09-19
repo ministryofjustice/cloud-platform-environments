@@ -20,6 +20,10 @@ variable "namespace" {
   default     = "tst-em-example-app-jkn-dev"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
