@@ -17,7 +17,7 @@ module "s3_bucket" {
           "Sid": "AllowBucketAccess",
           "Effect": "Allow",
           "Principal": {
-            "AWS": "*"
+            "AWS": "arn:aws:iam::754256621582:role/cloud-platform-irsa-399f13871a48f20f-live"
           },
           "Action": [
             "s3:DeleteObject",
