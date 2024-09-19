@@ -10,29 +10,29 @@ module "s3_bucket" {
   namespace              = var.namespace
 
   bucket_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "AllowBucketAccess",
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "*",
-        },
-        "Action": [
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowBucketAccess",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": [
             "s3:DeleteObject",
             "s3:GetBucketLocation",
             "s3:GetObject",
             "s3:ListBucket",
             "s3:PutObject"
-        ]
-        "Resource": [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
-        ]
-      }
-    ]
-  }
+          ],
+          "Resource": [
+            "$${bucket_arn}",
+            "$${bucket_arn}/*"
+          ]
+        }
+      ]
+    }
   EOF
 }
 
