@@ -33,7 +33,8 @@ module "s3_bucket" {
         Effect = "Allow"
         Principal = {
           AWS = [
-            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.circleci_role_name}"
+            "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.circleci_role_name}",
+            "arn:aws:iam::754256621582:role/cloud-platform-ecr-9eb5479f09a839b9-circleci"
           ]
         }
         Action = [
