@@ -23,6 +23,26 @@ module "dynamodb_users_table" {
   ]
 }
 
+data "aws_iam_policy_document" "dynamodb_users_table_access" {
+  statement {
+    actions   = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:UpdateItem",
+      "dynamodb:Scan",
+      "dynamodb:Query",
+      "dynamodb:DeleteItem",
+    ]
+    resources = [module.dynamodb_users_table.table_arn]
+  }
+}
+
+resource "aws_iam_policy" "dynamodb_users_table_policy" {
+  name        = "${var.namespace}-users_table_policy"
+  description = "Grants rw access to specified DynamoDB table"
+  policy      = data.aws_iam_policy_document.dynamodb_users_table_access.json
+}
+
 resource "kubernetes_secret" "dynamodb_users_table_output" {
   metadata {
     name      = "dynamodb-users-table-output"
