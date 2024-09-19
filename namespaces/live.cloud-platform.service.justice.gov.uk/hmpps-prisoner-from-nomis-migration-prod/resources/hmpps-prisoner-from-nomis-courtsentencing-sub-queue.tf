@@ -111,6 +111,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
     eventType = [
       "OFFENDER_CASES-INSERTED",
       "COURT_EVENTS-INSERTED",
+      "COURT_EVENT_CHARGES-INSERTED",
     ]
   })
 }

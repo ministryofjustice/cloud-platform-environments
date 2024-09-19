@@ -4,11 +4,9 @@ metadata:
   name: tst-em-example-app-jkn-dev-admin
   namespace: tst-em-example-app-jkn-dev
 subjects:
-  - kind: RoleBinding
-    apiVersion: rbac.authorization.k8s.io/v1
-    metadata:
-      name: tst-em-example-app-jkn-dev-admin
-      namespace: tst-em-example-app-jkn-dev
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-electronic-monitoring"
     apiGroup: rbac.authorization.k8s.io
