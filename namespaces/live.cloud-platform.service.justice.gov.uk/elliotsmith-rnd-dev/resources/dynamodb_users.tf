@@ -26,6 +26,7 @@ module "dynamodb_users_table" {
 data "aws_iam_policy_document" "dynamodb_users_table_access" {
   statement {
     actions   = [
+      "dynamodb:DescribeTable",
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",
