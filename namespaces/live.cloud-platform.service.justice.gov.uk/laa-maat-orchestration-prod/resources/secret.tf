@@ -84,6 +84,21 @@ module "secrets_manager" {
       description             = "MAAT Orchestration Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name         = "maat-orchestration-alert-webhook-prod"
-    }
+    },
+    "ingress_external_allowlist_source_range" = {
+      description             = "The external IP allowlist for Orchestration Test",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-external-allowlist-source-range"
+    },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Orchestration Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }
