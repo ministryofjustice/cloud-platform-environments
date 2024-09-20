@@ -1,3 +1,25 @@
+locals {
+  analytical_platform_roles = [
+    "arn:aws:iam::593291632749:role/alpha_app_rnd_elliot_learning"
+  ]
+}
+
+data "aws_iam_policy_document" "analytical_platform" {
+  statement {
+    sid       = "AllowAssumeRole"
+    effect    = "Allow"
+    actions   = ["sts:AssumeRole"]
+    resources = formatlist("%s", local.analytical_platform_roles)
+  }
+}
+
+resource "aws_iam_policy" "analytical_platform_policy" {
+  name        = "${var.namespace}-analytical-platform-policy"
+  path        = "/"
+  description = "Analytical platform policy"
+  policy      = data.aws_iam_policy_document.analytical_platform.json
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -10,6 +32,7 @@ module "irsa" {
 
   role_policy_arns = {
     dynamodb = aws_iam_policy.dynamodb_users_table_policy.arn
+    analytical_platform = aws_iam_policy.analytical_platform_policy.arn
   }
 
   # Tags
