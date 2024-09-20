@@ -1,4 +1,4 @@
-resource "aws_sns_topic_subscription" "_court_case_events_subscription" {
+resource "aws_sns_topic_subscription" "court_case_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.court-case-events-topic-arn.value
   protocol  = "sqs"
