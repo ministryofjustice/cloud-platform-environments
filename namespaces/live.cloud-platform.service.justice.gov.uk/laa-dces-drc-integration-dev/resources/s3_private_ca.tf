@@ -13,23 +13,26 @@ module "s3_private_ca_bucket" {
   providers = {
     aws = aws.london
   }
+  bucket_policy = data.aws_iam_policy_document.ca-bucket-policy.json
+}
+
+resource "aws_iam_user_policy" "dces-ca-admin_policy" {
+  name   = "laa-dces-data-integration-dev-ca-admin-policy"
+  policy = data.aws_iam_policy_document.dces_ca_admin_policy.json
+  user   = aws_iam_user.dces_ca_admin_user_dev.name
 }
 
 resource "aws_iam_user" "dces_ca_admin_user_dev" {
   name = "laa-dces-drc-integration-dev-dces-ca-admin_user"
   path = "/system/laa-dces-data-integration-dev-dces-ca-admin_user/"
+
 }
 
 resource "aws_iam_access_key" "dces_ca-admin_user_dev_key" {
   user = aws_iam_user.dces_ca_admin_user_dev.name
 }
 
-resource "aws_iam_policy" "policy" {
-  name   = "private-ca-policy"
-  policy = data.aws_iam_policy_document.ca-policy.json
-}
-
-data "aws_iam_policy_document" "ca-policy" {
+data "aws_iam_policy_document" "ca-bucket-policy" {
   statement {
     principals {
       type = "AWS"
@@ -44,17 +47,16 @@ data "aws_iam_policy_document" "ca-policy" {
       "s3:GetObjectAcl"
     ]
     resources = [
-      module.s3_private_ca_bucket.bucket_arn,
-      "${module.s3_private_ca_bucket.bucket_arn}/*"
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
     ]
   }
-
   statement {
     effect  = "Deny"
     actions = ["s3:*"]
     resources = [
-      module.s3_private_ca_bucket.bucket_arn,
-      "${module.s3_private_ca_bucket.bucket_arn}/*"
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
     ]
     condition {
       test     = "Bool"
@@ -68,6 +70,27 @@ data "aws_iam_policy_document" "ca-policy" {
   }
 }
 
+data "aws_iam_policy_document" "dces_ca_admin_policy" {
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListObjectsV2",
+      "s3:ListAllMyBuckets",
+      "s3:ListMultipartUploadParts",
+      "s3:AbortMultipartUpload"
+    ]
+
+    resources = [
+      "${module.s3_private_ca_bucket.bucket_arn}/*"
+    ]
+  }
+
+}
+
 resource "kubernetes_secret" "s3_private_ca_bucket" {
   metadata {
     name      = "private-integration-ca"
@@ -77,5 +100,18 @@ resource "kubernetes_secret" "s3_private_ca_bucket" {
   data = {
     bucket_arn  = module.s3_private_ca_bucket.bucket_arn
     bucket_name = module.s3_private_ca_bucket.bucket_name
+  }
+}
+
+resource "kubernetes_secret" "dces_ca_admin_user_dev" {
+  metadata {
+    name      = "dces_ca_admin_user_dev"
+    namespace = var.namespace
+  }
+
+  data = {
+    arn               = aws_iam_user.dces_ca_admin_user_dev.arn
+    access_key_id     = aws_iam_access_key.dces_ca-admin_user_dev_key.id
+    secret_access_key = aws_iam_access_key.dces_ca-admin_user_dev_key.secret
   }
 }
