@@ -12,7 +12,7 @@ resource "pingdom_check" "moj-frontend-production-pingdom" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "business-unit_hq,application_moj-frontend,isproduction_true,environment-name_production,owner_mojds-maintainers:design-system@digital.justice.gov.uk"
+  tags                     = "businessunit_hq,application_moj-frontend,isproduction_true,environment_production,owner_mojds-maintainers"
   probefilters             = "region:EU"
   integrationids           = [139476]
 }
