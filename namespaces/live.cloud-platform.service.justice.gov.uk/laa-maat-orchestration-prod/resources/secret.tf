@@ -86,7 +86,7 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-orchestration-alert-webhook-prod"
     },
     "ingress_external_allowlist_source_range" = {
-      description             = "The external IP allowlist for Orchestration Test",
+      description             = "The external IP allowlist for Orchestration Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "ingress-external-allowlist-source-range"
     },
