@@ -13,6 +13,7 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
   maintenance_window           = "Fri:14:00-Fri:15:00"
   storage_type                 = "gp2"
+  apply_immediately            = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
