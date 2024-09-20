@@ -6,9 +6,7 @@ resource "aws_sns_topic_subscription" "court_case_events_subscription" {
 }
 
 module "court_case_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
-
-  # Queue configuration
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0" 
   sqs_name                   = "court_case_events_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -83,13 +81,10 @@ module "court_case_events_dead_letter_queue" {
   }
 }
 
-########  Secrets
 
-resource "kubernetes_secret" "court_case_events_queue" {
-  ## For metadata use - not _
+resource "kubernetes_secret" "court_case_events_queue" { 
   metadata {
-    name = "sqs-cpr-court-case-events-secret"
-    ## Name space where the listening service is found
+    name = "sqs-court-case-events-secret"
     namespace = var.namespace
   }
 
@@ -100,11 +95,9 @@ resource "kubernetes_secret" "court_case_events_queue" {
   }
 }
 
-resource "kubernetes_secret" "court_case_events_dead_letter_queue" {
-  ## For metadata use - not _
+resource "kubernetes_secret" "court_case_events_dead_letter_queue" {  
   metadata {
-    name = "sqs-cpr-court-case-events-dlq-secret"
-    ## Name space where the listening service is found
+    name = "sqs-court-case-events-dlq-secret"
     namespace = var.namespace
   }
 
