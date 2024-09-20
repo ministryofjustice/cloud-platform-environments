@@ -105,7 +105,7 @@ resource "kubernetes_secret" "s3_private_ca_bucket" {
 
 resource "kubernetes_secret" "dces_ca_admin_user_dev" {
   metadata {
-    name      = "dces_ca_admin_user_dev"
+    name      = "dces-ca-admin-user-dev"
     namespace = var.namespace
   }
 
