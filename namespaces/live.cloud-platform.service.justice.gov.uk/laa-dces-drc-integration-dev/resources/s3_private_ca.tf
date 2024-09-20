@@ -50,9 +50,8 @@ data "aws_iam_policy_document" "ca-policy" {
   }
 
   statement {
-    effect = "Deny"
+    effect  = "Deny"
     actions = ["s3:*"]
-    Principal = "*",
     resources = [
       module.s3_private_ca_bucket.bucket_arn,
       "${module.s3_private_ca_bucket.bucket_arn}/*"
@@ -61,6 +60,10 @@ data "aws_iam_policy_document" "ca-policy" {
       test     = "Bool"
       variable = "aws:SecureTransport"
       values   = ["false"]
+    }
+    principals {
+      type        = "*"
+      identifiers = ["*"]
     }
   }
 }
