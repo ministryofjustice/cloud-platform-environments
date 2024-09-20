@@ -128,7 +128,8 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT"
+            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT",
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-1ecd6d0bd409fe23-live"
               ]
           },
           "Resource": "${module.claims_for_cclf.sqs_arn}",
