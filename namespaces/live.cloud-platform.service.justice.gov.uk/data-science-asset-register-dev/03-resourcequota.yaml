@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: data-science-asset-register
+  namespace: data-science-asset-register-dev
 spec:
   hard:
     pods: "50"
