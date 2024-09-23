@@ -57,10 +57,12 @@ resource "random_string" "amq_password" {
 }
 
 locals {
-  identifier        = "cloud-platform-${random_id.amq_id.hex}"
-  mq_admin_user     = "cp${random_string.amq_username.result}"
-  mq_admin_password = random_string.amq_password.result
-  subnets           = data.aws_subnets.this.ids
+  identifier         = "cloud-platform-${random_id.amq_id.hex}"
+  mq_admin_user      = "cp${random_string.amq_username.result}"
+  mq_admin_password  = random_string.amq_password.result
+  subnets            = data.aws_subnets.this.ids
+  amq_engine_version = "5.18"
+  amq_engine_type    = "ActiveMQ"
 }
 
 resource "aws_security_group" "broker_sg" {
@@ -69,9 +71,9 @@ resource "aws_security_group" "broker_sg" {
   vpc_id      = data.aws_vpc.this.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -79,9 +81,9 @@ resource "aws_security_group" "broker_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -92,13 +94,18 @@ resource "aws_security_group" "broker_sg" {
 resource "aws_mq_broker" "this" {
   broker_name = local.identifier
 
-  engine_type         = "ActiveMQ"
-  engine_version      = "5.18"
+  engine_type         = local.amq_engine_type
+  engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
   host_instance_type  = "mq.m5.large"
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
+
+  configuration {
+    id       = aws_mq_configuration.this.id
+    revision = aws_mq_configuration.this.latest_revision
+  }
 
   auto_minor_version_upgrade = true
 
@@ -134,6 +141,15 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+}
+
+resource "aws_mq_configuration" "this" {
+  description    = "Alfresco Amazon MQ configuration"
+  name           = "alfresco-amq-configuration"
+  engine_type    = local.amq_engine_type
+  engine_version = local.amq_engine_version
+
+  data = file("${path.module}/files/amq_config.xml")
 }
 
 resource "kubernetes_secret" "amazon_mq" {
