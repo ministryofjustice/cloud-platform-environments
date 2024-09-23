@@ -1,3 +1,7 @@
+data "aws_iam_policy" "poc_env_bucket_policy" {
+  name = "cloud-platform-s3-5ce784402d8052fe1cd006f1e7329f70"
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
@@ -8,6 +12,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
     s3                             = module.s3_bucket.irsa_policy_arn
+    s3_refresh_poc                     = data.aws_iam_policy.poc_env_bucket_policy.arn
     rds                            = module.rds_alfresco.irsa_policy_arn
     s3_opensearch_snapshots_bucket = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   }
