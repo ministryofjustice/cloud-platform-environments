@@ -23,7 +23,7 @@ resource "kubernetes_secret" "iapdc_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "iapdc_route53_txt" {
-  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  zone_id = aws_route53_zone.iapdc_route53_zone.zone_id
   name    = "iapondeathsincustody.org"
   type    = "TXT"
   ttl     = "300"
