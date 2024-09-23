@@ -5,7 +5,7 @@ resource "aws_athena_database" "database" {
 
 
 resource "aws_athena_workgroup" "queries" {
-  name = "track_a_move_${var.environment-name}"
+  name = "hmpps_audit_${var.environment-name}"
 
   configuration {
     enforce_workgroup_configuration    = true
