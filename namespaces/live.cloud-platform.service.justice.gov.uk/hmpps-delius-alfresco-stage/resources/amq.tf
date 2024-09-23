@@ -171,7 +171,7 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = [aws_mq_broker.this.arn]
+    resources = [aws_mq_broker.this.arn, "arn:aws:mq:eu-west-2:*:configuration:*"]
   }
 }
 
