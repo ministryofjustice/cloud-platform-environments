@@ -35,7 +35,7 @@ module "opensearch" {
   ebs_options = {
     volume_type = "gp3"
     volume_size = 2048 # Storage (GBs per node)
-    throughput  = 125
+    throughput  = 250
     iops        = 7000
   }
 
