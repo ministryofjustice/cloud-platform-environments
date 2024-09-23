@@ -1,5 +1,5 @@
 module "rds2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-to-gp3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-storage-type"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -36,7 +36,7 @@ module "rds2" {
 module "read_replica2" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-to-gp3"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-storage-type"
 
   vpc_name               = var.vpc_name
 
