@@ -14,7 +14,7 @@ module "rds" {
   maintenance_window           = "Mon:11:00-Mon:11:30"
   storage_type                 = "io2"
   apply_immediately            = false
-#   db_iops                      = "3000"
+
   db_allocated_storage         = "100"
 
   # PostgreSQL specifics
