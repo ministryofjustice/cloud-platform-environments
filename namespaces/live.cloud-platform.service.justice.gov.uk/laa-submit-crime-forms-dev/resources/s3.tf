@@ -177,6 +177,31 @@ user_policy = <<EOF
 EOF
 
 */
+    user_policy = <<EOF
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowACLReadWrite",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutBucketAcl",
+          "s3:GetBucketAcl"
+        ],
+        "Resource": "$${bucket_arn}"
+      },
+      {
+        "Sid": "DenyObjectReadWrite",
+        "Effect": "Deny",
+        "Action": [
+          "s3:GetObject",
+          s3:PutObject
+        ],
+        "Resource": "$${bucket_arn}/*"
+      }
+    ]
+    }
+    EOF
   }
 }
 
