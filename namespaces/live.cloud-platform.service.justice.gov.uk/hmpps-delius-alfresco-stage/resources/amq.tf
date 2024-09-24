@@ -191,6 +191,29 @@ data "aws_iam_policy_document" "amq" {
   }
 }
 
+data "aws_cloudwatch_log_group" "mq_broker_logs" {
+  for_each = {
+    general = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
+    audit   = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
+  }
+  name = each.value
+}
+
+data "aws_iam_policy_document" "amq_cw_logs" {
+  statement {
+    actions = [
+      "logs:Describe*",
+      "logs:Get*",
+      "logs:List*",
+      "logs:*Query*",
+      "logs:*LiveTail*",
+      "logs:TestMetricFilter",
+      "logs:FilterLogEvents",
+    ]
+    resources = [for lg in data.aws_cloudwatch_log_group.mq_broker_logs : lg.arn]
+  }
+}
+
 resource "aws_iam_policy" "amq" {
   name        = "cloud-platform-mq-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
