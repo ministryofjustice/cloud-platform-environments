@@ -79,6 +79,6 @@ variable "owner" {
 }
 
 variable "domain" {
-  default = "laa-dces.service.justice.gov.uk"
+  default = "laa-debt-collection.service.justice.gov.uk"
   type    = string
 }
