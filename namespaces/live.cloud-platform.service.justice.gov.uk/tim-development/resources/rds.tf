@@ -13,7 +13,6 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
   maintenance_window           = "Mon:11:00-Mon:11:30"
   storage_type                 = "io2"
-  apply_immediately            = false
 
   db_allocated_storage         = "100"
 
