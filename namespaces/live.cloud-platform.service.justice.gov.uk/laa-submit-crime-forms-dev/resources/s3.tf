@@ -188,7 +188,7 @@ EOF
           "s3:PutBucketAcl",
           "s3:GetBucketAcl"
         ],
-        "Resource": "$${bucket_arn}"
+        "Resource": "$${module.s3_bucket.bucket_arn}"
       },
       {
         "Sid": "DenyObjectReadWrite",
@@ -197,7 +197,7 @@ EOF
           "s3:GetObject",
           "s3:PutObject"
         ],
-        "Resource": "$${bucket_arn}/*"
+        "Resource": "$${module.s3_bucket.bucket_arn}/*"
       }
     ]
     }
