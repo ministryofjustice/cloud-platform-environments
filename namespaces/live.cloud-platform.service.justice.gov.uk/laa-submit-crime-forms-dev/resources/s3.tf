@@ -195,7 +195,7 @@ EOF
         "Effect": "Deny",
         "Action": [
           "s3:GetObject",
-          s3:PutObject
+          "s3:PutObject"
         ],
         "Resource": "$${bucket_arn}/*"
       }
