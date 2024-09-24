@@ -3,6 +3,8 @@ resource "aws_sns_topic_subscription" "court_case_events_subscription" {
   topic_arn = data.aws_ssm_parameter.court-case-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.court_case_events_queue.sqs_arn
+  filter_policy_scope = "MessageBody"
+  filter_policy = "{\"hearing\":{\"prosecutionCases\":{\"defendants\":{\"offences\":{\"judicialResults\":{\"judicialResultId\":[\"92566757-ef79-4804-bced-c63ebb0937e7\"]}}}}}}"
 }
 
 module "court_case_events_queue" {
