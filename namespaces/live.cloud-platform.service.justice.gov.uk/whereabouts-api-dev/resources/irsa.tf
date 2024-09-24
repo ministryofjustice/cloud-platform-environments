@@ -9,6 +9,11 @@ locals {
     "Digital-Prison-Services-dev-whereabouts_api_domain_events_queue_dl" = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+
+  # The names of the SNS topics used and the namespace which created them
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+  }
 }
 
 module "irsa" {
@@ -30,4 +35,9 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
