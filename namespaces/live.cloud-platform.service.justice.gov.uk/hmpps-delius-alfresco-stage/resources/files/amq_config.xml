@@ -47,15 +47,29 @@
   For more information, see
     https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/ensuring-effective-amazon-mq-performance.html
   -->
-    <!--
+    
   <persistenceAdapter>
-    <kahaDB  concurrentStoreAndDispatchQueues="false"/>
+    <kahaDB concurrentStoreAndDispatchQueues="false" />
   </persistenceAdapter>
-  -->
-    <destinationPolicy>
-        <policyMap>
-            <policyEntries>
-                <!--
+
+  <systemUsage>
+    <systemUsage>
+      <memoryUsage>
+        <memoryUsage limit="12gb" />
+      </memoryUsage>
+      <storeUsage>
+        <storeUsage limit="195gb" />
+      </storeUsage>
+      <tempUsage>
+        <tempUsage limit="48gb" />
+      </tempUsage>
+    </systemUsage>
+  </systemUsage>
+
+  <destinationPolicy>
+    <policyMap>
+      <policyEntries>
+        <!--
         gcInactiveDestinations is used to automatically purge inactive destinations
         preventing them from unnecessarily using broker resources.
 
@@ -63,26 +77,26 @@
 
         For more information, see: http://activemq.apache.org/delete-inactive-destinations.html
         -->
-                <policyEntry topic="&gt;" gcInactiveDestinations="true"
-                    inactiveTimoutBeforeGC="600000">
-                    <!--
+        <policyEntry topic="&gt;" gcInactiveDestinations="true"
+          inactiveTimoutBeforeGC="600000">
+          <!--
           The constantPendingMessageLimitStrategy is used to prevent
           slow topic consumers to block producers and affect other consumers
           by limiting the number of messages that are retained
 
           For more information, see: http://activemq.apache.org/slow-consumer-handling.html
           -->
-                    <pendingMessageLimitStrategy>
-                        <constantPendingMessageLimitStrategy limit="1000" />
-                    </pendingMessageLimitStrategy>
-                </policyEntry>
-                <policyEntry queue="&gt;" gcInactiveDestinations="true"
-                    inactiveTimoutBeforeGC="600000" />
-                <!--
+          <pendingMessageLimitStrategy>
+            <constantPendingMessageLimitStrategy limit="1000" />
+          </pendingMessageLimitStrategy>
+        </policyEntry>
+        <policyEntry queue="&gt;" gcInactiveDestinations="true"
+          inactiveTimoutBeforeGC="600000" />
+        <!--
         Destination policies let you configure a rich set of behaviors for your queues and topics.
         For more information, see http://activemq.apache.org/per-destination-policies.html
         -->
-                <!--
+        <!--
         <policyEntry topic="FOO.&gt;">
           <dispatchPolicy>
             <roundRobinDispatchPolicy/>
@@ -94,36 +108,36 @@
         <policyEntry advisoryForConsumed="true" tempTopic="true"/>
         <policyEntry advisoryForConsumed="true" tempQueue="true"/>
         -->
-            </policyEntries>
-        </policyMap>
-    </destinationPolicy>
-    <!--
+      </policyEntries>
+    </policyMap>
+  </destinationPolicy>
+  <!--
   Typically, destinations are created automatically when they are used. Amazon MQ lets you create
     destinations when the broker is started.
   For more information, see http://activemq.apache.org/configure-startup-destinations.html
   -->
-    <!--
+  <!--
   <destinations>
     <queue physicalName="FOO.BAR"/>
     <topic physicalName="SOME.TOPIC"/>
   </destinations>
   -->
-    <!--
+  <!--
   You can control advanced ActiveMQ features using plugins.
   -->
-    <plugins>
-        <serialized-messages>
-            <whitelist>
-                <!-- Allow all classes in the org.alfresco package and its sub-packages -->
-                <allowedPackage>org.alfresco</allowedPackage>
-            </whitelist>
-        </serialized-messages>
-        <!--
+  <plugins>
+    <serialized-messages>
+      <whitelist>
+        <!-- Allow all classes in the org.alfresco package and its sub-packages -->
+        <allowedPackage>org.alfresco</allowedPackage>
+      </whitelist>
+    </serialized-messages>
+    <!--
     The Authorization plugin allows you to control the groups of users that are allowed to perform
         certain operations on your destinations.
     For more information, see http://activemq.apache.org/security.html
     -->
-        <!--
+    <!--
     <authorizationPlugin>
       <map>
         <authorizationMap>
@@ -140,26 +154,26 @@
       </map>
     </authorizationPlugin>
     -->
-        <!--
+    <!--
     The Discarding DLQ plugin simplifies the configuration of your global dead-letter queue strategy.
     You can take advantage of a more granular per-destination control by using destination policies.
     For more information, see http://activemq.apache.org/message-redelivery-and-dlq-handling.html
     -->
-        <!--
+    <!--
     <discardingDLQBrokerPlugin dropAll="true" dropTemporaryQueues="true" dropTemporaryTopics="true"/>
     -->
-        <!--
+    <!--
     The Force Persistency Mode plugin can override the persistency mode set on messages.
     -->
-        <!--
+    <!--
     <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
     -->
-        <!--
+    <!--
     The Redelivery plugin extends the capabilities of destination policies with respect to message
         redelivery.
     For more information, see http://activemq.apache.org/message-redelivery-and-dlq-handling.html
     -->
-        <!--
+    <!--
     <redeliveryPlugin fallbackToDeadLetter="true" sendToDlqIfMaxRetriesExceeded="true">
       <redeliveryPolicyMap>
         <redeliveryPolicyMap>
@@ -173,31 +187,31 @@
       </redeliveryPolicyMap>
     </redeliveryPlugin>
     -->
-        <!--
+    <!--
     The Statistics plugin lets you query broker or destination statistics by sending messages to the
         broker.
     For more information, see http://activemq.apache.org/statisticsplugin.html
     -->
-        <!--
+    <!--
     <statisticsBrokerPlugin/>
     -->
-        <!--
+    <!--
     The Timestamping plugin lets the broker use server-side time instead of client-provided time for
         messages.
     For more information, see http://activemq.apache.org/timestampplugin.html
     -->
-        <!--
+    <!--
     <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
     -->
-    </plugins>
-    <!--
+  </plugins>
+  <!--
   Network connectors let you connect brokers into networks of brokers.
   For more information, see Creating and Configuring an Amazon MQ Network of Brokers
-    (https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-creating-configuring-network-of-brokers.html)
+  (https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-creating-configuring-network-of-brokers.html)
   in the Amazon MQ Developer Guide and also Networks of Brokers
   (http://activemq.apache.org/networks-of-brokers.html) in the ActiveMQ documentation.
   -->
-    <!--
+  <!--
   <networkConnectors>
     <networkConnector name="myNetworkConnector" userName="commonUser"
     uri="masterslave:(ssl://b-1a2b3c4d-1.mq.region.amazonaws.com:61617,ssl://b-1a2b3c4d-2.mq.region.amazonaws.com:61617)"/>
