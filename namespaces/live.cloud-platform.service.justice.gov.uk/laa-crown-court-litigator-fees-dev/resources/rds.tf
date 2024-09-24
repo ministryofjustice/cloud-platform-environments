@@ -37,8 +37,18 @@ module "rds-instance-migrated" {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined 
-  db_parameter = []
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    },
+    {
+      name         = "remote_dependencies_mode"
+      value        = "SIGNATURE"
+      apply_method = "immediate"
+    }
+  ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
   is_migration = true
