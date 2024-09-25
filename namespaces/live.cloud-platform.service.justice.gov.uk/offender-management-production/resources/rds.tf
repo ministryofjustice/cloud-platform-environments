@@ -17,7 +17,7 @@ module "allocation-rds" {
   environment_name            = "production"
   infrastructure_support      = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                   = "postgres"
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.7"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

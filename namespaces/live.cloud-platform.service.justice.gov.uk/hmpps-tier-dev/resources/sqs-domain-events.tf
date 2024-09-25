@@ -93,6 +93,7 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
       "enforcement.recall.concluded",
       "probation-case.deleted.gdpr",
       "probation-case.merge.completed",
+      "probation-case.unmerge.completed",
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deleted",

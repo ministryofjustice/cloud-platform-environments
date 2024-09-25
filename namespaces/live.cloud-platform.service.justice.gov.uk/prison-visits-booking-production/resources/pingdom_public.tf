@@ -2,6 +2,9 @@
 provider "pingdom" {
 }
 
+# Integration IDs
+# 122531 = #prison-visit-booking-alerts
+
 resource "pingdom_check" "prison-visits-booking-public-production" {
   type                     = "http"
   name                     = "Prison Visits Public production - Healthcheck"
@@ -13,8 +16,8 @@ resource "pingdom_check" "prison-visits-booking-public-production" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
+  tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [94618]
+  integrationids           = [122531]
 }
 

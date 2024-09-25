@@ -83,7 +83,7 @@ resource "kubernetes_secret" "preprod-refresh-creds" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   vpc_name = var.vpc_name
 
@@ -98,7 +98,6 @@ module "rds-read-replica" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.small"
 
-  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
   prepare_for_major_upgrade = false
 

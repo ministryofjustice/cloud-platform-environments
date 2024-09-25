@@ -13,7 +13,7 @@ module "candidate_matching_rds" {
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
-  db_engine_version           = "16.2"
+  db_engine_version           = "16.3"
   deletion_protection         = true
 
   providers = {
