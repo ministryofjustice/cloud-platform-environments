@@ -29,7 +29,7 @@ module "ecr-repo" {
 
 resource "kubernetes_secret" "ecr-repo" {
   metadata {
-    name      = "ecr-repo-c100"
+    name      = "ecr-repo-c100-dev"
     namespace = var.namespace
   }
 
