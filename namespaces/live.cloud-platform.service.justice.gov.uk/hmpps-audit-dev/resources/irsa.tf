@@ -61,6 +61,9 @@ data "aws_iam_policy_document" "document" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
+      "glue:GetDatabase",
+      "glue:GetTable",
+      "glue:GetPartitions",
     ]
     resources = [
       aws_athena_workgroup.queries.arn,
