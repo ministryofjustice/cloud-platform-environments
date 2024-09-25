@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
       module.ims_images_storage_bucket.bucket_arn,
       "${module.ims_images_storage_bucket.bucket_arn}/*",
       module.ims_attachments_storage_bucket.bucket_arn,
-      "${module.ims_attachments_storage_bucket.bucket_arn}/*"
+      "${module.ims_attachments_storage_bucket.bucket_arn}/*",
       module.ims_dissemination_storage_bucket.bucket_arn,
       "${module.ims_dissemination_storage_bucket.bucket_arn}/*",
       module.ims_audit_files_storage_bucket.bucket_arn,
