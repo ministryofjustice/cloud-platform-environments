@@ -21,6 +21,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER-DELETED",
       "OFFENDER-INSERTED",
       "OFFENDER-UPDATED",
+      "OFFENDER_ADDRESS-DELETED",
       "OFFENDER_ADDRESS-INSERTED",
       "OFFENDER_ADDRESS-UPDATED",
       "OFFENDER_ADDRESS_PHONE-INSERTED",
