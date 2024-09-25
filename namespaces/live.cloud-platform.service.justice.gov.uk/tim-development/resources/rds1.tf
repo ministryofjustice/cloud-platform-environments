@@ -1,4 +1,4 @@
-module "rds3" {
+module "rds1" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=upgrade-storage-type"
 
   # VPC configuration
@@ -9,7 +9,7 @@ module "rds3" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  db_allocated_storage         = "400"
+  db_allocated_storage         = "20"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
