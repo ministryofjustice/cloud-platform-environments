@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - uat.laa-debt-collection.service.justice.gov.uk
+    - api.uat.laa-debt-collection.service.justice.gov.uk
