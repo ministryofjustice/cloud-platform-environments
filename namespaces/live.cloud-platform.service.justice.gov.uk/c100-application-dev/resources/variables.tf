@@ -27,7 +27,7 @@ variable "namespace" {
 }
 
 variable "repo_name" {
-  default = "c100-application"
+  default = "c100-application-dev"
 }
 
 # Database
