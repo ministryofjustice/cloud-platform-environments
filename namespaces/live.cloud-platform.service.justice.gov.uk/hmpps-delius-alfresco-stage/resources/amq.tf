@@ -123,7 +123,7 @@ resource "aws_mq_broker" "this" {
 
   logs {
     general = true
-    audit   = false
+    audit   = true
   }
 
   maintenance_window_start_time {
