@@ -376,8 +376,7 @@ data:
           ],
           "title": "Increases in logs in past 10 minutes (error and info level)",
           "type": "timeseries"
-        },
-        
+        },        
         {
           "datasource": {
             "type": "prometheus",
@@ -391,7 +390,7 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Number of logs",
+                "axisLabel": "Number of calls to maat-api",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
@@ -461,8 +460,8 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\",status=\"200 OK\", uri=~\".*/debt-collection-enforcement/log-contribution-response\"}[$__rate_interval]))",
-              "legendFormat": "Increase in Contribution calls count",
+              "expr": "sum by (method) (increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\",status=\"200 OK\", uri=~\".*/debt-collection-enforcement/log-contribution-response\"}[$__rate_interval]))",
+              "legendFormat": "Contribution",
               "range": true,
               "refId": "A"
             },
@@ -472,9 +471,9 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\", status=\"200 OK\" ,uri~=\".*/debt-collection-enforcement/log-fdc-response\"}[$__rate_interval]))",
+              "expr": "sum by (method) (increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\", status=\"200 OK\" ,uri=~\".*/debt-collection-enforcement/log-fdc-response\"}[$__rate_interval]))",
               "hide": false,
-              "legendFormat": "Increase in FDC calls count",
+              "legendFormat": "FDC",
               "range": true,
               "refId": "B"
             }
@@ -494,8 +493,8 @@ data:
           {
             "current": {
               "selected": true,
-              "text": "laa-dces-drc-integration-prod",
-              "value": "laa-dces-drc-integration-prod"
+              "text": "laa-dces-drc-integration-dev",
+              "value": "laa-dces-drc-integration-dev"
             },
             "datasource": {
               "type": "prometheus",
