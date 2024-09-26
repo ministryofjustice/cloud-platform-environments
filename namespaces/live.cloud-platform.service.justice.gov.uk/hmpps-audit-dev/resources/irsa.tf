@@ -63,6 +63,7 @@ data "aws_iam_policy_document" "document" {
       "s3:ListBucket",
       "glue:GetDatabase",
       "glue:GetTable",
+      "glue:GetTables",
       "glue:GetPartitions",
       "glue:BatchCreatePartition",
       "glue:GetDatabases",
