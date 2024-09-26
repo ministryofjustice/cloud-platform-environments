@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "c100-application-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMCTS"
+    cloud-platform.justice.gov.uk/slack-channel: "hmcts-sustaining-team"
+    cloud-platform.justice.gov.uk/application: "c100-application"
+    cloud-platform.justice.gov.uk/owner: "PET: sustainingaccountnotifications@hmcts.net"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/c100-application"
+    cloud-platform.justice.gov.uk/team-name: "sustainingdevs"
+    cloud-platform.justice.gov.uk/review-after: ""

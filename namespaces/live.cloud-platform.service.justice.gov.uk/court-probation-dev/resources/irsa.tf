@@ -10,8 +10,7 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
-
-module "irsa" {
+module "court-facing-api-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -36,7 +35,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "court-case-service-irsa" {
+module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration

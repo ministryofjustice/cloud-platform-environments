@@ -3,7 +3,7 @@
 ################################################################################
 
 module "hmpps_registers_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
   vpc_name               = var.vpc_name
   business_unit          = var.business_unit
   application            = var.hmpps-registers-application

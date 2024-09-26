@@ -1,5 +1,5 @@
 module "edu_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -13,7 +13,7 @@ module "edu_rds" {
   allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
-  db_engine_version           = "16.2"
+  db_engine_version           = "16.3"
   deletion_protection         = true
 
   providers = {

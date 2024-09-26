@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-instance-migrated" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -14,8 +14,8 @@ module "rds-instance" {
 
 
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
-  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
+  db_engine                = "oracle-se2"
+  db_engine_version        = "19.0.0.0.ru-2024-07.rur-2024-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -31,14 +31,24 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-dev-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-dev-cp-migration-23092024-manual-copy"
 
   providers = {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined 
-  db_parameter = []
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    },
+    {
+      name         = "remote_dependencies_mode"
+      value        = "SIGNATURE"
+      apply_method = "immediate"
+    }
+  ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
   is_migration = true
@@ -101,17 +111,17 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "kubernetes_secret" "rds-instance" {
+resource "kubernetes_secret" "rds-instance-migrated" {
   metadata {
     name      = "rds-cclf-${var.environment}"
     namespace = var.namespace
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-instance-migrated.database_name
+    database_host     = module.rds-instance-migrated.rds_instance_address
+    database_port     = module.rds-instance-migrated.rds_instance_port
+    database_username = module.rds-instance-migrated.database_username
+    database_password = module.rds-instance-migrated.database_password
   }
 }

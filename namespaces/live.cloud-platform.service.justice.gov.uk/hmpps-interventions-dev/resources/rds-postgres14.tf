@@ -1,5 +1,5 @@
 module "hmpps_interventions_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -10,7 +10,7 @@ module "hmpps_interventions_postgres14" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14.10"
+  db_engine_version           = "14.12"
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
 
@@ -39,7 +39,7 @@ resource "kubernetes_secret" "hmpps_interventions_postgres14" {
 
 
 module "hmpps_interventions_postgres14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -50,7 +50,7 @@ module "hmpps_interventions_postgres14_replica" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14.10"
+  db_engine_version           = "14.12"
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
   db_max_allocated_storage    = "10"

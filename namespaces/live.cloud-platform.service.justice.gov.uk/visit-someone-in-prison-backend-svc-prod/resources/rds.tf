@@ -1,5 +1,5 @@
 module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -12,7 +12,7 @@ module "visit_scheduler_rds" {
   allow_major_version_upgrade  = "false"
   prepare_for_major_upgrade    = false
   db_engine                    = "postgres"
-  db_engine_version            = "15.5"
+  db_engine_version            = "15.7"
   rds_family                   = "postgres15"
   db_instance_class            = "db.t4g.small"
   db_max_allocated_storage     = "16300"
@@ -41,7 +41,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
 }
 
 module "prison_visit_booker_registry_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

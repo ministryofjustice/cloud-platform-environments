@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -20,7 +20,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
+  db_engine_version = "16.1"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -41,9 +41,9 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -77,13 +77,13 @@ module "read_replica" {
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
 
-   db_parameter = [
-     {
-       name         = "rds.force_ssl"
-       value        = "0"
-       apply_method = "immediate"
-     }
-   ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {

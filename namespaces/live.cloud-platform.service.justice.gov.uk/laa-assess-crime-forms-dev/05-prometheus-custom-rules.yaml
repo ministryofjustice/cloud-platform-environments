@@ -93,7 +93,7 @@ spec:
       labels:
         severity: laa-crime-forms-team-pre-prod
       annotations:
-        message: Total sidekiq queue sizes are more than 2
+        message: Total sidekiq queue sizes are more than 2 in {{ $labels.namespace }}
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://dev.assess-crime-forms.service.justice.gov.uk/sidekiq
 
@@ -104,6 +104,6 @@ spec:
       labels:
         severity: laa-crime-forms-team-pre-prod
       annotations:
-        message: More than 10 modsec interventions detected in the last hour
+        message: More than 10 modsec interventions detected in the last hour in laa-assess-crime-forms-dev
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
         dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover

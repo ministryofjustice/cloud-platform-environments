@@ -3,7 +3,7 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   enable_rds_auto_start_stop = true
   vpc_name                   = var.vpc_name
   namespace                  = var.namespace
@@ -20,8 +20,6 @@ module "make_recall_decision_api_rds" {
   db_engine_version = "13.14"
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
-
-  snapshot_identifier = "rds:make-recall-decision-development-2024-08-28-06-15"
 
   providers = {
     aws = aws.london

@@ -1,5 +1,5 @@
 module "hmpps_user_preferences_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
@@ -7,7 +7,7 @@ module "hmpps_user_preferences_rds" {
   is_production             = var.is_production
   namespace                 = var.namespace
   db_engine                 = "postgres"
-  db_engine_version         = "14.11"
+  db_engine_version         = "14.12"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.small"
   environment_name          = var.environment

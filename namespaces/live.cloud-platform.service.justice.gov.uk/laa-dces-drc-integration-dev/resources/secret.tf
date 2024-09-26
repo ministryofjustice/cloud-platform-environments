@@ -10,6 +10,11 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "dces-drc-integration-service-alert-webhook-dev" = {
+      description             = "DCES Report Service Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "dces-drc-integration-service-alert-webhook-dev"
+    },
     "maat_api_oauth_client_id" = {
       description             = "MAAT API oauth client ID for DRC Integration Dev",
       recovery_window_in_days = 7

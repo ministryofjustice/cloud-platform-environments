@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: c100-application-dev
+spec:
+  hard:
+    pods: "50"

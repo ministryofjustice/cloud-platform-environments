@@ -6,14 +6,14 @@
  */
 
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
   application               = var.application
   is_production             = var.is_production
   namespace                 = var.namespace
-  db_engine_version         = "14.10"
+  db_engine_version         = "14.12"
   db_instance_class         = "db.t4g.micro"
   db_max_allocated_storage  = "500"
   environment_name          = var.environment
@@ -60,14 +60,14 @@ resource "kubernetes_config_map" "rds" {
 
 
 module "mgw_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "14.10"
+  db_engine_version        = "14.12"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
   environment_name         = var.environment

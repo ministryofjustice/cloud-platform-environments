@@ -3,7 +3,7 @@
 #############################################
 
 module "rds_instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   application                = var.application
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name

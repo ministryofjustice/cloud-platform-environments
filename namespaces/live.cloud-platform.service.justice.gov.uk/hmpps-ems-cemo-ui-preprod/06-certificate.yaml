@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-ems-cemo-ui-cert
+  namespace: hmpps-ems-cemo-ui-preprod
+spec:
+  secretName: hmpps-ems-cemo-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-electronic-monitoring-create-an-order-preprod.hmpps.service.justice.gov.uk
+    - hmpps-electronic-monitoring-create-an-order-api-preprod.hmpps.service.justice.gov.uk

@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -32,7 +32,7 @@ module "track_a_query_rds" {
 }
 
 module "track_a_query_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   vpc_name = var.vpc_name
 
@@ -48,7 +48,6 @@ module "track_a_query_rds_replica" {
   rds_family               = "postgres16"
   db_engine_version        = "16.3"
 
-  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.track_a_query_rds.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica

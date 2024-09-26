@@ -52,13 +52,47 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
 data "aws_iam_policy_document" "document" {
   statement {
     actions = [
+      "athena:CancelQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:GetWorkGroup",
+      "athena:StartQueryExecution",
+      "athena:StopQueryExecution",
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
+      "glue:GetDatabase",
+      "glue:GetTable",
+      "glue:GetPartitions",
     ]
     resources = [
+      aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}/*",
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*",
     ]
   }
+}
+
+resource "random_id" "hmpps-audit-id" {
+  byte_length = 16
+}
+
+resource "aws_iam_user" "hmpps-audit-user" {
+  name = "hmpps-audit-user-${random_id.hmpps-audit-id.hex}"
+  path = "/system/hmpps-audit-user/"
+}
+
+resource "aws_iam_access_key" "hmpps-audit-user" {
+  user = aws_iam_user.hmpps-audit-user.name
+}
+
+resource "aws_iam_user_policy" "hmpps-audit-policy" {
+  name   = "hmpps-audit-${var.environment-name}-athena"
+  policy = data.aws_iam_policy_document.document.json
+  user   = aws_iam_user.hmpps-audit-user.name
 }

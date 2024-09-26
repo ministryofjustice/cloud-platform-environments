@@ -12,9 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-ems-datastore-api"]
-  github_environments = ["dev"]
-  github_actions_prefix = "dev"
+  github_repositories = ["hmpps-electronic-monitoring-datastore-api"]
 
   # Tags
   business_unit          = var.business_unit

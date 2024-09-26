@@ -3,7 +3,7 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
@@ -17,7 +17,7 @@ module "make_recall_decision_api_rds" {
   rds_name          = "make-recall-decision-${var.environment}"
   rds_family        = "postgres13"
   db_engine         = "postgres"
-  db_engine_version = "13.14"
+  db_engine_version = "13.15"
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
   db_allocated_storage = 30

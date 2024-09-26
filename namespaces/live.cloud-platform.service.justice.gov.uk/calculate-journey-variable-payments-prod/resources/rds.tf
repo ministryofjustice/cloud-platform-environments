@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   vpc_name = var.vpc_name
 
@@ -12,7 +12,7 @@ module "rds-instance" {
   business_unit          = var.business_unit
 
   db_engine         = "postgres"
-  db_engine_version = "15.5"
+  db_engine_version = "15.7"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres15"

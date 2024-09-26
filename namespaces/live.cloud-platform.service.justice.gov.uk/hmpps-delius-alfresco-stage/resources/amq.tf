@@ -25,6 +25,23 @@ data "aws_subnet" "this" {
   id       = each.value
 }
 
+data "aws_subnets" "eks_private" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["EKS-Private"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+}
+
+data "aws_subnet" "eks_private" {
+  for_each = toset(data.aws_subnets.eks_private.ids)
+  id       = each.value
+}
+
 resource "random_id" "amq_id" {
   byte_length = 8
 }
@@ -40,10 +57,12 @@ resource "random_string" "amq_password" {
 }
 
 locals {
-  identifier        = "cloud-platform-${random_id.amq_id.hex}"
-  mq_admin_user     = "cp${random_string.amq_username.result}"
-  mq_admin_password = random_string.amq_password.result
-  subnets           = data.aws_subnets.this.ids
+  identifier         = "cloud-platform-${random_id.amq_id.hex}"
+  mq_admin_user      = "cp${random_string.amq_username.result}"
+  mq_admin_password  = random_string.amq_password.result
+  subnets            = data.aws_subnets.this.ids
+  amq_engine_version = "5.18"
+  amq_engine_type    = "ActiveMQ"
 }
 
 resource "aws_security_group" "broker_sg" {
@@ -52,30 +71,41 @@ resource "aws_security_group" "broker_sg" {
   vpc_id      = data.aws_vpc.this.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
   }
 }
 
 resource "aws_mq_broker" "this" {
   broker_name = local.identifier
 
-  engine_type         = "ActiveMQ"
-  engine_version      = "5.18"
+  engine_type         = local.amq_engine_type
+  engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
-  host_instance_type  = "mq.m5.large"
+  host_instance_type  = "mq.m5.xlarge"
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
+
+  configuration {
+    id       = aws_mq_configuration.this.id
+    revision = aws_mq_configuration.this.latest_revision
+  }
 
   auto_minor_version_upgrade = true
 
@@ -93,7 +123,7 @@ resource "aws_mq_broker" "this" {
 
   logs {
     general = true
-    audit   = false
+    audit   = true
   }
 
   maintenance_window_start_time {
@@ -111,6 +141,15 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+}
+
+resource "aws_mq_configuration" "this" {
+  description    = "Alfresco Amazon MQ configuration"
+  name           = "alfresco-amq-configuration"
+  engine_type    = local.amq_engine_type
+  engine_version = local.amq_engine_version
+
+  data = file("${path.module}/files/amq_config.xml")
 }
 
 resource "kubernetes_secret" "amazon_mq" {
@@ -148,7 +187,30 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = [aws_mq_broker.this.arn]
+    resources = [aws_mq_broker.this.arn, "arn:aws:mq:eu-west-2:*:configuration:*"]
+  }
+}
+
+data "aws_cloudwatch_log_group" "mq_broker_logs" {
+  for_each = {
+    general = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
+    audit   = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
+  }
+  name = each.value
+}
+
+data "aws_iam_policy_document" "amq_cw_logs" {
+  statement {
+    actions = [
+      "logs:Describe*",
+      "logs:Get*",
+      "logs:List*",
+      "logs:*Query*",
+      "logs:*LiveTail*",
+      "logs:TestMetricFilter",
+      "logs:FilterLogEvents",
+    ]
+    resources = [for lg in data.aws_cloudwatch_log_group.mq_broker_logs : lg.arn]
   }
 }
 

@@ -1,5 +1,5 @@
 module "dps_redis" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
   vpc_name                = var.vpc_name
   application             = var.application
   environment_name        = var.environment
@@ -26,8 +26,8 @@ resource "kubernetes_secret" "elasticache_redis" {
   }
 
   data = {
-    primary_endpoint_address  = module.dps_redis.primary_endpoint_address
-    auth_token                = module.dps_redis.auth_token
-    member_clusters           = jsonencode(module.dps_redis.member_clusters)
+    primary_endpoint_address = module.dps_redis.primary_endpoint_address
+    auth_token               = module.dps_redis.auth_token
+    member_clusters          = jsonencode(module.dps_redis.member_clusters)
   }
 }

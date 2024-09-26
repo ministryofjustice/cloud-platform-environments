@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -13,12 +13,12 @@ module "opensearch" {
   cluster_config = {
     # Nodes
     instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "m7g.xlarge.search"
+    instance_type  = "m7g.2xlarge.search"
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
-    dedicated_master_count   = 5 # can only either be 3 or 5
-    dedicated_master_type    = "m6g.large.search"
+    dedicated_master_count   = 3 # can only either be 3 or 5
+    dedicated_master_type    = "m7g.large.search"
 
     # Ultrawarm nodes (omit if you aren't going to use this)
     warm_enabled = false
@@ -36,7 +36,7 @@ module "opensearch" {
     volume_type = "gp3"
     volume_size = 2048 # Storage (GBs per node)
     throughput  = 250
-    iops        = 8000
+    iops        = 7000
   }
 
   # Tags

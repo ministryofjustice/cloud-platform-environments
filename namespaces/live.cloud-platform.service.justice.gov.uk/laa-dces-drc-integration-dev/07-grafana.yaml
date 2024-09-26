@@ -461,7 +461,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "api_calls_count_total{class=\"uk.gov.justice.laa.crime.dces.integration.client.ContributionClient\"}",
+              "expr": "sum(increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\",status=\"200 OK\", uri=~\".*/debt-collection-enforcement/log-contribution-response\"}[$__rate_interval]))",
               "legendFormat": "Increase in Contribution calls count",
               "range": true,
               "refId": "A"
@@ -472,7 +472,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "api_calls_count_total{class=\"uk.gov.justice.laa.crime.dces.integration.client.FdcClient\"}",
+              "expr": "sum(increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\", status=\"200 OK\" ,uri~=\".*/debt-collection-enforcement/log-fdc-response\"}[$__rate_interval]))",
               "hide": false,
               "legendFormat": "Increase in FDC calls count",
               "range": true,

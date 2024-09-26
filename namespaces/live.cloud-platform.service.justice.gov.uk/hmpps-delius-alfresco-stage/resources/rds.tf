@@ -1,5 +1,5 @@
 module "rds_alfresco" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -18,9 +18,9 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.10"
+  db_engine_version         = "14"
   rds_family                = "postgres14"
-  db_instance_class         = "db.t3.xlarge"
+  db_instance_class         = "db.m7g.2xlarge"
 
   # Tagst
   application            = var.application
