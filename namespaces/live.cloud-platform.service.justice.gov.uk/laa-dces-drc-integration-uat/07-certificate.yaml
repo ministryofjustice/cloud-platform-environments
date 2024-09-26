@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - api.uat.laa-debt-collection.service.justice.gov.uk
+    - mon.uat.laa-debt-collection.service.justice.gov.uk
