@@ -64,6 +64,10 @@ data "aws_iam_policy_document" "document" {
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetPartitions",
+      "glue:BatchCreatePartition",
+      "glue:GetDatabases",
+      "glue:CreateTable",
+      "glue:DeleteTable",
     ]
     resources = [
       aws_athena_workgroup.queries.arn,
