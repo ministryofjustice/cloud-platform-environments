@@ -61,7 +61,7 @@ locals {
   mq_admin_user      = "cp${random_string.amq_username.result}"
   mq_admin_password  = random_string.amq_password.result
   subnets            = data.aws_subnets.this.ids
-  amq_engine_version = "5.18"
+  amq_engine_version = "5.18."
   amq_engine_type    = "ActiveMQ"
 }
 
@@ -109,7 +109,7 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
-  apply_immediately = true
+  apply_immediately = false
 
   storage_type = "ebs"
 
@@ -141,6 +141,13 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+
+ lifecycle {
+   ignore_changes = [
+    engine_version,
+    configuration
+    ]
+ }
 }
 
 resource "aws_mq_configuration" "this" {
