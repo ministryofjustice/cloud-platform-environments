@@ -11,7 +11,7 @@ resource "pingdom_check" "track-a-query-production-healthcheck" {
   host                     = "track-a-query.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 3
   notifyagainevery         = 0
   url                      = "/ping"
   encryption               = true
