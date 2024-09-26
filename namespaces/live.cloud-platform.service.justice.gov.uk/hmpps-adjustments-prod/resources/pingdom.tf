@@ -3,6 +3,7 @@ provider "pingdom" {
 
 # Integration IDs
 # 96624 = #dps_alerts
+# 139538 = #legacy-replacement-alerts
 
 resource "pingdom_check" "hmpps-adjustments-production-check" {
   type                     = "http"
@@ -17,7 +18,7 @@ resource "pingdom_check" "hmpps-adjustments-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624]
+  integrationids           = [139538]
 }
 
 resource "pingdom_check" "hmpps-adjustments-api-production-check" {
@@ -33,5 +34,5 @@ resource "pingdom_check" "hmpps-adjustments-api-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624]
+  integrationids           = [139538]
 }
