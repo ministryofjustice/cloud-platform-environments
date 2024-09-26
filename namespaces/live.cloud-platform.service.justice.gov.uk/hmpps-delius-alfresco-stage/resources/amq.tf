@@ -61,7 +61,7 @@ locals {
   mq_admin_user      = "cp${random_string.amq_username.result}"
   mq_admin_password  = random_string.amq_password.result
   subnets            = data.aws_subnets.this.ids
-  amq_engine_version = "5.18."
+  amq_engine_version = "5.18"
   amq_engine_type    = "ActiveMQ"
 }
 
