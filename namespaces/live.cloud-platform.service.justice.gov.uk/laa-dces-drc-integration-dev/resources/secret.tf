@@ -15,6 +15,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "dces-drc-integration-service-alert-webhook-dev"
     },
+    "drc-client-auth-tls" = {
+      description             = "Client authentication certificate and public key for mTLS to DRC"
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "drc-client-auth-tls"
+    },
     "maat_api_oauth_client_id" = {
       description             = "MAAT API oauth client ID for DRC Integration Dev",
       recovery_window_in_days = 7
