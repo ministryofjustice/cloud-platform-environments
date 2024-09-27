@@ -11,49 +11,49 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Cas Demo"
+  default     = "Provider Office LookUp API"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-community-accommodation-demo"
+  default     = "pola-production"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "Community Accommodation Services"
+  default     = "check-client-qualifies"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "test"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "casdev@digital.justice.gov.uk"
+  default     = "eligibility@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cas-dev"
+  default     = "laa-ccq-team"
 }
 
 variable "github_owner" {
@@ -67,9 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "eks_cluster_name" {}
