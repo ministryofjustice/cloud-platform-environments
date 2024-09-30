@@ -109,7 +109,7 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
-  apply_immediately = true
+  apply_immediately = false
 
   storage_type = "ebs"
 
@@ -141,6 +141,13 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+
+ lifecycle {
+   ignore_changes = [
+    engine_version,
+    configuration
+    ]
+ }
 }
 
 resource "aws_mq_configuration" "this" {
@@ -160,7 +167,7 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})"
+    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
