@@ -322,12 +322,6 @@ resource "kubernetes_secret" "create_link_queue_m" {
     sqs_url_d_unlink                 = module.unlink_queue_m_dead_letter_queue.sqs_id
     sqs_arn_d_unlink                 = module.unlink_queue_m_dead_letter_queue.sqs_arn
     sqs_name_d_unlink                = module.unlink_queue_m_dead_letter_queue.sqs_name
-    sqs_url_laa_status               = module.laa_status_update_queue.sqs_id
-    sqs_arn_laa_status               = module.laa_status_update_queue.sqs_arn
-    sqs_name_laa_status              = module.laa_status_update_queue.sqs_name
-    sqs_url_d_laa_status             = module.laa_status_update_dead_letter_queue.sqs_id
-    sqs_arn_d_laa_status             = module.laa_status_update_dead_letter_queue.sqs_arn
-    sqs_name_d_laa_status            = module.laa_status_update_dead_letter_queue.sqs_name
     sqs_url_hearing_resulted         = module.hearing_resulted_queue.sqs_id
     sqs_arn_hearing_resulted         = module.hearing_resulted_queue.sqs_arn
     sqs_name_hearing_resulted        = module.hearing_resulted_queue.sqs_name
