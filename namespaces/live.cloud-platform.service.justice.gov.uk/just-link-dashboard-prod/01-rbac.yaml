@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: just-link-dashboard-prod-admin
+  namespace: just-link-dashboard-prod
+subjects:
+  - kind: Group
+    name: "github:just-link-dashboard-admins"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
