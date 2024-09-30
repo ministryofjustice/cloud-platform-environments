@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-handover-service
+  namespace: hmpps-assess-risks-and-needs-integrations-test
+spec:
+  secretName: hmpps-assess-risks-and-needs-handover-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-handover-service-test.hmpps.service.justice.gov.uk
+    - assess-risks-and-needs-handover-service-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-oastub
+  namespace: hmpps-assess-risks-and-needs-integrations-test
+spec:
+  secretName: hmpps-assess-risks-and-needs-oastub-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-oastub-test.hmpps.service.justice.gov.uk
+    - assess-risks-and-needs-oastub-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-coordinator-api
+  namespace: hmpps-assess-risks-and-needs-integrations-test
+spec:
+  secretName: hmpps-assess-risks-and-needs-coordinator-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-coordinator-api-test.hmpps.service.justice.gov.uk
+    - assess-risks-and-needs-coordinator-api-test.hmpps.service.justice.gov.uk
