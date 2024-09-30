@@ -23,15 +23,19 @@ module "opensearch" {
   engine_version      = "OpenSearch_2.13"
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
 
-  # Production configuration.
+  # Production like configuration.
   cluster_config = {
     instance_count = 3
     instance_type  = "r6g.large.search" # memory optimised Graviton
 
-    # Masters hold no data, they perform cluster tasks.
+    # Masters do not hold data, they perform other cluster tasks.
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "c6g.large.search" # compute optimised Graviton
+  }
+
+  advanced_options = {
+    "indices.query.bool.max_clause_count" = "10000"
   }
 
   ebs_options = {
