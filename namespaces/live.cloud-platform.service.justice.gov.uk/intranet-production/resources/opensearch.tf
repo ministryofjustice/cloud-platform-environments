@@ -23,7 +23,7 @@ module "opensearch" {
   engine_version      = "OpenSearch_2.13"
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
 
-  # Production like configuration.
+  # Production configuration.
   cluster_config = {
     instance_count = 3
     instance_type  = "r6g.large.search" # memory optimised Graviton
