@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Datahub Catalogue"
     cloud-platform.justice.gov.uk/owner: "Data Catalogue: "
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/data-catalogue"
-    cloud-platform.justice.gov.uk/team-name: "data-platform"
+    cloud-platform.justice.gov.uk/team-name: "data-catalogue"
     cloud-platform.justice.gov.uk/review-after: "2024-12-01"
