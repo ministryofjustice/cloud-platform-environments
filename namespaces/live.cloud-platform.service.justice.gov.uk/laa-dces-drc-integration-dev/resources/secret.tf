@@ -11,24 +11,24 @@ module "secrets_manager" {
 
   secrets = {
     "dces-drc-integration-service-alert-webhook-dev" = {
-      description             = "DCES Report Service Slack Webhook",
-      recovery_window_in_days = 7,
+      description             = "DCES Report Service Slack Webhook"
+      recovery_window_in_days = 7
       k8s_secret_name         = "dces-drc-integration-service-alert-webhook-dev"
     },
     "drc-client-auth-tls" = {
-      description             = "Client authentication certificate and public key for mTLS to DRC"
-      recovery_window_in_days = 7,
+      description             = "Client authentication credentials for mTLS to DRC in Dev"
+      recovery_window_in_days = 7
       k8s_secret_name         = "drc-client-auth-tls"
     },
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DRC Integration Dev",
+      description             = "MAAT API oauth client ID for DRC Integration Dev"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
     },
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DRC Integration Dev",
+      description             = "MAAT API oauth client secret for DRC Integration Dev"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
-    },
+    }
   }
 }

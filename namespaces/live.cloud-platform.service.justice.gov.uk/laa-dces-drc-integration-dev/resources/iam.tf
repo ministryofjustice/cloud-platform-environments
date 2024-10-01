@@ -1,4 +1,3 @@
-
 resource "aws_iam_user" "advantis_upload_user_dev" {
   name = "laa-dces-drc-integration-dev-advantis-upload-user"
   path = "/system/laa-dces-data-integration-dev-advantis-upload-users/"
@@ -29,8 +28,8 @@ data "aws_iam_policy_document" "upload_policy" {
 
 
   statement {
-    effect = "Deny"
-    actions = ["s3:*"]
+    effect    = "Deny"
+    actions   = ["s3:*"]
     resources = [
       module.s3_advantis_bucket.bucket_arn,
       "${module.s3_advantis_bucket.bucket_arn}/*"
@@ -92,8 +91,8 @@ data "aws_iam_policy_document" "admin_policy" {
   }
 
   statement {
-    effect = "Deny"
-    actions = ["s3:*"]
+    effect    = "Deny"
+    actions   = ["s3:*"]
     resources = [
       module.s3_advantis_bucket.bucket_arn,
       "${module.s3_advantis_bucket.bucket_arn}/*"

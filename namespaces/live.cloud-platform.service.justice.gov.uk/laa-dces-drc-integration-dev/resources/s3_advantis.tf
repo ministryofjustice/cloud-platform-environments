@@ -23,7 +23,8 @@ data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.advantis_upload_user_dev.arn
+      identifiers = [
+        aws_iam_user.advantis_upload_user_dev.arn
       ]
     }
     actions = [
@@ -42,7 +43,8 @@ data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.admin_advantis_user_dev.arn
+      identifiers = [
+        aws_iam_user.admin_advantis_user_dev.arn
       ]
     }
     actions = [
