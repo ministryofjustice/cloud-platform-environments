@@ -24,7 +24,7 @@ module "hmpps_assess_risks_and_needs_integrations_dev_rds" {
 
 resource "kubernetes_secret" "hmpps_assess_risks_and_needs_integrations_dev_rds_secret" {
   metadata {
-    name      = "hmpps-strengths-based-needs-assessments-rds-instance"
+    name      = "hmpps-assess-risks-and-needs-integrations-rds-instance"
     namespace = var.namespace
   }
 
