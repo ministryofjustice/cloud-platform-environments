@@ -271,8 +271,6 @@ data:
           "title": "JVM and System CPU Usage for Pods",
           "type": "timeseries"
         },
-        
-        
         {
           "datasource": {
             "type": "prometheus",
@@ -376,7 +374,7 @@ data:
           ],
           "title": "Increases in logs in past 10 minutes (error and info level)",
           "type": "timeseries"
-        },        
+        },
         {
           "datasource": {
             "type": "prometheus",
