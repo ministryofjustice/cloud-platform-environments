@@ -9,7 +9,7 @@ module "hmpps_person_record_rds" {
   environment_name             = var.environment
   infrastructure_support       = var.infrastructure_support
   rds_family                   = "postgres16"
-  db_instance_class            = "db.r6gd.xlarge"
+  db_instance_class            = "db.r6g.xlarge"
   db_engine                    = "postgres"
   db_engine_version            = "16.3"
   prepare_for_major_upgrade    = false
