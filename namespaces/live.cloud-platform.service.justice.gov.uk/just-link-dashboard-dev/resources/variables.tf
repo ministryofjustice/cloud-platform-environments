@@ -3,12 +3,6 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "github_repository_name" {
-  description = "The name of the GitHub repository"
-  type        = string
-  default     = "operations-engineering-flask-template"
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -17,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Join a Ministry of Justice GitHub Org"
+  default     = "Just Link Dashboard"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-flask-template"
+  default     = "just-link-dashboard-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "operations-engineering"
+  default     = "just-link-dashboard-admins"
 }
 
 variable "environment" {
@@ -47,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "operations-engineering@digital.justice.gov.uk"
+  default     = "just-link@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -59,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "operations-engineering"
+  default     = "ask-data-linking"
 }
 
 variable "github_owner" {
@@ -72,14 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
-}
-
-variable "domain" {
-  default = "dev.join-github.service.justice.gov.uk"
-  type    = string
 }
