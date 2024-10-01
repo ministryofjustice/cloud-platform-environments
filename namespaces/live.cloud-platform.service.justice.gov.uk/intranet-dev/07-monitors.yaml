@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: intranet-dev
+  namespace: intranet-dev
+spec:
+  selector:
+    matchLabels:
+      app: intranet-dev
+  podMetricsEndpoints:
+  - port: http
+    path: "/metrics/fpm"
+    interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: intranet-dev
+  namespace: intranet-dev
+spec:
+  selector:
+    matchLabels:
+      app: intranet-dev
+  endpoints:
+  - port: http
+    interval: 15s
+    path: /metrics/service
