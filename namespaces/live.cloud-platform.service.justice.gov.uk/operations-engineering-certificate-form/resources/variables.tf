@@ -6,7 +6,7 @@ variable "vpc_name" {
 variable "github_repository_name" {
   description = "The name of the GitHub repository"
   type        = string
-  default     = "operations-engineering-flask-template"
+  default     = "operations-engineering-certificate-form"
 }
 
 variable "kubernetes_cluster" {
