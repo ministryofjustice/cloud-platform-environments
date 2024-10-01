@@ -42,7 +42,7 @@ resource "aws_sqs_queue_policy" "process_email_notifications_queue_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.process_email_notifications_queue.sqs_arn}",
-          "Action": "SQS:SendMessage"
+          "Action": "SQS:SendMessage",
           "Condition": {
             "ArnLike": {
               "aws:SourceArn": "arn:aws:sns:eu-west-1:140455166311:ses_complaint_events_uat"
