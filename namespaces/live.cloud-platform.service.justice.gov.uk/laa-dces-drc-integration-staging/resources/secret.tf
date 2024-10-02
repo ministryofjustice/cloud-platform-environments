@@ -10,24 +10,20 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "drc-client-auth-tls" = {
+      description             = "Client authentication credentials for mTLS to DRC in Stg"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client-auth-tls"
+    },
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DRC Integration Stg",
+      description             = "MAAT API oauth client ID for DRC Integration Stg"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
     },
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DRC Integration Stg",
+      description             = "MAAT API oauth client secret for DRC Integration Stg"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
-    },
-    "key-store-password" = {
-      description             = "mTLS key store password for DRC Integration Stg",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "key-store-password"
-    },
-    "trust-store-password" = {
-      description             = "mTLS Trust store password for DRC Integration Stg",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "trust-store-password"
-    },  }
+    }
+  }
 }

@@ -69,10 +69,14 @@ data "aws_iam_policy_document" "document" {
       "s3:CreateBucket",
       "glue:GetDatabase",
       "glue:GetTable",
+      "glue:GetTables",
+      "glue:UpdateTable",
+      "glue:DeleteTable",
       "glue:GetPartitions",
       "glue:BatchCreatePartition",
       "glue:GetDatabases",
       "glue:CreateTable",
+      "glue:CreateDatabase",
       "glue:DeleteTable",
     ]
     resources = ["*"]

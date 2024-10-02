@@ -17,6 +17,7 @@ module "dps_rds" {
   db_engine                    = "postgres"
   db_engine_version            = "16"
   performance_insights_enabled = true
+  enable_rds_auto_start_stop   = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
