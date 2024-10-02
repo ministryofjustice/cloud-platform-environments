@@ -11,16 +11,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - court-cases-release-dates-preprod.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-court-cases-release-dates-api-preprod-cert
-  namespace: hmpps-court-cases-release-dates-preprod
-spec:
-  secretName: hmpps-court-cases-release-dates-api-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - court-cases-release-dates-api-preprod.hmpps.service.justice.gov.uk
