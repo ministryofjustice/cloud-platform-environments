@@ -154,29 +154,55 @@ EOF
 
 user_policy = <<EOF
 {
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "$${bucket_arn}"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "$${bucket_arn}/*"
+    }
+  ]
 }
 EOF
 
 */
+
+  user_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowACLReadWrite",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutBucketAcl",
+          "s3:GetBucketAcl"
+        ],
+        "Resource": "$${module.s3_bucket.bucket_arn}"
+      },
+      {
+        "Sid": "DenyObjectReadWrite",
+        "Effect": "Deny",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        "Resource": "$${module.s3_bucket.bucket_arn}/*"
+      }
+    ]
+  }
+  EOF
   }
 }
 
