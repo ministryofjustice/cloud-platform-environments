@@ -88,7 +88,7 @@ locals {
 }
 
 data "aws_mq_broker" "by_name" {
-  for_each = toset([for broker in aws_mq_broker.this : broker.broker_name])
+  for_each    = toset([for broker in aws_mq_broker.this : broker.broker_name])
   broker_name = each.key
 }
 
@@ -131,10 +131,10 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
-  configuration {
-    id       = aws_mq_configuration.this[count.index].id
-    revision = aws_mq_configuration.this[count.index].latest_revision
-  }
+  # configuration {
+  #   id       = aws_mq_configuration.this[count.index].id
+  #   revision = aws_mq_configuration.this[count.index].latest_revision
+  # }
 
   auto_minor_version_upgrade = true
 
