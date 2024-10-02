@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/wigged-out-app"]
+  github_repositories = ["wigged-out-app"]
   github_environments = ["dev"]
   github_actions_prefix = "dev"
 
