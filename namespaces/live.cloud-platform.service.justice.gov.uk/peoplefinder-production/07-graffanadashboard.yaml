@@ -1,4 +1,3 @@
-#kubectl apply -f 08-graffanadashboard.yaml - or go through process
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -31,15 +30,7 @@ data:
       "links": [],
       "panels": [
         {
-          "columns": [],
           "datasource": "Prometheus",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fontSize": "100%",
           "gridPos": {
             "h": 6,
             "w": 9,
@@ -47,9 +38,38 @@ data:
             "y": 0
           },
           "id": 6,
-          "links": [],
-          "pageSize": null,
-          "scroll": false,
+          "targets": [
+            {
+              "expr": "max(kube_deployment_status_replicas_available{namespace=\"peoplefinder-production\"}) by (deployment)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "max(kube_deployment_spec_replicas{namespace=\"peoplefinder-production\"}) by (deployment)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "",
+              "refId": "B"
+            }
+          ],
+          "title": "Currently Active",
+          "type": "table-old",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "columns": [],
+          "fontSize": "100%",
           "showHeader": true,
           "sort": {
             "col": 0,
@@ -113,7 +133,7 @@ data:
               "dateFormat": "YYYY-MM-DD HH:mm:ss",
               "decimals": 2,
               "mappingType": 1,
-              "pattern": "deplyoment",
+              "pattern": "deployment",
               "thresholds": [
                 ""
               ],
@@ -122,31 +142,9 @@ data:
               "valueMaps": []
             }
           ],
-          "targets": [
-            {
-              "expr": "max(kube_deployment_status_replicas_available{namespace=\"peoplefinder-production\"}) by (deployment)",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "A"
-            },
-            {
-              "expr": "max(kube_deployment_spec_replicas{namespace=\"peoplefinder-production\"}) by (deployment)",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "B"
-            }
-          ],
-          "title": "Currently Active",
           "transform": "table",
-          "type": "table-old"
+          "pageSize": null,
+          "scroll": false
         },
         {
           "collapsed": false,
@@ -518,7 +516,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m])) by(status)",
+              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"peoplefinder-production\"}[5m])) by(status)",
               "interval": "",
               "legendFormat": "{{status}}",
               "refId": "A"
@@ -615,7 +613,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"peoplefinder-production\", ingress = \"peoplefinder-ingress\"}[5m]) > 0)",
+              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"peoplefinder-production\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"peoplefinder-production\"}[5m]) > 0)",
               "interval": "30s",
               "intervalFactor": 2,
               "legendFormat": "Average Request Duration",
