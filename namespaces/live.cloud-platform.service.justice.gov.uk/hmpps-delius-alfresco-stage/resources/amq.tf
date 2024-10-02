@@ -238,13 +238,13 @@ data "aws_iam_policy_document" "amq" {
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
-  for_each = toset([for broker in aws_mq_broker.this : broker])
-  name     = "/aws/amazonmq/broker/${each.value.id}/general"
+  count    = local.broker_count
+  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
-  for_each = toset([for broker in aws_mq_broker.this : broker])
-  name     = "/aws/amazonmq/broker/${each.value.id}/audit"
+  count    = local.broker_count
+  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
 }
 
 data "aws_iam_policy_document" "amq_cw_logs" {
