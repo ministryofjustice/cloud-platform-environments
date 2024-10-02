@@ -56,6 +56,10 @@ resource "random_string" "amq_password" {
   special = false
 }
 
+resource "random_id" "config_id" {
+  byte_length = 8
+}
+
 locals {
   identifier         = "cloud-platform-${random_id.amq_id.hex}"
   mq_admin_user      = "cp${random_string.amq_username.result}"
@@ -126,11 +130,11 @@ resource "aws_mq_broker" "this" {
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
-  
-  # configuration {
-  #   id       = aws_mq_configuration.this[count.index].id
-  #   revision = aws_mq_configuration.this[count.index].latest_revision
-  # }
+
+  configuration {
+    id       = aws_mq_configuration.this[count.index].id
+    revision = aws_mq_configuration.this[count.index].latest_revision
+  }
 
   auto_minor_version_upgrade = true
 
@@ -177,7 +181,7 @@ resource "aws_mq_broker" "this" {
 resource "aws_mq_configuration" "this" {
   count          = local.broker_count
   description    = "Alfresco Amazon MQ configuration"
-  name           = "alfresco-amq-configuration"
+  name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
   engine_type    = local.amq_engine_type
   engine_version = local.amq_engine_version
 
@@ -186,6 +190,10 @@ resource "aws_mq_configuration" "this" {
       network_conector_string = local.network_conector_string[count.index]
     }
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "kubernetes_secret" "amazon_mq" {
