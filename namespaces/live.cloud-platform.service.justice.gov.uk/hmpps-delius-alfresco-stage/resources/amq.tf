@@ -73,7 +73,7 @@ locals {
     1 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${aws_mq_broker.this[0].instances[0].endpoints[0]})"/>
+              uri="static:(${aws_mq_broker.this[1].instances[0].endpoints[0]})"/>
           <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
               uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
       </networkConnectors>
@@ -81,7 +81,7 @@ locals {
     2 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${aws_mq_broker.this.instances[2].endpoints[0]})"/>
+              uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
   }
