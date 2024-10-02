@@ -8,6 +8,9 @@ subjects:
     name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:unilink"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:dps-tech" # for auth client credential rotation
     apiGroup: rbac.authorization.k8s.io
 roleRef:
