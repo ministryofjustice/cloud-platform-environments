@@ -126,6 +126,7 @@ resource "aws_mq_broker" "this" {
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
+  
   # configuration {
   #   id       = aws_mq_configuration.this[count.index].id
   #   revision = aws_mq_configuration.this[count.index].latest_revision
