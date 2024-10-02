@@ -180,23 +180,23 @@ resource "aws_mq_broker" "this" {
   }
 }
 
-resource "aws_mq_configuration" "this" {
-  count          = local.broker_count
-  description    = "Alfresco Amazon MQ configuration"
-  name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
-  engine_type    = local.amq_engine_type
-  engine_version = local.amq_engine_version
+# resource "aws_mq_configuration" "this" {
+#   count          = local.broker_count
+#   description    = "Alfresco Amazon MQ configuration"
+#   name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
+#   engine_type    = local.amq_engine_type
+#   engine_version = local.amq_engine_version
 
-  data = templatefile("${path.module}/files/amq_config.xml",
-    {
-      network_conector_string = local.network_conector_string[count.index]
-    }
-  )
+#   data = templatefile("${path.module}/files/amq_config.xml",
+#     {
+#       network_conector_string = local.network_conector_string[count.index]
+#     }
+#   )
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
 resource "kubernetes_secret" "amazon_mq" {
   metadata {
@@ -235,7 +235,8 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
+    # resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
+    resources = [for broker in aws_mq_broker.this : broker.arn]
   }
 }
 
