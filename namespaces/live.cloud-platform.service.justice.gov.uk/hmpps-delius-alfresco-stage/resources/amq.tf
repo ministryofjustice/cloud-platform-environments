@@ -84,6 +84,8 @@ locals {
               uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
+
+    3 = ""
   }
 }
 
@@ -258,7 +260,7 @@ data "aws_iam_policy_document" "amq_cw_logs" {
       "logs:TestMetricFilter",
       "logs:FilterLogEvents",
     ]
-    resources = [for log_group in concat(values(data.aws_cloudwatch_log_group.mq_broker_logs_general), values(data.aws_cloudwatch_log_group.mq_broker_logs_audit)) : log_group.arn]
+    resources = [for log_group in concat(data.aws_cloudwatch_log_group.mq_broker_logs_general, data.aws_cloudwatch_log_group.mq_broker_logs_audit) : log_group.arn]
   }
 }
 
