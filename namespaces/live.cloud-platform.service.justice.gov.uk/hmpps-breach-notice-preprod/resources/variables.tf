@@ -24,7 +24,7 @@ variable "team_name" {
   default     = "unilink"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
 }
