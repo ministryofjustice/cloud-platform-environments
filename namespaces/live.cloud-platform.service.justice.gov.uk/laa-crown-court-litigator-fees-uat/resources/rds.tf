@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-instance-trial" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -118,10 +118,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-instance-trial.database_name
+    database_host     = module.rds-instance-trial.rds_instance_address
+    database_port     = module.rds-instance-trial.rds_instance_port
+    database_username = module.rds-instance-trial.database_username
+    database_password = module.rds-instance-trial.database_password
   }
 }
