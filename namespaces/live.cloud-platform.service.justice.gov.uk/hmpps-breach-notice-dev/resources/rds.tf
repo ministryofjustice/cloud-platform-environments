@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.3.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -8,7 +8,7 @@ module "rds" {
   namespace = var.namespace
 
   # rotating creds
-  db_password_rotated_date = "09-02-2023"
+  db_password_rotated_date = "02-10-2024"
 
   # enable performance insights
   performance_insights_enabled = true
