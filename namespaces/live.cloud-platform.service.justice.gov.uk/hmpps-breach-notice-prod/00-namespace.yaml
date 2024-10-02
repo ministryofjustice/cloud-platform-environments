@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: hmpps-breach-notice-prod
   labels:
-    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
     cloud-platform.justice.gov.uk/namespace: "hmpps-breach-notice-prod"
     pod-security.kubernetes.io/enforce: restricted

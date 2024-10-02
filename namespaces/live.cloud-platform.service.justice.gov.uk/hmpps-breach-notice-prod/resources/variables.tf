@@ -24,7 +24,7 @@ variable "team_name" {
   default     = "unilink"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
@@ -35,7 +35,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "github_owner" {

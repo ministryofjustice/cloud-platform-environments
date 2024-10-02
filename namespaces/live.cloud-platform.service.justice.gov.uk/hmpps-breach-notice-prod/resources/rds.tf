@@ -17,7 +17,7 @@ module "rds" {
 
   # change the postgres version as you see fit.
   db_engine_version      = "16.1"
-  environment_name       = var.environment-name
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   maintenance_window = var.maintenance_window
 
