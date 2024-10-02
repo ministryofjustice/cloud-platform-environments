@@ -15,7 +15,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-subject-access-request-api"
+  service_account_name = "hmpps-subject-access-request"
   role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
