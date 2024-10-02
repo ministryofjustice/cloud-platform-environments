@@ -70,7 +70,7 @@ locals {
   broker_count       = 3
 
   network_conector_string = {
-    1 = <<EOF
+    0 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
               uri="static:(${aws_mq_broker.this[1].instances[0].endpoints[0]})"/>
@@ -78,14 +78,14 @@ locals {
               uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
-    2 = <<EOF
+    1 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
               uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
 
-    3 = ""
+    2 = ""
   }
 }
 
