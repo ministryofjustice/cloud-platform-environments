@@ -144,31 +144,6 @@ module "s3_bucket" {
 EOF
 
 */
-
-user_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetBucketLocation"
-      ],
-      "Resource": "$${bucket_arn}"
-    },
-    {
-      "Sid": "",
-      "Effect": "DENY",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": "$${bucket_arn}/*"
-    }
-  ]
-}
-EOF
-
 }
 
 resource "aws_s3_bucket_metric" "entire-bucket-metric" {
