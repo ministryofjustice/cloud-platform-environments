@@ -208,9 +208,9 @@ resource "kubernetes_secret" "amazon_mq" {
     BROKER_CONSOLE_URL_0 = aws_mq_broker.this[0].instances[0].console_url
     BROKER_CONSOLE_URL_1 = aws_mq_broker.this[1].instances[0].console_url
     BROKER_CONSOLE_URL_2 = aws_mq_broker.this[2].instances[0].console_url
-    BROKER_URL         = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
-    BROKER_USERNAME    = local.mq_admin_user
-    BROKER_PASSWORD    = local.mq_admin_password
+    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
+    BROKER_USERNAME      = local.mq_admin_user
+    BROKER_PASSWORD      = local.mq_admin_password
   }
 }
 
@@ -241,13 +241,13 @@ data "aws_iam_policy_document" "amq" {
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
-  count    = local.broker_count
-  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
+  count = local.broker_count
+  name  = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
-  count    = local.broker_count
-  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
+  count = local.broker_count
+  name  = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
 }
 
 data "aws_iam_policy_document" "amq_cw_logs" {
