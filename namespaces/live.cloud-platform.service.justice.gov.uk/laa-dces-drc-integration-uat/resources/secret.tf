@@ -10,6 +10,11 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "ca-crt" = {
+      description             = "ca.crt to use for mTLS validation in UAT"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ca-crt"
+    },
     "drc-client-auth-tls" = {
       description             = "Client authentication credentials for mTLS to DRC in UAT"
       recovery_window_in_days = 7
