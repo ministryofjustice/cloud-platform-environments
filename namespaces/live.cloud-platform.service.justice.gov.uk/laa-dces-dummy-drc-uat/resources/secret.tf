@@ -13,7 +13,7 @@ module "secrets_manager" {
     "ca-crt" = {
       description             = "ca.crt secret for mTLS client certificate validateion in UAT"
       recovery_window_in_days = 7
-      k8s_secret_name         = "ca-drt"
+      k8s_secret_name         = "ca-crt"
     },
   }
 }
