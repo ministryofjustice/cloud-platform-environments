@@ -69,19 +69,23 @@ locals {
   amq_engine_type    = "ActiveMQ"
   broker_count       = 3
 
+  broker_zero = "${local.identifier}-0"
+  broker_one  = "${local.identifier}-1"
+  broker_two  = "${local.identifier}-2"
+
   network_conector_string = {
     0 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${aws_mq_broker.this[1].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})"/>
           <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
     1 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${aws_mq_broker.this[2].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
 
@@ -90,7 +94,7 @@ locals {
 }
 
 data "aws_mq_broker" "by_name" {
-  for_each    = toset([for broker in aws_mq_broker.this : broker.broker_name])
+  for_each    = toset([for i in range(local.broker_count) : "${local.identifier}-${i}"])
   broker_name = each.key
 }
 
@@ -133,10 +137,10 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
-  # configuration {
-  #   id       = aws_mq_configuration.this[count.index].id
-  #   revision = aws_mq_configuration.this[count.index].latest_revision
-  # }
+  configuration {
+    id       = aws_mq_configuration.this[count.index].id
+    revision = aws_mq_configuration.this[count.index].latest_revision
+  }
 
   auto_minor_version_upgrade = true
 
@@ -175,28 +179,27 @@ resource "aws_mq_broker" "this" {
   lifecycle {
     ignore_changes = [
       engine_version,
-      configuration
     ]
   }
 }
 
-# resource "aws_mq_configuration" "this" {
-#   count          = local.broker_count
-#   description    = "Alfresco Amazon MQ configuration"
-#   name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
-#   engine_type    = local.amq_engine_type
-#   engine_version = local.amq_engine_version
+resource "aws_mq_configuration" "this" {
+  count          = local.broker_count
+  description    = "Alfresco Amazon MQ configuration"
+  name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
+  engine_type    = local.amq_engine_type
+  engine_version = local.amq_engine_version
 
-#   data = templatefile("${path.module}/files/amq_config.xml",
-#     {
-#       network_conector_string = local.network_conector_string[count.index]
-#     }
-#   )
+  data = templatefile("${path.module}/files/amq_config.xml",
+    {
+      network_conector_string = local.network_conector_string[count.index]
+    }
+  )
 
-#   lifecycle {
-#     create_before_destroy = true
-#   }
-# }
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
 resource "kubernetes_secret" "amazon_mq" {
   metadata {
@@ -208,9 +211,9 @@ resource "kubernetes_secret" "amazon_mq" {
     BROKER_CONSOLE_URL_0 = aws_mq_broker.this[0].instances[0].console_url
     BROKER_CONSOLE_URL_1 = aws_mq_broker.this[1].instances[0].console_url
     BROKER_CONSOLE_URL_2 = aws_mq_broker.this[2].instances[0].console_url
-    BROKER_URL         = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]}, nio+${aws_mq_broker.this[1].instances[0].endpoints[0]}, nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
-    BROKER_USERNAME    = local.mq_admin_user
-    BROKER_PASSWORD    = local.mq_admin_password
+    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
+    BROKER_USERNAME      = local.mq_admin_user
+    BROKER_PASSWORD      = local.mq_admin_password
   }
 }
 
@@ -235,19 +238,19 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    # resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
-    resources = [for broker in aws_mq_broker.this : broker.arn]
+    resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
+    # resources = [for broker in aws_mq_broker.this : broker.arn]
   }
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
-  count    = local.broker_count
-  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
+  count = local.broker_count
+  name  = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
-  count    = local.broker_count
-  name     = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
+  count = local.broker_count
+  name  = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
 }
 
 data "aws_iam_policy_document" "amq_cw_logs" {
