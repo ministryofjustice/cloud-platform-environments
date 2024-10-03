@@ -1,8 +1,8 @@
-module "probation-in-court-cases-queue" {
+module "court-cases-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                    = "probation-in-court-cases"
+  sqs_name                    = "court-cases"
   encrypt_sqs_kms             = "true"
   message_retention_seconds   = 1209600
   visibility_timeout_seconds  = 120
@@ -10,7 +10,7 @@ module "probation-in-court-cases-queue" {
   content_based_deduplication = "true"
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.probation-in-court-cases-dead-letter-queue.sqs_arn
+    deadLetterTargetArn = module.court-cases-dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -28,19 +28,19 @@ module "probation-in-court-cases-queue" {
   }
 }
 
-# resource "aws_sqs_queue_policy" "probation-in-court-cases-queue-policy" {
-#   queue_url = module.probation-in-court-cases-queue.sqs_id
+# resource "aws_sqs_queue_policy" "court-cases-queue-policy" {
+#   queue_url = module.court-cases-queue.sqs_id
 #
 #   policy = <<EOF
 #   {
 #     "Version": "2012-10-17",
-#     "Id": "${module.probation-in-court-cases-queue.sqs_arn}/SQSDefaultPolicy",
+#     "Id": "${module.court-cases-queue.sqs_arn}/SQSDefaultPolicy",
 #     "Statement":
 #       [
 #         {
 #           "Effect": "Allow",
 #           "Principal": {"AWS": "*"},
-#           "Resource": "${module.probation-in-court-cases-queue.sqs_arn}",
+#           "Resource": "${module.court-cases-queue.sqs_arn}",
 #           "Action": "SQS:SendMessage",
 #           "Condition":
 #             {
@@ -55,18 +55,18 @@ module "probation-in-court-cases-queue" {
 # EOF
 # }
 
-# resource "aws_sns_topic_subscription" "probation_in_court_cases_subscription" {
+# resource "aws_sns_topic_subscription" "court_cases_subscription" {
 #   provider  = aws.london
 #   topic_arn = module.court-cases.topic_arn
 #   protocol  = "sqs"
-#   endpoint  = module.probation-in-court-cases-queue.sqs_arn
+#   endpoint  = module.court-cases-queue.sqs_arn
 # }
 
-module "probation-in-court-cases-dead-letter-queue" {
+module "court-cases-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                    = "probation-in-court-cases-dead-letter-queue"
+  sqs_name                    = "court-cases-dlq"
   encrypt_sqs_kms             = "true"
   fifo_queue                  = "true"
   content_based_deduplication = "true"
@@ -87,28 +87,28 @@ module "probation-in-court-cases-dead-letter-queue" {
 
 ########  Secrets
 
-resource "kubernetes_secret" "probation-in-court-cases-queue-secret" {
+resource "kubernetes_secret" "court-cases-queue-secret" {
   metadata {
-    name      = "probation-in-court-cases-queue-credentials"
+    name      = "court-cases-queue-credentials"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.probation-in-court-cases-queue.sqs_id
-    sqs_arn  = module.probation-in-court-cases-queue.sqs_arn
-    sqs_name = module.probation-in-court-cases-queue.sqs_name
+    sqs_id   = module.court-cases-queue.sqs_id
+    sqs_arn  = module.court-cases-queue.sqs_arn
+    sqs_name = module.court-cases-queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "probation-in-court-cases-dead-letter-queue-secret" {
+resource "kubernetes_secret" "court-cases-dlq-secret" {
   metadata {
-    name      = "probation-in-court-cases-dead-letter-queue-credentials"
+    name      = "court-cases-dlq-credentials"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.probation-in-court-cases-dead-letter-queue.sqs_id
-    sqs_arn  = module.probation-in-court-cases-dead-letter-queue.sqs_arn
-    sqs_name = module.probation-in-court-cases-dead-letter-queue.sqs_name
+    sqs_id   = module.court-cases-dlq.sqs_id
+    sqs_arn  = module.court-cases-dlq.sqs_arn
+    sqs_name = module.court-cases-dlq.sqs_name
   }
 }
