@@ -69,19 +69,23 @@ locals {
   amq_engine_type    = "ActiveMQ"
   broker_count       = 3
 
+  broker_zero = "${local.identifier}-0"
+  broker_one  = "${local.identifier}-1"
+  broker_two  = "${local.identifier}-2"
+
   network_conector_string = {
     0 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-1")})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})"/>
           <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-2")})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
     1 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-2")})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
       </networkConnectors>
       EOF
 
