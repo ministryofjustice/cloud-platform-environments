@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "move-and-improve"
 }
 
 variable "environment" {
@@ -45,7 +45,7 @@ variable "eks_cluster_name" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
