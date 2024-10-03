@@ -13,4 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offender-case-notes.git"
     cloud-platform.justice.gov.uk/slack-alert-channel: "move-and-improve-alerts-non-prod"
     cloud-platform.justice.gov.uk/slack-channel: "move_and_improve-syscon-collaboration"
-    cloud-platform.justice.gov.uk/team-name: "move-and-improve"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-move-and-improve"

@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital Prison Services/New Nomis"
+  default     = "hmpps-move-and-improve"
 }
 
 variable "environment-name" {
