@@ -133,10 +133,10 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
-  # configuration {
-  #   id       = aws_mq_configuration.this[count.index].id
-  #   revision = aws_mq_configuration.this[count.index].latest_revision
-  # }
+  configuration {
+    id       = aws_mq_configuration.this[count.index].id
+    revision = aws_mq_configuration.this[count.index].latest_revision
+  }
 
   auto_minor_version_upgrade = true
 
@@ -180,23 +180,23 @@ resource "aws_mq_broker" "this" {
   }
 }
 
-# resource "aws_mq_configuration" "this" {
-#   count          = local.broker_count
-#   description    = "Alfresco Amazon MQ configuration"
-#   name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
-#   engine_type    = local.amq_engine_type
-#   engine_version = local.amq_engine_version
+resource "aws_mq_configuration" "this" {
+  count          = local.broker_count
+  description    = "Alfresco Amazon MQ configuration"
+  name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
+  engine_type    = local.amq_engine_type
+  engine_version = local.amq_engine_version
 
-#   data = templatefile("${path.module}/files/amq_config.xml",
-#     {
-#       network_conector_string = local.network_conector_string[count.index]
-#     }
-#   )
+  data = templatefile("${path.module}/files/amq_config.xml",
+    {
+      network_conector_string = local.network_conector_string[count.index]
+    }
+  )
 
-#   lifecycle {
-#     create_before_destroy = true
-#   }
-# }
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
 resource "kubernetes_secret" "amazon_mq" {
   metadata {
