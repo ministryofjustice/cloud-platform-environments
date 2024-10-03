@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Challenge Support Intervention Plan"
     cloud-platform.justice.gov.uk/owner: "Move and Improve: moveandimprove@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-challenge-support-intervention-plan-api"
-    cloud-platform.justice.gov.uk/team-name: "move-and-improve"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-move-and-improve"
     cloud-platform.justice.gov.uk/slack-alert-channel: "move-and-improve-alerts-non-prod"
