@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace                    = var.namespace
   environment_name             = var.environment-name
   infrastructure_support       = var.infrastructure_support
-  db_instance_class            = "db.t4g.xlarge"
+  db_instance_class            = "db.t4g.medium"
   db_allocated_storage         = "64"
   db_max_allocated_storage     = "1000"
   deletion_protection          = true

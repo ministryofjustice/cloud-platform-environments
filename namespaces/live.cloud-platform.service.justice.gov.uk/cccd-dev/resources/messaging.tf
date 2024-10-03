@@ -127,7 +127,6 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-CCLF-development-AppInfrastructureT-AppEc2Role-ADMNU7CYTI7R",
             "arn:aws:iam::754256621582:role/cloud-platform-irsa-de9466b31f4c736e-live"
               ]
           },
@@ -180,33 +179,6 @@ EOF
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "responses_for_cccd" {
-  queue_url = module.responses_for_cccd.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.responses_for_cccd.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "LandingZonePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-CCLF-development-AppInfrastructureT-AppEc2Role-ADMNU7CYTI7R"
-              ]
-          },
-          "Resource": "${module.responses_for_cccd.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        }
-      ]
-  }
-
-EOF
-
 }
 
 module "ccr_dead_letter_queue" {

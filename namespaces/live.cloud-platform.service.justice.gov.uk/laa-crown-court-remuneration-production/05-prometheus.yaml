@@ -80,12 +80,12 @@ spec:
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-74a3ec4664d2ba63;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Database-Connections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-74a3ec4664d2ba63"} > 50
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-74a3ec4664d2ba63"} > 125
       for: 5m
       labels:
         severity: laa-crown-court-remuneration-production
       annotations:
-        message: CCR PRODUCTION RDS number of database connections is over 50
+        message: CCR PRODUCTION RDS number of database connections is over 125
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-74a3ec4664d2ba63;is-cluster=false;tab=monitoring"
 
