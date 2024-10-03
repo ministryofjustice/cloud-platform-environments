@@ -45,13 +45,13 @@ variable "eks_cluster_name" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
