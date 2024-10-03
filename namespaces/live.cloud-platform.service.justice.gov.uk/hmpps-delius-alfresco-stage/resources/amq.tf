@@ -175,12 +175,6 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
-
-  lifecycle {
-    ignore_changes = [
-      engine_version,
-    ]
-  }
 }
 
 resource "aws_mq_configuration" "this" {
