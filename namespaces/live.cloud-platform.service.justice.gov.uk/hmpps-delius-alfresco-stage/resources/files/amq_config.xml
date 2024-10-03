@@ -216,6 +216,12 @@
     <networkConnector name="myNetworkConnector" userName="commonUser"
     uri="masterslave:(ssl://b-1a2b3c4d-1.mq.region.amazonaws.com:61617,ssl://b-1a2b3c4d-2.mq.region.amazonaws.com:61617)"/>
   </networkConnectors>
-  -->
-  ${network_conector_string}
+  --> 
+  
+  ${network_conector_string} 
+  
+  <transportConnectors>
+    <transportConnector name="openwire" updateClusterClients="true" rebalanceClusterClients="true"
+      updateClusterClientsOnRemove="true" />
+  </transportConnectors>
 </broker>
