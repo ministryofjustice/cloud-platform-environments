@@ -80,12 +80,12 @@ spec:
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-9934ff6a725528ca;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Database-Connections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-9934ff6a725528ca"} > 50
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-9934ff6a725528ca"} > 65
       for: 5m
       labels:
         severity: laa_ccr_uat
       annotations:
-        message: CCR UAT RDS number of database connections is over 50
+        message: CCR UAT RDS number of database connections is over 65
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-9934ff6a725528ca;is-cluster=false;tab=monitoring"
 
