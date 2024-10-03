@@ -29,6 +29,11 @@ module "secrets_manager" {
       description             = "Hardship API oauth client secret for CCC UAT",
       recovery_window_in_days = 7
       k8s_secret_name         = "hardship-api-oauth-client-secret"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCC UAT",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "sentry-dsn"
     }
   }
 }
