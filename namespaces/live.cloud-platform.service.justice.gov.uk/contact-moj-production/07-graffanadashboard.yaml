@@ -187,10 +187,6 @@ data:
                 },
                 "showPoints": "never",
                 "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "normal"
-                },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
@@ -246,7 +242,7 @@ data:
               "showLegend": true
             },
             "tooltip": {
-              "mode": "multi",
+              "mode": "single",
               "sort": "none"
             }
           },
@@ -325,11 +321,11 @@ data:
                 "type": "prometheus",
                 "uid": "P5DCFC7561CCDE821"
               },
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"contact-moj-production\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"contact-moj-production\"}[5m]) > 0)",
+              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"contact-moj-production\"}[$__interval]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"contact-moj-production\"}[$__interval]) > 0)",
               "format": "time_series",
               "interval": "30s",
               "intervalFactor": 2,
-              "legendFormat": "Recv",
+              "legendFormat": "Requests",
               "refId": "A"
             }
           ],
@@ -421,12 +417,12 @@ data:
                 "type": "prometheus",
                 "uid": "P5DCFC7561CCDE821"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='contact-moj-production'}[5m]))",
+              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='contact-moj-production'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "POD: {{ pod_name}}",
+              "legendFormat": "Pod: {{pod_name}}",
               "refId": "A"
             },
             {
@@ -485,7 +481,8 @@ data:
           ],
           "yaxis": {
             "align": false
-          }
+          },
+          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production"
         },
         {
           "aliasColors": {
@@ -552,7 +549,7 @@ data:
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "POD: {{ pod_name}}",
+              "legendFormat": "Pod: {{pod_name}}",
               "refId": "A"
             },
             {
@@ -611,7 +608,8 @@ data:
           ],
           "yaxis": {
             "align": false
-          }
+          },
+          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production"
         }
       ],
       "refresh": false,
