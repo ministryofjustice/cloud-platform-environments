@@ -73,15 +73,15 @@ locals {
     0 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name["${local.identifier}-1"]})"/>
+              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-1")})"/>
           <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:({data.aws_mq_broker.by_name["${local.identifier}-2"]})"/>
+              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-2")})"/>
       </networkConnectors>
       EOF
     1 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:({data.aws_mq_broker.by_name["${local.identifier}-2"]})"/>
+              uri="static:(${lookup(data.aws_mq_broker.by_name, "${local.identifier}-2")})"/>
       </networkConnectors>
       EOF
 
