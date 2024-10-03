@@ -235,8 +235,8 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    # resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
-    resources = [for broker in aws_mq_broker.this : broker.arn]
+    resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
+    # resources = [for broker in aws_mq_broker.this : broker.arn]
   }
 }
 
