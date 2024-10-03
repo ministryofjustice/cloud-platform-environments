@@ -175,7 +175,6 @@ resource "aws_mq_broker" "this" {
   lifecycle {
     ignore_changes = [
       engine_version,
-      configuration
     ]
   }
 }
