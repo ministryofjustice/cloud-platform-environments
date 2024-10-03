@@ -34,68 +34,28 @@ data:
       "links": [],
       "panels": [
         {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 22,
+          "panels": [],
+          "title": "Pods & Requests",
+          "type": "row"
+        },
+        {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "gridPos": {
-            "h": 6,
-            "w": 8,
-            "x": 0,
-            "y": 0
-          },
-          "id": 6,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-              },
-              "expr": "max(kube_deployment_status_replicas_available{namespace=\"contact-moj-production\"}) by (deployment)",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "intervalFactor": 2,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-              },
-              "expr": "max(kube_deployment_spec_replicas{namespace=\"contact-moj-production\"}) by (deployment)",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "intervalFactor": 2,
-              "refId": "B"
-            }
-          ],
-          "title": "Currently Active Pods",
-          "type": "table",
-          "options": {
-            "showHeader": true,
-            "cellHeight": "sm",
-            "footer": {
-              "show": false,
-              "reducer": [
-                "sum"
-              ],
-              "countRows": false,
-              "fields": ""
-            }
-          },
-          "transformations": [
-            {
-              "id": "merge",
-              "options": {
-                "reducers": []
-              }
-            }
-          ],
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
               "custom": {
                 "align": "auto",
                 "cellOptions": {
@@ -108,17 +68,14 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
-              },
-              "color": {
-                "mode": "thresholds"
               }
             },
             "overrides": [
@@ -133,8 +90,7 @@ data:
                     "value": "Time"
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   },
                   {
                     "id": "custom.hidden",
@@ -163,8 +119,7 @@ data:
                     }
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   },
                   {
                     "id": "thresholds",
@@ -209,8 +164,7 @@ data:
                     }
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   },
                   {
                     "id": "thresholds",
@@ -253,8 +207,7 @@ data:
                     "value": 2
                   },
                   {
-                    "id": "custom.align",
-                    "value": null
+                    "id": "custom.align"
                   },
                   {
                     "id": "thresholds",
@@ -266,8 +219,7 @@ data:
                           "value": null
                         },
                         {
-                          "color": "rgba(237, 129, 40, 0.89)",
-                          "value": null
+                          "color": "rgba(237, 129, 40, 0.89)"
                         }
                       ]
                     }
@@ -276,7 +228,63 @@ data:
               }
             ]
           },
-          "pluginVersion": "10.4.0"
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 1
+          },
+          "id": 6,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "10.4.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "expr": "max(kube_deployment_status_replicas_available{namespace=\"contact-moj-production\"}) by (deployment)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 2,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "expr": "max(kube_deployment_spec_replicas{namespace=\"contact-moj-production\"}) by (deployment)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "intervalFactor": 2,
+              "refId": "B"
+            }
+          ],
+          "title": "Currently Active Pods",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {
+                "reducers": []
+              }
+            }
+          ],
+          "type": "table"
         },
         {
           "datasource": {
@@ -315,6 +323,10 @@ data:
                 },
                 "showPoints": "never",
                 "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
@@ -358,7 +370,7 @@ data:
             "h": 6,
             "w": 8,
             "x": 8,
-            "y": 0
+            "y": 1
           },
           "id": 15,
           "interval": "1m",
@@ -399,56 +411,56 @@ data:
           },
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
                 "barAlignment": 0,
-                "lineWidth": 1,
+                "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
-                "spanNulls": false,
-                "insertNulls": false,
-                "showPoints": "never",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "color": {
-                "mode": "palette-classic"
-              },
+              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
               },
-              "links": [],
               "unit": "s"
             },
             "overrides": []
@@ -457,23 +469,23 @@ data:
             "h": 6,
             "w": 8,
             "x": 16,
-            "y": 0
+            "y": 1
           },
           "id": 19,
           "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            },
             "legend": {
-              "showLegend": true,
-              "displayMode": "table",
-              "placement": "bottom",
               "calcs": [
                 "mean",
                 "min",
                 "sum"
-              ]
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -492,9 +504,20 @@ data:
             }
           ],
           "title": "Average Request Duration",
-          "type": "timeseries",
-          "timeFrom": null,
-          "timeShift": null
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 7
+          },
+          "id": 21,
+          "panels": [],
+          "title": "Resource Usage",
+          "type": "row"
         },
         {
           "datasource": {
@@ -504,56 +527,56 @@ data:
           "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
                 "barAlignment": 0,
-                "lineWidth": 1,
+                "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
-                "spanNulls": false,
-                "insertNulls": false,
-                "showPoints": "never",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "color": {
-                "mode": "palette-classic"
-              },
+              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
               },
-              "links": [],
               "unit": "short"
             },
             "overrides": []
@@ -562,24 +585,24 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 8
           },
           "id": 17,
           "interval": "30s",
           "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            },
             "legend": {
-              "showLegend": true,
-              "displayMode": "table",
-              "placement": "bottom",
               "calcs": [
                 "mean",
                 "min",
                 "sum"
-              ]
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -626,9 +649,7 @@ data:
             }
           ],
           "title": "CPU Usage",
-          "type": "timeseries",
-          "timeFrom": null,
-          "timeShift": null
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -638,56 +659,56 @@ data:
           "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
                 "barAlignment": 0,
-                "lineWidth": 1,
+                "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
-                "spanNulls": false,
-                "insertNulls": false,
-                "showPoints": "never",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "color": {
-                "mode": "palette-classic"
-              },
+              "links": [],
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
               },
-              "links": [],
               "unit": "bytes"
             },
             "overrides": [
@@ -700,8 +721,8 @@ data:
                   {
                     "id": "color",
                     "value": {
-                      "mode": "fixed",
-                      "fixedColor": "#890f02"
+                      "fixedColor": "#890f02",
+                      "mode": "fixed"
                     }
                   }
                 ]
@@ -712,24 +733,24 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 6
+            "y": 8
           },
           "id": 16,
           "interval": "30s",
           "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            },
             "legend": {
-              "showLegend": true,
-              "displayMode": "table",
-              "placement": "bottom",
               "calcs": [
                 "mean",
                 "lastNotNull",
                 "max"
-              ]
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -776,69 +797,81 @@ data:
             }
           ],
           "title": "Memory Usage",
-          "type": "timeseries",
-          "timeFrom": null,
-          "timeShift": null
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 20,
+          "panels": [],
+          "title": "AWS RDS",
+          "type": "row"
         },
         {
           "datasource": {
             "type": "cloudwatch",
             "uid": "P896B4444D3F0DAB8"
           },
+          "description": "RDS Dashboard - https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=cloud-platform-0ea615e584938140",
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
                 "barAlignment": 0,
-                "lineWidth": 2,
+                "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
-                "spanNulls": true,
-                "insertNulls": false,
-                "showPoints": "never",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "color": {
-                "mode": "palette-classic"
-              },
+              "links": [],
               "mappings": [],
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
               },
-              "links": [],
-              "unit": "none",
-              "min": 0
+              "unit": "none"
             },
             "overrides": []
           },
@@ -846,24 +879,24 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 13
+            "y": 16
           },
           "id": 18,
           "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            },
             "legend": {
-              "showLegend": true,
-              "displayMode": "table",
-              "placement": "bottom",
               "calcs": [
                 "mean",
                 "lastNotNull",
                 "max",
                 "min"
-              ]
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -938,10 +971,7 @@ data:
             }
           ],
           "title": "DatabaseConnections/DiskQueueDepth",
-          "type": "timeseries",
-          "timeFrom": null,
-          "timeShift": null,
-          "description": "RDS Dashboard - https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=cloud-platform-0ea615e584938140"
+          "type": "timeseries"
         }
       ],
       "refresh": false,
