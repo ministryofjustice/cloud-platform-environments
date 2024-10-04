@@ -58,7 +58,6 @@ module "irsa" {
     { rds_ccs = module.court_case_service_rds.irsa_policy_arn },
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
-    { s3_pt = module.perf-test-data-s3-bucket.irsa_policy_arn },
     { sns_cce = module.court-case-events.irsa_policy_arn },
     { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
     { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
