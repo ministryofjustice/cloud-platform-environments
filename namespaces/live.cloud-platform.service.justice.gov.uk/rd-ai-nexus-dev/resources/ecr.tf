@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["rd-cp-explorer"]
+  github_repositories = ["rd-ai-nexus"]
 
   # Tags
   business_unit          = var.business_unit
