@@ -1,4 +1,6 @@
-#kubectl apply -f 08-graffanadashboard.yaml - or go through process
+# To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
+# There are instructions in the templating section below for setting variables for your namespace
+# Use kubectl apply -f 07-graffanadashboard.yaml - or go through cloud-platform process to apply changes
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -31,7 +33,44 @@ data:
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
       "id": 153,
-      "links": [],
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": false,
+          "keepTime": true,
+          "tags": [],
+          "targetBlank": true,
+          "title": "Compute resources dashboard",
+          "tooltip": "",
+          "type": "link",
+          "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?var-namespace=${namespace}"
+        },
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": false,
+          "keepTime": true,
+          "tags": [],
+          "targetBlank": true,
+          "title": "RDS dashboard",
+          "tooltip": "",
+          "type": "link",
+          "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=${DBInstanceIdentifier}"
+        },
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": false,
+          "keepTime": true,
+          "tags": [],
+          "targetBlank": true,
+          "title": "Elasticache dashboard",
+          "tooltip": "",
+          "type": "link",
+          "url": " https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=${CacheClusterId}"
+        }
+      ],
       "panels": [
         {
           "collapsed": false,
@@ -254,7 +293,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "max(kube_deployment_status_replicas_available{namespace=\"contact-moj-production\"}) by (deployment)",
+              "expr": "max(kube_deployment_status_replicas_available{namespace=\"${namespace}\"}) by (deployment)",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -267,7 +306,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "max(kube_deployment_spec_replicas{namespace=\"contact-moj-production\"}) by (deployment)",
+              "expr": "max(kube_deployment_spec_replicas{namespace=\"${namespace}\"}) by (deployment)",
               "format": "table",
               "hide": false,
               "instant": true,
@@ -391,7 +430,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace = \"contact-moj-production\"}[$__interval])) by (status)",
+              "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace = \"${namespace}\"}[$__interval])) by (status)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 5,
@@ -491,7 +530,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"contact-moj-production\"}[$__interval]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"contact-moj-production\"}[$__interval]) > 0)",
+              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"${namespace}\"}[$__interval]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"${namespace}\"}[$__interval]) > 0)",
               "format": "time_series",
               "interval": "30s",
               "intervalFactor": 2,
@@ -519,7 +558,6 @@ data:
           "datasource": {
             "uid": "$datasource"
           },
-          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -606,7 +644,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='contact-moj-production'}[$__interval]))",
+              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
@@ -618,7 +656,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "avg(kube_pod_container_resource_requests_cpu_cores{namespace='contact-moj-production'})  ",
+              "expr": "avg(kube_pod_container_resource_requests_cpu_cores{namespace='${namespace}'})  ",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -631,7 +669,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "avg(kube_pod_container_resource_limits_cpu_cores{namespace='contact-moj-production'})",
+              "expr": "avg(kube_pod_container_resource_limits_cpu_cores{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
@@ -647,7 +685,6 @@ data:
           "datasource": {
             "uid": "$datasource"
           },
-          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -750,7 +787,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='contact-moj-production'})",
+              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
@@ -762,7 +799,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='contact-moj-production'})",
+              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -775,7 +812,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='contact-moj-production'})",
+              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='${namespace}n'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
@@ -805,7 +842,6 @@ data:
             "type": "cloudwatch",
             "uid": "P896B4444D3F0DAB8"
           },
-          "description": "RDS dashboard - https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=cloud-platform-0ea615e584938140",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -899,7 +935,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "DBInstanceIdentifier": "cloud-platform-0ea615e584938140"
+                "DBInstanceIdentifier": "$DBInstanceIdentifier"
               },
               "functions": [],
               "group": {
@@ -931,7 +967,7 @@ data:
                 "filter": ""
               },
               "dimensions": {
-                "DBInstanceIdentifier": "cloud-platform-0ea615e584938140"
+                "DBInstanceIdentifier": "$DBInstanceIdentifier"
               },
               "functions": [],
               "group": {
@@ -966,7 +1002,6 @@ data:
             "type": "cloudwatch",
             "uid": "P896B4444D3F0DAB8"
           },
-          "description": "Elasticache dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-54ed695970f9c73a-001",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1056,7 +1091,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "CacheClusterId": "cp-54ed695970f9c73a-001"
+                "CacheClusterId": "$CacheClusterId"
               },
               "expression": "",
               "id": "",
@@ -1080,7 +1115,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "CacheClusterId": "cp-54ed695970f9c73a-001"
+                "CacheClusterId": "$CacheClusterId"
               },
               "expression": "",
               "hide": false,
@@ -1127,6 +1162,35 @@ data:
             "regex": "",
             "skipUrlSync": false,
             "type": "datasource"
+          },
+          # AWS Elasticache
+          # Set CacheClusterId to correct value for this namespace
+          # If this namespace does not use elasticache then the related panel and dashboard link should be removed
+          {
+            "hide": 2,
+            "name": "CacheClusterId",
+            "query": "cp-54ed695970f9c73a-001",
+            "skipUrlSync": false,
+            "type": "constant"
+          },
+          # AWS RDS
+          # Set DBInstanceIdentifier to correct value for this namespace
+          # If this namespace does not use RDS then the related panel and dashboard link should be removed
+          {
+            "hide": 2,
+            "name": "DBInstanceIdentifier",
+            "query": "cloud-platform-0ea615e584938140",
+            "skipUrlSync": false,
+            "type": "constant"
+          },
+          # Namespace
+          # Set namespace to match this namespace
+          {
+            "hide": 2,
+            "name": "namespace",
+            "query": "contact-moj-production",
+            "skipUrlSync": false,
+            "type": "constant"
           }
         ]
       },
