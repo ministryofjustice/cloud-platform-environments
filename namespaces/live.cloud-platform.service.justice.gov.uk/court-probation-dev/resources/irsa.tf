@@ -60,6 +60,7 @@ module "irsa" {
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
     { sqs_ccm = module.court-case-matcher-queue.irsa_policy_arn },
     { sqs_ccm_dlq = module.court-case-matcher-dead-letter-queue.irsa_policy_arn },
+    { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
     { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
     { sqs_ccs_dlq = module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn },
     { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
