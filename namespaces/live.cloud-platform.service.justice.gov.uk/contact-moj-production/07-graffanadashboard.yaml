@@ -288,8 +288,7 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -390,8 +389,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace = \"contact-moj-production\"}[$__interval])) by (status)",
               "format": "time_series",
@@ -406,8 +404,7 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -492,8 +489,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"contact-moj-production\"}[$__interval]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"contact-moj-production\"}[$__interval]) > 0)",
               "format": "time_series",
@@ -521,10 +517,9 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "$datasource"
           },
-          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production",
+          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -609,8 +604,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='contact-moj-production'}[$__interval]))",
               "format": "time_series",
@@ -622,8 +616,7 @@ data:
             },
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "avg(kube_pod_container_resource_requests_cpu_cores{namespace='contact-moj-production'})  ",
               "format": "time_series",
@@ -636,8 +629,7 @@ data:
             },
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "avg(kube_pod_container_resource_limits_cpu_cores{namespace='contact-moj-production'})",
               "format": "time_series",
@@ -653,10 +645,9 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "$datasource"
           },
-          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?var-namespace=contact-moj-production",
+          "description": "Resource dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?var-namespace=contact-moj-production",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -757,8 +748,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='contact-moj-production'})",
               "format": "time_series",
@@ -770,8 +760,7 @@ data:
             },
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='contact-moj-production'})",
               "format": "time_series",
@@ -784,8 +773,7 @@ data:
             },
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "$datasource"
               },
               "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='contact-moj-production'})",
               "format": "time_series",
@@ -975,63 +963,64 @@ data:
         },
         {
           "datasource": {
-            "uid": "P896B4444D3F0DAB8",
-            "type": "cloudwatch"
+            "type": "cloudwatch",
+            "uid": "P896B4444D3F0DAB8"
           },
+          "description": "Elasticache dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-54ed695970f9c73a-001",
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
               "custom": {
-                "drawStyle": "line",
-                "lineInterpolation": "linear",
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
                 "barAlignment": 0,
-                "lineWidth": 2,
+                "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
-                "spanNulls": false,
-                "insertNulls": false,
-                "showPoints": "never",
-                "pointSize": 5,
-                "stacking": {
-                  "mode": "none",
-                  "group": "A"
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "axisPlacement": "auto",
-                "axisLabel": "",
-                "axisColorMode": "text",
-                "axisBorderShow": false,
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "axisCenteredZero": false,
-                "hideFrom": {
-                  "tooltip": false,
-                  "viz": false,
-                  "legend": false
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
-              "color": {
-                "mode": "palette-classic"
-              },
+              "links": [],
               "mappings": [],
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "value": null,
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
-                    "value": 80,
-                    "color": "red"
+                    "color": "red",
+                    "value": 80
                   }
                 ]
               },
-              "links": [],
-              "unit": "none",
-              "min": 0
+              "unit": "none"
             },
             "overrides": []
           },
@@ -1043,20 +1032,20 @@ data:
           },
           "id": 23,
           "options": {
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            },
             "legend": {
-              "showLegend": true,
-              "displayMode": "table",
-              "placement": "bottom",
               "calcs": [
                 "mean",
                 "lastNotNull",
                 "max",
                 "min"
-              ]
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -1086,46 +1075,63 @@ data:
               "statistic": "Average"
             },
             {
-              "id": "",
-              "region": "default",
-              "logGroups": [],
-              "queryMode": "Metrics",
-              "namespace": "AWS/ElastiCache",
-              "metricName": "CurrItems",
-              "expression": "",
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
               "dimensions": {
                 "CacheClusterId": "cp-54ed695970f9c73a-001"
               },
-              "statistic": "Average",
-              "period": "",
-              "metricQueryType": 0,
-              "metricEditorMode": 0,
-              "sqlExpression": "",
-              "matchExact": true,
-              "datasource": {
-                "uid": "P896B4444D3F0DAB8",
-                "type": "cloudwatch"
-              },
-              "refId": "B",
+              "expression": "",
               "hide": false,
-              "label": ""
+              "id": "",
+              "label": "",
+              "logGroups": [],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "CurrItems",
+              "metricQueryType": 0,
+              "namespace": "AWS/ElastiCache",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
             }
           ],
           "title": "Elasticache Redis SaveInProgress / CurrItems",
-          "type": "timeseries",
-          "timeFrom": null,
-          "timeShift": null,
-          "description": "Elasticache dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-54ed695970f9c73a-001"
+          "type": "timeseries"
         }
       ],
       "refresh": false,
       "schemaVersion": 39,
       "tags": [],
       "templating": {
-        "list": []
+        "list": [
+          {
+            "current": {
+              "selected": true,
+              "text": "Thanos",
+              "value": "P5DCFC7561CCDE821"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          }
+        ]
       },
       "time": {
-        "from": "now-1h",
+        "from": "now-2d",
         "to": "now"
       },
       "timepicker": {
@@ -1156,6 +1162,6 @@ data:
       "timezone": "browser",
       "title": "contact-moj production",
       "uid": "SNDaZqRGk",
-      "version": 12,
+      "version": 38,
       "weekStart": ""
     }
