@@ -28,10 +28,10 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.small"
+  db_engine                 = "postgres"
+  db_engine_version         = "16.4"
+  rds_family                = "postgres16"
+  db_instance_class         = "db.t4g.micro"
 
   # Set the database_name of the source db
   db_name = var.db_name
@@ -44,23 +44,28 @@ module "read_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.3.0"
 
+  # VPC configuration
   vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
+
+  # Tags
   application            = var.application
-  is_production          = var.is_production
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
+  team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  # PostgreSQL specifics
+  db_engine                 = "postgres"
+  db_engine_version         = "16.4"
+  rds_family                = "postgres16"
+  db_instance_class         = "db.t4g.micro"
 
   # It is mandatory to set the below values to create read replica instance
-
-  # Set the database_name of the source db
-  db_name = module.rds.database_name
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
@@ -116,7 +121,6 @@ resource "kubernetes_secret" "read_replica" {
     rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
     rds_instance_address  = module.read_replica[0].rds_instance_address
   }
-
 }
 
 # Configmap to store non-sensitive data related to the RDS instance
