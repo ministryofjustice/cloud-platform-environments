@@ -41,7 +41,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.3.0"
 
   # VPC configuration
@@ -66,6 +66,9 @@ module "read_replica" {
   db_instance_class         = "db.t4g.micro"
 
   # It is mandatory to set the below values to create read replica instance
+
+  # Set the database_name of the source db
+  db_name = module.rds.database_name
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
@@ -109,7 +112,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
