@@ -809,7 +809,7 @@ data:
           },
           "id": 20,
           "panels": [],
-          "title": "AWS RDS",
+          "title": "AWS",
           "type": "row"
         },
         {
@@ -817,7 +817,7 @@ data:
             "type": "cloudwatch",
             "uid": "P896B4444D3F0DAB8"
           },
-          "description": "RDS Dashboard - https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=cloud-platform-0ea615e584938140",
+          "description": "RDS dashboard - https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=cloud-platform-0ea615e584938140",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -970,8 +970,152 @@ data:
               "statistic": "Average"
             }
           ],
-          "title": "DatabaseConnections/DiskQueueDepth",
+          "title": "RDS DatabaseConnections/DiskQueueDepth",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "uid": "P896B4444D3F0DAB8",
+            "type": "cloudwatch"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "drawStyle": "line",
+                "lineInterpolation": "linear",
+                "barAlignment": 0,
+                "lineWidth": 2,
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "spanNulls": false,
+                "insertNulls": false,
+                "showPoints": "never",
+                "pointSize": 5,
+                "stacking": {
+                  "mode": "none",
+                  "group": "A"
+                },
+                "axisPlacement": "auto",
+                "axisLabel": "",
+                "axisColorMode": "text",
+                "axisBorderShow": false,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "axisCenteredZero": false,
+                "hideFrom": {
+                  "tooltip": false,
+                  "viz": false,
+                  "legend": false
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "color": {
+                "mode": "palette-classic"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "value": null,
+                    "color": "green"
+                  },
+                  {
+                    "value": 80,
+                    "color": "red"
+                  }
+                ]
+              },
+              "links": [],
+              "unit": "none",
+              "min": 0
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 16
+          },
+          "id": 23,
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            },
+            "legend": {
+              "showLegend": true,
+              "displayMode": "table",
+              "placement": "bottom",
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max",
+                "min"
+              ]
+            }
+          },
+          "pluginVersion": "10.4.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "CacheClusterId": "cp-54ed695970f9c73a-001"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SaveInProgress",
+              "metricQueryType": 0,
+              "namespace": "AWS/ElastiCache",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "id": "",
+              "region": "default",
+              "logGroups": [],
+              "queryMode": "Metrics",
+              "namespace": "AWS/ElastiCache",
+              "metricName": "CurrItems",
+              "expression": "",
+              "dimensions": {
+                "CacheClusterId": "cp-54ed695970f9c73a-001"
+              },
+              "statistic": "Average",
+              "period": "",
+              "metricQueryType": 0,
+              "metricEditorMode": 0,
+              "sqlExpression": "",
+              "matchExact": true,
+              "datasource": {
+                "uid": "P896B4444D3F0DAB8",
+                "type": "cloudwatch"
+              },
+              "refId": "B",
+              "hide": false,
+              "label": ""
+            }
+          ],
+          "title": "Elasticache Redis SaveInProgress / CurrItems",
+          "type": "timeseries",
+          "timeFrom": null,
+          "timeShift": null,
+          "description": "Elasticache dashboard: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-54ed695970f9c73a-001"
         }
       ],
       "refresh": false,
