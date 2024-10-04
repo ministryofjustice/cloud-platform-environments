@@ -28,40 +28,6 @@ module "court-cases-queue" {
   }
 }
 
-# resource "aws_sqs_queue_policy" "court-cases-queue-policy" {
-#   queue_url = module.court-cases-queue.sqs_id
-#
-#   policy = <<EOF
-#   {
-#     "Version": "2012-10-17",
-#     "Id": "${module.court-cases-queue.sqs_arn}/SQSDefaultPolicy",
-#     "Statement":
-#       [
-#         {
-#           "Effect": "Allow",
-#           "Principal": {"AWS": "*"},
-#           "Resource": "${module.court-cases-queue.sqs_arn}",
-#           "Action": "SQS:SendMessage",
-#           "Condition":
-#             {
-#               "ArnEquals":
-#               {
-#                 "aws:SourceArn": "${module.court-cases.topic_arn}"
-#               }
-#             }
-#         }
-#       ]
-#   }
-# EOF
-# }
-
-# resource "aws_sns_topic_subscription" "court_cases_subscription" {
-#   provider  = aws.london
-#   topic_arn = module.court-cases.topic_arn
-#   protocol  = "sqs"
-#   endpoint  = module.court-cases-queue.sqs_arn
-# }
-
 module "court-cases-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
