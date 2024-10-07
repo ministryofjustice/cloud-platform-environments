@@ -12,6 +12,7 @@ module "dps_rds" {
   db_instance_class           = "db.t3.medium"
   db_engine_version           = "14"
   allow_major_version_upgrade = "false"
+  performance_insights_enabled = "true"
 }
 
 resource "random_id" "risk_profiler_role_password" {
