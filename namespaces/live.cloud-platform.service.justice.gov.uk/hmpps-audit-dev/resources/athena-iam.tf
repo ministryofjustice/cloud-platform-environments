@@ -1,4 +1,3 @@
-# Generate an additional IAM user to manage APIGW
 resource "random_id" "athena-id" {
   byte_length = 16
 }
@@ -36,16 +35,7 @@ data "aws_iam_policy_document" "athena" {
       "glue:GetPartitions",
     ]
 
-    resources = [
-      aws_athena_workgroup.queries.arn,
-      "${aws_athena_workgroup.queries.arn}/*",
-      "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",
-      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}",
-      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}/*",
-      module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*",
-    ]
+    resources = [*]
   }
 }
 
