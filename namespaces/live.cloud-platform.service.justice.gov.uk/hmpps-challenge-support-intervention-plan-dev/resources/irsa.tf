@@ -22,6 +22,9 @@ module "irsa" {
     {
       rds = module.rds.irsa_policy_arn
     },
+    {
+      sqs = module.hmpps_csip_domain_events_queue.irsa_policy_arn
+    },
     local.sns_policies
   )
 
