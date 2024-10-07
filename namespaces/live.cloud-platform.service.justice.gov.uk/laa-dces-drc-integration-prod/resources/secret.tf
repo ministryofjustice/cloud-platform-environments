@@ -15,6 +15,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "drc-client-auth-tls"
     },
+    "ca-crt" = {
+      description             = "ca.crt for mTLS client certificate validation [laa-dces-drc-integration-prod]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ca-crt"
+    },
     "feature" = {
       description             = "Feature flag variables [laa-dces-drc-integration-prod]"
       recovery_window_in_days = 7
