@@ -80,9 +80,11 @@ spec:
             message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 3 seconds for a 5 minute period."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
           expr: >-
-            rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])/
+            (rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])/
             rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])
-            > 3
+            > 3) and (rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])/
+            rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-prod',method='GET'}[1m])
+            < +Inf)
           for: 5m
           labels:
             severity: find-moj-data-prod
