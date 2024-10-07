@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "athena" {
       "glue:GetPartitions",
     ]
 
-    resources = [*]
+    resources = ["*"]
   }
 }
 
