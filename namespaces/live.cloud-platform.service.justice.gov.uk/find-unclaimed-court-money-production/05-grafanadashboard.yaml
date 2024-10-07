@@ -1,6 +1,6 @@
 # To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
 # There are instructions in the templating section below for setting variables for your namespace
-# Use kubectl apply -f 05-graffanadashboard.yaml - or go through cloud-platform process to apply changes
+# Use kubectl apply -f 05-grafanadashboard.yaml - or go through cloud-platform process to apply changes
 apiVersion: v1
 kind: ConfigMap
 metadata:
