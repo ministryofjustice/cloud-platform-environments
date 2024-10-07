@@ -988,7 +988,9 @@ data:
       ],
       "refresh": false,
       "schemaVersion": 39,
-      "tags": [],
+      "tags": [
+        "cdpt"
+      ],
       "templating": {
         "list": [
           {
