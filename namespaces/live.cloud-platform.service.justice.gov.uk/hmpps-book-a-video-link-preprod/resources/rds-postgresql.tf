@@ -74,7 +74,7 @@ resource "kubernetes_config_map" "rds" {
 resource "kubernetes_secret" "rds_refresh_creds" {
   metadata {
     name      = "rds-postgresql-instance-output-preprod"
-    namespace = "book-a-video-link-prod"
+    namespace = "hmpps-book-a-video-link-prod"
   }
 
   data = {
