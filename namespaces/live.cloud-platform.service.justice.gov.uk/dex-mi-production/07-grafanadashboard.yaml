@@ -632,12 +632,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
+              "expr": "sum by (pod)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -775,12 +775,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='${namespace}'})",
+              "expr": "sum by(pod)(container_memory_usage_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
