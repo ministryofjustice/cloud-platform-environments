@@ -1,6 +1,6 @@
 # To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
-# There are instructions in the templating section below for setting variables for your namespace
-# Use kubectl apply -f 07-grafanadashboard.yaml - or go through cloud-platform process to apply changes
+# There are variables in the templating section that need to be changed. If they are not relevant then the related sections will also need to be deleted
+# Use kubectl apply -f 07-grafanadashboard.yaml - or go through cloud-platform process to apply apiVersion: v1
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -32,7 +32,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 153,
+      "id": 176,
       "links": [
         {
           "asDropdown": false,
@@ -57,6 +57,18 @@ data:
           "tooltip": "",
           "type": "link",
           "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?var-dbinstanceidentifier=${DBInstanceIdentifier}"
+        },
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": false,
+          "keepTime": true,
+          "tags": [],
+          "targetBlank": true,
+          "title": "S3 dashboard",
+          "tooltip": "",
+          "type": "link",
+          "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSS31iWk/aws-s3?var-bucket=${bucket}"
         }
       ],
       "panels": [
@@ -583,6 +595,7 @@ data:
                   "mode": "off"
                 }
               },
+              "fieldMinMax": false,
               "links": [],
               "mappings": [],
               "thresholds": {
@@ -603,7 +616,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 14,
             "w": 12,
             "x": 0,
             "y": 8
@@ -619,11 +632,13 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "multi",
-              "sort": "none"
+              "sort": "desc"
             }
           },
           "pluginVersion": "10.4.0",
@@ -632,12 +647,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
+              "expr": "sum by (pod)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -746,7 +761,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 14,
             "w": 12,
             "x": 12,
             "y": 8
@@ -762,7 +777,9 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "multi",
@@ -775,12 +792,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='${namespace}'})",
+              "expr": "sum by(pod)(container_memory_usage_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -818,7 +835,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 22
           },
           "id": 20,
           "panels": [],
@@ -891,7 +908,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 23
           },
           "id": 18,
           "options": {
@@ -984,6 +1001,139 @@ data:
           ],
           "title": "RDS DatabaseConnections/DiskQueueDepth",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "P896B4444D3F0DAB8"
+          },
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 30
+          },
+          "hiddenSeries": false,
+          "id": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "10.4.0",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "BucketName": "$bucket",
+                "StorageType": "StandardStorage"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "highResolution": false,
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "metricEditorMode": 0,
+              "metricName": "BucketSizeBytes",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/S3",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "default",
+              "returnData": false,
+              "statistic": "Average"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "BucketSizeBytes",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "refresh": false,
@@ -995,7 +1145,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "Thanos",
               "value": "P5DCFC7561CCDE821"
             },
@@ -1012,9 +1162,6 @@ data:
             "skipUrlSync": false,
             "type": "datasource"
           },
-          # AWS RDS
-          # Set DBInstanceIdentifier to correct value for this namespace
-          # If this namespace does not use RDS then the related panel and dashboard link should be removed
           {
             "hide": 2,
             "name": "DBInstanceIdentifier",
@@ -1022,8 +1169,13 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           },
-          # Namespace
-          # Set namespace to match this namespace
+          {
+            "hide": 2,
+            "name": "bucket",
+            "query": "cloud-platform-df1338a7e64a4768a6cfac6c7cbeccde",
+            "skipUrlSync": false,
+            "type": "constant"
+          },
           {
             "hide": 2,
             "name": "namespace",
@@ -1031,6 +1183,7 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           }
+
         ]
       },
       "time": {
@@ -1065,6 +1218,6 @@ data:
       "timezone": "browser",
       "title": "Peoplefinder Production Dashboard",
       "uid": "807d6936842a477f814313c5d09c5f1a",
-      "version": 2,
+      "version": 3,
       "weekStart": ""
     }
