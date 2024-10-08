@@ -73,6 +73,7 @@ data "aws_iam_policy_document" "document" {
       "glue:UpdateTable",
       "glue:DeleteTable",
       "glue:GetPartitions",
+      "glue:GetPartition",
       "glue:BatchCreatePartition",
       "glue:GetDatabases",
       "glue:CreateTable",
