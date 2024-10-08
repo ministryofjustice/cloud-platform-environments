@@ -33,6 +33,7 @@ data "aws_iam_policy_document" "athena" {
       "glue:CreateTable",
       "glue:DeleteTable",
       "glue:GetPartitions",
+      "glue:GetPartition",
     ]
 
     resources = ["*"]
