@@ -1,10 +1,7 @@
 resource "aws_sns_topic_subscription" "common-platform-and-delius-queue-subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  topic_arn = data.aws_ssm_parameter.court-topic.value
   protocol  = "sqs"
   endpoint  = module.common-platform-and-delius-queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
-  })
 }
 
 module "common-platform-and-delius-queue" {
