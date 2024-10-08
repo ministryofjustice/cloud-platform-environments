@@ -33,9 +33,8 @@ module "rds-instance-migrated" {
 
   # enable performance insights
   performance_insights_enabled = false
-
-#  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-sandbox-dev-encrypted-for-cp"
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-PRODUCTION_PLACEHOLDER-cp"
+  
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-prod-cutover-snapshot-08102024-final"
 
   providers = {
     aws = aws.london
