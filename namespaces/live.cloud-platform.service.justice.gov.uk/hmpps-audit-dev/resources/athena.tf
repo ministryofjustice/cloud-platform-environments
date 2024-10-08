@@ -1,5 +1,6 @@
 resource "aws_glue_catalog_database" "audit_database" {
   name = "audit_${var.environment-name}"
+  location_uri = "s3://${module.s3.bucket_name}/"
 }
 
 resource "aws_athena_workgroup" "queries" {
