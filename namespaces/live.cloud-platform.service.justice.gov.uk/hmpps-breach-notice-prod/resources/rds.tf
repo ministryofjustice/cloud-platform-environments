@@ -16,7 +16,7 @@ module "rds" {
   db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "16.1"
+  db_engine_version      = "16.3"
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   maintenance_window = var.maintenance_window
