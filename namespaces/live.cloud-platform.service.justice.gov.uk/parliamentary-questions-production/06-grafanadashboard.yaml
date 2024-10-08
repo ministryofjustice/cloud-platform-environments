@@ -32,7 +32,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 85,
+      "id": 174,
       "links": [
         {
           "asDropdown": false,
@@ -65,10 +65,10 @@ data:
           "keepTime": true,
           "tags": [],
           "targetBlank": true,
-          "title": "Elasticache dashboard",
+          "title": "S3 dashboard",
           "tooltip": "",
           "type": "link",
-          "url": " https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=${CacheClusterId}"
+          "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSS31iWk/aws-s3?var-bucket=${bucket}"
         }
       ],
       "panels": [
@@ -268,7 +268,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 6,
             "w": 8,
             "x": 0,
             "y": 1
@@ -405,7 +405,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 6,
             "w": 8,
             "x": 8,
             "y": 1
@@ -502,7 +502,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 6,
             "w": 8,
             "x": 16,
             "y": 1
@@ -547,7 +547,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 8
+            "y": 7
           },
           "id": 21,
           "panels": [],
@@ -595,6 +595,7 @@ data:
                   "mode": "off"
                 }
               },
+              "fieldMinMax": false,
               "links": [],
               "mappings": [],
               "thresholds": {
@@ -615,10 +616,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 14,
             "w": 12,
             "x": 0,
-            "y": 9
+            "y": 8
           },
           "id": 17,
           "interval": "30s",
@@ -631,11 +632,13 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "multi",
-              "sort": "none"
+              "sort": "desc"
             }
           },
           "pluginVersion": "10.4.0",
@@ -758,10 +761,10 @@ data:
             ]
           },
           "gridPos": {
-            "h": 10,
+            "h": 14,
             "w": 12,
             "x": 12,
-            "y": 9
+            "y": 8
           },
           "id": 16,
           "interval": "30s",
@@ -774,7 +777,9 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Mean",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "multi",
@@ -830,7 +835,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 19
+            "y": 22
           },
           "id": 20,
           "panels": [],
@@ -903,7 +908,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 23
           },
           "id": 18,
           "options": {
@@ -1030,7 +1035,7 @@ data:
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": false,
+                "spanNulls": true,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -1039,7 +1044,6 @@ data:
                   "mode": "off"
                 }
               },
-              "links": [],
               "mappings": [],
               "min": 0,
               "thresholds": {
@@ -1055,7 +1059,7 @@ data:
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -1063,9 +1067,9 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 23
           },
-          "id": 23,
+          "id": 1,
           "options": {
             "legend": {
               "calcs": [
@@ -1086,60 +1090,52 @@ data:
           "pluginVersion": "10.4.0",
           "targets": [
             {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
               "datasource": {
                 "type": "cloudwatch",
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "CacheClusterId": "$CacheClusterId"
+                "BucketName": "$bucket",
+                "StorageType": "StandardStorage"
               },
               "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "highResolution": false,
+              "host": {
+                "filter": ""
+              },
               "id": "",
+              "item": {
+                "filter": ""
+              },
               "label": "",
-              "logGroups": [],
-              "matchExact": true,
               "metricEditorMode": 0,
-              "metricName": "SaveInProgress",
+              "metricName": "BucketSizeBytes",
               "metricQueryType": 0,
-              "namespace": "AWS/ElastiCache",
+              "mode": 0,
+              "namespace": "AWS/S3",
+              "options": {
+                "showDisabledItems": false
+              },
               "period": "",
-              "queryMode": "Metrics",
               "refId": "A",
               "region": "default",
-              "sqlExpression": "",
-              "statistic": "Average"
-            },
-            {
-              "datasource": {
-                "type": "cloudwatch",
-                "uid": "P896B4444D3F0DAB8"
-              },
-              "dimensions": {
-                "CacheClusterId": "$CacheClusterId"
-              },
-              "expression": "",
-              "hide": false,
-              "id": "",
-              "label": "",
-              "logGroups": [],
-              "matchExact": true,
-              "metricEditorMode": 0,
-              "metricName": "CurrItems",
-              "metricQueryType": 0,
-              "namespace": "AWS/ElastiCache",
-              "period": "",
-              "queryMode": "Metrics",
-              "refId": "B",
-              "region": "default",
-              "sqlExpression": "",
+              "returnData": false,
               "statistic": "Average"
             }
           ],
-          "title": "Elasticache Redis SaveInProgress / CurrItems",
+          "title": "BucketSizeBytes",
           "type": "timeseries"
         }
       ],
-      "refresh": "10s",
+      "refresh": false,
       "schemaVersion": 39,
       "tags": [
         "cdpt"
@@ -1167,22 +1163,22 @@ data:
           },
           {
             "hide": 2,
-            "name": "CacheClusterId",
-            "query": "cp-1c62933d19a44e0f-001",
+            "name": "DBInstanceIdentifier",
+            "query": "cloud-platform-0f0b5ea8e809e380",
             "skipUrlSync": false,
             "type": "constant"
           },
           {
             "hide": 2,
-            "name": "DBInstanceIdentifier",
-            "query": "cloud-platform-b9bfecf77b98c1e2",
+            "name": "bucket",
+            "query": "cloud-platform-df1338a7e64a4768a6cfac6c7cbeccde",
             "skipUrlSync": false,
             "type": "constant"
           },
           {
             "hide": 2,
             "name": "namespace",
-            "query": "parliamentary-questions-production",
+            "query": "peoplefinder-production",
             "skipUrlSync": false,
             "type": "constant"
           }
@@ -1218,8 +1214,8 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Parliamentary Questions Dashboard",
-      "uid": "f272000c3af848139d4d90c8234f5c5a",
-      "version": 7,
+      "title": "Peoplefinder Production Dashboard",
+      "uid": "807d6936842a477f814313c5d09c5f1a",
+      "version": 2,
       "weekStart": ""
     }
