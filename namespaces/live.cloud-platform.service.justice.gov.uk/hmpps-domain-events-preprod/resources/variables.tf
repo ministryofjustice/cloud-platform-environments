@@ -42,7 +42,6 @@ variable "additional_topic_clients" {
     "hmpps-tier-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
-    "offender-case-notes-preprod",
     "offender-management-preprod",
     "visit-someone-in-prison-backend-svc-preprod",
   ]
