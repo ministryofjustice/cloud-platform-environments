@@ -1,5 +1,5 @@
 # To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
-# There are instructions in the templating section below for setting variables for your namespace
+# There are variables in the templating section that need to be changed. If they are not relevant then the related sections will also need to be deleted
 # Use kubectl apply -f 06-grafanadashboard.yaml - or go through cloud-platform process to apply changes
 apiVersion: v1
 kind: ConfigMap
@@ -1011,10 +1011,7 @@ data:
             "regex": "",
             "skipUrlSync": false,
             "type": "datasource"
-          }
-          # AWS RDS
-          # Set DBInstanceIdentifier to correct value for this namespace
-          # If this namespace does not use RDS then the related panel and dashboard link should be removed
+          },
           {
             "hide": 2,
             "name": "DBInstanceIdentifier",
@@ -1022,8 +1019,6 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           },
-          # Namespace
-          # Set namespace to match this namespace
           {
             "hide": 2,
             "name": "namespace",
