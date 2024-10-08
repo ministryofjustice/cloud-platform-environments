@@ -47,6 +47,7 @@ resource "pingdom_check" "pingdom" {
     "probation-search-and-delius",
     "core-person-record-and-delius",
     "subject-access-requests-and-delius",
+    "common-platform-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
