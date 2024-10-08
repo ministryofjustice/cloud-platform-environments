@@ -45,6 +45,21 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
+  statement {
+    sid     = "CourtTopicToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_ssm_parameter.court-topic.value]
+    }
+    resources = ["*"]
+  }
 }
 
 # Policies to manage queues e.g. view and redrive messages
@@ -105,7 +120,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.unpaid-work-and-delius-dlq,
       module.workforce-allocations-to-delius-dlq,
     ],
-#     others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
+    #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
     sid    = "QueueManagementList"
