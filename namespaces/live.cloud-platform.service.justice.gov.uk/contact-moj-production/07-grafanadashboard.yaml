@@ -1,6 +1,6 @@
 # To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
-# There are instructions in the templating section below for setting variables for your namespace
-# Use kubectl apply -f 07-graffanadashboard.yaml - or go through cloud-platform process to apply changes
+# There are variables in the templating section that need to be changed. If they are not relevant then the related sections will also need to be deleted
+# Use kubectl apply -f 07-grafanadashboard.yaml - or go through cloud-platform process to apply changes
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -32,7 +32,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 153,
+      "id": 169,
       "links": [
         {
           "asDropdown": false,
@@ -615,7 +615,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 12,
             "x": 0,
             "y": 8
@@ -644,12 +644,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
+              "expr": "sum by (pod)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -758,7 +758,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 12,
             "x": 12,
             "y": 8
@@ -787,12 +787,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='${namespace}'})",
+              "expr": "sum by(pod)(container_memory_usage_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -830,7 +830,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 18
           },
           "id": 20,
           "panels": [],
@@ -903,7 +903,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 19
           },
           "id": 18,
           "options": {
@@ -1063,7 +1063,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 16
+            "y": 19
           },
           "id": 23,
           "options": {
@@ -1141,12 +1141,14 @@ data:
       ],
       "refresh": false,
       "schemaVersion": 39,
-      "tags": [],
+      "tags": [
+        "cdpt"
+      ],
       "templating": {
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "Thanos",
               "value": "P5DCFC7561CCDE821"
             },
@@ -1163,9 +1165,6 @@ data:
             "skipUrlSync": false,
             "type": "datasource"
           },
-          # AWS Elasticache
-          # Set CacheClusterId to correct value for this namespace
-          # If this namespace does not use elasticache then the related panel and dashboard link should be removed
           {
             "hide": 2,
             "name": "CacheClusterId",
@@ -1173,9 +1172,6 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           },
-          # AWS RDS
-          # Set DBInstanceIdentifier to correct value for this namespace
-          # If this namespace does not use RDS then the related panel and dashboard link should be removed
           {
             "hide": 2,
             "name": "DBInstanceIdentifier",
@@ -1183,8 +1179,6 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           },
-          # Namespace
-          # Set namespace to match this namespace
           {
             "hide": 2,
             "name": "namespace",
@@ -1226,6 +1220,6 @@ data:
       "timezone": "browser",
       "title": "contact-moj production",
       "uid": "SNDaZqRGk",
-      "version": 38,
+      "version": 2,
       "weekStart": ""
     }
