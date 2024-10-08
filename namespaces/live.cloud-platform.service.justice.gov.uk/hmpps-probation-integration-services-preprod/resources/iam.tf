@@ -1,47 +1,62 @@
 # Policy to allow SNS -> SQS
 data "aws_iam_policy_document" "sqs_queue_policy_document" {
   statement {
-    sid     = "DomainEventsToQueue"
-    effect  = "Allow"
+    sid    = "DomainEventsToQueue"
+    effect = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = ["*"]
     }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+      values = [data.aws_sns_topic.hmpps-domain-events.arn]
     }
     resources = ["*"]
   }
   statement {
-    sid     = "PrisonOffenderEventsToQueue"
-    effect  = "Allow"
+    sid    = "PrisonOffenderEventsToQueue"
+    effect = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = ["*"]
     }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.prison-offender-events.arn]
+      values = [data.aws_sns_topic.prison-offender-events.arn]
     }
     resources = ["*"]
   }
   statement {
-    sid     = "ProbationOffenderEventsToQueue"
-    effect  = "Allow"
+    sid    = "ProbationOffenderEventsToQueue"
+    effect = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = ["*"]
     }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events.arn]
+      values = [data.aws_sns_topic.probation-offender-events.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid    = "CourtTopicToQueue"
+    effect = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values = [data.aws_ssm_parameter.court-topic.value]
     }
     resources = ["*"]
   }
@@ -105,7 +120,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.unpaid-work-and-delius-dlq,
       module.workforce-allocations-to-delius-dlq,
     ],
-#     others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
+    #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
     sid    = "QueueManagementList"
