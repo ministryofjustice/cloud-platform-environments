@@ -1,5 +1,5 @@
 # To use this dashboard in another namespace, use the instructions here - https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/prometheus.html#save-the-dashboard-json-in-a-configmap
-# There are instructions in the templating section below for setting variables for your namespace
+# There are variables in the templating section that need to be changed. If they are not relevant then the related sections will also need to be deleted
 # Use kubectl apply -f 06-grafanadashboard.yaml - or go through cloud-platform process to apply changes
 apiVersion: v1
 kind: ConfigMap
@@ -32,7 +32,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 153,
+      "id": 85,
       "links": [
         {
           "asDropdown": false,
@@ -256,7 +256,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 0,
             "y": 1
@@ -393,7 +393,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 8,
             "y": 1
@@ -490,7 +490,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 16,
             "y": 1
@@ -535,7 +535,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 8
           },
           "id": 21,
           "panels": [],
@@ -603,10 +603,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 12,
             "x": 0,
-            "y": 8
+            "y": 9
           },
           "id": 17,
           "interval": "30s",
@@ -632,12 +632,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
+              "expr": "sum by (pod)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -746,10 +746,10 @@ data:
             ]
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 12,
             "x": 12,
-            "y": 8
+            "y": 9
           },
           "id": 16,
           "interval": "30s",
@@ -775,12 +775,12 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='${namespace}'})",
+              "expr": "sum by(pod)(container_memory_usage_bytes{namespace='${namespace}'})",
               "format": "time_series",
               "hide": false,
               "interval": "60s",
               "intervalFactor": 2,
-              "legendFormat": "Pod: {{pod_name}}",
+              "legendFormat": "Pod: {{pod}}",
               "refId": "A"
             },
             {
@@ -818,7 +818,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 19
           },
           "id": 20,
           "panels": [],
@@ -891,7 +891,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 20
           },
           "id": 18,
           "options": {
@@ -986,7 +986,7 @@ data:
           "type": "timeseries"
         }
       ],
-      "refresh": false,
+      "refresh": "10s",
       "schemaVersion": 39,
       "tags": [
         "cdpt"
@@ -995,7 +995,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "Thanos",
               "value": "P5DCFC7561CCDE821"
             },
@@ -1012,9 +1012,6 @@ data:
             "skipUrlSync": false,
             "type": "datasource"
           },
-          # AWS RDS
-          # Set DBInstanceIdentifier to correct value for this namespace
-          # If this namespace does not use RDS then the related panel and dashboard link should be removed
           {
             "hide": 2,
             "name": "DBInstanceIdentifier",
@@ -1022,12 +1019,10 @@ data:
             "skipUrlSync": false,
             "type": "constant"
           },
-          # Namespace
-          # Set namespace to match this namespace
           {
             "hide": 2,
             "name": "namespace",
-            "query": “parliamentary-questions-production",
+            "query": "parliamentary-questions-production",
             "skipUrlSync": false,
             "type": "constant"
           }
@@ -1065,6 +1060,6 @@ data:
       "timezone": "browser",
       "title": "Parliamentary Questions Dashboard",
       "uid": "f272000c3af848139d4d90c8234f5c5a",
-      "version": 2,
+      "version": 3,
       "weekStart": ""
     }
