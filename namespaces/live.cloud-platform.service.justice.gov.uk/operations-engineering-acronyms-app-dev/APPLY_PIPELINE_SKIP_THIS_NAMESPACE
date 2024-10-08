@@ -1,0 +1,9 @@
+Error: GET https://api.github.com/repos/ministryofjustice/operations-engineering-acronyms-app-dev/actions/secrets/public-key: 404 Not Found []
+
+
+  with module.serviceaccount.github_actions_secret.cluster-namespace["operations-engineering-acronyms-app-dev"],
+
+  on .terraform/modules/serviceaccount/main.tf line 101, in resource "github_actions_secret" "cluster-namespace":
+
+ 101: resource "github_actions_secret" "cluster-namespace" {
+
