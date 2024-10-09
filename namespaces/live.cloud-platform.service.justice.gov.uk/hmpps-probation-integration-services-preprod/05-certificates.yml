@@ -674,3 +674,18 @@ spec:
   dnsNames:
     - 9874bd14-preprod.hmpps.service.justice.gov.uk
     - common-platform-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ims-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: ims-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f7bfe89b-preprod.hmpps.service.justice.gov.uk
+    - ims-and-delius-preprod.hmpps.service.justice.gov.uk
