@@ -30,8 +30,6 @@ locals {
     (module.manage_soc_cases_probation_offender_events_queue.sqs_name)             = module.manage_soc_cases_probation_offender_events_queue.irsa_policy_arn,
     (module.manage_soc_cases_offender_events_dead_letter_queue.sqs_name)           = module.manage_soc_cases_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.manage_soc_cases_probation_offender_events_dead_letter_queue.sqs_name) = module.manage_soc_cases_probation_offender_events_dead_letter_queue.irsa_policy_arn,
-    (module.offender_case_notes_events_queue.sqs_name)                             = module.offender_case_notes_events_queue.irsa_policy_arn,
-    (module.offender_case_notes_events_dead_letter_queue.sqs_name)                 = module.offender_case_notes_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_categorisation_events_queue.sqs_name)                         = module.offender_categorisation_events_queue.irsa_policy_arn,
     (module.offender_categorisation_events_dead_letter_queue.sqs_name)             = module.offender_categorisation_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_categorisation_ui_events_queue.sqs_name)                      = module.offender_categorisation_ui_events_queue.irsa_policy_arn,
