@@ -251,30 +251,6 @@ spec:
 
     - name: resource-alert
       rules:
-        - alert: GMSCpuUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-preprod", container=~".+gms"}[5m])) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-preprod", container=~".+gms", unit="core"})) * 100  
-            > 90
-          for: 1m
-          labels:
-            severity: datahub_preprod
-        - alert: GMSMemUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-preprod"}) by (namespace,container,pod)  
-            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-preprod",unit="byte"}) by (namespace,container,pod) ) * 100 ) < +Inf )
-             > 80
-          for: 1m
-          labels:
-            severity: datahub_preprod
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
