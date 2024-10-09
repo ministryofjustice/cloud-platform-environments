@@ -9,12 +9,17 @@ spec:
   groups:
     - name: aws-resource-alert
       rules:
+        # RDS is switched off overnight. Limit the hours of the alert to avoid anomolous
+        # readings when it is turning on and off again.
         - alert: RDSLowStorage
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+          expr: >
+            (
+              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+            ) and ON() (hour() >= 8 <= 17)
           for: 5m
           labels:
             severity: datahub_preprod
