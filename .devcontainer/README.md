@@ -20,7 +20,7 @@ or
 
 ### GitHub Codespaces
 
-Launch from GitHub
+1. Launch from GitHub
 
 ### Locally
 
