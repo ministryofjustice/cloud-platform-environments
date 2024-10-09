@@ -61,7 +61,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
-          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-ed459d1d"} <= 3072
+          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-ed459d1d", node_id=""} <= 3072
           for: 5m
           labels:
             severity: datahub_test
