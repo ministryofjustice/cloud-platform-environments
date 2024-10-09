@@ -84,7 +84,7 @@ spec:
           expr: >-
             rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-preprod',method='GET'}[1m])/
             rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-preprod',method='GET'}[1m])
-            > 2
+            > 2 < +Inf
           for: 2m
           labels:
             severity: find-moj-data-preprod
