@@ -30,7 +30,7 @@ spec:
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/fd62dc4d9129290e7730434a55d0594d/laa-maat-orchestration?var-namespace=laa-maat-orchestration-prod
         - alert: Client Response Errors - 400 Bad request
-          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-maat-orchestration-prod"}[10m])) > 1
+          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-maat-orchestration-prod"}[10m])) > 10
           for: 1m
           labels:
             severity: laa-maat-orchestration-alerts-prod
