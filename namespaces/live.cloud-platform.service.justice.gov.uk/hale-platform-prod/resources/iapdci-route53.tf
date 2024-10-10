@@ -19,6 +19,6 @@ resource "kubernetes_secret" "iapdci_route53_zone_sec" {
 
   data = {
     zone_id = aws_route53_zone.iapdci_route53_zone.zone_id
-    nameservers = join(",", aws_route53_zone.advance_into_justice_route53_zone.name_servers)
+    nameservers = join(",", aws_route53_zone.iapdci_route53_zone.name_servers)
   }
 }
