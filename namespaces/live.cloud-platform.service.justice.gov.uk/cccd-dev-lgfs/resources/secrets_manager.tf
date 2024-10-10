@@ -10,7 +10,7 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "read-replica" = {
+    "cccd_env_vars" = {
       description             = "CCCD environment variables",
       recovery_window_in_days = 7
       k8s_secret_name         = "cccd-env-vars"
