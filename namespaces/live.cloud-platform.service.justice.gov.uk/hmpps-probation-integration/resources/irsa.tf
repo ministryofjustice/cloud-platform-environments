@@ -1,11 +1,11 @@
 data "aws_iam_policy" "sqs_access" {
   for_each = toset([
-    "probation-integration-dev-queue-policy",
-    "probation-integration-dev-dlq-policy",
-    "probation-integration-preprod-queue-policy",
-    "probation-integration-preprod-dlq-policy",
-    "probation-integration-prod-queue-policy",
-    "probation-integration-prod-dlq-policy",
+    "hmpps-probation-integration-services-dev-queue-policy",
+    "hmpps-probation-integration-services-dev-dlq-policy",
+    "hmpps-probation-integration-services-preprod-queue-policy",
+    "hmpps-probation-integration-services-preprod-dlq-policy",
+    "hmpps-probation-integration-services-prod-queue-policy",
+    "hmpps-probation-integration-services-prod-dlq-policy",
   ])
   name = each.value
 }
