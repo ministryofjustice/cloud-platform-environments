@@ -61,8 +61,8 @@ resource "kubernetes_secret" "rds_mssql" {
   }
 }
 
-resource "aws_db_option_group" "rds_mssql_backup_restore_option_group" {
-  name                     = "sqlserver-backup"
+resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
+  name                     = "sqlserver-backup-restore"
   option_group_description = "Enable SQL Server Backup/Restore"
   engine_name              = "sqlserver-ex"
   major_engine_version     = "16.00"
