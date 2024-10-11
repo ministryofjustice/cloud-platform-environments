@@ -1,14 +1,17 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-delius-core-dev-admin
-  namespace: hmpps-delius-core-dev
+  name: hmpps-contacts-prod-admin
+  namespace: hmpps-contacts-prod
 subjects:
   - kind: Group
-    name: "github:unilink"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hosting-migrations"
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-move-and-improve"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

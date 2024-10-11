@@ -46,13 +46,6 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: Sidekiq queue size is more than 10
-    - alert: SidekiqQueue-absent
-      expr: absent(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-uat"})
-      for: 1m
-      labels:
-        severity: apply-for-legal-aid-uat
-      annotations:
-        message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
     - alert: Long-Request
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m

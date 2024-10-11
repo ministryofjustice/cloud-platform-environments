@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "electronic monitoring ui"
+  default     = "Electronic Monitoring Datastore"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "tst-em-example-app-jkn-dev"
+  default     = "hmpps-electronic-monitoring-datastore-dev"
 }
 
 variable "number_cache_clusters" {
@@ -45,7 +45,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "jatin.nanda@madetech.com"
+  default     = "hmpps-ems-platform-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -57,7 +57,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "none"
+  default     = "em-engineers-moj-madetech"
 }
 
 variable "github_owner" {
