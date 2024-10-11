@@ -1331,7 +1331,7 @@ data:
           {
             "hide": 2,
             "name": "bucket",
-            "query": "cloud-platform-a0145612d799b0edf7e1f7f20a0911fb",
+            "query": "cloud-platform-6a7092d520d5a082b5419bf195b1b754",
             "skipUrlSync": false,
             "type": "constant"
           },
