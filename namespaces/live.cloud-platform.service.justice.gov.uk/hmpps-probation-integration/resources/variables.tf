@@ -1,10 +1,6 @@
-
-
-variable "vpc_name" {
-}
-
-variable "kubernetes_cluster" {
-}
+variable "vpc_name" {}
+variable "kubernetes_cluster" {}
+variable "eks_cluster_name" {}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -25,7 +21,7 @@ variable "team_name" {
   default     = "probation-integration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
