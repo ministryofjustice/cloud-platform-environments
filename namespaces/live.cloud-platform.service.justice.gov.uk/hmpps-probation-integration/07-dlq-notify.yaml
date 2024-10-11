@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dlq-notify
+spec:
+  schedule: 0 6 * * 1-5
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: hmpps-probation-integration-services
+          containers:
+            - name: dlq-notify
+              image: ghcr.io/ministryofjustice/hmpps-probation-integration-services/redrive-dead-letter-queues
+              command:
+                - /scripts/notify.sh
+              securityContext:
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                seccompProfile:
+                  type: RuntimeDefault
+              resources:
+                requests:
+                  memory: 100Mi
+                  cpu: "0.1"
+                limits:
+                  memory: 500Mi
+                  cpu: "1"
+              env:
+                - name: AWS_REGION
+                  value: eu-west-2
+                - name: QUEUE_NAME_PREFIX
+                  value: probation-integration
+                - name: SLACK_CHANNEL
+                  value: C033HPR0W91 #probation-integration-notifications
+                - name: SLACK_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: slack-token
+                      key: token
+                      optional: false
+          restartPolicy: Never
