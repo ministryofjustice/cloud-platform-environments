@@ -36,7 +36,8 @@ module "assessment-summary-and-delius-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name = "assessment-summary-and-delius-dlq"
+  sqs_name                  = "assessment-summary-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
   application            = "assessment-summary-and-delius"
@@ -75,5 +76,5 @@ module "assessment-summary-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "assessment-summary-and-delius"
-  role_policy_arns     = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
+  role_policy_arns = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
 }
