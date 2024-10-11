@@ -21,6 +21,7 @@ module "make_recall_decision_db_analysis_rds" {
 
   option_group_name    = aws_db_option_group.sqlserver_backup_rds_option_group.name
 
+  enable_rds_auto_start_stop   = true
 
   providers = {
     aws = aws.london
