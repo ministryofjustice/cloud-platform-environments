@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: tst-em-example-app-jkn-dev
+  namespace: hmpps-electronic-monitoring-datastore-preprod
 spec:
   hard:
     pods: "50"
