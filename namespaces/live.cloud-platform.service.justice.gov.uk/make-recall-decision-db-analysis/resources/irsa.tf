@@ -8,7 +8,7 @@ module "irsa" {
   service_account_name = "${var.namespace}-${var.environment}"  
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
-    rds_mssql         = module.make_recall_decision_db_analysis_rds.irsa_policy_arn
+    rds_mssql         = module.rds_mssql.irsa_policy_arn
   }
 
   # Tags
