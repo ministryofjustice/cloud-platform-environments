@@ -4,9 +4,7 @@ module "hmpps_tier_domain_events_queue" {
   # Queue configuration
   sqs_name                  = "hmpps_tier_domain_events_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1209600
-  delay_seconds             = 2
-  receive_wait_time_seconds = 20
+  message_retention_seconds = 1209600 # 14 days
 
   redrive_policy = <<EOF
   {
