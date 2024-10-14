@@ -117,8 +117,8 @@ resource "github_repository_environment" "env" {
 #  prevent_self_review = true
   reviewers {
     teams = [ 
-      data.github_team.hmpps-sre.id, 
-      data.github_team.default_team, 
+      tonumber(data.github_team.hmpps-sre.id), 
+      tonumber(data.github_team.default_team), 
     ]
   }
   deployment_branch_policy {
