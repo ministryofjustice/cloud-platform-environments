@@ -93,8 +93,7 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key 
-
-
+  prevent_self_review = true
   reviewers {
     teams = [ data.github_team.hmpps-sre.id ]
   }
