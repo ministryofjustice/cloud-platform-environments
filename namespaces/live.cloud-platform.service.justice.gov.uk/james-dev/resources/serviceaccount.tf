@@ -85,15 +85,16 @@ resource "time_rotating" "weekly" {
   rotation_days = 7
 }
 
+data "github_team" "hmpps-sre" {
+slug = "hmpps-sre"
+}   
+
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key 
 
-  data "github_team" "hmpps-sre" {
-  slug = "hmpps-sre"
-  }   
-  
+
   reviewers {
     teams = [ data.github_team.hmpps-sre.id ]
   }
