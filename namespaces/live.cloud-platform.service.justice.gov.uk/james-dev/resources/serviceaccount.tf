@@ -91,7 +91,7 @@ resource "github_repository_environment" "env" {
   repository  = each.key  
   prevent_self_review = true
   reviewers {
-    teams = ["hmpps-sre"]
+    teams = [9910784]
   }
   deployment_branch_policy {
     protected_branches     = true
