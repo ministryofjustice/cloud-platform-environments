@@ -88,7 +88,11 @@ resource "time_rotating" "weekly" {
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key
+  repository  = each.key  
+  prevent_self_review = true
+  reviewers {
+    teams = ["hmpps-sre"]
+  }
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
