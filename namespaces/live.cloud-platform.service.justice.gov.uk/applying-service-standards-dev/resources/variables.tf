@@ -79,3 +79,13 @@ variable "app_repo" {
   type        = string
   default     = "applying-service-standards"
 }
+
+variable "basic-auth-username" {
+  description = "Basic auth. username"
+  default     = "justice"
+}
+
+variable "basic-auth-password" {
+  description = "Basic auth. password"
+  default     = "digital"
+}
