@@ -9,7 +9,7 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: hmpps-probation-integration-services
+          serviceAccountName: probation-integration
           containers:
             - name: dlq-notify
               image: ghcr.io/ministryofjustice/hmpps-probation-integration-services/redrive-dead-letter-queues
