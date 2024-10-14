@@ -20,8 +20,8 @@ module "rds_mssql" {
 
   # SQL Server specifics
   db_engine            = "sqlserver-ex"
-  db_engine_version    = "15.00.4236.7.v1"
-  rds_family           = "sqlserver-ex-15.0"
+  db_engine_version    = "16.00"
+  rds_family           = "sqlserver-ex-16.0"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
 
