@@ -95,7 +95,7 @@ resource "github_repository_environment" "env" {
   }   
   
   reviewers {
-    teams = ["${data.github_team.hmpps-sre.id}"]
+    teams = [ data.github_team.hmpps-sre.id ]
   }
   deployment_branch_policy {
     protected_branches     = true
