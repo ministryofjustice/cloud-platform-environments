@@ -108,8 +108,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_contactperson_sub
   endpoint  = module.hmpps_prisoner_to_nomis_contactperson_queue.sqs_arn
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
-      "$or": [
-        { "eventType" : [ "TBD" ] }
-     ]
+    eventType = [
+      "TBD"
+    ]
   })
 }
