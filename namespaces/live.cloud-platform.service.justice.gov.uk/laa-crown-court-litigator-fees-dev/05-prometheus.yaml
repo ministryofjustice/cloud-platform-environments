@@ -80,12 +80,12 @@ spec:
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-22fea73785debcdc;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Database-Connections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-22fea73785debcdc"} > 50
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-22fea73785debcdc"} > 65
       for: 5m
       # labels:
       #   severity: <SEVERITY> # to be replaced with the appropriate severity when alert manager/slack integration is configured
       annotations:
-        message: CCLF DEV RDS number of database connections is over 50
+        message: CCLF DEV RDS number of database connections is over 65
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-22fea73785debcdc;is-cluster=false;tab=monitoring"
 
