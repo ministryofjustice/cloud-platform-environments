@@ -28,7 +28,7 @@ module "opensearch" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -58,7 +58,7 @@ module "s3_opensearch_snapshots_bucket" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -89,4 +89,3 @@ resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
 }
-
