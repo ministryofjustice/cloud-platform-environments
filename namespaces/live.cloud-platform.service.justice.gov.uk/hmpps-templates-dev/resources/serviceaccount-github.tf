@@ -68,7 +68,6 @@ locals {
   ]
 }
 
-
 # Service account used by github actions
 module "service_account" {
   source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
@@ -83,6 +82,8 @@ module "service_account" {
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.github-actions-sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  role_name                            = "serviceaccount-github"
+  rolebinding_name                     = "serviceaccount-github-rolebinding"
   depends_on                           = [github_repository_environment.env]
 }
 
