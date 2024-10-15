@@ -78,6 +78,8 @@ module "service_account" {
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.james-dev-sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  role_name                            = "serviceaccount-github"
+  rolebinding_name                     = "serviceaccount-github-rolebinding"
   depends_on                           = [github_repository_environment.env]
 }
 
@@ -89,6 +91,7 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key  
+  prevent_self_review = true
   reviewers {
     teams = [9910784]
   }
