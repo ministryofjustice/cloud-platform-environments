@@ -174,6 +174,7 @@ resource "aws_mq_broker" "this" {
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = var.team_name
   }
 
   lifecycle {
@@ -210,6 +211,7 @@ resource "aws_mq_configuration" "this" {
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = var.team_name
   }
 }
 
