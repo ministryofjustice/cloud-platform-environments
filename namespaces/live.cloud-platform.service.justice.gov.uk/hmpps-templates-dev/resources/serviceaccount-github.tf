@@ -90,24 +90,15 @@ resource "time_rotating" "weekly" {
   rotation_days = 7
 }
 
-#############################################################################
-### Please do not delete this team definition - here for support purposes ###
+##########################################################################
+### Copy these three lines and change accordingly for your github team ###
+### then add the variable name to the teams list below                 ###
 
 data "github_team" "hmpps-sre" {
 slug = "hmpps-sre"
 }   
 
-#############################################################################
-
-####################################################################################
-### Copy these three lines if required and add the reference to teams list below ###
-
-data "github_team" default_team {
-slug = var.team_name
-}   
-
-####################################################################################
-
+##########################################################################
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
@@ -117,8 +108,7 @@ resource "github_repository_environment" "env" {
 # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.hmpps-sre.id), 
-      tonumber(data.github_team.default_team.id), 
+      tonumber(data.github_team.hmpps-sre.id)
     ]
   }
   deployment_branch_policy {
