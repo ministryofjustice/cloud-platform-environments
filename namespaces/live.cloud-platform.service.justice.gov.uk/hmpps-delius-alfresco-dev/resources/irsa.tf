@@ -9,7 +9,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment}"
+  service_account_name = "${var.team_name}-${var.environment_name}"
   role_policy_arns = {
     s3                             = module.s3_bucket.irsa_policy_arn
     s3_refresh_poc                 = data.aws_iam_policy.poc_env_bucket_policy.arn
@@ -23,7 +23,7 @@ module "irsa" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace # this is also used to attach your service account to your namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
