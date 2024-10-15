@@ -114,7 +114,7 @@ resource "github_repository_environment" "env" {
   environment = var.environment
   repository  = each.key  
 # Not working - waiting for Cloud Platforms to help me fix this
-#  prevent_self_review = true
+# prevent_self_review = true
   reviewers {
     teams = [ 
       tonumber(data.github_team.hmpps-sre.id), 
