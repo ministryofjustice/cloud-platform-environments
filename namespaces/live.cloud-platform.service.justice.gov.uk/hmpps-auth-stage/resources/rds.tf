@@ -38,6 +38,22 @@ resource "kubernetes_secret" "dps_rds" {
   }
 }
 
+resource "kubernetes_secret" "hmpps_authorization_rds" {
+  metadata {
+    name      = "hmpps-authorization-rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
+    database_name         = module.dps_rds.database_name
+    database_username     = module.dps_rds.database_username
+    database_password     = module.dps_rds.database_password
+    rds_instance_address  = module.dps_rds.rds_instance_address
+    url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+  }
+}
+
 resource "kubernetes_secret" "dps_rds_external_users_api" {
   metadata {
     name      = "hmpps-auth-rds-instance-output"
