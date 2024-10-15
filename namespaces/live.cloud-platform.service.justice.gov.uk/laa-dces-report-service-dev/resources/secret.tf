@@ -23,7 +23,7 @@ module "secrets_manager" {
     "feature_flags" = {
       description             = "Feature flag variables [laa-dces-report-service-dev]"
       recovery_window_in_days = 7
-      k8s_secret_name         = "feature_flags"
+      k8s_secret_name         = "feature-flags"
     },
   }
 }
