@@ -40,7 +40,7 @@ resource "kubernetes_secret" "dps_rds" {
 
 resource "kubernetes_secret" "hmpps_authorization_rds" {
   metadata {
-    name      = "hmpps_authorization_rds-instance-output"
+    name      = "hmpps-authorization-rds-instance-output"
     namespace = var.namespace
   }
 
