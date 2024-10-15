@@ -10,6 +10,8 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
+  deletion_protection = false
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-electronic-monitoring-datastore-api"]
