@@ -69,9 +69,9 @@ resource "aws_security_group" "broker_sg" {
   vpc_id      = data.aws_vpc.this.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -79,9 +79,9 @@ resource "aws_security_group" "broker_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -127,7 +127,7 @@ resource "aws_mq_broker" "this" {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment
+    environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
