@@ -118,7 +118,7 @@ resource "github_repository_environment" "env" {
   reviewers {
     teams = [ 
       tonumber(data.github_team.hmpps-sre.id), 
-      tonumber(data.github_team.default_team), 
+      tonumber(data.github_team.default_team.id), 
     ]
   }
   deployment_branch_policy {
