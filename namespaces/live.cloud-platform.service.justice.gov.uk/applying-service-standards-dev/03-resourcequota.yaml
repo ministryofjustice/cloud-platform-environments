@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: aaf-dev
+  namespace: applying-service-standards-dev
 spec:
   hard:
-    pods: "50"
+    pods: "10"

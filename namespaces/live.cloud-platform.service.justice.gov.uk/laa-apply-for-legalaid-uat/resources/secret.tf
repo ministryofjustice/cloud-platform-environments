@@ -11,9 +11,19 @@ module "secrets" {
 
   secrets = {
     "laa-apply-for-legalaid-secrets" = {
-      description             = "laa-apply-for-legalaid-uat secrets",   
-      recovery_window_in_days = 7                                
-      k8s_secret_name         = "laa-apply-for-legalaid-secrets" 
+      description             = "laa-apply-for-legalaid-uat secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-apply-for-legalaid-secrets"
+    },
+    "staging-ccms-connection" = {
+      description             = "Allow connection to CCMS Staging from a Civil Apply UAT branch",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "staging-ccms-connection"
+    },
+    "staging-portal-connection" = {
+      description             = "Allow connection to Staging Portal from a Civil Apply UAT branch",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "staging-portal-connection"
     },
   }
 }

@@ -89,13 +89,18 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
       "enforcement.breach.concluded",
       "enforcement.recall.raised",
       "enforcement.recall.concluded",
+      "probation-case.engagement.created",
       "probation-case.deleted.gdpr",
       "probation-case.merge.completed",
       "probation-case.unmerge.completed",
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deleted",
-      "probation-case.registration.deregistered"
+      "probation-case.registration.deregistered",
+      "probation-case.requirement.created",
+      "probation-case.requirement.deleted",
+      "probation-case.requirement.terminated",
+      "probation-case.requirement.unterminated"
     ]
   })
 }
