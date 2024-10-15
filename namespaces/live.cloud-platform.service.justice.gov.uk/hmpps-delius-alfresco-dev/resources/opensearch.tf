@@ -28,7 +28,7 @@ module "opensearch" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -58,7 +58,7 @@ module "s3_opensearch_snapshots_bucket" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   bucket_policy = jsonencode({
     Version = "2012-10-17"
