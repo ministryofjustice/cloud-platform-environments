@@ -9,12 +9,17 @@ spec:
   groups:
     - name: aws-resource-alert
       rules:
+        # RDS is switched off overnight. Limit the hours of the alert to avoid anomolous
+        # readings when it is turning on and off again.
         - alert: RDSLowStorage
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+          expr: >
+            (
+              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+            ) and ON() (hour() >= 8 <= 17)
           for: 5m
           labels:
             severity: datahub_test
@@ -40,7 +45,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-red-cluster-status
-          expr: aws_es_cluster_status_red_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
+          expr: aws_es_cluster_status_red_maximum{domain_name="cloud-platform-ed459d1d"} >= 1
           for: 1m
           labels:
             severity: datahub_test
@@ -48,7 +53,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-yellow-cluster-status
-          expr: aws_es_cluster_status_yellow_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
+          expr: aws_es_cluster_status_yellow_maximum{domain_name="cloud-platform-ed459d1d"} >= 1
           for: 6m
           labels:
             severity: datahub_test
@@ -56,15 +61,15 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
-          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-a7ab5efa"} <= 3072
-          for: 1m
+          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-ed459d1d", node_id=""} <= 3072
+          for: 5m
           labels:
             severity: datahub_test
         - alert: ElasticSearchClusterIndexWritesBlocked
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster is blocking write requests"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#troubleshooting-cluster-block
-          expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
+          expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="cloud-platform-ed459d1d"} >= 1
           for: 5m
           labels:
             severity: datahub_test
@@ -72,7 +77,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] An automated snapshot for the ElasticSearch cluster failed"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_automated_snapshot_failure_maximum{domain_name="cloud-platform-a7ab5efa"} >= 1
+          expr: aws_es_automated_snapshot_failure_maximum{domain_name="cloud-platform-ed459d1d"} >= 1
           for: 1m
           labels:
             severity: datahub_test
@@ -80,7 +85,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster could encounter out of memory errors if usage increases"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_jvmmemory_pressure_maximum{domain_name="cloud-platform-a7ab5efa"} >= 80
+          expr: aws_es_jvmmemory_pressure_maximum{domain_name="cloud-platform-ed459d1d"} >= 80
           for: 15m
           labels:
             severity: datahub_test
@@ -88,7 +93,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster has sustained high CPU usage"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
-          expr: aws_es_cpuutilization_maximum{domain_name="cloud-platform-a7ab5efa"} >= 80
+          expr: aws_es_cpuutilization_maximum{domain_name="cloud-platform-ed459d1d"} >= 80
           for: 15m
           labels:
             severity: datahub_test
@@ -246,30 +251,6 @@ spec:
 
     - name: resource-alert
       rules:
-        - alert: GMSCpuUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-test", container=~".+gms"}[5m])) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-test", container=~".+gms", unit="core"})) * 100  
-            > 90
-          for: 1m
-          labels:
-            severity: datahub_test
-        - alert: GMSMemUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-test"}) by (namespace,container,pod)  
-            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-test",unit="byte"}) by (namespace,container,pod) ) * 100 ) < +Inf )
-             > 80
-          for: 1m
-          labels:
-            severity: datahub_test
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%

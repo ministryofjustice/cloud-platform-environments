@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -66,5 +66,21 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-book-a-video-link-prod"
+  }
+
+  data = {
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
 }

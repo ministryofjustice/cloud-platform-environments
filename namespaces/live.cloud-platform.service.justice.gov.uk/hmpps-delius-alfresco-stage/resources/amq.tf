@@ -144,7 +144,7 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
-  apply_immediately = true
+  apply_immediately = false
 
   storage_type = "ebs"
 
@@ -175,6 +175,13 @@ resource "aws_mq_broker" "this" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+
+  lifecycle {
+    ignore_changes = [ 
+      configuration,
+      engine_version
+     ]
+  }
 }
 
 resource "aws_mq_configuration" "this" {
@@ -192,6 +199,7 @@ resource "aws_mq_configuration" "this" {
 
   lifecycle {
     create_before_destroy = true
+    ignore_changes = [ data ]
   }
 }
 
@@ -205,7 +213,7 @@ resource "kubernetes_secret" "amazon_mq" {
     BROKER_CONSOLE_URL_0 = aws_mq_broker.this[0].instances[0].console_url
     BROKER_CONSOLE_URL_1 = aws_mq_broker.this[1].instances[0].console_url
     BROKER_CONSOLE_URL_2 = aws_mq_broker.this[2].instances[0].console_url
-    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
+    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000?reconnectSupported=true"
     BROKER_USERNAME      = local.mq_admin_user
     BROKER_PASSWORD      = local.mq_admin_password
   }

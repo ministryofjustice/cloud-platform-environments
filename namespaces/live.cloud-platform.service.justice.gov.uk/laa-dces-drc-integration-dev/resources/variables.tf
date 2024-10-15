@@ -105,6 +105,12 @@ variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
 }
 
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_integration_dev_db"
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 

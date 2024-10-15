@@ -56,8 +56,8 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
-          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-5c3a95c8"} <= 3072
-          for: 1m
+          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-5c3a95c8", node_id=""} <= 3072
+          for: 5m
           labels:
             severity: datahub_prod
         - alert: ElasticSearchClusterIndexWritesBlocked
@@ -246,30 +246,6 @@ spec:
 
     - name: resource-alert
       rules:
-        - alert: GMSCpuUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
-          expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-prod", container=~".+gms"}[5m])) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-prod", container=~".+gms", unit="core"})) * 100  
-            > 90
-          for: 1m
-          labels:
-            severity: datahub_prod
-        - alert: GMSMemUsageHigh
-          annotations:
-            message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
-          expr: >-
-            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-prod"}) by (namespace,container,pod)  
-            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-prod",unit="byte"}) by (namespace,container,pod) ) * 100 ) < +Inf )
-             > 80
-          for: 1m
-          labels:
-            severity: datahub_prod
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%

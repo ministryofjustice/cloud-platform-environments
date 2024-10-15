@@ -9,9 +9,10 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t3.medium"
   db_engine_version           = "14"
   allow_major_version_upgrade = "false"
+  performance_insights_enabled = "true"
 }
 
 resource "random_id" "risk_profiler_role_password" {

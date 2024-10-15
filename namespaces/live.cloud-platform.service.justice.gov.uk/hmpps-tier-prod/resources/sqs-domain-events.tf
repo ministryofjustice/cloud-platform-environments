@@ -4,14 +4,13 @@ module "hmpps_tier_domain_events_queue" {
   # Queue configuration
   sqs_name                  = "hmpps_tier_domain_events_queue"
   encrypt_sqs_kms           = "true"
-  message_retention_seconds = 1209600
-  delay_seconds             = 2
-  receive_wait_time_seconds = 20
+  message_retention_seconds = 1209600 # 14 days
 
   redrive_policy = <<EOF
   {
     "deadLetterTargetArn": "${module.hmpps_tier_domain_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
+
 EOF
 
   # Tags
@@ -90,13 +89,18 @@ resource "aws_sns_topic_subscription" "hmpps_tier_domain_events_subscription" {
       "enforcement.breach.concluded",
       "enforcement.recall.raised",
       "enforcement.recall.concluded",
+      "probation-case.engagement.created",
       "probation-case.deleted.gdpr",
       "probation-case.merge.completed",
       "probation-case.unmerge.completed",
       "probation-case.registration.added",
       "probation-case.registration.updated",
       "probation-case.registration.deleted",
-      "probation-case.registration.deregistered"
+      "probation-case.registration.deregistered",
+      "probation-case.requirement.created",
+      "probation-case.requirement.deleted",
+      "probation-case.requirement.terminated",
+      "probation-case.requirement.unterminated"
     ]
   })
 }

@@ -659,3 +659,33 @@ spec:
   dnsNames:
     - dc5566b4.hmpps.service.justice.gov.uk
     - subject-access-requests-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: common-platform-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: common-platform-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 9874bd14.hmpps.service.justice.gov.uk
+    - common-platform-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ims-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: ims-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f7bfe89b.hmpps.service.justice.gov.uk
+    - ims-and-delius.hmpps.service.justice.gov.uk

@@ -18,7 +18,9 @@ data "aws_iam_policy_document" "sqs_full" {
       module.attachment_metadata_transformer_queue.sqs_arn,
       module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
       module.metadata_status_queue.sqs_arn,
-      module.metadata_status_dead_letter_queue.sqs_arn
+      module.metadata_status_dead_letter_queue.sqs_arn,
+      module.ims_pdf_queue.sqs_arn,
+      module.ims_pdf_dead_letter_queue.sqs_arn,
     ]
   }
 }

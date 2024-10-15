@@ -9,12 +9,17 @@ spec:
   groups:
     - name: aws-resource-alert
       rules:
+        # RDS is switched off overnight. Limit the hours of the alert to avoid anomolous
+        # readings when it is turning on and off again.
         - alert: RDSLowStorage
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+          expr: >
+            (
+              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+            ) and ON() (hour() >= 8 <= 17)
           for: 5m
           labels:
             severity: datahub_dev
@@ -32,7 +37,10 @@ spec:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
             runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
+          expr: >
+            (
+              aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
+            ) and ON() (hour() >= 8 <= 17)
           for: 15m
           labels:
             severity: datahub_dev
@@ -56,8 +64,8 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
-          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-a7ab5efa"} <= 3072
-          for: 1m
+          expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-a7ab5efa", node_id=""} <= 3072
+          for: 5m
           labels:
             severity: datahub_dev
         - alert: ElasticSearchClusterIndexWritesBlocked
@@ -245,30 +253,6 @@ spec:
 
     - name: resource-alert
       rules:
-        - alert: GMSCpuUsageHigh
-          annotations:
-            message: :warning:Service '{{ $labels.container }}' cpu usage above threshold of 90%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-datahub-catalogue-dev", container=~".+gms"}[5m])) by (container) 
-            / sum(kube_pod_container_resource_limits{namespace="data-platform-datahub-catalogue-dev", container=~".+gms", unit="core"}) by (container)) * 100
-            > 90
-          for: 5m
-          labels:
-            severity: datahub_dev
-        - alert: GMSMemUsageHigh
-          annotations:
-            message: :warning:Service {{ $labels.container }} memory usage above 80%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
-          expr: >-
-            ((( sum(container_memory_working_set_bytes{container=~".+gms.+", namespace="data-platform-datahub-catalogue-dev"}) by (container,pod)  
-            / sum(kube_pod_container_resource_limits{container=~".+gms.+",namespace="data-platform-datahub-catalogue-dev",unit="byte"}) by (container,pod) ) * 100 ) < +Inf )
-             > 80
-          for: 5m
-          labels:
-            severity: datahub_dev
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service {{ $labels.persistentvolumeclaim }} Persistent volume is using more than 90%

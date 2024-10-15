@@ -11,17 +11,27 @@ module "secrets_manager" {
 
   secrets = {
     "drc-client-auth-tls" = {
-      description             = "Client authentication credentials for mTLS to DRC in Stg"
+      description             = "DRC mTLS client credentials [laa-dces-drc-integration-staging]"
       recovery_window_in_days = 7
       k8s_secret_name         = "drc-client-auth-tls"
     },
+    "ca-crt" = {
+      description             = "ca.crt for mTLS client certificate validation [laa-dces-drc-integration-staging]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ca-crt"
+    },
+    "feature" = {
+      description             = "Feature flag variables [laa-dces-drc-integration-staging]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature"
+    }
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DRC Integration Stg"
+      description             = "MAAT API OAuth2 client ID [laa-dces-drc-integration-staging]"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
     },
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DRC Integration Stg"
+      description             = "MAAT API OAuth2 client secret [laa-dces-drc-integration-staging]"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }

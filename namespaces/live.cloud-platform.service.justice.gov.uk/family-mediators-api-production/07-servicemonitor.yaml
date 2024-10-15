@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: servicemonitor-metrics
+  namespace: family-mediators-api-production
+spec:
+  selector:
+    matchLabels:
+      app: family-mediators-api-web-production
+  namespaceSelector:
+    matchNames:
+      - family-mediators-api-production
+  endpoints:
+    - port: metrics
+      interval: 15s
