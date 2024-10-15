@@ -19,9 +19,9 @@ module "rds_mssql" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # SQL Server specifics
-  db_engine            = "sqlserver-ex"
-  db_engine_version    = "16.00"
-  rds_family           = "sqlserver-ex-16.0"
+  db_engine            = "sqlserver-web"
+  db_engine_version    = "16.00.4140.3.v1"
+  rds_family           = "sqlserver-web-16.0"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
 
@@ -64,7 +64,7 @@ resource "kubernetes_secret" "rds_mssql" {
 resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   name                     = "sqlserver-backup-restore"
   option_group_description = "Enable SQL Server Backup/Restore"
-  engine_name              = "sqlserver-ex"
+  engine_name              = "sqlserver-web"
   major_engine_version     = "16.00"
 
   option {
