@@ -67,7 +67,11 @@ locals {
     },
   ]
 }
-
+variable "gihub_rolebinding_name" {
+  description = "Kubernetes to GitHub actions rolebinding name"
+  default     = "serviceaccount-rolebinding"
+  type        = string
+}
 
 # Service account used by github actions
 module "service_account" {
