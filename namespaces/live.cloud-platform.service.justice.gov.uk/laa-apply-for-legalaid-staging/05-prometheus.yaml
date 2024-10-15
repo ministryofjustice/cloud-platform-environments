@@ -46,6 +46,34 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: Sidekiq queue size is more than 10
+    - alert: SidekiqDeadJobThresholdReached
+      expr: |-
+        # Any dead jobs added in past 2 minutes
+        #
+        # We exclude pods NOT named apply-for-legal-aid-worker as these are the only pods with stats.
+        #
+        # We use average because each worker pod will report the same number of dead jobs.
+        #
+        # To find those added in the last 2 minutes we take current dead jobs and take away either the number
+        # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
+        # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
+        #
+        # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
+        # that the number could be less than 0 if dead jobs are cleared/deleted.
+        #
+        avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-staging", pod=~"apply-for-legal-aid-worker.+"})
+         - (
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-staging", pod=~"apply-for-legal-aid-worker.+"} offset 2m)
+             or
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-staging", pod=~"apply-for-legal-aid-worker.+"}) - 1
+           )
+          > 0
+      labels:
+        severity: apply-for-legal-aid-staging
+      annotations:
+        message: One or more Sidekiq jobs moved to dead in namespace laa-apply-for-legalaid-staging
+        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+        dashboard_url: https://staging.apply-for-legal-aid.service.justice.gov.uk/sidekiq
     - alert: Long-Request
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m
