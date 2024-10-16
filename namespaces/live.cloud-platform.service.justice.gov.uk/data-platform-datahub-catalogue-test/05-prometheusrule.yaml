@@ -14,7 +14,7 @@ spec:
         - alert: RDSLowStorage
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >
             (
@@ -26,7 +26,7 @@ spec:
         - alert: RDSCPUUtilization
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 80
           for: 15m
@@ -35,7 +35,7 @@ spec:
         - alert: RDSMaxConnections
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
           for: 15m
@@ -106,7 +106,7 @@ spec:
               Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
               }} does not match, this indicates that the Deployment has failed but has
               not been rolled back.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             kube_deployment_status_observed_generation{namespace="data-platform-datahub-catalogue-test", job="kube-state-metrics"}
@@ -120,7 +120,7 @@ spec:
             message: >-
               Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
               matched the expected number of replicas for longer than an hour.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             kube_deployment_spec_replicas{namespace="data-platform-datahub-catalogue-test", job="kube-state-metrics"}
@@ -134,7 +134,7 @@ spec:
             message: >-
               CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more
               than 1h to complete.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: time() - kube_cronjob_next_schedule_time{namespace="data-platform-datahub-catalogue-test"} > 3600
           for: 1h
@@ -143,7 +143,7 @@ spec:
         - alert: KubeJobFailed
           annotations:
             message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: kube_job_status_failed{namespace="data-platform-datahub-catalogue-test"}  > 0
           for: 1h
@@ -155,7 +155,7 @@ spec:
         - alert: ModSecurityBlocking
           annotations:
             message: modsecurity is blocking ingress {{ $labels.ingress }}
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-test", status="406"}[1m]) * 60 > 0) by (ingress)
@@ -165,7 +165,7 @@ spec:
         - alert: ErrorResponses
           annotations:
             message: ingress {{ $labels.ingress }} is serving 5XX responses
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-test", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
@@ -178,18 +178,18 @@ spec:
         - alert: OOMKiller
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}'
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            (kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test"} 
-            - kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test"} offset 10m >= 1) 
+            (kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test"}
+            - kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test"} offset 10m >= 1)
             and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test",reason="OOMKilled"}[10m]) == 1
           labels:
             severity: datahub_test
         - alert: TooManyContainerRestarts
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-test",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
           for: 0m
@@ -198,7 +198,7 @@ spec:
         - alert: CrashLoopBackOff
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' CrashLoopBackOff
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test",phase="CrashLoopBackOff"}) > 0
           for: 0m
@@ -207,7 +207,7 @@ spec:
         - alert: PodNotReadyKube
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has been in a non-ready state for more than 15 minutes
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: sum by(namespace,pod)(kube_pod_status_phase{job="kube-state-metrics",namespace="data-platform-datahub-catalogue-test",phase=~"Pending|Unknown"}) > 0
           for: 15m
@@ -216,7 +216,7 @@ spec:
         - alert: ContainerRestartAlert
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' has restarted.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: (sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-test"}[10m])) by (container, namespace)) > 0
           for: 5m
@@ -227,7 +227,7 @@ spec:
             message: >-
               Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
               }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             rate(kube_pod_container_status_restarts_total{namespace="data-platform-datahub-catalogue-test", job="kube-state-metrics"}[15m])
@@ -240,7 +240,7 @@ spec:
             message: >-
               Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
               state for longer than an hour.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             sum by (namespace, pod) (kube_pod_status_phase{namespace="data-platform-datahub-catalogue-test", job="kube-state-metrics",
@@ -254,11 +254,11 @@ spec:
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-datahub-catalogue-test"}) by (namespace,persistentvolumeclaim)) 
-            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-datahub-catalogue-test"}) by (namespace,persistentvolumeclaim)))*100) < +Inf ) 
+            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-datahub-catalogue-test"}) by (namespace,persistentvolumeclaim))
+            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-datahub-catalogue-test"}) by (namespace,persistentvolumeclaim)))*100) < +Inf )
             > 90
           for: 5m
           labels:
@@ -268,7 +268,7 @@ spec:
             message: >-
               Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
               }}% of its {{ $labels.resource }} quota.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
             100 * kube_resourcequota{namespace="data-platform-datahub-catalogue-test", job="kube-state-metrics", type="used"}
