@@ -12,17 +12,17 @@ spec:
         - alert: OOMKiller
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}'
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
-            (kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-find-moj-data-dev"} 
-            - kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-find-moj-data-dev"} offset 10m >= 1) 
+            (kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-find-moj-data-dev"}
+            - kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-find-moj-data-dev"} offset 10m >= 1)
             and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{job="kube-state-metrics",namespace="data-platform-find-moj-data-dev",reason="OOMKilled"}[10m]) == 1
           labels:
             severity: find-moj-data-dev
         - alert: TooManyContainerRestarts
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-find-moj-data-dev",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
           labels:
             severity: find-moj-data-dev
@@ -31,7 +31,7 @@ spec:
         - alert: MaxedOutAutoscaling
           annotations:
             message: ":warning: Find MoJ data is running the maximum number of replicas."
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
             kube_horizontalpodautoscaler_status_current_replicas{namespace="data-platform-find-moj-data-dev"} / kube_horizontalpodautoscaler_spec_max_replicas{namespace="data-platform-find-moj-data-dev"} >= 1
           for: 30m
@@ -40,9 +40,9 @@ spec:
         - alert: MemUsageHigh
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
-            ((( sum(container_memory_working_set_bytes{namespace="data-platform-find-moj-data-dev", container="find-moj-data"}) by (namespace,container,pod)  
+            ((( sum(container_memory_working_set_bytes{namespace="data-platform-find-moj-data-dev", container="find-moj-data"}) by (namespace,container,pod)
             / sum(kube_pod_container_resource_limits{namespace="data-platform-find-moj-data-dev", container="find-moj-data",unit="byte"}) by (namespace,container,pod) ) * 100 ) < +Inf )
              > 80
           for: 1m
@@ -51,10 +51,10 @@ spec:
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
-            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-find-moj-data-dev"}) by (namespace,persistentvolumeclaim)) 
-            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-find-moj-data-dev"}) by (namespace,persistentvolumeclaim)))*100) < +Inf ) 
+            ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-find-moj-data-dev"}) by (namespace,persistentvolumeclaim))
+            / (sum(kubelet_volume_stats_capacity_bytes{namespace="data-platform-find-moj-data-dev"}) by (namespace,persistentvolumeclaim)))*100) < +Inf )
             > 90
           for: 5m
           labels:
@@ -64,7 +64,7 @@ spec:
             message: >-
               Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
               }}% of its {{ $labels.resource }} quota.
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
             100 * kube_resourcequota{namespace="data-platform-find-moj-data-dev", job="kube-state-metrics", type="used"}
               / ignoring(instance, job, type)
@@ -78,7 +78,7 @@ spec:
         - alert: HighLatencyByViewAndMethod
           annotations:
             message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 3 seconds for a 5 minute period."
-            runbook_url: https://runbooks.data-catalogue.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
           expr: >-
             rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-dev',method='GET'}[1m])/
             rate(django_http_requests_latency_seconds_by_view_method_count{namespace='data-platform-find-moj-data-dev',method='GET'}[1m])
