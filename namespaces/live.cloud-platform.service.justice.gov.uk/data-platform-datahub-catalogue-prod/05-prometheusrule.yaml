@@ -221,7 +221,7 @@ spec:
           annotations:
             message: >-
               Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
-              }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+              }}) is restarting {{ printf "%.2f" $value }} times per 5 minutes.
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
           expr: >-
