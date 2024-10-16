@@ -25,23 +25,6 @@ data "aws_subnet" "this" {
   id       = each.value
 }
 
-data "aws_subnets" "eks_private" {
-  filter {
-    name   = "tag:SubnetType"
-    values = ["EKS-Private"]
-  }
-
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.this.id]
-  }
-}
-
-data "aws_subnet" "eks_private" {
-  for_each = toset(data.aws_subnets.eks_private.ids)
-  id       = each.value
-}
-
 resource "random_id" "amq_id" {
   byte_length = 8
 }
@@ -72,20 +55,14 @@ resource "aws_security_group" "broker_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = concat(
-      [for s in data.aws_subnet.this : s.cidr_block],
-      [for s in data.aws_subnet.eks_private : s.cidr_block]
-    )
+    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = concat(
-      [for s in data.aws_subnet.this : s.cidr_block],
-      [for s in data.aws_subnet.eks_private : s.cidr_block]
-    )
+    cidr_blocks = [for s in data.aws_subnet.this : s.cidr_block]
   }
 }
 
@@ -127,7 +104,7 @@ resource "aws_mq_broker" "this" {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment
+    environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
@@ -142,7 +119,7 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})"
+    BROKER_URL         = aws_mq_broker.this.instances[0].endpoints[0]
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }

@@ -30,6 +30,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "feature"
     }
+    "dces-datasource" = {
+      description             = "DCES Database Connection Information [laa-dces-drc-integration-dev]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-datasource"
+    }
     "maat_api_oauth_client_id" = {
       description             = "MAAT API OAuth2 client ID [laa-dces-drc-integration-dev]"
       recovery_window_in_days = 7

@@ -442,7 +442,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace = \"${namespace}\"}[$__interval])) by (status)",
+              "expr": "sum by (status) (rate(nginx_ingress_controller_requests{exported_namespace = \"${namespace}\"}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 5,
@@ -659,7 +659,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum by (pod)(rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
+              "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace='${namespace}'}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "60s",

@@ -32,7 +32,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 174,
+      "id": 85,
       "links": [
         {
           "asDropdown": false,
@@ -65,10 +65,10 @@ data:
           "keepTime": true,
           "tags": [],
           "targetBlank": true,
-          "title": "S3 dashboard",
+          "title": "Elasticache dashboard",
           "tooltip": "",
           "type": "link",
-          "url": "https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSS31iWk/aws-s3?var-bucket=${bucket}"
+          "url": " https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=${CacheClusterId}"
         }
       ],
       "panels": [
@@ -268,7 +268,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 0,
             "y": 1
@@ -405,7 +405,7 @@ data:
             ]
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 8,
             "y": 1
@@ -430,7 +430,7 @@ data:
               "datasource": {
                 "uid": "$datasource"
               },
-              "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace = \"${namespace}\"}[$__interval])) by (status)",
+              "expr": "sum by (status) (rate(nginx_ingress_controller_requests{exported_namespace = \"${namespace}\"}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 5,
@@ -502,7 +502,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
+            "h": 7,
             "w": 8,
             "x": 16,
             "y": 1
@@ -547,7 +547,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 8
           },
           "id": 21,
           "panels": [],
@@ -595,7 +595,6 @@ data:
                   "mode": "off"
                 }
               },
-              "fieldMinMax": false,
               "links": [],
               "mappings": [],
               "thresholds": {
@@ -616,10 +615,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 14,
+            "h": 10,
             "w": 12,
             "x": 0,
-            "y": 8
+            "y": 9
           },
           "id": 17,
           "interval": "30s",
@@ -632,13 +631,11 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Mean",
-              "sortDesc": true
+              "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
-              "sort": "desc"
+              "sort": "none"
             }
           },
           "pluginVersion": "10.4.0",
@@ -761,10 +758,10 @@ data:
             ]
           },
           "gridPos": {
-            "h": 14,
+            "h": 10,
             "w": 12,
             "x": 12,
-            "y": 8
+            "y": 9
           },
           "id": 16,
           "interval": "30s",
@@ -777,9 +774,7 @@ data:
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Mean",
-              "sortDesc": true
+              "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
@@ -835,7 +830,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 22
+            "y": 19
           },
           "id": 20,
           "panels": [],
@@ -891,8 +886,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -908,7 +902,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 23
+            "y": 20
           },
           "id": 18,
           "options": {
@@ -1035,7 +1029,7 @@ data:
                   "type": "linear"
                 },
                 "showPoints": "never",
-                "spanNulls": true,
+                "spanNulls": false,
                 "stacking": {
                   "group": "A",
                   "mode": "none"
@@ -1044,14 +1038,14 @@ data:
                   "mode": "off"
                 }
               },
+              "links": [],
               "mappings": [],
               "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1059,7 +1053,7 @@ data:
                   }
                 ]
               },
-              "unit": "bytes"
+              "unit": "none"
             },
             "overrides": []
           },
@@ -1067,9 +1061,9 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 23
+            "y": 20
           },
-          "id": 1,
+          "id": 23,
           "options": {
             "legend": {
               "calcs": [
@@ -1090,52 +1084,60 @@ data:
           "pluginVersion": "10.4.0",
           "targets": [
             {
-              "alias": "",
-              "application": {
-                "filter": ""
-              },
               "datasource": {
                 "type": "cloudwatch",
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "BucketName": "$bucket",
-                "StorageType": "StandardStorage"
+                "CacheClusterId": "$CacheClusterId"
               },
               "expression": "",
-              "functions": [],
-              "group": {
-                "filter": ""
-              },
-              "highResolution": false,
-              "host": {
-                "filter": ""
-              },
               "id": "",
-              "item": {
-                "filter": ""
-              },
               "label": "",
+              "logGroups": [],
+              "matchExact": true,
               "metricEditorMode": 0,
-              "metricName": "BucketSizeBytes",
+              "metricName": "SaveInProgress",
               "metricQueryType": 0,
-              "mode": 0,
-              "namespace": "AWS/S3",
-              "options": {
-                "showDisabledItems": false
-              },
+              "namespace": "AWS/ElastiCache",
               "period": "",
+              "queryMode": "Metrics",
               "refId": "A",
               "region": "default",
-              "returnData": false,
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "P896B4444D3F0DAB8"
+              },
+              "dimensions": {
+                "CacheClusterId": "$CacheClusterId"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "CurrItems",
+              "metricQueryType": 0,
+              "namespace": "AWS/ElastiCache",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
               "statistic": "Average"
             }
           ],
-          "title": "BucketSizeBytes",
+          "title": "Elasticache Redis SaveInProgress / CurrItems",
           "type": "timeseries"
         }
       ],
-      "refresh": false,
+      "refresh": "10s",
       "schemaVersion": 39,
       "tags": [
         "cdpt"
@@ -1163,22 +1165,22 @@ data:
           },
           {
             "hide": 2,
-            "name": "DBInstanceIdentifier",
-            "query": "cloud-platform-0f0b5ea8e809e380",
+            "name": "CacheClusterId",
+            "query": "cp-1c62933d19a44e0f-001",
             "skipUrlSync": false,
             "type": "constant"
           },
           {
             "hide": 2,
-            "name": "bucket",
-            "query": "cloud-platform-df1338a7e64a4768a6cfac6c7cbeccde",
+            "name": "DBInstanceIdentifier",
+            "query": "cloud-platform-b9bfecf77b98c1e2",
             "skipUrlSync": false,
             "type": "constant"
           },
           {
             "hide": 2,
             "name": "namespace",
-            "query": "peoplefinder-production",
+            "query": "parliamentary-questions-production",
             "skipUrlSync": false,
             "type": "constant"
           }
@@ -1214,8 +1216,8 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Peoplefinder Production Dashboard",
-      "uid": "807d6936842a477f814313c5d09c5f1a",
-      "version": 2,
+      "title": "Parliamentary Questions Dashboard",
+      "uid": "f272000c3af848139d4d90c8234f5c5a",
+      "version": 8,
       "weekStart": ""
     }
