@@ -12,7 +12,7 @@ spec:
         - alert: OOMKiller
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}'
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             (kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="data-platform-find-moj-data-test"}
@@ -23,7 +23,7 @@ spec:
         - alert: TooManyContainerRestarts
           annotations:
             message: :alert:Service '{{"{{" }} $labels.pod {{"}}"}}' was restarted many times
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: sum(increase(kube_pod_container_status_restarts_total{namespace="data-platform-find-moj-data-test",pod_template_hash=""}[15m])) by (pod,namespace,container) > 10
           labels:
@@ -33,7 +33,7 @@ spec:
         - alert: CpuUsageHigh
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' cpu usage above threshold of 90%.
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             (sum(rate(container_cpu_usage_seconds_total{namespace="data-platform-find-moj-data-test", container="find-moj-data"}[5m]))
@@ -45,7 +45,7 @@ spec:
         - alert: MemUsageHigh
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' memory usage above 80%.
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             ((( sum(container_memory_working_set_bytes{namespace="data-platform-find-moj-data-test", container="find-moj-data"}) by (namespace,container,pod)
@@ -57,7 +57,7 @@ spec:
         - alert: HighPersistantVolumeUsage
           annotations:
             message: :warning:Service '{{"{{" }} $labels.container {{"}}"}}' Persistent volume is using more than 90%
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             ((((sum(kubelet_volume_stats_used_bytes{namespace="data-platform-find-moj-data-test"}) by (namespace,persistentvolumeclaim))
@@ -71,7 +71,7 @@ spec:
             message: >-
               Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
               }}% of its {{ $labels.resource }} quota.
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             100 * kube_resourcequota{namespace="data-platform-find-moj-data-test", job="kube-state-metrics", type="used"}
@@ -86,7 +86,7 @@ spec:
         - alert: HighLatencyByViewAndMethod
           annotations:
             message: The average latency for view '{{ $labels.method }}' method '{{ $labels.view }}' has been above 2 seconds for a 2 minute period."
-            runbook_url: https://runbooks.data.service.justice.gov.uk/
+            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/Q0NK35mNR?orgId=1
           expr: >-
             rate(django_http_requests_latency_seconds_by_view_method_sum{namespace='data-platform-find-moj-data-test',method='GET'}[1m])/
