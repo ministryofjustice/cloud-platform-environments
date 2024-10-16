@@ -14,6 +14,7 @@ module "ecr" {
   oidc_providers        = ["github"]
   github_actions_prefix = "PROD"
   github_repositories   = ["operations-engineering-join-github"]
+  deletion_protection   = false
 
 
   # Tags
