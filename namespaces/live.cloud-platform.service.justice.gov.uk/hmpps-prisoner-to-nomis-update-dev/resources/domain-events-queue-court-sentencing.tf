@@ -108,7 +108,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
   endpoint  = module.hmpps_prisoner_to_nomis_court_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "court-case.inserted"
+      "court-case.inserted",
+      "legacy.court-case-references.updated",
+      "court-appearance.inserted",
+      "charge.inserted"
     ]
   })
 }
