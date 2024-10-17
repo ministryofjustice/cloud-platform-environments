@@ -14,6 +14,7 @@ module "irsa" {
   role_policy_arns = {
     s3     = module.drupal_content_storage_2.irsa_policy_arn
     s3prod = aws_iam_policy.s3_add_access_to_prod.arn
+    rds    = module.drupal_rds.irsa_policy_arn
   }
 
   # Tags
