@@ -23,3 +23,16 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-repo-laa-pola"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
+  }
+}
