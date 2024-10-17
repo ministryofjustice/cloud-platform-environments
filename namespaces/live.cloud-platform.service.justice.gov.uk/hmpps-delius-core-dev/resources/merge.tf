@@ -4,7 +4,7 @@ module "merge_rds" {
   # VPC configuration
   vpc_name = var.vpc_name
 
-  db_name = "merge"
+  db_name = "mergedb"
 
   # RDS configuration
   allow_minor_version_upgrade  = true
