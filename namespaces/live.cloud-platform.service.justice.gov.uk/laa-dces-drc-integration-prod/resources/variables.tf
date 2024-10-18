@@ -82,3 +82,9 @@ variable "domain" {
   default = "laa-debt-collection.service.justice.gov.uk"
   type    = string
 }
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_prod_db"
+}
