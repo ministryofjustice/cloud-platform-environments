@@ -9,7 +9,7 @@ subjects:
     name: "github:farsight-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-sre"
+    name: "github:dps-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:calculate-release-dates-team"
