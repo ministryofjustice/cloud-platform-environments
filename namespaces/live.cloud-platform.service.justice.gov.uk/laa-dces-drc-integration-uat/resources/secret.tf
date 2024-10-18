@@ -24,7 +24,12 @@ module "secrets_manager" {
       description             = "Feature flag variables [laa-dces-drc-integration-uat]"
       recovery_window_in_days = 7
       k8s_secret_name         = "feature"
-    }
+    },
+    "dces-datasource" = {
+      description             = "DCES Database Connection Information [laa-dces-drc-integration-uat]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-datasource"
+    },
     "maat_api_oauth_client_id" = {
       description             = "MAAT API OAuth2 client ID [laa-dces-drc-integration-uat]"
       recovery_window_in_days = 7
