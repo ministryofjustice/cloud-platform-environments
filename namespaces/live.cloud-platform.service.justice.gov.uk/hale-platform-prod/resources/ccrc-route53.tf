@@ -226,14 +226,6 @@ resource "aws_route53_record" "ccrc_route53_cname_record_enterpriseregistration"
   records = ["enterpriseregistration.windows.net"]
 }
 
-resource "aws_route53_record" "ccrc_route53_cname_record_lyncdiscover" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "lyncdiscover.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["webdir.online.lync.com"]
-}
-
 resource "aws_route53_record" "ccrc_route53_cname_record_mta_sts2" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "_9e111899dbb1e73aed800dd796c849f4.mta-sts.ccrc.gov.uk"
@@ -242,34 +234,10 @@ resource "aws_route53_record" "ccrc_route53_cname_record_mta_sts2" {
   records = ["_529da6734664ecca58ad43f6298844fe.bkngfjypgb.acm-validations.aws."]
 }
 
-resource "aws_route53_record" "ccrc_route53_cname_record_sipdir" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "sip.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["sipdir.online.lync.com"]
-}
-
 resource "aws_route53_record" "ccrc_route53_cname_record_acm2" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "_2966249ff1f7d496b355eabc821707b3.www.ccrc.gov.uk"
   type    = "CNAME"
   ttl     = "60"
   records = ["_054556e3de8c167ce984f414fdf89e12.jhztdrwbnw.acm-validations.aws."]
-}
-
-resource "aws_route53_record" "ccrc_route53_srv_record_sipfed" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_sipfederationtls._tcp.ccrc.gov.uk"
-  type    = "SRV"
-  ttl     = "3600"
-  records = ["5061 1 100 sipfed.online.lync.com"]
-}
-
-resource "aws_route53_record" "ccrc_route53_srv_record_sipdir" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_sip._tls.ccrc.gov.uk"
-  type    = "SRV"
-  ttl     = "3600"
-  records = ["443 1 100 sipdir.online.lync.com"]
 }
