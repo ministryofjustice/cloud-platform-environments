@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:laa-aws-infrastructure"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-crime-apps-team"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
