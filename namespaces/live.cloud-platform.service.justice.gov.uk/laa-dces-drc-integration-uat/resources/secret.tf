@@ -35,5 +35,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }
+    "dces-datasource" = {
+      description             = "DCES Database Connection Information [laa-dces-drc-integration-uat]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-datasource"
+    }
   }
 }

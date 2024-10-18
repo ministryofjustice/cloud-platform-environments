@@ -71,3 +71,9 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_uat_db"
+}
