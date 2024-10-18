@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=ad7eaaf88368f97226c27ba08ee911ef310bfa7e" #v7.1.0
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
 
   # Repository configuration
   repo_name = var.namespace
