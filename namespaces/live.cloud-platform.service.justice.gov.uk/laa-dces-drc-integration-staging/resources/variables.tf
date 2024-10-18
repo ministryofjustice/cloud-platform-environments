@@ -108,7 +108,7 @@ variable "cognito_user_pool_domain_name" {
 variable "db_name" {
   description = "Name of the database"
   type        = string
-  default     = "laa_dces_integration_dev_db"
+  default     = "laa_dces_drc_integration_staging_db"
 }
 
 variable "serviceaccount_rules" {
