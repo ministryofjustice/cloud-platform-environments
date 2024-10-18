@@ -8,7 +8,7 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   # turn off the db overnight (between 22:00 and 06:00)
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 
   # VPC configuration
   vpc_name = var.vpc_name
