@@ -33,7 +33,7 @@ resource "aws_glue_catalog_table" "audit_event_table" {
     }
     columns {
       name = "when"
-      type = "timestamp"
+      type = "string"
     }
     columns {
       name = "operationId"
