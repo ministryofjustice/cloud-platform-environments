@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: dlq-notify
 spec:
-  schedule: 0 6 * * 1-5
+  schedule: 0 7 * * 1-5
   concurrencyPolicy: Replace
   jobTemplate:
     spec:
