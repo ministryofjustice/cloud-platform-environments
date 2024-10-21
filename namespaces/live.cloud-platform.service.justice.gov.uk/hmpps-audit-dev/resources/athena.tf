@@ -32,7 +32,7 @@ resource "aws_glue_catalog_table" "audit_event_table" {
       type = "string"
     }
     columns {
-      name = "`when`"
+      name = "when"
       type = "timestamp"
     }
     columns {
