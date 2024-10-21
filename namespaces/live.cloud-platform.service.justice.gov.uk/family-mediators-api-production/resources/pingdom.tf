@@ -15,6 +15,6 @@ resource "pingdom_check" "family-mediators-api-production-pingdom" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},component_ping,isproduction_${var.is_production},environment_${var.environment_name},cloudplatform-managed,crossjustice,api"
   probefilters             = "region:EU"
-  integrationids           = [87620]
+  integrationids           = [139911]
   teamids                  = [385932]
 }
