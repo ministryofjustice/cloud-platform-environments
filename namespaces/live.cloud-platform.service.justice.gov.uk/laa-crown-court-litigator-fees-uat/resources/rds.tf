@@ -1,4 +1,4 @@
-module "rds-instance-trial" {
+module "rds-instance-migrated" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -31,7 +31,7 @@ module "rds-instance-trial" {
   # enable performance insights
   performance_insights_enabled = true
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-for-cp-trial" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-cp-cutover-21102024"
 
   providers = {
     aws = aws.london
@@ -118,10 +118,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance-trial.database_name
-    database_host     = module.rds-instance-trial.rds_instance_address
-    database_port     = module.rds-instance-trial.rds_instance_port
-    database_username = module.rds-instance-trial.database_username
-    database_password = module.rds-instance-trial.database_password
+    database_name     = module.rds-instance-migrated.database_name
+    database_host     = module.rds-instance-migrated.rds_instance_address
+    database_port     = module.rds-instance-migrated.rds_instance_port
+    database_username = module.rds-instance-migrated.database_username
+    database_password = module.rds-instance-migrated.database_password
   }
 }
