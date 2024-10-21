@@ -7,7 +7,7 @@ metadata:
   labels:
     grafana_dashboard: "laa-dces-drc-integration"
 data:
-  laa-dces-drc-integration.json: |
+  laa-dces-drc-integration-staging.json: |
     {
       "annotations": {
         "list": [
@@ -549,8 +549,8 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "LAA DRC Integration Service",
-      "uid": "laaDCESDRCIntegration",
+      "title": "LAA DRC Integration Service Staging",
+      "uid": "laaDCESDRCIntegrationStaging",
       "version": 2,
       "weekStart": ""
     }
