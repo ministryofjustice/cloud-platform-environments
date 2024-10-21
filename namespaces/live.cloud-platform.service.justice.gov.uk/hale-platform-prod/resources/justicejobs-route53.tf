@@ -69,3 +69,11 @@ resource "aws_route53_record" "justicejobs_route53_cname_record_sendgrid3" {
   ttl     = "300"
   records = ["u2320754.wl005.sendgrid.net"]
 }
+
+resource "aws_route53_record" "justicejobs_route53_cname_record_digicert" {
+  zone_id = aws_route53_zone.justicejobs_route53_zone.zone_id
+  name    = "_1odje3j4cvow7403b0uitvgjxxu2jn8.jobs.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dcv.digicert.com"]
+}
