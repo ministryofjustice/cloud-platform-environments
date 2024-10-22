@@ -111,7 +111,7 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "aws_security_group_rule" "rule1" {
+resource "aws_security_group_rule" "rule5" {
   cidr_blocks       = ["10.205.0.0/20"]
   type              = "ingress"
   protocol          = "tcp"
@@ -120,7 +120,7 @@ resource "aws_security_group_rule" "rule1" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "aws_security_group_rule" "rule2" {
+resource "aws_security_group_rule" "rule6" {
   cidr_blocks       = ["10.205.0.0/20"]
   type              = "egress"
   protocol          = "tcp"
