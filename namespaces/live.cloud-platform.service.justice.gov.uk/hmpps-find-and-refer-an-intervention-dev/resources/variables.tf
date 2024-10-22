@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-find-and-refer-an-intervention"
+  default     = "interventions-devs" // change to when created hmpps-find-and-refer-an-intervention
 }
 
 variable "environment" {
