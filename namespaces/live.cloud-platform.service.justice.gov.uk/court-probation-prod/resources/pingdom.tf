@@ -25,7 +25,7 @@ resource "pingdom_check" "crime-portal-gateway-check" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/"
+  url                      = "/health"
   encryption               = true
   port                     = 443
   tags                     = "hmpps, probation-in-court, crime-portal-gateway, cloudplatform-managed"
