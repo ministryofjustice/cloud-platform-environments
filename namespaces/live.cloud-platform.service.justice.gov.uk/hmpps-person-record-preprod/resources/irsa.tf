@@ -9,6 +9,32 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
+data "aws_iam_policy_document" "combined_local_sqs" {
+  version = "2012-10-17"
+  statement {
+    sid       = "CorePersonRecordPreprodSqs"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = [
+      module.cpr_court_case_events_queue.irsa_policy_arn,
+      module.cpr_court_case_events_fifo_queue.irsa_policy_arn,
+      module.cpr_court_case_events_temporary_queue.irsa_policy_arn,
+      module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_delius_offender_events_queue.irsa_policy_arn,
+      module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_delius_merge_events_queue.irsa_policy_arn,
+      module.cpr_delius_merge_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_nomis_events_queue.irsa_policy_arn,
+      module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_nomis_merge_events_queue.irsa_policy_arn,
+      module.cpr_nomis_merge_events_dead_letter_queue.irsa_policy_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_local_sqs" {
+  policy = data.aws_iam_policy_document.combined_local_sqs.json
+}
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
@@ -27,18 +53,7 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
-    { sqs_cpr_cce = module.cpr_court_case_events_queue.irsa_policy_arn },
-    { sqs_cpr_fifo_cce = module.cpr_court_case_events_fifo_queue.irsa_policy_arn },
-    { sqs_cpr_temp_cce = module.cpr_court_case_events_temporary_queue.irsa_policy_arn },
-    { sqs_cpr_cce_dlq = module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn },
-    { sqs_cpr_delius_oe = module.cpr_delius_offender_events_queue.irsa_policy_arn },
-    { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
-    { sqs_cpr_delius_me = module.cpr_delius_merge_events_queue.irsa_policy_arn },
-    { sqs_cpr_delius_me_dlq = module.cpr_delius_merge_events_dead_letter_queue.irsa_policy_arn },
-    { sqs_cpr_nomis_oe = module.cpr_nomis_events_queue.irsa_policy_arn },
-    { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn },
-    { sqs_cpr_nomis_me = module.cpr_nomis_merge_events_queue.irsa_policy_arn },
-    { sqs_cpr_nomis_me_dlq = module.cpr_nomis_merge_events_dead_letter_queue.irsa_policy_arn },
+    { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
     { sns_cpr_cce_fifo = module.court-case-events-fifo-topic.irsa_policy_arn }
   )
 
