@@ -12,5 +12,6 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Find and Refer an Intervention"
     cloud-platform.justice.gov.uk/owner: "Find and Refer an Intervention: interventions-devs@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-find-and-refer-an-intervention-ui"
-    cloud-platform.justice.gov.uk/team-name: "interventions-devs" # change to when created hmpps-find-and-refer-an-intervention
+    cloud-platform.justice.gov.uk/team-name: "interventions-devs"
+
 
