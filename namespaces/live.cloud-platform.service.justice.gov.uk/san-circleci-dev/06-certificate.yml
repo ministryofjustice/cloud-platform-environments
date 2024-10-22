@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: san-ccitypescript-test.hmpps.service.justice.gov.uk
+  namespace: san-circleci-dev
+spec:
+  secretName: san-ccitypescript-test
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - san-ccitypescript-test.hmpps.service.justice.gov.uk
