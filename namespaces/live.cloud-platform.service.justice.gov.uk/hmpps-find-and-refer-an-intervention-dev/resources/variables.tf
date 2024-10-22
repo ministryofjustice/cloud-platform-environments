@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "interventions-devs" // change to when created hmpps-find-and-refer-an-intervention
+  default     = "interventions-devs" # change to when created hmpps-find-and-refer-an-intervention
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "interventions-devs@digital.justice.gov.uk" // change to when created find-and-refer-an-intervention-team
+  default     = "interventions-devs@digital.justice.gov.uk" # change to when created find-and-refer-an-intervention-team
 }
 
 variable "is_production" {
