@@ -23,7 +23,7 @@ spec:
           > 0.9 < 1
       for: 15m
       labels:
-        severity: justice-gov-uk-production-alerts
+        severity: justice-gov-uk-alerts
     - alert: KubeQuota-Exceeded
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
@@ -36,7 +36,7 @@ spec:
         > 90
       for: 15m
       labels:
-        severity: justice-gov-uk-production-alerts
+        severity: justice-gov-uk-alerts
     - alert: KubePodCrashLooping
       # pint file/disable alerts/template
       annotations:
@@ -47,7 +47,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-production-alerts
+        severity: justice-gov-uk-alerts
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
@@ -58,7 +58,7 @@ spec:
         > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-production-alerts
+        severity: justice-gov-uk-alerts
     - alert: KubeDeploymentGenerationMismatch
       annotations:
         message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
@@ -71,4 +71,103 @@ spec:
         kube_deployment_metadata_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
       for: 15m
       labels:
-        severity: justice-gov-uk-production-alerts
+        severity: justice-gov-uk-alerts
+
+  - name: application-rules
+    rules:
+
+    - alert: SlowResponses
+      annotations:
+        message: For 3 minutes, more than 1% of requests were slower than 5 seconds.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#SlowResponse
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk
+          /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
+          ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
+          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+      expr: |-
+        histogram_quantile(
+          0.99,
+          sum by (le, ingress) (
+            rate(
+              nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="justice-gov-uk-production",status!="404",status!="500"}[1m]
+            )
+          )
+        ) > 5
+      for: 3m
+      labels:
+        severity: justice-gov-uk-alerts
+
+    - alert: SlownessOutage
+      annotations:
+        message: For 3 minutes, more than 10% of requests were slower than 7.5 seconds.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#SlownessOutage
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk
+          /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
+          ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
+          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+      expr: |-
+          histogram_quantile(
+            0.9,
+            sum by (le, ingress) (
+              rate(
+                nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="justice-gov-uk-production",status!="404",status!="500"}[1m]
+              )
+            )
+          ) > 7.5
+      for: 3m
+      labels:
+        severity: justice-gov-uk-alerts
+
+    - alert: High404Rate
+      annotations:
+        message: More than 5% of responses were 404 errors.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High404Rate
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk
+          /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
+          ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
+          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+      expr: |-
+        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status="404"}[1m]))
+        /
+        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
+        > 0.05
+      for: 3m
+      labels:
+        severity: justice-gov-uk-alerts
+
+    - alert: High5xxRate
+      annotations:
+        message: More than 5% of responses were 5xx errors.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High5xxRate
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk
+          /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
+          ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
+          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+      expr: |-
+        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status=~"5.."}[1m]))
+        /
+        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
+        > 0.05
+      for: 3m
+      labels:
+        severity: justice-gov-uk-alerts
+
+    - alert: TrafficSpike
+      annotations:
+        message: Unusual levels of traffic - over 2000 request per minute (33rps).
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#TrafficSpike
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk
+          /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
+          ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
+          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+      expr: |-
+        sum(rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[5m])) by (ingress)
+        > 33
+      for: 3m
+      labels:
+        severity: justice-gov-uk-alerts
