@@ -84,4 +84,4 @@ resource "kubernetes_secret" "rds" {
 #    url                   = "postgres://${module.rds_replica.database_username}:${module.rds_replica.database_password}@${module.rds_replica.rds_instance_endpoint}/${module.rds_replica.database_name}"
 #
 #  }
-}
+#}
