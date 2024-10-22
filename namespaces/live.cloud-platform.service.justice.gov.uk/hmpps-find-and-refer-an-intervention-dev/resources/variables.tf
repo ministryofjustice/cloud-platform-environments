@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "find-and-refer-an-intervention-team@digital.justice.gov.uk"
+  default     = "interventions-devs@digital.justice.gov.uk" // change to when created find-and-refer-an-intervention-team
 }
 
 variable "is_production" {
