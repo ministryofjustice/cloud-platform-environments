@@ -689,3 +689,18 @@ spec:
   dnsNames:
     - f7bfe89b-preprod.hmpps.service.justice.gov.uk
     - ims-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: appointment-reminders-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: appointment-reminders-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f112f1b0-preprod.hmpps.service.justice.gov.uk
+    - appointment-reminders-and-delius-preprod.hmpps.service.justice.gov.uk
