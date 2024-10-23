@@ -14,8 +14,7 @@ module "drupal_rds" {
   db_engine                 = "mariadb"
   db_engine_version         = "10.11"
   rds_family                = "mariadb10.11"
-  prepare_for_major_upgrade = true
-  
+
   # The recommended transaction isolation level for Drupal is READ-COMMITTED.
   # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level
   db_parameter = [
