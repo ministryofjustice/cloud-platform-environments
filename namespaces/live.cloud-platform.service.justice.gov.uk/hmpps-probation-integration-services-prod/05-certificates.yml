@@ -689,3 +689,18 @@ spec:
   dnsNames:
     - f7bfe89b.hmpps.service.justice.gov.uk
     - ims-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: appointment-reminders-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: appointment-reminders-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f112f1b0.hmpps.service.justice.gov.uk
+    - appointment-reminders-and-delius.hmpps.service.justice.gov.uk
