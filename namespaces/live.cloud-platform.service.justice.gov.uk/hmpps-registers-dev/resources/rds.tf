@@ -17,7 +17,8 @@ module "dps_rds" {
   rds_family                 = "postgres15"
   db_engine                  = "postgres"
   db_engine_version          = "15"
-  db_iops                     = "12000"
+  storage_type               = "io2"
+  db_iops                    = "12000"
 
   providers = {
     aws = aws.london
@@ -58,7 +59,8 @@ module "prisons_rds" {
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
   db_engine_version          = "16.3"
-  db_iops                     = "12000"
+  storage_type               = "io2"
+  db_iops                    = "12000"
 
   providers = {
     aws = aws.london
