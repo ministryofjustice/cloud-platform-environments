@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -15,10 +15,11 @@ module "rds-live" {
   performance_insights_enabled = true
   # db instance class
   db_instance_class = "db.t4g.small"
+  db_iops = "12000"
 
   # change the postgres version as you see fit.
   db_engine_version      = "15"
-  db_allocated_storage   = "108"
+  db_allocated_storage   = "750"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
