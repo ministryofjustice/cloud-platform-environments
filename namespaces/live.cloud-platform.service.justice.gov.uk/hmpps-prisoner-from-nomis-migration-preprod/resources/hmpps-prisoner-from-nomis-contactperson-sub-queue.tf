@@ -124,7 +124,16 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_contactperson_
   endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "TBD"
+      "PERSON-INSERTED",
+      "PERSON-UPDATED",
+      "PERSON-DELETED",
+      "VISITOR_RESTRICTION-UPSERTED",
+      "VISITOR_RESTRICTION-DELETED",
+      "OFFENDER_CONTACT-INSERTED",
+      "OFFENDER_CONTACT-UPDATED",
+      "OFFENDER_CONTACT-DELETED",
+      "PERSON_RESTRICTION-UPSERTED",
+      "PERSON_RESTRICTION-DELETED"
     ]
   })
 }
