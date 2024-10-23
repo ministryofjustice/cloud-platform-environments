@@ -1,90 +1,328 @@
-module "api_gateway" {
-  source = "terraform-aws-modules/apigateway-v2/aws"
+resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
 
-  name          = "dev-http"
-  description   = "My awesome HTTP API Gateway"
-  protocol_type = "HTTP"
+  domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
+  security_policy          = "TLS_1_2"
 
-  cors_configuration = {
-    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
-    allow_methods = ["*"]
-    allow_origins = ["*"]
+  endpoint_configuration {
+    types = ["REGIONAL"]
   }
 
-  # Custom domain
-  domain_name = "terraform-aws-modules.modules.tf"
+  mutual_tls_authentication {
+    truststore_uri     = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
+    truststore_version = aws_s3_object.truststore.version_id
+  }
 
-  # Access logs
-  stage_access_log_settings = {
-    create_log_group            = true
-    log_group_retention_in_days = 7
+  depends_on = [
+    aws_acm_certificate_validation.api_gateway_custom_hostname,
+    aws_s3_object.truststore
+  ]
+
+  tags = local.default_tags
+}
+
+resource "aws_acm_certificate" "api_gateway_custom_hostname" {
+  domain_name       = "${var.hostname}.${var.base_domain}"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = local.default_tags
+}
+
+resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
+  for_each = aws_route53_record.cert_validations
+
+  certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
+  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
+
+  timeouts {
+    create = "10m"
+  }
+
+  depends_on = [aws_route53_record.cert_validations]
+}
+
+data "aws_route53_zone" "hmpps" {
+  name         = var.base_domain
+  private_zone = false
+}
+
+resource "aws_route53_record" "cert_validations" {
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = data.aws_route53_zone.hmpps.zone_id
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = each.value.zone_id
+}
+
+resource "aws_route53_record" "data" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  zone_id = data.aws_route53_zone.hmpps.zone_id
+  name    = "${var.hostname}.${data.aws_route53_zone.hmpps.name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "{proxy+}"
+}
+
+
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
+}
+
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
+  type                    = "HTTP_PROXY"
+  integration_http_method = "ANY"
+  uri                     = "${var.cloud_platform_integration_api_url}/{proxy}"
+
+  request_parameters = {
+    "integration.request.path.proxy"                        = "method.request.path.proxy",
+    "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
+  }
+}
+
+resource "aws_api_gateway_deployment" "main" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+
+  triggers = {
+    redeployment = sha1(jsonencode([
+      # "manual-deploy-trigger",
+      local.clients,
+      var.cloud_platform_integration_api_url,
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-assume-role-endpoint.tf")),
+    ]))
+  }
+
+  depends_on = [
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy_http_proxy,
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_api_key" "clients" {
+  for_each = toset(local.clients)
+  name     = each.key
+
+  tags = local.default_tags
+}
+
+
+resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  api_id      = aws_api_gateway_rest_api.api_gateway.id
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
+  stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+    aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client" {
+  description = "Client certificate presented to the backend API"
+  tags        = local.default_tags
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
+  description = "Client certificate presented to the backend API expires 15/05/2025"
+  tags        = local.default_tags
+}
+
+resource "aws_api_gateway_stage" "main" {
+  deployment_id         = aws_api_gateway_deployment.main.id
+  rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
+  stage_name            = var.namespace
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
     format = jsonencode({
-      context = {
-        domainName              = "$context.domainName"
-        integrationErrorMessage = "$context.integrationErrorMessage"
-        protocol                = "$context.protocol"
-        requestId               = "$context.requestId"
-        requestTime             = "$context.requestTime"
-        responseLength          = "$context.responseLength"
-        routeKey                = "$context.routeKey"
-        stage                   = "$context.stage"
-        status                  = "$context.status"
-        error = {
-          message      = "$context.error.message"
-          responseType = "$context.error.responseType"
-        }
-        identity = {
-          sourceIP = "$context.identity.sourceIp"
-        }
-        integration = {
-          error             = "$context.integration.error"
-          integrationStatus = "$context.integration.integrationStatus"
-        }
-      }
+      extendedRequestId  = "$context.extendedRequestId"
+      ip                 = "$context.identity.sourceIp"
+      client             = "$context.identity.clientCert.subjectDN"
+      issuerDN           = "$context.identity.clientCert.issuerDN"
+      requestTime        = "$context.requestTime"
+      httpMethod         = "$context.httpMethod"
+      resourcePath       = "$context.resourcePath"
+      status             = "$context.status"
+      responseLength     = "$context.responseLength"
+      error              = "$context.error.message"
+      authenticateStatus = "$context.authenticate.status"
+      authenticateError  = "$context.authenticate.error"
+      integrationStatus  = "$context.integration.status"
+      integrationError   = "$context.integration.error"
+      apiKeyId           = "$context.identity.apiKeyId"
     })
   }
 
-  # Authorizer(s)
-  authorizers = {
-    "azure" = {
-      authorizer_type  = "JWT"
-      identity_sources = ["$request.header.Authorization"]
-      name             = "azure-auth"
-      jwt_configuration = {
-        audience         = ["d6a38afd-45d6-4874-d1aa-3c5c558aqcc2"]
-        issuer           = "https://sts.windows.net/aaee026e-8f37-410e-8869-72d9154873e4/"
-      }
-    }
+  lifecycle {
+    create_before_destroy = true
   }
 
-  # Routes & Integration(s)
-  routes = {
-    "POST /" = {
-      integration = {
-        uri                    = "arn:aws:lambda:eu-west-1:052235179155:function:my-function"
-        payload_format_version = "2.0"
-        timeout_milliseconds   = 12000
-      }
-    }
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+  ]
 
-    "GET /some-route-with-authorizer" = {
-      authorizer_key = "azure"
+  tags = local.default_tags
+}
 
-      integration = {
-        type = "HTTP_PROXY"
-        uri  = "some url"
-      }
-    }
+resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
+  retention_in_days = 60
+  tags              = local.default_tags
+}
 
-    "$default" = {
-      integration = {
-        uri = "arn:aws:lambda:eu-west-1:052235179155:function:my-default-function"
-      }
-    }
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  stage_name  = aws_api_gateway_stage.main.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled    = true
+    logging_level      = "INFO"
+    data_trace_enabled = true
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
+  alarm_name          = "${var.namespace}-gateway-4XX-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 4xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "4XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
   }
 
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
+  depends_on = [
+    module.sns_topic
+  ]
+
+  tags = local.default_tags
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
+  alarm_name          = "${var.namespace}-gateway-5XX-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway 5xx error greater than 0"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "5XXError"
+  namespace           = "AWS/ApiGateway"
+  period              = 30
+  evaluation_periods  = 1
+  threshold           = 1
+  statistic           = "Sum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
   }
+
+  depends_on = [
+    module.sns_topic
+  ]
+
+  tags = local.default_tags
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
+  alarm_name          = "${var.namespace}-gateway-integration-latency-greater-than-3-seconds"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway integration latency greater than 3 seconds"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "IntegrationLatency"
+  namespace           = "AWS/ApiGateway"
+  period              = 60
+  evaluation_periods  = 1
+  threshold           = 3000
+  statistic           = "Maximum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+  depends_on = [
+    module.sns_topic
+  ]
+
+  tags = local.default_tags
+}
+
+resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
+  alarm_name          = "${var.namespace}-gateway-latency-greater-than-5-seconds"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  alarm_description   = "Gateway latency greater than 3 seconds"
+  treat_missing_data  = "notBreaching"
+  metric_name         = "IntegrationLatency"
+  namespace           = "AWS/ApiGateway"
+  period              = 60
+  evaluation_periods  = 1
+  threshold           = 5000
+  statistic           = "Maximum"
+  unit                = "Count"
+  actions_enabled     = true
+  alarm_actions       = [module.sns_topic.topic_arn]
+  dimensions = {
+    ApiName = var.namespace
+  }
+
+  depends_on = [
+    module.sns_topic
+  ]
+
+  tags = local.default_tags
 }
