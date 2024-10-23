@@ -3,7 +3,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "prepare-a-case-production-check" {
   type                     = "http"
-  name                     = var.application
+  name                     = "prepare-a-case"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
@@ -19,7 +19,7 @@ resource "pingdom_check" "prepare-a-case-production-check" {
 
 resource "pingdom_check" "crime-portal-gateway-check" {
   type                     = "http"
-  name                     = var.application
+  name                     = "crime-portal-gateway"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
