@@ -11,7 +11,7 @@ module "ecr_credentials" {
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["circleci"]
-
+  force_delete = true
   # specify which GitHub repository you're pushing from
   github_repositories = ["laa-dces-dummy-drc"]
 
@@ -94,5 +94,14 @@ resource "kubernetes_secret" "ecr_credentials" {
   data = {
     repo_arn = module.ecr_credentials.repo_arn
     repo_url = module.ecr_credentials.repo_url
+  }
+}
+
+resource "aws_ecr_repository" "foo" {
+  name                 = "bar"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
   }
 }
