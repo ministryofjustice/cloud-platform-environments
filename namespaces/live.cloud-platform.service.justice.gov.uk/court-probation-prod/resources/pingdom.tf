@@ -20,12 +20,12 @@ resource "pingdom_check" "prepare-a-case-production-check" {
 resource "pingdom_check" "crime-portal-gateway-check" {
   type                     = "http"
   name                     = var.application
-  host                     = var.crime-portal-mirror-gateway-domain
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/health"
+  url                      = "/https/${var.crime-portal-mirror-gateway-domain}"
   encryption               = true
   port                     = 443
   tags                     = "hmpps, probation-in-court, crime-portal-gateway, cloudplatform-managed"
