@@ -1,0 +1,52 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-custom-rules-elasticache
+  namespace: hmpps-micro-frontend-components-preprod
+  labels:
+    role: alert-rules
+
+spec:
+  groups:
+    - name: elasticache-rules
+      rules:
+
+        - alert: hmpps-micro-frontend-components-elasticache-cpu-001
+          expr: aws_elasticache_cpuutilization_average{cache_cluster_id="cp-e050515d3e466664-001"} > 75
+          for: 1m
+          labels:
+            severity: hmpps-micro-frontend-components-non-prod
+          annotations:
+            message: "The HMPPS Micro Frontend Components (PREPROD) elasticache cluster 001 CPU exceeds 75%"
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ALIGN/pages/5215125686
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-e050515d3e466664-001
+
+        - alert: hmpps-micro-frontend-components-elasticache-cpu-002
+          expr: aws_elasticache_cpuutilization_average{cache_cluster_id="cp-e050515d3e466664-002"} > 75
+          for: 1m
+          labels:
+            severity: hmpps-micro-frontend-components-non-prod
+          annotations:
+            message: "The HMPPS Micro Frontend Components (PREPROD) elasticache cluster 002 CPU exceeds 75%"
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ALIGN/pages/5215125686
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-e050515d3e466664-002
+
+        - alert: hmpps-micro-frontend-components-elasticache-memory-001
+          expr: aws_elasticache_database_memory_usage_percentage_average{cache_cluster_id="cp-e050515d3e466664-001"} > 75
+          for: 1m
+          labels:
+            severity: hmpps-micro-frontend-components-non-prod
+          annotations:
+            message: "The HMPPS Micro Frontend Components (PREPROD) elasticache cluster 001 memory usage exceeds 75%"
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ALIGN/pages/5215125686
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-e050515d3e466664-001
+
+        - alert: hmpps-micro-frontend-components-elasticache-memory-002
+          expr: aws_elasticache_database_memory_usage_percentage_average{cache_cluster_id="cp-e050515d3e466664-002"} > 75
+          for: 1m
+          labels:
+            severity: hmpps-micro-frontend-components-non-prod
+          annotations:
+            message: "The HMPPS Micro Frontend Components (PREPROD) elasticache cluster 002 memory usage exceeds 75%"
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ALIGN/pages/5215125686
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?orgId=1&var-cacheclusterId=cp-e050515d3e466664-002
