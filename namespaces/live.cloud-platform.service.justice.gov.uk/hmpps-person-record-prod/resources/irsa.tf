@@ -11,7 +11,6 @@ locals {
 
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
-  version = "2012-10-17"
   statement {
     sid       = "hmppsCourtCaseEventsSqs"
     effect    = "Allow"
@@ -33,7 +32,6 @@ resource "aws_iam_policy" "combined_court_case_sqs" {
 
 # Delius SQS Policies
 data "aws_iam_policy_document" "combined_delius_sqs" {
-  version = "2012-10-17"
   statement {
     sid       = "hmppsDeliusEventsSqs"
     effect    = "Allow"
@@ -56,7 +54,6 @@ resource "aws_iam_policy" "combined_delius_sqs" {
 
 # NOMIS SQS Policies
 data "aws_iam_policy_document" "combined_nomis_sqs" {
-  version = "2012-10-17"
   statement {
     sid       = "hmppsNomisEventsSqs"
     effect    = "Allow"
