@@ -35,6 +35,8 @@ module "irsa" {
     { sqs_cpr_delius_oe_dlq = module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_delius_me = module.cpr_delius_merge_events_queue.irsa_policy_arn },
     { sqs_cpr_delius_me_dlq = module.cpr_delius_merge_events_dead_letter_queue.irsa_policy_arn },
+    { sqs_cpr_delius_de = module.cpr_delius_delete_events_queue.irsa_policy_arn },
+    { sqs_cpr_delius_de_dlq = module.cpr_delius_delete_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_nomis_oe = module.cpr_nomis_events_queue.irsa_policy_arn },
     { sqs_cpr_nomis_oe_dlq = module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn },
     { sqs_cpr_nomis_me = module.cpr_nomis_merge_events_queue.irsa_policy_arn },
