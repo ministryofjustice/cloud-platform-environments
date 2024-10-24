@@ -10,7 +10,7 @@ module "rds" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres16"
-  db_engine_version           = "16.1"
+  db_engine_version           = "16.3"
   # db instance class
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
