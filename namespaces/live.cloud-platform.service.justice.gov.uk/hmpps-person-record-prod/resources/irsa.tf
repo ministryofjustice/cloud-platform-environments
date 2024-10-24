@@ -16,11 +16,11 @@ data "aws_iam_policy_document" "combined_court_case_sqs" {
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
-      module.cpr_court_case_events_queue.irsa_policy_arn,
-      module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn,
-      module.court-case-events-fifo-topic.irsa_policy_arn,
-      module.cpr_court_case_events_fifo_queue.irsa_policy_arn,
-      module.cpr_court_case_events_temporary_queue.irsa_policy_arn,
+      module.cpr_court_case_events_queue.sqs_arn,
+      module.cpr_court_case_events_dead_letter_queue.sqs_arn,
+      module.court-case-events-fifo-topic.sqs_arn,
+      module.cpr_court_case_events_fifo_queue.sqs_arn,
+      module.cpr_court_case_events_temporary_queue.sqs_arn,
     ]
   }
 }
@@ -37,12 +37,12 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
-      module.cpr_delius_offender_events_queue.irsa_policy_arn,
-      module.cpr_delius_offender_events_dead_letter_queue.irsa_policy_arn,
-      module.cpr_delius_merge_events_queue.irsa_policy_arn,
-      module.cpr_delius_merge_events_dead_letter_queue.irsa_policy_arn,
-      module.cpr_delius_delete_events_queue.irsa_policy_arn,
-      module.cpr_delius_delete_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_delius_offender_events_queue.sqs_arn,
+      module.cpr_delius_offender_events_dead_letter_queue.sqs_arn,
+      module.cpr_delius_merge_events_queue.sqs_arn,
+      module.cpr_delius_merge_events_dead_letter_queue.sqs_arn,
+      module.cpr_delius_delete_events_queue.sqs_arn,
+      module.cpr_delius_delete_events_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -59,10 +59,10 @@ data "aws_iam_policy_document" "combined_nomis_sqs" {
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
-      module.cpr_nomis_events_queue.irsa_policy_arn,
-      module.cpr_nomis_events_dead_letter_queue.irsa_policy_arn,
-      module.cpr_nomis_merge_events_queue.irsa_policy_arn,
-      module.cpr_nomis_merge_events_dead_letter_queue.irsa_policy_arn,
+      module.cpr_nomis_events_queue.sqs_arn,
+      module.cpr_nomis_events_dead_letter_queue.sqs_arn,
+      module.cpr_nomis_merge_events_queue.sqs_arn,
+      module.cpr_nomis_merge_events_dead_letter_queue.sqs_arn,
     ]
   }
 }
