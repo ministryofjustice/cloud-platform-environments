@@ -92,7 +92,7 @@ module "irsa" {
     { dms = module.hmpps-person-record-dms.irsa_policy_arn },
     { s3 = module.hmpps-person-record-ndelius-s3-extract.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
-    { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
+    { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn }
   )
 
