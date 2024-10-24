@@ -111,6 +111,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
       "court-case.inserted",
       "legacy.court-case-references.updated",
       "court-appearance.inserted",
+      "court-appearance.updated",
       "charge.inserted"
     ]
   })
