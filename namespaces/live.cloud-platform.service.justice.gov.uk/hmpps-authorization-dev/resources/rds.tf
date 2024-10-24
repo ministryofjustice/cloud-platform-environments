@@ -11,7 +11,7 @@ module "dps_rds" {
   infrastructure_support        = var.infrastructure_support
   db_instance_class             = "db.t4g.micro"
   db_max_allocated_storage      = "500"
-  deletion_protection           = true
+  deletion_protection           = false
   prepare_for_major_upgrade     = false
   rds_family                    = "postgres16"
   db_engine                     = "postgres"
