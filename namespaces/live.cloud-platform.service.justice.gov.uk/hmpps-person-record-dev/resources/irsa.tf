@@ -25,10 +25,10 @@ data "aws_iam_policy_document" "combined_court_case_sqs" {
       values   = [data.aws_ssm_parameter.court-case-events-topic-arn.value]
     }
     resources = [
-      module.cpr_court_case_events_queue.irsa_policy_arn,
-      module.cpr_court_cases_queue.irsa_policy_arn,
-      module.cpr_court_case_events_dead_letter_queue.irsa_policy_arn,
-      module.cpr_court_cases_dead_letter_queue.irsa_policy_arn,
+      module.cpr_court_case_events_queue.sqs_arn,
+      module.cpr_court_cases_queue.sqs_arn,
+      module.cpr_court_case_events_dead_letter_queue.sqs_arn,
+      module.cpr_court_cases_dead_letter_queue.sqs_arn,
     ]
   }
 }
