@@ -15,10 +15,6 @@ data "aws_iam_policy_document" "combined_court_case_sqs" {
     sid       = "hmppsCourtCaseEventsQueuePolicy"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
@@ -44,10 +40,6 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
     sid     = "hmppsDeliusDomainEventsQueuePolicy"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
@@ -66,10 +58,6 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
     sid     = "hmppsDeliusProbationOffenderEventsQueuePolicy"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
@@ -93,10 +81,6 @@ data "aws_iam_policy_document" "combined_nomis_sqs" {
     sid       = "hmppsNomisDomainEventsQueuePolicy"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
