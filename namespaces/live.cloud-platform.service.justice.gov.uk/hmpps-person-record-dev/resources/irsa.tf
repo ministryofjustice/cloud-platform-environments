@@ -12,14 +12,9 @@ locals {
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
   statement {
-    sid       = "hmppsCourtCaseEventsQueuePolicy"
+    sid       = "hmppsCourtCasePolicy"
     effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.court-case-events-topic-arn.value]
-    }
+    actions = ["sqs:*"]
     resources = [
       module.cpr_court_case_events_queue.sqs_arn,
       module.cpr_court_cases_queue.sqs_arn,
@@ -37,14 +32,9 @@ resource "aws_iam_policy" "combined_court_case_sqs" {
 # Delius SQS Policies
 data "aws_iam_policy_document" "combined_delius_sqs" {
   statement {
-    sid     = "hmppsDeliusDomainEventsQueuePolicy"
+    sid     = "hmppsDeliusQueuePolicy"
     effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
+    actions = ["sqs:*"]
     resources = [
       module.cpr_delius_offender_events_queue.sqs_arn,
       module.cpr_delius_offender_events_dead_letter_queue.sqs_arn,
@@ -52,20 +42,6 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
       module.cpr_delius_merge_events_dead_letter_queue.sqs_arn,
       module.cpr_delius_delete_events_queue.sqs_arn,
       module.cpr_delius_delete_events_dead_letter_queue.sqs_arn,
-    ]
-  }
-  statement {
-    sid     = "hmppsDeliusProbationOffenderEventsQueuePolicy"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events.arn]
-    }
-    resources = [
-      module.cpr_delius_offender_events_queue.sqs_arn,
-      module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
     ]
   }
 }
@@ -78,14 +54,9 @@ resource "aws_iam_policy" "combined_delius_sqs" {
 # NOMIS SQS Policies
 data "aws_iam_policy_document" "combined_nomis_sqs" {
   statement {
-    sid       = "hmppsNomisDomainEventsQueuePolicy"
+    sid       = "hmppsNomisQueuePolicy"
     effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
+    actions = ["sqs:*"]
     resources = [
       module.cpr_nomis_events_queue.sqs_arn,
       module.cpr_nomis_events_dead_letter_queue.sqs_arn,
