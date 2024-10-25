@@ -3,7 +3,13 @@ resource "aws_sns_topic_subscription" "court_case_events_subscription" {
   topic_arn = data.aws_ssm_parameter.court-case-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.court_case_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    messageType = [
+      "COMMON_PLATFORM_HEARING"
+    ]
+  })
 }
+
 
 module "court_case_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0" 
