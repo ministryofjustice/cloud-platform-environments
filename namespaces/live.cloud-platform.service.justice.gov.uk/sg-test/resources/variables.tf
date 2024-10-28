@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-templates-dev"
+  default = "sg-test"
 }
 
 variable "business_unit" {
