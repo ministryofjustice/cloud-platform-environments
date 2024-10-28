@@ -112,18 +112,6 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_contactperson_subscri
   endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "TBD"
-    ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_contactperson_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
       "PERSON-INSERTED",
       "PERSON-UPDATED",
       "PERSON-DELETED",
@@ -149,6 +137,18 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_contactperson_
       "PERSON_IDENTIFIERS-INSERTED",
       "PERSON_IDENTIFIERS-UPDATED",
       "PERSON_IDENTIFIERS-DELETED"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_contactperson_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "TBD"
     ]
   })
 }
