@@ -10,6 +10,16 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "dces-drc-integration-service-alert-webhook-test" = {
+      description             = "DCES Report Service Slack Webhook Prod"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-drc-integration-service-alert-webhook-prod"
+    },
+    "drc-client-auth-tls" = {
+      description             = "DRC mTLS client credentials [laa-dces-drc-integration-prod]"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client-auth-tls"
+    },
     "ca-crt" = {
       description             = "[laa-dces-drc-integration-prod/ca-crt] ca.crt for mTLS client certificate validation"
       recovery_window_in_days = 7
