@@ -43,7 +43,8 @@ resource "aws_sns_topic_subscription" "hmpps_csip_domain_events_subscription" {
   endpoint  = module.hmpps_csip_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.updated"
+      "prisoner-offender-search.prisoner.updated",
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
