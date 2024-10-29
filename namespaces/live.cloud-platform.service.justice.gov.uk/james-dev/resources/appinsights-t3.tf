@@ -1,14 +1,14 @@
-data "aws_ssm_parameter" "hmpps-appinsights-t3-arn" {
-  name = "/hmpps-portfolio-management-dev/appinsights_t3-arn"
+data "aws_ssm_parameter" "application_insights_key_t3" {
+  name = "/application_insights/key_t3"
 }
 
-resource "kubernetes_secret" "appinsights-t3" {
+resource "kubernetes_secret" "application-insights" {
   metadata {
-    name      = "appinsights-t3"
+    name      = "application-insights"
     namespace = var.namespace
   }
   data = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = base64encode(data.aws_ssm_parameter.hmpps-appinsights-t3-arn.value)
-    APPLICATIONINSIGHTS_CONNECTION_STRING = base64encode(format("%s/%s","InstrumentationKey=",data.aws_ssm_parameter.hmpps-appinsights-t3-arn.value))
+    APPINSIGHTS_INSTRUMENTATIONKEY = base64encode(data.aws_ssm_parameter.application_insights_t3.value)
+    APPLICATIONINSIGHTS_CONNECTION_STRING = base64encode(format("%s/%s","InstrumentationKey=",data.aws_ssm_parameter.application_insights_t3.value))
   }
 }
