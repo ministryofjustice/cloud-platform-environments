@@ -14,28 +14,28 @@ resource "aws_ssm_parameter" "application_insights_connection_string_t3" {
 
 resource "aws_ssm_parameter" "application_insights_key_preprod" {
   name  = "application_insights_key_preprod"
-  type  = "String"
+  type  = "SecureString"
   value = "PREPROD KEY TO BE MODIFIED"
   description = "Application Insights key for preprod"
 }
 
 resource "aws_ssm_parameter" "application_insights_connection_string_preprod" {
   name  = "application_insights_connection_string_preprod"
-  type  = "String"
+  type  = "SecureString"
   value = "PREPROD CONNECTION STRING TO BE MODIFIED"
   description = "Application Insights connection string for preprod"
 }
 
 resource "aws_ssm_parameter" "application_insights_key_prod" {
   name  = "application_insights_key_prod"
-  type  = "String"
+  type  = "SecureString"
   value = "PROD KEY TO BE MODIFIED"
   description = "Application Insights key for prod"
 }
 
 resource "aws_ssm_parameter" "application_insights_connection_string_prod" {
   name  = "application_insights_connection_string_prod"
-  type  = "String"
+  type  = "SecureString"
   value = "PREPROD CONNECTION STRING TO BE MODIFIED"
   description = "Application Insights connection string for preprod"
 }
