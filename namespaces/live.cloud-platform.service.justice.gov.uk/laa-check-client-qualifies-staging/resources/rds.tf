@@ -27,9 +27,7 @@ module "rds" {
   db_engine_version = "14.12"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t4g.micro"
-
-  db_allocated_storage = "30"
+  db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
