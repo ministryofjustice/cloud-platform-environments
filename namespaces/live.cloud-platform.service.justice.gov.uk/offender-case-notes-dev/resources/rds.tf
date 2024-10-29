@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -10,7 +10,6 @@ module "dps_rds" {
   infrastructure_support       = var.infrastructure_support
   db_instance_class            = "db.t4g.medium"
   db_allocated_storage         = "64"
-  db_max_allocated_storage     = "1000"
   deletion_protection          = true
   prepare_for_major_upgrade    = false
   rds_family                   = "postgres16"

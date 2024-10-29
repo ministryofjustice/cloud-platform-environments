@@ -39,29 +39,6 @@ module "cpr_delius_delete_events_queue" {
   }
 }
 
-data "aws_iam_policy_document" "cpr_delius_delete_sqs_queue_policy_document" {
-  statement {
-    sid     = "DomainEventsToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
-    resources = ["*"]
-  }
-}
-
-resource "aws_sqs_queue_policy" "cpr_delius_delete_events_queue_policy" {
-  queue_url = module.cpr_delius_delete_events_queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_delius_delete_sqs_queue_policy_document.json
-}
-
 ### Dead letter queue
 module "cpr_delius_delete_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"

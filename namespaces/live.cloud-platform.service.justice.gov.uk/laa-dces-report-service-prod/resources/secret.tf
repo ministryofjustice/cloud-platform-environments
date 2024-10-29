@@ -11,24 +11,24 @@ module "secrets_manager" {
 
   secrets = {
     "dces-report-service-alert-webhook-prod" = {
-      description             = "DCES Report Service Slack Webhook",
-      recovery_window_in_days = 7,
+      description             = "[laa-dces-report-service-prod/dces-report-service-alert-webhook-prod] Slack webhook"
+      recovery_window_in_days = 7
       k8s_secret_name         = "dces-report-service-alert-webhook-prod"
-    },
-    "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DCES Report Service Prod.",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-oauth-client-id"
-    },
-    "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DCES Report Service Prod.",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-oauth-client-secret"
-    },
+    }
     "feature_flags" = {
-      description             = "Feature flag variables [laa-dces-report-service-prod]"
+      description             = "[laa-dces-report-service-prod/feature-flags] Feature flag variables"
       recovery_window_in_days = 7
       k8s_secret_name         = "feature-flags"
-    },
+    }
+    "maat_api_oauth_client_id" = {
+      description             = "[laa-dces-report-service-prod/maat-api-oauth-client-id] MAAT API OAuth2 client ID"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-api-oauth-client-id"
+    }
+    "maat_api_oauth_client_secret" = {
+      description             = "[laa-dces-report-service-prod/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-api-oauth-client-secret"
+    }
   }
 }

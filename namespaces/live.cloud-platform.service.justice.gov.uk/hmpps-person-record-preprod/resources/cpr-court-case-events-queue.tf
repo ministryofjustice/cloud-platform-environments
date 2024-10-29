@@ -34,33 +34,6 @@ module "cpr_court_case_events_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "cpr_court_case_events_queue_policy" {
-  queue_url = module.cpr_court_case_events_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.cpr_court_case_events_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cpr_court_case_events_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-              {
-                "aws:SourceArn": "${data.aws_ssm_parameter.court-case-events-topic-arn.value}"
-              }
-            }
-        }
-      ]
-  }
-EOF
-}
-
 ######## Dead letter queue
 
 module "cpr_court_case_events_dead_letter_queue" {

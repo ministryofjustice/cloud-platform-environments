@@ -112,7 +112,31 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_contactperson_subscri
   endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "TBD"
+      "PERSON-INSERTED",
+      "PERSON-UPDATED",
+      "PERSON-DELETED",
+      "ADDRESSES_PERSON-INSERTED",
+      "ADDRESSES_PERSON-UPDATED",
+      "ADDRESSES_PERSON-DELETED",
+      "PHONES_PERSON-INSERTED",
+      "PHONES_PERSON-UPDATED",
+      "PHONES_PERSON-DELETED",
+      "INTERNET_ADDRESSES_PERSON-INSERTED",
+      "INTERNET_ADDRESSES_PERSON-UPDATED",
+      "INTERNET_ADDRESSES_PERSON-DELETED",
+      "VISITOR_RESTRICTION-UPSERTED",
+      "VISITOR_RESTRICTION-DELETED",
+      "OFFENDER_CONTACT-INSERTED",
+      "OFFENDER_CONTACT-UPDATED",
+      "OFFENDER_CONTACT-DELETED",
+      "PERSON_RESTRICTION-UPSERTED",
+      "PERSON_RESTRICTION-DELETED",
+      "PERSON_EMPLOYMENTS-INSERTED",
+      "PERSON_EMPLOYMENTS-UPDATED",
+      "PERSON_EMPLOYMENTS-DELETED",
+      "PERSON_IDENTIFIERS-INSERTED",
+      "PERSON_IDENTIFIERS-UPDATED",
+      "PERSON_IDENTIFIERS-DELETED"
     ]
   })
 }
@@ -124,16 +148,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_contactperson_
   endpoint  = module.prisoner_from_nomis_contactperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "PERSON-INSERTED",
-      "PERSON-UPDATED",
-      "PERSON-DELETED",
-      "VISITOR_RESTRICTION-UPSERTED",
-      "VISITOR_RESTRICTION-DELETED",
-      "OFFENDER_CONTACT-INSERTED",
-      "OFFENDER_CONTACT-UPDATED",
-      "OFFENDER_CONTACT-DELETED",
-      "PERSON_RESTRICTION-UPSERTED",
-      "PERSON_RESTRICTION-DELETED"
+      "TBD"
     ]
   })
 }
