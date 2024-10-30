@@ -12,6 +12,9 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "james-dev_irsa_service_account"
 }
 
 # set up the service pod
