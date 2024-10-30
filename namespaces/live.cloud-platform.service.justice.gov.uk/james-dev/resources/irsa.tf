@@ -5,6 +5,13 @@ module "irsa" {
   # Here you must provide the policy arn(s) for the AWS resources you want to access via the service pod
   ssm  = module.ssm.irsa_policy_arn
   }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 # set up the service pod
