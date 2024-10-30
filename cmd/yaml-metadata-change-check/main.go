@@ -22,13 +22,10 @@ var (
 )
 
 func main() {
-	fmt.Printf("DEBUGGING\nREF:\t%s\nREPO:\t%s", *ref, *repo)
 	owner, repoName, pull = utils.GetOwnerRepoPull(*ref, *repo)
 
 	flag.Parse()
 	client := utils.GitHubClient(*token)
-
-	fmt.Printf("DEBUGGING\n%s\n%s\n%d", owner, repoName, pull)
 
 	files, _, err := utils.GetPullRequestFiles(client, owner, repoName, pull)
 	if err != nil {

@@ -7,8 +7,6 @@ on:
       - namespaces/live.cloud-platform.service.justice.gov.uk/*/*.yml
   workflow_dispatch:
 
-permissions: write-all
-
 jobs:
   yaml-metadata-checks:
     runs-on: ubuntu-latest
