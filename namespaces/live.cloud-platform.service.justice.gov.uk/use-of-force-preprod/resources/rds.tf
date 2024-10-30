@@ -9,7 +9,7 @@ module "dps_rds" {
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "16.4"
