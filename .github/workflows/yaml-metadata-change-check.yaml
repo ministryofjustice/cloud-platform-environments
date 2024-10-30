@@ -7,6 +7,11 @@ on:
       - namespaces/live.cloud-platform.service.justice.gov.uk/*/*.yml
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   yaml-metadata-checks:
     runs-on: ubuntu-latest
