@@ -18,7 +18,7 @@ jobs:
       
       - id: yaml-metadata-check
         name: Check Yaml Metadata for changes 
-        uses: ministryofjustice/cloud-platform-environments/cmd/yaml-metadata-change-check@main
+        uses: ministryofjustice/cloud-platform-environments/cmd/yaml-metadata-change-check@yaml-metadata-change-check
         env:
           GET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
