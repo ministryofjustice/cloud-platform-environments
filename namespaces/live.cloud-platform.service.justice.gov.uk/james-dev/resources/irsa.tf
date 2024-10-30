@@ -1,5 +1,6 @@
 # irsa configuration is required to use the service pod
 module "irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
   role_policy_arns = {
   # Here you must provide the policy arn(s) for the AWS resources you want to access via the service pod
   ssm  = module.ssm.irsa_policy_arn
