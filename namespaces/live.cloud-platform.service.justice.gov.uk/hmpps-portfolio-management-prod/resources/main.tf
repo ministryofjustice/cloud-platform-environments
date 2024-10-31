@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = 'hmpps-sre'
+      GithubTeam    = "hmpps-sre"
     }
   }
 }
@@ -23,7 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = 'hmpps-sre'
+      GithubTeam    = "hmpps-sre"
     }
   }
 }
