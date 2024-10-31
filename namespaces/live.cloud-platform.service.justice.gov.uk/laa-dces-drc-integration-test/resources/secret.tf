@@ -45,5 +45,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }
+    "config-overrides" = {
+      description             = "[laa-dces-drc-integration-test/config-overrides] Configs that override values-xxx.yaml"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-overrides"
+    }
   }
 }
