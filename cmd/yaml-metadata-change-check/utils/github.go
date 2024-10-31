@@ -4,29 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"net/http"
 	"strings"
 
 	"github.com/google/go-github/v64/github"
-	"golang.org/x/oauth2"
 )
 
 var (
 	ctx = context.Background()
 )
 
-func initOAuth2(ghToken string) *http.Client {
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: ghToken},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	return tc
-}
-
 func GitHubClient(token string) *github.Client {
-	oauthClient := initOAuth2(token)
-	client := github.NewClient(oauthClient)
+	client := github.NewClient(nil).WithAuthToken(token)
 
 	_, resp, err := client.Users.Get(ctx, "")
 	if err != nil {
