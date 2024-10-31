@@ -45,7 +45,6 @@ func GetPullRequestBranch(client *github.Client, o, r string, n int) (string, er
 // It takes a GitHub client and a context as input parameters.
 // It returns a slice of commit files, and an error if any.
 func GetPullRequestFiles(client *github.Client, o, r string, n int) ([]*github.CommitFile, *github.Response, error) {
-	fmt.Printf("%s %s %d", o, r, n)
 	files, resp, err := client.PullRequests.ListFiles(ctx, o, r, n, nil)
 	if err != nil {
 		return nil, nil, fmt.Errorf("error fetching files: %w", err)
