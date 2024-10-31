@@ -25,3 +25,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - sg-typescript-test.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gh-sg-typescript-cert
+  namespace: sg-test
+spec:
+  secretName: gh-sg-typescript-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - gh-sg-typescript-test.hmpps.service.justice.gov.uk
