@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["sg-typescript-test", "sg-kotlin-test", "gh-sg-typescript-test"]
+  github_repos   = ["sg-typescript-test", "sg-kotlin-test", "gh-sg-typescript-test", "gh-sg-kotlin-test"]
 
 ###################################################################
   github-actions-sa_rules = [
