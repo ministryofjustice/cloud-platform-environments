@@ -53,6 +53,7 @@ locals {
     environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = "hmpps-sre"
   }
 }
 ###########################################################
