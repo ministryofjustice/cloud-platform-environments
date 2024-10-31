@@ -6,6 +6,7 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "01-01-2000"
   serviceaccount_name = "laa-clamav-mirror-serviceaccount-production"
+  serviceaccount_rules = var.serviceaccount_rules
 
 
   github_repositories = ["clamav-mirror"]
