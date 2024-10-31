@@ -9,5 +9,5 @@ locals {
     namespace              = var.namespace
   }
 
-  clients = ["ctrlo", "heartbeat", "event-service"]
+  clients = ["ctrlo", "heartbeat", "event-service", "moj-pes"]
 }
