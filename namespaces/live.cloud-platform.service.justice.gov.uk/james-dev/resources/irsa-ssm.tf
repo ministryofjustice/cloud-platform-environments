@@ -53,10 +53,10 @@ module "irsa" {
   service_account_name = "james-dev-irsa"
   namespace            = var.namespace # this is also used as a tag
 
-  role_policy_arns = [
-     aws_iam_policy.policy.arn
-  ]
-
+  role_policy_arns = {
+   ssm = aws_iam_policy.policy.arn
+  }
+  
   # Tags
   business_unit          = var.business_unit
   application            = var.application
