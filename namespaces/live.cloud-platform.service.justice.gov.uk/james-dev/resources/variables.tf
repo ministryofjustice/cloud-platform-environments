@@ -71,3 +71,7 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+# Needed for the irsa bit
+variable "eks_cluster_name" {
+}
