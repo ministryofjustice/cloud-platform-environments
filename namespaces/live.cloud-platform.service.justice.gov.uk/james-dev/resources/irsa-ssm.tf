@@ -15,6 +15,23 @@ data "aws_ssm_parameter" "key_prod" {
   name = "/application_insights/key_prod"
 }
 
+data "aws_iam_policy_document" "ssm_for_insights" {
+  Version = "2012-10-17"
+      
+      statement {
+        sid     = "AllowSecretsManagerGetPutValue"
+        effect  = "Allow"
+        actions = [
+          "ssm:GetParameter",
+          "ssm:PutParameter",
+        ]
+      resources = [
+        data.aws_ssm_parameter.key_preprod.arn,
+        data.aws_ssm_parameter.key_t3.arn,
+        data.aws_ssm_parameter.key_prod.arn 
+        ]
+      }
+    }
 
 resource "aws_iam_policy" "policy" {
   name        = "app_insights_ssm_policy"
@@ -22,24 +39,9 @@ resource "aws_iam_policy" "policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = jsonencode({
-    Version = "2012-10-17"
-    
-  statement {
-    sid    = "AllowSecretsManagerGetPutValue"
-    effect = "Allow"
-    actions = [
-      "ssm:GetParameter",
-      "ssm:PutParameter"
-    ]
-    resources = [
-      data.aws_ssm_parameter.key_preprod.arn,
-      data.aws_ssm_parameter.key_t3.arn,
-      data.aws_ssm_parameter.key_prod.arn 
-      ]
-    }
-  })
+  policy = jsonencode(aws_iam_policy_document.ssm_for_insights)
 }
+
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
