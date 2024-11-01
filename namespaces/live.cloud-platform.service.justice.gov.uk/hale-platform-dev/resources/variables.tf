@@ -78,9 +78,3 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
 }
-
-variable "prepare_for_major_upgrade" {
-  type        = bool
-  default     = false
-  description = "Set this to true to change your parameter group to the default version, and to turn on the ability to upgrade major versions"
-}
