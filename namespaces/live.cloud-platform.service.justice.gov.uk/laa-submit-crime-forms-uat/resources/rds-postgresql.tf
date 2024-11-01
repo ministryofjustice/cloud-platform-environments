@@ -25,7 +25,7 @@ module "rds" {
   db_instance_class         = "db.t4g.small"
   db_max_allocated_storage  = "10000"
   db_allocated_storage      = "20"
-  
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
@@ -43,7 +43,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   vpc_name               = var.vpc_name
 
