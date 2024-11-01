@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "ssm_for_insights" {
         effect  = "Allow"
         actions = [
           "ssm:GetParameter",
-          "ssm:PutParameter",
+          "ssm:PutParameter"
         ]
       resources = [
         data.aws_ssm_parameter.key_preprod.arn,
@@ -39,7 +39,7 @@ resource "aws_iam_policy" "policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = jsonencode(data.aws_iam_policy_document.ssm_for_insights)
+  policy = data.aws_iam_policy_document.ssm_for_insights.json
 }
 
 
@@ -64,4 +64,13 @@ module "irsa" {
   team_name              = "hmpps-sre"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.1.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }
