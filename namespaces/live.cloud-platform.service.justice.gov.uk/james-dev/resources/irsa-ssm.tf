@@ -39,7 +39,7 @@ resource "aws_iam_policy" "policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = data.aws_iam_policy_document.ssm_for_insights.json
+  policy = data.aws_iam_policy_document.ssm_for_insights
 }
 
 
@@ -72,5 +72,5 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.james-dev-irsa.name # this uses the service account name from the irsa module
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }
