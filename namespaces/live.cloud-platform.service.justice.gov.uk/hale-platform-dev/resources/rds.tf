@@ -21,8 +21,10 @@ module "rds" {
 
   # using mysql
   db_engine         = "mariadb"
-  db_engine_version = "10.4"
-  rds_family        = "mariadb10.4"
+  db_engine_version = "10.11"
+  rds_family        = "mariadb10.11"
+
+  prepare_for_major_upgrade = true
 
   # overwrite db_parameters
   db_parameter = [
@@ -69,6 +71,5 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
-
   }
 }
