@@ -39,7 +39,7 @@ resource "aws_iam_policy" "policy" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = jsonencode(aws_iam_policy_document.ssm_for_insights)
+  policy = jsonencode(data.aws_iam_policy_document.ssm_for_insights)
 }
 
 
