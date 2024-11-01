@@ -16,7 +16,7 @@ data "aws_ssm_parameter" "key_prod" {
 }
 
 data "aws_iam_policy_document" "ssm_for_insights" {
-  Version = "2012-10-17"
+  version = "2012-10-17"
       
       statement {
         sid     = "AllowSecretsManagerGetPutValue"
