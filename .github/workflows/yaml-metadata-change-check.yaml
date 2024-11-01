@@ -1,0 +1,49 @@
+name: Check YAML metadata for changes to name or namespace
+
+on:
+  pull_request:
+    paths:
+      - namespaces/live.cloud-platform.service.justice.gov.uk/*/*.yaml
+      - namespaces/live.cloud-platform.service.justice.gov.uk/*/*.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  yaml-metadata-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - id: yaml-metadata-check
+        name: Check Yaml Metadata for changes 
+        uses: ministryofjustice/cloud-platform-environments/cmd/yaml-metadata-change-check@yaml-metadata-change-check
+        env:
+          GET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Comment Yaml Metadata change   
+        uses: actions/github-script@v7
+        if: steps.yaml-metadata-check.outputs.changes == 'true'
+        env:
+          RESULT: "${{ steps.yaml-metadata-check.outputs.result }}"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+                const output = `#### YAML changes to metadata name or namespace detected:
+                <details><summary>Show</summary>
+                <code>${process.env.RESULT}</code>
+                </details>`;
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: output
+                })
+                
+      - name: Set to fail if changes detected 
+        if: steps.yaml-metadata-check.outputs.changes == 'true'
+        run: exit 1
