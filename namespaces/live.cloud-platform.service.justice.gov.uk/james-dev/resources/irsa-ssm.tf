@@ -61,8 +61,7 @@ module "irsa" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name
+  team_name              = "hmpps-sre"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  GithubTeam             = "hmpps-sre"
 }
