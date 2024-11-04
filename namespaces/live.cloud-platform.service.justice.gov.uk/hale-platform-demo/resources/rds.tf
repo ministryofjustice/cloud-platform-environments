@@ -23,7 +23,7 @@ module "rds" {
   db_engine_version = "10.11"
   rds_family        = "mariadb10.11"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # overwrite db_parameters
   db_parameter = [
