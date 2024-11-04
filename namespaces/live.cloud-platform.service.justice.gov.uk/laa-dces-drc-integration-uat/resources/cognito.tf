@@ -9,8 +9,9 @@ resource "aws_cognito_user_pool" "pool" {
   }
 }
 
-resource "aws_cognito_user_pool_client" "internal_client" {
-  name                                 = var.cognito_user_pool_internal_client
+# The resource named 'client' is our internal app client for testing
+resource "aws_cognito_user_pool_client" "client" {
+  name                                 = var.default_app_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
@@ -21,8 +22,8 @@ resource "aws_cognito_user_pool_client" "internal_client" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "advantis_client" {
-  name                                 = var.cognito_user_pool_advantis_client
+resource "aws_cognito_user_pool_client" "advantis" {
+  name                                 = var.advantis_app_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
   allowed_oauth_flows                  = ["client_credentials"]
@@ -47,28 +48,4 @@ resource "aws_cognito_resource_server" "resource" {
 resource "aws_cognito_user_pool_domain" "domain" {
   domain       = var.cognito_user_pool_domain_name
   user_pool_id = aws_cognito_user_pool.pool.id
-}
-
-resource "kubernetes_secret" "cognito_internal_client_credentials" {
-  metadata {
-    name      = "cognito-internal-client-credentials"
-    namespace = var.namespace
-  }
-
-  data = {
-    client_id     = aws_cognito_user_pool_client.internal_client.id
-    client_secret = aws_cognito_user_pool_client.internal_client.client_secret
-  }
-}
-
-resource "kubernetes_secret" "cognito_advantis_client_credentials" {
-  metadata {
-    name      = "cognito-advantis-client-credentials"
-    namespace = var.namespace
-  }
-
-  data = {
-    client_id     = aws_cognito_user_pool_client.advantis_client.id
-    client_secret = aws_cognito_user_pool_client.advantis_client.client_secret
-  }
 }
