@@ -4,9 +4,9 @@
 
 data "aws_ssm_parameter" "application_insights_key" {
 
-## dev     = /application_insights/key-dev
-## preprod = /application_insights/key-preprod
-## prod    = /application_insights/key-prod
+## dev (t3) = /application_insights/key-dev
+## preprod  = /application_insights/key-preprod
+## prod     = /application_insights/key-prod
 
   name = "/application_insights/key-dev"
 }
