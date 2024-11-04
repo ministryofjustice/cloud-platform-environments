@@ -1,18 +1,17 @@
+# name        = "/application_insights/key-preprod"
+# name        = "/application_insights/key-dev"
+# name        = "/application_insights/key-prod"
 
-# name        = "/application_insights/key_preprod"
-# name        = "/application_insights/key_t3"
-# name        = "/application_insights/key_prod"
-
-data "aws_ssm_parameter" "key_preprod" {
-  name = "/application_insights/key_preprod"
+data "aws_ssm_parameter" "key_dev {
+  name = "/application_insights/key-dev"
 }
 
-data "aws_ssm_parameter" "key_t3" {
-  name = "/application_insights/key_t3"
+data "aws_ssm_parameter" "key_preprod" {
+  name = "/application_insights/key-preprod"
 }
 
 data "aws_ssm_parameter" "key_prod" {
-  name = "/application_insights/key_prod"
+  name = "/application_insights/key-prod"
 }
 
 data "aws_iam_policy_document" "ssm_for_insights" {
@@ -27,7 +26,7 @@ data "aws_iam_policy_document" "ssm_for_insights" {
         ]
       resources = [
         data.aws_ssm_parameter.key_preprod.arn,
-        data.aws_ssm_parameter.key_t3.arn,
+        data.aws_ssm_parameter.key_dev.arn,
         data.aws_ssm_parameter.key_prod.arn 
         ]
       }
