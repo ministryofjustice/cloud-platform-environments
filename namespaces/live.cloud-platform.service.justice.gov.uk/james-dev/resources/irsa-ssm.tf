@@ -2,7 +2,7 @@
 # name        = "/application_insights/key-dev"
 # name        = "/application_insights/key-prod"
 
-data "aws_ssm_parameter" "key_dev {
+data "aws_ssm_parameter" "key_dev" {
   name = "/application_insights/key-dev"
 }
 
