@@ -12,7 +12,7 @@ module "dps_rds" {
   enable_rds_auto_start_stop = true
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "500"
-  deletion_protection        = true
+  deletion_protection        = false
   prepare_for_major_upgrade  = false
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
