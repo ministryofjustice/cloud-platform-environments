@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: solar-power-prod-admin
+  namespace: solar-power-prod
+subjects:
+  - kind: Group
+    name: "github:climate-change-sustainability-unit"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

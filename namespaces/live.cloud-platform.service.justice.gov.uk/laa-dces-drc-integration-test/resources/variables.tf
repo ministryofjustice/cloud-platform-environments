@@ -77,9 +77,14 @@ variable "user_pool_name" {
   default     = "dces-drc-api-test-userpool"
 }
 
-variable "cognito_user_pool_client_name" {
-  description = "Cognito user pool client name"
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
   default     = "dces-drc-api-test"
+}
+
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-test"
 }
 
 variable "resource_server_identifier" {

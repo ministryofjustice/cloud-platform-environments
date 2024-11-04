@@ -71,6 +71,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.justice-email-and-delius-queue,
       module.common-platform-and-delius-queue,
       module.prison-identifier-and-delius-queue,
       module.cas2-and-delius-queue,
@@ -97,6 +98,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue,
     ]
     dlq = [
+      module.justice-email-and-delius-dlq,
       module.common-platform-and-delius-dlq,
       module.prison-identifier-and-delius-dlq,
       module.cas2-and-delius-dlq,

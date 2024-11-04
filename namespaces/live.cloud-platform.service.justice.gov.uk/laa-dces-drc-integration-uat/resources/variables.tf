@@ -72,6 +72,44 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "dces-drc-api-uat-userpool"
+}
+
+variable "cognito_user_pool_internal_client" {
+  description = "Cognito user pool client for internal use"
+  default     = "dces-drc-api-internal-client"
+}
+
+variable "cognito_user_pool_advantis_client" {
+  description = "Cognito user pool client for Advantis"
+  default     = "dces-drc-api-advantis-client"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "dces-drc-api-uat"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "dces-drc-api-uat-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "dces-drc-api-uat"
+}
+
 variable "db_name" {
   description = "Name of the database"
   type        = string

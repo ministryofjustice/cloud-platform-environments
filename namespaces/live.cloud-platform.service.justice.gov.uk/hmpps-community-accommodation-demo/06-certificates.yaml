@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - approved-premises-test.hmpps.service.justice.gov.uk
+    - approved-premises-demo.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -23,8 +23,8 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - temporary-accommodation-test.hmpps.service.justice.gov.uk
-    - transitional-accommodation-test.hmpps.service.justice.gov.uk
+    - temporary-accommodation-demo.hmpps.service.justice.gov.uk
+    - transitional-accommodation-demo.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -37,7 +37,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - approved-premises-api-test.hmpps.service.justice.gov.uk
+    - approved-premises-api-demo.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -63,4 +63,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - community-accommodation-tier-2-test.hmpps.service.justice.gov.uk
+    - community-accommodation-tier-2-demo.hmpps.service.justice.gov.uk

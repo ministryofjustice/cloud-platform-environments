@@ -1,5 +1,5 @@
 module "laa_laa_rds_postgres_14" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -12,7 +12,7 @@ module "laa_laa_rds_postgres_14" {
   db_engine              = "postgres"
   db_engine_version      = "14"
   db_instance_class      = "db.t4g.small"
-  db_allocated_storage   = "5"
+  db_allocated_storage   = "20"
   db_name                = "laalaa"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   rds_family             = "postgres14"
