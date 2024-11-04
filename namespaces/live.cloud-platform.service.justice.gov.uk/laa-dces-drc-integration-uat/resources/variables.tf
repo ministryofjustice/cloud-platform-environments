@@ -77,14 +77,14 @@ variable "user_pool_name" {
   default     = "dces-drc-api-uat-userpool"
 }
 
-variable "cognito_user_pool_internal_client" {
-  description = "Cognito user pool client for internal use"
-  default     = "dces-drc-api-internal-client"
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
+  default     = "dces-drc-api-uat"
 }
 
-variable "cognito_user_pool_advantis_client" {
-  description = "Cognito user pool client for Advantis"
-  default     = "dces-drc-api-advantis-client"
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-uat"
 }
 
 variable "resource_server_identifier" {
