@@ -59,3 +59,11 @@ data "aws_ssm_parameter" "irsa_policy_arns_cross_namespace_s3" {
   for_each = local.cross_namespace_s3_buckets
   name     = "/${each.value}/s3/${each.key}/irsa-policy-arn"
 }
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.1.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name
+}
