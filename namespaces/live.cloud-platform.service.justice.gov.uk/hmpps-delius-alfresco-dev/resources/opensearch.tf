@@ -10,7 +10,7 @@ module "opensearch" {
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
   # Non-production cluster configuration
   cluster_config = {
-    instance_count = 1
+    instance_count = 2
     instance_type  = "m6g.xlarge.search"
   }
 
