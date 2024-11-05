@@ -12,8 +12,14 @@ locals {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
 
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  # The names of s3 buckets and the namespace that created them
+  cross_namespace_s3_buckets = {
+    "cloud-platform-67a5a926dc2dc743f76a6c3367d47158" = "hmpps-prison-person-api-dev"
+  }
+
+  sqs_policies            = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sns_policies            = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  cross_namespace_s3_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_cross_namespace_s3 : item.name => item.value }
 }
 
 module "irsa" {
@@ -24,8 +30,8 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-document-management-api"
-  role_policy_arns = merge(local.sqs_policies, local.sns_policies, {
-    s3 = module.s3.irsa_policy_arn
+  role_policy_arns = merge(local.sqs_policies, local.sns_policies, local.cross_namespace_s3_policies, {
+    s3       = module.s3.irsa_policy_arn
     s3images = module.s3-images.irsa_policy_arn
   })
 
@@ -47,4 +53,9 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_cross_namespace_s3" {
+  for_each = local.cross_namespace_s3_buckets
+  name     = "/${each.value}/s3/${each.key}/irsa-policy-arn"
 }
