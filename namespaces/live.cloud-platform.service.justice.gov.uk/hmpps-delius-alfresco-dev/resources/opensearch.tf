@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "https://github.com/georgepstaylor/cloud-platform-terraform-opensearch?ref=patch-1" # use the latest release
+  source = "github.com/georgepstaylor/cloud-platform-terraform-opensearch?ref=patch-1" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
