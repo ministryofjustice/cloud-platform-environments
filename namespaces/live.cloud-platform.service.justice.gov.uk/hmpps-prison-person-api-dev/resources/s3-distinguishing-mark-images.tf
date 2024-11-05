@@ -55,7 +55,7 @@ resource "kubernetes_secret" "s3-distinguidhing-mark-images" {
   }
 
   data = {
-    images_bucket_arn  = module.s3-images.bucket_arn
-    images_bucket_name = module.s3-images.bucket_name
+    images_bucket_arn  = module.s3-distinguishing-mark-images.bucket_arn
+    images_bucket_name = module.s3-distinguishing-mark-images.bucket_name
   }
 }
