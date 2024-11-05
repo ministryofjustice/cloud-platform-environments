@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps_csip_hmpps_domain_events_topic" {
+resource "kubernetes_secret" "hmpps_eawp_hmpps_domain_events_topic" {
   metadata {
     name      = "hmpps-domain-events-topic"
     namespace = var.namespace

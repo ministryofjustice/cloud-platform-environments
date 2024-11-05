@@ -4,8 +4,6 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_queue" = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-education_and_work_plan_domain_events_dl"    = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev"
   }
 
@@ -24,7 +22,19 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-education-and-work-plan"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {rds_policy = module.hmpps_education_work_plan_rds.irsa_policy_arn})
+  role_policy_arns     = merge(
+    local.sqs_policies,
+    local.sns_policies,
+    {
+      rds_policy = module.hmpps_education_work_plan_rds.irsa_policy_arn
+    },
+    {
+      sqs = module.hmpps_eawp_domain_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn
+    }
+  )
 
   # Tags
   business_unit          = var.business_unit
