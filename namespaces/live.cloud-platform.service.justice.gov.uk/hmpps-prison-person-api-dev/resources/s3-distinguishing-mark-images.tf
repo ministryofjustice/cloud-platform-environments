@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "s3_read_write_access_policy" {
       "s3:ListBucket",
     ]
 
-    resources = [module.s3-distinguishing-mark-images.bucket_arn]
+    resources = ["$${bucket_arn}"]
   }
 
   statement {
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "s3_read_write_access_policy" {
       "s3:PutObject",
       "s3:GetObject",
     ]
-    resources = ["${module.s3-distinguishing-mark-images.bucket_arn}/*"]
+    resources = ["$${bucket_arn}/*"]
   }
 }
 
