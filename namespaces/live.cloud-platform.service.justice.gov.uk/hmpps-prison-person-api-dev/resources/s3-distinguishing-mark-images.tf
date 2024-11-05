@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "s3_read_write_access_policy" {
     sid = "BucketLevelPermisions"
     principals {
       type        = "AWS"
-      identifiers = [locals.document_api_service_account_arn]
+      identifiers = [local.document_api_service_account_arn]
     }
     actions = [
       "s3:ListBucket",
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "s3_read_write_access_policy" {
     sid = "ReadWriteObjectPermissions"
     principals {
       type        = "AWS"
-      identifiers = [locals.document_api_service_account_arn]
+      identifiers = [local.document_api_service_account_arn]
     }
     actions = [
       "s3:PutObject",
