@@ -122,6 +122,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_csip_subscription" {
       "CSIP_FACTORS-UPDATED",
       "CSIP_INTVW-INSERTED",
       "CSIP_INTVW-UPDATED",
+      "prison-offender-events.prisoner.booking.moved",
     ]
   })
 }
