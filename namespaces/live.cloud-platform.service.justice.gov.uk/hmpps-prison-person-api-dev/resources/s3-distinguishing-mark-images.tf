@@ -17,6 +17,12 @@ module "s3-distinguishing-mark-images" {
 
 locals {
   document_api_service_account_arn = "arn:aws:iam::754256621582:role/cloud-platform-irsa-c2bb1b0743e08206-live"
+
+  # List of namespaces to inject S3 outputs into.
+  s3-distinguishing-mark-image-consumers = [
+    var.namespace,
+    "hmpps-document-management-dev"
+  ]
 }
 
 # Create policy document to allow read/write access to the document API service account.
@@ -48,10 +54,11 @@ data "aws_iam_policy_document" "s3_read_write_access_policy" {
   }
 }
 
-resource "kubernetes_secret" "s3-distinguidhing-mark-images" {
+resource "kubernetes_secret" "s3-distinguishing-mark-images" {
+  for_each = toset(local.s3-distinguishing-mark-image-consumers)
   metadata {
     name      = "s3-distinguishing-mark-images-output"
-    namespace = var.namespace
+    namespace = each.key
   }
 
   data = {
