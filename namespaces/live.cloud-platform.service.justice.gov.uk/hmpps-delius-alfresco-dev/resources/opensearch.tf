@@ -15,7 +15,7 @@ module "opensearch" {
   }
 
   ebs_options = {
-    volume_size = 10
+    volume_size = 20
   }
 
   advanced_options = {
