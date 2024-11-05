@@ -1,6 +1,6 @@
 resource "aws_ssm_parameter" "application_insights_key_dev" {
   name        = "/application_insights/key-dev"
-  type        = "String"
+  type        = "SecureString"
   value       = "T3 KEY TO BE MODIFIED"
   description = "Application Insights key for t3"
   overwrite   = false
