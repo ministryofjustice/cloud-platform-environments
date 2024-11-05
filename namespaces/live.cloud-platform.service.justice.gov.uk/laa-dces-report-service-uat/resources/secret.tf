@@ -15,6 +15,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "feature-flags"
     }
+    "config-variables" = {
+      description             = "[laa-dces-report-service-UAT/config-variables] Configuration variables and settings"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
     "maat_api_oauth_client_id" = {
       description             = "[laa-dces-report-service-uat/maat-api-oauth-client-id] MAAT API OAuth2 client ID"
       recovery_window_in_days = 7
