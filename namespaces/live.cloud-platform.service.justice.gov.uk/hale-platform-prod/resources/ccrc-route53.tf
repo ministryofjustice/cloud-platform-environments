@@ -130,14 +130,6 @@ resource "aws_route53_record" "ccrc_route53_txt_record_smtp2" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
-resource "aws_route53_record" "ccrc_route53_cname_record_acm" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_5770ab00d5e1032ff7db591706b2f9a5.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_bd266e83797378e89bcbbc42c6974047.jhztdrwbnw.acm-validations.aws."]
-}
-
 resource "aws_route53_record" "ccrc_route53_cname_record_mwn" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "mwn._domainkey.ccrc.gov.uk"
@@ -224,20 +216,4 @@ resource "aws_route53_record" "ccrc_route53_cname_record_enterpriseregistration"
   type    = "CNAME"
   ttl     = "3600"
   records = ["enterpriseregistration.windows.net"]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_mta_sts2" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_9e111899dbb1e73aed800dd796c849f4.mta-sts.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_529da6734664ecca58ad43f6298844fe.bkngfjypgb.acm-validations.aws."]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_acm2" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_2966249ff1f7d496b355eabc821707b3.www.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_054556e3de8c167ce984f414fdf89e12.jhztdrwbnw.acm-validations.aws."]
 }
