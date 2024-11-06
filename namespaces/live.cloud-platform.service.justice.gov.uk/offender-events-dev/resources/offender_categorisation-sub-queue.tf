@@ -326,7 +326,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_api_events_queue_policy
 }
 
 
-resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription" {
+resource "aws_sns_topic_subscription" "offender_categorisation_api_prisoner_search_event_queue_subscription" {
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.offender_categorisation_api_events_queue.sqs_arn
