@@ -17,10 +17,6 @@ module "education_work_plan_ui_elasticache_redis" {
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
   auth_token_rotated_date = "2023-03-21"
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "education_work_plan_ui_elasticache_redis" {
