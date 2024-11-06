@@ -49,8 +49,8 @@ module "offender_categorisation_api_offender_events_dead_letter_queue" {
 
 resource "kubernetes_secret" "offender_categorisation_api_offender_events_queue" {
   metadata {
-    name      = "offender_categorisation_api-offender-events-sqs-instance-output"
-    namespace = "offender_categorisation_api-dev"
+    name      = "offender-categorisation-api-offender-events-sqs-instance-output"
+    namespace = var.namespace
   }
 
   data = {
