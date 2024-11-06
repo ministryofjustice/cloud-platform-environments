@@ -73,30 +73,30 @@ locals {
   broker_one  = "${local.identifier}-1"
   broker_two  = "${local.identifier}-2"
 
-  network_conector_string = {
-    0 = <<EOF
-      <networkConnectors>
-          <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})"/>
-          <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
-      </networkConnectors>
-      EOF
-    1 = <<EOF
-      <networkConnectors>
-          <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
-      </networkConnectors>
-      EOF
+  # network_conector_string = {
+  #   0 = <<EOF
+  #     <networkConnectors>
+  #         <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
+  #             uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})"/>
+  #         <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
+  #             uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
+  #     </networkConnectors>
+  #     EOF
+  #   1 = <<EOF
+  #     <networkConnectors>
+  #         <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
+  #             uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
+  #     </networkConnectors>
+  #     EOF
 
-    2 = ""
-  }
+  #   2 = ""
+  # }
 }
 
-data "aws_mq_broker" "by_name" {
-  for_each    = toset([for i in range(local.broker_count) : "${local.identifier}-${i}"])
-  broker_name = each.key
-}
+# data "aws_mq_broker" "by_name" {
+#   for_each    = toset([for i in range(local.broker_count) : "${local.identifier}-${i}"])
+#   broker_name = each.key
+# }
 
 resource "aws_security_group" "broker_sg" {
   name        = local.identifier
@@ -137,10 +137,10 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
-  configuration {
-    id       = aws_mq_configuration.this[count.index].id
-    revision = aws_mq_configuration.this[count.index].latest_revision
-  }
+  # configuration {
+  #   id       = aws_mq_configuration.this[count.index].id
+  #   revision = aws_mq_configuration.this[count.index].latest_revision
+  # }
 
   auto_minor_version_upgrade = true
 
@@ -185,35 +185,35 @@ resource "aws_mq_broker" "this" {
   }
 }
 
-resource "aws_mq_configuration" "this" {
-  count          = local.broker_count
-  description    = "Alfresco Amazon MQ configuration"
-  name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
-  engine_type    = local.amq_engine_type
-  engine_version = local.amq_engine_version
+# resource "aws_mq_configuration" "this" {
+#   count          = local.broker_count
+#   description    = "Alfresco Amazon MQ configuration"
+#   name           = "alfresco-amq-configuration-${random_id.config_id.hex}-${count.index}"
+#   engine_type    = local.amq_engine_type
+#   engine_version = local.amq_engine_version
 
-  data = templatefile("${path.module}/files/amq_config.xml",
-    {
-      network_conector_string = local.network_conector_string[count.index]
-    }
-  )
+#   data = templatefile("${path.module}/files/amq_config.xml",
+#     {
+#       network_conector_string = local.network_conector_string[count.index]
+#     }
+#   )
 
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes        = [data]
-  }
+#   lifecycle {
+#     create_before_destroy = true
+#     ignore_changes        = [data]
+#   }
 
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    environment-name       = var.environment_name
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
-    GithubTeam             = var.team_name
-  }
-}
+#   tags = {
+#     business-unit          = var.business_unit
+#     application            = var.application
+#     is-production          = var.is_production
+#     environment-name       = var.environment_name
+#     owner                  = var.team_name
+#     infrastructure-support = var.infrastructure_support
+#     namespace              = var.namespace
+#     GithubTeam             = var.team_name
+#   }
+# }
 
 resource "kubernetes_secret" "amazon_mq" {
   metadata {
@@ -252,8 +252,8 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
-    # resources = [for broker in aws_mq_broker.this : broker.arn]
+    # resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
+    resources = [for broker in aws_mq_broker.this : broker.arn]
   }
 }
 
