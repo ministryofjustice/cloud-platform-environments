@@ -11,15 +11,16 @@ module "rds" {
   performance_insights_enabled = false
 
   # general options
-  db_instance_class           = "db.t4g.small"
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
-  allow_major_version_upgrade = "false"
+  db_instance_class      = "db.t4g.small"
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   # using mysql
   db_engine         = "mariadb"
-  db_engine_version = "10.4"
-  rds_family        = "mariadb10.4"
+  db_engine_version = "10.11"
+  rds_family        = "mariadb10.11"
+
+  prepare_for_major_upgrade = true
 
   # overwrite db_parameters
   db_parameter = [
