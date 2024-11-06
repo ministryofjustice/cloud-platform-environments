@@ -1,3 +1,17 @@
+resource "aws_ssm_parameter" "application_insights_key_dev" {
+  name        = "/application_insights/key-dev"
+  type        = "SecureString"
+  value       = "T3 KEY TO BE MODIFIED"
+  description = "Application Insights key for dev (t3)"
+  overwrite   = false
+  tags        = local.tags
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
+}
+
 resource "aws_ssm_parameter" "application_insights_key_preprod" {
   name        = "/application_insights/key-preprod"
   type        = "SecureString"
