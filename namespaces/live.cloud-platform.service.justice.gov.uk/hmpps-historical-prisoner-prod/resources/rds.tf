@@ -8,7 +8,8 @@ module "hmpps_hpa_rds" {
   namespace                 = var.namespace
   db_engine                 = "sqlserver-ex"
   db_engine_version         = "16.00"
-  db_instance_class         = "db.t3.small"
+  db_instance_class         = "db.t3.xlarge"
+  db_iops                   = 16000
   db_allocated_storage      = 20
   db_max_allocated_storage  = 100
   environment_name          = var.environment-name
