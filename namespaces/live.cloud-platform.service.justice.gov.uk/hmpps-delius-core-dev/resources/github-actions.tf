@@ -43,3 +43,14 @@ resource "github_actions_environment_secret" "github_secrets_delius" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+
+  namespace            = var.namespace
+  kubernetes_cluster   = var.kubernetes_cluster
+  github_repositories  = ["hmpps-delius-operational-automation"]
+  serviceaccount_rules = var.serviceaccount_rules
+  # This GitHub environment will need to be created manually first
+  github_environments = ["dev"]
+}
