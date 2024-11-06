@@ -104,6 +104,7 @@ EOF
 }
 
 resource "aws_sns_topic_subscription" "prisoner_search_event_queue_subscription" {
+  provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.offender_categorisation_api_offender_events_queue.sqs_arn
