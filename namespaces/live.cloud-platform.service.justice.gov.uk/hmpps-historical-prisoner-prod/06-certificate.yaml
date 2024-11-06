@@ -23,3 +23,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - historical-prisoner-api.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hpa-cert
+  namespace: hmpps-historical-prisoner-prod
+spec:
+  secretName: hmpps-hpa-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hpa.prison.service.justice.gov.uk
