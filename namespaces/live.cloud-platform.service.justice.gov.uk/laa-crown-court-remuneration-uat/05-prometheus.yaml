@@ -70,12 +70,12 @@ spec:
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-9934ff6a725528ca;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Read-IOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-9934ff6a725528ca"} > 300
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-9934ff6a725528ca"} > 900
       for: 1m
       labels:
         severity: laa_ccr_uat
       annotations:
-        message: CCR UAT RDS read operations are over 300 per second
+        message: CCR UAT RDS read operations are over 900 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-9934ff6a725528ca;is-cluster=false;tab=monitoring"
 
