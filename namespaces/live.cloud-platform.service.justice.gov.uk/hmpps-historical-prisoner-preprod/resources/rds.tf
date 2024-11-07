@@ -10,8 +10,8 @@ module "hmpps_hpa_rds" {
   db_engine_version         = "16.00"
   db_instance_class         = "db.t3.xlarge"
   db_iops                   = 16000
-  db_allocated_storage      = 120
-  db_max_allocated_storage  = 250
+  db_allocated_storage      = 500
+  db_max_allocated_storage  = 1000
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
   rds_family                = "sqlserver-ex-16.0"
