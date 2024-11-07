@@ -128,7 +128,6 @@ resource "aws_mq_broker" "this" {
   count = local.broker_count
 
   broker_name = "${local.identifier}-${count.index}"
-
   engine_type         = local.amq_engine_type
   engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
