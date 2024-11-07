@@ -13,7 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["cica-copilot"]
-  github_environments   = ["dev"]
+  github_environments   = ["dev", "uat"]
 
   # Tags
   business_unit          = var.business_unit
