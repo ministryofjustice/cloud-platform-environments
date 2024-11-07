@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "ca-bucket-policy" {
     principals {
       type        = "AWS"
       identifiers = [
-        aws_iam_user.dces_ca_admin_user_test.arn
+        aws_iam_user.dces_ca_admin_user_uat.arn
       ]
     }
     effect  = "Allow"
@@ -104,15 +104,15 @@ resource "kubernetes_secret" "s3_private_ca_bucket" {
   }
 }
 
-resource "kubernetes_secret" "dces_ca_admin_user_test" {
+resource "kubernetes_secret" "dces_ca_admin_user_uat" {
   metadata {
-    name      = "dces-ca-admin-user-test"
+    name      = "dces-ca-admin-user-uat"
     namespace = var.namespace
   }
 
   data = {
-    arn               = aws_iam_user.dces_ca_admin_user_test.arn
-    access_key_id     = aws_iam_access_key.dces_ca-admin_user_test_key.id
-    secret_access_key = aws_iam_access_key.dces_ca-admin_user_test_key.secret
+    arn               = aws_iam_user.dces_ca_admin_user_uat.arn
+    access_key_id     = aws_iam_access_key.dces_ca-admin_user_uat_key.id
+    secret_access_key = aws_iam_access_key.dces_ca-admin_user_uat_key.secret
   }
 }
