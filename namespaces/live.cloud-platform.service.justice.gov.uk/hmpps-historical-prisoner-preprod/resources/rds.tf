@@ -11,7 +11,7 @@ module "historical_prisoner_rds" {
   db_engine_version         = "16.00"
   db_instance_class         = "db.t3.xlarge"
   db_iops                   = 16000
-  db_allocated_storage      = 20
+  db_allocated_storage      = 100
   db_max_allocated_storage  = 1000
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
