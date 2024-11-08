@@ -176,12 +176,12 @@ resource "aws_mq_broker" "this" {
     GithubTeam             = var.team_name
   }
 
-  lifecycle {
-    ignore_changes = [
-      # configuration,
-      engine_version
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     configuration,
+  #     engine_version
+  #   ]
+  # }
 }
 
 resource "aws_mq_configuration" "this" {
