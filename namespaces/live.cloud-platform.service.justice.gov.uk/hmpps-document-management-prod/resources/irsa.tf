@@ -12,6 +12,9 @@ locals {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
 
+  connect_dps_distingishing_marks_s3 = "arn:aws:s3:::cloud-platform-43f9c0552bd867b0ac307686f139b6a1"
+
+
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
@@ -25,8 +28,9 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "hmpps-document-management-api"
   role_policy_arns = merge(local.sqs_policies, local.sns_policies, {
-    s3 = module.s3.irsa_policy_arn
+    s3       = module.s3.irsa_policy_arn
     s3images = module.s3-images.irsa_policy_arn
+    cross_namespace_s3 = aws_iam_policy.cross_namespace_s3_policy.arn
   })
 
   # Tags
@@ -47,4 +51,22 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+# IAM policy to allow access to specific S3 buckets in other namespaces.
+data "aws_iam_policy_document" "cross_namespace_s3_access" {
+  statement {
+    sid       = "AllowListAccessToCrossNamespaceS3Buckets"
+    actions   = ["s3:ListBucket"]
+    resources = [local.connect_dps_distingishing_marks_s3]
+  }
+
+  statement {
+    sid = "AllowReadWriteAccessToCrossNamespaceS3Buckets"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+    ]
+    resources = ["${local.connect_dps_distingishing_marks_s3}/*", ]
+  }
 }
