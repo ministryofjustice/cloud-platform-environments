@@ -1,4 +1,4 @@
-module "hpa_rds" {
+module "historical_prisoner_rds" {
   source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -34,16 +34,16 @@ module "hpa_rds" {
   }
 }
 
-resource "kubernetes_secret" "hpa_rds" {
+resource "kubernetes_secret" "historical_prisoner_rds" {
   metadata {
     name      = "rds-sqlserver-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    DB_SERVER            = module.hpa_rds.rds_instance_endpoint
-    DB_USER              = module.hpa_rds.database_username
-    DB_PASS              = module.hpa_rds.database_password
-    rds_instance_address = module.hpa_rds.rds_instance_address
+    DB_SERVER            = module.historical_prisoner_rds.rds_instance_endpoint
+    DB_USER              = module.historical_prisoner_rds.database_username
+    DB_PASS              = module.historical_prisoner_rds.database_password
+    rds_instance_address = module.historical_prisoner_rds.rds_instance_address
   }
 }
