@@ -53,6 +53,11 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
+resource "aws_iam_policy" "cross_namespace_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+}
+
 # IAM policy to allow access to specific S3 buckets in other namespaces.
 data "aws_iam_policy_document" "cross_namespace_s3_access" {
   statement {
