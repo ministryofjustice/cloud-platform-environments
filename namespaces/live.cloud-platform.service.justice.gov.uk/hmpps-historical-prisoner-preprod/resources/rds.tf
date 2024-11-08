@@ -9,8 +9,8 @@ module "historical_prisoner_rds" {
   db_engine                 = "sqlserver-web"
   rds_family                = "sqlserver-web-16.0"
   db_engine_version         = "16.00"
-  db_instance_class         = "db.t3.xlarge"
-  db_iops                   = 16000
+  db_instance_class         = "db.t3.small"
+  db_iops                   = 3000
   db_allocated_storage      = 100
   db_max_allocated_storage  = 1000
   environment_name          = var.environment-name
