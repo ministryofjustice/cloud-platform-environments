@@ -70,12 +70,12 @@ spec:
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-f5297d2d2e499910;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Read-IOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f5297d2d2e499910"} > 300
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f5297d2d2e499910"} > 900
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-production
       annotations:
-        message: CCLF Production RDS read operations are over 300 per second
+        message: CCLF Production RDS read operations are over 900 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
         dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-f5297d2d2e499910;is-cluster=false;tab=monitoring"
 
