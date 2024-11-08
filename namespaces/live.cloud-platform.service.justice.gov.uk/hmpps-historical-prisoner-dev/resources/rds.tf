@@ -15,6 +15,14 @@ module "hpa_rds" {
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
 
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
+
   deletion_protection          = true
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
