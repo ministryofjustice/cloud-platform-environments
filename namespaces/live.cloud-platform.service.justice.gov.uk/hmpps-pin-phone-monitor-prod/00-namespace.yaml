@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-communication-monitoring.git"
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_sed_alerts"
-    cloud-platform.justice.gov.uk/slack-channel: "dps_soct_dev"
+    cloud-platform.justice.gov.uk/slack-channel: "s-and-i-pcms"
     cloud-platform.justice.gov.uk/team-name: "dps-soct-dev"
