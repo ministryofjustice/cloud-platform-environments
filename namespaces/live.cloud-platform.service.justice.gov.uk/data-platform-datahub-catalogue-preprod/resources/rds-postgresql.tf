@@ -59,7 +59,7 @@ module "rds" {
   # A list of additional VPC security group IDs to associate
   # with the DB instance - in adition to the default VPC security groups
   # granting access from the Cloud Platform
-  vpc_security_group_ids = [module.rds_security_group.security_group_arn]
+  vpc_security_group_ids = [module.rds_security_group.security_group_id]
 }
 
 resource "kubernetes_secret" "rds" {
