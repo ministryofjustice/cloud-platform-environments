@@ -28,6 +28,7 @@ module "historical_prisoner_rds" {
   allow_major_version_upgrade  = false
   prepare_for_major_upgrade    = false
   performance_insights_enabled = false
+  enable_rds_auto_start_stop   = true
 
   providers = {
     aws = aws.london
