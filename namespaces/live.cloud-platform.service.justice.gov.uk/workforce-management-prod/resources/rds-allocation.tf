@@ -14,6 +14,8 @@ module "rds-allocation" {
   performance_insights_enabled = true
   # instance class
   db_instance_class = "db.t4g.small"
+  db_iops = "12000"
+  db_allocated_storage   = "750"
 
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = false
