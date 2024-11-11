@@ -25,7 +25,7 @@ module "rds_alfresco" {
   db_backup_retention_period = "28"
   backup_window              = "02:00-04:00"
 
-  # Tagst
+  # Tags
   application            = var.application
   business_unit          = var.business_unit
   environment_name       = var.environment_name
