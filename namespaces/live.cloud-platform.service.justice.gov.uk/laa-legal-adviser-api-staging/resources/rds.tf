@@ -11,7 +11,7 @@ module "laa_laa_rds_postgres_14" {
   infrastructure_support = var.email
   db_engine              = "postgres"
   db_engine_version      = "14"
-  db_instance_class      = "db.t4g.small"
+  db_instance_class      = "db.t4g.micro"
   db_allocated_storage   = "20"
   db_name                = "laalaa"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
