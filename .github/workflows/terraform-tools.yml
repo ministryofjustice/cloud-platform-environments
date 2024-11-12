@@ -67,7 +67,7 @@ jobs:
         with:
           path: ~/.tflint.d/plugins
           key: tflint-${{ hashFiles('.tflint.hcl') }}
-      - uses: terraform-linters/setup-tflint@19a52fbac37dacb22a09518e4ef6ee234f2d4987 ##v4.0.0
+      - uses: terraform-linters/setup-tflint@8093687ecc9dcbfa88d07c103ad4176739a7287e ##v4.1.0
       - run: tflint --init -c $(realpath .tflint.hcl)
         env:
           GITHUB_TOKEN: ${{ github.token }} # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
