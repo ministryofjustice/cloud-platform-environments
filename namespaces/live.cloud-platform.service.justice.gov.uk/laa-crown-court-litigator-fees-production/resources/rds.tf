@@ -10,11 +10,10 @@ module "rds-instance-trial" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
-
+  enable_rds_auto_start_stop = false
 
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
+  db_engine                = "oracle-se2"
   db_engine_version        = "19.0.0.0.ru-2024-07.rur-2024-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
@@ -23,13 +22,13 @@ module "rds-instance-trial" {
   db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem  
+  character_set_name       = "WE8MSWIN1252" 
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-for-cp-trial" # update with snapshot value, once created and moved from LZ to CP
 

@@ -1,3 +1,31 @@
+data "aws_vpc" "this" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name]
+  }
+}
+
+module "rds_security_group" {
+  #checkov:skip=CKV_TF_1:Module registry does not support commit hashes for versions
+  #checkov:skip=CKV_TF_2:Module registry does not support tags for versions
+
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.2.0"
+
+  name = "datahub_modernisation_platform_access"
+
+  vpc_id = data.aws_vpc.this.id
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 5432
+      to_port     = 5432
+      protocol    = "tcp"
+      cidr_blocks = "10.27.96.0/21"
+    },
+  ]
+}
+
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
 
@@ -27,6 +55,11 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # A list of additional VPC security group IDs to associate
+  # with the DB instance - in adition to the default VPC security groups
+  # granting access from the Cloud Platform
+  vpc_security_group_ids = [module.rds_security_group.security_group_id]
 }
 
 resource "kubernetes_secret" "rds" {

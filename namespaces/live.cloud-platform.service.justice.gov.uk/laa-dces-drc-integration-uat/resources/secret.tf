@@ -40,5 +40,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }
+    "config-variables" = {
+      description             = "[laa-dces-drc-integration-uat/config-variables] Configuration variables and settings"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
   }
 }

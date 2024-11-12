@@ -50,6 +50,7 @@ resource "pingdom_check" "pingdom" {
     "common-platform-and-delius",
     "ims-and-delius",
     "appointment-reminders-and-delius",
+    "justice-email-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

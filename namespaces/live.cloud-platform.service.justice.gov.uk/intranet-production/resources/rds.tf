@@ -17,7 +17,8 @@ module "rds" {
   db_instance_class           = "db.t4g.xlarge"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  db_allocated_storage        = "50"
+  db_allocated_storage        = "400"
+  db_iops                     = "12000"
   allow_major_version_upgrade = "false"
 
   # overwrite db_parameters

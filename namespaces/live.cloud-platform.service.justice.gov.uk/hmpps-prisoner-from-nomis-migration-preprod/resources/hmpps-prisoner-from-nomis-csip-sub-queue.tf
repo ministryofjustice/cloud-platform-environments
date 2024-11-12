@@ -44,7 +44,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_csip_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            ]
                           }
                         }
         }
@@ -122,6 +125,18 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_csip_subscription" {
       "CSIP_FACTORS-UPDATED",
       "CSIP_INTVW-INSERTED",
       "CSIP_INTVW-UPDATED",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_csip_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_csip_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }

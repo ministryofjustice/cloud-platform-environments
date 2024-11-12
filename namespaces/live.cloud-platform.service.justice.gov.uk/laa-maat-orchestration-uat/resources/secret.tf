@@ -70,6 +70,16 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "cat-api-oauth-client-secret"
     },
+    "evidence_api_oauth_client_id" = {
+      description             = "Evidence API oauth client ID for Orchestration UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "evidence-api-oauth-client-id"
+    },
+    "evidence_api_oauth_client_secret" = {
+      description             = "Evidence API oauth client secret for Orchestration UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "evidence-api-oauth-client-secret"
+    },
     "validation_api_oauth_client_id" = {
       description             = "Validation API oauth client ID for Orchestration UAT",
       recovery_window_in_days = 7,

@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.0" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -11,11 +11,11 @@ module "opensearch" {
   # Non-production cluster configuration
   cluster_config = {
     instance_count = 2
-    instance_type  = "m6g.large.search"
+    instance_type  = "m6g.xlarge.search"
   }
 
   ebs_options = {
-    volume_size = 50
+    volume_size = 20
   }
 
   advanced_options = {

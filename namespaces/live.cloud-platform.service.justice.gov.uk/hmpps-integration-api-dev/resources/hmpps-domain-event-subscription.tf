@@ -94,7 +94,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.risk-scores.ogrs.manual-calculation",
       "prisoner-offender-search.prisoner.released",
       "prison-offender-events.prisoner.released",
-      "calculate-release-dates.prisoner.changed"
+      "calculate-release-dates.prisoner.changed",
+      "plp.induction-schedule.updated"
     ]
   })
 }

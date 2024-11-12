@@ -1,8 +1,8 @@
-resource "aws_ssm_parameter" "application_insights_key_t3" {
-  name        = "/application_insights/key_t3"
-  type        = "String"
+resource "aws_ssm_parameter" "application_insights_key_dev" {
+  name        = "/application_insights/key-dev"
+  type        = "SecureString"
   value       = "T3 KEY TO BE MODIFIED"
-  description = "Application Insights key for t3"
+  description = "Application Insights key for dev (t3)"
   overwrite   = false
   tags        = local.tags
   lifecycle {
@@ -13,7 +13,7 @@ resource "aws_ssm_parameter" "application_insights_key_t3" {
 }
 
 resource "aws_ssm_parameter" "application_insights_key_preprod" {
-  name        = "/application_insights/key_preprod"
+  name        = "/application_insights/key-preprod"
   type        = "SecureString"
   value       = "PREPROD KEY TO BE MODIFIED"
   description = "Application Insights key for preprod"
@@ -27,7 +27,7 @@ resource "aws_ssm_parameter" "application_insights_key_preprod" {
 }
 
 resource "aws_ssm_parameter" "application_insights_key_prod" {
-  name        = "/application_insights/key_prod"
+  name        = "/application_insights/key-prod"
   type        = "SecureString"
   value       = "PROD KEY TO BE MODIFIED"
   description = "Application Insights key for prod"
