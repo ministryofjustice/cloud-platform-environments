@@ -23,7 +23,7 @@ spec:
           > 0.9 < 1
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
     - alert: KubeQuota-Exceeded
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
@@ -36,7 +36,7 @@ spec:
         > 90
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
     - alert: KubePodCrashLooping
       # pint file/disable alerts/template
       annotations:
@@ -47,7 +47,7 @@ spec:
         rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
@@ -58,7 +58,7 @@ spec:
         > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
     - alert: KubeDeploymentGenerationMismatch
       annotations:
         message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
@@ -71,7 +71,7 @@ spec:
         kube_deployment_metadata_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
 
   - name: application-rules
     rules:
@@ -96,7 +96,7 @@ spec:
         ) > 5
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
 
     - alert: SlownessOutage
       annotations:
@@ -118,11 +118,11 @@ spec:
           ) > 7.5
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
 
     - alert: High404Rate
       annotations:
-        message: More than 5% of responses were 404 errors.
+        message: More than 15% of responses were 404 errors.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High404Rate
         dashboard_url: >-
           https://grafana.live.cloud-platform.service.justice.gov.uk
@@ -133,10 +133,10 @@ spec:
         sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status="404"}[1m]))
         /
         sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
-        > 0.05
+        > 0.15
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
 
     - alert: High5xxRate
       annotations:
@@ -154,7 +154,7 @@ spec:
         > 0.05
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
 
     - alert: TrafficSpike
       annotations:
@@ -170,4 +170,4 @@ spec:
         > 33
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: justice-gov-uk-production-alerts
