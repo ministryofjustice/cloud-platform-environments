@@ -13,7 +13,7 @@ module "opensearch" {
   cluster_config = {
     # Nodes
     instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "m7g.xlarge.search"
+    instance_type  = "m7g.2xlarge.search"
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
@@ -34,9 +34,7 @@ module "opensearch" {
 
   ebs_options = {
     volume_type = "gp3"
-    volume_size = 256 # Storage (GBs per node)
-    throughput  = 250
-    iops        = 8000
+    volume_size = 512 # Storage (GBs per node)
   }
 
   # Tags
