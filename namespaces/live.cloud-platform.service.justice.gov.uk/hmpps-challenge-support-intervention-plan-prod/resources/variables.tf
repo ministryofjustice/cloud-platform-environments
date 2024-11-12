@@ -75,3 +75,9 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
