@@ -1,4 +1,4 @@
-# Note, this resource is forn use with template app hmpps-template-typescript.
+# Note, this resource is for use with the template app hmpps-template-typescript.
 
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
