@@ -26,7 +26,13 @@ resource "aws_iam_policy" "access_bedrock_service" {
           "bedrock:Get*",
           "bedrock:List*",
         ],
-        Resource = "*"
+        Resource = [
+          "arn:aws:bedrock:eu-central-1:321388111150:model/amazon.titan-embed-text-v1",
+          "arn:aws:bedrock:eu-central-1:321388111150:model/anthropic.claude-instant-v1",
+          "arn:aws:bedrock:eu-central-1:321388111150:model/anthropic.claude-v2:1",
+          "arn:aws:bedrock:eu-central-1:321388111150:model/anthropic.claude-v2",
+          "arn:aws:bedrock:eu-central-1:321388111150:model/anthropic.claude-3-5-sonnet-20240620-v1:0",          
+        ]
       }
     ]
   })
