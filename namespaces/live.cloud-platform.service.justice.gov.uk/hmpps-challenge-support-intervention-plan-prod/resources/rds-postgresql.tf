@@ -39,6 +39,21 @@ module "rds" {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
     }
   ]
 }
@@ -94,6 +109,21 @@ module "read_replica" {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
     }
   ]
 }
@@ -102,17 +132,16 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 
-resource "kubernetes_secret" "read_replica" {
+resource "kubernetes_config_map" "rds" {
   metadata {
-    name      = "rds-postgresql-read-replica-output"
+    name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    database_name         = module.read_replica.database_name
-    database_username     = module.read_replica.database_username
-    database_password     = module.read_replica.database_password
+    db_name = module.rds.database_name
+    db_identifier = module.rds.db_identifier
+    replica_name= module.read_replica.database_name
+    replica_identifier = module.read_replica.db_identifier
   }
 }
