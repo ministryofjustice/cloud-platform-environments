@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "cross_namespace_s3_access" {
 }
 
 module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
 
   # Configuration
   namespace            = var.namespace

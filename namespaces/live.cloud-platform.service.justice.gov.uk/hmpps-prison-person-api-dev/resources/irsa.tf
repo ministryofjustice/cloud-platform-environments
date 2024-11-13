@@ -45,7 +45,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
 
   # Configuration
   namespace            = var.namespace
