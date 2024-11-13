@@ -14,10 +14,14 @@ module "opensearch_alert_modsec" {
     monitor_period_interval        = "5"
     monitor_period_unit            = "MINUTES"
     alert_query                    = jsonencode(
-      "log"= {"ARGS"="instructions"}
+        {
+            log = {
+                ARGS = "instructions"
+            }
+        }
     )
     trigger_name                   = "406 errors"
-    serverity                      = "1"
+    severity                       = "1"
     query_source                   = "ctx.results[0].hits.total.value > 1"
     action_name                    = "trigger-action-name"
     slack_message_subject          = "slack-message-subject"
