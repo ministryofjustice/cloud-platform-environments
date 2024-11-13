@@ -21,7 +21,7 @@ module "opensearch_alert_modsec" {
         }
     )
     trigger_name                   = "406 errors"
-    severity                       = "1"
+    serverity                       = "1"
     query_source                   = "ctx.results[0].hits.total.value > 1"
     action_name                    = "trigger-action-name"
     slack_message_subject          = "slack-message-subject"
