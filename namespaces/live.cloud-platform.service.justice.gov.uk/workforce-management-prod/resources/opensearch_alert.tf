@@ -15,7 +15,9 @@ module "opensearch_alert_modsec" {
     monitor_period_unit            = "MINUTES"
     alert_query                    = jsonencode(
       {
-          { query: log: ARGS:instructions }
+          query:
+          log:
+          ARGS: instructions
       }
     )
     trigger_name                   = "406 errors"
