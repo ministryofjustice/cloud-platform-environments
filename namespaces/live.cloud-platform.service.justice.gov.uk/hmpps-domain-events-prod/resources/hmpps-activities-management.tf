@@ -92,7 +92,6 @@ resource "aws_sns_topic_subscription" "activities_domain_events_subscription" {
       "prisoner-offender-search.prisoner.alerts-updated",
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
-      "prisoner-offender-search.prisoner.updated",
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",
       "incentives.iep-review.deleted"
