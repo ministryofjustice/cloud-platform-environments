@@ -20,6 +20,11 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "staging-ccms-connection"
     },
+    "dev-ccms-connection" = {
+      description             = "Allow connection to CCMS Dev from a Civil Apply UAT branch",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dev-ccms-connection"
+    },
     "staging-portal-connection" = {
       description             = "Allow connection to Staging Portal from a Civil Apply UAT branch",
       recovery_window_in_days = 7
