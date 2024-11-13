@@ -33,6 +33,14 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -80,6 +88,14 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
 }
 
 data "aws_security_group" "mp_dps_sg" {
