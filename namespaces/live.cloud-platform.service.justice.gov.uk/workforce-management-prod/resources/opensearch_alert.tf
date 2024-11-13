@@ -1,5 +1,5 @@
 module "opensearch_alert_modsec" {
-    source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.1"
+    source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
     aws_opensearch_domain          = "cp-live-modsec-audit"
     aws_iam_role                   = "opensearch-access-role"
