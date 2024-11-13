@@ -109,6 +109,21 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-read-replica-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    database_name         = module.read_replica.database_name
+    database_username     = module.read_replica.database_username
+    database_password     = module.read_replica.database_password
+    rds_instance_address  = module.read_replica.rds_instance_address
+  }
+}
+
 resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
