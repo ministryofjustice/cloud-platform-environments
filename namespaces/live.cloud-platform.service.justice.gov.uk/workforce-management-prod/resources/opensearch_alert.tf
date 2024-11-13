@@ -1,10 +1,9 @@
 module "opensearch_alert_modsec" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.1"
 
-    aws_opensearch_domain      = "cp-live-modsec-audit"
-    aws_iam_role               = "opensearch-access-role"
-    index                      = ["live_k8s_modsec*", "live_k8s_modsec_ingress*"]
-
+    aws_opensearch_domain          = "cp-live-modsec-audit"
+    aws_iam_role                   = "opensearch-access-role"
+    index                          = ["live_k8s_modsec*", "live_k8s_modsec_ingress*"]
     secret_name                    = "live-workforce-management-prod-f4d60e913c7079de"
     secret_key                     = "workforce-management-prod-slack"
     environment_name               = var.environment
