@@ -15,9 +15,9 @@ module "opensearch_alert_modsec" {
     monitor_period_unit            = "MINUTES"
     alert_query                    = jsonencode(
       {
-          "query":
-            { "query_string":
-                { "query": "log: ARGS\\:instructions" }
+          query:
+            { query_string:
+                { query: "log: ARGS\\:instructions" }
             }
       }
     )
