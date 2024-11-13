@@ -4,7 +4,7 @@ metadata:
   name: breach-notice-preprod.hmpps.service.justice.gov.uk
   namespace: hmpps-breach-notice-preprod
 spec:
-  secretName: hmpps-breach-notice-api-cert
+  secretName: hmpps-breach-notice-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -17,7 +17,7 @@ metadata:
   name: breach-notice-api-preprod.hmpps.service.justice.gov.uk
   namespace: hmpps-breach-notice-preprod
 spec:
-  secretName: hmpps-breach-notice-ui-cert
+  secretName: hmpps-breach-notice-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
