@@ -1,5 +1,5 @@
 module "opensearch_alert_modsec" {
-    source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=1.0.1"
+    source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.1"
 
     var.aws_opensearch_domain      = "cp-live-modsec-audit"
     var.aws_iam_role               = "opensearch-access-role"
@@ -15,7 +15,12 @@ module "opensearch_alert_modsec" {
     monitor_period_interval        = "5"
     monitor_period_unit            = "MINUTES"
     alert_query                    = jsonencode(
-      { "query": { "query_string": { "query": "log: ARGS\\:instructions" } } }
+      {
+          "query":
+            { "query_string":
+                { "query": "log: ARGS\\:instructions" }
+            }
+      }
     )
     trigger_name                   = "406 errors"
     serverity                      = "1"
