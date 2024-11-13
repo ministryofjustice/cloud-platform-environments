@@ -8,7 +8,7 @@ module "opensearch" {
   # Cluster configuration
   engine_version      = "OpenSearch_1.3"
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
-
+  proxy_count         = 2
   # Production cluster configuration
   cluster_config = {
     # Nodes
@@ -25,7 +25,6 @@ module "opensearch" {
     warm_count   = 3
     warm_type    = "ultrawarm1.medium.search"
   }
-
 
   advanced_options = {
     # increase the maxClauseCount to 4096
