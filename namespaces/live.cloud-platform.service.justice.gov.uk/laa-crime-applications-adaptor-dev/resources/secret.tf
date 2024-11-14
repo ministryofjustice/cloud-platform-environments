@@ -25,10 +25,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     },
-    "crime_apply_api_auth_secret" = {
-      description             = "Crime Apply API auth secret for Crime Applications Adaptor dev",
+    "crime_apply_mock_api_auth_secret" = {
+      description             = "Crime Apply Mock API auth secret for Crime Applications Adaptor dev",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "crime-apply-api-auth-secret"
+      k8s_secret_name         = "crime-apply-mock-api-auth-secret"
     },
   }
 }
