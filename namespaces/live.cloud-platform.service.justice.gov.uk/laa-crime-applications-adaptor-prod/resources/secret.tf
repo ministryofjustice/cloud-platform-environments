@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-credentials"
     },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Crime Applications Adaptor prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }
