@@ -13,12 +13,50 @@ module "opensearch_alert_modsec" {
     opensearch_alert_enabled       = true
     monitor_period_interval        = "5"
     monitor_period_unit            = "MINUTES"
-    alert_query                    = jsonencode(
-        {
-            log = {
-                ARGS = "instructions"
-            }
+    alert_query = jsonencode(
+      {
+        query = {
+          bool = {
+            must = [],
+            filter = [
+              {
+                bool = {
+                  filter = [
+                    {
+                      multi_match = {
+                        type = "phrase",
+                        query = "workforce-management.hmpps.service.justice.gov.uk",
+                        lenient = true
+                      }
+                    },
+                    {
+                      multi_match = {
+                        type = "phrase",
+                        query = "406",
+                        lenient = true
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                range = {
+                  "@timestamp" = {
+                    from = "{{period_end}}||-5m",
+                    to = "{{period_end}}",
+                    include_lower = true,
+                    include_upper = true,
+                    format = "epoch_millis",
+                    boost = 1
+                  }
+                }
+              }
+            ],
+            should = [],
+            must_not = []
+          }
         }
+      }
     )
     trigger_name                   = "406 errors"
     serverity                       = "1"
