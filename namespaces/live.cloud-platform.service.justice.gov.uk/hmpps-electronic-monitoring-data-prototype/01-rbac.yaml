@@ -2,7 +2,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: em-data-admin
-  namespace: em-data
+  namespace: hmpps-electronic-monitoring-data-prototype
 subjects:
   - kind: Group
     name: "github:em-data-proto"
