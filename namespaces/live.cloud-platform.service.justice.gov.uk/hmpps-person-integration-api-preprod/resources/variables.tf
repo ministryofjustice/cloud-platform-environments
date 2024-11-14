@@ -39,7 +39,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "connect-dps"
+  default     = "hmpps-person-record"
 }
 
 variable "environment" {
@@ -51,7 +51,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "hmpps-person-record@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -63,7 +63,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "connect-dps"
+  default     = "core-person-record-dev"
 }
 
 variable "github_owner" {
