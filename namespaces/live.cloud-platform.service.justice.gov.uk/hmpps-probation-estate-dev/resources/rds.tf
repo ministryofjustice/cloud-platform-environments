@@ -10,7 +10,7 @@ module "rds" {
   prepare_for_major_upgrade = false
   performance_insights_enabled = true
   db_instance_class            = "db.t4g.small"
-  db_engine_version            = "15.5"
+  db_engine_version            = "15.7"
   environment_name             = var.environment
   infrastructure_support       = var.infrastructure_support
 
