@@ -123,17 +123,3 @@ resource "kubernetes_secret" "read_replica" {
     rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
-
-resource "kubernetes_config_map" "rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    db_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
-    replica_name= module.read_replica.database_name
-    replica_identifier = module.read_replica.db_identifier
-  }
-}
