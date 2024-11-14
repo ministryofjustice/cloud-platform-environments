@@ -87,6 +87,11 @@ variable "advantis_app_client_name" {
   default     = "advantis-uat"
 }
 
+variable "appsec_client_name" {
+  description = "Cognito app client name for Appsec Testing Team"
+  default     = "appsec-uat"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "dces-drc-api-uat"
