@@ -21,7 +21,7 @@ module "secrets_manager" {
       k8s_secret_name         = "dces-datasource"
     }
     "dces-drc-integration-service-alert-webhook-staging" = {
-      description             = "[laa-dces-drc-integration-staging/dces-drc-integration-service-alert-webhook-staging] Slack webhook"
+      description             = "[dces-drc-integration-service-alert-webhook-staging] Slack webhook"
       recovery_window_in_days = 7
       k8s_secret_name         = "dces-drc-integration-service-alert-webhook-staging"
     }
@@ -44,6 +44,36 @@ module "secrets_manager" {
       description             = "[laa-dces-drc-integration-staging/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
+    }
+    "client-ca" = {
+      description             = "[client-ca] Client CA certificate file for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ca"
+    }
+    "config-variables" = {
+      description             = "[config-variables] Overridden configuration env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
+    "datasource" = {
+      description             = "[datasource] Database connection env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource"
+    }
+    "drc-client" = {
+      description             = "[drc-client] Debt recovery company client credential files and env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client"
+    }
+    "feature-flags" = {
+      description             = "[feature-flags] Feature flag env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature-flags"
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
     }
   }
 }
