@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "ca-crt"
     }
+    "client-ca" = {
+      description             = "[client-ca] Client CA certificate file for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ca"
+    }
   }
 }
