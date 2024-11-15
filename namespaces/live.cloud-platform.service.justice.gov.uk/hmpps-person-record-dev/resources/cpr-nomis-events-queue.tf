@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "cpr_nomis_events_subscription" {
 }
 
 module "cpr_nomis_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_nomis_events_queue"
@@ -42,7 +42,7 @@ module "cpr_nomis_events_queue" {
 ######## Dead letter queue
 
 module "cpr_nomis_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "cpr_nomis_events_dlq"
