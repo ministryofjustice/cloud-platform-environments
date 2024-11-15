@@ -7,7 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_court_case_events_temporary_subscript
 }
 
 module "cpr_court_case_events_temporary_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_court_case_events_temporary_queue"
