@@ -48,7 +48,7 @@ data "kubernetes_secret" "audit_secret" {
   }
 }
 
-module "hmpps-challenge-support-intervention-plan-ui-service-account" {
+module "hmpps-csip-ui-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
   business_unit          = var.business_unit
@@ -59,7 +59,7 @@ module "hmpps-challenge-support-intervention-plan-ui-service-account" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  service_account_name = "hmpps-challenge-support-intervention-plan-ui"
+  service_account_name = "hmpps-csip-ui"
   role_policy_arns = merge(
     { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
