@@ -11,17 +11,17 @@ module "secrets_manager" {
 
   secrets = {
     "dces-report-service-alert-webhook-prod" = {
-      description             = "[laa-dces-report-service-prod/dces-report-service-alert-webhook-prod] Slack webhook"
+      description             = "[dces-report-service-alert-webhook-prod] Slack webhook"
       recovery_window_in_days = 7
       k8s_secret_name         = "dces-report-service-alert-webhook-prod"
     }
     "feature_flags" = {
-      description             = "[laa-dces-report-service-prod/feature-flags] Feature flag variables"
+      description             = "[feature-flags] Feature flag env-vars"
       recovery_window_in_days = 7
       k8s_secret_name         = "feature-flags"
     }
     "config-variables" = {
-      description             = "[laa-dces-report-service-prod/config-variables] Configuration variables and settings"
+      description             = "[config-variables] Overridden configuration env-vars"
       recovery_window_in_days = 7
       k8s_secret_name         = "config-variables"
     }
@@ -34,6 +34,11 @@ module "secrets_manager" {
       description             = "[laa-dces-report-service-prod/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
     }
   }
 }
