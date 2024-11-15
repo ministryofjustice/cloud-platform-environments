@@ -21,7 +21,7 @@ module "secrets_manager" {
       k8s_secret_name         = "dces-datasource"
     }
     "dces-drc-integration-service-alert-webhook-test" = {
-      description             = "[laa-dces-drc-integration-test/dces-drc-integration-service-alert-webhook-test] Slack webhook"
+      description             = "[dces-drc-integration-service-alert-webhook-test] Slack webhook"
       recovery_window_in_days = 7
       k8s_secret_name         = "dces-drc-integration-service-alert-webhook-test"
     }
@@ -46,9 +46,34 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }
     "config-variables" = {
-      description             = "[laa-dces-drc-integration-test/config-variables] Configuration variables and settings"
+      description             = "[config-variables] Overridden configuration env-vars"
       recovery_window_in_days = 7
       k8s_secret_name         = "config-variables"
+    }
+    "client-ca" = {
+      description             = "[client-ca] Client CA certificate file for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ca"
+    }
+    "datasource" = {
+      description             = "[datasource] Database connection env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource"
+    }
+    "drc-client" = {
+      description             = "[drc-client] Debt recovery company client credential files and env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client"
+    }
+    "feature-flags" = {
+      description             = "[feature-flags] Feature flag env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature-flags"
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
     }
   }
 }
