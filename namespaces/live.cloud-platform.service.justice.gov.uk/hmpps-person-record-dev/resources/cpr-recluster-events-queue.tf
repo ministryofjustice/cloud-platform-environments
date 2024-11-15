@@ -28,7 +28,7 @@ module "cpr_recluster_events_queue" {
 
 ### Dead letter queue
 module "cpr_recluster_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "cpr_recluster_events_dlq"
