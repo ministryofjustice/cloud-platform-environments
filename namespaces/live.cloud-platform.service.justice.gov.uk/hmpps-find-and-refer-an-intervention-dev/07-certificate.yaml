@@ -10,6 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - find-and-refer-intervention-ui-dev.hmpps.service.justice.gov.uk
     - hmpps-find-and-refer-an-intervention-ui-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -23,4 +24,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+    - find-and-refer-intervention-api-dev.hmpps.service.justice.gov.uk
     - hmpps-find-and-refer-an-intervention-service-dev.hmpps.service.justice.gov.uk
