@@ -19,21 +19,12 @@
 
     data "aws_iam_policy_document" "document" {
       # Provide list of permissions and target AWS account resources to allow access to
-      # statement {
-      #   actions = [
-      #     "sts:AssumeRole"
-      #   ]
-      #   # This is a placeholder resource - waiting on real values before merging~
-      #   resources = [
-      #     "arn:aws:iam::321388111150:role/BedrockAccessforCP",
-      #   ]
-      # }
       statement {
         actions = [
-          "s3:*",
+          "sts:AssumeRole"
         ]
         resources = [
-          "arn:aws:s3:::*",
+          "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
         ]
       }
     }
