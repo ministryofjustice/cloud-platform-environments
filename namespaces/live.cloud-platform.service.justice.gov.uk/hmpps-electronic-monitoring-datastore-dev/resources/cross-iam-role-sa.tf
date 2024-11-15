@@ -2,9 +2,11 @@
     module "irsa" {
       source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
       eks_cluster_name      = var.eks_cluster_name
-      namespace             = var.namespace
       service_account_name  = "${var.namespace}-athena-service-account"
-      role_policy_arns = [aws_iam_policy.em_datastore_api_athena_general.arn]
+      namespace             = var.namespace
+      role_policy_arns = {
+        athena = aws_iam_policy.athena_access.arn
+      }
 
       # Tags
       business_unit          = var.business_unit
@@ -17,19 +19,27 @@
 
     data "aws_iam_policy_document" "document" {
       # Provide list of permissions and target AWS account resources to allow access to
+      # statement {
+      #   actions = [
+      #     "sts:AssumeRole"
+      #   ]
+      #   # This is a placeholder resource - waiting on real values before merging~
+      #   resources = [
+      #     "arn:aws:iam::321388111150:role/BedrockAccessforCP",
+      #   ]
+      # }
       statement {
         actions = [
-          "sts:AssumeRole"
+          "s3:*",
         ]
-        # This is a placeholder principal - waiting on real values before merging~
-        principals {
-          type        = "AWS"
-          identifiers = ["arn:aws:iam::321388111150:role/BedrockAccessforCP"]
-        }
+        resources = [
+          "arn:aws:s3:::*",
+        ]
       }
     }
-    resource "aws_iam_policy" "em_datastore_api_athena_general" {
-      name   = "em-datastore-api-athena-general-${var.namespace}"
+
+    resource "aws_iam_policy" "athena_access" {
+      name   = "${var.namespace}-athena-policy-general"
       policy = data.aws_iam_policy_document.document.json
 
       tags = {
@@ -43,11 +53,11 @@
     }
     resource "kubernetes_secret" "irsa" {
       metadata {
-        name      = "irsa-output"
+        name      = "${var.namespace}-irsa-output"
         namespace = var.namespace
       }
       data = {
-        role = module.irsa.aws_iam_role_name
-        serviceaccount = module.irsa.service_account_name.name
+        role = module.irsa.role_name
+        serviceaccount = module.irsa.service_account.name
       }
     }
