@@ -61,7 +61,6 @@ module "hmpps-challenge-support-intervention-plan-ui-service-account" {
 
   service_account_name = "hmpps-challenge-support-intervention-plan-ui"
   role_policy_arns = merge(
-    { elasticache = module.elasticache.irsa_policy_arn },
     { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
 }
