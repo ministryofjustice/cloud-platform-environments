@@ -3,7 +3,6 @@ locals {
   namespaces = toset([
     "hmpps-audit-poc-dev",
     "hmpps-auth-dev",
-    "hmpps-authorization-dev",
     "hmpps-external-users-api-dev",
     "hmpps-auth-stage",
     "hmpps-court-register-dev"
