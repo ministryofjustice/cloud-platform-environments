@@ -1,27 +1,14 @@
-### Nomis merge events subscription
-
-resource "aws_sns_topic_subscription" "cpr_nomis_merge_domain_events_subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
-  protocol  = "sqs"
-  endpoint  = module.cpr_nomis_merge_events_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "prison-offender-events.prisoner.merged"
-    ]
-  })
-}
-
-module "cpr_nomis_merge_events_queue" {
+module "cpr_recluster_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
-  sqs_name                   = "cpr_nomis_merge_events_queue"
+  sqs_name                   = "cpr_recluster_events_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.cpr_nomis_merge_events_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.cpr_recluster_events_dead_letter_queue.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -40,11 +27,11 @@ module "cpr_nomis_merge_events_queue" {
 }
 
 ### Dead letter queue
-module "cpr_nomis_merge_events_dead_letter_queue" {
+module "cpr_recluster_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
-  sqs_name        = "cpr_nomis_merge_events_dlq"
+  sqs_name        = "cpr_recluster_events_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -63,32 +50,32 @@ module "cpr_nomis_merge_events_dead_letter_queue" {
 
 ########  Secrets
 
-resource "kubernetes_secret" "cpr_nomis_merge_events_queue" {
+resource "kubernetes_secret" "cpr_recluster_events_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-nomis-merge-events-secret"
+    name = "sqs-cpr-recluster-events-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_nomis_merge_events_queue.sqs_id
-    sqs_queue_arn  = module.cpr_nomis_merge_events_queue.sqs_arn
-    sqs_queue_name = module.cpr_nomis_merge_events_queue.sqs_name
+    sqs_queue_url  = module.cpr_recluster_events_queue.sqs_id
+    sqs_queue_arn  = module.cpr_recluster_events_queue.sqs_arn
+    sqs_queue_name = module.cpr_recluster_events_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "cpr_nomis_merge_events_dead_letter_queue" {
+resource "kubernetes_secret" "cpr_recluster_events_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-nomis-merge-events-dlq-secret"
+    name = "sqs-cpr-recluster-events-dlq-secret"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.cpr_nomis_merge_events_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.cpr_nomis_merge_events_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.cpr_nomis_merge_events_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.cpr_recluster_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cpr_recluster_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cpr_recluster_events_dead_letter_queue.sqs_name
   }
 }
