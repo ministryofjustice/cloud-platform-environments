@@ -41,6 +41,13 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+data "kubernetes_secret" "audit_secret" {
+  metadata {
+    name      = "sqs-hmpps-audit-secret"
+    namespace = var.namespace
+  }
+}
+
 module "hmpps-challenge-support-intervention-plan-ui-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
