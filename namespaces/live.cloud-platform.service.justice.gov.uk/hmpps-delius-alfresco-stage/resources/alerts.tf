@@ -44,8 +44,8 @@ locals {
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment CPU usage is over ${alert.cpu_threshold * 100}%"
-          runbook_url   = alert.runbook_url != null ? alert.runbook_url : null
-          dashboard_url = alert.dashboard_url != null ? alert.dashboard_url : null
+          runbook_url   = try(alert.runbook_url, null)
+          dashboard_url = try(alert.dashboard_url, null)
         }
       }
       mem_alert = {
@@ -57,8 +57,8 @@ locals {
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment Memory usage is over ${alert.mem_threshold * 100}%"
-          runbook_url   = alert.runbook_url != null ? alert.runbook_url : null
-          dashboard_url = alert.dashboard_url != null ? alert.dashboard_url : null
+          runbook_url   = try(alert.runbook_url, null)
+          dashboard_url = try(alert.dashboard_url, null)
         }
       }
       pod_available_count = {
@@ -70,8 +70,8 @@ locals {
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment available replicas is less than ${alert.deployment_count_threshold}"
-          runbook_url   = alert.runbook_url != null ? alert.runbook_url : null
-          dashboard_url = alert.dashboard_url != null ? alert.dashboard_url : null
+          runbook_url   = try(alert.runbook_url, null)
+          dashboard_url = try(alert.dashboard_url, null)
         }
       }
     }
