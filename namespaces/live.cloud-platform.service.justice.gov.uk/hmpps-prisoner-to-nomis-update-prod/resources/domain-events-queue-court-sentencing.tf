@@ -109,9 +109,14 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
   filter_policy = jsonencode({
     eventType = [
       "court-case.inserted",
+      "court-case.deleted",
       "legacy.court-case-references.updated",
       "court-appearance.inserted",
-      "charge.inserted"
+      "court-appearance.updated",
+      "court-appearance.deleted",
+      "charge.inserted",
+      "charge.updated",
+      "charge.deleted"
     ]
   })
 }
