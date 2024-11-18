@@ -111,7 +111,7 @@ module "irsa" {
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
-    { combined_cpr_sqs = aws_iam_policy.combined_cpr_sqs }
+    { combined_cpr_sqs = aws_iam_policy.combined_cpr_sqs.arn }
   )
 
   # Tags
