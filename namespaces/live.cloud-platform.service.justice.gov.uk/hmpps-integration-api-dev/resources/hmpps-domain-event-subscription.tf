@@ -95,7 +95,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "prisoner-offender-search.prisoner.released",
       "prison-offender-events.prisoner.released",
       "calculate-release-dates.prisoner.changed",
-      "plp.induction-schedule.updated"
+      "plp.induction-schedule.updated",
+      "plp.review-schedule.updated"
     ]
   })
 }
