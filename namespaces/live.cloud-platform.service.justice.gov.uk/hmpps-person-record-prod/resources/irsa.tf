@@ -17,6 +17,7 @@ data "aws_iam_policy_document" "combined_cpr_sqs" {
     actions = ["sqs:*"]
     resources = [
       module.cpr_recluster_events_queue.sqs_arn,
+      module.cpr_recluster_events_dead_letter_queue.sqs_arn
     ]
   }
 }
