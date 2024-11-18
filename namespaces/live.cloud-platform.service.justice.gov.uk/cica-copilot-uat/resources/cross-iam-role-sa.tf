@@ -1,47 +1,53 @@
-module "mod_bedrock_irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace        = var.namespace
-  eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = {
-    bedrock = aws_iam_policy.access_bedrock_service.arn
-  }
-  service_account_name = "${var.namespace}-to-mod-platform-bedrock-sa"
+module "irsa" {
+  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  eks_cluster_name      = var.eks_cluster_name
+  namespace             = var.namespace  
 
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  team_name              = var.team_name
+
+  service_account_name = "${var.namespace}-to-mod-platform-bedrock-sa"
+  role_policy_arns      = {
+    bedrock = aws_iam_policy.access_bedrock_policy.arn
+  }
 }
 
-resource "aws_iam_policy" "access_bedrock_service" {
-  name   = "AccessBedrockService"
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "sts:AssumeRole"
-        Resource = "arn:aws:iam::321388111150:role/BedrockAccessforCP"
-      }
+data "aws_iam_policy_document" "access_bedrock_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole"
     ]
-  })
+    resources = [
+      "arn:aws:iam::321388111150:role/BedrockAccessforCP"
+    ]
+  }
 }
 
-resource "aws_iam_role_policy_attachment" "attach_bedrock_policy" {
-  role       = module.mod_bedrock_irsa.role_name
-  policy_arn = aws_iam_policy.access_bedrock_service.arn
-}
+resource "aws_iam_policy" "access_bedrock_policy" {
+  name   = "${var.namespace}-access-bedrock-policy"
+  policy = data.aws_iam_policy_document.access_bedrock_policy.json
 
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+
+}
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
     namespace = var.namespace
   }
   data = {
-    role           = module.mod_bedrock_irsa.role_name
-    serviceaccount = module.mod_bedrock_irsa.service_account.name
-    rolearn        = module.mod_bedrock_irsa.role_arn
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
   }
 }
