@@ -1,4 +1,4 @@
-module "rds-instance-migrated" {
+module "migrated-rds-instance" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -34,7 +34,7 @@ module "rds-instance-migrated" {
   # enable performance insights
   performance_insights_enabled = false
   
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-prod-cutover-snapshot-08102024-final"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-to-cp-prod-cutover-181124-snapshot-final"
 
   providers = {
     aws = aws.london
@@ -113,18 +113,18 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
-resource "kubernetes_secret" "rds-instance" {
+resource "kubernetes_secret" "migrated-rds-instance" {
   metadata {
     name      = "rds-ccr-${var.environment}"
     namespace = var.namespace
   }
 
   data = {
-    database_name     = module.rds-instance-migrated.database_name
-    database_host     = module.rds-instance-migrated.rds_instance_address
-    database_port     = module.rds-instance-migrated.rds_instance_port
-    database_username = module.rds-instance-migrated.database_username
-    database_password = module.rds-instance-migrated.database_password
+    database_name     = module.migrated-rds-instance.database_name
+    database_host     = module.migrated-rds-instance.rds_instance_address
+    database_port     = module.migrated-rds-instance.rds_instance_port
+    database_username = module.migrated-rds-instance.database_username
+    database_password = module.migrated-rds-instance.database_password
   }
 }
 
