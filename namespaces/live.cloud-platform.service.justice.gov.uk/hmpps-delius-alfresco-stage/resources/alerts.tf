@@ -40,7 +40,7 @@ locals {
         expr  = "sum(rate(container_cpu_usage_seconds_total{namespace=\"${var.namespace}\", pod=~\"${pod}.*\"}[${alert.time}])) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"${var.namespace}\", pod=~\"${pod}.*\"}) > ${alert.cpu_threshold}"
         for   = alert.time
         labels = {
-          severity = "${var.namespace}"
+          severity = var.namespace
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment CPU usage is over ${alert.cpu_threshold * 100}%"
@@ -53,7 +53,7 @@ locals {
         expr  = "sum(rate(container_memory_working_set_bytes{namespace=\"${var.namespace}\", pod=~\"${pod}.*\"}[${alert.time}])) / sum(cluster:namespace:pod_mem:active:kube_pod_container_resource_limits{namespace=\"${var.namespace}\", pod=~\"${pod}.*\"}) > ${alert.mem_threshold}"
         for   = alert.time
         labels = {
-          severity = "${var.namespace}"
+          severity = var.namespace
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment Memory usage is over ${alert.mem_threshold * 100}%"
@@ -66,7 +66,7 @@ locals {
         expr  = "kube_deployment_status_replicas_available{namespace=\"${var.namespace}\", deployment=~\"${pod}\"} < ${alert.deployment_count_threshold}"
         for   = alert.time
         labels = {
-          severity = "${var.namespace}"
+          severity = var.namespace
         }
         annotations = {
           message       = "${alert.pod_short_name} Deployment available replicas is less than ${alert.deployment_count_threshold}"
@@ -87,7 +87,7 @@ locals {
 
 }
 
-resource "kubernetes_manifeszt" "prometheus_rule_alfresco" {
+resource "kubernetes_manifest" "prometheus_rule_alfresco" {
   manifest = {
     apiVersion = "monitoring.coreos.com/v1"
     kind       = "PrometheusRule"
