@@ -102,9 +102,9 @@ resource "kubernetes_manifest" "prometheus_rule_alfresco" {
       groups = [
         {
           name = "application-rules"
-          rules = [
+          rules = concat(
             local.rendered_deployment_alerts_list,
-            {
+            [{
               alert = "RDSLowStorage"
               expr  = "aws_rds_free_storage_space_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} offset 10m < 10000000000"
               for   = "5m"
@@ -114,85 +114,85 @@ resource "kubernetes_manifest" "prometheus_rule_alfresco" {
               annotations = {
                 message = "[{{ environment|upper }}] RDS free storage space is less than 10GB"
               }
-            },
-            {
-              alert = "RDSHighCPUUtilization"
-              expr  = "aws_rds_cpuutilization_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 75"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
+              },
+              {
+                alert = "RDSHighCPUUtilization"
+                expr  = "aws_rds_cpuutilization_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 75"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] RDS CPU Utilization is over 75% for more than 5 minutes"
+                }
+              },
+              {
+                alert = "RDSHighMemoryUtilization"
+                expr  = "aws_rds_freeable_memory_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} < 5000000000"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] RDS freeable memory is less than 5GB for more than 5 minutes"
+                }
+              },
+              {
+                alert = "RDSHighConnections"
+                expr  = "aws_rds_database_connections_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 100"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] RDS database connections are over 100 for more than 5 minutes"
+                }
+              },
+              {
+                alert = "RDSHighReadLatency"
+                expr  = "aws_rds_read_latency_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 0.05"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] RDS read latency is over 0.1s for more than 5 minutes"
+                }
+              },
+              {
+                alert = "IngressLongRequestTime95thPercentile"
+                expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] 95th percentile of request duration for Ingress is over 0.5s for more than 5 minutes"
+                }
+              },
+              {
+                alert = "IngressLongResponseTime95thPercentile"
+                expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] 95th percentile of response duration for Ingress is over 0.5s for more than 5 minutes"
+                }
+              },
+              {
+                alert = "IngressHighErrorRate"
+                expr  = "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\",status=~\"5.*\"}[5m])) / sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) > 0.01"
+                for   = "5m"
+                labels = {
+                  severity = var.namespace
+                }
+                annotations = {
+                  message = "[{{ environment|upper }}] Error rate for Ingress is over 1% for more than 5 minutes"
+                }
               }
-              annotations = {
-                message = "[{{ environment|upper }}] RDS CPU Utilization is over 75% for more than 5 minutes"
-              }
-            },
-            {
-              alert = "RDSHighMemoryUtilization"
-              expr  = "aws_rds_freeable_memory_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} < 5000000000"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] RDS freeable memory is less than 5GB for more than 5 minutes"
-              }
-            },
-            {
-              alert = "RDSHighConnections"
-              expr  = "aws_rds_database_connections_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 100"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] RDS database connections are over 100 for more than 5 minutes"
-              }
-            },
-            {
-              alert = "RDSHighReadLatency"
-              expr  = "aws_rds_read_latency_average{dbinstance_identifier=\"${module.rds_alfresco.db_identifier}\"} > 0.05"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] RDS read latency is over 0.1s for more than 5 minutes"
-              }
-            },
-            {
-              alert = "IngressLongRequestTime95thPercentile"
-              expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] 95th percentile of request duration for Ingress is over 0.5s for more than 5 minutes"
-              }
-            },
-            {
-              alert = "IngressLongResponseTime95thPercentile"
-              expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] 95th percentile of response duration for Ingress is over 0.5s for more than 5 minutes"
-              }
-            },
-            {
-              alert = "IngressHighErrorRate"
-              expr  = "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\",status=~\"5.*\"}[5m])) / sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) > 0.01"
-              for   = "5m"
-              labels = {
-                severity = var.namespace
-              }
-              annotations = {
-                message = "[{{ environment|upper }}] Error rate for Ingress is over 1% for more than 5 minutes"
-              }
-            }
-          ]
+          ])
         }
       ]
     }
