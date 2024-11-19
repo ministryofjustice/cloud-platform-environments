@@ -51,16 +51,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - short-term-accommodation-cas-2.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-community-accommodation-tier-2-bail-prod-cert
-  namespace: hmpps-community-accommodation-dev
-spec:
-  secretName: hmpps-community-accommodation-tier-2-bail-prod-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - community-accommodation-tier-2-bail.hmpps.service.justice.gov.uk
