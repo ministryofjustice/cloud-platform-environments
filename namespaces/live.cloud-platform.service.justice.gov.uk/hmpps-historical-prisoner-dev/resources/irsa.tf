@@ -17,7 +17,7 @@ module "historical_prisoner_irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "hmpps-historical_prisoner-api"
+  service_account_name = "hmpps-historical_prisoner"
   namespace            = var.namespace
 
   role_policy_arns     = local.sqs_policies
