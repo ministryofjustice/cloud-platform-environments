@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-approved-premises-api", "hmpps-approved-premises-ui", "hmpps-temporary-accommodation-ui", "hmpps-community-accommodation-tier-2-ui"]
+  github_repos   = ["hmpps-approved-premises-api", "hmpps-approved-premises-ui", "hmpps-temporary-accommodation-ui", "hmpps-community-accommodation-tier-2-ui", "hmpps-community-accommodation-tier-2-bail-ui"]
 
 ###################################################################
   github-actions-sa_rules = [
