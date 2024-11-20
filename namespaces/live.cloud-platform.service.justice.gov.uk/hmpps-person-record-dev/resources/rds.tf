@@ -8,7 +8,7 @@ module "hmpps_person_record_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  rds_family             = "postgres16"
+  rds_family             = "postgres17"
   db_instance_class      = "db.t3.small"
   db_engine              = "postgres"
   db_engine_version      = "17.1"
