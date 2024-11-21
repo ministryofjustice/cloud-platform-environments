@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "SRE applications"
     cloud-platform.justice.gov.uk/owner: "HMPPS SRE: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-health-ping,https://github.com/ministryofjustice/hmpps-developer-portal,https://github.com/ministryofjustice/hmpps-service-catalogue"
-    cloud-platform.justice.gov.uk/team-name: "dps-tech"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-sre"
     cloud-platform.justice.gov.uk/review-after: ""
