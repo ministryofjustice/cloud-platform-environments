@@ -34,7 +34,7 @@ module "ecr_credentials" {
             "selection": {
                 "countType": "sinceImagePushed",
                 "countUnit": "days",
-                "countNumber": 90
+                "countNumber": 60
             },
             "action": {
                 "type": "expire"
