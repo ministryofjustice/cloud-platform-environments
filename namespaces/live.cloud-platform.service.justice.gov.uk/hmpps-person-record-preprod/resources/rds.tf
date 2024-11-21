@@ -1,5 +1,5 @@
 module "hmpps_person_record_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -8,11 +8,11 @@ module "hmpps_person_record_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  rds_family             = "postgres16"
-  db_instance_class      = "db.t3.xlarge"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.r6g.xlarge"
   db_engine              = "postgres"
-  db_engine_version      = "16.1"
-  prepare_for_major_upgrade = false
+  db_engine_version      = "17.1"
+  prepare_for_major_upgrade = true
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop   = true
   providers = {
