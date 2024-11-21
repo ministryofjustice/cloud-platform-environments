@@ -12,6 +12,6 @@ resource "kubernetes_secret" "session_secret" {
     namespace = var.namespace
   }
   data = {
-    secret_key = random_password.session_secret.result
+    SESSION_SECRET = random_password.session_secret.result
   }
 }
