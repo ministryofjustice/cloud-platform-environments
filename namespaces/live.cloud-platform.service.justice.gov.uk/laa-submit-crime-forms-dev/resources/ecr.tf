@@ -30,7 +30,7 @@ module "ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire images older than 90 days",
+            "description": "Expire images older than 60 days",
             "selection": {
                 "tagStatus": "any",
                 "countType": "sinceImagePushed",
