@@ -16,8 +16,4 @@ module "secrets_manager" {
       k8s_secret_name         = "slack-alerts-webhook-dev"
     }
   }
-
-  tags = {
-    GithubTeam = "connect-dps"
-  }
 }
