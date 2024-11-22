@@ -14,37 +14,29 @@ module "ecr" {
   oidc_providers      = ["circleci"]
   github_repositories = ["nsm-e2e-test", "laa-crime-application-store", "laa-submit-crime-forms", "laa-assess-crime-forms"]
 
-   lifecycle_policy = <<EOF
-    {
+  # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
+  # To apply multiple rules, combined them in one policy JSON.
+  # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
+
+  lifecycle_policy = <<EOF
+  {
       "rules": [
-        {
-          "rulePriority": 1,
-          "description": "Expire untagged images older than 14 days",
-          "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 14
-          },
-          "action": {
-            "type": "expire"
+          {
+              "rulePriority": 1,
+              "description": "Expire images older than 60 days",
+              "selection": {
+                  "tagStatus": "any",
+                  "countType": "sinceImagePushed",
+                  "countUnit": "days",
+                  "countNumber": 60
+              },
+              "action": {
+                  "type": "expire"
+              }
           }
-        },
-        {
-          "rulePriority": 2,
-          "description": "Keep the newest 100 images and mark the rest for expiration",
-          "selection": {
-            "tagStatus": "any",
-            "countType": "imageCountMoreThan",
-            "countNumber": 100
-          },
-          "action": {
-            "type": "expire"
-          }
-        }
       ]
-    }
-    EOF
+  }
+  EOF
 
   # Tags
   business_unit          = var.business_unit
