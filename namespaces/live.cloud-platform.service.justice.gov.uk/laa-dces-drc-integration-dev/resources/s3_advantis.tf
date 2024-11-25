@@ -58,7 +58,35 @@ data "aws_iam_policy_document" "bucket-policy" {
       "$${bucket_arn}/*"
     ]
   }
+
+
+
+  # Delegate S3 Access for Cross-Account Sync
+  statement {
+    sid = "DelegateS3Access"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "arn:aws:iam::463470948902:user/prodadvlaadatamigr"
+      ]
+    }
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }
+
 }
+
+
+
 
 
 resource "kubernetes_secret" "s3_advantis_bucket-secret" {
