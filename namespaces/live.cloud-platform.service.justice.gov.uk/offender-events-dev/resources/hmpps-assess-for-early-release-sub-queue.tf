@@ -27,7 +27,7 @@ module "afer_probation_events_queue" {
 }
 
 module "afer_probation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "afer_probation_events_queue_dl"
