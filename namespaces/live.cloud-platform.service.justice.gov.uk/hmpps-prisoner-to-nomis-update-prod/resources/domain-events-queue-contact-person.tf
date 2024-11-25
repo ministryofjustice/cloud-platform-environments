@@ -110,7 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_contactperson_sub
   filter_policy = jsonencode({
     eventType = [
       "contacts-api.contact.created",
-      "contacts-api.prisoner-contact.created"
+      "contacts-api.prisoner-contact.created",
+      "contacts-api.contact-address.created"
     ]
   })
 }
