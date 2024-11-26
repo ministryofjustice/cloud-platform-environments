@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Intranet Archive"
+  default     = "intranet-archive"
 }
 
 variable "namespace" {
@@ -53,4 +53,10 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution."
+  type        = string
+  default     = "archive.dev.intranet.justice.gov.uk"
 }
