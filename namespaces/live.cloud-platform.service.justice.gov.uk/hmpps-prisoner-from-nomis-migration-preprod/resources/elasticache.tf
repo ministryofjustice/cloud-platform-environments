@@ -2,7 +2,7 @@ module "hmpps_redis" {
   source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
   vpc_name                = var.vpc_name
   application             = var.application_sync_dashboard
-  environment_name        = var.environment_name
+  environment_name        = var.environment
   is_production           = var.is_production
   infrastructure_support  = var.infrastructure_support
   team_name               = var.team_name

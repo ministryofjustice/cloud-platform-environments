@@ -106,6 +106,7 @@ variable "serviceaccount_rules" {
       resources = [
         "pods/exec",
         "pods/portforward",
+        "pods/log",
         "deployment",
         "secrets",
         "services",

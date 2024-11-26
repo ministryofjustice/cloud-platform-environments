@@ -19,54 +19,29 @@ module "ecr" {
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
 
-  # Lifecycle policies
-  # Uncomment the below to automatically tidy up old Docker images
-  /*
+  # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
+  # To apply multiple rules, combined them in one policy JSON.
+  # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
+
   lifecycle_policy = <<EOF
-    {
+  {
       "rules": [
-        {
-          "rulePriority": 1,
-          "description": "Expire untagged images older than 14 days",
-          "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 14
-          },
-          "action": {
-            "type": "expire"
+          {
+              "rulePriority": 1,
+              "description": "Expire images older than 60 days",
+              "selection": {
+                  "tagStatus": "any",
+                  "countType": "sinceImagePushed",
+                  "countUnit": "days",
+                  "countNumber": 60
+              },
+              "action": {
+                  "type": "expire"
+              }
           }
-        },
-        {
-          "rulePriority": 2,
-          "description": "Keep last 30 dev and staging images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPrefixList": ["dev", "staging"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 30
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 3,
-          "description": "Keep the newest 100 images and mark the rest for expiration",
-          "selection": {
-            "tagStatus": "any",
-            "countType": "imageCountMoreThan",
-            "countNumber": 100
-          },
-          "action": {
-            "type": "expire"
-          }
-        }
       ]
-    }
-    EOF
-  */
+  }
+  EOF
 
   # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
   # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.

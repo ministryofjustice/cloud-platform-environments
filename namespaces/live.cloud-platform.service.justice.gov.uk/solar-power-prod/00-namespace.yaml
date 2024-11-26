@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "climate-change-sustainability-unit"
     cloud-platform.justice.gov.uk/application: "Solar Power"
-    cloud-platform.justice.gov.uk/owner: "Climate Change and Sustainability Unit: CCSUEnquiries@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Climate Change and Sustainability Unit: solar-power@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/solar-power"
     cloud-platform.justice.gov.uk/team-name: "climate-change-sustainability-unit"
     cloud-platform.justice.gov.uk/review-after: ""

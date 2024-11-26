@@ -23,8 +23,6 @@ module "track_a_query_rds" {
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = false
 
-  snapshot_identifier = "rds:cloud-platform-607522540af5fd87-2024-11-10-06-10"
-
   providers = {
     aws = aws.london
   }
