@@ -1,5 +1,5 @@
 module "hmpps-prisoner-location_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -8,16 +8,32 @@ module "hmpps-prisoner-location_s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  logging_enabled        = true
+  log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = "/log"
 
   providers = { aws = aws.london }
 
   lifecycle_rule = [
     {
-      enabled    = true
-      id         = "expire all locations after 14 days"
+      enabled = true
+      id      = "expire all locations after 14 days"
       expiration = [{ days = 14 }]
     },
   ]
+}
+
+module "s3_logging_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+  acl                    = "log-delivery-write"
 }
 
 data "aws_iam_policy_document" "dso_user_s3_access_policy" {
