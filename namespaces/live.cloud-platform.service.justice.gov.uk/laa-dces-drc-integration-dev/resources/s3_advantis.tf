@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "bucket-policy" {
     principals {
       type        = "AWS"
       identifiers = [
-        aws_iam_user.admin_advantis_user_dev.arn
+        "arn:aws:iam::463470948902:user/prodadvlaadatamigr"
       ]
     }
     effect = "Deny"
