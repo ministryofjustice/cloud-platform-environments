@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Intranet Archive"
+  default     = "intranet-archive"
 }
 
 variable "namespace" {
