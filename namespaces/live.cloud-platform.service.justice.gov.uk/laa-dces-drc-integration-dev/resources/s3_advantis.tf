@@ -83,6 +83,28 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
   }
 
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_user.admin_advantis_user_dev.arn
+      ]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging"
+    ]
+    resources = [
+      "$${bucket_arn}/DRC/Attachments/*"  # Deny getting objects from DRC/Attachments
+    ]
+  }
+
+
+
+
+
 }
 
 
