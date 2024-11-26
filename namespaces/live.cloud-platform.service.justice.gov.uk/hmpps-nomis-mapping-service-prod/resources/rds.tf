@@ -7,7 +7,7 @@ module "dps_rds" {
   application               = var.application
   is_production             = var.is_production
   namespace                 = var.namespace
-  environment_name          = var.environment-name
+  environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
   db_instance_class         = "db.t4g.large"
   db_engine                 = "postgres"

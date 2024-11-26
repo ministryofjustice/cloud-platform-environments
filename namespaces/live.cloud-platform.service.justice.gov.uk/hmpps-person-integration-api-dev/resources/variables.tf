@@ -42,6 +42,12 @@ variable "team_name" {
   default     = "hmpps-person-record"
 }
 
+variable "secondary_team" {
+  description = "Name of the secondary development team responsible for this service"
+  type        = string
+  default     = "connect-dps"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

@@ -1,5 +1,5 @@
 locals {
-  github_repos   = ["james-kotlin-test", "james-typescript-test"]
+  github_repos   = ["james-kotlin-test", "james-typescript-test", "hmpps-james-bootstrap"]
   james-dev-sa_rules = [
     {
       api_groups = [""]

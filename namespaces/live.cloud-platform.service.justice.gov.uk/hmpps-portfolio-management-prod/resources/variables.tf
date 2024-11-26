@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "hmpps-health-ping"
+  default     = "SRE applications"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dps-tech"
+  default     = "hmpps-sre"
 }
 
 variable "environment" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hmpps_dev"
+  default     = "ask-prisons-digital-sre"
 }
 
 variable "github_owner" {

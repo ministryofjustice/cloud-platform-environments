@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   # github_environments = ["my-environment"]
 
-  /*
+  
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html
@@ -30,37 +30,12 @@ module "ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire untagged images older than 14 days",
-            "selection": {
-                "tagStatus": "untagged",
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
-            },
-            "action": {
-                "type": "expire"
-            }
-        },
-        {
-            "rulePriority": 2,
-            "description": "Keep last 30 dev and staging images",
-            "selection": {
-                "tagStatus": "tagged",
-                "tagPrefixList": ["dev", "staging"],
-                "countType": "imageCountMoreThan",
-                "countNumber": 30
-            },
-            "action": {
-                "type": "expire"
-            }
-        },
-        {
-            "rulePriority": 3,
-            "description": "Keep the newest 100 images and mark the rest for expiration",
+            "description": "Expire images older than 60 days",
             "selection": {
                 "tagStatus": "any",
-                "countType": "imageCountMoreThan",
-                "countNumber": 100
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 60
             },
             "action": {
                 "type": "expire"
@@ -69,7 +44,7 @@ module "ecr_credentials" {
     ]
 }
 EOF
-*/
+
 
   # Tags
   business_unit          = var.business_unit

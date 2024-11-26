@@ -18,7 +18,7 @@ module "prisoner_from_nomis_csip_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -44,7 +44,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_csip_queue_policy" {
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            ]
                           }
                         }
         }
@@ -68,7 +71,7 @@ module "prisoner_from_nomis_csip_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -122,7 +125,18 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_csip_subscription" {
       "CSIP_FACTORS-UPDATED",
       "CSIP_INTVW-INSERTED",
       "CSIP_INTVW-UPDATED",
-      "prison-offender-events.prisoner.booking.moved",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_csip_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_csip_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }

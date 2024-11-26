@@ -1,17 +1,8 @@
-########################### IMPORTANT ##################################
-## This parameter determines which application insights account is used
-## so you will need to change depending on environment
-
 data "aws_ssm_parameter" "application_insights_key" {
-
-## dev (t3) = /application_insights/key-dev
-## preprod  = /application_insights/key-preprod
-## prod     = /application_insights/key-prod
-
-  name = "/application_insights/key-dev"
+  # var.environment should be set to one of dev, preprod or prod
+  # otherwise the key has to be hard-coded e.g. key-preprod if environment set to 'pre-production'.
+  name = "/application_insights/key-${var.environment}"
 }
-
-########################################################################
 
 resource "kubernetes_secret" "application-insights" {
   metadata {
@@ -19,7 +10,7 @@ resource "kubernetes_secret" "application-insights" {
     namespace = var.namespace
   }
   data = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = data.aws_ssm_parameter.application_insights_key.value
-    APPLICATIONINSIGHTS_CONNECTION_STRING = format("%s%s","InstrumentationKey=",data.aws_ssm_parameter.application_insights_key.value)
+    APPINSIGHTS_INSTRUMENTATIONKEY        = data.aws_ssm_parameter.application_insights_key.value
+    APPLICATIONINSIGHTS_CONNECTION_STRING = "InstrumentationKey=${data.aws_ssm_parameter.application_insights_key.value}"
   }
 }

@@ -27,19 +27,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: prison-visits-staff-cert
-  namespace: prison-visits-booking-production
-spec:
-  secretName: prison-visits-staff-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-  - staff.prisonvisits.service.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: prison-visits-staff-justice-cert
   namespace: prison-visits-booking-production
 spec:
