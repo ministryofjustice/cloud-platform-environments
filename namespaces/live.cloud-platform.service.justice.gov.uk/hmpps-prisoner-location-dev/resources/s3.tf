@@ -48,11 +48,8 @@ module "s3_logging_bucket" {
         Action = [
           "s3:PutObject"
         ],
-        Resource = "${module.s3_logging_bucket.bucket_arn}/log*",
+        Resource = "$${bucket_arn}/log*",
         Condition = {
-          ArnLike = {
-            "aws:SourceArn" = module.hmpps-prisoner-location_s3_bucket.bucket_arn
-          },
           StringEquals = {
             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
           }
