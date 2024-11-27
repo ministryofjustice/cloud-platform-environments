@@ -82,3 +82,9 @@ deny[msg] {
   not input.metadata.labels["pod-security.kubernetes.io/enforce"] == "restricted"
   msg := "Namespace must have label 'pod-security.kubernetes.io/enforce: restricted'"
 }
+
+deny[msg] {
+  input.kind == "Namespace"
+  input.metadata.labels["component"] == "cloud-platform-monitoring-alerts"
+  msg := "Namespace must not have label 'component: cloud-platform-monitoring-alerts'"
+}
