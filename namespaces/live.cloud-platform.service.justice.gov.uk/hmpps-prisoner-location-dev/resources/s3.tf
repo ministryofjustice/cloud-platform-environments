@@ -107,3 +107,14 @@ resource "kubernetes_secret" "hmpps-prisoner-location_s3_bucket" {
     dso_s3_secret_access_key = aws_iam_access_key.user.secret
   }
 }
+
+resource "kubernetes_secret" "s3_logging_bucket" {
+  metadata {
+    name      = "s3-logging-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_NAME = module.s3_logging_bucket.bucket_name
+  }
+}
