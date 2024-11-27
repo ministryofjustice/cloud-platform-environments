@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-templates-dev
+  namespace: hmpps-electronic-monitoring-for-probation-officers-ui
 spec:
   hard:
     pods: "50"

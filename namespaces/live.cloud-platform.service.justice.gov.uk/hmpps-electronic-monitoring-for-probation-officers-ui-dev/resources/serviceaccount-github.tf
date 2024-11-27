@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-template-kotlin", "hmpps-template-typescript"]
+  github_repos   = ["hmpps-electronic-monitoring-for-probation-officers-ui"]
 
 ###################################################################
   github-actions-sa_rules = [
