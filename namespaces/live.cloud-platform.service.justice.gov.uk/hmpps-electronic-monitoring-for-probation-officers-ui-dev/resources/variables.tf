@@ -6,11 +6,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
+  default     = "Electronic Monitoring for Probation Officers UI"
 }
 
 variable "namespace" {
-  default = "hmpps-templates-dev"
+  default = "hmpps-electronic-monitoring-for-probation-officers-ui "
 }
 
 variable "business_unit" {
@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "hmpps-em-probation"
 }
 
 ####################################################################################################################
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "public-em-probation-dev-notifications"
 }
 
 variable "number_cache_clusters" {
