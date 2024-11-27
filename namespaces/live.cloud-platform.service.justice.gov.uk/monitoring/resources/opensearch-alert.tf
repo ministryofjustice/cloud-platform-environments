@@ -1,4 +1,4 @@
-module "opensearch_alert_1" {
+module "opensearch_alert_ip_prefix" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
   secret_name                    = "live-monitoring-3ca3cc4085f66db3"
@@ -16,7 +16,7 @@ module "opensearch_alert_1" {
   query_source           = "ctx.results[0].hits.total.value > 0"
   action_name            = "Unable to assign IP prefix monitor - InsufficientCidrBlocks action"
   slack_message_subject  = ":alert: Unable to assign IP prefix monitor - InsufficientCidrBlocks :alert:"
-  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status.\nThe subnet does not have enough free cidr blocks to assign IP prefix, please investigate the issue and check logs for more details.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
   alert_throttle_enabled = true
   throttle_value         = 60
   throttle_unit          = "MINUTES"
