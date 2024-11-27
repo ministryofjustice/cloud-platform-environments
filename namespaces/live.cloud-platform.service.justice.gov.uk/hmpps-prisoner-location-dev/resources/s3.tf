@@ -1,5 +1,5 @@
 module "hmpps-prisoner-location_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -8,16 +8,31 @@ module "hmpps-prisoner-location_s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  logging_enabled        = true
+  log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = "/log"
 
   providers = { aws = aws.london }
 
   lifecycle_rule = [
     {
-      enabled    = true
-      id         = "expire all locations after 14 days"
+      enabled = true
+      id      = "expire all locations after 14 days"
       expiration = [{ days = 14 }]
     },
   ]
+}
+
+module "s3_logging_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
 }
 
 data "aws_iam_policy_document" "dso_user_s3_access_policy" {
@@ -65,5 +80,16 @@ resource "kubernetes_secret" "hmpps-prisoner-location_s3_bucket" {
     dso_s3_access_user_arn   = aws_iam_user.user.arn
     dso_s3_access_key_id     = aws_iam_access_key.user.id
     dso_s3_secret_access_key = aws_iam_access_key.user.secret
+  }
+}
+
+resource "kubernetes_secret" "s3_logging_bucket" {
+  metadata {
+    name      = "s3-logging-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_NAME = module.s3_logging_bucket.bucket_name
   }
 }
