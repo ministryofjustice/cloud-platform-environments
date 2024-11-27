@@ -23,6 +23,8 @@ module "hmpps-prisoner-location_s3_bucket" {
   ]
 }
 
+data "aws_caller_identity" "current" {}
+
 module "s3_logging_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
 
@@ -33,6 +35,28 @@ module "s3_logging_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "S3ServerAccessLogsPolicy",
+        Effect = "Allow",
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
+        },
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "$${bucket_arn}/log*",
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      }
+    ]
+  })
 }
 
 data "aws_iam_policy_document" "dso_user_s3_access_policy" {
