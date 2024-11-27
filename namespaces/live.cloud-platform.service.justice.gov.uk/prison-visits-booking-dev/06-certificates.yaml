@@ -11,4 +11,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prison-visits-booking-dev.hmpps.service.justice.gov.uk
----
