@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-electronic-monitoring-for-probation-officers-ui "
+  default = "hmpps-electronic-monitoring-for-probation-officers-ui"
 }
 
 variable "business_unit" {
