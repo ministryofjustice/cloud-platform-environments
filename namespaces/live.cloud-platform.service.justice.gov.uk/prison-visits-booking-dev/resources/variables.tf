@@ -41,4 +41,8 @@ variable "application" {
   default     = "prison-visits-booking-dev"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "kubernetes_cluster" {}
