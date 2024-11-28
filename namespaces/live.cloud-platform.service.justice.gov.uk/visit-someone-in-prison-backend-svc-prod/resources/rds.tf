@@ -74,11 +74,11 @@ resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.prison_visit_booker_registry_rds.rds_instance_endpoint
-    database_name         = module.prison_visit_booker_registry_rds.database_name
-    database_username     = module.prison_visit_booker_registry_rds.database_username
-    database_password     = module.prison_visit_booker_registry_rds.database_password
-    rds_instance_address  = module.prison_visit_booker_registry_rds.rds_instance_address
+    rds_instance_endpoint = module.prison_visit_booker_reg_rds.rds_instance_endpoint
+    database_name         = module.prison_visit_booker_reg_rds.database_name
+    database_username     = module.prison_visit_booker_reg_rds.database_username
+    database_password     = module.prison_visit_booker_reg_rds.database_password
+    rds_instance_address  = module.prison_visit_booker_reg_rds.rds_instance_address
   }
 }
 
