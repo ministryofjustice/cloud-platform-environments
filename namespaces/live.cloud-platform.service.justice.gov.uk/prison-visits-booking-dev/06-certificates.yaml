@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisonvisits-dev.service.gov.uk
+    - dev.prisonvisits.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -36,4 +36,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - staff.prisonvisits-dev.service.justice.gov.uk
+    - staff.dev.prisonvisits.service.justice.gov.uk
