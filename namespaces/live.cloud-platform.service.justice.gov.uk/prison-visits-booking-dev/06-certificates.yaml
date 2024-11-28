@@ -2,6 +2,19 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: prison-visits-public-cert
+  namespace: prison-visits-booking-dev
+spec:
+  secretName: prison-visits-public-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisonvisits-dev.service.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: prison-visits-booking-dev.hmpps.service.justice.gov.uk
   namespace: prison-visits-booking-dev
 spec:
