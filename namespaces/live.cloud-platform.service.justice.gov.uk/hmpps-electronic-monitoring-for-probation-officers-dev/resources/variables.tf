@@ -6,11 +6,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Electronic Monitoring for Probation Officers UI"
+  default     = "Electronic Monitoring for Probation Officers"
 }
 
 variable "namespace" {
-  default = "hmpps-electronic-monitoring-for-probation-officers-ui"
+  default = "hmpps-electronic-monitoring-for-probation-officers-dev"
 }
 
 variable "business_unit" {
