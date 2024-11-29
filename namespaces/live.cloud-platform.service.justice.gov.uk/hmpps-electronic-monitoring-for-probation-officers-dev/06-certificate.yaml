@@ -20,9 +20,9 @@ metadata:
   name: hmpps-electronic-monitoring-for-probation-officers-ui-cert
   namespace: hmpps-electronic-monitoring-for-probation-officers-dev
 spec:
-  secretName: hmpps-electronic-monitoring-for-probation-officers-cert
+  secretName: hmpps-electronic-monitoring-for-probation-officers-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - electronic-monitoring-for-probation-officers.hmpps.service.justice.gov.uk
+    - electronic-monitoring-for-probation-officers-dev.hmpps.service.justice.gov.uk
