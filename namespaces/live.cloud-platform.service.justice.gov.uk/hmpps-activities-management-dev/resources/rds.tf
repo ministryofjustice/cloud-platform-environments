@@ -112,7 +112,7 @@ module "activities_rds" {
 
 resource "kubernetes_secret" "activities_rds" {
   metadata {
-    name      = "activities_rds"
+    name      = "activities-rds"
     namespace = var.namespace
   }
 
