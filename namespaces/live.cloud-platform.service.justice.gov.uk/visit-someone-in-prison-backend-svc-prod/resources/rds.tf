@@ -32,11 +32,11 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.visit_scheduler_rds.rds_instance_endpoint
-    database_name         = module.visit_scheduler_rds.database_name
-    database_username     = module.visit_scheduler_rds.database_username
-    database_password     = module.visit_scheduler_rds.database_password
-    rds_instance_address  = module.visit_scheduler_rds.rds_instance_address
+    rds_instance_endpoint = module.visit_scheduler_pg_rds.rds_instance_endpoint
+    database_name         = module.visit_scheduler_pg_rds.database_name
+    database_username     = module.visit_scheduler_pg_rds.database_username
+    database_password     = module.visit_scheduler_pg_rds.database_password
+    rds_instance_address  = module.visit_scheduler_pg_rds.rds_instance_address
   }
 }
 
