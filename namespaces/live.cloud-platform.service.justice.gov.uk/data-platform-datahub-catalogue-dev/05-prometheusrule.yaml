@@ -164,7 +164,7 @@ spec:
               /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
               &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
           expr: >-
-            avg(rate(nginx_ingress_controller_requests{status=~"403|406", controller_class=~"k8s.io/ingress-modsec"}[1m]) * 60 > 0) by (ingress)
+            avg(rate(nginx_ingress_controller_requests{status=~"403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[1m]) * 60 > 0) by (ingress)
           for: 1m
           labels:
             severity: datahub_dev
@@ -179,8 +179,8 @@ spec:
               /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
               &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
           expr:
-            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec"}[5m]))-
-            sum(rate(nginx_ingress_controller_requests{status=~"404|499|403|406", controller_class=~"k8s.io/ingress-modsec"}[5m]))) * 100 < 95
+            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))-
+            sum(rate(nginx_ingress_controller_requests{status=~"404|499|403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))) * 100 < 95
           for: 10m
           labels:
             severity: datahub_dev
