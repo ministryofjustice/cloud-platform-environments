@@ -93,11 +93,6 @@ module "activities_rds" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
     {
       name         = "max_wal_size"
       value        = "1024"
@@ -149,9 +144,11 @@ module "activities_rds_read_replica" {
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 
+  count                       = 0
   replicate_source_db         = module.activities_rds.db_identifier
   skip_final_snapshot         = "true"
   db_backup_retention_period  = 0
+  
   
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
@@ -183,4 +180,24 @@ module "activities_rds_read_replica" {
   providers = {
     aws = aws.london
   }
+}
+
+resource "kubernetes_secret" "activities_rds_read_replica" {
+  count = 0
+
+  metadata {
+    name      = "activities_rds_read_replica"
+    namespace = var.namespace
+  }
+
+  # docs suggest we dont need this as its the same as source
+  /*
+  data = {
+    rds_instance_endpoint = module.activities_rds_read_replica.rds_instance_endpoint
+    database_name         = module.activities_rds_read_replica.database_name
+    database_username     = module.activities_rds_read_replica.database_username
+    database_password     = module.activities_rds_read_replica.database_password
+    rds_instance_address  = module.activities_rds_read_replica.rds_instance_address
+  }
+  */
 }
