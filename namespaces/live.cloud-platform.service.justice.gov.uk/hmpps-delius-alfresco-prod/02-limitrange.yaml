@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: bold-lrs-microservice-dev
+  namespace: hmpps-delius-alfresco-prod
 spec:
   limits:
   - default:

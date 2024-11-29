@@ -30,5 +30,10 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "staging-portal-connection"
     },
+    "uat-lfa-connection" = {
+      description             = "Allow connection to a Legal Framework API UAT branch from a Civil Apply UAT branch",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "uat-lfa-connection"
+    },
   }
 }

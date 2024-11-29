@@ -9,7 +9,7 @@ locals {
 
   rds_policies = {
     visit_scheduler_rds              = module.visit_scheduler_rds.irsa_policy_arn,
-    prison_visit_booker_registry_rds = module.prison_visit_booker_registry_rds.irsa_policy_arn
+    prison_visit_booker_reg_rds = module.prison_visit_booker_reg_rds.irsa_policy_arn
   }
 
   all_policies = merge(

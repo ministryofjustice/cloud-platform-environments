@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["bold-lrs-microservice"]
+  github_repositories = ["bold-lrs-client"]
 
   # Tags
   business_unit          = var.business_unit

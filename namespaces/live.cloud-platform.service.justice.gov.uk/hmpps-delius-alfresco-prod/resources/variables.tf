@@ -11,49 +11,49 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "BOLD Learning Records Service Microservice"
+  default     = "HMPPS Delius Alfresco"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "bold-lrs-microservice-dev"
+  default     = "hmpps-delius-alfresco-prod"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "lrs-microservice"
+  default     = "hmpps-migration"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "devlopment"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dataengineering@digital.justice.gov.uk"
+  default     = "probation-webops@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "lrs-microservice-team"
+  default     = "ask-probation-webops"
 }
 
 variable "github_owner" {

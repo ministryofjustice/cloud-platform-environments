@@ -18,6 +18,7 @@ module "activities_api_rds" {
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
   db_engine_version           = "14"
+  performance_insights_enabled = true
 
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]

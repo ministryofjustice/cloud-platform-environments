@@ -159,10 +159,29 @@ spec:
           annotations:
             message: modsecurity is blocking ingress {{ $labels.ingress }}
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
+            dashboard_url: >-
+              https://grafana.live.cloud-platform.service.justice.gov.uk
+              /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
+              &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
           expr: >-
-            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-dev", status="406"}[1m]) * 60 > 0) by (ingress)
+            avg(rate(nginx_ingress_controller_requests{status=~"403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[1m]) * 60 > 0) by (ingress)
           for: 1m
+          labels:
+            severity: datahub_dev
+        - alert: NginxIngressSuccessRate-modsec-ingress
+          annotations:
+            message:
+              "Percentage of successful requestsof nginx-modsec  over the last 10 minutes is less than 95%.
+              NOTE: Ignoring 403, 404, 406 and 499s in this metric, since a  404 is a normal response for errant requests. 403 & 406 are handled by the modsec rule."
+            runbook_url: https://github.com/ministryofjustice/cloud-platform-terraform-monitoring/blob/main/resources/prometheusrule-alerts/README.md#nginx-success-rate
+            dashboard_url: >-
+              https://grafana.live.cloud-platform.service.justice.gov.uk
+              /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
+              &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
+          expr:
+            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))-
+            sum(rate(nginx_ingress_controller_requests{status=~"404|499|403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))) * 100 < 95
+          for: 10m
           labels:
             severity: datahub_dev
         - alert: ErrorResponses
