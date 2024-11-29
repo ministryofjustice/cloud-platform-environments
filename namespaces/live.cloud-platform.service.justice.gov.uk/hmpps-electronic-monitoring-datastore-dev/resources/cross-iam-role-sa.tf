@@ -25,6 +25,7 @@
         ]
         resources = [
           "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
+          "arn:aws:iam::800964199911:role/cmt_read_emds_data_dev",
         ]
       }
     }
