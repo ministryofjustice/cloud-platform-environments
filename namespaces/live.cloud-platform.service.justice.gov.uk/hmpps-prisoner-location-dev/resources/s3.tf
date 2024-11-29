@@ -10,7 +10,6 @@ module "hmpps-prisoner-location_s3_bucket" {
   namespace              = var.namespace
   logging_enabled        = true
   log_target_bucket      = module.s3_logging_bucket.bucket_name
-  log_path               = "/log"
 
   providers = { aws = aws.london }
 
@@ -48,12 +47,7 @@ module "s3_logging_bucket" {
         Action = [
           "s3:PutObject"
         ],
-        Resource = "$${bucket_arn}/log*",
-        Condition = {
-          StringEquals = {
-            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
-          }
-        }
+        Resource = "$${bucket_arn}/*"
       }
     ]
   })
@@ -104,16 +98,5 @@ resource "kubernetes_secret" "hmpps-prisoner-location_s3_bucket" {
     dso_s3_access_user_arn   = aws_iam_user.user.arn
     dso_s3_access_key_id     = aws_iam_access_key.user.id
     dso_s3_secret_access_key = aws_iam_access_key.user.secret
-  }
-}
-
-resource "kubernetes_secret" "s3_logging_bucket" {
-  metadata {
-    name      = "s3-logging-bucket"
-    namespace = var.namespace
-  }
-
-  data = {
-    BUCKET_NAME = module.s3_logging_bucket.bucket_name
   }
 }
