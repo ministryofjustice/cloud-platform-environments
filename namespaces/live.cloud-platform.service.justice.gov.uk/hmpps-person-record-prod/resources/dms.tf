@@ -1,5 +1,5 @@
 module "hmpps-person-record-dms" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=3.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dms?ref=3.0.1"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
