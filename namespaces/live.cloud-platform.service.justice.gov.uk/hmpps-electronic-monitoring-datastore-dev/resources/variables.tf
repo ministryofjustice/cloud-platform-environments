@@ -24,6 +24,12 @@ variable "namespace" {
   default     = "hmpps-electronic-monitoring-datastore-dev"
 }
 
+variable "namespace-short" {
+  description = "Short-form version of namespace name to get around string-length issues"
+  type = string
+  default = "hmpps-em-datastore-dev"
+}
+
 variable "number_cache_clusters" {
   default = "2"
 }
