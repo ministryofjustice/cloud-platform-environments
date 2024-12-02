@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: subject-access-request-prod.hmpps.service.justice.gov.uk
+  name: subject-access-request.hmpps.service.justice.gov.uk
   namespace: hmpps-subject-access-request-prod
 spec:
   secretName: hmpps-subject-access-request-ui-cert
@@ -9,14 +9,14 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - subject-access-request-prod.hmpps.service.justice.gov.uk
+    - subject-access-request.hmpps.service.justice.gov.uk
 
 ---
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: subject-access-request-api-prod.hmpps.service.justice.gov.uk
+  name: subject-access-request-api.hmpps.service.justice.gov.uk
   namespace: hmpps-subject-access-request-prod
 spec:
   secretName: hmpps-subject-access-request-api-cert
@@ -24,14 +24,14 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - subject-access-request-api-prod.hmpps.service.justice.gov.uk
+    - subject-access-request-api.hmpps.service.justice.gov.uk
 
 ---
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: subject-access-request-worker-prod.hmpps.service.justice.gov.uk
+  name: subject-access-request-worker.hmpps.service.justice.gov.uk
   namespace: hmpps-subject-access-request-prod
 spec:
   secretName: hmpps-subject-access-request-worker-cert
@@ -39,4 +39,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - subject-access-request-worker-prod.hmpps.service.justice.gov.uk
+    - subject-access-request-worker.hmpps.service.justice.gov.uk

@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:unilink"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hosting-migrations"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

@@ -50,27 +50,98 @@ variable "github_token" {
   default     = ""
 }
 
-variable "github_environment" {
-  description = "Name of the GitHub environment linked to this namespace"
-  default     = "dev"
-}
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
 
-variable "github_actions_secret_kube_cluster" {
-  description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER"
-}
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
 
-variable "github_actions_secret_kube_namespace" {
-  description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE"
-}
-
-variable "github_actions_secret_kube_cert" {
-  description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT"
-}
-
-variable "github_actions_secret_kube_token" {
-  description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN"
+  # See the docs at https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/exec",
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+        "replicationcontrollers",
+        "persistentvolumeclaims",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "deployments/scale",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+        "daemonsets",
+        "statefulsets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling",
+      ]
+      resources = [
+        "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }

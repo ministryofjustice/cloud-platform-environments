@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-instance-migrated" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -34,7 +34,7 @@ module "rds-instance" {
   # enable performance insights
   performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-sandbox-dev-encrypted-for-cp"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-staging-cp-migration-17092024-manual-copy"
 
   providers = {
     aws = aws.london
@@ -113,6 +113,24 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
+resource "aws_security_group_rule" "rule5" {
+  cidr_blocks       = ["10.205.0.0/20"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_security_group_rule" "rule6" {
+  cidr_blocks       = ["10.205.0.0/20"]
+  type              = "egress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
 resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-ccr-${var.environment}"
@@ -120,10 +138,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-instance-migrated.database_name
+    database_host     = module.rds-instance-migrated.rds_instance_address
+    database_port     = module.rds-instance-migrated.rds_instance_port
+    database_username = module.rds-instance-migrated.database_username
+    database_password = module.rds-instance-migrated.database_password
   }
 }

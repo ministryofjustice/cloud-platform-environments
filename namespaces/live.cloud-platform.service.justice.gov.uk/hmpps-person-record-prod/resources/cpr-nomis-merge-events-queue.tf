@@ -6,13 +6,13 @@ resource "aws_sns_topic_subscription" "cpr_nomis_merge_domain_events_subscriptio
   endpoint  = module.cpr_nomis_merge_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
 
 module "cpr_nomis_merge_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_nomis_merge_events_queue"
@@ -64,7 +64,7 @@ resource "aws_sqs_queue_policy" "cpr_nomis_merge_events_queue_policy" {
 
 ### Dead letter queue
 module "cpr_nomis_merge_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "cpr_nomis_merge_events_dlq"

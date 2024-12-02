@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "hmpps-move-and-improve"
 }
 
 variable "environment" {
@@ -45,7 +45,7 @@ variable "eks_cluster_name" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -74,4 +74,10 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

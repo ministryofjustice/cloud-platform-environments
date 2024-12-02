@@ -8,7 +8,14 @@ locals {
     "Digital-Prison-Services-preprod-whereabouts_api_domain_events_queue"    = "hmpps-domain-events-preprod"
     "Digital-Prison-Services-preprod-whereabouts_api_domain_events_queue_dl" = "hmpps-domain-events-preprod"
   }
+
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+
+  # The names of the SNS topics used and the namespace which created them
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+  }
 }
 
 module "irsa" {
@@ -17,7 +24,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -30,4 +37,21 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
 }

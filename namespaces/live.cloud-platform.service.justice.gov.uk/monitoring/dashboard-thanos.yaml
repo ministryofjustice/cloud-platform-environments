@@ -175,6 +175,110 @@ data:
                 "uid": "Thanos"
               },
               "refId": "A",
+              "expr": "sum(thanos_compact_todo_downsample_blocks)",
+              "range": true,
+              "instant": false,
+              "editorMode": "code",
+              "legendFormat": "__auto"
+            }
+          ],
+          "thresholds": [],
+          "title": "Thanos Compactor -- downsample backlog",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          },
+          "options": {
+            "alertThreshold": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "pluginVersion": "10.3.3",
+          "timeRegions": [],
+          "bars": false,
+          "dashes": false,
+          "percentage": false,
+          "points": false,
+          "stack": false,
+          "steppedLine": false,
+          "timeFrom": null,
+          "timeShift": null,
+          "fillGradient": 0,
+          "hiddenSeries": false
+        },
+        {
+          "datasource": {
+            "uid": "Thanos",
+            "type": "Thanos"
+          },
+          "aliasColors": {},
+          "dashLength": 10,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "pointradius": 5,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "refId": "A",
               "expr": "sum(thanos_compact_todo_compaction_blocks)",
               "range": true,
               "instant": false,

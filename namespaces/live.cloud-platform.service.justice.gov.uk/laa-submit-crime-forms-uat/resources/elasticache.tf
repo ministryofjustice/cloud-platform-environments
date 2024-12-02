@@ -13,6 +13,7 @@ module "crm_elasticache" {
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
   node_type            = "cache.t4g.micro"
+  auth_token_rotated_date = "2024-10-07"
 }
 
 resource "kubernetes_secret" "crm_elasticache" {

@@ -155,6 +155,6 @@ spec:
       labels:
         severity: laa-crime-forms-team-pre-prod
       annotations:
-        message: More than 10 modsec interventions detected in the last hour in {{ $labels.namespace }}
+        message: More than 10 modsec interventions detected in the last hour in laa-crime-application-store-uat
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
         dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover

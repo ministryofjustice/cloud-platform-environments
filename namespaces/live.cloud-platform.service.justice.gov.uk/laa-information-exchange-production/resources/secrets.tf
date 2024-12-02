@@ -15,5 +15,25 @@ module "secrets_manager" {
       recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
       k8s_secret_name         = "laa-infox-db-password-production"   # The name of the secret in k8s
     },
+    "laa-infox-keystore-password" = {
+      description             = "InfoX Keystore password [prod].",   # Required
+      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "app-infox-keystore-password"        # The name of the secret in k8s
+    },
+    "laa-infox-private-key" = {
+      description             = "InfoX private key [prod].",         # Required
+      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "app-infox-private-key"              # The name of the secret in k8s
+    },
+    "laa-infox-private-key-password" = {
+      description             = "InfoX private key password [prod].",   # Required
+      recovery_window_in_days = 7,                                      # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "app-infox-private-key-password"        # The name of the secret in k8s
+    },
+    "laa-infox-pkcs12-password" = {
+      description             = "InfoX private pkcs12 password [prod].",   # Required
+      recovery_window_in_days = 7,                                         # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "app-infox-pkcs12-password"                # The name of the secret in k8s
+    },
   }
 }

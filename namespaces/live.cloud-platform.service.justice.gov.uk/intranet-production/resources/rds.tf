@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -11,13 +11,15 @@ module "rds" {
   performance_insights_enabled = true
 
   # general options
-  db_engine              = "mariadb"
-  db_engine_version      = "10.11.8"
-  rds_family             = "mariadb10.11"
-  db_instance_class      = "db.t4g.xlarge"
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  db_allocated_storage   = "50"
+  db_engine                   = "mariadb"
+  db_engine_version           = "10.11.9"
+  rds_family                  = "mariadb10.11"
+  db_instance_class           = "db.t4g.xlarge"
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
+  db_allocated_storage        = "400"
+  db_iops                     = "12000"
+  allow_major_version_upgrade = "false"
 
   # overwrite db_parameters
   db_parameter = [

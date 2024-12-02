@@ -17,12 +17,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
     resources = [
       module.migration_appointments_queue.sqs_arn,
       module.migration_appointments_dead_letter_queue.sqs_arn,
-      module.migration_sentencing_queue.sqs_arn,
-      module.migration_sentencing_dead_letter_queue.sqs_arn,
       module.migration_visits_queue.sqs_arn,
       module.migration_visits_dead_letter_queue.sqs_arn,
-      module.migration_adjudications_queue.sqs_arn,
-      module.migration_adjudications_dead_letter_queue.sqs_arn,
       module.migration_incidents_queue.sqs_arn,
       module.migration_incidents_dead_letter_queue.sqs_arn,
       module.migration_locations_queue.sqs_arn,
@@ -31,8 +27,6 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
       module.migration_allocations_dead_letter_queue.sqs_arn,
-      module.migration_alerts_queue.sqs_arn,
-      module.migration_alerts_dead_letter_queue.sqs_arn,
       module.migration_casenotes_queue.sqs_arn,
       module.migration_casenotes_dead_letter_queue.sqs_arn,
       module.migration_csip_queue.sqs_arn,
@@ -41,6 +35,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_prisonperson_dead_letter_queue.sqs_arn,
       module.migration_courtsentencing_queue.sqs_arn,
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
+      module.migration_contactperson_queue.sqs_arn,
+      module.migration_contactperson_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -75,6 +71,8 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_prisonperson_queue.sqs_arn,
       module.prisoner_from_nomis_prisonperson_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_contactperson_queue.sqs_arn,
+      module.prisoner_from_nomis_contactperson_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -100,7 +98,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 

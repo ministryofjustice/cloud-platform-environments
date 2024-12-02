@@ -5,7 +5,7 @@
  *
  */
 module "rds_metabase" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -15,9 +15,10 @@ module "rds_metabase" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  db_allocated_storage         = "20"
   deletion_protection          = true
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  db_password_rotated_date     = "07-10-2024"
 
   # PostgreSQL specifics
   db_engine         = "postgres"

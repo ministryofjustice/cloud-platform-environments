@@ -8,24 +8,23 @@ module "opensearch" {
   # Cluster configuration
   engine_version      = "OpenSearch_1.3"
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
-
+  proxy_count         = 2
   # Production cluster configuration
   cluster_config = {
     # Nodes
     instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "m7g.xlarge.search"
+    instance_type  = "m7g.2xlarge.search"
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
-    dedicated_master_count   = 5 # can only either be 3 or 5
-    dedicated_master_type    = "m6g.large.search"
+    dedicated_master_count   = 3 # can only either be 3 or 5
+    dedicated_master_type    = "m7g.large.search"
 
     # Ultrawarm nodes (omit if you aren't going to use this)
     warm_enabled = false
     warm_count   = 3
     warm_type    = "ultrawarm1.medium.search"
   }
-
 
   advanced_options = {
     # increase the maxClauseCount to 4096
@@ -36,7 +35,7 @@ module "opensearch" {
     volume_type = "gp3"
     volume_size = 2048 # Storage (GBs per node)
     throughput  = 250
-    iops        = 8000
+    iops        = 7000
   }
 
   # Tags
@@ -45,7 +44,7 @@ module "opensearch" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -75,7 +74,7 @@ module "s3_opensearch_snapshots_bucket" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 

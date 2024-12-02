@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-instance-migrated" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -10,11 +10,10 @@ module "rds-instance" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
-
+  enable_rds_auto_start_stop = false
 
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
+  db_engine                = "oracle-se2"
   db_engine_version        = "19.0.0.0.ru-2024-07.rur-2024-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
@@ -23,22 +22,32 @@ module "rds-instance" {
   db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem  
+  character_set_name       = "WE8MSWIN1252"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-staging-cp-migration-snapshot-11-11-24"
 
   providers = {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined 
-  db_parameter = []
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    },
+    {
+      name         = "remote_dependencies_mode"
+      value        = "SIGNATURE"
+      apply_method = "immediate"
+    }
+  ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
   is_migration = true
@@ -101,6 +110,24 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
+resource "aws_security_group_rule" "rule5" {
+  cidr_blocks       = ["10.205.0.0/20"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_security_group_rule" "rule6" {
+  cidr_blocks       = ["10.205.0.0/20"]
+  type              = "egress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
 resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-cclf-${var.environment}"
@@ -108,10 +135,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-instance-migrated.database_name
+    database_host     = module.rds-instance-migrated.rds_instance_address
+    database_port     = module.rds-instance-migrated.rds_instance_port
+    database_username = module.rds-instance-migrated.database_username
+    database_password = module.rds-instance-migrated.database_password
   }
 }

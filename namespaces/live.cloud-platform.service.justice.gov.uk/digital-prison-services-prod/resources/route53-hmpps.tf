@@ -12,15 +12,6 @@ resource "aws_route53_zone" "route53_zone_hmpps" {
   }
 }
 
-# tech docs DNS record
-resource "aws_route53_record" "hmpps-tech-docs" {
-  zone_id = aws_route53_zone.route53_zone_hmpps.zone_id
-  name    = "tech-docs.hmpps.service.justice.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["ministryofjustice.github.io."]
-}
-
 # Verify google search console
 resource "aws_route53_record" "google" {
   zone_id = aws_route53_zone.route53_zone_hmpps.zone_id

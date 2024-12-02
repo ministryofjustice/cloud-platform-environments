@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -32,6 +32,31 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -47,10 +72,8 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
+}
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }

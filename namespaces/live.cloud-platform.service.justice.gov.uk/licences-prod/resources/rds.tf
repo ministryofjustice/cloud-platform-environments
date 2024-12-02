@@ -12,9 +12,9 @@ module "dps_rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.7"
   rds_family                  = "postgres15"
-  db_password_rotated_date    = "13-04-2023"
+  db_password_rotated_date    = "23-09-2024"
 
   providers = {
     aws = aws.london

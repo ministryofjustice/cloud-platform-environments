@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "activities_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -15,9 +15,9 @@ module "activities_api_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
-  allow_minor_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14.10"
+  db_engine_version           = "14"
 
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]

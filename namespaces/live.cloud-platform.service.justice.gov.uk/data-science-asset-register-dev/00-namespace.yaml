@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "data-science-asset-register-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "datascience-mlops"
+    cloud-platform.justice.gov.uk/application: "Data science asset register"
+    cloud-platform.justice.gov.uk/owner: "DEDSAI: prison-data-science@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/data-science-assets-app/"
+    cloud-platform.justice.gov.uk/team-name: "dedsai-deployment"
+    cloud-platform.justice.gov.uk/review-after: ""

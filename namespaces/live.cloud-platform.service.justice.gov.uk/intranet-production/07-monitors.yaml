@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: intranet-production
+  namespace: intranet-production
+spec:
+  selector:
+    matchLabels:
+      app: intranet-production
+  podMetricsEndpoints:
+  - port: http
+    path: "/metrics/fpm"
+    interval: 600s
+    # Scrape pods in the Running phase
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_pod_phase]
+      action: keep
+      regex: Running
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: intranet-production
+  namespace: intranet-production
+spec:
+  selector:
+    matchLabels:
+      app: intranet-production
+  endpoints:
+  - port: http
+    interval: 120s
+    path: /metrics/service

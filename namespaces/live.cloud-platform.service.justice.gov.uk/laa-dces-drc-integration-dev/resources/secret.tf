@@ -10,15 +10,70 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "ca-crt" = {
+      description             = "[laa-dces-drc-integration-dev/ca-crt] ca.crt for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ca-crt"
+    }
+    "dces-datasource" = {
+      description             = "[laa-dces-drc-integration-dev/dces-datasource] Database connection"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-datasource"
+    }
+    "dces-drc-integration-service-alert-webhook-dev" = {
+      description             = "[dces-drc-integration-service-alert-webhook-dev] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dces-drc-integration-service-alert-webhook-dev"
+    }
+    "drc-client-auth-tls" = {
+      description             = "[laa-dces-drc-integration-dev/drc-client-auth-tls] DRC mTLS client credentials"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client-auth-tls"
+    }
+    "feature" = {
+      description             = "[laa-dces-drc-integration-dev/feature] Feature flag variables"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature"
+    }
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DRC Integration Dev",
+      description             = "[laa-dces-drc-integration-dev/maat-api-oauth-client-id] MAAT API OAuth2 client ID"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
-    },
+    }
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DRC Integration Dev",
+      description             = "[laa-dces-drc-integration-dev/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
-    },
+    }
+    "config-variables" = {
+      description             = "[config-variables] Overridden configuration env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
+    "client-ca" = {
+      description             = "[client-ca] Client CA certificate file for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ca"
+    }
+    "datasource" = {
+      description             = "[datasource] Database connection env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource"
+    }
+    "drc-client" = {
+      description             = "[drc-client] Debt recovery company client credential files and env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "drc-client"
+    }
+    "feature-flags" = {
+      description             = "[feature-flags] Feature flag env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature-flags"
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
+    }
   }
 }

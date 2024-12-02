@@ -18,7 +18,7 @@ module "prisoner_from_nomis_courtsentencing_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -68,7 +68,7 @@ module "prisoner_from_nomis_courtsentencing_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -111,6 +111,10 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
     eventType = [
       "OFFENDER_CASES-INSERTED",
       "COURT_EVENTS-INSERTED",
+      "COURT_EVENT_CHARGES-INSERTED",
+      "OFFENDER_CASE_IDENTIFIERS-DELETED",
+      "OFFENDER_CASE_IDENTIFIERS-INSERTED",
+      "OFFENDER_CASE_IDENTIFIERS-UPDATED",
     ]
   })
 }

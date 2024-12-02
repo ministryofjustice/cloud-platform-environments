@@ -1,0 +1,8 @@
+2024/10/04 09:31:27 Running Terraform Apply for namespace: court-probation-dev
+
+FATA[1932] update error running terraform on namespace court-probation-dev: exit status 1
+
+
+Error: attaching policy arn:aws:iam::xxxxxx:policy/cloud-platform/sqs/cloud-platform-sqs-eee73b0ba34b to IAM Role cloud-platform-irsa-xxxxxxx-live: LimitExceeded: Cannot exceed quota for PoliciesPerRole: 15
+
+	status code: 409,

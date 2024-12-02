@@ -10,8 +10,7 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
-
-module "irsa" {
+module "court-facing-api-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -36,7 +35,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "court-case-service-irsa" {
+module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -55,12 +54,11 @@ module "court-case-service-irsa" {
     { rds_ccs = module.court_case_service_rds.irsa_policy_arn },
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
     { s3 = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
-    { sns_cce = module.court-case-events.irsa_policy_arn },
-    { sns_cc = module.court-cases.irsa_policy_arn },
     { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
     { sqs_ccm = module.court-case-matcher-queue.irsa_policy_arn },
     { sqs_ccm_dlq = module.court-case-matcher-dead-letter-queue.irsa_policy_arn },
+    { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
     { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
     { sqs_ccs_dlq = module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn },
     { elasticache = module.pac_elasticache_redis.irsa_policy_arn }

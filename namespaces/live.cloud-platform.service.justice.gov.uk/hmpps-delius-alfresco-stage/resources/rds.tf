@@ -18,14 +18,14 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.10"
+  db_engine_version         = "14"
   rds_family                = "postgres14"
-  db_instance_class         = "db.t3.xlarge"
+  db_instance_class         = "db.m7g.2xlarge"
 
   # Tagst
   application            = var.application
   business_unit          = var.business_unit
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   namespace              = var.namespace

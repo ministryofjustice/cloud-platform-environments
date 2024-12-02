@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   vpc_name = var.vpc_name
 
@@ -105,7 +105,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "16.2"
+  db_engine_version = "16.3"
   rds_family        = "postgres16"
 
   providers = {

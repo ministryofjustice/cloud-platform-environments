@@ -39,6 +39,21 @@ module "secrets_manager" {
       description             = "Evidence Service oauth client secret for CCP UAT",
       recovery_window_in_days = 7
       k8s_secret_name         = "evidence-oauth-client-secret"
-    }
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCP UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
+    "prosecution_concluded_db_username" = {
+      description             = "Prosecution Concluded DB Username for CCP UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sqs-prosecution-concluded-db-username"
+    },
+    "email_client_notify_key" = {
+      description             = "Email notification client key CCP UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "email-client-notify-key"
+    },
   }
 }

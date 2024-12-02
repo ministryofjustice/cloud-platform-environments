@@ -109,6 +109,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
   endpoint  = module.prisoner_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "APPOINTMENT_CHANGED",
       "OFFENDER_MOVEMENT-RECEPTION",
       "OFFENDER_MOVEMENT-DISCHARGE",
       "BOOKING_NUMBER-CHANGED",

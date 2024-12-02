@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: stability-inspector-dev
   labels:
+    cloud-platform.justice.gov.uk/namespace: "stability-inspector-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted

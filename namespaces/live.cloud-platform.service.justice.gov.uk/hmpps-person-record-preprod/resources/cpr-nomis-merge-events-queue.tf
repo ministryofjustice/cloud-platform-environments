@@ -6,13 +6,13 @@ resource "aws_sns_topic_subscription" "cpr_nomis_merge_domain_events_subscriptio
   endpoint  = module.cpr_nomis_merge_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
 
 module "cpr_nomis_merge_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_nomis_merge_events_queue"
@@ -39,32 +39,9 @@ module "cpr_nomis_merge_events_queue" {
   }
 }
 
-data "aws_iam_policy_document" "cpr_nomis_merge_sqs_queue_policy_document" {
-  statement {
-    sid     = "DomainEventsToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
-    }
-    resources = ["*"]
-  }
-}
-
-resource "aws_sqs_queue_policy" "cpr_nomis_merge_events_queue_policy" {
-  queue_url = module.cpr_nomis_merge_events_queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_nomis_merge_sqs_queue_policy_document.json
-}
-
 ### Dead letter queue
 module "cpr_nomis_merge_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "cpr_nomis_merge_events_dlq"

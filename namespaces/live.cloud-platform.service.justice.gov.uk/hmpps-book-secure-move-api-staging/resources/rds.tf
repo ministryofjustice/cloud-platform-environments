@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
 
   vpc_name = var.vpc_name
 
@@ -17,7 +17,7 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "16.2"
+  db_engine_version = "16.3"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres16"

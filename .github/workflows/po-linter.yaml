@@ -9,6 +9,9 @@ on:
     - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   po-lint:
     runs-on: ${{ matrix.os }}
@@ -20,8 +23,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Prometheus Operator Linter
         uses: prymitive/pint-action@v1
         with:
           token: ${{ github.token }}
+          requireOwner: 'true'

@@ -17,3 +17,7 @@ data "aws_ssm_parameter" "probation-offender-events-policy-arn" {
 data "aws_sns_topic" "prison-offender-events" {
   name = "cloud-platform-Digital-Prison-Services-160f3055cc4e04c4105ee85f2ed1fccb"
 }
+
+data "aws_ssm_parameter" "court-topic" {
+  name = "/court-probation-prod/topic-arn"
+}

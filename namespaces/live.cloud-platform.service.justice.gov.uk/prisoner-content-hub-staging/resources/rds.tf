@@ -1,5 +1,5 @@
 module "drupal_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -18,8 +18,8 @@ module "drupal_rds" {
   #  db_instance_class      = "db.t4g.xlarge"
 
   db_engine                = "mariadb"
-  db_engine_version        = "10.4"
-  rds_family               = "mariadb10.4"
+  db_engine_version        = "10.11"
+  rds_family               = "mariadb10.11"
   db_password_rotated_date = "2023-03-22"
 
   # The recommended transaction isolation level for Drupal is READ-COMMITTED.

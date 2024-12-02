@@ -1,0 +1,21 @@
+13/9/24 This looks like pending pingdom config changes:
+
+Terraform will perform the following actions:
+
+  # pingdom_check.crime-portal-gateway-check will be updated in-place
+  ~ resource "pingdom_check" "crime-portal-gateway-check" {
+        id                       = "13322886"
+        name                     = "court-case-service"
+      ~ tags                     = "cloudplatform-managed,crime-portal-gateway,hmpps,probation-in-court" -> " cloudplatform-managed, crime-portal-gateway, probation-in-court,hmpps"
+        # (19 unchanged attributes hidden)
+    }
+
+  # pingdom_check.prepare-a-case-production-check will be updated in-place
+  ~ resource "pingdom_check" "prepare-a-case-production-check" {
+        id                       = "7399512"
+        name                     = "court-case-service"
+      ~ tags                     = "cloudplatform-managed,hmpps,prepare-a-case" -> " cloudplatform-managed, prepare-a-case,hmpps"
+        # (19 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

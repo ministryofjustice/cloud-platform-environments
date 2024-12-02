@@ -7,7 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_court_case_events_temporary_subscript
 }
 
 module "cpr_court_case_events_temporary_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_court_case_events_temporary_queue"
@@ -27,33 +27,6 @@ module "cpr_court_case_events_temporary_queue" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "cpr_court_case_events_temporary_queue_policy" {
-  queue_url = module.cpr_court_case_events_temporary_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.cpr_court_case_events_temporary_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.cpr_court_case_events_temporary_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-              {
-                "aws:SourceArn": "${data.aws_ssm_parameter.court-case-events-topic-arn.value}"
-              }
-            }
-        }
-      ]
-  }
-EOF
 }
 
 ########  Secrets

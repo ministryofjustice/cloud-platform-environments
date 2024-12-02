@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: justice-archiver-dev
   labels:
+    cloud-platform.justice.gov.uk/namespace: "justice-archiver-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted
@@ -11,6 +12,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cdpt-intranet"
     cloud-platform.justice.gov.uk/application: "Justice Website Archiver"
     cloud-platform.justice.gov.uk/owner: "Central Digital: central-digital-product-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/justice-webiste-archive"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/justice-website-archive"
     cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
     cloud-platform.justice.gov.uk/review-after: "2023-12-01"

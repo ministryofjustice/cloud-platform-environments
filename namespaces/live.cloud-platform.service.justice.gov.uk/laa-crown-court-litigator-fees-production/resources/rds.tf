@@ -1,4 +1,4 @@
-module "rds-instance" {
+module "rds-instance-trial" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
   vpc_name = var.vpc_name
 
@@ -10,12 +10,11 @@ module "rds-instance" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
-
+  enable_rds_auto_start_stop = false
 
   # Database configuration
-  db_engine                = "oracle-se2" # or oracle-ee
-  db_engine_version        = "19.0.0.0.ru-2024-01.rur-2024-01.r1"
+  db_engine                = "oracle-se2"
+  db_engine_version        = "19.0.0.0.ru-2024-07.rur-2024-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
@@ -23,22 +22,32 @@ module "rds-instance" {
   db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem  
+  character_set_name       = "WE8MSWIN1252" 
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-for-copy-over-to-cloud-platform" # update with snapshot value, once created and moved from LZ to CP
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-uat-for-cp-trial" # update with snapshot value, once created and moved from LZ to CP
 
   providers = {
     aws = aws.london
   }
 
-  # passing emplty list as oracle repo has parameter defined 
-  db_parameter = []
+  db_parameter = [
+    {
+      name         = "sqlnetora.sqlnet.allowed_logon_version_server"
+      value        = "10"
+      apply_method = "immediate"
+    },
+    {
+      name         = "remote_dependencies_mode"
+      value        = "SIGNATURE"
+      apply_method = "immediate"
+    }
+  ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
   is_migration = true
@@ -108,10 +117,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance.database_name
-    database_host     = module.rds-instance.rds_instance_address
-    database_port     = module.rds-instance.rds_instance_port
-    database_username = module.rds-instance.database_username
-    database_password = module.rds-instance.database_password
+    database_name     = module.rds-instance-trial.database_name
+    database_host     = module.rds-instance-trial.rds_instance_address
+    database_port     = module.rds-instance-trial.rds_instance_port
+    database_username = module.rds-instance-trial.database_username
+    database_password = module.rds-instance-trial.database_password
   }
 }
