@@ -8,9 +8,10 @@ provider "aws" {
 
   default_tags {
     tags = {
+      # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
+      GithubTeam = var.team_name
     }
   }
 }
@@ -23,7 +24,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
+      GithubTeam = var.team_name
     }
   }
 }
@@ -36,11 +37,10 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
+      GithubTeam = var.team_name
     }
   }
 }
-
 provider "github" {
   token = var.github_token
   owner = var.github_owner
