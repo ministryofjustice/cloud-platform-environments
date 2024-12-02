@@ -26,7 +26,7 @@ variable "namespace" {
 
 variable "namespace-short" {
   description = "Short-form version of namespace name to get around string-length issues"
-  type = "string"
+  type = string
   default = "hmpps-em-datastore-dev"
 }
 
