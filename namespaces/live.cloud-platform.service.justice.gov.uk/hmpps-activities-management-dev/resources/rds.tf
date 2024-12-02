@@ -86,25 +86,6 @@ module "activities_rds" {
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 
-  # Add parameters required for the read-replica to work
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    }
-  ]
-
   providers = {
     aws = aws.london
   }
@@ -173,6 +154,11 @@ module "activities_rds_read_replica" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40GB"
       apply_method = "immediate"
     }
   ]
