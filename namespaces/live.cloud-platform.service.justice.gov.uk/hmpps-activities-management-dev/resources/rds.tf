@@ -157,7 +157,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "40GB"
+      value        = "40000"
       apply_method = "immediate"
     }
   ]
