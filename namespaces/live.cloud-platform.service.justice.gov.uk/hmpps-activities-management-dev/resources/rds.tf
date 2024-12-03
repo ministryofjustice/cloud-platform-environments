@@ -169,7 +169,7 @@ module "activities_rds_read_replica" {
 
 resource "kubernetes_secret" "activities_rds_read_replica" {
   metadata {
-    name      = "activities_rds_read_replica"
+    name      = "activities-rds-read-replica"
     namespace = var.namespace
   }
 
