@@ -168,6 +168,7 @@ module "activities_rds_read_replica" {
   }
 }
 
+/*
 resource "kubernetes_secret" "activities_rds_read_replica" {
   count = 0
   metadata {
@@ -179,4 +180,4 @@ resource "kubernetes_secret" "activities_rds_read_replica" {
     rds_instance_endpoint = module.activities_rds_read_replica.rds_instance_endpoint
     rds_instance_address  = module.activities_rds_read_replica.rds_instance_address
   }
-}
+}*/
