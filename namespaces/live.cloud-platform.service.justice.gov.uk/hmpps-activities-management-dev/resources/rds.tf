@@ -125,7 +125,6 @@ module "activities_rds_read_replica" {
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 
-  count                       = 0
   replicate_source_db         = module.activities_rds.db_identifier
   skip_final_snapshot         = "true"
   db_backup_retention_period  = 0
@@ -169,21 +168,13 @@ module "activities_rds_read_replica" {
 }
 
 resource "kubernetes_secret" "activities_rds_read_replica" {
-  count = 0
-
   metadata {
     name      = "activities_rds_read_replica"
     namespace = var.namespace
   }
 
-  # docs suggest we dont need this as its the same as source
-  /*
   data = {
     rds_instance_endpoint = module.activities_rds_read_replica.rds_instance_endpoint
-    database_name         = module.activities_rds_read_replica.database_name
-    database_username     = module.activities_rds_read_replica.database_username
-    database_password     = module.activities_rds_read_replica.database_password
     rds_instance_address  = module.activities_rds_read_replica.rds_instance_address
   }
-  */
 }
