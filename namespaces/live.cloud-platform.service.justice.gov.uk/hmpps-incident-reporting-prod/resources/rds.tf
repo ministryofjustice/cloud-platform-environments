@@ -120,21 +120,3 @@ resource "kubernetes_secret" "dps_rds" {
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
 }
-
-resource "kubernetes_secret" "dps_rds_replica" {
-  metadata {
-    name      = "dps-rds-replica-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    db_identifier         = module.dps_rds_replica.db_identifier
-    resource_id           = module.dps_rds_replica.resource_id
-    rds_instance_endpoint = module.dps_rds_replica.rds_instance_endpoint
-    database_name         = module.dps_rds_replica.database_name
-    database_username     = module.dps_rds_replica.database_username
-    database_password     = module.dps_rds_replica.database_password
-    rds_instance_address  = module.dps_rds_replica.rds_instance_address
-    url                   = "postgres://${module.dps_rds_replica.database_username}:${module.dps_rds_replica.database_password}@${module.dps_rds_replica.rds_instance_endpoint}/${module.dps_rds_replica.database_name}"
-  }
-}
