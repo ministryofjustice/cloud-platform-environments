@@ -155,32 +155,15 @@ spec:
 
     - name: ingress-alert
       rules:
-        - alert: ModSecurityBlocking
-          annotations:
-            message: modsecurity is blocking ingress {{ $labels.ingress }}
-            runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: >-
-              https://grafana.live.cloud-platform.service.justice.gov.uk
-              /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
-              &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
-          expr: >-
-            avg(rate(nginx_ingress_controller_requests{status=~"403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[1m]) * 60 > 0) by (ingress)
-          for: 1m
-          labels:
-            severity: datahub_dev
         - alert: NginxIngressSuccessRate-modsec-ingress
           annotations:
             message:
-              "Percentage of successful requestsof nginx-modsec  over the last 10 minutes is less than 95%.
-              NOTE: Ignoring 403, 404, 406 and 499s in this metric, since a  404 is a normal response for errant requests. 403 & 406 are handled by the modsec rule."
+              "Percentage of successful requests of nginx-modsec over the last 10 minutes is less than 95%.
+              NOTE: Ignoring 404s and 499s in this metric, since a 404 is a normal response for errant requests."
             runbook_url: https://github.com/ministryofjustice/cloud-platform-terraform-monitoring/blob/main/resources/prometheusrule-alerts/README.md#nginx-success-rate
-            dashboard_url: >-
-              https://grafana.live.cloud-platform.service.justice.gov.uk
-              /d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?from=now-1h&to=now&var-controller_class=k8s.io%2Fingress-modsec
-              &var-namespace=ingress-controllers&var-ingress=datahub-datahub-frontend-dev&var-pod=$__all&var-datasource=prometheus&tab=queries
           expr:
-            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))-
-            sum(rate(nginx_ingress_controller_requests{status=~"404|499|403|406", controller_class=~"k8s.io/ingress-modsec", ingress="datahub-datahub-frontend-dev", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))) * 100 < 95
+            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))-
+            sum(rate(nginx_ingress_controller_requests{status=~"404|499", controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))) * 100 < 95
           for: 10m
           labels:
             severity: datahub_dev
@@ -190,11 +173,22 @@ spec:
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="data-platform-datahub-catalogue-dev", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+            avg(rate(nginx_ingress_controller_requests{exported_namespace="data-platform-datahub-catalogue-dev", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
           for: 1m
           labels:
             severity: datahub_dev
-
+        - alert: ModSecurityBlocking
+          annotations:
+            message: ingress {{ $labels.ingress }} is serving 403/406 responses. Modsec could be blocking traffic.
+            runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(_source),isDirty:!f,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:kubernetes.labels.app_kubernetes_io%2Fname,negate:!f,params:(query:ingress-modsec),type:phrase),query:(match_phrase:(kubernetes.labels.app_kubernetes_io%2Fname:ingress-modsec)))),query:(language:kuery,query:'%22server:%20datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk%22%20and%20%22ModSecurity:%20Access%20%22'))
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
+          # 403/406 responses from the modsec ingress do not contain the namespace and therefore can only be
+          # located via the host.
+          expr: >-
+            avg(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk",status=~"403|406"}[1m]) * 60 > 0) by (ingress)
+          for: 1m
+          labels:
+            severity: datahub_dev
     - name: pod-status-alert
       rules:
         - alert: OOMKiller
