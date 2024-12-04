@@ -159,12 +159,12 @@ spec:
           annotations:
             message:
               "Percentage of successful requests of nginx-modsec over the last 10 minutes is less than 95%.
-              NOTE: Ignoring 404s and 499s in this metric, since a 404 is a normal response for errant requests."
+              NOTE: Ignoring 404s and 499s in this metric, since a  404 is a normal response for errant requests"
             runbook_url: https://github.com/ministryofjustice/cloud-platform-terraform-monitoring/blob/main/resources/prometheusrule-alerts/README.md#nginx-success-rate
           expr:
-            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))-
-            sum(rate(nginx_ingress_controller_requests{status=~"404|499", controller_class=~"k8s.io/ingress-modsec", exported_namespace="data-platform-datahub-catalogue-dev"}[5m]))) * 100 < 95
-          for: 10m
+            sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))-
+            sum(rate(nginx_ingress_controller_requests{status=~"404|499", controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))) * 100 < 95
+          for: 1m
           labels:
             severity: datahub_dev
         - alert: ErrorResponses
@@ -173,7 +173,7 @@ spec:
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
           expr: >-
-            avg(rate(nginx_ingress_controller_requests{exported_namespace="data-platform-datahub-catalogue-dev", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
+            sum(rate(nginx_ingress_controller_requests{exported_namespace="data-platform-datahub-catalogue-dev", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
           for: 1m
           labels:
             severity: datahub_dev
@@ -185,7 +185,7 @@ spec:
           # 403/406 responses from the modsec ingress do not contain the namespace and therefore can only be
           # located via the host.
           expr: >-
-            avg(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk",status=~"403|406"}[1m]) * 60 > 0) by (ingress)
+            sum(rate(nginx_ingress_controller_requests{host=~"datahub-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk", status=~"403|406"}[5m])) > 0
           for: 1m
           labels:
             severity: datahub_dev
