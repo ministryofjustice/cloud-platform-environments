@@ -13,7 +13,7 @@ module "s3_bucket" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]
-      allowed_origins = ["https://staging.request-personal-information.service.justice.gov.uk"]
+      allowed_origins = ["https://production.request-personal-information.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     },
