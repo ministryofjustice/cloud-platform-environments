@@ -110,8 +110,14 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_CASES-INSERTED",
+      "OFFENDER_CASES-UPDATED",
+      "OFFENDER_CASES-DELETED",
       "COURT_EVENTS-INSERTED",
+      "COURT_EVENTS-DELETED",
+      "COURT_EVENTS-UPDATED",
       "COURT_EVENT_CHARGES-INSERTED",
+      "COURT_EVENT_CHARGES-DELETED",
+      "OFFENDER_CHARGES-UPDATED",
       "OFFENDER_CASE_IDENTIFIERS-DELETED",
       "OFFENDER_CASE_IDENTIFIERS-INSERTED",
       "OFFENDER_CASE_IDENTIFIERS-UPDATED",
