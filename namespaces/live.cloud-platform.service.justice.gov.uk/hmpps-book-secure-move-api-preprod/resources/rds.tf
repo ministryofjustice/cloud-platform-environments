@@ -1,9 +1,3 @@
-# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
-
-data "aws_security_group" "mp_dps_sg" {
-  name = var.mp_dps_sg_name
-}
-
 module "rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
@@ -41,9 +35,6 @@ module "rds-instance" {
   providers = {
     aws = aws.london
   }
-
-  # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -142,6 +133,9 @@ module "rds-read-replica" {
     aws = aws.london
   }
 
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+
   db_parameter = [
     {
       name         = "rds.force_ssl"
@@ -151,6 +145,10 @@ module "rds-read-replica" {
   ]
 }
 
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
 
 resource "kubernetes_secret" "rds-read-replica" {
   metadata {
