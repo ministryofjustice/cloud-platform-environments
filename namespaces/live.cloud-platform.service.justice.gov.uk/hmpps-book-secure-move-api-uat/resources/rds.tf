@@ -15,7 +15,6 @@ module "rds-instance" {
   maintenance_window = var.maintenance_window
 
   db_instance_class = "db.t4g.small"
-  db_parameter      = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_engine         = "postgres"
   db_engine_version = "16.2"
   rds_family        = "postgres16"
@@ -36,6 +35,11 @@ module "rds-instance" {
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    },
     {
       name         = "rds.logical_replication"
       value        = "1"
