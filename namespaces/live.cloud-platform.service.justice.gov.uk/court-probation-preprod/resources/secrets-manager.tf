@@ -19,6 +19,16 @@ module "secrets_manager" {
       description             = "Contains the application insights connection string for preprod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "applicationinsights-connection-string"
+    },
+    "case-tracking-pre-pilot-users" = {
+      description             = "Pilot Users for Case Tracking",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "case-tracking-pre-pilot-users" # The name of the secret in k8s
+    },
+    "liverpool-pre-pilot-users" = {
+      description             = "Liverpool pre pilot users",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "liverpool-pre-pilot-users" # The name of the secret in k8s
     }
   }
 }
