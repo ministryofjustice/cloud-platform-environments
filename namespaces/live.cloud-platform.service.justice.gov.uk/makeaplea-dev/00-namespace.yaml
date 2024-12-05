@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "pet"
     cloud-platform.justice.gov.uk/application: "makeaplea"
     cloud-platform.justice.gov.uk/owner: "pet: pet@hmcts.net"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manchester_traffic_offences_pleas"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/manchester_traffic_offences_pleas,https://github.com/ministryofjustice/makeaplea_dx"
     cloud-platform.justice.gov.uk/team-name: "pet"
     cloud-platform.justice.gov.uk/review-after: "2023-01-17"

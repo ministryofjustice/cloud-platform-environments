@@ -9,10 +9,10 @@ resource "pingdom_check" "cfe-civil-production" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/"
+  url                      = "/status"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_platforms"
+  tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_platforms,laa_production_environment_dashboard"
   probefilters             = "region:EU"
   integrationids           = [128721]
 }

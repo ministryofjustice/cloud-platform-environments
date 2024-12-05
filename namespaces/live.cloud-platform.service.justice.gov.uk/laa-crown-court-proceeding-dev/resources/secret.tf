@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -21,12 +21,12 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
     "cda_oauth_client_id" = {
-      description             = "Court Data API oauth client ID for CCP Dev",
+      description             = "CDA oauth client ID for CCP Dev",
       recovery_window_in_days = 7
       k8s_secret_name         = "cda-oauth-client-id"
     },
     "cda_oauth_client_secret" = {
-      description             = "Court Data API oauth client secret for CCP Dev",
+      description             = "CDA oauth client secret for CCP Dev",
       recovery_window_in_days = 7
       k8s_secret_name         = "cda-oauth-client-secret"
     },
@@ -39,6 +39,21 @@ module "secrets_manager" {
       description             = "Evidence Service oauth client secret for CCP Dev",
       recovery_window_in_days = 7
       k8s_secret_name         = "evidence-oauth-client-secret"
-    }
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCP Dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
+    "prosecution_concluded_db_username" = {
+      description             = "Prosecution Concluded DB Username for CCP Dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sqs-prosecution-concluded-db-username"
+    },
+    "email_client_notify_key" = {
+      description             = "Email notification client key CCP Dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "email-client-notify-key"
+    },
   }
 }

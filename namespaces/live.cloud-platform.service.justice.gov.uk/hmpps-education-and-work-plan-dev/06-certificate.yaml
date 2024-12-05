@@ -14,6 +14,7 @@ spec:
     - learningandworkprogress-api-dev.hmpps.service.justice.gov.uk
     - learning-and-work-progress-api-dev.hmpps.service.justice.gov.uk
     - education-and-work-plan-api-dev.hmpps.service.justice.gov.uk
+
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

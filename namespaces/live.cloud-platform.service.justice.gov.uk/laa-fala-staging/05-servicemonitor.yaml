@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fala-staging-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: laa-fala-app
+  endpoints:
+    - port: http
+      interval: 15s

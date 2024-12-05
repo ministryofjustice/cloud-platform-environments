@@ -5,7 +5,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_nonassociation_su
   endpoint  = module.hmpps_prisoner_to_nomis_nonassociation_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "non-associations.created", "non-associations.deleted", "non-associations.closed", "non-associations.amended"
+      "non-associations.created", "non-associations.deleted", "non-associations.closed", "non-associations.amended", "prison-offender-events.prisoner.merged"
     ]
   })
 }

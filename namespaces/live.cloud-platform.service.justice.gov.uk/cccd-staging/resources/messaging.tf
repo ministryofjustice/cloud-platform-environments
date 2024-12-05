@@ -1,9 +1,8 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
 
   # Configuration
   topic_display_name = "cccd-claims-submitted"
-
 
   # Tags
   business_unit          = var.business_unit
@@ -30,7 +29,6 @@ module "claims_for_ccr" {
   {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -57,11 +55,11 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
     "Statement":
       [
         {
-          "Sid": "CCLFPolicy",
+          "Sid": "CCRPolicy",
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-CCR-uat-AppInfrastructureTemplate-1-AppEc2Role-11WILONUECEUX"
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-e3c84939bb767c66-live"
               ]
           },
           "Resource": "${module.claims_for_ccr.sqs_arn}",
@@ -99,7 +97,6 @@ module "claims_for_cclf" {
   {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -130,7 +127,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-CCLF-uat-AppInfrastructureTemplate-AppEc2Role-S3C0S7HVQQBV"
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-33bdd105778f135d-live"
               ]
           },
           "Resource": "${module.claims_for_cclf.sqs_arn}",
@@ -168,7 +165,6 @@ module "responses_for_cccd" {
   {
     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -183,34 +179,6 @@ EOF
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "responses_for_cccd" {
-  queue_url = module.responses_for_cccd.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.responses_for_cccd.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "LandingZonePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-CCLF-uat-AppInfrastructureTemplate-AppEc2Role-S3C0S7HVQQBV",
-            "arn:aws:iam::140455166311:role/LAA-CCR-uat-AppInfrastructureTemplate-1-AppEc2Role-11WILONUECEUX"
-              ]
-          },
-          "Resource": "${module.responses_for_cccd.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        }
-      ]
-  }
-
-EOF
-
 }
 
 module "ccr_dead_letter_queue" {
@@ -279,7 +247,7 @@ module "cccd_response_dead_letter_queue" {
 resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
     name      = "cccd-messaging"
-    namespace = "cccd-staging"
+    namespace = var.namespace
   }
 
   data = {

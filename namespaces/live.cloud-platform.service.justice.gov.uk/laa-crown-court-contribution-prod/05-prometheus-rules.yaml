@@ -1,0 +1,98 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-crown-court-contribution-prod
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laa-crown-court-contribution
+spec:
+  groups:
+    - name: application-rules
+      rules:
+        - alert: Client Response Errors
+          expr: sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-crown-court-contribution-prod", status!="404"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: There has been an increase in client error responses from the Crown Court Contribution service running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Server Response Error
+          expr: sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="laa-crown-court-contribution-prod"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: There has been an increase in server error responses from the Crown Court Contribution service running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: JVM CPU Usage
+          expr: (process_cpu_usage{namespace="laa-crown-court-contribution-prod"} * 100) > 95
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: The Crown Court Contribution service running on a production pod has been using over 95% of the CPU for a minute. This may indicate the pods running this application require more CPU resources.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: System CPU Usage
+          expr: (system_cpu_usage{namespace="laa-crown-court-contribution-prod"} * 100) > 95
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: A pod that runs the Crown Court Contribution service on production has been using over 95% of the pod's CPU for a minute. This may indicate there is some underlying process other than our application on the pod that is using up all the CPU resources and warrants further investigation.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Object Heap Memory Usage - Tenured Gen
+          expr: ((jvm_memory_used_bytes{area="heap", id="Tenured Gen", namespace="laa-crown-court-contribution-prod"}/jvm_memory_max_bytes{area="heap", id="Tenured Gen", namespace="laa-crown-court-contribution-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: Over 95% of the "Tenured Gen" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Object Heap Memory Usage - Survivor Space
+          expr: ((jvm_memory_used_bytes{area="heap", id="Survivor Space", namespace="laa-crown-court-contribution-prod"}/jvm_memory_max_bytes{area="heap", id="Survivor Space", namespace="laa-crown-court-contribution-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: Over 95% of the "Survivor Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Object Heap Memory Usage - Eden Space
+          expr: ((jvm_memory_used_bytes{area="heap", id="Eden Space", namespace="laa-crown-court-contribution-prod"}/jvm_memory_max_bytes{area="heap", id="Eden Space", namespace="laa-crown-court-contribution-prod"})*100) > 95
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: Over 95% of the "Eden Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Response Time Excessive
+          expr: (sum(http_server_requests_seconds_sum{outcome="SUCCESS", namespace="laa-crown-court-contribution-prod"})/sum(http_server_requests_seconds_count{outcome="SUCCESS", namespace="laa-crown-court-contribution-prod"})) > 5
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: The response time for successful responses on production is taking on average over five seconds. This indicates responses to our clients is taking too long.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Logging Error
+          expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: There has been an error in the logs of the Crown Court Contribution service in the past 10 minutes. This indicates that there may be a bug with the application.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: 403 Blocked Request
+          expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-contribution-prod", ingress="laa-crown-court-contribution-prod", status="403"}[5m])) > 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+          annotations:
+            message: The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crown-court-contribution-prod&var-ingress=laa-crown-court-contribution

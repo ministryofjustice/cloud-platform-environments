@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: find-moj-data-test-cert
+  namespace: data-platform-find-moj-data-test
+spec:
+  secretName: find-moj-data-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - test.find-moj-data.service.justice.gov.uk

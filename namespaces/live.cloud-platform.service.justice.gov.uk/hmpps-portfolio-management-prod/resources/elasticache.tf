@@ -1,5 +1,5 @@
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -11,7 +11,7 @@ module "elasticache_redis" {
 
   number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
-  node_type            = "cache.t4g.micro"
+  node_type            = "cache.t4g.medium"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 

@@ -5,9 +5,10 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
+  oidc_providers      = ["github"]
 
   # repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
@@ -36,5 +37,6 @@ resource "kubernetes_secret" "ecr_credentials" {
   data = {
     repo_arn = module.ecr_credentials.repo_arn
     repo_url = module.ecr_credentials.repo_url
+    ecr_role = module.ecr_credentials.irsa_policy_arn
   }
 }

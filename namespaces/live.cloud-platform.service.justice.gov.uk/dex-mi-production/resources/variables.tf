@@ -50,3 +50,5 @@ variable application {
   default = "dex-mi-metabase"
 }
 
+
+variable "kubernetes_cluster" {}

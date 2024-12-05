@@ -52,3 +52,5 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "kubernetes_cluster" {}

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hmpps-locations-inside-prison-prod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "locations-inside-prison-dev"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
+    cloud-platform.justice.gov.uk/application: "HMPPS Locations Inside Prison Service"
+    cloud-platform.justice.gov.uk/owner: "HMPPS Locations Inside Prison Service: locations-inside-prisons@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-locations-inside-prison-api.git,https://github.com/ministryofjustice/hmpps-locations-inside-prison.git"
+    cloud-platform.justice.gov.uk/team-name: "locations-inside-prison"

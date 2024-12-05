@@ -6,7 +6,7 @@ variable "vpc_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "hmpps-prisoner-cell-allocation-api"
+  default     = "hmpps-change-someones-cell"
 }
 
 variable "namespace" {
@@ -57,3 +57,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

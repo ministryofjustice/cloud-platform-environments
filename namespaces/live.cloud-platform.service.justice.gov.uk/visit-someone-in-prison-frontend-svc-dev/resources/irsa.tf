@@ -4,7 +4,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"    = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }

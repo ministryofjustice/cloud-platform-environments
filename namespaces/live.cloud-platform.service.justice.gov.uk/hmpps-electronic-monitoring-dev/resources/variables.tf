@@ -72,3 +72,6 @@ variable "number_cache_clusters" {
   description = "The number of cache clusters (primary and replicas) this replication group will have. Default is 2"
   default     = "2"
 }
+
+variable "eks_cluster_name" {
+}

@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crown-court-contribution-dev
   labels:
+    component: "laa-crown-court-contribution-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted

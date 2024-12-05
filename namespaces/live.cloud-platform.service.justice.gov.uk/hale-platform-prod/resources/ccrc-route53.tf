@@ -22,6 +22,14 @@ resource "kubernetes_secret" "ccrc_route53_zone_sec" {
   }
 }
 
+resource "aws_route53_record" "ccrc_route53_a_record_sslvpn" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "sslvpn.ccrc.gov.uk"
+  type    = "A"
+  ttl     = "300"
+  records = ["4.158.26.205"]
+}
+
 resource "aws_route53_record" "ccrc_route53_a_record_connect" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "connect.ccrc.gov.uk"
@@ -71,7 +79,7 @@ resource "aws_route53_record" "ccrc_route53_txt_record_main" {
   name    = "ccrc.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "v=spf1 include:spf.protection.outlook.com ip4:80.6.91.150 -all"]
+  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "68mnpg8h53n9jr4htpl2529xm5jyvx4f", "v=spf1 include:spf.protection.outlook.com include:mailgun.org ip4:80.6.91.150 ip4:141.193.33.66 -all"]
 }
 
 resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
@@ -122,12 +130,12 @@ resource "aws_route53_record" "ccrc_route53_txt_record_smtp2" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
-resource "aws_route53_record" "ccrc_route53_cname_record_acm" {
+resource "aws_route53_record" "ccrc_route53_txt_record_s1" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_5770ab00d5e1032ff7db591706b2f9a5.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_bd266e83797378e89bcbbc42c6974047.jhztdrwbnw.acm-validations.aws."]
+  name    = "s1._domainkey.ccrc.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8+d/wBBjA8aowURIzHyUMEDn4eUfkcyfLpRP9yUlRLeeuRcT9ZoxGAnZu0iSNoct7TjDAVzwveQs9j06jfoHXtSXtLWql\"\"x//Xn624rZkUAI/8XSKZfj9ivczZR8MK7PUhiRiPe8B52dYAGIN4W+mTrergQBtNv40sx9masfhaUfsheOa+0aMp3uHz0+CDypls9WjZN6tTUDIV+VPlVX2cslNLWqNg8gy9zWNX7fNc85yRGAjtY12AYv1uBfZOabwYXDyCmEpjz/13VOHobZ0tVO9DWY4qU9YtIGICa2pEBfj1VsoI+TlPxhRFJ1kUhtsnsbh4tiEUtq1H60Q194dKwIDAQAB"]
 }
 
 resource "aws_route53_record" "ccrc_route53_cname_record_mwn" {
@@ -216,52 +224,4 @@ resource "aws_route53_record" "ccrc_route53_cname_record_enterpriseregistration"
   type    = "CNAME"
   ttl     = "3600"
   records = ["enterpriseregistration.windows.net"]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_lyncdiscover" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "lyncdiscover.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["webdir.online.lync.com"]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_mta_sts2" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_9e111899dbb1e73aed800dd796c849f4.mta-sts.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_529da6734664ecca58ad43f6298844fe.bkngfjypgb.acm-validations.aws."]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_sipdir" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "sip.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["sipdir.online.lync.com"]
-}
-
-resource "aws_route53_record" "ccrc_route53_cname_record_acm2" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_2966249ff1f7d496b355eabc821707b3.www.ccrc.gov.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_054556e3de8c167ce984f414fdf89e12.jhztdrwbnw.acm-validations.aws."]
-}
-
-resource "aws_route53_record" "ccrc_route53_srv_record_sipfed" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_sipfederationtls._tcp.ccrc.gov.uk"
-  type    = "SRV"
-  ttl     = "3600"
-  records = ["5061 1 100 sipfed.online.lync.com"]
-}
-
-resource "aws_route53_record" "ccrc_route53_srv_record_sipdir" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "_sip._tls.ccrc.gov.uk"
-  type    = "SRV"
-  ttl     = "3600"
-  records = ["443 1 100 sipdir.online.lync.com"]
 }

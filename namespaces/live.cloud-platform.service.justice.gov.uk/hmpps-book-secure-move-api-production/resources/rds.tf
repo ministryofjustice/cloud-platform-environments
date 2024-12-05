@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name = var.vpc_name
 
@@ -20,11 +20,13 @@ module "rds-instance" {
   db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
-  db_engine_version = "12.14"
-  rds_family        = "postgres12"
+  db_engine_version = "16.1"
+  rds_family        = "postgres16"
 
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "false"
 
   db_parameter = [
     {
@@ -47,7 +49,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name = var.vpc_name
 
@@ -61,15 +63,15 @@ module "rds-read-replica" {
   db_allocated_storage   = 200
   db_instance_class      = "db.t4g.medium"
 
-  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "12.14"
-  rds_family        = "postgres12"
+  prepare_for_major_upgrade = false
+  db_engine_version = "16.3"
+  rds_family        = "postgres16"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

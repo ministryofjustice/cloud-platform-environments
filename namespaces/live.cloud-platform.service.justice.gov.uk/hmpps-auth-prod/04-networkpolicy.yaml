@@ -50,3 +50,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: token-verification-api-prod
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: hmpps-probation-integration-services-prod

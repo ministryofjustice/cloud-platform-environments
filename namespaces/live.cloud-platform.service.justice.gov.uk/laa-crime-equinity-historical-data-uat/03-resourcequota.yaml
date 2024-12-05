@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: laa-crime-equinity-historical-data-uat
+spec:
+  hard:
+    pods: "50"

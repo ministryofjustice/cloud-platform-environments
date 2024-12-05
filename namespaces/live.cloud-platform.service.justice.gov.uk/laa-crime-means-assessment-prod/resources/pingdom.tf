@@ -9,7 +9,7 @@ resource "pingdom_check" "laa-crime-means-assessment-prod" {
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_laa-crime-means-assessment,component_ping,isproduction_true,environment_test,owner_laa-crime-apps-team"
+  tags                     = "businessunit_laa,application_laa-crime-means-assessment,component_ping,isproduction_true,environment_test,owner_laa-crime-apps-team,laa_production_environment_dashboard"
   probefilters             = "region:EU"
   integrationids           = [121160]
 }

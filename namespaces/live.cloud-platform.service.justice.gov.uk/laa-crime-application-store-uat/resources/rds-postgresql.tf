@@ -5,24 +5,27 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
+  allow_minor_version_upgrade  = false
   allow_major_version_upgrade  = false
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  db_max_allocated_storage     = "10000"
+  db_allocated_storage         = "20"
+  deletion_protection          = true
+  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  db_password_rotated_date     = "07-10-2024"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "16.4"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -40,8 +43,8 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  count  = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -57,13 +60,12 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "16.4"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage     = "1000"
+  
   # It is mandatory to set the below values to create read replica instance
-
-  # Set the database_name of the source db
-  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.rds.db_identifier
@@ -108,7 +110,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -117,13 +119,10 @@ resource "kubernetes_secret" "read_replica" {
 
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
-
-  /*
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
-  */
 }
 
 

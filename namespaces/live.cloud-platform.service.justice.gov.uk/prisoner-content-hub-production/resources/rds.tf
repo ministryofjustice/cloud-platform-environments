@@ -1,6 +1,5 @@
 module "drupal_rds" {
-  # We need to use at least 5.4, which introduces support for MariaDB by making `custom_parameters` overridable.
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
@@ -12,9 +11,9 @@ module "drupal_rds" {
   db_instance_class        = "db.t4g.xlarge"
   db_password_rotated_date = "2023-05-15"
 
-  db_engine         = "mariadb"
-  db_engine_version = "10.4"
-  rds_family        = "mariadb10.4"
+  db_engine                 = "mariadb"
+  db_engine_version         = "10.11"
+  rds_family                = "mariadb10.11"
 
   # The recommended transaction isolation level for Drupal is READ-COMMITTED.
   # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level

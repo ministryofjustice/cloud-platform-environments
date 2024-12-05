@@ -4,7 +4,7 @@
 ################################################################################
 
 module "cccd_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -15,10 +15,10 @@ module "cccd_elasticache_redis" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version        = "7.0"
-  parameter_group_name  = "default.redis7"
-  number_cache_clusters = "3"
-  node_type             = "cache.t4g.small"
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
+  number_cache_clusters   = "3"
+  node_type               = "cache.t4g.small"
   auth_token_rotated_date = "2023-11-01"
 }
 

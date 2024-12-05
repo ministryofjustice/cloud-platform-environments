@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: intranet-demo-cert
+  namespace: intranet-demo
+spec:
+  secretName: intranet-demo-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - demo.intranet.justice.gov.uk

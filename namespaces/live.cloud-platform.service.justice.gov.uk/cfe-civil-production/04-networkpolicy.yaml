@@ -25,6 +25,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+    - namespaceSelector:
+        matchLabels:
+          component: monitoring
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -55,3 +58,12 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-check-client-qualifies-uat
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-staging
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-training
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-production

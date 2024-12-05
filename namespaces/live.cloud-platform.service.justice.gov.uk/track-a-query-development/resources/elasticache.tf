@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -33,6 +33,6 @@ resource "kubernetes_secret" "track_a_query_elasticache_redis" {
   data = {
     primary_endpoint_address = module.track_a_query_elasticache_redis.primary_endpoint_address
     auth_token               = module.track_a_query_elasticache_redis.auth_token
-    url                      = "rediss://appuser:${module.track_a_query_elasticache_redis.auth_token}@${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
+    url                      = "rediss://:${module.track_a_query_elasticache_redis.auth_token}@${module.track_a_query_elasticache_redis.primary_endpoint_address}:6379"
   }
 }

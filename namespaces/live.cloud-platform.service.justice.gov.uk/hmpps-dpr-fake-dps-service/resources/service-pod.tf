@@ -8,8 +8,8 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    rds  = module.rds.irsa_policy_arn
-    ec = module.hmpps_dpr_fake_dps_service_ui_ec_cluster.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
+    ec  = module.hmpps_dpr_fake_dps_service_ui_ec_cluster.irsa_policy_arn
   }
 
   # Tags

@@ -114,6 +114,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
   endpoint  = module.prisoner_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "APPOINTMENT_CHANGED",
       "OFFENDER_MOVEMENT-RECEPTION",
       "OFFENDER_MOVEMENT-DISCHARGE",
       "BOOKING_NUMBER-CHANGED",
@@ -124,9 +125,17 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "NON_ASSOCIATION_DETAIL-UPSERTED",
       "RESTRICTION-UPSERTED",
       "PERSON_RESTRICTION-UPSERTED",
+      "PERSON_RESTRICTION-DELETED",
       "VISITOR_RESTRICTION-UPSERTED",
+      "VISITOR_RESTRICTION-DELETED",
       "PRISONER_ACTIVITY-UPDATE",
-      "PRISONER_APPOINTMENT-UPDATE"
+      "PRISONER_APPOINTMENT-UPDATE",
+      "IMPRISONMENT_STATUS-CHANGED",
+      "SENTENCE_DATES-CHANGED",
+      "OFFENDER_CONTACT-INSERTED",
+      "OFFENDER_CONTACT-UPDATED",
+      "OFFENDER_CONTACT-DELETED",
+      "OFFENDER_BOOKING-REASSIGNED",
     ]
   })
 }

@@ -28,7 +28,7 @@ variable "team_name" {
   default     = "syscon-devs"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
@@ -53,3 +53,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

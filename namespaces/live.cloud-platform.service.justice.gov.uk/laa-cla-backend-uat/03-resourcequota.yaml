@@ -5,4 +5,4 @@ metadata:
   namespace: laa-cla-backend-uat
 spec:
   hard:
-    pods: "50"
+    pods: "100"

@@ -2,6 +2,10 @@ variable "vpc_name" {}
 
 variable "kubernetes_cluster" {}
 
+variable "domain" {
+  default = "domain-event-logger.hmpps.service.justice.gov.uk"
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS Domain Event Logger"

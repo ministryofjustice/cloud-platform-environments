@@ -5,10 +5,10 @@ metadata:
   namespace: prison-services-feedback-and-support-prod
 subjects:
   - kind: Group
-    name: "github:dps-core"
+    name: "github:hmpps-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

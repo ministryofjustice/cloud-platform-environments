@@ -72,3 +72,11 @@ variable "slack_channel" {
   type        = string
   default     = "cica-digital"
 }
+
+variable "repo_name" {
+  description = "List of repos"
+  type        = list
+  default     = [ "cica-apply-application-service", "cica-apply-maintenance-page", "cica-apply-data-capture-service", "cica-apply-web",
+  "cica-apply-notify-gateway"]
+}
+variable "kubernetes_cluster" {}

@@ -28,8 +28,8 @@ variable "additional_topic_clients" {
     "hmpps-adjustments-dev",
     "hmpps-assessments-dev",
     "hmpps-community-accommodation-dev",
+    "hmpps-community-accommodation-demo",
     "hmpps-complexity-of-need-staging",
-    "hmpps-education-and-work-plan-dev",
     "hmpps-education-employment-dev",
     "hmpps-incentives-dev",
     "hmpps-interventions-dev",
@@ -39,10 +39,8 @@ variable "additional_topic_clients" {
     "hmpps-registers-dev",
     "hmpps-tier-dev",
     "hmpps-workload-dev",
-    "offender-case-notes-dev",
     "offender-management-staging",
     "offender-management-test",
-    "offender-management-test2",
     "visit-someone-in-prison-backend-svc-dev",
   ]
 }
@@ -72,3 +70,5 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "kubernetes_cluster" {}

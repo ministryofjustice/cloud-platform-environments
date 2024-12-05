@@ -71,3 +71,9 @@ variable "cloud_platform_integration_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
   default     = "https://hmpps-integration-api-preprod.apps.live.cloud-platform.service.justice.gov.uk"
 }
+
+variable "eks_cluster_name" {}
+
+variable "region" {
+  default = "eu-west-2"
+}

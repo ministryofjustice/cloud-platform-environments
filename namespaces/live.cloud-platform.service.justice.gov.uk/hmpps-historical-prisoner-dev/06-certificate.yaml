@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-historical-prisoner-cert
+  name: historical-prisoner-dev.prison.service.justice.gov.uk
   namespace: hmpps-historical-prisoner-dev
 spec:
-  secretName: hmpps-historical-prisoner-cert
+  secretName: historical-prisoner-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -14,12 +14,25 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-historical-prisoner-api-cert
+  name: historical-prisoner-api-dev.prison.service.justice.gov.uk
   namespace: hmpps-historical-prisoner-dev
 spec:
-  secretName: hmpps-historical-prisoner-api-cert
+  secretName: historical-prisoner-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
     - historical-prisoner-api-dev.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hpa-cert
+  namespace: hmpps-historical-prisoner-dev
+spec:
+  secretName: hmpps-hpa-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hpa-dev.prison.service.justice.gov.uk

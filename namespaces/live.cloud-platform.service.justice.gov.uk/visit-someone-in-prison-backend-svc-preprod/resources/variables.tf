@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "prison-visit-booking-dev"
+  default     = "visits-dev"
 }
 
 variable "github_owner" {
@@ -54,3 +54,5 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "kubernetes_cluster" {}

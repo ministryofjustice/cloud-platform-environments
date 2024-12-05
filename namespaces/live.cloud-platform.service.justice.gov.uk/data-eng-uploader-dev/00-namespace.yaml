@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "S3 uploader"
     cloud-platform.justice.gov.uk/owner: "Prison and Probation Data Engineering: dataengineering@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/analytical-platform-uploader"
-    cloud-platform.justice.gov.uk/team-name: "prison-probation-data-engineering"
+    cloud-platform.justice.gov.uk/team-name: "data-engineering"
     cloud-platform.justice.gov.uk/review-after: ""

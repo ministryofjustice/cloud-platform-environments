@@ -5,13 +5,13 @@
  *
  */
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name             = "${var.namespace}-ecr"
-  github_repositories   = ["cjs_scorecard_exploratory_analysis"]
+  github_repositories   = ["cjs-dashboard"]
   oidc_providers        = ["github"]
   github_actions_prefix = "dev"
-  lifecycle_policy = <<EOF
+  lifecycle_policy      = <<EOF
     {
       "rules": [
         {

@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:webops"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:robin_test_team"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

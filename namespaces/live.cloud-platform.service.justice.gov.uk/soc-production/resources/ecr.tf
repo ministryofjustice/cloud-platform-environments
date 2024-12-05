@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -35,7 +35,7 @@ module "ecr_credentials" {
               "tagStatus": "any",
               "countType": "sinceImagePushed",
               "countUnit": "days",
-              "countNumber": 30
+              "countNumber": 90
           },
           "action": {
               "type": "expire"

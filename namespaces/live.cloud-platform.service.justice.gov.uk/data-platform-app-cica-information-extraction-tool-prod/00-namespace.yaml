@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "data-platform-app-cica-information-extraction-tool-prod"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "cica-data-science-"
+    cloud-platform.justice.gov.uk/application: "CICA Information Extraction Tool"
+    cloud-platform.justice.gov.uk/owner: "Data Engineering & Data Science (DEDS) - Access to Justice: "
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cica-information-extraction-tool"
+    cloud-platform.justice.gov.uk/team-name: "cica-extract-tool-admins"
+    cloud-platform.justice.gov.uk/review-after: ""

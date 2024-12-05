@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-ui-certificate
+  namespace: hmpps-dpr-tools-test
+spec:
+  secretName: hmpps-dpr-tools-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dpr-tools-api-test.hmpps.service.justice.gov.uk
+    - dpr-tools-ui-test.hmpps.service.justice.gov.uk

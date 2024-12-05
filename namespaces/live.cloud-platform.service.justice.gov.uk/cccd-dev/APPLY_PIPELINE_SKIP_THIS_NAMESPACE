@@ -1,0 +1,27 @@
+FATA[0742] update error running terraform on namespace cccd-dev: exit status 1
+
+
+Error: setting SQS Queue (https://sqs.eu-west-2.amazonaws.com/xxxxxxx/laa-get-paid-dev-cccd-claims-for-cclf) attribute (Policy): InvalidAttributeValue: Invalid value for the parameter Policy.
+
+	status code: 400, request id:
+
+
+  with aws_sqs_queue_policy.claims_for_cclf_policy,
+
+  on messaging.tf line 116, in resource "aws_sqs_queue_policy" "claims_for_cclf_policy":
+
+ 116: resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
+
+
+
+Error: setting SQS Queue (https://sqs.eu-west-2.amazonaws.com/xxxxxxx/laa-get-paid-dev-responses-for-cccd) attribute (Policy): InvalidAttributeValue: Invalid value for the parameter Policy.
+
+	status code: 400, request id:
+
+
+  with aws_sqs_queue_policy.responses_for_cccd,
+
+  on messaging.tf line 185, in resource "aws_sqs_queue_policy" "responses_for_cccd":
+
+ 185: resource "aws_sqs_queue_policy" "responses_for_cccd" {
+

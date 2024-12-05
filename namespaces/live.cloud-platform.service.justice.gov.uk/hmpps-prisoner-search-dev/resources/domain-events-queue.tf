@@ -10,7 +10,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription
       "incentives.iep-review.deleted",
       "incentives.prisoner.next-review-date-changed",
       "restricted-patients.patient.added",
-      "restricted-patients.patient.removed"
+      "restricted-patients.patient.removed",
+      "restricted-patients.patient.supporting-prison-changed"
     ]
   })
 }

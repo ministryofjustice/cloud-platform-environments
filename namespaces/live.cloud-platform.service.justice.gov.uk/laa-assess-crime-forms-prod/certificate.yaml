@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-assess-crime-forms-cert
+  namespace: laa-assess-crime-forms-prod
+spec:
+  secretName: laa-assess-crime-forms-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - assess-crime-forms.service.justice.gov.uk

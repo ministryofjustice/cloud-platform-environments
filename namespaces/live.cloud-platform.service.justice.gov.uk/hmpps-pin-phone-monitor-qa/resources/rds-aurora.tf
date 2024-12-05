@@ -1,12 +1,12 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=3.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "14.6"
+  engine_version = "14.9"
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1

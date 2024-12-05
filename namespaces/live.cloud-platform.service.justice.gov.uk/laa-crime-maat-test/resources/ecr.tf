@@ -9,7 +9,7 @@ module "ecr_credentials" {
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
 
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # REQUIRED: Repository configuration
   team_name = var.team_name

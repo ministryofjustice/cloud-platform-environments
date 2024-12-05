@@ -4,11 +4,13 @@ resource "random_id" "apigw-id" {
 }
 
 resource "aws_iam_user" "apigw-user" {
+  provider = aws.ireland
   name = "apigw-user-${random_id.apigw-id.hex}"
   path = "/system/apigw-user/"
 }
 
 resource "aws_iam_access_key" "apigw-user" {
+  provider = aws.ireland
   user = aws_iam_user.apigw-user.name
 }
 
@@ -29,19 +31,21 @@ data "aws_iam_policy_document" "apigw" {
       "apigateway:*",
     ]
     resources = [
-      "arn:aws:apigateway:eu-west-2::/restapis"
+      "arn:aws:apigateway:eu-west-1::/restapis"
     ]
     effect = "Allow"
   }
 }
 
 resource "aws_iam_user_policy" "apigw-policy" {
+  provider = aws.ireland
   name   = "${var.namespace}-apigw"
   policy = data.aws_iam_policy_document.apigw.json
   user   = aws_iam_user.apigw-user.name
 }
 
 resource "aws_iam_role" "api_gateway_role" {
+  provider = aws.ireland
   name               = "${var.namespace}-apigw"
   assume_role_policy = <<EOF
 {
@@ -61,6 +65,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "api_gw_s3" {
+  provider = aws.ireland
   name = "${var.namespace}-apigw-s3"
   role = aws_iam_role.api_gateway_role.name
 

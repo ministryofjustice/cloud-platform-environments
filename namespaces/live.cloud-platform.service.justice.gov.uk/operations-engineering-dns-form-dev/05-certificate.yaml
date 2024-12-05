@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: change-dns-dev-ssl-certificate
+  namespace: operations-engineering-dns-form-dev
+spec:
+  secretName: ssl-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.change-dns.service.justice.gov.uk

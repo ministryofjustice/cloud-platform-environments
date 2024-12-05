@@ -5,6 +5,13 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
+
+  # Allow resources to be visible to secure-estate-digital-team
+  default_tags {
+    tags = {
+      GithubTeam = "secure-estate-digital-team"
+    }
+  }
 }
 
 # To be use in case the resources need to be created in London

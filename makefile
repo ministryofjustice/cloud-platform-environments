@@ -1,4 +1,4 @@
-TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:2.3.0
+TOOLS_IMAGE := ministryofjustice/cloud-platform-tools:2.7.0
 
 pull-tools:
 	@echo "Pulling Cloud Platform Tools docker image..."

@@ -17,4 +17,4 @@ spec:
           annotations:
             message: There have been over 50 client error responses in the Crime Applications Adaptor running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/Kn71716Gz1/laa-crime-applications-adaptor?var-namespace=laa-crime-applications-adaptor-dev
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/d1abc586bdbb0f2d299ee927b887c24a8f8ee722/laa-crime-applications-adaptor?var-namespace=laa-crime-applications-adaptor-dev

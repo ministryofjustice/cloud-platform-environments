@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cfe-civil-staging-mtr-admin
+  namespace: cfe-civil-staging-mtr
+subjects:
+  - kind: Group
+    name: "github:laa-eligibility-platform"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

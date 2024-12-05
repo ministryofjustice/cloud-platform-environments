@@ -5,7 +5,7 @@ metadata:
   namespace: laa-dces-report-service-staging
 subjects:
   - kind: Group
-    name: "github:laa-crime-apps-team"
+    name: "github:laa-dces-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

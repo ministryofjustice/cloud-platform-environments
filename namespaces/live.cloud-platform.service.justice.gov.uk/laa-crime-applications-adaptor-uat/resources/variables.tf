@@ -88,11 +88,6 @@ variable "visibility_timeout_seconds" {
   default     = "120"
 }
 
-variable "api_gateway_name" {
-  description = "The name of the API Gateway"
-  default     = "caa-api-gateway-uat"
-}
-
 variable "apigw_stage_name" {
   description = "Named reference to the deployment"
   default     = "v1"
@@ -106,6 +101,11 @@ variable "user_pool_name" {
 variable "cognito_user_pool_client_name" {
   description = "Cognito user pool client name"
   default     = "maat-application"
+}
+
+variable "cognito_user_pool_crime_apply_client_name" {
+  description = "Cognito user pool Crime Apply client name"
+  default     = "crime-apply"
 }
 
 variable "resource_server_identifier" {

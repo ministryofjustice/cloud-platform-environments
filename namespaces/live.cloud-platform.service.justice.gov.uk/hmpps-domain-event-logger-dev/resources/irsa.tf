@@ -11,10 +11,10 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-domain-event-logger"
-  role_policy_arns       = local.irsa_policies
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-domain-event-logger"
+  role_policy_arns     = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application

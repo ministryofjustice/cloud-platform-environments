@@ -1,0 +1,84 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-information-exchange-preproduction
+  labels:
+    role: alert-rules
+    namespace: laa-information-exchange-preproduction
+  name: prometheus-custom-rules-infox-application
+spec:
+
+  groups:
+  - name: laa-information-exchange-preproduction
+ 
+    rules:
+    
+    - alert: Quota-Exceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-information-exchange-preproduction"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-information-exchange-preproduction"} > 0) > 90
+      for: 1m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message: laa-information-exchange-preproduction is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+  
+    - alert: KubePod-NotReady
+      expr: |-
+        sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-information-exchange-preproduction", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
+      for: 15m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message: laa-information-exchange-preproduction - Pod {{ $labels.pod }} has been in a non-ready state for longer than 15 minutes
+
+    - alert: KubePod-CrashLooping
+      expr: |-
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-information-exchange-preproduction"}[10m]) * 60 * 10 > 3
+      for: 10m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message:  laa-information-exchange-preproduction - Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+
+    - alert: nginx-SlowResponses
+      expr: |-
+        avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = "laa-information-exchange-preproduction"}[5m])
+        /
+        rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "laa-information-exchange-preproduction"}[5m]) > 0) by (ingress) >12
+      for: 1m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message: laa-information-exchange-preproduction - ingress {{ $labels.ingress }} is serving slow responses over 12 seconds
+
+    - alert: nginx-5xx-Error
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-information-exchange-preproduction", status=~"5.."}[5m]))*270 > 0
+      for: 1m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message: laa-information-exchange-preproduction - An HTTP 5xx error has occurred
+
+    - alert: nginx-Server-Error
+      expr: sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="laa-information-exchange-preproduction"}[10m])) > 1
+      for: 1m
+      labels:
+        severity: information-exchange-non-prod
+      annotations:
+        message: laa-information-exchange-preproduction - There has been a server error response from the Infox Application in the past 10 minutes. This may indicate a problem with the application processing requests.
+
+    - alert: CPU-high-threshold
+      expr: "(sum(rate(container_cpu_usage_seconds_total{namespace=\"laa-information-exchange-preproduction\", container=\"infox-application\", image!=\"\"} [5m])) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-preproduction\", container=\"infox-application\", unit=\"core\"})) * 100 > 75"
+      for: 5m
+      labels:
+        severity: information-exchange-non-prod 
+      annotations:
+        message: "laa-information-exchange-preproduction - CPU usage compared to the CPU limit on the container is more than 75% for 5m"
+
+    - alert: Memory-high-threshold
+      expr: "(sum(container_memory_working_set_bytes{namespace=\"laa-information-exchange-preproduction\", container=\"infox-application\", image!=\"\"}) / sum(kube_pod_container_resource_limits{namespace=\"laa-information-exchange-preproduction\", container=\"infox-application\", unit=\"byte\"})) * 100 > 85"
+      for: 5m
+      labels:
+        severity: information-exchange-non-prod 
+      annotations:
+        message: "laa-information-exchange-preproduction - Memory usage compared to the Memory limit on the container is more than 85% for 5m"
+

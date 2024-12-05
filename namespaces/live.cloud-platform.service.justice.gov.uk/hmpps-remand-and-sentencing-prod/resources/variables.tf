@@ -32,6 +32,10 @@ variable "team_name" {
   default     = "farsight-devs"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

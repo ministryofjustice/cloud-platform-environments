@@ -1,0 +1,108 @@
+######################################## Delius offender events subscription
+
+resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscription" {
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  protocol  = "sqs"
+  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "probation-case.engagement.created"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription" {
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
+  protocol  = "sqs"
+  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "OFFENDER_DETAILS_CHANGED",
+      "OFFENDER_ALIAS_CHANGED",
+      "OFFENDER_ADDRESS_CHANGED"
+    ]
+  })
+}
+
+module "cpr_delius_offender_events_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+
+  # Queue configuration
+  sqs_name                   = "cpr_delius_offender_events_queue"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 1209600
+  visibility_timeout_seconds = 120
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
+    maxReceiveCount     = 3
+  })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+######## Dead letter queue
+
+module "cpr_delius_offender_events_dead_letter_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+
+  # Queue configuration
+  sqs_name        = "cpr_delius_offender_events_dlq"
+  encrypt_sqs_kms = "true"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+########  Secrets
+
+resource "kubernetes_secret" "cpr_delius_offender_events_queue" {
+  ## For metadata use - not _
+  metadata {
+    name = "sqs-cpr-delius-offender-events-secret"
+    ## Name space where the listening service is found
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.cpr_delius_offender_events_queue.sqs_id
+    sqs_queue_arn  = module.cpr_delius_offender_events_queue.sqs_arn
+    sqs_queue_name = module.cpr_delius_offender_events_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "cpr_delius_offender_events_dead_letter_queue" {
+  ## For metadata use - not _
+  metadata {
+    name = "sqs-cpr-delius-offender-events-dlq-secret"
+    ## Name space where the listening service is found
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.cpr_delius_offender_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cpr_delius_offender_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cpr_delius_offender_events_dead_letter_queue.sqs_name
+  }
+}

@@ -58,3 +58,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+

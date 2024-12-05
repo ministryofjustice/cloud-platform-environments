@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crime-evidence-dev
   labels:
+    component: "laa-crime-evidence-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted

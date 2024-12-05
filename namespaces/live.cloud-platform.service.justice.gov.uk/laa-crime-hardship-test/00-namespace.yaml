@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crime-hardship-test
   labels:
+    component: "laa-crime-hardship-test"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "test"
     pod-security.kubernetes.io/enforce: restricted

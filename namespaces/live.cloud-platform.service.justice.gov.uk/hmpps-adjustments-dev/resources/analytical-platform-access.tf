@@ -1,11 +1,11 @@
 module "ap_irsa" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  namespace              = var.namespace
-  eks_cluster_name       = var.eks_cluster_name
+  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace        = var.namespace
+  eks_cluster_name = var.eks_cluster_name
   role_policy_arns = {
     s3 = aws_iam_policy.ap_policy.arn
   }
-  service_account_name   = "${var.namespace}-to-ap-s3"
+  service_account_name = "${var.namespace}-to-ap-s3"
   # Tags
   business_unit          = var.business_unit
   application            = var.application

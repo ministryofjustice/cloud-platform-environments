@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -29,6 +29,16 @@ module "secrets_manager" {
       description             = "Hardship API oauth client secret for CCC Prod",
       recovery_window_in_days = 7
       k8s_secret_name         = "hardship-api-oauth-client-secret"
+    },
+    "crown_court_contribution_alert_webhook_prod" = {
+      description             = "Crown Court Contribution Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "crown-court-contribution-alert-webhook-prod"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCC Prod",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "sentry-dsn"
     }
   }
 }

@@ -6,10 +6,16 @@ metadata:
   namespace: licences-preprod
 subjects:
   - kind: Group
-    name: "github:dps-shared"
+    name: "github:create-and-vary-a-licence-devs-prod"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:create-and-vary-a-licence-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -11,8 +11,8 @@ module "rds" {
   infrastructure_support = var.email
 
   db_engine                    = "postgres"
-  db_engine_version            = "14.7"
-  db_instance_class            = "db.t3.small"
+  db_engine_version            = "14.12"
+  db_instance_class            = "db.t4g.small"
   db_allocated_storage         = "10"
   db_name                      = "datacaptureservice"
   db_backup_retention_period   = var.db_backup_retention_period

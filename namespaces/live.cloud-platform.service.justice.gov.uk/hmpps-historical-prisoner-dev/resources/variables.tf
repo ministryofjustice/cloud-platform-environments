@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "historical-prisoner-dev.prison.service.justice.gov.uk"
+  default = "historical-prisoner-api-dev.prison.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -19,7 +19,7 @@ variable "vpc_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "business_unit" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "haar"
+  default     = "syscon-devs"
 }
 
 variable "environment-name" {
@@ -66,3 +66,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

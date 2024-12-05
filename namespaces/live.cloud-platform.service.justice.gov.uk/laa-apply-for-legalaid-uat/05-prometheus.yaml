@@ -30,7 +30,7 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: More than one hundred 404 errors in one day
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,key:kubernetes.namespace_name,negate:!f,params:(query:laa-apply-for-legalaid-uat,type:phrase),type:phrase,value:laa-apply-for-legalaid-uat),query:(match:(kubernetes.namespace_name:(query:laa-apply-for-legalaid-uat,type:phrase))))),index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,interval:auto,query:(language:lucene,query:'log:%22RoutingError%22'),sort:!('@timestamp',desc))
+        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
     - alert: nginx-5xx-error
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-uat", status=~"5.."}[5m]))*270 > 0
       for: 1m
@@ -38,7 +38,7 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: An HTTP 5xx error has occurred
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
+        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),query:(language:kuery,query:''))
     - alert: SidekiqQueueSize-Threshold-Reached
       expr: sum(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-uat"}) > 10
       for: 1m
@@ -46,13 +46,35 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: Sidekiq queue size is more than 10
-    - alert: SidekiqQueue-absent
-      expr: absent(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-uat"})
-      for: 1m
+    - alert: SidekiqDeadJobThresholdReached
+      expr: |-
+        # Any dead jobs added in past 2 minutes
+        #
+        # We exclude pods NOT named apply-main-apply-for-legal-aid-worker as branches may have a lot of dead jobs and
+        # be noisey, plus only worker has stats.
+        #
+        # We use average because each worker pod will report the same number of dead jobs.
+        #
+        # To find those added in the last 2 minutes we take current dead jobs and take away either the number
+        # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
+        # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
+        #
+        # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
+        # that the number could be less than 0 if dead jobs are cleared/deleted.
+        #
+        avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-uat", pod=~"apply-main-apply-for-legal-aid-worker.+"})
+         - (
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-uat", pod=~"apply-main-apply-for-legal-aid-worker.+"} offset 2m)
+             or
+             avg(ruby_sidekiq_stats_dead_size{namespace="laa-apply-for-legalaid-uat", pod=~"apply-main-apply-for-legal-aid-worker.+"}) - 1
+           )
+          > 0
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
-        message: Sidekiq queue size is not reported, cronjob may not be submitting metrics
+        message: One or more Sidekiq jobs moved to dead in namespace laa-apply-for-legalaid-uat
+        runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
+        dashboard_url: https://main-applyforlegalaid-uat.cloud-platform.service.justice.gov.uk/sidekiq
     - alert: Long-Request
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2
       for: 1m
@@ -66,7 +88,7 @@ spec:
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
-        message: File upload request is taking more than 10 seconds    
+        message: File upload request is taking more than 10 seconds
     - alert: "Long-Request: means_summaries"
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-uat", controller="providers/means_summaries"} > 5
       for: 1m
@@ -108,11 +130,11 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: There have been more than 5 rate-limited calls to the feedback page in the last 5 minutes
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:fb2e6550-0186-11ec-a2cf-6b21ca2b1d39,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase,value:laa-apply-for-legalaid-uat),query:(match:(log_processed.kubernetes_namespace:(query:laa-apply-for-legalaid-uat,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(query:'429'),type:phrase,value:'429'),query:(match:(log_processed.status:(query:'429',type:phrase))))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
+        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'429'),type:phrase),query:(match_phrase:(log_processed.status:'429')))),query:(language:kuery,query:''))
     - alert: 403(forbidden) alert
       expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-uat"}[300s])) * 300 > 5
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
         message: There have been more than 5 blocked(forbidden) calls to the feedback page in the last 5 minutes
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_a=(columns:!(log_processed.status,log_processed.http_referer,log_processed.request_uri),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:fb2e6550-0186-11ec-a2cf-6b21ca2b1d39,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase,value:laa-apply-for-legalaid-uat),query:(match:(log_processed.kubernetes_namespace:(query:laa-apply-for-legalaid-uat,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',key:log_processed.status,negate:!f,params:(query:'403'),type:phrase,value:'403'),query:(match:(log_processed.status:(query:'403',type:phrase))))),index:'8a728bc0-00eb-11ec-9062-27aa363b66a2',interval:auto,query:(language:lucene,query:''),sort:!(!('@timestamp',desc)))
+        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-5m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'403'),type:phrase),query:(match_phrase:(log_processed.status:'403')))),query:(language:kuery,query:''))

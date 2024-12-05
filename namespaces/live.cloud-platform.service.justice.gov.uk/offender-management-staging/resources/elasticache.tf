@@ -1,5 +1,5 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   node_type              = "cache.t4g.small"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -19,41 +19,28 @@ module "ec-cluster-offender-management-allocation-manager" {
   }
 }
 
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-staging" {
+resource "kubernetes_secret" "redis-staging" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-${var.environment_name}"
+    name      = "allocation-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }
 
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-test" {
+resource "kubernetes_secret" "redis-test" {
   metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-test"
+    name      = "allocation-elasticache-redis"
     namespace = "offender-management-test"
   }
 
   data = {
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
-  }
-}
-
-resource "kubernetes_secret" "ec-cluster-offender-management-allocation-manager-test2" {
-  metadata {
-    name      = "elasticache-offender-management-allocation-manager-token-cache-test2"
-    namespace = "offender-management-test2"
-  }
-
-  data = {
-    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
-    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }

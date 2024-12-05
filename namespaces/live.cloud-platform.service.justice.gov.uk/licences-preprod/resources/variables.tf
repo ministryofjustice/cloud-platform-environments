@@ -18,7 +18,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Digital-Prison-Services"
+  default     = "create-and-vary-a-licence-devs-prod"
 }
 
 variable "environment-name" {
@@ -53,3 +53,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

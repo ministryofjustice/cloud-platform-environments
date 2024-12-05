@@ -60,3 +60,11 @@ variable "github_token" {
 variable "eks_cluster_name" {
 }
 
+variable "kubernetes_cluster" {
+}
+
+variable "slack_channel" {
+    type        = string
+    description = "Cloud Platform will contact our team via this slack channel"
+    default     = "pic-mafia"
+}

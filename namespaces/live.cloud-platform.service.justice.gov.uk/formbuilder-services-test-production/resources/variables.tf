@@ -18,7 +18,8 @@ variable "infrastructure_support" {
 
 variable "vpc_name" {
 }
-
+variable "kubernetes_cluster" {
+}
 variable "eks_cluster_name" {
 }
 

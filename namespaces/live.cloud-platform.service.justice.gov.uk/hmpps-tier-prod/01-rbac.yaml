@@ -11,28 +11,8 @@ subjects:
     name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: admin
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: circleci
-  namespace: hmpps-tier-prod
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: hmpps-prod-circleci
-  namespace: hmpps-tier-prod
-subjects:
-  - kind: ServiceAccount
-    name: circleci
-    namespace: hmpps-tier-prod
 roleRef:
   kind: ClusterRole
   name: admin

@@ -29,7 +29,7 @@ variable "namespace" {
 # Database
 
 variable "db_engine_version" {
-  default = "14.7"
+  default = "14.12"
 }
 
 variable "db_instance_class" {
@@ -58,3 +58,5 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
+
+variable "kubernetes_cluster" {}

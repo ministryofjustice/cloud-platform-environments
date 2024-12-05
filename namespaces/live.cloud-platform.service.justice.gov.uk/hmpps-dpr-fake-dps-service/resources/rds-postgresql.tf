@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -19,12 +19,13 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_allocated_storage         = "600"
+  db_max_allocated_storage     = "700"
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "14.9"
+  db_engine_version      = "14.11"
   rds_family             = "postgres14"
   db_instance_class      = "db.t4g.micro"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
@@ -48,7 +49,12 @@ module "rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
-    }
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
   ]
 
   # Tags

@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: laa-crime-hardship-uat
   labels:
+    component: "laa-crime-hardship-uat"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "uat"
     pod-security.kubernetes.io/enforce: restricted

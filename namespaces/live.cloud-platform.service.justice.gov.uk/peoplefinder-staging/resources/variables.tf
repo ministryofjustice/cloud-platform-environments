@@ -12,7 +12,7 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  default = "Central Digital"
+  default = "HQ"
 }
 
 variable "application" {
@@ -39,6 +39,10 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
+variable "repo_name" {
+  default = "peoplefinder"
+}
+
 variable "eks_cluster_name" {
 }
 variable "github_owner" {
@@ -53,3 +57,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

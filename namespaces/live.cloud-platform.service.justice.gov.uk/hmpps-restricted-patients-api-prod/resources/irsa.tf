@@ -5,7 +5,7 @@ locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
-  sns_policies  = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value}
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   irsa_policies = merge(local.sns_policies, {
     restricted_patients_queue                                     = module.restricted_patients_queue.irsa_policy_arn,
     restricted_patients_dead_letter_queue                         = module.restricted_patients_dead_letter_queue.irsa_policy_arn
@@ -17,10 +17,10 @@ locals {
 module "hmpps-restricted-patients" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = var.application
-  role_policy_arns       = local.irsa_policies
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = var.application
+  role_policy_arns     = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application

@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -9,9 +9,10 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  db_instance_class           = "db.t3.small"
+  db_instance_class           = "db.t3.medium"
   db_engine_version           = "14"
   allow_major_version_upgrade = "false"
+  performance_insights_enabled = "true"
 }
 
 resource "random_id" "risk_profiler_role_password" {

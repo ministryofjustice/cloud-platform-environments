@@ -9,12 +9,32 @@ resource "aws_iam_access_key" "key_2023" {
 
 data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
   statement {
+    actions = ["s3:PutObject", "s3:ListBucket", "s3:GetObject", "s3:DeleteObject"]
+
+    resources = [
+      module.ims_images_storage_bucket.bucket_arn,
+      "${module.ims_images_storage_bucket.bucket_arn}/*",
+      module.ims_attachments_storage_bucket.bucket_arn,
+      "${module.ims_attachments_storage_bucket.bucket_arn}/*",
+      module.mercury_data_entities_bucket.bucket_arn,
+      "${module.mercury_data_entities_bucket.bucket_arn}/*",
+      module.ims_dissemination_storage_bucket.bucket_arn,
+      "${module.ims_dissemination_storage_bucket.bucket_arn}/*",
+      module.ims_audit_files_storage_bucket.bucket_arn,
+      "${module.ims_audit_files_storage_bucket.bucket_arn}/*"
+    ]
+  }
+
+  statement {
     actions = ["s3:PutObject", "sqs:SendMessage", "sqs:GetQueueUrl"]
 
     resources = [
       module.manage_intelligence_extractor_bucket.bucket_arn,
       "${module.manage_intelligence_extractor_bucket.bucket_arn}/*",
-      module.ims_extractor_queue.sqs_arn
+      module.ims_extractor_queue.sqs_arn,
+      module.ims_extractor_dead_letter_queue.sqs_arn,
+      module.attachment_metadata_extractor_queue.sqs_arn,
+      module.attachment_metadata_extractor_dead_letter_queue.sqs_arn
     ]
   }
 
@@ -23,10 +43,7 @@ data "aws_iam_policy_document" "ims_legacy_extractor_policy" {
 
     actions = ["s3:*"]
 
-    resources = [
-      module.manage_intelligence_extractor_bucket.bucket_arn,
-      "${module.manage_intelligence_extractor_bucket.bucket_arn}/*"
-    ]
+    resources = ["*"]
 
     condition {
       test     = "Bool"

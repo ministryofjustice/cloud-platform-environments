@@ -1,10 +1,10 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers        = ["github"]
-  github_repositories   = ["help-with-child-arrangements"]
+  oidc_providers      = ["github"]
+  github_repositories = ["help-with-child-arrangements"]
 
   lifecycle_policy = <<EOF
   {

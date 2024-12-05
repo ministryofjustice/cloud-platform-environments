@@ -1,11 +1,6 @@
-
-
-variable "vpc_name" {
-}
-
-
-variable "kubernetes_cluster" {
-}
+variable "vpc_name" {}
+variable "kubernetes_cluster" {}
+variable "eks_cluster_name" {}
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -26,7 +21,7 @@ variable "team_name" {
   default     = "probation-integration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
@@ -77,4 +72,81 @@ variable "github_actions_secret_kube_cert" {
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this service account"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  default = [
+    {
+      api_groups = [""]
+      resources  = ["pods/log"]
+      verbs      = ["get"]
+    },
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "pods/exec",
+        "pods/attach",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods"
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+        "certmanager.k8s.io",
+        "policy",
+        "monitoring.coreos.com",
+        "batch",
+      ]
+      resources = [
+        "deployments",
+        "deployments/scale",
+        "ingresses",
+        "replicasets",
+        "poddisruptionbudgets",
+        "certificates",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+        "cronjobs",
+        "jobs",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}
+
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
 }

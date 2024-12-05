@@ -1,13 +1,13 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.small"
-  engine_version          = "7.0"
-  parameter_group_name    = "default.redis7"
+  node_type            = "cache.t4g.small"
+  engine_version       = "7.0"
+  parameter_group_name = "default.redis7"
 
   # Tags
   business_unit          = var.business_unit

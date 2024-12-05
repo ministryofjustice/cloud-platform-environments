@@ -56,7 +56,7 @@ resource "kubernetes_secret" "irsa" {
 }
 
 resource "github_actions_secret" "irsa_service_account" {
-  repository      = "cjs_scorecard_exploratory_analysis"
+  repository      = "cjs-dashboard"
   secret_name     = "DEV_IRSA_SERVICE_ACCOUNT"
   plaintext_value = module.irsa.service_account.name
 }

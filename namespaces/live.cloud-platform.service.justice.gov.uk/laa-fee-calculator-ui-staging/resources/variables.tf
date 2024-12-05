@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-clair-taskforce"
+  default     = "laa-crime-higher-billing"
 }
 
 variable "github_owner" {

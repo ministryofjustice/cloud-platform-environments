@@ -58,6 +58,54 @@ resource "aws_cognito_user_pool_client" "ccp_client_prd" {
   generate_secret                      = true
 }
 
+resource "aws_cognito_user_pool_client" "orchestration_client_dev" {
+  name                                 = var.cognito_user_pool_orchestration_client_name_dev
+  user_pool_id                         = aws_cognito_user_pool.evidence_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.evidence_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "orchestration_client_tst" {
+  name                                 = var.cognito_user_pool_orchestration_client_name_tst
+  user_pool_id                         = aws_cognito_user_pool.evidence_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.evidence_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "orchestration_client_uat" {
+  name                                 = var.cognito_user_pool_orchestration_client_name_uat
+  user_pool_id                         = aws_cognito_user_pool.evidence_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.evidence_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
+resource "aws_cognito_user_pool_client" "orchestration_client_prd" {
+  name                                 = var.cognito_user_pool_orchestration_client_name_prd
+  user_pool_id                         = aws_cognito_user_pool.evidence_user_pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.evidence_resource_server.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
 resource "kubernetes_secret" "aws_cognito_user_pool_evidence_dev" {
   metadata {
     name      = "evidence-dev-client-credentials"
@@ -66,6 +114,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_evidence_dev" {
   data = {
     ccp_client_id     = aws_cognito_user_pool_client.ccp_client_dev.id
     ccp_client_secret = aws_cognito_user_pool_client.ccp_client_dev.client_secret
+    orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_dev.id
+    orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_dev.client_secret
   }
 }
 
@@ -77,6 +127,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_evidence_tst" {
   data = {
     ccp_client_id     = aws_cognito_user_pool_client.ccp_client_tst.id
     ccp_client_secret = aws_cognito_user_pool_client.ccp_client_tst.client_secret
+    orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_tst.id
+    orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_tst.client_secret
   }
 }
 
@@ -88,6 +140,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_evidence_uat" {
   data = {
     ccp_client_id     = aws_cognito_user_pool_client.ccp_client_uat.id
     ccp_client_secret = aws_cognito_user_pool_client.ccp_client_uat.client_secret
+    orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_uat.id
+    orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_uat.client_secret
   }
 }
 
@@ -110,5 +164,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_evidence_prd" {
   data = {
     ccp_client_id     = aws_cognito_user_pool_client.ccp_client_prd.id
     ccp_client_secret = aws_cognito_user_pool_client.ccp_client_prd.client_secret
+    orchestration_client_id = aws_cognito_user_pool_client.orchestration_client_prd.id
+    orchestration_client_secret = aws_cognito_user_pool_client.orchestration_client_prd.client_secret
   }
 }

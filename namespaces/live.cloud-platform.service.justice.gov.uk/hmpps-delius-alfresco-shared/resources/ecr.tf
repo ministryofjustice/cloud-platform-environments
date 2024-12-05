@@ -5,14 +5,14 @@
  *
  */
 module "alfresco-content-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "alfresco-content-repository"
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["hmpps-alfresco","hmpps-delius-alfresco-poc"]
+  github_repositories   = ["hmpps-alfresco", "hmpps-delius-alfresco"]
   github_actions_prefix = "content"
 
   # Tags
@@ -26,14 +26,14 @@ module "alfresco-content-ecr" {
 }
 
 module "alfresco-share-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   # Repository configuration
   repo_name = "alfresco-share"
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["hmpps-delius-alfresco-poc"]
+  github_repositories   = ["hmpps-alfresco", "hmpps-delius-alfresco"]
   github_actions_prefix = "share"
 
   # Tags

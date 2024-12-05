@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 # Generate an additional IAM user to manage API Gateway
 resource "random_id" "api_gateway_id" {
   byte_length = 16
@@ -15,11 +17,35 @@ resource "aws_iam_access_key" "api_gateway_user" {
 data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
-      "apigateway:*",
+      "apigateway:*"
     ]
 
     resources = [
       "${element(split("/", aws_api_gateway_rest_api.api_gateway.arn), 0)}/*",
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      module.certificate_backup.bucket_arn
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectAcl"
+    ]
+
+    resources = [
+      "${module.certificate_backup.bucket_arn}/*"
     ]
   }
 }
@@ -70,9 +96,29 @@ resource "aws_iam_role_policy" "api_gw_s3" {
 EOF
 }
 
+resource "aws_iam_role" "cloudwatch" {
+  name               = "api_gateway_cloudwatch_global"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
 data "aws_iam_policy_document" "cloudwatch" {
   statement {
     effect = "Allow"
+
 
     actions = [
       "logs:CreateLogGroup",
@@ -90,6 +136,82 @@ data "aws_iam_policy_document" "cloudwatch" {
 
 resource "aws_iam_role_policy" "cloudwatch" {
   name   = "${var.namespace}-default"
-  role   = aws_iam_role.api_gateway_role.id
+  role   = aws_iam_role.cloudwatch.id
   policy = data.aws_iam_policy_document.cloudwatch.json
+}
+
+
+data "aws_iam_policy_document" "secrets_manager_access" {
+  statement {
+    actions = [
+      "secretsmanager:Get*",
+      "secretsmanager:PutSecretValue",
+      "secretsmanager:DescribeSecret"
+    ]
+    resources = [
+      "arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-hmpps-integration-api-dev-*-*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "secrets_manager_access" {
+  name   = "${var.namespace}-secretsmanager-access"
+  policy = data.aws_iam_policy_document.secrets_manager_access.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
+resource "aws_iam_role" "sqs" {
+  name = "${var.namespace}-sqs"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession",
+        ],
+        Effect = "Allow"
+        Sid    = "AllowApiGatewayStsIntegrationToAssume"
+        Principal = {
+          AWS = aws_iam_role.sts_integration.arn
+        }
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "sqs" {
+  for_each = local.client_queues
+  name     = "${var.namespace}-${each.key}-sqs"
+  role     = aws_iam_role.sqs.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sqs:ChangeMessageVisibility",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:PurgeQueue",
+          "sqs:ReceiveMessage",
+        ],
+        Effect = "Allow"
+        Sid    = "AccessQueue"
+        Resource = ["arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${each.value}"]
+        Condition = {
+          StringEquals = {
+            "aws:PrincipalTag/ClientId" = each.key
+          }
+        }
+      },
+    ]
+  })
 }

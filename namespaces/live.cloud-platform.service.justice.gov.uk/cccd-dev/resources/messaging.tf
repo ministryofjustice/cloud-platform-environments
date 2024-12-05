@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
 
   # Configuration
   topic_display_name = "cccd-claims-submitted"
@@ -29,7 +29,6 @@ module "claims_for_ccr" {
   {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -60,7 +59,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-CCR-development-AppInfrastructureTe-AppEc2Role-PLQM8D8ZB1P2"
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-3ab329ded7b6e632-live"
               ]
           },
           "Resource": "${module.claims_for_ccr.sqs_arn}",
@@ -71,7 +70,7 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_ccr.sqs_arn}",
-          "Action": "sqs:*",
+          "Action": "SQS:SendMessage",
           "Condition":
             {
               "ArnEquals":
@@ -98,7 +97,6 @@ module "claims_for_cclf" {
   {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -129,7 +127,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-CCLF-development-AppInfrastructureT-AppEc2Role-ADMNU7CYTI7R"
+            "arn:aws:iam::754256621582:role/cloud-platform-irsa-de9466b31f4c736e-live"
               ]
           },
           "Resource": "${module.claims_for_cclf.sqs_arn}",
@@ -140,7 +138,7 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
           "Resource": "${module.claims_for_cclf.sqs_arn}",
-          "Action": "sqs:*",
+          "Action": "SQS:SendMessage",
           "Condition":
             {
               "ArnEquals":
@@ -167,7 +165,6 @@ module "responses_for_cccd" {
   {
     "deadLetterTargetArn": "${module.cccd_response_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
-
 EOF
 
   # Tags
@@ -182,34 +179,6 @@ EOF
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "responses_for_cccd" {
-  queue_url = module.responses_for_cccd.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.responses_for_cccd.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "LandingZonePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-CCLF-development-AppInfrastructureT-AppEc2Role-ADMNU7CYTI7R",
-            "arn:aws:iam::411213865113:role/LAA-CCR-development-AppInfrastructureTe-AppEc2Role-PLQM8D8ZB1P2"
-              ]
-          },
-          "Resource": "${module.responses_for_cccd.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        }
-      ]
-  }
-
-EOF
-
 }
 
 module "ccr_dead_letter_queue" {
@@ -278,7 +247,7 @@ module "cccd_response_dead_letter_queue" {
 resource "kubernetes_secret" "cccd_claims_submitted" {
   metadata {
     name      = "cccd-messaging"
-    namespace = "cccd-dev"
+    namespace = var.namespace
   }
 
   data = {

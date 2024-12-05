@@ -1,17 +1,17 @@
 module "rds_aurora_legacy" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=3.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.2"
+  engine_version = "15.4"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
     min_capacity = 1
-    max_capacity = 10
+    max_capacity = 16
   }
   replica_count                = 1
   performance_insights_enabled = true

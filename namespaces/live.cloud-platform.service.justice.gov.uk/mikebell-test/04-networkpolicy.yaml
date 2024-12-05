@@ -25,20 +25,3 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-prometheus-scraping
-  namespace: mikebell-test
-spec:
-  podSelector:
-    matchLabels:
-      app: mikebell-test
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: monitoring

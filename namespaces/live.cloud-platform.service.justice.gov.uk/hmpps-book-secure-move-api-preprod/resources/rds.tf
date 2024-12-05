@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name = var.vpc_name
 
@@ -20,9 +20,10 @@ module "rds-instance" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.medium"
   db_engine            = "postgres"
-  db_engine_version    = "12.14"
-  rds_family           = "postgres12"
+  db_engine_version    = "16.2"
+  rds_family           = "postgres16"
 
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "false"
   allow_major_version_upgrade = "false"
@@ -40,6 +41,26 @@ module "rds-instance" {
       name         = "rds.force_ssl"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
     }
   ]
 }
@@ -49,7 +70,7 @@ provider "postgresql" {
   database         = module.rds-instance.database_name
   username         = module.rds-instance.database_username
   password         = module.rds-instance.database_password
-  expected_version = "10.6"
+  expected_version = "16.2"
   sslmode          = "require"
   connect_timeout  = 15
 }
@@ -66,12 +87,23 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "preprod-refresh-creds" {
+  metadata {
+    name      = "preprod-rds-creds"
+    namespace = "hmpps-book-secure-move-api-production"
+  }
+
+  data = {
+    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-instance.rds_instance_endpoint}/${module.rds-instance.database_name}"
   }
 }
 
 module "rds-read-replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name = var.vpc_name
 
@@ -86,20 +118,23 @@ module "rds-read-replica" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.small"
 
-  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.rds-instance.db_identifier
+  prepare_for_major_upgrade = false
 
   # Set to true for replica database. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  db_engine_version = "12.14"
-  rds_family        = "postgres12"
+  db_engine_version = "16.3"
+  rds_family        = "postgres16"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -110,6 +145,10 @@ module "rds-read-replica" {
   ]
 }
 
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
 
 resource "kubernetes_secret" "rds-read-replica" {
   metadata {
@@ -118,6 +157,6 @@ resource "kubernetes_secret" "rds-read-replica" {
   }
 
   data = {
-    url               = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
+    url = "postgres://${module.rds-instance.database_username}:${module.rds-instance.database_password}@${module.rds-read-replica.rds_instance_endpoint}/${module.rds-read-replica.database_name}"
   }
 }

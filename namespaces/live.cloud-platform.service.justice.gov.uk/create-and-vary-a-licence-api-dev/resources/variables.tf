@@ -9,7 +9,7 @@ variable "eks_cluster_name" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Create and vary a licence API"
+  default     = "create-and-vary-a-licence-api"
 }
 
 variable "namespace" {
@@ -57,3 +57,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

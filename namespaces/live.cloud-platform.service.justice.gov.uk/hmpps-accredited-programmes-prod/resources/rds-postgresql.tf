@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -15,14 +15,14 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+#  enable_rds_auto_start_stop   = true # Commenting - we want the service to be running 24/7 which is why we are commenting this line.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.12"
   rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application

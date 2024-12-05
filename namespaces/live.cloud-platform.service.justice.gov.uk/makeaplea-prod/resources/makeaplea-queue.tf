@@ -26,26 +26,6 @@ module "makeaplea_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "makeaplea_queue_policy" {
-  queue_url = module.makeaplea_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.makeaplea_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.makeaplea_queue.sqs_arn}",
-          "Action": "SQS:SendMessage"
-        }
-      ]
-  }
-   EOF
-}
-
 module "makeaplea_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
@@ -74,9 +54,10 @@ resource "kubernetes_secret" "makeaplea_queue" {
   }
 
   data = {
-    sqs_id   = module.makeaplea_queue.sqs_id
-    sqs_arn  = module.makeaplea_queue.sqs_arn
-    sqs_name = module.makeaplea_queue.sqs_name
+    irsa_policy_arn                = module.makeaplea_queue.irsa_policy_arn
+    sqs_id                         = module.makeaplea_queue.sqs_id
+    sqs_arn                        = module.makeaplea_queue.sqs_arn
+    sqs_name                       = module.makeaplea_queue.sqs_name
   }
 }
 
@@ -87,8 +68,9 @@ resource "kubernetes_secret" "makeaplea_dead_letter_queue" {
   }
 
   data = {
-    sqs_id   = module.makeaplea_dead_letter_queue.sqs_id
-    sqs_arn  = module.makeaplea_dead_letter_queue.sqs_arn
-    sqs_name = module.makeaplea_dead_letter_queue.sqs_name
+    irsa_policy_arn = module.makeaplea_dead_letter_queue.irsa_policy_arn
+    sqs_id          = module.makeaplea_dead_letter_queue.sqs_id
+    sqs_arn         = module.makeaplea_dead_letter_queue.sqs_arn
+    sqs_name        = module.makeaplea_dead_letter_queue.sqs_name
   }
 }

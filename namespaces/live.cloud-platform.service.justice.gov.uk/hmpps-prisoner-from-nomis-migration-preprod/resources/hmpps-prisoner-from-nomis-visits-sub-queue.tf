@@ -18,7 +18,7 @@ module "prisoner_from_nomis_visits_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -68,7 +68,7 @@ module "prisoner_from_nomis_visits_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -103,10 +103,10 @@ resource "kubernetes_secret" "prisoner_from_nomis_visits_dead_letter_queue" {
 }
 
 resource "aws_sns_topic_subscription" "prisoner_from_nomis_visits_subscription" {
-  provider      = aws.london
-  topic_arn     = data.aws_ssm_parameter.offender-events-topic-arn.value
-  protocol      = "sqs"
-  endpoint      = module.prisoner_from_nomis_visits_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_visits_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "VISIT_CANCELLED"

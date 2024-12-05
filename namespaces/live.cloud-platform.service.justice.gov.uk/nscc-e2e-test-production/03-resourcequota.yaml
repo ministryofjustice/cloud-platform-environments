@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: nscc-e2e-test-production
+spec:
+  hard:
+    pods: "50"

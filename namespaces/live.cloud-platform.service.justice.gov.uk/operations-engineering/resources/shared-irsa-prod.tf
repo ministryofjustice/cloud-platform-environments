@@ -14,12 +14,10 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    dynamo_ap_gh_collab           = module.ap_gh_collab_repo_tf_state_lock.irsa_policy_arn
-    dynamo_moj_gh_collab          = module.opseng_tf_state_lock.irsa_policy_arn
-    s3_ap_gh_collab               = module.ap_gh_collab_repo_s3_bucket.irsa_policy_arn
-    s3_moj_gh_collab              = module.s3_bucket.irsa_policy_arn
-    s3_terraform_template_poc     = module.terraform_template_poc_state_bucket.irsa_policy_arn
-    dynamo_terraform_template_poc = module.terraform_template_poc_state_lock_table.irsa_policy_arn
+    dynamo_ap_gh_collab  = module.ap_gh_collab_repo_tf_state_lock.irsa_policy_arn
+    dynamo_moj_gh_collab = module.opseng_tf_state_lock.irsa_policy_arn
+    s3_ap_gh_collab      = module.ap_gh_collab_repo_s3_bucket.irsa_policy_arn
+    s3_moj_gh_collab     = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags

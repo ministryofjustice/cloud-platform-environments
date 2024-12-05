@@ -12,11 +12,11 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    redis = module.redis-elasticache.irsa_policy_arn
-    s3_docs = module.book_a_secure_move_documents_s3_bucket.irsa_policy_arn
-    s3_metrics = module.book_a_secure_move_metrics_s3_bucket.irsa_policy_arn
+    redis        = module.redis-elasticache.irsa_policy_arn
+    s3_docs      = module.book_a_secure_move_documents_s3_bucket.irsa_policy_arn
+    s3_metrics   = module.book_a_secure_move_metrics_s3_bucket.irsa_policy_arn
     s3_reporting = module.book_a_secure_move_reporting_s3_bucket.irsa_policy_arn
-    rds = module.rds-instance.irsa_policy_arn
+    rds          = module.rds-instance.irsa_policy_arn
 
 
   }

@@ -19,7 +19,7 @@ resource "aws_iam_policy" "policy" {
 module "irsa" {
   #always replace with latest version from Github
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  
+
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 

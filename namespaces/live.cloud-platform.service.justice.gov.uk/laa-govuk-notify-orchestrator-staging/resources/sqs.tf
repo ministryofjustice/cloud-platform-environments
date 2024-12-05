@@ -20,7 +20,7 @@ module "laa_govuk_notify_orchestrator_staging_sqs" {
   fifo_queue                  = "true"
   content_based_deduplication = "false"
   receive_wait_time_seconds   = 10
-  visibility_timeout_seconds  = 7320  # 2 Hours + 120 seconds to allow for worse case network/ execution time.
+  visibility_timeout_seconds  = 7320 # 2 Hours + 120 seconds to allow for worse case network/ execution time.
 
   providers = {
     aws = aws.london
@@ -61,9 +61,9 @@ module "laa_govuk_notify_orchestrator_staging_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  
+
   # Queue Parameters
-  fifo_queue             = "true"
+  fifo_queue = "true"
 
   providers = {
     aws = aws.london

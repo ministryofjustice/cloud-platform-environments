@@ -1,6 +1,6 @@
 
 module "hmpps_assess_risks_and_needs_prod_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -12,10 +12,7 @@ module "hmpps_assess_risks_and_needs_prod_rds" {
   rds_family             = "postgres14"
   db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
-  db_engine_version      = "14.3"
-
-  allow_minor_version_upgrade = "false"
-  allow_major_version_upgrade = "false"
+  db_engine_version      = "14"
 
   providers = {
     aws = aws.london

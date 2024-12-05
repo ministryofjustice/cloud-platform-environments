@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "laa-dces@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crimeapps-core"
+  default     = "laa-dces"
 }
 
 variable "github_owner" {
@@ -77,9 +77,14 @@ variable "user_pool_name" {
   default     = "dces-drc-api-dev-userpool"
 }
 
-variable "cognito_user_pool_client_name" {
-  description = "Cognito user pool client name"
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
   default     = "dces-drc-api-dev"
+}
+
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-dev"
 }
 
 variable "resource_server_identifier" {
@@ -103,4 +108,104 @@ variable "resource_server_scope_description" {
 
 variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
+}
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_dev_db"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources  = ["pods/exec"]
+      verbs      = ["create"]
+    },
+    {
+      "api_groups": [""],
+      "resources": [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods"
+      ],
+      "verbs": [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy"
+      ],
+      "resources": [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "monitoring.coreos.com"
+      ],
+      "resources": [
+        "prometheusrules",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "api_groups": [
+        "autoscaling"
+      ],
+      "resources": [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
+  ]
 }

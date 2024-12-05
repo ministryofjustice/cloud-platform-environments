@@ -21,18 +21,18 @@ module "s3" {
   lifecycle_rule = [
     {
       enabled = true
-      id      = "delete email attachments after 5 weeks"
+      id      = "delete email attachments after 10 weeks"
       prefix  = "emails/"
 
       abort_incomplete_multipart_upload_days = 2
       noncurrent_version_expiration = [
         {
-          days = 35
+          days = 70
         },
       ]
       expiration = [
         {
-          days = 35
+          days = 70
         },
       ]
     },

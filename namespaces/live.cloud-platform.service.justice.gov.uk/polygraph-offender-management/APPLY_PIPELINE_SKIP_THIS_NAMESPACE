@@ -1,0 +1,29 @@
+Error: POST https://api.github.com/repos/ministryofjustice/polygraph-offender-management/actions/variables: 409 Already exists - Variable already exists []
+
+  with module.ecr-repo.github_actions_variable.ecr_region["polygraph-offender-management"],
+  on .terraform/modules/ecr-repo/main.tf line 304, in resource "github_actions_variable" "ecr_region":
+ 304: resource "github_actions_variable" "ecr_region" {
+
+
+Error: POST https://api.github.com/repos/ministryofjustice/polygraph-offender-management/actions/variables: 409 Already exists - Variable already exists []
+
+  with module.ecr-repo.github_actions_variable.ecr_repository["polygraph-offender-management"],
+  on .terraform/modules/ecr-repo/main.tf line 312, in resource "github_actions_variable" "ecr_repository":
+ 312: resource "github_actions_variable" "ecr_repository" {
+
+
+exit status 1
+
+Error: POST https://api.github.com/repos/ministryofjustice/polygraph-offender-management/actions/variables: 409 Already exists - Variable already exists []
+
+  with module.ecr-repo.github_actions_variable.ecr_region["polygraph-offender-management"],
+  on .terraform/modules/ecr-repo/main.tf line 304, in resource "github_actions_variable" "ecr_region":
+ 304: resource "github_actions_variable" "ecr_region" {
+
+
+Error: POST https://api.github.com/repos/ministryofjustice/polygraph-offender-management/actions/variables: 409 Already exists - Variable already exists []
+
+  with module.ecr-repo.github_actions_variable.ecr_repository["polygraph-offender-management"],
+  on .terraform/modules/ecr-repo/main.tf line 312, in resource "github_actions_variable" "ecr_repository":
+ 312: resource "github_actions_variable" "ecr_repository" {
+  subcommand=apply

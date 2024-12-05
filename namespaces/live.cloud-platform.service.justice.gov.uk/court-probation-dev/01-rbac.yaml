@@ -8,8 +8,14 @@ subjects:
     name: "github:probation-in-court"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:probation-integration"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: cd-serviceaccount
+    namespace: hmpps-probation-integration
 roleRef:
   kind: ClusterRole
   name: admin

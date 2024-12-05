@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: person-on-probation-user-prod-cert
+  namespace: hmpps-person-on-probation-user-service-prod
+spec:
+  secretName: person-on-probation-user-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - person-on-probation-user-api.hmpps.service.justice.gov.uk

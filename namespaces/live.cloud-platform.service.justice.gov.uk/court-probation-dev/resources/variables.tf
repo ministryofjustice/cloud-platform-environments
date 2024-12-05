@@ -43,7 +43,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "14.4"
+  default = "14.12"
 }
 
 variable "db_instance_class" {
@@ -72,3 +72,11 @@ variable "github_token" {
 variable "eks_cluster_name" {
 }
 
+variable "kubernetes_cluster" {
+}
+
+variable "slack_channel" {
+    type        = string
+    description = "Cloud Platform will contact our team via this slack channel"
+    default     = "pic-mafia"
+}

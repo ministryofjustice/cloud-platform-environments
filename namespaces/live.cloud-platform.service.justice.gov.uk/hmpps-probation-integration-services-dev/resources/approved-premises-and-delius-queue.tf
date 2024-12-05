@@ -15,24 +15,24 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
 }
 
 module "approved-premises-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name = "approved-premises-and-delius-queue-queue"
-
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.approved-premises-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
   # Tags
-  business_unit          = var.business_unit
   application            = "approved-premises-and-delius-queue"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
+  github_team            = "some-other-team" # expecting this to override default_tags
 }
 
 resource "aws_sqs_queue_policy" "approved-premises-and-delius-queue-policy" {
@@ -41,19 +41,21 @@ resource "aws_sqs_queue_policy" "approved-premises-and-delius-queue-policy" {
 }
 
 module "approved-premises-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
-  sqs_name = "approved-premises-and-delius-dlq"
+  sqs_name                  = "approved-premises-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
-  business_unit          = var.business_unit
   application            = "approved-premises-and-delius"
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name # also used as queue name prefix
+  #github_team           = "not-set" # expecting default_tags to still apply
 }
 
 resource "aws_sqs_queue_policy" "approved-premises-and-delius-dlq-policy" {
@@ -83,5 +85,5 @@ module "approved-premises-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "approved-premises-and-delius"
-  role_policy_arns     = { sqs = module.approved-premises-and-delius-queue.irsa_policy_arn }
+  role_policy_arns = { sqs = module.approved-premises-and-delius-queue.irsa_policy_arn }
 }

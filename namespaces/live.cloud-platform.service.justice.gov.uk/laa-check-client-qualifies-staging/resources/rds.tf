@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -18,16 +18,17 @@ module "rds" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name             = "ccq-rds-staging"
+  rds_name = "ccq-rds-staging"
 
   # enable performance insights
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14"
+  db_engine_version = "14.12"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.micro"
+  db_max_allocated_storage = "500"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
@@ -62,7 +63,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

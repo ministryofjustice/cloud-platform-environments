@@ -30,10 +30,10 @@ variable "repo_name" {
   default = "c100-application"
 }
 
-# Database 
+# Database
 
 variable "db_engine_version" {
-  default = "14.7"
+  default = "14.11"
 }
 
 variable "db_instance_class" {
@@ -64,3 +64,5 @@ variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
 
+
+variable "kubernetes_cluster" {}

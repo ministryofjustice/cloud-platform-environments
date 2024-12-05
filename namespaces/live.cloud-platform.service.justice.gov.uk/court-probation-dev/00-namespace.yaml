@@ -12,4 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "court-probation"
     cloud-platform.justice.gov.uk/owner: "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/court-probation-service"
-    cloud-platform.justice.gov.uk/slack-channel: "probation_in_court_alerts"
+    cloud-platform.justice.gov.uk/slack-channel: "probation_in_court_alerts_dev"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "probation_in_court_alerts_dev"

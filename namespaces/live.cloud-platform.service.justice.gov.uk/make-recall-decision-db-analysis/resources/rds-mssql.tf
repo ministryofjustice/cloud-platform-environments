@@ -4,39 +4,31 @@
  * releases page of this repository.
  *
 */
-
 module "rds_mssql" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  # enable performance insights
+  # VPC configuration
+  vpc_name = var.vpc_name
+
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
   performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  db_engine                   = "sqlserver-ex"
-  db_engine_version           = "15.00.4198.2.v1"
-  db_instance_class           = "db.t3.medium"
-  db_allocated_storage        = 32
-  rds_family                  = "sqlserver-ex-15.0"
-  allow_minor_version_upgrade = true
-  allow_major_version_upgrade = false
-  option_group_name           = aws_db_option_group.ppud_backup_rds_option_group.name
+  # SQL Server specifics
+  db_engine            = "sqlserver-web"
+  db_engine_version    = "16.00.4140.3.v1"
+  rds_family           = "sqlserver-web-16.0"
+  db_instance_class    = "db.t3.small"
+  db_allocated_storage = 32 # minimum of 20GiB for SQL Server
+
+  option_group_name = aws_db_option_group.sqlserver_backup_rds_option_group.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  # enable_rds_auto_start_stop  = true
-
-  # This will rotate the db password. Update the value to the current date.
-  # db_password_rotated_date  = "dd-mm-yyyy"
-
   db_parameter = [
     {
       name         = "rds.force_ssl"
@@ -45,26 +37,14 @@ module "rds_mssql" {
     }
   ]
 
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-  }
-}
-
-resource "aws_db_option_group" "ppud_backup_rds_option_group" {
-  name                     = "ppud-backup"
-  option_group_description = "Enable SQL Server Backup/Restore"
-  engine_name              = "sqlserver-ex"
-  major_engine_version     = "15.00"
-
-  option {
-    option_name = "SQLSERVER_BACKUP_RESTORE"
-
-    option_settings {
-      name  = "IAM_ROLE_ARN"
-      value = aws_iam_role.ppud_backup_s3_iam_role.arn
-    }
-  }
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "kubernetes_secret" "rds_mssql" {
@@ -78,5 +58,21 @@ resource "kubernetes_secret" "rds_mssql" {
     database_username     = module.rds_mssql.database_username
     database_password     = module.rds_mssql.database_password
     rds_instance_address  = module.rds_mssql.rds_instance_address
+  }
+}
+
+resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
+  name                     = "sqlserver-backup-restore"
+  option_group_description = "Enable SQL Server Backup/Restore"
+  engine_name              = "sqlserver-web"
+  major_engine_version     = "16.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+
+    option_settings {
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.ppud_backup_s3_iam_role.arn
+    }
   }
 }

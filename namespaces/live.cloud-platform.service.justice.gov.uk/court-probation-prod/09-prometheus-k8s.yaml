@@ -18,20 +18,19 @@ spec:
         avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress!="court-case-service"}[1m]) * 60 > 0) by (ingress)
       for: 1m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: ErrorResponsesCCS
       annotations:
         message: ingress {{ $labels.ingress }} is serving 5XX responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress="court-case-service"}[1m]) * 60 > 4)
+        avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="court-probation-prod", status=~"5.*", ingress="court-case-service"}[1m]) * 60 > 4) by (ingress)
       for: 1m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: KubeQuotaExceeded
       annotations:
-        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
-          }}% of its {{ $labels.resource }} quota.
+        message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
         100 * kube_resourcequota{namespace="court-probation-prod", job="kube-state-metrics", type="used"}
@@ -40,17 +39,15 @@ spec:
           > 90
       for: 15m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: KubePodCrashLooping
       annotations:
-        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
-          }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+        message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
-      expr: rate(kube_pod_container_status_restarts_total{namespace="court-probation-prod", job="kube-state-metrics"}[15m])
-        * 60 * 5 > 0
+      expr: rate(kube_pod_container_status_restarts_total{namespace="court-probation-prod", job="kube-state-metrics"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
@@ -60,11 +57,10 @@ spec:
         phase=~"Pending|Unknown"}) > 0
       for: 1h
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: KubeDeploymentGenerationMismatch
       annotations:
-        message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
-          }} does not match, this indicates that the Deployment has failed but has
+        message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this indicates that the Deployment has failed but has
           not been rolled back.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
@@ -73,7 +69,7 @@ spec:
         kube_deployment_metadata_generation{namespace="court-probation-prod", job="kube-state-metrics"}
       for: 15m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: KubeDeploymentReplicasMismatch
       annotations:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
@@ -85,7 +81,7 @@ spec:
         kube_deployment_status_replicas_available{namespace="court-probation-prod", job="kube-state-metrics"}
       for: 1h
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: RDSHighCpuCourtCaseService
       annotations:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than ten minutes.
@@ -94,7 +90,7 @@ spec:
         aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-37a1ac1b9a12702e"} > 95
       for: 10m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: RDSHighCpuPreSentenceService
       annotations:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has high CPU (>95%) for more than five minutes.
@@ -103,13 +99,13 @@ spec:
         aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-e98703fc54157c2d"} > 95
       for: 5m
       labels:
-        severity: prepare-a-case
+        severity: probation_in_court_alerts_prod
     - alert: pre-sentence-service-wproofreader-serving-5xx
       annotations:
         message: Pre Sentence Service wproofreader is returning 5xx responses
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
       expr: |-
-        sum(rate(nginx_ingress_controller_requests{ingress=~"pre-sentence-service-wproofreader-v1-2", exported_namespace="laa-apply-for-legalaid-production", status=~"5.."}[5m]))*270 > 0
+        sum(rate(nginx_ingress_controller_requests{ingress="pre-sentence-service-wproofreader-v1-2", exported_namespace="court-probation-prod", status=~"5.."}[5m]))*270 > 0
       for: 10m
       labels:
-        severity: prepare-a-case  
+        severity: probation_in_court_alerts_prod  

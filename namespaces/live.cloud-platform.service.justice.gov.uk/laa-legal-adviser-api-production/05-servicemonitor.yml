@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-legal-adviser-api-production-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: laa-legal-adviser-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

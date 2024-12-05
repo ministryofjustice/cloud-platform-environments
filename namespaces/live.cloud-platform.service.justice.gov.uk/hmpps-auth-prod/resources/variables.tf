@@ -7,7 +7,7 @@ variable "vpc_name" {
 }
 
 variable "domain" {
-  default = "sign-in-alt.hmpps.service.justice.gov.uk"
+  default = "sign-in.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
@@ -53,3 +53,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

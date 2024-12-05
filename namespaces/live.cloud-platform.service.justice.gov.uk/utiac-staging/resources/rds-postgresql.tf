@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -12,9 +12,9 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.12"
   rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -33,7 +33,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -51,7 +51,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "14.7"
   rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.medium"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db

@@ -25,14 +25,9 @@ variable "team_name" {
   default     = "dps-core"
 }
 
-variable "environment-name" {
-  description = "The type of environment you're deploying to."
-  default     = "prod"
-}
-
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -64,3 +59,5 @@ variable "github_token" {
   default     = ""
 }
 
+
+variable "kubernetes_cluster" {}

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: utiac-justice-app-cert
+  namespace: utiac-prod
+spec:
+  secretName: utiac-justice-app-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - tribunalsdecisions.service.gov.uk

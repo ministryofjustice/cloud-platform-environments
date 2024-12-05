@@ -5,4 +5,4 @@ metadata:
   namespace: hmpps-probation-integration-services-dev
 spec:
   hard:
-    pods: "100"
+    pods: "200"

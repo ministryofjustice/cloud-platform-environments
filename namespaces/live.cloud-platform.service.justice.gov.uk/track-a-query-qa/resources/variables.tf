@@ -34,8 +34,12 @@ variable "team_name" {
   default = "correspondence"
 }
 
+variable "repo_name" {
+  default = "correspondence_tool_staff"
+}
+
 variable "business_unit" {
-  default = "Central Digital"
+  default = "HQ"
 }
 
 variable "application" {
@@ -55,4 +59,7 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
+}
+
+variable "kubernetes_cluster" {
 }

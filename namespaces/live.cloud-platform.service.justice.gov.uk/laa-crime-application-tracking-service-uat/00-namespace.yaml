@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-crime-application-tracking-service-uat"
   labels:
+    component: "laa-crime-application-tracking-service-uat"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "uat"
     pod-security.kubernetes.io/enforce: restricted

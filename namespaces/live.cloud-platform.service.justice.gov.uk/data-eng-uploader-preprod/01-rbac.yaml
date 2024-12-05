@@ -5,7 +5,7 @@ metadata:
   namespace: data-eng-uploader-preprod
 subjects:
   - kind: Group
-    name: "github:prison-probation-data-engineering"
+    name: "github:data-engineering"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -51,3 +51,7 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
+}

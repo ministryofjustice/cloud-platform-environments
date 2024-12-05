@@ -1,5 +1,5 @@
 module "edu_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -8,11 +8,12 @@ module "edu_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  rds_family                  = var.rds_family
-  allow_major_version_upgrade = "false"
+  rds_family                  = "postgres16"
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "14"
+  db_engine_version           = "16.2"
   enable_rds_auto_start_stop  = true
 
   providers = {

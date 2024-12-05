@@ -23,15 +23,15 @@ module "user-filestore-s3-bucket" {
       enabled                                = true
       id                                     = "expire-28d"
       prefix                                 = "28d/"
-      abort_incomplete_multipart_upload_days = 28
+      abort_incomplete_multipart_upload_days = 30
       expiration = [
         {
-          days = 28
+          days = 30
         },
       ]
       noncurrent_version_expiration = [
         {
-          days = 28
+          days = 30
         },
       ]
     },

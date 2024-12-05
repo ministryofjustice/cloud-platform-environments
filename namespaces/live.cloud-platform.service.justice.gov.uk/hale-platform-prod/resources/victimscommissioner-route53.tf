@@ -47,7 +47,7 @@ resource "aws_route53_record" "victimscommissioner_route53_txt_record_main" {
   name    = "victimscommissioner.org.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms22529871", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 ip4:198.37.159.2 ip4:168.245.16.120 include:spf.protection.outlook.com -all", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby"]
+  records = ["MS=ms22529871", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32 ip4:198.37.159.2 ip4:168.245.16.120 include:spf.protection.outlook.com -all", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby", "miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab"]
 }
 
 resource "aws_route53_record" "victimscommissioner_route53_txt_record_amazonses" {

@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-nginx-ingress
+  name: dashboard-nginx-2-ingress
   namespace: monitoring
   labels:
     grafana_dashboard: ""
 data:
-  nginx-ingress-dashboard.json: |
+  nginx-ingress-2-dashboard.json: |
     {
       "__inputs": [],
       "__requires": [

@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
+    "crime_means_assessment_alert_webhook_prod" = {
+      description             = "Crime Means Assessment Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "crime-means-assessment-alert-webhook-prod"
+    }
   }
 }

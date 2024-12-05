@@ -29,7 +29,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "cas3@digital.justice.gov.uk"
+  default     = "casdev@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -57,3 +57,5 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {}
+
+variable "kubernetes_cluster" {}

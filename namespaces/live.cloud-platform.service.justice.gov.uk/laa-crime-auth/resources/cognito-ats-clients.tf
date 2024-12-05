@@ -100,8 +100,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ats_dev" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_dev.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_dev.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_ats_client_dev.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_ats_client_dev.client_secret
     maat_os_client_id     = aws_cognito_user_pool_client.maat_os_client_dev.id
     maat_os_client_secret = aws_cognito_user_pool_client.maat_os_client_dev.client_secret
   }
@@ -113,8 +113,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ats_tst" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_tst.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_tst.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_ats_client_tst.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_ats_client_tst.client_secret
     maat_os_client_id     = aws_cognito_user_pool_client.maat_os_client_tst.id
     maat_os_client_secret = aws_cognito_user_pool_client.maat_os_client_tst.client_secret
   }
@@ -126,8 +126,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ats_uat" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_uat.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_uat.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_ats_client_uat.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_ats_client_uat.client_secret
     maat_os_client_id     = aws_cognito_user_pool_client.maat_os_client_uat.id
     maat_os_client_secret = aws_cognito_user_pool_client.maat_os_client_uat.client_secret
   }
@@ -139,8 +139,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_ats_prd" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_prd.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_prd.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_ats_client_prd.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_ats_client_prd.client_secret
     maat_os_client_id     = aws_cognito_user_pool_client.maat_os_client_prd.id
     maat_os_client_secret = aws_cognito_user_pool_client.maat_os_client_prd.client_secret
   }

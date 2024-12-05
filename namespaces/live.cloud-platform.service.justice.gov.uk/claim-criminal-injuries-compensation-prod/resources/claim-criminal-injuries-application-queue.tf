@@ -139,9 +139,9 @@ resource "kubernetes_secret" "claim-criminal-injuries-application-sqs" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-application-queue.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-application-queue.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-application-queue.sqs_name
+    sqs_id   = module.claim-criminal-injuries-application-queue.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-application-queue.sqs_arn
+    sqs_name = module.claim-criminal-injuries-application-queue.sqs_name
   }
 }
 
@@ -152,8 +152,8 @@ resource "kubernetes_secret" "claim-criminal-injuries-application-dlq" {
   }
 
   data = {
-    sqs_id            = module.claim-criminal-injuries-application-dlq.sqs_id
-    sqs_arn           = module.claim-criminal-injuries-application-dlq.sqs_arn
-    sqs_name          = module.claim-criminal-injuries-application-dlq.sqs_name
+    sqs_id   = module.claim-criminal-injuries-application-dlq.sqs_id
+    sqs_arn  = module.claim-criminal-injuries-application-dlq.sqs_arn
+    sqs_name = module.claim-criminal-injuries-application-dlq.sqs_name
   }
 }

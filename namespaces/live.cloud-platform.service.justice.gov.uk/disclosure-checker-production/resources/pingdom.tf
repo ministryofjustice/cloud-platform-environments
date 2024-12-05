@@ -15,6 +15,6 @@ resource "pingdom_check" "disclosure-checker-production-pingdom" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},component_ping,isproduction_${var.is_production},environment_${var.environment_name},cloudplatform-managed,crossjustice"
   probefilters             = "region:EU"
-  integrationids           = [87620]
+  integrationids           = [139912]
   teamids                  = [385932]
 }

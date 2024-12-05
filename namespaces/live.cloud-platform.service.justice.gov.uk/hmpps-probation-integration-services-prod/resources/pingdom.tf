@@ -38,6 +38,20 @@ resource "pingdom_check" "pingdom" {
     "prisoner-profile-and-delius",
     "prison-identifier-and-delius",
     "assessment-summary-and-delius",
+    "cas2-and-delius",
+    "accredited-programmes-and-oasys",
+    "manage-supervision-and-oasys",
+    "manage-supervision-and-delius",
+    "oasys-and-delius",
+    "feature-flags",
+    "probation-search-and-delius",
+    "core-person-record-and-delius",
+    "subject-access-requests-and-delius",
+    "common-platform-and-delius",
+    "ims-and-delius",
+    "appointment-reminders-and-delius",
+    "justice-email-and-delius",
+    "assess-for-early-release-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

@@ -10,6 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam    = "hmpps-sre"
     }
   }
 }
@@ -22,6 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam    = "hmpps-sre"
     }
   }
 }
@@ -37,6 +39,23 @@ provider "aws" {
     }
   }
 }
+
+###########################################################
+# Added by james - 2024-10-30 - intended to enable ssm to 
+# be accessible through the AWS console
+
+locals {
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+###########################################################
 
 provider "github" {
   token = var.github_token

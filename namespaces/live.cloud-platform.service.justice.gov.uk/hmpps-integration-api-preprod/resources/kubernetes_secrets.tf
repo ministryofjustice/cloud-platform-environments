@@ -37,7 +37,7 @@ resource "kubernetes_secret" "client_certificate_auth" {
   }
 
   data = {
-    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client.pem_encoded_certificate
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client_two.pem_encoded_certificate
   }
 }
 

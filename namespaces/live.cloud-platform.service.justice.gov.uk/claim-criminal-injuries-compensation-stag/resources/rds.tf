@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -11,7 +11,7 @@ module "rds" {
   infrastructure_support = var.email
 
   db_engine                    = "postgres"
-  db_engine_version            = "14.3"
+  db_engine_version            = "14.12"
   db_instance_class            = "db.t4g.micro"
   db_allocated_storage         = "50"
   db_max_allocated_storage     = "500"

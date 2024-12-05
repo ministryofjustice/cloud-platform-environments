@@ -101,16 +101,16 @@ module "s3_bucket" {
     },
     {
       enabled = true
-      id      = "Expire all objects after 30 days"
+      id      = "Expire all objects after 7 days"
       prefix  = ""
       noncurrent_version_expiration = [
         {
-          days = 30
+          days = 7
         }
       ]
       expiration = [
         {
-          days = 30
+          days = 7
         }
       ]
     }

@@ -69,3 +69,5 @@ variable "slack_channel" {
   type        = string
   default     = "cica-digital"
 }
+
+variable "kubernetes_cluster" {}

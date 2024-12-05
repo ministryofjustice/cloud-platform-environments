@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=6.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -11,18 +11,19 @@ module "rds" {
   performance_insights_enabled = false
 
   # general options
-  db_instance_class           = "db.t4g.small"
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
-  allow_major_version_upgrade = "false"
+  db_instance_class      = "db.t4g.small"
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   # turn off database outside of work hours - turns off at 10PM and restart it at 6AM UTC (11PM and 7AM BST).
   enable_rds_auto_start_stop = true
 
   # using mysql
   db_engine         = "mariadb"
-  db_engine_version = "10.4"
-  rds_family        = "mariadb10.4"
+  db_engine_version = "10.11"
+  rds_family        = "mariadb10.11"
+
+  prepare_for_major_upgrade = false
 
   # overwrite db_parameters
   db_parameter = [
@@ -37,6 +38,8 @@ module "rds" {
       apply_method = "immediate"
     }
   ]
+
+  snapshot_identifier = "hale-dev-snapshot-080424"
 
   providers = {
     aws = aws.london

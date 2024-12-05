@@ -3,14 +3,12 @@
 ##########################################
 
 module "pq_ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
   repo_name = var.repo_name
 
-  # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
-
-  # specify which GitHub repository your CircleCI job runs from
+  # enable the oidc implementation for Github Actions
+  oidc_providers      = ["github"]
   github_repositories = [var.repo_name]
 
   lifecycle_policy = <<EOF

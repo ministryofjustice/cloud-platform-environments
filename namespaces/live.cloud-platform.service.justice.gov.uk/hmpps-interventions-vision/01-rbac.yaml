@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-interventions-vision-admin
+  namespace: hmpps-interventions-vision
+subjects:
+  - kind: Group
+    name: "github:hmpps-interventions-vision"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
