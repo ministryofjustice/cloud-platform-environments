@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   deletion_protection = true
 

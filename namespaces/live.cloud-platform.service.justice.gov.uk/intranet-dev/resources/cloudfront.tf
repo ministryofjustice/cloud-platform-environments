@@ -19,10 +19,7 @@ locals {
 }
 
 module "cloudfront" {
-  # !IMPORTANT! It's important that this value points to a repo/module where the trusted_public_keys property is handled.
-  # If it is set to the current main branch, all of our files will be public.
-  # See pending PR https://github.com/ministryofjustice/cloud-platform-terraform-cloudfront/pull/14
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront-edits?ref=cloudfront-functions-draft"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.0"
 
   # Configuration
   bucket_id            = module.s3_bucket.bucket_name

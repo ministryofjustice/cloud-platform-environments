@@ -11,8 +11,8 @@ module "opensearch_alert_modsec" {
     slack_channel_name_description = "live alerts for maw service"
     opensearch_alert_name          = "allocations 406 errors"
     opensearch_alert_enabled       = true
-    monitor_period_interval        = "5"
-    monitor_period_unit            = "MINUTES"
+    monitor_period_interval        = "12"
+    monitor_period_unit            = "HOURS"
     alert_query = jsonencode(
       {
         query = {
@@ -42,7 +42,7 @@ module "opensearch_alert_modsec" {
               {
                 range = {
                   "@timestamp" = {
-                    from = "{{period_end}}||-5m",
+                    from = "{{period_end}}||-720m",
                     to = "{{period_end}}",
                     include_lower = true,
                     include_upper = true,
