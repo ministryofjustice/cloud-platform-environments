@@ -28,7 +28,6 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     {
-      rds_policy            = module.activities_api_rds.irsa_policy_arn,
       activities_rds_policy = module.activities_rds.irsa_policy_arn
     },
     {
