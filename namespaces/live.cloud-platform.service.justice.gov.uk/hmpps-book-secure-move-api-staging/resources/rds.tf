@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name = var.vpc_name
 
@@ -33,13 +33,41 @@ module "rds-instance" {
     aws = aws.london
   }
 
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+
   db_parameter = [
     {
       name         = "rds.force_ssl"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
     }
   ]
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
 
 resource "kubernetes_secret" "rds-instance" {
