@@ -167,6 +167,8 @@ data:
           "title": "Object Heap Memory Used",
           "type": "timeseries"
         },
+        
+        
         {
           "datasource": {
             "type": "prometheus",
@@ -375,6 +377,113 @@ data:
           "title": "Increases in logs in past 10 minutes (error and info level)",
           "type": "timeseries"
         },
+        
+        
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Acknowledge API Calls count from DRC",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 23
+          },
+          "id": 31,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(laa_dces_drc_service_process_drc_update_contributions_seconds_count{namespace=\"$namespace\"}[$__rate_interval]))",
+              "legendFormat": "Contribution",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum(rate(laa_dces_drc_service_process_drc_update_fdc_seconds_count{namespace=\"$namespace\"}[$__rate_interval]))",
+              "hide": false,
+              "legendFormat": "FDC",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Acknowledge API Calls count from DRC",
+          "type": "timeseries"
+        },
+        
         {
           "datasource": {
             "type": "prometheus",
@@ -478,8 +587,115 @@ data:
           ],
           "title": "Total calls to Maat-API",
           "type": "timeseries"
+        },
+        
+        
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Failed API calls to maat-api",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 23
+          },
+          "id": 31,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method) (increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\",status=\"4xx\", uri=~\".*/debt-collection-enforcement/log-contribution-response\"}[$__rate_interval]))",
+              "legendFormat": "Contribution",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum by (method) (increase(webclient_requests_seconds_count{method=\"POST\", namespace=\"$namespace\", status=\"4xx\" ,uri=~\".*/debt-collection-enforcement/log-fdc-response\"}[$__rate_interval]))",
+              "hide": false,
+              "legendFormat": "FDC",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Failed 4xx calls to Maat-API",
+          "type": "timeseries"
         }
-      ],
+        
+       ],
       "refresh": "30s",
       "schemaVersion": 37,
       "style": "dark",
