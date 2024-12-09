@@ -85,11 +85,6 @@ module "cpr_delius_delete_events_dead_letter_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "cpr_delius_delete_events_queue_policy" {
-  queue_url = module.cpr_delius_delete_events_queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_delius_delete_sqs_queue_policy_document.json
-}
-
 ########  Secrets
 
 resource "kubernetes_secret" "cpr_delius_delete_events_queue" {
