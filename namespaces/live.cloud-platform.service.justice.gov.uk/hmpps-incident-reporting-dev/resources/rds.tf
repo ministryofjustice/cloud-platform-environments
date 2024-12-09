@@ -100,6 +100,9 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
   db_parameter = [
