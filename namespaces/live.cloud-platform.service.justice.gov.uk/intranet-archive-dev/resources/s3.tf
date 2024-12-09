@@ -10,28 +10,6 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
-  bucket_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Id": "PolicyForCloudFrontPrivateContent",
-    "Statement": [
-        {
-            "Sid": "AllowCloudFrontServicePrincipal",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "cloudfront.amazonaws.com"
-            },
-            "Action": "s3:GetObject",
-            "Resource": "$${bucket_arn}/*",
-            "Condition": {
-                "StringEquals": {
-                    "AWS:SourceArn": "arn:aws:cloudfront::613903586696:distribution/E24LRCHT00YPL"
-                }
-            }
-        }
-    ]
-}
-EOF
 }
 
 resource "kubernetes_secret" "s3_bucket" {

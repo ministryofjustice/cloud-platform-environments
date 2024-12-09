@@ -11,6 +11,8 @@ module "cloudfront" {
   # An array of public keys with comments, to be used for CloudFront. Includes an optional entry for an expiring key
   # !IMPORTANT! This value should NEVER be exactly equal to null. If it is, the CloudFront distribution & S3 bucket will be public.
   trusted_public_keys  = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
+  # Object to return when an end user requests the root URL
+  default_root_object  = "index.html"
 
   # Tags
   business_unit          = var.business_unit
