@@ -52,6 +52,38 @@ module "cpr_delius_offender_events_queue" {
   }
 }
 
+data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "ProbationOffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
+    }
+    resources = ["*"]
+  }
+}
 ######## Dead letter queue
 
 module "cpr_delius_offender_events_dead_letter_queue" {
