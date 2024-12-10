@@ -35,7 +35,7 @@ module "dps_rds" {
 
 module "dps_rds_replica" {
   # default off
-  count  = 0
+  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name               = var.vpc_name
@@ -94,7 +94,7 @@ module "dps_rds_replica" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "40GB"
+      value        = "40000"
       apply_method = "immediate"
     }
   ]
@@ -118,5 +118,23 @@ resource "kubernetes_secret" "dps_rds" {
     database_password     = module.dps_rds.database_password
     rds_instance_address  = module.dps_rds.rds_instance_address
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "dps_rds_replica" {
+  # default off
+  count = 1
+
+  metadata {
+    name      = "dps-rds-read-replica-output"
+    namespace = var.namespace
+  }
+
+  # The database_username, database_password, database_name values are same as the source RDS instance.
+  # Uncomment if count > 0
+
+  data = {
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
 }
