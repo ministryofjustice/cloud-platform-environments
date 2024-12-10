@@ -225,3 +225,11 @@ resource "aws_route53_record" "ccrc_route53_cname_record_enterpriseregistration"
   ttl     = "3600"
   records = ["enterpriseregistration.windows.net"]
 }
+
+resource "aws_route53_record" "ccrc_route53_cname_record_careers" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "careers.ccrc.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["talosats-node-careerspages.azurewebsites.net"]
+}
