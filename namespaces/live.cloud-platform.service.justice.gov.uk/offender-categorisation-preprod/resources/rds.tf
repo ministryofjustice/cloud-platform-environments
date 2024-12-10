@@ -9,7 +9,7 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  db_instance_class           = "db.t4g.micro"
+  db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "500"
   db_engine_version           = "14"
   allow_major_version_upgrade = "false"
