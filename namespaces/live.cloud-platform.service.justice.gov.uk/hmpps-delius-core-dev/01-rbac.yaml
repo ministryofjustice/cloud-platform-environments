@@ -8,6 +8,9 @@ subjects:
     name: "github:unilink"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:probation-integration"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hosting-migrations"
     apiGroup: rbac.authorization.k8s.io
 roleRef:

@@ -22,7 +22,7 @@ module "merge_rds" {
   rds_family                = "postgres16"
   db_instance_class         = "db.t4g.medium"
 
-  # Tagst
+  # Tags
   application            = var.application
   business_unit          = var.business_unit
   environment_name       = var.environment_name
