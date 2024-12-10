@@ -134,7 +134,7 @@ resource "kubernetes_secret" "dps_rds_replica" {
   # Uncomment if count > 0
 
   data = {
-    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
-    rds_instance_address  = module.read_replica[0].rds_instance_address
+    rds_instance_endpoint = module.dps_rds_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.dps_rds_replica[0].rds_instance_address
   }
 }
