@@ -5,4 +5,6 @@ module "circleci_service_account" {
   kubernetes_cluster   = var.kubernetes_cluster
   serviceaccount_rules = var.serviceaccount_rules
   serviceaccount_name  = "circleci"
+  role_name            = "circleci"
+  rolebinding_name     = "circleci"
 }
