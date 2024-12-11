@@ -70,7 +70,7 @@ module "service_account" {
   kubernetes_cluster                   = var.kubernetes_cluster
   serviceaccount_name                  = var.serviceaccount_name
   github_environments                  = [var.environment]
-  github_repositories                  = var.github_repo
+  github_repositories                  = [var.github_repo]
   github_actions_secret_kube_cert      = "KUBE_CERT"
   github_actions_secret_kube_token     = "KUBE_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
