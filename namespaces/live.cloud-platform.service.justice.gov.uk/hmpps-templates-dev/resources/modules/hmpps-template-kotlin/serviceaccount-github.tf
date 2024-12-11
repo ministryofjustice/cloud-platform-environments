@@ -1,10 +1,5 @@
 locals {
-###################################################################
-### Change these to the repositories managed by this namespace ###
-
-  github_repos   = ["hmpps-template-kotlin", "hmpps-template-typescript"]
-
-###################################################################
+  ###################################################################
   github-actions-sa_rules = [
     {
       api_groups = [""]
@@ -73,9 +68,9 @@ module "service_account" {
   source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
-  serviceaccount_name                  = "github-actions-sa"
+  serviceaccount_name                  = var.serviceaccount_name
   github_environments                  = [var.environment]
-  github_repositories                  = local.github_repos
+  github_repositories                  = var.github_repo
   github_actions_secret_kube_cert      = "KUBE_CERT"
   github_actions_secret_kube_token     = "KUBE_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
@@ -95,21 +90,20 @@ resource "time_rotating" "weekly" {
 ### Copy these three lines and change accordingly for your github team ###
 ### then add the variable name to the teams list below                 ###
 
-data "github_team" "hmpps-sre" {
-slug = "hmpps-sre"
-}   
+data "github_team" "hmpps_dev_team" {
+  slug = var.github_team
+}
 
 ##########################################################################
 
 resource "github_repository_environment" "env" {
-  for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
-# prevent_self_review = true
+  repository  = var.github_repo
+  # Not working - waiting for Cloud Platforms to help me fix this
+  # prevent_self_review = true
   reviewers {
-    teams = [ 
-      tonumber(data.github_team.hmpps-sre.id)
+    teams = [
+      tonumber(data.github_team.hmpps_dev_team.id)
     ]
   }
   deployment_branch_policy {
@@ -120,9 +114,8 @@ resource "github_repository_environment" "env" {
 
 # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  repository    = var.github_repo
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }
