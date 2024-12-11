@@ -22,7 +22,7 @@ module "redis" {
 
 resource "kubernetes_secret" "redis_secrets" {
   metadata {
-    name      = "rd-ai-nexus-dev-ec-secrets"
+    name      = "rd-ai-nexus-ec-secrets"
     namespace = var.namespace
   }
 
