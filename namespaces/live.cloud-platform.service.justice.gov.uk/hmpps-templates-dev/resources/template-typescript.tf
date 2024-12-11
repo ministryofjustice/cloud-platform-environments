@@ -1,7 +1,7 @@
 module "hmpps_template_typescript" {
   source                        = "./modules/hmpps-template-typescript"
   github_repo                   = "hmpps-template-typescript"
-  application                   = "HMPPS Template Typescript App"
+  application                   = "hmpps-template-typescript"
   github_team                   = "hmpps-sre"
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production

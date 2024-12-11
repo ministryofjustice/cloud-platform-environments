@@ -1,7 +1,7 @@
 module "hmpps_template_kotlin" {
   source                        = "./modules/hmpps-template-kotlin"
   github_repo                   = "hmpps-template-kotlin"
-  application                   = "HMPPS Template Kotlin App"
+  application                   = "hmpps-template-kotlin"
   github_team                   = "hmpps-sre"
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
