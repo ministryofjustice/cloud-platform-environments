@@ -68,7 +68,7 @@ module "service_account" {
   source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
-  serviceaccount_name                  = var.serviceaccount_name
+  serviceaccount_name                  = "${var.application}-${var.serviceaccount_name}"
   github_environments                  = [var.environment]
   github_repositories                  = [var.github_repo]
   github_actions_secret_kube_cert      = "KUBE_CERT"

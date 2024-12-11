@@ -8,7 +8,7 @@ resource "random_password" "session_secret" {
 }
 resource "kubernetes_secret" "session_secret" {
   metadata {
-    name      = "session-secret"
+    name      = "${var.application}-session-secret"
     namespace = var.namespace
   }
   data = {

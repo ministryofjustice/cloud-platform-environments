@@ -4,7 +4,7 @@ data "aws_ssm_parameter" "application_insights_key" {
 
 resource "kubernetes_secret" "application-insights" {
   metadata {
-    name      = "application-insights"
+    name      = "${var.application}-application-insights"
     namespace = var.namespace
   }
   data = {
