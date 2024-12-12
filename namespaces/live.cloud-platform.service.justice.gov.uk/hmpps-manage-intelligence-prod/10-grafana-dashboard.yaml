@@ -405,7 +405,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_extractor_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_extractor_queue_prod"
               },
               "expression": "",
               "hide": false,
@@ -530,7 +530,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_transformer_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_transformer_queue_prod"
               },
               "expression": "",
               "hide": false,
