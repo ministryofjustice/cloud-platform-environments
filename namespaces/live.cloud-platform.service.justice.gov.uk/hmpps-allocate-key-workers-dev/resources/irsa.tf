@@ -1,10 +1,3 @@
-data "kubernetes_secret" "audit_secret" {
-  metadata {
-    name      = "sqs-hmpps-audit-secret"
-    namespace = var.namespace
-  }
-}
-
 module "hmpps-allocate-key-workers-ui-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
