@@ -18,6 +18,7 @@ module "rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
+  prepare_for_major_upgrade    = true
   performance_insights_enabled = false
   db_allocated_storage         = "600"
   db_max_allocated_storage     = "700"
@@ -25,7 +26,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "16"
+  db_engine_version      = "16.2"
   rds_family             = "postgres16"
   db_instance_class      = "db.t4g.micro"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
