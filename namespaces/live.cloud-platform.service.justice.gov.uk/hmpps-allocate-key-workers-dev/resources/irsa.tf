@@ -1,3 +1,10 @@
+data "kubernetes_secret" "audit_secret" {
+  metadata {
+    name      = "sqs-hmpps-audit-secret"
+    namespace = var.namespace
+  }
+}
+
 module "hmpps-allocate-key-workers-ui-service-account" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
@@ -11,8 +18,7 @@ module "hmpps-allocate-key-workers-ui-service-account" {
 
   service_account_name = "hmpps-allocate-key-workers-ui"
   role_policy_arns = merge(
-    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
+    { elasticache = module.elasticache_redis.irsa_policy_arn },
+#     { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
-
-  depends_on = [data.kubernetes_secret.audit_secret.data.irsa_policy_arn]
 }
