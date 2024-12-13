@@ -58,6 +58,8 @@ module "rds" {
     },
   ]
 
+  db_parameter_group_name = "default.aurora-postgresql14"
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
