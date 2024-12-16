@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps_challenge_support_intervention_plan_secret" {
+resource "kubernetes_secret" "hmpps_allocate-key-workers_secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
     namespace = "hmpps-allocate-key-workers-dev"
