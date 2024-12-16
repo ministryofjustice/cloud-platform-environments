@@ -1039,10 +1039,7 @@ data:
           ],
           "title": "Contribution Service Average Response time",
           "type": "timeseries"
-        },
-        
-        
-        
+        }
         
       ],
       "refresh": "30s",
@@ -1119,6 +1116,3 @@ data:
       "version": 2,
       "weekStart": ""
     }
-    
-    
-    //sum by (status) (webclient_requests_seconds_count)
