@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-mailbox-register-api-cert
+  namespace: hmpps-mailbox-register-dev
+spec:
+  secretName: hmpps-mailbox-register-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - mailbox-register-api-dev.hmpps.service.justice.gov.uk
