@@ -1,3 +1,10 @@
+resource "aws_sns_topic_subscription" "court_cases_subscription" {
+  provider  = aws.london
+  topic_arn = module.court-cases.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.court_cases_queue.sqs_arn
+}
+
 module "court-cases-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
@@ -26,6 +33,29 @@ module "court-cases-queue" {
   providers = {
     aws = aws.london
   }
+}
+
+data "aws_iam_policy_document" "court_cases_sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [module.court-cases.topic_arn]
+    }
+    resources = ["*"]
+  }
+}
+
+resource "aws_sqs_queue_policy" "court_cases_queue_policy" {
+  queue_url = module.court_cases_queue.sqs_id
+  policy = data.aws_iam_policy_document.court_cases_sqs_queue_policy_document.json
 }
 
 module "court-cases-dlq" {
