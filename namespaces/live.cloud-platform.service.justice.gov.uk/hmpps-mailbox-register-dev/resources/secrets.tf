@@ -10,10 +10,17 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    # Backend Kotlin app
     "hmpps-mailbox-register-api" = {
-      description             = "HMPPS mailbox register application secrets",
+      description             = "HMPPS mailbox register API application secrets",
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-mailbox-register-api"
+    },
+    # Frontend Typescript app
+    "hmpps-mailbox-register-ui" = {
+      description             = "HMPPS mailbox register UI application secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "hmpps-mailbox-register-ui"
     },
   }
 }
