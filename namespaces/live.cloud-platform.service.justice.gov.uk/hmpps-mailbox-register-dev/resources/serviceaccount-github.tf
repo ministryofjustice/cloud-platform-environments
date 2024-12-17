@@ -1,5 +1,5 @@
 locals {
-  github_repos   = ["hmpps-mailbox-register-api"]
+  github_repos = ["hmpps-mailbox-register-api", "hmpps-mailbox-register"]
 
   github-actions-sa_rules = [
     {
