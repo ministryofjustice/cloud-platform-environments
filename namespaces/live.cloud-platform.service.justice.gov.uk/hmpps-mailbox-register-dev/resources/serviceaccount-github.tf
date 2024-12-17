@@ -96,11 +96,14 @@ resource "github_repository_environment" "env" {
   environment = var.environment
   repository  = each.key  
 
-  reviewers {
-    teams = [ 
-      tonumber(data.github_team.mailbox-register-devs.id)
-    ]
-  }
+  # The following block is used to restrict the deployment to a specific team.
+  # Uncomment if you want to enforce in this namespace (`dev`)
+  #
+  # reviewers {
+  #   teams = [
+  #     tonumber(data.github_team.mailbox-register-devs.id)
+  #   ]
+  # }
 
   deployment_branch_policy {
     protected_branches     = true
