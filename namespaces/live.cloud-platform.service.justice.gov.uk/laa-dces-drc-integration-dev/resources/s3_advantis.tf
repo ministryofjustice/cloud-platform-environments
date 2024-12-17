@@ -104,7 +104,6 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
-
 }
 
 
@@ -121,4 +120,30 @@ resource "kubernetes_secret" "s3_advantis_bucket-secret" {
     bucket_arn  = module.s3_advantis_bucket.bucket_arn
     bucket_name = module.s3_advantis_bucket.bucket_name
   }
+}
+
+
+
+
+
+
+
+# Define the GuardDuty Role
+resource "aws_iam_role" "s3_guardduty_role" {
+  name = "s3-guardduty-malware-protection-role"
+  path = "/"
+
+  # Trust policy: allows GuardDuty to assume the role
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "guardduty.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
