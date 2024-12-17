@@ -7,13 +7,8 @@ locals {
     "Digital-Prison-Services-dev-offender_categorisation_events_queue"    = "offender-events-dev"
     "Digital-Prison-Services-dev-offender_categorisation_events_queue_dl" = "offender-events-dev"
   }
-  sqs_queues_api = {
-    "Digital-Prison-Services-dev-offender_categorisation_api_events_queue_dl" = "offender-events-dev"
-    "Digital-Prison-Services-dev-offender_categorisation_api_events_queue"    = "offender-events-dev"
-  }
   sqs_policies_oc = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_oc : item.name => item.value }
   sqs_policies_rp = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_rp : item.name => item.value }
-  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
 }
 
 # IRSA for offender-categorisation deployment
@@ -62,10 +57,5 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs_oc" {
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs_rp" {
   for_each = local.sqs_queues_rp
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns_sqs_api" {
-  for_each = local.sqs_queues_api
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
