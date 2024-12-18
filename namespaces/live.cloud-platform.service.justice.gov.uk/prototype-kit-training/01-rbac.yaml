@@ -5,7 +5,7 @@ metadata:
   namespace: prototype-kit-training
 subjects:
   - kind: Group
-    name: "github:opg-org-infra"
+    name: "github:moj-prototype-kit-designers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
