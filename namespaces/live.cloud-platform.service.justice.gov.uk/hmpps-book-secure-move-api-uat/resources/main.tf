@@ -10,6 +10,12 @@ provider "aws" {
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "map-developers"
+    }
+  }
 }
 
 provider "aws" {
