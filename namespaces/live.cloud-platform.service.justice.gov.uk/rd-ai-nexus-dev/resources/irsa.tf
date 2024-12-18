@@ -8,6 +8,12 @@ module "irsa" {
   service_account_name = "rd-ai-nexus-dev-service-account"
   namespace            = var.namespace # this is also used as a tag
 
+  # Attach the appropriate policies using a key => value map
+  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
+  # provide an output called `irsa_policy_arn` that can be used.
+  role_policy_arns = {
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
