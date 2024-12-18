@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
+    "crime_evidence_alert_webhook_prod" = {
+      description             = "Crime Evidence Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "crime-evidence-alert-webhook-prod"
+    }
   }
 }
