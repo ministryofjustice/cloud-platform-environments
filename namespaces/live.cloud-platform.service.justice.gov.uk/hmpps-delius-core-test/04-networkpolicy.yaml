@@ -4,12 +4,12 @@ metadata:
   name: default
   namespace: hmpps-delius-core-test
 spec:
-  podSelector: {}
+  podSelector: { }
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - podSelector: {}
+    - from:
+        - podSelector: { }
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -17,14 +17,14 @@ metadata:
   name: allow-ingress-controllers
   namespace: hmpps-delius-core-test
 spec:
-  podSelector: {}
+  podSelector: { }
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: ingress-controllers
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -34,9 +34,9 @@ metadata:
 spec:
   podSelector: { }
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          cloud-platform.justice.gov.uk/namespace: pathfinder-dev
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pathfinder-dev
