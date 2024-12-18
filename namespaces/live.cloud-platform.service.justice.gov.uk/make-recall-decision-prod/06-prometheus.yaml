@@ -11,7 +11,7 @@ spec:
   - name: application-rules
     rules:
     - alert: nginx-5xx-error
-      expr: expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="make-recall-decision-prod", status=~"5.."}[5m]))*270 > 0
+      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="make-recall-decision-prod", status=~"5.."}[5m]))*270 > 0
       for: 1m
       labels:
         severity: make-recall-decision-prod
