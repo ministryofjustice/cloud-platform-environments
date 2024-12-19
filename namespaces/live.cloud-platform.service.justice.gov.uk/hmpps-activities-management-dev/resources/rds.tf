@@ -89,8 +89,6 @@ resource "kubernetes_secret" "activities_rds" {
 }
 
 module "activities_rds_read_replica" {
-  count = 0
-
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -121,7 +119,6 @@ module "activities_rds_read_replica" {
 }
 
 resource "kubernetes_secret" "activities_rds_read_replica" {
-  count = 0
   metadata {
     name      = "activities-rds-read-replica"
     namespace = var.namespace
