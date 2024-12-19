@@ -110,6 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_contactperson_sub
   filter_policy = jsonencode({
     eventType = [
       "contacts-api.contact.created",
+      "contacts-api.contact.updated",
+      "contacts-api.contact.deleted",
       "contacts-api.prisoner-contact.created",
       "contacts-api.prisoner-contact.updated",
       "contacts-api.prisoner-contact.deleted",
@@ -124,7 +126,13 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_contactperson_sub
       "contacts-api.contact-phone.deleted",
       "contacts-api.contact-identity.created",
       "contacts-api.contact-identity.updated",
-      "contacts-api.contact-identity.deleted"
+      "contacts-api.contact-identity.deleted",
+      "contacts-api.prisoner-contact-restriction.created",
+      "contacts-api.prisoner-contact-restriction.updated",
+      "contacts-api.prisoner-contact-restriction.deleted",
+      "contacts-api.contact-restriction.created",
+      "contacts-api.contact-restriction.updated",
+      "contacts-api.contact-restriction.deleted"
     ]
   })
 }

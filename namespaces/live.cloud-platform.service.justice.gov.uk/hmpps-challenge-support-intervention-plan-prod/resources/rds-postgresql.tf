@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -23,7 +23,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.large"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "rds" {
 }
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true
@@ -92,7 +92,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.medium"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db

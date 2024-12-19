@@ -2,8 +2,8 @@ data "aws_ssm_parameter" "court-case-events-topic-arn" {
   name = "/court-probation-prod/topic-arn"
 }
 
-data "aws_ssm_parameter" "court-case-events-fifo-topic-arn" {
-  name = "/hmpps-person-record-prod/court-case-events-fifo-topic"
+data "aws_ssm_parameter" "court-cases-topic-arn" {
+  name = "/court-probation-prod/court-cases-topic-arn"
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
