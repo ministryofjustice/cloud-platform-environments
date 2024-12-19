@@ -110,7 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_adjustments_prisoner_subscription" 
     eventType = [
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
     ]
   })
 }
