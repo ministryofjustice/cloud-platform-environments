@@ -9,7 +9,7 @@ module "truststore_s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
-  bucket_policy = <<EOF
+/*  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -28,7 +28,7 @@ module "truststore_s3_bucket" {
     }
   ]
 }
-EOF
+EOF*/
 }
 
 data "kubernetes_secret" "truststore" {
@@ -44,7 +44,7 @@ resource "aws_s3_object" "truststore" {
   content = data.kubernetes_secret.truststore.data["truststore-public-key"]
 }
 
-module "certificate_backup" {
+/*module "certificate_backup" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -78,7 +78,7 @@ module "certificate_backup" {
   ]
 }
 EOF
-}
+}*/
 
 resource "random_password" "event_service_certificate_password" {
   length           = 16
@@ -86,7 +86,7 @@ resource "random_password" "event_service_certificate_password" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-resource "kubernetes_secret" "certificate_backup_secret" {
+/*resource "kubernetes_secret" "certificate_backup_secret" {
   metadata {
     name      = "certificate-store"
     namespace = var.namespace
@@ -96,25 +96,5 @@ resource "kubernetes_secret" "certificate_backup_secret" {
     event_service_certificate_path     = "event-service/client-debug.p12"
     event_service_certificate_password = random_password.event_service_certificate_password.result
   }
-}
+}*/
 
-resource "aws_iam_role_policy" "api_gw_s3" {
-  name = "${var.namespace}-api-gateway-s3"
-  role = aws_iam_role.api_gateway_role.name
-
-  policy = <<EOF
-{
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Effect": "Allow",
-      "Action": "s3:GetObject",
-
-      "Resource": [
-        "${module.truststore_s3_bucket.bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-}
