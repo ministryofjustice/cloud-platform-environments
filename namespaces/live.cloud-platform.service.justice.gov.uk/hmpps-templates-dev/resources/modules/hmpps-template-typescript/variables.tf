@@ -6,11 +6,9 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
 }
 
 variable "namespace" {
-  default = "hmpps-templates-dev"
 }
 
 variable "business_unit" {
@@ -20,34 +18,39 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
 }
 
-####################################################################################################################
-### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
 }
-####################################################################################################################
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "false"
 }
 
-variable "slack_channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+# application_insights_instance should be set to one of:
+# "dev" (appears as t3 in azure portal) or "preprod" or "prod".
+# This determines which instance of application insights metrics and logs are sent to.
+variable "application_insights_instance" {
+  description = "Determines which instrumentation key to use for Application Insights."
+  type        = string
 }
 
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "github_repo" {
+  description = "The name of the GitHub repository where the source code for the app is stored"
+}
+
+variable "github_team" {
+  description = "The name of the GitHub team that will be added as reviewers to the repository"
+}
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -57,5 +60,9 @@ variable "github_owner" {
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
-  default     = ""
+}
+
+variable "serviceaccount_name" {
+  description = "The name of the service account to be created"
+  default     = "github-actions-sa"
 }
