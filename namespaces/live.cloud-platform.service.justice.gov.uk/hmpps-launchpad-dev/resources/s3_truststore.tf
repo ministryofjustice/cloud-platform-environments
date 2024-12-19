@@ -97,3 +97,24 @@ resource "kubernetes_secret" "certificate_backup_secret" {
     event_service_certificate_password = random_password.event_service_certificate_password.result
   }
 }
+
+resource "aws_iam_role_policy" "api_gw_s3" {
+  name = "${var.namespace}-api-gateway-s3"
+  role = aws_iam_role.api_gateway_role.name
+
+  policy = <<EOF
+{
+  "Version" : "2012-10-17",
+  "Statement" : [
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+
+      "Resource": [
+        "${module.truststore_s3_bucket.bucket_arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
