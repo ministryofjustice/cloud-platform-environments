@@ -22,6 +22,7 @@ module "rds" {
   db_allocated_storage         = "600"
   db_max_allocated_storage     = "700"
   enable_rds_auto_start_stop   = true
+  db_iops                      = 12000
 
   # PostgreSQL specifics
   db_engine              = "postgres"
