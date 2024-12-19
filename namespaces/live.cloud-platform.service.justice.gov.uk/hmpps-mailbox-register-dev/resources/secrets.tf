@@ -17,10 +17,10 @@ module "secrets_manager" {
       k8s_secret_name         = "hmpps-mailbox-register-api"
     },
     # Frontend Typescript app
-    "hmpps-mailbox-register-ui" = {
+    "hmpps-mailbox-register" = {
       description             = "HMPPS mailbox register UI application secrets",
       recovery_window_in_days = 7
-      k8s_secret_name         = "hmpps-mailbox-register-ui"
+      k8s_secret_name         = "hmpps-mailbox-register"
     },
   }
 }
