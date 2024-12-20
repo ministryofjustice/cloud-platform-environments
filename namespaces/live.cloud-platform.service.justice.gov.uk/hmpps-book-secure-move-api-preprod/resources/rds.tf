@@ -61,6 +61,11 @@ module "rds-instance" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
 }
@@ -140,6 +145,31 @@ module "rds-read-replica" {
     {
       name         = "rds.force_ssl"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
       apply_method = "immediate"
     }
   ]
