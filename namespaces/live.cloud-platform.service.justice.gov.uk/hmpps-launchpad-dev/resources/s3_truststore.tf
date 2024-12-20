@@ -105,8 +105,8 @@ resource "kubernetes_secret" "truststore_s3_bucket" {
   }
 
   data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
+    bucket_arn  = module.truststore_s3_bucket.bucket_arn
+    bucket_name = module.truststore_s3_bucket.bucket_name
   }
 }
 
