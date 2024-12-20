@@ -98,3 +98,15 @@ resource "random_password" "event_service_certificate_password" {
   }
 }*/
 
+resource "kubernetes_secret" "truststore_s3_bucket" {
+  metadata {
+    name      = "s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.truststore_s3_bucket.bucket_arn
+    bucket_name = module.truststore_s3_bucket.bucket_name
+  }
+}
+
