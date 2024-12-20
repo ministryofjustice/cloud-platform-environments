@@ -63,7 +63,7 @@ module "activities_rds" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "40000"
+      value        = "5000"
       apply_method = "immediate"
     }
   ]
