@@ -53,6 +53,11 @@ module "rds-instance" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "5000"
+      apply_method = "immediate"
     }
   ]
 }
