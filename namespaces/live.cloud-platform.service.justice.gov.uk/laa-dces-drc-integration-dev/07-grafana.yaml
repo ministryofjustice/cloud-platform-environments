@@ -668,7 +668,7 @@ data:
               "custom": {
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
-                "axisLabel": "Number of Contribution Service calls",
+                "axisLabel": "Number of Contribution Service calls (DRC)",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
