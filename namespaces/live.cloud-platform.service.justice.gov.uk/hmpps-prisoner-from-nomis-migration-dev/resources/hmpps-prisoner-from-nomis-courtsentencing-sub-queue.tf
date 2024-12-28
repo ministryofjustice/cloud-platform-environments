@@ -117,6 +117,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
       "COURT_EVENTS-UPDATED",
       "COURT_EVENT_CHARGES-INSERTED",
       "COURT_EVENT_CHARGES-DELETED",
+      "COURT_EVENT_CHARGES-UPDATED",
       "OFFENDER_CHARGES-UPDATED",
       "OFFENDER_CASE_IDENTIFIERS-DELETED",
       "OFFENDER_CASE_IDENTIFIERS-INSERTED",
