@@ -1,10 +1,6 @@
-variable "kubernetes_cluster" {
-}
-
-
-variable "vpc_name" {
-}
-
+variable "kubernetes_cluster" {}
+variable "eks_cluster_name" {}
+variable "vpc_name" {}
 
 variable "application" {
   default = "hmpps-appointment-reminders"
