@@ -14,8 +14,8 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "2000"
-  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  db_max_allocated_storage     = "100"
+  enable_rds_auto_start_stop   = false
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
@@ -54,6 +54,11 @@ module "rds" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "5000"
       apply_method = "immediate"
     }
   ]
