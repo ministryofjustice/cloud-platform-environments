@@ -96,6 +96,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-queue,
       module.unpaid-work-and-delius-queue,
       module.workforce-allocations-to-delius-queue,
+      data.aws_sqs_queue.hmpps-tier-events-queue,
     ]
     dlq = [
       module.justice-email-and-delius-dlq,
@@ -121,6 +122,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-dlq,
       module.unpaid-work-and-delius-dlq,
       module.workforce-allocations-to-delius-dlq,
+      data.aws_sqs_queue.hmpps-tier-events-dlq,
     ],
     #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
