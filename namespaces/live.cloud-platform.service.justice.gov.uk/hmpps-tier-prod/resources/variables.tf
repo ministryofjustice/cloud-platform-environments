@@ -1,15 +1,17 @@
 variable "kubernetes_cluster" {
 }
 
+
 variable "vpc_name" {
 }
+
 
 variable "application" {
   default = "hmpps-tier"
 }
 
 variable "namespace" {
-  default = "hmpps-tier-prod"
+  default = "hmpps-tier-preprod"
 }
 
 variable "business_unit" {
@@ -19,12 +21,12 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "manage-a-workforce" # actually probation-integration, but changing this would recreate the queue and DB
+  default     = "probation-integration"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "production"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -33,18 +35,16 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "github_owner" {
-  description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
-  type        = string
+  description = "Required by the github terraform provider"
   default     = "ministryofjustice"
 }
 
 variable "github_token" {
-  type        = string
-  description = "Required by the GitHub Terraform provider"
+  description = "Required by the github terraform provider"
   default     = ""
 }
 
@@ -54,8 +54,4 @@ variable "eks_cluster_name" {
 
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
-}
-
-variable "backup_window" {
-  default = "21:00-23:00"
 }
