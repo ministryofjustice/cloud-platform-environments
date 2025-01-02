@@ -11,7 +11,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-tier-preprod"
+  default = "hmpps-tier-prod"
 }
 
 variable "business_unit" {
@@ -26,7 +26,7 @@ variable "team_name" {
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "preprod"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -35,7 +35,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "github_owner" {
@@ -54,4 +54,8 @@ variable "eks_cluster_name" {
 
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
+}
+
+variable "backup_window" {
+  default = "21:00-23:00"
 }

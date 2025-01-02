@@ -15,6 +15,7 @@ module "rds" {
   prepare_for_major_upgrade    = false
   performance_insights_enabled = true
   maintenance_window           = var.maintenance_window
+  backup_window                = var.backup_window
   db_password_rotated_date     = "21-02-2023"
 }
 
