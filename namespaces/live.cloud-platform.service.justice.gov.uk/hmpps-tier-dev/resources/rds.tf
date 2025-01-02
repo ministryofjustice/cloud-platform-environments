@@ -20,7 +20,7 @@ module "rds" {
   db_password_rotated_date     = "09-02-2023"
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "rds-secret" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
