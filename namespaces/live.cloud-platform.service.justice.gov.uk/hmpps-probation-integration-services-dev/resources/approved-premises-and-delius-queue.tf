@@ -10,6 +10,9 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
       "approved-premises.booking.made",
       "approved-premises.booking.cancelled",
       "approved-premises.booking.changed",
+      "approved-premises.person.arrived",
+      "approved-premises.person.not-arrived",
+      "approved-premises.person.departed",
     ]
   })
 }
@@ -32,7 +35,6 @@ module "approved-premises-and-delius-queue" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name # also used as queue name prefix
-  github_team            = "some-other-team" # expecting this to override default_tags
 }
 
 resource "aws_sqs_queue_policy" "approved-premises-and-delius-queue-policy" {
@@ -55,7 +57,6 @@ module "approved-premises-and-delius-dlq" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name # also used as queue name prefix
-  #github_team           = "not-set" # expecting default_tags to still apply
 }
 
 resource "aws_sqs_queue_policy" "approved-premises-and-delius-dlq-policy" {
