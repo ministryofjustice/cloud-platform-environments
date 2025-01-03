@@ -5,8 +5,9 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
       "prisoner-offender-search.prisoner.received",
-      "prisoner-offender-search.prisoner.alerts-updated"
+      "prisoner-offender-search.prisoner.alerts-updated",
     ]
   })
 }
@@ -14,7 +15,6 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
 module "prisoner-event-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  # Queue configuration
   sqs_name                  = "prisoner-event-queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
@@ -24,7 +24,6 @@ module "prisoner-event-queue" {
     maxReceiveCount     = 3
   })
 
-  # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -38,43 +37,36 @@ module "prisoner-event-queue" {
   }
 }
 
+data "aws_iam_policy_document" "prisoner-event-queue-policy" {
+  policy_id = "${module.prisoner-event-queue.sqs_arn}/SQSDefaultPolicy"
+
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    resources = [module.prisoner-event-queue.sqs_arn]
+    actions   = ["SQS:SendMessage"]
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+    }
+  }
+}
+
 resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
   queue_url = module.prisoner-event-queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.prisoner-event-queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.prisoner-event-queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-                      {
-                        "ArnEquals":
-                          {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-                          }
-                        }
-        }
-      ]
-  }
-
-EOF
-
+  policy    = data.aws_iam_policy_document.prisoner-event-queue-policy.json
 }
 
 module "prisoner-event-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
-  # Queue configuration
   sqs_name        = "prisoner-event-dlq"
   encrypt_sqs_kms = "true"
 
-  # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
