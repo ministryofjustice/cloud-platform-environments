@@ -104,7 +104,6 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
-
 }
 
 
@@ -122,3 +121,13 @@ resource "kubernetes_secret" "s3_advantis_bucket-secret" {
     bucket_name = module.s3_advantis_bucket.bucket_name
   }
 }
+
+
+
+
+
+
+
+
+
+
