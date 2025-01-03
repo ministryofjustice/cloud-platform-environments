@@ -37,3 +37,21 @@ resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_preprod_rd
     url                   = "postgres://${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username}:${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password}@${module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint}/${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name}"
   }
 }
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-instance"
+    namespace = "hmpps-strengths-based-needs-assessments-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint
+    database_name         = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name
+    database_username     = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username
+    database_password     = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password
+    rds_instance_address  = module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_address
+    url                   = "postgres://${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username}:${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password}@${module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint}/${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name}"
+  }
+}
+
