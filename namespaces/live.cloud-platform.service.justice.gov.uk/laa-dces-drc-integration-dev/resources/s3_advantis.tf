@@ -127,8 +127,9 @@ data "aws_iam_policy_document" "bucket-policy" {
 
   statement {
     effect = "Allow"
-    principal {
-      Service = "guardduty.amazonaws.com"
+    principals {
+      type        = "Service"
+      identifiers = ["guardduty.amazonaws.com"]
     }
     action = [
       "s3:GetObject",
