@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name = var.vpc_name
 
@@ -12,12 +12,12 @@ module "rds-instance" {
   business_unit          = var.business_unit
 
   db_engine         = "postgres"
-  db_engine_version = "15.7"
+  db_engine_version = "16.4"
   db_instance_class = "db.t4g.small"
 
-  rds_family = "postgres15"
+  rds_family = "postgres16"
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 

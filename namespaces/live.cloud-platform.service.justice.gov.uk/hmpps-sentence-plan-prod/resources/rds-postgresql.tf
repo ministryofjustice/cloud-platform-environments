@@ -47,7 +47,7 @@ module "rds" {
   allow_major_version_upgrade = "true"
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 
   # This will rotate the db password. Update the value to the current date.
   db_password_rotated_date = "11-04-2023"

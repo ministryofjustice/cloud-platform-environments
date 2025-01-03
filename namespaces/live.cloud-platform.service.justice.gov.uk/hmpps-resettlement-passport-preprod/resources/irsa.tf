@@ -17,6 +17,7 @@ module "irsa" {
     offender-event-dlq = module.offender-event-dlq.irsa_policy_arn
     document-storage-s3 = module.document_storage_s3_bucket.irsa_policy_arn
     audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
   }
 
   # Tags

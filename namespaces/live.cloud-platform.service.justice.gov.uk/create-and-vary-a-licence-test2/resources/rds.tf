@@ -15,6 +15,7 @@ module "create_and_vary_a_licence_api_rds" {
   rds_family                  = "postgres15"
   prepare_for_major_upgrade   = false
   db_password_rotated_date    = "14-02-2023"
+  enable_rds_auto_start_stop = true
 
   providers = {
     aws = aws.london

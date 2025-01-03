@@ -14,7 +14,7 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "100"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   deletion_protection          = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
@@ -23,7 +23,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.large"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -53,6 +53,11 @@ module "rds" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "5000"
       apply_method = "immediate"
     }
   ]
@@ -92,7 +97,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.large"
+  db_instance_class = "db.t4g.medium"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db

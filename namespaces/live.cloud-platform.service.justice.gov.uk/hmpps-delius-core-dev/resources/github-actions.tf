@@ -6,5 +6,5 @@ module "github_actions_service_account" {
   github_repositories  = ["hmpps-delius-operational-automation", "hmpps-delius-docker-images", "ndelius-um"]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environment will need to be created manually first
-  github_environments = ["dev"]
+  github_environments = [var.environment_name]
 }

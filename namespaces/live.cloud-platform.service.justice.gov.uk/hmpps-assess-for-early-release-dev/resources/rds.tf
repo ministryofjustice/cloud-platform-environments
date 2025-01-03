@@ -15,6 +15,7 @@ module "assess-for-early-release_rds" {
   rds_family                  = "postgres16"
   prepare_for_major_upgrade   = true
   db_password_rotated_date    = "14-02-2023"
+  enable_rds_auto_start_stop = true
 
   providers = {
     aws = aws.london

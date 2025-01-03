@@ -9,7 +9,7 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true
+  enable_rds_auto_start_stop   = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"

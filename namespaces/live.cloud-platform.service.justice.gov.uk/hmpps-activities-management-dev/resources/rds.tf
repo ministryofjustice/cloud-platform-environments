@@ -36,6 +36,38 @@ module "activities_rds" {
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+
+  # Add parameters to enable DPR team to configure replication
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "5000"
+      apply_method = "immediate"
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -57,8 +89,6 @@ resource "kubernetes_secret" "activities_rds" {
 }
 
 module "activities_rds_read_replica" {
-  count = 0
-
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -79,7 +109,6 @@ module "activities_rds_read_replica" {
   replicate_source_db         = module.activities_rds.db_identifier
   skip_final_snapshot         = "true"
   db_backup_retention_period  = 0
-  
   
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
@@ -108,7 +137,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "40000"
+      value        = "5000"
       apply_method = "immediate"
     }
   ]
@@ -118,9 +147,7 @@ module "activities_rds_read_replica" {
   }
 }
 
-/*
 resource "kubernetes_secret" "activities_rds_read_replica" {
-  count = 0
   metadata {
     name      = "activities-rds-read-replica"
     namespace = var.namespace
@@ -130,4 +157,4 @@ resource "kubernetes_secret" "activities_rds_read_replica" {
     rds_instance_endpoint = module.activities_rds_read_replica.rds_instance_endpoint
     rds_instance_address  = module.activities_rds_read_replica.rds_instance_address
   }
-}*/
+}

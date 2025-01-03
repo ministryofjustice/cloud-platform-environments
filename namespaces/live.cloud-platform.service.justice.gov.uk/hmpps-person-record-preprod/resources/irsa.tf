@@ -36,6 +36,8 @@ data "aws_iam_policy_document" "combined_court_case_sqs" {
     resources = [
       module.cpr_court_case_events_queue.sqs_arn,
       module.cpr_court_case_events_dead_letter_queue.sqs_arn,
+      module.cpr_court_cases_queue.sqs_arn,
+      module.cpr_court_cases_dead_letter_queue.sqs_arn,
     ]
   }
 }
