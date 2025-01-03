@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -22,6 +22,7 @@ module "rds" {
   db_allocated_storage         = "600"
   db_max_allocated_storage     = "700"
   enable_rds_auto_start_stop   = true
+  db_iops                      = "12000"
 
   # PostgreSQL specifics
   db_engine              = "postgres"
