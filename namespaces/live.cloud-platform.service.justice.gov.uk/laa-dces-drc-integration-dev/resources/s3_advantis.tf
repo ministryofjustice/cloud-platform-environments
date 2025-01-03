@@ -102,6 +102,29 @@ data "aws_iam_policy_document" "bucket-policy" {
   }
 
 
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_role.s3_guardduty_role.arn
+      ]
+    }
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetBucketPolicy",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }
+
+
+
 
 
 }
