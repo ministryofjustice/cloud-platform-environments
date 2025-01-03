@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-learner-records-microservice-dev
 subjects:
   - kind: Group
-    name: "github:lrs-microservice"
+    name: "github:hmpps-lrs-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:dps-tech"
