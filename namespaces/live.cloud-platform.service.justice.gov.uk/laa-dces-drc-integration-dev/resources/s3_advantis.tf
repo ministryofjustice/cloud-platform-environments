@@ -138,7 +138,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetBucketAcl",
       "s3:GetBucketLocation"
     ]
-    resource = [
+    resources = [
       "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
