@@ -131,7 +131,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       type        = "Service"
       identifiers = ["guardduty.amazonaws.com"]
     }
-    action = [
+    actions = [
       "s3:GetObject",
       "s3:ListBucket",
       "s3:GetBucketPolicy",
