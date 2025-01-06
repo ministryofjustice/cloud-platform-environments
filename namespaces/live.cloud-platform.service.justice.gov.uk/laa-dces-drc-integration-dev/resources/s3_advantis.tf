@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
-  statement {
+  /*statement {
     effect = "Allow"
     principals {
       type        = "AWS"
@@ -123,7 +123,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
-  }
+  }*/
 
   statement {
     effect = "Allow"

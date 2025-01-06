@@ -129,7 +129,7 @@ resource "kubernetes_secret" "admin-advantis-user_dev" {
 
 
 # Define the GuardDuty Role
-resource "aws_iam_role" "s3_guardduty_role" {
+/*resource "aws_iam_role" "s3_guardduty_role" {
   name               = "s3-guardduty-malware-protection-role"
   path               = "/system/laa-dces-data-integration-dev-guardduty/"
   assume_role_policy = jsonencode({
@@ -177,7 +177,8 @@ resource "aws_iam_policy" "s3_guardduty_policy" {
 resource "aws_iam_role_policy_attachment" "s3_guardduty_policy_attachment" {
   role       = aws_iam_role.s3_guardduty_role.name
   policy_arn = aws_iam_policy.s3_guardduty_policy.arn
-}
+}*/
+
 /*
 # Output the Role ARN (Optional for Debugging or Use in Other Modules)
 output "s3_guardduty_role_arn" {
