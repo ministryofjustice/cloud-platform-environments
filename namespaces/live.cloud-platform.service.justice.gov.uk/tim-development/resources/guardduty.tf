@@ -19,12 +19,12 @@ resource "aws_iam_role" "guardduty_malware_protection_role" {
 
 ## IAM policy
 data "aws_iam_policy_document" "guardduty_s3_custom" {
-#   statement {
-#     sid     = "AllowListAllMyBuckets"
-#     effect  = "Allow"
-#     actions = ["s3:ListAllMyBuckets"]
-#     resources = ["*"]
-#   }
+  statement {
+    sid     = "AllowListAllMyBuckets"
+    effect  = "Allow"
+    actions = ["s3:ListAllMyBuckets"]
+    resources = ["*"]
+  }
 
   statement {
     sid    = "GuardDutyS3MalwareProtectionLimited"
