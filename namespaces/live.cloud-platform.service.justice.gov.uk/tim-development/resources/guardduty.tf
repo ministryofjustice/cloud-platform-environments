@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "guardduty_s3_limited" {
       "s3:GetBucketPolicyStatus"
     ]
     resources = [
-      "arn:aws:s3:::${module.s3_test_bucket.bucket_name}",
-      "arn:aws:s3:::${module.s3_test_bucket.bucket_name}/*"
+      "arn:aws:s3:::${module.s3_bucket.bucket_name}",
+      "arn:aws:s3:::${module.s3_bucket.bucket_name}/*"
     ]
   }
 }
