@@ -37,6 +37,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
       module.migration_contactperson_queue.sqs_arn,
       module.migration_contactperson_dead_letter_queue.sqs_arn,
+      module.migration_coreperson_queue.sqs_arn,
+      module.migration_coreperson_dead_letter_queue.sqs_arn,
       module.migration_sentencing_queue.sqs_arn,
       module.migration_sentencing_dead_letter_queue.sqs_arn,
     ]
