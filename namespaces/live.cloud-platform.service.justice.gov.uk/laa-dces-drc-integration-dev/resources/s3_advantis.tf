@@ -125,6 +125,9 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
   }*/
 
+
+
+  /*
   statement {
     effect = "Allow"
     principals {
@@ -142,7 +145,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
-  }
+  }*/
 
 
 

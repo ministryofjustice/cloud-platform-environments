@@ -127,60 +127,209 @@ resource "kubernetes_secret" "admin-advantis-user_dev" {
 }
 
 
+data "aws_caller_identity" "current" {}
 
-# Define the GuardDuty Role
-/*resource "aws_iam_role" "s3_guardduty_role" {
-  name               = "s3-guardduty-malware-protection-role"
-  path               = "/system/laa-dces-data-integration-dev-guardduty/"
+## IAM role for GuardDuty
+resource "aws_iam_role" "guardduty_malware_protection_role" {
+  name = "test-guardduty-malware-protection-role"
+  path = "/"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
-        Principal = {
-          Service = "guardduty.amazonaws.com"
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "malware-protection-plan.guardduty.amazonaws.com"
         },
-        Action = "sts:AssumeRole"
+        "Action" : "sts:AssumeRole",
+        "Condition" : {
+          "StringEquals" : {
+            "aws:SourceAccount" : data.aws_caller_identity.current.account_id
+          },
+          "ArnLike" : {
+            "aws:SourceArn" : "arn:aws:guardduty:eu-west-2:${data.aws_caller_identity.current.account_id}:malware-protection-plan/*"
+          }
+        }
       }
     ]
   })
 }
 
-# Define the Policy Document for GuardDuty
-data "aws_iam_policy_document" "s3_guardduty_policy" {
-  statement {
-    effect = "Allow"
+## IAM policy
+## Policy reference: https://docs.aws.amazon.com/guardduty/latest/ug/malware-protection-s3-iam-policy-prerequisite.html
+resource "aws_iam_policy" "guardduty_s3_custom" {
+  name        = "guardduty-s3-policy"
+  description = "Policy allowing GuardDuty to manage S3 events, used for malware protection."
 
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-      "s3:GetBucketPolicy",
-      "s3:GetBucketAcl",
-      "s3:GetBucketLocation"
-    ]
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowManagedRuleToSendS3EventsToGuardDuty"
+        Effect = "Allow"
+        Action = [
+          "events:PutRule"
+        ]
+        Resource = [
+          "arn:aws:events:eu-west-2:${data.aws_caller_identity.current.account_id}:rule/DO-NOT-DELETE-AmazonGuardDutyMalwareProtectionS3*"
+        ]
+        Condition = {
+          StringEquals = {
+            "events:ManagedBy" = "malware-protection-plan.guardduty.amazonaws.com"
+          }
+          "ForAllValues:StringEquals" = {
+            "events:source" = "aws.s3"
+            "events:detail-type" = [
+              "Object Created",
+              "AWS API Call via CloudTrail"
+            ]
+          }
+          Null = {
+            "events:source"      = "false"
+            "events:detail-type" = "false"
+          }
+        }
+      },
 
-    resources = [
-      module.s3_advantis_bucket.bucket_arn,
-      "${module.s3_advantis_bucket.bucket_arn}/*"
+      {
+        Sid    = "AllowGuardDutyToMonitorEventBridgeManagedRule"
+        Effect = "Allow"
+        Action = [
+          "events:DescribeRule",
+          "events:ListTargetsByRule"
+        ]
+        Resource = [
+          "arn:aws:events:eu-west-2:${data.aws_caller_identity.current.account_id}:rule/DO-NOT-DELETE-AmazonGuardDutyMalwareProtectionS3*"
+        ]
+      },
+
+      {
+        Sid    = "AllowPostScanTag"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObjectTagging",
+          "s3:GetObjectVersionTagging",
+          "s3:PutObjectTagging",
+          "s3:PutObjectVersionTagging"
+        ]
+        Resource = [
+          "arn:aws:s3:::${module.s3_advantis_bucket.bucket_name}/*"
+        ]
+        Condition = {
+          StringEquals = {
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+
+      {
+        Sid    = "AllowEnableS3EventBridgeEvents"
+        Effect = "Allow"
+        Action = [
+          "s3:PutBucketNotification",
+          "s3:GetBucketNotification"
+        ]
+        Resource = [
+          "arn:aws:s3:::${module.s3_advantis_bucket.bucket_name}"
+        ]
+        Condition = {
+          StringEquals = {
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+
+      {
+        Sid    = "AllowPutValidationObject"
+        Effect = "Allow"
+        Action = [
+          "s3:PutObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::${module.s3_advantis_bucket.bucket_name}/malware-protection-resource-validation-object"
+        ]
+        Condition = {
+          StringEquals = {
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+
+      {
+        Sid    = "AllowCheckBucketOwnership"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "arn:aws:s3:::${module.s3_advantis_bucket.bucket_name}"
+        ]
+        Condition = {
+          StringEquals = {
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+
+      {
+        Sid    = "AllowMalwareScan"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ]
+        Resource = [
+          "arn:aws:s3:::${module.s3_advantis_bucket.bucket_name}/*"
+        ]
+        Condition = {
+          StringEquals = {
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+
+      ### This was copied from the console clickops testing
+      {
+        Sid    = "AllowUpdateTargetAndDeleteManagedRule"
+        Effect = "Allow"
+        Action = [
+          "events:DeleteRule",
+          "events:PutTargets",
+          "events:RemoveTargets"
+        ]
+        Resource = [
+          "arn:aws:events:eu-west-2:${data.aws_caller_identity.current.account_id}:rule/DO-NOT-DELETE-AmazonGuardDutyMalwareProtectionS3*"
+        ]
+        Condition = {
+          StringEquals = {
+            "events:ManagedBy" = "malware-protection-plan.guardduty.amazonaws.com"
+          }
+        }
+      }
+
+      ####  You will need below if you need to decrypt s3 bucket object with kms
+      #   {
+      #     Sid    = "AllowDecryptForMalwareScan"
+      #     Effect = "Allow"
+      #     Action = [
+      #         "kms:GenerateDataKey",
+      #         "kms:Decrypt"
+      #     ]
+      #     Resource = [
+      #       your kms arn
+      #     ]
+      #     Condition = {
+      #       StringEquals = {
+      #         "kms:ViaService" = "s3.eu-west-2.amazonaws.com"
+      #       }
+      #     }
+      #   }
     ]
-  }
+  })
 }
 
-# Create a Policy for GuardDuty
-resource "aws_iam_policy" "s3_guardduty_policy" {
-  name        = "s3-guardduty-malware-policy"
-  description = "Policy for GuardDuty to access and scan S3 buckets for malware"
-  policy      = data.aws_iam_policy_document.s3_guardduty_policy.json
+## Attach the IAM policy to the role
+resource "aws_iam_role_policy_attachment" "attach_guardduty_s3_custom" {
+  role       = aws_iam_role.guardduty_malware_protection_role.name
+  policy_arn = aws_iam_policy.guardduty_s3_custom.arn
 }
-
-# Attach the Policy to the Role
-resource "aws_iam_role_policy_attachment" "s3_guardduty_policy_attachment" {
-  role       = aws_iam_role.s3_guardduty_role.name
-  policy_arn = aws_iam_policy.s3_guardduty_policy.arn
-}*/
-
-/*
-# Output the Role ARN (Optional for Debugging or Use in Other Modules)
-output "s3_guardduty_role_arn" {
-  value = aws_iam_role.s3_guardduty_role.arn
-}*/
