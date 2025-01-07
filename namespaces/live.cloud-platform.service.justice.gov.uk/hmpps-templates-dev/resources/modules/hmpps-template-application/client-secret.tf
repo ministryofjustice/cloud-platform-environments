@@ -1,5 +1,6 @@
 # Generate a secure random session secret
 resource "kubernetes_secret" "client_secret" {
+  count = var.client_secret ? 1 : 0
   metadata {
     name      = "${var.application}-client-secret"
     namespace = var.namespace

@@ -66,3 +66,13 @@ variable "serviceaccount_name" {
   description = "The name of the service account to be created"
   default     = "github-actions-sa"
 }
+
+variable "client_secret" {
+  description = "Set to 'true' to create the initial client secret required for kotlin template apps"
+  default = false
+}
+
+variable "session_secret" {
+  description = "Set to 'true' to create the initial session secret required for typescript template apps"
+  default = false
+}
