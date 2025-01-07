@@ -9,7 +9,7 @@ module "truststore_s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
-/*  bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -28,7 +28,7 @@ module "truststore_s3_bucket" {
     }
   ]
 }
-EOF*/
+EOF
 }
 
 data "kubernetes_secret" "truststore" {
