@@ -158,7 +158,7 @@ resource "aws_iam_role" "guardduty_malware_protection_role" {
 ## IAM policy
 ## Policy reference: https://docs.aws.amazon.com/guardduty/latest/ug/malware-protection-s3-iam-policy-prerequisite.html
 resource "aws_iam_policy" "guardduty_s3_custom" {
-  name        = "guardduty-s3-policy"
+  name        = "guard-duty-s3-policy"
   description = "Policy allowing GuardDuty to manage S3 events, used for malware protection."
 
   policy = jsonencode({

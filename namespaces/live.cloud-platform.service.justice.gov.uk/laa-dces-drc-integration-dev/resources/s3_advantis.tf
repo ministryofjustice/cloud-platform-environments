@@ -104,12 +104,13 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
-  /*statement {
+
+  statement {
     effect = "Allow"
     principals {
       type        = "AWS"
       identifiers = [
-        aws_iam_role.s3_guardduty_role.arn
+        aws_iam_role.guardduty_malware_protection_role.arn
       ]
     }
     actions = [
@@ -123,7 +124,9 @@ data "aws_iam_policy_document" "bucket-policy" {
       "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
-  }*/
+  }
+
+
 
 
 
