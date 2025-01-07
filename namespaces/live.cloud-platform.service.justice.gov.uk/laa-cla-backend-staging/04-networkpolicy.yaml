@@ -46,3 +46,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-govuk-notify-orchestrator-staging
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-staging

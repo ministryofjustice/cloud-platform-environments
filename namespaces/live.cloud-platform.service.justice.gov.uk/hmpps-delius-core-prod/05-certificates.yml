@@ -37,3 +37,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - ndelius-new-tech.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ndelius-new-tech-cert
+  namespace: hmpps-delius-core-prod
+spec:
+  secretName: ndelius-new-tech-pdf-generator-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - nt-pdfgen.hmpps.service.justice.gov.uk
+    - ndelius-new-tech-pdf-generator.hmpps.service.justice.gov.uk

@@ -105,6 +105,59 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_role.guardduty_malware_protection_role.arn
+      ]
+    }
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetBucketPolicy",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }
+
+
+
+
+
+  /*
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["guardduty.amazonaws.com"]
+    }
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetBucketPolicy",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }*/
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -122,3 +175,13 @@ resource "kubernetes_secret" "s3_advantis_bucket-secret" {
     bucket_name = module.s3_advantis_bucket.bucket_name
   }
 }
+
+
+
+
+
+
+
+
+
+

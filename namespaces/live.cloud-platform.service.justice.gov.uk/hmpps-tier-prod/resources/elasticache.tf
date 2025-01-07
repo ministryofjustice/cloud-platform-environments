@@ -6,10 +6,10 @@ module "elasticache" {
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
-  node_type            = "cache.t4g.micro"
+  node_type            = "cache.t4g.small"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 }

@@ -13,8 +13,8 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = merge(
     local.sns_policies,
-    { domain_sns = module.hmpps_tier_domain_events_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_tier_domain_events_dead_letter_queue.irsa_policy_arn },
+    { domain_sqs = module.hmpps-tier-events-queue.irsa_policy_arn },
+    { domain_dlq = module.hmpps-tier-events-dlq.irsa_policy_arn },
     { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
   )
 
@@ -23,7 +23,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 

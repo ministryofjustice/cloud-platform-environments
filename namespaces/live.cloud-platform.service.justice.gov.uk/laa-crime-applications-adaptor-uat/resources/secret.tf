@@ -15,6 +15,16 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-credentials"
     },
+    "ingress_external_allowlist_source_range" = {
+      description             = "The external IP allowlist for CAA UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-external-allowlist-source-range"
+    },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for CAA UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
     "sentry_dsn" = {
       description             = "Sentry Data Source Name (DSN) for Crime Applications Adaptor uat",
       recovery_window_in_days = 7,

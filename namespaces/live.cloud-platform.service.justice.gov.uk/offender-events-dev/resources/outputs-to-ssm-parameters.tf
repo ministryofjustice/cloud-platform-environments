@@ -32,6 +32,8 @@ locals {
     (module.offender_categorisation_events_dead_letter_queue.sqs_name)             = module.offender_categorisation_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_categorisation_ui_events_queue.sqs_name)                      = module.offender_categorisation_ui_events_queue.irsa_policy_arn,
     (module.offender_categorisation_ui_events_dead_letter_queue.sqs_name)          = module.offender_categorisation_ui_events_dead_letter_queue.irsa_policy_arn,
+    (module.offender_categorisation_api_events_queue.sqs_name)                      = module.offender_categorisation_api_events_queue.irsa_policy_arn,
+    (module.offender_categorisation_api_events_dead_letter_queue.sqs_name)          = module.offender_categorisation_api_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_events_ui_queue.sqs_name)                                     = module.offender_events_ui_queue.irsa_policy_arn,
     (module.offender_events_ui_dead_letter_queue.sqs_name)                         = module.offender_events_ui_dead_letter_queue.irsa_policy_arn,
     (module.pathfinder_offender_events_queue.sqs_name)                             = module.pathfinder_offender_events_queue.irsa_policy_arn,

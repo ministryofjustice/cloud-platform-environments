@@ -405,7 +405,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_extractor_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_extractor_queue_prod"
               },
               "expression": "",
               "hide": false,
@@ -530,12 +530,12 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_transformer_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_transformer_queue_prod"
               },
               "expression": "",
               "hide": false,
               "id": "",
-              "label": "ims_trasnformer_queue",
+              "label": "ims_transformer_queue",
               "logGroups": [],
               "matchExact": true,
               "metricEditorMode": 0,
@@ -735,7 +735,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_extractor_dl_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_extractor_dl_queue_prod"
               },
               "expression": "",
               "id": "",
@@ -855,7 +855,7 @@ data:
                 "uid": "P896B4444D3F0DAB8"
               },
               "dimensions": {
-                "QueueName": "dps-ims-production-releases-prod-ims_transformer_dl_queue"
+                "QueueName": "dps-ims-production-releases-prod-ims_transformer_dl_queue_prod"
               },
               "expression": "",
               "id": "",
