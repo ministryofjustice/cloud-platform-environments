@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - learner-records-api.hmpps.service.justice.gov.uk
+    - learner-records-api-dev.hmpps.service.justice.gov.uk
