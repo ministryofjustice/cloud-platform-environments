@@ -6,7 +6,6 @@ module "hmpps_template_kotlin" {
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
-  session_secret = false
   client_secret = true
 
   team_name              = var.team_name
