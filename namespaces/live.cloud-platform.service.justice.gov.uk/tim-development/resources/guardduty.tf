@@ -15,7 +15,7 @@ resource "aws_iam_role" "guardduty_malware_protection_role" {
         "Action" : "sts:AssumeRole",
         "Condition" : {
           "StringEquals" : {
-            "aws:SourceAccount" : "${data.aws_caller_identity.current.account_id}"
+            "aws:SourceAccount" : data.aws_caller_identity.current.account_id
           },
           "ArnLike" : {
             "aws:SourceArn" : "arn:aws:guardduty:eu-west-2:${data.aws_caller_identity.current.account_id}:malware-protection-plan/*"
@@ -88,7 +88,7 @@ resource "aws_iam_policy" "guardduty_s3_custom" {
         ]
         Condition = {
           StringEquals = {
-            "aws:ResourceAccount" = "${data.aws_caller_identity.current.account_id}"
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
       },
@@ -105,7 +105,7 @@ resource "aws_iam_policy" "guardduty_s3_custom" {
         ]
         Condition = {
           StringEquals = {
-            "aws:ResourceAccount" = "${data.aws_caller_identity.current.account_id}"
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
       },
@@ -121,7 +121,7 @@ resource "aws_iam_policy" "guardduty_s3_custom" {
         ]
         Condition = {
           StringEquals = {
-            "aws:ResourceAccount" = "${data.aws_caller_identity.current.account_id}"
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
       },
@@ -137,7 +137,7 @@ resource "aws_iam_policy" "guardduty_s3_custom" {
         ]
         Condition = {
           StringEquals = {
-            "aws:ResourceAccount" = "${data.aws_caller_identity.current.account_id}"
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
       },
@@ -154,12 +154,12 @@ resource "aws_iam_policy" "guardduty_s3_custom" {
         ]
         Condition = {
           StringEquals = {
-            "aws:ResourceAccount" = "${data.aws_caller_identity.current.account_id}"
+            "aws:ResourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
       },
 
-      ### This was copied from the console 
+      ### This was copied from the console clickops testing 
       {
         Sid    = "AllowUpdateTargetAndDeleteManagedRule"
         Effect = "Allow"
