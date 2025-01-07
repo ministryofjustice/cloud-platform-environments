@@ -2,33 +2,26 @@ locals {
   # Deployment alerts
   # Edit the deployment_alerts map to add or remove deployment alerts
   deployment_alerts = {
-    "alfresco-content-services-alfresco-cs-repository" = {
+    "alfresco-content-services-alfresco-repository" = {
       pod_short_name             = "repository"
       time                       = "5m"
       cpu_threshold              = 0.75
       mem_threshold              = 0.75
       deployment_count_threshold = 5
     }
-    "alfresco-content-services-alfresco-cs-tika" = {
+    "alfresco-content-services-tika" = {
       pod_short_name             = "tika"
       time                       = "5m"
       cpu_threshold              = 0.75
       mem_threshold              = 0.75
       deployment_count_threshold = 2
     }
-    "alfresco-content-services-alfresco-router" = {
+    "alfresco-content-services-transform-router" = {
       pod_short_name             = "router"
       time                       = "5m"
       cpu_threshold              = 0.75
       mem_threshold              = 0.75
       deployment_count_threshold = 5
-    }
-    "alfresco-content-services-alfresco-filestore" = {
-      pod_short_name             = "filestore"
-      time                       = "5m"
-      cpu_threshold              = 0.75
-      mem_threshold              = 0.75
-      deployment_count_threshold = 1
     }
   }
 
