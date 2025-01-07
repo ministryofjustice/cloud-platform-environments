@@ -20,7 +20,7 @@ module "rds_alfresco" {
   prepare_for_major_upgrade = false
   db_engine_version         = "14.12"
   rds_family                = "postgres14"
-  db_instance_class         = "db.t3.micro"
+  db_instance_class         = "db.t4g.micro"
   
   db_backup_retention_period = "28"
   backup_window              = "02:00-04:00"
