@@ -331,5 +331,5 @@ resource "aws_iam_policy" "guard-duty_s3_custom" {
 ## Attach the IAM policy to the role
 resource "aws_iam_role_policy_attachment" "attach_guardduty_s3_custom" {
   role       = aws_iam_role.guardduty_malware_protection_role.name
-  policy_arn = aws_iam_policy.guardduty_s3_custom.arn
+  policy_arn = aws_iam_policy.guard-duty_s3_custom.arn
 }
