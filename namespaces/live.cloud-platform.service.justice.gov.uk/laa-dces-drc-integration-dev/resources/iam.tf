@@ -131,7 +131,7 @@ data "aws_caller_identity" "current" {}
 
 ## IAM role for GuardDuty
 resource "aws_iam_role" "guardduty_malware_protection_role" {
-  name = "test-guardduty-malware-protection-role"
+  name = "test-guard-duty-malware-protection-role"
   path = "/"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
