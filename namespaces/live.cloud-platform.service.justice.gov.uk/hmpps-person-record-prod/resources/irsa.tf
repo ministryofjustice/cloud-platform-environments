@@ -106,7 +106,6 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
-    { dms = module.hmpps-person-record-dms.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },

@@ -92,6 +92,20 @@ data "aws_iam_policy_document" "admin_policy" {
   }
 
   statement {
+    actions = [
+      "guardduty:ListDetectors",
+      "guardduty:GetDetector",
+      "guardduty:ListFindings",
+      "guardduty:DescribeFindings",
+      "guardduty:GetFindingsStatistics"
+    ]
+
+    resources = ["*"]
+  }
+
+
+
+  statement {
     effect    = "Deny"
     actions   = ["s3:*"]
     resources = [
