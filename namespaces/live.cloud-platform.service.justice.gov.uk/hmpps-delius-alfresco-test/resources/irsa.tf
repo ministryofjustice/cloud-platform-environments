@@ -11,6 +11,7 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment_name}"
   role_policy_arns = {
+    amq            = aws_iam_policy.amq.arn
     s3             = module.s3_bucket.irsa_policy_arn
     s3_refresh_poc = data.aws_iam_policy.poc_env_bucket_policy.arn
     migration      = aws_iam_policy.migration_policy.arn
