@@ -105,8 +105,8 @@ data "aws_iam_policy_document" "admin_policy" {
     ]
 
     resources = [
-      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/${data.aws_guardduty_detector.current.id}",
-      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/${data.aws_guardduty_detector.current.id}/findings"
+      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/60b871620b0dce09f641829602f8c9b6",
+      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/60b871620b0dce09f641829602f8c9b6/findings"
     ]
   }
 
