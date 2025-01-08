@@ -115,3 +115,20 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
   }
 }
+
+resource "aws_api_gateway_rest_api" "api_gateway" {
+  name                         = var.namespace
+  disable_execute_api_endpoint = false
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  tags = local.default_tags
+}
+
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
+  path_part   = "{proxy+}"
+}
