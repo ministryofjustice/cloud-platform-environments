@@ -15,6 +15,7 @@ module "irsa" {
     s3_refresh_poc                 = data.aws_iam_policy.poc_env_bucket_policy.arn
     rds                            = module.rds_alfresco.irsa_policy_arn
     s3_opensearch_snapshots_bucket = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
+    amq                            = aws_iam_policy.amq.arn
   }
 
   # Tags
