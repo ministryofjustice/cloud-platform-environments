@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "example_team_route53_zone" {
+resource "aws_route53_zone" "gpfd_team_route53_zone" {
   name = var.domain
 
   tags = {
@@ -13,14 +13,14 @@ resource "aws_route53_zone" "example_team_route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "example_route53_zone_sec" {
+resource "kubernetes_secret" "gpfd_route53_zone_sec" {
   metadata {
-    name      = "example-route53-zone-output"
+    name      = "gpfd-route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id = aws_route53_zone.example_team_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.example_team_route53_zone.name_servers)
+    zone_id = aws_route53_zone.gpfd_team_route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.gpfd_team_route53_zone.name_servers)
   }
 }
