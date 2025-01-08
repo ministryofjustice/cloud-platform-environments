@@ -71,3 +71,17 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "base_domain" {
+  default = "hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the api gateway"
+  default     = "launchpad-sso-dev"
+}
+
+variable "cloud_platform_integration_api_url" {
+  description = "Pre-defined domain for the namespace provided by Cloud Platform"
+  default     = "https://hmpps-launchpad-dev.apps.live.cloud-platform.service.justice.gov.uk"
+}
