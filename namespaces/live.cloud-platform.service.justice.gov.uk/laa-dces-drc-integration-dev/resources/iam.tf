@@ -1,3 +1,6 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 resource "aws_iam_user" "advantis_upload_user_dev" {
   name = "laa-dces-drc-integration-dev-advantis-upload-user"
   path = "/system/laa-dces-data-integration-dev-advantis-upload-users/"
@@ -100,7 +103,10 @@ data "aws_iam_policy_document" "admin_policy" {
       "guardduty:GetFindingsStatistics"
     ]
 
-    resources = ["*"]
+    resources = [
+      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/60b871620b0dce09f641829602f8c9b6",
+      "arn:aws:guardduty:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:detector/60b871620b0dce09f641829602f8c9b6/findings"
+    ]
   }
 
 
@@ -142,7 +148,7 @@ resource "kubernetes_secret" "admin-advantis-user_dev" {
 }
 
 
-data "aws_caller_identity" "current" {}
+
 
 ## IAM role for GuardDuty
 resource "aws_iam_role" "guardduty_malware_protection_role" {
