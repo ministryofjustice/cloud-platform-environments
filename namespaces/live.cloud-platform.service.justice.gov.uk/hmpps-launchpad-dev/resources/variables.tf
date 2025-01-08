@@ -71,3 +71,12 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "base_domain" {
+  default = "hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the api gateway"
+  default     = "launchpad-sso-dev"
+}
