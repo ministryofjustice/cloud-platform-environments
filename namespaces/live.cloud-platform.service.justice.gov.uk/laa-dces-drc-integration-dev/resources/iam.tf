@@ -1,5 +1,4 @@
 data "aws_caller_identity" "current" {}
-data "aws_guardduty_detector" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_iam_user" "advantis_upload_user_dev" {
