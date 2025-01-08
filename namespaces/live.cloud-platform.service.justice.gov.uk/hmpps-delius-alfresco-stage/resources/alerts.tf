@@ -159,39 +159,39 @@ resource "kubernetes_manifest" "prometheus_rule_alfresco" {
                   message = "[{{ environment|upper }}] RDS read latency is over 0.1s for more than 5 minutes"
                 }
               },
-              {
-                alert = "IngressLongRequestTime95thPercentile"
-                expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
-                for   = "5m"
-                labels = {
-                  severity = var.namespace
-                }
-                annotations = {
-                  message = "[{{ environment|upper }}] 95th percentile of request duration for Ingress is over 0.5s for more than 5 minutes"
-                }
-              },
-              {
-                alert = "IngressLongResponseTime95thPercentile"
-                expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
-                for   = "5m"
-                labels = {
-                  severity = var.namespace
-                }
-                annotations = {
-                  message = "[{{ environment|upper }}] 95th percentile of response duration for Ingress is over 0.5s for more than 5 minutes"
-                }
-              },
-              {
-                alert = "IngressHighErrorRate"
-                expr  = "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\",status=~\"5.*\"}[5m])) / sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) > 0.01"
-                for   = "5m"
-                labels = {
-                  severity = var.namespace
-                }
-                annotations = {
-                  message = "[{{ environment|upper }}] Error rate for Ingress is over 1% for more than 5 minutes"
-                }
-              }
+              # {
+              #   alert = "IngressLongRequestTime95thPercentile"
+              #   expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
+              #   for   = "5m"
+              #   labels = {
+              #     severity = var.namespace
+              #   }
+              #   annotations = {
+              #     message = "[{{ environment|upper }}] 95th percentile of request duration for Ingress is over 0.5s for more than 5 minutes"
+              #   }
+              # },
+              # {
+              #   alert = "IngressLongResponseTime95thPercentile"
+              #   expr  = "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_response_duration_seconds_bucket{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) by (le)) > 0.75"
+              #   for   = "5m"
+              #   labels = {
+              #     severity = var.namespace
+              #   }
+              #   annotations = {
+              #     message = "[{{ environment|upper }}] 95th percentile of response duration for Ingress is over 0.5s for more than 5 minutes"
+              #   }
+              # },
+              # {
+              #   alert = "IngressHighErrorRate"
+              #   expr  = "sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\",status=~\"5.*\"}[5m])) / sum(rate(nginx_ingress_controller_requests{exported_namespace=\"${var.namespace}\", ingress=\"alfresco-content-services-alfresco-cs-repository\"}[5m])) > 0.01"
+              #   for   = "5m"
+              #   labels = {
+              #     severity = var.namespace
+              #   }
+              #   annotations = {
+              #     message = "[{{ environment|upper }}] Error rate for Ingress is over 1% for more than 5 minutes"
+              #   }
+              # }
           ])
         }
       ]
