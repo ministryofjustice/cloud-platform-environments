@@ -91,7 +91,8 @@ data "aws_iam_policy_document" "analytical-platform" {
       "s3:PutobjectAcl"
     ]
     resources = [
-      "arn:aws:s3:::moj-reg-dev/var.namespace/*",
+      "arn:aws:s3:::moj-reg-dev/landing/${var.namespace}/*",
+      "arn:aws:s3:::moj-reg-dev/landing/${var.namespace}/"
     ]
   }
 }
