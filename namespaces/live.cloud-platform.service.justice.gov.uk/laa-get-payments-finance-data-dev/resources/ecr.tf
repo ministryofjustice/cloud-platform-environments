@@ -23,6 +23,9 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  # For ECR creation to differentiate between environments
+  github_actions_prefix = "dev"
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
