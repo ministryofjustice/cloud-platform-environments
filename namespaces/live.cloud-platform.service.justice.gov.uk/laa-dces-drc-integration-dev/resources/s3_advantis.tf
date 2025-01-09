@@ -128,35 +128,28 @@ data "aws_iam_policy_document" "bucket-policy" {
 
 
 
-
-
-  /*
+  # s3 put access to transfer attachments from marston bucket
   statement {
+    sid = "PutAccessForMarstonAttachments"
     effect = "Allow"
     principals {
-      type        = "Service"
-      identifiers = ["guardduty.amazonaws.com"]
+      type        = "AWS"
+      identifiers = [
+         "arn:aws:iam::754256621582:user/system/laa-dces-data-migration-dev-admin-users/laa-dces-data-migration-dev-admin-user"
+      ]
     }
     actions = [
-      "s3:GetObject",
+      "s3:PutObject",
       "s3:ListBucket",
-      "s3:GetBucketPolicy",
-      "s3:GetBucketAcl",
-      "s3:GetBucketLocation"
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging"
     ]
     resources = [
       "$${bucket_arn}",
       "$${bucket_arn}/*"
     ]
-  }*/
-
-
-
-
-
-
-
-
+  }
 
 }
 
