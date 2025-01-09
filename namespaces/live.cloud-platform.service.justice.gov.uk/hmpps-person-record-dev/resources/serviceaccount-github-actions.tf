@@ -5,9 +5,36 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   github_repositories = ["hmpps-person-match"]
-  github_environments = ["dev"]
+  github_environments = [var.environment]
 
   serviceaccount_name = "github-actions-serviceaccount"
   role_name           = "github-actions-serviceaccount-role"
   rolebinding_name    = "github-actions-serviceaccount-rolebinding"
+}
+
+data "github_user" "current" {
+  # No arguments needed; it will fetch information for the token owner
+}
+
+resource "kubernetes_secret" "github_docker_registry" {
+  metadata {
+    name = "github-docker-registry-secret"
+    namespace = var.namespace
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+
+  data = {
+    ".dockerconfigjson" = base64encode(
+      jsonencode({
+        auths = {
+          "ghcr.io" = {
+            username = data.github_user.current.login
+            password = var.github_token
+            email    = data.github_user.current.email
+          }
+        }
+      })
+    )
+  }
 }
