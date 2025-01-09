@@ -14,6 +14,8 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["rnd_elliot_learning"]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
