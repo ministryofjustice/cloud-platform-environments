@@ -2,10 +2,13 @@ data "aws_iam_policy" "sqs_access" {
   for_each = toset([
     "hmpps-probation-integration-services-dev-queue-policy",
     "hmpps-probation-integration-services-dev-dlq-policy",
+    "hmpps-probation-integration-services-dev-external-policy",
     "hmpps-probation-integration-services-preprod-queue-policy",
     "hmpps-probation-integration-services-preprod-dlq-policy",
+    "hmpps-probation-integration-services-preprod-external-policy",
     "hmpps-probation-integration-services-prod-queue-policy",
     "hmpps-probation-integration-services-prod-dlq-policy",
+    "hmpps-probation-integration-services-prod-external-policy",
   ])
   name = each.value
 }
@@ -22,5 +25,5 @@ module "shared-service-account" {
   team_name              = var.team_name
 
   service_account_name = var.application
-  role_policy_arns     = {for key, policy in data.aws_iam_policy.sqs_access : key => policy.arn}
+  role_policy_arns     = { for key, policy in data.aws_iam_policy.sqs_access : key => policy.arn }
 }
