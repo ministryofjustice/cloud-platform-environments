@@ -25,4 +25,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - electronic-monitoring-for-probation-officers-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-for-probation-officers-ui-dev.hmpps.service.justice.gov.uk
