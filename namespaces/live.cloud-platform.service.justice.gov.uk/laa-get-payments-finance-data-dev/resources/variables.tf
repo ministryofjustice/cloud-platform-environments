@@ -97,8 +97,3 @@ variable "github_actions_secret_kube_token" {
   type        = string
   sensitive   = true
 }
-
-variable "domain" {
-  default = "get-legal-aid-data.service.justice.gov.uk"
-  type    = string
-}
