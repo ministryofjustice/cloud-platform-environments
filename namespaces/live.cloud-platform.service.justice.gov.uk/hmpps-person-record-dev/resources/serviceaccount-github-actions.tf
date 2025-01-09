@@ -6,4 +6,8 @@ module "serviceaccount" {
 
   github_repositories = ["hmpps-person-match"]
   github_environments = ["dev"]
+
+  serviceaccount_name = "github-actions-serviceaccount"
+  role_name           = "github-actions-serviceaccount-role"
+  rolebinding_name    = "github-actions-serviceaccount-rolebinding"
 }
