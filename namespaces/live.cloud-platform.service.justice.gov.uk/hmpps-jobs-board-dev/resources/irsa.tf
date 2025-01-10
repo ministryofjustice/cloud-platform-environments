@@ -18,7 +18,9 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment}"
 
-  role_policy_arns = local.sqs_policies
+  role_policy_arns = merge(
+    local.sqs_policies
+  )
 
   # Tags
   business_unit          = var.business_unit
