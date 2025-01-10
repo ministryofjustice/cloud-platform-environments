@@ -1,5 +1,5 @@
-resource "aws_iam_role" "opensearch_connector" {
-  name = "${var.namespace}-opensearch-connector"
+resource "aws_iam_role" "opensearch_bedrock_role" {
+  name = "${var.namespace}-opensearch-bedrock-connector"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -15,14 +15,14 @@ resource "aws_iam_role" "opensearch_connector" {
 }
 
 resource "aws_iam_role_policy" "opensearch_bedrock_policy" {
-  role = aws_iam_role.opensearch_connector.id
+  role = aws_iam_role.opensearch_bedrock_role.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Effect   = "Allow",
         Action   = "iam:PassRole",
-        Resource = aws_iam_role.opensearch_connector.arn
+        Resource = aws_iam_role.opensearch_bedrock_role.arn
       },
       {
         Effect   = "Allow",
@@ -42,23 +42,6 @@ resource "aws_iam_role_policy" "opensearch_bedrock_policy" {
   })
 }
 
-resource "aws_iam_role_policy" "opensearch_sagemaker_policy" {
-  role = aws_iam_role.opensearch_connector.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "sagemaker:InvokeEndpointAsync",
-          "sagemaker:InvokeEndpoint"
-        ],
-        Resource = "*"
-      },
-    ]
-  })
-}
-
 data "aws_arn" "opensearch_irsa_role" {
   arn = module.opensearch.irsa_role_arn
 }
@@ -71,7 +54,7 @@ resource "aws_iam_role_policy" "opensearch_bedrock_irsa_policy" {
       {
         Effect   = "Allow",
         Action   = "iam:PassRole",
-        Resource = aws_iam_role.opensearch_connector.arn
+        Resource = aws_iam_role.opensearch_bedrock_role.arn
       }
     ]
   })

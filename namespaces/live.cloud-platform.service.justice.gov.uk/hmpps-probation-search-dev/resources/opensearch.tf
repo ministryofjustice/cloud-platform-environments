@@ -52,6 +52,6 @@ resource "kubernetes_secret" "indexer_secret" {
   }
   data = {
     url              = module.opensearch.proxy_url
-    bedrock_role_arn = aws_iam_role.opensearch_connector.arn
+    bedrock_role_arn = aws_iam_role.opensearch_bedrock_role.arn
   }
 }
