@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "api_gateway" {
     ]
   }
 
-  statement {
+  /*statement {
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "api_gateway" {
       "${module.certificate_backup.bucket_arn}/*"
     ]
   }
-}
+}*/
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
   name   = "${var.namespace}-api-gateway"
