@@ -44,6 +44,11 @@ module "secrets_manager" {
       description             = "Secrets for CAAB Datasource",                      # Required
       recovery_window_in_days = 7,                                                  # Required
       k8s_secret_name         = "caab-datasource-secrets"                           # The name of the secret in k8s
+    },
+    "caab-regression-test-secrets" = {
+      description             = "Secrets for CAAB Regression Tests",                # Required
+      recovery_window_in_days = 7,                                                  # Required
+      k8s_secret_name         = "caab-regression-test-secrets"                      # The name of the secret in k8s
     }
   }
 }
