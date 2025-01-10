@@ -56,7 +56,6 @@ module "irsa" {
     { s3 = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
-    { sqs_ccm_dlq = module.court-case-matcher-dead-letter-queue.irsa_policy_arn },
     { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
     { sqs_ccq_dlq = module.court-cases-dlq.irsa_policy_arn },
     { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
