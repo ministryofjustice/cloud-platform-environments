@@ -11,30 +11,3 @@ module "serviceaccount" {
   role_name           = "github-actions-serviceaccount-role"
   rolebinding_name    = "github-actions-serviceaccount-rolebinding"
 }
-
-data "github_user" "current" {
-  # No arguments needed; it will fetch information for the token owner
-  username = ""
-}
-
-resource "kubernetes_secret" "github_docker_registry" {
-  metadata {
-    name = "github-docker-registry-secret"
-    namespace = var.namespace
-  }
-
-  type = "kubernetes.io/dockerconfigjson"
-
-  data = {
-    ".dockerconfigjson" = jsonencode({
-      auths = {
-        "ghcr.io" = {
-          username = data.github_user.current.login
-          password = var.github_token
-          email    = data.github_user.current.email
-          auth     = base64encode("${data.github_user.current.login}:${var.github_token}")
-        }
-      }
-    })
-  }
-}
