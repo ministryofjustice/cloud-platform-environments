@@ -17,5 +17,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,                    # Required
       k8s_secret_name         = "gpfd-prod-secret-01" # The name of the secret in k8s
     },
+    "gpfd-service-alert-webhook-prod" = {
+      description             = "[gpfd-service-alert-webhook-prod] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "gpfd-service-alert-webhook-prod"
+    }
   }
 }
