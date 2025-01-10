@@ -10,10 +10,6 @@ resource "aws_iam_user" "api_gateway_user" {
   path = "/system/api-gateway-user/"
 }
 
-/*resource "aws_iam_access_key" "api_gateway_user" {
-  user = aws_iam_user.api_gateway_user.name
-}*/
-
 data "aws_iam_policy_document" "api_gateway" {
   statement {
     actions = [
@@ -35,7 +31,7 @@ data "aws_iam_policy_document" "api_gateway" {
     ]
   }
 
-  /*statement {
+  statement {
     actions = [
       "s3:PutObject",
       "s3:PutObjectAcl",
@@ -48,7 +44,7 @@ data "aws_iam_policy_document" "api_gateway" {
       "${module.certificate_backup.bucket_arn}/*"
     ]
   }
-}*/
+}
 
 resource "aws_iam_user_policy" "api_gateway_policy" {
   name   = "${var.namespace}-api-gateway"
