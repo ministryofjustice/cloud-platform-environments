@@ -86,7 +86,8 @@ data "aws_iam_policy_document" "admin_policy" {
       "s3:ListAllMyBuckets",
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
-      "s3:GetObjectTagging"
+      "s3:GetObjectTagging",
+      "s3:PutObjectTagging"
     ]
 
     resources = [
