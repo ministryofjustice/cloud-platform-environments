@@ -14,6 +14,7 @@ module "serviceaccount" {
 
 data "github_user" "current" {
   # No arguments needed; it will fetch information for the token owner
+  username = ""
 }
 
 resource "kubernetes_secret" "github_docker_registry" {
