@@ -31,7 +31,7 @@ resource "aws_iam_role" "cross_account_pass_role" {
         Sid    = "AllowOpenSearchServiceToAssume"
         Effect = "Allow"
         Principal = {
-          Service = "opensearch.amazonaws.com"
+          Service = "opensearchservice.amazonaws.com"
         }
         Action = "sts:AssumeRole"
         Condition = {
