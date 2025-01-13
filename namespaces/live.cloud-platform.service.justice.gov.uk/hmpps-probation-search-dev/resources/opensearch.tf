@@ -51,7 +51,7 @@ resource "kubernetes_secret" "indexer_secret" {
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    url              = module.opensearch.proxy_url
-    bedrock_role_arn = aws_iam_role.opensearch_bedrock_role.arn
+    url                = module.opensearch.proxy_url
+    connector_role_arn = local.opensearch_connector_role_arn
   }
 }
