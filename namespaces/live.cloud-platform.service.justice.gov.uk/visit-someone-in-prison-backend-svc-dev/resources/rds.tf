@@ -102,7 +102,7 @@ module "visit_allocation_rds" {
   db_engine_version           = "15.7"
   rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
+  db_max_allocated_storage    = "20"
   enable_rds_auto_start_stop   = true
   performance_insights_enabled = true
 
