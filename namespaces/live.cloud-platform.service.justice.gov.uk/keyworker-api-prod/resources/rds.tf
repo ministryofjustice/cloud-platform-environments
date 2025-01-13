@@ -19,10 +19,6 @@ module "dps_rds" {
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
   prepare_for_major_upgrade   = false
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "dps_rds" {
