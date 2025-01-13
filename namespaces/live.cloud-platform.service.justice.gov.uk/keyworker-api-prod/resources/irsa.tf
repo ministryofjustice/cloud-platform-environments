@@ -6,7 +6,13 @@ locals {
     "Digital-Prison-Services-prod-keyworker_api_queue"                       = "offender-events-prod",
     "Digital-Prison-Services-prod-keyworker_api_queue_dl"                    = "offender-events-prod",
   }
+
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
+
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
@@ -33,11 +39,17 @@ module "irsa" {
     {
       sqs_dlq = module.keyworker_domain_events_dlq.irsa_policy_arn
     },
-    local.sqs_policies
+    local.sqs_policies,
+    local.sns_policies
   )
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
