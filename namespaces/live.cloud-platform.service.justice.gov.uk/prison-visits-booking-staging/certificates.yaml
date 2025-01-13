@@ -11,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - staff.prisonvisits-preprod.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prison-visits-public-cert
+  namespace: prison-visits-booking-staging
+spec:
+  secretName: prison-visits-public-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - preprod.prisonvisits.service.justice.gov.uk
