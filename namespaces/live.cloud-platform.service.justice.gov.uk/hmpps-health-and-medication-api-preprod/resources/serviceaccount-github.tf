@@ -98,10 +98,6 @@ data "github_team" "hmpps-sre" {
 slug = "hmpps-sre"
 }
 
-data "github_team" "hmpps-person-record" {
-slug = "hmpps-person-record"
-}
-
 data "github_team" "connect-dps" {
 slug = "connect-dps"
 }
@@ -117,7 +113,6 @@ resource "github_repository_environment" "env" {
   reviewers {
     teams = [
       tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-person-record.id),
       tonumber(data.github_team.connect-dps.id)
     ]
   }
