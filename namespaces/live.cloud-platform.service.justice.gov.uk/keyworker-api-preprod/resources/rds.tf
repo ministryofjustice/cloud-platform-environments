@@ -15,10 +15,6 @@ module "dps_rds" {
   rds_family                  = "postgres15"
   prepare_for_major_upgrade   = false
   db_password_rotated_date    = "15-02-2023"
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "dps_rds" {
