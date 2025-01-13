@@ -34,11 +34,6 @@ resource "aws_iam_role" "cross_account_pass_role" {
           Service = "opensearchservice.amazonaws.com"
         }
         Action = "sts:AssumeRole"
-        Condition = {
-          StringEquals = {
-            "aws:SourceAccount" = "754256621582"
-          }
-        }
       },
     ]
   })
