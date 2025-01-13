@@ -9,7 +9,7 @@ module "truststore_s3_bucket" {
   namespace              = var.namespace
   versioning             = true
 
-/*  bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -28,7 +28,7 @@ module "truststore_s3_bucket" {
     }
   ]
 }
-EOF*/
+EOF
 }
 
 data "kubernetes_secret" "truststore" {
@@ -44,7 +44,7 @@ resource "aws_s3_object" "truststore" {
   content = data.kubernetes_secret.truststore.data["truststore-public-key"]
 }
 
-/*module "certificate_backup" {
+module "certificate_backup" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -78,7 +78,7 @@ resource "aws_s3_object" "truststore" {
   ]
 }
 EOF
-}*/
+}
 
 resource "random_password" "event_service_certificate_password" {
   length           = 16
