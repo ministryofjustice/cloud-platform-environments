@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - staff.prisonvisits-preprod.service.justice.gov.uk
+    - staff.preprod.prisonvisits.service.justice.gov.uk
