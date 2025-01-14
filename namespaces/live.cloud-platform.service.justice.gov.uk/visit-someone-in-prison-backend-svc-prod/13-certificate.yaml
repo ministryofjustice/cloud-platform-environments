@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-visit-allocation-api-cert
+  namespace: visit-someone-in-prison-backend-svc-prod
+spec:
+  secretName: hmpps-visit-allocation-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-visit-allocation-api.prison.service.justice.gov.uk
