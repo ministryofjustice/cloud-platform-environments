@@ -16,7 +16,7 @@ module "dps_rds" {
 
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.large"
   db_allocated_storage        = 400
   db_engine_version           = "16.4"
   rds_family                  = "postgres16"
