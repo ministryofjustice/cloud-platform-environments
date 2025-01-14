@@ -71,4 +71,10 @@ variable "mp_dps_sg_name" {
   default     = "cloudplatform-mp-dps-sg"
 }
 
+variable "dummy_variable" {
+  type        = string
+  description = "to make a point"
+  default     = "dummy"
+}
+
 variable "kubernetes_cluster" {}
