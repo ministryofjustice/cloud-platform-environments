@@ -8,10 +8,10 @@ module "hmpps_person_match_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  rds_family                  = "postgres16"
+  rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.micro"
   db_engine                   = "postgres"
-  db_engine_version           = "16"
+  db_engine_version           = "17.1"
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true

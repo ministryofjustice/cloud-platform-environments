@@ -1,4 +1,4 @@
-module "irsa" {
+module "hmpps_person_match_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
 
   # EKS configuration
