@@ -67,3 +67,15 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "environment-name" {
+  default = "dnstest"
+}
+
+variable "email" {
+  default = "civil-legal-advice@digital.justice.gov.uk"
+}
