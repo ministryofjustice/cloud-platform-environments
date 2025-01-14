@@ -12,8 +12,8 @@ module "dps_rds" {
   enable_rds_auto_start_stop = true
 
   db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
+  rds_family                  = "postgres16"
+  db_engine_version           = "16"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
