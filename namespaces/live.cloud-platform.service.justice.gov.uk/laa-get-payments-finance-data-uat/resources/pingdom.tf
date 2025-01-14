@@ -12,6 +12,6 @@ resource "pingdom_check" "get-legal-aid-data-uat" {
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_glad,component_ping,isproduction_${var.is_production},environment_${var.environment-name},infrastructuresupport_glad"
+  tags                     = "businessunit_${var.business_unit},application_glad,component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_glad"
   probefilters             = "region:EU"
 }
