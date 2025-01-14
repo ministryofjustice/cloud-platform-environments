@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: claim-criminal-injuries-dev-reference-reset
 spec:
-  schedule: "0 0 1 1 *"
+  schedule: "* * * * *"
   concurrencyPolicy: "Forbid"
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
