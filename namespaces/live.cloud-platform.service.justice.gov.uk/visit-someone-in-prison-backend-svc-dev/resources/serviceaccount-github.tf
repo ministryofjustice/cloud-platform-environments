@@ -105,7 +105,7 @@ resource "github_repository_environment" "env" {
   # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.book-a-prison-visit.id)
+      tonumber(data.github_team.hmpps-prison-visits-booking.id)
     ]
   }
   deployment_branch_policy {
