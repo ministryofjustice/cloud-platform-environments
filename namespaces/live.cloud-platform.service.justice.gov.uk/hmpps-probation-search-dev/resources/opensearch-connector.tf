@@ -14,7 +14,7 @@ resource "aws_iam_role_policy" "opensearch_connector_irsa_policy" {
       {
         Effect   = "Allow",
         Action   = "iam:PassRole",
-        Resource = local.opensearch_connector_role_arn
+        Resource = aws_iam_role.cross_account_pass_role.arn
       }
     ]
   })
