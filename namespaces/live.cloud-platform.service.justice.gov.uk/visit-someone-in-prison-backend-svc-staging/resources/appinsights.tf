@@ -1,7 +1,7 @@
 data "aws_ssm_parameter" "application_insights_key" {
   # var.environment should be set to one of dev, preprod or prod
   # otherwise the key has to be hard-coded e.g. key-preprod if environment set to 'pre-production'.
-  name = "/application_insights/key-${var.environment}"
+  name = "/application_insights/key-dev"
 }
 
 resource "kubernetes_secret" "application-insights" {
