@@ -92,7 +92,7 @@ resource "time_rotating" "weekly" {
 ##########################################################################
 
 data "github_team" "book-a-prison-visit" {
-slug = "hmpps-sre"
+slug = "book-a-prison-visit"
 }   
 
 ##########################################################################
