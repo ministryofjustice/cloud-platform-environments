@@ -1,0 +1,38 @@
+module "hmpps_person_match_rds" {
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  namespace                   = var.namespace
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
+  rds_family                  = "postgres17"
+  db_instance_class           = "db.t4g.micro"
+  db_engine                   = "postgres"
+  db_engine_version           = "17.1"
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "hmpps_person_match_rds" {
+  metadata {
+    name      = "hmpps-person-match-rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_person_match_rds.rds_instance_endpoint
+    database_name         = module.hmpps_person_match_rds.database_name
+    database_username     = module.hmpps_person_match_rds.database_username
+    database_password     = module.hmpps_person_match_rds.database_password
+    rds_instance_address  = module.hmpps_person_match_rds.rds_instance_address
+    url                   = "postgres://${module.hmpps_person_match_rds.database_username}:${module.hmpps_person_match_rds.database_password}@${module.hmpps_person_match_rds.rds_instance_endpoint}/${module.hmpps_person_match_rds.database_name}"
+  }
+}
