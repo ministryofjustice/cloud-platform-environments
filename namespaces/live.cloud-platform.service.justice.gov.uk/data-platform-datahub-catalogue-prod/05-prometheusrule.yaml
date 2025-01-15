@@ -13,7 +13,7 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-2182d9f2ebfb645b
           expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-2182d9f2ebfb645b"} offset 10m < 5000000000
           for: 5m
           labels:
@@ -22,7 +22,7 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-2182d9f2ebfb645b
           expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-2182d9f2ebfb645b"} > 80
           for: 15m
           labels:
@@ -31,7 +31,7 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard?var-namespace=data-platform-datahub-catalogue-prod
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-2182d9f2ebfb645b
           expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-2182d9f2ebfb645b"} > 1044
           for: 15m
           labels:
