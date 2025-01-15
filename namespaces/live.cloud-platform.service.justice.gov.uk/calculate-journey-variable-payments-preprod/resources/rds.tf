@@ -53,3 +53,19 @@ resource "kubernetes_secret" "rds-instance" {
     database_password = module.rds-instance.database_password
   }
 }
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-calculate-journey-variable-payments-${var.environment-name}"
+    namespace = "calculate-journey-variable-payments-prod"
+  }
+
+  data = {
+    database_name     = module.rds-instance.database_name
+    database_host     = module.rds-instance.rds_instance_address
+    database_port     = module.rds-instance.rds_instance_port
+    database_username = module.rds-instance.database_username
+    database_password = module.rds-instance.database_password
+  }
+}
