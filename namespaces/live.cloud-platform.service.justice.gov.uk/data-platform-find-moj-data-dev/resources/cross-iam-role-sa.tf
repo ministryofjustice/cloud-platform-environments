@@ -53,7 +53,8 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
     }
     data = {
-        role = module.quicksight_irsa.aws_iam_role_name
-        serviceaccount = module.quicksight_irsa.service_account_name.name
+        role           = module.quicksight_irsa.role_name
+        rolearn        = module.quicksight_irsa.role_arn
+        serviceaccount = module.quicksight_irsa.service_account.name
     }
 }
