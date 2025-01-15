@@ -3,17 +3,24 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["prison.case-note.published"],
-    caseNoteType = [
-      "PRISON-RELEASE",
-      "TRANSFER-FROMTOL",
-      "GEN-OSE",
-      "ALERT-ACTIVE",
-      "ALERT-INACTIVE",
-      "RESET-BCST",
-      { prefix = "OMIC" },
-      { prefix = "OMIC_OPD" },
-      { prefix = "KA" }
+    "$or" : [
+      {
+        eventType = ["probation-case.prison-identifier.added"]
+      },
+      {
+        eventType = ["prison.case-note.published"],
+        caseNoteType = [
+          "PRISON-RELEASE",
+          "TRANSFER-FROMTOL",
+          "GEN-OSE",
+          "ALERT-ACTIVE",
+          "ALERT-INACTIVE",
+          "RESET-BCST",
+          { prefix = "OMIC" },
+          { prefix = "OMIC_OPD" },
+          { prefix = "KA" }
+        ]
+      }
     ]
   })
 }
