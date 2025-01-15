@@ -3,17 +3,24 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["prison.case-note.published"],
-    caseNoteType = [
-      "PRISON-RELEASE",
-      "TRANSFER-FROMTOL",
-      "GEN-OSE",
-      "ALERT-ACTIVE",
-      "ALERT-INACTIVE",
-      "RESET-BCST",
-      { prefix = "OMIC" },
-      { prefix = "OMIC_OPD" },
-      { prefix = "KA" }
+    "$or" : [
+      {
+        eventType = ["probation-case.prison-identifier.added"]
+      },
+      {
+        eventType = ["prison.case-note.published"],
+        caseNoteType = [
+          "PRISON-RELEASE",
+          "TRANSFER-FROMTOL",
+          "GEN-OSE",
+          "ALERT-ACTIVE",
+          "ALERT-INACTIVE",
+          "RESET-BCST",
+          { prefix = "OMIC" },
+          { prefix = "OMIC_OPD" },
+          { prefix = "KA" }
+        ]
+      }
     ]
   })
 }
@@ -87,5 +94,5 @@ module "prison-case-notes-to-probation-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-case-notes-to-probation"
-  role_policy_arns     = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
+  role_policy_arns = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
 }
