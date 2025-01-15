@@ -24,30 +24,34 @@ resource "aws_db_parameter_group" "activities_rds_common" {
   description = "Common dB params for activities RDS DB shared with read replica"
 
   parameter {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    parameter {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    parameter {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    parameter {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    },
-    parameter {
-      name         = "max_slot_wal_keep_size"
-      value        = "5000"
-      apply_method = "immediate"
-    }
+    name         = "rds.logical_replication"
+    value        = "1"
+    apply_method = "pending-reboot"
+  }
+
+  parameter {
+    name         = "shared_preload_libraries"
+    value        = "pglogical"
+    apply_method = "pending-reboot"
+  }
+
+  parameter {
+    name         = "max_wal_size"
+    value        = "1024"
+    apply_method = "immediate"
+  }
+
+  parameter {
+    name         = "wal_sender_timeout"
+    value        = "0"
+    apply_method = "immediate"
+  }
+  
+  parameter {
+    name         = "max_slot_wal_keep_size"
+    value        = "5000"
+    apply_method = "immediate"
+  }
 }
 
 module "activities_rds" {
