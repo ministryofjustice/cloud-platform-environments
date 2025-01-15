@@ -3,7 +3,9 @@ module "quicksight_irsa" {
     eks_cluster_name      = var.eks_cluster_name
     namespace             = var.namespace
     service_account_name  = "find-moj-data-quicksight"
-    role_policy_arns = [aws_iam_policy.find_moj_data_dev_quicksight.arn]
+    role_policy_arns = {
+        quicksight = aws_iam_policy.find_moj_data_dev_quicksight.arn
+    }
 
     # Tags 
     business_unit          = var.business_unit
