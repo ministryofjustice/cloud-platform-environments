@@ -1,5 +1,5 @@
 module "migration_corporate_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "migration_corporate_queue"
@@ -25,7 +25,7 @@ EOF
 }
 
 module "migration_corporate_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "migration_corporate_dlq"
