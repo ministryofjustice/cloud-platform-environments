@@ -6,12 +6,12 @@ module "quicksight_irsa" {
     role_policy_arns = [aws_iam_policy.find_moj_data_dev_quicksight.arn]
 
     # Tags 
-    business-unit          = var.business_unit
+    business_unit          = var.business_unit
     application            = var.application
-    is-production          = false
-    environment-name       = var.environment
-    owner                  = var.team_name
-    infrastructure-support = "findmojdata@justice.gov.uk"
+    is_production          = false
+    environment_name       = var.environment
+    team_name                  = var.team_name
+    infrastructure_support = "findmojdata@justice.gov.uk"
 }
 data "aws_iam_policy_document" "find_moj_data_dev_quicksight" {
     # Provide list of permissions and target AWS account resources to allow access to
