@@ -13,7 +13,7 @@ module "remand-and-sentencing-api-rds" {
   db_instance_class = "db.t4g.medium"
   db_allocated_storage="100"
   db_max_allocated_storage = "500"
-
+  storage_type = "gp3"
 
   # Tags
   application            = var.application
