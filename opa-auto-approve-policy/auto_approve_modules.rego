@@ -24,23 +24,14 @@ authz if {
 	not touches_iam
 }
 
-# Compute the score for a Terraform plan as the weighted sum of deletions, creations, modifications
-# score := s if {
-# 	all := [x |
-# 		some resource_addr in
-#         x := 100
-
-#         x := 0 if {
-#             is_array_namespaces_valid[resource_addr] == true    
-#         } 
-
-# 	]
-# 	s := sum(all)
-# }
 default score := 100
-score := 0   if { 
-    is_namepsace_valid[resource_addr] == true 
-    }
+
+
+score := 0 if {
+    res := is_namespace_valid[addr]
+    print(addr)
+    print(res)
+}
 
 
 # Whether there is any change to IAM
@@ -55,30 +46,40 @@ touches_iam if {
 
 # list of all resources of a given type
 resources[addr] := all if {
-	some addr
-	resource_addrs[addr]
-	all := [name |
-		name := tfplan.resource_changes[_]
-		name.address == addr
-	]
+    some addr
+    resource_addrs[addr]
+    all := [
+        name |
+        name := tfplan.resource_changes[_]
+        name.address == addr
+    ]
 }
 
-is_namepsace_valid[addr] := is_array_namespaces_valid if {
-	some addr
-	resource_addrs[addr]
-	all := resources[addr]
 
-# We need to check the service pod
-	# service_pods := [res | res := all[_]; res.address == "module.service_pod.kubernetes_deployment.service_pod"
-    # res := "tim-development"]
-    service_pods := ["tim-development"]
 
-# We need to check if the service pod is in the same namespace 
+is_namespace_valid[addr] if {
+    some addr
+    resource_addrs[addr]
+    all := resources[addr]
+    print(addr)
 
-        # every r in service_pods
-        # r.change.after.metadata.namespace == tfplan.variables.namespace.value
-        # r == "tim-development"
-        is_array_namespaces_valid := true
+    # Filter the service pod resources
+    service_pods := [res | res := all[_]; res.address == "module.service_pod.kubernetes_deployment.service_pod"]
 
+    # Ensure all service pods match the expected namespace
     
+    actual_ns := [ res | 
+        pod_resource := service_pods[_]
+        res := pod_resource.change.after.metadata[_].namespace
+        
+    
+    ]
+    print(actual_ns)
+    
+    # result if { every ns in actual_ns { ns == "asdf" } }
+    is_correct_namespace := [n | ns := actual_ns[n]
+    ns == "tim-development"
+    ]
+    print(is_correct_namespace)
+    count(is_correct_namespace) == count(service_pods)
 }
