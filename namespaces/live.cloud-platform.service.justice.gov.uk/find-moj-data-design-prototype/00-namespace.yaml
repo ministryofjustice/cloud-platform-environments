@@ -9,8 +9,8 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
     cloud-platform.justice.gov.uk/slack-channel: "data-catalogue"
-    cloud-platform.justice.gov.uk/application: "Find MoJ data"
+    cloud-platform.justice.gov.uk/application: "data-catalogue"
     cloud-platform.justice.gov.uk/owner: "data-catalogue: joseph.horton@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/find-moj-data-design-prototype"
-    cloud-platform.justice.gov.uk/team-name: "find-moj-data"
+    cloud-platform.justice.gov.uk/team-name: "data-catalogue"
     cloud-platform.justice.gov.uk/review-after: ""
