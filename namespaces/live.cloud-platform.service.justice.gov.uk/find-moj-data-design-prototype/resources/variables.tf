@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "find-moj-data-design-prototype"
+  default     = "data-catalogue"
 }
 
 variable "business_unit" {
@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "find-moj-data"
+  default     = "data-catalogue"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prototyping"
+  default     = "Development"
 }
 
 variable "infrastructure_support" {
