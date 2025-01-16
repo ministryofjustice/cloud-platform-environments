@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - staff.preprod.prisonvisits.service.justice.gov.uk
+    - staff.preprod.prisonvisits.prison.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
