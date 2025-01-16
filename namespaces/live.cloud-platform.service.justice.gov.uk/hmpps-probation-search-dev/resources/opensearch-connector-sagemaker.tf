@@ -1,5 +1,5 @@
 locals {
-  remote_sagemaker_role = "arn:aws:iam::${var.analytical_platform_compute_account_id}:role/probation-search-sagemaker-role"
+  remote_sagemaker_role = "arn:aws:iam::${var.analytical_platform_compute_account_id}:role/${var.namespace}-sagemaker-role"
 }
 
 ## Role to allow passing a role OpenSearch in Account A (Cloud Platform account) to assume a role and invoke SageMaker in Account B (Analytical Platform Compute account on Modernisation Platform)
