@@ -6,9 +6,6 @@ import input as tfplan
 # Parameters for Policy
 ########################
 
-# acceptable score for automated authorization
-blast_radius := 30
-
 # Consider exactly these resource types in calculations
 resource_addrs := {"module.service_pod.kubernetes_deployment.service_pod", "aws_iam"}
 
@@ -16,28 +13,28 @@ resource_addrs := {"module.service_pod.kubernetes_deployment.service_pod", "aws_
 # Policy
 #########
 
-# Authorization holds if score for the plan is acceptable and no changes are made to IAM
-default authz := false
+default allow := false
 
-authz if {
-	score < blast_radius
+default service_pod_ok := false
+
+allow if {
 	not touches_iam
+	service_pod_ok
 }
 
-default score := 100
-
-
-score := 0 if {
-    res := is_namespace_valid[addr]
-    print(addr)
-    print(res)
+service_pod_ok if {
+	is_service_pod_valid["module.service_pod.kubernetes_deployment.service_pod"]
 }
 
-
-# Whether there is any change to IAM
 touches_iam if {
-	all := resources.aws_iam
-	count(all) > 0
+	all_policies := [p |
+		p := tfplan.resource_changes[_]
+		p.type == "aws_iam_policy"
+		change := p.change.actions[_]
+		change != "no-op"
+	]
+
+	count(all_policies) > 0
 }
 
 ####################
@@ -46,40 +43,39 @@ touches_iam if {
 
 # list of all resources of a given type
 resources[addr] := all if {
-    some addr
-    resource_addrs[addr]
-    all := [
-        name |
-        name := tfplan.resource_changes[_]
-        name.address == addr
-    ]
+	some addr
+	resource_addrs[addr]
+	all := [
+	name |
+		name := tfplan.resource_changes[_]
+		name.address == addr
+	]
 }
 
+is_service_pod_valid[addr] if {
+	some addr
+	resource_addrs[addr]
+	all := resources[addr]
 
+	regex.match(`.*\.service_pod$`, addr)
 
-is_namespace_valid[addr] if {
-    some addr
-    resource_addrs[addr]
-    all := resources[addr]
-    print(addr)
+	service_pods := [
+	res |
+		res := all[_]
+		res.address == "module.service_pod.kubernetes_deployment.service_pod"
+		change := res.change.actions[_]
+		change != "no-op"
+	]
 
-    # Filter the service pod resources
-    service_pods := [res | res := all[_]; res.address == "module.service_pod.kubernetes_deployment.service_pod"]
+	# Ensure all service pods match the expected namespace
+	actual_ns := [res |
+		pod_resource := service_pods[_]
+		res := pod_resource.change.after.metadata[_].namespace
+	]
 
-    # Ensure all service pods match the expected namespace
-    
-    actual_ns := [ res | 
-        pod_resource := service_pods[_]
-        res := pod_resource.change.after.metadata[_].namespace
-        
-    
-    ]
-    print(actual_ns)
-    
-    # result if { every ns in actual_ns { ns == "asdf" } }
-    is_correct_namespace := [n | ns := actual_ns[n]
-    ns == "tim-development"
-    ]
-    print(is_correct_namespace)
-    count(is_correct_namespace) == count(service_pods)
+	is_correct_namespace := [n |
+		ns := actual_ns[n]
+		ns == "tim-development"
+	]
+	count(is_correct_namespace) == count(service_pods)
 }
