@@ -10,7 +10,10 @@ module "remand-and-sentencing-api-rds" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.medium"
+  db_allocated_storage="100"
+  db_max_allocated_storage = "500"
+
 
   # Tags
   application            = var.application
