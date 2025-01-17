@@ -3,37 +3,24 @@ resource "aws_sns_topic_subscription" "prison-case-notes-created-updated-subscri
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["person.case-note.created", "person.case-note.updated"]
-    "$or" = [
+    "$or" : [
       {
-        type = ["PRISON"]
-        subType = ["RELEASE"]
+        eventType = ["probation-case.prison-identifier.added"]
       },
       {
-        type = ["TRANSFER"]
-        subType = ["FROMTOL"]
-      },
-      {
-        type = ["GEN"]
-        subType = ["OSE"]
-      },
-      {
-        type = ["RESET"]
-        subType = ["BCST"]
-      },
-      {
-        type = ["ALERT", "OMIC", "OMIC_OPD", "KA"]
+        eventType = ["person.case-note.created", "person.case-note.updated"],
+        type = [
+          "PRISON",
+          "TRANSFER",
+          "GEN",
+          "ALERT",
+          "RESET",
+          "OMIC",
+          "OMIC_OPD",
+          "KA"
+        ]
       }
     ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "prison-case-notes-identifier-added-subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
-  protocol  = "sqs"
-  endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = ["probation-case.prison-identifier.added"]
   })
 }
 
@@ -106,5 +93,5 @@ module "prison-case-notes-to-probation-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-case-notes-to-probation"
-  role_policy_arns     = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
+  role_policy_arns = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
 }
