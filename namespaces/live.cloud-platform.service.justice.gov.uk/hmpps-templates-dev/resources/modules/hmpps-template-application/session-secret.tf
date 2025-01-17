@@ -7,7 +7,7 @@ resource "random_password" "session_secret" {
   numeric = true
 }
 resource "kubernetes_secret" "session_secret" {
-  count = var.session_secret ? 1 : 0
+  count = var.source_template_repo == "hmpps-template-typescript" ? 1 : 0
   metadata {
     name      = "${var.application}-session-secret"
     namespace = var.namespace

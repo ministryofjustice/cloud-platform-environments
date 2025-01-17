@@ -67,12 +67,6 @@ variable "serviceaccount_name" {
   default     = "github-actions-sa"
 }
 
-variable "client_secret" {
-  description = "Set to 'true' to create the initial client secret required for kotlin template apps"
-  default = false
-}
-
-variable "session_secret" {
-  description = "Set to 'true' to create the initial session secret required for typescript template apps"
-  default = false
+variable "source_template_repo" {
+  description = "The source template repository used for this app, e.g. 'hmpps-template-kotlin' or 'hmpps-template-typescript'"
 }
