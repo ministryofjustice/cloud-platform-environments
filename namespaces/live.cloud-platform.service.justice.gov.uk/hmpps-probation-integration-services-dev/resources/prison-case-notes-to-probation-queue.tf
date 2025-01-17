@@ -23,20 +23,11 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
             "subType": "OSE"
           },
           {
-            "type": "ALERT"
-          },
-          {
             "type": "RESET"
             "subType": "BCST"
           },
           {
-            "type": "OMIC"
-          },
-          {
-            "type": "OMIC_OPD"
-          },
-          {
-            "type": "KA"
+            "type": ["ALERT", "OMIC", "OMIC_OPD", "KA"]
           }
         ]
       }
