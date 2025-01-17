@@ -18,7 +18,7 @@ spec:
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
           expr: >
             (
-              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} offset 10m < 5000000000
             ) and ON() (hour() >= 8 <= 17)
           for: 5m
           labels:
@@ -28,7 +28,7 @@ spec:
             message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
-          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 80
+          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} > 80
           for: 15m
           labels:
             severity: datahub_preprod
@@ -37,7 +37,7 @@ spec:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
-          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
+          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} > 1044
           for: 15m
           labels:
             severity: datahub_preprod
