@@ -37,6 +37,10 @@ variable "is_production" {
 variable "application_insights_instance" {
   description = "Determines which instrumentation key to use for Application Insights."
   type        = string
+  validation {
+    condition     = contains(["dev", "preprod", "prod"], var.application_insights_instance)
+    error_message = "Valid values for application_insights_instance are: dev, preprod or prod."
+  }
 }
 
 variable "number_cache_clusters" {
@@ -71,6 +75,6 @@ variable "source_template_repo" {
   description = "The source template repository used for this app."
   validation {
     condition     = contains(["hmpps-template-kotlin", "hmpps-template-typescript"], var.source_template_repo)
-    error_message = "Valid values for var: source_template_repo are: hmpps-template-kotlin or hmpps-template-typescript."
-  } 
+    error_message = "Valid values for source_template_repo are: hmpps-template-kotlin or hmpps-template-typescript."
+  }
 }
