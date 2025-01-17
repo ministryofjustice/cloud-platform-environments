@@ -3,33 +3,33 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
   filter_policy = jsonencode({
-    "$or" : [
+    "$or" = [
       {
         eventType = ["probation-case.prison-identifier.added"]
       },
       {
-        eventType = ["person.case-note.created", "person.case-note.updated"],
-        "$or" : [
-          {
-            "type": ["PRISON"]
-            "subType": ["RELEASE"]
-          },
-          {
-            "type": ["TRANSFER"]
-            "subType": ["FROMTOL"]
-          },
-          {
-            "type": ["GEN"]
-            "subType": ["OSE"]
-          },
-          {
-            "type": ["RESET"]
-            "subType": ["BCST"]
-          },
-          {
-            "type": ["ALERT", "OMIC", "OMIC_OPD", "KA"]
-          }
-        ]
+        eventType = ["person.case-note.created", "person.case-note.updated"]
+        type = ["PRISON"]
+        subType = ["RELEASE"]
+      },
+      {
+        eventType = ["person.case-note.created", "person.case-note.updated"]
+        type = ["TRANSFER"]
+        subType = ["FROMTOL"]
+      },
+      {
+        eventType = ["person.case-note.created", "person.case-note.updated"]
+        type = ["GEN"]
+        subType = ["OSE"]
+      },
+      {
+        eventType = ["person.case-note.created", "person.case-note.updated"]
+        type = ["RESET"]
+        subType = ["BCST"]
+      },
+      {
+        eventType = ["person.case-note.created", "person.case-note.updated"]
+        type = ["ALERT", "OMIC", "OMIC_OPD", "KA"]
       }
     ]
   })
