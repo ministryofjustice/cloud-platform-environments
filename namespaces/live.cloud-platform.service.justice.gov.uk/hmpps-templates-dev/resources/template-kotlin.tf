@@ -10,8 +10,6 @@ module "hmpps_template_kotlin" {
 
   team_name              = var.team_name
   infrastructure_support = var.infrastructure_support
-  kubernetes_cluster     = var.kubernetes_cluster
-  vpc_name               = var.vpc_name
   github_token           = var.github_token
   namespace              = var.namespace
 }
