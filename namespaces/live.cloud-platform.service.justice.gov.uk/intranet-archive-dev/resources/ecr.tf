@@ -1,6 +1,8 @@
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
 
+  deletion_protection = false
+
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
@@ -23,7 +25,7 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    repo_arn = module.ecr.repo_arn
-    repo_url = module.ecr.repo_url
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
   }
 }
