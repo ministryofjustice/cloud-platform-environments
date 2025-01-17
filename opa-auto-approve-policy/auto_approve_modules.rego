@@ -6,7 +6,6 @@ import input as tfplan
 # Parameters for Policy
 ########################
 
-# Consider exactly these resource types in calculations
 resource_addrs := {"module.service_pod.kubernetes_deployment.service_pod", "aws_iam"}
 
 #########
@@ -23,11 +22,25 @@ allow if {
 }
 
 service_pod_ok if {
-	is_service_pod_valid["module.service_pod.kubernetes_deployment.service_pod"]
+	rc := [rc | rc := tfplan.resource_changes[_]]
+
+	service_pods := [p |
+		p := rc[_]
+
+		regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, p.address)
+	]
+
+	count(service_pods) > 0
+
+	some r in service_pods
+
+	module_name := concat("", ["module.", r.name, ".kubernetes_deployment.service_pod"])
+	is_service_pod_valid[module_name]
 }
 
 touches_iam if {
-	all_policies := [p |
+	all_policies := [
+	p |
 		p := tfplan.resource_changes[_]
 		p.type == "aws_iam_policy"
 		change := p.change.actions[_]
@@ -41,7 +54,7 @@ touches_iam if {
 # Terraform Library
 ####################
 
-# list of all resources of a given type
+# list of all resources of the given type
 resources[addr] := all if {
 	some addr
 	resource_addrs[addr]
@@ -57,25 +70,30 @@ is_service_pod_valid[addr] if {
 	resource_addrs[addr]
 	all := resources[addr]
 
-	regex.match(`.*\.service_pod$`, addr)
+	regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, addr)
 
 	service_pods := [
 	res |
 		res := all[_]
-		res.address == "module.service_pod.kubernetes_deployment.service_pod"
+
+		regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, res.address)
 		change := res.change.actions[_]
 		change != "no-op"
 	]
 
 	# Ensure all service pods match the expected namespace
-	actual_ns := [res |
+	actual_ns := [
+	res |
 		pod_resource := service_pods[_]
 		res := pod_resource.change.after.metadata[_].namespace
 	]
 
-	is_correct_namespace := [n |
+	is_correct_namespace := [
+	n |
 		ns := actual_ns[n]
-		ns == "tim-development"
+		ns == tfplan.variables.namespace.value
 	]
+
+	count(service_pods) > 0
 	count(is_correct_namespace) == count(service_pods)
 }

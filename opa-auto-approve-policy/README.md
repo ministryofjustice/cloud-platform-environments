@@ -24,7 +24,7 @@ opa fmt $FILENAME -w
 
 ### Next Steps
 
-1. figure out how to wildcard the module name
+1. ~~figure out how to wildcard the module name~~
 2. modularise
 3. write tests
 4. check that the assigned service pod role is from IRSA (created in this namespace)
