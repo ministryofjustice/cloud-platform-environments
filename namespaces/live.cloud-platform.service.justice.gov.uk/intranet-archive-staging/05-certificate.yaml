@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: intranet-archive-staging-cert
+  namespace: intranet-archive-staging
+spec:
+  secretName: intranet-archive-staging-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - app.archive.staging.intranet.justice.gov.uk
