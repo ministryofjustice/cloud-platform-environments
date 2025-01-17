@@ -8,17 +8,16 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
         eventType = ["probation-case.prison-identifier.added"]
       },
       {
-        eventType = ["prison.case-note.published"],
-        caseNoteType = [
-          "PRISON-RELEASE",
-          "TRANSFER-FROMTOL",
-          "GEN-OSE",
-          "ALERT-ACTIVE",
-          "ALERT-INACTIVE",
-          "RESET-BCST",
-          { prefix = "OMIC" },
-          { prefix = "OMIC_OPD" },
-          { prefix = "KA" }
+        eventType = ["person.case-note.created", "person.case-note.updated"],
+        type = [
+          "PRISON",
+          "TRANSFER",
+          "GEN",
+          "ALERT",
+          "RESET",
+          "OMIC",
+          "OMIC_OPD",
+          "KA"
         ]
       }
     ]
