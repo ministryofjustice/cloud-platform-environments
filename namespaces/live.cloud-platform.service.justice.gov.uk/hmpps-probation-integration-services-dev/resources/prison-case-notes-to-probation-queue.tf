@@ -11,20 +11,20 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
         eventType = ["person.case-note.created", "person.case-note.updated"],
         "$or" : [
           {
-            "type": "PRISON"
-            "subType": "RELEASE"
+            "type": ["PRISON"]
+            "subType": ["RELEASE"]
           },
           {
-            "type": "TRANSFER"
-            "subType": "FROMTOL"
+            "type": ["TRANSFER"]
+            "subType": ["FROMTOL"]
           },
           {
-            "type": "GEN"
-            "subType": "OSE"
+            "type": ["GEN"]
+            "subType": ["OSE"]
           },
           {
-            "type": "RESET"
-            "subType": "BCST"
+            "type": ["RESET"]
+            "subType": ["BCST"]
           },
           {
             "type": ["ALERT", "OMIC", "OMIC_OPD", "KA"]
