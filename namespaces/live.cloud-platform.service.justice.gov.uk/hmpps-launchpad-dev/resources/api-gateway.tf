@@ -200,3 +200,28 @@ resource "aws_api_gateway_usage_plan" "default" {
   tags = local.default_tags
 }
 
+
+resource "aws_api_gateway_deployment" "main" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+
+  triggers = {
+    redeployment = sha1(jsonencode([
+      # "manual-deploy-trigger",
+      local.clients,
+      var.cloud_platform_integration_api_url,
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-assume-role-endpoint.tf")),
+    ]))
+  }
+
+  depends_on = [
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy_http_proxy,
+    aws_api_gateway_integration.sts_integration,
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
