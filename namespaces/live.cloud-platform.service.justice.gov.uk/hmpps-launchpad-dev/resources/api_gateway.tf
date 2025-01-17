@@ -224,3 +224,9 @@ resource "aws_api_gateway_deployment" "main" {
     create_before_destroy = true
   }
 }
+
+resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
+  retention_in_days = 60
+  tags              = local.default_tags
+}
