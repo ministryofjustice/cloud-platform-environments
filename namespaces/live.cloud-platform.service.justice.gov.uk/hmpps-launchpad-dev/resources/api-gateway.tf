@@ -101,7 +101,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_integration_api_url}/{proxy}"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
 
   request_parameters = {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
