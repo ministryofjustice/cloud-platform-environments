@@ -125,3 +125,78 @@ resource "aws_api_gateway_resource" "proxy" {
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
   path_part   = "{proxy+}"
 }
+
+resource "aws_api_gateway_stage" "main" {
+  deployment_id         = aws_api_gateway_deployment.main.id
+  rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
+  stage_name            = var.namespace
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
+    format = jsonencode({
+      extendedRequestId  = "$context.extendedRequestId"
+      ip                 = "$context.identity.sourceIp"
+      client             = "$context.identity.clientCert.subjectDN"
+      issuerDN           = "$context.identity.clientCert.issuerDN"
+      requestTime        = "$context.requestTime"
+      httpMethod         = "$context.httpMethod"
+      resourcePath       = "$context.resourcePath"
+      status             = "$context.status"
+      responseLength     = "$context.responseLength"
+      error              = "$context.error.message"
+      authenticateStatus = "$context.authenticate.status"
+      authenticateError  = "$context.authenticate.error"
+      integrationStatus  = "$context.integration.status"
+      integrationError   = "$context.integration.error"
+      apiKeyId           = "$context.identity.apiKeyId"
+    })
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+  ]
+
+  tags = local.default_tags
+}
+
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
+  stage_name  = aws_api_gateway_stage.main.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled    = true
+    logging_level      = "INFO"
+    data_trace_enabled = true
+  }
+}
+
+resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  api_id      = aws_api_gateway_rest_api.api_gateway.id
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
+  stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+    aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
+}
+
+resource "aws_api_gateway_usage_plan" "default" {
+  name = var.namespace
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.api_gateway.id
+    stage  = aws_api_gateway_stage.main.stage_name
+  }
+
+  tags = local.default_tags
+}
+
