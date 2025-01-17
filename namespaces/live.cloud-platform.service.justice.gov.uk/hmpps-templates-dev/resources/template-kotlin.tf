@@ -12,4 +12,5 @@ module "hmpps_template_kotlin" {
   infrastructure_support = var.infrastructure_support
   github_token           = var.github_token
   namespace              = var.namespace
+  kube_cluster           = var.kube_cluster
 }
