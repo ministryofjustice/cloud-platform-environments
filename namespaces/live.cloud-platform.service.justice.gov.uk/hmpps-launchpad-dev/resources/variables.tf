@@ -81,7 +81,7 @@ variable "hostname" {
   default     = "launchpad-sso-dev"
 }
 
-variable "cloud_platform_integration_api_url" {
+variable "cloud_platform_launchpad_auth_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
-  default     = "https://hmpps-launchpad-dev.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
 }
