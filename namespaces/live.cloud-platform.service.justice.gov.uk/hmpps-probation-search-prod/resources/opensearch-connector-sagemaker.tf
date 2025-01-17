@@ -16,6 +16,11 @@ resource "aws_iam_role" "sagemaker_role" {
           Service = "opensearchservice.amazonaws.com"
         }
         Action = "sts:AssumeRole"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
       },
     ]
   })
