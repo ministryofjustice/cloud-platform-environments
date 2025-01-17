@@ -15,10 +15,10 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS storage below 5GB."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/B3Dc2pmNg?orgId=1
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
           expr: >
             (
-              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} offset 10m < 5000000000
+              aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} offset 10m < 5000000000
             ) and ON() (hour() >= 8 <= 17)
           for: 5m
           labels:
@@ -27,8 +27,8 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS CPU utilization above 80%."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/B3Dc2pmNg?orgId=1
-          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 80
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
+          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} > 80
           for: 15m
           labels:
             severity: datahub_preprod
@@ -36,8 +36,8 @@ spec:
           annotations:
             message: "[{{ $labels.dbinstance_identifier }}] RDS connections above 80% of maximum."
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/B3Dc2pmNg?orgId=1
-          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-6cd3d9246577cfa0"} > 1044
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-67fea2022376ec46&from=now-3h&to=now&timezone=browser
+          expr: aws_rds_database_connections_maximum{dbinstance_identifier="cloud-platform-db67fea2022376ec46"} > 1044
           for: 15m
           labels:
             severity: datahub_preprod
@@ -45,6 +45,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one primary ElasticSearch shard and its replicas are not allocated to a node."
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-red-cluster-status
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_cluster_status_red_maximum{domain_name="cloud-platform-756daab1"} >= 1
           for: 1m
           labels:
@@ -53,6 +54,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] At least one ElasticSearch replica shard is not allocated to a node"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-yellow-cluster-status
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_cluster_status_yellow_maximum{domain_name="cloud-platform-756daab1"} >= 1
           for: 6m
           labels:
@@ -61,6 +63,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] A node in the ElasticSearch cluster is down to 3 GiB of free storage space"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#aes-handling-errors-watermark
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_free_storage_space_maximum{domain_name="cloud-platform-756daab1", node_id=""} <= 3072
           for: 5m
           labels:
@@ -69,6 +72,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster is blocking write requests"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html#troubleshooting-cluster-block
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_cluster_index_writes_blocked_maximum{domain_name="cloud-platform-756daab1"} >= 1
           for: 5m
           labels:
@@ -77,6 +81,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] An automated snapshot for the ElasticSearch cluster failed"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_automated_snapshot_failure_maximum{domain_name="cloud-platform-756daab1"} >= 1
           for: 1m
           labels:
@@ -85,6 +90,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster could encounter out of memory errors if usage increases"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_jvmmemory_pressure_maximum{domain_name="cloud-platform-756daab1"} >= 80
           for: 15m
           labels:
@@ -93,6 +99,7 @@ spec:
           annotations:
             message: "[{{ $labels.domain_name }}] The ElasticSearch cluster has sustained high CPU usage"
             runbook_url: https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/cloudwatch-alarms.html
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/eCN_s8yWk/aws-elasticsearch?from=now-3h&to=now&var-datasource=P896B4444D3F0DAB8&var-region=default&var-domainName=cloud-platform-756daab1&var-clientId=754256621582&refresh=1m
           expr: aws_es_cpuutilization_maximum{domain_name="cloud-platform-756daab1"} >= 80
           for: 15m
           labels:
@@ -158,6 +165,7 @@ spec:
               "Percentage of successful requests of nginx-modsec over the last 10 minutes is less than 95%.
               NOTE: Ignoring 404s, 499s, 403s & 406s in this metric, since a  404 is a normal response for errant requests and 403/406 are handled by the Modsec rule."
             runbook_url: https://github.com/ministryofjustice/cloud-platform-terraform-monitoring/blob/main/resources/prometheusrule-alerts/README.md#nginx-success-rate
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nginx-ingress-controller/nginx-ingress-controller?from=now-3h&to=now&timezone=browser&var-namespace=data-platform-datahub-catalogue-preprod&var-service=datahub-datahub-frontend-preprod&var-DS_PROMETHEUS=prometheus&var-DS_THANOS=P5DCFC7561CCDE821
           expr:
             sum(rate(nginx_ingress_controller_requests{status!~"[4-5].*", controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-preprod.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))/(sum(rate(nginx_ingress_controller_requests{controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-preprod.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))-
             sum(rate(nginx_ingress_controller_requests{status=~"404|499|403|406", controller_class=~"k8s.io/ingress-modsec", host=~"datahub-catalogue-preprod.apps.live.cloud-platform.service.justice.gov.uk"}[5m]))) * 100 < 95
@@ -168,7 +176,7 @@ spec:
           annotations:
             message: ingress {{ $labels.ingress }} is serving 5XX responses
             runbook_url: https://runbooks.find-moj-data.service.justice.gov.uk/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nginx-ingress-controller/nginx-ingress-controller?from=now-3h&to=now&timezone=browser&var-namespace=data-platform-datahub-catalogue-preprod&var-service=datahub-datahub-frontend-preprod&var-DS_PROMETHEUS=prometheus&var-DS_THANOS=P5DCFC7561CCDE821
           expr: >-
             sum(rate(nginx_ingress_controller_requests{exported_namespace="data-platform-datahub-catalogue-test", status=~"5.*"}[5m]) * 60 > 0) by (ingress)
           for: 1m
@@ -178,7 +186,7 @@ spec:
           annotations:
             message: ingress {{ $labels.ingress }} is serving 403/406 responses. Modsec could be blocking traffic.
             runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(_source),isDirty:!f,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:kubernetes.labels.app_kubernetes_io%2Fname,negate:!f,params:(query:ingress-modsec),type:phrase),query:(match_phrase:(kubernetes.labels.app_kubernetes_io%2Fname:ingress-modsec)))),query:(language:kuery,query:'%22server:%20datahub-catalogue-test.apps.live.cloud-platform.service.justice.gov.uk%22%20and%20%22ModSecurity:%20Access%20%22'))
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/2yTpJtUU4G8iGuqPdEkG/datahub-deployment-status-dashboard
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/nginx-ingress-controller/nginx-ingress-controller?from=now-3h&to=now&timezone=browser&var-namespace=data-platform-datahub-catalogue-preprod&var-service=datahub-datahub-frontend-preprod&var-DS_PROMETHEUS=prometheus&var-DS_THANOS=P5DCFC7561CCDE821
           # 403/406 responses from the modsec ingress do not contain the namespace and therefore can only be
           # located via the host.
           expr: >-
