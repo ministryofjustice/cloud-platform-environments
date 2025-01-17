@@ -78,7 +78,7 @@ spec:
 
     - alert: SlowResponses
       annotations:
-        message: For 3 minutes, more than 1% of requests were slower than 5 seconds.
+        message: For 3 minutes, more than 1% of requests were slower than 5 seconds (during weekday working hours).
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#SlowResponse
         dashboard_url: >-
           https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now&var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
@@ -91,6 +91,8 @@ spec:
             )
           )
         ) > 5
+        AND ON() (7 <= hour() <= 19)
+        AND ON() (1 <= day_of_week() <= 5)
       for: 3m
       labels:
         severity: justice-gov-uk-production-alerts
@@ -116,7 +118,7 @@ spec:
 
     - alert: High404Rate
       annotations:
-        message: More than 15% of responses were 404 errors - during weekday working hours.
+        message: More than 15% of responses were 404 errors (during weekday working hours).
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High404Rate
         dashboard_url: >-
           https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now&var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
