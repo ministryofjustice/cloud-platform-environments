@@ -1,37 +1,39 @@
-resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subscription" {
+resource "aws_sns_topic_subscription" "prison-case-notes-created-updated-subscription" {
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
   filter_policy = jsonencode({
-    "$or" : [
+    eventType = ["person.case-note.created", "person.case-note.updated"]
+    "$or" = [
       {
-        eventType = ["probation-case.prison-identifier.added"]
+        type = ["PRISON"]
+        subType = ["RELEASE"]
       },
       {
-        eventType = ["person.case-note.created", "person.case-note.updated"],
-        "$or" : [
-          {
-            "type": ["PRISON"]
-            "subType": ["RELEASE"]
-          },
-          {
-            "type": ["TRANSFER"]
-            "subType": ["FROMTOL"]
-          },
-          {
-            "type": ["GEN"]
-            "subType": ["OSE"]
-          },
-          {
-            "type": ["RESET"]
-            "subType": ["BCST"]
-          },
-          {
-            "type": ["ALERT", "OMIC", "OMIC_OPD", "KA"]
-          }
-        ]
+        type = ["TRANSFER"]
+        subType = ["FROMTOL"]
+      },
+      {
+        type = ["GEN"]
+        subType = ["OSE"]
+      },
+      {
+        type = ["RESET"]
+        subType = ["BCST"]
+      },
+      {
+        type = ["ALERT", "OMIC", "OMIC_OPD", "KA"]
       }
     ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prison-case-notes-identifier-added-subscription" {
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  protocol  = "sqs"
+  endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = ["probation-case.prison-identifier.added"]
   })
 }
 
