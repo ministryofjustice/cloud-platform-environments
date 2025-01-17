@@ -14,10 +14,10 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
+  rds_family                  = "postgres16"
+  db_engine_version           = "16"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
@@ -55,10 +55,12 @@ module "dps_rds_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  prepare_for_major_upgrade   = true
+
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
