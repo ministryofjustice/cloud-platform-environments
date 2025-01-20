@@ -10,8 +10,7 @@ module "cloudfront" {
   aliases_cert_arn     = aws_acm_certificate.cloudfront_alias_cert.arn
   # An array of public keys with comments, to be used for CloudFront. Includes an optional entry for an expiring key
   # !IMPORTANT! This value should NEVER be exactly equal to null. If it is, the CloudFront distribution & S3 bucket will be public.
-  # TODO: Uncomment after namespace has been created.
-  # trusted_public_keys  = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
+  trusted_public_keys  = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
   # Object to return when an end user requests the root URL
   default_root_object  = "index.html"
 
@@ -35,12 +34,11 @@ data "kubernetes_secret" "cloudfront_input_secret" {
 }
 
 locals {
-  # TODO: Uncomment after namespace has been created.
-  # trusted_key          = {
-  #   encoded_key = data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY
-  #   comment     = ""
-  #   associate   = true
-  # }
+  trusted_key          = {
+    encoded_key = data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY
+    comment     = ""
+    associate   = true
+  }
   expiring_trusted_key = {
     encoded_key = try(data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING, null)
     comment     = ""
