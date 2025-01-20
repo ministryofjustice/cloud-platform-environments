@@ -7,9 +7,6 @@ module "hmpps_template_typescript" {
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
-
-  team_name              = var.team_name
-  infrastructure_support = var.infrastructure_support
   github_token           = var.github_token
   namespace              = var.namespace
   kubernetes_cluster     = var.kubernetes_cluster
