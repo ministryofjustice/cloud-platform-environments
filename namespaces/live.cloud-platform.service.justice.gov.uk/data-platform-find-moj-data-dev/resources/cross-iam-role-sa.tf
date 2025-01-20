@@ -20,20 +20,12 @@ data "aws_iam_policy_document" "find_moj_data_dev_quicksight" {
     statement {
         effect = "Allow"
         actions = [
-            "quicksight:GenerateEmbedUrlForAnonymousUser"
+            "sts:TagSession",
+            "sts:AssumeRole"
         ]
         resources = [
-            "arn:aws:quicksight:eu-west-2:992382429243:namespace/default/",
-            "arn:aws:quicksight:eu-west-2:992382429243:dashboard/6898300c-69fe-4f84-b172-1784ab6bf1a0"
+            module.quicksight_irsa.role_arn
         ]
-        condition {
-            test     = "ForAllValues:StringEquals"
-            variable = "quicksight:AllowedEmbeddingDomains"
-
-            values = [
-                "https://dev.find-moj-data.service.justice.gov.uk",
-            ]
-        }
     }
 }
 resource "aws_iam_policy" "find_moj_data_dev_quicksight" {
