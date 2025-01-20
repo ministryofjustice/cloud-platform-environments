@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - api.bookasecuremove.service.justice.gov.uk
+  - hmpps-book-secure-move-api-production.apps.cloud-platform.service.justice.gov.uk
