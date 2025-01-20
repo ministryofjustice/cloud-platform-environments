@@ -15,7 +15,7 @@ resource "aws_api_gateway_method" "sqs_mapps_method" {
   resource_id      = aws_api_gateway_resource.sqs_mapps_resource.id
   http_method      = "GET"
   authorization    = "NONE"
-  api_key_required = false
+  api_key_required = true
 
   depends_on = [
     aws_api_gateway_rest_api.api_gateway,

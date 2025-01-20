@@ -109,7 +109,7 @@ resource "aws_api_gateway_method" "proxy" {
   resource_id      = aws_api_gateway_resource.proxy.id
   http_method      = "ANY"
   authorization    = "NONE"
-  api_key_required = false
+  api_key_required = true
 
   request_parameters = {
     "method.request.path.proxy" = true
