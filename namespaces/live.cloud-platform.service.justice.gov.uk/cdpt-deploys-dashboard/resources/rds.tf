@@ -15,6 +15,7 @@ module "rds" {
   db_engine_version = "16"
   db_instance_class = "db.t4g.micro"
   rds_family = "postgres16"
+  db_max_allocated_storage = "500"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
