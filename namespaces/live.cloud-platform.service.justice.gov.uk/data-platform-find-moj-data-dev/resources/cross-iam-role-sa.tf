@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "find_moj_data_dev_quicksight" {
             "sts:AssumeRole"
         ]
         resources = [
-            module.quicksight_irsa.role_arn
+            "arn:aws:iam::992382429243:role/find-moj-data-quicksight"
         ]
     }
 }
