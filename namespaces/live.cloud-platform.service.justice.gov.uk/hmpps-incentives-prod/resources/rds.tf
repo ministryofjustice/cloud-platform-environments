@@ -55,7 +55,7 @@ module "dps_rds_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
