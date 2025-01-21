@@ -2,16 +2,17 @@
 
 - ~~True/False or Score for auto approval?~~
 - Safety Net:
-  - Always fail if involved IAM changes
+  - ~~Always fail if involved IAM changes~~
   - Doesn't touch:
     - ~~iam policies~~
-    - iam policy attachments
+    - ~~iam policy attachments~~
 
 - Auto Approve for Service Pod:
   - ~~Namespace for Service Pod == Namespace of deployment~~
-  - Actual role of Service Pod == Role define by IRSA inside the Namespace
+  - ~~Actual role of Service Pod == Role define by IRSA inside the Namespace~~
   - Auto approve only valid if only Service Pod is in the change
-  - Handle the creation/modification of multiple service pods
+  - ~~ZZ~~Handle the creation/modification of multiple service pods~~
+  - Do we need to ensure "no-op" for module.irsa.kubernetes_service_account.generated_sa ?
 - Add tests
 
 ```
@@ -27,4 +28,4 @@ opa fmt $FILENAME -w
 1. ~~figure out how to wildcard the module name~~
 2. modularise
 3. write tests
-4. check that the assigned service pod role is from IRSA (created in this namespace)
+4. ~~check that the assigned service pod role is from IRSA (created in this namespace)~~

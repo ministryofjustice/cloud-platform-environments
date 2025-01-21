@@ -50,6 +50,18 @@ touches_iam if {
 	count(all_policies) > 0
 }
 
+# get separated by opa fmt
+touches_iam if {
+	all_policies_attachments := [
+	pa |
+		pa := tfplan.resource_changes[_]
+		pa.type == "aws_iam_role_policy_attachment"
+		change := pa.change.actions[_]
+		change != "no-op"
+	]
+	count(all_policies_attachments) > 0
+}
+
 ####################
 # Terraform Library
 ####################
@@ -75,7 +87,7 @@ is_service_pod_valid[addr] if {
 	service_pods := [
 	res |
 		res := all[_]
-
+		
 		regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, res.address)
 		change := res.change.actions[_]
 		change != "no-op"
@@ -96,4 +108,29 @@ is_service_pod_valid[addr] if {
 
 	count(service_pods) > 0
 	count(is_correct_namespace) == count(service_pods)
+
+	# Get all irsa accounts
+	irsa_accounts := [
+	name |
+		res := tfplan.resource_changes[_]
+		regex.match(`^module\..*\.kubernetes_service_account\.generated_sa$`, res.address)
+		change := res.change.actions[_]
+		change = "no-op"
+		name := res.change.after.metadata[_].name
+	]
+	print(irsa_accounts)
+
+	# Get IRSA role in all service pods
+	service_pods_service_accounts := [
+	res |
+		pod_sa := service_pods[_]
+		res := pod_sa.change.after.spec[_].template[_].spec[_].service_account_name
+	]
+	print(service_pods_service_accounts)
+
+	# Ensure all service pod assigned roles are from IRSA in in the same
+	count(service_pods_service_accounts) > 0
+	every service_pods_service_account in service_pods_service_accounts {
+		service_pods_service_account in irsa_accounts
+	}
 }
