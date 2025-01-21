@@ -1,11 +1,25 @@
-# Note, this resource is for use with the template app hmpps-template-typescript.
+module "hmpps_template_typescript" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.1"
+  github_repo                   = "hmpps-template-typescript"
+  application                   = "hmpps-template-typescript"
+  github_team                   = "hmpps-sre"
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  is_production                 = var.is_production
+  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "hmpps-template-typescript"
+  github_token           = var.github_token
+  namespace              = var.namespace
+  kubernetes_cluster     = var.kubernetes_cluster
+}
 
+
+# Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = var.application
+  application            = module.hmpps_template_typescript.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
@@ -24,7 +38,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
     namespace = var.namespace
   }
 

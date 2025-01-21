@@ -2,13 +2,13 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: laa-get-payments-finance-data-dev
+  namespace: emma-cloud-test
 spec:
   limits:
   - default:
-      cpu: 4
-      memory: 16Gi
+      cpu: 1000m
+      memory: 1000Mi
     defaultRequest:
-      cpu: 2
-      memory: 8Gi
+      cpu: 10m
+      memory: 100Mi
     type: Container

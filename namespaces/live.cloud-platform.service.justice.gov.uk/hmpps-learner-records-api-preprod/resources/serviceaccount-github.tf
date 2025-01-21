@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-template-kotlin", "hmpps-template-typescript"]
+  github_repos   = ["hmpps-learner-records-api"]
 
 ###################################################################
   github-actions-sa_rules = [
@@ -97,7 +97,11 @@ resource "time_rotating" "weekly" {
 
 data "github_team" "hmpps-sre" {
 slug = "hmpps-sre"
-}   
+}
+
+data "github_team" "hmpps-lrs-devs" {
+slug = "hmpps-lrs-devs"
+} 
 
 ##########################################################################
 
@@ -109,7 +113,8 @@ resource "github_repository_environment" "env" {
 # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.hmpps-sre.id)
+      tonumber(data.github_team.hmpps-sre.id),
+      tonumber(data.github_team.hmpps-lrs-devs.id)
     ]
   }
   deployment_branch_policy {

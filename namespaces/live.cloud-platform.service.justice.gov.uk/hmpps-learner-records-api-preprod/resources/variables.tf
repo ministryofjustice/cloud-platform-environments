@@ -6,11 +6,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
+  default     = "Learner Records API"
 }
 
 variable "namespace" {
-  default = "hmpps-templates-dev"
+  default = "hmpps-learner-records-api-preprod"
 }
 
 variable "business_unit" {
@@ -20,20 +20,20 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "hmpps-lrs-devs"
 }
 
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "preprod"
 }
 ####################################################################################################################
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "dataengineering@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "lrs-microservice-team"
 }
 
 variable "number_cache_clusters" {
@@ -59,3 +59,4 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
