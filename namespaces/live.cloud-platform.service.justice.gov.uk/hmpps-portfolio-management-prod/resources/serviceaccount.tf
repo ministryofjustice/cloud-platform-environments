@@ -1,5 +1,5 @@
 locals {
-  github_repos   = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-sre-docs","hmpps-tech-docs"]
+  github_repos   = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-tech-docs"]
   github_repos_2 = ["hmpps-health-ping", "hmpps-github-discovery", "hmpps-terraform-discovery", "hmpps-component-dependencies", "hmpps-veracode-discovery", "hmpps-github-actions-runner"]
   sa_rules = [
     {
@@ -119,7 +119,7 @@ resource "github_repository_environment" "env" {
   environment = var.environment
   repository  = each.key
   reviewers {
-    teams = [data.github_team.dps_tech.id]
+    teams = [data.github_team.hmpps_sre.id]
   }
   deployment_branch_policy {
     protected_branches     = true
@@ -127,6 +127,6 @@ resource "github_repository_environment" "env" {
   }
 }
 
-data "github_team" "dps_tech" {
-  slug = "dps-tech"
+data "github_team" "hmpps_sre" {
+  slug = "hmpps-sre"
 }
