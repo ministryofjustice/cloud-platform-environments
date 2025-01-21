@@ -87,7 +87,7 @@ is_service_pod_valid[addr] if {
 	service_pods := [
 	res |
 		res := all[_]
-		
+
 		regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, res.address)
 		change := res.change.actions[_]
 		change != "no-op"
@@ -128,7 +128,7 @@ is_service_pod_valid[addr] if {
 	]
 	print(service_pods_service_accounts)
 
-	# Ensure all service pod assigned roles are from IRSA in in the same
+	# Ensure all service pod assigned roles are from the same namespace IRSA
 	count(service_pods_service_accounts) > 0
 	every service_pods_service_account in service_pods_service_accounts {
 		service_pods_service_account in irsa_accounts
