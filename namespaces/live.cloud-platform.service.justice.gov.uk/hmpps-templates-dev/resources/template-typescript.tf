@@ -1,5 +1,5 @@
 module "hmpps_template_typescript" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.3"
   github_repo                   = "hmpps-template-typescript"
   application                   = "hmpps-template-typescript"
   github_team                   = "hmpps-sre"
@@ -7,9 +7,9 @@ module "hmpps_template_typescript" {
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
-  github_token           = var.github_token
-  namespace              = var.namespace
-  kubernetes_cluster     = var.kubernetes_cluster
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
 }
 
 
