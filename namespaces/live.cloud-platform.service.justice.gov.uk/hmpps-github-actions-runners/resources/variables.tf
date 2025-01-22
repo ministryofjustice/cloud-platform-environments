@@ -13,19 +13,19 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  default     = "HMPPS"
+  default = "HMPPS"
 }
 
 variable "team_name" {
-  default     = "hmpps-sre"
+  default = "hmpps-sre"
 }
 
 variable "environment" {
-  default     = "production"
+  default = "production"
 }
 
 variable "infrastructure_support" {
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -33,7 +33,7 @@ variable "is_production" {
 }
 
 variable "slack_channel" {
-  default     = "ask-prison-digital-sre"
+  default = "ask-prison-digital-sre"
 }
 
 variable "github_owner" {
