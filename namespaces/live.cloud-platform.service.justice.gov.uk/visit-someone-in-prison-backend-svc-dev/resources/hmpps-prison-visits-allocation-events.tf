@@ -1,5 +1,5 @@
-######################################## Prison visits notification alerts for visit someone in prison
-######## This will also the notification service to respond to visit events such as BOOKING and CANCELLATION or CHANGED
+######################################## Prison visits allocation events for visit someone in prison
+######## This will allow the visit-allocation-api to monitor for conviction status changes on prisoners to enable VO / PVO processing
 ######## Main queue
 
 resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_subscription" {
