@@ -1,5 +1,5 @@
 module "hmpps_github_actions_runner" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=0.0.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.5"
   github_repo                   = "hmpps_github_actions_runner"
   application                   = "hmpps_github_actions_runner"
   github_team                   = "hmpps-sre"
