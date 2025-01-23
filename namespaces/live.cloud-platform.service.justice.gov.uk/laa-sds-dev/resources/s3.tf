@@ -16,6 +16,20 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+module "s3_buckets" {
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  for_each = toset(var.bucket_names)
+
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+  bucket_name            = "${each.value}-${var.environment}"
+}
+
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
