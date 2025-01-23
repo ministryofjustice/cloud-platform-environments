@@ -31,7 +31,7 @@ module "cloudfront" {
       error_code            = 500
       response_code         = 500
       response_page_path    = "/error_pages/500.html"
-      error_caching_min_ttl = 0
+      error_caching_min_ttl = 10
     }
   ]
 
