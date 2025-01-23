@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "find_moj_data_prod_quicksight" {
         ]
     }
 }
-resource "aws_iam_policy" "find_moj_data_prerprod_quicksight" {
+resource "aws_iam_policy" "find_moj_data_prod_quicksight" {
     name   = "find-moj-data-prod-quicksight"
     policy = data.aws_iam_policy_document.find_moj_data_prod_quicksight.json
 
