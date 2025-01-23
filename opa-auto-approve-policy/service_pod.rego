@@ -30,12 +30,6 @@ is_service_pod_valid(service_pod) if {
 		name := irsa.change.after.metadata[_].name
 	]
 
-	all_irsa_ns := [
-	ns |
-		irsa := all_irsa[_]
-		ns := irsa.change.after.metadata[_].namespace
-	]
-
 	service_pods_service_accounts := [
 	res |
 		res := service_pod.change.after.spec[_].template[_].spec[_].service_account_name
@@ -44,10 +38,6 @@ is_service_pod_valid(service_pod) if {
 
 	every sa in service_pods_service_accounts {
 		sa in all_irsa_accounts
-	}
-
-	every ns in actual_ns {
-		ns in all_irsa_ns
 	}
 
 	touches_others := [
