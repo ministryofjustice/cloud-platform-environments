@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-ccmbpt-analytics-app-dev
 subjects:
   - kind: Group
-    name: "github:ccmbpt-analytics-admin-team"
+    name: "github:ccmbpt-analytics-app-admin-team"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: github:analytics-hq
