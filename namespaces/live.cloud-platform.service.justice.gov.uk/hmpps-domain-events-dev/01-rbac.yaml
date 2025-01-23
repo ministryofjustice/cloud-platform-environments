@@ -6,10 +6,7 @@ metadata:
   namespace: hmpps-domain-events-dev
 subjects:
   - kind: Group
-    name: "github:dps-shared"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-core"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-interventions"
@@ -25,6 +22,9 @@ subjects:
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:farsight-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
