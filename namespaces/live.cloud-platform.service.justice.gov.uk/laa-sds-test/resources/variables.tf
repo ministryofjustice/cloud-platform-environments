@@ -139,3 +139,8 @@ variable "serviceaccount_rules" {
     }
   ]
 }
+
+variable "bucket_names" {
+  type = list(string)
+  default = ["laa-sds-internal"]
+}
