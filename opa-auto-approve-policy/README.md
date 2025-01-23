@@ -24,6 +24,11 @@ opa exec --decision terraform/analysis/allow --bundle ./ tfplan-servicepod-only.
 opa fmt . -w
 ```
 
+```
+opa test . -v
+```
+
+
 ### Next Steps
 
 1. ~~figure out how to wildcard the module name~~
