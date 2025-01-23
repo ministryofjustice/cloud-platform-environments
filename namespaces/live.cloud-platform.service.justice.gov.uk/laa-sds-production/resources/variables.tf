@@ -140,3 +140,9 @@ variable "serviceaccount_rules" {
     }
   ]
 }
+
+# do not add environment prefix this will automatically be added when creating bucket
+variable "bucket_names" {
+  type = list(string)
+  default = ["laa-sds-internal"]
+}
