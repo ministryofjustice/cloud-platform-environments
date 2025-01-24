@@ -1,5 +1,5 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=allow-var-for-custom-error"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1"
 
   # Configuration
   bucket_id            = module.s3_bucket.bucket_name
