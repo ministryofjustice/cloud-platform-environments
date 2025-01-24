@@ -18,29 +18,24 @@ is_service_pod_valid(service_pod) if {
 		res := tfplan.resource_changes[_]
 		regex.match(`^module\..*\.kubernetes_service_account\.generated_sa$`, res.address)
 	]
-	every irsa in all_irsa {
-		every action in irsa.change.actions {
-			action == "no-op"
-		}
-	}
 
-	all_irsa_accounts := [
+	all_irsa_account_names := [
 	name |
 		irsa := all_irsa[_]
 		name := irsa.change.after.metadata[_].name
 	]
 
-	service_pods_service_accounts := [
+	service_pods_sa := [
 	res |
 		res := service_pod.change.after.spec[_].template[_].spec[_].service_account_name
 	]
-	count(service_pods_service_accounts) > 0
+	count(service_pods_sa) > 0
 
-	every sa in service_pods_service_accounts {
-		sa in all_irsa_accounts
+	every sa in service_pods_sa {
+		sa in all_irsa_account_names
 	}
 
-	touches_others := [
+	touches_other_resources := [
 	c |
 		c := tfplan.resource_changes[_]
 		not regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, c.address)
@@ -49,5 +44,5 @@ is_service_pod_valid(service_pod) if {
 		change != "no-op"
 	]
 
-	count(touches_others) == 0
+	count(touches_other_resources) == 0
 }
