@@ -73,6 +73,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
     queue = [
       module.justice-email-and-delius-queue.sqs_arn,
       module.common-platform-and-delius-queue.sqs_arn,
+      module.temp-common-platform-and-delius-queue.sqs_arn,
       module.prison-identifier-and-delius-queue.sqs_arn,
       module.cas2-and-delius-queue.sqs_arn,
       module.approved-premises-and-delius-queue.sqs_arn,
