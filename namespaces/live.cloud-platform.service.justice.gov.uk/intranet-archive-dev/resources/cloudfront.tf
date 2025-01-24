@@ -28,8 +28,9 @@ module "cloudfront" {
       error_caching_min_ttl = 60
     },
     {
+      # Match all 5xx errors
       error_code            = 500
-      response_code         = 500
+      # Don't set response code, so that the original error code is returned.
       response_page_path    = "/error_pages/500.html"
       error_caching_min_ttl = 10
     }
