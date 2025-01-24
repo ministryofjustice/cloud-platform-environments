@@ -85,7 +85,7 @@ module "common-platform-and-delius-service-account" {
 }
 
 module "temp-common-platform-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   sqs_name = "temp-common-platform-and-delius-queue"
 
