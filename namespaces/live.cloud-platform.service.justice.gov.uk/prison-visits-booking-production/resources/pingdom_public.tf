@@ -3,7 +3,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 122531 = #prison-visit-booking-alerts
+# 141228 = #visits-alerts
 
 resource "pingdom_check" "prison-visits-booking-public-production" {
   type                     = "http"
@@ -18,6 +18,6 @@ resource "pingdom_check" "prison-visits-booking-public-production" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 

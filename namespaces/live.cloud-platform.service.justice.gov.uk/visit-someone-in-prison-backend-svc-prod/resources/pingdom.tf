@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 122531 = #prison-visit-booking-alerts
+# 141228 = #visits-alerts
 
 resource "pingdom_check" "visit-scheduler-production-check" {
   type                     = "http"
@@ -17,7 +17,7 @@ resource "pingdom_check" "visit-scheduler-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 
 resource "pingdom_check" "prisoner-contact-registry-production-check" {
@@ -33,7 +33,7 @@ resource "pingdom_check" "prisoner-contact-registry-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 
 resource "pingdom_check" "prison-visits-orchestration-service-production-check" {
@@ -49,7 +49,7 @@ resource "pingdom_check" "prison-visits-orchestration-service-production-check" 
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 
 # TODO: Commented out as not in production yet
@@ -66,5 +66,5 @@ resource "pingdom_check" "prison-visits-orchestration-service-production-check" 
 #   port                     = 443
 #   tags                     = "dps,hmpps,cloudplatform-managed"
 #   probefilters             = "region:EU"
-#   integrationids           = [122531]
+#   integrationids           = [141228]
 # }
