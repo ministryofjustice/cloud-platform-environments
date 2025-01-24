@@ -28,6 +28,12 @@ module "cloudfront" {
       error_caching_min_ttl = 60
     },
     {
+      error_code            = 405
+      response_code         = 405
+      response_page_path    = "/error_pages/405.html"
+      # Use default TTL for 405 errors, don't set error_caching_min_ttl
+    },
+    {
       # Match all 5xx errors
       error_code            = 500
       # Don't set response code, so that the original error code is returned.
