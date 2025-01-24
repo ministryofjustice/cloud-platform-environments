@@ -83,3 +83,33 @@ module "common-platform-and-delius-service-account" {
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
   }
 }
+
+module "temp-common-platform-and-delius-queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+
+  sqs_name = "temp-common-platform-and-delius-queue"
+
+  application            = "temp-common-platform-and-delius"
+  business_unit          = var.business_unit
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
+resource "aws_sns_topic_subscription" "temp-common-platform-and-delius-queue-subscription" {
+  topic_arn = data.aws_ssm_parameter.court-topic.value
+  protocol  = "sqs"
+  endpoint  = module.temp-common-platform-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    messageType = [
+      "COMMON_PLATFORM_HEARING"
+    ]
+  })
+}
+
+resource "aws_sqs_queue_policy" "temp-common-platform-and-delius-queue-policy" {
+  queue_url = module.temp-common-platform-and-delius-queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
