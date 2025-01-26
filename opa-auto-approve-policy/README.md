@@ -2,6 +2,7 @@
 
 - ~~True/False or Score for auto approval?~~
 - Safety Net:
+
   - ~~Always fail if involved IAM changes~~
   - Doesn't touch k8s yaml file - how to check? any git command to show no change in that layer? run `git diff -- cloud-platform-environments/namespaces/live.cloud-platform.service.justice.gov.uk/<namespace>` in concourse?
   - Doesn't touch:
@@ -27,7 +28,6 @@ opa fmt . -w
 ```
 opa test . -v
 ```
-
 
 ### Next Steps
 
