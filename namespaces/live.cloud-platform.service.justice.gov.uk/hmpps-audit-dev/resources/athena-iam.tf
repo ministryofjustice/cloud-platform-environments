@@ -36,7 +36,16 @@ data "aws_iam_policy_document" "athena" {
       "glue:GetPartition",
     ]
 
-    resources = [ "${module.s3.bucket_arn}/*" ]
+    resources = [
+      aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}",
+      "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}/*",
+      module.s3.bucket_arn,
+      "${module.s3.bucket_arn}/*",
+    ]
   }
 }
 
