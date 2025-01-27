@@ -79,14 +79,6 @@ module "hmpps_workload_notification_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_workload_notification_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.hmpps_workload_notification_queue.sqs_arn
-}
-
-
 resource "kubernetes_secret" "hmpps_workload_notification_queue_secret" {
   metadata {
     name      = "sqs-notification-events-secret"
