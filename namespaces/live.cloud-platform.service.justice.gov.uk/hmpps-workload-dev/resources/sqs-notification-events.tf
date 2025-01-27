@@ -79,6 +79,7 @@ module "hmpps_workload_notification_dead_letter_queue" {
   }
 }
 
+
 resource "kubernetes_secret" "hmpps_workload_notification_queue_secret" {
   metadata {
     name      = "sqs-notification-events-secret"
