@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-runner
+  namespace: hmpps-find-and-refer-an-intervention-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app: github-actions-runner
+    spec:
+      serviceAccountName: cd-serviceaccount
+      containers:
+        - name: runner
+          image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
+          resources:
+            limits:
+              memory: 8000Mi
+              cpu: 2000m
+          securityContext:
+            runAsUser: 1001 # 'runner' user
+          env:
+            - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
+              value: hmpps-find-and-refer-an-intervention-runner
+            - name: RUNNER_WORKDIR
+              value: '/_work'
+            - name: LABELS
+              value: moj-cloud-platform,hmpps-find-and-refer-an-intervention-runner
+            - name: REPO_URL
+              value: https://github.com/ministryofjustice/hmpps-find-and-refer-an-intervention-e2e
+            - name: RUN_AS_ROOT
+              value: 'false'
+            - name: APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: GITHUB_APP_ID
+            - name: APP_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: GITHUB_APP_PRIVATE_KEY
+            - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
+              value: ubuntu20
