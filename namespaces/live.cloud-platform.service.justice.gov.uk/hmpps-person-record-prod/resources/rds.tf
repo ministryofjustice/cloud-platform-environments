@@ -15,6 +15,7 @@ module "hmpps_person_record_rds" {
   prepare_for_major_upgrade    = false
   performance_insights_enabled = true
   allow_major_version_upgrade  = "true"
+  deletion_protection          = true
 
   providers = {
     aws = aws.london
