@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "athena" {
       "glue:GetPartition",
     ]
 
-    resources = ["*"]
+    resources = [ "${module.s3.bucket_arn}/*" ]
   }
 }
 
