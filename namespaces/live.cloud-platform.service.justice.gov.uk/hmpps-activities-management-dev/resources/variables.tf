@@ -62,7 +62,7 @@ variable "github_token" {
 }
 
 variable "rds_family" {
-  default = "postgres17"
+  default = "postgres14"
 }
 
 variable "mp_dps_sg_name" {
