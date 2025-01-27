@@ -29,7 +29,7 @@ module "activities_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   prepare_for_major_upgrade   = true
-  rds_family                  = "postgres17"
+  rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
@@ -99,8 +99,7 @@ module "activities_rds_read_replica" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = true
-  rds_family                  = "postgres17"
+  rds_family                  = var.rds_family
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
