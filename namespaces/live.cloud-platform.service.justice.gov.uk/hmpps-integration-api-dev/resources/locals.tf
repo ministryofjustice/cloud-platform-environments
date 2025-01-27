@@ -9,7 +9,7 @@ locals {
     namespace              = var.namespace
   }
 
-  clients = ["mapps", "heartbeat", "ctrlo", "pnd", "event-service", "mryall", "moj-pes", "maspin", "kilco", "meganexus", "bmadley", "serco", "unilink"]
+  clients = ["mapps", "heartbeat", "ctrlo", "pnd", "event-service", "mryall", "moj-pes", "maspin", "kilco", "meganexus", "bmadley", "serco", "unilink", "prisonerfacing"]
 
   client_queues = {
     mapps     = module.event_mapps_queue.sqs_name
