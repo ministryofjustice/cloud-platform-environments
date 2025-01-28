@@ -16,7 +16,7 @@ module "cas-2-domain-events-queue" {
   # Queue configuration
   sqs_name = "cas-2-domain-events-queue"
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.cas-2-domain-events-dlq.sqs_arn
+    deadLetterTargetArn = module.cas-2-domain-events-dl-queue.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -35,11 +35,11 @@ resource "aws_sqs_queue_policy" "cas-2-domain-events-queue-policy" {
   policy    = data.aws_iam_policy_document.sns_to_sqs.json
 }
 
-module "cas-2-domain-events-dlq" {
+module "cas-2-domain-events-dl-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name                  = "cas-2-domain-events-dlq"
+  sqs_name                  = "cas-2-domain-events-dl-queue"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
@@ -52,8 +52,8 @@ module "cas-2-domain-events-dlq" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_sqs_queue_policy" "cas-2-domain-events-dlq-policy" {
-  queue_url = module.cas-2-domain-events-dlq.sqs_id
+resource "aws_sqs_queue_policy" "cas-2-domain-events-dl-queue-policy" {
+  queue_url = module.cas-2-domain-events-dl-queue.sqs_id
   policy    = data.aws_iam_policy_document.sns_to_sqs.json
 }
 
@@ -67,13 +67,13 @@ resource "kubernetes_secret" "cas-2-domain-events-queue-secret" {
   }
 }
 
-resource "kubernetes_secret" "cas-2-domain-events-dlq-secret" {
+resource "kubernetes_secret" "cas-2-domain-events-dl-queue-secret" {
   metadata {
-    name      = "cas-2-domain-events-dlq"
+    name      = "cas-2-domain-events-dl-queue"
     namespace = var.namespace
   }
 
   data = {
-    QUEUE_NAME = module.cas-2-domain-events-queue.sqs_name
+    QUEUE_NAME = module.cas-2-domain-events-dl-queue.sqs_name
   }
 }
