@@ -80,8 +80,6 @@ data "aws_iam_policy_document" "document" {
       "glue:DeleteTable",
     ]
     resources = [
-      "${module.s3.bucket_arn}/*",
-      module.s3.bucket_arn,
       aws_athena_workgroup.queries.arn,
       "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:glue:eu-west-2:*:catalog",
@@ -89,6 +87,14 @@ data "aws_iam_policy_document" "document" {
       "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.id}/*",
       "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}/*",
+      module.s3.bucket_arn,
+      "${module.s3.bucket_arn}/*",
+
+      "arn:aws:athena:*:*:workgroup/hmpps_audit_${var.environment-name}",
+      "arn:aws:glue:eu-west-2:*:database/audit_${var.environment-name}",
+      "arn:aws:s3:::${module.s3.bucket_name}",
+      "arn:aws:s3:::${module.s3.bucket_name}/*"
+
     ]
   }
 }
