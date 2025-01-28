@@ -67,17 +67,13 @@ resource "kubernetes_secret" "cas-2-domain-events-queue-secret" {
   }
 }
 
-module "cas-2-domain-events-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-  application            = var.application
-  business_unit          = var.business_unit
-  eks_cluster_name       = var.eks_cluster_name
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
+resource "kubernetes_secret" "cas-2-domain-events-dlq-secret" {
+  metadata {
+    name      = "cas-2-domain-events-dlq"
+    namespace = var.namespace
+  }
 
-  service_account_name = "cas-2-domain-events"
-  role_policy_arns     = { sqs = module.cas-2-domain-events-queue.irsa_policy_arn }
+  data = {
+    QUEUE_NAME = module.cas-2-domain-events-dlq.sqs_name
+  }
 }
