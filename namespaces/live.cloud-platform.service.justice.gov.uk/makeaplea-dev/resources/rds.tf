@@ -73,8 +73,6 @@ module "mgw_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
 
-  prepare_for_major_upgrade   = true
-
   providers = {
     aws = aws.london
   }
