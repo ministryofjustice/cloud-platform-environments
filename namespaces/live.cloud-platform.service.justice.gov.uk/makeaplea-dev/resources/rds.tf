@@ -6,21 +6,20 @@
  */
 
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name                  = var.vpc_name
-  team_name                 = var.team_name
-  business_unit             = var.business_unit
-  application               = var.application
-  is_production             = var.is_production
-  namespace                 = var.namespace
-  db_engine_version         = "14.12"
-  db_instance_class         = "db.t4g.micro"
-  db_max_allocated_storage  = "500"
-  environment_name          = var.environment
-  infrastructure_support    = var.infrastructure_support
-  prepare_for_major_upgrade = true
-
-  rds_family = "postgres14"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  namespace                   = var.namespace
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
+  allow_minor_version_upgrade = "true"
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
 
   providers = {
     aws = aws.london
@@ -59,20 +58,22 @@ resource "kubernetes_config_map" "rds" {
 }
 
 module "mgw_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name                 = var.vpc_name
-  team_name                = var.team_name
-  business_unit            = var.business_unit
-  application              = var.application
-  is_production            = var.is_production
-  namespace                = var.namespace
-  db_engine_version        = "12.19"
-  db_instance_class        = "db.t4g.micro"
-  db_max_allocated_storage = "500"
-  environment_name         = var.environment
-  infrastructure_support   = var.infrastructure_support
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  vpc_name                    = var.vpc_name
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  namespace                   = var.namespace
+  db_engine_version           = "14"
+  rds_family                  = "postgres14"
+  allow_minor_version_upgrade = "true"
+  db_instance_class           = "db.t4g.micro"
+  db_max_allocated_storage    = "500"
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
 
-  rds_family = "postgres12"
+  prepare_for_major_upgrade   = true
 
   providers = {
     aws = aws.london
