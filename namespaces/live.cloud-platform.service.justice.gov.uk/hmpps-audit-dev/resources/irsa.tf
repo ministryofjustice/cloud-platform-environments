@@ -52,16 +52,6 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
 data "aws_iam_policy_document" "document" {
   statement {
     actions = [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
-    ]
-    resources = [
-      module.s3.bucket_arn,
-    ]
-  }
-
-  statement {
-    actions = [
       "athena:CancelQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
@@ -70,10 +60,12 @@ data "aws_iam_policy_document" "document" {
       "athena:StopQueryExecution",
       "s3:GetObject",
       "s3:PutObject",
+      "s3:ListBucket",
       "s3:ListBucketMultipartUploads",
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
       "s3:CreateBucket",
+      "s3:GetBucketLocation",
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetTables",
@@ -87,7 +79,10 @@ data "aws_iam_policy_document" "document" {
       "glue:CreateDatabase",
       "glue:DeleteTable",
     ]
-    resources = [ "${module.s3.bucket_arn}/*" ]
+    resources = [
+      "${module.s3.bucket_arn}/*",
+      module.s3.bucket_arn,
+    ]
   }
 }
 
@@ -102,10 +97,4 @@ resource "aws_iam_user" "hmpps-audit-user" {
 
 resource "aws_iam_access_key" "hmpps-audit-user" {
   user = aws_iam_user.hmpps-audit-user.name
-}
-
-resource "aws_iam_user_policy" "hmpps-audit-policy" {
-  name   = "hmpps-audit-${var.environment-name}-athena"
-  policy = data.aws_iam_policy_document.document.json
-  user   = aws_iam_user.hmpps-audit-user.name
 }
