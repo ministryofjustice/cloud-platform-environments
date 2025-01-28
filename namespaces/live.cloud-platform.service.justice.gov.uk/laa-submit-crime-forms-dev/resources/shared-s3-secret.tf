@@ -13,7 +13,7 @@ resource "kubernetes_secret" "crime-forms-s3-secret" {
 
 resource "kubernetes_secret" "crime-forms-s3-secret-for-app-store" {
   metadata {
-    name      = "s3-policy-arns"
+    name      = "s3-bucket-output"
     namespace = "laa-crime-application-store-dev"
   }
 
