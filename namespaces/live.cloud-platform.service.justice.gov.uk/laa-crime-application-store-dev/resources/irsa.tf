@@ -1,6 +1,6 @@
 data "kubernetes_secret" "s3_bucket_arns" {
   metadata {
-    name      = "s3-policy-arns"
+    name      = "s3-bucket-output"
     namespace = var.namespace
   }
 }
