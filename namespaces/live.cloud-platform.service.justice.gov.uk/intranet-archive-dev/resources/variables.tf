@@ -1,15 +1,12 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "kubernetes_cluster" {
 }
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Intranet Archive"
+  default     = "intranet-archive"
 }
 
 variable "namespace" {
@@ -29,6 +26,10 @@ variable "team_name" {
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "development"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {
@@ -53,4 +54,10 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution."
+  type        = string
+  default     = "archive.dev.intranet.justice.gov.uk"
 }

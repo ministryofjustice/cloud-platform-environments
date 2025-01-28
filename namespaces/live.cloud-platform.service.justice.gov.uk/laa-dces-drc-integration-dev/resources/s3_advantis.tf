@@ -83,6 +83,74 @@ data "aws_iam_policy_document" "bucket-policy" {
     ]
   }
 
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "arn:aws:iam::463470948902:user/prodadvlaadatamigr"
+      ]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging"
+    ]
+    resources = [
+      "$${bucket_arn}/DRC/Attachments/*"  # Deny getting objects from DRC/Attachments
+    ]
+  }
+
+
+
+
+
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_role.guardduty_malware_protection_role.arn
+      ]
+    }
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetBucketPolicy",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }
+
+
+
+  # s3 put access to transfer attachments from marston bucket
+  statement {
+    sid = "PutAccessForMarstonAttachments"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+         "arn:aws:iam::754256621582:user/system/laa-dces-data-migration-dev-admin-users/laa-dces-data-migration-dev-admin-user"
+      ]
+    }
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:GetObjectTagging"
+    ]
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
+    ]
+  }
+
 }
 
 
@@ -100,3 +168,13 @@ resource "kubernetes_secret" "s3_advantis_bucket-secret" {
     bucket_name = module.s3_advantis_bucket.bucket_name
   }
 }
+
+
+
+
+
+
+
+
+
+

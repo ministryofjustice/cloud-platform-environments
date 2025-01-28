@@ -24,7 +24,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "pods",
-        "configmaps",
+        "configmaps"
       ]
       verbs = [
         "patch",
@@ -41,7 +41,7 @@ module "serviceaccount" {
         "extensions",
         "apps",
         "batch",
-        "networking.k8s.io",
+        "networking.k8s.io"
       ]
       resources = [
         "deployments",
@@ -49,7 +49,8 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "statefulsets",
-        "replicasets"
+        "replicasets",
+        "networkpolicies"
       ]
       verbs = [
         "get",
@@ -57,9 +58,22 @@ module "serviceaccount" {
         "delete",
         "create",
         "patch",
-        "list"
+        "list",
+        "watch"
       ]
     },
+    {
+      "api_groups": [
+        "monitoring.coreos.com"
+      ],
+      "resources": [
+        "prometheusrules",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "*"
+      ]
+    }
   ]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert

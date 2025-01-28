@@ -1,5 +1,5 @@
 module "nomis_migration_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
@@ -7,7 +7,7 @@ module "nomis_migration_rds" {
   application                = var.application
   is_production              = var.is_production
   namespace                  = var.namespace
-  environment_name           = var.environment_name
+  environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.small"
   db_engine                  = "postgres"

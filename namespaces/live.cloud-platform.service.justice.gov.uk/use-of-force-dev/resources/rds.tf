@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -21,6 +21,36 @@ module "dps_rds" {
   providers = {
     aws = aws.london
   }
+
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+      {
+        name         = "rds.logical_replication"
+        value        = "1"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "shared_preload_libraries"
+        value        = "pglogical"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "max_wal_size"
+        value        = "1024"
+        apply_method = "immediate"
+      },
+      {
+        name         = "wal_sender_timeout"
+        value        = "0"
+        apply_method = "immediate"
+      },
+      {
+        name         = "max_slot_wal_keep_size"
+        value        = "40000"
+        apply_method = "immediate"
+      }
+    ]
 }
 
 resource "kubernetes_secret" "dps_rds" {
@@ -37,4 +67,10 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.dps_rds.rds_instance_address
     url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }

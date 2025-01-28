@@ -109,5 +109,5 @@ resource "aws_sns_topic_subscription" "keyworker_api_subscription" {
   topic_arn     = module.offender_events.topic_arn
   protocol      = "sqs"
   endpoint      = module.keyworker_api_queue.sqs_arn
-  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\", \"BOOKING_NUMBER-CHANGED\", \"DATA_COMPLIANCE_DELETE-OFFENDER\"]}"
+  filter_policy = "{\"eventType\":[\"EXTERNAL_MOVEMENT_RECORD-INSERTED\"]}"
 }

@@ -52,6 +52,16 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
 data "aws_iam_policy_document" "document" {
   statement {
     actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+    ]
+    resources = [
+      module.s3.bucket_arn,
+    ]
+  }
+
+  statement {
+    actions = [
       "athena:CancelQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
@@ -60,9 +70,6 @@ data "aws_iam_policy_document" "document" {
       "athena:StopQueryExecution",
       "s3:GetObject",
       "s3:PutObject",
-      "s3:ListBucket",
-      "s3:ListAllMyBuckets",
-      "s3:GetBucketLocation",
       "s3:ListBucketMultipartUploads",
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
@@ -80,7 +87,7 @@ data "aws_iam_policy_document" "document" {
       "glue:CreateDatabase",
       "glue:DeleteTable",
     ]
-    resources = ["*"]
+    resources = [ "${module.s3.bucket_arn}/*" ]
   }
 }
 

@@ -19,7 +19,9 @@ module "create_an_order_api_irsa" {
   role_policy_arns     = merge(
     local.sqs_policies,
     {court_case_events_queue             = module.court_case_events_queue.irsa_policy_arn},    
-    {court_case_events_dead_letter_queue = module.court_case_events_dead_letter_queue.irsa_policy_arn}
+    {court_case_events_dead_letter_queue = module.court_case_events_dead_letter_queue.irsa_policy_arn},
+    {court_case_events_fifo_queue             = module.court_case_events_fifo_queue.irsa_policy_arn},    
+    {court_case_events_fifo_dead_letter_queue = module.court_case_events_fifo_dead_letter_queue.irsa_policy_arn}
   )
   # Tags
   business_unit          = var.business_unit

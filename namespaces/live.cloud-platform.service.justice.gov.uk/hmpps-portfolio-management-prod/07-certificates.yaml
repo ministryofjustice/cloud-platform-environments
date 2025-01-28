@@ -31,7 +31,7 @@ metadata:
   name: tech-docs.hmpps.service.justice.gov.uk
   namespace: hmpps-portfolio-management-prod
 spec:
-  secretName: hmpps-sre-documentation
+  secretName: hmpps-tech-documentation
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

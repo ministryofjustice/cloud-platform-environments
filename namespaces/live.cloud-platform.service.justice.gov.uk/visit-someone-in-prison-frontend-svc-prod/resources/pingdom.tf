@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 122531 = #prison-visit-booking-alerts
+# 141228 = #visits-alerts
 
 resource "pingdom_check" "visit-someone-in-prison-staff-ui-production-check" {
   type                     = "http"
@@ -17,7 +17,7 @@ resource "pingdom_check" "visit-someone-in-prison-staff-ui-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 
 resource "pingdom_check" "visit-someone-in-prison-internal-ui-production-check" {
@@ -33,7 +33,7 @@ resource "pingdom_check" "visit-someone-in-prison-internal-ui-production-check" 
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [122531]
+  integrationids           = [141228]
 }
 
 # Todo: Commented out as site not in production yet
@@ -50,5 +50,5 @@ resource "pingdom_check" "visit-someone-in-prison-internal-ui-production-check" 
 #   port                     = 443
 #   tags                     = "dps,hmpps,cloudplatform-managed"
 #   probefilters             = "region:EU"
-#   integrationids           = [122531]
+#   integrationids           = [141228]
 # }

@@ -15,30 +15,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
       k8s_secret_name         = "laa-infox-db-password-test"         # The name of the secret in k8s
     },
-    "laa-infox-mtls-certs" = {
-      description             = "InfoX MTLS Certificates (base64-encoded). These certificates are used to secure the Libra endpoint.", # Required
-      recovery_window_in_days = 7,                                                                                                     # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-libra-mtls-certs"                                                                                 # The name of the secret in k8s
-    },
     "laa-infox-keystore-password" = {
       description             = "InfoX Keystore password [test].",   # Required
       recovery_window_in_days = 7,                            # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-infox-keystore-password" # The name of the secret in k8s
-    },
-    "laa-infox-private-key" = {
-      description             = "InfoX private key [test].",   # Required
-      recovery_window_in_days = 7,                      # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-infox-private-key" # The name of the secret in k8s
+      k8s_secret_name         = "laa-infox-keystore-password-test" # The name of the secret in k8s
     },
     "laa-infox-private-key-password" = {
       description             = "InfoX private key password [test].",   # Required
       recovery_window_in_days = 7,                      # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-infox-private-key-password" # The name of the secret in k8s
-    },
-    "laa-infox-pkcs12-password" = {
-      description             = "InfoX private pkcs12 password [test].",   # Required
-      recovery_window_in_days = 7,                      # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-infox-pkcs12-password" # The name of the secret in k8s
+      k8s_secret_name         = "laa-infox-private-key-password-test" # The name of the secret in k8s
     },
   }
 }

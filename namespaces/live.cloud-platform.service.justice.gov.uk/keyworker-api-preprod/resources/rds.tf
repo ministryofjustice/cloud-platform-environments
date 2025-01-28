@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -15,10 +15,6 @@ module "dps_rds" {
   rds_family                  = "postgres15"
   prepare_for_major_upgrade   = false
   db_password_rotated_date    = "15-02-2023"
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "dps_rds" {

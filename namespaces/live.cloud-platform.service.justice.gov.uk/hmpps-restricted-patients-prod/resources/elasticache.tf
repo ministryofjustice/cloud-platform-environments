@@ -1,8 +1,8 @@
 module "hmpps_restricted_patients" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name                = var.vpc_name
   application             = var.application
-  environment_name        = var.environment-name
+  environment_name        = var.environment
   is_production           = var.is_production
   infrastructure_support  = var.infrastructure_support
   team_name               = var.team_name

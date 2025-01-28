@@ -11,7 +11,7 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.13"
+  engine_version      = "OpenSearch_2.17"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count = 2
@@ -51,7 +51,8 @@ resource "kubernetes_secret" "indexer_secret" {
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    url              = module.opensearch.proxy_url
-    bedrock_role_arn = aws_iam_role.opensearch_bedrock_role.arn
+    url                                 = module.opensearch.proxy_url
+    connector_role_arn                  = aws_iam_role.sagemaker_role.arn
+    connector_external_account_role_arn = local.remote_sagemaker_role
   }
 }

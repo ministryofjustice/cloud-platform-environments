@@ -37,6 +37,12 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
       module.migration_contactperson_queue.sqs_arn,
       module.migration_contactperson_dead_letter_queue.sqs_arn,
+      module.migration_coreperson_queue.sqs_arn,
+      module.migration_coreperson_dead_letter_queue.sqs_arn,
+      module.migration_sentencing_queue.sqs_arn,
+      module.migration_sentencing_dead_letter_queue.sqs_arn,
+      module.migration_corporate_queue.sqs_arn,
+      module.migration_corporate_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -73,6 +79,8 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_prisonperson_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_contactperson_queue.sqs_arn,
       module.prisoner_from_nomis_contactperson_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_corporate_queue.sqs_arn,
+      module.prisoner_from_nomis_corporate_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -98,7 +106,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 

@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name = var.vpc_name
 
@@ -14,10 +14,10 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "15.5"
+  db_engine_version = "16.4"
   db_instance_class = "db.t4g.small"
 
-  rds_family = "postgres15"
+  rds_family = "postgres16"
 
   prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
@@ -43,6 +43,22 @@ resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-instance-calculate-journey-variable-payments-${var.environment-name}"
     namespace = var.namespace
+  }
+
+  data = {
+    database_name     = module.rds-instance.database_name
+    database_host     = module.rds-instance.rds_instance_address
+    database_port     = module.rds-instance.rds_instance_port
+    database_username = module.rds-instance.database_username
+    database_password = module.rds-instance.database_password
+  }
+}
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-calculate-journey-variable-payments-${var.environment-name}"
+    namespace = "calculate-journey-variable-payments-prod"
   }
 
   data = {

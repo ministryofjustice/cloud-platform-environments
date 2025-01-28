@@ -97,4 +97,3 @@ variable "github_actions_secret_kube_token" {
   type        = string
   sensitive   = true
 }
-

@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -25,8 +25,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "14.11"
-  rds_family             = "postgres14"
+  db_engine_version      = "16.2"
+  rds_family             = "postgres16"
   db_instance_class      = "db.t4g.micro"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [

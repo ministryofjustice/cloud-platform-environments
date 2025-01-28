@@ -9,12 +9,13 @@ locals {
     namespace              = var.namespace
   }
 
-  clients = ["mapps", "heartbeat", "ctrlo", "pnd", "event-service", "mryall", "moj-pes", "maspin", "kilco", "meganexus"]
+  clients = ["mapps", "heartbeat", "ctrlo", "pnd", "event-service", "mryall", "moj-pes", "maspin", "kilco", "meganexus", "bmadley", "serco", "unilink", "prisonerfacing"]
+
   client_queues = {
-    "mapps.client.org" = module.event_mapps_queue.sqs_name
-    pnd                = module.event_pnd_queue.sqs_name
-    maspin             = module.event_pnd_queue.sqs_name # testing
-    mryall             = module.event_pnd_queue.sqs_name # testing
-    meganexus          = module.event_plp_queue.sqs_name
+    mapps     = module.event_mapps_queue.sqs_name
+    pnd       = module.event_pnd_queue.sqs_name
+    maspin    = module.event_pnd_queue.sqs_name # testing
+    mryall    = module.event_pnd_queue.sqs_name # testing
+    meganexus = module.event_plp_queue.sqs_name
   }
 }

@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -7,7 +7,7 @@ module "dps_rds" {
   application               = var.application
   is_production             = var.is_production
   namespace                 = var.namespace
-  environment_name          = var.environment-name
+  environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
   db_instance_class         = "db.t4g.large"
   db_engine                 = "postgres"

@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
@@ -11,6 +11,7 @@ module "dps_rds" {
   db_instance_class         = "db.r6g.xlarge"
   db_iops                   = "12000"
   db_allocated_storage      = "512"
+  db_max_allocated_storage     = "2000"
   deletion_protection       = true
   prepare_for_major_upgrade = false
   rds_family                = "postgres16"
@@ -38,6 +39,11 @@ module "dps_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
 }
@@ -59,7 +65,7 @@ resource "kubernetes_secret" "dps_rds" {
 }
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true

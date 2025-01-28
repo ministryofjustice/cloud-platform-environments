@@ -34,10 +34,8 @@ data "aws_iam_policy_document" "combined_court_case_sqs" {
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
-      module.cpr_court_case_events_queue.sqs_arn,
-      module.cpr_court_case_events_dead_letter_queue.sqs_arn,
-      module.cpr_court_case_events_fifo_queue.sqs_arn,
-      module.cpr_court_case_events_temporary_queue.sqs_arn,
+      module.cpr_court_cases_queue.sqs_arn,
+      module.cpr_court_cases_dead_letter_queue.sqs_arn
     ]
   }
 }
@@ -106,9 +104,6 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
-    { dms = module.hmpps-person-record-dms.irsa_policy_arn },
-    { s3 = module.hmpps-person-record-ndelius-s3-extract.irsa_policy_arn },
-    { sns_cpr_cce_fifo = module.court-case-events-fifo-topic.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },

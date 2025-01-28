@@ -719,3 +719,18 @@ spec:
   dnsNames:
     - 29d42f0b-dev.hmpps.service.justice.gov.uk
     - justice-email-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: assess-for-early-release-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: assess-for-early-release-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - fd00cc35-dev.hmpps.service.justice.gov.uk
+    - assess-for-early-release-and-delius-dev.hmpps.service.justice.gov.uk
