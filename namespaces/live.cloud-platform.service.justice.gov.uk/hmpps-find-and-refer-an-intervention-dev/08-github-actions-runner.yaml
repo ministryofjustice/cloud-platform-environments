@@ -34,15 +34,10 @@ spec:
               value: https://github.com/ministryofjustice/hmpps-find-and-refer-an-intervention-e2e
             - name: RUN_AS_ROOT
               value: 'false'
-            - name: APP_ID
+            - name: ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: github-actions-runner-token
-                  key: GITHUB_APP_ID
-            - name: APP_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: github-actions-runner-token
-                  key: GITHUB_APP_PRIVATE_KEY
+                  key: ACCESS_TOKEN
             - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
               value: ubuntu20
