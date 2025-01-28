@@ -1,7 +1,6 @@
 ######################################## Prison visits allocation events for visit someone in prison
 ######## This will allow the visit-allocation-api to monitor for visit allocation jobs to run on a prison basis
 ######## Main queue
-sqs_
 
 module "hmpps_prison_visits_allocation_processing_job_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
