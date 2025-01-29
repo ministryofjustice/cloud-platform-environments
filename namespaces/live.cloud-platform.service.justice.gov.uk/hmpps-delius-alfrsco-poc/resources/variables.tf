@@ -110,7 +110,6 @@ variable "serviceaccount_rules" {
         "deployment",
         "secrets",
         "services",
-        "serviceaccounts",
         "configmaps",
         "pods",
         "replicationcontrollers",
