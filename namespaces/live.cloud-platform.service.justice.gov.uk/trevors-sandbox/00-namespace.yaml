@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "Trevor S"
     cloud-platform.justice.gov.uk/application: "trevors-dev"
     cloud-platform.justice.gov.uk/owner: "HMPPS: trevor.smith1@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/trevors-sandbox"
     cloud-platform.justice.gov.uk/team-name: "dps-soct-dev"
     cloud-platform.justice.gov.uk/review-after: "2025-06-15"
