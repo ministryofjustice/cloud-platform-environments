@@ -98,7 +98,7 @@ module "read_replica" {
   db_engine                = "postgres"
   db_engine_version        = "16"
   rds_family               = "postgres16"
-  db_instance_class        = "db.t4g.medium"
+  db_instance_class = "db.t4g.xlarge"
   db_max_allocated_storage = "500"
   db_allocated_storage     = "100"
 
