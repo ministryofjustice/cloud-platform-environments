@@ -88,9 +88,11 @@ data "aws_iam_policy_document" "document" {
       "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.name}",
       "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.id}/*",
+      "arn:aws:glue:eu-west-2:*:database/${aws_glue_catalog_database.audit_database.name}/*",
       "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.name}",
       "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.id}/*",
+      "arn:aws:glue:eu-west-2:*:table/${aws_glue_catalog_database.audit_database.name}/*",
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*",
 
