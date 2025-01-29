@@ -33,9 +33,8 @@ variable "team_name" {
 }
 
 variable "environment" {
-  description = "Name of the environment type for this service"
-  type        = string
-  default     = "development"
+  description = "The type of environment you're deploying to."
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -45,9 +44,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  description = "Whether this environment type is production or not"
-  type        = string
-  default     = "false"
+  default = "false"
 }
 
 variable "slack_channel" {
