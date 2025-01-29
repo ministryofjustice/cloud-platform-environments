@@ -23,3 +23,23 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+module "ecr-2" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+
+  # Repository configuration
+  repo_name = var.namespace
+
+  # OpenID Connect configuration
+  oidc_providers      = ["github"]
+  github_repositories = ["tim-development"]
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the container repository
+  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
