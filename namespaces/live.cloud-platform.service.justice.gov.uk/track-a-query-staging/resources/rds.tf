@@ -20,7 +20,8 @@ module "track_a_query_rds" {
   db_name                    = "track_a_query_staging"
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
-  enable_rds_auto_start_stop = false
+  backup_window              = "06:00-08:00"
+  enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = false
 
   providers = {
