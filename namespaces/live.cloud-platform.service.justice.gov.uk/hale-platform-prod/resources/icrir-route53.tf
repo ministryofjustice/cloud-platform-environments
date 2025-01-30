@@ -30,6 +30,14 @@ resource "aws_route53_record" "icrir_route53_cname_www_record" {
   records = ["icrir.independent-inquiry.uk"]
 }
 
+resource "aws_route53_record" "icrir_route53_cname_jobs" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "jobs.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["ICRIRweb.eploy.net"]
+}
+
 resource "aws_route53_record" "icrir_route53_txt" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
