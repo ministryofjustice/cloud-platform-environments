@@ -37,9 +37,8 @@ data "aws_iam_policy_document" "athena" {
     ]
 
     resources = [
-      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}",
-      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}/*",
-      "arn:aws:athena:eu-west-2:*:query/*",
+      aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}",
