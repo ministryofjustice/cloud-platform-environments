@@ -17,6 +17,7 @@ module "rds-instance" {
   db_engine                  = "postgres"
   db_engine_version          = "16"
   rds_family                 = "postgres16"
+  backup_window              = "06:00-08:00"
 
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade = false
