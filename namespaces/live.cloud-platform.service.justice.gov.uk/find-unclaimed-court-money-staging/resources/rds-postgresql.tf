@@ -17,6 +17,7 @@ module "rds" {
   namespace                 = var.namespace
   prepare_for_major_upgrade = false
   db_engine                 = "postgres"
+  backup_window             = "06:00-08:00"
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
