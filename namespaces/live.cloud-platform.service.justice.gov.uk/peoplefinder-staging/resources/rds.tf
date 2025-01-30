@@ -20,6 +20,7 @@ module "peoplefinder_rds" {
   rds_family                 = "postgres16"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_staging"
+  backup_window              = "06:00-08:00"
   enable_rds_auto_start_stop = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
