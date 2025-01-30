@@ -20,7 +20,7 @@ module "hmpps-audit-api-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "s3-irsa" {
+module "service-pod-irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -49,6 +49,13 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
   description = "Policy for reading audit json files from audit s3 bucket"
 }
 
+resource "aws_iam_policy" "allow-irsa-read-write" {
+  name        = "audit-read-write"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.document.json
+  description = "Policy for reading audit JSON files from audit S3 bucket and querying Athena"
+}
+
 data "aws_iam_policy_document" "document" {
   statement {
     actions = [
@@ -57,15 +64,34 @@ data "aws_iam_policy_document" "document" {
       "athena:GetQueryResults",
       "athena:GetWorkGroup",
       "athena:StartQueryExecution",
-      "athena:StopQueryExecution",
+      "athena:StopQueryExecution"
+    ]
+    resources = [
+      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}",
+      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}/*",
+      "arn:aws:athena:eu-west-2:*:query/*"
+    ]
+  }
+
+  statement {
+    actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
       "s3:ListBucketMultipartUploads",
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
-      "s3:CreateBucket",
-      "s3:GetBucketLocation",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      module.s3.bucket_arn,
+      "${module.s3.bucket_arn}/*",
+      "arn:aws:s3:::${module.s3.bucket_name}/query_results/*"
+    ]
+  }
+
+  statement {
+    actions = [
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetTables",
@@ -77,22 +103,17 @@ data "aws_iam_policy_document" "document" {
       "glue:GetDatabases",
       "glue:CreateTable",
       "glue:CreateDatabase",
-      "glue:DeleteTable",
+      "glue:DeleteTable"
     ]
     resources = [
-      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}",
-      "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}/*",
-      "arn:aws:athena:eu-west-2:*:query/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}",
-      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}/*",
-      module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*",
-
+      "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}/*"
     ]
   }
 }
+
 
 resource "random_id" "hmpps-audit-id" {
   byte_length = 16
