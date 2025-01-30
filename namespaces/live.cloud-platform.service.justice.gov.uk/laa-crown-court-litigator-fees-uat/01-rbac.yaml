@@ -5,7 +5,7 @@ metadata:
   namespace: laa-crown-court-litigator-fees-uat
 subjects:
   - kind: Group
-    name: "github:laa-lz-cp-migration"
+    name: "github:laa-clair-taskforce"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
