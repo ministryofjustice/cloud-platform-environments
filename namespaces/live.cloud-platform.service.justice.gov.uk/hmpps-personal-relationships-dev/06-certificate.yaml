@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-personal-relationships-api-cert
+  namespace: hmpps-personal-relationships-dev
+spec:
+  secretName: hmpps-personal-relationships-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - personal-relationships-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-personal-relationships-ui-cert
+  namespace: hmpps-personal-relationships-dev
+spec:
+  secretName: hmpps-personal-relationships-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - personal-relationships-dev.hmpps.service.justice.gov.uk
