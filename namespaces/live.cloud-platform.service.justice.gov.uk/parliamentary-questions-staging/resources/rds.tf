@@ -18,7 +18,9 @@ module "rds_instance" {
   db_engine_version          = "16"
   db_name                    = "parliamentary_questions_staging"
   rds_family                 = "postgres16"
+  backup_window              = "06:00-08:00"
   db_backup_retention_period = var.db_backup_retention_period
+
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = false
 
