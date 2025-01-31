@@ -32,11 +32,15 @@ variable "team_name" {
   default     = "hmpps-move-and-improve"
 }
 
+####################################################################################################################
+### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
+####################################################################################################################
+
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
