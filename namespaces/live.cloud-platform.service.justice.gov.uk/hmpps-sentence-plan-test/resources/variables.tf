@@ -88,6 +88,12 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN"
 }
 
+variable "serviceaccount_role_name" {
+  type        = string
+  description = "Role name for the service account for the github actions runner"
+  default     = "-github-actions-serviceaccount-role"
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this service account"
 
