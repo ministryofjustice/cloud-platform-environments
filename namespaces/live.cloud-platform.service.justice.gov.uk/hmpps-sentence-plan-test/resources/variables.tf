@@ -94,6 +94,12 @@ variable "serviceaccount_role_name" {
   default     = "github-actions-serviceaccount-role"
 }
 
+variable "serviceaccount_role_binding" {
+  type        = string
+  description = "Role binding name for the service account for the github actions runner"
+  default     = "github-actions-serviceaccount-rolebinding"
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this service account"
 
