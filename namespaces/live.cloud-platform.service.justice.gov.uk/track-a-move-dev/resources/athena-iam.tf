@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "athena" {
       aws_athena_workgroup.queries.arn,
       "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/*",
+      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.database.id}/*",
       module.track_a_move_s3_bucket.bucket_arn,
