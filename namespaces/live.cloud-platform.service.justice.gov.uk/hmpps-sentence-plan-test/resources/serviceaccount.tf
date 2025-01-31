@@ -4,6 +4,7 @@ module "serviceaccount" {
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
   role_name                            = var.serviceaccount_role_name
+  rolebinding_name                     = var.serviceaccount_role_binding
   serviceaccount_rules                 = var.serviceaccount_rules
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
