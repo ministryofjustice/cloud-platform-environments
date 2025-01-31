@@ -46,6 +46,13 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
   name        = "audit-read-write"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
+  description = "Policy for reading audit json files from audit s3 bucket"
+}
+
+resource "aws_iam_policy" "allow-irsa-read-write" {
+  name        = "audit-read-write"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.document.json
   description = "Policy for reading audit JSON files from audit S3 bucket and querying Athena"
 }
 
