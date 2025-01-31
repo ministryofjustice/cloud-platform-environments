@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace                 = var.namespace
   environment_name          = var.environment-name
   infrastructure_support    = var.infrastructure_support
-  db_instance_class         = "db.r6g.xlarge"
+  db_instance_class         = "db.t4g.xlarge"
   db_iops                   = "12000"
   db_allocated_storage      = "512"
   db_max_allocated_storage     = "2000"
@@ -83,7 +83,7 @@ module "read_replica" {
   db_engine             = "postgres"
   db_engine_version     = "16"
   rds_family            = "postgres16"
-  db_instance_class     = "db.t4g.small"
+  db_instance_class     = "db.t4g.xlarge"
   db_allocated_storage  = "192"
 
   # It is mandatory to set the below values to create read replica instance
