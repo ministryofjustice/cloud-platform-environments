@@ -41,6 +41,38 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  # Custom error pages for every 4xx error code
+  # 400, 403, 404, 405, 414
+  custom_error_response = [
+    {
+      error_code            = 400
+      response_code         = 400
+      response_page_path    = "/error_pages/400.html"
+    },
+    {
+      error_code            = 403
+      response_code         = 403
+      response_page_path    = "/error_pages/403.html"
+      error_caching_min_ttl = 0
+    },
+    {
+      error_code            = 404
+      response_code         = 404
+      response_page_path    = "/error_pages/404.html"
+      error_caching_min_ttl = 60
+    },
+    {
+      error_code            = 405
+      response_code         = 405
+      response_page_path    = "/error_pages/405.html"
+    },
+    {
+      error_code            = 414
+      response_code         = 414
+      response_page_path    = "/error_pages/414.html"
+    }
+  ]
+
   depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
 
