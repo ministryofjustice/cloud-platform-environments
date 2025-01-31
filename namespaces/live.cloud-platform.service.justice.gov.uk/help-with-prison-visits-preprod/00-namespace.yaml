@@ -10,7 +10,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "help-with-prison-visits-team"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "help-with-prison-visits-alerts"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "help-with-prison-visits-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "Help with Prison Visits"
     cloud-platform.justice.gov.uk/owner: "Prison Visits Booking: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/help-with-prison-visits-asynchronous-worker,https://github.com/ministryofjustice/help-with-prison-visits-external,https://github.com/ministryofjustice/help-with-prison-visits-internal"
