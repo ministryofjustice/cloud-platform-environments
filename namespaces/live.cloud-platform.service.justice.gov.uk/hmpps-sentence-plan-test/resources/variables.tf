@@ -67,3 +67,96 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this service account"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  default = [
+    {
+      api_groups = [""]
+      resources  = ["pods/log"]
+      verbs      = ["get"]
+    },
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "pods/exec",
+        "pods/attach",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods"
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+        "update",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "networking.k8s.io",
+        "certmanager.k8s.io",
+        "policy",
+        "monitoring.coreos.com",
+        "batch",
+      ]
+      resources = [
+        "deployments",
+        "deployments/scale",
+        "ingresses",
+        "replicasets",
+        "poddisruptionbudgets",
+        "certificates",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+        "cronjobs",
+        "jobs",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}

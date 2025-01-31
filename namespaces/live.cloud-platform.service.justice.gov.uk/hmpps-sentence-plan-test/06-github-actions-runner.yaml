@@ -13,6 +13,7 @@ spec:
       labels:
         app: github-actions-runner
     spec:
+      serviceAccountName: cd-serviceaccount
       containers:
         - name: runner
           image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
