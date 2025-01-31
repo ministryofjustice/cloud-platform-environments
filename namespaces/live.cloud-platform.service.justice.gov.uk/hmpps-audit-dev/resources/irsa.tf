@@ -30,7 +30,7 @@ module "service_pod_irsa" {
   service_account_name = "audit-s3-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.service_pod_iam_policy.arn
+    s3 = aws_iam_policy.allow-irsa-read-write.arn
   }
 
   # Tags
@@ -42,7 +42,7 @@ module "service_pod_irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_iam_policy" "service_pod_iam_policy" {
+resource "aws_iam_policy" "allow-irsa-read-write" {
   name        = "audit-read-write"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.service_pod_policy_document.json
