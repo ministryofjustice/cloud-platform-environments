@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-personal-relationships-preprod"
+  default     = "hmpps-personal-relationships-prod"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preproduction"
+  default     = "prod"
 }
 
 variable "eks_cluster_name" {
@@ -51,7 +51,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {

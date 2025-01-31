@@ -4,12 +4,12 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
 
   # The names of the SNS topics used and the namespace which created them
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
 
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
