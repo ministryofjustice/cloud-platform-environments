@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "arn:aws:athena:eu-west-2:*:query/*",
       "arn:aws:athena:eu-west-2:*:datacatalog/*",
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/${aws_athena_database.audit_database.id}",
+      "arn:aws:glue:eu-west-2:*:database/*",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}/*",
       module.s3.bucket_arn,
