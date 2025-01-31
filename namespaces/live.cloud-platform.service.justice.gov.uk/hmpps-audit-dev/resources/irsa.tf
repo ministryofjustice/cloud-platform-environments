@@ -20,7 +20,7 @@ module "hmpps-audit-api-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "s3-irsa" {
+module "service_pod_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -30,7 +30,7 @@ module "s3-irsa" {
   service_account_name = "audit-s3-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.allow-irsa-read-write.arn
+    s3 = aws_iam_policy.service_pod_iam_policy.arn
   }
 
   # Tags
@@ -42,14 +42,14 @@ module "s3-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_iam_policy" "allow-irsa-read-write" {
+resource "aws_iam_policy" "service_pod_iam_policy" {
   name        = "audit-read-write"
   path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
+  policy      = data.aws_iam_policy_document.service_pod_policy_document.json
   description = "Policy for reading audit json files from audit s3 bucket"
 }
 
-data "aws_iam_policy_document" "document" {
+data "aws_iam_policy_document" "service_pod_policy_document" {
   statement {
     actions = [
       "athena:CancelQueryExecution",
@@ -80,6 +80,8 @@ data "aws_iam_policy_document" "document" {
       "glue:DeleteTable",
     ]
     resources = [
+      aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}",
       "arn:aws:athena:eu-west-2:*:workgroup/${aws_athena_workgroup.queries.name}/*",
       "arn:aws:athena:eu-west-2:*:query/*",
@@ -88,8 +90,7 @@ data "aws_iam_policy_document" "document" {
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}",
       "arn:aws:glue:eu-west-2:*:table/${aws_athena_database.audit_database.id}/*",
       module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*",
-
+      "${module.s3.bucket_arn}/*"
     ]
   }
 }
