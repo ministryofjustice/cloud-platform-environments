@@ -18,7 +18,7 @@ spec:
           image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
           resources:
             limits:
-              memory: 4000Mi
+              memory: 5000Mi
               cpu: 1000m
           securityContext:
             runAsUser: 1001 # 'runner' user
