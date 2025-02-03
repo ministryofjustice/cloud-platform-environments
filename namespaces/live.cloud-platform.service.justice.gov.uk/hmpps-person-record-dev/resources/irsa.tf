@@ -98,7 +98,7 @@ data "aws_iam_policy_document" "cross_namespace_s3_access" {
     actions = [
       "s3:GetObject",
     ]
-    resources = ["${data.large-court-cases-s3-bucket-arn.value}/*", ]
+    resources = ["${data.aws_ssm_parameter.large-court-cases-s3-bucket-arn.value}/*", ]
   }
 }
 
