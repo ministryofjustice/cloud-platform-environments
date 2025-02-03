@@ -16,6 +16,7 @@ data "aws_iam_policy_document" "athena" {
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
+      "athena:ListDataCatalogs",
       "s3:ListMultipartUploadParts",
       "athena:GetWorkGroup",
       "s3:PutObject",
