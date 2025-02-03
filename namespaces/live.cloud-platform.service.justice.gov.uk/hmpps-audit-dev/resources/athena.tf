@@ -1,5 +1,5 @@
-resource "aws_glue_catalog_database" "audit_database" {
-  name = "audit_${var.environment-name}"
+resource "aws_glue_catalog_database" "audit_glue_catalog_database" {
+  name = "audit_${var.environment-name}_glue_catalog_database"
   location_uri = "s3://${module.s3.bucket_name}/"
 }
 
@@ -17,7 +17,7 @@ resource "aws_athena_workgroup" "queries" {
 }
 
 resource "aws_glue_catalog_table" "audit_event_table" {
-  database_name = aws_glue_catalog_database.audit_database.name
+  database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
   name          = "audit_event"
 
   table_type = "EXTERNAL_TABLE"
