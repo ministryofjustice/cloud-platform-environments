@@ -35,5 +35,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-cd-api"
     }
+    "datasource" = {
+      description             = "[datasource] Database connection env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource"
+    }
   }
 }
