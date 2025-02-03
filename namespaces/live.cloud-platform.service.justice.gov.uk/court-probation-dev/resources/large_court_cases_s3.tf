@@ -44,11 +44,28 @@ resource "kubernetes_secret" "large-court-cases-s3-secret" {
   }
 }
 
-resource "aws_ssm_parameter" "large-court-cases-s3-credentials" {
+resource "aws_ssm_parameter" "large-court-cases-s3-bucket-name" {
   type        = "String"
-  name        = "/${var.namespace}/large-court-cases-s3-credentials"
+  name        = "/${var.namespace}/large-court-cases-s3-bucket-name"
   value       = module.large-court-cases-s3-bucket.bucket_name
   description = "Name of Bucket used to store large court messages"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment-name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+
+resource "aws_ssm_parameter" "large-court-cases-s3-bucket-arn" {
+  type        = "String"
+  name        = "/${var.namespace}/large-court-cases-s3-bucket-arn"
+  value       = module.large-court-cases-s3-bucket.bucket_arn
+  description = "ARN of Bucket used to store large court messages"
 
   tags = {
     business-unit          = var.business_unit
