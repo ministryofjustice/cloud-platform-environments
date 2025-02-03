@@ -132,7 +132,7 @@ resource "aws_api_gateway_deployment" "main" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      # "manual-deploy-trigger",
+      "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
       var.cloud_platform_integration_event_url,
