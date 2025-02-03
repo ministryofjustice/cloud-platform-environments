@@ -118,7 +118,7 @@ module "irsa" {
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
-    { s3 = aws_iam_policy.cross_namespace_s3_policy.arn }
+    { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
