@@ -28,12 +28,12 @@ module "activities_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = false
-  rds_family                  = "postgres14"
+  prepare_for_major_upgrade   = true
+  rds_family                  = "postgres16"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "14.12"
+  db_engine_version           = "16.3"
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 
