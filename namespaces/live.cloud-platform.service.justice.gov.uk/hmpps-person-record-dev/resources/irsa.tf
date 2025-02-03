@@ -87,6 +87,16 @@ resource "aws_iam_policy" "combined_nomis_sqs" {
   tags   = local.default_tags
 }
 
+data "aws_iam_policy_document" "cross_namespace_s3_access" {
+  statement {
+    sid = "AllowReadWriteAccessToCrossNamespaceS3Bucket"
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = ["${data.large-court-cases-s3-credentials.bucket_arn}/*", ]
+  }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
