@@ -6,7 +6,7 @@ resource "kubernetes_secret" "large-court-cases-s3-bucket-secret" {
   }
 
   data = {
-    bucket_name = data.large-court-cases-s3-credentials.bucket_name
+    bucket_name = data.large-court-cases-s3-bucket-name
   }
 
 }
