@@ -58,6 +58,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "athena:GetWorkGroup",
       "athena:StartQueryExecution",
       "athena:StopQueryExecution",
+      "athena:ListDataCatalogs",
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
