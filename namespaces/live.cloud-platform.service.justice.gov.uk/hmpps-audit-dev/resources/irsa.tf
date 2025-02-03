@@ -84,10 +84,12 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       aws_athena_workgroup.queries.arn,
       "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:athena:eu-west-2:*:workgroup/*",
+      "arn:aws:athena:eu-west-2:*:queryexecution/*",
       "arn:aws:athena:eu-west-2:*:query/*",
       "arn:aws:athena:eu-west-2:*:datacatalog/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/*",
+      "arn:aws:glue:eu-west-2:*:partition/*",
       "arn:aws:glue:eu-west-2:*:table/*",
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"
