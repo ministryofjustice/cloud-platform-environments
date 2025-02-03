@@ -87,6 +87,11 @@ resource "aws_iam_policy" "combined_nomis_sqs" {
   tags   = local.default_tags
 }
 
+resource "aws_iam_policy" "cross_namespace_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+}
+
 data "aws_iam_policy_document" "cross_namespace_s3_access" {
   statement {
     sid = "AllowReadWriteAccessToCrossNamespaceS3Bucket"
@@ -113,6 +118,7 @@ module "irsa" {
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
+    { s3 = aws_iam_policy.cross_namespace_s3_policy.arn }
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
