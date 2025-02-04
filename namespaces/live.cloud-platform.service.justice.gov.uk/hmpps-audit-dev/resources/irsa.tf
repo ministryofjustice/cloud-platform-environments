@@ -62,6 +62,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
+      "s3:ListAllMyBuckets",
       "s3:ListBucketMultipartUploads",
       "s3:ListMultipartUploadParts",
       "s3:AbortMultipartUpload",
