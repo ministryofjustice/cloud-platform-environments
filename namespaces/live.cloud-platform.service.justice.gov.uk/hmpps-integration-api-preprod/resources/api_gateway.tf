@@ -90,6 +90,8 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -98,11 +100,6 @@ resource "aws_api_gateway_resource" "proxy" {
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_resource" "sqs_parent_resource" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "events"
-}
 
 resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
@@ -135,17 +132,19 @@ resource "aws_api_gateway_deployment" "main" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      # "manual-deploy-trigger",
+      "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
-      md5(file("api_gateway.tf"))
+      var.cloud_platform_integration_event_url,
+      md5(file("api_gateway.tf")),
+      md5(file("api_gateway-assume-role-endpoint.tf")),
     ]))
   }
 
   depends_on = [
     aws_api_gateway_method.proxy,
     aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.sqs_mapps_integration,
+    aws_api_gateway_integration.sts_integration,
   ]
 
   lifecycle {
@@ -156,6 +155,8 @@ resource "aws_api_gateway_deployment" "main" {
 resource "aws_api_gateway_api_key" "clients" {
   for_each = toset(local.clients)
   name     = each.key
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
@@ -165,6 +166,8 @@ resource "aws_api_gateway_usage_plan" "default" {
     api_id = aws_api_gateway_rest_api.api_gateway.id
     stage  = aws_api_gateway_stage.main.stage_name
   }
+
+  tags = local.default_tags
 }
 
 resource "aws_api_gateway_usage_plan_key" "clients" {
@@ -181,6 +184,10 @@ resource "aws_api_gateway_base_path_mapping" "hostname" {
   api_id      = aws_api_gateway_rest_api.api_gateway.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+    aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client" {
@@ -189,7 +196,7 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client" {
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
-  description = "Client certificate presented to the backend API expires 16/05/2025"
+  description = "Client certificate presented to the backend API"
   tags        = local.default_tags
 }
 
@@ -202,31 +209,39 @@ resource "aws_api_gateway_stage" "main" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
     format = jsonencode({
-      "extendedRequestId"  = "$context.extendedRequestId"
-      "ip"                 = "$context.identity.sourceIp"
-      "client"             = "$context.identity.clientCert.subjectDN"
-      "issuerDN"           = "$context.identity.clientCert.issuerDN"
-      "requestTime"        = "$context.requestTime"
-      "httpMethod"         = "$context.httpMethod"
-      "resourcePath"       = "$context.resourcePath"
-      "status"             = "$context.status"
-      "responseLength"     = "$context.responseLength"
-      "error"              = "$context.error.message"
-      "authenticateStatus" = "$context.authenticate.status"
-      "authenticateError"  = "$context.authenticate.error"
-      "integrationStatus"  = "$context.integration.status"
-      "integrationError"   = "$context.integration.error"
-      "apiKeyId"           = "$context.identity.apiKeyId"
+      extendedRequestId  = "$context.extendedRequestId"
+      ip                 = "$context.identity.sourceIp"
+      client             = "$context.identity.clientCert.subjectDN"
+      issuerDN           = "$context.identity.clientCert.issuerDN"
+      requestTime        = "$context.requestTime"
+      httpMethod         = "$context.httpMethod"
+      resourcePath       = "$context.resourcePath"
+      status             = "$context.status"
+      responseLength     = "$context.responseLength"
+      error              = "$context.error.message"
+      authenticateStatus = "$context.authenticate.status"
+      authenticateError  = "$context.authenticate.error"
+      integrationStatus  = "$context.integration.status"
+      integrationError   = "$context.integration.error"
+      apiKeyId           = "$context.identity.apiKeyId"
     })
   }
 
-  depends_on = [aws_cloudwatch_log_group.api_gateway_access_logs]
-  tags       = local.default_tags
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
+  ]
+
+  tags = local.default_tags
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 7
+  retention_in_days = 60
   tags              = local.default_tags
 }
 
@@ -236,8 +251,8 @@ resource "aws_api_gateway_method_settings" "all" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled    = true
+    logging_level      = "INFO"
+    data_trace_enabled = true
   }
 }
-
