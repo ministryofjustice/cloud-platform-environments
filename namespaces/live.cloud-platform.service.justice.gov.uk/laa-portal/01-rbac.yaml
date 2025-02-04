@@ -5,7 +5,7 @@ metadata:
   namespace: laa-portal
 subjects:
   - kind: Group
-    name: "github:ministryofteam"
+    name: "github:laa-portal"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
