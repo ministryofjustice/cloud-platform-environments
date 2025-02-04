@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hmpps-manage-custody-mailbox-register-dev
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "manage-pom-cases"
+    cloud-platform.justice.gov.uk/application: "HMPPS Manage Custody Mailbox Register"
+    cloud-platform.justice.gov.uk/owner: "The Elephants - Manage Custody: elephants@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-manage-custody-mailbox-register.git"
+    cloud-platform.justice.gov.uk/team-name: "mailbox-register-devs"
+    cloud-platform.justice.gov.uk/review-after: ""
