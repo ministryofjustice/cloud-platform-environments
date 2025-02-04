@@ -57,7 +57,7 @@ module "hmpps_prisoner_to_nomis_csip_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name        = "hmpps_prisoner_to_nomis_csip_dead_letter_queue"
+  sqs_name        = "hmpps_prisoner_to_nomis_csip_dlq"
   encrypt_sqs_kms = "true"
 
 
