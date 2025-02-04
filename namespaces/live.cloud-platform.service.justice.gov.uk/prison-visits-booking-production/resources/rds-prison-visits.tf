@@ -8,7 +8,7 @@
 module "prison-visits-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                 = var.vpc_name
-  team_name                = "prison-visits-booking"
+  team_name                = var.team_name
   business_unit            = "HMPPS"
   application              = "prison-visits-booking-production"
   is_production            = var.is_production
