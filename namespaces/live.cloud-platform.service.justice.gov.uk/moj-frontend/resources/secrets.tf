@@ -10,49 +10,49 @@ module "secrets_manager_multiple_secrets" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "GITHUB_API_URL" = {
+    "github-api-url" = {
       description             = "GitHub API URL",
       recovery_window_in_days = 7,
       k8s_secret_name         = "github-api-url"
     },
 
-    "GITHUB_TOKEN" = {
+    "github-token" = {
       description             = "GitHub API token",
       recovery_window_in_days = 7,
       k8s_secret_name         = "github-token"
     },
 
-    "GITHUB_REPO_OWNER" = {
+    "github-repo-owner" = {
       description             = "GitHub repository owner",
       recovery_window_in_days = 7,
       k8s_secret_name         = "github-repo-owner"
     },
 
-    "GITHUB_REPO_NAME" = {
+    "github-repo-name" = {
       description             = "GitHub repository name",
       recovery_window_in_days = 7,
       k8s_secret_name         = "github-repo-name"
     },
 
-    "NOTIFY_PR_TEMPLATE" = {
+    "notify-pr-template" = {
       description             = "Notification PR template",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-pr-template"
     },
 
-    "NOTIFY_SUBMISSION_TEMPLATE" = {
+    "notify-submission-template" = {
       description             = "Notification submission template",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-submission-template"
     },
 
-    "NOTIFY_EMAIL" = {
+    "notify-email" = {
       description             = "Notification email",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-email"
     },
 
-    "NOTIFY_TOKEN" = {
+    "notify-token" = {
       description             = "Notification token",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-token"
