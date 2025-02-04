@@ -16,10 +16,10 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "github-api-url"
     },
 
-    "github-token" = {
+    "github-api-token" = {
       description             = "GitHub API token",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "github-token"
+      k8s_secret_name         = "github-api-token"
     },
 
     "github-repo-owner" = {
