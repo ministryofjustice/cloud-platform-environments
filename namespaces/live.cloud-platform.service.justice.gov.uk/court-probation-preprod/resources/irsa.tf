@@ -26,6 +26,7 @@ module "court-facing-api-irsa" {
   role_policy_arns = merge(
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { s3_pt = module.perf-test-data-s3-bucket.irsa_policy_arn },
+    { s3_large_cases = module.large-court-cases-s3-bucket.irsa_policy_arn },
     { sns_cc = module.court-cases.irsa_policy_arn },
   )
 
