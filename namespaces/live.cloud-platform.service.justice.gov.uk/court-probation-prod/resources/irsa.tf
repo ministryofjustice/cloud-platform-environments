@@ -25,6 +25,7 @@ module "court-facing-api-irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = merge(
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
+    { s3_large_cases = module.large-court-cases-s3-bucket.irsa_policy_arn },
     { sns_cc = module.court-cases.irsa_policy_arn },
   )
 
