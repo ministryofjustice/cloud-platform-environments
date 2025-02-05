@@ -54,7 +54,7 @@ module "irsa" {
     { rds_ccs = module.court_case_service_rds.irsa_policy_arn },
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
     { s3 = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
-    { s3_large_cases = module.large-court-cases-s3-bucket.irsa_policy_arn },
+    { s3_large_cases = aws_iam_policy.read_only_s3_policy.arn },
     { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
     { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
@@ -80,4 +80,19 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+resource "aws_iam_policy" "read_only_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.read_only_s3_access.json
+}
+
+data "aws_iam_policy_document" "read_only_s3_access" {
+  statement {
+    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = ["${module.large-court-cases-s3-bucket.bucket_arn}/*", ]
+  }
 }
