@@ -1,11 +1,11 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0" # use the latest release
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
+  node_type               = "cache.t4g.small"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   snapshot_window         = "01:00-02:00"

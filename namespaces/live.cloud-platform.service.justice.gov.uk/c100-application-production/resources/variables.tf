@@ -29,7 +29,7 @@ variable "namespace" {
 # Database
 
 variable "db_engine_version" {
-  default = "14.10"
+  default = "14.12"
 }
 
 variable "db_instance_class" {

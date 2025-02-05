@@ -5,6 +5,11 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
+  default_tags {
+    tags = {
+      GithubTeam = "mojds-maintainers"
+    }
+  }
 }
 
 provider "aws" {

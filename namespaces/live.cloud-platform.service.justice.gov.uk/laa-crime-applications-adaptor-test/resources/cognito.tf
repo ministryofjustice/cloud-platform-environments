@@ -22,6 +22,18 @@ resource "aws_cognito_user_pool_client" "maat_client" {
   generate_secret                      = true
 }
 
+resource "aws_cognito_user_pool_client" "crime_apply_client" {
+  name                                 = var.cognito_user_pool_crime_apply_client_name
+  user_pool_id                         = aws_cognito_user_pool.pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.resource.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
 resource "aws_cognito_resource_server" "resource" {
   identifier = var.resource_server_identifier
   name       = var.resource_server_name
@@ -47,5 +59,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   data = {
     maat_client_id     = aws_cognito_user_pool_client.maat_client.id
     maat_client_secret = aws_cognito_user_pool_client.maat_client.client_secret
+    crime_apply_client_id     = aws_cognito_user_pool_client.crime_apply_client.id
+    crime_apply_client_secret = aws_cognito_user_pool_client.crime_apply_client.client_secret
   }
 }

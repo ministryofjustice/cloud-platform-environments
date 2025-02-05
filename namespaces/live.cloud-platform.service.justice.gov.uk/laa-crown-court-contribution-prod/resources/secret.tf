@@ -34,6 +34,11 @@ module "secrets_manager" {
       description             = "Crown Court Contribution Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name         = "crown-court-contribution-alert-webhook-prod"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCC Prod",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "sentry-dsn"
     }
   }
 }

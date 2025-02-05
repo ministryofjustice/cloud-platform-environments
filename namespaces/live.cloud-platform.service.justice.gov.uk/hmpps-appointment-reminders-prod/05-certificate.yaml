@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: appointment-reminders.hmpps.service.justice.gov.uk
+  namespace: hmpps-appointment-reminders-prod
+spec:
+  secretName: hmpps-appointment-reminders-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - appointment-reminders.hmpps.service.justice.gov.uk

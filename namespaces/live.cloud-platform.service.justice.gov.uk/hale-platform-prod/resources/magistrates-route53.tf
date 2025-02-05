@@ -22,14 +22,6 @@ resource "kubernetes_secret" "magistrates_route53_zone_sec" {
   }
 }
 
-resource "aws_route53_record" "magistrates_route53_a_record_apply" {
-  zone_id = aws_route53_zone.magistrates_route53_zone.zone_id
-  name    = "apply.magistrates.judiciary.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["141.193.213.21","141.193.213.20"]
-}
-
 resource "aws_route53_record" "magistrates_route53_cname_record_acm" {
   zone_id = aws_route53_zone.magistrates_route53_zone.zone_id
   name    = "_6f0e92da46509e479f24cc2bad43c06f.magistrates.judiciary.uk"

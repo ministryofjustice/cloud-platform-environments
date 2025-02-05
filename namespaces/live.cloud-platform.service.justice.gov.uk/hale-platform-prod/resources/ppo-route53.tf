@@ -110,22 +110,6 @@ resource "aws_route53_record" "ppo_route53_txt_record_mta" {
   records = ["v=STSv1; id=e3591c0ba3581f07d0c7f4826a9b5b34"]
 }
 
-resource "aws_route53_record" "ppo_route53_srv_record_sipfed" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_sipfederationtls._tcp.ppo.gov.uk"
-  type    = "SRV"
-  ttl     = "300"
-  records = ["100 1 5061 sipfed.online.lync.com"]
-}
-
-resource "aws_route53_record" "ppo_route53_srv_record_sipfed2" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "_sip._tls.ppo.gov.uk"
-  type    = "SRV"
-  ttl     = "300"
-  records = ["100 1 443 sipdir.online.lync.com"]
-}
-
 resource "aws_route53_record" "ppo_route53_txt_record_ncsc" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "_smtp._tls.ppo.gov.uk"
@@ -193,12 +177,3 @@ resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
     evaluate_target_health = false
   }
 }
-
-resource "aws_route53_record" "ppo_route53_cname_record_sip" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "sip.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sipdir.online.lync.com"]
-}
-

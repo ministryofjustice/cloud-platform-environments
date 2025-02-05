@@ -8,7 +8,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "secure-estate-digital-team"
+      GithubTeam = var.team_name
     }
   }
 }

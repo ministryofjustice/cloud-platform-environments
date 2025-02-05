@@ -31,7 +31,6 @@ variable "additional_topic_clients" {
     "hmpps-assessments-preprod",
     "hmpps-community-accommodation-preprod",
     "hmpps-complexity-of-need-preprod",
-    "hmpps-education-and-work-plan-preprod",
     "hmpps-education-employment-preprod",
     "hmpps-incentives-preprod",
     "hmpps-non-associations-preprod",
@@ -42,7 +41,6 @@ variable "additional_topic_clients" {
     "hmpps-tier-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
-    "offender-case-notes-preprod",
     "offender-management-preprod",
     "visit-someone-in-prison-backend-svc-preprod",
   ]

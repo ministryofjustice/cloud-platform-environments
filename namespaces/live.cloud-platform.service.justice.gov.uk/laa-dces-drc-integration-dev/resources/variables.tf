@@ -77,9 +77,14 @@ variable "user_pool_name" {
   default     = "dces-drc-api-dev-userpool"
 }
 
-variable "cognito_user_pool_client_name" {
-  description = "Cognito user pool client name"
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
   default     = "dces-drc-api-dev"
+}
+
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-dev"
 }
 
 variable "resource_server_identifier" {
@@ -103,6 +108,12 @@ variable "resource_server_scope_description" {
 
 variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
+}
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_dev_db"
 }
 
 variable "serviceaccount_rules" {

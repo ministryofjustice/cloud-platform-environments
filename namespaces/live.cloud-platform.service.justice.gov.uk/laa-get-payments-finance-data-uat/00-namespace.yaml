@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Get payments and finance data"
     cloud-platform.justice.gov.uk/owner: "Get payments and finance data: laa-payments-finance@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/payforlegalaid"
-    cloud-platform.justice.gov.uk/team-name: "pay-for-legal-aid"
+    cloud-platform.justice.gov.uk/team-name: "payforlegalaid"
     cloud-platform.justice.gov.uk/review-after: ""

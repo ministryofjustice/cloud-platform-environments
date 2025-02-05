@@ -12,7 +12,9 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    rds = module.rds.irsa_policy_arn
+    rds                                                     = module.rds.irsa_policy_arn
+    process_email_notifications_queue                       = module.process_email_notifications_queue.irsa_policy_arn
+    process_email_notifications_queue_dead_letter_queue     = module.process_email_notifications_queue_dead_letter_queue.irsa_policy_arn
   }
 
   # Tags
@@ -22,4 +24,16 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "${var.namespace}-irsa"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
 }

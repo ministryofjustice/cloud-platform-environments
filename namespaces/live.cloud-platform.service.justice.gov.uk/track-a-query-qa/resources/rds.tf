@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -20,6 +20,7 @@ module "track_a_query_rds" {
   db_name                    = "track_a_query_qa"
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
+  backup_window              = "06:00-08:00"
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade  = false
 

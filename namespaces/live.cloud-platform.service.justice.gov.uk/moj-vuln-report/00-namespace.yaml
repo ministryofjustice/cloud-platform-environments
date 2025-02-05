@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "vulnerability-report"
     cloud-platform.justice.gov.uk/owner: "MOJ D&T Cybersecurity: security@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/security-guidance"
-    cloud-platform.justice.gov.uk/team-name: "webops"
+    cloud-platform.justice.gov.uk/team-name: "jd-soc"
     cloud-platform.justice.gov.uk/review-after: ""

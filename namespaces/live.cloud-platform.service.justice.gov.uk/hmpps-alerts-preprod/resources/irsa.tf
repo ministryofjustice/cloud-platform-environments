@@ -22,6 +22,12 @@ module "irsa" {
     {
       rds = module.rds.irsa_policy_arn
     },
+    {
+      sqs = module.hmpps_alerts_domain_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_alerts_domain_events_dlq.irsa_policy_arn
+    },
     local.sns_policies
   )
 
@@ -33,6 +39,30 @@ module "irsa" {
   namespace              = var.namespace # this is also used to attach your service account to your namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+module "hmpps-alerts-ui-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "hmpps-alerts-ui"
+  role_policy_arns = merge(
+    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
+  )
+}
+
+data "kubernetes_secret" "audit_secret" {
+  metadata {
+    name      = "sqs-hmpps-audit-secret"
+    namespace = var.namespace
+  }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {

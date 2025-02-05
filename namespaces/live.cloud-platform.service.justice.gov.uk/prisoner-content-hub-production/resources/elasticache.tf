@@ -3,7 +3,7 @@
 ################################################################################
 
 module "drupal_redis" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name                = var.vpc_name
   application             = var.application
   environment_name        = var.environment-name
@@ -12,7 +12,7 @@ module "drupal_redis" {
   team_name               = var.team_name
   business_unit           = var.business_unit
   number_cache_clusters   = var.number_cache_clusters
-  node_type               = "cache.t4g.small"
+  node_type               = "cache.t4g.medium"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   namespace               = var.namespace
@@ -37,7 +37,7 @@ resource "kubernetes_secret" "drupal_redis" {
 }
 
 module "frontend_redis" {
-  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                  = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name                = var.vpc_name
   application             = var.application
   environment_name        = var.environment-name

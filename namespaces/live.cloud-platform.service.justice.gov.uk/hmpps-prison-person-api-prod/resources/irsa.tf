@@ -9,7 +9,7 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
     domain-events-queue = module.domain-events-queue.irsa_policy_arn,
-    domain-events-dlq = module.domain-events-dlq.irsa_policy_arn,
+    domain-events-dlq   = module.domain-events-dlq.irsa_policy_arn,
   }
 }
 
@@ -21,7 +21,13 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-prison-person-api"
-  role_policy_arns     = merge(local.sns_policies, local.sqs_policies)
+  role_policy_arns = merge(
+    local.sns_policies,
+    local.sqs_policies,
+    {
+      s3_distinguishing_marks = module.s3-distinguishing-mark-images.irsa_policy_arn
+    }
+  )
 
   # Tags
   business_unit          = var.business_unit

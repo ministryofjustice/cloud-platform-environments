@@ -32,7 +32,7 @@ variable "team_name" {
   default     = "hmpps-migration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "dev"
@@ -102,9 +102,11 @@ variable "serviceaccount_rules" {
       resources = [
         "pods/exec",
         "pods/portforward",
+        "pods/log",
         "deployment",
         "secrets",
         "services",
+        "serviceaccounts",
         "configmaps",
         "pods",
         "replicationcontrollers",

@@ -16,7 +16,7 @@ spec:
       expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="prison-visits-booking-production"}[10m]) * 60 * 10 > 1
       for: 5m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeNamespaceQuotaNearing
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value }}% of its {{ $labels.resource }} quota.
@@ -28,7 +28,7 @@ spec:
           > 80
       for: 5m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: NamespaceMissing
       annotations:
         message: Namespace {{ $labels.namespace }} is missing
@@ -37,7 +37,7 @@ spec:
         absent(kube_namespace_created{namespace="prison-visits-booking-production"})
       for: 1m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: SlowResponses
       annotations:
         message: ingress {{ $labels.ingress }} is serving slow responses over 5 seconds
@@ -48,7 +48,7 @@ spec:
         rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = "prison-visits-booking-production"}[5m]) > 0) by (ingress) > 5
       for: 1m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: ErrorResponses
       annotations:
         message: ingress {{ $labels.ingress }} is serving 5XX responses
@@ -57,7 +57,7 @@ spec:
         avg(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace="prison-visits-booking-production", status=~"5.*"}[1m]) * 60 > 0) by (ingress)
       for: 1m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeDeploymentGenerationMismatch
       annotations:
         message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
@@ -70,7 +70,7 @@ spec:
         kube_deployment_metadata_generation{job="kube-state-metrics"}
       for: 15m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeDeploymentReplicasMismatch
       annotations:
         message: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
@@ -82,7 +82,7 @@ spec:
         kube_deployment_status_replicas_available{job="kube-state-metrics", namespace="prison-visits-booking-production"}
       for: 1h
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeStatefulSetReplicasMismatch
       annotations:
         message: StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has
@@ -94,7 +94,7 @@ spec:
         kube_statefulset_status_replicas{job="kube-state-metrics", namespace="prison-visits-booking-production"}
       for: 15m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeStatefulSetGenerationMismatch
       annotations:
         message: StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset
@@ -107,7 +107,7 @@ spec:
         kube_statefulset_metadata_generation{job="kube-state-metrics", namespace="prison-visits-booking-production"}
       for: 15m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeStatefulSetUpdateNotRolledOut
       annotations:
         message: StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update
@@ -127,7 +127,7 @@ spec:
         )
       for: 15m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeDaemonSetRolloutStuck
       annotations:
         message: Only {{ $value }}% of the desired Pods of DaemonSet {{ $labels.namespace
@@ -139,7 +139,7 @@ spec:
         kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace="prison-visits-booking-production"} * 100 < 100
       for: 15m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeDaemonSetNotScheduled
       annotations:
         message: '{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset
@@ -151,7 +151,7 @@ spec:
         kube_daemonset_status_current_number_scheduled{job="kube-state-metrics", namespace="prison-visits-booking-production"} > 0
       for: 10m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeDaemonSetMisScheduled
       annotations:
         message: '{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset
@@ -161,7 +161,7 @@ spec:
         0
       for: 10m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeCronJobRunning
       annotations:
         message: CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is taking more
@@ -170,7 +170,7 @@ spec:
       expr: time() - kube_cronjob_next_schedule_time{job="kube-state-metrics", namespace="prison-visits-booking-production"} > 3600
       for: 30m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeJobCompletion
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more
@@ -180,7 +180,7 @@ spec:
         0
       for: 30m
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts
     - alert: KubeJobFailed
       annotations:
         message: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
@@ -188,4 +188,4 @@ spec:
       expr: kube_job_status_failed{job="kube-state-metrics", namespace="prison-visits-booking-production"}  > 0
       for: 1h
       labels:
-        severity: Prison Visits Booking / PVB
+        severity: visits-alerts

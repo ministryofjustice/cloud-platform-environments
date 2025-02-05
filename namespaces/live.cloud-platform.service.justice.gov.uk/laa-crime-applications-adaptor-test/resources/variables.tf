@@ -97,6 +97,11 @@ variable "cognito_user_pool_client_name" {
   default     = "maat-application"
 }
 
+variable "cognito_user_pool_crime_apply_client_name" {
+  description = "Cognito user pool Crime Apply client name"
+  default     = "crime-apply"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "caa-api-test"

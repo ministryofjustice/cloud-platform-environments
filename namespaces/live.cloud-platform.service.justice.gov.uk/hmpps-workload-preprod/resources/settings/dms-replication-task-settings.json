@@ -78,9 +78,7 @@
         "Severity": "LOGGER_SEVERITY_DEFAULT",
         "Id": "FILE_TRANSFER"
       }
-    ],
-    "CloudWatchLogGroup": null,
-    "CloudWatchLogStream": null
+    ]
   },
   "StreamBufferSettings": {
     "StreamBufferCount": 3,

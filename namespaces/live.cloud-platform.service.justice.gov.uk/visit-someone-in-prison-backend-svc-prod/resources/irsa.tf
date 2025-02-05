@@ -7,6 +7,12 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 
+  rds_policies = {
+    visit_scheduler_pg_rds           = module.visit_scheduler_pg_rds.irsa_policy_arn,
+    prison_visit_booker_reg_rds      = module.prison_visit_booker_reg_rds.irsa_policy_arn,
+    visit_allocation_rds      = module.visit_allocation_rds.irsa_policy_arn
+  }
+
   all_policies = merge(
     {
       hmpps_prison_visits_event_index_queue                           = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
@@ -14,7 +20,8 @@ locals {
       hmpps_prison_visits_notification_alerts_index_queue             = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
       hmpps_prison_visits_notification_alerts_index_dead_letter_queue = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
     },
-  local.sns_policies)
+    local.rds_policies,
+    local.sns_policies)
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {

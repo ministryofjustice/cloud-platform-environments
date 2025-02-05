@@ -30,7 +30,7 @@ spec:
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/57a9b6427b976477d9c87a765d14e966121f4ef2/laa-crime-means-assessment?var-namespace=laa-crime-means-assessment-prod
         - alert: Client Response Errors - 400 Bad request
-          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-crime-means-assessment-prod"}[10m])) > 1
+          expr: sum(increase(http_server_requests_seconds_count{status="400",outcome="CLIENT_ERROR",namespace="laa-crime-means-assessment-prod"}[10m])) > 10
           for: 1m
           labels:
             severity: laa-crime-means-assessment-alerts-prod

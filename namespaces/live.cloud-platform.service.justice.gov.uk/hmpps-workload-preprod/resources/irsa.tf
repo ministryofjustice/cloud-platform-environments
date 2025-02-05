@@ -30,6 +30,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_workload_prisoner_dead_letter_queue.sqs_arn,
       module.hmpps_workload_staff_queue.sqs_arn,
       module.hmpps_workload_staff_dead_letter_queue.sqs_arn,
+      module.hmpps_workload_notification_queue.sqs_arn,
+      module.hmpps_workload_notification_dead_letter_queue.sqs_arn,
     ]
   }
 }

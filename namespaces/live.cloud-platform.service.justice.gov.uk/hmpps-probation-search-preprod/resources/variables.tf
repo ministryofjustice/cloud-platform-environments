@@ -57,3 +57,7 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "analytical_platform_compute_account_id" {
+  default = "992382429243"
+}

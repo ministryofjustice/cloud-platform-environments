@@ -1,0 +1,68 @@
+# Prometheus Alerts
+#
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html
+#
+# Note: we are using a regex in the namespace to filter and trigger alerts
+# in both, staging and production environments.
+#
+# To see the current alerts in this namespace:
+#   kubectl describe prometheusrule -n laa-apply-for-criminal-legal-aid-production
+#
+# Alerts will be sent to the slack channel: #laa-crime-apply-alerts
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rules-rds
+  namespace: laa-apply-for-criminal-legal-aid-production
+  labels:
+    role: alert-rules
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: rds-rules
+    rules:
+    - alert: CrimeApply-Production-RDS-HighCPUUtilization
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-63ff3988edcdea87"} > 25
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Apply production - RDS CPU usage > 25%.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-63ff3988edcdea87
+
+    - alert: CrimeApply-Production-RDS-LowStorage
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-63ff3988edcdea87"} < 1024*1024*1024
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Apply production - RDS storage capacity < 1GB.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-63ff3988edcdea87
+
+    - alert: CrimeApply-Production-RDS-HighReadLatency
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-63ff3988edcdea87"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Apply production - RDS read latency > 500ms.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-63ff3988edcdea87
+
+    - alert: CrimeApply-Production-RDS-HighWriteLatency
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-63ff3988edcdea87"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Apply production - RDS write latency > 500ms.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-63ff3988edcdea87
+
+    - alert: CrimeApply-Production-RDS-HighDatabaseConnections
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-63ff3988edcdea87"} > 20
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Apply production - RDS number of database connections > 20.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-63ff3988edcdea87

@@ -14,5 +14,5 @@ resource "pingdom_check" "find-moj-data-prod" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_find_moj_data,component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.business_unit}"
   probefilters             = "region:EU"
-  integrationids           = [135556]
+  integrationids           = [139916]
 }

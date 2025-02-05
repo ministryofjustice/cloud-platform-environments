@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-access-civil-legal-aid-uat"
   labels:
+    cloud-platform.justice.gov.uk/namespace: "laa-access-civil-legal-aid-uat"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "uat"
     pod-security.kubernetes.io/enforce: restricted

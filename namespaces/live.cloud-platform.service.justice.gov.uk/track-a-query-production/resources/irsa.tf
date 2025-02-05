@@ -6,6 +6,7 @@ module "irsa" {
 
   role_policy_arns = {
     s3 = module.track_a_query_s3.irsa_policy_arn
+    rds = module.track_a_query_rds.irsa_policy_arn
   }
 
   # Tags

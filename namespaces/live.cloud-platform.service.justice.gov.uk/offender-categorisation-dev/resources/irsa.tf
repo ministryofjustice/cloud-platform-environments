@@ -7,8 +7,13 @@ locals {
     "Digital-Prison-Services-dev-offender_categorisation_events_queue"    = "offender-events-dev"
     "Digital-Prison-Services-dev-offender_categorisation_events_queue_dl" = "offender-events-dev"
   }
+  sqs_queues_api = {
+    "Digital-Prison-Services-dev-offender_categorisation_api_events_queue_dl" = "offender-events-dev"
+    "Digital-Prison-Services-dev-offender_categorisation_api_events_queue"    = "offender-events-dev"
+  }
   sqs_policies_oc = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_oc : item.name => item.value }
   sqs_policies_rp = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_rp : item.name => item.value }
+  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
 }
 
 # IRSA for offender-categorisation deployment
@@ -50,6 +55,25 @@ module "irsa_offender_risk_profiler" {
   infrastructure_support = var.infrastructure_support
 }
 
+# IRSA for hmpps-offender-categorisation-api deployment
+module "irsa_hmpps_offender_categorisation_api" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  namespace            = var.namespace
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "hmpps-offender-categorisation-api"
+  role_policy_arns = merge(
+    { "risk_profiler_change" = module.risk_profiler_change.irsa_policy_arn,
+    "risk_profiler_change_dl" = module.risk_profiler_change_dead_letter_queue.irsa_policy_arn },
+    local.sqs_policies_api
+  )
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sqs_oc" {
   for_each = local.sqs_queues_oc
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
@@ -57,5 +81,10 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs_oc" {
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs_rp" {
   for_each = local.sqs_queues_rp
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs_api" {
+  for_each = local.sqs_queues_api
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }

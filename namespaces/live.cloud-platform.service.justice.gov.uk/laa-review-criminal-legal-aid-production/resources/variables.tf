@@ -72,3 +72,7 @@ variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the serviceaccount cluster"
   default     = "KUBE_PRODUCTION_CLUSTER"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+}

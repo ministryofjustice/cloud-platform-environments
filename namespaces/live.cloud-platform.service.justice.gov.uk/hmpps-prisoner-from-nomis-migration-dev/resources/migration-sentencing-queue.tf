@@ -1,5 +1,5 @@
 module "migration_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "migration_sentencing_queue"
@@ -20,12 +20,12 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
 module "migration_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "migration_sentencing_dlq"
@@ -37,7 +37,7 @@ module "migration_sentencing_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 

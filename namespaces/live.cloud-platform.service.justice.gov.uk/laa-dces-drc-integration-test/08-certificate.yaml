@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-dces-cert
+  namespace: laa-dces-drc-integration-test
+spec:
+  secretName: laa-dces-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - api.test.laa-debt-collection.service.justice.gov.uk
+    - mon.test.laa-debt-collection.service.justice.gov.uk

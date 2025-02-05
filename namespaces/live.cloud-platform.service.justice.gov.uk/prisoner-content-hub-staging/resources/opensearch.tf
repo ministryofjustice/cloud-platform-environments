@@ -14,7 +14,7 @@ module "s3_opensearch" {
 
 # Create the domain
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name

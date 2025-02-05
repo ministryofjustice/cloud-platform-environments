@@ -5,6 +5,7 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
     ]
   })
 }

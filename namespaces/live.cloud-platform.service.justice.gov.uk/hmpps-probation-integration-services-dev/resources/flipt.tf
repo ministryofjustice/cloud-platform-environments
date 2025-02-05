@@ -1,5 +1,5 @@
 module "flipt-db" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -10,7 +10,7 @@ module "flipt-db" {
   namespace                    = var.namespace
   rds_name                     = "probation-integration-flipt-db-${var.environment_name}"
   rds_family                   = "postgres16"
-  db_engine_version            = "16.1"
+  db_engine_version            = "16.3"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = true

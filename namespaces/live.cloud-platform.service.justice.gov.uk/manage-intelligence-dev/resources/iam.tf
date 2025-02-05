@@ -17,25 +17,29 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
       module.ims_attachments_storage_bucket.bucket_arn,
       "${module.ims_attachments_storage_bucket.bucket_arn}/*",
       module.mercury_data_entities_bucket.bucket_arn,
-      "${module.mercury_data_entities_bucket.bucket_arn}/*"
+      "${module.mercury_data_entities_bucket.bucket_arn}/*",
+      module.ims_dissemination_storage_bucket.bucket_arn,
+      "${module.ims_dissemination_storage_bucket.bucket_arn}/*",
+      module.ims_audit_files_storage_bucket.bucket_arn,
+      "${module.ims_audit_files_storage_bucket.bucket_arn}/*"
     ]
   }
 
   statement {
     actions = [
-				"kendra:GetQuerySuggestions",
-				"kendra:Query",
-				"kendra:Retrieve",
-				"kendra:ListFaqs",
-				"kendra:DeleteFaq",
-				"kendra:DescribeFaq",
-				"kendra:DescribeQuerySuggestionsConfig",
-				"kendra:DeleteThesaurus",
-				"kendra:CreateThesaurus",
-				"kendra:CreateFaq",
-				"kendra:ListThesauri",
-				"kendra:ListDataSources",
-				"kendra:DescribeThesaurus"
+      "kendra:GetQuerySuggestions",
+      "kendra:Query",
+      "kendra:Retrieve",
+      "kendra:ListFaqs",
+      "kendra:DeleteFaq",
+      "kendra:DescribeFaq",
+      "kendra:DescribeQuerySuggestionsConfig",
+      "kendra:DeleteThesaurus",
+      "kendra:CreateThesaurus",
+      "kendra:CreateFaq",
+      "kendra:ListThesauri",
+      "kendra:ListDataSources",
+      "kendra:DescribeThesaurus"
     ]
 
     resources = [
@@ -51,12 +55,7 @@ data "aws_iam_policy_document" "ims_user_s3_policy" {
 
     actions = ["s3:*"]
 
-    resources = [
-      module.ims_images_storage_bucket.bucket_arn,
-      "${module.ims_images_storage_bucket.bucket_arn}/*",
-      module.ims_attachments_storage_bucket.bucket_arn,
-      "${module.ims_attachments_storage_bucket.bucket_arn}/*"
-    ]
+    resources = ["*"]
 
     condition {
       test     = "Bool"

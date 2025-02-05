@@ -1,5 +1,5 @@
 module "ec-cluster-offender-management-allocation-manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   node_type              = "cache.t4g.small"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "redis-staging" {
   data = {
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }
 
@@ -41,6 +41,6 @@ resource "kubernetes_secret" "redis-test" {
   data = {
     primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
     auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://dummyuser:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
+    url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }

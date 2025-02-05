@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: kibana-to-opensearch-redirect-monitoring-green
+    nginx.ingress.kubernetes.io/permanent-redirect: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards
+  name: kibana-to-opensearch-redirect
+  namespace: monitoring
+spec:
+  ingressClassName: default
+  tls:
+  - hosts:
+    - kibana.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: kibana.cloud-platform.service.justice.gov.uk
+

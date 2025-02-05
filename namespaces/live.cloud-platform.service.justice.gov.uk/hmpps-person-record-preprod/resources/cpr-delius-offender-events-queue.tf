@@ -23,7 +23,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription"
 }
 
 module "cpr_delius_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "cpr_delius_offender_events_queue"
@@ -49,6 +49,8 @@ module "cpr_delius_offender_events_queue" {
     aws = aws.london
   }
 }
+
+
 
 data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
   statement {
@@ -91,7 +93,7 @@ resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
 ######## Dead letter queue
 
 module "cpr_delius_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "cpr_delius_offender_events_dlq"

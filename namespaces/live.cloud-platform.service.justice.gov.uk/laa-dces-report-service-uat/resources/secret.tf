@@ -10,15 +10,30 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "feature_flags" = {
+      description             = "[feature-flags] Feature flag env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "feature-flags"
+    }
+    "config-variables" = {
+      description             = "[config-variables] Overridden configuration env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
     "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DCES Report Service UAT.",
+      description             = "[laa-dces-report-service-uat/maat-api-oauth-client-id] MAAT API OAuth2 client ID"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-id"
-    },
+    }
     "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DCES Report Service UAT.",
+      description             = "[laa-dces-report-service-uat/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
-    },
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
+    }
   }
 }

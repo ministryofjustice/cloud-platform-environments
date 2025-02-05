@@ -1,0 +1,6 @@
+# pingdom_check.laa-assess-crime-forms-uat will be updated in-place
+  ~ resource "pingdom_check" "laa-assess-crime-forms-uat" {
+        id                       = "13282935"
+        name                     = "Assess criminal legal aid forms uat - ping"
+      ~ tags                     = "application_laa-assess-crime-forms-uat,businessunit_laa,component_ping,environment_uat,infrastructuresupport_laa-crime-forms-team,isproduction_false" -> "application_laa-assess-crime-forms-uat,businessunit_LAA,component_ping,environment_uat,infrastructuresupport_laa-crime-forms-team,isproduction_false"
+        # (19 unchanged attributes hidden)

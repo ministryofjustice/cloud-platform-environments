@@ -14,6 +14,8 @@ module "claim-criminal-injuries-tempus-queue" {
   encrypt_sqs_kms     = "true"
   kms_external_access = [data.aws_ssm_parameter.cica_prod_account_id.value]
 
+  message_retention_seconds = 1209600
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

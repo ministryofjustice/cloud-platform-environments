@@ -5,7 +5,7 @@ metadata:
   namespace: laa-get-payments-finance-data-uat
 subjects:
   - kind: Group
-    name: "github:pay-for-legal-aid"
+    name: "github:payforlegalaid"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

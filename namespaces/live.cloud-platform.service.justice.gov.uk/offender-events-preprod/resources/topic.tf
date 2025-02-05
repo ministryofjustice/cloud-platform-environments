@@ -58,17 +58,6 @@ resource "kubernetes_secret" "offender_events" {
   }
 }
 
-resource "kubernetes_secret" "offender_case_notes" {
-  metadata {
-    name      = "offender-events-topic"
-    namespace = "offender-case-notes-preprod"
-  }
-
-  data = {
-    topic_arn = module.offender_events.topic_arn
-  }
-}
-
 module "probation_offender_events" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
 

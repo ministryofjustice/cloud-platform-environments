@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-hdc-prototype
 subjects:
   - kind: Group
-    name: "github:dps-shared"
+    name: "github:create-and-vary-a-licence-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

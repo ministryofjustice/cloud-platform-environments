@@ -53,3 +53,9 @@ variable "rds_backup_window" {
 variable "rds_maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

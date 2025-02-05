@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-allocate-key-workers-ui-preprod-cert
+  namespace: hmpps-allocate-key-workers-preprod
+spec:
+  secretName: hmpps-allocate-key-workers-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - allocate-key-workers-preprod.hmpps.service.justice.gov.uk

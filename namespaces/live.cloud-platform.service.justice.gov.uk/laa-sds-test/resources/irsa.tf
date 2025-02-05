@@ -4,10 +4,15 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   service_account_name = "laa-sds-serviceaccount-${var.environment}"
-  role_policy_arns = {
-    dynamodb = aws_iam_policy.auditdb_policy.arn
-    s3       = module.laa_sds_equiniti.irsa_policy_arn
-  }
+
+  role_policy_arns = merge(
+    {
+      dynamodb         = aws_iam_policy.auditdb_policy.arn,
+      s3 = module.laa_sds_equiniti.irsa_policy_arn
+    },
+    { for name, module in module.s3_buckets : name => module.irsa_policy_arn }
+  )
+
 
   business_unit          = var.business_unit
   application            = var.application

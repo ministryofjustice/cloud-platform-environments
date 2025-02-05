@@ -65,4 +65,10 @@ variable "rds_family" {
   default = "postgres14"
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
+
 variable "kubernetes_cluster" {}

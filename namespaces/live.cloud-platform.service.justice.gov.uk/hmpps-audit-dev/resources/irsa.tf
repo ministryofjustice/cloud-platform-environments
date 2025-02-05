@@ -20,7 +20,7 @@ module "hmpps-audit-api-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "s3-irsa" {
+module "service_pod_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
@@ -45,20 +45,68 @@ module "s3-irsa" {
 resource "aws_iam_policy" "allow-irsa-read-write" {
   name        = "audit-read-write"
   path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
+  policy      = data.aws_iam_policy_document.service_pod_policy_document.json
   description = "Policy for reading audit json files from audit s3 bucket"
 }
 
-data "aws_iam_policy_document" "document" {
+data "aws_iam_policy_document" "service_pod_policy_document" {
   statement {
     actions = [
+      "athena:CancelQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:GetWorkGroup",
+      "athena:StartQueryExecution",
+      "athena:StopQueryExecution",
+      "athena:ListDataCatalogs",
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
+      "s3:ListAllMyBuckets",
+      "s3:ListBucketMultipartUploads",
+      "s3:ListMultipartUploadParts",
+      "s3:AbortMultipartUpload",
+      "s3:CreateBucket",
+      "s3:GetBucketLocation",
+      "glue:GetDatabase",
+      "glue:GetTable",
+      "glue:GetTables",
+      "glue:UpdateTable",
+      "glue:DeleteTable",
+      "glue:GetPartitions",
+      "glue:GetPartition",
+      "glue:BatchCreatePartition",
+      "glue:GetDatabases",
+      "glue:CreateTable",
+      "glue:CreateDatabase",
+      "glue:DeleteTable",
     ]
     resources = [
+      aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
+      "arn:aws:athena:eu-west-2:*:workgroup/*",
+      "arn:aws:athena:eu-west-2:*:queryexecution/*",
+      "arn:aws:athena:eu-west-2:*:query/*",
+      "arn:aws:athena:eu-west-2:*:datacatalog/*",
+      "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/*",
+      "arn:aws:glue:eu-west-2:*:partition/*",
+      "arn:aws:glue:eu-west-2:*:table/*",
       module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*",
+      "${module.s3.bucket_arn}/*"
     ]
   }
+}
+
+resource "random_id" "hmpps-audit-id" {
+  byte_length = 16
+}
+
+resource "aws_iam_user" "hmpps-audit-user" {
+  name = "hmpps-audit-user-${random_id.hmpps-audit-id.hex}"
+  path = "/system/hmpps-audit-user/"
+}
+
+resource "aws_iam_access_key" "hmpps-audit-user" {
+  user = aws_iam_user.hmpps-audit-user.name
 }

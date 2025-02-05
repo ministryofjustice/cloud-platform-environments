@@ -132,12 +132,11 @@ resource "aws_api_gateway_deployment" "main" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      # "manual-deploy-trigger",
+      "manual-deploy-trigger",
       local.clients,
       var.cloud_platform_integration_api_url,
       var.cloud_platform_integration_event_url,
       md5(file("api_gateway.tf")),
-      md5(file("api_gateway-events-proxy.tf")),
       md5(file("api_gateway-assume-role-endpoint.tf")),
     ]))
   }
@@ -145,7 +144,6 @@ resource "aws_api_gateway_deployment" "main" {
   depends_on = [
     aws_api_gateway_method.proxy,
     aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.event_proxy_http_proxy,
     aws_api_gateway_integration.sts_integration,
   ]
 
@@ -197,7 +195,7 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client" {
   tags        = local.default_tags
 }
 
-resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
+resource "aws_api_gateway_client_certificate" "api_gateway_client_three" {
   description = "Client certificate presented to the backend API expires 15/05/2025"
   tags        = local.default_tags
 }
@@ -206,7 +204,7 @@ resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_three.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
@@ -257,137 +255,4 @@ resource "aws_api_gateway_method_settings" "all" {
     logging_level      = "INFO"
     data_trace_enabled = true
   }
-}
-
-resource "aws_cloudwatch_metric_alarm" "gateway_4XX_error_rate" {
-  alarm_name          = "${var.namespace}-gateway-4XX-errors"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway 4xx error greater than 0"
-  treat_missing_data  = "notBreaching"
-  metric_name         = "4XXError"
-  namespace           = "AWS/ApiGateway"
-  period              = 30
-  evaluation_periods  = 1
-  threshold           = 1
-  statistic           = "Sum"
-  unit                = "Count"
-  actions_enabled     = true
-  alarm_actions       = [module.sns_topic.topic_arn]
-  dimensions = {
-    ApiName = var.namespace
-  }
-
-  depends_on = [
-    module.sns_topic
-  ]
-
-  tags = local.default_tags
-}
-
-resource "aws_cloudwatch_metric_alarm" "gateway_5XX_error_rate" {
-  alarm_name          = "${var.namespace}-gateway-5XX-errors"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway 5xx error greater than 0"
-  treat_missing_data  = "notBreaching"
-  metric_name         = "5XXError"
-  namespace           = "AWS/ApiGateway"
-  period              = 30
-  evaluation_periods  = 1
-  threshold           = 1
-  statistic           = "Sum"
-  unit                = "Count"
-  actions_enabled     = true
-  alarm_actions       = [module.sns_topic.topic_arn]
-  dimensions = {
-    ApiName = var.namespace
-  }
-
-  depends_on = [
-    module.sns_topic
-  ]
-
-  tags = local.default_tags
-}
-
-resource "aws_cloudwatch_metric_alarm" "gateway_integration_latency" {
-  alarm_name          = "${var.namespace}-gateway-integration-latency-greater-than-3-seconds"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway integration latency greater than 3 seconds"
-  treat_missing_data  = "notBreaching"
-  metric_name         = "IntegrationLatency"
-  namespace           = "AWS/ApiGateway"
-  period              = 60
-  evaluation_periods  = 1
-  threshold           = 3000
-  statistic           = "Maximum"
-  unit                = "Count"
-  actions_enabled     = true
-  alarm_actions       = [module.sns_topic.topic_arn]
-  dimensions = {
-    ApiName = var.namespace
-  }
-
-  depends_on = [
-    module.sns_topic
-  ]
-
-  tags = local.default_tags
-}
-
-resource "aws_cloudwatch_metric_alarm" "gateway_latency" {
-  alarm_name          = "${var.namespace}-gateway-latency-greater-than-5-seconds"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  alarm_description   = "Gateway latency greater than 3 seconds"
-  treat_missing_data  = "notBreaching"
-  metric_name         = "IntegrationLatency"
-  namespace           = "AWS/ApiGateway"
-  period              = 60
-  evaluation_periods  = 1
-  threshold           = 5000
-  statistic           = "Maximum"
-  unit                = "Count"
-  actions_enabled     = true
-  alarm_actions       = [module.sns_topic.topic_arn]
-  dimensions = {
-    ApiName = var.namespace
-  }
-
-  depends_on = [
-    module.sns_topic
-  ]
-
-  tags = local.default_tags
-}
-
-module "sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
-
-  # Configuration
-  topic_display_name = "integration-api-alert-topic"
-  encrypt_sns_kms    = true
-
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the topic
-  namespace              = var.namespace
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-}
-
-module "notify_slack" {
-  source = "github.com/terraform-aws-modules/terraform-aws-notify-slack.git?ref=v5.6.0"
-
-  sns_topic_name   = module.sns_topic.topic_name
-  create_sns_topic = false
-
-  lambda_function_name = "${var.namespace}-cloudwatch-alarm-notify-slack"
-
-  cloudwatch_log_group_retention_in_days = 7
-
-  slack_webhook_url = data.aws_secretsmanager_secret_version.slack_webhook_url.secret_string
-  slack_channel     = "#hmpps-integration-api-alerts"
-  slack_username    = "aws"
-  slack_emoji       = ":warning:"
 }

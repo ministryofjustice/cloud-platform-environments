@@ -14,6 +14,10 @@ variable "application" {
   default     = "Make A Recall Decision - PPUD database analysis"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string

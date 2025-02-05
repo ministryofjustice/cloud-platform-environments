@@ -25,3 +25,20 @@ spec:
         - namespaceSelector:
             matchLabels:
               component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-justice-archiver
+  namespace: justice-gov-uk-production
+spec:
+  podSelector:
+    matchLabels:
+      app: justice-gov-uk-production
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: "justice-archiver-dev"

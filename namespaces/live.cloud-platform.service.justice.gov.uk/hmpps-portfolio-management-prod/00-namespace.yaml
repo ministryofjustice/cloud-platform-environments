@@ -6,11 +6,13 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
     pod-security.kubernetes.io/enforce: restricted
+    component: monitoring-alerts-client
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "hmpps_dev"
-    cloud-platform.justice.gov.uk/application: "hmpps-health-ping"
+    cloud-platform.justice.gov.uk/slack-channel: "ask-prisons-digital-sre"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-sre-alerts"
+    cloud-platform.justice.gov.uk/application: "SRE applications"
     cloud-platform.justice.gov.uk/owner: "HMPPS SRE: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-health-ping"
-    cloud-platform.justice.gov.uk/team-name: "dps-tech"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-health-ping,https://github.com/ministryofjustice/hmpps-developer-portal,https://github.com/ministryofjustice/hmpps-service-catalogue"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-sre"
     cloud-platform.justice.gov.uk/review-after: ""

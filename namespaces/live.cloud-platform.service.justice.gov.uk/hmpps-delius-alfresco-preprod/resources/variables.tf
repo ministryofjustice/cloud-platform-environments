@@ -32,7 +32,7 @@ variable "team_name" {
   default     = "hmpps-migration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "preprod"
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "ask-probation-webops"
+  default     = "ask-probation-hosting"
 }
 
 variable "github_owner" {
@@ -102,9 +102,11 @@ variable "serviceaccount_rules" {
       resources = [
         "pods/exec",
         "pods/portforward",
+        "pods/log",
         "deployment",
         "secrets",
         "services",
+        "serviceaccounts",
         "configmaps",
         "pods",
         "replicationcontrollers",
@@ -130,6 +132,7 @@ variable "serviceaccount_rules" {
       ]
       resources = [
         "deployments",
+        "deployments/scale",
         "ingresses",
         "cronjobs",
         "jobs",

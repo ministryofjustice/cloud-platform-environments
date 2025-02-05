@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:dts-legacy"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:cgi-hmcts"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

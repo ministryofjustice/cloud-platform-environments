@@ -1,5 +1,5 @@
 module "hmpps_interventions_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -10,7 +10,7 @@ module "hmpps_interventions_postgres14" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                   = "postgres14"
-  db_engine_version            = "14.10"
+  db_engine_version            = "14.12"
   db_instance_class            = "db.m6g.2xlarge"
   db_allocated_storage         = "50"
   allow_major_version_upgrade  = "false"
@@ -38,7 +38,7 @@ resource "kubernetes_secret" "hmpps_interventions_postgres14" {
 }
 
 module "hmpps_interventions_postgres14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -49,13 +49,12 @@ module "hmpps_interventions_postgres14_replica" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                   = "postgres14"
-  db_engine_version            = "14.10"
+  db_engine_version            = "14.12"
   db_instance_class            = "db.m6g.2xlarge"
   allow_major_version_upgrade  = "false"
   db_max_allocated_storage     = "50"
   performance_insights_enabled = true
 
-  db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.hmpps_interventions_postgres14.db_identifier
 
   # Set to true for replica database. No backups or snapshots are created for read replica

@@ -13,7 +13,7 @@ module "s3_snapshot_bucket" {
 
 # Create the domain
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.5.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -28,10 +28,14 @@ module "opensearch" {
     instance_count = 3
     instance_type  = "r6g.large.search" # memory optimised Graviton
 
-    # Masters hold no data, they perform cluster tasks.
+    # Masters do not hold data, they perform other cluster tasks.
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "c6g.large.search" # compute optimised Graviton
+  }
+
+  advanced_options = {
+    "indices.query.bool.max_clause_count" = "10000"
   }
 
   ebs_options = {

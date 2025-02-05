@@ -6,5 +6,5 @@ module "serviceaccount" {
   github_repositories  = ["hmpps-delius-alfresco"]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first
-  github_environments = ["stage"]
+  github_environments = ["stage", "stage-preapproved"]
 }

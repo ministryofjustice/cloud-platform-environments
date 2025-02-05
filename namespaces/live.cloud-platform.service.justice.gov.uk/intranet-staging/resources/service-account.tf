@@ -60,6 +60,7 @@ module "serviceaccount" {
         "statefulsets",
         "networkpolicies",
         "servicemonitors",
+        "podmonitors",
         "prometheusrules",
         "roles",
         "rolebindings",

@@ -46,7 +46,7 @@ spec:
           annotations:
             message: Production ingress {{ $labels.ingress }} is serving 5xx responses.
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/laagetaccess/pages/4525818190/CLA+FALA+Cheat+Sheet#Find-a-Legal-Advisor-(FALA)
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e288fd118eddba2297e261f03dd47a0a2fb3bb98/fala-ingress-find-a-legal-adviser?orgId=1&var-namespace=laa-fala-production&var-ingress=laa-fala-v122
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e288fd118eddba2297e261f03dd47a0a2fb3bb98/fala-ingress-find-a-legal-adviser?orgId=1&var-namespace=laa-fala-production&var-ingress=fala-laa-fala
 
 
 

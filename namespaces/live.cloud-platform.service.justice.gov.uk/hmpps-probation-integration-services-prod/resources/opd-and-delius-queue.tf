@@ -36,7 +36,8 @@ module "opd-and-delius-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
-  sqs_name = "opd-and-delius-dlq"
+  sqs_name                  = "opd-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
   application            = "opd-and-delius"

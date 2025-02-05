@@ -10,7 +10,6 @@ spec:
 
   groups:
   - name: hmpps-accredited-programmes-prod
- 
     rules:
     
     - alert: Quota-Exceeded
@@ -82,3 +81,34 @@ spec:
       annotations:
         message: Memory usage compared to the Memory limit on the container is more than 85% for 5m
 
+    - alert: RDS-CPU-exceeds-threshold
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-36754f4afedbe608"} > 95
+      for: 10m
+      annotations:
+        message: RDS Prod database has high CPU (>95%) for more than ten minutes.
+      labels:
+        severity: hmpps-accredited-programmes-alerts-prod
+
+    - alert: RDS-Read-latency-high
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-36754f4afedbe608"} > 0.5
+      for: 1m
+      annotations:
+        message: RDS Prod database read latency is over 0.5 seconds
+      labels:
+        severity: hmpps-accredited-programmes-alerts-prod
+
+    - alert: RDS-Write-latency-high
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-36754f4afedbe608"} > 0.5
+      for: 1m
+      annotations:
+        message: RDS Prod database write latency is over 0.5 seconds
+      labels:
+        severity: hmpps-accredited-programmes-alerts-prod
+
+    - alert: RDS-Free-storage-space
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-36754f4afedbe608"} < 1024*1024*1024
+      for: 5m
+      annotations:
+        message: RDS Prod database free storage space is less than 1GB
+      labels:
+        severity: hmpps-accredited-programmes-alerts-prod

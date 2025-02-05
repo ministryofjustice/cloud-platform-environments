@@ -72,3 +72,25 @@ spec:
           for: 15m
           labels:
             severity: intranet-alerts
+
+    - name: application-rules
+      rules:
+      - alert: ServiceInsufficientAccessPolicy
+        expr: http_status_code_wp_home{namespace="intranet-dev"} != 401
+        for: 1m
+        labels:
+          severity: intranet-dev
+        annotations:
+          message: Namespace {{ $labels.namespace }} (homepage) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+runbooks#ServiceInsufficientAccessPolicy
+          dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+
+      - alert: ServiceAbsentAccessPolicy
+        expr: absent(http_status_code_wp_home{namespace="intranet-dev"}) == 1
+        for: 1m
+        labels:
+          severity: intranet-dev
+        annotations:
+          message: Namespace {{ $labels.namespace }} (homepage) is not returning a status code.
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+runbooks#ServiceAbsentAccessPolicy
+          dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1

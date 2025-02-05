@@ -3,7 +3,7 @@
 ############################################
 
 module "rds-instance" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -17,6 +17,7 @@ module "rds-instance" {
   db_engine                  = "postgres"
   db_engine_version          = "16"
   rds_family                 = "postgres16"
+  backup_window              = "06:00-08:00"
 
   enable_rds_auto_start_stop = true
   prepare_for_major_upgrade = false

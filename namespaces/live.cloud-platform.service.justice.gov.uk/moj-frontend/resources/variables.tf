@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Gov.UK Prototype Kit"
+  default     = "MoJ Frontend guidance site"
 }
 
 variable "namespace" {
@@ -37,7 +37,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {
@@ -65,4 +65,13 @@ variable "basic-auth-username" {
 variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
   default     = "patterns"
+}
+
+variable "domain" {
+  default = "design-patterns.service.justice.gov.uk"
+  type    = string
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
 }

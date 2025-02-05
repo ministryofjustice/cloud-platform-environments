@@ -81,7 +81,9 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "risk-assessment.scores.determined",
       "probation-case.risk-scores.ogrs.manual-calculation",
       "RISK-ASSESSMENT_SCORES_RSR_DETERMINED_RECEIVED",
-      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED"
+      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED",
+      "plp.induction-schedule.updated",
+      "plp.review-schedule.updated"
     ]
   })
 }

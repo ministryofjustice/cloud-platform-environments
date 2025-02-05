@@ -14,6 +14,11 @@ module "secret" {
       description             = "MAPPS event filter list Pre-prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "mapps-filter-list"
+    },
+    "integration-api-event-plp-filter-list" = {
+      description             = "PLP event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "plp-filter-list"
     }
   }
 

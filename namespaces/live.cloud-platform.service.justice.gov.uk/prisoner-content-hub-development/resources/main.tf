@@ -11,6 +11,12 @@ provider "aws" {
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "prisoner-content-hub-developers"
+    }
+  }
 }
 
 # To be use in case the resources need to be created in Ireland

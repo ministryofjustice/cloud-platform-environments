@@ -8,11 +8,38 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep the newest 30 images and mark the rest for expiration",
+        "description": "Keep newest 5 fpm images",
         "selection": {
-          "tagStatus": "any",
+          "tagStatus": "tagged",
+          "tagPrefixList": ["fpm-"],
           "countType": "imageCountMoreThan",
-          "countNumber": 30
+          "countNumber": 5
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 2,
+        "description": "Keep newest 5 nginx images",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["nginx-"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 5
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 3,
+        "description": "Keep newest 5 cron images",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["cron-"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 5
         },
         "action": {
           "type": "expire"

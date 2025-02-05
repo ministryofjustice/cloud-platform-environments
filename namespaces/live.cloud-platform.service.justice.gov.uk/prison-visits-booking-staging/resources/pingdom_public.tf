@@ -1,3 +1,5 @@
+# Integration IDs
+# 141228 = #visits-alerts
 
 provider "pingdom" {
 }
@@ -5,16 +7,16 @@ provider "pingdom" {
 resource "pingdom_check" "prison-visits-booking-public-staging" {
   type                     = "http"
   name                     = "Prison Visits Public staging - Healthcheck"
-  host                     = "prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/ping"
+  url                     = "/https/preprod.prisonvisits.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_true,environment_uat,infrastructuresupport_platforms"
+  tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [94618]
+  integrationids           = [141228]
 }
 
