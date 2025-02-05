@@ -13,3 +13,11 @@ data "aws_sns_topic" "hmpps-domain-events" {
 data "aws_sns_topic" "probation-offender-events" {
   name = "cloud-platform-Digital-Prison-Services-dbe10e8d9c1f4d100f0c723d5d9b754e"
 }
+
+data "aws_ssm_parameter" "large-court-cases-s3-bucket-name" {
+  name = "/court-probation-preprod/large-court-cases-s3-bucket-name"
+}
+
+data "aws_ssm_parameter" "large-court-cases-s3-bucket-arn" {
+  name = "/court-probation-preprod/large-court-cases-s3-bucket-arn"
+}
