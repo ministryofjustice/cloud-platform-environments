@@ -93,7 +93,7 @@ resource "aws_iam_policy" "cross_namespace_s3_policy" {
 
 data "aws_iam_policy_document" "cross_namespace_s3_access" {
   statement {
-    sid = "AllowReadWriteAccessToCrossNamespaceS3Bucket"
+    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
     actions = [
       "s3:GetObject",
     ]
