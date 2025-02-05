@@ -83,13 +83,13 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 resource "aws_iam_policy" "read_only_s3_policy" {
-  name   = "${var.namespace}-cross-namespace-s3-policy"
+  name   = "${var.namespace}-read-only-s3-policy"
   policy = data.aws_iam_policy_document.read_only_s3_access.json
 }
 
 data "aws_iam_policy_document" "read_only_s3_access" {
   statement {
-    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
+    sid = "AllowReadAccessToS3Bucket"
     actions = [
       "s3:GetObject",
     ]
