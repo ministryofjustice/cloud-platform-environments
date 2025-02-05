@@ -44,7 +44,7 @@ module "activities_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
      {
