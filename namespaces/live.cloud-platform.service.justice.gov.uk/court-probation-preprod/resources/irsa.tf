@@ -93,7 +93,7 @@ resource "aws_iam_policy" "read_only_s3_policy" {
 
 data "aws_iam_policy_document" "read_only_s3_access" {
   statement {
-    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
+    sid = "AllowReadAccessToS3Bucket"
     actions = [
       "s3:GetObject",
     ]
