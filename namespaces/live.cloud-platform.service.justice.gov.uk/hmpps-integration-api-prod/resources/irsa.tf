@@ -38,6 +38,32 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "hmpps-integration-event-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-integration-event"
+  role_policy_arns = merge(
+    {
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
+      s3                                              = module.certificate_backup.irsa_policy_arn,
+      truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
+      secrets                                         = aws_iam_policy.secrets_manager_access.arn,
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
+    }
+  )
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
