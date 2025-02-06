@@ -1,5 +1,5 @@
 module "event_mapps_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                  = "events_mapps_queue"
@@ -23,7 +23,7 @@ module "event_mapps_queue" {
 }
 
 module "event_mapps_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "event_mapps_queue_dl"
@@ -98,6 +98,7 @@ resource "kubernetes_secret" "event_mapps_queue" {
     sqs_id   = module.event_mapps_queue.sqs_id
     sqs_arn  = module.event_mapps_queue.sqs_arn
     sqs_name = module.event_mapps_queue.sqs_name
+    mapps_filter_policy_secret_id = data.aws_secretsmanager_secret_version.mapps_filter_list.secret_id
   }
 }
 
