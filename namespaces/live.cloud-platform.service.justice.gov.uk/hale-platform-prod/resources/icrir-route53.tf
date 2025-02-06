@@ -38,12 +38,29 @@ resource "aws_route53_record" "icrir_route53_cname_careers" {
   records = ["ICRIRweb.eploy.net"]
 }
 
+resource "aws_route53_record" "icrir_route53_cname_dkim" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "icrirproddkim._domainkey.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["icrirproddkim.r7qj3j.custdkim.salesforce.com"]
+}
+
+resource "aws_route53_record" "icrir_route53_cname_dkim2" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "icrirproddikimalt._domainkey.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["icrirproddikimalt.em8b7l.custdkim.salesforce.com"]
+}
+
+
 resource "aws_route53_record" "icrir_route53_txt" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com -all", "sophos-domain-verification=64f22b1b53453a1059db6e455503ed554f02e94d"]
+  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:_spf.salesforce.com include:spf.protection.outlook.com -all", "sophos-domain-verification=64f22b1b53453a1059db6e455503ed554f02e94d"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_sophos" {
