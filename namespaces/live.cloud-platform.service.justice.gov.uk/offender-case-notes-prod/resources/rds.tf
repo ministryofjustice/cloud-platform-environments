@@ -84,7 +84,9 @@ module "read_replica" {
   db_engine_version     = "16"
   rds_family            = "postgres16"
   db_instance_class     = "db.t4g.xlarge"
-  db_allocated_storage  = "192"
+  db_allocated_storage      = "512"
+  db_max_allocated_storage  = "2000"
+  db_iops                   = "12000"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
