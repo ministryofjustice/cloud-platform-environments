@@ -30,7 +30,7 @@ spec:
             - name: LABELS
               value: moj-cloud-platform,hmpps-manage-people-on-probation-runner
             - name: REPO_URL
-              value: https://github.com/ministryofjustice/hmpps-manage-a-supervision-ui
+              value: https://github.com/ministryofjustice/hmpps-manage-people-on-probation-ui
             - name: RUN_AS_ROOT
               value: 'false'
             - name: APP_ID
