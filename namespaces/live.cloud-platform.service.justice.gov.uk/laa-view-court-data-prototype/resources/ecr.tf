@@ -1,6 +1,7 @@
 module "ecr-repo" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
-
+  deletion_protection = false 
+  
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
