@@ -1,0 +1,7 @@
+# Ignore the Go build artifacts
+*.test
+vendor/
+
+# Ignore Git files
+.git
+.gitignore

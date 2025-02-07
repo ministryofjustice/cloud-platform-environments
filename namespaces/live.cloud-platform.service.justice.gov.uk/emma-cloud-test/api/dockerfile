@@ -1,0 +1,35 @@
+# Step 1: Use a Go base image
+FROM golang:1.23-alpine as builder
+
+# Step 2: Set the working directory in the container
+WORKDIR /app
+
+# Step 3: Copy the Go source code into the container
+COPY . .
+
+# Install the necessary C dependencies for SQLite
+RUN apk --no-cache add gcc musl-dev
+
+# Step 4: Build the Go application inside the container
+RUN go mod tidy
+RUN CGO_ENABLED=1 go build -o myapp .
+
+# Step 5: Create a smaller final image to run the application
+FROM alpine:latest
+
+# Step 6: Add a non-root user to the container
+RUN adduser -D myuser
+
+# Step 7: Create a directory for the app and set ownership
+WORKDIR /app
+COPY --from=builder /app/myapp /app/myapp
+RUN chown -R myuser:myuser /app
+
+# Step 8: Expose the port (optional for web services)
+EXPOSE 8080
+
+# Step 9: Switch to the non-root user
+USER myuser
+
+# Step 10: Run the Go application
+CMD ["/app/myapp", "serve"]
