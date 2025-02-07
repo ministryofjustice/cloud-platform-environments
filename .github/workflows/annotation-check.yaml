@@ -36,7 +36,7 @@ jobs:
             exit 0
       
       - name: Check Annotations
-        uses: docker://ministryofjustice/annotation-check:v1.2.0
+        uses: docker://ministryofjustice/cloud-platform-annotation-check:1.2.0
         with:
           env: |
             NAMESPACE_FILE = ${{ steps.namespace_files.outputs.file }}
