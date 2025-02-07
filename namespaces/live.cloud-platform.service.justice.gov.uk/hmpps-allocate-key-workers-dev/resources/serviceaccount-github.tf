@@ -112,10 +112,7 @@ resource "github_repository_environment" "env" {
 # Not working - waiting for Cloud Platforms to help me fix this
 # prevent_self_review = true
   reviewers {
-    teams = [ 
-      tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-move-and-improve.id)
-    ]
+    teams = []
   }
   deployment_branch_policy {
     protected_branches     = true
