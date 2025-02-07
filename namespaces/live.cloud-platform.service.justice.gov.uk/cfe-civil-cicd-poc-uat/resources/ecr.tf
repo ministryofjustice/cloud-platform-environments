@@ -10,7 +10,7 @@ module "ecr_credentials" {
   repo_name = "cfe-civil-cicd-poc-ecr"
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # REQUIRED: GitHub repositories, whose CI will be provided with short-term credentials to access this container repository
   github_repositories = ["cfe-civil-cicd-poc", "laa-check-client-qualifies"]
