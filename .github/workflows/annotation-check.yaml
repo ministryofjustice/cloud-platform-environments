@@ -3,6 +3,10 @@ name: annotation-check
 on:
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - 'namespaces/**.yaml'
+      - 'namespaces/**.yml'
+
 
 jobs:
   annotation-check:
@@ -30,16 +34,9 @@ jobs:
             fi
             done
             exit 0
-
-      - name: echo environments vars
-        run: |
-            echo "File: ${{ steps.namespace_files.outputs.file }}"
-            echo "Branch: ${{ github.head_ref }}"
-            echo "Owner/Repo: ${{ github.repository }}"
-            echo "Pull Request Number: ${{ github.ref }}"
       
       - name: Check Annotations
-        uses: docker://ministryofjustice/annotation-check:v1.10.0
+        uses: docker://ministryofjustice/annotation-check:v1.2.0
         with:
           env: |
             NAMESPACE_FILE = ${{ steps.namespace_files.outputs.file }}
