@@ -11,7 +11,13 @@ on:
 jobs:
   annotation-check:
     runs-on: ubuntu-latest
-
+    env:
+      BRANCH: ${{ github.head_ref }}
+      GITHUB_REPOSITORY: ${{ github.event.repository.name }}
+      GITHUB_REF: ${{ github.ref }}
+      GITHUB_PRIVATE_KEY: ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
+      GITHUB_APP_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
+      GITHUB_INSTALLATION_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
     outputs:
         file: ${{ steps.namespace_files.outputs.file }}
     steps:
@@ -38,11 +44,5 @@ jobs:
       - name: Check Annotations
         uses: docker://ministryofjustice/cloud-platform-annotation-check:1.2.0
         with:
-          env: |
-            NAMESPACE_FILE = ${{ steps.namespace_files.outputs.file }}
-            BRANCH = ${{ github.head_ref }}
-            GITHUB_REPOSITORY = ${{ github.repository }}
-            GITHUB_REF = ${{ github.ref }}
-            GITHUB_PRIVATE_KEY = ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
-            GITHUB_APP_ID = ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
-            GITHUB_INSTALLATION_ID = ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
+          env:
+          NAMESPACE_FILE: ${{ steps.namespace_files.outputs.file }}
