@@ -43,6 +43,6 @@ jobs:
             BRANCH = ${{ github.head_ref }}
             GITHUB_REPOSITORY = ${{ github.repository }}
             GITHUB_REF = ${{ github.ref }}
-            GITHUB_PRIVATE_KEY = ${{ secrets.GITHUB_PRIVATE_KEY }}
-            GITHUB_APP_ID = ${{ secrets.GITHUB_APP_ID }}
-            GITHUB_INSTALLATION_ID = ${{ secrets.GITHUB_INSTALLATION_ID }}
+            GITHUB_PRIVATE_KEY = ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
+            GITHUB_APP_ID = ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
+            GITHUB_INSTALLATION_ID = ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
