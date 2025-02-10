@@ -8,7 +8,7 @@ provider "aws" {
 
   default_tags {
     tags ={
-      GithubTeam = "Central Digital Product Team"
+      GithubTeam = "dex-engage"
     }
   }
 }
