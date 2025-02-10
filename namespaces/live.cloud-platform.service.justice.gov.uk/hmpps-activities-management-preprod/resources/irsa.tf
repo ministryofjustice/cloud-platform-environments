@@ -27,7 +27,10 @@ module "irsa" {
   role_policy_arns     = merge(
     local.sqs_policies, 
     local.sns_policies, 
-    {rds_policy = module.activities_api_rds.irsa_policy_arn},
+    {
+      rds_policy = module.activities_api_rds.irsa_policy_arn,
+      activities_rds_policy = module.activities_rds.irsa_policy_arn,
+    },
     {analytical-platform   = aws_iam_policy.analytical-platform.arn}
     )
 
