@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["cloud-platform-github-teams-filter"]
+  github_repositories = ["govuk-frontend-express"]
 
   # Tags
   business_unit          = var.business_unit

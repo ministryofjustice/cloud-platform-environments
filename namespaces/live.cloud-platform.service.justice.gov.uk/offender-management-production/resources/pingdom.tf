@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 126334 = #cvl_alerts
+# 141423 = #mpc_alerts
 # 96628 = DPS Pager duty
 
 resource "pingdom_check" "hmpps-mpc-production-check" {
@@ -18,5 +18,5 @@ resource "pingdom_check" "hmpps-mpc-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [126334, 96628]
+  integrationids           = [141423, 96628]
 }

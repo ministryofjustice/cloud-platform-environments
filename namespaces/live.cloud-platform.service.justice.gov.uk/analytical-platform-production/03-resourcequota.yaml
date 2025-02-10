@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: cloud-platform-github-teams-filter-dev
+  namespace: analytical-platform-production
 spec:
   hard:
     pods: "50"

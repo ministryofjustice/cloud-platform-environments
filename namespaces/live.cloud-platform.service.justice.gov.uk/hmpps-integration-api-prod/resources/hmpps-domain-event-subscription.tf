@@ -3,7 +3,7 @@ data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
 }
 
 module "integration_api_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                  = "integration_api_domain_events_queue"
@@ -27,7 +27,7 @@ module "integration_api_domain_events_queue" {
 }
 
 module "integration_api_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "integration_api_domain_events_queue_dl"
@@ -76,12 +76,6 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "probation-case.registration.added",
-      "probation-case.registration.updated",
-      "risk-assessment.scores.determined",
-      "probation-case.risk-scores.ogrs.manual-calculation",
-      "RISK-ASSESSMENT_SCORES_RSR_DETERMINED_RECEIVED",
-      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED",
       "plp.induction-schedule.updated",
       "plp.review-schedule.updated"
     ]
@@ -98,6 +92,7 @@ resource "kubernetes_secret" "integration_api_domain_events_queue" {
     sqs_id   = module.integration_api_domain_events_queue.sqs_id
     sqs_arn  = module.integration_api_domain_events_queue.sqs_arn
     sqs_name = module.integration_api_domain_events_queue.sqs_name
+    hmpps_domain_events_topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   }
 }
 
