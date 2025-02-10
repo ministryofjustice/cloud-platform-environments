@@ -4,13 +4,12 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod"
-
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
@@ -41,6 +40,7 @@ module "hmpps-integration-event-irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-integration-event"
   role_policy_arns = merge(
+    local.sqs_policies,
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
@@ -50,6 +50,7 @@ module "hmpps-integration-event-irsa" {
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
       event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
     }
+
   )
   # Tags
   business_unit          = var.business_unit
