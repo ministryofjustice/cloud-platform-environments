@@ -21,7 +21,7 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-api-oauth-client-secret"
     },
     "sentry_dsn" = {
-      description             = "Sentry Data Source Name (DSN) for CMA Test",
+      description             = "Sentry Data Source Name (DSN) for CMA UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     }
