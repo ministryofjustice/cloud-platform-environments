@@ -21,6 +21,8 @@ data "aws_iam_policy_document" "sqs_full" {
       module.metadata_status_dead_letter_queue.sqs_arn,
       module.ims_pdf_queue.sqs_arn,
       module.ims_pdf_dead_letter_queue.sqs_arn,
+      module.ims_prisoner_details_queue.sqs_arn,
+      module.ims_prisoner_details_dlq.sqs_arn,
     ]
   }
 }
@@ -62,6 +64,7 @@ module "irsa" {
     s3_dissemination = module.ims_dissemination_storage_bucket.irsa_policy_arn
     rds              = module.rds_aurora.irsa_policy_arn
     kendra           = aws_iam_policy.kendra_irsa.arn
+    s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
   }
 
   # Tags
