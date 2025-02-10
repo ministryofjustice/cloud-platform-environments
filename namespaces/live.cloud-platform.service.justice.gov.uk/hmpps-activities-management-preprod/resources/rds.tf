@@ -124,16 +124,16 @@ module "activities_rds" {
 
 resource "kubernetes_secret" "activities_rds" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "activities-rds"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.activities_api_rds.rds_instance_endpoint
-    database_name         = module.activities_api_rds.database_name
-    database_username     = module.activities_api_rds.database_username
-    database_password     = module.activities_api_rds.database_password
-    rds_instance_address  = module.activities_api_rds.rds_instance_address
+    rds_instance_endpoint = module.activities_rds.rds_instance_endpoint
+    database_name         = module.activities_rds.database_name
+    database_username     = module.activities_rds.database_username
+    database_password     = module.activities_rds.database_password
+    rds_instance_address  = module.activities_rds.rds_instance_address
   }
 }
 
