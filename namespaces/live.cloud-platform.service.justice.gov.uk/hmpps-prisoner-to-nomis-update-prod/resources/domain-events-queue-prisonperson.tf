@@ -100,17 +100,3 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_prisonperson_dead_letter_q
     sqs_queue_name = module.hmpps_prisoner_to_nomis_prisonperson_dead_letter_queue.sqs_name
   }
 }
-
-resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_prisonperson_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.hmpps_prisoner_to_nomis_prisonperson_queue.sqs_arn
-  filter_policy_scope = "MessageBody"
-  filter_policy = jsonencode({
-      "$or": [
-        { "eventType" : [ "prison-person.physical-attributes.updated" ] },
-        { "eventType" : [ "prisoner-offender-search.prisoner.received" ], "additionalInformation.reason": [ "READMISSION_SWITCH_BOOKING" ] }
-     ]
-  })
-}
