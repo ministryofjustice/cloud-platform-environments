@@ -24,6 +24,11 @@ module "secrets_manager" {
       description             = "Crime Means Assessment Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name         = "crime-means-assessment-alert-webhook-prod"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CMA Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
     }
   }
 }
