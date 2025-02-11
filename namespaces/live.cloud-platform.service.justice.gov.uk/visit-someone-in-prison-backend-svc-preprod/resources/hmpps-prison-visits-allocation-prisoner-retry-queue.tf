@@ -29,7 +29,7 @@ module "hmpps_prison_visits_allocation_prisoner_retry_queue" {
 resource "kubernetes_secret" "hmpps_prison_visits_allocation_prisoner_retry_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-prison-visits-allocation-prisoner-retry-queue-secret"
+    name      = "sqs-prison-visits-allocation-prisoner-retry-queue-secret"
     namespace = "visit-someone-in-prison-backend-svc-preprod"
   }
 
@@ -38,3 +38,4 @@ resource "kubernetes_secret" "hmpps_prison_visits_allocation_prisoner_retry_queu
     sqs_queue_arn  = module.hmpps_prison_visits_allocation_prisoner_retry_queue.sqs_arn
     sqs_queue_name = module.hmpps_prison_visits_allocation_prisoner_retry_queue.sqs_name
   }
+}
