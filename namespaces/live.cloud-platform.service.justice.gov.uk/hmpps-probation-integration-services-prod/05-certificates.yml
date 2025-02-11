@@ -734,3 +734,18 @@ spec:
   dnsNames:
     - fd00cc35.hmpps.service.justice.gov.uk
     - assess-for-early-release-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: breach-notice-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: breach-notice-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - c7f7ff98.hmpps.service.justice.gov.uk
+    - breach-notice-and-delius.hmpps.service.justice.gov.uk
