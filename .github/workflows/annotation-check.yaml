@@ -7,7 +7,6 @@ on:
       - 'namespaces/**.yaml'
       - 'namespaces/**.yml'
 
-
 jobs:
   annotation-check:
     runs-on: ubuntu-latest
@@ -23,7 +22,6 @@ jobs:
         uses: tj-actions/changed-files@d6e91a2266cdb9d62096cebf1e8546899c6aa18f ##v45.0.6
         with:
           files_ignore: .github/**
-
 
       - name: check files for namespace yaml changes
         id: namespace_files
