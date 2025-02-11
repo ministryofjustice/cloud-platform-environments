@@ -6,6 +6,7 @@ module "hmpps_template_kotlin" {
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
+  reviewer_teams                = ["hmpps-move-and-improve"]
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
