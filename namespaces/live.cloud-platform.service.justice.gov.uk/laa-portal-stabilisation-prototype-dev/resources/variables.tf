@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ethan.morgan@justice.gov.uk"
+  default     = "ethan.morgan1@justice.gov.uk"
 }
 
 variable "is_production" {
