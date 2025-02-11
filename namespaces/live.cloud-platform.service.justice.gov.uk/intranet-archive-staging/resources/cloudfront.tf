@@ -13,7 +13,7 @@ module "cloudfront" {
   trusted_public_keys  = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
   # Object to return when an end user requests the root URL
   default_root_object  = "index.html"
-  # Custom error pages for 403, 404, and 5xx errors.
+  # Custom error pages for 403, 404, 405 and 5xx errors.
   custom_error_response = [
     {
       error_code            = 403
