@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "breach-notice-and-delius-queue-subscripti
   protocol  = "sqs"
   endpoint  = module.breach-notice-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = ["probation-case.breach-notice.added"]
   })
 }
 
