@@ -24,7 +24,7 @@ spec:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
     - alert: NotFound-Threshold-Reached
-      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-apply-for-legalaid-uat"}[86400s])) * 86400 > 100
+      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-apply-for-legalaid-uat"}[300s])) * 300 > 20
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
