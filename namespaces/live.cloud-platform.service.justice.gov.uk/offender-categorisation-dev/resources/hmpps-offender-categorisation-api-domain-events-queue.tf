@@ -53,7 +53,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_api_queue_for_domain_ev
 }
 
 module "offender_categorisation_api_queue_for_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "oc_api_queue_for_domain_events_dl"
