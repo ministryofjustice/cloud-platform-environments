@@ -1,5 +1,5 @@
 locals {
-  github_repos   = ["hmpps-service-catalogue", "hmpps-developer-portal", "hmpps-tech-docs"]
+  github_repos   = ["hmpps-developer-portal", "hmpps-tech-docs"]
   github_repos_2 = ["hmpps-health-ping", "hmpps-github-discovery", "hmpps-terraform-discovery", "hmpps-component-dependencies", "hmpps-veracode-discovery", "hmpps-trivy-discovery"]
   sa_rules = [
     {
