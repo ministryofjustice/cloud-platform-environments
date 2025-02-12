@@ -10,10 +10,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
-resource "aws_iam_policy" "combined_nomis_sqs" {
-  policy = data.aws_iam_policy_document.combined_nomis_sqs.json
-  tags   = local.default_tags
-}
 
 resource "aws_iam_policy" "cross_namespace_s3_policy" {
   name   = "${var.namespace}-cross-namespace-s3-policy"
