@@ -34,6 +34,7 @@ jobs:
             exit 0
       
       - name: Check Annotations
+        if : ${{ steps.namespace_files.outputs.file != '' }}
         id: check_annotations
         uses: docker://ministryofjustice/cloud-platform-annotation-check:1.2.1
         env:
