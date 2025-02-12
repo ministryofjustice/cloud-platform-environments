@@ -20,8 +20,8 @@ module "hmpps_prison_visits_allocation_events_queue" {
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_allocation_events_queue"
   encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
+  message_retention_seconds  = 10800 # 3 hours
+  visibility_timeout_seconds = 600 # 10 minutes
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_allocation_events_dead_letter_queue.sqs_arn
