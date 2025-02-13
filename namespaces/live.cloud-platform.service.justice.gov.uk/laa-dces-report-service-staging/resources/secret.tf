@@ -26,7 +26,7 @@ module "secrets_manager" {
       k8s_secret_name         = "maat-api-oauth-client-id"
     }
     "maat_api_oauth_client_secret" = {
-      description             = "[laa-dces-report-service-staging/maat-api-oauth-client-id] MAAT API OAuth2 client ID"
+      description             = "[laa-dces-report-service-staging/maat-api-oauth-client-secret] MAAT API OAuth2 client secret"
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-secret"
     }
