@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # Integration IDs
-# 126338 = #farsight-alerts
+# 141508 = #legacy-replacement-alerts-non-prod
 
 resource "pingdom_check" "hmpps-calculate-release-dates-dev-check" {
   type                     = "http"
@@ -17,5 +17,5 @@ resource "pingdom_check" "hmpps-calculate-release-dates-dev-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [126338]
+  integrationids           = [141508]
 }
