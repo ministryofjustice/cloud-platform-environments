@@ -4,7 +4,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/custom-http-errors: "418"
     nginx.ingress.kubernetes.io/rewrite-target: https://historical-prisoner-dev.prison.service.justice.gov.uk/$1
-    external-dns.alpha.kubernetes.io/set-identifier: hmpps-hpa-redirect-old-url-dev-green
+    external-dns.alpha.kubernetes.io/set-identifier: hmpps-hpa-redirect-old-url-dev-hmpps-historical-prisoner-dev-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
   labels:
     app: hmpps-historical-prisoner-dev
