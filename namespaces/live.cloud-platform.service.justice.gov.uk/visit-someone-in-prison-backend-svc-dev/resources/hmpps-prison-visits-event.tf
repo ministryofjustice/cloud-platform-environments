@@ -91,7 +91,7 @@ module "hmpps_prison_visits_event_dead_letter_queue" {
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_event_dlq"
   encrypt_sqs_kms = "true"
-  message_retention_seconds  = 36000 # 10 hours
+  message_retention_seconds  = 21600 # 6 hours
   visibility_timeout_seconds = 120 # 2 minutes
 
   # Tags
