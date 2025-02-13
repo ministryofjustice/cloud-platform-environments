@@ -26,4 +26,4 @@ spec:
   tls:
   - hosts:
     - hpa-dev.prison.service.justice.gov.uk
-    secretName: hpa-cert
+    secretName: hmpps-hpa-cert
