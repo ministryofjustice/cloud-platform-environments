@@ -22,7 +22,7 @@ module "hmpps_prison_visits_notification_alerts_queue" {
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_notification_alerts_queue"
   encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 21600 # 6 hours
+  message_retention_seconds  = 43200 # 12 hours
   visibility_timeout_seconds = 120 # 2 minutes
 
   redrive_policy = jsonencode({
@@ -79,6 +79,8 @@ module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_notification_alerts_dlq"
   encrypt_sqs_kms = "true"
+  message_retention_seconds  = 21600 # 6 hours
+  visibility_timeout_seconds = 120 # 2 minutes
 
   # Tags
   business_unit          = var.business_unit
