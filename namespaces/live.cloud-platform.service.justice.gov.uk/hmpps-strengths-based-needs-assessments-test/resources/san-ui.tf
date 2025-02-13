@@ -1,5 +1,5 @@
 module "hmpps_strengths_based_needs_assessments_ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.6"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.7"
   github_repo                   = "hmpps-strengths-based-needs-assessments-ui"
   application                   = "hmpps-strengths-based-needs-assessments-ui"
   github_team                   = "hmpps-assessments"
