@@ -12,7 +12,7 @@ locals {
   }
   sqs_policies_oc = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_oc : item.name => item.value }
   sqs_policies_rp = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_rp : item.name => item.value }
-  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
   irsa_policies_api = merge(local.sqs_policies_api, {
       offender_categorisation_api_queue_for_domain_events                   = module.offender_categorisation_api_queue_for_domain_events.irsa_policy_arn
       offender_categorisation_api_queue_for_domain_events_dead_letter_queue = module.offender_categorisation_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
