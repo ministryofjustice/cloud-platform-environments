@@ -116,7 +116,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
       "court-appearance.deleted",
       "charge.inserted",
       "charge.updated",
-      "charge.deleted"
+      "charge.deleted",
+      "sentence.inserted",
+      "sentence.updated",
+      "sentence.deleted"
     ]
   })
 }
