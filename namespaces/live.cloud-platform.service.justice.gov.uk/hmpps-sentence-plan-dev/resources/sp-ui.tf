@@ -9,6 +9,6 @@ module "hmpps_sentence_plan_ui" {
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
-  protected_branches_only       = false
+  selected_branch_patterns      = ["*"]
   kubernetes_cluster            = var.kubernetes_cluster
 }
