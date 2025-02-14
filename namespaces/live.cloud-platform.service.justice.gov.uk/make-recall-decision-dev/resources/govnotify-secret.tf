@@ -10,20 +10,10 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "govnotify-webapp-pwd" = {
-      description             = "Password for logging in to the GovNotify management web app",   # Required
+    "govnotify" = {
+      description             = "Gov-Notify secrets",   # Required
       recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "govnotify-webapp-pwd" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    },
-    "govnotify-teamandguest-api-id" = {
-      description             = "GovNotify API Key",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "govnotify-teamandguest-api-id" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    },
-    "govnotify-teamandguest-api-secret" = {
-      description             = "GovNotify API secret",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "govnotify-teamandguest-api-secret" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      k8s_secret_name         = "gov-notify" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }
 }
