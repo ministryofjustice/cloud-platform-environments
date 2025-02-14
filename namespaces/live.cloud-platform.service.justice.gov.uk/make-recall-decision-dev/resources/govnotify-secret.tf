@@ -1,6 +1,5 @@
 module "secrets_manager" {
-  source = "../" # use the latest release
-  // source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=version" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -11,7 +10,6 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    // the key "test-secret-01" is used to create kubernetes resource and must only contain lowercase alphanumeric characters, dots and dashes
     "govnotify-webapp-pwd" = {
       description             = "Password for logging in to the GovNotify management web app",   # Required
       recovery_window_in_days = 7,               # Required
