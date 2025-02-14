@@ -13,7 +13,7 @@ spec:
       expr: kube_pod_container_status_restarts_total{namespace="soc-production", pod=~"socreporting-dotnet6app.*"} > 3
       for: 30m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "Pod {{ $labels.pod }} is restarting frequently in SOCReporting."
         runbook_url: https://github.com/ministryofjustice/SOCReporting
@@ -23,7 +23,7 @@ spec:
       expr: (rate(container_cpu_usage_seconds_total{namespace="soc-production", pod=~"socreporting-dotnet6app.*"}[5m]) * 100) > 80
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High CPU usage detected in SOCReporting."
         runbook_url: https://github.com/ministryofjustice/SOCReporting
@@ -33,17 +33,17 @@ spec:
       expr: sum by (code) (rate(http_requests_received_total{pod=~"socreporting-dotnet6app.*", code=~"5.."}[5m])) > 1
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High number of 5xx errors detected in SOCReporting."
         runbook_url: https://github.com/ministryofjustice/SOCReporting
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/C0539022-DD81-4FA9-B92B-703ECDA0065C/soc-production?from=now-1h&to=now&timezone=browser&var-datasource=prometheus
 
     - alert: HighResponseLatency
-      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socreporting-dotnet6app.*"}[5m])) > 2
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socreporting-dotnet6app.*"}[5m])) > 3
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High response latency detected in SOCReporting."
         runbook_url: https://github.com/ministryofjustice/SOCReporting
@@ -66,7 +66,7 @@ spec:
       expr: kube_pod_container_status_restarts_total{namespace="soc-production", pod=~"socentry-dotnet6app.*"} > 3
       for: 30m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "Pod {{ $labels.pod }} is restarting frequently in SOCEntry."
         runbook_url: https://github.com/ministryofjustice/SOCEntry
@@ -76,7 +76,7 @@ spec:
       expr: (rate(container_cpu_usage_seconds_total{namespace="soc-production", pod=~"socentry-dotnet6app.*"}[5m]) * 100) > 80
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High CPU usage detected in SOCEntry."
         runbook_url: https://github.com/ministryofjustice/SOCEntry
@@ -86,17 +86,17 @@ spec:
       expr: sum by (code) (rate(http_requests_received_total{pod=~"socentry-dotnet6app.*", code=~"5.."}[5m])) > 1
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High number of 5xx errors detected in SOCEntry."
         runbook_url: https://github.com/ministryofjustice/SOCEntry
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/C0539022-DD81-4FA9-B92B-703ECDA0065C/soc-production?from=now-1h&to=now&timezone=browser&var-datasource=prometheus
 
     - alert: HighResponseLatency
-      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socentry-dotnet6app.*"}[5m])) > 2
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socentry-dotnet6app.*"}[5m])) > 3
       for: 5m
       labels:
-        severity: warning
+        severity: soc-production
       annotations:
         message: "High response latency detected in SOCEntry."
         runbook_url: https://github.com/ministryofjustice/SOCEntry
