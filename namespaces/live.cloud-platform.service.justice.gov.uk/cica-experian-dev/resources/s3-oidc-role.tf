@@ -21,7 +21,7 @@ module "bankwizard_bucket_assumable_role" {
   role_name = "bankwizard-bucket-assumable-role"
   provider_url = "https://oidc.circleci.com/org/${local.circleci_organisation_id}"
   role_policy_arns = module.bankwizard_artifact_bucket.irsa_policy_arn
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${module.serviceaccount.serviceaccount_name}"]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
 }
 
 resource "kubernetes_secret" "bankwizard_artifact_bucket_role" {
