@@ -134,6 +134,14 @@ resource "aws_route53_record" "icrir_route53_txt_careers_spf" {
   records = ["v=spf1 include:amazonses.com -all"]  
 }
 
+resource "aws_route53_record" "icrir_route53_txt_careers_dmarc" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "_dmarc.careers.icrir.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["v=DMARC1; p=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk,mailto:dmarc-rua@finance-ni.gov.uk; adkim=r; aspf=r; pct=100"]
+}
+
 resource "aws_route53_record" "icrir_route53_mx" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
