@@ -15,10 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "slack-alerts-webhook-dev"
     },
-    "digital-prisons-reporting" = {
+    "digital-prison-reporting" = {
       description             = "Credentials for DPR database user",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "digital-prisons-reporting"
+      k8s_secret_name         = "digital-prison-reporting"
     }
   }
 }
