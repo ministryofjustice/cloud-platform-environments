@@ -24,12 +24,12 @@ spec:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
     - alert: NotFound-Threshold-Reached
-      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 15
+      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 50
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
-        message: More than 15 404 errors in the last 5 minutes
+        message: More than 50 404 errors in the last 5 minutes
         runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
     - alert: nginx-5xx-error
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging", status=~"5.."}[5m]))*270 > 0
