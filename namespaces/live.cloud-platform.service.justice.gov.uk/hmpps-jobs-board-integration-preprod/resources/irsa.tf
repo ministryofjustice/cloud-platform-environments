@@ -8,6 +8,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
     integration_events_queue = module.hmpps_jobs_board_integration_queue.irsa_policy_arn,
+    integration_events_dlq   = module.hmpps_jobs_board_integration_dlq.irsa_policy_arn,
   }
 
   # Tags
