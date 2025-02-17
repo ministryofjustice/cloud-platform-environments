@@ -37,7 +37,7 @@ module "ssm-irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "james-dev-irsa"
+  service_account_name = "ssm-irsa"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
