@@ -33,4 +33,4 @@ spec:
           cloud-platform.justice.gov.uk/namespace: laa-cla-public-production
     - namespaceSelector:
         matchLabels:
-          cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-uat
+          cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-production
