@@ -2,6 +2,14 @@ data "aws_eks_cluster" "eks_cluster" {
   name = var.eks_cluster_name
 }
 
+data "aws_secretsmanager_secret" "circleci" {
+  name = "cloud-platform-circleci"
+}
+
+data "aws_secretsmanager_secret_version" "circleci" {
+  secret_id = data.aws_secretsmanager_secret.circleci.id
+}
+
 locals {
   circleci_organisation_id = jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]
 }
