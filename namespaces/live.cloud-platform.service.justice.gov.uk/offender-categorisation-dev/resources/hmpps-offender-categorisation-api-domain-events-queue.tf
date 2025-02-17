@@ -75,7 +75,7 @@ module "offender_categorisation_api_queue_for_domain_events_dead_letter_queue" {
 
 resource "kubernetes_secret" "offender_categorisation_api_queue_for_domain_events" {
   metadata {
-    name      = "domain-events-restricted-patients-queue"
+    name      = "domain-events-offender-categorisation-api-queue"
     namespace = var.namespace
   }
 
@@ -88,7 +88,7 @@ resource "kubernetes_secret" "offender_categorisation_api_queue_for_domain_event
 
 resource "kubernetes_secret" "offender_categorisation_api_queue_for_domain_events_dead_letter_queue" {
   metadata {
-    name      = "domain-events-restricted-patients-dlq"
+    name      = "domain-events-offender-categorisation-api-dlq"
     namespace = var.namespace
   }
 
