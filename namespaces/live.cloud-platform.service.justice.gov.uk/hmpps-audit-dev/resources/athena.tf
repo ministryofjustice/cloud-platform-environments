@@ -100,3 +100,35 @@ resource "aws_glue_catalog_table" "audit_event_table" {
     "parquet.compression" = "SNAPPY"
   }
 }
+
+resource "kubernetes_secret" "glue-database-name-secret" {
+  metadata {
+    name      = "glue-database-name"
+    namespace = var.namespace
+  }
+  data = {
+    database_arn  = aws_glue_catalog_database.audit_glue_catalog_database.arn
+    database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
+  }
+}
+
+resource "kubernetes_secret" "athena-workgroup-secret" {
+  metadata {
+    name      = "athena-workgroup-secret"
+    namespace = var.namespace
+  }
+  data = {
+    workgroup_arn  = aws_athena_workgroup.queries.arn
+    workgroup_name = aws_athena_workgroup.queries.name
+  }
+}
+
+resource "kubernetes_secret" "athena-output-location-secret" {
+  metadata {
+    name      = "athena-output-location-secret"
+    namespace = var.namespace
+  }
+  data = {
+    output_location = "s3://${module.s3.bucket_name}/"
+  }
+}
