@@ -54,6 +54,29 @@ resource "aws_route53_record" "icrir_route53_cname_dkim2" {
   records = ["icrirproddikimalt.em8b7l.custdkim.salesforce.com"]
 }
 
+resource "aws_route53_record" "icrir_route53_cname_careers_dkim" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "bumryojo75ntntp5fsghu4b4svbylp7j._domainkey.careers.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["bumryojo75ntntp5fsghu4b4svbylp7j.dkim.amazonses.com"]
+}
+
+resource "aws_route53_record" "icrir_route53_cname_careers_dkim2" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "lxkcit7oelayzoy7vzpo2a2nf2tul5eu._domainkey.careers.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["lxkcit7oelayzoy7vzpo2a2nf2tul5eu.dkim.amazonses.com"]
+}
+
+resource "aws_route53_record" "icrir_route53_cname_careers_dkim3" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "xmuskwhyp3hir7wsn2nmzg7xzv5bewd7._domainkey.careers.icrir.independent-inquiry.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["xmuskwhyp3hir7wsn2nmzg7xzv5bewd7.dkim.amazonses.com"]
+}
 
 resource "aws_route53_record" "icrir_route53_txt" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
@@ -103,10 +126,26 @@ resource "aws_route53_record" "icrir_route53_txt_smtp" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]  
 }
 
+resource "aws_route53_record" "icrir_route53_txt_careers_spf" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "eploymail.careers.icrir.independent-inquiry.uk" 
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=spf1 include:amazonses.com -all"]  
+}
+
 resource "aws_route53_record" "icrir_route53_mx" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "icrir.independent-inquiry.uk"
   type    = "MX"
   ttl     = "300"
   records = ["10 mx-01-eu-west-1.prod.hydra.sophos.com", "20 mx-02-eu-west-1.prod.hydra.sophos.com"]
+}
+
+resource "aws_route53_record" "icrir_route53_mx_careers" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "eploymail.careers.icrir.independent-inquiry.uk"
+  type    = "MX"
+  ttl     = "300"
+  records = ["10 feedback-smtp.eu-west-2.amazonses.com"]
 }
