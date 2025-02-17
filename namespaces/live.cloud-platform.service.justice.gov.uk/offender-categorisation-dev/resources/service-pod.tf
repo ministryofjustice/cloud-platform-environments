@@ -3,6 +3,6 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.irsa_offender_categorisation.name # this uses the service account name from the irsa module
+  service_account_name = module.irsa_offender_categorisation.service_account.name # this uses the service account name from the irsa module
   service_pod_count = 3
 }
