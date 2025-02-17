@@ -6,9 +6,6 @@ metadata:
   namespace: hmpps-external-users-api-prod
 subjects:
   - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:haha-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
