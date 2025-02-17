@@ -2,18 +2,6 @@ data "aws_eks_cluster" "eks_cluster" {
   name = var.eks_cluster_name
 }
 
-data "aws_secretsmanager_secret" "circleci" {
-  name = "cloud-platform-circleci"
-}
-
-data "aws_secretsmanager_secret_version" "circleci" {
-  secret_id = data.aws_secretsmanager_secret.circleci.id
-}
-
-data "aws_eks_cluster" "eks_cluster" {
-  name = var.eks_cluster_name
-}
-
 module "bankwizard_bucket_assumable_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version = "5.13.0"
