@@ -14,7 +14,7 @@ module "dps_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "17"
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   enable_rds_auto_start_stop  = true
 }
 
