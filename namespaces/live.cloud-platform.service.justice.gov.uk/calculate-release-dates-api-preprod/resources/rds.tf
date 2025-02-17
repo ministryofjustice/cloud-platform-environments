@@ -11,7 +11,7 @@ module "calculate_release_dates_api_rds" {
   infrastructure_support = var.infrastructure_support
   db_engine              = "postgres"
   db_engine_version      = "16.3"
-  rds_family             = "postgres17"
+  rds_family             = "postgres16"
   prepare_for_major_upgrade = true
 
   db_password_rotated_date = "14-02-2023"
