@@ -11,7 +11,7 @@ module "dps_rds" {
   rds_family                  = var.rds-family
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "16.3"
+  db_engine_version           = "17"
   allow_major_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
