@@ -61,13 +61,13 @@ data "aws_iam_policy_document" "allow_circle_role_s3" {
   statement {
     actions   = ["s3:GetObjectVersion", "s3:GetObject", "s3:PutObject"]
     effect    = "Allow"
-    resources = ["${module.bankwizard_artifact_bucket.arn}/*"]
+    resources = ["${module.bankwizard_artifact_bucket.bucket_arn}/*"]
 
   }
   statement {
     actions   = ["s3:ListBucket"]
     effect    = "Allow"
-    resources = ["${module.bankwizard_artifact_bucket.arn}/"]
+    resources = ["${module.bankwizard_artifact_bucket.bucket_arn}/"]
 
   }
 }
@@ -91,6 +91,6 @@ resource "kubernetes_secret" "bankwizard_artifact_bucket_role" {
   }
 
   data = {
-    bucket_role_arn = module.bankwizard_bucket_assumable_role.iam_role_arn
+    bucket_role_arn = aws_iam_role.bankwizard_bucket_assumable_role.arn
   }
 }
