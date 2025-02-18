@@ -26,7 +26,7 @@ data "aws_secretsmanager_secret_version" "circleci" {
 
 module "bankwizard_bucket_assumable_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.52.2
+  version = "5.52.2"
   create_role = true
   role_name = "bankwizard-bucket-assumable-role"
   provider_url = "https://oidc.circleci.com/org/${jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]}"
@@ -35,7 +35,7 @@ module "bankwizard_bucket_assumable_role" {
   provider_trust_policy_conditions = [
     {
       test     = "StringLike"
-      variable = "oidc.circleci.com/org/ORGANIZATION_ID:sub"
+      variable = "oidc.circleci.com/org/${jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]}:sub"
       values   = ["org/${jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]}/project/07922d32-a0bc-4e11-9e28-9d574f9e7a0e/user/*"]
     }
   ]
