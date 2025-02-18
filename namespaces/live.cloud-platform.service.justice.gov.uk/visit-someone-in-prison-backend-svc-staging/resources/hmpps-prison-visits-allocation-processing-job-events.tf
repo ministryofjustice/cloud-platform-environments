@@ -37,6 +37,8 @@ module "hmpps_prison_visits_allocation_processing_job_dead_letter_queue" {
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_allocation_processing_job_dlq"
   encrypt_sqs_kms = "true"
+  message_retention_seconds  = 36000 # 10 hours
+  visibility_timeout_seconds = 600 # 10 minutes
 
   # Tags
   business_unit          = var.business_unit
