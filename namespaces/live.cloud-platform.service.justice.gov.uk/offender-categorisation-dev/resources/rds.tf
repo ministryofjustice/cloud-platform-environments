@@ -9,13 +9,13 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  snapshot_identifier         = "rds:preupgrade-cloud-platform-9715beccbb718d4b-14-12-to-16-3-1739459533614"
+  snapshot_identifier         = "cloud-platform-9715beccbb718d4b-finalsnapshot"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
-  db_engine_version           = "16.3"
+  db_engine_version           = "17"
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
 }
 
