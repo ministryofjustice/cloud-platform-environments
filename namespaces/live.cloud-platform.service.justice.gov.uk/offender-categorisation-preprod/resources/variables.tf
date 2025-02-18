@@ -40,7 +40,7 @@ variable "number_cache_clusters" {
 }
 
 variable "rds-family" {
-  default = "postgres17"
+  default = "postgres16"
 }
 
 variable "github_owner" {
