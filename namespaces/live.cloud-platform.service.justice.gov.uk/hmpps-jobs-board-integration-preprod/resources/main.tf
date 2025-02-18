@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = var.team_name
+      GithubTeam    = var.team_name
     }
   }
 }
@@ -23,7 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = var.team_name
+      GithubTeam    = var.team_name
     }
   }
 }
@@ -36,7 +36,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = var.team_name
+      GithubTeam    = var.team_name
     }
   }
 }
@@ -46,3 +46,15 @@ provider "github" {
 }
 
 provider "kubernetes" {}
+
+locals {
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment            = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
