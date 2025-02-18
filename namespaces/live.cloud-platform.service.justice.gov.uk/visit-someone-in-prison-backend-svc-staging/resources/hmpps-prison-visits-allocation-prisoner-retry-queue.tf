@@ -73,7 +73,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_allocation_prisoner_retry_queu
 resource "kubernetes_secret" "hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "hmpps-prison-visits-allocation-prisoner-retry-dlq-secret"
+    name = "sqs-prison-visits-allocation-prisoner-retry-dlq-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-staging"
   }
