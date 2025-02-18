@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "ssm_for_insights" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "app_insights_ssm_policy"
+  name        = "application_insights_ssm_policy"
   description = "Policy for app insights"
 
   # Terraform's "jsonencode" function converts a
