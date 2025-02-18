@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-client
+  namespace: folarin-rds-namespace
+  labels:
+    app: mysql-client
+spec:
+  restartPolicy: Never
+  containers:
+  - name: mysql-client
+    image: mysql:8.0
+    env:
+    - name: MYSQL_HOST
+      valueFrom:
+        secretKeyRef:
+          name: rds-mysql-instance-output
+          key: rds_instance_address
+    - name: MYSQL_PORT
+      value: "3306"
+    - name: MYSQL_USER
+      valueFrom:
+        secretKeyRef:
+          name: rds-mysql-instance-output
+          key: database_username
+    - name: MYSQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: rds-mysql-instance-output
+          key: database_password
+    command: ["sleep", "infinity"]
