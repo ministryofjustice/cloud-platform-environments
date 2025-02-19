@@ -15,10 +15,16 @@ locals {
   
   all_policies = merge(
     {
-      hmpps_prison_visits_event_index_queue                           = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
-      hmpps_prison_visits_event_index_dead_letter_queue               = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
-      hmpps_prison_visits_notification_alerts_index_queue             = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
-      hmpps_prison_visits_notification_alerts_index_dead_letter_queue = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_event_index_queue                                   = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
+      hmpps_prison_visits_event_index_dead_letter_queue                       = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_notification_alerts_index_queue                     = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
+      hmpps_prison_visits_notification_alerts_index_dead_letter_queue         = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_events_index_queue                       = module.hmpps_prison_visits_allocation_events_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_events_index_dead_letter_queue           = module.hmpps_prison_visits_allocation_events_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_processing_job_index_queue               = module.hmpps_prison_visits_allocation_processing_job_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_processing_job_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_prisoner_retry_index_queue               = module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
+      hmpps_prison_visits_allocation_prisoner_retry_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
     },
     local.sns_policies,
     local.rds_policies
