@@ -42,11 +42,28 @@ spec:
           annotations:
             message: The total number of request to Maat-api for Contribution should be one per day. The count has increase to more than one.
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+        - alert: Contribution Croj Job
+          expr: sum(increase(ServiceScheduler_contribution_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) == 0
+          for: 24h
+          labels:
+            severity: critical
+          annotations:
+            message: Cron job did not run in the last 24 hours
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+        - alert: Contribution Croj Job
+          expr: sum(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) == 0
+          for: 24h
+          labels:
+            severity: critical
+          annotations:
+            message: Cron job did not run in the last 24 hours
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+
         - alert: Logging Error
-          expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
+          expr: sum(increase(logback_events_total{level="error", namespace="laa-dces-drc-integration-prod"}[10m])) > 1
           for: 1m
           labels:
-            severity: laa-dces-drc-integration
+            severity: critical
           annotations:
             message: There had been an error in the logs of the DCES DRC in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
