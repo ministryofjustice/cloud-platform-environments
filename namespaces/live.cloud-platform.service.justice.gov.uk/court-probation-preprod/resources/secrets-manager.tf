@@ -29,6 +29,11 @@ module "secrets_manager" {
       description             = "Liverpool pre pilot users",   # Required
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "liverpool-pre-pilot-users" # The name of the secret in k8s
+    },
+    "performance-test-data-user-credentials" = {
+      description             = "Performance test user credentials",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "performance-test-data-user-credentials" # The name of the secret in k8s
     }
   }
 }
