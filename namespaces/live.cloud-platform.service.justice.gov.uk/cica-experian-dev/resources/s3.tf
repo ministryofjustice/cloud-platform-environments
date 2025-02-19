@@ -12,6 +12,37 @@ module "bankwizard_artifact_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  bucket_policy = data.aws_iam_policy_document.bankwizard_artifact_bucket_policy.json
+}
+
+data "aws_iam_policy_document" "bankwizard_artifact_bucket_policy" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_role.bankwizard_bucket_assumable_role.arn
+      ]
+    }
+    effect  = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+    ]
+    resources = ["${module.bankwizard_artifact_bucket.bucket_arn}/*"]
+  }
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_iam_role.bankwizard_bucket_assumable_role.arn
+      ]
+    }
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = ["${module.bankwizard_artifact_bucket.bucket_arn}/"]
+
+  }
 }
 
 resource "kubernetes_secret" "bankwizard_artifact_bucket" {
