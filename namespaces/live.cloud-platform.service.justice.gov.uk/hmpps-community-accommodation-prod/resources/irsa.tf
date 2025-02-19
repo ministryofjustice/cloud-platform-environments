@@ -26,6 +26,9 @@ module "irsa" {
     {
       rds = module.rds.irsa_policy_arn
     },
+    {
+      rds = module.cas-2-domain-events-queue.irsa_policy_arn
+    },
     local.sns_policies
   )
   business_unit          = var.business_unit
