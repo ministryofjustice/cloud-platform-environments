@@ -15,7 +15,7 @@ module "irsa" {
   service_account_name = "hmpps-community-accommodation-api-service-account"
   namespace            = var.namespace
   role_policy_arns = {
-    cas-2-sns           = module.cas-2-domain-events-queue.irsa_policy_arn,
+    cas-2-sns           = module.cas-2-domain-events-listener-queue.irsa_policy_arn,
     domain_events_topic = data.aws_ssm_parameter.irsa_policy_arns_sns_domain_events.value
   }
   business_unit          = var.business_unit
