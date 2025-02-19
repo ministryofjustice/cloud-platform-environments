@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "circleci_assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "oidc.circleci.com/org/${jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]}:aud"
-      values   = ["${jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]}"]
+      values   =  [jsondecode(data.aws_secretsmanager_secret_version.circleci.secret_string)["organisation_id"]]
     }
 
     condition {
