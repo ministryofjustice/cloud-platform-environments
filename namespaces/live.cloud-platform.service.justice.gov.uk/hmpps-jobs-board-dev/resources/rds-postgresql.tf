@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
   # Add security group id for DPR
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
