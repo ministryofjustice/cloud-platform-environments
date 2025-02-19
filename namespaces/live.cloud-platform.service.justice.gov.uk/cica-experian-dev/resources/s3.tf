@@ -30,7 +30,10 @@ data "aws_iam_policy_document" "bankwizard_artifact_bucket_policy" {
       "s3:GetObjectVersion",
       "s3:ListBucket"
     ]
-    resources = ["*"]
+    resources = [
+      "$${bucket_arn}/*",
+      "$${bucket_arn}"
+    ]
   }
 }
 
