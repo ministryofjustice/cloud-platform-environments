@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-learner-records-notifications-nonprod"
     cloud-platform.justice.gov.uk/application: "HMPPS Learner Records"
     cloud-platform.justice.gov.uk/owner: "Data Modelling and Engineering Team: dataengineering@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-learner-records-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-learner-records-api"
     cloud-platform.justice.gov.uk/team-name: "hmpps-lrs-devs"
