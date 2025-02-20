@@ -87,10 +87,10 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
+}
 
-  # Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
-  data "aws_security_group" "mp_dps_sg" {
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
     name = var.mp_dps_sg_name
-  }
 }
 
