@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps-shared"
+  default     = "create-and-vary-a-licence-devs"
 }
 
 variable "environment" {
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "dps-shared"
+  default     = "cvl-alerts"
 }
 
 variable "github_owner" {
