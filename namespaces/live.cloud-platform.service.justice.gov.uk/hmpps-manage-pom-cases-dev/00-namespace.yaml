@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "mpc_alerts_nonprod"
     cloud-platform.justice.gov.uk/application: "Manage POM Cases"
     cloud-platform.justice.gov.uk/owner: "The Elephants - Manage Custody: elephants@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: ""
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-manage-pom-cases.git"
     cloud-platform.justice.gov.uk/team-name: "manage-pom-cases"
