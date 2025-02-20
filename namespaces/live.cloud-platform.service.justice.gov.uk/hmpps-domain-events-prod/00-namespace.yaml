@@ -13,4 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-domain-events"
     cloud-platform.justice.gov.uk/slack-alert-channel: "syscon-alerts"
     cloud-platform.justice.gov.uk/slack-channel: "syscon-alerts"
-    cloud-platform.justice.gov.uk/team-name: "syscon-devs""
+    cloud-platform.justice.gov.uk/team-name: "syscon-devs"
