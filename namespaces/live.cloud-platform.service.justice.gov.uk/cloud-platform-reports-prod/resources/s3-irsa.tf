@@ -7,8 +7,9 @@ module "s3-irsa" {
   # IRSA configuration
   service_account_name = "hoodaw-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
-  role_policy_arns     = {
-    s3 = aws_iam_policy.allow-irsa-read.arn
+  role_policy_arns = {
+    s3             = aws_iam_policy.allow-irsa-read.arn
+    env-reports-s3 = aws_iam_policy.allow-irsa-read-environments-reports-bucket.arn
   }
 
   # Tags
@@ -35,6 +36,25 @@ data "aws_iam_policy_document" "document" {
     resources = [
       module.s3_bucket.bucket_arn,
       "${module.s3_bucket.bucket_arn}/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "allow-irsa-read-environments-reports-bucket" {
+  name        = "cloud-platform-hoodaw-read-environments-reports-bucket"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.read-environments-reports-bucket-document.json
+  description = "Policy for reading reports from cloud-platform-hoodaw-reports"
+}
+
+data "aws_iam_policy_document" "read-environments-reports-bucket-document" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-concourse-environments-live-reports/*",
     ]
   }
 }
