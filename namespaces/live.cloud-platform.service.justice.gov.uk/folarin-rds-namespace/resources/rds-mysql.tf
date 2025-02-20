@@ -25,7 +25,7 @@ module "rds_mysql" {
   db_instance_class = "db.t4g.micro"
   db_parameter      = []
 
-  snapshot_identifier = "cloud-platform-b3b919c90c5897c4-finalsnapshot"
+  snapshot_identifier = "folarin-test-manual-snapshot-2025-02-19"
 
   # Tags
   application            = var.application
