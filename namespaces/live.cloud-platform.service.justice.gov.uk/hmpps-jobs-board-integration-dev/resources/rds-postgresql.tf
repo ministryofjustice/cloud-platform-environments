@@ -1,6 +1,9 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
+  # Add security group id for DPR
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
   # VPC configuration
   vpc_name = var.vpc_name
 
@@ -55,4 +58,9 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
