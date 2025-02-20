@@ -63,8 +63,3 @@ resource "kubernetes_config_map" "rds" {
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
-
-module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=x.y.z"
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
-}
