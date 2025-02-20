@@ -1,7 +1,7 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  # Add security group id for DPR
+  # Add security group id
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
   # VPC configuration
@@ -30,7 +30,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # add parameter group for DPS
+  # add parameter group
   db_parameter = [
     {
       name         = "rds.logical_replication"
