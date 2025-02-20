@@ -2,11 +2,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
-  sns_topics = {
-    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
-  }
-
-  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
@@ -16,8 +11,8 @@ module "irsa" {
   service_account_name = "hmpps-community-accommodation-api-service-account"
   namespace            = var.namespace
   role_policy_arns = merge(
-    { cas-2-sns           = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
-    local.sns_policies
+    { cas-2-sqs = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
+    { sns = data.aws_sns_topic.hmpps-domain-events.arn },
   )
   business_unit          = var.business_unit
   application            = var.application
@@ -67,11 +62,6 @@ module "irsa_ta" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns_sns" {
-  for_each = local.sns_topics
-  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
