@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "licences"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/licences.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/licences"
     cloud-platform.justice.gov.uk/slack-alert-channel: "cvl_alerts"
     cloud-platform.justice.gov.uk/slack-channel: "cvl_alerts"
     cloud-platform.justice.gov.uk/team-name: "create-and-vary-a-licence-devs"
