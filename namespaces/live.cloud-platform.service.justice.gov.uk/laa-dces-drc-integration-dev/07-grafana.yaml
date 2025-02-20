@@ -1214,7 +1214,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [$__interval] )) ",
+              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1d] )) ",
               "legendFormat": "Contribution",
               "range": true,
               "refId": "A"
@@ -1307,7 +1307,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_fdc_seconds_count {namespace=\"$namespace\"} [$__interval] )) ",
+              "expr": "sum(increase(ServiceScheduler_fdc_seconds_count {namespace=\"$namespace\"} [1d] )) ",
               "legendFormat": "FDC",
               "range": true,
               "refId": "A"
