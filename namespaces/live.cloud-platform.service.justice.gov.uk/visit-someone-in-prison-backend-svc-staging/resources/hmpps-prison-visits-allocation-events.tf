@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
   endpoint  = module.hmpps_prison_visits_allocation_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.conviction-status.updated"
+      "prisoner-offender-search.prisoner.convicted-status-changed"
     ]
   })
 }
