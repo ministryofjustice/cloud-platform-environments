@@ -66,7 +66,7 @@ module "read_replica" {
   db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.dps_rds.db_identifier
+  replicate_source_db = module.rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
