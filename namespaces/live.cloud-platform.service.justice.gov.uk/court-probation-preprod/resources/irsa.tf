@@ -65,7 +65,8 @@ module "irsa" {
     { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
     { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
     { sqs_ccs_dlq = module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn },
-    { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
+    { elasticache = module.pac_elasticache_redis.irsa_policy_arn },
+    { s3_peformance_reports = aws_iam_policy.s3_performance_policy.arn }
   )
 
   # Tags
@@ -98,5 +99,21 @@ data "aws_iam_policy_document" "read_only_s3_access" {
       "s3:GetObject",
     ]
     resources = ["${module.large-court-cases-s3-bucket.bucket_arn}/*", ]
+  }
+}
+
+resource "aws_iam_policy" "s3_performance_policy" {
+  name   = "${var.namespace}-s3-performance-policy"
+  policy = data.aws_iam_policy_document.s3_performance_access.json
+}
+
+data "aws_iam_policy_document" "s3_performance_access" {
+  statement {
+    sid = "AllowReadWriteAccessToS3Bucket"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+    ]
+    resources = ["${module.perf-test-data-s3-bucket.bucket_arn}/*", ]
   }
 }
