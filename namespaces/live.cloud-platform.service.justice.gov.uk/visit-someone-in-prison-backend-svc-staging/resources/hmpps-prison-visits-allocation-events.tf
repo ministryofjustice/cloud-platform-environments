@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
   endpoint  = module.hmpps_prison_visits_allocation_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.conviction-status.updated"
+      "prisoner-offender-search.prisoner.convicted-status-changed"
     ]
   })
 }
@@ -77,6 +77,8 @@ module "hmpps_prison_visits_allocation_events_dead_letter_queue" {
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_allocation_events_dlq"
   encrypt_sqs_kms = "true"
+  message_retention_seconds  = 36000 # 10 hours
+  visibility_timeout_seconds = 600 # 10 minutes
 
   # Tags
   business_unit          = var.business_unit

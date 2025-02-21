@@ -12,6 +12,29 @@ module "bankwizard_artifact_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            aws_iam_role.bankwizard_bucket_assumable_role.arn
+          ]
+        }
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  })
 }
 
 resource "kubernetes_secret" "bankwizard_artifact_bucket" {

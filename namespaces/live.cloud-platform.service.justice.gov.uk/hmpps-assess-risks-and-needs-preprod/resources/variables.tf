@@ -20,12 +20,12 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Assess risks and needs"
+  default     = "hmpps-assessments"
 }
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {

@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "migration_policy" {
     ]
     effect = "Allow"
     resources = [
-      "arn:aws:kms:eu-west-2:010587221707:key/0c35d7a8-b6d3-44e7-9a21-a2fede552773"
+      "arn:aws:kms:eu-west-2:050243167760:key/f32be75c-beb8-409c-a970-db9de7201473"
     ]
   }
 }
