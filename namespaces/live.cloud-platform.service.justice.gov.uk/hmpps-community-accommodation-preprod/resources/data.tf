@@ -10,12 +10,8 @@ data "aws_iam_policy_document" "sns_to_sqs" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
     }
     resources = ["*"]
   }
-}
-
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-preprod/topic-arn"
 }
