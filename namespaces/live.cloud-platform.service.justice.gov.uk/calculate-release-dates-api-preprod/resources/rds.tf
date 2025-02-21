@@ -19,6 +19,31 @@ module "calculate_release_dates_api_rds" {
   providers = {
     aws = aws.london
   }
+
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "calculate_release_dates_api_rds" {
@@ -34,4 +59,8 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
     database_password     = module.calculate_release_dates_api_rds.database_password
     rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
   }
+}
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
