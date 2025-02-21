@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-learner-records-api", "hmpps-match-learner-record-ui"]
+  github_repos   = ["hmpps-learner-records-api"]
 
 ###################################################################
   github-actions-sa_rules = [
