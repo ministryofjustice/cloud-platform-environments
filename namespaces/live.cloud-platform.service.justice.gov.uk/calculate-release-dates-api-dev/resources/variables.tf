@@ -62,3 +62,8 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
