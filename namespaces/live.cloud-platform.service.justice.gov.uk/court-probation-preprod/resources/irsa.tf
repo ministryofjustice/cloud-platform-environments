@@ -113,6 +113,7 @@ data "aws_iam_policy_document" "s3_performance_access" {
     actions = [
       "s3:GetObject",
       "s3:PutObject",
+      "s3:ListBucket",
     ]
     resources = ["${module.perf-test-data-s3-bucket.bucket_arn}/*", ]
   }
