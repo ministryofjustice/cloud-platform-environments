@@ -15,7 +15,7 @@ module "rds" {
   allow_major_version_upgrade  = true
   performance_insights_enabled = true
   db_max_allocated_storage     = "500"
-  prepare_for_major_upograde   = true
+  prepare_for_major_upgrade   = true
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
