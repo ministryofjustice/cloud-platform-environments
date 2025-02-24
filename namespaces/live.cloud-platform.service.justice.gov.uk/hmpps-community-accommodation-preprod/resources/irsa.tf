@@ -17,6 +17,7 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = merge(
     { cas-2-sqs = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
+    { cas-2-sqs-dlq = module.cas-2-domain-events-listener-dlq.irsa_policy_arn },
     local.sns_policies
   )
   business_unit          = var.business_unit
@@ -60,9 +61,7 @@ module "irsa_ta" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "hmpps-temporary-accommodation-service-account"
   namespace            = var.namespace
-  role_policy_arns = {
-    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs_audit.value
-  }
+  role_policy_arns = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

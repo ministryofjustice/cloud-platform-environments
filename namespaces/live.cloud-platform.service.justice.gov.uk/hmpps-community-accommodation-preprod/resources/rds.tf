@@ -28,9 +28,9 @@ module "read_replica" {
   environment_name       = var.environment
   is_production          = var.is_production
   infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
   team_name              = var.team_name
   business_unit          = var.business_unit
+  namespace = var.namespace
   db_name                = null # "db_name": conflicts with replicate_source_db
   replicate_source_db    = module.rds.db_identifier
 
