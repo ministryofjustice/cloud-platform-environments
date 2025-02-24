@@ -1,5 +1,5 @@
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
@@ -13,6 +13,7 @@ module "calculate_release_dates_api_rds" {
   infrastructure_support = var.infrastructure_support
 
   # Database configuration
+  db_max_allocated_storage     = "250"
   db_engine              = "postgres"
   db_engine_version      = "16.3"
   rds_family             = "postgres16"
@@ -81,6 +82,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
+  db_max_allocated_storage     = "250"
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
