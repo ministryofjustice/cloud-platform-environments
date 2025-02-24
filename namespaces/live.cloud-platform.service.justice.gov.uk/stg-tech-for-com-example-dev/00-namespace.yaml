@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "tech-for-com"
     cloud-platform.justice.gov.uk/application: "Tech for com example"
-    cloud-platform.justice.gov.uk/owner: "Service Transformation Team: tess.barnes@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Service Transformation Team: techforcom@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-cloud-platform-example-app"
     cloud-platform.justice.gov.uk/team-name: "stg-pathfinders"
     cloud-platform.justice.gov.uk/review-after: ""
