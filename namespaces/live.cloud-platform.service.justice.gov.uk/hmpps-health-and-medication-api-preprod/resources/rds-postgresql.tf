@@ -33,6 +33,9 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # Add DPR security group.
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -78,4 +81,9 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
