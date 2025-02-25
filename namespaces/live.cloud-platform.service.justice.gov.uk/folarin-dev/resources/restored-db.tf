@@ -1,8 +1,5 @@
 module "restored_db" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
-
-  # Unique identifiers
-  db_instance_name       = "restored-v16-instance"
   
   # Snapshot config
   snapshot_identifier    = "manual-pre-v17-upgrade-20250221-161407"
