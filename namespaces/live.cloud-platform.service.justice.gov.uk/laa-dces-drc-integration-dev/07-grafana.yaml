@@ -355,7 +355,7 @@ data:
               },
               "editorMode": "code",
               "expr": "sum(increase(logback_events_total{level=\"error\", namespace=\"$namespace\"}[10m]))",
-              "legendFormat": "Increase in error level logs in the past 10 minutes",
+              "legendFormat": "Number of Error level log messagess in 10 minutes",
               "range": true,
               "refId": "A"
             },
@@ -367,12 +367,12 @@ data:
               "editorMode": "code",
               "expr": "sum(increase(logback_events_total{level=\"info\", namespace=\"$namespace\"}[10m]))",
               "hide": false,
-              "legendFormat": "Increase in info level logs in the past 10 minutes",
+              "legendFormat": "Number of Info level log messagess in 10 minutes",
               "range": true,
               "refId": "B"
             }
           ],
-          "title": "Increases in logs in past 10 minutes (error and info level)",
+          "title": "Log messages in 10 minute intervals (error and info level)",
           "type": "timeseries"
         },
         
@@ -459,12 +459,12 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by (status) (http_server_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/dces/v1.*\"})",
+              "expr": "sum by (status) (increase(http_server_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/dces/v1.*\"}[1m]))",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Calls to DRC Integration by Response Status",
+          "title": "Calls (per 10 minute intervals) to DRC Integration by Response Status",
           "type": "timeseries"
         },
         
@@ -936,7 +936,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by (status) (webclient_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/internal/v1/debt-collection-enforcement.*\"})",
+              "expr": "sum by (status) (increase(webclient_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/internal/v1/debt-collection-enforcement.*\"}[1m]))",
               "range": true,
               "refId": "A"
             }
