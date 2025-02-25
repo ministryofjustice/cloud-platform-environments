@@ -5,7 +5,7 @@ module "ecr-repo" {
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
-  github_actions_prefix = "development"
+  github_actions_prefix = "prod"
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
