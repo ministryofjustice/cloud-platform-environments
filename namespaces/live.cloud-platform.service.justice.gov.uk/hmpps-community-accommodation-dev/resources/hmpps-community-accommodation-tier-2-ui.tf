@@ -14,18 +14,3 @@ module "hmpps_community_accommodation_tier_2_ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
-
-
-resource "kubernetes_secret" "elasticache_redis" {
-  metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
-    namespace = var.namespace
-  }
-
-  data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
-  }
-}
