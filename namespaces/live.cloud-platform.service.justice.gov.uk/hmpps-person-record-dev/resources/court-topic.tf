@@ -28,3 +28,19 @@ resource "kubernetes_secret" "cpr_court_topic" {
     topic_arn         = module.cpr_court_topic.topic_arn
   }
 }
+
+resource "aws_ssm_parameter" "cpr_court_topic_sns_arn" {
+  type        = "String"
+  name        = "/${var.namespace}/cpr-court-topic-sns-arn"
+  value       = module.cpr_court_topic.topic_arn
+  description = "ARN of SNS Topic"
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
