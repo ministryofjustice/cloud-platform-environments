@@ -459,7 +459,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by (status) (increase(http_server_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/dces/v1.*\"}[1m]))",
+              "expr": "sum by (status) (increase(http_server_requests_seconds_count {namespace=\"$namespace\",  uri=~\".*/api/dces/v1.*\"}[10m]))",
               "range": true,
               "refId": "A"
             }
@@ -1316,14 +1316,6 @@ data:
           "title": "Scheduler (Cron job) Count for FDC",
           "type": "timeseries"
         }
-      
-      
-      
-      
-      
-      
-      
-      
       ],
       "refresh": "30s",
       "schemaVersion": 37,
@@ -1395,7 +1387,7 @@ data:
       },
       "timezone": "browser",
       "title": "LAA DRC Integration Service",
-      "uid": "laaDCESDRCIntegration",
+      "uid": "laaDCESDRCIntegrationDev",
       "version": 2,
       "weekStart": ""
     }
