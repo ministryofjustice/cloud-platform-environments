@@ -8,7 +8,7 @@ module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
 
   # Repository configuration
-  repo_name = "cica-experian"
+  repo_name = "cica-experian-uat"
 
   # OpenID Connect configuration
   oidc_providers      = ["circleci"]
