@@ -13,7 +13,7 @@ data "aws_secretsmanager_secret_version" "circleci" {
 }
 
 resource "aws_iam_role" "bankwizard_bucket_assumable_role" {
-  name               = "bankwizard-bucket-assumable-role-oidc" # This is the name of the role 
+  name               = "bankwizard-bucket-assumable-role-oidc-uat" # This is the name of the role 
   assume_role_policy = data.aws_iam_policy_document.circleci_assume_role_policy.json
 }
 
