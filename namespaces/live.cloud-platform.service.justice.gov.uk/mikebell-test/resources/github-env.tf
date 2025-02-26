@@ -11,7 +11,7 @@ resource "github_repository_environment" "env" {
     custom_branch_policies = true
   }
 
-  prevent_self_review = false
+  # prevent_self_review = false
 
   # lifecycle {
   #   precondition {
