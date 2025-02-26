@@ -7,10 +7,8 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  # add v16's snapshot identifier
-  snapshot_identifier    = "manual-pre-v17-upgrade-20250221-161407"
-  skip_final_snapshot    = true
-  deletion_protection    = false  # temporary for restoration
+  # arestore the v17 dbase
+  snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
 
 
   # VPC configuration
