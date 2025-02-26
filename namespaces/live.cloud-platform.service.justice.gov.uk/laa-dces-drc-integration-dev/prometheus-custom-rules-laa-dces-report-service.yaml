@@ -44,7 +44,7 @@ spec:
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
         - alert: Contribution Cron Job  ({{ $labels.namespace }})
-          expr: sum(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
+          expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
           for: 24h
           labels:
             severity: critical
@@ -53,13 +53,23 @@ spec:
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
         - alert: FDC Cron Job  ({{ $labels.namespace }})
-          expr: sum(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) >= 1
+          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) >= 1
           for: 24h
           labels:
             severity: critical
           annotations:
             message: Cron job runs multiple time during the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+
+        - alert: FDC Cron Job Count ({{ $labels.namespace }})
+          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) <= 0
+          for: 24h
+          labels:
+            severity: critical
+          annotations:
+            message: Cron job did not run in the last 24 hours
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+
 
         - alert: Logging Error  ({{ $labels.namespace }})
           expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
