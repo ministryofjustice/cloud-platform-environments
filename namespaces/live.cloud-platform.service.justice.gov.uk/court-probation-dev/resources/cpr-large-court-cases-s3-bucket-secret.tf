@@ -1,7 +1,7 @@
-resource "kubernetes_secret" "large-court-cases-s3-bucket-secret" {
+resource "kubernetes_secret" "cpr-large-court-cases-s3-bucket-secret" {
   ## For metadata use - not _
   metadata {
-    name = "large-court-cases-s3-bucket"
+    name = "cpr-large-court-cases-s3-bucket"
     namespace = var.namespace
   }
 
