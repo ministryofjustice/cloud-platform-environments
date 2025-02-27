@@ -84,12 +84,12 @@ data "aws_iam_policy_document" "combined_prepare_a_case_sqs" {
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
-      module.crime-portal-gateway-queue.irsa_policy_arn,
-      module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn,
-      module.court-cases-queue.irsa_policy_arn,
-      module.court-cases-dlq.irsa_policy_arn,
-      module.pic_new_offender_events_queue.irsa_policy_arn,
-      module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn
+      module.crime-portal-gateway-queue.sqs_arn,
+      module.crime-portal-gateway-dead-letter-queue.sqs_arn,
+      module.court-cases-queue.sqs_arn,
+      module.court-cases-dlq.sqs_arn,
+      module.pic_new_offender_events_queue.sqs_arn,
+      module.pic_new_offender_events_dead_letter_queue.sqs_arn
     ]
   }
 }
