@@ -1,12 +1,25 @@
 
+locals {
+  # The names of the queues used and the namespace which created them
+  sqs_queues = {
+    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod"
+
+  }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+
+}
+    
     module "irsa" {
       source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
       eks_cluster_name      = var.eks_cluster_name
       service_account_name  = "${var.namespace-short}-athena"
       namespace             = var.namespace
-      role_policy_arns = {
-        athena = aws_iam_policy.athena_access.arn
-      }
+      role_policy_arns = merge(
+        local.sqs_policies,
+        {
+          athena = aws_iam_policy.athena_access.arn
+        }
+      )
 
       # Tags
       business_unit          = var.business_unit
@@ -24,10 +37,15 @@
           "sts:AssumeRole"
         ]
         resources = [
-          "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
-          "arn:aws:iam::800964199911:role/cmt_read_emds_data_dev",
+          "arn:aws:iam::396913731313:role/cmt_read_emds_data_test"
         ]
       }
+    }
+
+
+    data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+      for_each = local.sqs_queues
+      name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
     }
 
     resource "aws_iam_policy" "athena_access" {
