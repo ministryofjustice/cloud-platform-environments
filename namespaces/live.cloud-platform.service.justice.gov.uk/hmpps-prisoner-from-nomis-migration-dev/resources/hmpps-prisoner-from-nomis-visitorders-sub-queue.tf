@@ -109,9 +109,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_visitorders_subscript
   endpoint  = module.prisoner_from_nomis_visitorders_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "OFFENDER_VISIT_BALANCES_ADJ-INSERTED",
-      "OFFENDER_VISIT_BALANCES_ADJ-UPDATED",
-      "OFFENDER_VISIT_BALANCES_ADJ-DELETED"
+      "OFFENDER_VISIT_BALANCE_ADJS-INSERTED",
+      "OFFENDER_VISIT_BALANCE_ADJS-UPDATED",
+      "OFFENDER_VISIT_BALANCE_ADJS-DELETED"
     ]
   })
 }
