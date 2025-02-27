@@ -66,6 +66,7 @@ module "irsa" {
     { s3 = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { s3_large_cases = aws_iam_policy.read_only_s3_policy.arn },
     { sqs = aws_iam_policy.combined_prepare_a_case_sqs.arn },
+    { s3_cpr = aws_iam_policy.cross_namespace_s3_policy.arn },
     { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
   )
 
@@ -120,5 +121,20 @@ data "aws_iam_policy_document" "read_only_s3_access" {
       "s3:GetObject",
     ]
     resources = ["${module.large-court-cases-s3-bucket.bucket_arn}/*", ]
+  }
+}
+
+resource "aws_iam_policy" "cross_namespace_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+}
+
+data "aws_iam_policy_document" "cross_namespace_s3_access" {
+  statement {
+    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = ["${data.aws_ssm_parameter.cpr-large-court-cases-s3-bucket-arn.value}/*", ]
   }
 }

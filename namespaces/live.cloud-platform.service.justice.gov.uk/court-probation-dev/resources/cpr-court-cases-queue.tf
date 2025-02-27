@@ -1,6 +1,6 @@
 resource "aws_sns_topic_subscription" "cpr_court_cases_subscription" {
   provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.cpr_court_topic_sns_arn.value
+  topic_arn = data.aws_ssm_parameter.cpr-court-topic-sns-arn.value
   protocol  = "sqs"
   endpoint  = module.cpr-court-cases-queue.sqs_arn
 }
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "cpr_court_cases_sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.cpr_court_topic_sns_arn.value]
+      values   = [data.aws_ssm_parameter.cpr-court-topic-sns-arn.value]
     }
     resources = ["*"]
   }
