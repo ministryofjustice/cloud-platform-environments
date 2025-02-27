@@ -26,7 +26,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-probation-integration"
+  default     = "probation-integration"
 }
 
 variable "environment" {
