@@ -14,6 +14,7 @@ module "hmpps_person_match_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "16"
   prepare_for_major_upgrade   = false
+  performance_insights_enabled = true
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
 
