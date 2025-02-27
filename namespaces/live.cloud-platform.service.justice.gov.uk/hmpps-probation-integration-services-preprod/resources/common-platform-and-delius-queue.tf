@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "common-platform-and-delius-queue-subscription" {
-  topic_arn = data.aws_ssm_parameter.court-topic.value
+  topic_arn = data.aws_ssm_parameter.court-topic-prod.value
   protocol  = "sqs"
   endpoint  = module.common-platform-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
