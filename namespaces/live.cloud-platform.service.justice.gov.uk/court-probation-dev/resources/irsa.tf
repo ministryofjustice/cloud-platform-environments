@@ -90,7 +90,9 @@ data "aws_iam_policy_document" "combined_prepare_a_case_sqs" {
       module.court-cases-queue.sqs_arn,
       module.court-cases-dlq.sqs_arn,
       module.pic_new_offender_events_queue.sqs_arn,
-      module.pic_new_offender_events_dead_letter_queue.sqs_arn
+      module.pic_new_offender_events_dead_letter_queue.sqs_arn,
+      module.cpr-court-cases-queue.sqs_arn,
+      module.cpr-court-cases-dlq.sqs_arn.sqs_arn
     ]
   }
 }
