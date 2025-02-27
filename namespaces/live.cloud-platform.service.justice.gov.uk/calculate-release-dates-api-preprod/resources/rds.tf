@@ -61,6 +61,23 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "calculate_release_dates_api_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "calculate-release-dates-api-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.calculate_release_dates_api_rds.rds_instance_endpoint
+    database_name         = module.calculate_release_dates_api_rds.database_name
+    database_username     = module.calculate_release_dates_api_rds.database_username
+    database_password     = module.calculate_release_dates_api_rds.database_password
+    rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
+  }
+}
+
 
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
