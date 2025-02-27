@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "em-datastore-secret" {
   metadata {
     name      = "sqs-hmpps-audit-secret"
-    namespace = "hmpps-electronic-monitoring-datastore-preprod"
+    namespace = "hmpps-electronic-monitoring-datastore-prod"
   }
 
   data = {
