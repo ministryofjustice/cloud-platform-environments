@@ -42,6 +42,12 @@ locals {
       }
     }
 
+
+    data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+      for_each = local.sqs_queues
+      name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+    }
+
     resource "aws_iam_policy" "athena_access" {
       name   = "${var.namespace}-athena-policy-general"
       policy = data.aws_iam_policy_document.document.json
