@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - match-learner-record-ui-dev.hmpps.service.justice.gov.uk
+    - match-learner-record-dev.hmpps.service.justice.gov.uk
