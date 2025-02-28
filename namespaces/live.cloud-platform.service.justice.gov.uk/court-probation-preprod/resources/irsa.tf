@@ -128,6 +128,23 @@ data "aws_iam_policy_document" "read_only_s3_access" {
   }
 }
 
+resource "aws_iam_policy" "s3_performance_policy" {
+  name   = "${var.namespace}-s3-performance-policy"
+  policy = data.aws_iam_policy_document.s3_performance_access.json
+}
+
+data "aws_iam_policy_document" "s3_performance_access" {
+  statement {
+    sid = "AllowReadWriteAccessToS3Bucket"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket",
+    ]
+    resources = ["${module.perf-test-data-s3-bucket.bucket_arn}/*", ]
+  }
+}
+
 resource "aws_iam_policy" "cross_namespace_s3_policy" {
   name   = "${var.namespace}-cross-namespace-s3-policy"
   policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
