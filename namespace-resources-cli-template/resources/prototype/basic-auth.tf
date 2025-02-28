@@ -7,7 +7,7 @@ resource "kubernetes_secret" "basic_auth" {
   }
 
   data = {
-    username = var.basic-auth-username
-    password = var.basic-auth-password
+    username = "prototype"
+    password = "notarealwebsite"
   }
 }
