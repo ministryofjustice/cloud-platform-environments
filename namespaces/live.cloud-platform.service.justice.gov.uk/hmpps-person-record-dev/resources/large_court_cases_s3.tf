@@ -34,7 +34,7 @@ module "large-court-cases-s3-bucket" {
 
 resource "kubernetes_secret" "large-court-cases-s3-secret" {
   metadata {
-    name      = "large-court-cases-s3-credentials"
+    name      = "uuid-enriched-large-court-cases-s3-bucket"
     namespace = var.namespace
   }
 
