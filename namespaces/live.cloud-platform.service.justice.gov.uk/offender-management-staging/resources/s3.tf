@@ -16,6 +16,26 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
+  bucket = module.s3_bucket.bucket_name
+
+  depends_on = [
+    module.s3_bucket
+  ]
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration" {
+  bucket = module.s3_bucket.bucket_name
+
+  depends_on = [
+    module.s3_bucket
+  ]
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
