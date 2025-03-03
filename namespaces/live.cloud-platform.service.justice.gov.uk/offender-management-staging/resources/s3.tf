@@ -32,7 +32,7 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
   bucket = module.s3_bucket.bucket_name
 
   depends_on = [
-    module.s3_bucket
+    aws_s3_bucket_versioning.s3_bucket_versioning
   ]
 }
 
