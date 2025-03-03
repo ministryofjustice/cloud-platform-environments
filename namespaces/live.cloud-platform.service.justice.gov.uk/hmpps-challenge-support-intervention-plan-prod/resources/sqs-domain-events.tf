@@ -3,7 +3,7 @@ module "domain_events_queue" {
 
   sqs_name                  = "domain_events_queue"
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.hmpps_csip_domain_events_dlq.sqs_arn
+    deadLetterTargetArn = module.domain_events_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -55,9 +55,9 @@ resource "kubernetes_secret" "domain_events_queue_secret" {
   }
 
   data = {
-    queue_url  = module.hmpps_csip_domain_events_queue.sqs_id
-    queue_arn  = module.hmpps_csip_domain_events_queue.sqs_arn
-    queue_name = module.hmpps_csip_domain_events_queue.sqs_name
+    queue_url  = module.domain_events_queue.sqs_id
+    queue_arn  = module.domain_events_queue.sqs_arn
+    queue_name = module.domain_events_queue.sqs_name
   }
 }
 
@@ -68,9 +68,9 @@ resource "kubernetes_secret" "domain_events_dlq_secret" {
   }
 
   data = {
-    queue_url  = module.hmpps_csip_domain_events_dlq.sqs_id
-    queue_arn  = module.hmpps_csip_domain_events_dlq.sqs_arn
-    queue_name = module.hmpps_csip_domain_events_dlq.sqs_name
+    queue_url  = module.domain_events_dlq.sqs_id
+    queue_arn  = module.domain_events_dlq.sqs_arn
+    queue_name = module.domain_events_dlq.sqs_name
   }
 }
 
