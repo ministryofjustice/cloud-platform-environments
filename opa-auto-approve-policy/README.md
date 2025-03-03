@@ -99,6 +99,14 @@ To ensure the integrity of changes, the OPA Auto Approve Policy includes the fol
 
 ## How to Test Locally
 
+You need the [OPA CLI tool](https://www.openpolicyagent.org/docs/latest/cli/) for testing it locally. 
+
+You can install it with the below commmand:
+
+```
+brew install opa
+```
+
 Execute the following commands in the `opa-auto-approve-policy` directory:
 
 1. **Manual Tests**:
