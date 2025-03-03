@@ -99,7 +99,7 @@ To ensure the integrity of changes, the OPA Auto Approve Policy includes the fol
 
 ## How to Test Locally
 
-You need the [OPA CLI tool](https://www.openpolicyagent.org/docs/latest/cli/) for testing it locally. 
+You need the [OPA CLI tool](https://www.openpolicyagent.org/docs/latest/cli/) for testing it locally.
 
 You can install it with the below commmand:
 
