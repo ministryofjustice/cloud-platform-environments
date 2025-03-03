@@ -14,11 +14,11 @@ module "activities_api_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   prepare_for_major_upgrade   = true
-  rds_family                  = var.rds_family
+  rds_family                  = "postgres16"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
-  db_engine_version           = "14"
+  db_engine_version           = "16.3"
   performance_insights_enabled = true
 
   # Add security groups for DPR
