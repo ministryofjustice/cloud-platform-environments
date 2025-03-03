@@ -115,7 +115,6 @@ module "hmpps_csip_domain_events_dlq" {
 }
 
 resource "aws_sns_topic_subscription" "hmpps_csip_domain_events_subscription" {
-  provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.hmpps_csip_domain_events_queue.sqs_arn
