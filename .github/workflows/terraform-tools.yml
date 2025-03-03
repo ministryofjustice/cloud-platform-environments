@@ -8,7 +8,7 @@ on:
 
 jobs:
   trivy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 ##v4.2.2
@@ -19,7 +19,7 @@ jobs:
         with:
           dir_names: true
           dir_names_exclude_current_dir: true
-      
+
       - name: List of changed files
         run: |
           mkdir -p .trivy
@@ -33,7 +33,7 @@ jobs:
           scan-type: 'config'
           scan-ref: '.trivy'
           trivy-config: './config/trivy.yaml'
-          
+
   tfsec:
     runs-on: ubuntu-latest
     permissions:
