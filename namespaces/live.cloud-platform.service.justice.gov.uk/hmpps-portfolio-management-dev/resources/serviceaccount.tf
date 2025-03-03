@@ -1,6 +1,6 @@
 locals {
   github_repos   = ["hmpps-developer-portal"]
-  github_repos_2 = ["hmpps-health-ping", "hmpps-github-discovery","hmpps-terraform-discovery","hmpps-component-dependencies", "hmpps-veracode-discovery", "hmpps-trivy-discovery"]
+  github_repos_2 = ["hmpps-health-ping", "hmpps-github-discovery","hmpps-terraform-discovery","hmpps-component-dependencies", "hmpps-veracode-discovery"]
   sa_rules = [
     {
       api_groups = [""]
@@ -123,3 +123,4 @@ resource "github_repository_environment" "env" {
     custom_branch_policies = false
   }
 }
+
