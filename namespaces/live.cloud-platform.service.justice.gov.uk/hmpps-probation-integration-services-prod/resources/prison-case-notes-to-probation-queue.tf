@@ -16,6 +16,7 @@ resource "aws_sns_topic_subscription" "prison-case-notes-to-probation-queue-subs
           "PRISON",
           "TRANSFER",
           "GEN",
+          "ALERT",
           "RESET",
           "OMIC",
           "OMIC_OPD",
