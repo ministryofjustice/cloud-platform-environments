@@ -1200,7 +1200,7 @@ data:
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": false
             },
             "tooltip": {
               "mode": "single",
@@ -1210,8 +1210,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
+                "type": "thanos",
+                "uid": "thanos"
               },
               "editorMode": "code",
               "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [$__interval] )) ",
@@ -1221,7 +1221,9 @@ data:
             }
           ],
           "title": "Scheduler (Cron job) Count for Contribution",
-          "type": "timeseries"
+          "type": "timeseries",
+          "interval": "1h",
+          "timeFrom": "30d"
         },
         
         {
