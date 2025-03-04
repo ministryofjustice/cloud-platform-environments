@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "tech-for-com"
     cloud-platform.justice.gov.uk/application: "Manage Unpaid Work TCOM Prototype"
     cloud-platform.justice.gov.uk/owner: "Tech for Community Offender Management: TechforCOM@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-tcom-manage-unpaid-work-webapp.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-tcom-manage-unpaid-work-webapp"
     cloud-platform.justice.gov.uk/team-name: "stg-pathfinders"
