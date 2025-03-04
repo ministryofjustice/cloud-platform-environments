@@ -1138,6 +1138,7 @@ data:
           },
           "fieldConfig": {
             "defaults": {
+              "decimals": 0,
               "color": {
                 "mode": "palette-classic"
               },
