@@ -18,7 +18,7 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
-  db_engine_version           = "14"
+  db_engine_version           = "14.12"
   performance_insights_enabled = true
 
   # Add security groups for DPR
