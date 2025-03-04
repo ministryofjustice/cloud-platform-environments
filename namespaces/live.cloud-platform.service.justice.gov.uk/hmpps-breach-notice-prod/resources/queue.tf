@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "queue-subscription" {
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.queue.sqs_arn
   filter_policy = jsonencode({
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "sns_to_sqs" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
     }
     resources = ["*"]
   }
