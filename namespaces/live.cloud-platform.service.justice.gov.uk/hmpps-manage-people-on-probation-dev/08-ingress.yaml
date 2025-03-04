@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hmpps-manage-people-on-probation-ingress-dev
+  name: hmpps-manage-people-on-probation-dev-ingress
   namespace: hmpps-manage-people-on-probation-dev
   annotations:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
