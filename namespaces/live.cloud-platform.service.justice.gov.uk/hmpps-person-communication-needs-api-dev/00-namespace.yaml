@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "connect-dps-non-prod-alerts"
     cloud-platform.justice.gov.uk/application: "hmpps-person-communication-needs-api"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-person-communication-needs-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-person-communication-needs-api"
     cloud-platform.justice.gov.uk/team-name: "connect-dps"
