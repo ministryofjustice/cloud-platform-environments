@@ -7,16 +7,16 @@ locals {
     "Digital-Prison-Services-prod-offender_categorisation_events_queue"    = "offender-events-prod"
     "Digital-Prison-Services-prod-offender_categorisation_events_queue_dl" = "offender-events-prod"
   }
-    sns_topics_api = {
-      "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-prod"
-    }
+  sns_topics_api = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
   sqs_policies_oc = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_oc : item.name => item.value }
   sqs_policies_rp = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_rp : item.name => item.value }
-    sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
-    irsa_policies_api = merge(local.sqs_policies_api, {
-      offender_categorisation_api_queue_for_domain_events                   = module.offender_categorisation_api_queue_for_domain_events.irsa_policy_arn
-      offender_categorisation_api_queue_for_domain_events_dead_letter_queue = module.offender_categorisation_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
-    })
+  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
+  irsa_policies_api = merge(local.sqs_policies_api, {
+    offender_categorisation_api_queue_for_domain_events                   = module.offender_categorisation_api_queue_for_domain_events.irsa_policy_arn
+    offender_categorisation_api_queue_for_domain_events_dead_letter_queue = module.offender_categorisation_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+  })
 }
 
 # IRSA for offender-categorisation deployment
