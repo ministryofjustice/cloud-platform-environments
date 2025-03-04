@@ -5,6 +5,8 @@ metadata:
   namespace: hmpps-manage-people-on-probation-dev
   annotations:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: hmpps-manage-people-on-probation-dev-ingress-dev
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecRuleEngine DetectionOnly
