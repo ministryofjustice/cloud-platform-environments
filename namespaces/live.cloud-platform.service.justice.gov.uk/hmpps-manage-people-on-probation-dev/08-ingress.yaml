@@ -11,3 +11,17 @@ metadata:
       SecDefaultAction "phase:2,pass,log,tag:github_team=hmpps-manage-people-on-probation,tag:hmpps-manage-people-on-probation=dev"
 spec:
   ingressClassName: modsec
+  tls:
+    - hosts:
+        - manage-people-on-probation-dev.hmpps.service.justice.gov.uk
+  rules:
+    - host: manage-people-on-probation-dev.hmpps.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: hmpps-manage-people-on-probation-ui
+                port:
+                  number: 8080
