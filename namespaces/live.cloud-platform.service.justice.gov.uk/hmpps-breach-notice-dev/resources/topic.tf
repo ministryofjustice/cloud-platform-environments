@@ -1,5 +1,5 @@
-data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-${var.environment_name}/topic-arn"
+data "aws_sns_topic" "hmpps-domain-events" {
+  name = var.domain_events_topic_name
 }
 
 resource "kubernetes_secret" "topic-secret" {
@@ -8,6 +8,6 @@ resource "kubernetes_secret" "topic-secret" {
     name      = "hmpps-domain-events"
   }
   data = {
-    topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+    topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   }
 }
