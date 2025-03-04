@@ -6,7 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    external-dns.alpha.kubernetes.io/set-identifier: hmpps-manage-people-on-probation-dev-ingress-hmpps-manage-people-on-probation-dev
+    external-dns.alpha.kubernetes.io/set-identifier: hmpps-manage-people-on-probation-dev-ingress-hmpps-manage-people-on-probation-dev-green
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecRuleEngine DetectionOnly
