@@ -1,5 +1,5 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1"
 
   # Configuration
   bucket_id            = module.s3_bucket.bucket_name
@@ -20,6 +20,63 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  # Custom error pages for every error code
+  # 400, 401, 403, 404, 405, 412, 500, 502, 503, 504
+  custom_error_response = [
+    {
+      error_code            = 400
+      response_code         = 400
+      response_page_path    = "/error_pages/400.html"
+    },
+    {
+      error_code            = 401
+      response_code         = 401
+      response_page_path    = "/error_pages/401.html"
+      error_caching_min_ttl = 0
+    },
+    {
+      error_code            = 403
+      response_code         = 403
+      response_page_path    = "/error_pages/403.html"
+      error_caching_min_ttl = 0
+    },
+    {
+      error_code            = 404
+      response_code         = 404
+      response_page_path    = "/error_pages/404.html"
+    },
+    {
+      error_code            = 405
+      response_code         = 405
+      response_page_path    = "/error_pages/405.html"
+    },
+    {
+      error_code            = 412
+      response_code         = 412
+      response_page_path    = "/error_pages/412.html"
+    },
+    {
+      error_code            = 500
+      response_code         = 500
+      response_page_path    = "/error_pages/500.html"
+    },
+    {
+      error_code            = 502
+      response_code         = 502
+      response_page_path    = "/error_pages/502.html"
+    },
+    {
+      error_code            = 503
+      response_code         = 503
+      response_page_path    = "/error_pages/503.html"
+    },
+    {
+      error_code            = 504
+      response_code         = 504
+      response_page_path    = "/error_pages/504.html"
+    }
+  ]
 
   depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
