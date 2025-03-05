@@ -1133,8 +1133,8 @@ data:
         
         {
           "datasource": {
-            "type": "thanos",
-            "uid": "thanos"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -1211,8 +1211,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "thanos",
-                "uid": "thanos"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1h] )) ",
