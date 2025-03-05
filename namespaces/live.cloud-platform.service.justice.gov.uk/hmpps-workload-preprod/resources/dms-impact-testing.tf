@@ -9,6 +9,7 @@ module "hmpps-workload-impact-testing-dms" {
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   team_name              = var.team_name
+  engine_version         = var.dms_engine_version
 }
 
 resource "random_id" "dms_rand" {
