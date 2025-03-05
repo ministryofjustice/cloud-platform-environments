@@ -1133,8 +1133,8 @@ data:
         
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
+            "type": "thanos",
+            "uid": "thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -1191,11 +1191,11 @@ data:
           },
           "gridPos": {
             "h": 10,
-            "w": 12,
+            "w": 24,
             "x": 0,
             "y": 23
           },
-          "id": 31,
+          "id": 33,
           "options": {
             "legend": {
               "calcs": [],
@@ -1215,7 +1215,7 @@ data:
                 "uid": "thanos"
               },
               "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1d] )) ",
+              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1h] )) ",
               "legendFormat": "Contribution",
               "range": true,
               "refId": "A"
