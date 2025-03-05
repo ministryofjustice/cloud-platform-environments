@@ -15,7 +15,7 @@ module "peoplefinder_rds" {
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.3"
+  db_engine_version          = "16.4"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment_name           = var.environment
