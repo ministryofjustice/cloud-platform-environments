@@ -7,7 +7,7 @@ metadata:
   labels:
     grafana_dashboard: "laa-dces-drc-integration"
 data:
-  laa-dces-drc-integration.json: |
+  laa-dces-drc-integration.json: | 
     {
       "annotations": {
         "list": [
@@ -40,6 +40,17 @@ data:
       "links": [],
       "liveNow": false,
       "panels": [
+        {
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 3
+          },
+          "id": 0,
+          "title": "Scheduler (Cron job) Counts",
+          "type": "row"
+        },
         {
           "datasource": {
             "type": "Thanos",
@@ -130,7 +141,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Scheduler (Cron job) Count for Contribution",
+          "title": "Contribution",
           "type": "timeseries",
           "interval": "1h",
           "timeFrom": "30d"
@@ -225,7 +236,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Scheduler (Cron job) Count for Fdc",
+          "title": "Fdc",
           "type": "timeseries",
           "interval": "1h",
           "timeFrom": "30d"
