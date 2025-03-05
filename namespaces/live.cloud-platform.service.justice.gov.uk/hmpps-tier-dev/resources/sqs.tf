@@ -4,23 +4,23 @@ resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
   endpoint  = module.hmpps-tier-events-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "assessment.summary.produced",
-      "enforcement.breach.raised",
       "enforcement.breach.concluded",
-      "enforcement.recall.raised",
+      "enforcement.breach.raised",
       "enforcement.recall.concluded",
-      "probation-case.engagement.created",
+      "enforcement.recall.raised",
       "probation-case.deleted.gdpr",
+      "probation-case.engagement.created",
       "probation-case.merge.completed",
-      "probation-case.unmerge.completed",
       "probation-case.registration.added",
-      "probation-case.registration.updated",
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
+      "probation-case.registration.updated",
       "probation-case.requirement.created",
       "probation-case.requirement.deleted",
       "probation-case.requirement.terminated",
-      "probation-case.requirement.unterminated"
+      "probation-case.requirement.unterminated",
+      "probation-case.unmerge.completed",
+      "risk-assessment.scores.determined",
     ]
   })
 }

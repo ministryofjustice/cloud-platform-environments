@@ -8,6 +8,16 @@ locals {
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+
+  default_tags = {
+    namespace              = var.namespace
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment-name
+    infrastructure_support = var.infrastructure_support
+  }
 }
 
 module "court-facing-api-irsa" {
@@ -20,9 +30,6 @@ module "court-facing-api-irsa" {
   service_account_name = "court-facing-api"
   namespace            = var.namespace # this is also used as a tag
 
-  # Attach the appropriate policies using a key => value map
-  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
-  # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = merge(
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { s3_pt = module.perf-test-data-s3-bucket.irsa_policy_arn },
@@ -59,13 +66,10 @@ module "irsa" {
     { rds_pss = module.pre_sentence_service_rds.irsa_policy_arn },
     { s3_cpg = module.crime-portal-gateway-s3-bucket.irsa_policy_arn },
     { s3_large_cases = aws_iam_policy.read_only_s3_policy.arn },
-    { sqs_cpg = module.crime-portal-gateway-queue.irsa_policy_arn },
-    { sqs_ccq = module.court-cases-queue.irsa_policy_arn },
-    { sqs_ccq_dlq = module.court-cases-dlq.irsa_policy_arn },
-    { sqs_cpg_dlq = module.crime-portal-gateway-dead-letter-queue.irsa_policy_arn },
-    { sqs_ccs = module.pic_new_offender_events_queue.irsa_policy_arn },
-    { sqs_ccs_dlq = module.pic_new_offender_events_dead_letter_queue.irsa_policy_arn },
-    { elasticache = module.pac_elasticache_redis.irsa_policy_arn }
+    { sqs = aws_iam_policy.combined_prepare_a_case_sqs.arn },
+    { s3_cpr = aws_iam_policy.cross_namespace_s3_policy.arn },
+    { elasticache = module.pac_elasticache_redis.irsa_policy_arn },
+    { s3_peformance_reports = aws_iam_policy.s3_performance_policy.arn }
   )
 
   # Tags
@@ -75,6 +79,29 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_iam_policy_document" "combined_prepare_a_case_sqs" {
+  statement {
+    sid       = "prepareACaseSQSPolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.crime-portal-gateway-queue.sqs_arn,
+      module.crime-portal-gateway-dead-letter-queue.sqs_arn,
+      module.court-cases-queue.sqs_arn,
+      module.court-cases-dlq.sqs_arn,
+      module.pic_new_offender_events_queue.sqs_arn,
+      module.pic_new_offender_events_dead_letter_queue.sqs_arn,
+      module.cpr-court-cases-queue.sqs_arn,
+      module.cpr-court-cases-dlq.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_prepare_a_case_sqs" {
+  policy = data.aws_iam_policy_document.combined_prepare_a_case_sqs.json
+  tags   = local.default_tags
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
@@ -98,5 +125,37 @@ data "aws_iam_policy_document" "read_only_s3_access" {
       "s3:GetObject",
     ]
     resources = ["${module.large-court-cases-s3-bucket.bucket_arn}/*", ]
+  }
+}
+
+resource "aws_iam_policy" "s3_performance_policy" {
+  name   = "${var.namespace}-s3-performance-policy"
+  policy = data.aws_iam_policy_document.s3_performance_access.json
+}
+
+data "aws_iam_policy_document" "s3_performance_access" {
+  statement {
+    sid = "AllowReadWriteAccessToS3Bucket"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket",
+    ]
+    resources = ["${module.perf-test-data-s3-bucket.bucket_arn}/*", ]
+  }
+}
+
+resource "aws_iam_policy" "cross_namespace_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+}
+
+data "aws_iam_policy_document" "cross_namespace_s3_access" {
+  statement {
+    sid = "AllowReadAccessToCrossNamespaceS3Bucket"
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = ["${data.aws_ssm_parameter.cpr-large-court-cases-s3-bucket-arn.value}/*", ]
   }
 }

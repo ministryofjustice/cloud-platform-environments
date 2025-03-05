@@ -119,11 +119,13 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },
+    { large_cases_s3 = module.large-court-cases-s3-bucket.irsa_policy_arn },
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
-    { combined_cpr_sqs = aws_iam_policy.combined_cpr_sqs.arn }
+    { combined_cpr_sqs = aws_iam_policy.combined_cpr_sqs.arn },
+    { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )
 
   # Tags

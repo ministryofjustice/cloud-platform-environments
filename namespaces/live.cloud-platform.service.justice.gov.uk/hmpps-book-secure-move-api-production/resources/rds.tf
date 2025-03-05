@@ -90,7 +90,7 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   prepare_for_major_upgrade = false
-  db_engine_version = "16.3"
+  db_engine_version = "16.4"
   rds_family        = "postgres16"
 
   providers = {

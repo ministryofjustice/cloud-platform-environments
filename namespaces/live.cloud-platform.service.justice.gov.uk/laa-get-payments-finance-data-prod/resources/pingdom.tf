@@ -14,4 +14,5 @@ resource "pingdom_check" "get-legal-aid-data-prod" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_glad,component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_glad"
   probefilters             = "region:EU"
+  integrationids           = [141867]
 }

@@ -24,6 +24,18 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "kubernetes_secret" "irsa_circle" {
+  metadata {
+    name      = "irsa-circleoutput"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
+}
+
 module "service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
 
