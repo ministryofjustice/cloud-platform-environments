@@ -13,7 +13,7 @@ module "activities_api_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   rds_family                  = "postgres16"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
