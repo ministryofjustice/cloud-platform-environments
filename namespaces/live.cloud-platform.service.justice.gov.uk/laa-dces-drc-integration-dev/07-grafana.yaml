@@ -41,13 +41,203 @@ data:
       "liveNow": false,
       "panels": [
         {
+          "datasource": {
+            "type": "Thanos",
+            "uid": "Thanos"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Count",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
           "gridPos": {
-            "h": 10,
-            "w": 12,
+            "h": 4,
+            "w": 24,
             "x": 0,
             "y": 0
           },
           "id": 1,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1h] )) ",
+              "legendFormat": "Contribution",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Scheduler (Cron job) Count for Contribution",
+          "type": "timeseries",
+          "interval": "1h",
+          "timeFrom": "30d"
+        },
+        {
+          "datasource": {
+            "type": "Thanos",
+            "uid": "Thanos"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Count",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "Thanos",
+                "uid": "Thanos"
+              },
+              "editorMode": "code",
+              "expr": "sum(increase(ServiceScheduler_fdc_seconds_count {namespace=\"$namespace\"} [1h] )) ",
+              "legendFormat": "Contribution",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Scheduler (Cron job) Count for Contribution",
+          "type": "timeseries",
+          "interval": "1h",
+          "timeFrom": "30d"
+        },
+        {
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 3
+          },
+          "id": 3,
           "title": "DCES DRC Integration Metrics",
           "type": "row"
         },
@@ -112,9 +302,9 @@ data:
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 0
+            "y": 3
           },
-          "id": 2,
+          "id": 4,
           "options": {
             "legend": {
               "calcs": [],
@@ -1128,103 +1318,6 @@ data:
           ],
           "title": "Average Response Rate for MAAT-API calls",
           "type": "timeseries"
-        },
-        
-        
-        {
-          "datasource": {
-            "type": "Thanos",
-            "uid": "Thanos"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "decimals": 0,
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "Cron job execution count",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 24,
-            "x": 0,
-            "y": 23
-          },
-          "id": 33,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "Thanos",
-                "uid": "Thanos"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1h] )) ",
-              "legendFormat": "Contribution",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Scheduler (Cron job) Count for Contribution",
-          "type": "timeseries",
-          "interval": "1h",
-          "timeFrom": "30d"
         },
         
         {
