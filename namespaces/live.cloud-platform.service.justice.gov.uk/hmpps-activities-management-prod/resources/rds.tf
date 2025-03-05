@@ -13,7 +13,7 @@ module "activities_api_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   rds_family                  = "postgres17"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -26,28 +26,28 @@ module "activities_api_rds" {
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable DPR team to configure replication
-#  db_parameter = [
-#    {
-#      name         = "rds.logical_replication"
-#      value        = "1"
-#      apply_method = "pending-reboot"
-#    },
-#     {
-#      name         = "shared_preload_libraries"
-#      value        = "pglogical"
-#      apply_method = "pending-reboot"
-#    },
-#    {
-#      name         = "max_wal_size"
-#      value        = "1024"
-#      apply_method = "immediate"
-#    },
-#    {
-#      name         = "wal_sender_timeout"
-#      value        = "0"
-#      apply_method = "immediate"
-#    }
-#  ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london
