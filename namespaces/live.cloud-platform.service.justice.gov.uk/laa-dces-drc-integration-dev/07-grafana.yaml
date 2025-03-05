@@ -225,7 +225,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Scheduler (Cron job) Count for Contribution",
+          "title": "Scheduler (Cron job) Count for Fdc",
           "type": "timeseries",
           "interval": "1h",
           "timeFrom": "30d"
