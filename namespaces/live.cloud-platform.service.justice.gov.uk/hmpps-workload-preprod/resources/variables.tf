@@ -60,3 +60,7 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "dms_engine_version" {
+    default = "3.5.4"
+}
