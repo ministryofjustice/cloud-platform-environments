@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: stg-tcom-manage-unpaid-work-webapp-dev
-spec:
-  hard:
-    pods: "50"
