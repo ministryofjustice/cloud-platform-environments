@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "hmpps-prisoner-profile-test-check" {
   type                     = "http"
   name                     = "HMPPS Prisoner Profile - DEV"
-  host                     = "prisoner-dev.digital.prison.service.justice.gov.uk"
+  host                     = "prisoner-test.digital.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
