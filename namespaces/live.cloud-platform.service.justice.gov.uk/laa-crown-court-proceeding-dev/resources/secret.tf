@@ -40,6 +40,16 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "evidence-oauth-client-secret"
     },
+    "ccp_oauth_client_id" = {
+      description             = "CCP oauth client ID for CCP Dev",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ccp-oauth-client-id"
+    },
+    "ccp_oauth_client_secret" = {
+      description             = "CCP oauth client secret for CCP Dev",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "ccp-oauth-client-secret"
+    },
     "sentry_dsn" = {
       description             = "Sentry Data Source Name (DSN) for CCP Dev",
       recovery_window_in_days = 7,

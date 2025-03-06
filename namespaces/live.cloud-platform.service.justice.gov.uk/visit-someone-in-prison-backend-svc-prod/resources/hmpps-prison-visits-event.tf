@@ -9,8 +9,18 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
   endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "non-associations.created",
+      "non-associations.deleted",
+      "non-associations.closed",
+      "non-associations.amended",
+      "prison-offender-events.visitor.restriction.upserted",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.restriction.changed",
+      "prison-offender-events.prisoner.person-restriction.upserted",
+      "prison-offender-events.prisoner.contact-approved",
+      "prison-offender-events.prisoner.contact-unapproved",
+      "prisoner-offender-search.prisoner.alerts-updated",
     ]
   })
 }

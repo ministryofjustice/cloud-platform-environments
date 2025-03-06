@@ -21,3 +21,7 @@ data "aws_sns_topic" "prison-offender-events" {
 data "aws_ssm_parameter" "court-topic" {
   name = "/court-probation-preprod/court-cases-topic-arn"
 }
+
+data "aws_ssm_parameter" "court-topic-prod" {
+  name = "/court-probation-prod/court-cases-topic-arn"
+}

@@ -9,7 +9,7 @@ variable "namespace" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dps-tech"
+  default     = "hmpps-sre"
 }
 
 variable "environment_name" {

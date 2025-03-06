@@ -71,3 +71,15 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "service_account_name" {
+  type        = string
+  description = "The name of the service account"
+  default     = "circleci-experian-dev"
+}
+
+variable "experian_project_id" {
+  type        = string
+  description = "The circle project ID for bank wizard"
+  default     = "07922d32-a0bc-4e11-9e28-9d574f9e7a0e"
+}

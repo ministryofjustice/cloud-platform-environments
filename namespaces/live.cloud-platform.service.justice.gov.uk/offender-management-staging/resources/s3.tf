@@ -14,6 +14,16 @@ module "s3_bucket" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  versioning = true
+}
+
+resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration" {
+  bucket = module.s3_bucket.bucket_name
+
+  depends_on = [
+    module.s3_bucket
+  ]
 }
 
 resource "kubernetes_secret" "s3_bucket" {

@@ -11,6 +11,7 @@ variable "domains" {
     "cym.victimandwitnessinformation.org.uk"          = "victimandwitnessinformation-cym"
     "cym.victimscode.org.uk"                          = "victimscode-cym"
     "dashboard.websitebuilder.service.justice.gov.uk" = "websitebuilder-dashboard"
+    "developers.websitebuilder.service.justice.gov.uk" = "websitebuilder-developers"
     "hmcpsi.justiceinspectorates.gov.uk"              = "justiceinspectorates-hmcpsi"
     "hmiprisons.justiceinspectorates.gov.uk"          = "justiceinspectorates-hmiprisons"
     "hmppsinsights.service.justice.gov.uk"            = "hmppsinsights"
