@@ -1,5 +1,6 @@
 1module "subject_access_request_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -8,10 +9,11 @@
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  rds_family                  = var.rds_family
-  allow_major_version_upgrade = true
   db_instance_class           = "db.t4g.small"
+  db_engine                   = "postgres"
   db_engine_version           = "17"
+  rds_family                  = "postgres17"
+  allow_major_version_upgrade = true
   deletion_protection         = true
 
   providers = {
