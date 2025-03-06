@@ -13,6 +13,7 @@ module "subject_access_request_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "17"
   rds_family                  = "postgres17"
+  prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   deletion_protection         = true
 
