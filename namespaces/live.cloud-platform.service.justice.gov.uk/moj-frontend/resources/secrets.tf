@@ -56,6 +56,19 @@ module "secrets_manager_multiple_secrets" {
       description             = "Notification token",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-token"
+    },
+
+    "notify-email-retry-ms" = {
+      description             = "Notification retry milliseconds",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "notify-email-retry-ms"
+    },
+
+    "notify-email-max-retries" = {
+      description             = "Notification max retries",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "notify-email-max-retries"
     }
+
   }
 }
