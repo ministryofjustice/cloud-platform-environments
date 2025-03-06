@@ -41,9 +41,24 @@ resource "aws_sns_topic_subscription" "keyworker_domain_events_subscription" {
   protocol  = "sqs"
   endpoint  = module.keyworker_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [
-      "complexity-of-need.level.changed",
-      "prison-offender-events.prisoner.merged"
+    "$or" : [
+      {
+        eventType = [
+          "complexity-of-need.level.changed",
+          "prison-offender-events.prisoner.merged"
+        ]
+      },
+      {
+        eventType = [
+          "person.case-note.created",
+          "person.case-note.updated",
+          "person.case-note.moved",
+          "person.case-note.deleted"
+        ],
+        type = [
+          "KA"
+        ]
+      }
     ]
   })
 }
