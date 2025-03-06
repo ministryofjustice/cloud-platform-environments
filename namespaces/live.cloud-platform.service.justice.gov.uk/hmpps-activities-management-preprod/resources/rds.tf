@@ -159,3 +159,18 @@ resource "kubernetes_secret" "activities_rds_read_replica" {
     rds_instance_address  = module.activities_rds_read_replica.rds_instance_address
   }
 }
+
+resource "kubernetes_secret" "activities_api_rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.activities_rds.rds_instance_endpoint
+    database_name         = module.activities_rds.database_name
+    database_username     = module.activities_rds.database_username
+    database_password     = module.activities_rds.database_password
+    rds_instance_address  = module.activities_rds.rds_instance_address
+  }
+}
