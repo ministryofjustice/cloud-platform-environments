@@ -1,4 +1,4 @@
-1module "subject_access_request_rds" {
+module "subject_access_request_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
 
   vpc_name                    = var.vpc_name
