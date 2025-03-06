@@ -4,8 +4,8 @@ module "hmpps_trivy_discovery" {
   application                   = "hmpps-trivy-discovery"
   github_team                   = "hmpps-sre"
   environment                   = "prod" # Should match environment name used in helm values file e.g. values-dev.yaml
-  protected_branches_only       = true
   reviewer_teams                = ["hmpps-sre"]
+  protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "none"
