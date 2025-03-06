@@ -118,9 +118,9 @@ resource "aws_route53_record" "icrir_route53_txt_asvdns" {
   records = ["asvdns_597b5b92-f07e-4cca-95f2-f41a0b123faf"]
 }
 
-resource "aws_route53_record" "icrir_route53_txt_asvdns2" {
+resource "aws_route53_record" "icrir_route53_txt_asvdns3" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
-  name    = "_asvdns-fc26cf25-cac3-4ed5-91dd-bc49ab167c7a"
+  name    = "_asvdns-fc26cf25-cac3-4ed5-91dd-bc49ab167c7a.careers.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
   records = ["asvdns_b872b912-99d4-47f9-b1a8-82d64481e883"]
