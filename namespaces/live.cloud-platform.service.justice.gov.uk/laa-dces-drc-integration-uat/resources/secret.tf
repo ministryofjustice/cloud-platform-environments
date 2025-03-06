@@ -35,6 +35,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "feature-flags"
     }
+    "helm-values" = {
+      description             = "[helm-values] Deployment-time secret values for Helm"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "helm-values"
+    }
     "maat-cd-api" = {
       description             = "[maat-cd-api] MAAT court data API client credential env-vars"
       recovery_window_in_days = 7
