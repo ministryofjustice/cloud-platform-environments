@@ -13,3 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "hmpps-person-integration-api"
     cloud-platform.justice.gov.uk/owner: "HMPPS Person Record Team: hmpps-person-record@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-person-integration-api"
+    cloud-platform.justice.gov.uk/team-name: "connect-dps"
+

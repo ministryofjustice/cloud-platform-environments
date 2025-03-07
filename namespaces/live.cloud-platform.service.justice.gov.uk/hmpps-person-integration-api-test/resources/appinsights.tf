@@ -8,7 +8,7 @@ data "aws_ssm_parameter" "application_insights_key" {
 ## preprod  = /application_insights/key-preprod
 ## prod     = /application_insights/key-prod
 
-  name = "/application_insights/key-test"
+  name = "/application_insights/key-dev"
 }
 
 ########################################################################
