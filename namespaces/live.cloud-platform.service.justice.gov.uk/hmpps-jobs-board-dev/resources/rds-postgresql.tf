@@ -1,8 +1,11 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # Add security group id
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -32,31 +35,31 @@ module "rds" {
 
   # add parameter group
   db_parameter = [
-      {
-        name         = "rds.logical_replication"
-        value        = "1"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "shared_preload_libraries"
-        value        = "pglogical"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "max_wal_size"
-        value        = "1024"
-        apply_method = "immediate"
-      },
-      {
-        name         = "wal_sender_timeout"
-        value        = "0"
-        apply_method = "immediate"
-      },
-      {
-        name         = "max_slot_wal_keep_size"
-        value        = "40000"
-        apply_method = "immediate"
-      }
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
   ]
 }
 

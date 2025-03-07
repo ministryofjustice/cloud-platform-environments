@@ -5,7 +5,10 @@
  *
  */
 module "rds_metabase" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -39,12 +42,15 @@ module "rds_metabase" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica_metabase" {
-  
+
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  vpc_name               = var.vpc_name
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -99,7 +105,7 @@ resource "kubernetes_secret" "rds_metabase" {
     database_username     = module.rds_metabase.database_username
     database_password     = module.rds_metabase.database_password
     rds_instance_address  = module.rds_metabase.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds_metabase.rds_instance_endpoint}/${module.rds_metabase.database_name}?user=${module.rds_metabase.database_username}&password=${module.rds_metabase.database_password}"
+    jdbc_url              = "jdbc:postgresql://${module.rds_metabase.rds_instance_endpoint}/${module.rds_metabase.database_name}?user=${module.rds_metabase.database_username}&password=${module.rds_metabase.database_password}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
