@@ -4,7 +4,7 @@ metadata:
   name: "hmpps-person-integration-api-test"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "development"
+    cloud-platform.justice.gov.uk/environment-name: "test"
     cloud-platform.justice.gov.uk/namespace: "hmpps-person-integration-api-test"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
