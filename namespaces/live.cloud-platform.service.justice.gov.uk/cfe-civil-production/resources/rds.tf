@@ -6,7 +6,10 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -62,7 +65,10 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -118,7 +124,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
+    jdbc_url              = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
 
   }
   /* You can replace all of the above with the following, if you prefer to

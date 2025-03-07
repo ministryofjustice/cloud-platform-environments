@@ -1,13 +1,15 @@
 module "prison-visits-rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name                 = var.vpc_name
-  team_name                = "prison-visits-booking"
-  business_unit            = "HMPPS"
-  application              = "prison-visits-booking-staging"
-  is_production            = "false"
-  environment_name         = "staging"
-  infrastructure_support   = "pvb-technical-support@digital.justice.gov.uk"
-  namespace                = var.namespace
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  storage_type           = "gp2"
+  vpc_name               = var.vpc_name
+  team_name              = "prison-visits-booking"
+  business_unit          = "HMPPS"
+  application            = "prison-visits-booking-staging"
+  is_production          = "false"
+  environment_name       = "staging"
+  infrastructure_support = "pvb-technical-support@digital.justice.gov.uk"
+  namespace              = var.namespace
 
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = false
