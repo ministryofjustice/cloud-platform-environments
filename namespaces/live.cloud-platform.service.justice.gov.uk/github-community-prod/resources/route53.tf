@@ -19,7 +19,7 @@ resource "kubernetes_secret" "route53_zone_output" {
   }
 
   data = {
-    zone_id     = aws_route53_zone.example_team_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.example_team_route53_zone.name_servers)
+    zone_id     = aws_route53_zone.route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.route53_zone.name_servers)
   }
 }
