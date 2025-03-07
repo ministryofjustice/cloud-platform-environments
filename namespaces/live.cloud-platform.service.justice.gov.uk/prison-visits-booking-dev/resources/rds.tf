@@ -1,5 +1,6 @@
 module "prison-visits-rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -20,11 +21,12 @@ module "prison-visits-rds" {
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
   db_password_rotated_date    = "2023-03-22"
 
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop = true
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "prison-visits-rds" {
