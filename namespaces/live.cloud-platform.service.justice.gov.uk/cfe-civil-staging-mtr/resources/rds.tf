@@ -6,7 +6,10 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -27,7 +30,7 @@ module "rds" {
   db_engine_version = "14"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t4g.micro"
+  db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
@@ -63,7 +66,10 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
