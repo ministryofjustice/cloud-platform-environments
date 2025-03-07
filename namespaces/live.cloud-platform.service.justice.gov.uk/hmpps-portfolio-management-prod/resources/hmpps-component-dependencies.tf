@@ -1,7 +1,7 @@
-module "hmpps_trivy_discovery" {
+module "hmpps_component_dependencies" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo                   = "hmpps-trivy-discovery"
-  application                   = "hmpps-trivy-discovery"
+  github_repo                   = "hmpps-component-dependencies"
+  application                   = "hmpps-component-dependencies"
   github_team                   = "hmpps-sre"
   environment                   = "prod" # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-sre"]
