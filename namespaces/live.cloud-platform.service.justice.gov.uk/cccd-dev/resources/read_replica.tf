@@ -1,7 +1,8 @@
 module "read_replica" {
   # default off as in count = 0
-  count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  count        = 1
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type = "gp2"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -37,6 +38,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 }
+
 
 resource "kubernetes_secret" "read_replica" {
   count = 1

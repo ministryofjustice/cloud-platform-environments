@@ -5,31 +5,34 @@
  *
  */
 module "allocation-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
-  vpc_name                   = var.vpc_name
-  db_instance_class          = "db.t4g.small"
-  team_name                  = var.team_name
-  business_unit              = var.business_unit
-  application                = var.application
-  is_production              = var.is_production
-  namespace                  = var.namespace
-  environment_name           = var.environment_name
-  infrastructure_support     = var.infrastructure_support
-  db_engine                  = "postgres"
+  vpc_name                    = var.vpc_name
+  db_instance_class           = "db.t4g.small"
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  namespace                   = var.namespace
+  environment_name            = var.environment_name
+  infrastructure_support      = var.infrastructure_support
+  db_engine                   = "postgres"
   db_engine_version           = "15.6"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
-  db_name                    = "allocations"
-  enable_rds_auto_start_stop = true
+  db_name                     = "allocations"
+  enable_rds_auto_start_stop  = true
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "allocation-rds" {

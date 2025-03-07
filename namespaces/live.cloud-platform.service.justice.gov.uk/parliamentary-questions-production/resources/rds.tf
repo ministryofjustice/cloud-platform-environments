@@ -20,12 +20,15 @@ module "rds_instance" {
   db_name                    = "parliamentary_questions_production"
   rds_family                 = "postgres16"
   db_backup_retention_period = var.db_backup_retention_period
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   prepare_for_major_upgrade  = false
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "rds_instance" {

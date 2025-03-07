@@ -6,13 +6,15 @@
  */
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name      = var.vpc_name
-  team_name     = var.team_name
-  business_unit = var.business_unit
-  application   = var.application
-  is_production = var.is_production
-  namespace     = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+  vpc_name             = var.vpc_name
+  team_name            = var.team_name
+  business_unit        = var.business_unit
+  application          = var.application
+  is_production        = var.is_production
+  namespace            = var.namespace
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
@@ -38,6 +40,7 @@ module "cla_backend_rds_postgres_14" {
       value        = "1"
       apply_method = "pending-reboot"
     }
+
   ]
 
   providers = {
@@ -47,7 +50,9 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -75,10 +80,12 @@ module "cla_backend_rds_postgres_14_replica" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -102,6 +109,7 @@ module "cla_backend_metabase_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
