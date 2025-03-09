@@ -10,7 +10,7 @@ module "rds" {
   namespace                    = var.namespace
   rds_name                     = "hmpps-tier-${var.environment_name}"
   rds_family                   = "postgres16"
-  db_engine_version            = "16.3"
+  db_engine_version            = "16.4"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   performance_insights_enabled = true
