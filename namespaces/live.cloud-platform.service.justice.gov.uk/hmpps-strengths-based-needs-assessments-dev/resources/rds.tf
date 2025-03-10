@@ -39,7 +39,7 @@ resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_dev_rds_se
 }
 
 provider "postgresql" {
-  database         = "postgres"
+  database         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
   host             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_address
   port             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_port
   username         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
