@@ -11,9 +11,9 @@ module "dps_rds" {
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "17"
+  db_engine_version           = "16"
   db_engine                   = "postgres"
-  rds_family                  = "postgres17"
+  rds_family                  = "postgres16"
   db_password_rotated_date    = "15-02-2023"
   prepare_for_major_upgrade   = true
 }
