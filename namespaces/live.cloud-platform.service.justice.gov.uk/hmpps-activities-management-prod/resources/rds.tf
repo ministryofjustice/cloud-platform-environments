@@ -21,7 +21,7 @@ module "activities_api_rds" {
   db_engine_version           = "17.2"
   db_engine                   = "postgres"
   performance_insights_enabled = true
-
+  deletion_protection         = true
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
