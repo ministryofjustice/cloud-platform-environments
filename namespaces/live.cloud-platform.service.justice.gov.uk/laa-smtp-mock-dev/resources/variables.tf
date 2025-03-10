@@ -67,3 +67,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "serviceaccount_name" {
+  description = "The name of the serviceaccount"
+  default     = "laa-smtp-mock-serviceaccount"
+  type        = string
+}
