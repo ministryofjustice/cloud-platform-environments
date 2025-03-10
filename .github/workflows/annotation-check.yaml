@@ -36,7 +36,7 @@ jobs:
       - name: Check Annotations
         if : ${{ steps.namespace_files.outputs.file != '' }}
         id: check_annotations
-        uses: docker://ministryofjustice/cloud-platform-annotation-check:1.2.1
+        uses: docker://ministryofjustice/cloud-platform-annotation-check:1.3.0
         env:
           NAMESPACE_FILE: ${{ steps.namespace_files.outputs.file }}
           BRANCH: ${{ github.head_ref }}
