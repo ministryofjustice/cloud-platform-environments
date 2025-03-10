@@ -8,13 +8,14 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
+  allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15"
+  db_engine_version           = "16"
   db_engine                   = "postgres"
-  rds_family                  = "postgres15"
-  prepare_for_major_upgrade   = false
+  rds_family                  = "postgres16"
   db_password_rotated_date    = "15-02-2023"
+  prepare_for_major_upgrade   = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
