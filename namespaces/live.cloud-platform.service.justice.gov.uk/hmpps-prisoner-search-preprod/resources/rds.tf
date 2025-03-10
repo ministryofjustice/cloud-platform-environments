@@ -1,21 +1,24 @@
 module "hmpps_prisoner_search_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  vpc_name                     = var.vpc_name
-  team_name                    = var.team_name
-  business_unit                = var.business_unit
-  application                  = var.application
-  is_production                = var.is_production
-  namespace                    = var.namespace
-  environment_name             = var.environment
-  infrastructure_support       = var.infrastructure_support
-  db_instance_class            = "db.t4g.micro"
-  db_engine                    = "postgres"
-  db_engine_version            = "17"
-  rds_family                   = "postgres17"
-  deletion_protection          = true
-  prepare_for_major_upgrade    = false
-  db_max_allocated_storage     = "500"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+
+  vpc_name                  = var.vpc_name
+  team_name                 = var.team_name
+  business_unit             = var.business_unit
+  application               = var.application
+  is_production             = var.is_production
+  namespace                 = var.namespace
+  environment_name          = var.environment
+  infrastructure_support    = var.infrastructure_support
+  db_instance_class         = "db.t4g.micro"
+  db_engine                 = "postgres"
+  db_engine_version         = "17"
+  rds_family                = "postgres17"
+  deletion_protection       = true
+  prepare_for_major_upgrade = false
+  db_max_allocated_storage  = "500"
 
   providers = {
     aws = aws.london

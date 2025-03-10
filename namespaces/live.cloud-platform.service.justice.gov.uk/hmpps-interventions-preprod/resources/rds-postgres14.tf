@@ -1,5 +1,7 @@
 module "hmpps_interventions_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -9,11 +11,11 @@ module "hmpps_interventions_postgres14" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  rds_family                  = "postgres14"
-  db_engine_version           = "14.12"
-  db_instance_class           = "db.m5.large"
-  db_allocated_storage        = 20
-  allow_major_version_upgrade = "false"
+  rds_family                   = "postgres14"
+  db_engine_version            = "14.12"
+  db_instance_class            = "db.m5.large"
+  db_allocated_storage         = 20
+  allow_major_version_upgrade  = "false"
   performance_insights_enabled = true
 
   providers = {
@@ -56,7 +58,9 @@ resource "kubernetes_secret" "hmpps_interventions_refresh14_secret" {
 
 
 module "hmpps_interventions_postgres14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

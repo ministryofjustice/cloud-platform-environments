@@ -1,11 +1,14 @@
 module "court_data_adaptor_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name      = var.vpc_name
-  namespace     = var.namespace
-  team_name     = "laa-crime-apps-team"
-  business_unit = "Crime Apps"
-  application   = "laa-court-data-adaptor"
-  is_production = "true"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+  vpc_name             = var.vpc_name
+  namespace            = var.namespace
+  team_name            = "laa-crime-apps-team"
+  business_unit        = "Crime Apps"
+  application          = "laa-court-data-adaptor"
+  is_production        = "true"
 
   environment_name       = "prod"
   infrastructure_support = var.infrastructure_support
