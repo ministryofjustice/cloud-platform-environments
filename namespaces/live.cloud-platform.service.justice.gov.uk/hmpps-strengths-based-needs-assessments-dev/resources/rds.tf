@@ -48,8 +48,3 @@ provider "postgresql" {
   sslmode          = "require"
   superuser        = false
 }
-
-# Installs postgres dblink extension
-resource "postgresql_extension" "dblink" {
-  name = "dblink"
-}
