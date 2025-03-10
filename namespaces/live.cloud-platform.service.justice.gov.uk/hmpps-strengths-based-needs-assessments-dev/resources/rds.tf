@@ -50,6 +50,6 @@ provider "postgresql" {
 }
 
 # Installs postgres dblink extension
-resource "postgresql_extension" "dblink" {
+resource "postgresql_extension" "dblink_new" {
   name = "dblink"
 }
