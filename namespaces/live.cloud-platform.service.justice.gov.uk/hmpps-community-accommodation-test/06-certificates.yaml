@@ -69,7 +69,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-community-accommodation-tier-2-bail-test-cert
-  namespace: hmpps-community-accommodation-dev
+  namespace: hmpps-community-accommodation-test
 spec:
   secretName: hmpps-community-accommodation-tier-2-bail-test-cert
   issuerRef:
