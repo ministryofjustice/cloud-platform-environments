@@ -149,7 +149,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_personalrelati
   endpoint  = module.prisoner_from_nomis_personalrelationships_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "TBD"
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }
