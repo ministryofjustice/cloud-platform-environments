@@ -40,3 +40,19 @@ resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_dev_rds_se
     url                   = "postgres://${module.hmpps_strengths_based_needs_assessments_dev_rds.database_username}:${module.hmpps_strengths_based_needs_assessments_dev_rds.database_password}@${module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_endpoint}/${module.hmpps_strengths_based_needs_assessments_dev_rds.database_name}"
   }
 }
+
+provider "postgresql" {
+  database         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
+  host             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_address
+  port             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_port
+  username         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
+  password         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_password
+  expected_version = "16"
+  sslmode          = "require"
+  superuser        = false
+}
+
+# Installs postgres dblink extension
+resource "postgresql_extension" "dblink_new" {
+  name = "dblink"
+}

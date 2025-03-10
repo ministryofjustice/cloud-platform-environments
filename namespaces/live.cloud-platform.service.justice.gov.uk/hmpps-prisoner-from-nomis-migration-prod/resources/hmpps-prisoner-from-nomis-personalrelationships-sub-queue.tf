@@ -45,8 +45,7 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_personalrelationships_queue
                         "ArnEquals":
                           {
                             "aws:SourceArn": [
-                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
-                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
                             ]
                           }
                         }
@@ -136,19 +135,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_personalrelationships
       "PERSON_EMPLOYMENTS-DELETED",
       "PERSON_IDENTIFIERS-INSERTED",
       "PERSON_IDENTIFIERS-UPDATED",
-      "PERSON_IDENTIFIERS-DELETED"
+      "PERSON_IDENTIFIERS-DELETED",
+      "OFFENDER_PHYSICAL_DETAILS-CHANGED"
     ]
   })
 }
 
-resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_personalrelationships_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.prisoner_from_nomis_personalrelationships_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "TBD"
-    ]
-  })
-}
