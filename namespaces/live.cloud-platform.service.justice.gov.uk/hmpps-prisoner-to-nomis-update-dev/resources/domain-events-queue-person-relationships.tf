@@ -142,7 +142,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_personalrelations
       "personal-relationships-api.domestic-status.created",
       "personal-relationships-api.domestic-status.deleted",
       "personal-relationships-api.number-of-children.created",
-      "personal-relationships-api.number-of-children.created"
+      "personal-relationships-api.number-of-children.deleted"
     ]
   })
 }
