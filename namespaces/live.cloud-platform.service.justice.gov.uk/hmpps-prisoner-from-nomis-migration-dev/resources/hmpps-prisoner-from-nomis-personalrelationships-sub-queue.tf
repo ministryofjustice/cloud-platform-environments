@@ -45,7 +45,7 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_personalrelationships_queue
                         "ArnEquals":
                           {
                             "aws:SourceArn": [
-                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
                             ]
                           }
                         }
