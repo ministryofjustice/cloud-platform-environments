@@ -79,6 +79,10 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_personalrelationships_queue.sqs_arn,
       module.prisoner_from_nomis_personalrelationships_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_dead_letter_queue.sqs_arn,
     ]
