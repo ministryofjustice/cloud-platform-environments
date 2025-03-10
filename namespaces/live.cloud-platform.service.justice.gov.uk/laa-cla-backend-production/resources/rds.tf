@@ -9,7 +9,8 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -17,10 +18,10 @@ module "cla_backend_rds_postgres_14" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  db_name = "cla_backend"
-  db_instance_class        = "db.t4g.large"
-  db_allocated_storage     = "30"
-  db_max_allocated_storage = "1000"
+  db_name                      = "cla_backend"
+  db_instance_class            = "db.t4g.large"
+  db_allocated_storage         = "30"
+  db_max_allocated_storage     = "1000"
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
@@ -45,6 +46,7 @@ module "cla_backend_rds_postgres_14" {
       value        = "1"
       apply_method = "pending-reboot"
     }
+
   ]
 
   providers = {
@@ -54,7 +56,8 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type = "gp2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -94,10 +97,12 @@ module "cla_backend_rds_postgres_14_replica" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -105,13 +110,13 @@ module "cla_backend_metabase_rds" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  db_name                  = "metabase"
-  db_engine_version        = "16"
-  db_instance_class        = "db.t4g.micro"
-  db_allocated_storage     = "5"
-  db_max_allocated_storage = "500"
-  environment_name         = var.environment-name
-  infrastructure_support   = var.infrastructure_support
+  db_name                      = "metabase"
+  db_engine_version            = "16"
+  db_instance_class            = "db.t4g.micro"
+  db_allocated_storage         = "5"
+  db_max_allocated_storage     = "500"
+  environment_name             = var.environment-name
+  infrastructure_support       = var.infrastructure_support
   performance_insights_enabled = true
 
   rds_family = "postgres16"
@@ -122,6 +127,7 @@ module "cla_backend_metabase_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
