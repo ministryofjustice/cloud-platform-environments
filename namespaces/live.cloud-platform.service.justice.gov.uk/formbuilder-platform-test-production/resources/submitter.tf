@@ -14,6 +14,8 @@ module "submitter-rds-instance-2" {
   rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 
+  allow_minor_version_upgrade = true
+
   providers = {
     aws = aws.london
   }
