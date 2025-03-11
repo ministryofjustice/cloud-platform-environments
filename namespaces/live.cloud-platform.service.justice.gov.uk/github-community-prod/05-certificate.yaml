@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: github-community-prod-cert
+  namespace: github-community-prod
+spec:
+  secretName: github-community-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - github-community.service.justice.gov.uk

@@ -43,7 +43,11 @@ resource "aws_sns_topic_subscription" "keyworker_domain_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "complexity-of-need.level.changed",
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "person.case-note.created",
+      "person.case-note.updated",
+      "person.case-note.moved",
+      "person.case-note.deleted"
     ]
   })
 }

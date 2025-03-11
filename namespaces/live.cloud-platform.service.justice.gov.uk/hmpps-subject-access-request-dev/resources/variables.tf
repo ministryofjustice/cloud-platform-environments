@@ -71,8 +71,4 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "rds_family" {
-  default = "postgres15"
-}
-
 variable "eks_cluster_name" {}
