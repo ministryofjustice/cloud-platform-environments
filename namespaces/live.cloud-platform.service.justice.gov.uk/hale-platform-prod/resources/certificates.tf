@@ -14,6 +14,7 @@ variable "domains" {
     "developers.websitebuilder.service.justice.gov.uk" = "websitebuilder-developers"
     "hmcpsi.justiceinspectorates.gov.uk"              = "justiceinspectorates-hmcpsi"
     "hmiprisons.justiceinspectorates.gov.uk"          = "justiceinspectorates-hmiprisons"
+    "hmiprobation.justiceinspectorates.gov.uk"        = "justiceinspectorates-hmiprobation"
     "hmppsinsights.service.justice.gov.uk"            = "hmppsinsights"
     "iapondeathsincustody.org"                        = "iapdc"
     "iapdeathsincustody.independent.gov.uk"           = "iapdci"
