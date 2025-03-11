@@ -20,7 +20,6 @@ module "opensearch" {
 
   # Cluster configuration
   engine_version      = "OpenSearch_2.17"
-  engine_version      = "OpenSearch_2.17"
   snapshot_bucket_arn = module.s3.bucket_arn
   proxy_count         = 2
 
