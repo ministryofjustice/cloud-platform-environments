@@ -19,7 +19,8 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.9"
+  engine_version      = "OpenSearch_2.17"
+  engine_version      = "OpenSearch_2.17"
   snapshot_bucket_arn = module.s3.bucket_arn
   proxy_count         = 2
 
