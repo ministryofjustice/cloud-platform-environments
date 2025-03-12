@@ -141,7 +141,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Contribution",
+          "title": "Contribution Scheduler Count",
           "type": "timeseries",
           "interval": "1h",
           "timeFrom": "30d"
@@ -236,105 +236,10 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Fdc",
+          "title": "Fdc Scheduler Count",
           "type": "timeseries",
           "interval": "1h",
           "timeFrom": "30d"
-        },
-        
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "transparent",
-                "mode": "fixed"
-              },
-              "decimals": 0,
-              "fieldMinMax": false,
-              "mappings": [
-                {
-                  "options": {
-                    "from": 0,
-                    "result": {
-                      "color": "green",
-                      "index": 0
-                    },
-                    "to": 0
-                  },
-                  "type": "range"
-                },
-                {
-                  "options": {
-                    "pattern": "^([1-9][0-9]*)$",
-                    "result": {
-                      "color": "dark-red",
-                      "index": 1
-                    }
-                  },
-                  "type": "regex"
-                }
-              ],
-              "noValue": "-",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 1,
-            "w": 6,
-            "x": 18,
-            "y": 1
-          },
-          "id": 47,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "value",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
-              },
-              "editorMode": "code",
-              "expr": "",
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Last Day",
-          "type": "stat"
         },
         {
           "datasource": {
@@ -371,7 +276,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 18,
-            "y": 2
+            "y": 1
           },
           "id": 31,
           "interval": "1d",
@@ -432,7 +337,7 @@ data:
                     "value": null
                   },
                   {
-                    "color": "super-light-orange",
+                    "color": "super-light-yellow",
                     "value": 1
                   }
                 ]
@@ -444,7 +349,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 21,
-            "y": 2
+            "y": 1
           },
           "id": 43,
           "interval": "1d",
@@ -485,164 +390,6 @@ data:
         },
         {
           "datasource": {
-            "type": "Thanos",
-            "uid": "Thanos"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "Count",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 18,
-            "x": 0,
-            "y": 6
-          },
-          "id": 2,
-          "interval": "1h",
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "Thanos",
-                "uid": "Thanos"
-              },
-              "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_fdc_seconds_count {namespace=\"$namespace\"} [1h] )) ",
-              "legendFormat": "Contribution",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "timeFrom": "30d",
-          "title": "Fdc Scheduler Count",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "fieldMinMax": false,
-              "mappings": [],
-              "noValue": "-",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "transparent",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 1,
-            "w": 6,
-            "x": 18,
-            "y": 6
-          },
-          "id": 48,
-          "interval": "1d",
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "sum"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "text": {
-              "titleSize": 25
-            },
-            "textMode": "value_and_name",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.3.0",
-          "targets": [],
-          "title": "Last Week",
-          "type": "stat"
-        },
-        {
-          "datasource": {
             "type": "prometheus",
             "uid": "P5DCFC7561CCDE821"
           },
@@ -675,7 +422,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 18,
-            "y": 7
+            "y": 2
           },
           "id": 44,
           "interval": "1d",
@@ -748,7 +495,7 @@ data:
             "h": 4,
             "w": 3,
             "x": 21,
-            "y": 7
+            "y": 2
           },
           "id": 49,
           "interval": "1d",
