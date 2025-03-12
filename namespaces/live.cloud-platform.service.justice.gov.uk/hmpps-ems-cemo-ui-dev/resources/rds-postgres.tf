@@ -1,5 +1,7 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -26,6 +28,7 @@ module "rds" {
   team_name              = var.team_name
 }
 
+
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
@@ -43,8 +46,10 @@ resource "kubernetes_secret" "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  count                = 0
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -53,7 +58,7 @@ module "read_replica" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace  
+  namespace              = var.namespace
 
   # Set the database_name of the source db
   db_name = module.rds.database_name
@@ -64,8 +69,9 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-  
+
 }
+
 
 
 # Configmap to store non-sensitive data related to the RDS instance
