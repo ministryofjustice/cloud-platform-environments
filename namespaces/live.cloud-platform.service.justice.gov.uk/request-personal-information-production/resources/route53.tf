@@ -14,7 +14,7 @@ resource "aws_route53_zone" "request_personal_information_route53_zone" {
 
 resource "kubernetes_secret" "request_personal_information_route53_zone_sec" {
   metadata {
-    name      = "request_personal_information_route53_zone_sec"
+    name      = "request-personal-information-route53-output"
     namespace = var.namespace
   }
 
