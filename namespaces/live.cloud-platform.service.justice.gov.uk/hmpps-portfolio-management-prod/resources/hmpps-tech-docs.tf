@@ -3,7 +3,7 @@ module "hmpps_tech_docs" {
   github_repo                   = "hmpps-tech-docs"
   application                   = "hmpps-tech-docs"
   github_team                   = "hmpps-sre"
-  environment                   = "prod" # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = "production" # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-sre"]
   protected_branches_only       = true
   is_production                 = var.is_production
