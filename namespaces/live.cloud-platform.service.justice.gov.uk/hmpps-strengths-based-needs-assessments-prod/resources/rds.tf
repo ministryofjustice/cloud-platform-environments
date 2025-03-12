@@ -1,6 +1,8 @@
 
 module "hmpps_strengths_based_needs_assessments_prod_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,11 +17,12 @@ module "hmpps_strengths_based_needs_assessments_prod_rds" {
   db_engine_version      = "16"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_prod_rds_secret" {

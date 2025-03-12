@@ -5,7 +5,8 @@
  *
 */
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -33,6 +34,7 @@ module "rds_mssql" {
       value        = "1"
       apply_method = "pending-reboot"
     }
+
   ]
 
   # Tags

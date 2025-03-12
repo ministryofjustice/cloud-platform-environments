@@ -1,5 +1,7 @@
 module "nomis_migration_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
@@ -17,6 +19,7 @@ module "nomis_migration_rds" {
   deletion_protection       = true
   prepare_for_major_upgrade = false
 }
+
 
 resource "kubernetes_secret" "nomis_migration_rds" {
   metadata {
