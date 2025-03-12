@@ -79,7 +79,7 @@ module "hmpps_developer_portal" {
   github_repo                   = "hmpps-developer-portal"
   application                   = "hmpps-developer-portal"
   github_team                   = "hmpps-sre"
-  environment                   = "dev" # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
