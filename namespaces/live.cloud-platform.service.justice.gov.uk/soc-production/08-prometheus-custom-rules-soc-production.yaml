@@ -40,7 +40,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/C0539022-DD81-4FA9-B92B-703ECDA0065C/soc-production?from=now-1h&to=now&timezone=browser&var-datasource=prometheus
 
     - alert: HighResponseLatency
-      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socreporting-dotnet6app.*"}[5m])) > 3
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socreporting-dotnet6app.*"}[5m])) > 4
       for: 5m
       labels:
         severity: soc-production
@@ -93,7 +93,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/C0539022-DD81-4FA9-B92B-703ECDA0065C/soc-production?from=now-1h&to=now&timezone=browser&var-datasource=prometheus
 
     - alert: HighResponseLatency
-      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socentry-dotnet6app.*"}[5m])) > 3
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{pod=~"socentry-dotnet6app.*"}[5m])) > 4
       for: 5m
       labels:
         severity: soc-production
