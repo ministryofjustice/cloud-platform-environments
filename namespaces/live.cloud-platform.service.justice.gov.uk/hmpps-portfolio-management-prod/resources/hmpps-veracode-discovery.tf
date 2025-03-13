@@ -3,7 +3,7 @@ module "hmpps_veracode_discovery" {
   github_repo                   = "hmpps-veracode-discovery"
   application                   = "hmpps-veracode-discovery"
   github_team                   = "hmpps-sre"
-  environment                   = "prod" # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-sre"]
   protected_branches_only       = true
   is_production                 = var.is_production

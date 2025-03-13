@@ -1,11 +1,13 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name      = var.vpc_name
-  team_name     = var.team_name
-  business_unit = var.business_unit
-  application   = var.application
-  is_production = var.is_production
-  namespace     = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+  vpc_name             = var.vpc_name
+  team_name            = var.team_name
+  business_unit        = var.business_unit
+  application          = var.application
+  is_production        = var.is_production
+  namespace            = var.namespace
 
   # turn off performance insights
   performance_insights_enabled = false
@@ -29,6 +31,7 @@ module "rds" {
       value        = "utf8mb4"
       apply_method = "immediate"
     },
+
     {
       name         = "character_set_server"
       value        = "utf8mb4"

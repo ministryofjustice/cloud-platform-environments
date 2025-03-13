@@ -3,7 +3,7 @@ module "hmpps_trivy_discovery" {
   github_repo                   = "hmpps-trivy-discovery"
   application                   = "hmpps-trivy-discovery"
   github_team                   = "hmpps-sre"
-  environment                   = "prod" # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-sre"]
   protected_branches_only       = true
   is_production                 = var.is_production
@@ -13,3 +13,4 @@ module "hmpps_trivy_discovery" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
+
