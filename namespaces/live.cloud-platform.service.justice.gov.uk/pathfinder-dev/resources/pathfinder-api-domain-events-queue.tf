@@ -2,7 +2,7 @@ module "pathfinder_api_queue_for_domain_events" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
-  sqs_name                  = "p_api_queue_for_domain_events"
+  sqs_name                  = "p-api-queue-for-domain-events"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
 
@@ -56,7 +56,7 @@ module "pathfinder_api_queue_for_domain_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
-  sqs_name        = "p_api_queue_for_domain_events_dl"
+  sqs_name        = "p-api-queue-for-domain-events-dl"
   encrypt_sqs_kms = "true"
 
   # Tags
