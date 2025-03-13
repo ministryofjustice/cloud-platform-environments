@@ -75,7 +75,7 @@ module "pathfinder_api_queue_for_domain_events_dead_letter_queue" {
 
 resource "kubernetes_secret" "pathfinder_api_queue_for_domain_events" {
   metadata {
-    name      = "domain-events-offender-categorisation-api-queue"
+    name      = "domain-events-pathfinder-api-queue"
     namespace = var.namespace
   }
 
@@ -88,7 +88,7 @@ resource "kubernetes_secret" "pathfinder_api_queue_for_domain_events" {
 
 resource "kubernetes_secret" "pathfinder_api_queue_for_domain_events_dead_letter_queue" {
   metadata {
-    name      = "domain-events-offender-categorisation-api-dlq"
+    name      = "domain-events-pathfinder-api-dlq"
     namespace = var.namespace
   }
 
