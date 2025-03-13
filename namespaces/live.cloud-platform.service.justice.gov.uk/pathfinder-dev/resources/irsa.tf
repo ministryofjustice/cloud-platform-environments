@@ -37,7 +37,7 @@ module "irsa_pathfinder" {
   infrastructure_support = var.infrastructure_support
 }
 
-# IRSA for pathfinder-api deployment
+# IRSA for pathfinder-api deployment
 module "irsa_hmpps_pathfinder_api" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   namespace              = var.namespace
