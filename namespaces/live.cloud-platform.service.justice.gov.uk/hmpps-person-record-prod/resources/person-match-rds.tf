@@ -9,7 +9,6 @@ module "hmpps_person_match_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   db_max_allocated_storage    = "500"
-  db_allocated_storage        = "90"
   rds_family                  = "postgres16"
   db_instance_class           = "db.r6g.xlarge"
   db_engine                   = "postgres"
