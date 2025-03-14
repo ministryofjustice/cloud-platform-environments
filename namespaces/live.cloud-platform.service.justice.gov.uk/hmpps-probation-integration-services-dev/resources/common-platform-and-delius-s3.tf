@@ -27,7 +27,7 @@ data "github_repository_file" "offence_priority_csv" {
 }
 
 resource "aws_s3_object" "offence_priority" {
-  bucket  = module.common-platform-and-delius-s3-bucket.bucket_arn
+  bucket  = module.common-platform-and-delius-s3-bucket.bucket_name
   key     = "offence_priority.csv"
   content = data.github_repository_file.offence_priority_csv.content
   etag    = data.github_repository_file.offence_priority_csv.sha
