@@ -22,7 +22,7 @@ module "james_typescript_redis" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps_template_typescript.application
+  application            = module.james_typescript_test.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
