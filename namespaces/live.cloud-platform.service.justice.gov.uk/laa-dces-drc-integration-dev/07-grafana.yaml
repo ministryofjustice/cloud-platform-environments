@@ -161,8 +161,8 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -221,8 +221,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -340,8 +340,8 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -397,8 +397,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum by (method) (FdcService_seconds_sum {namespace=\"$namespace\"}) / sum by (method) (FdcService_seconds_count{namespace=\"$namespace\"})",
@@ -414,7 +414,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -500,8 +500,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -514,8 +514,8 @@ data:
             },
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum(vector(0))",
@@ -691,7 +691,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum(increase(logback_events_total{level=\"error\", namespace=\"$namespace\"}[1d]))",
@@ -706,8 +706,8 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -763,8 +763,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum(increase(logback_events_total{level=\"warn\", namespace=\"$namespace\"}[1d]))",
@@ -779,8 +779,8 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -836,8 +836,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum(increase(logback_events_total{level=\"error\", namespace=\"$namespace\"}[1d]))",
@@ -1055,7 +1055,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Tenured Gen\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Tenured Gen\", namespace=\"$namespace\"})*100",
@@ -1066,7 +1066,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Survivor Space\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Survivor Space\", namespace=\"$namespace\"})*100",
@@ -1078,7 +1078,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Eden Space\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Eden Space\", namespace=\"$namespace\"})*100",
@@ -1189,7 +1189,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1270,7 +1270,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Tenured Gen\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Tenured Gen\", namespace=\"$namespace\"})*100",
@@ -1281,7 +1281,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Survivor Space\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Survivor Space\", namespace=\"$namespace\"})*100",
@@ -1293,7 +1293,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "(jvm_memory_used_bytes{area=\"heap\", id=\"Eden Space\", namespace=\"$namespace\"}/jvm_memory_max_bytes{area=\"heap\", id=\"Eden Space\", namespace=\"$namespace\"})*100",
@@ -1512,8 +1512,8 @@ data:
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "type": "Thanos",
+            "uid": "Thanos"
           },
           "fieldConfig": {
             "defaults": {
@@ -1595,8 +1595,8 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "type": "Thanos",
+                "uid": "Thanos"
               },
               "editorMode": "code",
               "expr": "sum by (method) (FdcService_seconds_sum {namespace=\"$namespace\"}) / sum by (method) (FdcService_seconds_count{namespace=\"$namespace\"})",
