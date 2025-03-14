@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["payforlegalaid"]
+  github_repositories = ["payforlegalaid", "payforlegalaid-ui"]
   github_environments = ["development"]
 
   # Tags
