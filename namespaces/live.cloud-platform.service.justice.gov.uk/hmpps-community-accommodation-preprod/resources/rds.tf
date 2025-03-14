@@ -25,7 +25,7 @@ module "rds" {
 module "read_replica" {
   count                = 0
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
-  db_allocated_storage = 10
+  db_allocated_storage = 50
   storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
