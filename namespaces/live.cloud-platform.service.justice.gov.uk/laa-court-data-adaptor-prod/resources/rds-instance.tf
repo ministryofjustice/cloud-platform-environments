@@ -12,7 +12,7 @@ module "court_data_adaptor_rds" {
   environment_name       = "prod"
   infrastructure_support = var.infrastructure_support
   rds_family             = "postgres14"
-  db_engine_version      = "14.12"
+  db_engine_version      = "14.13"
 
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
