@@ -1,4 +1,3 @@
-
 module "hmpps_strengths_based_needs_assessments_dev_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   db_allocated_storage   = 10
@@ -22,7 +21,6 @@ module "hmpps_strengths_based_needs_assessments_dev_rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_dev_rds_secret" {
@@ -55,4 +53,41 @@ provider "postgresql" {
 # Installs postgres dblink extension
 resource "postgresql_extension" "dblink_new" {
   name = "dblink"
+}
+
+# Installs postgres_fdw extension
+resource "postgresql_extension" "postgres_fdw" {
+  name = "postgres_fdw"
+}
+
+# Create Foreign Server
+resource "postgresql_server" "myserver_postgres" {
+  server_name = "myserver_postgres"
+  fdw_name    = "postgres_fdw"
+  options = {
+    host   = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.rds_instance_address # Other server
+    dbname = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.database_name # Other DB name
+    port   = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.rds_instance_port # Other port
+  }
+
+  depends_on = [postgresql_extension.postgres_fdw]
+}
+
+# Create User Mapping
+resource "postgresql_role" "remote_role" {
+  name = "remote"
+}
+
+resource "postgresql_user_mapping" "remote_mapping" {
+  server_name = postgresql_server.myserver_postgres.server_name
+  user_name   = postgresql_role.remote_role.name
+  options = {
+    user = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.database_username # username for other server
+    password = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.database_password # for other server
+  }
+}
+
+# Import Tables
+data "postgresql_tables" "tables" {
+  database = data.coordinator_state.hmpps_assess_risks_and_needs_integrations_dev_rds.outputs.database_name
 }

@@ -3,6 +3,16 @@ terraform {
   }
 }
 
+data "terraform_remote_state" "coordinator_state" {
+  backend = "s3"
+
+  config = {
+    region = "eu-west-1"
+    bucket = "cloud-platform-terraform-state"
+    key    = "cloud-platform-environments/live-1.cloud-platform.service.justice.gov.uk/hmpps-assess-risks-and-needs-integrations-dev/terraform.tfstate"
+  }
+}
+
 provider "aws" {
   region = "eu-west-2"
 
