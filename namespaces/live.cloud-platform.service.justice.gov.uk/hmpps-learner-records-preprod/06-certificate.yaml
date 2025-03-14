@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-learner-records-api-preprod-cert
+  namespace: hmpps-learner-records-preprod
+spec:
+  secretName: hmpps-learner-records-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - learner-records-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-match-learner-record-preprod-cert
+  namespace: hmpps-learner-records-preprod
+spec:
+  secretName: hmpps-match-learner-record-preprod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - match-learner-record-preprod.hmpps.service.justice.gov.uk
