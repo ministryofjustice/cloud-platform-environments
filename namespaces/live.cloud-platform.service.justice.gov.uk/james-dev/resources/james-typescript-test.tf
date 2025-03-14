@@ -39,16 +39,16 @@ module "james_typescript_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "james_typescript_redis" {
   metadata {
     name      = "${module.james_typescript_test.application}-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.james_typescript_redis.primary_endpoint_address
+    auth_token               = module.james_typescript_redis.auth_token
+    member_clusters          = jsonencode(module.james_typescript_redis.member_clusters)
+    replication_group_id     = module.james_typescript_redis.replication_group_id
   }
 }
