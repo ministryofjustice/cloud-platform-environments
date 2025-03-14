@@ -25,4 +25,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - template-typescript-dev.hmpps.service.justice.gov.uk
-    - *.template-typescript-dev.hmpps.service.justice.gov.uk
+    - '*.template-typescript-dev.hmpps.service.justice.gov.uk'
