@@ -16,7 +16,8 @@ module "ecr" {
   oidc_providers = ["github", "circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
+  # DISABLED FOR MIGRATION TO laa-cwa-feature-tests-*
+  # github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
