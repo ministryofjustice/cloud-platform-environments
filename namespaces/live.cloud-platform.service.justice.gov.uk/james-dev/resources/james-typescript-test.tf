@@ -17,7 +17,7 @@ module "james_typescript_test" {
 
 
 # Note, redis is a requirement for james-typescript-test application.
-module "elasticache_redis" {
+module "james_typescript_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -41,7 +41,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
+    name      = "${module.james_typescript_test.application}-elasticache-redis"
     namespace = var.namespace
   }
 
