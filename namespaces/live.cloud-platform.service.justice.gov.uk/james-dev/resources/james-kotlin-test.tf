@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "james_kotlin_test" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "james-kotlin-test"
   application = "james-kotlin-test"
@@ -9,7 +9,7 @@ module "hmpps_template_kotlin" {
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
-  source_template_repo          = "james-kotlin-test"
+  source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
