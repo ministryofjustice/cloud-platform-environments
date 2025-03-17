@@ -1,7 +1,7 @@
 # Prison visits write events for visit someone in prison
 
 module "hmpps_prison_visits_write_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_write_events_queue"
@@ -31,7 +31,7 @@ module "hmpps_prison_visits_write_events_queue" {
 # Dead letter queue
 
 module "hmpps_prison_visits_write_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_write_events_dlq"
