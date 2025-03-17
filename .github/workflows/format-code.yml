@@ -6,7 +6,7 @@ jobs:
   format-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: ministryofjustice/github-actions/code-formatter@e08cbcac12ec9c09d867ab2b803d4ea1a87300ad  # v18.2.4
         with:
           terraform-version: 1.2.5
