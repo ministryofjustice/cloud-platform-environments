@@ -13,10 +13,6 @@ locals {
     visit_allocation_rds = module.visit_allocation_rds.irsa_policy_arn
   }
 
-  sqs_queues = {
-    "book-a-prison-visit-dev_hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-dev"
-  }
-
   all_policies = merge(
     {
       hmpps_prison_visits_event_index_queue                                   = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
