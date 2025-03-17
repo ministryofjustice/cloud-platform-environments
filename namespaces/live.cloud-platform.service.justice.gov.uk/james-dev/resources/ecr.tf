@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["james-dev"]
+  github_repositories = ["james-typescript-test"]
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
