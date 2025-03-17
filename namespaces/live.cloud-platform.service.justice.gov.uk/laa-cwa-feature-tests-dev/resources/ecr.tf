@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
+  oidc_providers      = ["github", "circleci"]
   github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
 
   # Tags
