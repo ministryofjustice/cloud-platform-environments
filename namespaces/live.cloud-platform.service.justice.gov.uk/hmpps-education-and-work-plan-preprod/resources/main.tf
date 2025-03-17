@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "farsight-devs"
+      GithubTeam = "hmpps-farsight-reduce-re-offend"
     }
   }
 }
