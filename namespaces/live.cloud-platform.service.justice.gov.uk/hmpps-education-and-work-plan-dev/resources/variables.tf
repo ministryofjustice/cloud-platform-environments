@@ -33,7 +33,7 @@ variable "number_cache_clusters" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "hmpps-farsight-reduce-re-offend"
 }
 
 variable "environment" {
