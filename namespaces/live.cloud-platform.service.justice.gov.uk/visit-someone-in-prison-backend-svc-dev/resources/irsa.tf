@@ -12,7 +12,11 @@ locals {
     prison_visit_booker_registry_rds = module.prison_visit_booker_registry_rds.irsa_policy_arn,
     visit_allocation_rds = module.visit_allocation_rds.irsa_policy_arn
   }
-  
+
+  sqs_queues = {
+    "book-a-prison-visit-dev_hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-dev"
+  }
+
   all_policies = merge(
     {
       hmpps_prison_visits_event_index_queue                                   = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
@@ -37,7 +41,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
-
 
 module "irsa" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
