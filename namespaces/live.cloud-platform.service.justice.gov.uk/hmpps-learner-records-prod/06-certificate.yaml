@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - learner-records-api-dev.hmpps.service.justice.gov.uk
+    - learner-records-api-prod.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -23,4 +23,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - match-learner-record-dev.hmpps.service.justice.gov.uk
+    - match-learner-record-prod.hmpps.service.justice.gov.uk
