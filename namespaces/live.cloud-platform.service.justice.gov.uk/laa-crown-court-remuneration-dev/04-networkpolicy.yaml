@@ -32,7 +32,6 @@ metadata:
   name: allow-prometheus-scraping
   namespace: laa-crown-court-remuneration-dev
 spec:
-spec:
   podSelector: {}
   policyTypes:
   - Ingress
