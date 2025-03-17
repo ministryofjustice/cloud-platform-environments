@@ -19,7 +19,7 @@ module "irsa" {
   role_policy_arns     =  merge(
     local.sqs_policies,
     {
-      s3 = module.hmpps-subject-access-request_s3_bucket.policy_arn
+      s3 = module.hmpps-subject-access-request_s3_bucket.irsa_policy_arn
     }
   )
   # Tags
