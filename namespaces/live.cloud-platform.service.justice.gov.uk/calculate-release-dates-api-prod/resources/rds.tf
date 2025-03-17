@@ -1,3 +1,31 @@
+data "aws_vpc" "this" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name]
+  }
+}
+
+module "data_catalogue_access_rds_security_group" {
+  #checkov:skip=CKV_TF_1:Module registry does not support commit hashes for versions
+  #checkov:skip=CKV_TF_2:Module registry does not support tags for versions
+
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.2.0"
+
+  name = "data_catalogue_access"
+
+  vpc_id = data.aws_vpc.this.id
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 5432
+      to_port     = 5432
+      protocol    = "tcp"
+      cidr_blocks = "10.201.128.0/17"
+    },
+  ]
+}
+
 module "calculate_release_dates_api_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
   vpc_name               = var.vpc_name
@@ -49,6 +77,7 @@ module "calculate_release_dates_api_rds" {
       apply_method = "immediate"
     }
   ]
+  vpc_security_group_ids     = [module.data_catalogue_access_rds_security_group.aws_security_group_arn]
 }
 
 resource "kubernetes_secret" "calculate_release_dates_api_rds" {
@@ -95,8 +124,6 @@ module "read_replica" {
   # No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
