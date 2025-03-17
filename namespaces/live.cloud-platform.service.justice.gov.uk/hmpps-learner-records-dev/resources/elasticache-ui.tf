@@ -1,5 +1,5 @@
 ################################################################################
-# Match someone's learner record UI Elasticache
+# Education and Work Plan UI Elasticache
 ################################################################################
 
 module "match_learner_record_ui_elasticache_redis" {
