@@ -29,7 +29,6 @@ spec:
 kind: Ingress
 metadata:
   name: mailhog-ingress
-  namespace: laa-smtp-mock-dev
 spec:
   rules:
     - host: mailhog.laa-smtp-mock-dev.com
