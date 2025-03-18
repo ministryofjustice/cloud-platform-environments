@@ -76,8 +76,8 @@ resource "postgresql_extension" "postgres_fdw" {
 }
 
 # Create Foreign Server
-resource "postgresql_server" "myserver_postgres" {
-  server_name = "myserver_postgres"
+resource "postgresql_server" "integrations_rds" {
+  server_name = "integrations_rds"
   fdw_name    = "postgres_fdw"
   options = {
     host   = data.aws_ssm_parameter.integrations_rds_instance_address.value # Other server
@@ -94,7 +94,7 @@ resource "postgresql_role" "remote_role" {
 }
 
 resource "postgresql_user_mapping" "remote_mapping" {
-  server_name = postgresql_server.myserver_postgres.server_name
+  server_name = postgresql_server.integrations_rds.server_name
   user_name   = postgresql_role.remote_role.name
   options = {
     user = data.aws_ssm_parameter.integrations_rds_database_username.value # username for other server
@@ -103,6 +103,6 @@ resource "postgresql_user_mapping" "remote_mapping" {
 }
 
 # Import Tables
-data "postgresql_tables" "tables" {
-  database = data.aws_ssm_parameter.integrations_rds_database_name.value
-}
+# data "postgresql_tables" "integrations_tables" {
+#   database = integrations_rds
+# }
