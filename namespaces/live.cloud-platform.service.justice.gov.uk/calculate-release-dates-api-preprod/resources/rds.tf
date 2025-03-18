@@ -22,6 +22,8 @@ module "calculate_release_dates_api_rds" {
     aws = aws.london
   }
 
+  vpc_security_group_ids     = [data.aws_security_group.data_catalogue_access_sg.id]
+
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -58,6 +60,23 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
     database_username     = module.calculate_release_dates_api_rds.database_username
     database_password     = module.calculate_release_dates_api_rds.database_password
     rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
+  }
+}
+
+resource "aws_security_group" "data_catalogue_access_sg" {
+  name        = "${var.namespace}-RDS-DC-Access-SG"
+  description = "Security Group for Data Catalogue access to RDS"
+  vpc_id      = data.aws_vpc.selected.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  ingress_with_cidr_blocks{
+      from_port   = 5432
+      to_port     = 5432
+      protocol    = "tcp"
+      cidr_blocks = "10.201.128.0/17"
   }
 }
 
