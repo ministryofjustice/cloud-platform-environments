@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  # github_repositories = ["ky-helloworld-ruby-app"]
+  github_repositories = ["ky-helloworld-ruby-app"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
