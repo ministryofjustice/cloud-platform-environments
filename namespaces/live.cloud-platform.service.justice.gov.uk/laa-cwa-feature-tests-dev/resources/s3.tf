@@ -25,6 +25,8 @@ module "s3_bucket" {
       ]
     }
   ]
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
