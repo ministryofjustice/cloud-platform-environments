@@ -3,6 +3,11 @@ module "hmpps-subject-access-request_s3_bucket" {
 
   # S3 configuration
   versioning = true
+
+  providers = {
+    aws = aws.london
+  }
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
