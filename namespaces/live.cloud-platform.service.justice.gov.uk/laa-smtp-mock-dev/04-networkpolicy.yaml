@@ -33,13 +33,13 @@ metadata:
   namespace: laa-smtp-mock-dev
 spec:
   rules:
-    - host: mailhog.laa-smtp-mock-dev.com  # Replace with your desired domain or external IP
+    - host: mailhog.laa-smtp-mock-dev.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: mailhog-service  # Name of the service we defined above
+                name: mailhog-service
                 port:
-                  number: 8025  # Port where the MailHog frontend is exposed
+                  number: 8025
