@@ -18,7 +18,7 @@ metadata:
   name: hmpps-match-learner-record-preprod-cert
   namespace: hmpps-learner-records-preprod
 spec:
-  secretName: hmpps-match-learner-record-cert
+  secretName: hmpps-match-learner-record-preprod-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
