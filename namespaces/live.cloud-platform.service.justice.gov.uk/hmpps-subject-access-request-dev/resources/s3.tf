@@ -33,7 +33,7 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
 
 resource "kubernetes_secret" "hmpps-subject-access-request_s3_bucket" {
   metadata {
-    name      = "hmpps-subject-access-request-html-partials"
+    name      = "hmpps-subject-access-request-s3"
     namespace = var.namespace
   }
 
