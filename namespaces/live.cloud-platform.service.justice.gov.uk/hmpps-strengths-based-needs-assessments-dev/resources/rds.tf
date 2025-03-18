@@ -80,9 +80,9 @@ resource "postgresql_server" "myserver_postgres" {
   server_name = "myserver_postgres"
   fdw_name    = "postgres_fdw"
   options = {
-    host   = data.aws_ssm_parameter.integrations_rds_instance_address # Other server
-    dbname = data.aws_ssm_parameter.integrations_rds_database_name # Other DB name
-    port   = data.aws_ssm_parameter.integrations_rds_instance_port # Other port
+    host   = data.aws_ssm_parameter.integrations_rds_instance_address.value # Other server
+    dbname = data.aws_ssm_parameter.integrations_rds_database_name.value # Other DB name
+    port   = data.aws_ssm_parameter.integrations_rds_instance_port.value # Other port
   }
 
   depends_on = [postgresql_extension.postgres_fdw]
@@ -97,8 +97,8 @@ resource "postgresql_user_mapping" "remote_mapping" {
   server_name = postgresql_server.myserver_postgres.server_name
   user_name   = postgresql_role.remote_role.name
   options = {
-    user = data.aws_ssm_parameter.integrations_rds_database_username # username for other server
-    password = data.aws_ssm_parameter.integrations_rds_database_password # password for other server
+    user = data.aws_ssm_parameter.integrations_rds_database_username.value # username for other server
+    password = data.aws_ssm_parameter.integrations_rds_database_password.value # password for other server
   }
 }
 
