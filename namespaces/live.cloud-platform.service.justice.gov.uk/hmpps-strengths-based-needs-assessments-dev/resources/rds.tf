@@ -104,5 +104,5 @@ resource "postgresql_user_mapping" "remote_mapping" {
 
 # Import Tables
 data "postgresql_tables" "tables" {
-  database = data.aws_ssm_parameter.integrations_rds_database_name
+  database = data.aws_ssm_parameter.integrations_rds_database_name.value
 }
