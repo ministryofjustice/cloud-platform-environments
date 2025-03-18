@@ -25,3 +25,22 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mailhog-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"  # Optional: rewrite paths if necessary
+spec:
+  rules:
+    - host: mailhog.laa-smtp-mock-dev.com  # Replace with your desired domain or external IP
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mailhog-service  # Name of the service we defined above
+                port:
+                  number: 8025  # Port where the MailHog frontend is exposed
