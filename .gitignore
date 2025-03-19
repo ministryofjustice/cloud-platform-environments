@@ -40,3 +40,6 @@ Temporary Items
 *.iml
 .vscode/
 *.Rproj
+*plan.json
+
+>>>>>>> 46cf22c2ec (test: 💍 get test coverage for update and delete)

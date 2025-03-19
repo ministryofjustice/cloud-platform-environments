@@ -15,9 +15,19 @@ The **OPA Auto Approve Policy** framework automates the validation and approval 
    - Uses the `opa-app-test.yml` GitHub Action in the `cloud-platform-environments` repository.
    - Validates the OPA auto-approve policies to ensure they work as expected.
 
+## Adding a new module
+
+1. Create your new module directory and folder structure following the policy structure below
+2. Plan your policy out carefully with pseudo code
+3. Write your policy using the other modules for reference (be careful to not to be caught out by dynamic terraform module naming in the plan eg. `module.ecr` is not a good basis for selecting resources as the module name doesn't have to be "ecr" instead get a resource which is concrete in the module and work backwards to the `module.address`)
+4. Generate a mock tf plan for testing (out a tf plan to json and pull out the relevant fields)
+5. Ensure you have **complete** test coverage `opa test . -v` (use [print()](https://www.openpolicyagent.org/docs/latest/debugging/#using-the-print-built-in-function) to debug your values along the way)
+6. Use your tfplan.json to test against the module with `opa exec --decision terraform/analysis/allow --bundle . <path-to-tf-plan>.json --log-level info --log-format json-pretty`
+7. Once you're happy with your module, add the module to the `module_allowlist` module
+
 ## How It Works
 
-### OPA Validation Against Terraform Plans Steps:
+### OPA Validation Against Terraform Plans Steps
 
 1. **Terraform Plan Generation**:
 
@@ -46,24 +56,32 @@ The policy framework is modular for scalability and maintainability:
 ```
 opa-auto-approve-policy
 ├── README.md
-├── main.rego
-└── modules
-    ├── service_pod.rego
-    └── test
-        ├── fixtures
-        │   └── service_pod.rego
-        └── service_pod_test.rego
+├── service_pod/
+│   ├── service_pod.rego
+│   ├── main.rego
+│   └── test/
+│       ├── fixtures/
+│       │   └── changes.rego
+│       └── main_test.rego
+├── module_allowlist/
+└── ecr/
 ```
 
 ### Key Components
 
-1. **`main.rego`**:
+There is a dir for each module and then 2 additional modules: "module_allowlist/" and "iam".
+
+Modules should pass if there is no terraform changed outside of the "module_allowlist". We need this extra module to make sure that PRs don't get approved when contain terraform for a module that isn't covered.
+
+The "iam" module prevents us from auto approving prs with policy changes in.
+
+1. **`<dir>/main.rego`**:
 
    - The primary entry point for the OPA policy, containing the overarching logic for auto-approval.
 
-2. **`modules/`**:
+2. **`<dir>/<functionality>.rego`**:
 
-   - This folder contains resource-specific modules, each focusing on validating a specific resource type.
+   - These files contain the rego functionality/ logic needed in the `main.rego` file.
    - Example: `service_pod.rego` handles validation for service pods module deploymet.
 
 3. **Tests and Fixtures**:
@@ -76,7 +94,7 @@ opa-auto-approve-policy
 The modular structure allows easy expansion of the framework. For example:
 
 - The **Service Pod module** is currently implemented with its own tests and mock data.
-- Future modules (e.g. S3, RDS, IAM) can be added under the `modules` directory with minimal changes to the main framework.
+- Future modules (e.g. S3, RDS, IAM) can be added in their own directory with zero changes to other modules.
 
 This structure ensures that the policy remains organised and extensible.
 
@@ -92,16 +110,14 @@ To ensure the integrity of changes, the OPA Auto Approve Policy includes the fol
 
   - Ensures no changes occur outside the Terraform configuration, particularly to Kubernetes YAML files.
 
-- **Excludes Specific Resources**:
-  - Validation ensures no changes occur to:
-    - IAM policies
-    - IAM policy attachments
+- **Prevent smuggling changes into auto-approve with module_allowlist**
+  - Make sure resources changed are resources that are on the allow list
 
 ## How to Test Locally
 
 You need the [OPA CLI tool](https://www.openpolicyagent.org/docs/latest/cli/) for testing it locally.
 
-You can install it with the below commmand:
+You can install it with the below command:
 
 ```
 brew install opa
@@ -112,6 +128,7 @@ Execute the following commands in the `opa-auto-approve-policy` directory:
 1. **Manual Tests**:
 
    - Run OPA validation against mock Terraform plans:
+
      ```bash
      opa exec --decision terraform/analysis/allow --bundle . <tf-json-filepath> --log-level info --log-format json-pretty
      ```
@@ -119,20 +136,15 @@ Execute the following commands in the `opa-auto-approve-policy` directory:
 2. **Unit Tests**:
 
    - Test the OPA policies using the built-in OPA testing framework:
+
      ```bash
      opa test . -v
      ```
 
 3. **Format Code**:
+
    - Format OPA files using the `opa fmt` command:
+
      ```bash
      opa fmt . -w
      ```
-
-## Next Steps
-
-**Expanding Module Development**:
-
-- The framework is designed for modularisation, with the `service_pod` module already implemented as a foundation.
-- The next step will focus on developing additional modules for other resource types, such as S3, RDS, and IAM.
-- Each new module will include resource-specific validation logic, tests, and fixtures to ensure seamless integration into the existing framework.
