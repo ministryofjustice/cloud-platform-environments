@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/slack-channel: "hmpps-cfo-ict"
-    cloud-platform.justice.gov.uk/application: "HMPPS Creating Future Opportunities (CFO) - Case Assessment and Tracking System (CATS)"
+    cloud-platform.justice.gov.uk/application: "HMPPS CFO Case Assessment and Tracking System"
     cloud-platform.justice.gov.uk/owner: "Creating Future Opportunities (CFO): cfo-ict@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cfo-caseassessmenttrackingsystem-cp"
     cloud-platform.justice.gov.uk/team-name: "hmpps-co-financing-organisation"
