@@ -2,7 +2,7 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
-  eks_cluster_name = var.kubernetes_cluster
+  eks_cluster_name = "live"
 
   # IRSA configuration
   service_account_name = "irsa-s3-${var.namespace}"
