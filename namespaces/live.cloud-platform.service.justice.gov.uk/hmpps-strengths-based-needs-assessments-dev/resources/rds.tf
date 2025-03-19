@@ -78,7 +78,7 @@ resource "postgresql_extension" "postgres_fdw" {
 # Create Foreign Server
 resource "postgresql_server" "integrations_rds" {
   server_name = "integrations_rds"
-  fdw_name    = "postgresql_fdw"
+  fdw_name    = "postgres_fdw"
   options = {
     host   = data.aws_ssm_parameter.integrations_rds_instance_address.value # Other server
     port   = data.aws_ssm_parameter.integrations_rds_instance_port.value # Other port
