@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["https://github.com/ministryofjustice/dedsai-reason-tagging-api"]
+  github_repositories = ["dedsai-reason-tagging-api"]
 
   github_environments = ["dev"]
   github_actions_prefix = "dev"
