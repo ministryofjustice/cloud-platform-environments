@@ -12,7 +12,7 @@ locals {
     prison_visit_booker_registry_rds = module.prison_visit_booker_registry_rds.irsa_policy_arn,
     visit_allocation_rds = module.visit_allocation_rds.irsa_policy_arn
   }
-  
+
   all_policies = merge(
     {
       hmpps_prison_visits_event_index_queue                                   = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
@@ -25,6 +25,8 @@ locals {
       hmpps_prison_visits_allocation_processing_job_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_queue               = module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
+      (module.hmpps_prison_visits_write_events_queue.sqs_name)                = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn
+      (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name)    = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
     },
     local.sns_policies,
     local.rds_policies
@@ -35,7 +37,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
-
 
 module "irsa" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
