@@ -9,7 +9,7 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "applyprivatebeta"
+    cloud-platform.justice.gov.uk/slack-channel: "apply-dev"
     cloud-platform.justice.gov.uk/application: "legal-framework-api"
     cloud-platform.justice.gov.uk/owner: "Apply for Legal Aid: apply-for-civil-legal-aid@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/legal-framework-api"
