@@ -25,7 +25,7 @@ module "s3_bucket" {
         "Sid": "Set-permissions-for-objects",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "arn:aws:iam::075585660276:role/iam_role_s3_bucket_moj_report_source_dev"
+          "AWS": "arn:aws:iam::075585660276:role/service-role/iam_role_s3_bucket_moj_report_source_dev"
         },
         "Action": [
           "s3:ReplicateObject",
@@ -37,7 +37,7 @@ module "s3_bucket" {
         "Sid": "Set-permissions-on-bucket",
         "Effect": "Allow",
         "Principal": {
-          "AWS": "arn:aws:iam::075585660276:role/iam_role_s3_bucket_moj_report_source_dev"
+          "AWS": "arn:aws:iam::075585660276:role/service-role/iam_role_s3_bucket_moj_report_source_dev"
         },
         "Action": [
           "s3:GetBucketVersioning",

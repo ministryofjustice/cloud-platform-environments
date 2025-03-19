@@ -5,7 +5,8 @@ resource "aws_sns_topic_subscription" "queue-subscription" {
   filter_policy = jsonencode({
     eventType = [
       "probation-case.merge.completed",
-      "probation-case.unmerge.completed"
+      "probation-case.unmerge.completed",
+      "probation-case.sentence.moved"
     ]
   })
 }

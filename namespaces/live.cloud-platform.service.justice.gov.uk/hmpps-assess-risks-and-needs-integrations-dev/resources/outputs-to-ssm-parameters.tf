@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "rds_database_password" {
 resource "aws_ssm_parameter" "rds_instance_address" {
   type        = "SecureString"
   name        = "/${var.namespace}/rds-instance-address"
-  value       = module.hmpps_assess_risks_and_needs_integrations_dev_rds.database_password
+  value       = module.hmpps_assess_risks_and_needs_integrations_dev_rds.rds_instance_address
   description = "Database address exported to use in a Foreign Data Wrapper in another namespace"
   tags        = local.tags
 }
@@ -33,7 +33,7 @@ resource "aws_ssm_parameter" "rds_instance_address" {
 resource "aws_ssm_parameter" "rds_instance_port" {
   type        = "SecureString"
   name        = "/${var.namespace}/rds-instance-port"
-  value       = module.hmpps_assess_risks_and_needs_integrations_dev_rds.database_password
+  value       = module.hmpps_assess_risks_and_needs_integrations_dev_rds.rds_instance_port
   description = "Database port exported to use in a Foreign Data Wrapper in another namespace"
   tags        = local.tags
 }
