@@ -112,7 +112,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_personcontacts
   endpoint  = module.prisoner_from_nomis_personcontacts_domain_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
+      "prisoner-offender-search.prisoner.received"
     ]
   })
 }
