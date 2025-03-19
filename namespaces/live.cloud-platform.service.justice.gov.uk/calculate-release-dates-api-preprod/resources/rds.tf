@@ -83,7 +83,7 @@ resource "aws_security_group" "data_catalogue_access_sg" {
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
-      cidr_blocks = "10.201.128.0/17"
+      cidr_blocks = ["10.201.128.0/17"]
   }
 }
 
