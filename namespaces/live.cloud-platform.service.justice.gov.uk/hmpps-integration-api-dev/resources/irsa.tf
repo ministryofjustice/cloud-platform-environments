@@ -75,7 +75,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
-
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "irsa-output"
