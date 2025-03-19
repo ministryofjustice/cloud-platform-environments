@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-electronic-monitoring-crime_matching-dev"
+  default = "hmpps-electronic-monitoring-crime-matching-dev"
 }
 
 variable "business_unit" {
