@@ -32,8 +32,7 @@ apiVersion: networking.k8s.io/v1
 metadata:
   name: mailhog-ingress
   namespace: laa-smtp-mock-dev
-  external-dns.alpha.kubernetes.io/aws-weight: "100"
-  external-dns.alpha.kubernetes.io/set-identifier: "<ingress-name>-<ns>-green"
+  external-dns.alpha.kubernetes.io/set-identifier: "mailhog-ingress-laa-smtp-mock-dev-green"
 spec:
   rules:
     - host: mailhog.laa-smtp-mock-dev.com
