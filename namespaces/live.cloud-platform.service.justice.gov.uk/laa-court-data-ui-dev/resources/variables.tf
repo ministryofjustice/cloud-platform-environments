@@ -17,7 +17,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-assess-a-claim"
+  default     = "laa-access-court-data"
 }
 
 variable "repo_name" {
@@ -32,7 +32,7 @@ variable "environment-name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "assessaclaim@digital.justice.gov.uk"
+  default     = "access-court-data-team@digital.justice.gov.uk"
 }
 
 variable "is_production" {
