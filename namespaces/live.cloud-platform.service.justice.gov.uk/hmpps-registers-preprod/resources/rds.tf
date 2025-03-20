@@ -9,20 +9,23 @@ module "prisons_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  enable_rds_auto_start_stop = true
-  db_instance_class          = "db.t4g.micro"
-  db_max_allocated_storage   = "500"
-  deletion_protection        = true
-  prepare_for_major_upgrade  = true
-  rds_family                 = "postgres16"
-  db_engine                  = "postgres"
-  db_engine_version          = "16.3"
+  enable_rds_auto_start_stop  = true
+
+  prepare_for_major_upgrade   = false
+  db_instance_class           = "db.t4g.micro"
+  rds_family                  = "postgres16"
+  db_engine                   = "postgres"
+  db_engine_version           = "16.3"
+  deletion_protection         = true
+  allow_major_version_upgrade = "false"
+
+  db_max_allocated_storage    = "500"
 
   providers = {
     aws = aws.london
   }
 
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
