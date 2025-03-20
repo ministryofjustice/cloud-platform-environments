@@ -9,5 +9,5 @@ spec:
       app.kubernetes.io/instance: laa-crown-court-remuneration-dev
       app.kubernetes.io/name: laa-crown-court-remuneration-app
   endpoints:
-  - port: metrics
+  - port: http
     interval: 30s
