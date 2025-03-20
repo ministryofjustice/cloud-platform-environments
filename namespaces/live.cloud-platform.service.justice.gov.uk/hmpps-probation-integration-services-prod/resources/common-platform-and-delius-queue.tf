@@ -81,5 +81,6 @@ module "common-platform-and-delius-service-account" {
   role_policy_arns     = {
     sqs = module.common-platform-and-delius-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+    s3  = module.common-platform-and-delius-s3-bucket.irsa_policy_arn
   }
 }
