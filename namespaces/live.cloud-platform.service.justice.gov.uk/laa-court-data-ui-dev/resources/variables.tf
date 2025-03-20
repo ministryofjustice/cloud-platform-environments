@@ -17,7 +17,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-assess-a-claim"
+  default     = "laa-access-court-data"
 }
 
 variable "repo_name" {
