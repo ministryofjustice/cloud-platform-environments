@@ -26,7 +26,6 @@ module "prisons_rds" {
   }
 
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
-  db_parameter_group_name     = "cloud-platform-897c419584ae8631-upgrade"
 
   db_parameter = [
     {
