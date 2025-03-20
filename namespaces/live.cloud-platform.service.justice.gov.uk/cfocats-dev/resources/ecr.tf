@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["cfo-caseassessmenttrackingsystem-cp"]
+  github_repositories = ["CFO-CaseAssessmentTrackingSystem-cp"]
 
   # Tags
   business_unit          = var.business_unit
