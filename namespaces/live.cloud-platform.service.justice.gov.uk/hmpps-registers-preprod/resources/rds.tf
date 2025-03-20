@@ -10,13 +10,16 @@ module "prisons_rds" {
   infrastructure_support = var.infrastructure_support
 
   enable_rds_auto_start_stop = true
+
+  prepare_for_major_upgrade  = false
   db_instance_class          = "db.t4g.micro"
-  db_max_allocated_storage   = "500"
-  deletion_protection        = true
-  prepare_for_major_upgrade  = true
   rds_family                 = "postgres16"
-  db_engine                  = "postgres"
   db_engine_version          = "16.3"
+  deletion_protection        = true
+  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
+
+  db_max_allocated_storage   = "500"
 
   providers = {
     aws = aws.london
