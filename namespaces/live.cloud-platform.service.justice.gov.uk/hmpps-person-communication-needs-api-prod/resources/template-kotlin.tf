@@ -7,6 +7,7 @@ module "hmpps_template_kotlin" {
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
+  reviewer_teams                = ["connect-dps","hmpps-sre"]
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
