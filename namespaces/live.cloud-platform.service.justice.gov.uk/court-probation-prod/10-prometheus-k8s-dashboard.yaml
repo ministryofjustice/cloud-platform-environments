@@ -1509,11 +1509,6 @@ data:
               },
               {
                 "selected": false,
-                "text": "\"court-list-splitter\"",
-                "value": "\"court-list-splitter\""
-              },
-              {
-                "selected": false,
                 "text": "\"court-hearing-event-receiver\"",
                 "value": "\"court-hearing-event-receiver\""
               },
@@ -1533,7 +1528,7 @@ data:
                 "value": "\"pre-sentence-service-wproofreader\""
               }
             ],
-            "query": "\"prepare-a-case\",\"court-case-service\",\"crime-portal-gateway\",\"court-case-matcher\",\"court-list-splitter\",\"court-hearing-event-receiver\",\"pre-sentence-service\",\"pre-sentence-service-gotenberg\",\"pre-sentence-service-wproofreader\"",
+            "query": "\"prepare-a-case\",\"court-case-service\",\"crime-portal-gateway\",\"court-case-matcher\",\"court-hearing-event-receiver\",\"pre-sentence-service\",\"pre-sentence-service-gotenberg\",\"pre-sentence-service-wproofreader\"",
             "queryValue": "",
             "skipUrlSync": false,
             "type": "custom"
