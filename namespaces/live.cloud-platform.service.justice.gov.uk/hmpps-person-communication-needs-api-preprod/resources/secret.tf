@@ -14,11 +14,6 @@ module "secrets_manager" {
       description             = "Webhook for slack alerts in preprod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "slack-alerts-webhook-preprod"
-    },
-    "digital-prison-reporting" = {
-      description             = "Credentials for DPR database user",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "digital-prison-reporting"
     }
   }
 }
