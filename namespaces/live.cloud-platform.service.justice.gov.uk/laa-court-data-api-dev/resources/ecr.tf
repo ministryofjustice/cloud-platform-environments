@@ -16,7 +16,8 @@ module "ecr_credentials" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
+  # TODO: use var.team_name when we are ready to switch to a new ECR repo
+  team_name              = "laa-assess-a-claim" # also used for naming the container repository
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
