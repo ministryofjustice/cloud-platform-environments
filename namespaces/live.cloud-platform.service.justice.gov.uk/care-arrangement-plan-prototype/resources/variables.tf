@@ -67,3 +67,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "oidc_name" {
+  description = "Name of the OIDC provider (github or circleci)"
+  type        = string
+  default     = "github"
+}
