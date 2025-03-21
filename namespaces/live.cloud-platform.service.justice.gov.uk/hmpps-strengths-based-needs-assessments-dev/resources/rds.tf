@@ -88,9 +88,9 @@ resource "postgresql_server" "integrations_rds" {
   depends_on = [postgresql_extension.postgres_fdw]
 }
 
-# Create User Mapping
+# Create User Mapping for local user
 resource "postgresql_role" "remote_role" {
-  name = "remote"
+  name = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
 }
 
 resource "postgresql_user_mapping" "remote_mapping" {
