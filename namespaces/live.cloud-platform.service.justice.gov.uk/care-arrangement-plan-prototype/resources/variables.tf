@@ -67,10 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-## Prototype kit variables
-
-variable "password" {
-  description = "Password of the deployed prototype website"
-  default     = "parent-planner"
-}
