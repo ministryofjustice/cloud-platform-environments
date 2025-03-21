@@ -10,4 +10,5 @@ spec:
       app.kubernetes.io/name: laa-crown-court-remuneration-app
   endpoints:
   - port: http
+    path: /ccr/metrics 
     interval: 30s
