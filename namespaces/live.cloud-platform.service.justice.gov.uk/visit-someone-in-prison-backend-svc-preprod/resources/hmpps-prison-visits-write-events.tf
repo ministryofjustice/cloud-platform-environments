@@ -60,7 +60,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_write_events_queue" {
   metadata {
     name = "sqs-hmpps-prison-visits-write-events-secret"
     ## Name space where the listening service is found
-    namespace = "visit-someone-in-prison-backend-svc-dev"
+    namespace = "visit-someone-in-prison-backend-svc-preprod"
   }
 
   data = {
@@ -75,7 +75,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_write_events_dead_letter_queue
   metadata {
     name = "sqs-hmpps-prison-visits-write-events-dlq-secret"
     ## Name space where the listening service is found
-    namespace = "visit-someone-in-prison-backend-svc-dev"
+    namespace = "visit-someone-in-prison-backend-svc-preprod"
   }
 
   data = {
