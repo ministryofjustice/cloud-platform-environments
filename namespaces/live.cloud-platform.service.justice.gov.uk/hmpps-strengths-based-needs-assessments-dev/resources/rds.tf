@@ -88,14 +88,9 @@ resource "postgresql_server" "integrations_rds" {
   depends_on = [postgresql_extension.postgres_fdw]
 }
 
-# Create User Mapping for local user
-resource "postgresql_role" "remote_role" {
-  name = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
-}
-
 resource "postgresql_user_mapping" "remote_mapping" {
   server_name = postgresql_server.integrations_rds.server_name
-  user_name   = postgresql_role.remote_role.name
+  user_name   = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
   options = {
     user = data.aws_ssm_parameter.integrations_rds_database_username.value # username for other server
     password = data.aws_ssm_parameter.integrations_rds_database_password.value # password for other server
