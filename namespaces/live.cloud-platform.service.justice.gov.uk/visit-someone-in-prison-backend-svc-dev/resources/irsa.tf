@@ -25,7 +25,7 @@ locals {
       hmpps_prison_visits_allocation_processing_job_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_queue               = module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
-      (module.hmpps_prison_visits_write_events_queue.sqs_name)                = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn
+      (module.hmpps_prison_visits_write_events_queue.sqs_name)                = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn,
       (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name)    = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
     },
     local.sns_policies,
