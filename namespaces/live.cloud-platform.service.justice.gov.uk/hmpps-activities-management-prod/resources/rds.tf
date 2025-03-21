@@ -82,7 +82,7 @@ module "activities_rds_read_replica" {
   rds_family                  = "postgres17"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.medium"
   db_engine_version           = "17.2"
   storage_type                = "gp3"
   db_max_allocated_storage    = "200"
