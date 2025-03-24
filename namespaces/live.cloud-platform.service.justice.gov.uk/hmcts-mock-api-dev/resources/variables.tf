@@ -41,7 +41,7 @@ variable "is_production" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "crime-apps"
+  default     = "laa-access-court-data"
 }
 
 variable "environment_name" {
@@ -51,7 +51,7 @@ variable "environment_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "access-court-data-team@digital.justice.gov.uk"
 }
 
 variable "kubernetes_cluster" {
