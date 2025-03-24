@@ -12,4 +12,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-access-court-data"
     cloud-platform.justice.gov.uk/owner: "LAA Access Court Data team: access-court-data-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-court-data-adaptor"
-    cloud-platform.justice.gove.uk/team-name: "laa-access-court-data"
+    cloud-platform.justice.gov.uk/team-name: "laa-access-court-data"
