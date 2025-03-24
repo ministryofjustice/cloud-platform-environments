@@ -18,7 +18,7 @@ module "create_link_queue_m" {
   application            = var.application
   is_production          = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "laa-crime-apps-team"
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
