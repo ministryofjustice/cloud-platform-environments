@@ -7,6 +7,7 @@
 module "laa_crime_apps_team_ecr_credentials" {
   source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
   repo_name = "hmcts-common-platform-mock-api"
+  # TODO: Change this to the correct team name when we are ready to switch ECR repo
   team_name = "laa-crime-apps-team"
   namespace = var.namespace
 
