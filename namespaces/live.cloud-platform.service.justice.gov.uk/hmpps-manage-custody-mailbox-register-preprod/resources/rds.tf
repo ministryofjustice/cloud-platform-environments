@@ -44,6 +44,23 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-manage-custody-mailbox-register-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
 # Configmap to store non-sensitive data related to the RDS instance
 
 resource "kubernetes_config_map" "rds" {
