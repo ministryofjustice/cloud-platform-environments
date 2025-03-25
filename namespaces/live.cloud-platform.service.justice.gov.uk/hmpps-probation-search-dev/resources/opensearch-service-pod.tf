@@ -8,6 +8,7 @@ resource "kubernetes_pod" "opensearch_test_proxy" {
   }
 
   spec {
+    service_account_name = module.opensearch.service_account_name
     container {
       name  = "opensearch-test-proxy"
       image = "public.ecr.aws/aws-observability/aws-sigv4-proxy:1.10"
