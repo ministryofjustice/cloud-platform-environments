@@ -11,7 +11,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription
       "incentives.prisoner.next-review-date-changed",
       "restricted-patients.patient.added",
       "restricted-patients.patient.removed",
-      "restricted-patients.patient.supporting-prison-changed"
+      "restricted-patients.patient.supporting-prison-changed",
+      "person.alert.created",
+      "person.alert.updated",
+      "person.alert.deleted"
     ]
   })
 }
