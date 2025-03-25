@@ -1,4 +1,4 @@
-module "hmpps-community-accommodation-tier-2-bail-ui" {
+module "hmpps_community_accommodation_tier_2_bail_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-community-accommodation-tier-2-bail-ui"
   application = "hmpps-community-accommodation-tier-2-bail-ui"
