@@ -9,13 +9,13 @@ spec:
   groups:
     - name: application-rules
       rules:
-        - alert: Client Errors  ({{ $labels.namespace }})
+        - alert: Client Errors  (DRC Integration DEV)
           expr: sum(increase(webclient_requests_seconds_count{outcome="CLIENT_ERROR", namespace="$namespace"}[10m])) > 5
           for: 10m
           labels:
             severity: laa-dces-drc-integration
           annotations:
-            message: There have been over 50 client error responses in the DCES DRC running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
+            message: There have been over 50 client error responses in the {{ $labels.namespace }} DCES DRC running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-dces-drc-integration?orgId=1&refresh=30s&var-namespace=laa-dces-drc-integration-dev
         - alert: 403 FORBIDDEN  ({{ $labels.namespace }})
@@ -47,7 +47,7 @@ spec:
           expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
           for: 24h
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job did not run in the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
@@ -56,7 +56,7 @@ spec:
           expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) >= 1
           for: 24h
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job runs multiple time during the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
@@ -65,7 +65,7 @@ spec:
           expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) <= 0
           for: 24h
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job did not run in the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
@@ -75,7 +75,7 @@ spec:
           expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
           for: 1m
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
             message: There had been an error in the logs of the DCES DRC in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md

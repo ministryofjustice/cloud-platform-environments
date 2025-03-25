@@ -148,7 +148,7 @@ data:
                 "uid": "Thanos"
               },
               "editorMode": "code",
-              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\", prometheus_replica=\"\"} [1h] )) ",
+              "expr": "sum(increase(ServiceScheduler_contribution_seconds_count {namespace=\"$namespace\"} [1h] )) ",
               "legendFormat": "Contribution",
               "range": true,
               "refId": "A"
