@@ -6,5 +6,5 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
-  github_repositories = ["https://github.com/ministryofjustice/laa-ccw-fees-service"]
+  github_repositories = ["laa-ccw-fees-service"]
 }
