@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dev-entry-cert
+  namespace: sif-development
+spec:
+  secretName: dev-entry-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - 1.hmcts-sif-reporting-tool.service.justice.gov.uk
+  - dev.entry.hmcts-sif-reporting-tool.service.justice.gov.uk
