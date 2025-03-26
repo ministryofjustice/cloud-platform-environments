@@ -42,8 +42,9 @@ module "s3_bucket" {
         ]
       },
       {
-        "Effect": "Allow",
-        "Action": "s3:GetObject",
+        Effect = "Allow",
+        Action = "s3:GetObject",
+        Principal = "*",
         Resource = [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
