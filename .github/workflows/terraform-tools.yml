@@ -74,7 +74,7 @@ jobs:
       - name: Get changed files
         id: changed-files
         run: |
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          CHANGED_FILES=$(git diff --name-only origin/main origin/$GITHUB_HEAD_REF)
           echo "Changed files: $CHANGED_FILES"
           
           AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/[^/]+' | sort -u | uniq)
