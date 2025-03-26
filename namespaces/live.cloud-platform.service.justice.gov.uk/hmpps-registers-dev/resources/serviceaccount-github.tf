@@ -71,7 +71,7 @@ module "service_account" {
   namespace                            = var.namespace
   kubernetes_cluster                   = var.kubernetes_cluster
   serviceaccount_name                  = "github-actions-sa"
-  github_environments                  = [var.environment]
+  github_environments                  = [var.environment-name]
   github_repositories                  = local.github_repos
   github_actions_secret_kube_cert      = "KUBE_CERT"
   github_actions_secret_kube_token     = "KUBE_TOKEN"
@@ -94,7 +94,7 @@ data "github_team" "move-a-prisoner" {
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
-  environment = var.environment
+  environment = var.environment-name
   repository  = each.key
   # Not working - waiting for Cloud Platforms to help me fix this
   # prevent_self_review = true
@@ -113,7 +113,7 @@ resource "github_repository_environment" "env" {
 resource "github_actions_environment_variable" "namespace_env_var" {
   for_each    = toset(local.github_repos)
   repository  = each.key
-  environment = var.environment
+  environment = var.environment-name
   variable_name = "KUBE_NAMESPACE"
   value = var.namespace
 }
