@@ -28,12 +28,6 @@ variable "team_name" {
   default     = "Digital-Prison-Services"
 }
 
-variable "environment-name" {
-  description = "The type of environment you're deploying to."
-  default     = "dev"
-}
-
-# Environment Variable for Github Actions
 variable "environment" {
   default     = "dev"
 }

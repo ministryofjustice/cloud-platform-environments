@@ -6,7 +6,7 @@ module "prisons_rds" {
   application            = var.prison-application
   is_production          = var.is_production
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   enable_rds_auto_start_stop = true
