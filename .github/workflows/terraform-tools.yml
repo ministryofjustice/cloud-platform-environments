@@ -63,14 +63,58 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 ##v4.2.2
+      
       - uses: actions/cache@v4
         with:
           path: ~/.tflint.d/plugins
           key: tflint-${{ hashFiles('.tflint.hcl') }}
-      - uses: terraform-linters/setup-tflint@8093687ecc9dcbfa88d07c103ad4176739a7287e ##v4.1.0
-      - run: tflint --init -c $(realpath .tflint.hcl)
+
+      - uses: terraform-linters/setup-tflint@90f302c255ef959cbfb4bd10581afecdb7ece3e6 ##v4.1.1
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          
+          AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/[^/]+' | sort -u | uniq)
+          
+          if [[ -z "$AFFECTED_NAMESPACES" ]]; then
+            echo "No relevant namespaces changed. Skipping TFLint."
+            echo "::set-output name=skip_tflint::true"
+          else
+            echo "Namespaces to lint: $AFFECTED_NAMESPACES"
+            echo "::set-output name=skip_tflint::false"
+            echo "::set-output name=namespaces::$AFFECTED_NAMESPACES"
+          fi
+
+      - name: Run TFLint initialization
+        if: ${{ steps.changed-files.outputs.skip_tflint != 'true' }}
+        run: tflint --init -c $(realpath .tflint.hcl)
         env:
-          GITHUB_TOKEN: ${{ github.token }} # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
-      - run: rm -r namespace-resources-cli-template # remove the template from being linted
-      - run: rm -r cmd/ # remove the templates in the cmd directory from being linted
-      - run: tflint -c $(realpath .tflint.hcl) -f compact --recursive --only=terraform_comment_syntax --only=terraform_deprecated_index --only=terraform_deprecated_interpolation --only=terraform_documented_outputs --only=terraform_empty_list_equality --only=terraform_module_pinned_source --only=terraform_module_version --only=terraform_required_providers --only=terraform_required_version --only=terraform_unused_required_providers --only=terraform_workspace_remote # enable rules that pass at the current time only, whilst the others are rectified on multiple namespaces (see: https://github.com/terraform-linters/tflint-ruleset-terraform/tree/main/docs/rules)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove unnecessary directories from linting
+        if: ${{ steps.changed-files.outputs.skip_tflint != 'true' }}
+        run: |
+          rm -rf namespace-resources-cli-template
+          rm -rf cmd/
+
+      - name: Run TFLint on changed namespaces
+        if: ${{ steps.changed-files.outputs.skip_tflint != 'true' }}
+        run: |
+          for ns in ${{ steps.changed-files.outputs.namespaces }}; do
+            echo "Running tflint on $ns..."
+            tflint -c $(realpath .tflint.hcl) -f compact --recursive \
+              --only=terraform_comment_syntax \
+              --only=terraform_deprecated_index \
+              --only=terraform_deprecated_interpolation \
+              --only=terraform_documented_outputs \
+              --only=terraform_empty_list_equality \
+              --only=terraform_module_pinned_source \
+              --only=terraform_module_version \
+              --only=terraform_required_providers \
+              --only=terraform_required_version \
+              --only=terraform_unused_required_providers \
+              --only=terraform_workspace_remote --chdir="$ns"
+          done
