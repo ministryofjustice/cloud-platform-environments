@@ -79,7 +79,7 @@ jobs:
           CHANGED_FILES=$(git diff --name-only origin/main origin/$GITHUB_HEAD_REF)
           echo "Changed files: $CHANGED_FILES"
           
-          AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/.*/[^/]+' | sort -u | uniq)
+          AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/' | rev | cut -d'/' -f2- | rev | sort -u | uniq)
           
           if [[ -z "$AFFECTED_NAMESPACES" ]]; then
             echo "No relevant namespaces changed. Skipping TFLint."
