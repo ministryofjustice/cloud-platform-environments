@@ -9,7 +9,7 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
-  github_environments = ["dev"]
+  #github_environments = ["dev"]
   serviceaccount_rules = [
     {
       api_groups = [""]
