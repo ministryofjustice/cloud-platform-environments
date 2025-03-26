@@ -7,15 +7,19 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
+  # arestore the v17 dbase
+  snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
+
+
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = true
+  allow_major_version_upgrade  = false
   performance_insights_enabled = true
   db_max_allocated_storage     = "500"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -39,50 +43,52 @@ module "rds" {
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
-module "read_replica" {
-  # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  vpc_name               = var.vpc_name
+# module "read_replica" {
+#   # default 0
+#   count = 1
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
 
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
+#   vpc_name               = var.vpc_name
 
-  # If any other inputs of the RDS is passed in the source db which are different from defaults,
-  # add them to the replica
+#   # Tags
+#   application            = var.application
+#   business_unit          = var.business_unit
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+#   is_production          = var.is_production
+#   namespace              = var.namespace
+#   team_name              = var.team_name
 
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
-  # It is mandatory to set the below values to create read replica instance
+#   # If any other inputs of the RDS is passed in the source db which are different from defaults,
+#   # add them to the replica
 
-  # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+#   # PostgreSQL specifics
+#   db_engine         = "postgres"
+#   db_engine_version = "17.3"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+#   rds_family        = "postgres17"
+#   db_instance_class = "db.t4g.micro"
+#   # It is mandatory to set the below values to create read replica instance
 
-  # Set to true. No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
+#   # Set the db_identifier of the source db
+#   replicate_source_db = module.rds.db_identifier
+#   allow_major_version_upgrade = false ##inherit from the primary db
 
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
+#   # Set to true. No backups or snapshots are created for read replica
+#   skip_final_snapshot        = "true"
+#   db_backup_retention_period = 0
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
-}
+#   # If db_parameter is specified in source rds instance, use the same values.
+#   # If not specified you dont need to add any. It will use the default values.
+
+#   # db_parameter = [
+#   #   {
+#   #     name         = "rds.force_ssl"
+#   #     value        = "0"
+#   #     apply_method = "immediate"
+#   #   }
+#   # ]
+# }
 
 resource "kubernetes_secret" "rds" {
   metadata {

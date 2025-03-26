@@ -15,6 +15,7 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  enable_allow_block_pub_access = false
 
   bucket_policy = jsonencode({
     Version = "2012-10-17"
@@ -39,6 +40,21 @@ module "s3_bucket" {
           "$${bucket_arn}",
           "$${bucket_arn}/*"
         ]
+      },
+      {
+        Effect = "Allow",
+        Action = "s3:GetObject",
+        Principal = "*",
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+        # Add IP CIDR block for GLiMR server side process once identified
+        # "Condition": {
+        #     "IpAddress": {
+        #         "aws:SourceIp": "your-allowed-ip-address/cidr-block"
+        #     }
+        # }
       }
     ]
   })

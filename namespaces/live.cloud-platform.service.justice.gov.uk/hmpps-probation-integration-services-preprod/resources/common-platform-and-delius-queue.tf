@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "common-platform-and-delius-queue-subscription" {
-  topic_arn = data.aws_ssm_parameter.court-topic.value
+  topic_arn = data.aws_ssm_parameter.court-topic-prod.value
   protocol  = "sqs"
   endpoint  = module.common-platform-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
@@ -81,5 +81,6 @@ module "common-platform-and-delius-service-account" {
   role_policy_arns     = {
     sqs = module.common-platform-and-delius-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+    s3  = module.common-platform-and-delius-s3-bucket.irsa_policy_arn
   }
 }

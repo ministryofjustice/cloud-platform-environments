@@ -3,7 +3,9 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   enable_rds_auto_start_stop = true
   vpc_name                   = var.vpc_name
   namespace                  = var.namespace
@@ -24,6 +26,7 @@ module "make_recall_decision_api_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "make_recall_decision_api_rds" {

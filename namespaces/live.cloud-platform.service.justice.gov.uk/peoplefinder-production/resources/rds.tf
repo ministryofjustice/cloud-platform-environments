@@ -4,7 +4,9 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -15,7 +17,7 @@ module "peoplefinder_rds" {
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.3"
+  db_engine_version          = "16.4"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment_name           = var.environment
@@ -23,15 +25,18 @@ module "peoplefinder_rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade = "false"
+  prepare_for_major_upgrade   = "false"
 
   providers = {
     aws = aws.london
   }
+
 }
 
 module "peoplefinder_rds_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name = var.vpc_name
 
@@ -43,7 +48,7 @@ module "peoplefinder_rds_replica" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres16"
-  db_engine_version        = "16.3"
+  db_engine_version        = "16.4"
   namespace                = var.namespace
   business_unit            = var.business_unit
 
@@ -56,6 +61,7 @@ module "peoplefinder_rds_replica" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "peoplefinder_rds" {

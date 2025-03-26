@@ -71,8 +71,10 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "rds_family" {
-  default = "postgres15"
-}
-
 variable "eks_cluster_name" {}
+
+variable "environment_name" {
+  description = "The name of environment you're deploying to."
+  type = string
+  default = "dev"
+}

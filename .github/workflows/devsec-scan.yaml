@@ -10,11 +10,11 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: aquasecurity/tfsec-sarif-action@v0.1.4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: aquasecurity/tfsec-sarif-action@21ded20e8ca120cd9d3d6ab04ef746477542a608 # v0.1.4
         with:
           tfsec_args: --force-all-dirs --soft-fail -m=HIGH -e=github-repositories-private,github-branch_protections-require_signed_commits,github-actions-no-plain-text-action-secrets,aws-iam-no-policy-wildcards,aws-ecr-enforce-immutable-repository,aws-rds-enable-performance-insights-encryption,aws-s3-encryption-customer-key,aws-sqs-enable-queue-encryption
           sarif_file: tfsec.sarif
-      - uses: github/codeql-action/upload-sarif@v3
+      - uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 # v3.28.11
         with:
           sarif_file: tfsec.sarif

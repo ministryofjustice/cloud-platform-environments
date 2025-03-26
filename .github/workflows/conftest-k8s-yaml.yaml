@@ -14,12 +14,12 @@ jobs:
 
       - name: Get changed files
         id: files
-        uses: tj-actions/changed-files@d6e91a2266cdb9d62096cebf1e8546899c6aa18f ##v45.0.6
+        uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 ##v46.0.1
         with:
           files_ignore: .github/**
 
       - name: Setup conftest
-        uses: princespaghetti/setup-conftest@8988df9968f72ab406646e033cfe1765eb201e94 ##v1.1.22
+        uses: princespaghetti/setup-conftest@d75fd184422abf484802a0fefc0453f2cda20f95 ##v1.1.23
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |

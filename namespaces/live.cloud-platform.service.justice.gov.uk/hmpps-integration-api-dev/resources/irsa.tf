@@ -5,12 +5,12 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev",
-    "education-skills-work-employment-dev-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-dev"
+    "education-skills-work-employment-dev-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-dev",
+    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
-
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
@@ -74,7 +74,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
-
 
 resource "kubernetes_secret" "irsa" {
   metadata {

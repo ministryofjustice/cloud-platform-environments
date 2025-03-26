@@ -13,7 +13,7 @@ resource "pingdom_check" "pingdom_api" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-alerts-api,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [132509] #connect-dps-prod-alerts
 }
 
 resource "pingdom_check" "pingdom_ui" {
@@ -29,5 +29,5 @@ resource "pingdom_check" "pingdom_ui" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-alerts-ui,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [132509] #connect-dps-prod-alerts
 }

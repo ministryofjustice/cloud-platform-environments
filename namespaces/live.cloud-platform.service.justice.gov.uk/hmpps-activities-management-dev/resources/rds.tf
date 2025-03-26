@@ -36,6 +36,7 @@ module "activities_rds" {
   db_engine_version           = "17.2"
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
+  deletion_protection         = true
 
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
@@ -106,7 +107,6 @@ module "activities_rds_read_replica" {
   db_engine_version           = "17.2"
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
-
   replicate_source_db         = module.activities_rds.db_identifier
   skip_final_snapshot         = "true"
   db_backup_retention_period  = 0

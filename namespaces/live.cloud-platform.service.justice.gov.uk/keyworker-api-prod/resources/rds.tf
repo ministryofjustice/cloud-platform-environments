@@ -1,5 +1,6 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -9,17 +10,18 @@ module "dps_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
   db_allocated_storage        = "20"
-  db_engine_version           = "15"
+  db_engine_version           = "17"
   db_engine                   = "postgres"
-  rds_family                  = "postgres15"
-  allow_minor_version_upgrade = "true"
+  rds_family                  = "postgres17"
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
   prepare_for_major_upgrade   = false
 }
+
 
 resource "kubernetes_secret" "dps_rds" {
   metadata {

@@ -16,7 +16,8 @@ module "create_link_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch repo
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -63,7 +64,8 @@ module "create_link_queue_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -91,7 +93,8 @@ module "unlink_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -137,7 +140,8 @@ module "unlink_queue_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -165,7 +169,8 @@ module "hearing_resulted_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -211,7 +216,8 @@ module "hearing_resulted_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -239,7 +245,8 @@ module "prosecution_concluded_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -260,7 +267,8 @@ module "prosecution_concluded_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support

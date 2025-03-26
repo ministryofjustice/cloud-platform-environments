@@ -3,19 +3,19 @@ on:
       types: [opened, edited, reopened, synchronize]
       paths:
         - 'opa-auto-approve-policy/**'
-  
+
 name: OPA Auto Approve Policy Tests
 jobs:
   opa-tests:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
-      uses: actions/checkout@v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
     - name: Setup OPA
-      uses: open-policy-agent/setup-opa@v2
+      uses: open-policy-agent/setup-opa@34a30e8a924d1b03ce2cf7abe97250bbb1f332b5 # v2.2.0
       with:
         version: latest
 
-    - name: Run OPA Tests 
+    - name: Run OPA Tests
       run: opa test opa-auto-approve-policy/ -v

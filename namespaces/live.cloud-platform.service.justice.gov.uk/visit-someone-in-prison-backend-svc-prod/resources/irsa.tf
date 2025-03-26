@@ -25,6 +25,8 @@ locals {
       hmpps_prison_visits_allocation_processing_job_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_queue               = module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
       hmpps_prison_visits_allocation_prisoner_retry_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
+      (module.hmpps_prison_visits_write_events_queue.sqs_name)                = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn,
+      (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name)    = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
     },
     local.rds_policies,
     local.sns_policies)
@@ -50,4 +52,13 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   eks_cluster_name       = var.eks_cluster_name
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

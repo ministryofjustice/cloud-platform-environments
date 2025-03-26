@@ -1,5 +1,7 @@
 module "flipt-db" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage         = 10
+  storage_type                 = "gp2"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -10,13 +12,14 @@ module "flipt-db" {
   namespace                    = var.namespace
   rds_name                     = "probation-integration-flipt-db-${var.environment_name}"
   rds_family                   = "postgres16"
-  db_engine_version            = "16.3"
+  db_engine_version            = "16.4"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = true
   performance_insights_enabled = true
   maintenance_window           = "sun:00:00-sun:03:00"
 }
+
 
 resource "kubernetes_secret" "flipt-db" {
   metadata {
