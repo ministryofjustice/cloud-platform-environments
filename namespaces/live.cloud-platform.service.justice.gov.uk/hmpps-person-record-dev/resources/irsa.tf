@@ -9,24 +9,6 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
-# CPR SQS Policies
-data "aws_iam_policy_document" "combined_cpr_sqs" {
-  statement {
-    sid       = "hmppsCprQueuePolicy"
-    effect  = "Allow"
-    actions = ["sqs:*"]
-    resources = [
-      module.cpr_recluster_events_queue.sqs_arn,
-      module.cpr_recluster_events_dead_letter_queue.sqs_arn
-    ]
-  }
-}
-
-resource "aws_iam_policy" "combined_cpr_sqs" {
-  policy = data.aws_iam_policy_document.combined_cpr_sqs.json
-  tags   = local.default_tags
-}
-
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
   statement {
@@ -124,7 +106,6 @@ module "irsa" {
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
-    { combined_cpr_sqs = aws_iam_policy.combined_cpr_sqs.arn },
     { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )
 
