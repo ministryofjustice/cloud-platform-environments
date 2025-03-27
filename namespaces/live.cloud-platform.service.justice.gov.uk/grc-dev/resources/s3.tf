@@ -18,6 +18,7 @@ module "s3_bucket" {
   logging_enabled        = var.logging_enabled
   log_target_bucket      = module.s3_logging_bucket.bucket_name
   log_path               = var.log_path
+  acl                    = "public-read"
   enable_allow_block_pub_access = false
 
   bucket_policy = jsonencode({
@@ -253,7 +254,23 @@ module "s3_logging_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-  acl                    = "log-delivery-write"
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "S3ServerAccessLogsPolicy",
+        Effect = "Allow",
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
+        },
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "$${bucket_arn}/*"
+      }
+    ]
+  })
 }
 
 resource "kubernetes_secret" "s3_logging_bucket" {
