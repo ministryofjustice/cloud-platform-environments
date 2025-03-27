@@ -7,7 +7,7 @@
 
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -15,6 +15,10 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  logging_enabled        = var.logging_enabled
+  log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = var.log_path
+  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
   bucket_policy = jsonencode({
@@ -234,5 +238,33 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
+  }
+}
+
+#######################################
+# s3 bucket for logging all access reqs
+#######################################
+
+module "s3_logging_bucket" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+  acl                    = "log-delivery-write"
+}
+
+resource "kubernetes_secret" "s3_logging_bucket" {
+  metadata {
+    name      = "s3-logging-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    BUCKET_ARN  = module.s3_logging_bucket.bucket_arn
+    BUCKET_NAME = module.s3_logging_bucket.bucket_name
   }
 }
