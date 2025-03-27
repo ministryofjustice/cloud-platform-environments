@@ -268,6 +268,21 @@ module "s3_logging_bucket" {
           "s3:PutObject"
         ],
         Resource = "$${bucket_arn}/*"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            module.irsa.role_arn
+          ]
+        }
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
       }
     ]
   })
