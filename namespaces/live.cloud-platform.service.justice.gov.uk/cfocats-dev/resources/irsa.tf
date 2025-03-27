@@ -14,6 +14,7 @@ module "irsa" {
     rds_mssql = module.rds_mssql.irsa_policy_arn
     sqs = module.sqs.irsa_policy_arn
     sqs_dl = module.sqs.irsa_policy_arn
+    redis = module.redis.irsa_policy_arn
   }
 
   # Tags
