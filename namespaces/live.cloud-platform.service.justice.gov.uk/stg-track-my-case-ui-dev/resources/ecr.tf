@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["stg-track-my-case-ui"]
 
   # Tags
   business_unit          = var.business_unit
