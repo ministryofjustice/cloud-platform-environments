@@ -28,6 +28,15 @@ variable "environment" {
   default     = "development"
 }
 
+variable "logging_enabled" {
+  default = true
+}
+
+
+variable "log_path" {
+  default = "/log"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "pet@hmcts.net"
