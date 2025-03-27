@@ -110,7 +110,6 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_visitbalance_subscrip
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_VISIT_BALANCE_ADJS-INSERTED",
-      "OFFENDER_VISIT_BALANCE_ADJS-UPDATED",
       "OFFENDER_VISIT_BALANCE_ADJS-DELETED"
     ]
   })
