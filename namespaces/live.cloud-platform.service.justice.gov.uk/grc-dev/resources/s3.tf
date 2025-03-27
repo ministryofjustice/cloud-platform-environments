@@ -18,7 +18,6 @@ module "s3_bucket" {
   logging_enabled        = var.logging_enabled
   log_target_bucket      = module.s3_logging_bucket.bucket_name
   log_path               = var.log_path
-  acl                           = "public-read"
   enable_allow_block_pub_access = false
 
   bucket_policy = jsonencode({
