@@ -34,7 +34,7 @@ variable "logging_enabled" {
 
 
 variable "log_path" {
-  default = "/log"
+  default = "logs/"
 }
 
 variable "infrastructure_support" {
