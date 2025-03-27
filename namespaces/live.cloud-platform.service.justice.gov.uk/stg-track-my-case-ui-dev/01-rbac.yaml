@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: stg-track-my-case-ui-dev-admin
+  namespace: stg-track-my-case-ui-dev
+subjects:
+  - kind: Group
+    name: "github:stg-track-my-case"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
