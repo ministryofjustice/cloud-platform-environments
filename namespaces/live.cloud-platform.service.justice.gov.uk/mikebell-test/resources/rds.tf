@@ -41,3 +41,4 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
+}
