@@ -278,7 +278,7 @@ module "s3_logging_bucket" {
         ]
         Resource = [
           "$${bucket_arn}",
-          "$${bucket_arn}/*",
+          "$${bucket_arn}/*"
         ]
       }
     ]
