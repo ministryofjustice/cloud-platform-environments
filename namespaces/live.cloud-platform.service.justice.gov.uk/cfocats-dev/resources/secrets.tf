@@ -10,30 +10,30 @@ module "secrets" {
         recovery_window_in_days = 7
         k8s_secret_name         = "gov-uk-notify-key"
     },
-    "sentry_dsn": {
+    "sentry-dsn": {
         description             = "Sentry DSN"
         recovery_window_in_days = 7
-        k8s_secret_name         = "sentry_dsn"
+        k8s_secret_name         = "sentry-dsn"
     },
-    "ordnance_api_url": {
+    "ordnance-api-url": {
         description             = "Ordnance API URL"
         recovery_window_in_days = 7
-        k8s_secret_name         = "ordnance_api_url"
+        k8s_secret_name         = "ordnance-api-url"
     },
-    "ordnance_api_key": {
+    "ordnance-api-key": {
         description             = "Ordnance API Key"
         recovery_window_in_days = 7
-        k8s_secret_name         = "ordnance_api_key"
+        k8s_secret_name         = "ordnance-api-key"
     },
-    "dms_api_url": {
+    "dms-api-url": {
         description             = "DMS API URL"
         recovery_window_in_days = 7
-        k8s_secret_name         = "dms_api_url"
+        k8s_secret_name         = "dms-api-url"
     },
-    "dms_api_key": {
+    "dms-api-key": {
         description             = "DMS API Key"
         recovery_window_in_days = 7
-        k8s_secret_name         = "dms_api_key"
+        k8s_secret_name         = "dms-api-key"
     }
   }
 
