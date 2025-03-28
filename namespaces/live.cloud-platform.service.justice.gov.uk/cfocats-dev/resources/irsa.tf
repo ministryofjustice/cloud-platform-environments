@@ -13,7 +13,7 @@ module "irsa" {
     s3 = module.s3_bucket.irsa_policy_arn
     rds_mssql = module.rds_mssql.irsa_policy_arn
     sqs = module.sqs.irsa_policy_arn
-    sqs_dl = module.sqs.irsa_policy_arn
+    sqs_dl = module.sqs_dl.irsa_policy_arn
     redis = module.redis.irsa_policy_arn
   }
 
