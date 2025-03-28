@@ -7,6 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
   filter_policy = jsonencode({
     eventType = [
       "probation-case.engagement.created"
+      "probation-case.personal-details.updated"
     ]
   })
 }
