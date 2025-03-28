@@ -14,7 +14,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription
       "restricted-patients.patient.supporting-prison-changed",
       "person.alert.created",
       "person.alert.updated",
-      "person.alert.deleted"
+      "person.alert.deleted",
+      "person.alerts.changed"
     ]
   })
 }

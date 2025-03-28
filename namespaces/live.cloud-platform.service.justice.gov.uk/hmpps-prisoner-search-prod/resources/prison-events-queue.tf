@@ -6,8 +6,6 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
   filter_policy = jsonencode({
     eventType = [
       "AGENCY_INTERNAL_LOCATIONS-UPDATED",
-      "ALERT-INSERTED",
-      "ALERT-UPDATED",
       "ASSESSMENT-CHANGED",
       "ASSESSMENT-UPDATED",
       "BED_ASSIGNMENT_HISTORY-INSERTED",
