@@ -42,7 +42,7 @@ module "s3_bucket" {
         ]
         Resource = [
           "$${bucket_arn}",
-          "$${bucket_arn}/*"
+          "$${bucket_arn}/https://cloud-platform-558bc9877f5cc03fc5d7a241c17360b5.s3.eu-west-2.amazonaws.com/074JMZ1N.pdf"
         ]
       },
       {
@@ -51,7 +51,7 @@ module "s3_bucket" {
         Principal = "*",
         Resource = [
           "$${bucket_arn}",
-          "$${bucket_arn}/*"
+          "$${bucket_arn}/074JMZ1N.pdf"
         ]
         # Add IP CIDR block for GLiMR server side process once identified
         # "Condition": {
@@ -281,7 +281,7 @@ module "s3_logging_bucket" {
         ]
         Resource = [
           "$${bucket_arn}",
-          "$${bucket_arn}/*"
+          "$${bucket_arn}/*",
         ]
       }
     ]
