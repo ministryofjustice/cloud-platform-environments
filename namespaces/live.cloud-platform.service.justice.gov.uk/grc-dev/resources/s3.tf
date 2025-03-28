@@ -49,10 +49,7 @@ module "s3_bucket" {
         Effect = "Allow",
         Action = "s3:GetObject",
         Principal = "*",
-        Resource = [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
-        ]
+        Resource = "$${bucket_arn}/074JMZ1N.pdf"
         # Add IP CIDR block for GLiMR server side process once identified
         # "Condition": {
         #     "IpAddress": {
