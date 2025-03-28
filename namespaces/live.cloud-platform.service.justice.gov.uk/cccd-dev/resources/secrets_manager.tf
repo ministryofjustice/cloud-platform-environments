@@ -10,11 +10,6 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "read-replica" = {
-      description             = "This is the RDS read replica rds_instance_endpoint / rds-instance-endpoint",
-      recovery_window_in_days = 7
-      k8s_secret_name         = "rds-instance-endpoint"
-    },
     "cccd-env-secrets" = {
       description              = "CCCD environment secrets",
       recovery_window_in_days  = 7,
