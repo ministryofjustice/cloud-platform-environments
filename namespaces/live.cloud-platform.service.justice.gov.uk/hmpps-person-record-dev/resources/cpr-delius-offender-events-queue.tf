@@ -22,7 +22,6 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription"
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_ALIAS_CHANGED",
-      "OFFENDER_ADDRESS_CHANGED"
     ]
   })
 }
