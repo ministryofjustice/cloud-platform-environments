@@ -14,8 +14,8 @@ module "dps_rds" {
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
   db_engine_version           = "17"
-  allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = true
   enable_rds_auto_start_stop  = true
 }
 
