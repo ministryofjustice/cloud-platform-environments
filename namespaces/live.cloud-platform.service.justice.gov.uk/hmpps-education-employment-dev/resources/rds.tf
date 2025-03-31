@@ -20,7 +20,7 @@ module "edu_rds" {
   db_engine                   = "postgres"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "16.2"
+  db_engine_version           = "16"
   rds_family                  = "postgres16"
   enable_rds_auto_start_stop  = true
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
