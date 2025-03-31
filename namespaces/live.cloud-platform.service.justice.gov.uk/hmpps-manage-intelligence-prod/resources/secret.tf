@@ -9,7 +9,7 @@ module "secret" {
     "manage-intelligence-slack-webhook-url" = {
       description             = "Slack webhook for sending alerts."
       recovery_window_in_days = 7
-      k8s_secret_name         = "slack_webhook_url"
+      k8s_secret_name         = "slack-webhook-url-prod"
     },
   }
 
