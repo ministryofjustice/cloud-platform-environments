@@ -1,5 +1,5 @@
 module "migration_link_exchange_ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.7"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "migration-link-exchange-ui"
   application                   = "migration-link-exchange-ui"
   github_team                   = "data-migration-exchange"
