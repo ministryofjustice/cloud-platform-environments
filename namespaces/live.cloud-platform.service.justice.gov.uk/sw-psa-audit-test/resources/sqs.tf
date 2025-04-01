@@ -1,4 +1,4 @@
-module "abundant_namespace_sqs" {
+module "steve_test_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
 
   # Queue configuration
