@@ -11,49 +11,49 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Operations reports for MoJ"
+  default     = "laa-cwa-feature-tests"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "operations-engineering-reports-prod"
+  default     = "laa-cwa-feature-tests-uat"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "operations-engineering"
+  default     = "laa-pcuam"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "operations-engineering@digital.justice.gov.uk"
+  default     = "laa-pcuam-support@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "operations-engineering"
+  default     = "laa-pcuam"
 }
 
 variable "github_owner" {
@@ -66,8 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }

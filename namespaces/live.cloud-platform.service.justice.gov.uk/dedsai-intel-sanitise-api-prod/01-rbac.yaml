@@ -1,11 +1,14 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: operations-engineering-reports-prod-admin
-  namespace: operations-engineering-reports-prod
+  name: dedsai-intel-sanitise-api-prod-admin
+  namespace: dedsai-intel-sanitise-api-prod
 subjects:
   - kind: Group
-    name: "github:operations-engineering"
+    name: "github:prisons-intel-ds"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:analytics-hq"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

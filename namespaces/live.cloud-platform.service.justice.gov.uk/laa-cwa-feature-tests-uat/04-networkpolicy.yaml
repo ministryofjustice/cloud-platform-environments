@@ -2,26 +2,26 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: operations-engineering-reports-prod
+  namespace: laa-cwa-feature-tests-uat
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-        - podSelector: {}
+  - from:
+    - podSelector: {}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: operations-engineering-reports-prod
+  namespace: laa-cwa-feature-tests-uat
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              component: ingress-controllers
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers

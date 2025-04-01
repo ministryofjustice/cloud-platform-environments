@@ -40,6 +40,8 @@ module "serviceaccount_circleci" {
         "deployments",
         "ingresses",
         "statefulsets",
+        "networkpolicies",
+        "poddisruptionbudgets",
         "replicasets"
       ]
       verbs = [

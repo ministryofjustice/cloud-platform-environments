@@ -2,17 +2,14 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
 
   # EKS configuration
-  eks_cluster_name = var.eks_cluster_name
+  eks_cluster_name = "live"
 
   # IRSA configuration
-  service_account_name = "operations-engineering-reports"
+  service_account_name = "irsa-s3-${var.namespace}"
   namespace            = var.namespace # this is also used as a tag
 
-  # Attach the approprate policies using a key => value map
-  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
-  # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    dynamo = module.opseng_reports.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
@@ -26,7 +23,7 @@ module "irsa" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "irsa-output"
+    name      = "${var.namespace}-irsa"
     namespace = var.namespace
   }
   data = {
