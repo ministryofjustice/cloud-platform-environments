@@ -9,7 +9,7 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  dbs_instance_identifier     = "cloud-platform-9715beccbb718d4b-downgradedto16"
+  db_name     = "cloud-platform-9715beccbb718d4b-downgradedto16"
   snapshot_identifier         = "cloud-platform-9715beccbb718d4b-finalsnapshotMar312025"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
