@@ -23,14 +23,3 @@ module "steve_test_sns" {
     aws = aws.london
   }
 }
-
-resource "kubernetes_secret" "example_sns_topic" {
-  metadata {
-    name      = "sns-topic-sns-user"
-    namespace = var.namespace
-  }
-
-  data = {
-    topic_arn = steve_test_sns.topic_arn
-  }
-}
