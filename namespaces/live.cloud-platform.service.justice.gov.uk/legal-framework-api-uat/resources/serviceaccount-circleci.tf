@@ -35,6 +35,7 @@ module "serviceaccount_circleci" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "policy"
       ]
       resources = [
         "deployments",
