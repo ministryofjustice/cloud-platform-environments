@@ -5,35 +5,10 @@ module "secrets" {
   eks_cluster_name = var.eks_cluster_name
 
   secrets = {
-    "gov-uk-notify-key": {
-        description             = "GOV.UK Notify Key"
+    "config": {
+        description             = "${var.namespace}: HMPPS CFO CATS Application Configuration"
         recovery_window_in_days = 7
-        k8s_secret_name         = "gov-uk-notify-key"
-    },
-    "sentry-dsn": {
-        description             = "Sentry DSN"
-        recovery_window_in_days = 7
-        k8s_secret_name         = "sentry-dsn"
-    },
-    "ordnance-api-url": {
-        description             = "Ordnance API URL"
-        recovery_window_in_days = 7
-        k8s_secret_name         = "ordnance-api-url"
-    },
-    "ordnance-api-key": {
-        description             = "Ordnance API Key"
-        recovery_window_in_days = 7
-        k8s_secret_name         = "ordnance-api-key"
-    },
-    "dms-api-url": {
-        description             = "DMS API URL"
-        recovery_window_in_days = 7
-        k8s_secret_name         = "dms-api-url"
-    },
-    "dms-api-key": {
-        description             = "DMS API Key"
-        recovery_window_in_days = 7
-        k8s_secret_name         = "dms-api-key"
+        k8s_secret_name         = "config"
     }
   }
 
