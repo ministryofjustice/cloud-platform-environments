@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_guardduty_malware_protection_plan" "malware_plan" {
   role = aws_iam_role.guardduty_malware_protection_role.arn
 
