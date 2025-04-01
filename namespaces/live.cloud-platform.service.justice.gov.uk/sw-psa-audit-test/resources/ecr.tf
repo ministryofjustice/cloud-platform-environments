@@ -20,6 +20,8 @@ module "ecr_credentials" {
   }
   EOF
 
+  repo_name = var.namespace
+
   oidc_providers = ["github"]
   github_repositories = ["sw-ecr-testing"]
 
