@@ -19,6 +19,7 @@ module "serviceaccount_circleci" {
         "services",
         "pods",
         "persistentvolumeclaims",
+        "serviceaccounts"
       ]
       verbs = [
         "patch",
