@@ -19,11 +19,11 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "100"
   enable_rds_auto_start_stop   = true # Comment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  maintenance_window = "Sun:12:00-Sun:21:00"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
+  db_engine_version = "15.12"
   rds_family        = "postgres15"
   db_instance_class = "db.t4g.small"
 
