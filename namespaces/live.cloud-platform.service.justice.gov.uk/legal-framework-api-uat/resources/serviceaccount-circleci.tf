@@ -19,6 +19,7 @@ module "serviceaccount_circleci" {
         "services",
         "pods",
         "persistentvolumeclaims",
+        "serviceaccounts"
       ]
       verbs = [
         "patch",
@@ -35,11 +36,14 @@ module "serviceaccount_circleci" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "policy"
       ]
       resources = [
         "deployments",
         "ingresses",
         "statefulsets",
+        "networkpolicies",
+        "poddisruptionbudgets",
         "replicasets"
       ]
       verbs = [

@@ -6,9 +6,10 @@ module "remand-and-sentencing-api-rds" {
 
   # PostgreSQL specifics
   prepare_for_major_upgrade = false
+  allow_minor_version_upgrade = true
   db_engine                 = "postgres"
-  db_engine_version         = "16"
-  rds_family                = "postgres16"
+  db_engine_version         = "17"
+  rds_family                = "postgres17"
   db_instance_class         = "db.t4g.small"
   db_allocated_storage = 20
   storage_type         = "gp3"

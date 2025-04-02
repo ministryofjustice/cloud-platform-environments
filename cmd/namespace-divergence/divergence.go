@@ -28,7 +28,6 @@ func main() {
 		"kube-node-lease",
 		"kube-public",
 		"kube-system",
-		"kuberhealthy",
 		"kuberos",
 		"logging",
 		"opa",
