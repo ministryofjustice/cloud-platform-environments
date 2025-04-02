@@ -78,10 +78,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             CHANGED_FILES=$(git diff --name-only origin/main origin/$GITHUB_HEAD_REF)
-          else
-            CHANGED_FILES=$(git diff --name-only origin/main HEAD)
           fi
-          
+
           echo "Changed files: $CHANGED_FILES"
           
           AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/.*/resources/.*' | rev | cut -d'/' -f3- | rev | sort -u | uniq)
