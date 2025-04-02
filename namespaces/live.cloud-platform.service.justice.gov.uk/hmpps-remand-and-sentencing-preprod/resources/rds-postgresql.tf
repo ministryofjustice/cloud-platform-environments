@@ -6,7 +6,7 @@ module "remand-and-sentencing-api-rds" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   allow_minor_version_upgrade = true
   db_engine         = "postgres"
   db_engine_version = "17"
