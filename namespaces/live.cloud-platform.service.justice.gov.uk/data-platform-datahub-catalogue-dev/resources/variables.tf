@@ -97,6 +97,12 @@ variable "db_allocated_storage" {
   default     = 10
 }
 
+variable storage_type {
+  description = "The storage type for the RDS instance"
+  type        = string
+  default     = "gp2"
+}
+
 variable allow_minor_version_upgrade {
   description = "Whether to allow minor version upgrades for the RDS instance"
   type        = bool
