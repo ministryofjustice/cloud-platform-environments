@@ -116,7 +116,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_visitbalance_subscrip
   })
 }
 
-resource "aws_sns_topic_subscription" "prisoner_from_nomis_visitbalance_subscription" {
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_visitbalance_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
