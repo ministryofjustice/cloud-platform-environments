@@ -1,3 +1,47 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
+data "aws_vpc" "this" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name]
+  }
+}
+
+data "aws_subnets" "this" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["Private"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+}
+
+data "aws_subnet" "this" {
+  for_each = toset(data.aws_subnets.this.ids)
+  id       = each.value
+}
+
+data "aws_subnets" "eks_private" {
+  filter {
+    name   = "tag:SubnetType"
+    values = ["EKS-Private"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+}
+
+data "aws_subnet" "eks_private" {
+  for_each = toset(data.aws_subnets.eks_private.ids)
+  id       = each.value
+}
+
 resource "random_string" "username" {
   length  = 8
   special = false
@@ -14,13 +58,14 @@ locals {
 }
 
 resource "aws_mq_broker" "rabbit" {
-  broker_name        = "rabbit"
-  engine_type        = "RabbitMQ"
-  engine_version     = "3.13"
-  host_instance_type = "mq.m5.large"
+  broker_name         = "rabbit"
+  engine_type         = "RabbitMQ"
+  engine_version      = "3.13"
+  host_instance_type  = "mq.m5.large"
+  publicly_accessible = false
+  subnet_ids          = [local.subnets[0]]
+  security_groups     = [aws_security_group.broker_sg.id]
   
-  auto_minor_version_upgrade = true
-
   user {
     username = local.username
     password = local.password
@@ -57,6 +102,32 @@ resource "aws_iam_policy" "amq" {
   name        = "${var.namespace}-amazonmq-policy"
   description = "IAM policy for Amazon MQ"
   policy      = data.aws_iam_policy_document.amq.json
+}
+
+resource "aws_security_group" "broker_sg" {
+  name        = local.identifier
+  description = "Allow all inbound traffic"
+  vpc_id      = data.aws_vpc.this.id
+
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = concat(
+      [for s in data.aws_subnet.this : s.cidr_block],
+      [for s in data.aws_subnet.eks_private : s.cidr_block]
+    )
+  }
 }
 
 resource "kubernetes_secret" "amq" {
