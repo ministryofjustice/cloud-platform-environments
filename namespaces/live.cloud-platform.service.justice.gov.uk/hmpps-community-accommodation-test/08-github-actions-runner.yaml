@@ -29,7 +29,7 @@ spec:
             - name: RUNNER_WORKDIR
               value: '/_work'
             - name: LABELS
-              value: moj-cloud-platform
+              value: moj-cloud-platform-community-accommodation-test
             - name: REPO_URL
               value: https://github.com/ministryofjustice/hmpps-approved-premises-ui
             - name: RUN_AS_ROOT
