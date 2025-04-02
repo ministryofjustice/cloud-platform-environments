@@ -24,7 +24,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine_version           = "16.4"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres16"
