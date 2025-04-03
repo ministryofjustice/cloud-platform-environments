@@ -83,7 +83,7 @@ resource "aws_route53_record" "brookhouse_route53_txt_dmarc" {
   name    = "_dmarc.brookhouseinquiry.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; sp=reject; fo=1; ri=3600; rua=mailto:ukho@rua.agari-eu.com,mailto:dmarc-rua@dmarc.service.gov.uk; ruf=mailto:ukho@ruf.agari-eu.com"]
+  records = ["v=DMARC1; p=reject; sp=reject; fo=1; ri=3600; rua=mailto:ukho@rua.agari-eu.com; ruf=mailto:ukho@ruf.agari-eu.com"]
 }
 
 resource "aws_route53_record" "brookhouse_route53_txt_dkim" {
