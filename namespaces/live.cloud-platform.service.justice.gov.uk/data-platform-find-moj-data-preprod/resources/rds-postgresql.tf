@@ -24,7 +24,7 @@ module "rds" {
   # PostgreSQL specifics
   db_engine         = var.db_engine
   db_engine_version = var.db_engine_version
-  db_family         = var.rds_family
+  rds_family        = var.rds_family
   db_instance_class = var.db_instance_class
 
   # Tags
