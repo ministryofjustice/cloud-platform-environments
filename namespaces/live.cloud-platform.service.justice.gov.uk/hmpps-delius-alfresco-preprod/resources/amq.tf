@@ -127,7 +127,7 @@ resource "aws_security_group" "broker_sg" {
 resource "aws_mq_broker" "this" {
   count = local.broker_count
 
-  broker_name = "${local.identifier}-${count.index}"
+  broker_name         = "${local.identifier}-${count.index}"
   engine_type         = local.amq_engine_type
   engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
@@ -224,7 +224,7 @@ resource "kubernetes_secret" "amazon_mq" {
     BROKER_CONSOLE_URL_0 = aws_mq_broker.this[0].instances[0].console_url
     BROKER_CONSOLE_URL_1 = aws_mq_broker.this[1].instances[0].console_url
     BROKER_CONSOLE_URL_2 = aws_mq_broker.this[2].instances[0].console_url
-    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000?reconnectSupported=true"
+    BROKER_URL           = "failover:(nio+${aws_mq_broker.this[0].instances[0].endpoints[0]},nio+${aws_mq_broker.this[1].instances[0].endpoints[0]},nio+${aws_mq_broker.this[2].instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000&randomize=true&reconnectSupported=true"
     BROKER_USERNAME      = local.mq_admin_user
     BROKER_PASSWORD      = local.mq_admin_password
   }
