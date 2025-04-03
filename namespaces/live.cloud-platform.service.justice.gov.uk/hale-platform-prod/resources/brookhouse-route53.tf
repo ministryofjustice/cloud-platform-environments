@@ -83,7 +83,7 @@ resource "aws_route53_record" "brookhouse_route53_txt_dmarc" {
   name    = "_dmarc.brookhouseinquiry.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; sp=reject; fo=1; ri=3600; rua=mailto:ukho@rua.agari-eu.com,mailto:dmarc-rua@dmarc.service.gov.uk; ruf=mailto:ukho@ruf.agari-eu.com"]
+  records = ["v=DMARC1; p=reject; sp=reject; fo=1; ri=3600; rua=mailto:ukho@rua.agari-eu.com; ruf=mailto:ukho@ruf.agari-eu.com"]
 }
 
 resource "aws_route53_record" "brookhouse_route53_txt_dkim" {
@@ -156,22 +156,6 @@ resource "aws_route53_record" "brookhouse_route53_cname_record_sendgrid_s2" {
   type    = "CNAME"
   ttl     = "300"
   records = ["s2.domainkey.u2320754.wl005.sendgrid.net"]
-}
-
-resource "aws_route53_record" "brookhouse_route53_cname_record_acm" {
-  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
-  name    = "_e57d0720ad46276ca2a572c43912bedc.brookhouseinquiry.org.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_e7da7ae1e84203be7e4bb6234aeee9b1.vhzmpjdqfx.acm-validations.aws."]
-}
-
-resource "aws_route53_record" "brookhouse_route53_cname_record_acm2" {
-  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
-  name    = "_f63865701a7be4d622b24ca3482db76a.www.brookhouseinquiry.org.uk"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["_892201baf53507ab667e456b004e6ff0.nhqijqilxf.acm-validations.aws."]
 }
 
 resource "aws_route53_record" "brookhouse_route53_cname_record_sendgrid_em" {
