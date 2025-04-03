@@ -24,7 +24,7 @@ module "ecr_credentials_three" {
 
   oidc_providers = ["github"]
   github_repositories = ["sw-ecr-testing"]
-  github_actions_prefix = "bar"
+  #github_actions_prefix = "bar"   - removing this prefix should break the creation of github actions things because names will clash with other ones in the GH repo
 
   # Tags
   business_unit          = var.business_unit
