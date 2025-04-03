@@ -20,7 +20,9 @@ module "rds" {
   performance_insights_enabled = var.performance_insights_enabled
   db_max_allocated_storage     = var.db_max_allocated_storage
   enable_rds_auto_start_stop   = var.enable_rds_auto_start_stop # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-
+  maintenance_window = var.maintenance_window
+  backup_window = var.backup_window
+  
   # PostgreSQL specifics
   db_engine         = var.db_engine
   db_engine_version = var.db_engine_version
