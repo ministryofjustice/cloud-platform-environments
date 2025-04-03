@@ -44,7 +44,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_courtsentencing_queue_polic
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            ]
                           }
                         }
         }
@@ -125,6 +128,18 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
       "OFFENDER_SENTENCES-INSERTED",
       "OFFENDER_SENTENCES-DELETED",
       "OFFENDER_SENTENCES-UPDATED",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_courtsentencing_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_courtsentencing_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
