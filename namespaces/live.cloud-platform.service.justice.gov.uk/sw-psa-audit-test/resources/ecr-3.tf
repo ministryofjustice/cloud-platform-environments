@@ -24,7 +24,7 @@ module "ecr_credentials_three" {
 
   oidc_providers = ["github"]
   github_repositories = ["sw-ecr-testing"]
-  github_action_prefix = "bar"
+  github_actions_prefix = "bar"
 
   # Tags
   business_unit          = var.business_unit
