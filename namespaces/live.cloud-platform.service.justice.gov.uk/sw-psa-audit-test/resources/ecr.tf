@@ -20,6 +20,7 @@ module "ecr_credentials" {
   }
   EOF
 
+  # a nothing change
   repo_name = var.namespace
 
   oidc_providers = ["github"]
