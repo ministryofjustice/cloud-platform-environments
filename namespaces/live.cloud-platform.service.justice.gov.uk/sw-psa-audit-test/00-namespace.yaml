@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "sw-psa-audit-test"
+  name: "sw-psa-audit-ecr-test"
   labels:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "development"
@@ -13,4 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/team-name: "webops"
-    cloud-platform.justice.gov.uk/review-after: "2024-01-04"
+    cloud-platform.justice.gov.uk/review-after: "2024-03-10"
