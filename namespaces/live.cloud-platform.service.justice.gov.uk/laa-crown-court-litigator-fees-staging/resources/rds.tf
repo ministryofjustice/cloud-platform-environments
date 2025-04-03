@@ -14,7 +14,7 @@ module "rds-instance-migrated" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2024-10.rur-2024-10.r1"
+  db_engine_version = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   db_allocated_storage     = "300"
