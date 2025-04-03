@@ -50,7 +50,8 @@ spec:
         # Scheduler Count Alerts
         - alert: Extra Contribution Cron Job Runs ({{ $labels.namespace }})
           expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) > 1
-          for: 24h
+          for: 1m
+          keep_firing_for: 24h
           labels:
             severity: laa-dces-drc-integration
           annotations:
@@ -60,6 +61,7 @@ spec:
         - alert: Contribution Cron Job Missed  ({{ $labels.namespace }})
           expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
           for: 1m
+          keep_firing_for: 24h
           labels:
             severity: laa-dces-drc-integration
           annotations:
@@ -68,7 +70,8 @@ spec:
 
         - alert: Extra FDC Cron Job Runs ({{ $labels.namespace }})
           expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="$namespace"} [24h])) > 1
-          for: 24h
+          for: 1m
+          keep_firing_for: 24h
           labels:
             severity: laa-dces-drc-integration
           annotations:
@@ -77,7 +80,8 @@ spec:
 
         - alert: FDC Cron Job Missed ({{ $labels.namespace }})
           expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="$namespace"} [24h])) <= 0
-          for: 24h
+          for: 1m
+          keep_firing_for: 24h
           labels:
             severity: laa-dces-drc-integration
           annotations:
