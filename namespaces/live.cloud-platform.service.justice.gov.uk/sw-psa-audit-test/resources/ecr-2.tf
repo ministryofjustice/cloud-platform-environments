@@ -37,7 +37,7 @@ module "ecr_credentials_new" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "ecr_credentials_two" {
   metadata {
     name      = "ecr-${var.namespace}-two"
     namespace = var.namespace
