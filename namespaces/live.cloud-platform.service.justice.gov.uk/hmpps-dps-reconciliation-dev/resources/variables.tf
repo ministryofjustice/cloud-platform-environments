@@ -9,7 +9,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-dps-reconciliation"
+  default = "hmpps-dps-reconciliation-dev"
 }
 
 variable "business_unit" {
