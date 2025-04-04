@@ -2,8 +2,9 @@ module "steve_test_sqs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=sqs-team-change"
 
   # Queue configuration
-  sqs_name        = "steve_test_sqs"
+  sqs_name        = "sw-cp-testing-sqs"
   encrypt_sqs_kms = "false"
+  use_team_name   = true
 
   # Tags
   business_unit          = var.business_unit

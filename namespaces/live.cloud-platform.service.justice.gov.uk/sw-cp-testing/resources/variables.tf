@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "cloud platform psa migration"
+  default     = "cloud platform testing"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "sw-psa-audit-test"
+  default     = "sw-cp-testing"
 }
 
 variable "business_unit" {
@@ -66,7 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
 }
