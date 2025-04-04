@@ -67,6 +67,7 @@ module "sqs_overnight_dl" {
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 604800 # 7 days
   visibility_timeout_seconds = 120 # 2 minutes
+  fifo_queue                 = "true"
 
   # Tags
   business_unit          = var.business_unit
