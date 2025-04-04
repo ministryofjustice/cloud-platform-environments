@@ -56,6 +56,20 @@ module "irsa_cas2" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "irsa_cas2_bail" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "hmpps-community-accommodation-tier-2-bail-service-account"
+  namespace            = var.namespace
+  role_policy_arns = local.sqs_policies
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
 module "irsa_ta" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   eks_cluster_name     = var.eks_cluster_name

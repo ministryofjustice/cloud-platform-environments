@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "sw-go-helloworld-admin-team"
+  default     = "webops"
 }
 
 variable "environment" {
