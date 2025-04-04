@@ -41,10 +41,10 @@ resource "aws_sqs_queue_policy" "overnight_sqs_policy" {
           "Principal": {"AWS": "*"},
           "Resource": "${module.sqs_overnight.sqs_arn}",
           "Action": [
-            "SQS:SendMessage",        # Allows SNS to send messages to SQS
-            "SQS:ReceiveMessage",     # Allows MassTransit to receive messages from SQS
-            "SQS:DeleteMessage",      # Allows MassTransit to delete messages after processing
-            "SQS:GetQueueAttributes"  # Required for MassTransit to get queue attributes
+            "SQS:SendMessage",
+            "SQS:ReceiveMessage",
+            "SQS:DeleteMessage",
+            "SQS:GetQueueAttributes"
           ],
           "Condition":
             {
