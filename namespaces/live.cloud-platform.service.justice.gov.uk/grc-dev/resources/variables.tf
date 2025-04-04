@@ -32,7 +32,6 @@ variable "logging_enabled" {
   default = true
 }
 
-
 variable "log_path" {
   default = "logs/"
 }
