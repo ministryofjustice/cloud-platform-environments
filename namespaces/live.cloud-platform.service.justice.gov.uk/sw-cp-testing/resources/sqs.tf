@@ -4,6 +4,7 @@ module "steve_test_sqs" {
   # Queue configuration
   sqs_name        = "sw-cp-testing-sqs"
   encrypt_sqs_kms = "false"
+  use_team_name   = true
 
   # Tags
   business_unit          = var.business_unit
