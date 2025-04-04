@@ -63,7 +63,7 @@ module "sqs_overnight_dl" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0" # use the latest release
 
   # Queue configuration
-  sqs_name                   = "${var.namespace}_overnight_dead_letter_queue"
+  sqs_name                   = "${var.namespace}_overnight_dlq"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 604800 # 7 days
   visibility_timeout_seconds = 120 # 2 minutes
