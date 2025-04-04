@@ -3,6 +3,7 @@ module "activity_approved_event" {
 
   topic_display_name = "activity_approved_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -19,6 +20,7 @@ module "hub_induction_created_event" {
 
   topic_display_name = "hub_induction_created_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -35,6 +37,7 @@ module "objectivetask_completed_event" {
 
   topic_display_name = "objectivetask_completed_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -51,6 +54,7 @@ module "participant_transitioned_event" {
 
   topic_display_name = "participant_transitioned_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -67,6 +71,7 @@ module "pri_assigned_event" {
 
   topic_display_name = "pri_assigned_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -83,6 +88,7 @@ module "pri_ttg_completed_event" {
 
   topic_display_name = "pri_ttg_completed_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -99,6 +105,7 @@ module "sync_participant_command" {
 
   topic_display_name = "sync_participant_command"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
@@ -115,6 +122,7 @@ module "wing_induction_created_event" {
 
   topic_display_name = "wing_induction_created_event"
   encrypt_sns_kms    = true
+  fifo_topic         = true
 
   # Tags
   business_unit          = var.business_unit
