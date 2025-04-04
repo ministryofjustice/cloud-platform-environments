@@ -1,5 +1,5 @@
 module "steve_test_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=test-sqs-for-name-change"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=sqs-team-bug"
 
   # Queue configuration
   sqs_name        = "steve_test_sqs"
