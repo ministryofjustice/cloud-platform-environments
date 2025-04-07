@@ -208,7 +208,7 @@ resource "aws_mq_configuration" "this" {
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes        = [data]
+    # ignore_changes        = [data]
   }
 
   tags = {
