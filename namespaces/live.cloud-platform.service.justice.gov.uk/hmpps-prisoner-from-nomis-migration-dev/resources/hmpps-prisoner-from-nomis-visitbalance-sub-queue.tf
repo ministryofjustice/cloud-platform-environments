@@ -123,7 +123,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_visitbalance_s
   endpoint  = module.prisoner_from_nomis_visitbalance_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.booking.moved"
+      "prison-offender-events.prisoner.booking.moved",
+      "prisoner-offender-search.prisoner.received"
     ]
   })
 }
