@@ -77,19 +77,28 @@ locals {
     0 = <<EOF
       <networkConnectors>
           <networkConnector name="connector_1_to_2" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})?randomize=true"/>
           <networkConnector name="connector_1_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})?randomize=true"/>
       </networkConnectors>
       EOF
     1 = <<EOF
       <networkConnectors>
+          <networkConnector name="connector_2_to_1" userName="${local.mq_admin_user}" duplex="true"
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_zero].instances[0].endpoints[0]})?randomize=true"/>
           <networkConnector name="connector_2_to_3" userName="${local.mq_admin_user}" duplex="true"
-              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})"/>
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_two].instances[0].endpoints[0]})?randomize=true"/>
       </networkConnectors>
       EOF
 
-    2 = ""
+    2 = <<EOF
+      <networkConnectors>
+          <networkConnector name="connector_3_to_1" userName="${local.mq_admin_user}" duplex="true"
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_zero].instances[0].endpoints[0]})?randomize=true"/>
+          <networkConnector name="connector_3_to_2" userName="${local.mq_admin_user}" duplex="true"
+              uri="static:(${data.aws_mq_broker.by_name[local.broker_one].instances[0].endpoints[0]})?randomize=true"/>
+      </networkConnectors>
+      EOF
   }
 }
 
