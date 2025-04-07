@@ -22,7 +22,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
@@ -67,7 +67,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
