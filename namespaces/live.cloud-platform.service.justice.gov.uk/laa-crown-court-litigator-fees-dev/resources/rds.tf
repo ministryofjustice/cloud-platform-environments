@@ -1,5 +1,5 @@
 module "rds-instance-migrated" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -14,9 +14,10 @@ module "rds-instance-migrated" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
+  db_engine_version        = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
+  storage_class            = "gp2"
   db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
   db_name                  = "CCLF"
