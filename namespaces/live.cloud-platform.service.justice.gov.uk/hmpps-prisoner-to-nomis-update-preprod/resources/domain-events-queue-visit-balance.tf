@@ -1,5 +1,5 @@
 module "hmpps_prisoner_to_nomis_visitbalance_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=6.0.0"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_visitbalance_queue"
@@ -54,7 +54,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_visitbalance_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=6.0.0"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_visitbalance_dlq"
