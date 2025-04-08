@@ -3,7 +3,7 @@ on:
       types: [opened, edited, reopened, synchronize]
       paths:
         - 'opa-auto-approve-policy/**'
-  
+
 name: OPA Auto Approve Policy Tests
 jobs:
   opa-tests:
@@ -17,5 +17,5 @@ jobs:
       with:
         version: latest
 
-    - name: Run OPA Tests 
-      run: opa test opa-auto-approve-policy/ -v
+    - name: Run OPA Tests
+      run: for dir in opa-auto-approve-policy/*/; do (cd "$dir" && opa test . -v); done
