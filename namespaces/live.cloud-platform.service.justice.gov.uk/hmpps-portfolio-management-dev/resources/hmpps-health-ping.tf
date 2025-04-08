@@ -4,7 +4,7 @@ module "hmpps_health_ping" {
   application                   = "hmpps-health-ping"
   github_team                   = "hmpps-sre"
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  protected_branches_only       = true
+  protected_branches_only       = false
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "none"
