@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "syscon-alerts-non-prod"
     cloud-platform.justice.gov.uk/slack-channel: "syscon_team"
     cloud-platform.justice.gov.uk/team-name: "syscon-devs"
+    cloud-platform.justice.gov.uk/service-area: "Platform and Reporting"
