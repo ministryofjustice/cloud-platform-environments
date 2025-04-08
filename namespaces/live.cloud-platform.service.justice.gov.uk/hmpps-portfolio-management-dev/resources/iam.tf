@@ -20,8 +20,3 @@ data "aws_iam_policy_document" "dynamodb_access_policy" {
   }
 }
 
-resource "aws_iam_user_policy" "dynamodb_user_policy" {
-  name   = "dynamodb-state-read-write-policy"
-  policy = data.aws_iam_policy_document.dynamodb_access_policy.json
-  user   = aws_iam_user.s3_user.name
-}
