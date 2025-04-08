@@ -108,7 +108,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visitbalance_subs
   endpoint  = module.hmpps_prisoner_to_nomis_visitbalance_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-visitbalance.adjustment-created"
+      "prison-visit-allocation.updated"
     ]
   })
 }
