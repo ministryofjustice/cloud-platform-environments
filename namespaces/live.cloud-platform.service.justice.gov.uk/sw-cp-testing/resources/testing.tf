@@ -1,5 +1,5 @@
 module "test-ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
   repo_name = "${var.namespace}-ecr"
@@ -19,7 +19,7 @@ module "test-ecr-repo" {
 }
 
 module "test_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "test_queue"
@@ -38,7 +38,7 @@ module "test_queue" {
 }
 
 module "test_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   # Configuration
   topic_display_name = "steve_test_topic"
