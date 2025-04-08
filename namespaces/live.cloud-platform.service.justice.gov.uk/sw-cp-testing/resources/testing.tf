@@ -6,7 +6,7 @@ module "test-ecr-repo" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = [var.namespace]
+  github_repositories = ["sw-ecr-testing"]
 
   # Tags
   business_unit          = var.business_unit
