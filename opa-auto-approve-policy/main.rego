@@ -7,12 +7,24 @@ default allow := false
 default service_pod_ok := false
 default ecr_create_ok := false
 
+# allow if not touches_iam
+# allow if service_pod_ok
+# allow if ecr_create_ok
+
 allow if {
-	# modify to ignore ecr IAM changes
+  module_ok
+}
+
+module_ok if {
 	not touches_iam
-	# split this since users won't use both at the same time.
-	service_pod_ok
-	ecr_create_ok
+}
+
+module_ok if {
+  service_pod_ok
+}
+
+module_ok if {
+  ecr_create_ok
 }
 
 touches_iam if {
@@ -20,8 +32,6 @@ touches_iam if {
 	p |
 		p := tfplan.resource_changes[_]
 		p.type in {"aws_iam_policy", "aws_iam_role_policy_attachment"}
-		# Ignore IAM resources in the ecr module
-		not regex.match(`module\.ecr`, p.module_address)
 		change := p.change.actions[_]
 		change != "no-op"
 	]
@@ -51,8 +61,6 @@ ecr_create_ok if {
 		regex.match(`aws_ecr_repository`, res.type)
 		res.change.actions[_] == "create"
 	]
-
-	print("ECR:", ecrs)
 
 	count(ecrs) > 0
 	every ecr in ecrs {
