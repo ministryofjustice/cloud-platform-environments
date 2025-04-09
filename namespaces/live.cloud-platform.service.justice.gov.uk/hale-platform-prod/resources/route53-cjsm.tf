@@ -28,7 +28,7 @@ resource "aws_route53_record" "cjsm_route53_txt_record_main" {
   name    = "cjsm.justice.gov.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms43148106, v=spf1 include:spf.protection.outlook.com -all"]
+  records = ["MS=ms43148106", "v=spf1 include:spf.protection.outlook.com -all"]
 }
 
 resource "aws_route53_record" "cjsm_route53_mx_record" {
