@@ -9,6 +9,11 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "domain" {
+  default = "provider-ui.ccms.service.justice.gov.uk"
+  type    = string
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
