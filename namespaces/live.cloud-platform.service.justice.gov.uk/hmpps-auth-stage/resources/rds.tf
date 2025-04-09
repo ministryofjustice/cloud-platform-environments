@@ -1,25 +1,29 @@
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name                  = var.vpc_name
-  team_name                 = var.team_name
-  business_unit             = var.business_unit
-  application               = var.application
-  is_production             = var.is_production
-  namespace                 = var.namespace
-  environment_name          = var.environment-name
-  infrastructure_support    = var.infrastructure_support
-  db_instance_class         = "db.t4g.small"
-  db_max_allocated_storage  = "500"
-  deletion_protection       = true
-  prepare_for_major_upgrade = false
-  rds_family                = "postgres16"
-  db_engine                 = "postgres"
-  db_engine_version         = "16"
-  performance_insights_enabled = true
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage         = 10
+  storage_type                 = "gp2"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  namespace                    = var.namespace
+  environment_name             = var.environment-name
+  infrastructure_support       = var.infrastructure_support
+  db_instance_class            = "db.t4g.small"
+  db_max_allocated_storage     = "500"
+  deletion_protection          = true
+  prepare_for_major_upgrade   =  true
+  allow_major_version_upgrade =  true
+  rds_family                   = "postgres17"
+  db_engine                    = "postgres"
+  db_engine_version            = "17"
+  performance_insights_enabled =  true
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "dps_rds" {

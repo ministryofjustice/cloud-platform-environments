@@ -130,12 +130,20 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_personalrelations
       "contacts-api.contact-identity.created",
       "contacts-api.contact-identity.updated",
       "contacts-api.contact-identity.deleted",
+      "contacts-api.employment.created",
+      "contacts-api.employment.updated",
+      "contacts-api.employment.deleted",
       "contacts-api.prisoner-contact-restriction.created",
       "contacts-api.prisoner-contact-restriction.updated",
       "contacts-api.prisoner-contact-restriction.deleted",
       "contacts-api.contact-restriction.created",
       "contacts-api.contact-restriction.updated",
-      "contacts-api.contact-restriction.deleted"
+      "contacts-api.contact-restriction.deleted",
+      "personal-relationships-api.domestic-status.created",
+      "personal-relationships-api.domestic-status.deleted",
+      "personal-relationships-api.number-of-children.created",
+      "personal-relationships-api.number-of-children.deleted",
+      "prisoner-offender-search.prisoner.received"
     ]
   })
 }

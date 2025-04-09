@@ -11,6 +11,7 @@ spec:
   dnsNames:
     - strengths-based-needs-dev.hmpps.service.justice.gov.uk
     - strengths-based-needs-assessments-dev.hmpps.service.justice.gov.uk
+    - '*.strengths-based-needs-assessments-dev.hmpps.service.justice.gov.uk'
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -24,3 +25,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - api.strengths-based-needs-dev.hmpps.service.justice.gov.uk
+    - '*.api.strengths-based-needs-dev.hmpps.service.justice.gov.uk'

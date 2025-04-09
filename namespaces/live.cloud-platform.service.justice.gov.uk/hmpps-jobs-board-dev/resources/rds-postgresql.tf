@@ -1,8 +1,10 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # Add security group id
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -17,7 +19,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.2"
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -32,31 +34,32 @@ module "rds" {
 
   # add parameter group
   db_parameter = [
-      {
-        name         = "rds.logical_replication"
-        value        = "1"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "shared_preload_libraries"
-        value        = "pglogical"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "max_wal_size"
-        value        = "1024"
-        apply_method = "immediate"
-      },
-      {
-        name         = "wal_sender_timeout"
-        value        = "0"
-        apply_method = "immediate"
-      },
-      {
-        name         = "max_slot_wal_keep_size"
-        value        = "40000"
-        apply_method = "immediate"
-      }
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
   ]
 }
 

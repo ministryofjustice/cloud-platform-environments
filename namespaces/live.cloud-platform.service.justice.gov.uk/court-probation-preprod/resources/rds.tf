@@ -1,5 +1,6 @@
 module "court_case_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -11,7 +12,7 @@ module "court_case_service_rds" {
   prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   db_engine                   = "postgres"
-  db_engine_version           = "14.11"
+  db_engine_version           = "14.13"
   db_instance_class           = "db.t4g.xlarge"
   rds_family                  = "postgres14"
   db_allocated_storage        = "35"
@@ -22,6 +23,7 @@ module "court_case_service_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "court_case_service_rds" {

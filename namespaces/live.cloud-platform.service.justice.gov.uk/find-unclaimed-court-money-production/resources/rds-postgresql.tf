@@ -6,7 +6,9 @@
  */
 
 module "rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage      = 10
+  storage_type              = "gp2"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
@@ -26,7 +28,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "16.3"
+  db_engine_version = "16.4"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -58,6 +60,7 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "rds" {

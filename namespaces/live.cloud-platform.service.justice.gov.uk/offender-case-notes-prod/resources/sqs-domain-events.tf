@@ -42,7 +42,9 @@ resource "aws_sns_topic_subscription" "case_notes_domain_events_subscription" {
   endpoint  = module.case_notes_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "person.alert.created",
+      "person.alert.inactive"
     ]
   })
 }

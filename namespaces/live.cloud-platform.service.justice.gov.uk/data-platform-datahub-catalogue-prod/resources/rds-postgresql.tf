@@ -1,24 +1,25 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = var.db_allocated_storage
+  storage_type         = var.storage_type
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
-  prepare_for_major_upgrade    = false
-  deletion_protection          = true
-  performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = false # turn off database overnight 22:00-06:00 UTC.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  allow_minor_version_upgrade  = var.allow_minor_version_upgrade
+  allow_major_version_upgrade  = var.allow_major_version_upgrade
+  prepare_for_major_upgrade    = var.prepare_for_major_upgrade
+  deletion_protection          = var.deletion_protection
+  performance_insights_enabled = var.performance_insights_enabled
+  db_max_allocated_storage     = var.db_max_allocated_storage
+  enable_rds_auto_start_stop   = var.enable_rds_auto_start_stop # turn off database overnight 22:00-06:00 UTC.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
-  db_instance_class = "db.t4g.small"
+  db_engine         = var.db_engine
+  db_engine_version = var.db_engine_version
+  rds_family        = var.rds_family
+  db_instance_class = var.db_instance_class
 
   # Tags
   application            = var.application
@@ -29,6 +30,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 }
+
 
 resource "kubernetes_secret" "rds" {
   metadata {

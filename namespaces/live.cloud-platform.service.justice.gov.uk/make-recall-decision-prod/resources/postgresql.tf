@@ -3,7 +3,8 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type = "gp2"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace
@@ -14,17 +15,18 @@ module "make_recall_decision_api_rds" {
   is_production          = var.is_production
   team_name              = var.team_name
 
-  rds_name          = "make-recall-decision-${var.environment}"
-  rds_family        = "postgres13"
-  db_engine         = "postgres"
-  db_engine_version = "13.15"
-  db_instance_class = "db.t3.small"
-  db_name           = "make_recall_decision"
+  rds_name             = "make-recall-decision-${var.environment}"
+  rds_family           = "postgres13"
+  db_engine            = "postgres"
+  db_engine_version    = "13.16"
+  db_instance_class    = "db.t3.small"
+  db_name              = "make_recall_decision"
   db_allocated_storage = 30
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "make_recall_decision_api_rds" {

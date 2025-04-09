@@ -1,5 +1,8 @@
 module "subject_access_request_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -8,14 +11,19 @@ module "subject_access_request_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  rds_family                  = var.rds_family
-  allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15"
+  db_engine                   = "postgres"
+  db_engine_version           = "17"
+  rds_family                  = "postgres17"
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = false
+  deletion_protection         = true
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "subject_access_request_rds" {

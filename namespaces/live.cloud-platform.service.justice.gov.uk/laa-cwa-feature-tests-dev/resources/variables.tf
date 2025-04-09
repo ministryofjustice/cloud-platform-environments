@@ -8,6 +8,11 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "eks cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string

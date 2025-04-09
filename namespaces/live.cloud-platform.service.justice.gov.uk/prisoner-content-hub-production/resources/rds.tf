@@ -1,5 +1,7 @@
 module "drupal_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage     = 10
+  storage_type             = "gp2"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
@@ -10,10 +12,11 @@ module "drupal_rds" {
   infrastructure_support   = var.infrastructure_support
   db_instance_class        = "db.t4g.xlarge"
   db_password_rotated_date = "2023-05-15"
+  performance_insights_enabled = true
 
-  db_engine                 = "mariadb"
-  db_engine_version         = "10.11"
-  rds_family                = "mariadb10.11"
+  db_engine         = "mariadb"
+  db_engine_version = "10.11"
+  rds_family        = "mariadb10.11"
 
   # The recommended transaction isolation level for Drupal is READ-COMMITTED.
   # See https://www.drupal.org/docs/getting-started/system-requirements/setting-the-mysql-transaction-isolation-level
@@ -23,6 +26,7 @@ module "drupal_rds" {
       value        = "READ-COMMITTED"
       apply_method = "immediate"
     }
+
   ]
 }
 

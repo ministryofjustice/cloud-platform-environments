@@ -5,7 +5,9 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue"                           = "hmpps-audit-preprod",
-    "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod"
+    "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-preprod"
+
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {

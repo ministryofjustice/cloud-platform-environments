@@ -5,7 +5,9 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -20,7 +22,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
@@ -37,14 +39,17 @@ module "rds" {
   enable_rds_auto_start_stop = true
 }
 
+
 # To create a read replica, use the below code and update the values to specify the RDS instance
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  count                = 0
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name = var.vpc_name
 
@@ -62,7 +67,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
@@ -88,6 +93,7 @@ module "read_replica" {
   #   }
   # ]
 }
+
 
 resource "kubernetes_secret" "rds" {
   metadata {

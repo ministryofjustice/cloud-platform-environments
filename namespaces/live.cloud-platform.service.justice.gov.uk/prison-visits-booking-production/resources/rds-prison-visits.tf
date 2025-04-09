@@ -6,21 +6,22 @@
  */
 
 module "prison-visits-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
-  vpc_name                 = var.vpc_name
-  team_name                = "prison-visits-booking"
-  business_unit            = "HMPPS"
-  application              = "prison-visits-booking-production"
-  is_production            = var.is_production
-  environment_name         = "production"
-  infrastructure_support   = "pvb-technical-support@digital.justice.gov.uk"
-  namespace                = var.namespace
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  storage_type           = "gp2"
+  vpc_name               = var.vpc_name
+  team_name              = "prison-visits-booking"
+  business_unit          = "HMPPS"
+  application            = "prison-visits-booking-production"
+  is_production          = var.is_production
+  environment_name       = "production"
+  infrastructure_support = "pvb-technical-support@digital.justice.gov.uk"
+  namespace              = var.namespace
 
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade = false
-  db_engine                = "postgres"
-  db_engine_version        = "15.7"
-  rds_family               = "postgres15"
+  prepare_for_major_upgrade   = false
+  db_engine                   = "postgres"
+  db_engine_version = "15.8"
+  rds_family                  = "postgres15"
 
   db_instance_class        = "db.m5.xlarge"
   db_allocated_storage     = "50"
@@ -33,6 +34,7 @@ module "prison-visits-rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "prison-visits-rds" {

@@ -25,12 +25,6 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
       module.migration_allocations_dead_letter_queue.sqs_arn,
-      module.migration_casenotes_queue.sqs_arn,
-      module.migration_casenotes_dead_letter_queue.sqs_arn,
-      module.migration_csip_queue.sqs_arn,
-      module.migration_csip_dead_letter_queue.sqs_arn,
-      module.migration_prisonperson_queue.sqs_arn,
-      module.migration_prisonperson_dead_letter_queue.sqs_arn,
       module.migration_courtsentencing_queue.sqs_arn,
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
       module.migration_coreperson_queue.sqs_arn,
@@ -39,10 +33,12 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_sentencing_dead_letter_queue.sqs_arn,
       module.migration_personalrelationships_queue.sqs_arn,
       module.migration_personalrelationships_dead_letter_queue.sqs_arn,
+      module.migration_personalrelationships_profiledetails_queue.sqs_arn,
+      module.migration_personalrelationships_profiledetails_dlq.sqs_arn,
       module.migration_organisations_queue.sqs_arn,
       module.migration_organisations_dead_letter_queue.sqs_arn,
-      module.migration_visitorders_queue.sqs_arn,
-      module.migration_visitorders_dead_letter_queue.sqs_arn,
+      module.migration_visitbalance_queue.sqs_arn,
+      module.migration_visitbalance_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -75,14 +71,18 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_casenotes_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
-      module.prisoner_from_nomis_prisonperson_queue.sqs_arn,
-      module.prisoner_from_nomis_prisonperson_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_personalrelationships_queue.sqs_arn,
       module.prisoner_from_nomis_personalrelationships_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_visitbalance_queue.sqs_arn,
+      module.prisoner_from_nomis_visitbalance_dead_letter_queue.sqs_arn,
     ]
   }
 }

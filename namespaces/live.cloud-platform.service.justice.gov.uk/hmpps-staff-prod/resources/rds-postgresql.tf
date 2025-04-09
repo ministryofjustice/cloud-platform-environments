@@ -24,7 +24,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "15.7"
+  db_engine_version = "15.8"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -45,7 +45,7 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   # enable_rds_auto_start_stop  = true
@@ -54,6 +54,7 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -62,8 +63,10 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  count                = 0
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
   application            = var.application
@@ -94,6 +97,7 @@ module "read_replica" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.

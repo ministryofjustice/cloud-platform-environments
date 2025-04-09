@@ -749,3 +749,18 @@ spec:
   dnsNames:
     - c7f7ff98.hmpps.service.justice.gov.uk
     - breach-notice-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jitbit-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: jitbit-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 8cbadcde.hmpps.service.justice.gov.uk
+    - jitbit-and-delius.hmpps.service.justice.gov.uk

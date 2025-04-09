@@ -9,74 +9,92 @@ spec:
   groups:
     - name: application-rules
       rules:
-        - alert: Client Errors  ({{ $labels.namespace }})
-          expr: sum(increase(webclient_requests_seconds_count{outcome="CLIENT_ERROR", namespace="$namespace"}[10m])) > 5
-          for: 10m
-          labels:
-            severity: laa-dces-drc-integration
-          annotations:
-            message: There have been over 50 client error responses in the DCES DRC running on dev in the past 10 minutes. This may indicate a problem with the application - including intrusion attempts.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-dces-drc-integration?orgId=1&refresh=30s&var-namespace=laa-dces-drc-integration-dev
+        # Endpoint Alerts
         - alert: 403 FORBIDDEN  ({{ $labels.namespace }})
           expr: sum(increase(http_server_requests_seconds_count{namespace="$namespace", status="403"}[5m])) > 1
           for: 1m
           labels:
             severity: laa-dces-drc-integration
           annotations:
-            message: The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+            message: A 403 Forbidden response has been encountered.
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crime-applications-adaptor-prod&var-ingress=laa-crime-applications-adaptor
-        - alert: FDC Update Request
-          expr: sum(increase(webclient_requests_seconds_count{method="POST", namespace="$namespace", uri=~".*/debt-collection-enforcement/log-fdc-response" }[24h])) > 1
-          for: 24h
-          labels:
-            severity: laa-dces-drc-integration
-          annotations:
-            message: The total number of request to Maat-api for FDC should be one per day. The count has increase to more than one.
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
-        - alert: Contribution Update Request ({{ $labels.namespace }})
-          expr: sum(increase(webclient_requests_seconds_count{method="POST", namespace="$namespace", uri=~".*/debt-collection-enforcement/log-contribution-response"}[24h])) > 1
-          for: 24h
-          labels:
-            severity: laa-dces-drc-integration
-          annotations:
-            message: The total number of request to Maat-api for Contribution should be one per day. The count has increase to more than one.
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
-        - alert: Contribution Cron Job  ({{ $labels.namespace }})
-          expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
-          for: 24h
+        - alert: Advantis Response Errors ({{ $labels.namespace }})
+          expr: sum(increase(http_server_requests_seconds_count{namespace="$namespace", client_name="advantisclientapi.com", status!="409", status!="200"}[1h])) > 1
+          for: 1m
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
+          annotations:
+            message: Advantis has returned responses which are in an error state. Does not include conflicts arising from entries being sent previously.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crime-applications-adaptor-prod&var-ingress=laa-crime-applications-adaptor
+
+        - alert: Advantis Conflict Responses ({{ $labels.namespace }})
+          expr: sum(increase(http_server_requests_seconds_count{namespace="$namespace", client_name="advantisclientapi.com", status="409"}[1h])) > 1
+          for: 1m
+          labels:
+            severity: laa-dces-drc-integration
+          annotations:
+            message: Advantis has returned a conflict response. This arises from entries being sent previously.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crime-applications-adaptor-prod&var-ingress=laa-crime-applications-adaptor
+
+        - alert: Maat API Error Responses ({{ $labels.namespace }})
+          expr: sum(increase(http_server_requests_seconds_count{namespace="$namespace", client_name="maat-cd-api.legalservices.gov.uk", status!="200"}[1h])) > 1
+          for: 1m
+          labels:
+            severity: laa-dces-drc-integration
+          annotations:
+            message: Advantis has returned a conflict response. This arises from entries being sent previously.
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/f1e13059dfd23fdcaf479f4fa833f92610c2dfa5/kubernetes-ingress-traffic?orgId=1&var-namespace=laa-crime-applications-adaptor-prod&var-ingress=laa-crime-applications-adaptor
+
+
+        # Scheduler Count Alerts
+        - alert: Extra Contribution Cron Job Runs ({{ $labels.namespace }})
+          expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) > 1
+          for: 1m
+          keep_firing_for: 24h
+          labels:
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job did not run in the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
-        - alert: FDC Cron Job  ({{ $labels.namespace }})
-          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) >= 1
-          for: 24h
+        - alert: Contribution Cron Job Missed  ({{ $labels.namespace }})
+          expr: count(increase(ServiceScheduler_contribution_seconds_count{namespace="$namespace"} [24h])) <= 0
+          for: 1m
+          keep_firing_for: 24h
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
+          annotations:
+            message: Cron job did not run in the last 24 hours
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
+
+        - alert: Extra FDC Cron Job Runs ({{ $labels.namespace }})
+          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="$namespace"} [24h])) > 1
+          for: 1m
+          keep_firing_for: 24h
+          labels:
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job runs multiple time during the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
-        - alert: FDC Cron Job Count ({{ $labels.namespace }})
-          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="laa-dces-drc-integration-dev"} [24h])) <= 0
-          for: 24h
+        - alert: FDC Cron Job Missed ({{ $labels.namespace }})
+          expr: count(increase(ServiceScheduler_fdc_seconds_count{namespace="$namespace"} [24h])) <= 0
+          for: 1m
+          keep_firing_for: 24h
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
             message: Cron job did not run in the last 24 hours
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now
 
-
-        - alert: Logging Error  ({{ $labels.namespace }})
+        # Logging Alerts.
+        - alert: Logging Error ({{ $labels.namespace }})
           expr: sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
           for: 1m
           labels:
-            severity: critical
+            severity: laa-dces-drc-integration
           annotations:
-            message: There had been an error in the logs of the DCES DRC in the past 10 minutes. This indicates that there may be a bug with the application.
+            message: There had been an error in the logs of the DCES DRC in the past 10 minutes.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laaDCESDRCIntegration/laa-drc-integration-service?orgId=1&refresh=30s&viewPanel=32&from=now-24h&to=now

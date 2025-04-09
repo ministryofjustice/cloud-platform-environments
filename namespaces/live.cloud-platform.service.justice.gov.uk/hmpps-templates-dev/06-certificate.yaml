@@ -11,6 +11,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - template-kotlin-dev.hmpps.service.justice.gov.uk
+    - '*.template-kotlin-dev.hmpps.service.justice.gov.uk'
 
 ---
 apiVersion: cert-manager.io/v1
@@ -25,3 +26,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - template-typescript-dev.hmpps.service.justice.gov.uk
+    - '*.template-typescript-dev.hmpps.service.justice.gov.uk'

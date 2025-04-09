@@ -1,5 +1,7 @@
 module "edu_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage        = 10
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -13,12 +15,13 @@ module "edu_rds" {
   allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "16.2"
+  db_engine_version           = "16"
   enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "edu_rds" {

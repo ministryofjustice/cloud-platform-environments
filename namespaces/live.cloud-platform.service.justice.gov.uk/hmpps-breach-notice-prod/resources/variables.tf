@@ -55,3 +55,7 @@ variable "eks_cluster_name" {
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
+variable "domain_events_topic_name" {
+  default = "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08"
+}

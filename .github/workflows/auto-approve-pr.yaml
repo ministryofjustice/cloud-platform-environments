@@ -1,47 +1,47 @@
-name: Auto-approve a pull request
+# name: Auto-approve a pull request
 
-on:
-  pull_request
+# on:
+#   pull_request
 
-jobs:
-  checksum-compare:
-    runs-on: ${{ matrix.os }}
+# jobs:
+#   checksum-compare:
+#     runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest]
 
-    steps:
-      - name: Checkout PR code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout PR code
+#         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Get changes and save to json
-        id: get_changes
-        uses: lots0logs/gh-action-get-changed-files@2.2.2
-        with:
-          token: "${{ secrets.GITHUB_TOKEN  }}"
+#       - name: Get changes and save to json
+#         id: get_changes
+#         uses: lots0logs/gh-action-get-changed-files@6cb5164a823dbf3318b7c8032a333b4b7ed425b2 # v2.2.2
+#         with:
+#           token: "${{ secrets.GITHUB_TOKEN  }}"
 
-      - name: Copy json so dir_hash can read contents
-        run: |
-          mkdir ${HOME}/work/_temp/_github_home
-          cp ${HOME}/files.json ${HOME}/work/_temp/_github_home/.
+#       - name: Copy json so dir_hash can read contents
+#         run: |
+#           mkdir ${HOME}/work/_temp/_github_home
+#           cp ${HOME}/files.json ${HOME}/work/_temp/_github_home/.
 
-      - name: Run check
-        id: dir_hash
-        uses: ministryofjustice/cloud-platform-directory-hash@main
+#       - name: Run check
+#         id: dir_hash
+#         uses: ministryofjustice/cloud-platform-directory-hash@56116f90801ca14bf13d261d7f807228f3661f84 # latest commit on main
 
-      - name: Comment PR
-        uses: vinodsai-a/actions-comment-pull-request@master
+#       - name: Comment PR
+#         uses: vinodsai-a/actions-comment-pull-request@master
 
-        if: steps.dir_hash.outputs.checksum_match == 'true'
-        with:
-          message: 'Auto-approve has deemed this PR worthy!'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         if: steps.dir_hash.outputs.checksum_match == 'true'
+#         with:
+#           message: 'Auto-approve has deemed this PR worthy!'
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # When we're ready to auto-approve the PR
-      # - name: Approving PR
-      #   uses: hmarr/auto-approve-action@v2.0.0
+#       # When we're ready to auto-approve the PR
+#       # - name: Approving PR
+#       #   uses: hmarr/auto-approve-action@v2.0.0
 
-      #   if: steps.dir_hash.outputs.checksum_match == 'true'
-      #   with:
-      #     github-token: "${{ secrets.GITHUB_TOKEN  }}"
+#       #   if: steps.dir_hash.outputs.checksum_match == 'true'
+#       #   with:
+#       #     github-token: "${{ secrets.GITHUB_TOKEN  }}"

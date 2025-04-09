@@ -1,5 +1,7 @@
 module "slmtp_api_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -16,12 +18,13 @@ module "slmtp_api_rds" {
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
   rds_family                  = "postgres15"
-  db_engine_version           = "15.7"
+  db_engine_version           = "15.8"
   db_password_rotated_date    = "2023-03-22"
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "slmtp_api_rds" {

@@ -19,7 +19,7 @@ jobs:
 
       - name: Get changed files
         id: files
-        uses: tj-actions/changed-files@d6e91a2266cdb9d62096cebf1e8546899c6aa18f ##v45.0.6
+        uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 ##v46.0.1
         with:
           files_ignore: .github/**
 
@@ -32,11 +32,11 @@ jobs:
             fi
             done
             exit 0
-      
+
       - name: Check Annotations
         if : ${{ steps.namespace_files.outputs.file != '' }}
         id: check_annotations
-        uses: docker://ministryofjustice/cloud-platform-annotation-check:1.2.1
+        uses: docker://ministryofjustice/cloud-platform-annotation-check:1.3.0
         env:
           NAMESPACE_FILE: ${{ steps.namespace_files.outputs.file }}
           BRANCH: ${{ github.head_ref }}
@@ -45,7 +45,7 @@ jobs:
           GITHUB_PRIVATE_KEY: ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
           GITHUB_APP_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
           GITHUB_INSTALLATION_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
-      
+
       - name: Fail
         if : ${{ steps.check_annotations.outputs.valid == 'false' }}
         run: exit 1

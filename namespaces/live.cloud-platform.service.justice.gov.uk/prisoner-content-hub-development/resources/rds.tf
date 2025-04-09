@@ -1,16 +1,18 @@
 module "drupal_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
   application                = var.application
-  is_production              = var.is_production
+    is_production              = var.is_production
   namespace                  = var.namespace
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.medium"
   enable_rds_auto_start_stop = true
-
+  performance_insights_enabled = true
 
   snapshot_identifier = "rds:cloud-platform-2703fa2c8a00ad83-2020-10-16-04-52"
 
@@ -27,6 +29,7 @@ module "drupal_rds" {
       value        = "READ-COMMITTED"
       apply_method = "immediate"
     }
+
   ]
 }
 

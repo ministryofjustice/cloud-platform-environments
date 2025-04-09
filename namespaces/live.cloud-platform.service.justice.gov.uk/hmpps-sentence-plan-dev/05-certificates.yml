@@ -10,6 +10,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - sentence-plan-dev.hmpps.service.justice.gov.uk
+    - '*.sentence-plan-dev.hmpps.service.justice.gov.uk'
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

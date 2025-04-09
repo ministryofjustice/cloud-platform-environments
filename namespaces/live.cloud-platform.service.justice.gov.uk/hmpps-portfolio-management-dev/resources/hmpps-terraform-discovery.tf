@@ -3,7 +3,7 @@ module "hmpps_terraform_discovery" {
   github_repo                   = "hmpps-terraform-discovery"
   application                   = "hmpps-terraform-discovery"
   github_team                   = "hmpps-sre"
-  environment                   = "dev" # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"

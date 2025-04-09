@@ -3,6 +3,10 @@ locals {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies = {
+    bulk_comparison_queue                   = module.bulk_comparison_queue.irsa_policy_arn,
+    bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
+  }
 }
 
 module "irsa" {
@@ -10,7 +14,14 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "calculate-release-dates-api-prod"
-  role_policy_arns       = local.sns_policies
+  role_policy_arns       = merge(
+    local.sns_policies,
+    local.sqs_policies,
+    {
+      rds_policy = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      replica_rds_policy = module.read_replica.irsa_policy_arn,
+    }
+  )
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

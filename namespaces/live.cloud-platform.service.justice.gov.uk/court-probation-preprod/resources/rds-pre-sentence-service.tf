@@ -1,5 +1,7 @@
 module "pre_sentence_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage        = 10
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -10,7 +12,7 @@ module "pre_sentence_service_rds" {
   is_production               = var.is_production
   rds_family                  = "postgres14"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "14.12"
+  db_engine_version           = "14.13"
   prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   enable_rds_auto_start_stop  = true
@@ -18,6 +20,7 @@ module "pre_sentence_service_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "pre_sentence_service_rds" {

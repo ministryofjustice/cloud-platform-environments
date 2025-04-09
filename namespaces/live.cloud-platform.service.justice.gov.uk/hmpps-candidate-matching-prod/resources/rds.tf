@@ -1,5 +1,7 @@
 module "candidate_matching_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  db_allocated_storage        = 10
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -13,12 +15,13 @@ module "candidate_matching_rds" {
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
-  db_engine_version           = "16.3"
+  db_engine_version           = "16.4"
   deletion_protection         = true
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "candidate_matching_rds" {
