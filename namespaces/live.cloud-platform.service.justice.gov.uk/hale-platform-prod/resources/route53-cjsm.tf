@@ -47,6 +47,3 @@ resource "aws_route53_record" "cjsm_route53_cname_record_autodiscover" {
   records = ["v=spf1 include:spf.protection.outlook.com -all"]
 }
 
-
-
-
