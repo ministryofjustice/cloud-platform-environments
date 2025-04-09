@@ -1,6 +1,6 @@
 module "hmpps_dps_reconciliation_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage       = 10
+  db_allocated_storage       = 20
   storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
