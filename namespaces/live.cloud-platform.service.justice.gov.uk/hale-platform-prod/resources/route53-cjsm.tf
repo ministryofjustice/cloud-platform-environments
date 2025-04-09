@@ -28,7 +28,7 @@ resource "aws_route53_record" "cjsm_route53_txt_record_main" {
   name    = "cjsm.justice.gov.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms43148106"]
+  records = ["MS=ms43148106, v=spf1 include:spf.protection.outlook.com -all"]
 }
 
 resource "aws_route53_record" "cjsm_route53_mx_record" {
@@ -44,6 +44,7 @@ resource "aws_route53_record" "cjsm_route53_cname_record_autodiscover" {
   name    = "autodiscover.cjsm.justice.gov.uk"
   type    = "CNAME"
   ttl     = "3600"
-  records = ["v=spf1 include:spf.protection.outlook.com -all"]
+  records = ["autodiscover.outlook.com."]
 }
+
 
