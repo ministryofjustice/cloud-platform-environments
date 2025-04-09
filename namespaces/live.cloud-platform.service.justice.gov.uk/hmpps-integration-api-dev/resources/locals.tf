@@ -25,6 +25,8 @@ locals {
     "unilink",
     "prisonerfacing",
     "moj-esw",
+    "abritton", 
+    "jbetton",
     "smoke-test-full-access",
     "smoke-test-limited-access",
     "smoke-test-no-access"

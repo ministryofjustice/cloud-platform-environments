@@ -40,13 +40,14 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_visitbalance_queue_policy" 
           "Principal": {"AWS": "*"},
           "Resource": "${module.prisoner_from_nomis_visitbalance_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
-          "Condition":
-                      {
-                        "ArnEquals":
-                          {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
-                          }
-                        }
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": [
+                "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+              ]
+            }
+          }
         }
       ]
   }
@@ -110,8 +111,19 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_visitbalance_subscrip
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_VISIT_BALANCE_ADJS-INSERTED",
-      "OFFENDER_VISIT_BALANCE_ADJS-UPDATED",
       "OFFENDER_VISIT_BALANCE_ADJS-DELETED"
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_visitbalance_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_visitbalance_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }

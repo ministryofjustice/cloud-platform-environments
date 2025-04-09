@@ -23,14 +23,6 @@ spec:
       annotations:
         message: laa-court-data-ui-production is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
-    - alert: NotFound-Threshold-Reached
-      expr: sum(rate(ruby_http_requests_total{status="404", namespace="laa-court-data-ui-production"}[86400s])) * 86400 > 100
-      for: 1m
-      labels:
-        severity: laa-court-data-ui
-      annotations:
-        message: laa-court-data-ui-production More than a hundred 404 errors in one day
-        runbook_url: https://kibana.cloud-platform.service.justice.gov.uk/_plugin/kibana/app/kibana#/discover?_g=(refreshInterval:(pause:!t,value:0),time:(from:now-24h,mode:quick,to:now))&_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,key:kubernetes.namespace_name,negate:!f,params:(query:laa-court-data-ui-production,type:phrase),type:phrase,value:laa-court-data-ui-production),query:(match:(kubernetes.namespace_name:(query:laa-court-data-ui-production,type:phrase))))),index:ec9109a0-2b35-11e9-ac82-95e56bd45b02,interval:auto,query:(language:lucene,query:'log:%22RoutingError%22'),sort:!('@timestamp',desc))
     - alert: nginx-5xx-error
       expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-court-data-ui-production", status=~"5.."}[5m])) * 300 > 5
       for: 1m

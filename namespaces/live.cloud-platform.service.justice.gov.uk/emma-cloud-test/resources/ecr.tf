@@ -17,3 +17,4 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+

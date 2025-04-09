@@ -12,4 +12,3 @@ module "serviceaccount_circleci" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   # github_repositories = ["my-repo"]
 }
-
