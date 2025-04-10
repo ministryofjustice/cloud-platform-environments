@@ -4,7 +4,7 @@ on:
   pull_request:
     paths-ignore:
       - '.github/**'
-      - 'poliy/**'
+      - 'policy/**'
 
 jobs:
   conftest:

@@ -7,7 +7,7 @@ on:
       - 'namespaces/**.yaml'
       - 'namespaces/**.yml'
     paths-ignore:
-      - 'poliy/**'
+      - 'policy/**'
 
 jobs:
   annotation-check:
