@@ -7,7 +7,7 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
     cloud-platform.justice.gov.uk/application: "jack kube learning"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
