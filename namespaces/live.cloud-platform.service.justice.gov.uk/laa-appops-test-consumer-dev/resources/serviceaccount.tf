@@ -7,4 +7,5 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "10-04-2025"
 
   github_repositories = ["laa-appops-test-consumer"]
+  github_environments = ["dev"]
 }
