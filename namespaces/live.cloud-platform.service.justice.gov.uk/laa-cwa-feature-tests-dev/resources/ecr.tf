@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github", "circleci"]
-  github_repositories = ["laa-cwa-feature-tests"]
+  github_repositories = ["laa-cwa-feature-tests","cwa-test-provider-api"]
 
   # Tags
   business_unit          = var.business_unit
