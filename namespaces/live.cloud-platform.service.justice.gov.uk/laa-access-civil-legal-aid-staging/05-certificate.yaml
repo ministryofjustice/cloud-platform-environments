@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - beta.checklegalaid.service.gov.uk
+  - staging.checklegalaid.service.gov.uk
