@@ -5,11 +5,11 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers = [ "circleci"]
+  oidc_providers = ["circleci"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
@@ -20,7 +20,7 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   # github_environments = ["my-environment"]
 
-  
+
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
   # https://docs.aws.amazon.com/AmazonECR/latest/userguide/lifecycle_policy_examples.html

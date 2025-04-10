@@ -5,10 +5,10 @@
  *
  */
 module "ecr_credentials" {
-  source         =  "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
-  team_name      = var.team_name
-  repo_name      = "${var.namespace}-ecr"
-  oidc_providers = ["circleci"]
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  team_name           = var.team_name
+  repo_name           = "${var.namespace}-ecr"
+  oidc_providers      = ["circleci"]
   github_repositories = ["hmcts-courtfines"]
 
   # list of github environments, to create the ECR secrets as environment secrets

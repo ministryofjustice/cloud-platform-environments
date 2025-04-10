@@ -5,7 +5,7 @@
  *
  */
 module "alfresco-content-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
   repo_name = "alfresco-content-repository"
@@ -26,7 +26,7 @@ module "alfresco-content-ecr" {
 }
 
 module "alfresco-share-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
   repo_name = "alfresco-share"
