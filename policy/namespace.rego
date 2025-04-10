@@ -3,15 +3,13 @@ package main
 # Policy definitions that all namespaces defined in this repository should comply with.
 
 allowed_business_units := [
-  "Central Digital",
   "CICA",
   "HMCTS",
   "HMPPS",
   "HQ",
   "LAA",
   "OPG",
-  "Platforms",
-  "Technology Services"
+  "Platforms"
 ]
 
 # Annotations
