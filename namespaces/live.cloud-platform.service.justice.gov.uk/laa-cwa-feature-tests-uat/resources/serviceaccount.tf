@@ -6,7 +6,7 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "28-03-2025"
 
-  github_repositories = ["laa-cwa-feature-tests"]
+  github_repositories = ["laa-cwa-feature-tests","cwa-test-provider-api"]
   github_environments = ["uat"]
   serviceaccount_rules = [
     {
