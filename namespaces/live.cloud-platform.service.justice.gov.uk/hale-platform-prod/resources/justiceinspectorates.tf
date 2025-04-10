@@ -22,22 +22,6 @@ resource "kubernetes_secret" "justiceinspectorates_route53_zone" {
   }
 }
 
-resource "aws_route53_record" "justiceinspectorates_route53_cname_record_main_www" {
-  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
-  name    = "www.justiceinspectorates.gov.uk"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["inspectorates.live.bangdynamics.com"]
-}
-
-resource "aws_route53_record" "justiceinspectorates_route53_a_record_main" {
- zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
- name  = "justiceinspectorates.gov.uk"
- type   = "A"
- ttl    = "3600"
- records = ["35.177.136.224"]
-}
-
 resource "aws_route53_record" "justiceinspectorates_route53_cname_record_assets" {
   zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
   name    = "assets-hmicfrs.justiceinspectorates.gov.uk"

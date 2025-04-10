@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -14,7 +14,7 @@ module "dps_rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15.7"
+  db_engine_version = "15.8"
   rds_family                  = "postgres15"
   db_password_rotated_date    = "14-02-2023"
   enable_rds_auto_start_stop  = true

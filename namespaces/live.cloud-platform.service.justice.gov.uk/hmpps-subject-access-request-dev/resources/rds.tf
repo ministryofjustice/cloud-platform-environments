@@ -1,5 +1,5 @@
 module "subject_access_request_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -15,10 +15,10 @@ module "subject_access_request_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "17"
   rds_family                  = "postgres17"
-  prepare_for_major_upgrade   = true
-  allow_major_version_upgrade = true
-  allow_minor_version_upgrade = true
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = false
   deletion_protection         = true
+  performance_insights_enabled = true
 
   providers = {
     aws = aws.london

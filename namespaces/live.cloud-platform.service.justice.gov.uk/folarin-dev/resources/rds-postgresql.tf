@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   # arestore the v17 dbase
   snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
@@ -47,7 +47,7 @@ module "rds" {
 # module "read_replica" {
 #   # default 0
 #   count = 1
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
 #   vpc_name               = var.vpc_name
 

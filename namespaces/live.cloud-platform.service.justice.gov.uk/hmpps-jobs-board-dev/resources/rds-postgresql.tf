@@ -1,5 +1,5 @@
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -19,7 +19,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.2"
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 

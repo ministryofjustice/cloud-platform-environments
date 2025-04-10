@@ -12,6 +12,7 @@ module "drupal_rds" {
   infrastructure_support   = var.infrastructure_support
   db_instance_class        = "db.t4g.xlarge"
   db_password_rotated_date = "2023-05-15"
+  performance_insights_enabled = true
 
   db_engine         = "mariadb"
   db_engine_version = "10.11"

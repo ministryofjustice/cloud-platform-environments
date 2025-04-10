@@ -11,6 +11,7 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-get-payments-finance-data"
     cloud-platform.justice.gov.uk/application: "Get payments and finance data"
     cloud-platform.justice.gov.uk/owner: "Get payments and finance data: laa-payments-finance@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/payforlegalaid"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/payforlegalaid,
+                                                https://github.com/ministryofjustice/payforlegalaid-ui"
     cloud-platform.justice.gov.uk/team-name: "payforlegalaid"
     cloud-platform.justice.gov.uk/review-after: ""

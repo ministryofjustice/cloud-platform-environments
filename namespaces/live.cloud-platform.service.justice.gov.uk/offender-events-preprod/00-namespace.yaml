@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
     cloud-platform.justice.gov.uk/slack-channel: "dps_tech_team"
     cloud-platform.justice.gov.uk/team-name: "haha"
+    cloud-platform.justice.gov.uk/service-area: "Platform and Reporting"

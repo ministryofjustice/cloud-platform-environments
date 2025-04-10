@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -10,12 +10,12 @@ module "dps_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
   snapshot_identifier         = "cloud-platform-9715beccbb718d4b-finalsnapshot"
-  db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
+  db_instance_class           = "db.t4g.small"
+  db_max_allocated_storage    = "10000"
   db_engine                   = "postgres"
-  db_engine_version           = "17"
-  allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = false
+  db_engine_version           = "16"
+  allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = true
   enable_rds_auto_start_stop  = true
 }
 
