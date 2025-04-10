@@ -23,7 +23,6 @@ resource "kubernetes_secret" "grafana_irsa" {
   }
 
   data = {
-    role_arn        = module.grafana_irsa.role_arn
-    service_account = module.grafana_irsa.service_account
+    role_arn = module.grafana_irsa.role_arn
   }
 }
