@@ -1,6 +1,6 @@
 package main
 
-deny[msg] {
+deny[msg] if {
   input.kind == "ClusterRoleBinding"
   msg := "kind ClusterRoleBinding is not allowed"
 }
