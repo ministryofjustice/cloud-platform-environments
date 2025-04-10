@@ -3,7 +3,7 @@
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
  *
- */
+ */#
 module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=aws-provider-bump"
 
