@@ -28,7 +28,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "Central Digital"
 }
 
 variable "team_name" {
