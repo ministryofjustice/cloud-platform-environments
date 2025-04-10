@@ -1,5 +1,5 @@
 module "migration_personalrelationships_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "migration_personalrelationships_queue"
@@ -25,7 +25,7 @@ EOF
 }
 
 module "migration_personalrelationships_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "migration_personalrelationships_dlq"

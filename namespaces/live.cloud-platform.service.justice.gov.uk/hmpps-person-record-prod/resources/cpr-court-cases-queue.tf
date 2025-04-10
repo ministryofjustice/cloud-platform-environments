@@ -7,7 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_court_cases_subscription" {
 }
 
 module "cpr_court_cases_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                    = "cpr_court_cases_queue"
@@ -56,13 +56,13 @@ data "aws_iam_policy_document" "cpr_court_cases_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "cpr_court_cases_queue_policy" {
   queue_url = module.cpr_court_cases_queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_court_cases_sqs_queue_policy_document.json
+  policy    = data.aws_iam_policy_document.cpr_court_cases_sqs_queue_policy_document.json
 }
 
 ######## Dead letter queue
 
 module "cpr_court_cases_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                    = "cpr_court_cases_dlq"

@@ -1,11 +1,11 @@
 module "sqs_overnight" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_overnight_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 # 12 hours
-  visibility_timeout_seconds = 120 # 2 minutes
+  visibility_timeout_seconds = 120   # 2 minutes
   fifo_queue                 = "true"
 
   redrive_policy = jsonencode({
@@ -60,13 +60,13 @@ resource "aws_sqs_queue_policy" "overnight_sqs_policy" {
 }
 
 module "sqs_overnight_dl" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_overnight_dlq"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 604800 # 7 days
-  visibility_timeout_seconds = 120 # 2 minutes
+  visibility_timeout_seconds = 120    # 2 minutes
   fifo_queue                 = "true"
 
   # Tags
@@ -90,7 +90,7 @@ resource "kubernetes_secret" "sqs_overnight" {
   }
 
   data = {
-    queue_id  = module.sqs_overnight.sqs_id
+    queue_id   = module.sqs_overnight.sqs_id
     queue_arn  = module.sqs_overnight.sqs_arn
     queue_name = module.sqs_overnight.sqs_name
   }
@@ -103,7 +103,7 @@ resource "kubernetes_secret" "sqs_overnight_dl" {
   }
 
   data = {
-    queue_id  = module.sqs_overnight_dl.sqs_id
+    queue_id   = module.sqs_overnight_dl.sqs_id
     queue_arn  = module.sqs_overnight_dl.sqs_arn
     queue_name = module.sqs_overnight_dl.sqs_name
   }

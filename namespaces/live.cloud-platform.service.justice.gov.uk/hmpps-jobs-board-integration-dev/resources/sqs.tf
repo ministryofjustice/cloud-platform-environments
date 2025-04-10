@@ -1,5 +1,5 @@
 module "hmpps_jobs_board_integration_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "hmpps_jobs_board_integration_queue"
@@ -23,7 +23,7 @@ module "hmpps_jobs_board_integration_queue" {
 }
 
 module "hmpps_jobs_board_integration_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "hmpps_jobs_board_integration_dlq"
