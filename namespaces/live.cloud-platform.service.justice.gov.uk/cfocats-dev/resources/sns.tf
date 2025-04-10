@@ -1,5 +1,5 @@
 module "activity_approved_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "activity_approved_event"
   encrypt_sns_kms    = true
@@ -16,7 +16,7 @@ module "activity_approved_event" {
 }
 
 module "hub_induction_created_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "hub_induction_created_event"
   encrypt_sns_kms    = true
@@ -33,7 +33,7 @@ module "hub_induction_created_event" {
 }
 
 module "objectivetask_completed_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "objectivetask_completed_event"
   encrypt_sns_kms    = true
@@ -50,7 +50,7 @@ module "objectivetask_completed_event" {
 }
 
 module "participant_transitioned_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "participant_transitioned_event"
   encrypt_sns_kms    = true
@@ -67,7 +67,7 @@ module "participant_transitioned_event" {
 }
 
 module "pri_assigned_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "pri_assigned_event"
   encrypt_sns_kms    = true
@@ -84,7 +84,7 @@ module "pri_assigned_event" {
 }
 
 module "pri_ttg_completed_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "pri_ttg_completed_event"
   encrypt_sns_kms    = true
@@ -101,7 +101,7 @@ module "pri_ttg_completed_event" {
 }
 
 module "sync_participant_command" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "sync_participant_command"
   encrypt_sns_kms    = true
@@ -118,7 +118,7 @@ module "sync_participant_command" {
 }
 
 module "wing_induction_created_event" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   topic_display_name = "wing_induction_created_event"
   encrypt_sns_kms    = true
