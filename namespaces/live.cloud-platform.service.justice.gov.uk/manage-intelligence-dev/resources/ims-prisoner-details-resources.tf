@@ -1,5 +1,5 @@
 module "ims_prisoner_details_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "ims_prisoner_details_queue"
@@ -42,7 +42,7 @@ resource "kubernetes_secret" "ims_prisoner_details_queue" {
 }
 
 module "ims_prisoner_details_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "ims_prisoner_details_dlq"

@@ -1,5 +1,5 @@
 module "bulk_comparison_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "bulk_comparison_queue"
@@ -23,7 +23,7 @@ module "bulk_comparison_queue" {
 }
 
 module "bulk_comparison_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "bulk_comparison_dlq"

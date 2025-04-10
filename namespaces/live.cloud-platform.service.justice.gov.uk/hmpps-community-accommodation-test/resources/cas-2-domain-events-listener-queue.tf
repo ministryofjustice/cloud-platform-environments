@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "cas-2-domain-events-listener-queue-subscr
 }
 
 module "cas-2-domain-events-listener-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name = "cas-2-domain-events-listener-queue"
@@ -36,7 +36,7 @@ resource "aws_sqs_queue_policy" "cas-2-domain-events-listener-queue-policy" {
 }
 
 module "cas-2-domain-events-listener-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "cas-2-domain-events-listener-dlq"

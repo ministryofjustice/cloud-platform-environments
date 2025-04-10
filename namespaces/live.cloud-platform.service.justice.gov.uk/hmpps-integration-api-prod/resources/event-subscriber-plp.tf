@@ -1,5 +1,5 @@
 module "event_plp_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "events_plp_queue"
@@ -23,7 +23,7 @@ module "event_plp_queue" {
 }
 
 module "event_plp_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "event_plp_queue_dl"
@@ -81,9 +81,9 @@ data "aws_secretsmanager_secret_version" "plp_filter_list" {
 
 
 resource "aws_sns_topic_subscription" "event_plp_subscription" {
-  topic_arn     = module.hmpps-integration-events.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.event_plp_queue.sqs_arn
+  topic_arn = module.hmpps-integration-events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.event_plp_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "PLP_INDUCTION_SCHEDULE_CHANGED",

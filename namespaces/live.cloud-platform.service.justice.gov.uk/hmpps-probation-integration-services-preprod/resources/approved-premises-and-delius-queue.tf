@@ -18,7 +18,7 @@ resource "aws_sns_topic_subscription" "approved-premises-and-delius-queue-subscr
 }
 
 module "approved-premises-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name = "approved-premises-and-delius-queue-queue"
@@ -43,7 +43,7 @@ resource "aws_sqs_queue_policy" "approved-premises-and-delius-queue-policy" {
 }
 
 module "approved-premises-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "approved-premises-and-delius-dlq"
@@ -86,7 +86,7 @@ module "approved-premises-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "approved-premises-and-delius"
-  role_policy_arns     = {
+  role_policy_arns = {
     sqs = module.approved-premises-and-delius-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
   }
