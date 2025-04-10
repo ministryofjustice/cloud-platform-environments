@@ -13,7 +13,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_merge_domain_events_subscripti
 }
 
 module "cpr_delius_merge_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "cpr_delius_merge_events_queue"
@@ -61,12 +61,12 @@ data "aws_iam_policy_document" "cpr_delius_merge_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "cpr_delius_merge_events_queue_policy" {
   queue_url = module.cpr_delius_merge_events_queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_delius_merge_sqs_queue_policy_document.json
+  policy    = data.aws_iam_policy_document.cpr_delius_merge_sqs_queue_policy_document.json
 }
 
 ### Dead letter queue
 module "cpr_delius_merge_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "cpr_delius_merge_events_dlq"

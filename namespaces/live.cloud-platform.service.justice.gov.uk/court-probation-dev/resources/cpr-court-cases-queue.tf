@@ -6,13 +6,13 @@ resource "aws_sns_topic_subscription" "cpr_court_cases_subscription" {
 }
 
 module "cpr-court-cases-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
-  sqs_name                    = "cpr-court-cases"
-  encrypt_sqs_kms             = "true"
-  message_retention_seconds   = 1209600
-  visibility_timeout_seconds  = 120
+  sqs_name                   = "cpr-court-cases"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 1209600
+  visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.cpr-court-cases-dlq.sqs_arn
@@ -53,15 +53,15 @@ data "aws_iam_policy_document" "cpr_court_cases_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "cpr_court_cases_queue_policy" {
   queue_url = module.cpr-court-cases-queue.sqs_id
-  policy = data.aws_iam_policy_document.cpr_court_cases_sqs_queue_policy_document.json
+  policy    = data.aws_iam_policy_document.cpr_court_cases_sqs_queue_policy_document.json
 }
 
 module "cpr-court-cases-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
-  sqs_name                    = "cpr-court-cases-dlq"
-  encrypt_sqs_kms             = "true"
+  sqs_name        = "cpr-court-cases-dlq"
+  encrypt_sqs_kms = "true"
 
   # Tags
   business_unit          = var.business_unit

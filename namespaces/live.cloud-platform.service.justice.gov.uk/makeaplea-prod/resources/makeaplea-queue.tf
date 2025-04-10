@@ -1,5 +1,5 @@
 module "makeaplea_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "celery"
@@ -27,7 +27,7 @@ module "makeaplea_queue" {
 }
 
 module "makeaplea_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "makeaplea_queue_dl"
@@ -54,10 +54,10 @@ resource "kubernetes_secret" "makeaplea_queue" {
   }
 
   data = {
-    irsa_policy_arn                = module.makeaplea_queue.irsa_policy_arn
-    sqs_id                         = module.makeaplea_queue.sqs_id
-    sqs_arn                        = module.makeaplea_queue.sqs_arn
-    sqs_name                       = module.makeaplea_queue.sqs_name
+    irsa_policy_arn = module.makeaplea_queue.irsa_policy_arn
+    sqs_id          = module.makeaplea_queue.sqs_id
+    sqs_arn         = module.makeaplea_queue.sqs_arn
+    sqs_name        = module.makeaplea_queue.sqs_name
   }
 }
 
