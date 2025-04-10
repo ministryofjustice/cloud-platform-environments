@@ -1,8 +1,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: laa-access-civil-legal-aid-staging-cert
-  namespace: laa-access-civil-legal-aid-staging
+  name: laa-access-civil-legal-aid-production-cert
+  namespace: laa-access-civil-legal-aid-production
 spec:
   secretName: tls-certificate
   issuerRef:
