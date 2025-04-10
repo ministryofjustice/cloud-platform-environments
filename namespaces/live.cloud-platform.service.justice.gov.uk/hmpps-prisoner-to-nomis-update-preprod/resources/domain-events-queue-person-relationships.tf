@@ -1,5 +1,5 @@
 module "hmpps_prisoner_to_nomis_personalrelationships_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_personalrelationships_queue"
@@ -54,7 +54,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_personalrelationships_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_personalrelationships_dlq"
@@ -102,10 +102,10 @@ resource "kubernetes_secret" "hmpps_prisoner_to_nomis_personalrelationships_dead
 }
 
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_personalrelationships_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.hmpps_prisoner_to_nomis_personalrelationships_queue.sqs_arn
+  provider            = aws.london
+  topic_arn           = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol            = "sqs"
+  endpoint            = module.hmpps_prisoner_to_nomis_personalrelationships_queue.sqs_arn
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     eventType = [

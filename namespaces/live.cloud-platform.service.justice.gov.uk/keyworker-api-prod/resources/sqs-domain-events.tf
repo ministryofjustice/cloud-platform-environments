@@ -1,5 +1,5 @@
 module "domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   sqs_name = "domain_events_queue"
   redrive_policy = jsonencode({
@@ -16,13 +16,8 @@ module "domain_events_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_sqs_queue_policy" "domain_events_queue_policy" {
-  queue_url = module.domain_events_queue.sqs_id
-  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
-}
-
 module "domain_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   sqs_name = "domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
@@ -86,7 +81,7 @@ resource "kubernetes_secret" "domain_events_dlq_secret" {
 # Below this is to be removed in a future PR after switching to the above
 
 module "keyworker_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   sqs_name = "keyworker_domain_events_queue"
   redrive_policy = jsonencode({
@@ -99,7 +94,7 @@ module "keyworker_domain_events_queue" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = "production" // hard coded to prevent destroying the queues when changing env name
+  environment_name       = "production" # hard coded to prevent destroying the queues when changing env name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -109,9 +104,9 @@ resource "aws_sqs_queue_policy" "keyworker_domain_events_queue_policy" {
 }
 
 module "keyworker_domain_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
-  sqs_name = "keyworker_domain_events_dlq"
+  sqs_name                  = "keyworker_domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit
@@ -119,7 +114,7 @@ module "keyworker_domain_events_dlq" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = "production" // hard coded to prevent destroying the queues when changing env name
+  environment_name       = "production" # hard coded to prevent destroying the queues when changing env name
   infrastructure_support = var.infrastructure_support
 }
 
