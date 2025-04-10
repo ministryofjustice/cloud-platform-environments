@@ -5,15 +5,15 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
   repo_name = "${var.namespace}-ecr"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["data-science-assets-app"]
-  github_environments = ["dev"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["data-science-assets-app"]
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   # Tags
