@@ -142,6 +142,7 @@ Execute the following commands in the `opa-auto-approve-policy` directory:
      ```
 
 3. **Format Code**:
+
    - Format OPA files using the `opa fmt` command:
 
      ```bash
