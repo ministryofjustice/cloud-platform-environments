@@ -1,8 +1,10 @@
 package main
 
+import future.keywords.if
+
 # Annotations
 
-test_deny_empty_business_unit {
+test_deny_empty_business_unit if {
   msg := "Namespace must have business-unit annotation"
 
   empty_business_unit_annotation := {
@@ -21,7 +23,7 @@ test_deny_empty_business_unit {
   deny[msg] with input as empty_business_unit_annotation
 }
 
-test_deny_missing_application {
+test_deny_missing_application if {
   msg := "Namespace must have application annotation"
 
   missing_application_annotation := {
@@ -41,7 +43,7 @@ test_deny_missing_application {
 
 # Business unit
 
-test_deny_invalid_busines_unit {
+test_deny_invalid_busines_unit if {
   msg := "Invalid business-unit annotation: invalid-business-unit"
 
   bad_business_unit := {
@@ -56,7 +58,7 @@ test_deny_invalid_busines_unit {
   deny[msg] with input as bad_business_unit
 }
 
-test_not_deny_valid_busines_unit {
+test_not_deny_valid_busines_unit if {
   msg := "Invalid business-unit annotation: HMPPS"
 
   good_business_unit := {
