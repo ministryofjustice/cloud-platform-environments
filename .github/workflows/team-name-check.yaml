@@ -4,8 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
+      -  'namespaces/**/00-namespace.yaml'
       - '**/*.tf'
-
+      
+      
 jobs:
   team-name-check:
     runs-on: ubuntu-latest
