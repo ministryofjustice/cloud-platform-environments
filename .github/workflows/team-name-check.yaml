@@ -49,15 +49,16 @@ jobs:
               fi
 
               file_dir_path="${file%/*}"
-            echo "Checking for ecr, sns, or sqs modules in $file_dir_path"
+              echo "Checking for ecr, sns, or sqs modules in $file_dir_path"
 
-            files=$(ls "$file_dir_path/resources" 2>/dev/null | grep -E '(sns|sqs|ecr)')
+              files=$(ls "$file_dir_path/resources" 2>/dev/null | grep -E '(sns|sqs|ecr)')
 
-            if [[ -n "$files" ]]; then
-              echo "Match found for ecr, sns, or sqs in $file"
-              MODULES_FOUND+=("$files")
-            else
-              echo "No match found for ecr, sns, or sqs in $file"
+              if [[ -n "$files" ]]; then
+                echo "Match found for ecr, sns, or sqs in $file"
+                MODULES_FOUND+=("$files")
+              else
+                echo "No match found for ecr, sns, or sqs in $file"
+              fi
             fi
           done
 
