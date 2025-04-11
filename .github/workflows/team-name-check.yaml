@@ -47,15 +47,10 @@ jobs:
               if [[ "$BASE_TEAM_NAME" != "$PR_TEAM_NAME" ]]; then
                 TEAM_NAME_CHANGED=true
               fi
-            fi
 
-             # Check for ecr, sns, or sqs resources in Terraform files
-            if [[ $file == *.tf ]]; then
-              echo "Checking for ecr, sns, or sqs modules in $file"
-              echo "File content:"
-              cat "$file"  # Log the content of the file for debugging
-
-              if grep -q -E 'source.*(sns|sqs|ecr)' "$file"; then
+              file_dir_path=`echo "${file%/*}"`
+              echo "Checking for ecr, sns, or sqs modules in $file_dir_path"
+              if grep -q -E '(sns|sqs|ecr)' "$file_dir_path/resources"; then
                 echo "Match found for ecr, sns, or sqs in $file"
                 MODULES_FOUND+=("$file")
               else
