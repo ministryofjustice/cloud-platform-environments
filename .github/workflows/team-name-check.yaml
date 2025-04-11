@@ -4,10 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      -  'namespaces/**/00-namespace.yaml'
+      - 'namespaces/**/00-namespace.yaml'
       - '**/*.tf'
-      
-      
+
 jobs:
   team-name-check:
     runs-on: ubuntu-latest
@@ -20,7 +19,7 @@ jobs:
         id: files
         uses: tj-actions/changed-files@v46
         with:
-          files_ignore: .github/**
+          files_ignore: '.github/**'
 
       - name: Check for team_name changes and resources
         id: check_team_name
@@ -59,17 +58,20 @@ jobs:
             fi
           done
 
+          # Ensure MODULES_FOUND is a space-separated string
+          MODULES_FOUND_STRING=$(IFS=" "; echo "${MODULES_FOUND[*]}")
+
           echo "Final team_name_changed: $TEAM_NAME_CHANGED"
-          echo "Modules found: ${MODULES_FOUND[*]}"
+          echo "Modules found: $MODULES_FOUND_STRING"
           echo "::set-output name=team_name_changed::$TEAM_NAME_CHANGED"
-          echo "::set-output name=modules_found::${MODULES_FOUND[*]}"
+          echo "::set-output name=modules_found::$MODULES_FOUND_STRING"
 
       - name: Post PR comment
-        if: ${{ steps.check_team_name.outputs.team_name_changed == 'true' }}
+        if: ${{ steps.check_team_name.outputs.team_name_changed == 'true' || steps.check_team_name.outputs.modules_found != '' }}
         uses: actions/github-script@v6
         with:
           script: |
-            const modules = process.env.modules_found.split(' ');
+            const modules = `{{ steps.check_team_name.outputs.modules_found }}`.split(' ').filter(Boolean);
             const moduleList = modules.length > 0 ? modules.join(', ') : 'none';
             const comment = `
             We've noticed you're updating your \`team_name\`. Please note that you have the following resources that cannot be renamed:
