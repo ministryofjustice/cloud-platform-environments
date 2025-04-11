@@ -43,3 +43,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: make-recall-decision-prod
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: hmpps-manage-people-on-probation-prod
