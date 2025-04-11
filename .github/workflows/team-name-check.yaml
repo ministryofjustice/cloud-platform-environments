@@ -50,7 +50,7 @@ jobs:
 
               file_dir_path=`echo "${file%/*}"`
               echo "Checking for ecr, sns, or sqs modules in $file_dir_path"
-              if grep -q -E '(sns|sqs|ecr)' "$file_dir_path/resources"; then
+              if ls -l "$file_dir_path/resources" | grep -q -E '.*(sns|sqs|ecr)'; then
                 echo "Match found for ecr, sns, or sqs in $file"
                 MODULES_FOUND+=("$file")
               else
