@@ -1,5 +1,5 @@
 module "hmpps-integration-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   # Configuration
   topic_display_name = "integration-api-event-topic"

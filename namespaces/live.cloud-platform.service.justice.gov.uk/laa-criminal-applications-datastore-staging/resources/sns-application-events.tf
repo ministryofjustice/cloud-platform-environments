@@ -1,5 +1,5 @@
 module "application-events-sns-topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   # Configuration
   topic_display_name = "datastore-application-events"
