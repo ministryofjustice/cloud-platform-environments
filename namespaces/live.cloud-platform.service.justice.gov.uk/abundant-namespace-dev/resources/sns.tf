@@ -5,7 +5,7 @@
  *
  */
 module "abundant_namespace_dev_sns" {
-  source = "github.com/sameermoj/cloud-platform-terraform-sns-topic?ref=PIC-4008"
+  source = "github.com/sameermoj/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   # Configuration
   topic_display_name = "test-sns"
