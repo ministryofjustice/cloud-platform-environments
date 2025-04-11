@@ -25,12 +25,6 @@ module "irsa" {
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
     },
-    {
-      old_sqs = module.case_notes_domain_events_queue.irsa_policy_arn
-    },
-    {
-      old_sqs_dlq = module.case_notes_domain_events_dlq.irsa_policy_arn
-    },
     local.sns_policies,
   )
   # Tags
