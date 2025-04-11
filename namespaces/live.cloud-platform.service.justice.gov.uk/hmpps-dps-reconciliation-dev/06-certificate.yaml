@@ -10,5 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-dps-reconciliation-dev.hmpps.service.justice.gov.uk
-    - '*.hmpps-dps-reconciliation-dev.hmpps.service.justice.gov.uk'
+    - dps-reconciliation-dev.hmpps.service.justice.gov.uk
