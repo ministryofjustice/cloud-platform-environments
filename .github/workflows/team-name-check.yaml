@@ -1,0 +1,59 @@
+name: team-name-check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**/*.tf'
+
+jobs:
+  team-name-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: files
+        uses: tj-actions/changed-files@v46
+        with:
+          files_ignore: .github/**
+
+      - name: Check for team_name changes
+        id: check_team_name
+        run: |
+          TEAM_NAME_CHANGED=false
+          MODULES_FOUND=()
+          for file in ${{ steps.files.outputs.all_changed_files }}; do
+            if [[ $file == *.tf ]]; then
+              if grep -q 'variable "team_name"' "$file"; then
+                TEAM_NAME_CHANGED=true
+              fi
+              if grep -q -E '(module.*sqs|module.*sns|module.*ecr)' "$file"; then
+                MODULES_FOUND+=("$file")
+              fi
+            fi
+          done
+          echo "team_name_changed=$TEAM_NAME_CHANGED" >> $GITHUB_ENV
+          echo "modules_found=${MODULES_FOUND[*]}" >> $GITHUB_ENV
+
+      - name: Post PR comment
+        if: ${{ steps.check_team_name.outputs.team_name_changed == 'true' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const modules = process.env.modules_found.split(' ');
+            const moduleList = modules.length > 0 ? modules.join(', ') : 'none';
+            const comment = `
+            We've noticed you're updating your \`team_name\`. Please note that you have the following resources that cannot be renamed:
+            - ${moduleList}
+
+            See [documentation](https://github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?tab=readme-ov-file#team-name-caveat) for more details.
+            `;
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
