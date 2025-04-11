@@ -1,6 +1,6 @@
 package main
 
-deny[msg] if {
+deny[msg] {
   input.kind == "RoleBinding"
   input.roleRef.kind == "ClusterRole"
   input.roleRef.name != "admin"
