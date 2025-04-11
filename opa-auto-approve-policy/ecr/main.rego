@@ -2,6 +2,8 @@ package terraform.analysis
 
 import input as tfplan
 
+import future.keywords.every
+
 default allow := false
 
 default ecr_create_ok := false
@@ -19,14 +21,23 @@ allow if {
 ecrs := [
 res |
 	res := tfplan.resource_changes[_]
-	regex.match(`module\.ecr`, res.module_address)
 	regex.match(`aws_ecr_repository`, res.type)
+]
+
+
+ecr_module_addrs := {arr | arr := ecrs[_].module_address}
+
+ecr_module_resources := [
+	res |
+		res := tfplan.resource_changes[_]
+
+		is_ecr_resource(res)
 ]
 
 ecr_create_ok if {
 	creates := [
 	res |
-		res := ecrs[_]
+		res := ecr_module_resources[_]
 		res.change.actions[_] == "create"
 	]
 
@@ -38,7 +49,7 @@ ecr_create_ok if {
 ecr_update_ok if {
 	updates := [
 	res |
-		res := ecrs[_]
+		res := ecr_module_resources[_]
 		res.change.actions[_] == "update"
 	]
 
@@ -50,7 +61,7 @@ ecr_update_ok if {
 ecr_destroy_ok if {
 	destroys := [
 	res |
-		res := ecrs[_]
+		res := ecr_module_resources[_]
 		res.change.actions[_] == "delete"
 	]
 
@@ -58,3 +69,5 @@ ecr_destroy_ok if {
 		is_ecr_destroy_valid(ecr)
 	}
 }
+
+is_ecr_resource(res) if res.module_address in ecr_module_addrs

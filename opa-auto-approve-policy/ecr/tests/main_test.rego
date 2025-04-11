@@ -40,9 +40,9 @@ test_allow_if_op_destroy if {
 		"module_address": "module.ecr",
 		"type": "aws_ecr_repository",
 		"change": {
-			"actions": ["destroy"],
-			"before": {"force_delete": true},
-			"after": {"force_delete": true},
+			"actions": ["delete"],
+			"before": {"name": "this", "force_delete": true},
+			"after": {"name": "this", "force_delete": true},
 		},
 	}
 

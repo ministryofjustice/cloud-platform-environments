@@ -2,7 +2,9 @@ package terraform.analysis
 
 import input as tfplan
 
-is_ecr_destroy_valid(ecr) if {
+is_ecr_destroy_valid(ecr)
+
+if {
 	before := ecr.change.before.name
 	after := ecr.change.after.name
 
