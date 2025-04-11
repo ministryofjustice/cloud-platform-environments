@@ -39,12 +39,6 @@ module "irsa" {
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
     },
-    {
-      sqs = module.keyworker_domain_events_queue.irsa_policy_arn
-    },
-    {
-      sqs_dlq = module.keyworker_domain_events_dlq.irsa_policy_arn
-    },
     local.sqs_policies,
     local.sns_policies
   )
