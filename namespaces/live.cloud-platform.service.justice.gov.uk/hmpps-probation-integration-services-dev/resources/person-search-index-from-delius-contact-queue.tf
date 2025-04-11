@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-contact-q
 }
 
 module "person-search-index-from-delius-contact-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name      = "person-search-index-from-delius-contact-queue"

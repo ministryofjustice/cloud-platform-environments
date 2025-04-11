@@ -1,5 +1,5 @@
 module "process_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
 
   # Queue configuration
   sqs_name        = "process_sqs_dlq"
@@ -59,7 +59,7 @@ resource "kubernetes_config_map" "process_sqs_dlq" {
 }
 
 module "process_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
 
   # Queue configuration
   sqs_name        = "process_sqs"

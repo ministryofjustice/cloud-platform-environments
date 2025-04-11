@@ -1,5 +1,5 @@
 module "offender_categorisation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "offender_categorisation_events_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_events_queue_policy" {
 }
 
 module "offender_categorisation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "offender_categorisation_events_queue_dl"
@@ -112,7 +112,7 @@ resource "aws_sns_topic_subscription" "offender_categorisation_subscription" {
 
 
 module "offender_categorisation_ui_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "offender_categorisation_ui_events_queue"
@@ -167,7 +167,7 @@ resource "aws_sqs_queue_policy" "offender_categorisation_ui_events_queue_policy"
 }
 
 module "offender_categorisation_ui_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "offender_categorisation_ui_events_queue_dl"
@@ -224,7 +224,7 @@ resource "aws_sns_topic_subscription" "offender_categorisation_ui_subscription" 
 ############################################################################################
 
 module "offender_categorisation_api_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "offender_categorisation_api_events_queue"
@@ -252,7 +252,7 @@ module "offender_categorisation_api_events_queue" {
 }
 
 module "offender_categorisation_api_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "offender_categorisation_api_events_queue_dl"

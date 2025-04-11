@@ -18,7 +18,7 @@ resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
 }
 
 module "cas3-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name = "cas3-and-delius-queue"
@@ -43,7 +43,7 @@ resource "aws_sqs_queue_policy" "cas3-and-delius-queue-policy" {
 }
 
 module "cas3-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
   # Queue configuration
   sqs_name                  = "cas3-and-delius-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week

@@ -1,5 +1,5 @@
 module "hmpps_workload_prisoner_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "hmpps_workload_prisoner_queue"
@@ -58,7 +58,7 @@ EOF
 }
 
 module "hmpps_workload_prisoner_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "hmpps_workload_prisoner_dlq"
