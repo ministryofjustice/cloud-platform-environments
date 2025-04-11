@@ -49,11 +49,17 @@ jobs:
               fi
             fi
 
-            # Check for ecr, sns, or sqs resources in Terraform files
+             # Check for ecr, sns, or sqs resources in Terraform files
             if [[ $file == *.tf ]]; then
               echo "Checking for ecr, sns, or sqs modules in $file"
+              echo "File content:"
+              cat "$file"  # Log the content of the file for debugging
+
               if grep -q -E 'source.*(sns|sqs|ecr)' "$file"; then
+                echo "Match found for ecr, sns, or sqs in $file"
                 MODULES_FOUND+=("$file")
+              else
+                echo "No match found for ecr, sns, or sqs in $file"
               fi
             fi
           done
