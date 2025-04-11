@@ -55,7 +55,7 @@ jobs:
 
               if [[ -n "$files" ]]; then
                 echo "Match found for ecr, sns, or sqs in $file"
-                MODULES_FOUND+=("$files")
+                MODULES_FOUND="$files"
               else
                 echo "No match found for ecr, sns, or sqs in $file"
               fi
