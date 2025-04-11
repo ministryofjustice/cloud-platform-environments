@@ -15,6 +15,16 @@ The **OPA Auto Approve Policy** framework automates the validation and approval 
    - Uses the `opa-app-test.yml` GitHub Action in the `cloud-platform-environments` repository.
    - Validates the OPA auto-approve policies to ensure they work as expected.
 
+## Adding a new module
+
+1. Create your new module directory and folder structure following the policy structure below
+2. Plan your policy out carefully with pseudo code
+3. Write your policy using the other modules for reference (be careful to not to be caught out by dynamic module naming eg. `module.ecr` is not a good basis for selecting resources as the module name doesn't have to "ecr" instead get a resource which is concrete in the module and work backwards to the `module.address`)
+4. Generate a mock tf plan for testing (out a tf plan to json and pull out the relevant fileds)
+5. Ensure you have **complete** test coverage
+6. Use your tfplan.json to test against the module with `opa exec --decision terraform/analysis/allow --bundle . ecr_plan.json --log-level info --log-format json-pretty`
+7. Once you're happy with your module, add the module to the `module_allowlist` module
+
 ## How It Works
 
 ### OPA Validation Against Terraform Plans Steps
@@ -59,7 +69,11 @@ opa-auto-approve-policy
 
 ### Key Components
 
-There is a dir for each module and then a module ("module_allowlist/") that captures all of the modules that are covered. Modules should pass if there is no terraform relevant to the module, then "module_allowlist" runs through and makes sure that the terraform at least matches one of the modules. We need this extra module to make sure that PRs don't get approved when contain terraform for a module that isn't covered.
+There is a dir for each module and then 2 additional modules: "module_allowlist/" and "iam".
+
+Modules should pass if there is no terraform changed outside of the "module_allowlist". We need this extra module to make sure that PRs don't get approved when contain terraform for a module that isn't covered.
+
+The "iam" module prevents us from auto approving prs with policy changes in.
 
 1. **`<dir>/main.rego`**:
 
@@ -96,10 +110,8 @@ To ensure the integrity of changes, the OPA Auto Approve Policy includes the fol
 
   - Ensures no changes occur outside the Terraform configuration, particularly to Kubernetes YAML files.
 
-- **Excludes Specific Resources**:
-  - Validation ensures no changes occur to:
-    - IAM policies
-    - IAM policy attachments
+- **Prevent smuggling changes into auto-approve with module_allowlist**
+  - Make sure resources changed are resources that are on the allow list
 
 ## How to Test Locally
 
@@ -135,11 +147,3 @@ Execute the following commands in the `opa-auto-approve-policy` directory:
      ```bash
      opa fmt . -w
      ```
-
-## Next Steps
-
-**Expanding Module Development**:
-
-- The framework is designed for modularisation, with the `service_pod` module already implemented as a foundation.
-- The next step will focus on developing additional modules for other resource types, such as S3, RDS, and IAM.
-- Each new module will include resource-specific validation logic, tests, and fixtures to ensure seamless integration into the existing framework.
