@@ -1,6 +1,6 @@
 
 module "remand-and-sentencing-api-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
