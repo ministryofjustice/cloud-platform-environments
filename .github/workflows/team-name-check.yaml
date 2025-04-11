@@ -22,23 +22,47 @@ jobs:
         with:
           files_ignore: .github/**
 
-      - name: Check for team_name changes
+      - name: Check for team_name changes and resources
         id: check_team_name
         run: |
           TEAM_NAME_CHANGED=false
           MODULES_FOUND=()
+          
+          echo "Changed files: ${{ steps.files.outputs.all_changed_files }}"
+          
           for file in ${{ steps.files.outputs.all_changed_files }}; do
-            if [[ $file == *.tf ]]; then
-              if grep -q 'variable "team_name"' "$file"; then
+            echo "Processing file: $file"
+            
+            # Check for changes in 00-namespace.yaml
+            if [[ $file == *00-namespace.yaml ]]; then
+              echo "Checking team_name in $file"
+              
+              # Extract team_name from the base branch
+              BASE_TEAM_NAME=$(git show origin/${{ github.base_ref }}:$file | grep -oP 'cloud-platform.justice.gov.uk/team-name: "\K[^"]+' || echo "NOT_FOUND")
+              # Extract team_name from the PR branch
+              PR_TEAM_NAME=$(grep -oP 'cloud-platform.justice.gov.uk/team-name: "\K[^"]+' "$file" || echo "NOT_FOUND")
+
+              echo "Base team_name: $BASE_TEAM_NAME"
+              echo "PR team_name: $PR_TEAM_NAME"
+
+              if [[ "$BASE_TEAM_NAME" != "$PR_TEAM_NAME" ]]; then
                 TEAM_NAME_CHANGED=true
               fi
+            fi
+
+            # Check for ecr, sns, or sqs resources in Terraform files
+            if [[ $file == *.tf ]]; then
+              echo "Checking for ecr, sns, or sqs modules in $file"
               if grep -q -E '(module.*sqs|module.*sns|module.*ecr)' "$file"; then
                 MODULES_FOUND+=("$file")
               fi
             fi
           done
-          echo "team_name_changed=$TEAM_NAME_CHANGED" >> $GITHUB_ENV
-          echo "modules_found=${MODULES_FOUND[*]}" >> $GITHUB_ENV
+
+          echo "Final team_name_changed: $TEAM_NAME_CHANGED"
+          echo "Modules found: ${MODULES_FOUND[*]}"
+          echo "::set-output name=team_name_changed::$TEAM_NAME_CHANGED"
+          echo "::set-output name=modules_found::${MODULES_FOUND[*]}"
 
       - name: Post PR comment
         if: ${{ steps.check_team_name.outputs.team_name_changed == 'true' }}
