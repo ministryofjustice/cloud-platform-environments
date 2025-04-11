@@ -1,5 +1,5 @@
 module "hmpps_audit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "hmpps_audit_queue"
@@ -28,7 +28,7 @@ EOF
 }
 
 module "hmpps_audit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "hmpps_audit_dlq"
@@ -75,7 +75,7 @@ resource "kubernetes_secret" "hmpps_audit_dead_letter_queue_secret" {
 }
 
 module "hmpps_audit_users_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "hmpps_audit_users_queue"
@@ -105,7 +105,7 @@ EOF
 
 
 module "hmpps_audit_users_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "hmpps_audit_users_dlq"

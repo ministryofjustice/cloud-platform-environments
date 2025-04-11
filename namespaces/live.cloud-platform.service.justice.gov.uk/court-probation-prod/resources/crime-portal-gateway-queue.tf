@@ -1,5 +1,5 @@
 module "crime-portal-gateway-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "crime-portal-gateway-queue"
@@ -26,7 +26,7 @@ module "crime-portal-gateway-queue" {
 }
 
 module "crime-portal-gateway-dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "crime-portal-gateway-dead-letter-queue"

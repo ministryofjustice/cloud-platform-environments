@@ -1,5 +1,5 @@
 module "cemo_submit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "cemo-submit-queue"
@@ -26,7 +26,7 @@ module "cemo_submit_queue" {
 
 
 module "cemo_submit_dl_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "cemo-submit-dl-queue"

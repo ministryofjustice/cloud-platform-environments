@@ -1,5 +1,5 @@
 module "ims_extractor_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "ims_extractor_queue_${var.environment}"
@@ -30,7 +30,7 @@ EOF
 }
 
 module "ims_extractor_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "ims_extractor_dl_queue_${var.environment}"
@@ -52,7 +52,7 @@ module "ims_extractor_dead_letter_queue" {
 }
 
 module "ims_transformer_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "ims_transformer_queue_${var.environment}"
@@ -83,7 +83,7 @@ EOF
 }
 
 module "ims_transformer_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "ims_transformer_dl_queue_${var.environment}"
@@ -105,7 +105,7 @@ module "ims_transformer_dead_letter_queue" {
 }
 
 module "ims_reprocess_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                   = "ims_reprocess_queue_${var.environment}"
@@ -137,7 +137,7 @@ EOF
 }
 
 module "ims_reprocess_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name        = "ims_reprocess_dl_queue_${var.environment}"

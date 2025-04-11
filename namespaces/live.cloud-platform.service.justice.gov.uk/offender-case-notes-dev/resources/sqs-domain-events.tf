@@ -1,5 +1,5 @@
 module "case_notes_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   sqs_name                  = "case_notes_domain_events_queue"
   redrive_policy = jsonencode({
@@ -22,7 +22,7 @@ resource "aws_sqs_queue_policy" "case_notes_domain_events_queue_policy" {
 }
 
 module "case_notes_domain_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   sqs_name        = "case_notes_domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
