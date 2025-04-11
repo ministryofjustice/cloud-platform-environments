@@ -101,7 +101,7 @@ resource "aws_mq_broker" "this" {
   engine_type         = "ActiveMQ"
   engine_version      = "5.18"
   deployment_mode     = "SINGLE_INSTANCE"
-  host_instance_type  = "mq.m5.large"
+  host_instance_type  = "mq.m5.2xlarge"
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
