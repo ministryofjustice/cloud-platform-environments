@@ -40,7 +40,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "number_cache_clusters" {
