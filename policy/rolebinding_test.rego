@@ -1,8 +1,6 @@
 package main
 
-import future.keywords.if
-
-test_valid_rolebinding if {
+test_valid_rolebinding {
   msg := "ClusterRole cluster-admin is not allowed"
   not deny[msg] with input as {
     "kind": "RoleBinding",
@@ -13,7 +11,7 @@ test_valid_rolebinding if {
   }
 }
 
-test_invalid_cluster_admin_rolebinding if {
+test_invalid_cluster_admin_rolebinding {
   msg := "ClusterRole cluster-admin is not allowed"
   deny[msg] with input as {
     "kind": "RoleBinding",

@@ -1,8 +1,6 @@
 package main
 
-import future.keywords.if
-
-test_deny_invalid_kind_clusterrolebinding if {
+test_deny_invalid_kind_clusterrolebinding {
   deny["kind ClusterRoleBinding is not allowed"] with input as {
       "kind": "ClusterRoleBinding"
   }
