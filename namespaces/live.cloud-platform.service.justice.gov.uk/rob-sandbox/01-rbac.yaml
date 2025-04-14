@@ -5,7 +5,10 @@ metadata:
   namespace: rob-sandbox
 subjects:
   - kind: Group
-    name: "github:designers"
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-designers"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
