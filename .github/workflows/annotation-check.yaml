@@ -6,6 +6,8 @@ on:
     paths:
       - 'namespaces/**.yaml'
       - 'namespaces/**.yml'
+    paths-ignore:
+      - 'policy/**'
 
 jobs:
   annotation-check:

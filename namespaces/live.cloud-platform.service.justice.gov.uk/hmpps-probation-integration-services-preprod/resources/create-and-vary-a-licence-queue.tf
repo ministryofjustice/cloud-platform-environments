@@ -10,7 +10,7 @@ resource "aws_sns_topic_subscription" "create-and-vary-a-licence-and-delius-queu
 }
 
 module "create-and-vary-a-licence-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name = "create-and-vary-a-licence-and-delius-queue"
@@ -35,7 +35,7 @@ resource "aws_sqs_queue_policy" "create-and-vary-a-licence-and-delius-queue-poli
 }
 
 module "create-and-vary-a-licence-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
   sqs_name                  = "create-and-vary-a-licence-and-delius-dlq"

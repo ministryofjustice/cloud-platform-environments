@@ -1,10 +1,18 @@
-module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+/*
+ * Make sure that you use the latest version of the module by changing the
+ * `ref=` value in the `source` attribute to the latest version listed on the
+ * releases page of this repository.
+ *
+ */
+module "ecr" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
-  repo_name = "${var.namespace}-ecr"
+  # Repository configuration
+  repo_name = var.namespace
 
+  # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = [var.namespace]
+  github_repositories = ["laa-appops-test-consumer"]
 
   # Tags
   business_unit          = var.business_unit

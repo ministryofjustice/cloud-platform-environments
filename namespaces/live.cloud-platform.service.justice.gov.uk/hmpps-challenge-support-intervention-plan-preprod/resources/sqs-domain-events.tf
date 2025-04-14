@@ -1,7 +1,7 @@
 module "domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
-  sqs_name                  = "domain_events_queue"
+  sqs_name = "domain_events_queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.domain_events_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -17,9 +17,9 @@ module "domain_events_queue" {
 }
 
 module "domain_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
-  sqs_name        = "domain_events_dlq"
+  sqs_name                  = "domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit

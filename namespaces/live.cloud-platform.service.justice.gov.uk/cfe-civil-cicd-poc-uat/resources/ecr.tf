@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   repo_name = "cfe-civil-cicd-poc-ecr"
 

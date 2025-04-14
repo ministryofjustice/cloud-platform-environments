@@ -12,7 +12,6 @@ module "irsa" {
     aurora = module.aurora_db.irsa_policy_arn
     dynamo = module.example_team_dynamodb.irsa_policy_arn
     rds    = module.rds.irsa_policy_arn
-    s3     = module.s3_bucket.irsa_policy_arn
     sns    = module.abundant_namespace_dev_sns.irsa_policy_arn
     sqs    = module.abundant_namespace_sqs.irsa_policy_arn
   }

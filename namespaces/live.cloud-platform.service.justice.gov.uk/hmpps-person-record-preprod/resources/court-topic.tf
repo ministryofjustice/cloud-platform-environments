@@ -1,5 +1,5 @@
 module "cpr_court_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
 
   # Configuration
   topic_display_name = "cpr-court-topic"

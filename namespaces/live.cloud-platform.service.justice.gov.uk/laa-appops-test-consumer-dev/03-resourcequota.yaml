@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-bvl-prototype
+  namespace: laa-appops-test-consumer-dev
 spec:
   hard:
     pods: "50"
