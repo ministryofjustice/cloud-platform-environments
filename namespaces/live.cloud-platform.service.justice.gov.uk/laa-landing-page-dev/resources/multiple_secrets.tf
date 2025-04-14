@@ -1,5 +1,5 @@
 module "secrets_manager_multiple_secrets" {
-  source                 = "../" # use the latest release
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4" # use the latest release
   // source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=version" # use the latest release
   team_name              = var.team_name
   application            = var.application
