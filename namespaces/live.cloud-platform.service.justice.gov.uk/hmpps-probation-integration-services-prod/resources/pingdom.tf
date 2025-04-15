@@ -41,7 +41,6 @@ resource "pingdom_check" "pingdom" {
     "cas2-and-delius",
     "accredited-programmes-and-oasys",
     "manage-supervision-and-oasys",
-    "manage-supervision-and-delius",
     "oasys-and-delius",
     "feature-flags",
     "probation-search-and-delius",
@@ -61,6 +60,25 @@ resource "pingdom_check" "pingdom" {
   host                     = "health-kick.prison.service.justice.gov.uk"
   port                     = 443
   url                      = "/https/${each.value}.hmpps.service.justice.gov.uk"
+  resolution               = 1
+  notifywhenbackup         = true
+  sendnotificationwhendown = 6
+  notifyagainevery         = 0
+  encryption               = true
+  tags                     = "probation-integration,hmpps,cloudplatform-managed"
+  probefilters             = "region:EU"
+  integrationids           = [120233] # probation-integration-notifications
+}
+
+resource "pingdom_check" "service-endpoint-check" {
+  for_each = toset([
+    "manage-supervision-and-delius"
+    ])
+  type                     = "http"
+  name                     = "Integration - ${each.value}"
+  host                     = "health-kick.prison.service.justice.gov.uk"
+  port                     = 80
+  url                      = "/http/${each.value}.hmpps-probation-integration-services-prod.svc.cluster.local"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
