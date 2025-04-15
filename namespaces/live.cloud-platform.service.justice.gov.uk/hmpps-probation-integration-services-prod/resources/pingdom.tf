@@ -76,9 +76,9 @@ resource "pingdom_check" "service-endpoint-check" {
     ])
   type                     = "http"
   name                     = "Integration - ${each.value}"
-  host                     = "health-kick.prison.service.justice.gov.uk"
+  host                     = "${each.value}.hmpps-probation-integration-services-prod.svc.cluster.local"
   port                     = 80
-  url                      = "${each.value}.hmpps-probation-integration-services-prod.svc.cluster.local/health"
+  url                      = "/health"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
