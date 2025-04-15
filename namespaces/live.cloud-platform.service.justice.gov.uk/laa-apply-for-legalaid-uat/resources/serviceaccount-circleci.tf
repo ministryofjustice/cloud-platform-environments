@@ -22,6 +22,7 @@ module "serviceaccount_circleci" {
         "pods",
         "HorizontalPodAutoscaler",
         "persistentvolumeclaims",
+        "serviceaccounts"
       ]
       verbs = [
         "patch",
@@ -39,6 +40,7 @@ module "serviceaccount_circleci" {
         "batch",
         "networking.k8s.io",
         "monitoring.coreos.com",
+        "policy"
       ]
       resources = [
         "deployments",
@@ -47,6 +49,7 @@ module "serviceaccount_circleci" {
         "statefulsets",
         "replicasets",
         "networkpolicies",
+        "poddisruptionbudgets",
         "servicemonitors",
         "prometheusrules",
       ]
