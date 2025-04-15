@@ -58,7 +58,7 @@ module "dead-letter-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
-  sqs_name                  = "hmpps-tier-events-dlq"
+  sqs_name                  = "hmpps-breach-notice-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
