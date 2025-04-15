@@ -46,3 +46,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: hmpps-manage-people-on-probation-prod
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: dps-toolkit
