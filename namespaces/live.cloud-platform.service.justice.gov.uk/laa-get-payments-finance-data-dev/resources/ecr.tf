@@ -44,6 +44,7 @@ module "testing_ecr" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_actions_prefix = "dev_test"
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
