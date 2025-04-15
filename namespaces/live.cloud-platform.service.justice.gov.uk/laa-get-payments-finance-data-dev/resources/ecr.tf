@@ -31,7 +31,7 @@ module "ecr" {
 module "testing_ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
-  repo_name = var.namespace
+  repo_name = var.testing_ecr
 
   oidc_providers      = ["github"]
   github_repositories = ["payforlegalaid", "payforlegalaid-tests"]
