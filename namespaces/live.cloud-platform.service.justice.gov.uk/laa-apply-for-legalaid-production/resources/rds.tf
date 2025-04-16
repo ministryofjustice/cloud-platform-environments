@@ -17,10 +17,10 @@ module "apply-for-legal-aid-rds" {
   infrastructure_support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
 
   # Database configuration
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
-  db_engine_version           = "16.4"
-  rds_family                  = "postgres16"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_name                     = "apply_for_legal_aid_production"
   allow_minor_version_upgrade = "true"
