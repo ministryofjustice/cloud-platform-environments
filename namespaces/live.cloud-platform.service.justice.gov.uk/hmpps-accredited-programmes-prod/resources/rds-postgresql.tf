@@ -12,16 +12,17 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
 #  enable_rds_auto_start_stop   = true # Commenting - we want the service to be running 24/7 which is why we are commenting this line.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  prepare_for_major_upgrade = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.13"
-  rds_family        = "postgres14"
+  db_engine_version = "16.4"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
 
   # Tags
