@@ -2,6 +2,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_iam_user" "sw_smtp_user" {
   name = "sw-smtp-user"
+  path = "/system/ses-smtp-user/"
 }
 
 resource "aws_iam_access_key" "sw_smtp_user" {
