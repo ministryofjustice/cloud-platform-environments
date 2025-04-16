@@ -38,16 +38,6 @@ module "rds" {
 
   db_parameter = [
     {
-      name         = "rds.logical_replication"
-      value        = "0"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    {
       name         = "max_wal_size"
       value        = "1024"
       apply_method = "immediate"
