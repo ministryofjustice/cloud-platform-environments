@@ -3,30 +3,7 @@ package test.terraform.analysis
 import data.terraform.analysis
 
 test_allow_if_valid_service_pod_and_irsa if {
-	result := analysis.allow with input as sp_mock_tfplan
-	result == true
-}
-
-test_deny_if_iam_policy_changes if {
-	modified_plan := {
-		"address": "aws_iam_policy",
-		"type": "aws_iam_policy",
-		"change": {"actions": ["update"]},
-	}
-
-	result := analysis.allow with input as {"resource_changes": [modified_plan, sp_mock_tfplan.resource_changes]}
-	result == false
-}
-
-test_deny_if_iam_policy_attachment_changes if {
-	modified_plan := {
-		"address": "aws_iam_role_policy_attachment",
-		"type": "aws_iam_role_policy_attachment",
-		"change": {"actions": ["update"]},
-	}
-
-	result := analysis.allow with input as {"resource_changes": [modified_plan, sp_mock_tfplan.resource_changes]}
-	result == false
+	analysis.allow.valid with input as sp_mock_tfplan
 }
 
 test_deny_if_namespace_mismatch if {
@@ -45,11 +22,10 @@ test_deny_if_namespace_mismatch if {
 		},
 	}
 
-	result := analysis.allow with input as {
+	not analysis.allow.valid with input as {
 		"variables": sp_mock_tfplan.variables,
 		"resource_changes": [modified_plan, sp_mock_tfplan.resource_changes[0]],
 	}
-	result == false
 }
 
 test_deny_if_service_pod_irsa_mismatch if {
@@ -62,11 +38,10 @@ test_deny_if_service_pod_irsa_mismatch if {
 		},
 	}
 
-	result := analysis.allow with input as {
+	not analysis.allow.valid with input as {
 		"variables": sp_mock_tfplan.variables,
 		"resource_changes": [sp_mock_tfplan.resource_changes[2], modified_irsa],
 	}
-	result == false
 }
 
 test_deny_if_involve_other_resource_change if {
@@ -76,8 +51,7 @@ test_deny_if_involve_other_resource_change if {
 		"change": {"actions": ["update"]},
 	}
 
-	result := analysis.allow with input as {"resource_changes": [modified_plan, sp_mock_tfplan.resource_changes[_]]}
-	result == false
+	not analysis.allow.valid with input as {"resource_changes": [modified_plan, sp_mock_tfplan.resource_changes[_]]}
 }
 
 test_deny_if_irsa_change if {
@@ -90,9 +64,12 @@ test_deny_if_irsa_change if {
 		},
 	}
 
-	result := analysis.allow with input as {
+	not analysis.allow.valid with input as {
 		"variables": sp_mock_tfplan.variables,
 		"resource_changes": [sp_mock_tfplan.resource_changes[2], modified_irsa],
 	}
-	result == false
+}
+
+test_allow_if_does_not_contain_service_pod if {
+	analysis.allow.valid with input as {"resource_changes": []}
 }

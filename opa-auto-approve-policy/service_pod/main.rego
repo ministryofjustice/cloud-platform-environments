@@ -6,22 +6,21 @@ default allow := false
 
 default service_pod_ok := false
 
-allow if {
-	not touches_iam
+default touches_iam := true
+
+allow := {
+	"valid": res,
+	"msg": msg
+}
+
+res if {
 	service_pod_ok
 }
 
-touches_iam if {
-	all_iam := [
-	p |
-		p := tfplan.resource_changes[_]
-		p.type in {"aws_iam_policy", "aws_iam_role_policy_attachment"}
-		change := p.change.actions[_]
-		change != "no-op"
-	]
+msg = "Valid Service pod related changes" if {
+	service_pod_ok
+} else := "We can't auto approve these Service Pod terraform changes. Please request a Cloud Platform team members review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 
-	count(all_iam) > 0
-}
 
 service_pod_ok if {
 	service_pods := [
@@ -31,7 +30,6 @@ service_pod_ok if {
 		res.change.actions[_] != "no-op"
 	]
 
-	count(service_pods) > 0
 	every sp in service_pods {
 		is_service_pod_valid(sp)
 	}

@@ -40,3 +40,5 @@ Temporary Items
 *.iml
 .vscode/
 *.Rproj
+*plan.json
+
