@@ -16,7 +16,7 @@ module "hmpps_dps_reconciliation_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -26,49 +26,45 @@ module "hmpps_dps_reconciliation_queue" {
   }
 }
 
-# DONT need to publish messages:
-# resource "aws_sqs_queue_policy" "hmpps_dps_reconciliation_queue_policy" {
-#   queue_url = module.hmpps_dps_reconciliation_queue.sqs_id
-#
-#   policy = <<EOF
-#   {
-#     "Version": "2012-10-17",
-#     "Id": "${module.hmpps_dps_reconciliation_queue.sqs_arn}/SQSDefaultPolicy",
-#     "Statement":
-#       [
-#         {
-#           "Effect": "Allow",
-#           "Principal": {"AWS": "*"},
-#           "Resource": "${module.hmpps_dps_reconciliation_queue.sqs_arn}",
-#           "Action": "SQS:SendMessage",
-#           "Condition":
-#             {
-#               "ArnEquals":
-#                 {
-#                   "aws:SourceArn": [
-#                     "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
-#                     "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-#                   ]
-#                 }
-#             }
-#         }
-#       ]
-#   }
-# EOF
-# }
+# Policy to allow SNS -> SQS
+data "aws_iam_policy_document" "sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [
+        data.aws_ssm_parameter.offender-events-topic-arn,
+        data.aws_ssm_parameter.hmpps-domain-events-topic-arn
+      ]
+    }
+    resources = ["*"]
+  }
+}
+
+resource "aws_sqs_queue_policy" "hmpps_dps_reconciliation_queue_policy" {
+  queue_url = module.hmpps_dps_reconciliation_queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
 
 module "hmpps_dps_reconciliation_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
 
   # Queue configuration
-  sqs_name        = "hmpps_dps_reconciliation_dl_queue"
+  sqs_name = "hmpps_dps_reconciliation_dl_queue"
   encrypt_sqs_kms = "true"
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

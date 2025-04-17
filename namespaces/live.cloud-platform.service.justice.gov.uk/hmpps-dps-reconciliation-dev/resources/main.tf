@@ -42,4 +42,15 @@ provider "github" {
   owner = var.github_owner
 }
 
+locals {
+  default_tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
 provider "kubernetes" {}
