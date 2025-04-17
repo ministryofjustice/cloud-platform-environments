@@ -18,7 +18,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-personal-relationships-api"
-  role_policy_arns     = merge(local.sns_policies)
+  role_policy_arns     = merge(local.sns_policies, {rds_policy = module.rds.irsa_policy_arn})
 
   # Tags
   business_unit          = var.business_unit
