@@ -3,6 +3,7 @@
 locals {
   sqs_irsa_policies = {
     (module.hmpps_prison_visits_write_events_queue.sqs_name) = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn,
+    (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name) = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
   }
 }
 
