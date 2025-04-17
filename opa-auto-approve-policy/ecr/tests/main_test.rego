@@ -19,7 +19,7 @@ test_allow_if_op_update if {
 	}
 
 	res := analysis.allow with input as {"resource_changes": [modified_plan, ecr_create_mock_tfplan.resource_changes]}
-	res.msg == "Valid ECR related terraform changes. These changes meet the criteria for auto approval"
+	res.msg == "Valid ECR related terraform changes"
 	res.valid == true
 }
 
@@ -51,7 +51,7 @@ test_allow_if_op_destroy if {
 	}
 
 	res := analysis.allow with input as {"resource_changes": [modified_plan, ecr_create_mock_tfplan.resource_changes]}
-	res.msg == "Valid ECR related terraform changes. These changes meet the criteria for auto approval"
+	res.msg == "Valid ECR related terraform changes"
 	res.valid == true
 }
 
@@ -68,7 +68,7 @@ test_allow_if_op_destroy_with_no_protect if {
 
 	res := analysis.allow with input as {"resource_changes": [modified_plan, ecr_create_mock_tfplan.resource_changes]}
 	res.valid == true
-	res.msg == "Valid ECR related terraform changes. These changes meet the criteria for auto approval"
+	res.msg == "Valid ECR related terraform changes"
 }
 
 test_deny_if_op_destroy if {
@@ -83,7 +83,7 @@ test_deny_if_op_destroy if {
 
 	res := analysis.allow with input as {"resource_changes": [modified_plan, ecr_create_mock_tfplan.resource_changes]}
 	res.valid == false
-  res.msg == "Invalid ECR destroy terraform changes. Please request a Cloud Platform team members review in #ask-cloud-platform"
+  res.msg == "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 }
 
 test_deny_if_op_module_rename if {
