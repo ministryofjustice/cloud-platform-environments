@@ -4,7 +4,7 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
-  github_repositories = ["sw-ecr-testing"]
+  github_repositories = ["sw-ecr-testing","sw-go-helloworld"]
 
   # Tags
   business_unit          = var.business_unit
