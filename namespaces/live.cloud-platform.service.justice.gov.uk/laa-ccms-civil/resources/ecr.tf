@@ -19,18 +19,17 @@ module "ecr" {
   github_repositories = ["laa-ccms-caab", "laa-ccms-data-api", "laa-ccms-soa-gateway-api", "laa-ccms-caab-saml-mock", "laa-ccms-caab-api", "laa-ccms-caab-helm-charts", "laa-ccms-caab-assessment-api", "laa-ccms-testing-framework"]
 
   # Lifecycle policies
-  # Uncomment the below to automatically tidy up old Docker images
   lifecycle_policy = <<EOF
     {
       "rules": [
         {
           "rulePriority": 1,
-          "description": "Expire untagged images older than 14 days",
+          "description": "Keep last 10 production images",
           "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 14
+            "tagStatus": "tagged",
+            "tagPatternList": ["production*"],
+            "countType": "imageCountMoreThan",
+            "countNumber": 10
           },
           "action": {
             "type": "expire"
@@ -38,12 +37,12 @@ module "ecr" {
         },
         {
           "rulePriority": 2,
-          "description": "Keep last 30 dev and staging images",
+          "description": "Keep last 60 release images for rollbacks",
           "selection": {
             "tagStatus": "tagged",
-            "tagPrefixList": ["dev", "staging"],
+            "tagPatternList": ["release*"],
             "countType": "imageCountMoreThan",
-            "countNumber": 30
+            "countNumber": 60
           },
           "action": {
             "type": "expire"
@@ -51,7 +50,46 @@ module "ecr" {
         },
         {
           "rulePriority": 3,
-          "description": "Keep the newest 100 images and mark the rest for expiration",
+          "description": "Keep last 10 pre-production images",
+          "selection": {
+            "tagStatus": "tagged",
+            "tagPatternList": ["preprod*"],
+            "countType": "imageCountMoreThan",
+            "countNumber": 10
+          },
+          "action": {
+            "type": "expire"
+          }
+        },
+        {
+          "rulePriority": 4,
+          "description": "Keep last 10 test images",
+          "selection": {
+            "tagStatus": "tagged",
+            "tagPatternList": ["test*"],
+            "countType": "imageCountMoreThan",
+            "countNumber": 10
+          },
+          "action": {
+            "type": "expire"
+          }
+        },
+        {
+          "rulePriority": 5,
+          "description": "Keep last 10 development images",
+          "selection": {
+            "tagStatus": "tagged",
+            "tagPatternList": ["development*"],
+            "countType": "imageCountMoreThan",
+            "countNumber": 10
+          },
+          "action": {
+            "type": "expire"
+          }
+        },
+        {
+          "rulePriority": 6,
+          "description": "Keep the newest 100 images",
           "selection": {
             "tagStatus": "any",
             "countType": "imageCountMoreThan",
