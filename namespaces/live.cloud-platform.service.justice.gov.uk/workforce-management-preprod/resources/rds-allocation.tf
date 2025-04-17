@@ -15,6 +15,8 @@ module "rds-allocation" {
   performance_insights_enabled = true
   # db instance class - temporary until upgrade complete
   db_instance_class = "db.t4g.small"
+  db_iops = "12000"
+  db_allocated_storage   = "750"
 
   # change the postgres version as you see fit.
   db_engine_version      = "15.7"
@@ -24,6 +26,8 @@ module "rds-allocation" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres15"
+
+  snapshot_identifier = "rds:cloud-platform-73adb8384c5116e5-2025-04-14-23-33"
 
   enable_rds_auto_start_stop = true
 
