@@ -14,6 +14,7 @@ resource "kubernetes_secret" "integration-api-secret" {
 
 resource "kubernetes_secret" "integration-api-dlq-secret" {
   metadata {
+    # There is no staging env for hmpps-integration-api currently so writing a renamed secret to dev until there is one
     name      = "sqs-hmpps-prison-visits-write-events-staging-dlq-secret"
     namespace = "hmpps-integration-api-dev"
   }
