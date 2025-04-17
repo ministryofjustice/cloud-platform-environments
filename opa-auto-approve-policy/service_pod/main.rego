@@ -2,10 +2,7 @@ package terraform.analysis
 
 import input as tfplan
 
-default allow := false
-
 default service_pod_ok := false
-
 default touches_iam := true
 
 allow := {

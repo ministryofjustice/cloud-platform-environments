@@ -3,8 +3,6 @@ package terraform.analysis
 import input as tfplan
 import future.keywords.every
 
-default allow := false
-
 default res := false
 
 allow := {
@@ -18,8 +16,18 @@ res if {
 	not touches_iam_update
 }
 
+res if {
+	doesnt_touch_other_modules
+	not touches_iam_create
+	not touches_iam_update
+}
+
 msg = "Valid changes the PR meets the module allowlist criteria for auto approval" if {
 	doesnt_touch_other_resources
+	not touches_iam_create
+	not touches_iam_update
+} else := "Valid changes the PR meets the module allowlist criteria for auto approval" if {
+	doesnt_touch_other_modules
 	not touches_iam_create
 	not touches_iam_update
 } else := "This PR includes create changes to IAM that are not covered by our module allowlist, so we can't auto approve this PR. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
@@ -30,6 +38,10 @@ msg = "Valid changes the PR meets the module allowlist criteria for auto approva
 
 ecr_module_addrs := [m | m := tfplan.resource_changes[_]; m.type == `aws_ecr_repository`]
 
+k8s_secrets_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret`]
+
+k8s_secrets_v1_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret_v1`]
+
 service_pod_addrs := [sp |
 sp := tfplan.resource_changes[_]
 regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
@@ -37,17 +49,21 @@ regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
 
 allowed_modules := array.concat(service_pod_addrs, ecr_module_addrs)
 
+allowed_resources := array.concat(k8s_secrets_addrs, k8s_secrets_v1_addrs)
+
 allowed_modules_addrs := {arr | arr := allowed_modules[_].module_address}
 
-doesnt_touch_other_resources if {
+allowed_resources_addrs := {arr | arr := allowed_resources[_].address}
+
+doesnt_touch_other_modules if {
 
 	count(allowed_modules_addrs) > 0
 
 	all_modules := [
-	res |
-		res := tfplan.resource_changes[_]
-		res.change.actions[_] != "no-op"
-		regex.match(`module\.`, res.module_address)
+		res |
+			res := tfplan.resource_changes[_]
+			res.change.actions[_] != "no-op"
+			regex.match(`module\.`, res.module_address)
 		]
 
 	all_modules_addrs := [
@@ -55,10 +71,35 @@ doesnt_touch_other_resources if {
 		res := all_modules[_].module_address
 	]
 
-
 	every m in all_modules_addrs {
 		m in allowed_modules_addrs
 	}
+}
+
+doesnt_touch_other_resources if {
+
+	count(allowed_resources_addrs) > 0
+
+
+	all_resources := [
+		res |
+			res := tfplan.resource_changes[_]
+			not res.module_address
+	]
+
+	print(all_resources)
+
+
+	all_resource_addrs := [
+		res |
+		res := all_resources[_].address
+	]
+
+	every r in all_resource_addrs {
+		r in allowed_resources_addrs
+	}
+
+
 }
 
 touches_iam_create if {

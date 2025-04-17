@@ -5,12 +5,9 @@ import input as tfplan
 import future.keywords.every
 
 default allow := false
-
 default ecr_create_ok := false
-
-default ecr_update_ok := false
-
 default ecr_destroy_ok := false
+default ecr_repo_rename_ok := false
 
 default res := false
 
