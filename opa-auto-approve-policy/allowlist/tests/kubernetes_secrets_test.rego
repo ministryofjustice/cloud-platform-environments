@@ -15,7 +15,6 @@ test_allow_kubernetes_secret if {
 
 	res := analysis.allow with input as {
 		"resource_changes": [modified_plan, mock_tfplan.resource_changes]}
-		print(res)
-	res.valid
-	res.msg == "Valid changes the PR meets the module allowlist criteria for auto approval"
+		res.valid
+		res.msg == "Valid changes the PR meets the module allowlist criteria for auto approval"
 }
