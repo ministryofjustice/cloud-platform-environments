@@ -25,8 +25,6 @@ res if {
 }
 
 msg = "NOTE: you are changing a variable which is used to construct your ECR repo name but the repo name cannot be changed because it will force destroy and recreate the entire ECR repo" if {
-	not ecr_update_ok
-} else := "NOTE: you are changing a variable which is used to construct your ECR repo name but the repo name cannot be changed because it will force destroy and recreate the entire ECR repo" if {
 	ecr_repo_rename_ok
 } else := "Valid ECR related terraform changes" if {
 	ecr_create_ok
@@ -45,7 +43,6 @@ res |
 	res := tfplan.resource_changes[_]
 	regex.match(`aws_ecr_repository`, res.type)
 ]
-
 
 ecr_module_addrs := {arr | arr := ecrs[_].module_address}
 
@@ -68,17 +65,6 @@ ecr_create_ok if {
 	}
 }
 
-ecr_update_ok if {
-	updates := [
-	res |
-		res := ecr_module_resources[_]
-		res.change.actions[_] == "update"
-	]
-
-	every ecr in updates {
-		is_ecr_update_valid(ecr)
-	}
-}
 
 ecr_destroy_ok if {
 	destroys := [
@@ -93,16 +79,14 @@ ecr_destroy_ok if {
 }
 
 ecr_repo_rename_ok if {
-	destroy_create := [
+	all_ecr := [
 		res |
 			res := ecr_module_resources[_]
-		  actions_set := {x | x := res.change.actions[_]} 
-		  actions_set == {"create", "delete"}
 	]
 
-	count(destroy_create) > 0
+	count(all_ecr) > 0
 
-	every ecr in destroy_create {
+	every ecr in all_ecr {
 		before := ecr.change.before.name
 		after := ecr.change.after.name
 		before != after
