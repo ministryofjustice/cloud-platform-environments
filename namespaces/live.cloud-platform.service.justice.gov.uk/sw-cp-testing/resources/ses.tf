@@ -36,7 +36,7 @@ resource "kubernetes_secret" "sw_smtp_user" {
     }
 
     data = {
-        smtp_username = aws_iam_user.sw_smtp_user.name
+        smtp_username = aws_iam_access_key.sw_smtp_user.id
         smtp_password = aws_iam_access_key.sw_smtp_user.ses_smtp_password_v4
     }
 }
