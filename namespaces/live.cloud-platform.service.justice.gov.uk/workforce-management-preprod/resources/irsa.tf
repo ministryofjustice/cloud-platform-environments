@@ -18,6 +18,7 @@ module "irsa" {
     local.sqs_policies,
     { domain_sns = module.hmpps_allocation_domain_events_queue.irsa_policy_arn },
     { domain_dlq = module.hmpps_allocation_domain_events_dead_letter_queue.irsa_policy_arn }
+    { rds = module.rds-allocation.irsa_policy_arn }
   )
 
   # Tags
