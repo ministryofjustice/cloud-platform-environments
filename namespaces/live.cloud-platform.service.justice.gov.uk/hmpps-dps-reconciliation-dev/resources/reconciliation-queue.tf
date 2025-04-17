@@ -16,7 +16,7 @@ module "hmpps_dps_reconciliation_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name = var.team_name # also used for naming the queue
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -28,18 +28,20 @@ module "hmpps_dps_reconciliation_queue" {
 
 # Policy to allow SNS -> SQS
 data "aws_iam_policy_document" "sqs_queue_policy_document" {
+  version = "2012-10-17"
+  id = "${module.hmpps_dps_reconciliation_queue.sqs_arn}/SQSDefaultPolicy"
   statement {
-    sid     = "DomainEventsToQueue"
-    effect  = "Allow"
+    sid    = "DomainEventsToQueue"
+    effect = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = ["*"]
     }
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [
+      values = [
         data.aws_ssm_parameter.offender-events-topic-arn.value,
         data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value,
       ]
