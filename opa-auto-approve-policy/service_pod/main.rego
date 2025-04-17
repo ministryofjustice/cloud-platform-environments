@@ -17,9 +17,9 @@ res if {
 	service_pod_ok
 }
 
-msg = "Valid Service pod related changes. These changes meet the criteria for auto approval" if {
+msg = "Valid Service pod related changes" if {
 	service_pod_ok
-} else := "Invalid Service pod terraform changes. Please request a Cloud Platform team members review in #ask-cloud-platform"
+} else := "We can't auto approve these Service Pod terraform changes. Please request a Cloud Platform team members review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 
 
 service_pod_ok if {

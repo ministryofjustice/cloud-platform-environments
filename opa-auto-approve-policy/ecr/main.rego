@@ -28,15 +28,15 @@ msg = "NOTE: you are changing a variable which is used to construct your ECR rep
 	not ecr_update_ok
 } else := "NOTE: you are changing a variable which is used to construct your ECR repo name but the repo name cannot be changed because it will force destroy and recreate the entire ECR repo" if {
 	ecr_repo_rename_ok
-} else := "Valid ECR related terraform changes. These changes meet the criteria for auto approval" if {
+} else := "Valid ECR related terraform changes" if {
 	ecr_create_ok
 	ecr_destroy_ok
-} else := "Invalid terraform changes, as the PR contains unsuitable ECR related changes. Please request a Cloud Platform team members review in #ask-cloud-platform" if {
+} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
 	not ecr_create_ok
 	not ecr_destroy_ok
-} else := "Invalid ECR create terraform changes. Please request a Cloud Platform team members review in #ask-cloud-platform" if {
+} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
 	not ecr_create_ok
-} else := "Invalid ECR destroy terraform changes. Please request a Cloud Platform team members review in #ask-cloud-platform" if {
+} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
 	not ecr_destroy_ok
 }
 

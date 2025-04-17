@@ -16,9 +16,9 @@ res if {
 	doesnt_touch_other_resources
 }
 
-msg = "Valid changes, this PR meets the module allowlist criteria for auto approval" if {
+msg = "Valid changes, the PR meets the module allowlist criteria for auto approval" if {
 	doesnt_touch_other_resources
-} else := "Invalid changes, this PR includes changes to modules / resources which are not on the allowlist for the OPA auto approver. Please request a Cloud Platform team member's review in #ask-cloud-platform"
+} else := "This PR includes changes to modules / resources which are not on the allowlist, so we can't auto approve these changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 
 ecr_module_addrs := [m | m := tfplan.resource_changes[_]; m.type == `aws_ecr_repository`]
 

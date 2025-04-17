@@ -18,10 +18,10 @@ res if {
 	not touches_iam_update
 }
 
-msg = "Valid changes as the PR contains no IAM sensitive changes. These changes meet the criteria for auto approval" if {
+msg = "Valid Terraform changes" if {
 	not touches_iam_create
 	not touches_iam_update
-} else := "Invalid changes as the PR contains IAM related terraform. Please request a Cloud Platform team members review in #ask-cloud-platform"
+} else := "We can't auto approve these IAM terraform changes. Please request a Cloud Platform team members review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 
 touches_iam_create if {
 	all_iam := [
