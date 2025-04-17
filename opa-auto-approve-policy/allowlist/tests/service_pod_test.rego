@@ -2,7 +2,6 @@ package test.terraform.analysis
 
 import data.terraform.analysis
 
-
 test_allow_service_pod if {
 	modified_plan := {
 		"address": "module.sp.kubernetes_deployment.service_pod",

@@ -1,13 +1,13 @@
 package terraform.analysis
 
-import input as tfplan
 import future.keywords.every
+import input as tfplan
 
 default res := false
 
 allow := {
 	"valid": res,
-	"msg": msg
+	"msg": msg,
 }
 
 res if {
@@ -22,7 +22,7 @@ res if {
 	not touches_iam_update
 }
 
-msg = "Valid changes the PR meets the module allowlist criteria for auto approval" if {
+msg := "Valid changes the PR meets the module allowlist criteria for auto approval" if {
 	doesnt_touch_other_resources
 	not touches_iam_create
 	not touches_iam_update
@@ -43,8 +43,8 @@ k8s_secrets_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes
 k8s_secrets_v1_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret_v1`]
 
 service_pod_addrs := [sp |
-sp := tfplan.resource_changes[_]
-regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
+	sp := tfplan.resource_changes[_]
+	regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
 ]
 
 allowed_modules := array.concat(service_pod_addrs, ecr_module_addrs)
@@ -56,18 +56,17 @@ allowed_modules_addrs := {arr | arr := allowed_modules[_].module_address}
 allowed_resources_addrs := {arr | arr := allowed_resources[_].address}
 
 doesnt_touch_other_modules if {
-
 	count(allowed_modules_addrs) > 0
 
 	all_modules := [
-		res |
-			res := tfplan.resource_changes[_]
-			res.change.actions[_] != "no-op"
-			regex.match(`module\.`, res.module_address)
-		]
+	res |
+		res := tfplan.resource_changes[_]
+		res.change.actions[_] != "no-op"
+		regex.match(`module\.`, res.module_address)
+	]
 
 	all_modules_addrs := [
-		res |
+	res |
 		res := all_modules[_].module_address
 	]
 
@@ -77,29 +76,24 @@ doesnt_touch_other_modules if {
 }
 
 doesnt_touch_other_resources if {
-
 	count(allowed_resources_addrs) > 0
 
-
 	all_resources := [
-		res |
-			res := tfplan.resource_changes[_]
-			not res.module_address
+	res |
+		res := tfplan.resource_changes[_]
+		not res.module_address
 	]
 
 	print(all_resources)
 
-
 	all_resource_addrs := [
-		res |
+	res |
 		res := all_resources[_].address
 	]
 
 	every r in all_resource_addrs {
 		r in allowed_resources_addrs
 	}
-
-
 }
 
 touches_iam_create if {
@@ -110,18 +104,17 @@ touches_iam_create if {
 		change := p.change.actions[_]
 		change == "create"
 	]
-	
+
 	count(all_iam) > 0
 
 	all_iam_addrs := [
-		res |
+	res |
 		res := all_iam[_].module_address
 	]
 
 	every m in all_iam_addrs {
 		not m in allowed_modules_addrs
 	}
-
 }
 
 touches_iam_update if {
@@ -136,7 +129,7 @@ touches_iam_update if {
 	count(all_iam) > 0
 
 	all_iam_addrs := [
-		res |
+	res |
 		res := all_iam[_].module_address
 	]
 

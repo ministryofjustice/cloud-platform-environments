@@ -5,15 +5,16 @@ import input as tfplan
 import future.keywords.every
 
 default allow := false
+
 default ecr_create_ok := false
+
 default ecr_destroy_ok := false
-default ecr_repo_rename_ok := false
 
 default res := false
 
 allow := {
 	"valid": res,
-	"msg": msg
+	"msg": msg,
 }
 
 res if {
@@ -21,18 +22,18 @@ res if {
 	ecr_destroy_ok
 }
 
-msg = "NOTE: you are changing a variable which is used to construct your ECR repo name but the repo name cannot be changed because it will force destroy and recreate the entire ECR repo" if {
-	ecr_repo_rename_ok
+msg := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
+	not ecr_create_ok
+	not ecr_destroy_ok
+} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
+	not ecr_create_ok
+} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
+	not ecr_destroy_ok
+} else := "NOTE: you are changing a variable which is used to construct your ECR repo name but the repo name cannot be changed because it will force destroy and recreate the entire ECR repo" if {
+	not ecr_repo_rename_ok
 } else := "Valid ECR related terraform changes" if {
 	ecr_create_ok
 	ecr_destroy_ok
-} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
-	not ecr_create_ok
-	not ecr_destroy_ok
-} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
-	not ecr_create_ok
-} else := "We can't auto approve these ECR terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)" if {
-	not ecr_destroy_ok
 }
 
 ecrs := [
@@ -44,11 +45,15 @@ res |
 ecr_module_addrs := {arr | arr := ecrs[_].module_address}
 
 ecr_module_resources := [
-	res |
-		res := tfplan.resource_changes[_]
+res |
+	res := tfplan.resource_changes[_]
 
-		is_ecr_resource(res)
+	is_ecr_resource(res)
 ]
+
+repo_name := tfplan.variables.namespace.value if {
+	tfplan.configuration.root_module.module_calls.ecr_expressions.repo_name.references[0] == "var.namespace"
+} else := tfplan.configuration.root_module.module_calls.ecr_expressions.repo_name.constant_value[0]
 
 ecr_create_ok if {
 	creates := [
@@ -61,7 +66,6 @@ ecr_create_ok if {
 		is_ecr_create_valid(ecr)
 	}
 }
-
 
 ecr_destroy_ok if {
 	destroys := [
@@ -76,17 +80,10 @@ ecr_destroy_ok if {
 }
 
 ecr_repo_rename_ok if {
-	all_ecr := [
-		res |
-			res := ecr_module_resources[_]
-	]
-
-	count(all_ecr) > 0
-
-	every ecr in all_ecr {
-		before := ecr.change.before.name
+	every ecr in ecrs {
 		after := ecr.change.after.name
-		before != after
+		full_repo_name := sprintf("%s/%s", [tfplan.variables.team_name.value, repo_name])
+		after == full_repo_name
 	}
 }
 
