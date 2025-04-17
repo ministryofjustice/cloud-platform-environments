@@ -1,0 +1,63 @@
+{{- $sqsOldestAlertQueueNames := default .Values.sqsAlertsQueueNames .Values.sqsOldestAlertQueueNames }}
+{{- $sqsNumberAlertQueueNames := default .Values.sqsAlertsQueueNames .Values.sqsNumberAlertQueueNames }}
+{{- $sqsNumberAlertQueueMappings := default .Values.sqsAlertsQueueMappings .Values.sqsNumberAlertQueueMappings }}
+
+{{- if or $sqsOldestAlertQueueNames $sqsNumberAlertQueueNames $sqsNumberAlertQueueMappings -}}
+  {{- $targetApplication := required "A value for targetApplication must be set" .Values.targetApplication }}
+  {{- $targetNamespace := .Release.Namespace }}
+  {{- $sqsAlertsOldestThreshold := default "30" .Values.sqsAlertsOldestThreshold }}
+  {{- $sqsAlertsTotalMessagesThreshold := default "100" .Values.sqsAlertsTotalMessagesThreshold }}
+  {{- $sqsLabelQueueName := printf "{{ $labels.queue_name }}"}}
+  {{- $targetApplicationBusinessHours := printf "and ON() %s:business_hours" .Values.targetApplication | replace "-" "_" }}
+  {{- $businessOrAllHoursExpression := ternary $targetApplicationBusinessHours "" .Values.businessHoursOnly}}
+  ---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ $targetApplication }}-sqs
+  labels:
+    {{- include "generic-prometheus-alerts.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: {{ $targetApplication }}-sqs
+      rules:
+{{ if $sqsOldestAlertQueueNames }}
+        - alert: SQS-oldest-message
+          annotations:
+            message: "SQS - {{ $sqsLabelQueueName }} has message older than {{ $sqsAlertsOldestThreshold }} mins, check consumers are healthy. This alert configured by app {{ $targetNamespace }}/{{ $targetApplication }}."
+            runbook_url: {{ $.Values.runbookUrl }}sqs-oldest-message
+            dashboard_url: {{ $.Values.grafanaUrl }}/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $sqsLabelQueueName }}&from=now-6h&to=now
+          expr: |-
+            (sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name=~"{{ join "|" $sqsOldestAlertQueueNames }}"} offset 5m) by (queue_name) > {{ $sqsAlertsOldestThreshold }} * 60)
+            {{ $businessOrAllHoursExpression }}
+          for: 10m
+          labels:
+            {{- include "generic-prometheus-alerts.ruleLabels" $ | nindent 12 }}
+{{ end }}
+{{ if $sqsNumberAlertQueueNames }}
+        - alert: SQS-number-of-messages
+          annotations:
+            message: SQS - {{ $sqsLabelQueueName }} - number of messages={{`{{`}} $value {{`}}`}} (exceeds {{ $sqsAlertsTotalMessagesThreshold }}), check consumers are healthy.
+            runbook_url: {{ $.Values.runbookUrl }}sqs-number-of-messages
+            dashboard_url: {{ $.Values.grafanaUrl }}/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $sqsLabelQueueName }}&from=now-6h&to=now
+          expr: |-
+            (sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"{{ join "|" $sqsNumberAlertQueueNames }}"} offset 5m) by (queue_name) > {{ $sqsAlertsTotalMessagesThreshold }})
+            {{ $businessOrAllHoursExpression }}
+          for: 10m
+          labels:
+            {{- include "generic-prometheus-alerts.ruleLabels" $ | nindent 12 }}
+{{ end }}
+{{ range $key, $queues := $sqsNumberAlertQueueMappings }}
+        - alert: SQS-number-of-messages-{{ $key }}
+          annotations:
+            message: SQS - {{ $sqsLabelQueueName }} - number of messages={{`{{`}} $value {{`}}`}} (exceeds {{ $sqsAlertsTotalMessagesThreshold }}), check consumers are healthy.
+            runbook_url: {{ $.Values.runbookUrl }}sqs-number-of-messages
+            dashboard_url: {{ $.Values.grafanaUrl }}/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $sqsLabelQueueName }}&from=now-6h&to=now
+          expr: |-
+            (sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name=~"{{ join "|" $queues }}"} offset 5m) by (queue_name) > {{ $sqsAlertsTotalMessagesThreshold }})
+            {{ $businessOrAllHoursExpression }}
+          for: 10m
+          labels:
+            {{- include "generic-prometheus-alerts.ruleLabels" $ | nindent 12 }}
+{{ end }}
+{{- end }}
