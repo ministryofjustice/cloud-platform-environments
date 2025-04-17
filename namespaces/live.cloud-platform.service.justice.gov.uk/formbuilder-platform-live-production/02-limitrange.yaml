@@ -12,6 +12,6 @@ spec:
       cpu: 250m
       memory: 1000Mi
     defaultRequest:
-      cpu: 10m
+      cpu: 50m
       memory: 128Mi
     type: Container
