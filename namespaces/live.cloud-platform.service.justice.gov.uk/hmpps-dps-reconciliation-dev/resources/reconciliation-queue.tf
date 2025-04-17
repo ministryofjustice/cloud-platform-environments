@@ -40,8 +40,8 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
       values   = [
-        data.aws_ssm_parameter.offender-events-topic-arn,
-        data.aws_ssm_parameter.hmpps-domain-events-topic-arn
+        data.aws_ssm_parameter.offender-events-topic-arn.value,
+        data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value,
       ]
     }
     resources = ["*"]
