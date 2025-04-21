@@ -177,3 +177,11 @@ resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
     evaluate_target_health = false
   }
 }
+
+resource "aws_route53_record" "ppo_route53_cname_mtasts_tls_cert" {
+  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
+  name    = "_c8b092cc5e6b18d6d6b1785824fb5bf4.mta-sts.ppo.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_708974cacf749aaba82f164334e9e8b4.nhsllhhtvj.acm-validations.aws."]
+}
