@@ -36,15 +36,16 @@ msg := "Valid changes the PR meets the module allowlist criteria for auto approv
 	touches_iam_update
 } else := "This PR includes changes to modules / resources which are not on the allowlist, so we can't auto approve these changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
 
-ecr_module_addrs := [m | m := tfplan.resource_changes[_]; m.type == `aws_ecr_repository`]
+ecr_module_addrs := [m | m := tfplan.resource_changes[_]; m.type == `aws_ecr_repository`; m.change.actions[_] != "no-op"]
 
-k8s_secrets_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret`]
+k8s_secrets_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret`; r.change.actions[_] != "no-op"]
 
-k8s_secrets_v1_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret_v1`]
+k8s_secrets_v1_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kubernetes_secret_v1`; r.change.actions[_] != "no-op"]
 
 service_pod_addrs := [sp |
 	sp := tfplan.resource_changes[_]
 	regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
+  sp.change.actions[_] != "no-op"
 ]
 
 allowed_modules := array.concat(service_pod_addrs, ecr_module_addrs)
