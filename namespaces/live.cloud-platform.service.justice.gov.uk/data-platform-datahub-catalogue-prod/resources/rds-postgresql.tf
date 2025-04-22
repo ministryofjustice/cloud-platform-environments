@@ -15,6 +15,9 @@ module "rds" {
   db_max_allocated_storage     = var.db_max_allocated_storage
   enable_rds_auto_start_stop   = var.enable_rds_auto_start_stop # turn off database overnight 22:00-06:00 UTC.
 
+  # Snapshot configuration
+  snapshot_identifier = "rds:cloud-platform-2182d9f2ebfb645b-2025-04-17-04-27"
+
 
   # PostgreSQL specifics
   db_engine         = var.db_engine
