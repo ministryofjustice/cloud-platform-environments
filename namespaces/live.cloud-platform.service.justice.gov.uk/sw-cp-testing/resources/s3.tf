@@ -22,7 +22,7 @@ module "sw_test_bucket" {
 module "sw_test_logging_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
-  acl                    = "private"
+  acl                    = "log-delivery-write"
   versioning             = false
   business_unit          = var.business_unit
   application            = var.application
