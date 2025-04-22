@@ -21,7 +21,7 @@ resource "github_repository_environment" "env" {
   # }
 }
 
-resource "github_repository_environment" "env" {
+resource "github_repository_environment" "env_prod" {
   environment = "prod"
   repository  = "mikebell-test"
 
