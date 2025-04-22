@@ -2,7 +2,7 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  # The names of the queues used and the namespace which created them
+  # The names of the queues used and the namespace which created them.
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue"                           = "hmpps-audit-preprod",
     "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod",
