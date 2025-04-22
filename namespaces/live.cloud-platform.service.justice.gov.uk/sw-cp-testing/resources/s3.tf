@@ -1,6 +1,6 @@
 
 module "sw_test_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -20,7 +20,7 @@ module "sw_test_bucket" {
 }
 
 module "sw_test_logging_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
