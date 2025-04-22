@@ -45,7 +45,7 @@ k8s_secrets_v1_addrs := [r | r := tfplan.resource_changes[_]; r.type == `kuberne
 service_pod_addrs := [sp |
 	sp := tfplan.resource_changes[_]
 	regex.match(`^module\..*\.kubernetes_deployment\.service_pod$`, sp.address)
-  sp.change.actions[_] != "no-op"
+	sp.change.actions[_] != "no-op"
 ]
 
 allowed_modules := array.concat(service_pod_addrs, ecr_module_addrs)
