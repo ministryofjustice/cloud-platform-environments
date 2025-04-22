@@ -44,11 +44,11 @@ resource "kubernetes_secret" "rds-allocation-restore-new" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds-allocation.rds_instance_endpoint
-    database_name         = module.rds-allocation.database_name
-    database_username     = module.rds-allocation.database_username
-    database_password     = module.rds-allocation.database_password
-    rds_instance_address  = module.rds-allocation.rds_instance_address
+    rds_instance_endpoint = module.rds-allocation-restore-new.rds_instance_endpoint
+    database_name         = module.rds-allocation-restore-new.database_name
+    database_username     = module.rds-allocation-restore-new.database_username
+    database_password     = module.rds-allocation-restore-new.database_password
+    rds_instance_address  = module.rds-allocation-restore-new.rds_instance_address
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -65,8 +65,7 @@ resource "kubernetes_config_map" "rds-allocation-restore-new" {
   }
 
   data = {
-    database_name = module.rds-allocation.database_name
-    db_identifier = module.rds-allocation.db_identifier
-
+    database_name = module.rds-allocation-restore-new.database_name
+    db_identifier = module.rds-allocation-restore-new.db_identifier
   }
 }
