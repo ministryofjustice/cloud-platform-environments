@@ -14,5 +14,5 @@ resource "pingdom_check" "laa-landing-page-dev" {
   port                     = 443
   tags                     = "businessunit_LAA,application_landing-page,is-production_false,component_healthcheck,environment_dev,owner_laa-portal-stabilisation-tech:ben.ashton@justice.gov.uk"
   probefilters             = "region:EU"
-  integrationids           = []
+  integrationids           = [142729]
 }
