@@ -122,7 +122,7 @@ variable prepare_for_major_upgrade {
 variable "deletion_protection" {
   description = "Whether to enable deletion protection for the RDS instance"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "performance_insights_enabled" {
