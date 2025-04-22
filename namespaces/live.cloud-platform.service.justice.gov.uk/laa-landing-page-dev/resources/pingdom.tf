@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-landing-page-dev" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_LAA,application_landing-page,is-production_false,component_healthcheck,environment_dev,owner_laa-portal-stabilisation-tech:ben.ashton@justice.gov.uk"
+  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.application}"
   probefilters             = "region:EU"
   integrationids           = [142729]
 }
