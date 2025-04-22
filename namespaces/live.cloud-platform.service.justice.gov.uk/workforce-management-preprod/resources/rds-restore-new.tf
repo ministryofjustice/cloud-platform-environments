@@ -27,6 +27,8 @@ module "rds-allocation" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres15"
 
+  snapshot_identifier = "rds:cloud-platform-73adb8384c5116e5-2025-04-14-23-33"
+
   enable_rds_auto_start_stop = true
 
   providers = {
@@ -37,28 +39,7 @@ module "rds-allocation" {
 
 resource "kubernetes_secret" "rds-allocation" {
   metadata {
-    name      = "rds-allocation-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.rds-allocation.rds_instance_endpoint
-    database_name         = module.rds-allocation.database_name
-    database_username     = module.rds-allocation.database_username
-    database_password     = module.rds-allocation.database_password
-    rds_instance_address  = module.rds-allocation.rds_instance_address
-  }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds-allocation.database_username}:${module.rds-allocation.database_password}@${module.rds-allocation.rds_instance_endpoint}/${module.rds-allocation.database_name}"
-     *
-     */
-}
-
-resource "kubernetes_secret" "rds-allocation-2" {
-  metadata {
-    name      = "rds-allocation-instance-output-2"
+    name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
   }
 
@@ -79,7 +60,7 @@ resource "kubernetes_secret" "rds-allocation-2" {
 
 resource "kubernetes_config_map" "rds-allocation" {
   metadata {
-    name      = "rds-allocation-instance-output"
+    name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
   }
 
