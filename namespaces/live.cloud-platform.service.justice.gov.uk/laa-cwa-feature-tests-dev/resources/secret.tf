@@ -21,5 +21,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "test-secret-two" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+    "cwa-test-provider-api" = {
+      description             = "CWA Test Provider API secrets",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "cwa-test-provider-api" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
   }
 }
