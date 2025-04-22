@@ -27,6 +27,8 @@ module "rds-allocation" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres15"
 
+  snapshot_identifier = "rds:cloud-platform-73adb8384c5116e5-2025-04-14-23-33"
+
   enable_rds_auto_start_stop = true
 
   providers = {
@@ -37,7 +39,7 @@ module "rds-allocation" {
 
 resource "kubernetes_secret" "rds-allocation" {
   metadata {
-    name      = "rds-allocation-instance-output"
+    name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
   }
 
@@ -58,7 +60,7 @@ resource "kubernetes_secret" "rds-allocation" {
 
 resource "kubernetes_config_map" "rds-allocation" {
   metadata {
-    name      = "rds-allocation-instance-output"
+    name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
   }
 
