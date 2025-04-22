@@ -7,7 +7,7 @@ resource "pingdom_check" "laa-landing-page-dev" {
   host                     = "laa-landing-page-dev.apps.live.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 7
   notifyagainevery         = 0
   url                      = "/"
   encryption               = true
@@ -16,3 +16,4 @@ resource "pingdom_check" "laa-landing-page-dev" {
   probefilters             = "region:EU"
   integrationids           = [142729]
 }
+
