@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-landing-page-dev" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.application}"
+  tags                     = "businessunit_${var.business_unit},application_${var.namespace},isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.namespace}"
   probefilters             = "region:EU"
   integrationids           = [142729]
 }
