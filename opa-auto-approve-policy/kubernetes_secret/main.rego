@@ -22,7 +22,7 @@ res if {
 	k8s_secret_v1_ok
 }
 
-msg := "Valid ECR related terraform changes" if {
+msg := "Valid K8s secret related terraform changes" if {
 	k8s_secret_ok
 	k8s_secret_v1_ok
 } else := "We can't auto approve these kubernetes secret terraform changes. Please request a Cloud Platform team member's review in [#ask-cloud-platform](https://moj.enterprise.slack.com/archives/C57UPMZLY)"
