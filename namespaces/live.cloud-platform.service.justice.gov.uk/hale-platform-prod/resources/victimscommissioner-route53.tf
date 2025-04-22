@@ -202,6 +202,14 @@ resource "aws_route53_record" "victimscommissioner_route53_cname_record_enterpri
   records = ["enterpriseregistration.windows.net"]
 }
 
+resource "aws_route53_record" "victimscommissioner_route53_cname_record_mta_sts" {
+  zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
+  name    = "_cdf48e5e328f4f75c39a618a4f2bfea1.mta-sts.victimscommissioner.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_42f945cc2302acf215d14a35b3190cf4.nhsllhhtvj.acm-validations.aws"]
+}
+
 resource "aws_route53_record" "victimscommissioner_route53_srv_record_sipfed" {
   zone_id = aws_route53_zone.victimscommissioner_route53_zone.zone_id
   name    = "_sipfederationtls._tcp.victimscommissioner.org.uk"
