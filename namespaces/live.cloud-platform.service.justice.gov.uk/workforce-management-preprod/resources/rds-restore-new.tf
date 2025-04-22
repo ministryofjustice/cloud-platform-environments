@@ -1,4 +1,4 @@
-module "rds-allocation" {
+module "rds-allocation-restore-new" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
@@ -37,7 +37,7 @@ module "rds-allocation" {
   }
 }
 
-resource "kubernetes_secret" "rds-allocation" {
+resource "kubernetes_secret" "rds-allocation-restore-new" {
   metadata {
     name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
@@ -58,7 +58,7 @@ resource "kubernetes_secret" "rds-allocation" {
      */
 }
 
-resource "kubernetes_config_map" "rds-allocation" {
+resource "kubernetes_config_map" "rds-allocation-restore-new" {
   metadata {
     name      = "rds-allocation-instance-output-restore-new"
     namespace = var.namespace
