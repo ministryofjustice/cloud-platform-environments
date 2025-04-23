@@ -1,3 +1,5 @@
+
+#ensure the db you are restoring into matches that of the source snapshot
 module "rds-allocation-restore-new" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name      = var.vpc_name
@@ -27,8 +29,10 @@ module "rds-allocation-restore-new" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres15"
 
+  # we use the is_migration flag to restore a snapshot into a different env - eg from prod to preprod
   is_migration = true
 
+  # this is the snapshot we want to restore from
   snapshot_identifier = "rds:cloud-platform-73adb8384c5116e5-2025-04-14-23-33"
 
   enable_rds_auto_start_stop = true
@@ -39,6 +43,8 @@ module "rds-allocation-restore-new" {
   }
 }
 
+
+# this is the secret that you will use to connect to the restored snapshot
 resource "kubernetes_secret" "rds-allocation-restore-new" {
   metadata {
     name      = "rds-allocation-instance-output-restore-new"
