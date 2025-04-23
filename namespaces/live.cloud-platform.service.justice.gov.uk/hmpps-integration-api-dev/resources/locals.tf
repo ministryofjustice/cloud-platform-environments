@@ -20,7 +20,6 @@ locals {
     "maspin",
     "kilco",
     "meganexus",
-    "bmadley",
     "serco",
     "unilink",
     "prisonerfacing",
