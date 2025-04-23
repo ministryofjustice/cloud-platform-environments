@@ -18,7 +18,7 @@ resource "aws_iam_user" "metabase_smtp_user" {
   path = "/system/ses-smtp-user/"
 }
 
-resource "aws_iam_access_key" ",metabase_smtp_user" {
+resource "aws_iam_access_key" "metabase_smtp_user" {
   user = aws_iam_user.metabase_smtp_user.name
 }
 
