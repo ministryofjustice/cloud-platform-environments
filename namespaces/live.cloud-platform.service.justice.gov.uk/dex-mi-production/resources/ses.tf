@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "metabase_ses_sender" {
   statement {
     actions = ["ses:SendRawEmail"]
     resources = [
-      "arn:aws:ses:eu-west-2:${data.aws_caller_identity.current.account_id}:identity/cdpt-metabase.cloud-platform.service.justice.gov.uk"
+      "arn:aws:ses:eu-west-2:${data.aws_caller_identity.current.account_id}:identity/cdpt-metabase.service.justice.gov.uk"
     ]
   }
 }
