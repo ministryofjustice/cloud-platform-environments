@@ -8,6 +8,11 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -23,7 +28,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "Central Digital"
 }
 
 variable "team_name" {
