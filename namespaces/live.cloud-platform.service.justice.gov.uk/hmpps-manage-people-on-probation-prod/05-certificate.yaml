@@ -10,3 +10,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-people-on-probation.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: feature-flags-manage-people-on-probation-cert
+  namespace: hmpps-manage-people-on-probation-prod
+spec:
+  secretName: feature-flags-manage-people-on-probation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - feature-flags-manage-people-on-probation.hmpps.service.justice.gov.uk
