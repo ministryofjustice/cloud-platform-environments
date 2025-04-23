@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-managing-apps-ui-cert
+  name: hmpps-managing-apps-api-cert
   namespace: hmpps-managing-prisoner-apps-dev
 spec:
-  secretName: hmpps-managing-prisoner-apps-staff-ui-cert
+  secretName: hmpps-managing-prisoner-apps-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
