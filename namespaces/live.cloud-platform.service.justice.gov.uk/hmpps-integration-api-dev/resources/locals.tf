@@ -26,6 +26,7 @@ locals {
     "moj-esw",
     "abritton", 
     "jbetton",
+    "bmadley",
     "smoke-test-full-access",
     "smoke-test-limited-access",
     "smoke-test-no-access"
