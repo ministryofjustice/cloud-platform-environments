@@ -10,7 +10,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
   filter_policy = jsonencode({
     eventType = [
       "prisoner-offender-search.prisoner.convicted-status-changed",
-      "prison-offender-events.prisoner.received",
+      "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved"
