@@ -13,8 +13,8 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_minor_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = true
   # db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -22,8 +22,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.2"
-  rds_family        = "postgres16"
+  db_engine_version = "17.4"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
   # Tags
