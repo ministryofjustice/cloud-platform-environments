@@ -85,7 +85,7 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = base64encode(local.athena_roles.test_general)
-    specials_role_arn = base64encode(local.athena_roles.test_specials)
+    general_role_arn = local.athena_roles.test_general
+    specials_role_arn = local.athena_roles.test_specials
   }
 }
