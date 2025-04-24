@@ -36,8 +36,8 @@ data "aws_iam_policy_document" "document" {
       "sts:AssumeRole"
     ]
     resources = [
-      data.aws_ssm_parameter.athena_general_role_arn.value,
-      data.aws_ssm_parameter.athena_specials_role_arn.value,
+      aws_ssm_parameter.athena_general_role_arn.value,
+      aws_ssm_parameter.athena_specials_role_arn.value,
     ]
   }
 }
@@ -71,7 +71,7 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = data.aws_ssm_parameter.athena_general_role_arn.value
-    specials_role_arn = data.aws_ssm_parameter.athena_specials_role_arn.value
+    general_role_arn = aws_ssm_parameter.athena_general_role_arn.value
+    specials_role_arn = aws_ssm_parameter.athena_specials_role_arn.value
   }
 }

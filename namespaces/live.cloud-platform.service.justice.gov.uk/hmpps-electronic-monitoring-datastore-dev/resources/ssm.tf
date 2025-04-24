@@ -13,10 +13,6 @@ resource "aws_ssm_parameter" "athena_general_role_arn" {
   }
 }
 
-data "aws_ssm_parameter" "athena_general_role_arn" {
-  name = "/${var.namespace}/athena_general_role_arn"
-}
-
 resource "aws_ssm_parameter" "athena_specials_role_arn" {
   name        = "/${var.namespace}/athena_specials_role_arn"
   type        = "SecureString"
@@ -30,8 +26,4 @@ resource "aws_ssm_parameter" "athena_specials_role_arn" {
       value
     ]
   }
-}
-
-data "aws_ssm_parameter" "athena_specials_role_arn" {
-  name = "/${var.namespace}/athena_specials_role_arn"
 }
