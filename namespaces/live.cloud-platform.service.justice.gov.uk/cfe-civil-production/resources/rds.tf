@@ -27,7 +27,7 @@ module "rds" {
   db_engine_version = "14.13"
 
   # change the instance class as you see fit.
-  db_instance_class = "db.t3.small"
+  db_instance_class = "db.t4g.small"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best
@@ -62,6 +62,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
+  count                = 0
 
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
@@ -136,7 +137,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -146,10 +147,10 @@ resource "kubernetes_secret" "read_replica" {
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
 
-  data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-  }
+#   data = {
+#     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+#     rds_instance_address  = module.read_replica.rds_instance_address
+#   }
 }
 
 
