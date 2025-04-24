@@ -28,7 +28,7 @@ module "secrets_manager_multiple_secrets" {
     "laa-landing-page-base-url-dev" = {
       description             = "dev landing page base url",
       recovery_window_in_days = 7
-      k8s_secret_name         = "laa-landing-page-base-url-dev-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      k8s_secret_name         = "laa-landing-page-base-url-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }
 }
