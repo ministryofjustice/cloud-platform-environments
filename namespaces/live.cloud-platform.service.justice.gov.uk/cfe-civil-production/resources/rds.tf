@@ -79,6 +79,7 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  db_engine_version = "14.13"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
