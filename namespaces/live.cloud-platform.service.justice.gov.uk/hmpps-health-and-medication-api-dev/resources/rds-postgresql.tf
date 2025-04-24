@@ -99,5 +99,5 @@ resource "kubernetes_config_map" "rds" {
 
 # Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
 data "aws_security_group" "mp_dps_sg" {
-  name = var.mp_dps_sg_name
+  name = var.jmp_dps_sg_name
 }
