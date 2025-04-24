@@ -10,5 +10,5 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-portal-stabilisation-prototype"]
 
-  github_environments = ["development]
+  github_environments = ["development"]
 }
