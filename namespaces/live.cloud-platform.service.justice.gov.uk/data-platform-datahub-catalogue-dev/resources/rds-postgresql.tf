@@ -21,6 +21,7 @@ module "rds" {
   enable_rds_auto_start_stop   = var.enable_rds_auto_start_stop # Comment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   maintenance_window = var.maintenance_window
   backup_window = var.backup_window
+  db_parameter = var.db_parameter
 
   # PostgreSQL specifics
   db_engine         = var.db_engine
