@@ -152,3 +152,20 @@ variable db_instance_class {
   type        = string
   default     = "db.t4g.small"
 }
+
+variable db_parameter {
+  type = list(object(
+      {
+        apply_method = string
+        name        = string
+        value       = string
+      }
+  ))
+  default = [
+    {
+      apply_method = "immediate"
+      name = "rds.log_retention_period"
+      value = "10080"
+    }
+  ]
+}
