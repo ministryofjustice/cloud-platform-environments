@@ -9,7 +9,7 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    "dynamodb-cluster" = module.dynamodb-cluster.role_arn
+    dynamodb-cluster = module.dynamodb-cluster.role_arn
   }
 
   # Tags
