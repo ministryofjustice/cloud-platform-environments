@@ -17,6 +17,7 @@ module "court_data_adaptor_rds" {
   allow_major_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
+  deletion_protection         = true
 
   providers = {
     aws = aws.london
