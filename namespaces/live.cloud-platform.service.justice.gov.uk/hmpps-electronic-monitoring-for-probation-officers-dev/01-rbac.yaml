@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-electronic-monitoring-for-probation-officers-dev-admin
-  namespace: hmpps-electronic-monitoring-for-probation-officers-dev
+  name: hmpps-electronic-monitoring-data-insights-dev-admin
+  namespace: hmpps-electronic-monitoring-data-insights-dev
 subjects:
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group
