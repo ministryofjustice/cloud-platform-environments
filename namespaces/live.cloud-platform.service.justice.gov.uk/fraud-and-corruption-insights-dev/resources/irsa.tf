@@ -5,11 +5,11 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "fraud-and-corruption-insights-sa"
+  service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace
 
   role_policy_arns = {
-    dynamodb-cluster = module.dynamodb-cluster.role_arn
+    dynamodb                = module.dynamodb-cluster.irsa_policy_arn
   }
 
   # Tags
