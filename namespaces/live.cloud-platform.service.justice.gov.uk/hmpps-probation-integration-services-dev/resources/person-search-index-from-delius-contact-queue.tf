@@ -3,7 +3,10 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-contact-q
   protocol  = "sqs"
   endpoint  = module.person-search-index-from-delius-contact-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["CONTACT_CHANGED"]
+    eventType = [
+      "CONTACT_CHANGED",
+      "CONTACT_DELETED"
+    ]
   })
 }
 
