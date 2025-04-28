@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps-electronic-monitoring-crime-matching-api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-electronic-monitoring-crime-matching-api"
   application = "hmpps-electronic-monitoring-crime-matching-api"
