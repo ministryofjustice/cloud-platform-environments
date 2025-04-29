@@ -22,10 +22,6 @@ module "eawp_assessment_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 # Dead letter queue
@@ -47,10 +43,6 @@ module "eawp_assessment_events_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 # Secrets

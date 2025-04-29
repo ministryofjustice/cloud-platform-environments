@@ -1,3 +1,5 @@
+# This is to share secrets with integration api.
+
 resource "kubernetes_secret" "integration-api-secret" {
   metadata {
     name      = "eawp-assessment-events-secret"
