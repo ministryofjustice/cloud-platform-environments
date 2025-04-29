@@ -13,14 +13,13 @@ spec:
       labels:
         app: github-actions-runner-e2e
     spec:
-      serviceAccountName: cd-serviceaccount
       containers:
         - name: runner
           image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
           resources:
             limits:
-              memory: 8000Mi
-              cpu: 2000m
+              memory: 2000Mi
+              cpu: 1000m
           securityContext:
             runAsUser: 1001 # 'runner' user
           env:
@@ -44,5 +43,3 @@ spec:
                 secretKeyRef:
                   name: github-actions-runner-token
                   key: GITHUB_APP_PRIVATE_KEY
-            - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
-              value: ubuntu20
