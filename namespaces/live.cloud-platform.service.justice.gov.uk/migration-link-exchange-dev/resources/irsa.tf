@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.namespace}-service"
+  service_account_name = "migration-link-exchange-sa"
   namespace            = var.namespace
 
   role_policy_arns = {
