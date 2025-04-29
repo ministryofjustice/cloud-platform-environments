@@ -9,7 +9,9 @@ module "irsa" {
   namespace            = var.namespace
 
   # Policy ARNs
-  role_policy_arns = [ aws_iam_policy.migration-link-exchange-build-dev-s3-policy.arn ]
+  role_policy_arns = {
+    s3 = aws_iam_policy.migration-link-exchange-build-dev-s3-policy.arn
+  }
 
   # Tags
   business_unit          = var.business_unit
@@ -19,9 +21,6 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
-
-
 
 data "aws_iam_policy_document" "migration-link-exchange-build-dev-s3-policy" {
   # List & location for the S3 bucket.
