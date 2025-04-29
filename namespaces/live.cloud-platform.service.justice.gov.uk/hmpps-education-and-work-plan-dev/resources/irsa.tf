@@ -34,6 +34,12 @@ module "irsa" {
     },
     {
       sqs_dlq = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn
+    },
+    {
+      module.eawp_assessment_events_queue.sqs_name = module.eawp_assessment_events_queue.irsa_policy_arn,
+    },
+    {
+      module.eawp_assessment_events_dead_letter_queue.sqs_name = module.eawp_assessment_events_dead_letter_queue.irsa_policy_arn
     }
   )
 
