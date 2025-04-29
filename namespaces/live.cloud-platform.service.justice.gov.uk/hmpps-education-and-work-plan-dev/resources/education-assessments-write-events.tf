@@ -47,10 +47,10 @@ module "eawp_assessment_events_dead_letter_queue" {
 
 # Secrets
 
-resource "kubernetes_secret" "eawp_assessment_events_queue" {
+resource "kubernetes_secret" "education-and-work-plan-assessments-queue" {
   ## For metadata use - not _
   metadata {
-    name = "eawp-assessment-events-secret"
+    name = "education-and-work-plan-assessments-queue"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
@@ -62,10 +62,10 @@ resource "kubernetes_secret" "eawp_assessment_events_queue" {
   }
 }
 
-resource "kubernetes_secret" "eawp_assessment_events_dead_letter_queue" {
+resource "kubernetes_secret" "education-and-work-plan-assessments-dlq" {
   ## For metadata use - not _
   metadata {
-    name = "eawp-assessment-events-dlq-secret"
+    name = "education-and-work-plan-assessments-dlq"
     ## Name space where the listening service is found
     namespace = var.namespace
   }
