@@ -36,7 +36,9 @@ resource "kubernetes_secret" "s3_bucket" {
 
 # Save the bucket ARN and name to SSM parameters, so that they can be 
 # accessed in the `migration-link-exchange-build` namespace.
-# According to Cloud Platform the documentation at:
+# Lifecycle: these `aws_ssm_parameter` blocks should be removed when the 
+# `migration-link-exchange-build` namespace is deleted.
+# Ref: 
 # https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/sharing-aws-resources-across-namespaces-using-ssm-and-irsa.html
 
 resource "aws_ssm_parameter" "s3-bucket-name" {
