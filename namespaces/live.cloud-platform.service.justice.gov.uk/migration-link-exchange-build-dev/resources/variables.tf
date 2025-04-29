@@ -72,3 +72,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "app_repo" {
+  description = "Name of application repository"
+  type        = string
+  default     = "build-google-dataset"
+}
