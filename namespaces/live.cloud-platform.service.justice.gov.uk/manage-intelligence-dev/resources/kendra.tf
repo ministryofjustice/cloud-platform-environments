@@ -28,7 +28,7 @@ resource "aws_kendra_data_source" "s3" {
   type     = "S3"
   role_arn = aws_iam_role.kendra_role.arn
   schedule = "cron(45 14 * * ? *)"
-
+  tags   = local.default_tags
   configuration {
     s3_configuration {
       bucket_name = module.ims_attachments_storage_bucket.bucket_name
@@ -40,6 +40,7 @@ resource "aws_kendra_data_source" "s3" {
 
 resource "aws_iam_role" "kendra_role" {
   name = "Kendra-Role-${var.application}-${var.environment-name}"
+  tags   = local.default_tags
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -57,6 +58,7 @@ resource "aws_iam_role" "kendra_role" {
 resource "aws_iam_policy" "kendra_policy" {
   name        = "Kendra-Policy-${var.application}-${var.environment-name}"
   description = "Policy for AWS Kendra for ${var.application}"
+  tags   = local.default_tags
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
