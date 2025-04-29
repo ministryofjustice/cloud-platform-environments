@@ -128,6 +128,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
       "OFFENDER_SENTENCES-INSERTED",
       "OFFENDER_SENTENCES-DELETED",
       "OFFENDER_SENTENCES-UPDATED",
+      "OFFENDER_SENTENCE_TERMS-INSERTED",
+      "OFFENDER_SENTENCE_TERMS-DELETED",
+      "OFFENDER_SENTENCE_TERMS-UPDATED",
     ]
   })
 }
