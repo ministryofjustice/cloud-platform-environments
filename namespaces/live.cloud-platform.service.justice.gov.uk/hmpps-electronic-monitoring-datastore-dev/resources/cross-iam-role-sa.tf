@@ -6,12 +6,6 @@ locals {
 
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-
-  athena_roles = {
-    dev_general   = "arn:aws:iam::800964199911:role/cmt_read_emds_data_dev",
-    test_general  = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
-    test_specials = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test",
-  }
 }
 
 module "irsa" {
@@ -42,9 +36,8 @@ data "aws_iam_policy_document" "document" {
       "sts:AssumeRole"
     ]
     resources = [
-      local.athena_roles.dev_general,
-      local.athena_roles.test_general,
-      local.athena_roles.test_specials,
+      aws_ssm_parameter.athena_general_role_arn.value,
+      aws_ssm_parameter.athena_specials_role_arn.value,
     ]
   }
 }
@@ -58,14 +51,7 @@ resource "aws_iam_policy" "athena_access" {
   name   = "${var.namespace}-athena-policy-general"
   policy = data.aws_iam_policy_document.document.json
 
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    environment-name       = var.environment
-    owner                  = var.team_name
-    infrastructure-support = var.infrastructure_support
-  }
+  tags = local.tags
 }
 resource "kubernetes_secret" "irsa" {
   metadata {
@@ -85,7 +71,7 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = local.athena_roles.test_general
-    specials_role_arn = local.athena_roles.test_specials
+    general_role_arn = aws_ssm_parameter.athena_general_role_arn.value
+    specials_role_arn = aws_ssm_parameter.athena_specials_role_arn.value
   }
 }
