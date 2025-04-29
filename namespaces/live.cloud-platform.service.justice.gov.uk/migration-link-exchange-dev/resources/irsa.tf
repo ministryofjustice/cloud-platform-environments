@@ -6,7 +6,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "${var.namespace}-service"
-  namespace            = var.namespace # this is also used as a tag
+  namespace            = var.namespace
 
   role_policy_arns = {
     s3  = aws_iam_policy.s3_restricted_access.arn
