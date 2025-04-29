@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-oauth-client-credentials"
     },
+    "aws-secrets" = {
+      description             = "laa-court-data-adaptor-uat aws-secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "aws-secrets"
+    },
   }
 }
