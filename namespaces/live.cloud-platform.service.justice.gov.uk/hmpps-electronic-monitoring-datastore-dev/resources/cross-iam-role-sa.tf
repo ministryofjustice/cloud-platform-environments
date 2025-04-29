@@ -6,6 +6,11 @@ locals {
 
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+
+  athena_roles = {
+    test_general  = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
+    test_specials = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test",
+  }
 }
 
 module "irsa" {
@@ -36,8 +41,8 @@ data "aws_iam_policy_document" "document" {
       "sts:AssumeRole"
     ]
     resources = [
-      aws_ssm_parameter.athena_general_role_arn.value,
-      aws_ssm_parameter.athena_specials_role_arn.value,
+      local.athena_roles.test_general,
+      local.athena_roles.test_specials,
     ]
   }
 }
@@ -71,7 +76,10 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = aws_ssm_parameter.athena_general_role_arn.value
-    specials_role_arn = aws_ssm_parameter.athena_specials_role_arn.value
+    general_role_arn = local.athena_roles.test_general
+    specials_role_arn = local.athena_roles.test_specials
+
+    test_ssm_general_role_arn = aws_ssm_parameter.athena_general_role_arn.value
+    test_ssm_specials_role_arn = aws_ssm_parameter.athena_specials_role_arn.value
   }
 }
