@@ -10,7 +10,6 @@ module "ecr_credentials" {
         "rulePriority": 1,
         "description": "Keep newest 5 images",
         "selection": {
-          "tagStatus": "tagged",
           "countType": "imageCountMoreThan",
           "countNumber": 5
         },
