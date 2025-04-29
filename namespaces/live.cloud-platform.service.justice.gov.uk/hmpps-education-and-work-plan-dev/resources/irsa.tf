@@ -5,8 +5,8 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev",
-    "education-and-work-plan-assessments-queue"                               = "hmpps-education-and-work-plan-dev",
-    "education-and-work-plan-assessments-dlq"                                 = "hmpps-education-and-work-plan-dev"
+    "eawp_assessment_events_queue"                               = "hmpps-education-and-work-plan-dev",
+    "eawp_assessment_events_dlq"                                 = "hmpps-education-and-work-plan-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
