@@ -19,7 +19,7 @@ resource "kubernetes_secret" "athena_roles" {
     general_role_arn = local.athena_roles.test_general
     specials_role_arn = local.athena_roles.test_specials
 
-    test_ssm_general_role_arn = aws_ssm_parameter.athena_general_role_arn.value
-    test_ssm_specials_role_arn = aws_ssm_parameter.athena_specials_role_arn.value
+    test_ssm_general_role_arn = data.aws_ssm_parameter.athena_general_role_arn.value
+    test_ssm_specials_role_arn = data.aws_ssm_parameter.athena_specials_role_arn.value
   }
 }
