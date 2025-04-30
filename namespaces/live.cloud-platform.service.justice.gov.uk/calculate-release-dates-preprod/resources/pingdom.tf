@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-calculate-release-dates-pre-prod-check" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/https/calculate-release-dates-pre-prod.hmpps.service.justice.gov.uk"
+  url                      = "/https/calculate-release-dates-preprod.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
