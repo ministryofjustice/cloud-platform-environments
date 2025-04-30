@@ -77,8 +77,7 @@
 
         For more information, see: http://activemq.apache.org/delete-inactive-destinations.html
         -->
-        <policyEntry topic="&gt;" gcInactiveDestinations="true"
-          inactiveTimoutBeforeGC="600000">
+        <policyEntry topic="&gt;" gcInactiveDestinations="true" inactiveTimoutBeforeGC="600000">
           <!--
           The constantPendingMessageLimitStrategy is used to prevent
           slow topic consumers to block producers and affect other consumers
@@ -90,8 +89,10 @@
             <constantPendingMessageLimitStrategy limit="1000" />
           </pendingMessageLimitStrategy>
         </policyEntry>
-        <policyEntry queue="&gt;" gcInactiveDestinations="true"
-          inactiveTimoutBeforeGC="600000" />
+        <policyEntry queue="&gt;" gcInactiveDestinations="true" inactiveTimoutBeforeGC="600000" />
+        <policyEntry queue="org.alfresco.search.path.event">
+          <redeliveryPolicy maximumRedeliveries="5" initialRedeliveryDelay="2000" />
+        </policyEntry>
         <!--
         Destination policies let you configure a rich set of behaviors for your queues and topics.
         For more information, see http://activemq.apache.org/per-destination-policies.html
