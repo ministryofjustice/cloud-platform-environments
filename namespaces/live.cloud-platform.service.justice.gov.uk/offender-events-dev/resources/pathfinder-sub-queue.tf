@@ -1,7 +1,7 @@
 
 
 module "pathfinder_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "pathfinder_offender_events_queue"
@@ -29,7 +29,7 @@ module "pathfinder_offender_events_queue" {
 }
 
 module "pathfinder_probation_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "pathfinder_probation_offender_events_queue"
@@ -84,7 +84,7 @@ resource "aws_sqs_queue_policy" "pathfinder_probation_offender_events_queue_poli
 }
 
 module "pathfinder_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "pathfinder_offender_events_queue_dl"
@@ -105,7 +105,7 @@ module "pathfinder_offender_events_dead_letter_queue" {
 }
 
 module "pathfinder_probation_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "pathfinder_probation_offender_events_queue_dl"

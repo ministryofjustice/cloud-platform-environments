@@ -1,5 +1,5 @@
 module "cvl_test2_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "cvl_test2_domain_events_queue"
@@ -27,7 +27,7 @@ module "cvl_test2_domain_events_queue" {
 }
 
 module "cvl_test2_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cvl_test2_domain_events_queue_dl"

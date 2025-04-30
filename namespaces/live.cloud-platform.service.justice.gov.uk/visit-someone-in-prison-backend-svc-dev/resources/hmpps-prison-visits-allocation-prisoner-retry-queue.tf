@@ -3,7 +3,7 @@
 ######## Without it, we would need to wait until the next job to trigger (next day) or reprocess the whole prison.
 
 module "hmpps_prison_visits_allocation_prisoner_retry_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_allocation_prisoner_retry_queue"
@@ -33,7 +33,7 @@ module "hmpps_prison_visits_allocation_prisoner_retry_queue" {
 ######## Dead letter queue
 
 module "hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_allocation_prisoner_retry_dlq"

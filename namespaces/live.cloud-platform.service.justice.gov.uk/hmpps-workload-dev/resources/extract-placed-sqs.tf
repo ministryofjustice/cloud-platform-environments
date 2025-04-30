@@ -1,5 +1,5 @@
 module "hmpps_extract_placed_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_extract_placed_queue"
@@ -27,7 +27,7 @@ module "hmpps_extract_placed_queue" {
 }
 
 module "hmpps_extract_placed_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_extract_placed_dlq"

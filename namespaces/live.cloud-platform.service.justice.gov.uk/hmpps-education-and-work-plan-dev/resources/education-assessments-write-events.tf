@@ -1,7 +1,7 @@
 # Prison visits write events for visit someone in prison
 
 module "eawp_assessment_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "eawp_assessment_events_queue"
@@ -27,7 +27,7 @@ module "eawp_assessment_events_queue" {
 # Dead letter queue
 
 module "eawp_assessment_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "eawp_assessment_events_dlq"
