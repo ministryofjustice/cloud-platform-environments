@@ -46,12 +46,13 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count                = 1
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage = 50
-  storage_type         = "gp2"
+  count                        = 1
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  db_allocated_storage         = 50
+  storage_type                 = "gp2"
+  db_max_allocated_storage     = "1000"
 
-  vpc_name = var.vpc_name
+  vpc_name                     = var.vpc_name
 
   # Tags
   application            = var.application
