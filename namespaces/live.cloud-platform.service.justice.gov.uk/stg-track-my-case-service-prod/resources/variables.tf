@@ -35,19 +35,19 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "munish.jalota@justice.gov.uk"
+  default     = "stgtransformationteam@justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
