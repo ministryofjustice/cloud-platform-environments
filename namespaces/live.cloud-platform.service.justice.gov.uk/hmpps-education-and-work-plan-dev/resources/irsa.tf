@@ -4,15 +4,16 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev",
+    # "eawp_assessment_events_queue"                               = "hmpps-education-and-work-plan-dev",
+    # "eawp_assessment_events_dlq"                                 = "hmpps-education-and-work-plan-dev"
   }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
   # The names of the SNS topics used and the namespace which created them
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
-
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
@@ -22,17 +23,15 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-education-and-work-plan"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
     {
-      rds_policy = module.hmpps_education_work_plan_rds.irsa_policy_arn
-    },
-    {
-      sqs = module.hmpps_eawp_domain_events_queue.irsa_policy_arn
-    },
-    {
-      sqs_dlq = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn
+      rds_policy                                  = module.hmpps_education_work_plan_rds.irsa_policy_arn,
+      sqs                                         = module.hmpps_eawp_domain_events_queue.irsa_policy_arn,
+      sqs_dlq                                     = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn,
+      (module.eawp_assessment_events_queue.sqs_name)              = module.eawp_assessment_events_queue.irsa_policy_arn
+      (module.eawp_assessment_events_dead_letter_queue.sqs_name)  = module.eawp_assessment_events_dead_letter_queue.irsa_policy_arn
     }
   )
 
