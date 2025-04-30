@@ -23,7 +23,6 @@ module "example_sns_topic" {
 resource "kubernetes_secret" "example_sns_topic" {
   metadata {
     name      = "my-topic-sns-user"
-    namespace = "example_namespace"
   }
 
   data = {
