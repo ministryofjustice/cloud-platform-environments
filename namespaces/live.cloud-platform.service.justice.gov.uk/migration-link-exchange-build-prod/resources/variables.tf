@@ -8,6 +8,11 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -35,7 +40,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
@@ -66,4 +71,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "app_repo" {
+  description = "Name of application repository"
+  type        = string
+  default     = "build-google-dataset"
 }
