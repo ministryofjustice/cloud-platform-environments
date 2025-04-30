@@ -1,5 +1,5 @@
 module "sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=add-kms-tag" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration
   sqs_name        = "tim-testing"
