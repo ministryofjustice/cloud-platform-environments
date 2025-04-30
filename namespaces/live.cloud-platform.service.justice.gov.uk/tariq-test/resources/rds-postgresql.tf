@@ -6,7 +6,7 @@
  */
 module "rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage = 10
+  db_allocated_storage = 50
   storage_type         = "gp2"
 
   # VPC configuration
@@ -48,7 +48,7 @@ module "read_replica" {
   # default off
   count                = 1
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage = 10
+  db_allocated_storage = 50
   storage_type         = "gp2"
 
   vpc_name = var.vpc_name
