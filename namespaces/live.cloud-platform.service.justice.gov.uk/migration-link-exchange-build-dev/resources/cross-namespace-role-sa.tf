@@ -33,24 +33,37 @@ data "aws_iam_policy_document" "migration-link-exchange-build-dev-s3-policy" {
       data.aws_ssm_parameter.s3-bucket-arn.value
     ]
   }
-  # Read permissions for the resources path.
+  # Permissions for the resources path.
   statement {
     actions = [
-      "s3:GetObject"
+      "s3:CopyObject",
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:HeadObject"
     ]
     resources = [
       "${data.aws_ssm_parameter.s3-bucket-arn.value}/resources/*",
     ]
   }
-  # Read and write permissions for the build-status & build-output path.
+  # Just for dev environments! Add write (PutObject) permission for the resources path.
   statement {
     actions = [
+      "s3:PutObject"
+    ]
+    resources = [
+      "${data.aws_ssm_parameter.s3-bucket-arn.value}/resources/*",
+    ]
+  }
+  # Read and write permissions for the build-output & completed path.
+  statement {
+    actions = [
+      "s3:CopyObject",
       "s3:GetObject",
       "s3:PutObject"
     ]
     resources = [
-      "${data.aws_ssm_parameter.s3-bucket-arn.value}/build-status.json",
       "${data.aws_ssm_parameter.s3-bucket-arn.value}/build-output/*",
+      "${data.aws_ssm_parameter.s3-bucket-arn.value}/completed/*",
     ]
   }
 }
