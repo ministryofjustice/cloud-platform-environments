@@ -11,12 +11,12 @@ module "identify_remand_periods_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds_family
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
-  db_engine_version           = "16.8"
+  db_engine_version           = "17.4"
   enable_rds_auto_start_stop  = true
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   providers = {
     aws = aws.london
