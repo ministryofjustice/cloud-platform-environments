@@ -149,6 +149,31 @@ resource "aws_mq_broker" "this" {
   }
 }
 
+resource "aws_mq_configuration" "this" {
+  description    = "Alfresco Amazon MQ configuration"
+  name           = "alfresco-amq-${var.environment_name}-${random_id.config_id.hex}-configuration"
+  engine_type    = local.amq_engine_type
+  engine_version = local.amq_engine_version
+
+  data = templatefile("${path.module}/files/amq_config.xml")
+  lifecycle {
+    create_before_destroy = true
+    # ignore_changes        = [data]
+  }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+    GithubTeam             = var.team_name
+  }
+}
+
+
 resource "kubernetes_secret" "amazon_mq" {
   metadata {
     name      = "amazon-mq-broker-secret"
