@@ -4,8 +4,8 @@ data "aws_iam_policy_document" "athena_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      local.athena_roles.test_general,
-      local.athena_roles.test_specials,
+      data.aws_ssm_parameter.athena_general_role_arn.value,
+      data.aws_ssm_parameter.athena_specials_role_arn.value
     ]
   }
 }

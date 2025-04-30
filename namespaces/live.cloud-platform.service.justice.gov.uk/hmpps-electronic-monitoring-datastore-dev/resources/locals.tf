@@ -14,9 +14,4 @@ locals {
   }
 
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-
-  athena_roles = {
-    test_general  = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test",
-    test_specials = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test",
-  }
 }
