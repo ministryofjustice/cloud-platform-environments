@@ -7,8 +7,8 @@
 
 module "rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage   = 10
-  storage_type           = "gp2"
+  db_allocated_storage   = 20
+  storage_type           = "gp3"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -26,7 +26,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "16.1"
+  db_engine_version = "16.3"
 
   # change the instance class as you see fit.
   db_instance_class        = "db.t4g.micro"
