@@ -35,7 +35,10 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_personalrelationships_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_personalrelationships_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_organisations_queue.sqs_arn,
-      module.hmpps_prisoner_to_nomis_organisations_dead_letter_queue.sqs_arn,    ]
+      module.hmpps_prisoner_to_nomis_organisations_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue.sqs_arn,
+    ]
   }
 }
 
