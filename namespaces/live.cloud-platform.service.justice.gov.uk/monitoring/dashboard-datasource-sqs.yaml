@@ -106,7 +106,7 @@ data:
               "refId": "A",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -137,7 +137,7 @@ data:
               "refId": "B",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -168,7 +168,7 @@ data:
               "refId": "C",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             }
           ],
