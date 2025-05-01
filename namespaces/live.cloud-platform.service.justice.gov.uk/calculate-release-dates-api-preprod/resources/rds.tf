@@ -29,7 +29,7 @@ module "calculate_release_dates_api_rds" {
     aws = aws.london
   }
 
-  vpc_security_group_ids     = [aws_security_group.data_catalogue_access_sg.id]
+  vpc_security_group_ids     = [aws_security_group.data_catalogue_access_sg.id, data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
