@@ -1,5 +1,5 @@
 module "mercury_submit_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "mercury_submit_queue"
@@ -28,7 +28,7 @@ EOF
 }
 
 module "mercury_submit_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "mercury_submit_dl_queue"
