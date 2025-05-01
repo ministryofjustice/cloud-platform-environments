@@ -38,5 +38,6 @@ locals {
     maspin    = module.event_pnd_queue.sqs_name # testing
     mryall    = module.event_pnd_queue.sqs_name # testing
     meganexus = module.event_plp_queue.sqs_name
+    bmadley   = module.event_bmadley_queue.sqs_name # testing
   }
 }
