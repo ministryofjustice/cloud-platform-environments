@@ -24,7 +24,12 @@ module "secret" {
       description             = "PLP event filter list",
       recovery_window_in_days = 7,
       k8s_secret_name         = "plp-filter-list"
-    }
+    },
+    "integration-api-event-bmadley-filter-list" = {
+      description             = "bmadley event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "bmadley-filter-list"
+    },
   }
 
   # Tags
