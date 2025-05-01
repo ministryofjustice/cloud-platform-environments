@@ -106,9 +106,14 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
+  configuration {
+    id       = aws_mq_configuration.this.id
+    revision = aws_mq_configuration.this.latest_revision
+  }
+
   auto_minor_version_upgrade = true
 
-  apply_immediately = false
+  apply_immediately = true
 
   storage_type = "ebs"
 
