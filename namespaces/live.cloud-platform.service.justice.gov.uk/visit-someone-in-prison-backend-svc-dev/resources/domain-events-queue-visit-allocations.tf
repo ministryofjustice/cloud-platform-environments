@@ -1,14 +1,14 @@
-module "hmpps_prisoner_to_nomis_visit_allocations_queue" {
+module "hmpps_visit_allocations_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "hmpps_prisoner_to_nomis_visit_allocations_queue"
+  sqs_name                   = "hmpps_visit_allocations_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.hmpps_visit_allocations_dead_letter_queue.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -26,19 +26,19 @@ module "hmpps_prisoner_to_nomis_visit_allocations_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "hmpps_prisoner_to_nomis_visit_allocations_queue_policy" {
-  queue_url = module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_id
+resource "aws_sqs_queue_policy" "hmpps_visit_allocations_queue_policy" {
+  queue_url = module.hmpps_visit_allocations_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.hmpps_visit_allocations_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_arn}",
+          "Resource": "${module.hmpps_visit_allocations_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
@@ -53,11 +53,11 @@ resource "aws_sqs_queue_policy" "hmpps_prisoner_to_nomis_visit_allocations_queue
 EOF
 }
 
-module "hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue" {
+module "hmpps_visit_allocations_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_prisoner_to_nomis_visit_allocations_dlq"
+  sqs_name        = "hmpps_visit_allocations_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -74,37 +74,37 @@ module "hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_allocations_queue" {
+resource "kubernetes_secret" "hmpps_visit_allocations_queue" {
   metadata {
     name      = "domain-events-sqs-nomis-visit-allocations"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_name
+    sqs_queue_url  = module.hmpps_visit_allocations_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_visit_allocations_queue.sqs_arn
+    sqs_queue_name = module.hmpps_visit_allocations_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue" {
+resource "kubernetes_secret" "hmpps_visit_allocations_dead_letter_queue" {
   metadata {
     name      = "domain-events-sqs-nomis-visit-allocations-dlq"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prisoner_to_nomis_visit_allocations_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_visit_allocations_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_visit_allocations_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_visit_allocations_dead_letter_queue.sqs_name
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visit_allocations_subscription" {
+resource "aws_sns_topic_subscription" "hmpps_visit_allocations_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.hmpps_prisoner_to_nomis_visit_allocations_queue.sqs_arn
+  endpoint  = module.hmpps_visit_allocations_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-visit-allocation.adjustment.created",
