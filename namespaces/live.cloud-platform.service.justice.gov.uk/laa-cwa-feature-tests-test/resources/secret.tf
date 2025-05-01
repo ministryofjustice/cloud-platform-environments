@@ -10,10 +10,16 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "cwa-test-provider-api" = {
+        "cwa-test-provider-api" = {
       description             = "CWA Test Provider API secrets",   # Required
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "cwa-test-provider-api" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    {
+        "cwa-test-provider-api" = {
+      description             = "CWA Assessment Value API secrets",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "cwa-assessment-value-api" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }
 }
