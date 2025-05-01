@@ -11,7 +11,7 @@ resource "kubernetes_secret" "irsa" {
 
 resource "kubernetes_secret" "athena_roles" {
   metadata {
-    name      = "${var.namespace}-athena-roles"
+    name      = "athena-roles"
     namespace = var.namespace
   }
   type = "Opaque"
