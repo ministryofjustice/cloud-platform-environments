@@ -1,5 +1,5 @@
 module "sqs_payment" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_payment_queue"
@@ -66,7 +66,7 @@ resource "aws_sqs_queue_policy" "payment_sqs_policy" {
 }
 
 module "sqs_payment_dl" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_payment_dlq"

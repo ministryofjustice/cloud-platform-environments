@@ -1,5 +1,5 @@
 module "hmpps_dps_reconciliation_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_dps_reconciliation_queue"
@@ -54,7 +54,7 @@ resource "aws_sqs_queue_policy" "hmpps_dps_reconciliation_queue_policy" {
 }
 
 module "hmpps_dps_reconciliation_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "hmpps_dps_reconciliation_dl_queue"

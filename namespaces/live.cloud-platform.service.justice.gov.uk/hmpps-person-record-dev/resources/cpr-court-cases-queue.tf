@@ -7,7 +7,7 @@ resource "aws_sns_topic_subscription" "cpr_court_cases_subscription" {
 }
 
 module "cpr_court_cases_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                    = "cpr_court_cases_queue"
@@ -62,7 +62,7 @@ resource "aws_sqs_queue_policy" "cpr_court_cases_queue_policy" {
 ######## Dead letter queue
 
 module "cpr_court_cases_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                    = "cpr_court_cases_dlq"

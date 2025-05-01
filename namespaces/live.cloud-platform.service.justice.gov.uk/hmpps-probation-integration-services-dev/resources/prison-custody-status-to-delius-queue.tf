@@ -13,7 +13,7 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
 }
 
 module "prison-custody-status-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "prison-custody-status-to-delius-queue"
@@ -38,7 +38,7 @@ resource "aws_sqs_queue_policy" "prison-custody-status-to-delius-queue-policy" {
 }
 
 module "prison-custody-status-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "prison-custody-status-to-delius-dlq"

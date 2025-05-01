@@ -1,5 +1,5 @@
 module "sqs_tasks" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_tasks_queue"
@@ -62,7 +62,7 @@ resource "aws_sqs_queue_policy" "tasks_sqs_policy" {
 }
 
 module "sqs_tasks_dl" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration
   sqs_name                   = "${var.namespace}_tasks_dlq"
