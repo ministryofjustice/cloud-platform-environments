@@ -22,6 +22,7 @@ module "serviceaccount" {
         "pods",
         "configmaps",
         "persistentvolumeclaims",
+        "serviceaccounts"
       ]
       verbs = [
         "patch",
@@ -39,6 +40,7 @@ module "serviceaccount" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "policy"
       ]
       resources = [
         "deployments",
@@ -46,6 +48,7 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "statefulsets",
+        "poddisruptionbudgets",
         "replicasets"
       ]
       verbs = [
