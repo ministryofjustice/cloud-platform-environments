@@ -38,7 +38,6 @@ data "aws_iam_policy_document" "s3_restricted_access" {
       "s3:GetObject"
     ]
     resources = [ 
-        "${module.s3_bucket.bucket_arn}/status.json",
         "${module.s3_bucket.bucket_arn}/build-output/*"
     ]
   }
