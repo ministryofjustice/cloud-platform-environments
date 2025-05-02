@@ -38,3 +38,20 @@ resource "kubernetes_secret" "identify_remand_periods_rds" {
     rds_instance_address  = module.identify_remand_periods_rds.rds_instance_address
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "identify_remand_periods_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-identify-remand-periods-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.identify_remand_periods_rds.rds_instance_endpoint
+    database_name         = module.identify_remand_periods_rds.database_name
+    database_username     = module.identify_remand_periods_rds.database_username
+    database_password     = module.identify_remand_periods_rds.database_password
+    rds_instance_address  = module.identify_remand_periods_rds.rds_instance_address
+  }
+}
