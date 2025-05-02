@@ -5,7 +5,7 @@
  *
  */
 module "steve_test_sns" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration
   topic_display_name = "steve-test-sns"

@@ -5,7 +5,7 @@
  *
  */
 module "example_sns_topic" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=update-kms-tag"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   topic_display_name     = "tim-test-topic-display-name"
   encrypt_sns_kms    = true
