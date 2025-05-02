@@ -9,7 +9,7 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    s3  = aws_iam_policy.s3_restricted_access.arn
+    s3  = aws_iam_policy.migration_link_exchange_prod_s3_restricted_access.arn
   }
 
   # Tags
@@ -21,7 +21,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_iam_policy_document" "s3_restricted_access" {
+data "aws_iam_policy_document" "migration_link_exchange_prod_s3_restricted_access" {
   # List & location for the S3 bucket.
   statement {
     actions = [ 
@@ -43,9 +43,9 @@ data "aws_iam_policy_document" "s3_restricted_access" {
   }
 }
 
-resource "aws_iam_policy" "s3_restricted_access" {
-  name   = "s3_restricted_access"
-  policy = data.aws_iam_policy_document.s3_restricted_access.json
+resource "aws_iam_policy" "migration_link_exchange_prod_s3_restricted_access" {
+  name   = "migration_link_exchange_prod_s3_restricted_access"
+  policy = data.aws_iam_policy_document.migration_link_exchange_prod_s3_restricted_access.json
 
   tags = {
     business-unit          = var.business_unit
