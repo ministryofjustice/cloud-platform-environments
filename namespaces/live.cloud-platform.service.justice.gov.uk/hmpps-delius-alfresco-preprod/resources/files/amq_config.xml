@@ -53,9 +53,11 @@
   </persistenceAdapter>
 
   <systemUsage>
-    <memoryUsage limit="16gb" />
-    <storeUsage limit="500gb" />
-    <tempUsage limit="100gb" />
+      <systemUsage>
+        <memoryUsage limit="16 gb" />
+        <storeUsage limit="500 gb" />
+        <tempUsage limit="100 gb" />
+      </systemUsage>
   </systemUsage>
 
   <destinationPolicy>
