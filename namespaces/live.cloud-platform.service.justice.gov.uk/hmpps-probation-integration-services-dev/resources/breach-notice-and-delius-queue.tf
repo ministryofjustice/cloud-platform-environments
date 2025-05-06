@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "breach-notice-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.breach-notice-and-delius-queue.sqs_arn

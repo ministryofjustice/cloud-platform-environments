@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "create-and-vary-a-licence-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.create-and-vary-a-licence-and-delius-queue.sqs_arn

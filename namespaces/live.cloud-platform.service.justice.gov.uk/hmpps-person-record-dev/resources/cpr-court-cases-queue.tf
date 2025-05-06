@@ -1,4 +1,5 @@
 
+  
 resource "aws_sns_topic_subscription" "cpr_court_cases_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.court-cases-topic-arn.value

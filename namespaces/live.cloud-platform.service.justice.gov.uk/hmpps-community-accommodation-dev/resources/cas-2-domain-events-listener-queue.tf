@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "cas-2-domain-events-listener-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cas-2-domain-events-listener-queue.sqs_arn

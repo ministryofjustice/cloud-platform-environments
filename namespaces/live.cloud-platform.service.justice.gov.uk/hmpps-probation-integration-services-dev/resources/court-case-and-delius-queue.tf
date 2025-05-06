@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "court-case-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.court-case-and-delius-queue.sqs_arn

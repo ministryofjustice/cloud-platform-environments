@@ -1,4 +1,5 @@
 module "cccd_claims_submitted" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration

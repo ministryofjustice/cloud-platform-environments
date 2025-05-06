@@ -1,4 +1,5 @@
 ### Nomis merge events subscription
+  
 
 resource "aws_sns_topic_subscription" "cpr_nomis_merge_domain_events_subscription" {
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn

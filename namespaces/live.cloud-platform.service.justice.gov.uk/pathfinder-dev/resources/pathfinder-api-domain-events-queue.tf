@@ -1,4 +1,5 @@
 module "pathfinder_api_queue_for_domain_events" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

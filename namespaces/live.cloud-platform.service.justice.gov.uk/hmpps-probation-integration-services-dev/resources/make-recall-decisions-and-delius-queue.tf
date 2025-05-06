@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "make-recall-decisions-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.make-recall-decisions-and-delius-queue.sqs_arn

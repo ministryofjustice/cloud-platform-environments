@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "person-search-index-from-delius-contact-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.probation-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.person-search-index-from-delius-contact-queue.sqs_arn
