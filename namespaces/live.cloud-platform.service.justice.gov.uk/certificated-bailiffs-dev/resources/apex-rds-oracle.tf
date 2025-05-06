@@ -22,7 +22,7 @@ module "rds_apex" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # Oracle specifics
-  db_engine                = "oracle-se2"
+  db_engine                = "oracle-ee"
   db_engine_version        = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
   rds_family               = "oracle-ee-19"
   db_instance_class        = "db.t3.small"
