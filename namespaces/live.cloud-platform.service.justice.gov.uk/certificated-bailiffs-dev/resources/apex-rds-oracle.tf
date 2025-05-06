@@ -10,8 +10,6 @@
 
 module "rds_apex" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
-  db_allocated_storage = 10
-  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -20,15 +18,22 @@ module "rds_apex" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "14.13"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  # Oracle specifics
+  db_engine                = "oracle-se2"
+  db_engine_version        = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
+  rds_family               = "oracle-ee-19"
+  db_instance_class        = "db.t3.small"
+  storage_type             = "gp2"
+  db_allocated_storage     = "100"
+  db_name                  = "APXP"
+  license_model            = "license-included"
+  db_iops                  = 0
+  character_set_name       = "WE8MSWIN1252"
+  option_group_name = aws_db_option_group.oracle_apex.name
+  
 
   # Tags
   application            = local.application
@@ -63,9 +68,7 @@ resource "kubernetes_secret" "rds_apex" {
 }
 
 
-
 # Configmap to store non-sensitive data related to the RDS instance
-
 resource "kubernetes_config_map" "rds_apex" {
   metadata {
     name      = "rds-apex-postgresql-instance-output"
@@ -77,3 +80,31 @@ resource "kubernetes_config_map" "rds_apex" {
     db_identifier = module.rds.db_identifier
   }
 }
+
+resource "aws_db_option_group" "oracle_apex" {
+  name                     = "${var.namespace}-oracle-apex"
+  option_group_description = "Oracle option group with APEX, APEX-DEV and STATSPACK"
+  engine_name              = "oracle-ee"
+  major_engine_version     = "19"
+
+  option {
+    option_name = "APEX"
+    version     = "19.1.v1"
+  }
+
+  option {
+    option_name = "APEX-DEV"
+  }
+
+  option {
+    option_name = "STATSPACK"
+  }
+
+  tags = {
+    Name          = "${var.namespace}-oracle-apex"
+    Environment   = var.environment
+    Team          = var.team_name
+    Application   = local.application
+  }
+}
+
