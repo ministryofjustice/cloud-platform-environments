@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-custody-status-to-delius-queue.sqs_arn

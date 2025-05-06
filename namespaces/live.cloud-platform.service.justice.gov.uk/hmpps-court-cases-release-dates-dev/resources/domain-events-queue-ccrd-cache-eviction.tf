@@ -1,4 +1,5 @@
 module "hmpps_ccrd_cache_eviction_queue" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

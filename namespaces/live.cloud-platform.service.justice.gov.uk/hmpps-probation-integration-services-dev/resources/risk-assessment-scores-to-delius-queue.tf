@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "risk-assessment-scores-to-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.risk-assessment-scores-to-delius-queue.sqs_arn

@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
+  
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.hmpps-tier-events-queue.sqs_arn
