@@ -32,7 +32,7 @@ module "rds_apex" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
-  option_group_name = aws_db_option_group.oracle_apex.name
+  option_group_name        = aws_db_option_group.oracle_apex.name
   
 
   # Tags
