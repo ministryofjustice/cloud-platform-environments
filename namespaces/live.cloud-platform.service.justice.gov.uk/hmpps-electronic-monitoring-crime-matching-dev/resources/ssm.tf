@@ -5,11 +5,6 @@ resource "aws_ssm_parameter" "athena_general_role_arn" {
   value       = "arn:aws:iam::0000000000000:role/general-placeholder"
   description = "ARN of the role used to query Athena for general EM order data"
   tags        = local.tags
-  lifecycle {
-    ignore_changes = [
-      value
-    ]
-  }
 }
 
 data "aws_ssm_parameter" "athena_general_role_arn" {
