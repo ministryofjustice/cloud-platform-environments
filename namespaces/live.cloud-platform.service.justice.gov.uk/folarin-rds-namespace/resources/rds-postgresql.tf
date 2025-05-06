@@ -63,7 +63,7 @@ module "read_replica" {
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
-
+  db_name                = "replica"
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
