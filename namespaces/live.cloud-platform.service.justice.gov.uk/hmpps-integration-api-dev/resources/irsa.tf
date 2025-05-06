@@ -8,9 +8,7 @@ locals {
     "education-skills-work-employment-dev-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-dev",
     "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-dev",
     "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"            = "visit-someone-in-prison-backend-svc-dev",
-    "education-and-work-plan-assessments-dlq"                                 = "hmpps-education-and-work-plan-dev",
-    "education-and-work-plan-assessments-queue"                               = "hmpps-education-and-work-plan-dev"
-
+    "hmpps-farsight-reduce-re-offend-development-eawp_assessment_events_queue"   = "hmpps-education-and-work-plan-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
