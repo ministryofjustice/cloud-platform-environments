@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "folarin-dev"
+  default     = "folarin-rds-namespace"
 }
 
 variable "business_unit" {
