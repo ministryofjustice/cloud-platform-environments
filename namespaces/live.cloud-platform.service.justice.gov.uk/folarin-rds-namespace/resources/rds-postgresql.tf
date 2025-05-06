@@ -130,8 +130,8 @@ resource "kubernetes_secret" "read_replica" {
   data = {
     rds_instance_endpoint = module.read_replica[count.index].rds_instance_endpoint
     rds_instance_address  = module.read_replica[count.index].rds_instance_address
-    access_key_id         = module.read_replica[count.index].access_key_id
-    secret_access_key     = module.read_replica[count.index].secret_access_key
+    # access_key_id         = module.read_replica[count.index].access_key_id
+    # secret_access_key     = module.read_replica[count.index].secret_access_key
   }
 }
 
