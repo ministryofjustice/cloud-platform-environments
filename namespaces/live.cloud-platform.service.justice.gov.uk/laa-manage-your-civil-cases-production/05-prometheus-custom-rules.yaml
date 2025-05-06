@@ -22,7 +22,7 @@ spec:
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-manage-your-civil-cases-production&var-ingress=check-client-qualifies-laa-estimate-eligibility
         - alert: MCCProductionLowPodCount
           expr: |-
-            sum (kube_pod_status_phase{namespace="laa-manage-your-civil-cases-production", phase="Running"}) < 4
+            sum (kube_pod_status_phase{namespace="laa-manage-your-civil-cases-production", phase="Running"}) < 2
           labels:
             severity: laa-manage-your-civil-cases-production
           annotations:
