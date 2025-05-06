@@ -35,7 +35,7 @@ module "rds_apex" {
   option_group_name        = aws_db_option_group.oracle_apex.name
 
   # AWS-managed default parameter group
-  db_parameter_group_name = "default.oracle-ee-19"
+  db_parameter = "default.oracle-ee-19"
 
   # Tags
   application            = local.application
