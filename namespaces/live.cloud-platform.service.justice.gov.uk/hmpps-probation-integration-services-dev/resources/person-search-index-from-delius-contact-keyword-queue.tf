@@ -14,7 +14,7 @@ module "person-search-index-from-delius-contact-keyword-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name      = "person-search-index-from-delius-contact-keyword-queue"
+  sqs_name      = "person-search-index-from-delius-contact-kw-queue"
   delay_seconds = 5
 
   # Tags
