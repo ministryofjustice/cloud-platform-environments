@@ -8,7 +8,7 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   # arestore the v17 dbase
-  snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
+  # snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
 
 
   # VPC configuration
