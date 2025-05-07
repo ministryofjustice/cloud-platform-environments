@@ -17,7 +17,6 @@ resource "aws_iam_policy" "ssm_access" {
   tags = local.tags
 }
 
-
 data "aws_iam_policy_document" "athena_policy" {
   statement {
     actions = [
