@@ -9,7 +9,6 @@ resource "aws_ssm_parameter" "athena_general_role_arn" {
   # This value must be replaced with a genuine role ARN using AWS CLI
   value       = "arn:aws:iam::0000000000000:role/general-placeholder"
   description = "ARN of the role used to query Athena for general EM order data"
-  overwrite   = false
   tags        = local.tags
   lifecycle {
     ignore_changes = [
