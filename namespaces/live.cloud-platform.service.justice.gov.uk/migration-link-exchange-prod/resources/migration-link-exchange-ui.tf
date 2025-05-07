@@ -11,4 +11,5 @@ module "migration_link_exchange_ui" {
   namespace                     = var.namespace
   selected_branch_patterns      = ["*"]
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = [var.team_name]
 }
