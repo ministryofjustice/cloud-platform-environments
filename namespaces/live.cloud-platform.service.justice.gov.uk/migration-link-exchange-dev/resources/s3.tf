@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       variable = "aws:PrincipalArn"
       values   = [
         module.irsa.role_arn
-        # TODO: add the ARN of the migration-link-exchange-build-dev namespace
+        # TODO - add the ARN of the migration-link-exchange-build-dev namespace
       ]
     }
   }
