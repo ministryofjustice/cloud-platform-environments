@@ -21,50 +21,34 @@ module "s3_bucket" {
   bucket_policy = data.aws_iam_policy_document.bucket-policy.json
 }
 
-# Create a bucket policy that allows access to the bucket for the following:
+# Create a bucket policy that denies access to the bucket except for the following:
 # 1. this namespace
 # 2. the migration-link-exchange-build-dev namespace
 
 data "aws_iam_policy_document" "bucket-policy" {
-  # Statements for this namespace
-  # Matches those in ./irsa.tf
-  # List & location for the S3 bucket.
   statement {
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = [
-        module.irsa.role_arn
-      ]
-    }
-    actions = [ 
-      "s3:ListBucket",
-      "s3:GetBucketLocation"
-    ]
-    resources = [ 
-      "$${bucket_arn}"
-    ]
-  }
-  # Permissions to read specific paths.
-  statement {
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = [
-        module.irsa.role_arn
-      ]
-    }
+    effect = "Deny"
     actions = [
-      "s3:GetObject"
+      "S3:ListBucket",
+      "S3:GetBucketLocation",
+      "s3:CopyObject",
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:HeadObject"
     ]
-    resources = [ 
-        "$${bucket_arn}/status.json", 
-        "$${bucket_arn}/build-output/*"
+    resources = [
+      "$${bucket_arn}",
+      "$${bucket_arn}/*"
     ]
+    condition {
+      test     = "StringNotEquals"
+      variable = "aws:PrincipalArn"
+      values   = [
+        module.irsa.role_arn
+        # TODO: add the ARN of the migration-link-exchange-build-dev namespace
+      ]
+    }
   }
-  # Statement for the migration-link-exchange-build-dev namespace
-  # Matches those in ../migration-link-exchange-build-dev/cross-namespace-role-sa.tf
-  # TODO
 }
 
 # Save the bucket ARN and name to a Kubernetes secret
