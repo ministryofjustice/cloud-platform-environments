@@ -34,9 +34,6 @@ module "rds_apex" {
   character_set_name       = "WE8MSWIN1252"
   option_group_name        = aws_db_option_group.oracle_apex.name
 
-  # AWS-managed default parameter group
-  db_parameter = "default.oracle-ee-19"
-
   # Tags
   application            = local.application
   business_unit          = var.business_unit
