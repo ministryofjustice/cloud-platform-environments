@@ -62,8 +62,6 @@ module "read_replica" {
   team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
-  # add them to the replica
-  db_name                = "replica"
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
@@ -72,8 +70,9 @@ module "read_replica" {
   db_max_allocated_storage = "550"
   # It is mandatory to set the below values to create read replica instance
 
-  # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  # Set the database_name of the source db
+  db_name = module.rds.database_name
+
   allow_major_version_upgrade = true ##inherit from the primary db
 
   # Set to true. No backups or snapshots are created for read replica
