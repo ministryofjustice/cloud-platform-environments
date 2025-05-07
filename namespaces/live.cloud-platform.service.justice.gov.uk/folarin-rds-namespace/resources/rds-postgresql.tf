@@ -75,6 +75,9 @@ module "read_replica" {
 
   allow_major_version_upgrade = true ##inherit from the primary db
 
+  # Set the db_identifier of the source db
+  replicate_source_db = module.rds.db_identifier
+
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
