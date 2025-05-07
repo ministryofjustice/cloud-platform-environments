@@ -17,6 +17,54 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
+
+  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
+}
+
+# Create a bucket policy that allows access to the bucket for the following:
+# 1. this namespace
+# 2. the migration-link-exchange-build-dev namespace
+
+data "aws_iam_policy_document" "bucket-policy" {
+  # Statements for this namespace
+  # Matches those in ./irsa.tf
+  # List & location for the S3 bucket.
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        module.irsa.role_arn
+      ]
+    }
+    actions = [ 
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
+    ]
+    resources = [ 
+      "$${bucket_arn}"
+    ]
+  }
+  # Permissions to read specific paths.
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [
+        module.irsa.role_arn
+      ]
+    }
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [ 
+        "$${bucket_arn}/status.json", 
+        "$${bucket_arn}/build-output/*"
+    ]
+  }
+  # Statement for the migration-link-exchange-build-dev namespace
+  # Matches those in ../migration-link-exchange-build-dev/cross-namespace-role-sa.tf
+  # TODO
 }
 
 # Save the bucket ARN and name to a Kubernetes secret
