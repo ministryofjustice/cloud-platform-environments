@@ -106,6 +106,11 @@ resource "aws_mq_broker" "this" {
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
+  configuration {
+    id       = aws_mq_configuration.this.id
+    revision = aws_mq_configuration.this.latest_revision
+  }
+
   auto_minor_version_upgrade = true
 
   apply_immediately = false
@@ -144,6 +149,7 @@ resource "aws_mq_broker" "this" {
 
   lifecycle {
     ignore_changes = [
+      configuration,
       engine_version
     ]
   }
@@ -159,7 +165,7 @@ resource "aws_mq_configuration" "this" {
 
   lifecycle {
     create_before_destroy = true
-    # ignore_changes        = [data]
+    ignore_changes        = [data]
   }
 
   tags = {

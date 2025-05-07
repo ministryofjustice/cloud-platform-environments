@@ -1,5 +1,5 @@
 module "keyworker_api_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "keyworker_api_queue"
@@ -56,7 +56,7 @@ EOF
 }
 
 module "keyworker_api_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "keyworker_api_queue_dl"

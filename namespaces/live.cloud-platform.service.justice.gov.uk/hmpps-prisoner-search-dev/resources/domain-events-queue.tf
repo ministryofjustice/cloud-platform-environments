@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription" {
+  
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
@@ -12,7 +13,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription
       "restricted-patients.patient.added",
       "restricted-patients.patient.removed",
       "restricted-patients.patient.supporting-prison-changed",
-      "person.alerts.changed"
+      "person.alerts.changed",
+      "complexity-of-need.level.changed"
     ]
   })
 }

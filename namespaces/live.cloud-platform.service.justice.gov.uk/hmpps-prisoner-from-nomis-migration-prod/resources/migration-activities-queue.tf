@@ -1,5 +1,5 @@
 module "migration_activities_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "migration_activities_queue"
@@ -24,7 +24,7 @@ EOF
 }
 
 module "migration_activities_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "migration_activities_dlq"

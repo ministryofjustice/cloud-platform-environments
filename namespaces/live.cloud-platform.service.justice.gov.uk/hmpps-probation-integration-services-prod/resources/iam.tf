@@ -86,6 +86,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.manage-offences-and-delius-queue.sqs_arn,
       module.manage-pom-cases-and-delius-queue.sqs_arn,
       module.opd-and-delius-queue.sqs_arn,
+      module.person-search-index-from-delius-contact-keyword-queue.sqs_arn,
       module.person-search-index-from-delius-contact-queue.sqs_arn,
       module.person-search-index-from-delius-person-queue.sqs_arn,
       module.pre-sentence-reports-to-delius-queue.sqs_arn,

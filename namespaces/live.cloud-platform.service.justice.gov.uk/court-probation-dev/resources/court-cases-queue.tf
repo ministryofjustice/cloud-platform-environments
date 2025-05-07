@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "court_cases_subscription" {
+  
   provider  = aws.london
   topic_arn = module.court-cases.topic_arn
   protocol  = "sqs"

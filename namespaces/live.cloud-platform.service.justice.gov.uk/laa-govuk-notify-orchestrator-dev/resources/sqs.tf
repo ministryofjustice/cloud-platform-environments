@@ -1,4 +1,5 @@
 module "laa_govuk_notify_orchestrator_development_sqs" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

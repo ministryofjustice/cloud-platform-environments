@@ -53,17 +53,11 @@
   </persistenceAdapter>
 
   <systemUsage>
-    <systemUsage>
-      <memoryUsage>
-        <memoryUsage limit="16gb" />
-      </memoryUsage>
-      <storeUsage>
-        <storeUsage limit="500gb" />
-      </storeUsage>
-      <tempUsage>
-        <tempUsage limit="100gb" />
-      </tempUsage>
-    </systemUsage>
+      <systemUsage>
+        <memoryUsage limit="16 gb" />
+        <storeUsage limit="500 gb" />
+        <tempUsage limit="100 gb" />
+      </systemUsage>
   </systemUsage>
 
   <destinationPolicy>
@@ -90,9 +84,6 @@
           </pendingMessageLimitStrategy>
         </policyEntry>
         <policyEntry queue="&gt;" gcInactiveDestinations="true" inactiveTimoutBeforeGC="600000" />
-        <policyEntry queue="org.alfresco.search.path.event">
-          <redeliveryPolicy maximumRedeliveries="5" initialRedeliveryDelay="2000" />
-        </policyEntry>
         <!--
         Destination policies let you configure a rich set of behaviors for your queues and topics.
         For more information, see http://activemq.apache.org/per-destination-policies.html
@@ -219,7 +210,7 @@
   </networkConnectors>
   --> 
   
-  ${network_conector_string} 
+  <!-- ${network_conector_string} -->
   
   <transportConnectors>
     <transportConnector name="openwire" updateClusterClients="true" rebalanceClusterClients="true"

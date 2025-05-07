@@ -7,7 +7,8 @@ locals {
     "Digital-Prison-Services-prod-hmpps_audit_queue"                              = "hmpps-audit-prod",
     "education-skills-work-employment-prod-hmpps_jobs_board_integration_queue"    = "hmpps-jobs-board-integration-prod",
     "book-a-prison-visit-prod-hmpps_prison_visits_write_events_queue"             = "visit-someone-in-prison-backend-svc-prod",
-    "book-a-prison-visit-prod-hmpps_prison_visits_write_events_dlq" = "visit-someone-in-prison-backend-svc-prod"
+    "book-a-prison-visit-prod-hmpps_prison_visits_write_events_dlq"               = "visit-someone-in-prison-backend-svc-prod",
+    "hmpps-farsight-reduce-re-offend-prod-eawp_assessment_events_queue"           = "hmpps-education-and-work-plan-prod",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 

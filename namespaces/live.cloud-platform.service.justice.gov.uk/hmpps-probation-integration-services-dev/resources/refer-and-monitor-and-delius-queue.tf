@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "refer-and-monitor-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.refer-and-monitor-and-delius-queue.sqs_arn

@@ -1,7 +1,7 @@
 
 
 module "dps_smoketest_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "dps_smoketest_dev_hmpps_queue"

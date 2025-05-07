@@ -1,4 +1,5 @@
 module "afer_probation_events_queue" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

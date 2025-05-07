@@ -1,4 +1,5 @@
 module "hmpps_eawp_domain_events_queue" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "eawp_domain_events_queue"

@@ -49,6 +49,7 @@ module "serviceaccount" {
         "jobs",
         "statefulsets",
         "poddisruptionbudgets",
+        "networkpolicies",
         "replicasets"
       ]
       verbs = [

@@ -1,4 +1,5 @@
 module "risk_profiler_change" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

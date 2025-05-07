@@ -1,4 +1,5 @@
 module "justice-email-and-delius-queue" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

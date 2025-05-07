@@ -1,4 +1,5 @@
 ######################################## New offender event subscription
+  
 ######## Court case service will listen to the configured queue (pic_new_offender_events_queue) for new offender created event from nDelius.
 
 resource "aws_sns_topic_subscription" "pic_new_offender_event_subscription" {

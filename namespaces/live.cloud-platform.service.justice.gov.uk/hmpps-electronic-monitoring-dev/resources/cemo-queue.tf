@@ -1,4 +1,5 @@
 module "cemo_submit_queue" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

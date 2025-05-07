@@ -10,7 +10,7 @@ resource "aws_sns_topic_subscription" "common-platform-and-delius-queue-subscrip
 }
 
 module "common-platform-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "common-platform-and-delius-queue"
@@ -35,7 +35,7 @@ resource "aws_sqs_queue_policy" "common-platform-and-delius-queue-policy" {
 }
 
 module "common-platform-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "common-platform-and-delius-dlq"

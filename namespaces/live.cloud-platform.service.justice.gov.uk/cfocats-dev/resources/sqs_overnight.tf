@@ -1,4 +1,5 @@
 module "sqs_overnight" {
+  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2" # use the latest release
 
   # Queue configuration

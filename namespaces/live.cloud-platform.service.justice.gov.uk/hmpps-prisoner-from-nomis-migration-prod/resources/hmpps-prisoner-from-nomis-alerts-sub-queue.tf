@@ -1,5 +1,5 @@
 module "prisoner_from_nomis_alerts_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "prisoner_from_nomis_alerts_queue"
@@ -59,7 +59,7 @@ EOF
 }
 
 module "prisoner_from_nomis_alerts_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "prisoner_from_nomis_alerts_dl_queue"
