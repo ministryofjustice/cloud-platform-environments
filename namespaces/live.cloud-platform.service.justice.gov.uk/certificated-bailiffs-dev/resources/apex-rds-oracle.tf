@@ -56,8 +56,8 @@ resource "kubernetes_secret" "rds_apex" {
 
   data = {
     database_name         = module.rds_apex.database_name
-    database_host         = module.rds_apex.database_host
-    database_port         = module.rds_apex.database_port
+    database_host         = module.rds_apex.rds_instance_address
+    database_port         = module.rds_apex.rds_instance_port
     database_username     = module.rds_apex.database_username
     database_password     = module.rds_apex.database_password
   }
