@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetBucketLocation"
     ]
     resources = [ 
-      module.s3_bucket.bucket_arn
+      "$${bucket_arn}"
     ]
   }
   # Permissions to read specific paths.
@@ -58,8 +58,8 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObject"
     ]
     resources = [ 
-        "${module.s3_bucket.bucket_arn}/status.json",
-        "${module.s3_bucket.bucket_arn}/build-output/*"
+        "$${bucket_arn}/status.json", 
+        "$${bucket_arn}/build-output/*"
     ]
   }
   # Statement for the migration-link-exchange-build-dev namespace
