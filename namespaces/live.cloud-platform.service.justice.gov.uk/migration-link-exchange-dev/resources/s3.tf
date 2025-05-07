@@ -17,38 +17,6 @@ module "s3_bucket" {
   providers = {
     aws = aws.london
   }
-
-  bucket_policy = data.aws_iam_policy_document.bucket-policy.json
-}
-
-# Create a bucket policy that denies access to the bucket except for the following:
-# 1. this namespace
-# 2. the migration-link-exchange-build-dev namespace
-
-data "aws_iam_policy_document" "bucket-policy" {
-  statement {
-    effect = "Deny"
-    actions = [
-      "S3:ListBucket",
-      "S3:GetBucketLocation",
-      "s3:CopyObject",
-      "s3:DeleteObject",
-      "s3:GetObject",
-      "s3:HeadObject"
-    ]
-    resources = [
-      "$${bucket_arn}",
-      "$${bucket_arn}/*"
-    ]
-    condition {
-      test     = "StringNotEquals"
-      variable = "aws:PrincipalArn"
-      values   = [
-        module.irsa.role_arn
-        # TODO: add the ARN of the migration-link-exchange-build-dev namespace
-      ]
-    }
-  }
 }
 
 # Save the bucket ARN and name to a Kubernetes secret
