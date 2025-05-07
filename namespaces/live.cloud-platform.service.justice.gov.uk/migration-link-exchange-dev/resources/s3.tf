@@ -21,7 +21,7 @@ module "s3_bucket" {
   bucket_policy = data.aws_iam_policy_document.bucket-policy.json
 }
 
-# Create a bucket policy that allows access the bucket for the following:
+# Create a bucket policy that allows access to the bucket for the following:
 # 1. this namespace
 # 2. the migration-link-exchange-build-dev namespace
 
