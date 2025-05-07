@@ -40,24 +40,38 @@ data:
               "uid": "${DS_THANOS}"
             },
             "dimensions": {},
-            "enable": true,
-            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\"} * 1000",
+            "enable": false,
+            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\", pod!~\"$service(-api|-ui).*\"} * 1000",
             "expression": "",
             "hide": false,
             "iconColor": "#3274D9",
             "id": "",
             "matchExact": true,
             "metricName": "",
-            "name": "service pod creation",
+            "name": "Annotate pod creation events",
             "namespace": "",
             "period": "",
             "prefixMatching": false,
             "region": "default",
             "showIn": 0,
             "statistic": "Average",
-            "textFormat": "",
+            "textFormat": "{{ pod }}",
             "titleFormat": "{{ pod }}",
             "useValueForTime": true
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "enable": false,
+            "expr": "kube_pod_created{namespace=\"$namespace\"} * 1000",
+            "hide": false,
+            "iconColor": "red",
+            "name": "Annotate all namespace pod creation events",
+            "textFormat": "{{ pod }}",
+            "titleFormat": "{{ pod }}",
+            "useValueForTime": "on"
           }
         ]
       },
@@ -67,7 +81,6 @@ data:
       "graphTooltip": 1,
       "id": 119,
       "links": [],
-      "liveNow": true,
       "panels": [
         {
           "datasource": {
@@ -1886,8 +1899,8 @@ data:
         ]
       },
       "time": {
-        "from": "2025-05-07T09:06:31.594Z",
-        "to": "2025-05-07T09:40:00.468Z"
+        "from": "now-3h",
+        "to": "now"
       },
       "timepicker": {
         "refresh_intervals": [
