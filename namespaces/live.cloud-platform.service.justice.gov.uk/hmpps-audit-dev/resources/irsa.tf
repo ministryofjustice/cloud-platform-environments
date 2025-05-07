@@ -64,6 +64,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "s3:ListAllMyBuckets",
       "s3:CreateBucket",
       "s3:GetBucketLocation",
+      "glue:BatchCreatePartition",
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:UpdateTable",
