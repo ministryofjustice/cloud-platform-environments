@@ -83,7 +83,7 @@ resource "kubernetes_config_map" "rds_apex" {
 resource "aws_db_option_group" "oracle_apex" {
   name                     = "${var.namespace}-oracle-apex"
   option_group_description = "Oracle option group with APEX, APEX-DEV and STATSPACK"
-  engine_name              = "oracle-ee"
+  engine_name              = "oracle-se2"
   major_engine_version     = "19"
 
   option {
@@ -106,4 +106,3 @@ resource "aws_db_option_group" "oracle_apex" {
     Application   = local.application
   }
 }
-
