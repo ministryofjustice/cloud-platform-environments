@@ -34,6 +34,9 @@ module "rds_apex" {
   character_set_name       = "WE8MSWIN1252"
   option_group_name        = aws_db_option_group.oracle_apex.name
 
+  # Avoid default parameters set my MOJ ( rds.force_ssl)
+  db_parameter = []
+
   # Tags
   application            = local.application
   business_unit          = var.business_unit
