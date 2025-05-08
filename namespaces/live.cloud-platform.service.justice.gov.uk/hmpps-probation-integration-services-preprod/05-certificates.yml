@@ -764,3 +764,18 @@ spec:
   dnsNames:
     - 8cbadcde-preprod.hmpps.service.justice.gov.uk
     - jitbit-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: find-and-refer-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: find-and-refer-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7508def2-preprod.hmpps.service.justice.gov.uk
+    - find-and-refer-and-delius-preprod.hmpps.service.justice.gov.uk
