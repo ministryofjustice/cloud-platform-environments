@@ -1,4 +1,4 @@
-mesource "kubernetes_secret" "integration-api-secret" {
+resource "kubernetes_secret" "integration-api-secret" {
   metadata {
     name      = "sqs-hmpps-update-from-external-system-events-queue-secret"
     namespace = "hmpps-integration-api-preprod"
