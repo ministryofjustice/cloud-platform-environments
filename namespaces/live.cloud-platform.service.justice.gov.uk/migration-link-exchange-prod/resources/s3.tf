@@ -46,7 +46,7 @@ resource "aws_ssm_parameter" "s3-bucket-name" {
     name        = "/${var.namespace}/s3-bucket-name"
     # specify the module of an existing resource here
     value       = module.s3_bucket.bucket_name
-    description = "Name of Bucket to be accessed from namespace migration-link-exchange-build-dev"
+    description = "Name of Bucket to be accessed from namespace migration-link-exchange-build-prod"
     tags = {
         business-unit          = var.business_unit
         application            = var.application
@@ -63,7 +63,7 @@ resource "aws_ssm_parameter" "s3-bucket-arn" {
     name        = "/${var.namespace}/s3-bucket-arn"
     # specify the module of an existing resource here
     value       = module.s3_bucket.bucket_arn
-    description = "ARN of Bucket to be accessed from migration-link-exchange-build-dev"
+    description = "ARN of Bucket to be accessed from migration-link-exchange-build-prod"
     tags = {
       business-unit          = var.business_unit
       application            = var.application
