@@ -53,6 +53,7 @@ resource "pingdom_check" "pingdom" {
     "assess-for-early-release-and-delius",
     "breach-notice-and-delius",
     "jitbit-and-delius",
+    "find-and-refer-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
