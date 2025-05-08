@@ -12,6 +12,7 @@ module "hmpps-historical-prisoner-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = [var.team_name]
 }
 
 module "hmpps-historical-prisoner-ui" {
@@ -28,4 +29,5 @@ module "hmpps-historical-prisoner-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = [var.team_name]
 }
