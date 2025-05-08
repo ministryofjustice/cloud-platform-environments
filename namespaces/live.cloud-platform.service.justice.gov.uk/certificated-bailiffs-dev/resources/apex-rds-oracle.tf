@@ -50,36 +50,16 @@ module "rds_apex" {
 
 resource "kubernetes_secret" "rds_apex" {
   metadata {
-    name      = "rds-apex-postgresql-instance-output"
+    name      = "rds-apex-oracle-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-  }
-  /* You can replace all of the above with the following, if you prefer to
-     * use a single database URL value in your application code:
-     *
-     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-     *
-     */
-}
-
-
-# Configmap to store non-sensitive data related to the RDS instance
-resource "kubernetes_config_map" "rds_apex" {
-  metadata {
-    name      = "rds-apex-postgresql-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name         = module.rds_apex.database_name
+    database_host         = module.rds_apex.rds_instance_address
+    database_port         = module.rds_apex.rds_instance_port
+    database_username     = module.rds_apex.database_username
+    database_password     = module.rds_apex.database_password
   }
 }
 
