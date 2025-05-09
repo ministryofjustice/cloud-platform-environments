@@ -7,6 +7,7 @@ variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
 }
+
 variable "eks_cluster_name" {
   description = "eks cluster name for references to secrets for service accounts"
   type        = string
@@ -15,7 +16,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "laa-cwa-feature-tests"
+  default     = "LAA CWA Feature Tests"
 }
 
 variable "namespace" {
@@ -51,7 +52,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
