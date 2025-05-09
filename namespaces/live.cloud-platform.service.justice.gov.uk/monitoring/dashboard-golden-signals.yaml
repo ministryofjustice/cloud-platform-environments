@@ -40,7 +40,7 @@ data:
               "uid": "${DS_THANOS}"
             },
             "dimensions": {},
-            "enable": false,
+            "enable": true,
             "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\", pod!~\"$service(-api|-ui).*\"} * 1000",
             "expression": "",
             "hide": false,
@@ -48,7 +48,7 @@ data:
             "id": "",
             "matchExact": true,
             "metricName": "",
-            "name": "Annotate pod creation events",
+            "name": "Annotate pod creation events for this app",
             "namespace": "",
             "period": "",
             "prefixMatching": false,
@@ -62,7 +62,7 @@ data:
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "${DS_THANOS}"
             },
             "enable": false,
             "expr": "kube_pod_created{namespace=\"$namespace\"} * 1000",
@@ -82,6 +82,168 @@ data:
       "id": 119,
       "links": [],
       "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_THANOS}"
+          },
+          "description": "Uses the \"kube_pod_container_info\" to get the container image, and pull out the app version.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "fillOpacity": 80,
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineWidth": 0,
+                "spanNulls": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 20,
+            "x": 0,
+            "y": 0
+          },
+          "id": 35,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Dev portal",
+              "url": "https://developer-portal.hmpps.service.justice.gov.uk/components/$service"
+            }
+          ],
+          "maxPerRow": 2,
+          "options": {
+            "alignValue": "left",
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "mergeValues": true,
+            "rowHeight": 0.5,
+            "showValue": "never",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.0",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_THANOS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (image) (kube_pod_container_info{namespace=\"$namespace\", container=\"$service\"})",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "App version history",
+          "transformations": [
+            {
+              "id": "renameByRegex",
+              "options": {
+                "regex": ".*:(.*)",
+                "renamePattern": "$1"
+              }
+            }
+          ],
+          "type": "state-timeline"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_THANOS}"
+          },
+          "description": "The total number of requests served in the selected time period.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 20,
+            "y": 0
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.3.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_THANOS}"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s]))",
+              "interval": "",
+              "legendFormat": "",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Requests Served",
+          "type": "stat"
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -147,10 +309,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 9,
             "w": 20,
             "x": 0,
-            "y": 0
+            "y": 5
           },
           "id": 15,
           "options": {
@@ -191,76 +353,6 @@ data:
             "type": "prometheus",
             "uid": "${DS_THANOS}"
           },
-          "description": "The total number of requests served in the selected time period.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 4,
-            "x": 20,
-            "y": 0
-          },
-          "id": 34,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "text": {},
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_THANOS}"
-              },
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s]))",
-              "interval": "",
-              "legendFormat": "",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Requests Served",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_THANOS}"
-          },
           "description": "The mean response time (p100 - all requests) over the selected timeframe.",
           "fieldConfig": {
             "defaults": {
@@ -285,7 +377,7 @@ data:
             "h": 3,
             "w": 4,
             "x": 20,
-            "y": 3
+            "y": 5
           },
           "id": 28,
           "options": {
@@ -351,10 +443,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 2,
+            "h": 3,
             "w": 4,
             "x": 20,
-            "y": 6
+            "y": 8
           },
           "id": 29,
           "options": {
@@ -420,10 +512,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 2,
+            "h": 3,
             "w": 4,
             "x": 20,
-            "y": 8
+            "y": 11
           },
           "id": 33,
           "options": {
@@ -533,7 +625,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 10
+            "y": 14
           },
           "id": 16,
           "options": {
@@ -635,7 +727,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 10
+            "y": 14
           },
           "id": 17,
           "options": {
@@ -765,7 +857,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 10
+            "y": 14
           },
           "id": 18,
           "options": {
@@ -919,7 +1011,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 18
+            "y": 22
           },
           "id": 26,
           "options": {
@@ -1036,7 +1128,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 18
+            "y": 22
           },
           "id": 19,
           "options": {
@@ -1138,7 +1230,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 18
+            "y": 22
           },
           "id": 22,
           "options": {
@@ -1253,7 +1345,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 26
+            "y": 30
           },
           "id": 24,
           "options": {
@@ -1369,7 +1461,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 26
+            "y": 30
           },
           "id": 20,
           "options": {
@@ -1471,7 +1563,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 26
+            "y": 30
           },
           "id": 23,
           "options": {
@@ -1574,7 +1666,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 34
+            "y": 38
           },
           "id": 21,
           "options": {
@@ -1676,7 +1768,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 34
+            "y": 38
           },
           "id": 31,
           "options": {
@@ -1779,7 +1871,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 34
+            "y": 38
           },
           "id": 32,
           "options": {
@@ -1825,10 +1917,6 @@ data:
       "templating": {
         "list": [
           {
-            "current": {
-              "text": "hmpps-activities-management-prod",
-              "value": "hmpps-activities-management-prod"
-            },
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -1847,10 +1935,6 @@ data:
             "type": "query"
           },
           {
-            "current": {
-              "text": "hmpps-activities-management",
-              "value": "hmpps-activities-management"
-            },
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -1918,6 +2002,6 @@ data:
       "timezone": "browser",
       "title": "Golden Signals",
       "uid": "golden-signals",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
