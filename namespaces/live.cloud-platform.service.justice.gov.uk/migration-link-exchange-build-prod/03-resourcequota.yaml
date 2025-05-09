@@ -5,4 +5,4 @@ metadata:
   namespace: migration-link-exchange-build-prod
 spec:
   hard:
-    pods: "2"
+    pods: "6"
