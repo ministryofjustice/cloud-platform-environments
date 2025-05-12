@@ -118,14 +118,6 @@ resource "aws_route53_record" "ppo_route53_txt_record_ncsc" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_autodiscover" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "autodiscover.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sautodiscover.outlook.com"]
-}
-
 resource "aws_route53_record" "ppo_route53_cname_record_sendgrid_em4962" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "em4962.ppo.gov.uk"
@@ -148,14 +140,6 @@ resource "aws_route53_record" "ppo_route53_cname_record_enterpriseenrollment2" {
   type    = "CNAME"
   ttl     = "300"
   records = ["enterpriseregistration.windows.net"]
-}
-
-resource "aws_route53_record" "ppo_route53_cname_record_lync" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "lyncdiscover.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["webdir.online.lync.com"]
 }
 
 resource "aws_route53_record" "ppo_route53_cname_record_msoid" {
