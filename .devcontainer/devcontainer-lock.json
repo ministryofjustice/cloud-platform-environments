@@ -9,9 +9,7 @@
       "version": "1.0.1",
       "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/cloud-platform@sha256:54154460f9e154ab60c85d32ee9bd1bc1b25d86f506039fa352797e60eda01cf",
       "integrity": "sha256:54154460f9e154ab60c85d32ee9bd1bc1b25d86f506039fa352797e60eda01cf",
-      "dependsOn": [
-        "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1"
-      ]
+      "dependsOn": ["ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1"]
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1": {
       "version": "1.0.2",
