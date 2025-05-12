@@ -22,7 +22,7 @@ module "opensearch" {
   }
   proxy_count = 3
   ebs_options = {
-    volume_size = 368
+    volume_size = 1536
     throughput  = 250
   }
 }
