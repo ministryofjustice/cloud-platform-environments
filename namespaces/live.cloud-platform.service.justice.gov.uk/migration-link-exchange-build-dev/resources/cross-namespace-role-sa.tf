@@ -58,6 +58,7 @@ data "aws_iam_policy_document" "migration-link-exchange-build-dev-s3-policy" {
   statement {
     actions = [
       "s3:CopyObject",
+      "s3:DeleteObject",
       "s3:GetObject",
       "s3:PutObject"
     ]
