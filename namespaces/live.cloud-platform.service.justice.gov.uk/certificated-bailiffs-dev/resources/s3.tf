@@ -26,6 +26,7 @@ module "apex_migration_bucket" {
         Action = [
           "s3:GetObject",
           "s3:GetObjectVersion",
+          "s3:PutObject",
           "s3:ListBucket"
         ]
         Resource = [
