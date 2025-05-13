@@ -37,6 +37,23 @@ resource "aws_s3_bucket_policy" "apex_migration_bucket_policy" {
           module.apex_migration_bucket.bucket_arn,
           "${module.apex_migration_bucket.bucket_arn}/*"
         ]
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng"
+        }
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          module.apex_migration_bucket.bucket_arn,
+          "${module.apex_migration_bucket.bucket_arn}/*"
+        ]
       }
     ]
   })
