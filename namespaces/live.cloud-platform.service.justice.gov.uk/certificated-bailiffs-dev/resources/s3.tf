@@ -30,8 +30,8 @@ module "apex_migration_bucket" {
           "s3:ListBucket"
         ]
         Resource = [
-            "${module.apex_migration_bucket.bucket_arn}",
-            "${module.apex_migration_bucket.bucket_arn}/*"
+            "$${bucket_arn}",
+            "$${bucket_arn}/*"
           ]
       }
     ]
