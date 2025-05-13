@@ -12,9 +12,9 @@ resource "aws_route53_zone" "cdn" {
   }
 }
 
-resource "kubernetes_secret" "cdn_route53_zone" {
+resource "kubernetes_secret" "cdn_route53" {
   metadata {
-    name      = "cdn-route53-zone"
+    name      = "cdn-route53"
     namespace = var.namespace
   }
 
