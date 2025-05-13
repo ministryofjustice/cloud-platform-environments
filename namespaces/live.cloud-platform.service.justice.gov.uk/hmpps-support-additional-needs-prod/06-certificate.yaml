@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-support-additional-needs-api-prod
+  namespace: hmpps-support-additional-needs-prod
+spec:
+  secretName: hmpps-support-additional-needs-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - support-for-additional-needs-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-support-additional-needs-ui-prod-cert
+  namespace: hmpps-support-additional-needs-prod
+spec:
+  secretName: hmpps-support-additional-needs-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - support-for-additional-needs.hmpps.service.justice.gov.uk
