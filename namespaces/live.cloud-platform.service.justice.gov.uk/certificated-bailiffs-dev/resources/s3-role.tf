@@ -25,12 +25,13 @@ resource "aws_iam_policy" "rds_s3_policy" {
         Action   = [
           "s3:GetObject",
           "s3:PutObject",
+          "s3:GetObjectVersion",
           "s3:ListBucket"
         ]
         Effect   = "Allow"
         Resource = [
-          "arn:aws:s3:::your-s3-bucket-name",              # Bucket itself
-          "arn:aws:s3:::your-s3-bucket-name/*"             # All objects within the bucket
+          "arn:aws:s3:::your-s3-bucket-name",     
+          "arn:aws:s3:::your-s3-bucket-name/*"
         ]
       }
     ]
@@ -39,5 +40,5 @@ resource "aws_iam_policy" "rds_s3_policy" {
 
 resource "aws_iam_role_policy_attachment" "rds_s3_role_attachment" {
   policy_arn = aws_iam_policy.rds_s3_policy.arn
-  role       = aws_iam_role.rds_s3_role.name
+  role       = aws_iam_role.apex_rds_s3_role.name
 }
