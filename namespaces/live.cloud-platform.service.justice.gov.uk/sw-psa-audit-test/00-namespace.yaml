@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Platforms"
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
-    cloud-platform.justice.gov.uk/application: "cloud platform psa migration. not really its just a general test namespace"
+    cloud-platform.justice.gov.uk/application: "cloud platform psa migration. not really its just a general test namespace. some more text"
     cloud-platform.justice.gov.uk/owner: "Cloud Platform: platforms@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
     cloud-platform.justice.gov.uk/team-name: "sw-go-helloworld-admin-team"
