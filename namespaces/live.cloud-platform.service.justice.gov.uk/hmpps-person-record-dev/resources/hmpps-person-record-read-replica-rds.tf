@@ -34,6 +34,5 @@ resource "kubernetes_secret" "hmpps_person_record_rds_read_replica" {
     database_username     = module.hmpps_person_record_rds_read_replica.database_username
     database_password     = module.hmpps_person_record_rds_read_replica.database_password
     rds_instance_address  = module.hmpps_person_record_rds_read_replica.rds_instance_address
-    url                   = "postgres://${module.hmpps_person_record_rds_read_replica.database_username}:${module.hmpps_person_record_rds_read_replica.database_password}@${module.hmpps_person_record_rds_read_replica.rds_instance_endpoint}/${module.hmpps_person_record_rds_read_replica.database_name}"
   }
 }
