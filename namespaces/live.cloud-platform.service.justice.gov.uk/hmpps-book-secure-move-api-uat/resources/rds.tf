@@ -16,7 +16,7 @@ module "rds-instance" {
 
   db_instance_class = "db.t4g.small"
   db_engine         = "postgres"
-  db_engine_version = "16.2"
+  db_engine_version = "16.8"
   rds_family        = "postgres16"
 
   prepare_for_major_upgrade = false
