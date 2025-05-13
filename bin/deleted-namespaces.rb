@@ -4,7 +4,6 @@ require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 
 require "slack-notify"
 
-
 def send_notification(msg)
   webhook_url = "https://hooks.slack.com/services/#{ENV.fetch("SLACK_WEBHOOK")}"
 
