@@ -13,27 +13,4 @@ module "apex_migration_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  bucket_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          AWS = [
-            aws_iam_role.apex_rds_s3_role.arn
-          ]
-        }
-        Action = [
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:PutObject",
-          "s3:ListBucket"
-        ]
-        Resource = [
-            "$${bucket_arn}",
-            "$${bucket_arn}/*"
-          ]
-      }
-    ]
-  })
 }
