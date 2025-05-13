@@ -21,3 +21,14 @@ module "s3_access_iam_role" {
     infrastructure_support = var.infrastructure_support
   }
 }
+
+resource "kubernetes_secret" "s3_access_iam_role" {
+  metadata {
+    name      = "s3-access-iam-role"
+    namespace = var.namespace
+  }
+
+  data = {
+    role_arn = module.s3_access_iam_role.arn
+  }
+}
