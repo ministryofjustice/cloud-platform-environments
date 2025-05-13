@@ -1,6 +1,7 @@
 package main
+import rego.v1
 
-test_deny_service_account {
+test_deny_service_account if {
     msg := "ServiceAccount resources must be created via Terraform module - https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount/blob/main/main.tf"
 
     service_account_object = {

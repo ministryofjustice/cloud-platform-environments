@@ -1,6 +1,7 @@
 package main
+import rego.v1
 
-deny[msg] {
+deny[msg] if {
   input.kind == "RoleBinding"
   input.roleRef.kind == "ClusterRole"
   input.roleRef.name != "admin"
