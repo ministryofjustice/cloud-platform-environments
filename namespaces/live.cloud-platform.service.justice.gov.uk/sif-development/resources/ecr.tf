@@ -10,7 +10,7 @@ module "ecr_credentials" {
   # enable the oidc implementation for github
   oidc_providers = ["github"]
 
-  github_repositories = ["SIFReporting"]
+  github_repositories = ["SIFReporting", "SIFEntry"]
 
   lifecycle_policy = <<EOF
   {
