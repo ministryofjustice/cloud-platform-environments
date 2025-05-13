@@ -22,6 +22,6 @@ resource "kubernetes_secret" "cdn_cloudfront" {
   }
 
   data = {
-    cloudfront_url = module.s3.cloudfront_url
+    cloudfront_url = module.cloudfront.cloudfront_url
   }
 }
