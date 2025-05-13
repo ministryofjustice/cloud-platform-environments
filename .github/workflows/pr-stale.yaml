@@ -19,4 +19,3 @@ jobs:
           exempt-pr-labels: dependencies
           days-before-stale: 90
           days-before-close: 7
-          debug-only: true
