@@ -18,7 +18,7 @@ module "rds" {
 
   rds_family           = "postgres16"
   db_engine            = "postgres"
-  db_engine_version    = "16.1"
+  db_engine_version    = "16.8"
   db_instance_class    = "db.t4g.small"
   db_allocated_storage = 20
   db_name              = "mtp_api"
