@@ -24,6 +24,8 @@ jobs:
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |
+            echo "Conftest/OPA versions:"
+            conftest -v
             status=0
             for file in ${{ steps.files.outputs.all_changed_files }}; do
             if [[ $file == *.yaml ]]; then
