@@ -9,7 +9,7 @@ module "hmpps_person_record_rds_read_replica" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   rds_family                  = "postgres17"
-  db_instance_class           = "db.r6g.small"
+  db_instance_class           = "db.t4g.small"
   db_engine                   = "postgres"
   db_engine_version           = "17.1"
   prepare_for_major_upgrade   = false
