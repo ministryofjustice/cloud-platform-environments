@@ -97,4 +97,9 @@ resource "aws_db_option_group" "oracle_apex" {
     Team          = var.team_name
     Application   = local.application
   }
+
+  depends_on = [
+    aws_s3_bucket.apex_migration_bucket,
+    aws_iam_role.apex_rds_s3_role
+  ]
 }
