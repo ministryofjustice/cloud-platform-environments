@@ -15,13 +15,13 @@ module "cloudfront" {
   infrastructure_support = var.infrastructure_support
 }
 
-# resource "kubernetes_secret" "cdn_cloudfront" {
-#   metadata {
-#     name      = "cdn-cloudfront"
-#     namespace = var.namespace
-#   }
+resource "kubernetes_secret" "cdn_cloudfront" {
+  metadata {
+    name      = "cdn-cloudfront"
+    namespace = var.namespace
+  }
 
-#   data = {
-#     cloudfront_url = module.s3.cloudfront_url
-#   }
-# }
+  data = {
+    cloudfront_url = module.cloudfront.cloudfront_url
+  }
+}
