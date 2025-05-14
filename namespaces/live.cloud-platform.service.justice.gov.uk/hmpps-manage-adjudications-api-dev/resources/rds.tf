@@ -13,9 +13,9 @@ module "ma_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   prepare_for_major_upgrade   = true
-  db_engine_version           = "16.8"
+  db_engine_version           = "17.4"
   db_engine                   = "postgres"
-  rds_family                  = "postgres16"
+  rds_family                  = "postgres17"
   db_password_rotated_date    = "15-02-2023"
 
   providers = {
