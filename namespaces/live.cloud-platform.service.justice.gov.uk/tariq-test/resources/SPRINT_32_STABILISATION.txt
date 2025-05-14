@@ -1,0 +1,169 @@
+Stabilisation Sprint is SPRINT 32
+
+(IN Sprint 33 already) PUT in S32
+https://github.com/ministryofjustice/cloud-platform/issues/6309
+Apply Pipeline Improvement: message users when their namespaces are erroring #6309
+3 Pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6771
+Concourse: Apply pipeline: checksum dep lock provider tf plugin error #6771
+5 Pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6813
+Create and document process for AWS upgrades / end of support #6813
+3 Pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6991
+Validate Service monitors before they are deployed to our cluster and break #6991
+5 Pointer
+Go
+
+https://github.com/ministryofjustice/cloud-platform/issues/6302
+Centralize Github Action used across multiple repositories #6302
+5 Pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/5393
+How do we keep the container images and chart updated #5393
+5 Pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6775
+Spike: auth0 application key rotation #6775
+5 pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6689
+Spike: Vulnerability Scanners on Local and in PRs: Detect Secrets and Sensitive Data #6689
+5 pointer
+
+https://github.com/ministryofjustice/cloud-platform/issues/6832
+Erroring namespaces enhancements: Add Concourse build id #6832
+3 pointer
+PUT in S32
+
+https://github.com/ministryofjustice/cloud-platform/issues/6885
+annotations checker should pass on internal repos #6885
+Go (No Points)
+
+(QUICK WIN)
+https://github.com/ministryofjustice/cloud-platform/issues/7032
+Update to Incident Log landing page dates #7032
+
+(QUICK WIN)
+https://github.com/ministryofjustice/cloud-platform/issues/6871
+Make RDS Final Snapshots Unique #6871
+
+Reached 101 Rows in GH Projects - Backlog
+
+
+*************
+Criteria used should be ...
+*************
+High impact
+Save money
+OR
+Save time
+
+(Not something like a major upgrade)
+
+
+
+Tickets to work on ...
+https://github.com/ministryofjustice/cloud-platform/issues/6997
+NodeCount change alert is noisy #6997
+
+https://github.com/ministryofjustice/cloud-platform/issues/6928
+Review low priority alarms #6928
+
+
+https://github.com/ministryofjustice/cloud-platform/issues/6832
+Erroring namespaces enhancements: Add Concourse build id #6832
+
+https://github.com/ministryofjustice/cloud-platform/issues/5402
+remove how-out-of-date-are-we namespace #5402
+
+
+**********
+HAMMER LOG
+**********
+
+User Alex Davies is trying to view logs from 03/02 but there are large gaps in the results that are pulled back for the NS courtfines-prod
+
+
+Conftest k8s yaml checks / conftest failing on multiple PRs (policy/clusterrole.rego:3: rego_parse_error: `if` keyword is required before rule body
+policy/clusterrole.rego:3: rego_parse_error: `contains` keyword is required for partial set rules)
+
+https://github.com/ministryofjustice/cloud-platform-environments/pull/32806
+namespaces/live.cloud-platform.service.justice.gov.uk/formbuilder-platform-live-production/02-limitrange.yaml
+
+https://github.com/ministryofjustice/cloud-platform-environments/pull/32803
+namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-support-additional-needs-dev/06-certificate.yaml
+
+https://github.com/ministryofjustice/cloud-platform-environments/pull/32807
+namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-subject-access-request-preprod/05-certificates.yaml
+
+
+Only run each test on the specific file it's been targeted at - this requires the rego to be refactored into specific test per file testing
+
+Change the action so that if it detects a file changed it scans all files in the users directory rather than just a specific one.
+
+
+
+
+
+
+
+
+Michael Clancey "Hi CP team, what Cloud Platform logs are currently exported to XSIAM? Does this page in the runbook represent the current state?"
+https://mojdt.slack.com/archives/C57UPMZLY/p1747057162907269
+
+
+
+Outstanding work from today's Hammer Support (Mon 12/05):-
+
+1) Julien Nioche
+hi CP team @Adam Goldstone recently added scheduled downtime to one of his environments but is not seeing his pods going down at night
+https://mojdt.slack.com/archives/CPVD6398C/p1746612228854289
+any idea of why this would be the case ? thanks
+
+Slack thread is 
+https://mojdt.slack.com/archives/C57UPMZLY/p1747056033705679
+
+
+
+Conftest Check failure thread with Ky, Mike
+https://mojdt.slack.com/archives/C514ETYJX/p1747043543306779
+
+
+
+
+Michael Clancy Today at 2:39 PM
+Hi CP team, what Cloud Platform logs are currently exported to XSIAM? Does this page in the runbook represent the current state?
+ministryofjustice/cloud-platform-environments
+Environment configuration for the Cloud Platform
+Stars
+72
+Language
+HCL
+Added by GitHub
+
+2 replies
+
+
+Tariq Mahmood Today at 3:05 PM
+Hi @Mike C
+Please refer to this page https://runbooks.cloud-platform.service.justice.gov.uk/logs-to-soc-cortex-xsiam.html#pushing-logs-to-the-soc-team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
