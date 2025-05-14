@@ -83,7 +83,7 @@ resource "aws_db_option_group" "oracle_apex" {
   }
 
   option {
-    option_name = S3_INTEGRATION
+    option_name = "S3_INTEGRATION"
 
     option_settings {
       name = "IAM_ROLE_ARN"
