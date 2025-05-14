@@ -37,11 +37,6 @@ module "rds_apex" {
   # Avoid default parameters set my MOJ ( rds.force_ssl)
   db_parameter = []
 
-  role {
-    role_arn = aws_iam_role.rds_s3_integration.arn
-    feature_name = "S3_INTEGRATION"
-  }
-
   # Tags
   application            = local.application
   business_unit          = var.business_unit
@@ -87,10 +82,20 @@ resource "aws_db_option_group" "oracle_apex" {
     option_name = "STATSPACK"
   }
 
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
   tags = {
     Name          = "${var.namespace}-oracle-apex"
     Environment   = var.environment
     Team          = var.team_name
     Application   = local.application
   }
+}
+
+resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
+  db_instance_identifier = module.rds_apex.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_integration.arn
 }
