@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
-
 require "slack-notify"
-
+require "yaml"
 
 def send_notification(msg)
   webhook_url = "https://hooks.slack.com/services/#{ENV.fetch("SLACK_WEBHOOK")}"
@@ -16,11 +15,17 @@ def send_notification(msg)
   ).notify(msg)
 end
 
-# Fetch deleted namespaces
 namespaces = deleted_namespaces("live.cloud-platform.service.justice.gov.uk")
 
-# Filter namespaces to include only production-related ones
-production_namespaces = namespaces.select { |ns| ns.match?(/production/) }
+production_namespaces = namespaces.select do |namespace|
+  yaml_file_path = File.join("..", "namespaces", "live.cloud-platform.service.justice.gov.uk", namespace, "00-namespace.yaml")
+  if File.exist?(yaml_file_path)
+    yaml_content = YAML.load_file(yaml_file_path)
+    yaml_content.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
+  else
+    false
+  end
+end
 
 if production_namespaces.any?
   msg = <<~EOF
