@@ -39,15 +39,7 @@ data "aws_iam_policy_document" "migration-link-exchange-build-dev-s3-policy" {
       "s3:CopyObject",
       "s3:DeleteObject",
       "s3:GetObject",
-      "s3:HeadObject"
-    ]
-    resources = [
-      "${data.aws_ssm_parameter.s3-bucket-arn.value}/resources/*",
-    ]
-  }
-  # Just for dev environments! Add write (PutObject) permission for the resources path.
-  statement {
-    actions = [
+      "s3:HeadObject",
       "s3:PutObject"
     ]
     resources = [
