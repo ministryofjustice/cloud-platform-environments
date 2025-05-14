@@ -21,8 +21,6 @@ jobs:
 
       - name: Setup conftest
         uses: princespaghetti/setup-conftest@d75fd184422abf484802a0fefc0453f2cda20f95 ##v1.1.23
-        with:
-          version: 0.50.0
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |
@@ -31,7 +29,7 @@ jobs:
             status=0
             for file in ${{ steps.files.outputs.all_changed_files }}; do
             if [[ $file == *.yaml ]]; then
-                conftest test $file || status=$?
+                conftest test $file --rego-version v0 || status=$?
             fi
             done
             exit $status

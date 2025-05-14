@@ -1,7 +1,7 @@
 package main
-import rego.v1
+import future.keywords.if
 
-deny[msg] if {
+deny_clusterrole[msg]  {
   input.kind == "ClusterRole"
   msg := "kind ClusterRole is not allowed"
 }

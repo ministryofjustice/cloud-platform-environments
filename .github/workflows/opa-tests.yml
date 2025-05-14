@@ -21,4 +21,4 @@ jobs:
       run: |
         echo "OPA Tests version:"
         opa version
-        opa test policy/*.rego -v
+        opa test policy/*.rego -v --v0-compatible

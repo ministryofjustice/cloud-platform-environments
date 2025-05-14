@@ -1,9 +1,9 @@
 package main
-import rego.v1
+import future.keywords.if
 
 test_valid_rolebinding if {
   msg := "ClusterRole cluster-admin is not allowed"
-  not deny[msg] with input as {
+  not deny_rolebinding[msg] with input as {
     "kind": "RoleBinding",
     "roleRef": {
       "kind": "ClusterRole",
@@ -14,7 +14,7 @@ test_valid_rolebinding if {
 
 test_invalid_cluster_admin_rolebinding if {
   msg := "ClusterRole cluster-admin is not allowed"
-  deny[msg] with input as {
+  deny_rolebinding[msg] with input as {
     "kind": "RoleBinding",
     "roleRef": {
       "kind": "ClusterRole",
