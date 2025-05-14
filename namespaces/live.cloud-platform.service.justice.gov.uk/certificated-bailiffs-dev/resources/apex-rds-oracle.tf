@@ -82,6 +82,15 @@ resource "aws_db_option_group" "oracle_apex" {
     option_name = "STATSPACK"
   }
 
+  option {
+    option_name = S3_INTEGRATION
+
+    option_settings {
+      name = "IAM_ROLE_ARN"
+      value = aws_iam_role.rds_s3_integration.arn
+    }
+  }
+
   tags = {
     Name          = "${var.namespace}-oracle-apex"
     Environment   = var.environment
