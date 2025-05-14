@@ -39,7 +39,8 @@ data "aws_iam_policy_document" "migration-link-exchange-build-prod-s3-policy" {
       "s3:CopyObject",
       "s3:DeleteObject",
       "s3:GetObject",
-      "s3:HeadObject"
+      "s3:HeadObject",
+      "s3:PutObject"
     ]
     resources = [
       "${data.aws_ssm_parameter.s3-bucket-arn.value}/resources/*",
