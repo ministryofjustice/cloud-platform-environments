@@ -32,6 +32,19 @@ module "apex-migration-s3" {
           "$${bucket_arn}",
           "$${bucket_arn}/*"
         ]
+      },
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng"
+        },
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
       }
     ]
   })
