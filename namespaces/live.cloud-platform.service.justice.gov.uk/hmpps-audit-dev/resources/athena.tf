@@ -118,8 +118,8 @@ resource "kubernetes_secret" "glue-catalog-table-name-secret" {
     namespace = var.namespace
   }
   data = {
-    database_arn  = aws_glue_catalog_table.audit_event_table.arn
-    database_name = aws_glue_catalog_table.audit_event_table.name
+    table_arn  = aws_glue_catalog_table.audit_event_table.arn
+    table_name = aws_glue_catalog_table.audit_event_table.name
   }
 }
 
