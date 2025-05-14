@@ -1,5 +1,5 @@
 package main
-import rego.v1
+import future.keywords.if
 
 array_contains(arr, elem) if {
   arr[_] = elem
