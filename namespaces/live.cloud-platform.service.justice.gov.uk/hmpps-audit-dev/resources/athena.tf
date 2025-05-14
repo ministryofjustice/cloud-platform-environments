@@ -18,7 +18,7 @@ resource "aws_athena_workgroup" "queries" {
 
 resource "aws_glue_catalog_table" "audit_event_table" {
   database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
-  name          = "audit_event"
+  name          = "audit_events"
 
   table_type = "EXTERNAL_TABLE"
 
@@ -109,6 +109,17 @@ resource "kubernetes_secret" "glue-database-name-secret" {
   data = {
     database_arn  = aws_glue_catalog_database.audit_glue_catalog_database.arn
     database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
+  }
+}
+
+resource "kubernetes_secret" "glue-catalog-table-name-secret" {
+  metadata {
+    name      = "glue-catalog-table-name"
+    namespace = var.namespace
+  }
+  data = {
+    database_arn  = aws_glue_catalog_table.audit_event_table.arn
+    database_name = aws_glue_catalog_table.audit_event_table.name
   }
 }
 
