@@ -6,6 +6,7 @@ metadata:
 spec:
   limits:
   - default:
+      # Temp. high limits during import
       cpu: 8000m
       memory: 8000Mi
     defaultRequest:
