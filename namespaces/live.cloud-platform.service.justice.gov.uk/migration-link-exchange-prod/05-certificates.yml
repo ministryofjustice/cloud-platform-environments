@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: migration-link-exchange-ui
+  namespace: migration-link-exchange-prod
+spec:
+  secretName: migration-link-exchange-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - find-google-file.service.justice.gov.uk
