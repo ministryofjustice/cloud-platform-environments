@@ -1,0 +1,656 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prom-cardinality
+  namespace: monitoring
+  labels:
+    grafana_dashboard: ""
+data:
+  cardinality-dashboard.json: |
+    {
+      "__inputs": [
+        {
+          "name": "DS_PROMETHEUS",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
+        }
+      ],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.4.4"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "5.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "singlestat",
+          "name": "Singlestat",
+          "version": "5.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "text",
+          "name": "Text",
+          "version": "5.0.0"
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "datasource",
+              "uid": "grafana"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "gnetId": 11304,
+      "graphTooltip": 0,
+      "id": 9982374,
+      "iteration": 1574948613306,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 13,
+          "panels": [],
+          "title": "how to",
+          "type": "row"
+        },
+        {
+          "content": "# Cardinality Explorer\n[Cardinality](https://www.robustperception.io/cardinality-is-key) is the count at a certain time of the total unique combinations of keys and labels.  Too much (red) is bad, and will make your queries slow and your prometheus run out of memory.  This dashboard will help you analyze individual metrics to determine the cause(s) of cardinality.\n## WARNING\n * This dashboard can be *very* slow and heavy\n * Use with caution\n\n## Instructions\n 1. Choose the datasource which contains your data from the `datasource` dropdown\n 2. Choose a job from the `job` dropdown, which is now populated with the prometheus jobs in your account\n 3. Choose a metric name from the `metric` dropdown, now populated with with the metrics available to the specified job in your account\n 4. Choose the `labels` which you would like to run calculations on\n\n## Understanding the Data\n * The `(metricname) cardinality` row gives you basic information about your metric\n    * The `metric` panel shows the metric name you've chosen\n    * The `cardinality` panel shows the metric's cardinality\n * The `count by label` row shows the number of unique values for every label\n * The `cardinality calculation` row shows information based on the labels you selected in the `labels` dropdown\n    * The `count without()` panel shows what the cardinality of the metric would be if the specified labels were to be removed\n    * The `count by()` panel shows what the cardinality of the specified labels as a group is",
+          "gridPos": {
+            "h": 14,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 7,
+          "links": [],
+          "mode": "markdown",
+          "title": "How To",
+          "type": "text"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 43,
+          "panels": [],
+          "title": "$metric cardinality",
+          "type": "row"
+        },
+        {
+          "content": "<center><h1 style=\"color:#2980B9;\">$metric</h1></center>",
+          "gridPos": {
+            "h": 3,
+            "w": 16,
+            "x": 0,
+            "y": 16
+          },
+          "id": 5,
+          "links": [],
+          "mode": "html",
+          "title": "metric",
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_PROMETHEUS_PRO}",
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 8,
+            "x": 16,
+            "y": 16
+          },
+          "id": 38,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "count( $metric{job=\"$job\"}) ",
+              "format": "time_series",
+              "instant": true,
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": "200,1000",
+          "title": "cardinality",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 19
+          },
+          "id": 11,
+          "panels": [],
+          "repeat": null,
+          "title": "count by label",
+          "type": "row"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "$datasource",
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "id": 22,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "repeat": "label_names",
+          "repeatDirection": "h",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "count(count by (${label_names})( $metric{job=\"$job\"}) )",
+              "format": "time_series",
+              "instant": true,
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": "20,100",
+          "title": "${label_names}",
+          "type": "singlestat",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 24
+          },
+          "id": 9,
+          "panels": [],
+          "title": "cardinality calculation",
+          "type": "row"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_PROMETHEUS_PRO}",
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 25
+          },
+          "id": 20,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "count(count without (${labels:csv})( $metric{job=\"$job\"}) )",
+              "format": "time_series",
+              "instant": true,
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": "200,1000",
+          "title": "count without (${labels:csv})",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "#299c46",
+            "rgba(237, 129, 40, 0.89)",
+            "#d44a3a"
+          ],
+          "datasource": "${DS_PROMETHEUS_PRO}",
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 25
+          },
+          "id": 21,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "expr": "count(count by (${labels:csv})( $metric{job=\"$job\"}) )",
+              "format": "time_series",
+              "instant": true,
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": "200,1000",
+          "title": "count by (${labels:csv})",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 34
+          },
+          "id": 41,
+          "panels": [],
+          "title": "faq",
+          "type": "row"
+        },
+        {
+          "content": "<h1>FAQ</h1>\n<ul>\n <li> Why doesn't <code>count without</code> * <code>count by</code> = <code>cardinality</code>?</li>\n  <ul>\n   <li> Cardinality is only concerned with existing label/value combinations, not potential ones.  Consider a simple case of a metric with two labels and two possible values for each label.  There are four possible combinations of label values, but if one value only shows up once, then the cardinality will be only three.</li>\n   <li> Example:\n    <table>\n     <tr>\n      <th>label1</th><th>label2</th>\n     </tr>\n     <tr>\n      <td>A</td><td>200</td>\n     </tr>\n     <tr>\n      <td>A</td><td>404</td>\n     </tr>\n     <tr>\n      <td>B</td><td>404</td>\n     </tr>\n    </table>\n   </li>\n  </ul>\n\n <li>This dashboard might help investigating cardinality for individual metrics, but how do I find high-cardinality metrics in the first place?</li>\n  <ul>\n   <li><a href=\"https://www.robustperception.io/which-are-my-biggest-metrics\">query</a> for it: <code>topk(10, count by (__name__)({__name__=~\".+\"}))\n</code></li>\n   <li>use <a href=\"https://www.robustperception.io/using-tsdb-analyze-to-investigate-churn-and-cardinality\">tsdb</a></li>\n  </ul>\n <li>What should I do with high-cardinality labels?</li>\n  <ul>\n   <li>Consider whether you can <a href=\"https://www.robustperception.io/dropping-metrics-at-scrape-time-with-prometheus\">drop</a> them.</li>\n  </ul>\n</ul>\n  \n  \n",
+          "gridPos": {
+            "h": 13,
+            "w": 24,
+            "x": 0,
+            "y": 35
+          },
+          "id": 46,
+          "links": [],
+          "mode": "html",
+          "title": "Frequently Asked Questions",
+          "type": "text"
+        }
+      ],
+      "schemaVersion": 16,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "tags": [],
+              "text": "Z__P1_eu_west_1",
+              "value": "Z__P1_eu_west_1"
+            },
+            "hide": 0,
+            "label": null,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "allValue": null,
+            "current": {},
+            "datasource": "$datasource",
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "job",
+            "options": [],
+            "query": "query_result( count by (job)(up{}) )",
+            "refresh": 2,
+            "regex": "/job=\"([^\"]+)/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {},
+            "datasource": "$datasource",
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": false,
+            "name": "metric",
+            "options": [],
+            "query": "query_result( count by (__name__) ({job=\"$job\" }) )",
+            "refresh": 2,
+            "regex": "/^(.*){}/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {},
+            "datasource": "${DS_Z__P1_EU_WEST_1}",
+            "hide": 0,
+            "includeAll": false,
+            "label": null,
+            "multi": true,
+            "name": "labels",
+            "options": [],
+            "query": "query_result(topk(32,$metric{job=\"$job\"} ) )",
+            "refresh": 2,
+            "regex": "/(?:[\\{,]+)([A-Za-z0-9_]+)=\"/g",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {},
+            "datasource": "${DS_Z__P1_EU_WEST_1}",
+            "hide": 2,
+            "includeAll": true,
+            "label": null,
+            "multi": false,
+            "name": "label_names",
+            "options": [],
+            "query": "query_result(topk(32,$metric{job=\"$job\"} ) )",
+            "refresh": 2,
+            "regex": "/(?:[\\{,]+)([A-Za-z0-9_]+)=\"/g",
+            "skipUrlSync": false,
+            "sort": 1,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-5m",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timezone": "",
+      "title": "Cardinality Explorer",
+      "uid": "2KnjXXxWz",
+      "version": 5,
+      "description": "Find cardinality sources"
+    }
+
