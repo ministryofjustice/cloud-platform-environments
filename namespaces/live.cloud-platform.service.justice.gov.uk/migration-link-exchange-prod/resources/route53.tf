@@ -1,3 +1,5 @@
+# Developer note, when this namespace is deleted...
+# Notify Operations Engineering to remove the domain delegation.
 resource "aws_route53_zone" "migration_link_exchange_prod_zone" {
   name = "find-google-file.service.justice.gov.uk"
 
