@@ -1,7 +1,3 @@
- locals {
-  application = "apex certificated bailiffs"
-}
-
 module "apex-migration-s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
 
