@@ -21,10 +21,8 @@ data "aws_iam_policy_document" "athena" {
       "s3:GetObject",
       "s3:ListBucket",
       "athena:GetQueryExecution",
-      "glue:BatchCreatePartition",
       "glue:GetDatabase",
       "glue:GetTable",
-      "glue:GetPartitions",
       "glue:GetPartition",
     ]
 
