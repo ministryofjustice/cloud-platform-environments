@@ -10,10 +10,10 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "laa-ccms-provider-details-api-secrets" = {
-      description             = "Secrets for provider details api",
+    "ccms-pda-secrets" = {
+      description             = "Secrets for ccms pda",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-ccms-provider-details-api-secrets"
+      k8s_secret_name         = "ccms-pda-secrets"
     }
   }
 }

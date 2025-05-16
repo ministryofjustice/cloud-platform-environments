@@ -16,7 +16,10 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-ccms-provider-details-api"]
+  github_repositories = [
+    "laa-ccms-helm-charts",
+    "laa-ccms-provider-details-api"
+  ]
 
   # Lifecycle policies
   lifecycle_policy = <<EOF
