@@ -11,6 +11,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "ASSESSMENT-UPDATED",
       "BED_ASSIGNMENT_HISTORY-INSERTED",
       "BOOKING_NUMBER-CHANGED",
+      "BOOKING-DELETED",
       "CONFIRMED_RELEASE_DATE-CHANGED",
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
