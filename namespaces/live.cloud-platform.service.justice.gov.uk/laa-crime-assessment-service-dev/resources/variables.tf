@@ -72,3 +72,7 @@ variable "repo_name" {
   description = "The name of github repo"
   default     = "laa-crime-assessment-service"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
