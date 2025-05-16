@@ -218,7 +218,7 @@
   </networkConnectors>
   --> 
   
-  ${network_conector_string} 
+  ${network_connector_string} 
   
   <transportConnectors>
     <transportConnector name="openwire" updateClusterClients="true" rebalanceClusterClients="true"
