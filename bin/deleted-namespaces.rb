@@ -18,18 +18,16 @@ env = "live.cloud-platform.service.justice.gov.uk"
 commit_range = ENV["GIT_COMMIT_RANGE"] || "origin/main..HEAD"
 
 deleted_or_renamed_lines = `git diff --name-status #{commit_range}`.lines.select do |line|
-  line.start_with?("D") || line.start_with?("R")
+  line.start_with?("D", "R")
 end
 
 deleted_namespace_paths = deleted_or_renamed_lines.map do |line|
   parts = line.strip.split("\t")
-  old_path = parts[1] 
+  old_path = parts[1]
 
   if old_path =~ %r{\Anamespaces/#{Regexp.escape(env)}/([^/]+)/00-namespace.yaml\z}
     namespace = Regexp.last_match(1)
     [namespace, old_path]
-  else
-    nil
   end
 end.compact
 
