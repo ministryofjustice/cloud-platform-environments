@@ -16,11 +16,12 @@ data "aws_iam_policy_document" "athena" {
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
-      "athena:GetWorkGroup",
+      "athena:GetQueryExecution",
+
       "s3:PutObject",
       "s3:GetObject",
       "s3:ListBucket",
-      "athena:GetQueryExecution",
+
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetPartition",
