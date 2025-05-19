@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
+  
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.hmpps-tier-events-queue.sqs_arn
@@ -26,7 +27,7 @@ resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
 }
 
 module "hmpps-tier-events-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "hmpps-tier-events-queue"
@@ -69,7 +70,7 @@ resource "aws_sqs_queue_policy" "hmpps-tier-events-queue-policy" {
 }
 
 module "hmpps-tier-events-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps-tier-events-dlq"

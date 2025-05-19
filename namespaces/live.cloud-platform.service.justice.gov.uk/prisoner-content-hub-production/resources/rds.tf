@@ -1,5 +1,5 @@
 module "drupal_rds" {
-  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage     = 10
   storage_type             = "gp2"
   vpc_name                 = var.vpc_name
@@ -12,6 +12,7 @@ module "drupal_rds" {
   infrastructure_support   = var.infrastructure_support
   db_instance_class        = "db.t4g.xlarge"
   db_password_rotated_date = "2023-05-15"
+  performance_insights_enabled = true
 
   db_engine         = "mariadb"
   db_engine_version = "10.11"

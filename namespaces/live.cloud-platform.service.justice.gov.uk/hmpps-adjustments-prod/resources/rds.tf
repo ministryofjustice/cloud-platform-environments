@@ -1,5 +1,5 @@
 module "adjustments_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage      = 10
   storage_type              = "gp2"
   vpc_name                  = var.vpc_name
@@ -11,10 +11,11 @@ module "adjustments_rds" {
   environment_name          = var.environment_name
   infrastructure_support    = var.infrastructure_support
   rds_family                = var.rds_family
+  allow_major_version_upgrade = "false"
   prepare_for_major_upgrade = "false"
   db_instance_class         = "db.t4g.small"
   db_max_allocated_storage  = "500"
-  db_engine_version         = "14"
+  db_engine_version           = "17.4"
 
   providers = {
     aws = aws.london

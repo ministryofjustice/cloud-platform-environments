@@ -6,7 +6,7 @@
  */
 
 module "lcdui_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -20,7 +20,7 @@ module "lcdui_rds" {
   db_max_allocated_storage    = "500"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "14.13"
+  db_engine_version           = "14.17"
   rds_family                  = "postgres14"
   allow_major_version_upgrade = "true"
 

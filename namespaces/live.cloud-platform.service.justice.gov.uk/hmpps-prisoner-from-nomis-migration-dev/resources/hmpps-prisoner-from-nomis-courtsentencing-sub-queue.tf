@@ -1,5 +1,6 @@
 module "prisoner_from_nomis_courtsentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "prisoner_from_nomis_courtsentencing_queue"
@@ -59,7 +60,7 @@ EOF
 }
 
 module "prisoner_from_nomis_courtsentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "prisoner_from_nomis_courtsentencing_dl_queue"
@@ -128,6 +129,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
       "OFFENDER_SENTENCES-INSERTED",
       "OFFENDER_SENTENCES-DELETED",
       "OFFENDER_SENTENCES-UPDATED",
+      "OFFENDER_SENTENCE_TERMS-INSERTED",
+      "OFFENDER_SENTENCE_TERMS-DELETED",
+      "OFFENDER_SENTENCE_TERMS-UPDATED",
     ]
   })
 }

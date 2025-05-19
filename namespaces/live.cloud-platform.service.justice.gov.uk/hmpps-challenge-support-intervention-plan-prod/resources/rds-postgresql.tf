@@ -5,14 +5,15 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   db_allocated_storage         = "100"
@@ -22,9 +23,9 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.xlarge"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -36,16 +37,6 @@ module "rds" {
   team_name              = var.team_name
 
   db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
     {
       name         = "max_wal_size"
       value        = "1024"
@@ -80,7 +71,7 @@ resource "kubernetes_secret" "rds" {
 }
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true
@@ -96,9 +87,9 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine                = "postgres"
-  db_engine_version        = "16"
-  rds_family               = "postgres16"
-  db_instance_class        = "db.t4g.xlarge"
+  db_engine_version        = "17"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.medium"
   db_max_allocated_storage = "500"
   db_allocated_storage     = "100"
 

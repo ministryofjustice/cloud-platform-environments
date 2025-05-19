@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - staging.checklegalaid.service.gov.uk
+  - beta.checklegalaid.service.gov.uk

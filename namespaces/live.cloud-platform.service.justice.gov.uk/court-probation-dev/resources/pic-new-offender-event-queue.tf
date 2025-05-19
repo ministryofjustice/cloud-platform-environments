@@ -1,4 +1,5 @@
 ######################################## New offender event subscription
+  
 ######## Court case service will listen to the configured queue (pic_new_offender_events_queue) for new offender created event from nDelius.
 
 resource "aws_sns_topic_subscription" "pic_new_offender_event_subscription" {
@@ -14,7 +15,7 @@ resource "aws_sns_topic_subscription" "pic_new_offender_event_subscription" {
 }
 
 module "pic_new_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "pic_new_offender_events_queue"
@@ -71,7 +72,7 @@ EOF
 ######## Dead letter queue
 
 module "pic_new_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "pic_new_offender_events_dlq"

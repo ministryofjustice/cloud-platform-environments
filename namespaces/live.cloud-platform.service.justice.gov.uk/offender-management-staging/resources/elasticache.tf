@@ -31,16 +31,3 @@ resource "kubernetes_secret" "redis-staging" {
     url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
   }
 }
-
-resource "kubernetes_secret" "redis-test" {
-  metadata {
-    name      = "allocation-elasticache-redis"
-    namespace = "offender-management-test"
-  }
-
-  data = {
-    primary_endpoint_address = module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address
-    auth_token               = module.ec-cluster-offender-management-allocation-manager.auth_token
-    url                      = "rediss://:${module.ec-cluster-offender-management-allocation-manager.auth_token}@${module.ec-cluster-offender-management-allocation-manager.primary_endpoint_address}:6379"
-  }
-}

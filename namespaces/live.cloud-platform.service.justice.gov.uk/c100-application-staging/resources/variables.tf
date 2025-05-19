@@ -33,7 +33,7 @@ variable "repo_name" {
 # Database
 
 variable "db_engine_version" {
-  default = "14.11"
+  default = "14.17"
 }
 
 variable "db_instance_class" {

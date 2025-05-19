@@ -5,7 +5,7 @@
  *
  */
 module "allocation-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -39,25 +39,6 @@ resource "kubernetes_secret" "allocation-rds" {
   metadata {
     name      = "allocation-rds-instance-output"
     namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.allocation-rds.rds_instance_endpoint
-    rds_instance_address  = module.allocation-rds.rds_instance_address
-    database_name         = module.allocation-rds.database_name
-    database_username     = module.allocation-rds.database_username
-    database_password     = module.allocation-rds.database_password
-    postgres_name         = module.allocation-rds.database_name
-    postgres_host         = module.allocation-rds.rds_instance_address
-    postgres_user         = module.allocation-rds.database_username
-    postgres_password     = module.allocation-rds.database_password
-  }
-}
-
-resource "kubernetes_secret" "allocation-rds-test" {
-  metadata {
-    name      = "allocation-rds-instance-output"
-    namespace = "offender-management-test"
   }
 
   data = {

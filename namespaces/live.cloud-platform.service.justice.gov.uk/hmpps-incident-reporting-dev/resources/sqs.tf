@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
+  
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.prisoner-event-queue.sqs_arn
@@ -11,7 +12,7 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
 }
 
 module "prisoner-event-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "prisoner-event-queue"
   encrypt_sqs_kms           = "true"
@@ -60,7 +61,7 @@ resource "aws_sqs_queue_policy" "prisoner-event-queue-policy" {
 }
 
 module "prisoner-event-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name        = "prisoner-event-dlq"
   encrypt_sqs_kms = "true"

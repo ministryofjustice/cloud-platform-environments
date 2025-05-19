@@ -5,6 +5,9 @@ metadata:
   namespace: hmpps-remand-and-sentencing-dev
 subjects:
   - kind: Group
+    name: "github:hmpps-calculate-release-dates-team-non-live"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:farsight-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

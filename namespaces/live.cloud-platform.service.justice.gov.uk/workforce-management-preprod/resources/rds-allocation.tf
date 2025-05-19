@@ -1,5 +1,5 @@
 module "rds-allocation" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -15,9 +15,11 @@ module "rds-allocation" {
   performance_insights_enabled = true
   # db instance class - temporary until upgrade complete
   db_instance_class = "db.t4g.small"
+  db_iops = "12000"
+  db_allocated_storage   = "750"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "15.7"
+  db_engine_version      = "15.8"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
@@ -36,6 +38,27 @@ module "rds-allocation" {
 resource "kubernetes_secret" "rds-allocation" {
   metadata {
     name      = "rds-allocation-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds-allocation.rds_instance_endpoint
+    database_name         = module.rds-allocation.database_name
+    database_username     = module.rds-allocation.database_username
+    database_password     = module.rds-allocation.database_password
+    rds_instance_address  = module.rds-allocation.rds_instance_address
+  }
+  /* You can replace all of the above with the following, if you prefer to
+     * use a single database URL value in your application code:
+     *
+     * url = "postgres://${module.rds-allocation.database_username}:${module.rds-allocation.database_password}@${module.rds-allocation.rds_instance_endpoint}/${module.rds-allocation.database_name}"
+     *
+     */
+}
+
+resource "kubernetes_secret" "rds-allocation-2" {
+  metadata {
+    name      = "rds-allocation-instance-output-2"
     namespace = var.namespace
   }
 

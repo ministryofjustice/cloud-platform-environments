@@ -6,7 +6,7 @@ data "aws_vpc" "this" {
 }
 
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
@@ -29,7 +29,7 @@ module "calculate_release_dates_api_rds" {
     aws = aws.london
   }
 
-  vpc_security_group_ids     = [aws_security_group.data_catalogue_access_sg.id]
+  vpc_security_group_ids     = [aws_security_group.data_catalogue_access_sg.id, data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -106,7 +106,7 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds_refresh_creds" {
 
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true

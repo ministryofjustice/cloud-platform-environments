@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -77,3 +77,9 @@ variable "rds_family" {
 }
 
 variable "eks_cluster_name" {}
+
+variable "environment_name" {
+  description = "The name of environment you're deploying to."
+  type = string
+  default = "preprod"
+}

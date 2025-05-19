@@ -52,19 +52,34 @@ resource "pingdom_check" "prison-visits-orchestration-service-production-check" 
   integrationids           = [141228]
 }
 
-# TODO: Commented out as not in production yet
-# resource "pingdom_check" "vsip-alerts-notifications-service-production-check" {
-#   type                     = "http"
-#   name                     = "VSiP Alerts Notifications"
-#   host                     = "health-kick.prison.service.justice.gov.uk"
-#   resolution               = 1
-#   notifywhenbackup         = true
-#   sendnotificationwhendown = 6
-#   notifyagainevery         = 0
-#   url                      = "/https/hmpps-notifications-alerts-vsip.prison.service.justice.gov.uk"
-#   encryption               = true
-#   port                     = 443
-#   tags                     = "dps,hmpps,cloudplatform-managed"
-#   probefilters             = "region:EU"
-#   integrationids           = [141228]
-# }
+resource "pingdom_check" "vsip-alerts-notifications-service-production-check" {
+  type                     = "http"
+  name                     = "VSiP Alerts Notifications"
+  host                     = "health-kick.prison.service.justice.gov.uk"
+  resolution               = 1
+  notifywhenbackup         = true
+  sendnotificationwhendown = 6
+  notifyagainevery         = 0
+  url                      = "/https/hmpps-notifi-alerts-vsip.prison.service.justice.gov.uk"
+  encryption               = true
+  port                     = 443
+  tags                     = "dps,hmpps,cloudplatform-managed"
+  probefilters             = "region:EU"
+  integrationids           = [141228]
+}
+
+resource "pingdom_check" "prison-visit-booker-registry-production-check" {
+  type                     = "http"
+  name                     = "Prison Visits Booker Registry"
+  host                     = "health-kick.prison.service.justice.gov.uk"
+  resolution               = 1
+  notifywhenbackup         = true
+  sendnotificationwhendown = 6
+  notifyagainevery         = 0
+  url                      = "/https/hmpps-prison-visit-booker-registry.prison.service.justice.gov.uk"
+  encryption               = true
+  port                     = 443
+  tags                     = "dps,hmpps,cloudplatform-managed"
+  probefilters             = "region:EU"
+  integrationids           = [141228]
+}

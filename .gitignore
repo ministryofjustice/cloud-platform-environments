@@ -38,3 +38,7 @@ Temporary Items
 # Ignore IDEs
 .idea/
 *.iml
+.vscode/
+*.Rproj
+*plan.json
+

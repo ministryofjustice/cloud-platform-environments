@@ -1,5 +1,5 @@
 module "hmpps_prisoner_to_nomis_court_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_court_sentencing_queue"
@@ -54,7 +54,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_court_sentencing_dlq"
@@ -119,7 +119,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
       "charge.deleted",
       "sentence.inserted",
       "sentence.updated",
-      "sentence.deleted"
+      "sentence.deleted",
+      "sentence.period-length.inserted",
+      "sentence.period-length.updated",
+      "sentence.period-length.deleted"
     ]
   })
 }

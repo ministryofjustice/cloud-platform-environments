@@ -1,0 +1,79 @@
+
+#ensure the db you are restoring into matches that of the source snapshot
+module "rds-allocation-restore-new" {
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  vpc_name      = var.vpc_name
+  team_name     = var.team_name
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
+  namespace     = var.namespace
+
+  # rotating creds
+  db_password_rotated_date = "20-02-2023"
+
+  prepare_for_major_upgrade = false
+  # enable performance insights
+  performance_insights_enabled = true
+  # db instance class - temporary until upgrade complete
+  db_instance_class = "db.t4g.small"
+  db_iops = "12000"
+  db_allocated_storage   = "750"
+
+  # change the postgres version as you see fit.
+  db_engine_version      = "15.8"
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # Pick the one that defines the postgres version the best
+  rds_family = "postgres15"
+
+  # we use the is_migration flag to restore a snapshot into a different env - eg from prod to preprod
+  is_migration = true
+
+  # this is the snapshot we want to restore from
+  snapshot_identifier = "rds:cloud-platform-73adb8384c5116e5-2025-04-14-23-33"
+
+  enable_rds_auto_start_stop = true
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+}
+
+
+# this is the secret that you will use to connect to the restored snapshot
+resource "kubernetes_secret" "rds-allocation-restore-new" {
+  metadata {
+    name      = "rds-allocation-instance-output-restore-new"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds-allocation-restore-new.rds_instance_endpoint
+    database_name         = module.rds-allocation-restore-new.database_name
+    database_username     = module.rds-allocation-restore-new.database_username
+    database_password     = module.rds-allocation-restore-new.database_password
+    rds_instance_address  = module.rds-allocation-restore-new.rds_instance_address
+  }
+  /* You can replace all of the above with the following, if you prefer to
+     * use a single database URL value in your application code:
+     *
+     * url = "postgres://${module.rds-allocation.database_username}:${module.rds-allocation.database_password}@${module.rds-allocation.rds_instance_endpoint}/${module.rds-allocation.database_name}"
+     *
+     */
+}
+
+resource "kubernetes_config_map" "rds-allocation-restore-new" {
+  metadata {
+    name      = "rds-allocation-instance-output-restore-new"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.rds-allocation-restore-new.database_name
+    db_identifier = module.rds-allocation-restore-new.db_identifier
+  }
+}

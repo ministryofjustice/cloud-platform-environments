@@ -9,19 +9,23 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
   endpoint  = module.hmpps_prison_visits_allocation_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.convicted-status-changed"
+      "prisoner-offender-search.prisoner.convicted-status-changed",
+      "prisoner-offender-search.prisoner.received",
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
     ]
   })
 }
 
 module "hmpps_prison_visits_allocation_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_allocation_events_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 10800 # 3 hours
-  visibility_timeout_seconds = 120 # 10 minutes
+  visibility_timeout_seconds = 120   # 10 minutes
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_allocation_events_dead_letter_queue.sqs_arn
@@ -72,7 +76,7 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_allocation_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_allocation_events_dlq"

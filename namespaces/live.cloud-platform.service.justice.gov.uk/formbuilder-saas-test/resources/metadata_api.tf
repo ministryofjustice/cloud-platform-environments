@@ -1,5 +1,5 @@
 module "metadata-api-rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   vpc_name                   = var.vpc_name
   db_backup_retention_period = var.db_backup_retention_period
@@ -11,7 +11,7 @@ module "metadata-api-rds-instance" {
   team_name                  = var.team_name
   business_unit              = "Platforms"
   prepare_for_major_upgrade  = false
-  db_engine_version          = "15.7"
+  db_engine_version = "15.8"
   rds_family                 = "postgres15"
   db_instance_class          = var.db_instance_class
 

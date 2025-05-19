@@ -46,6 +46,21 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     resources = ["*"]
   }
   statement {
+    sid     = "ProbationOffenderEventsProdToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.probation-offender-events-prod.arn]
+    }
+    resources = ["*"]
+  }
+  statement {
     sid     = "CourtTopicToQueue"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
@@ -60,21 +75,6 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
-  statement {
-      sid     = "ProdCourtTopicToQueue"
-      effect  = "Allow"
-      actions = ["sqs:SendMessage"]
-      principals {
-        type        = "AWS"
-        identifiers = ["*"]
-      }
-      condition {
-        variable = "aws:SourceArn"
-        test     = "ArnEquals"
-        values   = [data.aws_ssm_parameter.court-topic-prod.value]
-      }
-      resources = ["*"]
-    }
 }
 
 # Policies to manage queues e.g. view and redrive messages
@@ -101,6 +101,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.manage-offences-and-delius-queue.sqs_arn,
       module.manage-pom-cases-and-delius-queue.sqs_arn,
       module.opd-and-delius-queue.sqs_arn,
+      module.person-search-index-from-delius-contact-keyword-queue.sqs_arn,
       module.person-search-index-from-delius-contact-queue.sqs_arn,
       module.person-search-index-from-delius-person-queue.sqs_arn,
       module.pre-sentence-reports-to-delius-queue.sqs_arn,

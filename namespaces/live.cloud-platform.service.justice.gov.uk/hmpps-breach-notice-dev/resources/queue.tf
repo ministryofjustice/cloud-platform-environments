@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.queue.sqs_arn
@@ -12,7 +13,7 @@ resource "aws_sns_topic_subscription" "queue-subscription" {
 }
 
 module "queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "hmpps-breach-notice-queue"
@@ -55,10 +56,10 @@ resource "aws_sqs_queue_policy" "queue-policy" {
 }
 
 module "dead-letter-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "hmpps-tier-events-dlq"
+  sqs_name                  = "hmpps-breach-notice-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags

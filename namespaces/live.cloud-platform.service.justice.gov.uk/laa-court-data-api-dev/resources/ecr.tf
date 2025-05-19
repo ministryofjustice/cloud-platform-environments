@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -13,12 +13,12 @@ module "ecr_credentials" {
   github_repositories = ["laa-court-data-api"]
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: use var.team_name when we are ready to switch to a new ECR repo
   team_name              = "laa-assess-a-claim" # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  namespace              = var.namespace        # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }

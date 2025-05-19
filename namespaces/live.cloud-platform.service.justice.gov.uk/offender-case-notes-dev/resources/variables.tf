@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-move-and-improve"
+  default     = "connect-dps"
 }
 
 variable "environment-name" {
@@ -35,7 +35,7 @@ variable "environment-name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "moveandimprove@justice.gov.uk"
+  default     = "connectdps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -60,7 +60,7 @@ variable "eks_cluster_name" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "public_move-and-improve"
+  default     = "connect-dps"
 }
 
 variable "kubernetes_cluster" {}

@@ -1,5 +1,5 @@
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -13,9 +13,9 @@ module "ma_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   prepare_for_major_upgrade   = false
-  db_engine_version           = "15"
+  db_engine_version           = "17.4"
   db_engine                   = "postgres"
-  rds_family                  = "postgres15"
+  rds_family                  = "postgres17"
   db_password_rotated_date    = "15-02-2023"
 
   providers = {

@@ -1,5 +1,6 @@
 module "hmpps_ccrd_cache_eviction_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_ccrd_cache_eviction_queue"
@@ -54,7 +55,7 @@ EOF
 }
 
 module "hmpps_ccrd_cache_eviction_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_ccrd_cache_eviction_dlq"

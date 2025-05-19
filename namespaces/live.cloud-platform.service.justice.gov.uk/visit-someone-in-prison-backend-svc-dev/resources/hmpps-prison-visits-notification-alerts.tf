@@ -1,4 +1,5 @@
 ######################################## Prison visits notification alerts for visit someone in prison
+  
 ######## This will also the notification service to respond to visit events such as BOOKING and CANCELLATION or CHANGED
 ######## Main queue
 
@@ -17,7 +18,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_notification_alerts_s
 }
 
 module "hmpps_prison_visits_notification_alerts_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_notification_alerts_queue"
@@ -74,7 +75,7 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_notification_alerts_dlq"

@@ -1,5 +1,6 @@
 module "laa_govuk_notify_orchestrator_development_sqs" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   # This queue is actually named laa_govuk_notify_orchestrator_development_queue.fifo,
@@ -47,7 +48,7 @@ resource "kubernetes_secret" "sqs" {
 }
 
 module "laa_govuk_notify_orchestrator_development_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "laa_govuk_notify_orchestrator_development_dlq"

@@ -14,7 +14,7 @@ resource "kubernetes_secret" "visit_scheduler_rds" {
 }
 
 module "visit_scheduler_pg_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -57,7 +57,7 @@ resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
 }
 
 module "prison_visit_booker_reg_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -83,7 +83,7 @@ module "prison_visit_booker_reg_rds" {
 }
 
 module "visit_allocation_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -96,8 +96,8 @@ module "visit_allocation_rds" {
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "15.8"
-  rds_family                  = "postgres15"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "50"
   storage_type                = "gp3"

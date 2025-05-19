@@ -1,15 +1,16 @@
 ######################################## Prison visits allocation events for visit someone in prison
+  
 ######## This will allow the visit-allocation-api to monitor for visit allocation jobs to run on a prison basis
 ######## Main queue
 
 module "hmpps_prison_visits_allocation_processing_job_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_allocation_processing_job_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 #12 hours
-  visibility_timeout_seconds = 600 #10 mins
+  visibility_timeout_seconds = 600   #10 mins
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.sqs_arn
@@ -32,13 +33,13 @@ module "hmpps_prison_visits_allocation_processing_job_queue" {
 
 ######## Dead letter queue
 module "hmpps_prison_visits_allocation_processing_job_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_prison_visits_allocation_processing_job_dlq"
-  encrypt_sqs_kms = "true"
+  sqs_name                   = "hmpps_prison_visits_allocation_processing_job_dlq"
+  encrypt_sqs_kms            = "true"
   message_retention_seconds  = 36000 # 10 hours
-  visibility_timeout_seconds = 600 # 10 minutes
+  visibility_timeout_seconds = 600   # 10 minutes
 
   # Tags
   business_unit          = var.business_unit

@@ -1,0 +1,33 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prisoner-content-hub-staging-frontend-certificate
+  namespace: prisoner-content-hub-staging
+spec:
+  secretName: prisoner-content-hub-frontend-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - berwyn-staging.content-hub.prisoner.service.justice.gov.uk
+  - bullingdon-staging.content-hub.prisoner.service.justice.gov.uk
+  - cardiff-staging.content-hub.prisoner.service.justice.gov.uk
+  - chelmsford-staging.content-hub.prisoner.service.justice.gov.uk
+  - cookhamwood-staging.content-hub.prisoner.service.justice.gov.uk
+  - erlestoke-staging.content-hub.prisoner.service.justice.gov.uk
+  - felthama-staging.content-hub.prisoner.service.justice.gov.uk
+  - felthamb-staging.content-hub.prisoner.service.justice.gov.uk
+  - garth-staging.content-hub.prisoner.service.justice.gov.uk
+  - lindholme-staging.content-hub.prisoner.service.justice.gov.uk
+  - newhall-staging.content-hub.prisoner.service.justice.gov.uk
+  - ranby-staging.content-hub.prisoner.service.justice.gov.uk
+  - stokeheath-staging.content-hub.prisoner.service.justice.gov.uk
+  - styal-staging.content-hub.prisoner.service.justice.gov.uk
+  - swaleside-staging.content-hub.prisoner.service.justice.gov.uk
+  - themount-staging.content-hub.prisoner.service.justice.gov.uk
+  - thestudio-staging.content-hub.prisoner.service.justice.gov.uk
+  - wayland-staging.content-hub.prisoner.service.justice.gov.uk
+  - werrington-staging.content-hub.prisoner.service.justice.gov.uk
+  - wetherby-staging.content-hub.prisoner.service.justice.gov.uk
+  - woodhill-staging.content-hub.prisoner.service.justice.gov.uk
+  - staging.content-hub.prisoner.service.justice.gov.uk

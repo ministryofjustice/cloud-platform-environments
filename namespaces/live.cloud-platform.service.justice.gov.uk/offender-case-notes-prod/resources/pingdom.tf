@@ -14,6 +14,6 @@ resource "pingdom_check" "dps-production-check" {
   port                     = 443
   tags                     = "move-and-improve,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve
+  integrationids           = [132509] #connect-dps-prod-alerts
 }
 

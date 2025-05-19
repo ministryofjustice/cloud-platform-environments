@@ -18,8 +18,7 @@ module "s3_bucket" {
   logging_enabled        = var.logging_enabled
   log_target_bucket      = module.s3_logging_bucket.bucket_name
   log_path               = var.log_path
-  acl                    = "public-read"
-  enable_allow_block_pub_access = false
+  enable_allow_block_pub_access = true
 
   bucket_policy = jsonencode({
     Version = "2012-10-17"
@@ -46,16 +45,38 @@ module "s3_bucket" {
         ]
       },
       {
+        Sid = "AllowGetRequestsFromSpecificIPsAndReferers",
         Effect = "Allow",
-        Action = "s3:GetObject",
         Principal = "*",
-        Resource = "$${bucket_arn}/074JMZ1N.pdf"
-        # Add IP CIDR block for GLiMR server side process once identified
-        # "Condition": {
-        #     "IpAddress": {
-        #         "aws:SourceIp": "your-allowed-ip-address/cidr-block"
-        #     }
-        # }
+        Action = "s3:GetObject",
+        Resource = "$${bucket_arn}/*",
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = true
+          },
+          IpAddress = {
+            "aws:SourceIp" = [
+              "20.26.11.71/32",
+              "20.26.11.108/32",
+              "20.49.214.199/32",
+              "20.49.214.228/32",
+              "51.149.249.0/29",
+              "51.149.249.32/29",
+              "51.149.250.0/24",
+              "128.77.75.64/26",
+              "194.33.200.0/21",
+              "194.33.216.0/23",
+              "194.33.218.0/24",
+              "194.33.248.0/29",
+              "194.33.249.0/29"
+            ]
+          },
+          StringLike = {
+            "aws:Referer" = [
+              "https://glimr-preprod.staging.apps.hmcts.net/",
+            ]
+          }
+        }
       }
     ]
   })

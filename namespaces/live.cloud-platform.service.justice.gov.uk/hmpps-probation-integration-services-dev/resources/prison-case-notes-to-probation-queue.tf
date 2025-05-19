@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "prison-case-notes-created-updated-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
@@ -28,7 +29,7 @@ resource "aws_sns_topic_subscription" "prison-case-notes-created-updated-subscri
 }
 
 module "prison-case-notes-to-probation-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "prison-case-notes-to-probation-queue"
@@ -53,7 +54,7 @@ resource "aws_sqs_queue_policy" "prison-case-notes-to-probation-queue-policy" {
 }
 
 module "prison-case-notes-to-probation-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "prison-case-notes-to-probation-dlq"

@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "court_case_events_fifo_subscription" {
+  
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.court-cases-topic-arn.value
   protocol  = "sqs"
@@ -11,11 +12,11 @@ resource "aws_sns_topic_subscription" "court_case_events_fifo_subscription" {
 }
 
 module "court_case_events_fifo_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0" 
-  sqs_name                   = "court_case_events_queue"
-  encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  sqs_name                    = "court_case_events_queue"
+  encrypt_sqs_kms             = "true"
+  message_retention_seconds   = 1209600
+  visibility_timeout_seconds  = 120
   fifo_queue                  = "true"
   content_based_deduplication = "true"
 
@@ -68,7 +69,7 @@ EOF
 ######## Dead letter queue
 
 module "court_case_events_fifo_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                    = "court_case_events_dlq"
@@ -91,9 +92,9 @@ module "court_case_events_fifo_dead_letter_queue" {
 }
 
 
-resource "kubernetes_secret" "court_case_events_fifo_queue" { 
+resource "kubernetes_secret" "court_case_events_fifo_queue" {
   metadata {
-    name = "sqs-court-case-events-fifo-secret"
+    name      = "sqs-court-case-events-fifo-secret"
     namespace = var.namespace
   }
 
@@ -104,9 +105,9 @@ resource "kubernetes_secret" "court_case_events_fifo_queue" {
   }
 }
 
-resource "kubernetes_secret" "court_case_events_fifo_dead_letter_queue" {  
+resource "kubernetes_secret" "court_case_events_fifo_dead_letter_queue" {
   metadata {
-    name = "sqs-court-case-events-fifo-dlq-secret"
+    name      = "sqs-court-case-events-fifo-dlq-secret"
     namespace = var.namespace
   }
 

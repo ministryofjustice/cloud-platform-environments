@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "cas2-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cas2-and-delius-queue.sqs_arn
@@ -11,7 +12,7 @@ resource "aws_sns_topic_subscription" "cas2-and-delius-queue-subscription" {
 }
 
 module "cas2-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "cas2-and-delius-queue"
@@ -36,7 +37,7 @@ resource "aws_sqs_queue_policy" "cas2-and-delius-queue-policy" {
 }
 
 module "cas2-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "cas2-and-delius-dlq"

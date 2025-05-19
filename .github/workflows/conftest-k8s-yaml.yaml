@@ -4,6 +4,7 @@ on:
   pull_request:
     paths-ignore:
       - '.github/**'
+      - 'policy/**'
 
 jobs:
   conftest:
@@ -14,7 +15,7 @@ jobs:
 
       - name: Get changed files
         id: files
-        uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 ##v46.0.1
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c ##v46.0.5
         with:
           files_ignore: .github/**
 
@@ -23,10 +24,12 @@ jobs:
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |
+            echo "Conftest/OPA versions:"
+            conftest -v
             status=0
             for file in ${{ steps.files.outputs.all_changed_files }}; do
             if [[ $file == *.yaml ]]; then
-                conftest test $file || status=$?
+                conftest test $file --rego-version v0 || status=$?
             fi
             done
             exit $status

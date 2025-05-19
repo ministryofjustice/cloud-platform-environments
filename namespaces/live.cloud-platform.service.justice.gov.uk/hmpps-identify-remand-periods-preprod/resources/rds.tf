@@ -1,5 +1,5 @@
 module "identify_remand_periods_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -14,8 +14,9 @@ module "identify_remand_periods_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
-  db_engine_version           = "15"
+  db_engine_version           = "17.4"
   enable_rds_auto_start_stop  = true
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
@@ -27,6 +28,23 @@ resource "kubernetes_secret" "identify_remand_periods_rds" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.identify_remand_periods_rds.rds_instance_endpoint
+    database_name         = module.identify_remand_periods_rds.database_name
+    database_username     = module.identify_remand_periods_rds.database_username
+    database_password     = module.identify_remand_periods_rds.database_password
+    rds_instance_address  = module.identify_remand_periods_rds.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "identify_remand_periods_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-identify-remand-periods-prod"
   }
 
   data = {

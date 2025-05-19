@@ -118,14 +118,6 @@ resource "aws_route53_record" "ppo_route53_txt_record_ncsc" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_autodiscover" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "autodiscover.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["sautodiscover.outlook.com"]
-}
-
 resource "aws_route53_record" "ppo_route53_cname_record_sendgrid_em4962" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "em4962.ppo.gov.uk"
@@ -150,14 +142,6 @@ resource "aws_route53_record" "ppo_route53_cname_record_enterpriseenrollment2" {
   records = ["enterpriseregistration.windows.net"]
 }
 
-resource "aws_route53_record" "ppo_route53_cname_record_lync" {
-  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
-  name    = "lyncdiscover.ppo.gov.uk"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["webdir.online.lync.com"]
-}
-
 resource "aws_route53_record" "ppo_route53_cname_record_msoid" {
   zone_id = aws_route53_zone.ppo_route53_zone.zone_id
   name    = "msoid.ppo.gov.uk"
@@ -176,4 +160,12 @@ resource "aws_route53_record" "ppo_route53_a_record_mta-sts" {
     zone_id                = "Z2FDTNDATAQYW2"
     evaluate_target_health = false
   }
+}
+
+resource "aws_route53_record" "ppo_route53_cname_mtasts_tls_cert" {
+  zone_id = aws_route53_zone.ppo_route53_zone.zone_id
+  name    = "_c8b092cc5e6b18d6d6b1785824fb5bf4.mta-sts.ppo.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_708974cacf749aaba82f164334e9e8b4.nhsllhhtvj.acm-validations.aws."]
 }

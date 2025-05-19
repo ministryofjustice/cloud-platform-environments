@@ -1,5 +1,5 @@
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,7 +15,7 @@ module "prisons_rds" {
   db_instance_class           = "db.t4g.micro"
   rds_family                  = "postgres16"
   db_engine                   = "postgres"
-  db_engine_version           = "16.3"
+  db_engine_version           = "16.4"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
 

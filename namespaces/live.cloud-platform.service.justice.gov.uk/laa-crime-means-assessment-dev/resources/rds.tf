@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage   = 10
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
@@ -30,7 +30,7 @@ module "rds" {
   db_engine = "postgres"
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -72,7 +72,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -89,7 +89,7 @@ module "read_replica" {
   # add them to the replica
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.7"
+  db_engine_version = "14.13"
 
   # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
   # Pick the one that defines the postgres version the best

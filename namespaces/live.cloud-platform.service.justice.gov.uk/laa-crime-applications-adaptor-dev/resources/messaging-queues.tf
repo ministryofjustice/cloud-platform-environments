@@ -1,5 +1,6 @@
 module "update_application_status_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "update-application-status-queue-m"
@@ -50,7 +51,7 @@ resource "aws_sqs_queue_policy" "update_application_status_queue_m_policy" {
 }
 
 module "update_application_status_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "update-application-status-queue-dl-m"

@@ -1,5 +1,5 @@
 module "create_and_vary_a_licence_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -13,7 +13,7 @@ module "create_and_vary_a_licence_api_rds" {
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15.7"
+  db_engine_version = "15.8"
   rds_family                  = "postgres15"
   prepare_for_major_upgrade   = false
   db_password_rotated_date    = "14-02-2023"

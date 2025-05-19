@@ -16,25 +16,14 @@ data "aws_iam_policy_document" "athena" {
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
-      "athena:ListDataCatalogs",
-      "s3:ListMultipartUploadParts",
-      "athena:GetWorkGroup",
+      "athena:GetQueryExecution",
+
       "s3:PutObject",
       "s3:GetObject",
       "s3:ListBucket",
-      "s3:ListAllMyBuckets",
-      "s3:DescribeJob",
-      "s3:AbortMultipartUpload",
-      "athena:CancelQueryExecution",
-      "athena:StopQueryExecution",
-      "athena:GetQueryExecution",
-      "glue:BatchCreatePartition",
+
       "glue:GetDatabase",
-      "glue:GetDatabases",
       "glue:GetTable",
-      "glue:CreateTable",
-      "glue:DeleteTable",
-      "glue:GetPartitions",
       "glue:GetPartition",
     ]
 

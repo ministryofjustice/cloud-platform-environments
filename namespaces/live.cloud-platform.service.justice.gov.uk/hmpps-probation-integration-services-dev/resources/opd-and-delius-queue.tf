@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "opd-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.opd-and-delius-queue.sqs_arn
@@ -8,7 +9,7 @@ resource "aws_sns_topic_subscription" "opd-and-delius-queue-subscription" {
 }
 
 module "opd-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "opd-and-delius-queue"
@@ -33,7 +34,7 @@ resource "aws_sqs_queue_policy" "opd-and-delius-queue-policy" {
 }
 
 module "opd-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "opd-and-delius-dlq"

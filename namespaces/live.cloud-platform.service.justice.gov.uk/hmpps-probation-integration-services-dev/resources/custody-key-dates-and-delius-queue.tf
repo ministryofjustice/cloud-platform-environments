@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
@@ -36,7 +37,7 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-probat
 }
 
 module "custody-key-dates-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "custody-key-dates-and-delius-queue"
@@ -61,7 +62,7 @@ resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-queue-policy" {
 }
 
 module "custody-key-dates-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "custody-key-dates-and-delius-dlq"

@@ -14,7 +14,7 @@ resource "pingdom_check" "prepare-a-case-production-check" {
   port                     = 443
   tags                     = "hmpps, prepare-a-case, cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [110432]
+  integrationids           = [142522]
 }
 
 resource "pingdom_check" "crime-portal-gateway-check" {

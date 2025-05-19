@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - electronic-monitoring-crime-matching-ui-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-crime-matching-api-dev.hmpps.service.justice.gov.uk

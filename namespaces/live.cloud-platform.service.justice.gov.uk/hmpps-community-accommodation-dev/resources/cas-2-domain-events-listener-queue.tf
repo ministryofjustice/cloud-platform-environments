@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "cas-2-domain-events-listener-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cas-2-domain-events-listener-queue.sqs_arn
@@ -11,7 +12,7 @@ resource "aws_sns_topic_subscription" "cas-2-domain-events-listener-queue-subscr
 }
 
 module "cas-2-domain-events-listener-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "cas-2-domain-events-listener-queue"
@@ -36,7 +37,7 @@ resource "aws_sqs_queue_policy" "cas-2-domain-events-listener-queue-policy" {
 }
 
 module "cas-2-domain-events-listener-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "cas-2-domain-events-listener-dlq"

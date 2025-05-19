@@ -1,5 +1,5 @@
 module "claim-criminal-injuries-application-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-application-queue"
@@ -87,7 +87,7 @@ resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-polic
 
 
 module "claim-criminal-injuries-application-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name   = "claim-criminal-injuries-application-dead-letter-queue"

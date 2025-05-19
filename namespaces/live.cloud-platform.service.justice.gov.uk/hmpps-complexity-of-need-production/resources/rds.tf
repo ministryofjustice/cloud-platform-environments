@@ -1,6 +1,6 @@
 
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
   vpc_name             = var.vpc_name
@@ -19,7 +19,7 @@ module "rds" {
   environment_name         = var.environment
   infrastructure_support   = var.infrastructure_support
 
-  db_engine_version           = "15.7"
+  db_engine_version = "15.8"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

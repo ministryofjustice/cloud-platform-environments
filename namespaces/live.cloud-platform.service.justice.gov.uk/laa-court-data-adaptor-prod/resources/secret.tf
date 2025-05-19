@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "court-data-adaptor-alert-webhook-prod"
     },
+    "aws-secrets" = {
+      description             = "laa-court-data-adaptor-prod aws-secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "aws-secrets"
+    },
   }
 }

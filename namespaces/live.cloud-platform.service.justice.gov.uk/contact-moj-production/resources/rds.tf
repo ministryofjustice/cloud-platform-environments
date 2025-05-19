@@ -4,7 +4,7 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage       = 10
   storage_type               = "gp2"
   vpc_name                   = var.vpc_name
@@ -18,7 +18,7 @@ module "contact-moj_rds" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  db_engine_version          = "16.3"
+  db_engine_version = "16.4"
   rds_family                 = "postgres16"
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_production"

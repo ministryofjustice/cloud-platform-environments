@@ -233,3 +233,11 @@ resource "aws_route53_record" "ccrc_route53_cname_record_careers" {
   ttl     = "300"
   records = ["talosats-node-careerspages.azurewebsites.net"]
 }
+
+resource "aws_route53_record" "ccrc_route53_cname_record_mta_sts" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "_9e111899dbb1e73aed800dd796c849f4.mta-sts.ccrc.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_529da6734664ecca58ad43f6298844fe.bkngfjypgb.acm-validations.aws"]
+}

@@ -1,5 +1,5 @@
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = var.db_allocated_storage
   storage_type         = var.storage_type
 
@@ -14,6 +14,10 @@ module "rds" {
   performance_insights_enabled = var.performance_insights_enabled
   db_max_allocated_storage     = var.db_max_allocated_storage
   enable_rds_auto_start_stop   = var.enable_rds_auto_start_stop # turn off database overnight 22:00-06:00 UTC.
+  maintenance_window = var.maintenance_window
+  backup_window = var.backup_window
+  db_parameter = var.db_parameter
+
 
   # PostgreSQL specifics
   db_engine         = var.db_engine

@@ -5,14 +5,14 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
   oidc_providers      = ["github", "circleci"]
-  github_repositories = ["laa-cwa-feature-tests"]
+  github_repositories = ["laa-cwa-feature-tests","cwa-test-provider-api","cwa-assessment-value-api"]
 
   # Tags
   business_unit          = var.business_unit

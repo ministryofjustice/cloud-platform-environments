@@ -1,5 +1,5 @@
 module "hmpps_book_a_video_link_domain_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_book_a_video_link_domain_queue"
@@ -54,7 +54,7 @@ EOF
 }
 
 module "hmpps_book_a_video_link_domain_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_book_a_video_link_domain_dlq"
@@ -115,6 +115,7 @@ resource "aws_sns_topic_subscription" "hmpps_book_a_video_link_domain_subscripti
       "prisoner-offender-search.prisoner.released",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.video-appointment.cancelled",
+      "prison-offender-events.prisoner.appointments-changed",
     ]
   })
 }
