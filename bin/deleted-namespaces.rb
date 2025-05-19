@@ -1,8 +1,5 @@
-#!/usr/bin/env ruby
-
 require File.join(".", File.dirname(__FILE__), "..", "lib", "cp_env")
 require "slack-notify"
-require "yaml"
 
 def send_notification(msg)
   webhook_url = "https://hooks.slack.com/services/#{ENV.fetch("SLACK_WEBHOOK")}"
@@ -14,64 +11,53 @@ def send_notification(msg)
   ).notify(msg)
 end
 
-env = "live.cloud-platform.service.justice.gov.uk"
-commit_range = ENV["GIT_COMMIT_RANGE"] || "origin/main..HEAD"
+all_deleted_namespaces = deleted_namespaces("live.cloud-platform.service.justice.gov.uk")
+production_namespaces = []
+non_production_namespaces = []
 
-deleted_or_renamed_lines = `git diff --name-status #{commit_range}`.lines.select do |line|
-  line.start_with?("D", "R")
-end
+puts "🔍 Checking deleted namespaces..."
 
-deleted_namespace_paths = deleted_or_renamed_lines.map do |line|
-  parts = line.strip.split("\t")
-  old_path = parts[1]
+all_deleted_namespaces.each do |ns|
+  deleter = NamespaceDeleter.new(namespace: ns)
 
-  if old_path =~ %r{\Anamespaces/#{Regexp.escape(env)}/([^/]+)/00-namespace.yaml\z}
-    namespace = Regexp.last_match(1)
-    [namespace, old_path]
-  end
-end.compact
-
-production_namespaces = deleted_namespace_paths.select do |namespace, path|
-  last_commit = `git rev-list -n 1 HEAD -- #{path}`.strip
-
-  next false if last_commit.empty?
-
-  content = `git show #{last_commit}:#{path} 2>/dev/null`
-  if content.empty?
-    parent_commit = `git rev-parse #{last_commit}^`.strip
-    content = `git show #{parent_commit}:#{path} 2>/dev/null`
-    if content.empty?
-      puts "File #{path} empty in commit #{last_commit} and its parent #{parent_commit}, skipping"
-      next false
-    else
-      begin
-        yaml_content = YAML.safe_load(content)
-        yaml_content.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
-      rescue Psych::SyntaxError => e
-        puts "YAML parse error for #{path} in commit #{parent_commit}: #{e.message}"
-        false
-      end
-    end
+  if deleter.send(:safe_to_delete?)
+    non_production_namespaces << ns
   else
-    begin
-      yaml_content = YAML.safe_load(content)
-      yaml_content.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
-    rescue Psych::SyntaxError => e
-      puts "YAML parse error for #{path} in commit #{last_commit}: #{e.message}"
-      false
+    # Check if it's production
+    k8s_ns = deleter.k8s_client.get_namespace(ns) rescue nil
+    if k8s_ns && k8s_ns.metadata.labels[NamespaceDeleter::PRODUCTION_LABEL] == NamespaceDeleter::LABEL_TRUE
+      production_namespaces << ns
     end
   end
-end.map(&:first)
+end
 
 if production_namespaces.any?
   msg = <<~EOF
-    The following production namespaces have been removed or renamed from the environments repository:
+    ⚠️ The following production namespaces have been removed from the environments repo **but must be deleted manually**:
+
       - #{production_namespaces.join("\n  - ")}
-    Please delete them manually:
+
+    Follow manual deletion steps:
     https://runbooks.cloud-platform.service.justice.gov.uk/manually-delete-namespace-resources.html#manually-delete-namespace-resources
   EOF
+
   puts msg
   send_notification(msg)
-else
-  puts "No production namespaces to delete"
+end
+
+if non_production_namespaces.any?
+  msg = <<~EOF
+    ✅ The following namespaces were removed and can be safely deleted:
+
+      - #{non_production_namespaces.join("\n  - ")}
+
+    Proceed with automated deletion or review as needed.
+  EOF
+
+  puts msg
+  send_notification(msg)
+end
+
+if production_namespaces.empty? && non_production_namespaces.empty?
+  puts "No namespaces to delete."
 end
