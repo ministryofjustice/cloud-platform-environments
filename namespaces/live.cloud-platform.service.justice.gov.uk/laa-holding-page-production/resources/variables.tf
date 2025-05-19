@@ -20,6 +20,11 @@ variable "namespace" {
   default     = "laa-holding-page-production"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-holding-page"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -66,4 +71,21 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_PRODUCTION_NAMESPACE"
+}
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_PRODUCTION_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_PRODUCTION_TOKEN"
+}
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the serviceaccount cluster"
+  default     = "KUBE_PRODUCTION_CLUSTER"
 }
