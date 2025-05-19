@@ -31,6 +31,8 @@ module "claims_for_ccr" {
   }
 EOF
 
+  message_retention_seconds = 1209600
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -98,6 +100,8 @@ module "claims_for_cclf" {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
 EOF
+
+  message_retention_seconds = 1209600
 
   # Tags
   business_unit          = var.business_unit
