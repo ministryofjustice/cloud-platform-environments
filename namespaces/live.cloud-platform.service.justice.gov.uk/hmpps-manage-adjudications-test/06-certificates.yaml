@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-adjudications-test.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-adjudications-test
+spec:
+  secretName: hmpps-manage-adjudications-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-adjudications-test.hmpps.service.justice.gov.uk
