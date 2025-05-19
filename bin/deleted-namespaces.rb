@@ -24,7 +24,11 @@ all_deleted_namespaces.each do |ns|
     non_production_namespaces << ns
   else
     # Check if it's production
-    k8s_ns = deleter.k8s_client.get_namespace(ns) rescue nil
+    k8s_ns = begin
+      deleter.k8s_client.get_namespace(ns)
+    rescue
+      nil
+    end
     if k8s_ns && k8s_ns.metadata.labels[NamespaceDeleter::PRODUCTION_LABEL] == NamespaceDeleter::LABEL_TRUE
       production_namespaces << ns
     end
