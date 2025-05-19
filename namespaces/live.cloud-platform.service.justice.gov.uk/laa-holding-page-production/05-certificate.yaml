@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - laa-holding-page-production.apps.live.cloud-platform.service.justice.gov.uk/
+    - laa-holding-page-production.apps.live.cloud-platform.service.justice.gov.uk
