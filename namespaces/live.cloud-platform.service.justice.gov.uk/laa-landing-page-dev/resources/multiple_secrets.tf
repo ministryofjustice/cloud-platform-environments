@@ -30,5 +30,10 @@ module "secrets_manager_multiple_secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-landing-page-base-url-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+    "laa-landing-page-secret-notify-key-dev" = {
+      description             = "dev notify key",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-landing-page-gov-notify-api-key-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
   }
 }
