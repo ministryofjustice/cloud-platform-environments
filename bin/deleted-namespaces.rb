@@ -16,14 +16,18 @@ end
 
 env = "live.cloud-platform.service.justice.gov.uk"
 commit_range = ENV["GIT_COMMIT_RANGE"] || "origin/main..HEAD"
+puts "debug: commit_range: #{commit_range}"
+puts "debug: env: #{env}"
 
 deleted_or_renamed_lines = `git diff --name-status #{commit_range}`.lines.select do |line|
   line.start_with?("D", "R")
+  puts "debug: deleted_or_renamed_lines: #{line}"
 end
 
 deleted_namespace_paths = deleted_or_renamed_lines.map do |line|
   parts = line.strip.split("\t")
   old_path = parts[1]
+  puts "debug: old_path: #{old_path}"
 
   if old_path =~ %r{\Anamespaces/#{Regexp.escape(env)}/([^/]+)/00-namespace.yaml\z}
     namespace = Regexp.last_match(1)
@@ -33,6 +37,7 @@ end.compact
 
 production_namespaces = deleted_namespace_paths.select do |namespace, path|
   last_commit = `git rev-list -n 1 HEAD -- #{path}`.strip
+  puts "debug: last_commit: #{last_commit}"
 
   next false if last_commit.empty?
 
@@ -54,6 +59,7 @@ production_namespaces = deleted_namespace_paths.select do |namespace, path|
     end
   else
     begin
+      puts "debug: content: #{content}"
       yaml_content = YAML.safe_load(content)
       yaml_content.dig("metadata", "labels", "cloud-platform.justice.gov.uk/is-production") == "true"
     rescue Psych::SyntaxError => e

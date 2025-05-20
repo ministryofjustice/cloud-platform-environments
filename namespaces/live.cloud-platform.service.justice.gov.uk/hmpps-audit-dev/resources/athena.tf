@@ -1,5 +1,5 @@
 resource "aws_glue_catalog_database" "audit_glue_catalog_database" {
-  name = "audit_${var.environment-name}_glue_catalog_database"
+  name = "hmpps_audit_${var.environment-name}_glue_catalog_db"
   location_uri = "s3://${module.s3.bucket_name}/"
 }
 
