@@ -1,4 +1,4 @@
-module "rds_mysql" {
+module "opa_hub_db" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   # VPC configuration
@@ -28,29 +28,29 @@ module "rds_mysql" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "rds_mysql" {
+resource "kubernetes_secret" "opa_hub_db" {
   metadata {
-    name      = "rds-mysql-instance-output"
+    name      = "opa-hub-db-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds_mysql.rds_instance_endpoint
-    database_name         = module.rds_mysql.database_name
-    database_username     = module.rds_mysql.database_username
-    database_password     = module.rds_mysql.database_password
-    rds_instance_address  = module.rds_mysql.rds_instance_address
+    rds_instance_endpoint = module.opa_hub_db.rds_instance_endpoint
+    database_name         = module.opa_hub_db.database_name
+    database_username     = module.opa_hub_db.database_username
+    database_password     = module.opa_hub_db.database_password
+    rds_instance_address  = module.opa_hub_db.rds_instance_address
   }
 }
 
-resource "kubernetes_config_map" "rds_mysql" {
+resource "kubernetes_config_map" "opa_hub_db" {
   metadata {
-    name      = "rds-mysql-instance-output"
+    name      = "opa-hub-db-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds_mysql.database_name
-    db_identifier = module.rds_mysql.db_identifier
+    database_name = module.opa_hub_db.database_name
+    db_identifier = module.opa_hub_db.db_identifier
   }
 }
