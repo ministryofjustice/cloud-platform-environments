@@ -11,12 +11,6 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
-  # OpenID Connect configuration
-  oidc_providers        = ["github"]
-  github_repositories   = ["opg-actor-search"]
-  github_environments   = ["dev"]
-  github_actions_prefix = "dev"
-
   # Tags
   business_unit          = var.business_unit
   application            = var.application
