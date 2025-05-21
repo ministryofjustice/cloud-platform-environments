@@ -30,5 +30,20 @@ module "secrets_manager" {
       recovery_window_in_days = 7,                      # Required - number of days that AWS Secrets Manager waits before it can delete the secret
       k8s_secret_name         = "laa-infox-private-key-password-test" # The name of the secret in k8s
     },
+    "infox-mlra-client-secret" = {
+      description             = "Client Secret used by MLRA",        # Required
+      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "infox-mlra-client-secret"          # The name of the secret in k8s
+    },
+    "infox-nolasa-client-secret" = {
+      description             = "Client Secret used by NoLASA",        # Required
+      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "infox-nolasa-client-secret"          # The name of the secret in k8s
+    },
+    "infox-libra-client-secret" = {
+      description             = "Client Secret used by LIBRA",        # Required
+      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
+      k8s_secret_name         = "infox-libra-client-secret"          # The name of the secret in k8s
+    }
   }
 }
