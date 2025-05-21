@@ -34,7 +34,7 @@ resource "aws_cognito_user_pool_client" "maat_ats_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_ats_client_prd" {
+resource "aws_cognito_user_pool_client" "maat_ats_client_prod" {
   name                                 = var.cognito_user_pool_maat_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.ats_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
