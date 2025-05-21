@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-support-additional-needs-prototype-admin
+  namespace: hmpps-support-additional-needs-prototype
+subjects:
+  - kind: Group
+    name: "github:hmpps-farsight-reduce-re-offend-prototype"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
