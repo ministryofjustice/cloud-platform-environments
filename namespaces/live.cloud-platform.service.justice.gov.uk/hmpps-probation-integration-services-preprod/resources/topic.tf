@@ -14,15 +14,6 @@ data "aws_ssm_parameter" "probation-offender-events-policy-arn" {
   name = "/offender-events-${var.environment_name}/sns/${data.aws_sns_topic.probation-offender-events.name}/irsa-policy-arn"
 }
 
-# Temporary - reading from production topic into pre-production
-data "aws_sns_topic" "probation-offender-events-prod" {
-  name = "cloud-platform-Digital-Prison-Services-c2d997878cd24eef94e60f1404977153"
-}
-
-data "aws_ssm_parameter" "probation-offender-events-prod-policy-arn" {
-  name = "/offender-events-prod/sns/${data.aws_sns_topic.probation-offender-events-prod.name}/irsa-policy-arn"
-}
-
 data "aws_sns_topic" "prison-offender-events" {
   name = "cloud-platform-Digital-Prison-Services-d448bb61bb0b69b82fb19a3fa574e7f9"
 }
