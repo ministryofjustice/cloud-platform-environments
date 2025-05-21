@@ -35,5 +35,10 @@ module "secrets_manager" {
         recovery_window_in_days = 7,
         k8s_secret_name         = "ccms-edrms-web-service-secrets"
     }
+    "ccms-opa-hub-secrets" = {
+        description             = "Secrets for ccms opa hub",
+        recovery_window_in_days = 7,
+        k8s_secret_name         = "ccms-opa-hub-secrets"
+    }
   }
 }
