@@ -13,8 +13,8 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     hearing_resulted_queue  = data.kubernetes_secret.queue_arn.data.hearing_resulted_queue_irsa_policy_arn
-    create_link_queue       = data.kubernetes_secret.queue_arn.data.create_link_queue_m_irsa_policy_arn
-    unlink_queue            = data.kubernetes_secret.queue_arn.data.unlink_queue_m_irsa_policy_arn
+    create_link_queue       = data.kubernetes_secret.queue_arn.data.create_link_queue_irsa_policy_arn
+    unlink_queue            = data.kubernetes_secret.queue_arn.data.unlink_queue_irsa_policy_arn
   }
 
   # Tags
