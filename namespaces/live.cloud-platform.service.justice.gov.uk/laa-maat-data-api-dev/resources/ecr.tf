@@ -12,7 +12,9 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+
+  # REQUIRED: GitHub repositories that push to this container repository
+  github_repositories = ["laa-maat-court-data-api"]
 
   # Tags
   business_unit          = var.business_unit
