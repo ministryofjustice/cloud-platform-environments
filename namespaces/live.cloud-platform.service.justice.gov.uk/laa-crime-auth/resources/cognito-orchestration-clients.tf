@@ -34,7 +34,7 @@ resource "aws_cognito_user_pool_client" "maat_client_orchestration_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "maat_client_orchestration_prd" {
+resource "aws_cognito_user_pool_client" "maat_client_orchestration_prod" {
   name                                 = var.cognito_user_pool_maat_client_name_prd
   user_pool_id                         = aws_cognito_user_pool.orchestration_user_pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -104,7 +104,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_orchestration_prd" {
     namespace = var.namespace
   }
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client_orchestration_prd.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client_orchestration_prd.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_orchestration_prod.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_orchestration_prod.client_secret
   }
 }
