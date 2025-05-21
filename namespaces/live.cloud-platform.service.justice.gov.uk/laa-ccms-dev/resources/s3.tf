@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "laa_ccms_documents" {
+module "laa_ccms_pui_docs" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
 
   team_name              = var.team_name
@@ -14,34 +14,34 @@ module "laa_ccms_documents" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-  bucket_name            = "laa-ccms-documents"
+  bucket_name            = "laa-ccms-pui-docs"
 }
 
-resource "kubernetes_secret" "laa_ccms_documents" {
+resource "kubernetes_secret" "laa_ccms_pui_docs" {
   metadata {
-    name      = "laa-ccms-documents-output"
+    name      = "laa-ccms-pui-docs-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.laa_ccms_documents.bucket_arn
-    bucket_name = module.laa_ccms_documents.bucket_name
+    bucket_arn  = module.laa_ccms_pui_docs.bucket_arn
+    bucket_name = module.laa_ccms_pui_docs.bucket_name
   }
 }
 
-data "aws_iam_policy_document" "laa_ccms_documents_access" {
+data "aws_iam_policy_document" "laa_ccms_pui_docs_access" {
   statement {
     actions   = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject",
     ]
-    resources = ["${module.laa_ccms_documents.bucket_arn}/*"]
+    resources = ["${module.laa_ccms_pui_docs.bucket_arn}/*"]
   }
 }
 
 resource "aws_iam_policy" "s3_policy" {
   name        = "${var.namespace}-s3_policy"
   description = "Grants R/W access to specified S3 bucket"
-  policy      = data.aws_iam_policy_document.laa_ccms_documents_access.json
+  policy      = data.aws_iam_policy_document.laa_ccms_pui_docs_access.json
 }
