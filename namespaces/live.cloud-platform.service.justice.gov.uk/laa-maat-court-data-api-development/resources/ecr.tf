@@ -15,7 +15,7 @@ module "ecr" {
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-maat-court-data-api"]
-
+  deletion_protection = false
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]
 
