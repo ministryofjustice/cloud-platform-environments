@@ -123,6 +123,38 @@ resource "kubernetes_secret" "athena-workgroup-secret" {
   }
 }
 
+resource "kubernetes_secret" "glue-catalog-table-name-secret" {
+  metadata {
+    name      = "glue-catalog-table-name"
+    namespace = var.namespace
+  }
+  data = {
+    table_arn  = aws_glue_catalog_table.audit_event_table.arn
+    table_name = aws_glue_catalog_table.audit_event_table.name
+  }
+}
+
+resource "kubernetes_secret" "athena-workgroup-secret" {
+  metadata {
+    name      = "athena-workgroup-secret"
+    namespace = var.namespace
+  }
+  data = {
+    workgroup_arn  = aws_athena_workgroup.queries.arn
+    workgroup_name = aws_athena_workgroup.queries.name
+  }
+}
+
+resource "kubernetes_secret" "athena-output-location-secret" {
+  metadata {
+    name      = "athena-output-location-secret"
+    namespace = var.namespace
+  }
+  data = {
+    output_location = "s3://${module.s3.bucket_name}/"
+  }
+}
+
 resource "kubernetes_secret" "athena-output-location-secret" {
   metadata {
     name      = "athena-output-location-secret"
