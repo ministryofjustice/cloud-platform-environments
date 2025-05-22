@@ -14,6 +14,8 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["data-platform-firebreak-aws-microservice"]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
