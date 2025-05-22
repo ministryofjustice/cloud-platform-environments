@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "athena" {
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       aws_glue_catalog_database.audit_glue_catalog_database.arn,
-      "arn:aws:glue:eu-west-2:*:table/*",
+      aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"
     ]
