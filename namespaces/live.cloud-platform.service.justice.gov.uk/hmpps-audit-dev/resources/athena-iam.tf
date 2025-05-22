@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "athena" {
       aws_athena_workgroup.queries.arn,
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/*",
+      aws_glue_catalog_database.audit_glue_catalog_database.arn,
       "arn:aws:glue:eu-west-2:*:table/*",
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"

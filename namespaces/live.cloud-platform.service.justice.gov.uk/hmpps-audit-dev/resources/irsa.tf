@@ -74,6 +74,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
     ]
     resources = [
       aws_athena_workgroup.queries.arn,
+      "${aws_athena_workgroup.queries.arn}/*",
       "arn:aws:athena:eu-west-2:*:workgroup/*",
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
       "arn:aws:athena:eu-west-2:*:query/*",
