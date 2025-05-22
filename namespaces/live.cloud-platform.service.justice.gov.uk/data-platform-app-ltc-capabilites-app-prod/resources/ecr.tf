@@ -17,6 +17,8 @@ module "ecr_credentials" {
   # You must provide a prefix if you're using environments, otherwise Terraform will fail as it will try to overwrite the Actions variable and error saying it exists.
   github_actions_prefix = "prod"
 
+  deletion_protection = false
+
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
