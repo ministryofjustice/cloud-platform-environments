@@ -5,7 +5,7 @@ module "serviceaccount_github" {
   github_team              = var.team_name
   environment              = var.environment
   is_production            = var.is_production
-  selected_branch_patterns = ["main", "preprod"]
+  selected_branch_patterns = ["main"]
   source_template_repo     = "none"
   github_token             = var.github_token
   namespace                = var.namespace
