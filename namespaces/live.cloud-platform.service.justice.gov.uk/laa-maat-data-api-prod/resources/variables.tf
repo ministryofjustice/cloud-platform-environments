@@ -142,6 +142,11 @@ variable "cognito_user_pool_client_name_cccd" {
   default     = "cccd-prod"
 }
 
+variable "cognito_user_pool_client_name_mlra" {
+  description = "Cognito user pool client - MLRA"
+  default     = "mlra-prod"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "maat-api-prod"
