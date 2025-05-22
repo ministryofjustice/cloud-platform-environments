@@ -9,6 +9,17 @@ resource "kubernetes_secret" "glue-database-name-secret" {
   }
 }
 
+resource "kubernetes_secret" "glue-catalog-table-name-secret" {
+  metadata {
+    name      = "glue-catalog-table-name"
+    namespace = var.namespace
+  }
+  data = {
+    table_arn  = "placeholder value"
+    table_name = "placeholder value"
+  }
+}
+
 resource "kubernetes_secret" "athena-workgroup-secret" {
   metadata {
     name      = "athena-workgroup-secret"
