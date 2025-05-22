@@ -1,7 +1,7 @@
-module "hmpps_strengths_based_needs_assessments_api" {
+module "hmpps_one_plan_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo                   = "hmpps-strengths-based-needs-assessments-api"
-  application                   = "hmpps-strengths-based-needs-assessments-api"
+  github_repo                   = "hmpps-one-plan-api"
+  application                   = "hmpps-one-plan-api"
   github_team                   = "hmpps-assessments"
   environment                   = var.environment
   is_production                 = var.is_production
