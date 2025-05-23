@@ -77,7 +77,6 @@ jobs:
         id: changed-files
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-
             CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }})
           fi
 
@@ -91,15 +90,23 @@ jobs:
             exit 0
           fi
 
-          AFFECTED_NAMESPACES=$(echo "$TF_FILES" | grep -oE 'namespaces/.*/resources/.*' | rev | cut -d'/' -f3- | rev | sort -u | uniq)
+          AFFECTED_NAMESPACES=$(echo "$TF_FILES" | grep -oE 'namespaces/.*/resources' | sort -u | uniq)
 
-          if [[ -z "$AFFECTED_NAMESPACES" ]]; then
+          EXISTING_NAMESPACES=""
+          for ns in $AFFECTED_NAMESPACES; do
+            if [ -d "$ns" ]; then
+              EXISTING_NAMESPACES="$EXISTING_NAMESPACES $ns"
+            fi
+          done
+          EXISTING_NAMESPACES=$(echo "$EXISTING_NAMESPACES" | xargs)
+
+          if [[ -z "$EXISTING_NAMESPACES" ]]; then
             echo "No relevant namespaces changed. Skipping TFLint."
             echo "::set-output name=skip_tflint::true"
           else
-            echo "Namespaces to lint: $AFFECTED_NAMESPACES"
+            echo "Namespaces to lint: $EXISTING_NAMESPACES"
             echo "::set-output name=skip_tflint::false"
-            echo "::set-output name=namespaces::$AFFECTED_NAMESPACES"
+            echo "::set-output name=namespaces::$EXISTING_NAMESPACES"
           fi
 
       - name: Run TFLint initialization
