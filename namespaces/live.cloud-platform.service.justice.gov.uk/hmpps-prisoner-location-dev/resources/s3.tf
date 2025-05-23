@@ -10,6 +10,7 @@ module "hmpps-prisoner-location_s3_bucket" {
   namespace              = var.namespace
   logging_enabled        = true
   log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = "log/"
 
   providers = { aws = aws.london }
 
