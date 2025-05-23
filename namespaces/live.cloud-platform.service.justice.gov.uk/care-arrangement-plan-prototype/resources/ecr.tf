@@ -6,6 +6,8 @@ module "ecr_credentials" {
   oidc_providers      = [var.oidc_name]
   github_repositories = [var.namespace]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
