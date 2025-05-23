@@ -8,6 +8,6 @@ resource "kubernetes_secret" "basic_auth" {
 
   data = {
     username = "prototype"
-    password = "notarealwebsite"
+    password = "recall"
   }
 }
