@@ -77,13 +77,22 @@ jobs:
         id: changed-files
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            CHANGED_FILES=$(git diff --name-only origin/main origin/$GITHUB_HEAD_REF)
+            # Compare the PR branch against its base branch
+            CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }})
           fi
 
           echo "Changed files: $CHANGED_FILES"
-          
-          AFFECTED_NAMESPACES=$(echo "$CHANGED_FILES" | grep -oE 'namespaces/.*/resources/.*' | rev | cut -d'/' -f3- | rev | sort -u | uniq)
-          
+
+          TF_FILES=$(echo "$CHANGED_FILES" | grep '\.tf$' || true)
+
+          if [[ -z "$TF_FILES" ]]; then
+            echo "No Terraform files changed. Skipping TFLint."
+            echo "::set-output name=skip_tflint::true"
+            exit 0
+          fi
+
+          AFFECTED_NAMESPACES=$(echo "$TF_FILES" | grep -oE 'namespaces/.*/resources/.*' | rev | cut -d'/' -f3- | rev | sort -u | uniq)
+
           if [[ -z "$AFFECTED_NAMESPACES" ]]; then
             echo "No relevant namespaces changed. Skipping TFLint."
             echo "::set-output name=skip_tflint::true"
