@@ -51,7 +51,7 @@ variable "eks_cluster_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  default     = "apply-for-civil-legal-aid@justice.gov.uk"
 }
 
 variable "team_name" {
