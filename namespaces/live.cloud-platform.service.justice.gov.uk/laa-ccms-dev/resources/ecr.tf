@@ -23,6 +23,9 @@ module "ecr" {
       "laa-ccms-provider-ui",
       "laa-ccms-connector",
       "laa-ccms-edrms-web-service",
+      "laa-ccms-opa-means-v23",
+      "laa-ccms-opa-merits-v23",
+      "laa-ccms-opa-billing-v23"
   ]
 
   # Lifecycle policies

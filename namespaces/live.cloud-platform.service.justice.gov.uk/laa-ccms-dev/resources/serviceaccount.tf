@@ -13,6 +13,9 @@ module "serviceaccount" {
       "laa-ccms-provider-ui",
       "laa-ccms-connector",
       "laa-ccms-edrms-web-service",
+      "laa-ccms-opa-means-v23",
+      "laa-ccms-opa-merits-v23",
+      "laa-ccms-opa-billing-v23"
   ]
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
