@@ -20,7 +20,7 @@ module "apex-migration-s3" {
         Effect = "Allow"
         Principal = {
           AWS = [
-            aws_iam_role.rds_s3_integration.arn
+            data.aws_iam_role.rds_s3_integration.arn
           ]
         }
         Action = [
