@@ -21,6 +21,7 @@ puts "debug: env: #{env}"
 
 deleted_or_renamed_lines = `git diff --name-status #{commit_range}`.lines.select do |line|
   line.start_with?("D", "R")
+end.each do |line|
   puts "debug: deleted_or_renamed_lines: #{line}"
 end
 
@@ -70,6 +71,7 @@ production_namespaces = deleted_namespace_paths.select do |namespace, path|
 end.map(&:first)
 
 if production_namespaces.any?
+  puts "DEBUG: Entering production namespaces block. Detected namespaces: #{production_namespaces.inspect}"
   msg = <<~EOF
     The following production namespaces have been removed or renamed from the environments repository:
       - #{production_namespaces.join("\n  - ")}
@@ -79,5 +81,5 @@ if production_namespaces.any?
   puts msg
   send_notification(msg)
 else
-  puts "No production namespaces to delete"
+  puts "DEBUG: No production namespaces detected. Skipping notification."
 end
