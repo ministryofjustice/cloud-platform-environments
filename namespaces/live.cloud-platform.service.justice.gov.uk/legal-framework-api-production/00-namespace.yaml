@@ -12,7 +12,7 @@ metadata:
     cloud-platform.justice.gov.uk/service-area: "Access to Legal Aid"
     cloud-platform.justice.gov.uk/slack-channel: "apply-dev"
     cloud-platform.justice.gov.uk/application: "LAA Legal Framework API"
-    cloud-platform.justice.gov.uk/owner: "Apply for civil legal aid: apply-for-civil-legal-aid@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Apply for civil legal aid: apply-for-civil-legal-aid@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/legal-framework-api"
     cloud-platform.justice.gov.uk/team-name: "laa-apply-for-legal-aid"
     cloud-platform.justice.gov.uk/review-after: ""
