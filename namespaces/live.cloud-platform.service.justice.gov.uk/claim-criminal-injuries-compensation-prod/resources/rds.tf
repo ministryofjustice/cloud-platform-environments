@@ -12,7 +12,7 @@ module "rds" {
   infrastructure_support = var.email
 
   db_engine                    = "postgres"
-  db_engine_version = "14.13"
+  db_engine_version = "14.17"
   db_instance_class            = "db.t4g.small"
   db_allocated_storage         = "10"
   db_name                      = "datacaptureservice"
