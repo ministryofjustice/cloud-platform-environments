@@ -13,7 +13,7 @@ provider "aws" {
 
  default_tags {
     tags = {
-      GithubTeam = “farsight-devs”
+      GithubTeam = "farsight-devs"
     }
   }
 }
