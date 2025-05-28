@@ -7,4 +7,5 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = ["laa-cwa-bulk-upload"]
+  github_environments = ["dev"]
 }
