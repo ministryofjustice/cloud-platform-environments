@@ -16,6 +16,7 @@ module "ecr" {
 
   # github environment, to create the ECR secrets as environment secrets
   github_environments = ["dev"]
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
