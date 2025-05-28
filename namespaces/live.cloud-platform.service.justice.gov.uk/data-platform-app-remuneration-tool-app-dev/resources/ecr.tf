@@ -1,3 +1,4 @@
+deletion_protection = false
 module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
