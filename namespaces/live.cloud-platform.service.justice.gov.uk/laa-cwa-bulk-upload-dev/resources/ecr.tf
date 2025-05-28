@@ -14,6 +14,9 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-cwa-bulk-upload"]
 
+  # github environment, to create the ECR secrets as environment secrets
+  github_environments = ["dev"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
