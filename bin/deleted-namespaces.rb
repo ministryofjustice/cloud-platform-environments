@@ -15,7 +15,24 @@ def send_notification(msg)
 end
 
 env = "live.cloud-platform.service.justice.gov.uk"
-commit_range = "origin/main..HEAD"
+
+begin
+  def is_merge_commit?
+    parents = `git rev-list --parents -n 1 HEAD`.strip.split
+    parents.length > 2
+  end
+
+  commit_range = if is_merge_commit?
+    first_parent = `git rev-parse HEAD^1`.strip
+    "#{first_parent}..HEAD"
+  else
+    previous_commit = `git rev-parse HEAD~1`.strip
+    "#{previous_commit}..HEAD"
+  end
+rescue => e
+  puts "DEBUG: Failed to determine commit range: #{e.message}"
+  commit_range = "HEAD"
+end
 
 puts "DEBUG: Using commit range: #{commit_range}"
 puts "DEBUG: Environment: #{env}"
