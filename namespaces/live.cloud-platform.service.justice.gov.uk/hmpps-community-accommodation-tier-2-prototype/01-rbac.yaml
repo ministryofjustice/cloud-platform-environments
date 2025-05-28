@@ -4,9 +4,12 @@ metadata:
   name: hmpps-community-accommodation-tier-2-prototype-admin
   namespace: hmpps-community-accommodation-tier-2-prototype
 subjects:
-  - kind: Group
-    name: "github:hmpps-community-accommodation-tier-2"
-    apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: "github:hmpps-community-accommodation-tier-2"
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: "github:hmpps-community-accommodation-devs"
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
