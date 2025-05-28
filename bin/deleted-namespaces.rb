@@ -42,12 +42,10 @@ end
 deleted_namespace_paths = deleted_or_renamed_lines.map do |line|
   parts = line.strip.split("\t")
   old_path = parts[1]
- 
+
   if old_path =~ %r{\Anamespaces/#{Regexp.escape(env)}/([^/]+)/00-namespace.yaml\z}
     namespace = Regexp.last_match(1)
     [namespace, old_path]
-  else
-    nil
   end
 end.compact
 
