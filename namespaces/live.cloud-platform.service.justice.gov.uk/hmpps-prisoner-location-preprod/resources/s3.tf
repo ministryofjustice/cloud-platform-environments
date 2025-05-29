@@ -66,7 +66,6 @@ data "aws_iam_policy_document" "dso_user_s3_access_policy" {
     ]
 
     resources = [
-      module.hmpps-prisoner-location_s3_bucket.bucket_arn,
       "${module.hmpps-prisoner-location_s3_bucket.bucket_arn}/*"
     ]
   }
