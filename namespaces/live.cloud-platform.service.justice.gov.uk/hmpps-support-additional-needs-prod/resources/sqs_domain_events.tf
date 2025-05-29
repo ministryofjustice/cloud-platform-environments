@@ -51,6 +51,8 @@ resource "aws_sns_topic_subscription" "hmpps_san_domain_events_subscription" {
 }
 
 
+hmpps-farsight-reduce-re-offend-dev-san_domain_events_queue
+
 resource "kubernetes_secret" "hmpps_san_domain_events_queue_secret" {
   metadata {
     name      = "education-and-work-plan-domain-events-sqs-instance-output"
