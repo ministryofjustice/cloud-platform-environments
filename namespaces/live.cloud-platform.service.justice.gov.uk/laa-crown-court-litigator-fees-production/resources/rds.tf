@@ -24,6 +24,7 @@ module "rds-instance-migrated" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" 
+  db_password_rotated_date = "29-05-2025"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
