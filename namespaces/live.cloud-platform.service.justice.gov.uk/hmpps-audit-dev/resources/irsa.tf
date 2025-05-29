@@ -52,36 +52,25 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
 data "aws_iam_policy_document" "service_pod_policy_document" {
   statement {
     actions = [
+      "athena:StartQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
-      "athena:GetWorkGroup",
-      "athena:StartQueryExecution",
-      "athena:StopQueryExecution",
-      "athena:ListDataCatalogs",
-      "s3:GetObject",
+
       "s3:PutObject",
+      "s3:GetObject",
       "s3:ListBucket",
-      "s3:ListAllMyBuckets",
-      "s3:CreateBucket",
-      "s3:GetBucketLocation",
-      "glue:BatchCreatePartition",
+
       "glue:GetDatabase",
       "glue:GetTable",
-      "glue:UpdateTable",
-      "glue:GetPartitions",
       "glue:GetPartition",
-      "glue:GetDatabases",
     ]
+
     resources = [
       aws_athena_workgroup.queries.arn,
-      "${aws_athena_workgroup.queries.arn}/*",
-      "arn:aws:athena:eu-west-2:*:workgroup/*",
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
-      "arn:aws:athena:eu-west-2:*:query/*",
-      "arn:aws:athena:eu-west-2:*:datacatalog/*",
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/*",
-      "arn:aws:glue:eu-west-2:*:table/*",
+      aws_glue_catalog_database.audit_glue_catalog_database.arn,
+      aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"
     ]
