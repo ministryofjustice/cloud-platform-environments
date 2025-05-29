@@ -114,7 +114,7 @@ resource "github_repository_environment" "env" {
   }
 }
 
-##########################################################################
+###########################################################################
 
 resource "github_actions_environment_variable" "namespace_env_var" {
   for_each    = toset(local.github_repos)
