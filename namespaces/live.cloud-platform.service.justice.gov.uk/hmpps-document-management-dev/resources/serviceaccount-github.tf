@@ -110,7 +110,7 @@ resource "github_repository_environment" "env" {
   }
   deployment_branch_policy {
     protected_branches     = true
-    custom_branch_policies = true
+    custom_branch_policies = false
   }
 }
 
