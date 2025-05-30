@@ -14,6 +14,8 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved",
+      "prison-visit.booked",
+      "prison-visit.cancelled"
     ]
   })
 }
