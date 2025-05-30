@@ -109,7 +109,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_incidents_subscri
   filter_policy = jsonencode({
     eventType = [
       "incident.report.created",
-      "incident.report.updated"
+      "incident.report.amended"
     ]
   })
 }
