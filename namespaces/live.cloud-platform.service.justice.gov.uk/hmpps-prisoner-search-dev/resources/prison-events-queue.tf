@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscription" {
-  
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol  = "sqs"
@@ -46,6 +45,12 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_PHONE-INSERTED",
       "OFFENDER_PHONE-UPDATED",
       "OFFENDER_PHONE-DELETED",
+      "OFF_HEALTH_PROBLEMS-INSERTED",
+      "OFF_HEALTH_PROBLEMS-UPDATED",
+      "OFF_HEALTH_PROBLEMS-DELETED",
+      "OFFENDER_LANGUAGES-INSERTED",
+      "OFFENDER_LANGUAGES-UPDATED",
+      "OFFENDER_LANGUAGES-DELETED",
       "OFFENDER_PHYSICAL_ATTRIBUTES-CHANGED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_PROFILE_DETAILS-INSERTED",
