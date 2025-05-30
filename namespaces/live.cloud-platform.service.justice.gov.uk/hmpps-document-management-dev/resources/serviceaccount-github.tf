@@ -110,11 +110,11 @@ resource "github_repository_environment" "env" {
   }
   deployment_branch_policy {
     protected_branches     = true
-    custom_branch_policies = true
+    custom_branch_policies = false
   }
 }
 
-##########################################################################
+###########################################################################
 
 resource "github_actions_environment_variable" "namespace_env_var" {
   for_each    = toset(local.github_repos)
