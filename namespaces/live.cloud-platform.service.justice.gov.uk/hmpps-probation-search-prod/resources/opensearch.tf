@@ -11,7 +11,7 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.17"
+  engine_version      = "OpenSearch_2.19"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
@@ -22,7 +22,8 @@ module "opensearch" {
   }
   proxy_count = 3
   ebs_options = {
-    volume_size = 368
+    volume_size = 1536
+    iops        = 5000 # must be greater than volume_size * 3
     throughput  = 250
   }
 }

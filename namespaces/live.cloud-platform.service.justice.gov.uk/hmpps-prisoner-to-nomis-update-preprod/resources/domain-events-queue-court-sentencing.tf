@@ -122,7 +122,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
       "sentence.deleted",
       "sentence.period-length.inserted",
       "sentence.period-length.updated",
-      "sentence.period-length.deleted"
+      "sentence.period-length.deleted",
+      "recall.inserted",
+      "recall.updated",
+      "recall.deleted",
     ]
   })
 }

@@ -25,6 +25,7 @@ module "rds-mtn" {
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
   skip_final_snapshot      = true
+  db_password_rotated_date = "2025-05-29"
 
   # the database is being migrated from another hosting platform
   is_migration = true

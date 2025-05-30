@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-court-data-adaptor-prod" {
   url                      = "/status"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_laa,application_court-data-adaptor,component_ping,isproduction_true,environment_prod"
+  tags                     = "businessunit_laa,application_court-data-adaptor,component_ping,isproduction_true,environment_prod,laa_production_environment_dashboard"
   probefilters             = "region:EU"
   integrationids           = [104018]
 }

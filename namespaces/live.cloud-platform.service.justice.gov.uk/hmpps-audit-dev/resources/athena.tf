@@ -1,5 +1,5 @@
 resource "aws_glue_catalog_database" "audit_glue_catalog_database" {
-  name = "audit_${var.environment-name}_glue_catalog_database"
+  name = "hmpps_audit_${var.environment-name}_glue_catalog_db"
   location_uri = "s3://${module.s3.bucket_name}/"
 }
 
@@ -118,8 +118,8 @@ resource "kubernetes_secret" "glue-catalog-table-name-secret" {
     namespace = var.namespace
   }
   data = {
-    database_arn  = aws_glue_catalog_table.audit_event_table.arn
-    database_name = aws_glue_catalog_table.audit_event_table.name
+    table_arn  = aws_glue_catalog_table.audit_event_table.arn
+    table_name = aws_glue_catalog_table.audit_event_table.name
   }
 }
 

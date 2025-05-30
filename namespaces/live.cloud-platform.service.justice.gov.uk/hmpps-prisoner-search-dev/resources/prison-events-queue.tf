@@ -11,6 +11,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "ASSESSMENT-UPDATED",
       "BED_ASSIGNMENT_HISTORY-INSERTED",
       "BOOKING_NUMBER-CHANGED",
+      "BOOKING-DELETED",
       "CONFIRMED_RELEASE_DATE-CHANGED",
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
@@ -39,6 +40,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_IDENTIFIER-UPDATED",
       "OFFENDER_IDENTIFYING_MARKS-CHANGED",
       "OFFENDER_IDENTIFYING_MARKS-DELETED",
+      "OFFENDER_IMAGE-CREATED",
+      "OFFENDER_IMAGE-UPDATED",
+      "OFFENDER_IMAGE-DELETED",
       "OFFENDER_PHONE-INSERTED",
       "OFFENDER_PHONE-UPDATED",
       "OFFENDER_PHONE-DELETED",
@@ -158,5 +162,5 @@ resource "kubernetes_secret" "hmpps_prisoner_search_offender_dlq" {
 }
 
 data "aws_ssm_parameter" "offender-events-topic-arn" {
-  name = "/offender-events-dev/topic-arn"
+  name = "/offender-events-${var.environment}/topic-arn"
 }

@@ -4,7 +4,7 @@ module "hmpps_temporary_accommodation_ui" {
   application = "hmpps-temporary-accommodation-ui"
   github_team = "hmpps-community-accommodation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  # reviewer_teams                = ["hmpps-temporary-accommodation", "hmpps-community-accommodation"] # Optional team that should review deployments to this environment.
+  # reviewer_teams                = ["hmpps-temporary-accommodation", "hmpps-community-accommodation",  "hmpps-community-accommodation-devs"] # Optional team that should review deployments to this environment.
   # selected_branch_patterns      = ["main", "feature-dev/*"] # Optional
   protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

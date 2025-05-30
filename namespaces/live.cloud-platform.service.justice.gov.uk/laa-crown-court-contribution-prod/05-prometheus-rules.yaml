@@ -88,6 +88,32 @@ spec:
             message: There has been an error in the logs of the Crown Court Contribution service in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/e35e7cb01f5a4d73aeea2f8bc3d4fced/laa-crown-court-contribution?var-namespace=laa-crown-court-contribution-prod
+        - alert: Instance-Down
+          expr: absent(up{namespace="laa-crown-court-contribution-prod"}) == 1
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+            namespace: laa-crown-court-contribution-prod
+          annotations:
+            message: The production instance of the Crown Court Contribution has been down for >1m.
+        - alert: Quota-Exceeded
+          expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crown-court-contribution-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crown-court-contribution-prod"} > 0) > 90
+          for: 1m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+            namespace: laa-crown-court-contribution-prod
+          annotations:
+            message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+        - alert: KubePodCrashLooping
+          expr: round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crown-court-contribution-prod"}[10m]) * 60 * 10) > 1
+          for: 5m
+          labels:
+            severity: laa-crown-court-contribution-alerts-prod
+            namespace: laa-crown-court-contribution-prod
+          annotations:
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
         - alert: 403 Blocked Request
           expr: sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crown-court-contribution-prod", ingress="laa-crown-court-contribution-prod", status="403"}[5m])) > 1
           for: 1m

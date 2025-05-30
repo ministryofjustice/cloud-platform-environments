@@ -39,7 +39,9 @@ module "apex-migration-s3" {
           AWS = "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng"
         },
         Action = [
-          "s3:PutObject"
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
         ],
         Resource = [
           "$${bucket_arn}",

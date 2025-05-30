@@ -16,29 +16,23 @@ data "aws_iam_policy_document" "athena" {
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
-      "athena:GetWorkGroup",
+      "athena:GetQueryExecution",
+
       "s3:PutObject",
       "s3:GetObject",
       "s3:ListBucket",
-      "athena:GetQueryExecution",
-      "glue:BatchCreatePartition",
+
       "glue:GetDatabase",
       "glue:GetTable",
-      "glue:GetPartitions",
       "glue:GetPartition",
     ]
 
     resources = [
       aws_athena_workgroup.queries.arn,
-      "${aws_athena_workgroup.queries.arn}/*",
-      "arn:aws:athena:eu-west-2:*:query/*",
-      "arn:aws:athena:eu-west-2:*:workgroup/*",
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
-      "arn:aws:athena:eu-west-2:*:datacatalog/*",
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/*",
-      "arn:aws:glue:eu-west-2:*:partition/*",
-      "arn:aws:glue:eu-west-2:*:table/*",
+      aws_glue_catalog_database.audit_glue_catalog_database.arn,
+      aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"
     ]

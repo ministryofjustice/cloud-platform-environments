@@ -53,22 +53,3 @@ resource "kubernetes_secret" "allocation-rds" {
     postgres_password     = module.allocation-rds.database_password
   }
 }
-
-###############################################
-### Inject RDS creds into new MPC namespace ###
-###############################################
-
-resource "kubernetes_secret" "rds-new-mpc" {
-  metadata {
-    name      = "mpc-rails-rds-instance-output"
-    namespace = "hmpps-manage-pom-cases-dev"
-  }
-
-  data = {
-    rds_instance_endpoint = module.allocation-rds.rds_instance_endpoint
-    database_name         = module.allocation-rds.database_name
-    database_username     = module.allocation-rds.database_username
-    database_password     = module.allocation-rds.database_password
-    rds_instance_address  = module.allocation-rds.rds_instance_address
-  }
-}

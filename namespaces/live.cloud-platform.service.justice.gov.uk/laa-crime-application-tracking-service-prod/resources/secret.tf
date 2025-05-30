@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     },
+    "application_tracking_service_alert_webhook_prod" = {
+      description             = "Application Tracking Service Slack Webhook for prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "application-tracking-service-alert-webhook-prod"
+    },
   }
 }

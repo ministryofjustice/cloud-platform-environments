@@ -2,7 +2,7 @@ locals {
 ###################################################################
 ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-managing-prisoner-apps-staff-ui"]
+  github_repos   = ["hmpps-managing-prisoner-apps-staff-ui",  "hmpps-managing-prisoner-apps-api"]
 
 ###################################################################
   github-actions-sa_rules = [
