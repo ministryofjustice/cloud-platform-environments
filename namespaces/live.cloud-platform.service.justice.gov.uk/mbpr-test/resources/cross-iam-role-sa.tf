@@ -4,7 +4,7 @@ module "mbpr_test_irsa" {
   namespace             = var.namespace
   service_account_name  = "mbpr-test-cp-data-access"
   role_policy_arns = {
-    quicksight = aws_iam_policy.mbpr_test.arn
+    data_access_policy = aws_iam_policy.mbpr_test.arn
   }
 
   # Tags
