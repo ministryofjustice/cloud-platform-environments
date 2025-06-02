@@ -7,5 +7,5 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["laa-data-stewardship-access-dev"]
+  github_repositories = ["laa-data-stewardship-access"]
 }
