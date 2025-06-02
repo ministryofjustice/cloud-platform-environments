@@ -5,12 +5,12 @@ module "cvl_domain_events_queue" {
   sqs_name                   = "cvl_domain_events_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
 
-  redrive_policy = jsonencode({
-    deadLetterTargetArn = module.cvl_domain_events_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
-  })
+  redrive_policy = <<EOF
+  {
+    "deadLetterTargetArn": "${module.cvl_domain_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+  }
+  EOF
 
   # Tags
   business_unit          = var.business_unit
