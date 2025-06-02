@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-pcuam"
     cloud-platform.justice.gov.uk/application: "cwa-submissions-api"
     cloud-platform.justice.gov.uk/owner: "CWA Application: laa-pcuam-support@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-cwa-submissions-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cwa-submissions-api"
     cloud-platform.justice.gov.uk/team-name: "laa-pcuam"
     cloud-platform.justice.gov.uk/review-after: ""

@@ -25,6 +25,7 @@ module "migrated-rds-instance" {
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
   skip_final_snapshot      = true
+  db_password_rotated_date = "29-05-2025"
 
   # the database is being migrated from another hosting platform
   is_migration = true
@@ -80,6 +81,15 @@ resource "aws_security_group" "rds" {
 
 resource "aws_security_group_rule" "rule1" {
   cidr_blocks       = ["10.205.0.0/20"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_security_group_rule" "windows_server_laa_stg" {
+  cidr_blocks       = ["10.204.2.94/32"]
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 1521
