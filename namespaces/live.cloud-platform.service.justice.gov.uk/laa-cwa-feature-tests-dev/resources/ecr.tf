@@ -2,6 +2,7 @@
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
+ * ref changed to 7.1.1
  *
  */
 module "ecr" {
