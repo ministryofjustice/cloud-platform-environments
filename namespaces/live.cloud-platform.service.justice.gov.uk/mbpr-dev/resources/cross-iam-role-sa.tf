@@ -1,10 +1,10 @@
-module "mbpr_test_irsa" {
+module "mbpr_dev_irsa" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   eks_cluster_name      = var.eks_cluster_name
   namespace             = var.namespace
-  service_account_name  = "mbpr-test-cp-data-access"
+  service_account_name  = "mbpr-dev-cp-data-access"
   role_policy_arns = {
-    data_access_policy = aws_iam_policy.mbpr_test.arn
+    data_access_policy = aws_iam_policy.mbpr_dev.arn
   }
 
   # Tags
@@ -16,21 +16,21 @@ module "mbpr_test_irsa" {
   infrastructure_support = "missionbrilliantperformancereportingteam@justice.gov.uk"
 }
 
-data "aws_iam_policy_document" "mbpr_test" {
+data "aws_iam_policy_document" "mbpr_dev" {
   statement {
     effect = "Allow"
     actions = [
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::992382429243:role/mbpr-test-ap-data-access"
+      "arn:aws:iam::992382429243:role/mbpr-dev-ap-data-access"
     ]
   }
 }
 
-resource "aws_iam_policy" "mbpr_test" {
-  name   = "mbpr-test"
-  policy = data.aws_iam_policy_document.mbpr_test.json
+resource "aws_iam_policy" "mbpr_dev" {
+  name   = "mbpr-dev"
+  policy = data.aws_iam_policy_document.mbpr_dev.json
 
   tags = {
     business-unit          = var.business_unit
@@ -44,12 +44,12 @@ resource "aws_iam_policy" "mbpr_test" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "mbpr-test-irsa-output"
+    name      = "mbpr-dev-irsa-output"
     namespace = var.namespace
   }
   data = {
-    role           = module.mbpr_test_irsa.role_name
-    rolearn        = module.mbpr_test_irsa.role_arn
-    serviceaccount = module.mbpr_test_irsa.service_account.name
+    role           = module.mbpr_dev_irsa.role_name
+    rolearn        = module.mbpr_dev_irsa.role_arn
+    serviceaccount = module.mbpr_dev_irsa.service_account.name
   }
 }

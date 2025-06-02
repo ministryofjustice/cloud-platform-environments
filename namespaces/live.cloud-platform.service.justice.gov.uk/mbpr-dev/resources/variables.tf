@@ -22,7 +22,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "mbpr-test"
+  default     = "mbpr-dev"
 }
 
 variable "business_unit" {
