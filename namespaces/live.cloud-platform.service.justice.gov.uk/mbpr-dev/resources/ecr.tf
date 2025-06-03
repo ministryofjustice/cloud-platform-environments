@@ -22,6 +22,13 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_environments    = [var.environment]
+  github_actions_secret_kube_cluster = var.github_actions_secret_kube_cluster
+  github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
+  github_actions_secret_kube_cert = var.github_actions_secret_kube_cert
+  github_actions_secret_kube_token = var.github_actions_secret_kube_token
+  github_actions_secret_ecr_name = var.github_actions_secret_ecr_name
+  github_actions_secret_ecr_url = var.github_actions_secret_ecr_url
 }
 
 resource "kubernetes_secret" "ecr" {
