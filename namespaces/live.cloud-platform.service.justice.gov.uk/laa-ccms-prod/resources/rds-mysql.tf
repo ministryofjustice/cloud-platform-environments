@@ -9,13 +9,13 @@ module "opa_hub_db" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true
+  deletion_protection = true
 
   # MySQL specifics
   db_engine         = "mysql"
   db_engine_version = "8.0.40"
   rds_family        = "mysql8.0"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t3.large"
   db_parameter      = []
 
   # Tags
