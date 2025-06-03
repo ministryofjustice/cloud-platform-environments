@@ -10,9 +10,9 @@ resource "kubernetes_secret" "hmpps_san_hmpps_domain_events_topic" {
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  name = "/hmpps-domain-events-dev/topic-arn"
+  name = "/hmpps-domain-events-preprod/topic-arn"
 }
 
 data "aws_sns_topic" "hmpps-domain-events" {
-  name = "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"
+  name = "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd"
 }
