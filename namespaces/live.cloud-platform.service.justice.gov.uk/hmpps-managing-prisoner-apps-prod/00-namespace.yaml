@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hmpps-managing-prisoner-apps-prod
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "prod"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "ask_prisoner_facing_services"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "launchpad-alerts"
+    cloud-platform.justice.gov.uk/application: "HMPPS Managing Prisoner Applications"
+    cloud-platform.justice.gov.uk/owner: "Prisoner Facing Services: thehub@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-managing-prisoner-apps-staff-ui.git"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-launchpad"
