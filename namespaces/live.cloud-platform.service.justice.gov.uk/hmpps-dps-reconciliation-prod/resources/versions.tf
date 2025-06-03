@@ -17,4 +17,5 @@ terraform {
       source  = "DrFaust92/pingdom"
       version = "~> 1.3.1"
     }
+  }
 }
