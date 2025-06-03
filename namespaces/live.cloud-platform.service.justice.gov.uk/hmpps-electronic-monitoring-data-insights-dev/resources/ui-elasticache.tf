@@ -24,7 +24,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "hmpps-electronic-monitoring-data-insights-ui-elasticache-redis"
     namespace = var.namespace
   }
 
