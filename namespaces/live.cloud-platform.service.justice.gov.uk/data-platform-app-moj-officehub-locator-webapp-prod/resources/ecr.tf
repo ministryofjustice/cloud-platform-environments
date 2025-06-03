@@ -2,6 +2,7 @@ module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   repo_name = "${var.namespace}-ecr"
+  deletion_protection = false
 
 
   # Uncomment and provide repository names to create github actions secrets
