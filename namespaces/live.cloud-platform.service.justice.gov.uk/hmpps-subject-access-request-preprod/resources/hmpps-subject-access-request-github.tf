@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps_subject_access_request_html_renderer" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-subject-access-request-html-renderer"
   application = "hmpps-subject-access-request-html-renderer"
@@ -12,4 +12,5 @@ module "hmpps_template_kotlin" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = [var.team_name]
 }
