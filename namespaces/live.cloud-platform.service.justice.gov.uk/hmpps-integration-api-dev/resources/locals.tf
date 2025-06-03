@@ -14,7 +14,7 @@ locals {
     "heartbeat",
     "ctrlo",
     "pnd",
-    "event-service",
+    # "event-service",
     "mryall",
     "moj-pes",
     "maspin",
