@@ -22,5 +22,16 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  deletion_protection    = false
+}
+
+resource "kubernetes_secret" "ecr" {
+  metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
+  }
 }

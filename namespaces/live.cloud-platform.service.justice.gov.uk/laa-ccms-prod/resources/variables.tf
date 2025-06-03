@@ -1,3 +1,9 @@
+variable "eks_cluster_name" {
+  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  type        = string
+  default     = "example_name"
+}
+
 variable "vpc_name" {
   description = "VPC name to create security groups in for the ElastiCache and RDS modules"
   type        = string
@@ -8,45 +14,40 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster to retrieve the OIDC information"
-  type        = string
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Mission Brilliant Performance Reporting"
+  default     = "client and cost management system"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "mbpr-test"
+  default     = "laa-ccms-prod"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Central Digital"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "mission-brilliant-performance-reporting"
+  default     = "laa-ccms-devs"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "missionbrilliantperformancereportingteam@justice.gov.uk"
+  default     = "ccmspuimodernisation@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -58,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "mission-brilliant-experiment"
+  default     = "laa-ccms-support"
 }
 
 variable "github_owner" {
@@ -72,3 +73,25 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_PROD"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_PROD"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_PROD"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_PROD"
+}
+
+
