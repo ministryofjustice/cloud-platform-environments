@@ -1,4 +1,4 @@
-module "hmpps-dps-reconciliation" {
+module "hmpps_template_kotlin" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-dps-reconciliation"
   application = "hmpps-dps-reconciliation"
