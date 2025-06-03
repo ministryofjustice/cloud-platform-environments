@@ -7,7 +7,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_delete_domain_events_subscript
   endpoint  = module.cpr_delius_delete_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "probation-case.deleted.gdpr"
+      "probation-case.deleted.gdpr",
+      "probation-case.engagement.deleted"
     ]
   })
 }

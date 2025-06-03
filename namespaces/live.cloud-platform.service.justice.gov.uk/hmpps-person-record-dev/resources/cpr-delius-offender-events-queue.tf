@@ -11,7 +11,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
       "probation-case.personal-details.updated",
       "probation-case.address.created",
       "probation-case.address.updated",
-      "probation-case.address.deleted"
+      "probation-case.address.deleted",
+      "probation-case.engagement.recovered"
     ]
   })
 }

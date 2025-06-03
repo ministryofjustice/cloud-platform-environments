@@ -12,7 +12,7 @@ module "flipt-db" {
   namespace                    = var.namespace
   rds_name                     = "probation-integration-flipt-db-${var.environment_name}"
   rds_family                   = "postgres16"
-  db_engine_version            = "16.4"
+  db_engine_version            = "16.8"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = true

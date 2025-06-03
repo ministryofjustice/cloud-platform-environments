@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "gov-collab-library"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/slack-channel: "design-system-core-team"
+    cloud-platform.justice.gov.uk/application: "Gov.UK Prototype Kit"
+    cloud-platform.justice.gov.uk/owner: "MoJ Design System team: platforms@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/gov-collab-library"
+    cloud-platform.justice.gov.uk/team-name: "gov-collab-library"
+    cloud-platform.justice.gov.uk/review-after: ""
