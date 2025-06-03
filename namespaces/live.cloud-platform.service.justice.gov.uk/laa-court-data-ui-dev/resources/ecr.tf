@@ -19,6 +19,40 @@ module "lcdui_ecr_credentials" {
   providers = {
     aws = aws.london
   }
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep the newest 10 production images",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["main-"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 10
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep branch images for 60 days",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["branch-"],
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 60
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
 }
 
 resource "kubernetes_secret" "lcdui_ecr_credentials" {
