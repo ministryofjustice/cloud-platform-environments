@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "ecr" {
+module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
   # Repository configuration
