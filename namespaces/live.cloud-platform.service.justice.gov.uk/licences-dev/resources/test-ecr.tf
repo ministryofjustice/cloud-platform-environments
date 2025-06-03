@@ -5,6 +5,8 @@ module "ecr-test" {
   oidc_providers      = ["circleci"]
   github_repositories = ["probation-teams"]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = "probation-teams"
