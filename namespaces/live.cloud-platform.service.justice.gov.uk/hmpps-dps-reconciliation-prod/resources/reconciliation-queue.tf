@@ -108,7 +108,8 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_offender_subscri
   endpoint  = module.hmpps_dps_reconciliation_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "EXTERNAL_MOVEMENT_RECORD-INSERTED"
+      "EXTERNAL_MOVEMENT_RECORD-INSERTED",
+      "EXTERNAL_MOVEMENT-CHANGED"
     ]
   })
 }
