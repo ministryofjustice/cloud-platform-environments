@@ -11,7 +11,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default     = "hmpps-subject-access-requests"
+  default     = "hmpps-sar-live"
 }
 
 variable "environment" {

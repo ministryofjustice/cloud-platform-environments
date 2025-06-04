@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Subject Access Request"
     cloud-platform.justice.gov.uk/owner: "Subject Access Request: subject-access-request-service@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-subject-access-request-ui"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-subject-access-requests"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-subject-access-requests-team"
     cloud-platform.justice.gov.uk/review-after: ""
