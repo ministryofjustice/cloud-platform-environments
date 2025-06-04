@@ -57,7 +57,7 @@ variable "slack_channel" {
 }
 
 variable "domain" {
-  default = "child-arrangement-plan.service.justice.gov.uk"
+  default = "child-arrangements-plan.service.justice.gov.uk"
 }
 
 variable "github_owner" {
