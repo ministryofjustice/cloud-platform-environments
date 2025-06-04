@@ -6,6 +6,8 @@ module "ecr-repo" {
   oidc_providers      = ["github"]
   github_repositories = [var.namespace]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
