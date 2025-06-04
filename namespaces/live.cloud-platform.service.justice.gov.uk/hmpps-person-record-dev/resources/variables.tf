@@ -5,7 +5,7 @@ variable "application" {
   default = "HMPPS Person Record Service"
 }
 
-variable "serivce_area" {
+variable "service_area" {
   default = "Enabling Technologies"
 }
 

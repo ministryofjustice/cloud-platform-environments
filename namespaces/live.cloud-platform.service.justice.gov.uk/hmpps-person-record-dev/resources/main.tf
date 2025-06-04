@@ -25,7 +25,7 @@ locals {
   default_tags = {
     namespace              = var.namespace
     business_unit          = var.business_unit
-    serivce_area           = var.service_area
+    service_area           = var.service_area
     application            = var.application
     is_production          = var.is_production
     team_name              = var.team_name
