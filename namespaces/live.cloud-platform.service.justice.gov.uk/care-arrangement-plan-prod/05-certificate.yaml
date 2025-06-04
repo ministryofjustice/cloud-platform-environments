@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - child-arrangement-plan.service.justice.gov.uk
+    - child-arrangements-plan.service.justice.gov.uk
