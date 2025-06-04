@@ -5,12 +5,20 @@ variable "application" {
   default = "HMPPS Person Record Service"
 }
 
+variable "serivce_area" {
+  default = "Enabling Technologies"
+}
+
 variable "namespace" {
   default = "hmpps-person-record-dev"
 }
 
 variable "business_unit" {
   default = "HMPPS"
+}
+
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
 }
 
 variable "team_name" {
