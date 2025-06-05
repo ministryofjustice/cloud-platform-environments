@@ -5,6 +5,10 @@ variable "application" {
   default = "HMPPS Person Record Service"
 }
 
+variable "service_area" {
+  default = "Enabling Technologies"
+}
+
 variable "namespace" {
   default = "hmpps-person-record-prod"
 }
@@ -41,6 +45,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
 }
 
 variable "eks_cluster_name" {
