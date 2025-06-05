@@ -25,11 +25,13 @@ provider "github" {
 locals {
   default_tags = {
     namespace              = var.namespace
-    business_unit          = var.business_unit
+    business-unit          = var.business_unit
+    service-area           = var.service_area
     application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
+    is-production          = var.is_production
+    team-name              = var.team_name
+    environment-name       = var.environment
+    owner                  = var.owner
+    infrastructure-support = var.infrastructure_support
   }
 }
