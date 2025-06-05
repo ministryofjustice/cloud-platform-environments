@@ -10,4 +10,6 @@ module "serviceaccount" {
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
+
+  serviceaccount_rules = var.serviceaccount_rules
 }
