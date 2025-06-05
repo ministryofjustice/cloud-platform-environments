@@ -28,7 +28,7 @@ locals {
     service-area           = var.service_area
     application            = var.application
     is-production          = var.is_production
-    team_name              = var.team_name
+    team-name              = var.team_name
     environment-name       = var.environment
     owner                  = var.owner
     infrastructure-support = var.infrastructure_support
