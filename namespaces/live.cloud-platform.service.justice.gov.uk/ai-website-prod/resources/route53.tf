@@ -13,7 +13,7 @@ resource "aws_route53_zone" "ai_route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "cap_route53_zone_sec" {
+resource "kubernetes_secret" "ai_route53_zone_sec" {
   metadata {
     name      = "ai-route53-zone-output"
     namespace = var.namespace
