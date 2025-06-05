@@ -38,6 +38,10 @@ variable "environment" {
   default     = "production"
 }
 
+variable "domain" {
+  default = "ai.justice.gov.uk"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   type        = string
