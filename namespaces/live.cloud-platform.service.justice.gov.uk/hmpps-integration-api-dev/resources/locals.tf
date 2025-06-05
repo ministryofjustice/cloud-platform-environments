@@ -11,7 +11,6 @@ locals {
 
   clients = [
     "mapps",
-    "kilco",
     "heartbeat",
     "ctrlo",
     "pnd",
