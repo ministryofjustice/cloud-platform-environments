@@ -12,8 +12,8 @@ module "rds" {
   rds_family                   = "postgres17"
   db_engine_version            = "17"
   db_instance_class            = "db.t4g.small"
-  prepare_for_major_upgrade    = true
-  allow_major_version_upgrade  = true
+  prepare_for_major_upgrade    = false
+  allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = true
   performance_insights_enabled = true
   enable_rds_auto_start_stop   = true
