@@ -72,6 +72,7 @@ resource "aws_iam_policy" "combined_nomis_sqs" {
 resource "aws_iam_policy" "cross_namespace_s3_policy" {
   name   = "${var.namespace}-cross-namespace-s3-policy"
   policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+  tags   = local.default_tags
 }
 
 data "aws_iam_policy_document" "cross_namespace_s3_access" {
@@ -122,6 +123,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
+
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
