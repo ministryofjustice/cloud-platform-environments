@@ -23,6 +23,7 @@ module "lcdui_rds" {
   db_engine_version           = "14.17"
   rds_family                  = "postgres14"
   allow_major_version_upgrade = "true"
+  enable_rds_auto_start_stop  = true
 
 
   providers = {
