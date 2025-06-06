@@ -5,7 +5,7 @@ locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue"                           = "hmpps-audit-preprod",
-    "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod",
+    "education-skills-and-work-live-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod",
     "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-preprod",
     "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"            = "visit-someone-in-prison-backend-svc-preprod",
     "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"        = "hmpps-education-and-work-plan-preprod",
