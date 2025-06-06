@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -16,7 +16,10 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-find-and-refer-intervention"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns = merge(
+    { elasticache = module.elasticache_redis.irsa_policy_arn },
+    local.sqs_policies,
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
