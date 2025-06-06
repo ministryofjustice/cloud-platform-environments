@@ -4,7 +4,7 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "education-skills-work-employment-prod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-prod"
+    "education-skills-and-work-live-prod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
