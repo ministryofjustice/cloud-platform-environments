@@ -13,7 +13,7 @@ module "secrets_manager" {
     "maat_api_env_variables" = {
       description             = "MAAT API Environment variables for Test environment",
       recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-oauth-client-credentials"
+      k8s_secret_name         = "maat-api-env-variables"
     },
   }
 }
