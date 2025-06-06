@@ -41,6 +41,6 @@ resource "kubernetes_secret" "irsa" {
 data "kubernetes_secret" "queue_arn" {
   metadata {
     name      = "sqs-queue-irsa-policy-arn"
-    namespace = "laa-court-data-adaptor-prod"
+    namespace = "laa-court-data-adaptor-uat"
   }
 }
