@@ -29,7 +29,8 @@ locals {
     "bmadley",
     "smoke-test-full-access",
     "smoke-test-limited-access",
-    "smoke-test-no-access"
+    "smoke-test-no-access",
+    "test"
   ]
 
   client_queues = {
@@ -40,5 +41,6 @@ locals {
     meganexus = module.event_plp_queue.sqs_name
     bmadley   = module.event_bmadley_queue.sqs_name # testing
     kilco     = module.event_kilco_queue.sqs_name
+    test      = module.event_kilco_queue.sqs_name # testing
   }
 }
