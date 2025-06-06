@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "education-skills-work-employment"
+  default     = "education-skills-and-work-devs"
 }
 
 variable "environment" {
