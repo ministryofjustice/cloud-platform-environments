@@ -147,6 +147,11 @@ variable "cognito_user_pool_client_name_fts" {
   default     = "fts-uat"
 }
 
+variable "cognito_user_pool_client_name_mlra" {
+  description = "Cognito user pool client - MLRA"
+  default     = "mlra-uat"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "maat-api-uat"
