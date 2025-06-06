@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-matching-prototype
 subjects:
   - kind: Group
-    name: "github:education-skills-work-employment"
+    name: "github:hmpps-education-skills-and-work"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
