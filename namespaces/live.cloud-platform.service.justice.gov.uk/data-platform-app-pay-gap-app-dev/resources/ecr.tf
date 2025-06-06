@@ -3,6 +3,7 @@ module "ecr_credentials" {
 
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["github"]
+  deletion_protection = false 
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
