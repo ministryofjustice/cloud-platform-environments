@@ -15,16 +15,14 @@ module "opensearch" {
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "m6g.xlarge.search"
+    instance_type            = "im4gn.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "m6g.large.search"
   }
   proxy_count = 3
   ebs_options = {
-    volume_size = 1536
-    iops        = 5000 # must be greater than volume_size * 3
-    throughput  = 500
+    volume_size = 0
   }
 }
 
