@@ -11,5 +11,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "accredited-programme-team"
     cloud-platform.justice.gov.uk/application: "Accredited Programmes Manage and Deliver"
     cloud-platform.justice.gov.uk/owner: "Accredited Programmes Manage and Deliver: interventions-devs@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-accredited-programmes-manage-and-deliver-ui, https://github.com/ministryofjustice/hmpps-accredited-programmes-manage-and-deliver-service"
+    cloud-platform.justice.gov.uk/source-code: ""
     cloud-platform.justice.gov.uk/team-name: "hmpps-accredited-programmes-manage-and-deliver-devs"
