@@ -74,6 +74,33 @@ module "cvl_domain_events_dead_letter_queue" {
   }
 }
 
+resource "aws_sqs_queue_policy" "cvl_domain_events_dead_letter_queue_policy" {
+  queue_url = module.cvl_domain_events_dead_letter_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.cvl_domain_events_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.cvl_domain_events_dead_letter_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+            {
+              "ArnEquals":
+              {
+                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+              }
+            }
+        }
+      ]
+  }
+EOF
+}
+
 resource "kubernetes_secret" "cvl_domain_events_queue" {
   metadata {
     name      = "sqs-domain-events-queue-secret"
