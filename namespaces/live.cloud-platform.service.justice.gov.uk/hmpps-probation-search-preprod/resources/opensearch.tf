@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.3"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -21,9 +21,8 @@ module "opensearch" {
     dedicated_master_type    = "m6g.large.search"
   }
   proxy_count = 3
-  ebs_options = {
-    volume_size = 0
-  }
+  ebs_enabled = false
+  ebs_options = {}
 }
 
 module "opensearch_snapshot_bucket" {
