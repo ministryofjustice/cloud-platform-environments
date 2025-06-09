@@ -121,13 +121,13 @@ resource "kubernetes_secret" "cvl_domain_events_dead_letter_queue" {
   }
 
   data = {
-    sqs_queue_url  = module.cvl_domain_events_queue.sqs_id
-    sqs_queue_arn  = module.cvl_domain_events_queue.sqs_arn
-    sqs_queue_name = module.cvl_domain_events_queue.sqs_name
+    sqs_queue_url  = module.cvl_domain_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cvl_domain_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cvl_domain_events_dead_letter_queue.sqs_name
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
+resource "aws_sns_topic_subscription" "hmpps_cvl_domain_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
