@@ -21,7 +21,9 @@ module "opensearch" {
     dedicated_master_type    = "m6g.large.search"
   }
   proxy_count = 3
-  ebs_options = null
+  ebs_options = {
+    volume_size = 0
+  }
 }
 
 module "opensearch_snapshot_bucket" {
