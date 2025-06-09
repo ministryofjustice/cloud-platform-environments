@@ -3,10 +3,7 @@ locals {
     "Digital-Prison-Services-dev-cvl_domain_events_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-cvl_domain_events_dead_letter_queue" = "hmpps-domain-events-dev",
   }
-  sqs_policies = {
-    cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
-    cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
-  }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
@@ -28,6 +25,11 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
