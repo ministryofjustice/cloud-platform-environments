@@ -69,7 +69,7 @@ resource "aws_route53_record" "finucane_route53_dkim" {
   records = [
     "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAugfVMdz1tPmlB2oEiIhVLeZnRUzge+doPPTmRvbmhtkPzFGA+mkV49eRXbakmS4pTUgb4DF2A3M5d",
     "uqLDbhxUDG9Jmg7Yavq6qqPYACVai/pPws+mekRMjlUhSxxa6tiqgWRd5Aw+b154uslY4GzaZCrioKd/l0WCKYD3pE2TQlo0u7eev9ViU7NtrieJiEbpfbhAeJx3DkI4zP991sdu",
-    "cdz0p7q9Qk4ApuxwDbPnkXiZFWKKcf9KBNu3OYbQkVLAalwjihxKqSMPnbRLZMGbuS3/9DW/cHH9zRoKGS7yJjUVVHJ3clYTn7xzD8PFcwqoFVfPDnCnuOIniLrtgl51QIDAQAB"
+    "cdz0p7q9Qk4ApuxwDbPnkXiZFWKKcf9KBNu3OYbQkVLAalwjihxKqSMPnbRLZMGbuS3/9DW/cHH9zRoKGS7yJjUVVHJ3clYTn7xzD8PFcwqoFVfPDnCnuOIniLrtgl51QIDAQAB;"
   ]
 }
 
