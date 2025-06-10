@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: hmpps-accredited-programmes-manage-and-deliver-dev
+spec:
+  hard:
+    pods: "50"
