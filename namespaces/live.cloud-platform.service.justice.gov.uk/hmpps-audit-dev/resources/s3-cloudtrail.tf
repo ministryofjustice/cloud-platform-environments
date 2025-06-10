@@ -12,3 +12,8 @@ module "cloudtrail_s3_bucket" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 }
+
+resource "aws_s3_bucket_acl" "cloudtrail_logs" {
+  bucket = module.cloudtrail_s3_bucket.bucket_name
+  acl    = "private"
+}
