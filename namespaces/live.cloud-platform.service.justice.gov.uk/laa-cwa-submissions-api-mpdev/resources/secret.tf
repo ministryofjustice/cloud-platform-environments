@@ -22,7 +22,7 @@ module "secrets_manager" {
       k8s_secret_name         = "test-secret-two" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "cwa-submissions-api" = {
-      description             = "CWA Test Provider API secrets",   # Required
+      description             = "CWA submissions api secrets",   # Required
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "cwa-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
