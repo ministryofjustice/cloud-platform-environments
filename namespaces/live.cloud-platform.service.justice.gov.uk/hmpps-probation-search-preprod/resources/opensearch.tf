@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.3"
+  source = "github.com/marcus-bcl/cloud-platform-terraform-opensearch?ref=patch-6"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -22,7 +22,6 @@ module "opensearch" {
   }
   proxy_count = 3
   ebs_enabled = false
-  ebs_options = {}
 }
 
 module "opensearch_snapshot_bucket" {
