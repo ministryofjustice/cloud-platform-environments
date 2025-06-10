@@ -17,8 +17,8 @@ module "ecr_cwa_submissions" {
 module "ecr_csv_converter" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
   repo_name             = var.namespace
-  oidc_providers        = ["github"]
-  github_repositories   = ["cwa-submissions-api", "circleci"]
+  oidc_providers        = ["github", "circleci"]
+  github_repositories   = ["cwa-submissions-api"]
   github_actions_prefix = "CONVERTER"    
 
   business_unit          = var.business_unit
