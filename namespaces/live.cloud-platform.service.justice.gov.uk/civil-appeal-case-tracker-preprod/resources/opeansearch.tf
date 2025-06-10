@@ -28,7 +28,7 @@ module "opensearch_alert" {
                 should = [
                   {
                     match_phrase = {
-                      log_processed.kubernetes_namespace = "civil-appeal-case-tracker-preprod"
+                      "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-preprod"
                     }
                   }
                 ]
@@ -40,7 +40,7 @@ module "opensearch_alert" {
                 should = [
                   {
                     match_phrase = {
-                      log_processed.http_user_agent = "bot"
+                      "log_processed.http_user_agent": "bot"
                     }
                   }
                 ],
