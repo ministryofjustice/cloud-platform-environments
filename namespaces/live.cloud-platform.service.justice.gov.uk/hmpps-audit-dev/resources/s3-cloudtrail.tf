@@ -13,7 +13,15 @@ module "cloudtrail_s3_bucket" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_s3_bucket_acl" "cloudtrail_logs" {
+# Resource to avoid error "AccessControlListNotSupported: The bucket does not allow ACLs"
+resource "aws_s3_bucket_ownership_controls" "cloudtrail_bucket_ownership_controls" {
+  bucket = module.cloudtrail_s3_bucket.bucket_name
+  rule {
+    object_ownership = "ObjectWriter"
+  }
+}
+
+resource "aws_s3_bucket_acl" "cloudtrail_bucket_acl" {
   bucket = module.cloudtrail_s3_bucket.bucket_name
   acl    = "private"
 }
