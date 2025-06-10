@@ -1,7 +1,7 @@
 module "ecr_cwa_submissions" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
-  repo_name             = "cwa-submissions-api"
-  oidc_providers        = ["github"]
+  repo_name             = var.namespace
+  oidc_providers        = ["github", "circleci"]
   github_repositories   = ["cwa-submissions-api"]
   github_actions_prefix = "SUBMISSIONS"  
 
@@ -16,8 +16,8 @@ module "ecr_cwa_submissions" {
 
 module "ecr_csv_converter" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
-  repo_name             = "csv-converter"
-  oidc_providers        = ["github"]
+  repo_name             = var.namespace
+  oidc_providers        = ["github", "circleci"]
   github_repositories   = ["cwa-submissions-api"]
   github_actions_prefix = "CONVERTER"    
 
@@ -29,3 +29,4 @@ module "ecr_csv_converter" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
