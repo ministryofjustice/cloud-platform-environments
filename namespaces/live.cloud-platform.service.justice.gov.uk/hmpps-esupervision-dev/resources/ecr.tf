@@ -14,6 +14,9 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-esupervision-api", "hmpps-esupervision-ui"]
 
+  # disable deletion protection
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
