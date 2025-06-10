@@ -1,7 +1,7 @@
 module "hmpps_managing_prisoner_apps_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo = "hmpps-managing-prisoner-apps"
-  application = "hmpps-managing-prisoner-apps"
+  github_repo = "hmpps-managing-prisoner-apps-api"
+  application = "hmpps-managing-prisoner-apps-api"
   github_team = "hmpps-launchpad"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-launchpad"] # Optional team that should review deployments to this environment.
