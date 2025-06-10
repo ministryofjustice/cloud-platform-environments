@@ -32,7 +32,6 @@ variable "data_ecr" {
   default     = "laa-get-payments-finance-data-dev-data"
 }
 
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
