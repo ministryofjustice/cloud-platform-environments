@@ -17,11 +17,6 @@ module "cloudtrail_s3_bucket" {
 resource "aws_s3_bucket_ownership_controls" "cloudtrail_bucket_ownership_controls" {
   bucket = module.cloudtrail_s3_bucket.bucket_name
   rule {
-    object_ownership = "ObjectWriter"
+    object_ownership = "BucketOwnerEnforced"
   }
-}
-
-resource "aws_s3_bucket_acl" "cloudtrail_bucket_acl" {
-  bucket = module.cloudtrail_s3_bucket.bucket_name
-  acl    = "private"
 }
