@@ -10,7 +10,7 @@ module "elasticache_redis" {
   application            = var.application
   is_production          = var.is_production
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
