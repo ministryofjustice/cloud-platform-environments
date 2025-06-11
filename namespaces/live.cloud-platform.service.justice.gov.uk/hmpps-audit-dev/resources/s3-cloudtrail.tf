@@ -34,7 +34,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_logs" {
           Service = "cloudtrail.amazonaws.com"
         },
         Action   = "s3:PutObject",
-        Resource = "${module.cloudtrail_s3_bucket.arn}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"
+        Resource = "${module.cloudtrail_s3_bucket.bucket_arn}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"
       },
       {
         Sid    = "AWSCloudTrailGetBucketAcl",
@@ -43,7 +43,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_logs" {
           Service = "cloudtrail.amazonaws.com"
         },
         Action   = "s3:GetBucketAcl",
-        Resource = module.cloudtrail_s3_bucket.arn
+        Resource = module.cloudtrail_s3_bucket.bucket_arn
       }
     ]
   })
