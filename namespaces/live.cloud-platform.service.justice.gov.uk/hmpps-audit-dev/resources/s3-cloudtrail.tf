@@ -77,4 +77,42 @@ resource "aws_cloudtrail" "s3_data_trail" {
   ]
 }
 
+
+data "aws_iam_policy_document" "cloudtrail_s3_iam_policy" {
+  statement {
+    sid     = "AllowCloudTrailWrite"
+    actions = ["s3:PutObject"]
+    effect  = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+
+    resources = [
+      "${module.cloudtrail_s3_bucket.bucket_arn}/AWSLogs/${data.aws_caller_identity.current.account_id}/*"
+    ]
+  }
+
+  statement {
+    sid     = "AllowCloudTrailGetBucketAcl"
+    actions = ["s3:GetBucketAcl"]
+    effect  = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+
+    resources = [
+      module.cloudtrail_s3_bucket.bucket_arn
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "cloudtrail_logs_policy" {
+  bucket = module.cloudtrail_s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.cloudtrail_s3_iam_policy.json
+}
+
 data "aws_caller_identity" "current" {}
