@@ -13,7 +13,7 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments   = ["prod"]
   github_actions_prefix = "prod"
-  
+
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
