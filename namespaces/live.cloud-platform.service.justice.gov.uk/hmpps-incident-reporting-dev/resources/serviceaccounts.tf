@@ -1,3 +1,4 @@
+# TODO: Remove once migration to GH Actions completed?
 module "serviceaccount_circleci" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
@@ -24,6 +25,7 @@ module "serviceaccount_circleci" {
   ]
 }
 
+# TODO: Remove once migration to GH Actions completed?
 resource "kubernetes_role_binding" "circleci_edit" {
   metadata {
     namespace = var.namespace

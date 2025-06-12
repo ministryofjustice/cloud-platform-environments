@@ -1,7 +1,9 @@
+# TODO: Remove once migration to GH Actions completed?
 data "aws_ssm_parameter" "application_insights_key" {
   name = "/application_insights/key-dev"
 }
 
+# TODO: Remove once migration to GH Actions completed?
 resource "kubernetes_secret" "application-insights" {
   metadata {
     name      = "application-insights"
