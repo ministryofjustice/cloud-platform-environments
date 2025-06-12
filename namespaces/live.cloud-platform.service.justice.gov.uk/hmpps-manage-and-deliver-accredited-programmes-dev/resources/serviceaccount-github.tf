@@ -118,11 +118,3 @@ resource "github_repository_environment" "env" {
 }
 
 ###########################################################################
-
-resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
-  variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
-}
