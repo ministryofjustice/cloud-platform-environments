@@ -60,7 +60,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine                 = "postgres"
-  db_engine_version         = "16.4"
+  db_engine_version         = "16.8"
   rds_family                = "postgres16"
   db_instance_class         = "db.t4g.micro"
   db_max_allocated_storage  = "1000"
