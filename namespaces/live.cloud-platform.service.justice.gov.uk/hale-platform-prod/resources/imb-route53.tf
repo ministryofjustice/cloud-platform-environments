@@ -42,12 +42,15 @@ resource "aws_route53_record" "imb_route53_mx_record" {
   records = ["10 inbound-smtp.eu-west-1.amazonaws.com"]
 }
 
-resource "aws_route53_record" "imb_route53_txt_spf1_record" {
+resource "aws_route53_record" "imb_route53_txt_records" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "imb.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 -all"]
+  records = [
+    "v=spf1 include:amazonses.com include:spf.brevo.com -all",
+    "brevo-code:5df81568a8579db8c5271574de58f6bb"
+  ]
 }
 
 resource "aws_route53_record" "imb_route53_txt_aws_ses_record" {
@@ -63,7 +66,7 @@ resource "aws_route53_record" "imb_route53_txt_dmarc_record" {
   name    = "_dmarc.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1;p=none;sp=none;rua=mailto:dmarc-rua@dmarc.service.gov.uk"]
+  records = ["v=DMARC1;p=none;sp=none;rua=mailto:dmarc-rua@dmarc.service.gov.uk,mailto:rua@dmarc.brevo.com"]
 }
 
 resource "aws_route53_record" "imb_route53_txt_asvdns_record" {
@@ -121,3 +124,20 @@ resource "aws_route53_record" "imb_route53_cname_www_acm_validation_aws_record" 
   ttl     = "60"
   records = ["_f39b2d1c51943d6f617b24ded0373daa.hkvuiqjoua.acm-validations.aws."]
 }
+
+resource "aws_route53_record" "imb_route53_dkim1" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "brevo1._domainkey.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["b1.imb-org-uk.dkim.brevo.com"]
+}
+
+resource "aws_route53_record" "imb_route53_dkim2" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "brevo2._domainkey.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["b2.imb-org-uk.dkim.brevo.com"]
+}
+
