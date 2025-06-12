@@ -4,6 +4,7 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name
+  serviceaccount_rules = var.serviceaccount_rules
 
   serviceaccount_token_rotated_date = "11-06-2025"
 
