@@ -11,7 +11,9 @@ module "s3" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-
+  logging_enabled        = true
+  log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = "logs/"
 }
 
 
@@ -21,8 +23,8 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
 
   rule {
     default_retention {
-      mode = "GOVERNANCE"
-        years = 25
+      mode  = "GOVERNANCE"
+      years = 25
     }
   }
 
