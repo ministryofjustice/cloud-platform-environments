@@ -9,10 +9,10 @@ module "hmcts_mock_api_rds_instance" {
   application            = "hmcts-common-platform-mock-api"
   is_production          = "false"
   namespace              = var.namespace
-  db_engine_version      = "17"
+  db_engine_version      = "17.4"
   environment_name       = "development"
   infrastructure_support = "laa@digital.justice.gov.uk"
-  rds_family             = "postgres17.4"
+  rds_family             = "postgres17"
 
   prepare_for_major_upgrade   = true
   allow_major_version_upgrade = "true"
