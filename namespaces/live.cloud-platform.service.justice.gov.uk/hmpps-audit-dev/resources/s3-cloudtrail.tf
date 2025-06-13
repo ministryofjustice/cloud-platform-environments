@@ -12,3 +12,15 @@ module "s3_logging_bucket" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "s3_logging_bucket" {
+  metadata {
+    name      = "s3-logging-bucket"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.s3_logging_bucket.bucket_arn
+    bucket_name = module.s3_logging_bucket.bucket_name
+  }
+}
