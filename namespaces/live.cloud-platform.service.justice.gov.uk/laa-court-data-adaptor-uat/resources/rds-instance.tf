@@ -19,7 +19,7 @@ module "court_data_adaptor_rds" {
   maintenance_window          = "Mon:21:00-Mon:22:00"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
