@@ -3,7 +3,7 @@ module "hmpps-audit-poc-api" {
   github_repo                   = "hmpps-audit-api"
   application                   = "hmpps-audit-api"
   github_team                   = var.team_name
-  environment                   = var.environment
+  environment                   = var.environment-name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = var.environment-name
