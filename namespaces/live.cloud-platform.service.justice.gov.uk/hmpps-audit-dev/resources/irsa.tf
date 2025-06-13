@@ -73,7 +73,10 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       aws_glue_catalog_database.audit_glue_catalog_database.arn,
       aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*"
+      "${module.s3.bucket_arn}/*",
+
+      module.s3_logging_bucket.bucket_arn,
+      "${module.s3_logging_bucket.bucket_arn}/*"
     ]
   }
 }
