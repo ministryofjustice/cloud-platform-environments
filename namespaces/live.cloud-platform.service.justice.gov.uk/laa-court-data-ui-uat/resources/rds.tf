@@ -18,7 +18,7 @@ module "lcdui_rds" {
   db_allocated_storage        = "20"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "17.4"
   rds_family                  = "postgres17"
