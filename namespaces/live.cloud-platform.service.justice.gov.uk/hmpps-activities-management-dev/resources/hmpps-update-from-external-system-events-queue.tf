@@ -58,7 +58,7 @@ resource "kubernetes_secret" "update_from_external_system_events_queue" {
   metadata {
     name = "sqs-update-from-external-system-events-queue-secret"
     ## Name space where the listening service is found
-    namespace = "hmpps-activities-management-dev"
+    namespace = var.namespace
   }
 
   data = {
@@ -73,7 +73,7 @@ resource "kubernetes_secret" "hmpps_update_from_external_system_events_dlq" {
   metadata {
     name = "sqs-update-from-external-system-events-dlq-secret"
     ## Name space where the listening service is found
-    namespace = "hmpps-activities-management-dev"
+    namespace = var.namespace
   }
 
   data = {
