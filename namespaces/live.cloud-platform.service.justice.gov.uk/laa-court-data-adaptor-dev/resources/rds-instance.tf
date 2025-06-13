@@ -19,7 +19,7 @@ module "court_data_adaptor_rds" {
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   maintenance_window          = "Mon:21:00-Mon:22:00"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
