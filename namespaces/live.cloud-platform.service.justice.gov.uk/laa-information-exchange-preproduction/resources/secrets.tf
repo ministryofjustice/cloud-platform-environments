@@ -11,44 +11,39 @@ module "secrets_manager" {
 
   secrets = {
     "laa-infox-db-password" = {
-      description             = "InfoX Soap user database password",  # Required
-      recovery_window_in_days = 7,                                    # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "laa-infox-db-password-preproduction" # The name of the secret in k8s
+      description             = "InfoX Soap user database password",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-db-password-preproduction"
     },
     "laa-infox-keystore-password" = {
-      description             = "InfoX key store password preprod",          # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "laa-infox-keystore-password-preprod"    # The name of the secret in k8s
+      description             = "InfoX key store password preprod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-keystore-password-preprod"
     },
     "laa-infox-private-key-password" = {
-      description             = "InfoX private key password preprod",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "laa-infox-private-key-password-preprod"          # The name of the secret in k8s
+      description             = "InfoX private key password preprod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-private-key-password-preprod"
     },
     "infox-mlra-client-secret" = {
-      description             = "Client Secret used by MLRA",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "infox-mlra-client-secret"          # The name of the secret in k8s
+      description             = "Client Secret used by MLRA",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "infox-mlra-client-secret"
     },
     "infox-nolasa-client-secret" = {
-      description             = "Client Secret used by NoLASA",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "infox-nolasa-client-secret"          # The name of the secret in k8s
+      description             = "Client Secret used by NoLASA",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "infox-nolasa-client-secret"
     },
     "infox-libra-client-secret" = {
-      description             = "Client Secret used by LIBRA",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "infox-libra-client-secret"          # The name of the secret in k8s
-    },
-    "laa-infox-mtls-certs" = {
-      description             = "InfoX MTLS Certificates (base64-encoded). These certificates are used to secure the Libra endpoint.", # Required
-      recovery_window_in_days = 7,                                                                                                     # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "app-libra-mtls-certs"                                                                                 # The name of the secret in k8s
+      description             = "Client Secret used by LIBRA",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "infox-libra-client-secret"
     },
     "laa-infox-keystore-location" = {
-      description             = "Location of Keystore",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "laa-infox-keystore-location-preprod"          # The name of the secret in k8s
+      description             = "Location of Keystore",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-keystore-location-preprod"
     }
   }
 }
