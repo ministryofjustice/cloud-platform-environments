@@ -25,7 +25,13 @@ module "secrets_manager" {
       description             = "CWA submissions api secrets",   # Required
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "cwa-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "cwa-api-tests" = {
+      description             = "CWA API Tests secrets"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "cwa-api-tests"
     }
+  
   
   }
 }
