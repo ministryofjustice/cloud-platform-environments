@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["cwa-submissions-api"]
+  github_repositories = ["cwa-submissions-api","cwa-api-tests"]
 
   # Tags
   business_unit          = var.business_unit
