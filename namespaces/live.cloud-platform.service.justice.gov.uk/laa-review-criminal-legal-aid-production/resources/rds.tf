@@ -27,7 +27,7 @@ module "rds" {
   db_instance_class = "db.t4g.small"
 
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
