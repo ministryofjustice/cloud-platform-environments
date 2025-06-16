@@ -69,5 +69,10 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
-  description = "For setting up secrets in secrets.tf"
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "domain" {
+  type        = string
+  default     = "infox.service.justice.gov.uk"
 }
