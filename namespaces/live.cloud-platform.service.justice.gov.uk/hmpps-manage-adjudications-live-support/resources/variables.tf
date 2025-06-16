@@ -31,7 +31,7 @@ variable "environment-name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "test"
+  default     = "live-support"
 }
 
 variable "infrastructure_support" {
