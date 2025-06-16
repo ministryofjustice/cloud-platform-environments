@@ -36,14 +36,19 @@ module "secrets_manager" {
       k8s_secret_name         = "infox-nolasa-client-secret"
     },
     "infox-libra-client-secret" = {
-      description             = "Client Secret used by LIBRA",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "infox-libra-client-secret"          # The name of the secret in k8s
+      description             = "Client Secret used by LIBRA",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "infox-libra-client-secret"
     },
     "laa-infox-keystore-location" = {
-      description             = "Location of Keystore",        # Required
-      recovery_window_in_days = 7,                                   # Required - number of days that AWS Secrets Manager waits before it can delete the secret
-      k8s_secret_name         = "laa-infox-keystore-location"          # The name of the secret in k8s
+      description             = "Location of Keystore",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-keystore-location"
+    },
+    "infox-slack-webhook" = {
+      description             = "Information Exchange Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "infox-slack-webhook"
     }
   }
 }
