@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "integration-api-secret" {
   metadata {
-    name      = "sqs-update-from-external-system-events-queue-secret"
+    name      = "sqs-update-from-external-system-events-activities-queue-secret"
     namespace = "hmpps-integration-api-preprod"
   }
 
@@ -13,7 +13,7 @@ resource "kubernetes_secret" "integration-api-secret" {
 
 resource "kubernetes_secret" "integration-api-dlq-secret" {
   metadata {
-    name      = "sqs-update-from-external-system-events-dlq-secret"
+    name      = "sqs-update-from-external-system-events-activities-dlq-secret"
     namespace = "hmpps-integration-api-preprod"
   }
 
