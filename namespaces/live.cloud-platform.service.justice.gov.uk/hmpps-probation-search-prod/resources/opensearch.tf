@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.4"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -22,8 +22,8 @@ module "opensearch" {
   }
   proxy_count = 3
   ebs_options = {
-    volume_size = 1536
-    iops        = 16000 # must be greater than volume_size * 3
+    volume_size = 1792
+    iops        = 1792 * 3
     throughput  = 250
   }
 }
