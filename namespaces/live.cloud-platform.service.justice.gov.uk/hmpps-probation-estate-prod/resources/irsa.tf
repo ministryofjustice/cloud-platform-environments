@@ -11,9 +11,6 @@ module "irsa" {
   # Attach the appropriate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = {
-    rds = module.rds.irsa_policy_arn
-}
 
 # Tags
 business_unit          = var.business_unit
@@ -30,5 +27,5 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  service_account_name = module.irsa.service_account_name # this uses the service account name from the irsa module
 }
