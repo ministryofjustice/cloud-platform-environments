@@ -75,3 +75,9 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "postgres_instance_class" {
+  type = string
+  description = "Class of the postgres instance"
+  default = "db.t4g.micro"
+}
