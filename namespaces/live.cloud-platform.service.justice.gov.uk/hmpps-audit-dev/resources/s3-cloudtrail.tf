@@ -11,6 +11,24 @@ module "s3_logging_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "S3ServerAccessLogsPolicy",
+        Effect = "Allow",
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
+        },
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+        ],
+        Resource = "$${bucket_arn}/*"
+      }
+    ]
+  })
 }
 
 resource "kubernetes_secret" "s3_logging_bucket" {
