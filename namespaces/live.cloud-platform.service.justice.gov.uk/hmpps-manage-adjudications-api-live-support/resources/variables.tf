@@ -15,7 +15,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-manage-adjudications-api-test"
+  default = "hmpps-manage-adjudications-api-live-support"
 }
 
 variable "business_unit" {
