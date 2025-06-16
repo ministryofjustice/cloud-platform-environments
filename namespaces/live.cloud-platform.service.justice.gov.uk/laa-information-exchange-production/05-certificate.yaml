@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: infox-production-cert
+  namespace: laa-information-exchange-production
+spec:
+  secretName: infox-production-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - infox.service.justice.gov.uk
