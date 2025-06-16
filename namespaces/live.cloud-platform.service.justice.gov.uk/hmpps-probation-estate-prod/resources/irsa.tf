@@ -28,5 +28,5 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account_name # this uses the service account name from the irsa module
+  service_account_name = "hmpps-probation-estate" # this uses the service account name from the irsa module
 }
