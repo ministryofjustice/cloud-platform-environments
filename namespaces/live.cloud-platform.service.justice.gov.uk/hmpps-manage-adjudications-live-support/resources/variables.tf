@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "manage-adjudications-test.hmpps.service.justice.gov.uk"
+  default = "manage-adjudications-live-support.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
