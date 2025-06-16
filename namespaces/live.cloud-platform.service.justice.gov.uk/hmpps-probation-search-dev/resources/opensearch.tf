@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/marcus-bcl/cloud-platform-terraform-opensearch?ref=patch-7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.5"
 
   application            = var.application
   business_unit          = var.business_unit
