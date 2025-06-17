@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-hmpps-prisoner-finance-poc-dev"
+  default = "hmpps-prisoner-finance-poc-dev"
 }
 
 variable "business_unit" {
