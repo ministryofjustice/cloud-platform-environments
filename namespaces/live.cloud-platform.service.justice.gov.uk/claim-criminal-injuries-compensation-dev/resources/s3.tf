@@ -1,4 +1,4 @@
-module "cica_versions_bucket" {
+module "cica-versions-bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
 
   team_name              = var.team_name
@@ -14,14 +14,14 @@ module "cica_versions_bucket" {
   }
 }
 
-resource "kubernetes_secret" "cica_versions_bucket" {
+resource "kubernetes_secret" "cica-versions-bucket" {
   metadata {
-    name      = "cica_versions_bucket"
+    name      = "cica-versions-bucket"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.cica_versions_bucket.bucket_arn
-    bucket_name = module.cica_versions_bucket.bucket_name
+    bucket_arn  = module.cica-versions-bucket.bucket_arn
+    bucket_name = module.cica-versions-bucket.bucket_name
   }
 }
