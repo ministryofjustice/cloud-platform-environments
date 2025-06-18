@@ -5,7 +5,7 @@ module "hmpps_dps_reconciliation_queue" {
   # Queue configuration
   sqs_name                   = "hmpps_dps_reconciliation_queue"
   encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
+  message_retention_seconds  = 21600 # 6 hours
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
@@ -59,6 +59,7 @@ module "hmpps_dps_reconciliation_dead_letter_queue" {
 
   # Queue configuration
   sqs_name = "hmpps_dps_reconciliation_dl_queue"
+  message_retention_seconds  = 21600 # 6 hours
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -109,7 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_offender_subscri
   filter_policy = jsonencode({
     eventType = [
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
-      "EXTERNAL_MOVEMENT-CHANGED"
+      "EXTERNAL_MOVEMENT-CHANGED",
+      "BOOKING_NUMBER-CHANGED"
     ]
   })
 }
