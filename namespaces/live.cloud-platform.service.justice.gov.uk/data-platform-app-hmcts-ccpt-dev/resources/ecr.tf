@@ -14,6 +14,8 @@ module "ecr_credentials" {
   github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
+  deletion_protection = false
+
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.
