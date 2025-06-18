@@ -10,6 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - hmpps-prisoner-finance-poc-dev.hmpps.service.justice.gov.uk
-
-
+    - prisoner-finance-poc-api-dev.hmpps.service.justice.gov.uk
