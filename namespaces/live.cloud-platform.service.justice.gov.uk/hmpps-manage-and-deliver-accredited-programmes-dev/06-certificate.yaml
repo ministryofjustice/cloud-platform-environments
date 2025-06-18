@@ -11,6 +11,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-and-deliver-acp-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -24,3 +25,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-and-deliver-acp-api-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-api-dev.hmpps.service.justice.gov.uk
