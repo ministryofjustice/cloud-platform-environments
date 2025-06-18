@@ -27,6 +27,7 @@ locals {
     "abritton", 
     "jbetton",
     "bmadley",
+    "sleach",
     "smoke-test-full-access",
     "smoke-test-limited-access",
     "smoke-test-no-access",
