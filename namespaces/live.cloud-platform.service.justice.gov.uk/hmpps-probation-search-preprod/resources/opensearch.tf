@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/marcus-bcl/cloud-platform-terraform-opensearch?ref=patch-6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.5"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -18,7 +18,7 @@ module "opensearch" {
     instance_type            = "im4gn.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "m6g.large.search"
+    dedicated_master_type    = "m7g.large.search"
   }
   proxy_count = 3
   ebs_enabled = false
