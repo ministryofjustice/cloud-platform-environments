@@ -67,6 +67,16 @@ resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   engine_name              = "sqlserver-web"
   major_engine_version     = "15.00"
 
+  tags = {
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+  }
+
   option {
     option_name = "SQLSERVER_BACKUP_RESTORE"
 
