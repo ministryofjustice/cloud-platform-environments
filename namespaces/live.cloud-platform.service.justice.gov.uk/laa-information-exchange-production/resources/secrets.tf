@@ -21,7 +21,7 @@ module "secrets_manager" {
       k8s_secret_name         = "laa-infox-keystore-password-prod"
     },
     "laa-infox-private-key-password" = {
-      description             = "InfoX private key passwor prod",
+      description             = "InfoX private key password prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-infox-private-key-password-prod"
     },
@@ -40,10 +40,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "infox-libra-client-secret"
     },
-    "laa-infox-keystore-location" = {
-      description             = "Location of Keystore",
+    "laa-infox-keystore" = {
+      description             = "JKS Keystore",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-infox-keystore-location"
+      k8s_secret_name         = "laa-infox-keystore"
     },
     "infox-slack-webhook" = {
       description             = "Information Exchange Slack Webhook",
