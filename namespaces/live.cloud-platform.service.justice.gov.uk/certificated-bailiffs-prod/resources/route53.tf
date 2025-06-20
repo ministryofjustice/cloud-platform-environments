@@ -37,7 +37,7 @@ resource "aws_route53_zone" "apex_certbailiff_route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "apex_certbailiff_route53_zone_sec" {
+resource "kubernetes_secret" "certbailiff_route53_zone_sec" {
   metadata {
     name      = "apex-certbailiff-route53-zone-output"
     namespace = var.namespace
