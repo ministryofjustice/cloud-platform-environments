@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps-find-and-refer-intervention" {
+resource "kubernetes_secret" "hmpps_find_and_refer_hmpps_domain_events_topic" {
   metadata {
     name      = "hmpps-domain-events-topic"
     namespace = var.namespace
