@@ -1,4 +1,4 @@
-resource "notification_failed_alert" {
+resource "azurerm_monitor_scheduled_query_rules_alert" "notification_failed_alert" {
   name                = "${var.display_name} (${var.cloud_platform_environment}) - Manage-A-Workforce - Notification failed alert"
   data_source_id      = data.azurerm_log_analytics_workspace.workspace.id
   description         = "Alert when notifications to users are failing"
