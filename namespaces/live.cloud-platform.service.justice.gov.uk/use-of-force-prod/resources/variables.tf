@@ -28,6 +28,11 @@ variable "team_name" {
   default     = "Digital Prison Services/New Nomis"
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "prod"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
