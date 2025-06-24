@@ -21,7 +21,7 @@ module "secrets_manager" {
       k8s_secret_name         = "nolasa-infox-client-secret"               # The name of the secret in k8s
     },
     "nolasa_env_variables" = {
-          description             = "nolasa Environment variables",
+          description             = "nolasa Dev Environment variables",
           recovery_window_in_days = 7
           k8s_secret_name         = "nolasa-env-variables"
      }
