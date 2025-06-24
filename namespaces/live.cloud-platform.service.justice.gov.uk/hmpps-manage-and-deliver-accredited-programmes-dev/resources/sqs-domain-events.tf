@@ -1,6 +1,6 @@
 module "hmpps_manage_and_deliver_domain_events_queue" {
 
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "hmpps_manage_and_deliver_domain_events_queue"
   redrive_policy = jsonencode({
