@@ -23,7 +23,7 @@ resource "aws_sqs_queue_policy" "hmpps_manage_and_deliver_domain_events_queue_po
 }
 
 module "hmpps_manage_and_deliver_domain_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=6.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name        = "hmpps_manage_and_deliver_domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
