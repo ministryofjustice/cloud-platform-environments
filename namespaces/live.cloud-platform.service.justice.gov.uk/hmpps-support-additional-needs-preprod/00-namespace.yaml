@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Support Additional Needs"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-support-additional-needs-api"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-farsight-reduce-re-offend"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-support-additional-needs-devs"
     cloud-platform.justice.gov.uk/review-after: ""
