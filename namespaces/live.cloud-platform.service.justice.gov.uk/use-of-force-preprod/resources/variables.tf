@@ -24,6 +24,11 @@ variable "team_name" {
   default     = "Move a Prisoner"
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
