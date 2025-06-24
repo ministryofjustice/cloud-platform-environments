@@ -5,10 +5,7 @@ metadata:
   namespace: hmpps-court-register-preprod
 subjects:
   - kind: Group
-    name: "github:farsight-devs"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:hmpps-farsight-sentence-offence"
+    name: "github:hmpps-calculate-release-dates-team-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
