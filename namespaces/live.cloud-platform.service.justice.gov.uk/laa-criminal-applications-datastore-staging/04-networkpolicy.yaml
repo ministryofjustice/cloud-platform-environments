@@ -127,5 +127,3 @@ spec:
   podSelector: {}
   policyTypes:
   - Egress
-  egress:
-  - {}
