@@ -150,3 +150,21 @@ spec:
         message: CCLF Production - {{ $labels.pod }} is restarting excessively
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-production"
+
+    - alert: CCLF-Payment-Get-Errors
+      expr: increase(payment_get_errors_total{namespace="laa-crown-court-litigator-fees-production"}[5m]) > 0
+      labels:
+        severity: laa-crown-court-litigator-fees-production
+      annotations:
+        message: CCLF PRODUCTION- {{ printf "%0.0f" $value }} new payment get errors in the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-production"
+
+    - alert: CCLF-Payment-Post-Errors
+      expr: increase(payment_post_errors_total{namespace="laa-crown-court-litigator-fees-production"}[5m]) > 0
+      labels:
+        severity: laa-crown-court-litigator-fees-production
+      annotations:
+        message: CCLF PRODUCTION - {{ printf "%0.0f" $value }} new payment post errors in the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-production"
