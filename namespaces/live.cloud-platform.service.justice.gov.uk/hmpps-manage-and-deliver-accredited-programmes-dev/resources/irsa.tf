@@ -21,7 +21,7 @@ module "irsa" {
       sqs = module.hmpps_manage_and_deliver_domain_events_queue.irsa_policy_arn
     },
     {
-      sqs_dlq = module.hmpps_manage_and_deliver_domain_events_dlq.irsa_policy_arn
+      sqs_dlq = module.hmpps_mandd_events_dlq.irsa_policy_arn
     },
     local.sqs_policies,
   )
