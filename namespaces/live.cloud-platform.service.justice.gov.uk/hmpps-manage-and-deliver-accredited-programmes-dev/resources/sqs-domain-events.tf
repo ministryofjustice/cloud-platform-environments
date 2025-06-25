@@ -1,8 +1,8 @@
-module "hmpps_manage_and_deliver_domain_events_queue" {
+module "hmpps_mandd_events_queue" {
 
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name = "hmpps_manage_and_deliver_domain_events_queue"
+  sqs_name = "hmpps_mandd_events_queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_mandd_events_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -22,17 +22,17 @@ module "hmpps_manage_and_deliver_domain_events_queue" {
 }
 
 resource "aws_sqs_queue_policy" "hmpps_manage_and_deliver_domain_events_queue_policy" {
-  queue_url = module.hmpps_manage_and_deliver_domain_events_queue.sqs_id
+  queue_url = module.hmpps_mandd_events_queue.sqs_id
   policy    = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.hmpps_manage_and_deliver_domain_events_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.hmpps_mandd_events_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_manage_and_deliver_domain_events_queue.sqs_arn}",
+          "Resource": "${module.hmpps_mandd_events_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
                       {
@@ -70,7 +70,7 @@ module "hmpps_mandd_events_dlq" {
 resource "aws_sns_topic_subscription" "hmpps_manage_and_deliver_domain_events_subscription" {
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.hmpps_manage_and_deliver_domain_events_queue.sqs_arn
+  endpoint  = module.hmpps_mandd_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "interventions.community-referral.created"
@@ -86,9 +86,9 @@ resource "kubernetes_secret" "hmpps_manage_and_deliver_domain_events_queue_secre
   }
 
   data = {
-    queue_url  = module.hmpps_manage_and_deliver_domain_events_queue.sqs_id
-    queue_arn  = module.hmpps_manage_and_deliver_domain_events_queue.sqs_arn
-    queue_name = module.hmpps_manage_and_deliver_domain_events_queue.sqs_name
+    queue_url  = module.hmpps_mandd_events_queue.sqs_id
+    queue_arn  = module.hmpps_mandd_events_queue.sqs_arn
+    queue_name = module.hmpps_mandd_events_queue.sqs_name
   }
 }
 
