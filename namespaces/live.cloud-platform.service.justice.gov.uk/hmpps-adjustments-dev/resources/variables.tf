@@ -53,4 +53,11 @@ variable "github_token" {
 }
 
 
-variable "kubernetes_cluster" {}
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
+variable "github_actions_team" {
+   default = "hmpps-adjustments"
+}
