@@ -39,6 +39,20 @@ spec:
     kind: ClusterIssuer
   dnsNames:
       - preprod.dashboard.gender-recognition.service.justice.gov.uk
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gender-recognition-service-jwks-cert
+  namespace: grc-preprod
+spec:
+  secretName: gender-recognition-jwks-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+      - preprod.jwks.gender-recognition.service.justice.gov.uk
 
 
 
