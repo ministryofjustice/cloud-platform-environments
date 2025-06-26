@@ -15,7 +15,7 @@ variable "team_name" {
 }
 
 variable "environment" {
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
