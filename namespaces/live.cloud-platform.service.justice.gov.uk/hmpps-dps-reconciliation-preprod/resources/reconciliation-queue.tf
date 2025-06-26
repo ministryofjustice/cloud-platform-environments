@@ -124,7 +124,8 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_domain_subscript
   filter_policy = jsonencode({
     eventType = [
       "prisoner-offender-search.prisoner.received",
-      "prisoner-offender-search.prisoner.released"
+      "prisoner-offender-search.prisoner.released",
+      "restricted-patient-removed"
     ]
   })
 }
