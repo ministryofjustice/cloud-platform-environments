@@ -59,5 +59,5 @@ variable "kubernetes_cluster" {
 }
 
 variable "github_actions_team" {
-slug = "hmpps-adjustments"
+   default = "hmpps-adjustments"
 }
