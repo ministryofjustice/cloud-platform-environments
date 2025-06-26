@@ -2,7 +2,7 @@ module "hmpps_adjustments_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-adjustments"
   application = "hmpps-adjustments"
-  github_team = var.github_actions_team
+  github_team = var.team_name
   environment = var.environment_name
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
@@ -18,7 +18,7 @@ module "hmpps_adjustments_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-adjustments-api"
   application = "hmpps-adjustments-api"
-  github_team = var.github_actions_team
+  github_team = var.team_name
   environment = var.environment_name
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
