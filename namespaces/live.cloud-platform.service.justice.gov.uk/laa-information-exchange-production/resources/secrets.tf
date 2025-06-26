@@ -10,10 +10,10 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "laa-infox-db-password" = {
-      description             = "InfoX Soap user database password",
+    "laa-infox-db-credentials" = {
+      description             = "InfoX database credentials (URL, username, password)",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-infox-db-password-production"
+      k8s_secret_name         = "laa-infox-db-credentials"
     },
     "laa-infox-keystore-password" = {
       description             = "InfoX key store password prod",
