@@ -125,7 +125,7 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_domain_subscript
     eventType = [
       "prisoner-offender-search.prisoner.received",
       "prisoner-offender-search.prisoner.released",
-      "restricted-patient-removed"
+      "restricted-patients.patient.removed"
     ]
   })
 }
