@@ -1,7 +1,7 @@
 module "hmpps_subject_access_request-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo                   = "hmpps_subject_access_request-ui"
-  application                   = "hmpps_subject_access_request-ui"
+  github_repo                   = "hmpps-subject-access-request-ui"
+  application                   = "hmpps-subject-access-request-ui"
   github_team                   = "syscon-devs"
   environment                   = var.environment
   is_production                 = var.is_production
