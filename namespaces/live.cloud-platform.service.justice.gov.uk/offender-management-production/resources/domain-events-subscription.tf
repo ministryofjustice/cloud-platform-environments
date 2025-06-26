@@ -8,6 +8,7 @@ resource "aws_sns_topic_subscription" "domain_events" {
     eventType = [
       "offender-management.noop",
       "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.released",
       "probation-case.registration.added",
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
