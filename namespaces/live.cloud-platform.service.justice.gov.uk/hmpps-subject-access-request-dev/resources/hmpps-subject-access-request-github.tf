@@ -30,10 +30,10 @@ module "hmpps_subject_access_request_api" {
   kubernetes_cluster            = var.kubernetes_cluster
 }
 
-module "hmpps_subject_access_request_html_renderer" {
+module "hmpps_subject_access_request_worker" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo = "hmpps-subject-access-request-api"
-  application = "hmpps-subject-access-request-api"
+  github_repo = "hmpps-subject-access-request-worker"
+  application = "hmpps-subject-access-request-worker"
   github_team = var.team_name
   environment = var.environment
   selected_branch_patterns      = ["main"]
