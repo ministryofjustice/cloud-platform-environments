@@ -58,5 +58,5 @@ variable "kubernetes_cluster" {
 }
 
 variable "github_actions_team" {
-   default = "hmpps-adjustments"
+   default = "hmpps-adjustments-team-live"
 }
