@@ -8,6 +8,13 @@ module "s3_bucket" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  lifecycle_rule = [
+    {
+      id         = "expiry"
+      enabled    = true
+      expiration = [{ days = 90 }]
+    },
+  ]
 }
 
 ####################
