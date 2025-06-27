@@ -23,7 +23,7 @@ module "opensearch_alert" {
     environment_name               = var.environment
     alert_query = jsonencode(
       {
-         "size": 0,
+         "size": 20,
          "query": {
             "bool": {
               "must": [],

@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     ecr = module.ecr.irsa_policy_arn
+    data_ecr = module.data_ecr.irsa_policy_arn
   }
 
   # Tags

@@ -14,10 +14,15 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-manage-and-deliver-accredited-programmes"
-  #  role_policy_arns       = local.sqs_policies
 
   role_policy_arns = merge(
     { elasticache = module.elasticache_redis.irsa_policy_arn },
+    {
+      sqs = module.hmpps_mandd_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_mandd_events_dlq.irsa_policy_arn
+    },
     local.sqs_policies,
   )
 

@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: migration-link-exchange-build-dev
-spec:
-  hard:
-    pods: "6"

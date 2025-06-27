@@ -11,7 +11,7 @@ module "hmpps_san_domain_events_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = "hmpps-support-additional-needs"
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -31,7 +31,7 @@ module "hmpps_san_domain_events_dlq" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = "hmpps-support-additional-needs"
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -53,7 +53,7 @@ resource "aws_sns_topic_subscription" "hmpps_san_domain_events_subscription" {
 
 resource "kubernetes_secret" "hmpps_san_domain_events_queue_secret" {
   metadata {
-    name      = "education-and-work-plan-domain-events-sqs-instance-output"
+    name      = "hmpps-support-additional-needs-domain-events-sqs-instance-output"
     namespace = var.namespace
   }
 
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "hmpps_san_domain_events_queue_secret" {
 
 resource "kubernetes_secret" "hmpps_san_domain_events_queue_secret_dlq" {
   metadata {
-    name      = "education-and-work-plan-domain-events-sqs-dl-instance-output"
+    name      = "hmpps-support-additional-needs-domain-events-sqs-dl-instance-output"
     namespace = var.namespace
   }
 

@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "laa-get-payments-finance-data-uat"
 }
 
+variable "data_ecr" {
+  description = "ECR Name of the namespace these resources are part of"
+  type        = string
+  default     = "laa-get-payments-finance-data-uat-data"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
