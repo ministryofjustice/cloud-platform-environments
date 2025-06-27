@@ -13,7 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["stg-track-my-case-ui"]
-  github_environments = ["dev"]
+  github_environments = ["demo"]
   github_actions_prefix = "demo"
 
   # Tags
