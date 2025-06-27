@@ -57,8 +57,6 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
     resources = [
       module.prisoner_from_nomis_incidents_queue.sqs_arn,
       module.prisoner_from_nomis_incidents_dead_letter_queue.sqs_arn,
-      module.prisoner_from_nomis_csip_queue.sqs_arn,
-      module.prisoner_from_nomis_csip_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_locations_queue.sqs_arn,
       module.prisoner_from_nomis_locations_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_sentencing_queue.sqs_arn,

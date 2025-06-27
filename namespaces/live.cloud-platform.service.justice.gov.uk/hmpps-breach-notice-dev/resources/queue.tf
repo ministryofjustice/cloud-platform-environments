@@ -7,7 +7,8 @@ resource "aws_sns_topic_subscription" "queue-subscription" {
     eventType = [
       "probation-case.merge.completed",
       "probation-case.unmerge.completed",
-      "probation-case.sentence.moved"
+      "probation-case.sentence.moved",
+      "probation-case.deleted.gdpr"
     ]
   })
 }

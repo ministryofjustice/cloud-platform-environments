@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Accredited Programmes"
     cloud-platform.justice.gov.uk/owner: "Accredited Programmes: team.acp@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-accredited-programmes-ui,https://github.com/ministryofjustice/hmpps-accredited-programmes-api"
-    cloud-platform.justice.gov.uk/team-name: "accredited-programmes-team"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-accredited-programmes-live"
     cloud-platform.justice.gov.uk/slack-alert-channel: "accredited-programmes-events"

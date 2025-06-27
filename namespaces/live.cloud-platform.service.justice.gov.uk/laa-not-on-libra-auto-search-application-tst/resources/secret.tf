@@ -19,6 +19,11 @@ module "secrets_manager" {
       description             = "Client Secret used in communications with InfoX", # Required
       recovery_window_in_days = 7,                                       # Required - number of days that AWS Secrets Manager waits before it can delete the secret
       k8s_secret_name         = "nolasa-infox-client-secret"               # The name of the secret in k8s
+    },
+    "datasource-credentials" = {
+      description             = "Test data source credentials",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource-credentials"
     }
   }
 }
