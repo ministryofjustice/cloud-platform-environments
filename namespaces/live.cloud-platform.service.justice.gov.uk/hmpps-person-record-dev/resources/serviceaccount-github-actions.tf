@@ -4,7 +4,7 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  github_repositories = ["hmpps-person-match"]
+  github_repositories = ["hmpps-person-match", "hmpps-person-record-manage-ui"]
   github_environments = ["dev"]
 
   serviceaccount_name = "github-actions-serviceaccount"
