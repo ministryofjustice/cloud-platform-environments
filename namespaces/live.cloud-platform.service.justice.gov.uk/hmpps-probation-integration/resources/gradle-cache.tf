@@ -60,7 +60,10 @@ data "aws_iam_policy_document" "s3" {
       "s3:GetObject",
       "s3:PutObject",
     ]
-    resources = [module.s3_bucket.bucket_arn]
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
   }
 }
 
