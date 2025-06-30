@@ -1,7 +1,7 @@
 module "hmpps_person_record_manage_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-person-record-manage-ui"
-  application = "hmpps-persom-record-manage-ui"
+  application = "hmpps-person-record-manage-ui"
   github_team = var.team_name
   environment = "dev"
 #   reviewer_teams                = ["", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
