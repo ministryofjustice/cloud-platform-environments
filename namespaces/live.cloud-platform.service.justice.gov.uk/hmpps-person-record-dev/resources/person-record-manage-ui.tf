@@ -3,7 +3,7 @@ module "hmpps_person_record_manage_ui" {
   github_repo = "hmpps-person-record-manage-ui"
   application = "hmpps-persom-record-manage-ui"
   github_team = var.team_name
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment = "dev"
 #   reviewer_teams                = ["", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
 #   selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
 #   protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
