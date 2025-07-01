@@ -1,5 +1,5 @@
-provider "opensearch" {
-  alias               = "app_logs"
-  #url                 = "https://${data.aws_opensearch_domain.live_app_logs.endpoint}"
-  #aws_assume_role_arn = data.aws_iam_role.os_access_role_app_logs.arn
+module "opensearch_alert" {
+    source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2" #use the latest version
+
+    # Destroy orphaned os alert
 }
