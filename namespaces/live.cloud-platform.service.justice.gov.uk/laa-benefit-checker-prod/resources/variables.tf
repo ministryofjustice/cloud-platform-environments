@@ -73,6 +73,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "repo_name" {
+  type = string
+  description = "The name of github repo AND ecr repo"
+  default = "laa-benefitchecker-1.0-big"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
