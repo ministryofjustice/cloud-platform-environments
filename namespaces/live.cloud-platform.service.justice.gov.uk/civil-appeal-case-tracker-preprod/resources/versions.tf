@@ -13,5 +13,9 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0"
     }
+    opensearch = {
+      source  = "opensearch-project/opensearch"
+      version = "~> 2.1.0" # Match version from cloud-platform-terraform-opensearch-alert
+    }
   }
 }
