@@ -59,5 +59,8 @@ variable "slack_channel" {
   default     = "core-person-record-dev"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
 
 variable "kubernetes_cluster" {}
