@@ -15,7 +15,7 @@ terraform {
     }
     opensearch = {
         source  = "opensearch-project/opensearch"
-        version = "~> 2.1.0" # Match version from cloud-platform-terraform-opensearch-alert
+        version = "2.2.1"
     }
   }
 }
