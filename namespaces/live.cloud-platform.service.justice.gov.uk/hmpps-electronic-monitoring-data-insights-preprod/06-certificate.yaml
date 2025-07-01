@@ -1,0 +1,28 @@
+# --- 
+# TODO - Add Cert when Kotlin service is ready
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: hmpps-electronic-monitoring-data-insights-ui-preprod-cert
+#   namespace: hmpps-electronic-monitoring-data-insights-preprod
+# spec:
+#   secretName: hmpps-template-kotlin-cert
+#   issuerRef:
+#     name: letsencrypt-production
+#     kind: ClusterIssuer
+#   dnsNames:
+#     - template-kotlin-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-electronic-monitoring-data-insights-ui-cert
+  namespace: hmpps-electronic-monitoring-data-insights-preprod
+spec:
+  secretName: hmpps-electronic-monitoring-data-insights-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - electronic-monitoring-data-insights-ui-preprod.hmpps.service.justice.gov.uk
