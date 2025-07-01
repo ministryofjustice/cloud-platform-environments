@@ -53,6 +53,10 @@ variable "owner" {
 variable "eks_cluster_name" {
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "core-person-record-dev"
