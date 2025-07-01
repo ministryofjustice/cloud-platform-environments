@@ -28,6 +28,7 @@ module "s3_buckets" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   bucket_name            = "${each.value}-${var.environment}"
+  versioning             = true
 }
 
 
