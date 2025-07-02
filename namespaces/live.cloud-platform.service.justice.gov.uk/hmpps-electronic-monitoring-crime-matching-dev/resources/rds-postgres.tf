@@ -14,8 +14,8 @@ module "rds" {
 
   # PostgresSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
   # Tags
@@ -72,8 +72,6 @@ module "read_replica" {
 
 }
 
-
-
 # Configmap to store non-sensitive data related to the RDS instance
 resource "kubernetes_config_map" "rds" {
   metadata {
@@ -87,18 +85,3 @@ resource "kubernetes_config_map" "rds" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_crime_matching_rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-  }
-}
