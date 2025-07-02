@@ -15,38 +15,6 @@ module "ecr" {
   github_repositories = ["laa-landing-page"]
   github_environments = ["test"]
 
-  lifecycle_policy = <<EOF
-  {
-      "rules": [
-          {
-              "rulePriority": 1,
-              "description": "Expire any image older than 60 days",
-              "selection": {
-                  "tagStatus": "any",
-                  "countType": "sinceImagePushed",
-                  "countUnit": "days",
-                  "countNumber": 60
-              },
-              "action": {
-                  "type": "expire"
-              }
-          },
-          {
-              "rulePriority": 2,
-              "description": "Keep last 50 images",
-              "selection": {
-                  "tagStatus": "any",
-                  "countType": "imageCountMoreThan",
-                  "countNumber": 50
-              },
-              "action": {
-                  "type": "expire"
-              }
-          }
-      ]
-  }
-  EOF
-
   # Tags
   business_unit          = var.business_unit
   application            = var.application
