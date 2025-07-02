@@ -100,9 +100,3 @@ resource "aws_db_option_group" "oracle_apex" {
   }
 }
 
-resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
-  db_instance_identifier = module.rds_apex.db_identifier
-  feature_name           = "S3_INTEGRATION"
-  role_arn               = aws_iam_role.rds_s3_integration.arn
-}
-
