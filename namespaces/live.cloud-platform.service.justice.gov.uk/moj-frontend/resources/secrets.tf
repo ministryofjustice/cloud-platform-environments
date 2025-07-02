@@ -46,6 +46,12 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "notify-submission-template"
     },
 
+    "notify-verification-template" = {
+      description             = "Notification verification template",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "notify-verification-template"
+    },
+
     "notify-email" = {
       description             = "Notification email",
       recovery_window_in_days = 7,
@@ -68,6 +74,12 @@ module "secrets_manager_multiple_secrets" {
       description             = "Notification max retries",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-email-max-retries"
+    }
+
+    "sentry-dsn" = {
+      description             = "Sentry dsn",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
     }
 
   }
