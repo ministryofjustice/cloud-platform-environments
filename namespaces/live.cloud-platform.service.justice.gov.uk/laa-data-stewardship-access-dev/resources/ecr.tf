@@ -10,9 +10,8 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
-  # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-data-stewardship-access"]
+  github_repositories = []
 
   # Tags
   business_unit          = var.business_unit
@@ -22,4 +21,6 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  deletion_protection = false
 }

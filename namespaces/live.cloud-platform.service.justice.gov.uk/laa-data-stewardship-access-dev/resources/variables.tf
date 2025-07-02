@@ -67,3 +67,29 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+# Additions
+variable "eks_cluster_name" {
+  description = "Required by the cloud-platform-terraform-secrets-manager module"
+  type        = string
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_ACCESS_DEV" # overridden from "KUBE_CLUSTER"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_ACCESS_DEV" # overridden from "KUBE_NAMESPACE"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_ACCESS_DEV" # overridden from "KUBE_CERT"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_ACCESS_DEV" # overridden from "KUBE_TOKEN"
+}
