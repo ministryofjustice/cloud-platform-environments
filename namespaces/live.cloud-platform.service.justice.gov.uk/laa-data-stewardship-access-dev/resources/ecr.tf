@@ -22,5 +22,5 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  delete_protection = false
+  deletion_protection = false
 }
