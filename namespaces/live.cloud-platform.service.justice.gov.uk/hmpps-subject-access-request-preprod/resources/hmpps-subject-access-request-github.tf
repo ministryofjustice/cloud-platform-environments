@@ -2,7 +2,7 @@ module "hmpps_subject_access_request-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-subject-access-request-ui"
   application                   = "hmpps-subject-access-request-ui"
-  github_team                   = "syscon-devs"
+  github_team                   = var.team_name
   environment                   = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
