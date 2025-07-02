@@ -21,47 +21,47 @@ module "ecr" {
 
   lifecycle_policy = <<EOF
   {
-      "rules": [
-        {
-          "rulePriority": 1,
-          "description": "Expire untagged images older than 60 days",
-          "selection": {
-            "tagStatus": "untagged",
-            "countType": "sinceImagePushed",
-            "countUnit": "days",
-            "countNumber": 60
-          },
-          "action": {
-            "type": "expire"
-          }
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Expire untagged images older than 60 days",
+        "selection": {
+          "tagStatus": "untagged",
+          "countType": "sinceImagePushed",
+          "countUnit": "days",
+          "countNumber": 60
         },
-        {
-          "rulePriority": 2,
-          "description": "Keep last 50 dev and staging images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPrefixList": ["testing"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 50
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 3,
-          "description": "Keep the newest 50 images and mark the rest for expiration",
-          "selection": {
-            "tagStatus": "any",
-            "countType": "imageCountMoreThan",
-            "countNumber": 50
-          },
-          "action": {
-            "type": "expire"
-          }
+        "action": {
+          "type": "expire"
         }
-      ]
-    }
+      },
+      {
+        "rulePriority": 2,
+        "description": "Keep last 50 dev and staging images",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["testing"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 3,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
   EOF
 
   # Tags
