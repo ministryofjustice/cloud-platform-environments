@@ -1,7 +1,7 @@
 module "rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage = 10
-  storage_type         = "gp2"
+  storage_type         = "gp3"
 
   # VPC configuration
   vpc_name = var.vpc_name
