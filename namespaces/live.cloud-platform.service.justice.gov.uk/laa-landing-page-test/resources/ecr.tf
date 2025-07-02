@@ -39,7 +39,8 @@ module "ecr" {
               "rulePriority": 2,
               "description": "Keep last 50 images",
               "selection": {
-                  "tagStatus": "any",
+                  "tagStatus": "tagged",
+                  "tagPrefixList": ["development", "test"],
                   "countType": "imageCountMoreThan",
                   "countNumber": 50
               },
