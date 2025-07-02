@@ -24,6 +24,11 @@ module "secrets_manager" {
       description             = "prod data source credentials",
       recovery_window_in_days = 7
       k8s_secret_name         = "datasource-credentials"
+     },
+     "sentry_dsn" = {
+       description             = "Sentry Data Source Name (DSN) for Nolasa prod",
+       recovery_window_in_days = 7,
+       k8s_secret_name         = "sentry-dsn"
      }
   }
 }
