@@ -65,7 +65,6 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-to-nomis-update"
-  role_policy_arns = { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn }
   role_policy_arns     = merge(
     local.sqs_policies,
     { combined_local_sqs_migration = aws_iam_policy.combined_local_sqs.arn },
