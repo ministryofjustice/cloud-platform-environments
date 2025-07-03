@@ -46,7 +46,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "rds-spring" {
   metadata {
-    name      = "spring_datasource"
+    name      = "rds-spring"
     namespace = var.namespace
   }
 
