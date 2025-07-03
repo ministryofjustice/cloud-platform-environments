@@ -2,7 +2,7 @@ provider "pingdom" {
 }
 
 # integration IDs:
-# 114225 = Slack #interventions-alerts
+# 143787 = Slack #interventions-alerts
 
 resource "pingdom_check" "find-and-refer-intervention-prod-check" {
   type                     = "http"
@@ -17,7 +17,7 @@ resource "pingdom_check" "find-and-refer-intervention-prod-check" {
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [114225]
+  integrationids           = [143787]
 }
 
 resource "pingdom_check" "find-and-refer-intervention-prod-service-check" {
@@ -33,5 +33,5 @@ resource "pingdom_check" "find-and-refer-intervention-prod-service-check" {
   port                     = 443
   tags                     = "hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [114225]
+  integrationids           = [143787]
 }
