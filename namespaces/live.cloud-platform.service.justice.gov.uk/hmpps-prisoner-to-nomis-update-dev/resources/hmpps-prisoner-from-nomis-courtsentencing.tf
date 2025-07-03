@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "prisoner-from-nomis-courtsentencing_secret" {
+resource "kubernetes_secret" "prisoner_from_nomis_courtsentencing_secret" {
   metadata {
     name      = "prisoner_from_nomis_courtsentencing_queue"
     namespace = var.namespace
