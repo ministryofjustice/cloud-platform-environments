@@ -127,3 +127,35 @@ variable "serviceaccount_rules" {
   ]
 }
 
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "cclf-dev-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "postman"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "cclf-dev"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "cclf-dev-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "cclf-dev"
+}
