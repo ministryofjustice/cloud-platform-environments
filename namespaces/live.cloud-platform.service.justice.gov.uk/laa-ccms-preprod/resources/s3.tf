@@ -15,6 +15,25 @@ module "laa_ccms_pui_docs" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   bucket_name            = "laa-ccms-pui-docs-${var.environment}"
+
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-56d"
+      prefix                                 = "56d/"
+      abort_incomplete_multipart_upload_days = 56
+      expiration = [
+        {
+          days = 56
+        },
+      ]
+      noncurrent_version_expiration = [
+        {
+          days = 56
+        },
+      ]
+    },
+  ]
 }
 
 resource "kubernetes_secret" "laa_ccms_pui_docs" {
