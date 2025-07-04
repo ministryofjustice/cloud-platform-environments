@@ -5,7 +5,7 @@ metadata:
   namespace: prisoner-content-hub-db-backups
 subjects:
   - kind: Group
-    name: "github:prisoner-content-hub-developers"
+    name: "github:hmpps-launchpad"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
