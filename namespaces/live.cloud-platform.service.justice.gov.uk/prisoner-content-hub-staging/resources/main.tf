@@ -8,7 +8,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "prisoner-content-hub-developers"
+      GithubTeam = "hmpps-launchpad"
     }
   }
 }
@@ -20,7 +20,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "prisoner-content-hub-developers"
+      GithubTeam = "hmpps-launchpad"
     }
   }
 }
@@ -32,7 +32,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "prisoner-content-hub-developers"
+      GithubTeam = "hmpps-launchpad"
     }
   }
 }
