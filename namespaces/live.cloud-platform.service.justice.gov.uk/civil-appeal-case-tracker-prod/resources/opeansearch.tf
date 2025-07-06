@@ -1,7 +1,7 @@
 module "opensearch_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2" #use the latest version
 
-    secret_name                    = "live-civil-appeal-case-tracker-preprod-cd48a1d8f6100258"
+    secret_name                    = "live-civil-appeal-case-tracker-prod-9b11d3c77b56564c"
     secret_key                     = "OPENSEARCH_SLACK_URL"
     slack_channel_name             = "dts-legacy-apps-system-alerts"
     slack_channel_name_description = "DTS Legacy Services Production Alerts"
@@ -12,7 +12,7 @@ module "opensearch_alert" {
     index                          = ["live_kubernetes_ingress-*"]
 
     trigger_name                   = "case-tracker-prod-bots"
-    serverity                      = "1"
+    serverity                      = 1
     query_source                   = "ctx.results[0].hits.total.value > 5"
     action_name                    = "case-tracker-prod-send-alert"
     slack_message_subject          = "Case Tracker Prod Bot Alert"
@@ -36,7 +36,7 @@ module "opensearch_alert" {
                     "should": [
                       {
                         "match_phrase": {
-                          "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-preprod"
+                          "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-prod"
                         }
                       }
                     ],
