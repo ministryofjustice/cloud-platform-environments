@@ -6,7 +6,10 @@ metadata:
   namespace: hmpps-arns-risk-actuarial-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-assessments"
+    name: "github:hmpps-assessments-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-assessments-live"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group

@@ -2,7 +2,7 @@ module "hmpps_template_kotlin" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-arns-risk-actuarial-api"
   application = "hmpps-arns-risk-actuarial-api"
-  github_team = "hmpps-assessments"
+  github_team = "hmpps-assessments-devs"
   environment = var.environment
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
