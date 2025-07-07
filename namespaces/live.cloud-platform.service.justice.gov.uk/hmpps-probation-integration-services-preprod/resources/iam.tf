@@ -101,6 +101,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.accredited-programmes-and-delius-queue.sqs_arn,
       module.breach-notice-and-delius-queue.sqs_arn,
       module.justice-email-and-delius-queue.sqs_arn,
       module.common-platform-and-delius-queue.sqs_arn,
@@ -130,6 +131,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.accredited-programmes-and-delius-dlq.sqs_arn,
       module.breach-notice-and-delius-dlq.sqs_arn,
       module.justice-email-and-delius-dlq.sqs_arn,
       module.common-platform-and-delius-dlq.sqs_arn,
