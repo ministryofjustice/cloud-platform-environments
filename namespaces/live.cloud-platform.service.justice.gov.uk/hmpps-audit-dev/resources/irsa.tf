@@ -66,12 +66,17 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetPartition",
+      "glue:BatchCreatePartition",
     ]
 
     resources = [
       aws_athena_workgroup.queries.arn,
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
+
       "arn:aws:glue:eu-west-2:*:catalog",
+      "arn:aws:glue:eu-west-2:*:database/*", # Temporary
+      "arn:aws:glue:eu-west-2:*:table/*/*", # Temporary
+
       aws_glue_catalog_database.audit_glue_catalog_database.arn,
       aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
