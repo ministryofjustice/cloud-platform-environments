@@ -134,15 +134,18 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
     #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
-    sid    = "QueueManagementList"
+    sid    = "ListAndDecrypt"
     effect = "Allow"
     actions = [
       "sqs:ListQueues",
+      "kms:Decrypt",
+      "kms:Encrypt",
+      "kms:GenerateDataKey*"
     ]
     resources = ["*"]
   }
   statement {
-    sid    = "QueueManagementRead"
+    sid    = "ReadWrite"
     effect = "Allow"
     actions = [
       "sqs:GetQueueAttributes",
@@ -150,13 +153,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       "sqs:ListDeadLetterSourceQueues",
       "sqs:ListMessageMoveTasks",
       "sqs:ListQueueTags",
-    ]
-    resources = each.value[*]
-  }
-  statement {
-    sid    = "QueueManagementWrite"
-    effect = "Allow"
-    actions = [
       "sqs:CancelMessageMoveTask",
       "sqs:ChangeMessageVisibility",
       "sqs:DeleteMessage",
@@ -166,16 +162,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       "sqs:StartMessageMoveTask",
     ]
     resources = each.value[*]
-  }
-  statement {
-    sid    = "KMS"
-    effect = "Allow"
-    actions = [
-      "kms:Decrypt",
-      "kms:Encrypt",
-      "kms:GenerateDataKey*"
-    ]
-    resources = ["*"]
   }
 }
 
