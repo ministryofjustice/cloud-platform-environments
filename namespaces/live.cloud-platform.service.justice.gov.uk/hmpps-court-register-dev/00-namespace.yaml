@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Court Register"
     cloud-platform.justice.gov.uk/owner: "Remand and Sentencing: calculatereleasedatesdevelopers@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-court-register-api"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-farsight-sentence-offence"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-calculate-release-dates"
     cloud-platform.justice.gov.uk/review-after: ""
