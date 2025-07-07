@@ -55,6 +55,7 @@ module "serviceaccount" {
       ]
       resources = [
         "deployments",
+        "deployments/scale",
         "ingresses",
         "cronjobs",
         "jobs",
