@@ -1,11 +1,11 @@
-resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
-  protocol  = "sqs"
-  endpoint  = module.accredited-programmes-and-delius-queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
-  })
-}
+# resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-subscription" {
+#   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+#   protocol  = "sqs"
+#   endpoint  = module.accredited-programmes-and-delius-queue.sqs_arn
+#   filter_policy = jsonencode({
+#     eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+#   })
+# }
 
 module "accredited-programmes-and-delius-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
