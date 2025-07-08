@@ -1,7 +1,7 @@
-module "hmpps_template_kotlin" {
+module "hmpps_adjudications_insights_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo = "hmpps-manage-adjudications-api"
-  application = "hmpps-manage-adjudications-api"
+  github_repo = "hmpps-adjudications-insights-api"
+  application = "hmpps-adjudications-insights-api"
   github_team = "hmpps-prisons-digital-live-support"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-prisons-digital-live-support"] # Optional team that should review deployments to this environment.
