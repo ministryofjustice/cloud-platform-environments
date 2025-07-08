@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps_adjudications_insights_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-adjudications-insights-api"
   application = "hmpps-adjudications-insights-api"
