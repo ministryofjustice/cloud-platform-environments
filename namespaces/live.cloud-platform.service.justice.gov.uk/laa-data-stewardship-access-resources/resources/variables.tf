@@ -74,6 +74,12 @@ variable "eks_cluster_name" {
   type        = string
 }
 
+variable "github_environment_name" {
+  description = "Used to create GitHub secrets into the right GitHub environment"
+  type        = string
+  default     = "resources"
+}
+
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
   default     = "KUBE_CLUSTER_ACCESS_RESOURCES" # overridden from "KUBE_CLUSTER"
