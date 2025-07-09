@@ -6,7 +6,7 @@ locals {
 
   sqs_queues = {
     #"Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
-    "Digital-Prison-Services-${var.environment_name}-hmpps_audit_queue" = "hmpps-audit-${var.environment_name}",
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
   # The names of the SNS topics used and the namespace which created them
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
