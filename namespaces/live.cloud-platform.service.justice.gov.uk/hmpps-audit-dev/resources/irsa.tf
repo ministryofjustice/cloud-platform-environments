@@ -66,6 +66,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetPartition",
+      "glue:GetPartitions", # Temporary for debugging, remove when done
       "glue:BatchCreatePartition",
     ]
 
