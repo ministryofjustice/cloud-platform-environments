@@ -73,3 +73,7 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-data-stewardship-civil-claims-api-uat-service-account"
 }
+
+variable "repo_name" {
+  default = "laa-data-stewardship-civil-claims-api"
+}
