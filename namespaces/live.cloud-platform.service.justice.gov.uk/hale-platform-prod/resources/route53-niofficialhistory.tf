@@ -44,7 +44,7 @@ resource "aws_route53_record" "niofficialhistory_route53_txt_record_main" {
   name    = "niofficialhistory.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["google-site-verification=qgUm8Z7PTfhp2VkwYKKlo6-GFomNQu2QmgiU-aZ5ADo", "v=spf1 include:_spf.google.com -all"]
+  records = ["google-site-verification=qgUm8Z7PTfhp2VkwYKKlo6-GFomNQu2QmgiU-aZ5ADo", "v=spf1 include:_spf.google.com -all"]
 }
 
 resource "aws_route53_record" "niofficialhistory_route53_txt_record_google_domainkey" {
