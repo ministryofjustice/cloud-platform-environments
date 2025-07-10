@@ -17,7 +17,7 @@ module "s3_bucket" {
 }
 
 module "s3_buckets" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   for_each = toset(var.bucket_names)
 
   team_name              = var.team_name
