@@ -50,6 +50,7 @@ module "serviceaccount" {
         "replicasets",
         "poddisruptionbudgets",
         "networkpolicies",
+        "statefulsets",
       ]
       verbs = [
         "get",
