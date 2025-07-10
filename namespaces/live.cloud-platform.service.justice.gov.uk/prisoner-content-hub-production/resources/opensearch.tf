@@ -1,6 +1,6 @@
 # Configure an S3 bucket for Snapshot Management
 module "s3_opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   # Tags
   business_unit          = var.business_unit
