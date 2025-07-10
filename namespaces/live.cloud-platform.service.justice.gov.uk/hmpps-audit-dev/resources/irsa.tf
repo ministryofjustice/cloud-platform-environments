@@ -61,6 +61,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
       "s3:PutObject",
       "s3:GetBucketLocation",
       "s3:GetObject",
+      "s3:DeleteObject", # Temporary for debugging, remove when done
       "s3:ListBucket",
 
       "glue:GetDatabase",
