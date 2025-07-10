@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source                 = "github.com/marcus-bcl/cloud-platform-terraform-s3-bucket?ref=main"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   bucket_name            = "hmpps-probation-integration-gradle-cache"
   team_name              = var.team_name
   business_unit          = var.business_unit
