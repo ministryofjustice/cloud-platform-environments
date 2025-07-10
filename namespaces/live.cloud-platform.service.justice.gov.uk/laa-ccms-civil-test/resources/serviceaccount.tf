@@ -23,6 +23,7 @@ module "serviceaccount" {
         "services",
         "configmaps",
         "pods",
+        "statefulsets"
       ]
       verbs = [
         "patch",
