@@ -22,7 +22,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "configmaps",
-        "pods"
+        "pods",
       ]
       verbs = [
         "patch",
@@ -50,7 +50,7 @@ module "serviceaccount" {
         "replicasets",
         "poddisruptionbudgets",
         "networkpolicies",
-        "statefulsets"
+        "statefulsets",
       ]
       verbs = [
         "get",
