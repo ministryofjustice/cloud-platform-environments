@@ -85,3 +85,7 @@ variable "cloud_platform_launchpad_auth_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
   default     = "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
