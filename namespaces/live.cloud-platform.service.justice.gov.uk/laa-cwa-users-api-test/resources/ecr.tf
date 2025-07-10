@@ -2,7 +2,7 @@
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
- *
+ * Making a dummy change.
  */
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
