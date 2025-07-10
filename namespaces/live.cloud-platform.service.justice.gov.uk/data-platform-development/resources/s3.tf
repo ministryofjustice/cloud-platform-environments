@@ -1,5 +1,5 @@
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   bucket_name = "mojap-compute-sagemaker-jumpstart-test"
 
