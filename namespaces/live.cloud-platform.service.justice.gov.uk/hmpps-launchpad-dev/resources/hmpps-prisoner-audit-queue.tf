@@ -1,4 +1,4 @@
-resource "kubernetes_secret" "hmpps_audit_queue_secret" {
+resource "kubernetes_secret" "hmpps_prisoner_audit_queue_secret" {
   metadata {
     name      = "sqs-hmpps-prisoner-audit-secret"
     namespace = var.namespace
