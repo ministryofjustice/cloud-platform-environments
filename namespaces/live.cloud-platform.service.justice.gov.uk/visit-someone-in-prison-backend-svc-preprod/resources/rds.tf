@@ -128,8 +128,8 @@ module "visit_allocation_rds" {
   allow_major_version_upgrade = "true"
   prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
-  db_engine_version           = "16.8"
-  rds_family                  = "postgres16"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "50"
   storage_type                = "gp3"
@@ -154,4 +154,3 @@ resource "kubernetes_secret" "visit_allocation_rds" {
     rds_instance_address  = module.visit_allocation_rds.rds_instance_address
   }
 }
-
