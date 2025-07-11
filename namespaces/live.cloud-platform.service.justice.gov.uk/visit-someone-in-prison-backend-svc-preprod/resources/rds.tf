@@ -125,8 +125,8 @@ module "visit_allocation_rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = "false"
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "17.4"
   rds_family                  = "postgres17"
