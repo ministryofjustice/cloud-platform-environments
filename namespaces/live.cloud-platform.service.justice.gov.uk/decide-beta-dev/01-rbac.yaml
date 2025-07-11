@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:laa-decide-beta"
     apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: cd-serviceaccount
+    namespace: decide-beta-dev
 roleRef:
   kind: ClusterRole
   name: admin
