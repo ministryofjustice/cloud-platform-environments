@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-dces-team"
+  default     = "laa-crime-apps-team"
 }
 
 variable "environment" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-dces"
+  default     = "laa-crimeapps"
 }
 
 variable "github_owner" {
