@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "offense-forecast-api-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps-arch-civil-servants"
+    cloud-platform.justice.gov.uk/application: "Retrieve offense forecast results"
+    cloud-platform.justice.gov.uk/owner: "hmpps-technical-architects: fergal.brennan@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offense-forecast-api"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-technical-architects"
+    cloud-platform.justice.gov.uk/review-after: "2025-10-04"
