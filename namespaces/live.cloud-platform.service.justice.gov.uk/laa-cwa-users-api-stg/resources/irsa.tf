@@ -8,9 +8,10 @@ module "irsa" {
   service_account_name = "irsa-s3-${var.namespace}"
   namespace            = var.namespace # this is also used as a tag
 
-  role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
-  }
+# Temporarily removing ref to s3
+#  role_policy_arns = {
+#    s3 = module.s3_bucket.irsa_policy_arn
+#  }
 
   # Tags
   business_unit          = var.business_unit
