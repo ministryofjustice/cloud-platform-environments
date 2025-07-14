@@ -4,7 +4,7 @@ module "hmpps_template_typescript" {
   application = "hmpps-esupervision-ui"
   github_team = "stg-pathfinders"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["stg-pathfinders"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
