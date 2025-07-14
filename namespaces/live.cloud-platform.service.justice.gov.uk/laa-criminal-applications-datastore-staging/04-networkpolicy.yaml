@@ -130,3 +130,19 @@ spec:
   - action: Deny
   types:
   - Egress
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-ip
+  namespace: laa-criminal-applications-datastore-staging
+spec:
+  order: 49.0
+  selector: all()
+  egress:
+  - action: Allow
+    destination:
+      nets:
+        - 172.20.0.0/16
+  types:
+  - Egress
