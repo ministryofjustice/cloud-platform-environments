@@ -18,7 +18,7 @@ module "irsa" {
   role_policy_arns = merge(
     { elasticache = module.elasticache_redis.irsa_policy_arn },
     {
-      sqs = module.hmpps_mandd_events_queue.irsa_policy_arn
+      sqs = module.mandd_queue.irsa_policy_arn
     },
     {
       sqs_dlq = module.mandd_dlq.irsa_policy_arn
