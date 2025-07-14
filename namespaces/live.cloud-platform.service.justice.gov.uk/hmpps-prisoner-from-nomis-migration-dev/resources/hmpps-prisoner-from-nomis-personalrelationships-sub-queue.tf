@@ -137,7 +137,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_personalrelationships
       "PERSON_IDENTIFIERS-INSERTED",
       "PERSON_IDENTIFIERS-UPDATED",
       "PERSON_IDENTIFIERS-DELETED",
-      "OFFENDER_PHYSICAL_DETAILS-CHANGED"
+      "OFFENDER_PHYSICAL_DETAILS-CHANGED",
+      "RESTRICTION-UPSERTED",
+      "RESTRICTION-DELETED"
     ]
   })
 }

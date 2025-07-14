@@ -1,5 +1,5 @@
 module "hmpps-prisoner-location_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -26,7 +26,7 @@ module "hmpps-prisoner-location_s3_bucket" {
 data "aws_caller_identity" "current" {}
 
 module "s3_logging_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit

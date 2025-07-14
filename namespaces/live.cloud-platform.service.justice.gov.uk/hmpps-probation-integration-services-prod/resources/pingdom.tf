@@ -55,6 +55,8 @@ resource "pingdom_check" "pingdom" {
     "jitbit-and-delius",
     "find-and-refer-and-delius",
     "accredited-programmes-and-delius",
+    "hmpps-libra-event-receiver",
+    "hmpps-common-platform-event-receiver",
     # ^ add new projects here
   ])
   type                     = "http"

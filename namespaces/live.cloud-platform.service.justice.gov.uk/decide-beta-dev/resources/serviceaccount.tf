@@ -6,7 +6,8 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
-  # Uncomment and provide repository names to create github actions secrets
-  # containing the ca.crt and token for use in github actions CI/CD pipelines
-   github_repositories = ["laa-decide"]
+  github_repositories = ["laa-decide"]
+  github_environments = ["uat"]
+
+  serviceaccount_rules = var.serviceaccount_rules
 }

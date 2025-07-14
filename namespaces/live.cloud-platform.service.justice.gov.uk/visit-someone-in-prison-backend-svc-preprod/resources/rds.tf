@@ -54,6 +54,23 @@ resource "kubernetes_secret" "visit_scheduler_rds_refresh_creds" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace (visit-allocation-rds),
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "visit_allocation_rds_refresh_creds" {
+  metadata {
+    name      = "visit-allocation-rds-output-preprod"
+    namespace = "visit-someone-in-prison-backend-svc-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.visit_allocation_rds.rds_instance_endpoint
+    database_name         = module.visit_allocation_rds.database_name
+    database_username     = module.visit_allocation_rds.database_username
+    database_password     = module.visit_allocation_rds.database_password
+    rds_instance_address  = module.visit_allocation_rds.rds_instance_address
+  }
+}
+
 resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
   metadata {
     name      = "prison-visit-booker-registry-rds"
@@ -111,8 +128,8 @@ module "visit_allocation_rds" {
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "15.12"
-  rds_family                  = "postgres15"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "50"
   storage_type                = "gp3"
@@ -137,4 +154,3 @@ resource "kubernetes_secret" "visit_allocation_rds" {
     rds_instance_address  = module.visit_allocation_rds.rds_instance_address
   }
 }
-

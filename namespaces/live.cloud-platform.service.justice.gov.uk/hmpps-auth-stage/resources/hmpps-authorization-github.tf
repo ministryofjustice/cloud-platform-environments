@@ -20,7 +20,7 @@ module "hmpps-authorization_api" {
   application                   = "hmpps-authorization-api"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"

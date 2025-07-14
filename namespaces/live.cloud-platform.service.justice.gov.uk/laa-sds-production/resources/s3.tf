@@ -5,7 +5,7 @@
  *
  */
 module "laa_sds_equiniti" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -18,7 +18,7 @@ module "laa_sds_equiniti" {
 }
 
 module "s3_buckets" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   for_each = toset(var.bucket_names)
 
   team_name              = var.team_name

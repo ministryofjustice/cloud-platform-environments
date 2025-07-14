@@ -6,7 +6,7 @@
 # - The data will persist even after the `migration-link-exchange-build` namespace is deleted.
 
 module "s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application

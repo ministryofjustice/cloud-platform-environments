@@ -31,7 +31,8 @@ locals {
     "smoke-test-full-access",
     "smoke-test-limited-access",
     "smoke-test-no-access",
-    "test"
+    "test",
+    "pmcphee"
   ]
 
   client_queues = {

@@ -794,3 +794,33 @@ spec:
   dnsNames:
     - 5e4b627d-preprod.hmpps.service.justice.gov.uk
     - accredited-programmes-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-libra-event-receiver-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: hmpps-libra-event-receiver-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 5008b152-preprod.hmpps.service.justice.gov.uk
+    - hmpps-libra-event-receiver-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-common-platform-event-receiver-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: hmpps-common-platform-event-receiver-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 51f7cc5f-preprod.hmpps.service.justice.gov.uk
+    - hmpps-common-platform-event-receiver-preprod.hmpps.service.justice.gov.uk

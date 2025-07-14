@@ -40,3 +40,16 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: monitoring
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: block-egress
+  namespace: laa-crown-court-remuneration-dev
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+  - action: Deny
+  types:
+  - Egress

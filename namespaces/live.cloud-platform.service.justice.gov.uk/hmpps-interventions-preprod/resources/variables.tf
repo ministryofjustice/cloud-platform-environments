@@ -27,7 +27,8 @@ variable "team_name" {
 }
 
 variable "environment" {
-  description = "The type of environment you're deploying to."
+  description = "Name of the environment type for this service"
+  type        = string
   default     = "preprod"
 }
 

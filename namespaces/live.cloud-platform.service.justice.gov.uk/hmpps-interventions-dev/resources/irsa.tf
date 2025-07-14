@@ -2,7 +2,13 @@ locals {
   sns_local = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
-  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_queues = {
+    #"Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "Digital-Prison-Services-${var.environment_name}-hmpps_audit_queue" = "hmpps-audit-${var.environment_name}",
+  }
+  # The names of the SNS topics used and the namespace which created them
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "irsa" {
@@ -17,7 +23,9 @@ module "irsa" {
   role_policy_arns = merge(local.sns_policies, {
     s3 = module.interventions_s3_bucket.irsa_policy_arn
     elasticache = module.hmpps_interventions_elasticache_redis.irsa_policy_arn
-  })
+  },
+    local.sqs_policies
+  )
 
   # Tags
   business_unit          = var.business_unit
@@ -28,7 +36,12 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_ssm_parameter" "irsa_policy_arns" {
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_local
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }

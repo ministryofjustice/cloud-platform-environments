@@ -20,14 +20,14 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-education-and-work-plan"
+  service_account_name = "hmpps-support-additional-needs"
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
     {
       rds_policy                                  = module.rds.irsa_policy_arn,
       sqs                                         = module.hmpps_san_domain_events_queue.irsa_policy_arn,
-      sqs_dlq                                     = module.hmpps_san_domain_events_queue.irsa_policy_arn,
+      sqs_dlq                                     = module.hmpps_san_domain_events_dlq.irsa_policy_arn,
     }
   )
 

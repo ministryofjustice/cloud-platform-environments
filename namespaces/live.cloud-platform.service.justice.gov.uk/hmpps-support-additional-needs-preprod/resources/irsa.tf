@@ -27,7 +27,7 @@ module "irsa" {
     {
       rds_policy                                  = module.rds.irsa_policy_arn,
       sqs                                         = module.hmpps_san_domain_events_queue.irsa_policy_arn,
-      sqs_dlq                                     = module.hmpps_san_domain_events_queue.irsa_policy_arn,
+      sqs_dlq                                     = module.hmpps_san_domain_events_dlq.irsa_policy_arn,
     }
   )
 
