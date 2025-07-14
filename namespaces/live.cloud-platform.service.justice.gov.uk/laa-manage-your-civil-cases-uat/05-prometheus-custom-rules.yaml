@@ -19,4 +19,4 @@ spec:
           annotations:
             message: UAT ingress {{ $labels.ingress }} is serving 5xx responses.
             runbook_url: https://ministryofjustice.github.io/laa-manage-your-civil-cases/
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-manage-your-civil-cases-uat&var-ingress=check-client-qualifies-laa-estimate-eligibility
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a2ad4e88-e130-46ee-bafa-75cf69a10e72/mcc-ingress-manage-your-civil-cases?var-namespace=laa-manage-your-civil-cases-uat&var-ingress=manage-civil-cases-laa-manage-your-civil-cases

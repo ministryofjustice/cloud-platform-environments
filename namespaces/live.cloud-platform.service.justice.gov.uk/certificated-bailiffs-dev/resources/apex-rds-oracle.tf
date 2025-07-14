@@ -23,7 +23,7 @@ module "rds_apex" {
 
   # Oracle specifics
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
+  db_engine_version        = "19.0.0.0.ru-2025-04.rur-2025-04.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   storage_type             = "gp2"
@@ -82,10 +82,22 @@ resource "aws_db_option_group" "oracle_apex" {
     option_name = "STATSPACK"
   }
 
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
   tags = {
-    Name          = "${var.namespace}-oracle-apex"
-    Environment   = var.environment
-    Team          = var.team_name
-    Application   = local.application
+    name                   = "${var.namespace}-oracle-apex"
+    environment            = var.environment
+    team                   = var.team_name
+    application            = local.application
+    business-unit          = var.business_unit
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    is-production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
   }
 }
+
+

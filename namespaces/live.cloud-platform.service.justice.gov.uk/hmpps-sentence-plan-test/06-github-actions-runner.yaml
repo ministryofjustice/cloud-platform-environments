@@ -31,7 +31,7 @@ spec:
             - name: LABELS
               value: moj-cloud-platform
             - name: REPO_URL
-              value: https://github.com/ministryofjustice/hmpps-arns-integrations-test-playwright-poc
+              value: https://github.com/ministryofjustice/hmpps-arns-integrations-test-playwright
             - name: RUN_AS_ROOT
               value: 'false'
             - name: ACCESS_TOKEN

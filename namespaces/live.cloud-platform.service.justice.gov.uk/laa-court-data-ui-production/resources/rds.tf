@@ -20,8 +20,8 @@ module "lcdui_rds" {
   db_max_allocated_storage    = "500"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "14.13"
-  rds_family                  = "postgres14"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
   allow_major_version_upgrade = "true"
 
 

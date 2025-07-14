@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: psr-ai-design-prototype-admin
+  namespace: psr-ai-design-prototype
+subjects:
+  - kind: Group
+    name: "github:psr-ai-design-prototype-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

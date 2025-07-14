@@ -18,7 +18,7 @@ module "calculate_release_dates_api_rds" {
   infrastructure_support = var.infrastructure_support
   db_max_allocated_storage     = "250"
   db_engine              = "postgres"
-  db_engine_version      = "16.4"
+  db_engine_version      = "16.8"
   rds_family             = "postgres16"
   prepare_for_major_upgrade = false
   allow_minor_version_upgrade = true

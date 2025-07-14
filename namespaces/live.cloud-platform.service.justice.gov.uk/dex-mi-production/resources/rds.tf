@@ -19,7 +19,7 @@ module "dex_mi_production_rds" {
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.4"
+  db_engine_version          = "16.8"
   db_backup_retention_period = "7"
   db_name                    = "metabase_production"
   prepare_for_major_upgrade  = false

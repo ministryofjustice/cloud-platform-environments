@@ -14,9 +14,11 @@ module "serviceaccount_circleci" {
       api_groups = [""]
       resources = [
         "pods/portforward",
+        "configmaps",
         "deployment",
         "secrets",
         "services",
+        "persistentvolumeclaims",
         "pods",
       ]
       verbs = [

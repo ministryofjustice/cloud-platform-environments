@@ -1,17 +1,5 @@
-
-
-variable "vpc_name" {
-}
-
-
 variable "application" {
-  description = "Name of Application you are deploying"
   default     = "hmpps-audit-poc-ui-dev"
-}
-
-variable "application_api" {
-  description = "Name of Application you are deploying"
-  default     = "hmpps-audit-poc-api-dev"
 }
 
 variable "namespace" {
@@ -62,10 +50,9 @@ variable "github_token" {
   default     = ""
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
-
-
 variable "kubernetes_cluster" {}
+
+variable "eks_cluster_name" {}
+
+variable "vpc_name" {}
+

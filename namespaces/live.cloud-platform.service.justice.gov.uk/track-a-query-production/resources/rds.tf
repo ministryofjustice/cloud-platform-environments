@@ -18,7 +18,7 @@ module "track_a_query_rds" {
   db_instance_class          = "db.t4g.medium"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  db_engine_version = "16.4"
+  db_engine_version = "16.8"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
   prepare_for_major_upgrade  = false
@@ -51,7 +51,7 @@ module "track_a_query_rds_replica" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres16"
-  db_engine_version = "16.4"
+  db_engine_version = "16.8"
 
   replicate_source_db = module.track_a_query_rds.db_identifier
 

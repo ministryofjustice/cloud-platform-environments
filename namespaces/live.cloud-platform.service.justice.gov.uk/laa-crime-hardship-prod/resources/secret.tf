@@ -45,5 +45,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     },
+    "crime_hardship_alert_webhook_prod" = {
+      description             = "Crime Hardship Service Slack Webhook for prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "crime-hardship-service-alert-webhook-prod"
+    },
   }
 }

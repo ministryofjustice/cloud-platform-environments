@@ -22,9 +22,12 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
+
+  # use "prepare_for_major_upgrade" when upgrading the major version of an engine
+  prepare_for_major_upgrade = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

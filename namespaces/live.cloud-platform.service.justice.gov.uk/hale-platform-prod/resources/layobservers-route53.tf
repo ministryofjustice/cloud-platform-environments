@@ -43,5 +43,34 @@ resource "aws_route53_record" "layobservers_route53_txt_record_main" {
   name    = "_dmarc.layobservers.org"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk;"]
+  records = ["v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-rua@dmarc.service.gov.uk,mailto:rua@dmarc.brevo.com;"]
 }
+
+resource "aws_route53_record" "layobservers_route53_txt_records" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
+  name    = "layobservers.org"
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "v=spf1 include:spf.brevo.com -all",
+    "brevo-code:5df81568a8579db8c5271574de58f6bb"
+  ]
+}
+
+resource "aws_route53_record" "layobservers_route53_dkim1" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
+  name    = "brevo1._domainkey.layobservers.org"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["b1.layobservers-org.dkim.brevo.com"]
+}
+
+resource "aws_route53_record" "layobservers_route53_dkim2" {
+  zone_id = aws_route53_zone.layobservers_route53_zone.zone_id
+  name    = "brevo2._domainkey.layobservers.org"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["b2.layobservers-org.dkim.brevo.com"]
+}
+
+

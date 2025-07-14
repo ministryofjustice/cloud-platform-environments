@@ -123,6 +123,17 @@ resource "kubernetes_secret" "athena-workgroup-secret" {
   }
 }
 
+resource "kubernetes_secret" "glue-catalog-table-name-secret" {
+  metadata {
+    name      = "glue-catalog-table-name"
+    namespace = var.namespace
+  }
+  data = {
+    table_arn  = aws_glue_catalog_table.audit_event_table.arn
+    table_name = aws_glue_catalog_table.audit_event_table.name
+  }
+}
+
 resource "kubernetes_secret" "athena-output-location-secret" {
   metadata {
     name      = "athena-output-location-secret"

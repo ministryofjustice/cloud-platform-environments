@@ -5,6 +5,10 @@ variable "application" {
   default = "HMPPS Person Record Service"
 }
 
+variable "service_area" {
+  default = "Enabling Technologies"
+}
+
 variable "namespace" {
   default = "hmpps-person-record-prod"
 }
@@ -43,6 +47,10 @@ variable "github_token" {
   default     = ""
 }
 
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
+}
+
 variable "eks_cluster_name" {
 }
 
@@ -51,5 +59,8 @@ variable "slack_channel" {
   default     = "core-person-record-dev"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
 
 variable "kubernetes_cluster" {}

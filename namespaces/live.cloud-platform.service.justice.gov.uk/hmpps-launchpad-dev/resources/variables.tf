@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "prisoner-content-hub-developers"
+  default     = "hmpps-launchpad"
 }
 
 variable "environment" {
@@ -84,4 +84,8 @@ variable "hostname" {
 variable "cloud_platform_launchpad_auth_api_url" {
   description = "Pre-defined domain for the namespace provided by Cloud Platform"
   default     = "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

@@ -1,7 +1,3 @@
-################################################################################
-# HMPPs Typescript Template Application Elasticache
-################################################################################
-
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
   vpc_name               = var.vpc_name
@@ -13,11 +9,10 @@ module "elasticache_redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  number_cache_clusters = var.number_cache_clusters
-  # sized for micro in dev, preprod, suggest small for production
   node_type            = "cache.t4g.micro"
-  engine_version       = "7.0"
+  engine_version       = "7.1"
   parameter_group_name = "default.redis7"
+  number_cache_clusters = "2"
 
   providers = {
     aws = aws.london

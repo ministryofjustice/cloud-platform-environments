@@ -6,6 +6,10 @@ variable "namespace" {
   default = "hmpps-person-record-preprod"
 }
 
+variable "service_area" {
+  default = "Enabling Technologies"
+}
+
 variable "business_unit" {
   default = "HMPPS"
 }
@@ -42,7 +46,15 @@ variable "github_token" {
   default     = ""
 }
 
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
+}
+
 variable "eks_cluster_name" {
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 
 variable "slack_channel" {

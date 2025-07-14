@@ -35,6 +35,12 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
+  default     = "dev"
+}
+
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  type        = string
   default     = "development"
 }
 
@@ -70,4 +76,8 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

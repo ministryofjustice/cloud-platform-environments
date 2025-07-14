@@ -86,7 +86,8 @@ resource "aws_sns_topic_subscription" "hmpps_acp_domain_events_subscription" {
   endpoint  = module.hmpps_acp_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.updated"
+      "prisoner-offender-search.prisoner.updated",
+      "offender-management.allocation.changed"
     ]
   })
 }

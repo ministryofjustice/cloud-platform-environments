@@ -7,6 +7,8 @@ module "hmpps-audit-api-irsa" {
   role_policy_arns = {
     (module.hmpps_audit_queue.sqs_name)                   = module.hmpps_audit_queue.irsa_policy_arn
     (module.hmpps_audit_dead_letter_queue.sqs_name)       = module.hmpps_audit_dead_letter_queue.irsa_policy_arn
+    (module.hmpps_prisoner_audit_queue.sqs_name)                   = module.hmpps_prisoner_audit_queue.irsa_policy_arn
+    (module.hmpps_prisoner_audit_dead_letter_queue.sqs_name)       = module.hmpps_prisoner_audit_dead_letter_queue.irsa_policy_arn
     (module.hmpps_audit_users_queue.sqs_name)             = module.hmpps_audit_users_queue.irsa_policy_arn
     (module.hmpps_audit_users_dead_letter_queue.sqs_name) = module.hmpps_audit_users_dead_letter_queue.irsa_policy_arn
     s3                                                    = aws_iam_policy.allow-irsa-read-write.arn
@@ -52,39 +54,38 @@ resource "aws_iam_policy" "allow-irsa-read-write" {
 data "aws_iam_policy_document" "service_pod_policy_document" {
   statement {
     actions = [
+      "athena:StartQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
-      "athena:GetWorkGroup",
-      "athena:StartQueryExecution",
-      "athena:StopQueryExecution",
-      "athena:ListDataCatalogs",
-      "s3:GetObject",
+
       "s3:PutObject",
-      "s3:ListBucket",
-      "s3:ListAllMyBuckets",
-      "s3:CreateBucket",
       "s3:GetBucketLocation",
-      "glue:BatchCreatePartition",
+      "s3:GetObject",
+      "s3:DeleteObject", # Temporary for debugging, remove when done
+      "s3:ListBucket",
+
       "glue:GetDatabase",
       "glue:GetTable",
-      "glue:UpdateTable",
-      "glue:GetPartitions",
       "glue:GetPartition",
-      "glue:GetDatabases",
+      "glue:GetPartitions", # Temporary for debugging, remove when done
+      "glue:BatchCreatePartition",
     ]
+
     resources = [
       aws_athena_workgroup.queries.arn,
-      "${aws_athena_workgroup.queries.arn}/*",
-      "arn:aws:athena:eu-west-2:*:workgroup/*",
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
-      "arn:aws:athena:eu-west-2:*:query/*",
-      "arn:aws:athena:eu-west-2:*:datacatalog/*",
+
       "arn:aws:glue:eu-west-2:*:catalog",
-      "arn:aws:glue:eu-west-2:*:database/*",
-      "arn:aws:glue:eu-west-2:*:partition/*",
-      "arn:aws:glue:eu-west-2:*:table/*",
+      "arn:aws:glue:eu-west-2:*:database/*", # Temporary
+      "arn:aws:glue:eu-west-2:*:table/*/*", # Temporary
+
+      aws_glue_catalog_database.audit_glue_catalog_database.arn,
+      aws_glue_catalog_table.audit_event_table.arn,
       module.s3.bucket_arn,
-      "${module.s3.bucket_arn}/*"
+      "${module.s3.bucket_arn}/*",
+
+      module.s3_logging_bucket.bucket_arn,
+      "${module.s3_logging_bucket.bucket_arn}/*"
     ]
   }
 }

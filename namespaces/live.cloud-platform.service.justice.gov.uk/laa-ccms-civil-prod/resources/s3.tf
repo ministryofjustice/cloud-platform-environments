@@ -5,7 +5,7 @@
  *
  */
 module "laa_ccms_documents" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,6 +15,25 @@ module "laa_ccms_documents" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   bucket_name            = "laa-ccms-documents-${var.environment}"
+
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-56d"
+      prefix                                 = "56d/"
+      abort_incomplete_multipart_upload_days = 56
+      expiration = [
+        {
+          days = 56
+        },
+      ]
+      noncurrent_version_expiration = [
+        {
+          days = 56
+        },
+      ]
+    },
+  ]
 }
 
 resource "kubernetes_secret" "laa_ccms_documents" {

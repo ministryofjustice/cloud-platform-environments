@@ -24,6 +24,12 @@ variable "environment" {
   default = "development"
 }
 
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
+}
+
 variable "infrastructure_support" {
   default = "dps-hmpps@digital.justice.gov.uk"
 }

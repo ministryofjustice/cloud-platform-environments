@@ -1,5 +1,5 @@
 module "hmpps-prisoner-location_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -10,6 +10,7 @@ module "hmpps-prisoner-location_s3_bucket" {
   namespace              = var.namespace
   logging_enabled        = true
   log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_path               = "log/"
 
   providers = { aws = aws.london }
 
@@ -25,7 +26,7 @@ module "hmpps-prisoner-location_s3_bucket" {
 data "aws_caller_identity" "current" {}
 
 module "s3_logging_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -65,6 +66,7 @@ data "aws_iam_policy_document" "dso_user_s3_access_policy" {
     ]
 
     resources = [
+      module.hmpps-prisoner-location_s3_bucket.bucket_arn,
       "${module.hmpps-prisoner-location_s3_bucket.bucket_arn}/*"
     ]
   }

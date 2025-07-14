@@ -15,6 +15,11 @@ module "secret" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "mapps-filter-list"
     },
+    "integration-api-event-kilco-filter-list" = {
+      description             = "Kilco event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "kilco-filter-list"
+    },
     "integration-api-event-pnd-filter-list" = {
       description             = "PND event filter list",
       recovery_window_in_days = 7,

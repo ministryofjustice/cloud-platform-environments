@@ -12,3 +12,4 @@ spec:
     - hmpps-person-record-preprod.hmpps.service.justice.gov.uk
     - hmpps-person-match-score-preprod.hmpps.service.justice.gov.uk
     - hmpps-person-match-preprod.hmpps.service.justice.gov.uk
+    - manage-person-record-preprod.hmpps.service.justice.gov.uk

@@ -6,13 +6,10 @@ metadata:
   namespace: calculate-release-dates-api-preprod
 subjects:
   - kind: Group
-    name: "github:farsight-devs"
+    name: "github:hmpps-calculate-release-dates-team-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:calculate-release-dates-team"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

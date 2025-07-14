@@ -16,7 +16,7 @@ module "rds_instance" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
-  db_engine_version          = "16.4"
+  db_engine_version          = "16.8"
   db_name                    = "parliamentary_questions_production"
   rds_family                 = "postgres16"
   db_backup_retention_period = var.db_backup_retention_period

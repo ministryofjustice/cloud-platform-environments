@@ -38,7 +38,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  default     = "apply-for-civil-legal-aid@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -81,6 +81,7 @@ variable "serviceaccount_rules" {
         "pods",
         "HorizontalPodAutoscaler",
         "persistentvolumeclaims",
+        "serviceaccounts",
       ]
       verbs = [
         "patch",
@@ -99,6 +100,7 @@ variable "serviceaccount_rules" {
         "batch",
         "networking.k8s.io",
         "monitoring.coreos.com",
+        "policy",
       ]
       resources = [
         "deployments",
@@ -108,6 +110,7 @@ variable "serviceaccount_rules" {
         "replicasets",
         "statefulsets",
         "networkpolicies",
+        "poddisruptionbudgets",
         "servicemonitors",
         "prometheusrules",
       ]

@@ -117,6 +117,7 @@ resource "aws_sns_topic_subscription" "hmpps_book_a_video_link_domain_subscripti
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.video-appointment.cancelled",
       "prison-offender-events.prisoner.appointments-changed",
+      "prisoner-offender-search.prisoner.received",
     ]
   })
 }

@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscription" {
-  
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol  = "sqs"
@@ -11,6 +10,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "ASSESSMENT-UPDATED",
       "BED_ASSIGNMENT_HISTORY-INSERTED",
       "BOOKING_NUMBER-CHANGED",
+      "BOOKING-DELETED",
       "CONFIRMED_RELEASE_DATE-CHANGED",
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
@@ -39,6 +39,12 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_IDENTIFIER-UPDATED",
       "OFFENDER_IDENTIFYING_MARKS-CHANGED",
       "OFFENDER_IDENTIFYING_MARKS-DELETED",
+      "OFFENDER_IMAGE-CREATED",
+      "OFFENDER_IMAGE-UPDATED",
+      "OFFENDER_IMAGE-DELETED",
+      "OFFENDER_LANGUAGES-INSERTED",
+      "OFFENDER_LANGUAGES-UPDATED",
+      "OFFENDER_LANGUAGES-DELETED",
       "OFFENDER_PHONE-INSERTED",
       "OFFENDER_PHONE-UPDATED",
       "OFFENDER_PHONE-DELETED",
@@ -46,6 +52,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",
+      "OFF_HEALTH_PROBLEMS-INSERTED",
+      "OFF_HEALTH_PROBLEMS-UPDATED",
+      "OFF_HEALTH_PROBLEMS-DELETED",
       "SENTENCE_ADJUSTMENT_DELETED",
       "SENTENCE_ADJUSTMENT_UPSERTED",
       "SENTENCE_DATES-CHANGED",
@@ -158,5 +167,5 @@ resource "kubernetes_secret" "hmpps_prisoner_search_offender_dlq" {
 }
 
 data "aws_ssm_parameter" "offender-events-topic-arn" {
-  name = "/offender-events-dev/topic-arn"
+  name = "/offender-events-${var.environment}/topic-arn"
 }

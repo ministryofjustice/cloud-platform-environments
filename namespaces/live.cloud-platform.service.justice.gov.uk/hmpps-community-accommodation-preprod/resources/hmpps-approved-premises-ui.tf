@@ -4,7 +4,7 @@ module "hmpps_approved_premises_ui" {
   application = "hmpps-approved-premises-ui"
   github_team = "hmpps-community-accommodation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-development.yaml
-  reviewer_teams                = ["approved-premises-team", "hmpps-community-accommodation"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-community-accommodation-live"] # Optional team that should review deployments to this environment.
   # selected_branch_patterns      = ["main"] # Optional
   protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

@@ -27,9 +27,12 @@ locals {
     "abritton", 
     "jbetton",
     "bmadley",
+    "sleach",
     "smoke-test-full-access",
     "smoke-test-limited-access",
-    "smoke-test-no-access"
+    "smoke-test-no-access",
+    "test",
+    "pmcphee"
   ]
 
   client_queues = {
@@ -39,5 +42,7 @@ locals {
     mryall    = module.event_pnd_queue.sqs_name # testing
     meganexus = module.event_plp_queue.sqs_name
     bmadley   = module.event_bmadley_queue.sqs_name # testing
+    kilco     = module.event_kilco_queue.sqs_name
+    test      = module.event_kilco_queue.sqs_name # testing
   }
 }

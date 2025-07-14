@@ -15,7 +15,7 @@ variable "business_unit" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "namespace" {

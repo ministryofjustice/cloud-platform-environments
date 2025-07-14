@@ -14,7 +14,7 @@ module "rds-instance-migrated" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-01.rur-2025-01.r1"
+  db_engine_version        = "19.0.0.0.ru-2025-04.rur-2025-04.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   storage_type             = "gp2"
@@ -24,6 +24,7 @@ module "rds-instance-migrated" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" 
+  db_password_rotated_date = "29-05-2025"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"

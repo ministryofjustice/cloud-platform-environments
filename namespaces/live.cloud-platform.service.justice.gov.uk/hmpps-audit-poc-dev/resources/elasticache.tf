@@ -1,6 +1,3 @@
-################################################################################
-# HMPPs Typescript Template Application Elasticache
-################################################################################
 
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
@@ -13,7 +10,7 @@ module "elasticache_redis" {
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t4g.micro"
-  engine_version         = "7.0"
+  engine_version         = "7.1"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 

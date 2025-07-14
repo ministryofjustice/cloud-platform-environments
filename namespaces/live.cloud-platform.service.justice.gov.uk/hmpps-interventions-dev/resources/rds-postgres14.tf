@@ -10,7 +10,7 @@ module "hmpps_interventions_postgres14" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14.13"
+  db_engine_version           = "14.17"
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
 
@@ -50,10 +50,10 @@ module "hmpps_interventions_postgres14_replica" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres14"
-  db_engine_version           = "14.12"
+  db_engine_version           = "14.17"
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
-  db_max_allocated_storage    = "10"
+  db_max_allocated_storage    = "20"
 
   db_name             = null # "db_name": conflicts with replicate_source_db
   replicate_source_db = module.hmpps_interventions_postgres14.db_identifier

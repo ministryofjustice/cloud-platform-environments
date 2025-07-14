@@ -1,4 +1,4 @@
-module "hmpps_githiub_discovery" {
+module "hmpps_github_discovery" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-github-discovery"
   application                   = "hmpps-github-discovery"

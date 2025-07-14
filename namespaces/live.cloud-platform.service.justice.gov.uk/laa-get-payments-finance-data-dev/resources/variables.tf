@@ -26,6 +26,12 @@ variable "testing_ecr" {
   default     = "laa-get-payments-finance-data-dev-testing"
 }
 
+variable "data_ecr" {
+  description = "ECR Name of the namespace these resources are part of"
+  type        = string
+  default     = "laa-get-payments-finance-data-dev-data"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

@@ -9,7 +9,8 @@ locals {
     "book-a-prison-visit-prod-hmpps_prison_visits_write_events_queue"             = "visit-someone-in-prison-backend-svc-prod",
     "book-a-prison-visit-prod-hmpps_prison_visits_write_events_dlq"               = "visit-someone-in-prison-backend-svc-prod",
     "hmpps-farsight-reduce-re-offend-prod-eawp_assessment_events_queue"           = "hmpps-education-and-work-plan-prod",
-    "locations-inside-prison-production-update_from_external_system_events_queue" = "hmpps-locations-inside-prison-prod"
+    "locations-inside-prison-production-update_from_external_system_events_queue" = "hmpps-locations-inside-prison-prod",
+    "activities-and-appointments-prod-update_from_external_system_events_queue"   = "hmpps-activities-management-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
@@ -56,7 +57,8 @@ module "hmpps-integration-event-irsa" {
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
-      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      event_pnd_queue                                 = module.event_pnd_queue.irsa_policy_arn
     }
   )
   # Tags

@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.5"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -11,24 +11,21 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.17"
+  engine_version      = "OpenSearch_2.19"
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "m6g.xlarge.search"
+    instance_type            = "im4gn.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "m6g.large.search"
+    dedicated_master_type    = "m7g.large.search"
   }
   proxy_count = 3
-  ebs_options = {
-    volume_size = 368
-    throughput  = 250
-  }
+  ebs_enabled = false
 }
 
 module "opensearch_snapshot_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   application            = var.application
   business_unit          = var.business_unit

@@ -11,10 +11,10 @@ module "create_and_vary_a_licence_api_rds" {
   infrastructure_support      = var.infrastructure_support
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
-  db_instance_class           = "db.t4g.small"
-  db_engine_version = "15.8"
-  rds_family                  = "postgres15"
   prepare_for_major_upgrade   = false
+  db_instance_class           = "db.t4g.small"
+  db_engine_version           = "17.5"
+  rds_family                  = "postgres17"
   db_password_rotated_date    = "23-09-2024"
   db_allocated_storage        = 20
 

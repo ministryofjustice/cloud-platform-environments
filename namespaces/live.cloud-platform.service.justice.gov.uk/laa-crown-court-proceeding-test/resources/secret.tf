@@ -55,5 +55,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "email-client-notify-key"
     },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for CCP Test",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
   }
 }

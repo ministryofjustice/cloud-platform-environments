@@ -4,12 +4,13 @@
 locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue"                           = "hmpps-audit-preprod",
-    "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-preprod",
-    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"          = "visit-someone-in-prison-backend-svc-preprod",
-    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"            = "visit-someone-in-prison-backend-svc-preprod",
-    "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"        = "hmpps-education-and-work-plan-preprod",
-    "locations-inside-prison-preprod-update_from_external_system_events_queue"    = "hmpps-locations-inside-prison-preprod"
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"                             = "hmpps-audit-preprod",
+    "education-skills-work-employment-preprod-hmpps_jobs_board_integration_queue"   = "hmpps-jobs-board-integration-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"            = "visit-someone-in-prison-backend-svc-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"              = "visit-someone-in-prison-backend-svc-preprod",
+    "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"          = "hmpps-education-and-work-plan-preprod",
+    "locations-inside-prison-preprod-update_from_external_system_events_queue"      = "hmpps-locations-inside-prison-preprod",
+    "activities-and-appointments-preprod-update_from_external_system_events_queue"  = "hmpps-activities-management-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
@@ -29,6 +30,7 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies
   )
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -45,7 +47,6 @@ module "hmpps-integration-event-irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-integration-event"
   role_policy_arns = merge(
-    local.sqs_policies,
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
@@ -53,10 +54,11 @@ module "hmpps-integration-event-irsa" {
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
-      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      event_pnd_queue                                 = module.event_pnd_queue.irsa_policy_arn
     }
-
   )
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

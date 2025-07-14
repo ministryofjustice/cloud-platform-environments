@@ -13,7 +13,7 @@ module "apply-for-legal-aid-elasticache" {
   application            = "laa-apply-for-legal-aid"
   is_production          = "true"
   environment_name       = "production"
-  infrastructure_support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  infrastructure_support = "apply-for-civil-legal-aid@justice.gov.uk"
   node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"

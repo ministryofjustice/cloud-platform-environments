@@ -10,7 +10,7 @@ resource "aws_cognito_user_pool" "pool" {
 }
 
 #To add a new client to the user pool, copy line 13 - 23 with new 'cognito_user_pool_client_name'
-resource "aws_cognito_user_pool_client" "maat_client" {
+resource "aws_cognito_user_pool_client" "maat_client_prd" {
   name                                 = var.cognito_user_pool_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -57,8 +57,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   }
 
   data = {
-    maat_client_id     = aws_cognito_user_pool_client.maat_client.id
-    maat_client_secret = aws_cognito_user_pool_client.maat_client.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_client_prd.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_client_prd.client_secret
     crime_apply_client_id     = aws_cognito_user_pool_client.crime_apply_client.id
     crime_apply_client_secret = aws_cognito_user_pool_client.crime_apply_client.client_secret
   }

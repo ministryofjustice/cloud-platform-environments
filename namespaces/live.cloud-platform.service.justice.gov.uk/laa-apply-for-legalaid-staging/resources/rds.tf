@@ -14,7 +14,7 @@ module "apply-for-legal-aid-rds" {
   is_production            = "false"
   namespace                = var.namespace
   environment_name         = "staging"
-  infrastructure_support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  infrastructure_support   = "apply-for-civil-legal-aid@justice.gov.uk"
 
   # Database configuration
   prepare_for_major_upgrade   = false

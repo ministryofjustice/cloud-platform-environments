@@ -25,5 +25,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "Internal IP allowlist for Evidence Dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
   }
 }

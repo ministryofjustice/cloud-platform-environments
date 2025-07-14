@@ -94,7 +94,7 @@ variable "db_max_allocated_storage" {
 variable "db_allocated_storage" {
   description = "The allocated storage for the RDS instance"
   type        = number
-  default     = 10
+  default     = 20
 }
 
 variable storage_type {

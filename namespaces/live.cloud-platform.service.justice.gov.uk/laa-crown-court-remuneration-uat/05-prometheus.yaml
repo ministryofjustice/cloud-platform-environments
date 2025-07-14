@@ -150,3 +150,21 @@ spec:
         message: CCR UAT - {{ $labels.pod }} is restarting excessively
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-uat"
+
+    - alert: CCR-Payment-Get-Errors
+      expr: increase(payment_get_errors_total{namespace="laa-crown-court-remuneration-uat"}[5m]) > 0
+      labels:
+        severity: laa_ccr_uat
+      annotations:
+        message: CCR UAT - {{ printf "%0.0f" $value }} new payment get errors in the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-uat"
+
+    - alert: CCR-Payment-Post-Errors
+      expr: increase(payment_post_errors_total{namespace="laa-crown-court-remuneration-uat"}[5m]) > 0
+      labels:
+        severity: laa_ccr_uat
+      annotations:
+        message: CCR UAT - {{ printf "%0.0f" $value }} new payment post errors in the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-uat"

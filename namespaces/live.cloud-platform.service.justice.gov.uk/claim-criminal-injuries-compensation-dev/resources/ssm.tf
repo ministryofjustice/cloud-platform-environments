@@ -5,6 +5,16 @@ resource "aws_ssm_parameter" "cica_dev_account_id" {
   value     = "0123456789"
   overwrite = false
 
+  tags = {
+      business-unit          = var.business_unit
+      application            = var.application
+      is-production          = var.is_production
+      owner                  = var.team_name
+      environment-name       = var.environment-name
+      infrastructure-support = var.infrastructure_support
+      namespace              = var.namespace
+  }
+
   lifecycle {
     ignore_changes = [
       value

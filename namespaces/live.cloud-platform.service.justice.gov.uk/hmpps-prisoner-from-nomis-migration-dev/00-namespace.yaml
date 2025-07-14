@@ -13,6 +13,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "syscon-alerts"
     cloud-platform.justice.gov.uk/application: "HMPPS Prisoner from NOMIS Migration"
     cloud-platform.justice.gov.uk/owner: "DPS Syscon Team"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-from-nomis-migration.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-from-nomis-migration.git,https://github.com/ministryofjustice/hmpps-nomis-sync-dashboard.git"
     cloud-platform.justice.gov.uk/team-name: "syscon-devs"
     cloud-platform.justice.gov.uk/service-area: "Platform and Reporting"

@@ -30,8 +30,10 @@ module "irsa" {
     {
       activities_rds_policy = module.activities_rds.irsa_policy_arn,
     },
-    {analytical-platform   = aws_iam_policy.analytical-platform.arn}
-    )
+    { analytical-platform   = aws_iam_policy.analytical-platform.arn },
+    { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
+    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn }
+  )
 
   # Tags
   business_unit          = var.business_unit

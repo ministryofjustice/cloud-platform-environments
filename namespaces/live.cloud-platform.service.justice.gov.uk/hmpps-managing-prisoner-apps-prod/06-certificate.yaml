@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-managing-apps-ui-cert
+  namespace: hmpps-managing-prisoner-apps-prod
+spec:
+  secretName: hmpps-managing-prisoner-apps-staff-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - managing-prisoner-apps-staff.hmpps.service.justice.gov.uk

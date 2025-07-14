@@ -13,6 +13,9 @@ subjects:
   - kind: Group
     name: "github:hmpps-haar-client-admin"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:version-1-sit-team" # Version1 team access to support testing
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "hmpps-farsight-sentence-offence"
 }
 
 variable "eks_cluster_name" {
@@ -39,7 +39,7 @@ variable "eks_cluster_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {

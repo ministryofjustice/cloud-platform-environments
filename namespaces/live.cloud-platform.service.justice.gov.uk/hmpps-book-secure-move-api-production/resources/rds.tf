@@ -20,7 +20,7 @@ module "rds-instance" {
   db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
-  db_engine_version = "16.1"
+  db_engine_version = "16.8"
   rds_family        = "postgres16"
 
   prepare_for_major_upgrade = false
@@ -92,7 +92,7 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   prepare_for_major_upgrade = false
-  db_engine_version         = "16.4"
+  db_engine_version         = "16.8"
   rds_family                = "postgres16"
 
   providers = {

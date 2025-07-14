@@ -681,7 +681,7 @@ resource "kubernetes_secret" "ecr-repo-fb-editor-workers" {
 module "ecr-repo-fb-runner" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
-  team_name = "formbuilder"
+  team_name = "form-builder"
   repo_name = "fb-runner"
 
   lifecycle_policy = var.lifecycle_policy

@@ -11,9 +11,14 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_allocation_events_sub
     eventType = [
       "prisoner-offender-search.prisoner.convicted-status-changed",
       "prisoner-offender-search.prisoner.received",
-      "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved"
+
+      # visit events don't get published on staging environment. Commenting out because although we don't subscribe to them here,
+      # we still process them on the service, but the messages get added to the SQS via the testing-helper-api by our e2e tests for staging.
+      # ** Keep these commented out, only here for visibility. **
+      # "prison-visit.booked",
+      # "prison-visit.cancelled"
     ]
   })
 }

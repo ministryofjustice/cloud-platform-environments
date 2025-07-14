@@ -34,6 +34,11 @@ module "secrets_manager" {
       description             = "Sentry Data Source Name (DSN) for CCC Test",
       recovery_window_in_days = 7
       k8s_secret_name         = "sentry-dsn"
-    }
+    },
+    "ingress_internal_allowlist_source_range" = {
+      description             = "Internal IP allowlist for CCC Test",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
   }
 }

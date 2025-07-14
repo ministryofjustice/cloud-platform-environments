@@ -25,5 +25,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     }
+    "ingress_internal_allowlist_source_range" = {
+      description             = "The internal IP allowlist for CMA UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ingress-internal-allowlist-source-range"
+    },
   }
 }

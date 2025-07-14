@@ -16,7 +16,7 @@ module "prisons_rds" {
 
   db_instance_class         = "db.t4g.small"
   db_engine                 = "postgres"
-  db_engine_version         = "16.4"
+  db_engine_version         = "16.8"
   rds_family                = "postgres16"
   db_max_allocated_storage  = "10000"
     # use "allow_major_version_upgrade" when upgrading the major version of an engine
@@ -56,7 +56,7 @@ module "dps_rds_replica" {
   # PostgreSQL specifics
   prepare_for_major_upgrade   = false
   db_engine         = "postgres"
-  db_engine_version = "16.4"
+  db_engine_version = "16.8"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.small"
   allow_minor_version_upgrade = true
