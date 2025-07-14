@@ -1,5 +1,5 @@
 module "hmpps-prisoner-base-location-api" {
-  source      = "github.com/ministryofjustice/hmpps-prisoner-base-location-api"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-prisoner-base-location-api"
   application = "hmpps-prisoner-base-location-api"
   github_team                   = var.team_name
