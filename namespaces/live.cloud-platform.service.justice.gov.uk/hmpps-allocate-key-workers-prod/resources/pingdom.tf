@@ -1,8 +1,6 @@
 provider "pingdom" {}
 
-
 resource "pingdom_check" "pingdom_ui" {
-  count                    = 0 # temporarily disable until the service is launched
   type                     = "http"
   name                     = "HMPPS Allocate Key Workers UI"
   host                     = "health-kick.prison.service.justice.gov.uk"
