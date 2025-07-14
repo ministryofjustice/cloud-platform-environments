@@ -5,4 +5,4 @@ metadata:
   namespace: laa-cwa-users-api-test
 spec:
   hard:
-    pods: "40"
+    pods: "50"
