@@ -134,7 +134,7 @@ variable "user_pool_name" {
 
 variable "cognito_user_pool_client_name" {
   description = "Cognito user pool client name"
-  default     = "postman"
+  default     = "maat-dev"
 }
 
 variable "resource_server_identifier" {

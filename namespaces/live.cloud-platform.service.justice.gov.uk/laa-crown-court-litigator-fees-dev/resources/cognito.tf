@@ -9,7 +9,7 @@ resource "aws_cognito_user_pool" "pool" {
   }
 }
 
-resource "aws_cognito_user_pool_client" "postman_client_dev" {
+resource "aws_cognito_user_pool_client" "maat_dev" {
   name                                 = var.cognito_user_pool_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -39,12 +39,12 @@ resource "aws_cognito_user_pool_domain" "domain" {
 
 resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   metadata {
-    name      = "caa-cognito-client-secret-output"
+    name      = "cclf-cognito-client-secret-output"
     namespace = var.namespace
   }
 
   data = {
-    postman_client_id     = aws_cognito_user_pool_client.postman_client_dev.id
-    postman_client_secret = aws_cognito_user_pool_client.postman_client_dev.client_secret
+    maat_client_id     = aws_cognito_user_pool_client.maat_dev.id
+    maat_client_secret = aws_cognito_user_pool_client.maat_dev.client_secret
   }
 }
