@@ -4,7 +4,7 @@ module "hmpps_mandd_events_queue" {
 
   sqs_name = "hmpps_mandd_events_queue"
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.hmpps_mandd_events_dlq.sqs_arn
+    deadLetterTargetArn = module.mandd_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
