@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dces@digital.justice.gov.uk"
+  default     = "laa-crime-apps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
