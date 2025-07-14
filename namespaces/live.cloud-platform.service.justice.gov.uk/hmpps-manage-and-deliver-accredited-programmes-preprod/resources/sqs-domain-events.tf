@@ -48,10 +48,10 @@ resource "aws_sqs_queue_policy" "hmpps_manage_and_deliver_domain_events_queue_po
 EOF
 }
 
-module "hmpps_mandd_events_dlq" {
+module "mandd_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name = "hmpps_mandd_events_dlq"
+  sqs_name = "mandd_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit
@@ -99,8 +99,8 @@ resource "kubernetes_secret" "hmpps_manage_and_deliver_domain_events_queue_secre
   }
 
   data = {
-    queue_url  = module.hmpps_mandd_events_dlq.sqs_id
-    queue_arn  = module.hmpps_mandd_events_dlq.sqs_arn
-    queue_name = module.hmpps_mandd_events_dlq.sqs_name
+    queue_url  = module.mandd_dlq.sqs_id
+    queue_arn  = module.mandd_dlq.sqs_arn
+    queue_name = module.mandd_dlq.sqs_name
   }
 }
