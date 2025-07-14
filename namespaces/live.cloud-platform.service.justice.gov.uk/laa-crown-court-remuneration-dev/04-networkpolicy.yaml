@@ -51,5 +51,17 @@ spec:
   selector: all()
   egress:
   - action: Deny
+  - action: Allow
+    to:
+      - namespaceSelector: 
+          matchLabels:
+            namespace: laa-crown-court-remuneration-dev
+        podSelector: 
+          matchLabels:
+            name: port-forward-pod
+    rules:
+      ports:
+        - protocol: TCP
+          port: 1521
   types:
   - Egress
