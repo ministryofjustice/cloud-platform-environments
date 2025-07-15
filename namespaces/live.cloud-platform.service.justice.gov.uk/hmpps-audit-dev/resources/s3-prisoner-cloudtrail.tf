@@ -1,5 +1,5 @@
 module "hmpps_prisoner_audit_s3_logging" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   # S3 configuration
   versioning = true

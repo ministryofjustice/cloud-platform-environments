@@ -1,5 +1,5 @@
 module "hmpps_prisoner_audit_s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # S3 configuration
   versioning = true
@@ -12,7 +12,7 @@ module "hmpps_prisoner_audit_s3" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   logging_enabled        = true
-  log_target_bucket      = module.hmpps_prisoner_audit_s3_logging_bucket
+  log_target_bucket      = module.hmpps_prisoner_audit_s3_logging
   log_path               = "logs/"
 }
 
