@@ -8,6 +8,10 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -70,5 +74,11 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "postgres_instance_class" {
+  type = string
+  description = "Class of the postgres instance"
+  default = "db.t4g.micro"
 }
 

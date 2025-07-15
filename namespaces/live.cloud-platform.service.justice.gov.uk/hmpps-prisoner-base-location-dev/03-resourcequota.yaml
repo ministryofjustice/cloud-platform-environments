@@ -1,8 +1,9 @@
+---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-claims-enrich-demo
+  namespace: hmpps-prisoner-base-location-dev
 spec:
   hard:
     pods: "50"

@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-claims-enrich-demo-admin
-  namespace: laa-claims-enrich-demo
+  name: laa-record-link-service-dev-admin
+  namespace: laa-record-link-service-dev
 subjects:
   - kind: Group
-    name: "github:laa-portal-stabilisation-tech"
+    name: "github:case-ownership-transfer"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

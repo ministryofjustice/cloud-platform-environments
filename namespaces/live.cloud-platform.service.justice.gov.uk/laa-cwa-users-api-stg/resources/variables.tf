@@ -3,26 +3,26 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  type        = string
-  description = "eks_cluster_name"
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
+variable "eks_cluster_name" {
+  description = "eks cluster name for references to secrets for service accounts"
   type        = string
 }
 
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "laa-claims-enrich-demo"
+  default     = "cwa-users-api"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-claims-enrich-demo"
+  default     = "laa-cwa-users-api-stg"
 }
 
 variable "business_unit" {
@@ -32,21 +32,21 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  description = "Name of the development team responsible for this service"
+  description = "Name of the staging team responsible for this service"
   type        = string
-  default     = "laa-portal-stabilisation-tech"
+  default     = "laa-pcuam"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "staging"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ben.ashton@justice.gov.uk"
+  default     = "laa-pcuam-support@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -58,7 +58,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-lassie-idam-tech"
+  default     = "laa-pcuam"
 }
 
 variable "github_owner" {
