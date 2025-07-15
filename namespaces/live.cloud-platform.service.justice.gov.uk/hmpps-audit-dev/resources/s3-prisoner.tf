@@ -12,7 +12,7 @@ module "hmpps_prisoner_audit_s3" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   logging_enabled        = true
-  log_target_bucket      = module.hmpps_prisoner_audit_s3_logging
+  log_target_bucket      = module.hmpps_prisoner_audit_s3_logging.bucket_name
   log_path               = "logs/"
 }
 
