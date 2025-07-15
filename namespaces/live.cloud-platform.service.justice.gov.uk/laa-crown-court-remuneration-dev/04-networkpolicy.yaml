@@ -51,10 +51,21 @@ spec:
   selector: all()
   egress:
     - action: Deny
+  types:
+    - Egress
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-ip
+  namespace: laa-crown-court-remuneration-dev
+spec:
+  order: 49.0
+  selector: all()
+  egress:
     - action: Allow
-      protocol: TCP
       destination:
-        ports:
-          - 1521
+        nets:
+          - 172.20.0.0/16
   types:
     - Egress
