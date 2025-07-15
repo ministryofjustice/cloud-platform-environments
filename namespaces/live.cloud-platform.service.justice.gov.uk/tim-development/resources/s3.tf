@@ -164,7 +164,7 @@ module "s3_bucket_test" {
   version = "4.3.0"
 
   bucket = "tim-testing-cp"
-  acl    = "private"
+  # acl    = "private"
 
   block_public_acls       = true
   block_public_policy     = true
