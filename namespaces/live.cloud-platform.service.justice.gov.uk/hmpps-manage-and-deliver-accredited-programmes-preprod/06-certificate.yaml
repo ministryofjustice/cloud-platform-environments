@@ -1,0 +1,28 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-and-deliver-accredited-programmes-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
+spec:
+  secretName: hmpps-manage-and-deliver-accredited-programmes-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-and-deliver-acp-preprod.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-and-deliver-accredited-programmes-api-preprod.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
+spec:
+  secretName: hmpps-manage-and-deliver-accredited-programmes-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-and-deliver-acp-api-preprod.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-api-preprod.hmpps.service.justice.gov.uk
