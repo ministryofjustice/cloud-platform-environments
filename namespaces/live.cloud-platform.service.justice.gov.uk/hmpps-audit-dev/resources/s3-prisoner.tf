@@ -34,7 +34,7 @@ resource "aws_s3_bucket_object_lock_configuration" "hmpps_prisoner_audit_s3_lock
 
 }
 
-resource "kubernetes_secret" "s3" {
+resource "kubernetes_secret" "hmpps_prisoner_audit_s3" {
   metadata {
     name      = "hmpps_prisoner_audit_s3"
     namespace = var.namespace
