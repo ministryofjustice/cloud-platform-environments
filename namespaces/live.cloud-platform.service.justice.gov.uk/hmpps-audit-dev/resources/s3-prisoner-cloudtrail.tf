@@ -34,7 +34,7 @@ module "hmpps_prisoner_audit_s3_logging" {
 
 resource "kubernetes_secret" "hmpps_prisoner_audit_s3_logging" {
   metadata {
-    name      = "hmpps_prisoner_audit_s3_logging"
+    name      = "hmpps-prisoner-audit-s3-logging"
     namespace = var.namespace
   }
 
