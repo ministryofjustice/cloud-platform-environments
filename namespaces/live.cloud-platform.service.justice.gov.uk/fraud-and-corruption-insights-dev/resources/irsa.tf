@@ -10,6 +10,7 @@ module "irsa" {
 
   role_policy_arns = {
     dynamodb                = module.dynamodb-cluster.irsa_policy_arn
+    dynamodb_dev            = module.dynamodb-fci-dev.irsa_policy_arn
     xaccounts3              = aws_iam_policy.access_ap_s3_policy.arn
   }
 
