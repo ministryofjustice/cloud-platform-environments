@@ -25,16 +25,4 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
----
-apiVersion: projectcalico.org/v3
-kind: NetworkPolicy
-metadata:
-  name: block-egress
-  namespace: tom-namespace-dev
-spec:
-  order: 50.0
-  selector: all()
-  egress:
-  - action: Deny
-  types:
-  - Egress
+
