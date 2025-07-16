@@ -88,5 +88,11 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "sentry-csp-uri"
     }
 
+    "ip-whitelist" = {
+      description             = "IP Whitelist",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ip-whitelist"
+    }
+
   }
 }
