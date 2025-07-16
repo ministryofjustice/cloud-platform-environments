@@ -70,3 +70,21 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE"
+}
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN"
+}
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the serviceaccount cluster"
+  default     = "KUBE_CLUSTER"
+}
