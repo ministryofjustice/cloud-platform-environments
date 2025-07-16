@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-api-env-variables"
     },
+    "maat_api_alert_webhook_prod" = {
+      description             = "MAAT API Slack Webhook",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "maat-api-alert-webhook-prod"
+    },
   }
 }
