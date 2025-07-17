@@ -13,7 +13,7 @@ data "aws_secretsmanager_secret_version" "circleci" {
 }
 
 resource "aws_iam_role" "cica_versions_bucket_assumable_role" {
-  name               = "cica-versions-bucket-assumable-role-oidc-${var.environment_name}" # This is the name of the role
+  name               = "cica-versions-bucket-assumable-role-oidc-${var.environment-name}" # This is the name of the role
   assume_role_policy = data.aws_iam_policy_document.circleci_assume_role_policy.json
 }
 
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "allow_circle_role_s3" {
 }
 
 resource "aws_iam_policy" "allow_circle_role_s3" {
-  name        = "allow-circle-s3-${var.environment_name}"
+  name        = "allow-circle-s3-${var.environment-name}"
   description = "Policy allowing Circle assumable role access to S3."
   policy      = data.aws_iam_policy_document.allow_circle_role_s3.json
 }
