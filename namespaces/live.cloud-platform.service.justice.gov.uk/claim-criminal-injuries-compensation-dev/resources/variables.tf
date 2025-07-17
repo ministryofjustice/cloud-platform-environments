@@ -26,7 +26,7 @@ variable "email" {
   default = "Infrastructure@cica.gov.uk"
 }
 
-variable "environment_name" {
+variable "environment-name" {
   default = "dev"
 }
 
