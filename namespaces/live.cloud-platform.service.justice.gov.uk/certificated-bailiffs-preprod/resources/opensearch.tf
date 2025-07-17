@@ -13,7 +13,7 @@ module "opensearch_alert" {
 
     trigger_name                   = "certificated-bailiffs-preprod-bots"
     serverity                      = "1"
-    query_source                   = "ctx.results[0].hits.total.value > 10"
+    query_source                   = "ctx.results[0].hits.total.value > 3"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod Bot Alert"
     slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
@@ -58,7 +58,7 @@ module "opensearch_alert" {
                 {
                   "range": {
                     "@timestamp": {
-                    "from": "{{period_start}}",
+                    "from": "{{period_end}}||-30m",
                     "to": "{{period_end}}",
                     "include_lower": true,
                     "include_upper": true,
