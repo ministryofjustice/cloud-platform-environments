@@ -39,10 +39,4 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          cloud-platform.justice.gov.uk/namespace: laa-manage-your-civil-cases-production
-    - namespaceSelector:
-        matchLabels:
-          cloud-platform.justice.gov.uk/namespace: laa-manage-your-civil-cases-staging
-    - namespaceSelector:
-        matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-manage-your-civil-cases-uat
