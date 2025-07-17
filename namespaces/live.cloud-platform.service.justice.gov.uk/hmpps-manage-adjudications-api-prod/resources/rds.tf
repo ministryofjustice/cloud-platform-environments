@@ -11,8 +11,8 @@ module "ma_rds" {
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15"
-  rds_family                  = "postgres15"
+  db_engine_version           = "16.8"
+  rds_family                  = "postgres16"
   db_password_rotated_date    = "15-02-2023"
   allow_minor_version_upgrade = "true"
   db_engine                   = "postgres"
