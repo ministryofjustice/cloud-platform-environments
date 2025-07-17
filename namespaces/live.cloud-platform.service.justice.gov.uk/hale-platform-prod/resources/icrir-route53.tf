@@ -171,7 +171,7 @@ resource "aws_route53_record" "icrir_route53_txt_info" {
   name    = "info.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com include:_spf.salesforce.com -all", "sophos-domain-verification=5a55f596b6463909245486932f2d5e27055b1bbf"]
+  records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com include:_spf.salesforce.com -all", "sophos-domain-verification=5a55f596b6463909245486932f2d5e27055b1bbf"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_info_dmarc" {
@@ -179,7 +179,7 @@ resource "aws_route53_record" "icrir_route53_txt_info_dmarc" {
   name    = "_dmarc.info.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; mailto:dmarc-rua@finance-ni.gov.uk,rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=s; aspf=s; pct=100"]
+  records = ["v=DMARC1; p=reject; mailto:dmarc-rua@finance-ni.gov.uk,rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=s; aspf=s; pct=100"]
 }
 
 resource "aws_route53_record" "icrir_route53_mx" {
