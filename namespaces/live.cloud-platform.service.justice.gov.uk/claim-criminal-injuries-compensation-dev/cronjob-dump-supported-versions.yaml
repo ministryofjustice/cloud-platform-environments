@@ -13,6 +13,9 @@ spec:
       template:
         spec:
           serviceAccountName: irsa-cronjob
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
           containers:
             - name: cica-online-application-version-check
               image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:aws-psql-image
