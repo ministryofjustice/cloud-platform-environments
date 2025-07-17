@@ -26,7 +26,7 @@ variable "email" {
   default = "Infrastructure@cica.gov.uk"
 }
 
-variable "environment-name" {
+variable "environment_name" {
   default = "dev"
 }
 
@@ -80,3 +80,9 @@ variable "repo_name" {
   "cica-apply-notify-gateway"]
 }
 variable "kubernetes_cluster" {}
+
+variable "dcs_project_id" {
+  type        = string
+  description = "The circle project ID for data-capture-service"
+  default     = "88b365db-1d83-4bf0-8313-eb3299ec4be8"
+}
