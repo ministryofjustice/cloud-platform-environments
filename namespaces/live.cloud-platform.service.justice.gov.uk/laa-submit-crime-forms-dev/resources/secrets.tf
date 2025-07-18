@@ -32,7 +32,7 @@ module "secrets" {
       k8s_secret_name         = "notify-key"
     },
     "entra-idam-secrets" = {
-      description             = "Secrets needed to connect to LASSIE/SILAS"
+      description             = "Secrets needed to connect to LASSIE/SILAS/IdAM"
       recovery_window_in_days = 7
       k8s_secret_name         = "entra-idam-secrets"
     },
