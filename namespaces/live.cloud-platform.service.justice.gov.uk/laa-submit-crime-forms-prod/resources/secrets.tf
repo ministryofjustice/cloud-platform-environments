@@ -31,10 +31,10 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "notify-key"
     },
-    "portal-sp-certificate" = {
-      description             = "SAML Service Provider Certificate and Key for Portal" 
+    "entra-idam-secrets" = {
+      description             = "Secrets needed to connect to LASSIE/SILAS/IdAM" 
       recovery_window_in_days = 7
-      k8s_secret_name         = "portal-sp-certificate"
+      k8s_secret_name         = "entra-idam-secrets"
     },
     "sidekiq-auth" = {
       description             = "Credentials for Sidekiq Page" 
