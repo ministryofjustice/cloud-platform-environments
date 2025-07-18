@@ -4,6 +4,7 @@ module "hmpps-prisoner-base-location-api" {
   application = "hmpps-prisoner-base-location-api"
   github_team                   = var.team_name
   environment                   = var.environment
+  reviewer_teams                = ["hmpps-sre", var.team_name]
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = var.environment
