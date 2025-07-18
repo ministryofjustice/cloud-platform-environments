@@ -103,6 +103,10 @@ data "github_team" "education-skills-work-employment" {
   slug = "education-skills-work-employment"
 }
 
+data "github_team" "education-skills-and-work-live" {
+  slug = "education-skills-and-work-live"
+}
+
 ##########################################################################
 
 resource "github_repository_environment" "env" {
@@ -114,7 +118,8 @@ resource "github_repository_environment" "env" {
   reviewers {
     teams = [ 
       tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.education-skills-work-employment.id)
+      tonumber(data.github_team.education-skills-work-employment.id),
+      tonumber(data.github_team.education-skills-and-work-live.id)
     ]
   }
   deployment_branch_policy {
