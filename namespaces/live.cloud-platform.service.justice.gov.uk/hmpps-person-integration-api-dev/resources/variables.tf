@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 }
 
 variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+  description = "The name of the EKS cluster to retrieve the OIDC information"
 }
 
 variable "domain" {
