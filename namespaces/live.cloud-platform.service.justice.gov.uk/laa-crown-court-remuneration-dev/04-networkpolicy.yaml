@@ -69,3 +69,19 @@ spec:
           - 172.20.0.0/16
   types:
     - Egress
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-hostnames
+  namespace: laa-crown-court-remuneration-dev
+spec:
+  order: 48.0
+  selector: all()
+  egress:
+    - action: Allow
+      destination:
+        domains:
+          - "*.injest.sentry.io"
+  types:
+    - Egress
