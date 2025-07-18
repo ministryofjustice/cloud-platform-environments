@@ -67,3 +67,6 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
