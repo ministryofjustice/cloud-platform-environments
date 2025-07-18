@@ -70,18 +70,23 @@ spec:
   types:
     - Egress
 ---
-kind: NetworkPolicy
 apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
 metadata:
   name: allow-egress-hostnames
   namespace: laa-crown-court-remuneration-dev
 spec:
   order: 48.0
   selector: all()
+  types:
+    - Egress
   egress:
+    - action: Allow
+      protocol: TCP
+      destination:
+        ports:
+          - 443
     - action: Allow
       destination:
         domains:
-          - "*.injest.sentry.io"
-  types:
-    - Egress
+          - '*.inject.sentry.io'
