@@ -24,7 +24,7 @@ module "hmpps-audit-api-irsa" {
 }
 
 resource "aws_iam_policy" "allow-irsa-read-write" {
-  name        = "audit-read-write"
+  name        = "audit-read-write-${var.environment-name}"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.service_pod_policy_document.json
   description = "Policy for reading audit json files from audit s3 bucket"
