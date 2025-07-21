@@ -4,7 +4,7 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
-  github_repositories = ["cloud-platform-cluster-populator"]
+  github_repositories = ["cloud-platform-terraform-cluster-populator"]
 
   business_unit          = var.business_unit
   application            = var.application
