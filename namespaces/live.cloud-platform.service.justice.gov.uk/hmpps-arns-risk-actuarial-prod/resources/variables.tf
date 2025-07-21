@@ -10,7 +10,11 @@ variable "application" {
 }
 
 variable "namespace" {
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/resources/variables.tf
   default = "hmpps-arns-risk-actuarial-prod"
+=======
+  default = "hmpps-arns-risk-actuarial-preprod"
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/resources/variables.tf
 }
 
 variable "business_unit" {
@@ -27,7 +31,11 @@ variable "team_name" {
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "The type of environment you're deploying to."
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/resources/variables.tf
   default     = "prod"
+=======
+  default     = "preprod"
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/resources/variables.tf
 }
 ####################################################################################################################
 

@@ -3,7 +3,11 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/04-networkpolicy.yaml
   namespace: hmpps-arns-risk-actuarial-prod
+=======
+  namespace: hmpps-arns-risk-actuarial-preprod
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/04-networkpolicy.yaml
 spec:
   podSelector: {}
   policyTypes:
@@ -16,7 +20,11 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/04-networkpolicy.yaml
   namespace: hmpps-arns-risk-actuarial-prod
+=======
+  namespace: hmpps-arns-risk-actuarial-preprod
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/04-networkpolicy.yaml
 spec:
   podSelector: {}
   policyTypes:

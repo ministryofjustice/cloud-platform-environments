@@ -50,9 +50,9 @@ data "aws_iam_policy_document" "s3_versioning_policy" {
     ]
   }
 
-  # Required to delete specific object versions
+  # Required to get/hard delete specific object versions
   statement {
-    actions = ["s3:DeleteObjectVersion"]
+    actions = ["s3:GetObjectVersion", "s3:DeleteObjectVersion"]
     resources = [
       for name in var.bucket_names :
       "arn:aws:s3:::${name}-${var.environment}/*"

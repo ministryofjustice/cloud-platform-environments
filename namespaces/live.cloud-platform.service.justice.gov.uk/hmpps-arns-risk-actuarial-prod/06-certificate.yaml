@@ -3,12 +3,21 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-arns-risk-actuarial-cert
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/06-certificate.yaml
   namespace: hmpps-arns-risk-actuarial-prod
+=======
+  namespace: hmpps-arns-risk-actuarial-preprod
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/06-certificate.yaml
 spec:
   secretName: hmpps-arns-risk-actuarial-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/06-certificate.yaml
     - arns-risk-actuarial-api-prod.hmpps.service.justice.gov.uk
     - '*.arns-risk-actuarial-api-prod.hmpps.service.justice.gov.uk'
+=======
+    - arns-risk-actuarial-api-preprod.hmpps.service.justice.gov.uk
+    - '*.arns-risk-actuarial-api-preprod.hmpps.service.justice.gov.uk'
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/06-certificate.yaml

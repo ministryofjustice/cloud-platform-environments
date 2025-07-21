@@ -2,8 +2,13 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/01-rbac.yaml
   name: hmpps-arns-risk-actuarial-prod-admin
   namespace: hmpps-arns-risk-actuarial-prod
+=======
+  name: hmpps-arns-risk-actuarial-preprod-admin
+  namespace: hmpps-arns-risk-actuarial-preprod
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/01-rbac.yaml
 subjects:
   - kind: Group
     name: "github:hmpps-assessments-devs"

@@ -3,7 +3,11 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
+<<<<<<< HEAD:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-prod/03-resourcequota.yaml
   namespace: hmpps-arns-risk-actuarial-prod
+=======
+  namespace: hmpps-arns-risk-actuarial-preprod
+>>>>>>> f706173aa0f1e0b9ce10a95727a418e1523d5e62:namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-arns-risk-actuarial-preprod/03-resourcequota.yaml
 spec:
   hard:
     pods: "50"
