@@ -7,4 +7,5 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = ["laa-fee-scheme-api"]
+  github_environments = ["prod"]
 }
