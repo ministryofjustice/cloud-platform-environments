@@ -5,7 +5,7 @@ module "hmpps_template_kotlin" {
   github_team = "hmpps-assessments-devs"
   environment = var.environment
   is_production                 = var.is_production
-  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
