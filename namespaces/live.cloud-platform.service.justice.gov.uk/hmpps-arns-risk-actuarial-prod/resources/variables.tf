@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-arns-risk-actuarial-dev"
+  default = "hmpps-arns-risk-actuarial-prod"
 }
 
 variable "business_unit" {
@@ -27,7 +27,7 @@ variable "team_name" {
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "dev"
+  default     = "prod"
 }
 ####################################################################################################################
 
