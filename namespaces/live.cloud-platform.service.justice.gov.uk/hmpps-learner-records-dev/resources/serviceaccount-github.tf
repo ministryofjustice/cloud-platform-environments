@@ -101,7 +101,11 @@ slug = "hmpps-sre"
 
 data "github_team" "hmpps-lrs-devs" {
 slug = "hmpps-lrs-devs"
-} 
+}
+
+data "github_team" "education-skills-and-work-devs" {
+  slug = "education-skills-and-work-devs"
+}
 
 ##########################################################################
 
@@ -109,12 +113,12 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
-# prevent_self_review = true
+  prevent_self_review = true
   reviewers {
     teams = [ 
       tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-lrs-devs.id)
+      tonumber(data.github_team.hmpps-lrs-devs.id),
+      tonumber(data.github_team.education-skills-and-work-devs.id)
     ]
   }
   deployment_branch_policy {
