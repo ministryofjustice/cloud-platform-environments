@@ -3,12 +3,12 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-arns-risk-actuarial-cert
-  namespace: hmpps-arns-risk-actuarial-dev
+  namespace: hmpps-arns-risk-actuarial-preprod
 spec:
   secretName: hmpps-arns-risk-actuarial-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - arns-risk-actuarial-api-dev.hmpps.service.justice.gov.uk
-    - '*.arns-risk-actuarial-api-dev.hmpps.service.justice.gov.uk'
+    - arns-risk-actuarial-api-preprod.hmpps.service.justice.gov.uk
+    - '*.arns-risk-actuarial-api-preprod.hmpps.service.justice.gov.uk'

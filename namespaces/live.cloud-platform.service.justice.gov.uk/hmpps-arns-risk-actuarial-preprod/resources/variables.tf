@@ -10,7 +10,7 @@ variable "application" {
 }
 
 variable "namespace" {
-  default = "hmpps-arns-risk-actuarial-dev"
+  default = "hmpps-arns-risk-actuarial-preprod"
 }
 
 variable "business_unit" {

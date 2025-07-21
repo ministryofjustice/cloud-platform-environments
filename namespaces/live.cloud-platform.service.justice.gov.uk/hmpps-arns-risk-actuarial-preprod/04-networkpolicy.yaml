@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hmpps-arns-risk-actuarial-dev
+  namespace: hmpps-arns-risk-actuarial-preprod
 spec:
   podSelector: {}
   policyTypes:
@@ -16,7 +16,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hmpps-arns-risk-actuarial-dev
+  namespace: hmpps-arns-risk-actuarial-preprod
 spec:
   podSelector: {}
   policyTypes:
