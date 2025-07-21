@@ -14,3 +14,17 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-crown-court-remuneration-production-calico-np-access
+  namespace: laa-crown-court-remuneration-production
+subjects:
+  - kind: Group
+    name: "github:laa-clair-taskforce"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
+  apiGroup: rbac.authorization.k8s.io
