@@ -91,32 +91,11 @@ resource "time_rotating" "weekly" {
   rotation_days = 7
 }
 
-##########################################################################
-### Copy these three lines and change accordingly for your github team ###
-### then add the variable name to the teams list below                 ###
-
-# data "github_team" "hmpps-sre" {
-# slug = "hmpps-sre"
-# }
-
-# data "github_team" "education-skills-and-work-devs" {
-#   slug = "education-skills-and-work-devs"
-# }
-
-##########################################################################
-
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
   prevent_self_review = true
-  # reviewers {
-  #   teams = [ 
-  #     tonumber(data.github_team.hmpps-sre.id),
-  #     tonumber(data.github_team.education-skills-and-work-devs.id)
-  #   ]
-  # }
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
