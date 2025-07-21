@@ -19,5 +19,5 @@ data "aws_sns_topic" "prison-offender-events" {
 }
 
 data "aws_ssm_parameter" "court-topic" {
-  name = "/court-probation-prod/court-cases-topic-arn"
+  name = "/hmpps-person-record-prod/cpr-court-topic-sns-arn"
 }
