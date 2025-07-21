@@ -13,7 +13,7 @@ module "opensearch_alert" {
 
     trigger_name                   = "certificated-bailiffs-prod-bots"
     serverity                      = "1"
-    query_source                   = "ctx.results[0].hits.total.value > 10"
+    query_source                   = "ctx.results[0].hits.total.value > 5"
     action_name                    = "certificated-bailiffs-prod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Prod Bot Alert"
     slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
