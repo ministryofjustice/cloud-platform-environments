@@ -24,6 +24,9 @@ module "rds" {
   db_parameter = var.db_parameter
   deletion_protection = var.deletion_protection
 
+  # Snapshot configuration
+  snapshot_identifier = "rds:cloud-platform-6cd3d9246577cfa0-2025-07-20-22-06"
+  
   # PostgreSQL specifics
   db_engine         = var.db_engine
   db_engine_version = var.db_engine_version
