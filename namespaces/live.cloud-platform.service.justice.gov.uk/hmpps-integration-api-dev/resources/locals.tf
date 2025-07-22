@@ -32,7 +32,8 @@ locals {
     "smoke-test-limited-access",
     "smoke-test-no-access",
     "test",
-    "pmcphee"
+    "pmcphee",
+    "geoamey"
   ]
 
   client_queues = {
