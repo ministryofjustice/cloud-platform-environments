@@ -32,7 +32,9 @@ metadata:
   name: allow-prometheus-scraping
   namespace: hmpps-delius-alfresco-preprod
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: hmpps-delius-alfresco-preprod
   policyTypes:
   - Ingress
   ingress:
