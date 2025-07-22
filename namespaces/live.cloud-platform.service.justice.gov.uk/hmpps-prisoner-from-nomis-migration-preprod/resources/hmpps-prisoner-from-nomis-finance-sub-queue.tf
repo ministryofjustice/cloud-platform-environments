@@ -1,4 +1,4 @@
-hmpps-prisoner-from-nomis-finance-sub-queue.tfmodule "prisoner_from_nomis_finance_queue" {
+module "prisoner_from_nomis_finance_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
