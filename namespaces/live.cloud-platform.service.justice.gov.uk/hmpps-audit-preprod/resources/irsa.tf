@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
 }
 
 resource "aws_iam_policy" "prisoner_audit_allow-irsa-read-write" {
-  name        = "prisoner_audit_read_write"
+  name        = "prisoner_audit_read_write-${var.environment-name}"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.prisoner_audit_service_pod_policy_document.json
   description = "Policy for reading audit json files from prisoner audit s3 bucket"
