@@ -5,7 +5,7 @@ module "hmpps-audit-poc-api" {
   github_team                   = var.team_name
   environment                   = var.environment-name
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main", "**"]
+  selected_branch_patterns      = ["main", "preprod"]
   application_insights_instance = var.environment-name
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
