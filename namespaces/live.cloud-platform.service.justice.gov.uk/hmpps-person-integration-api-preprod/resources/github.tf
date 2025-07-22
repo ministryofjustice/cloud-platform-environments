@@ -3,7 +3,7 @@ module "hmpps_person_integration_api" {
   github_repo                   = "hmpps-person-integration-api"
   application                   = "hmpps-person-integration-api"
   github_team                   = "connect-dps"
-  reviewer_teams                = ["connect-dps"]
+  reviewer_teams                = ["connect-dps", "hmpps-person-record"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "preprod"
