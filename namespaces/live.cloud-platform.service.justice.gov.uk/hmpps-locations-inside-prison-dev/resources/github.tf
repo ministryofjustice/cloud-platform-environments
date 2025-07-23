@@ -7,7 +7,6 @@ module "hmpps-locations-inside-prison-api" {
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
-  reviewer_teams                = [var.team_name]
   application_insights_instance = var.deployment_environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
