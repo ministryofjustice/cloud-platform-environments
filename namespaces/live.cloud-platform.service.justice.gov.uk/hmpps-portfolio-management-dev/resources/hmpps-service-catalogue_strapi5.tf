@@ -1,5 +1,5 @@
 module "hmpps_service_catalogue_template" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.6"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-service-catalogue"
   application = "hmpps-service-catalogue-strapi5-dev"
   github_team = "hmpps-sre"
