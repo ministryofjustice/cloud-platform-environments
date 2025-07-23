@@ -16,10 +16,6 @@ variable "business_unit" {
   default = "HMPPS"
 }
 
-variable "reviewer_team_name" {
-  default = "move-a-prisoner"
-}
-
 variable "team_name" {
   default = "locations-inside-prison"
 }
