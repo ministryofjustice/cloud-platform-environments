@@ -17,7 +17,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "locations-inside-prison"
+  default = "move-a-prisoner"
 }
 
 variable "environment" {
