@@ -44,9 +44,9 @@ metadata:
   name: developer-portal-dev-test.hmpps.service.justice.gov.uk
   namespace: hmpps-portfolio-management-dev
 spec:
-  secretName: hmpps-developer-portal-test-cert
+  secretName: hmpps-developer-portal-strapi5-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - developer-portal-dev-test.hmpps.service.justice.gov.uk
+  - developer-portal-strapi5-dev.hmpps.service.justice.gov.uk

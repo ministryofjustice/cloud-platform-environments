@@ -22,7 +22,7 @@ module "hmpps_service_catalogue" {
 
 }
 
-module "hmpps_service_catalogue_2" {
+module "hmpps_service_catalogue_strapi5" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
@@ -77,18 +77,18 @@ resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue_2" {
+resource "kubernetes_secret" "hmpps_service_catalogue_strapi5" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_service_catalogue_2.rds_instance_endpoint
-    database_name         = module.hmpps_service_catalogue_2.database_name
-    database_username     = module.hmpps_service_catalogue_2.database_username
-    database_password     = module.hmpps_service_catalogue_2.database_password
-    rds_instance_address  = module.hmpps_service_catalogue_2.rds_instance_address
+    rds_instance_endpoint = module.hmpps_service_catalogue_strapi5.rds_instance_endpoint
+    database_name         = module.hmpps_service_catalogue_strapi5.database_name
+    database_username     = module.hmpps_service_catalogue_strapi5.database_username
+    database_password     = module.hmpps_service_catalogue_strapi5.database_password
+    rds_instance_address  = module.hmpps_service_catalogue_strapi5.rds_instance_address
   }
 }
 
@@ -99,11 +99,11 @@ resource "kubernetes_secret" "hmpps_service_catalogue_dev_2" {
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_service_catalogue_2.rds_instance_endpoint
-    database_name         = module.hmpps_service_catalogue_2.database_name
-    database_username     = module.hmpps_service_catalogue_2.database_username
-    database_password     = module.hmpps_service_catalogue_2.database_password
-    rds_instance_address  = module.hmpps_service_catalogue_2.rds_instance_address
+    rds_instance_endpoint = module.hmpps_service_catalogue_strapi5.rds_instance_endpoint
+    database_name         = module.hmpps_service_catalogue_strapi5.database_name
+    database_username     = module.hmpps_service_catalogue_strapi5.database_username
+    database_password     = module.hmpps_service_catalogue_strapi5.database_password
+    rds_instance_address  = module.hmpps_service_catalogue_strapi5.rds_instance_address
   }
 }
 
