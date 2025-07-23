@@ -5,6 +5,7 @@ metadata:
   namespace: hmpps-esupervision-test
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: ui-internet-modsec-hmpps-esupervision-test-green
+    external-dns.alpha.kubernetes.io/aws-weight: '100'
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
