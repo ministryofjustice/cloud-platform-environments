@@ -11,25 +11,25 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "crown-court-remuneration"
+  default     = "Submit a bulk claim API"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-crown-court-remuneration-staging"
+  default     = "laa-submit-a-bulk-claim-api"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "legal-aid-agency"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-clair-taskforce"
+  default     = "laa-submit-a-bulk-claim"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laaclairtaskforce@digital.justice.gov.uk"
+  default     = "ccmspuimodernisation@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crime-higher-billing"
+  default     = "laa-ccms-pui-teamonly"
 }
 
 variable "github_owner" {
@@ -66,41 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster"
-}
-
-variable "user_pool_name" {
-  description = "Cognito user pool name"
-  default     = "ccr-staging-userpool"
-}
-
-variable "cognito_user_pool_client_name" {
-  description = "Cognito user pool client name"
-  default     = "maat-staging"
-}
-
-variable "resource_server_identifier" {
-  description = "Cognito resource server identifier"
-  default     = "ccr-staging"
-}
-
-variable "resource_server_name" {
-  description = "Cognito resource server name"
-  default     = "ccr-staging-resource-server"
-}
-
-variable "resource_server_scope_name" {
-  description = "Resource server scope name"
-  default     = "standard"
-}
-
-variable "resource_server_scope_description" {
-  default = "Standard scope"
-}
-
-variable "cognito_user_pool_domain_name" {
-  default = "ccr-staging"
 }
