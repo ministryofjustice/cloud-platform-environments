@@ -92,9 +92,9 @@ resource "kubernetes_secret" "hmpps_service_catalogue_strapi5" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue_dev_2" {
+resource "kubernetes_secret" "hmpps_service_catalogue_strapi5_dev" {
   metadata {
-    name      = "rds-instance-output-dev_2"
+    name      = "rds-instance-output-strapi5-dev"
     namespace = "hmpps-portfolio-management-prod"
   }
 
