@@ -29,7 +29,7 @@ module "hmpps_service_catalogue_strapi5" {
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
-  application                 = "hmpps-service-catalogue"
+  application                 = "hmpps-service-catalogue-strapi5"
   is_production               = var.is_production
   namespace                   = var.namespace
   environment_name            = var.environment

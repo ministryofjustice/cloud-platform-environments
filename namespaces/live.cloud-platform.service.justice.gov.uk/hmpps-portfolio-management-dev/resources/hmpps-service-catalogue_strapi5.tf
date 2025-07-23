@@ -1,7 +1,7 @@
 module "hmpps_service_catalogue_strapi5_template" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-service-catalogue"
-  application = "hmpps-service-catalogue-strapi5-dev"
+  application = "hmpps-service-catalogue-strapi5"
   github_team = "hmpps-sre"
   environment = "stage"  # Should match environment name used in helm values file e.g. values-dev.yaml
   # reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
