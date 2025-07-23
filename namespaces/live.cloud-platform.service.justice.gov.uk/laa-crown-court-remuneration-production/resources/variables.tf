@@ -71,3 +71,36 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "ccr-production-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "maat-production"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "ccr-production"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "ccr-production-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "ccr-production"
+}
