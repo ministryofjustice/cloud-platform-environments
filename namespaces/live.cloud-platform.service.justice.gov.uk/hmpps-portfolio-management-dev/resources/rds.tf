@@ -79,7 +79,7 @@ resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
 
 resource "kubernetes_secret" "hmpps_service_catalogue_strapi5" {
   metadata {
-    name      = "rds-instance-output"
+    name      = "rds-instance-output-strapi5"
     namespace = var.namespace
   }
 
