@@ -106,8 +106,6 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   protocol  = "sqs"
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [
-      "person.community.manager.allocated",
-    ]
+    eventType = []
   })
 }
