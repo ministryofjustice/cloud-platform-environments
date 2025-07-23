@@ -13,7 +13,6 @@ module "hmpps-locations-inside-prison" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.reviewer_team_name]
 }
 
 module "hmpps-locations-inside-prison-api" {
