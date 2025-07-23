@@ -106,6 +106,8 @@ resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
   protocol  = "sqs"
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = []
+    eventType = [
+      "create-and-vary-a-licence.invalid-event",
+    ]
   })
 }
