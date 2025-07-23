@@ -36,6 +36,12 @@ variable "slack_channel" {
   default = "locations-inside-prison-dev"
 }
 
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
+}
+
 variable "github_owner" {
   type    = string
   default = "ministryofjustice"
