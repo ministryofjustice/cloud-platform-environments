@@ -10,5 +10,5 @@ resource "kubernetes_secret" "hmpps_domain_events_topic" {
 }
 
 data "aws_sns_topic" "hmpps-domain-events" {
-  name = "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd"
+  name = "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"
 }
