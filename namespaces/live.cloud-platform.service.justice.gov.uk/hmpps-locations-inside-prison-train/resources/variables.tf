@@ -31,7 +31,7 @@ variable "environment" {
 variable "deployment_environment" {
   type = string
   description = "Environment code used when deploying, e.g. dev, preprod or prod"
-  default = "train"
+  default = "preprod"
 }
 
 variable "infrastructure_support" {
