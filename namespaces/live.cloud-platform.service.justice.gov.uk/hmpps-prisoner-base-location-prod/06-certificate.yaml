@@ -4,7 +4,7 @@ metadata:
   name: hmpps-prisoner-base-location-prod-cert
   namespace: hmpps-prisoner-base-location-prod
 spec:
-  secretName: hmpps-prisoner-base-location-cert
+  secretName: hmpps-prisoner-base-location-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
