@@ -124,3 +124,53 @@ resource "postgresql_user_mapping" "remote_mapping" {
     password = data.aws_ssm_parameter.integrations_rds_database_password.value # password for other server
   }
 }
+
+# Create a read only user
+
+locals {
+  db_password_rotated_date = "2025-07-24"
+  db_schema = "strengthsbasedneedsapi"
+}
+
+resource "random_string" "read_only_user_name_suffix" {
+  length  = 8
+  special = false
+}
+
+resource "random_password" "read_only_user_password" {
+  length  = 16
+  special = false
+  keepers = { rotation = locals.db_password_rotated_date }
+}
+
+resource "postgresql_role" "additional_user" {
+  name     = "read_only_user_${random_string.read_only_user_name_suffix.result}"
+  password = random_password.read_only_user_password.result
+
+  login     = true
+  createdb  = false
+  createrole = false
+}
+
+resource "postgresql_grant" "user_database_privileges" {
+  database    = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
+  role        = postgresql_role.additional_user.name
+  object_type = "database"
+  privileges  = ["CONNECT"]
+}
+
+resource "postgresql_grant" "schema_usage" {
+  database    = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
+  schema      = locals.db_schema
+  role        = postgresql_role.additional_user.name
+  object_type = "schema"
+  privileges  = ["USAGE"]
+}
+
+resource "postgresql_grant" "table_read_access" {
+  database    = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
+  schema      = locals.db_schema
+  role        = postgresql_role.additional_user.name
+  object_type = "table"
+  privileges  = ["SELECT"]
+}
