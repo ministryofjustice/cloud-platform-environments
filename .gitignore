@@ -6,6 +6,9 @@
 *.tfstate.*
 .terraform.lock.hcl
 
+# other terraform
+*.out
+
 # General
 .DS_Store
 .AppleDouble
