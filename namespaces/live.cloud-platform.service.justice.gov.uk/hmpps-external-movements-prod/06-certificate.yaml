@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-external-movements-api-prod-cert
+  namespace: hmpps-external-movements-prod
+spec:
+  secretName: hmpps-external-movements-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - external-movements-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-external-movements-ui-prod-cert
+  namespace: hmpps-external-movements-prod
+spec:
+  secretName: hmpps-external-movements-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - external-movements.hmpps.service.justice.gov.uk
