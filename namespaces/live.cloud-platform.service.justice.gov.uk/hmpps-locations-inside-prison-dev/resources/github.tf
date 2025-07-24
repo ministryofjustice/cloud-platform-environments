@@ -12,5 +12,4 @@ module "hmpps-locations-inside-prison-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.deployment_team_name]
 }
