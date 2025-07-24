@@ -53,6 +53,8 @@ data "kubernetes_secret" "audit_secret" {
 
 module "hmpps-external-movements-ui-service-account" {
   # off until audit secret is created
+  count = 0
+
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
   business_unit          = var.business_unit
