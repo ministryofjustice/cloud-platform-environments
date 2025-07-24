@@ -41,31 +41,6 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-# TODO: uncomment audit_secret and hmpps-external-movements-ui-service-account after audit secret is created with hmpps-audit-<env>
-# data "kubernetes_secret" "audit_secret" {
-#   metadata {
-#     name      = "sqs-hmpps-audit-secret"
-#     namespace = var.namespace
-#   }
-# }
-#
-# module "hmpps-external-movements-ui-service-account" {
-#   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
-#   application            = var.application
-#   business_unit          = var.business_unit
-#   eks_cluster_name       = var.eks_cluster_name
-#   environment_name       = var.environment
-#   infrastructure_support = var.infrastructure_support
-#   is_production          = var.is_production
-#   namespace              = var.namespace
-#   team_name              = var.team_name
-#
-#   service_account_name = "hmpps-external-movements-ui"
-#   role_policy_arns = merge(
-#     { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
-#   )
-# }
-
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
