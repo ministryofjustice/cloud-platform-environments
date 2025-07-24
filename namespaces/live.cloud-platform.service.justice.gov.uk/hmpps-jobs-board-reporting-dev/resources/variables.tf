@@ -29,13 +29,19 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-education-skills-and-work"
+  default     = "education-skills-and-work-devs"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "development"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
 }
 
 variable "infrastructure_support" {
