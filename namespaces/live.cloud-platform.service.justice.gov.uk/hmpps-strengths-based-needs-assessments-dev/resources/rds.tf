@@ -140,7 +140,7 @@ resource "random_string" "read_only_user_name_suffix" {
 resource "random_password" "read_only_user_password" {
   length  = 16
   special = false
-  keepers = { rotation = locals.db_password_rotated_date }
+  keepers = { rotation = local.db_password_rotated_date }
 }
 
 resource "postgresql_role" "additional_user" {
@@ -161,7 +161,7 @@ resource "postgresql_grant" "user_database_privileges" {
 
 resource "postgresql_grant" "schema_usage" {
   database    = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
-  schema      = locals.db_schema
+  schema      = local.db_schema
   role        = postgresql_role.additional_user.name
   object_type = "schema"
   privileges  = ["USAGE"]
@@ -169,7 +169,7 @@ resource "postgresql_grant" "schema_usage" {
 
 resource "postgresql_grant" "table_read_access" {
   database    = module.hmpps_strengths_based_needs_assessments_dev_rds.database_name
-  schema      = locals.db_schema
+  schema      = local.db_schema
   role        = postgresql_role.additional_user.name
   object_type = "table"
   privileges  = ["SELECT"]
