@@ -1,5 +1,5 @@
 module "hmpps_audit_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -229,4 +229,61 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
     sqs_queue_arn  = module.hmpps_audit_users_dead_letter_queue.sqs_arn
     sqs_queue_name = module.hmpps_audit_users_dead_letter_queue.sqs_name
   }
+}
+
+resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
+  queue_url = module.hmpps_audit_users_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_audit_users_queue.sqs_arn}/SQSDefaultPolicy",
+      [
+        {
+          "Sid": "AllowAuditUserQueueManagement",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": [
+              "${module.hmpps-audit-api-irsa.role_arn}"
+                ]
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action": "sqs:*"
+        },
+        {
+          "Sid": "DenyAuditUserQueueManagement",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action" = [
+            "sqs:ReceiveMessage",
+            "sqs:DeleteMessage",
+            "sqs:ChangeMessageVisibility",
+            "sqs:GetQueueAttributes",
+            "sqs:GetQueueUrl"
+          ],
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": "${module.hmpps-audit-api-irsa.role_arn}"
+                }
+            }
+        },
+        {
+          "Sid": "AllowWriteAccessToAuditUserQueue",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": [
+              "${module.hmpps-audit-api-irsa.role_arn}"
+                ]
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action": "sqs:SendMessage""
+        }
+      ]
+  }
+
+EOF
+
 }
