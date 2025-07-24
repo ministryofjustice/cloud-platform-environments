@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: domain-tls-certificate-preprod
+  namespace: laa-apply-for-criminal-legal-aid-preprod
+spec:
+  secretName: domain-tls-certificate-preprod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - preprod.apply-for-criminal-legal-aid.service.justice.gov.uk
