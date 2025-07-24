@@ -20,6 +20,10 @@ variable "team_name" {
   default = "locations-inside-prison"
 }
 
+variable "deployment_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   default = "development"
 }

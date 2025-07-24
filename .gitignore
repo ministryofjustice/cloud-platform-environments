@@ -41,4 +41,5 @@ Temporary Items
 .vscode/
 *.Rproj
 *plan.json
+*plan.out
 
