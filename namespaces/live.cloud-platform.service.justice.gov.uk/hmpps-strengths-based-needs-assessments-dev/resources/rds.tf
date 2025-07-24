@@ -109,8 +109,8 @@ resource "postgresql_server" "integrations_rds" {
   fdw_name    = "postgres_fdw"
   options = {
     host   = data.aws_ssm_parameter.integrations_rds_instance_address.value # Other server
-    port   = data.aws_ssm_parameter.integrations_rds_instance_port.value # Other port
-    dbname = data.aws_ssm_parameter.integrations_rds_database_name.value # Other DB name
+    port   = data.aws_ssm_parameter.integrations_rds_instance_port.value    # Other port
+    dbname = data.aws_ssm_parameter.integrations_rds_database_name.value    # Other DB name
   }
 
   depends_on = [postgresql_extension.postgres_fdw]
@@ -120,7 +120,7 @@ resource "postgresql_user_mapping" "remote_mapping" {
   server_name = postgresql_server.integrations_rds.server_name
   user_name   = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
   options = {
-    user = data.aws_ssm_parameter.integrations_rds_database_username.value # username for other server
+    user     = data.aws_ssm_parameter.integrations_rds_database_username.value # username for other server
     password = data.aws_ssm_parameter.integrations_rds_database_password.value # password for other server
   }
 }
@@ -129,7 +129,7 @@ resource "postgresql_user_mapping" "remote_mapping" {
 
 locals {
   db_password_rotated_date = "2025-07-24"
-  db_schema = "strengthsbasedneedsapi"
+  db_schema                = "strengthsbasedneedsapi"
 }
 
 resource "random_string" "read_only_user_name_suffix" {
@@ -147,9 +147,9 @@ resource "postgresql_role" "additional_user" {
   name     = "read_only_user_${random_string.read_only_user_name_suffix.result}"
   password = random_password.read_only_user_password.result
 
-  login     = true
-  createdb  = false
-  createrole = false
+  login           = true
+  create_database = false
+  create_role     = false
 }
 
 resource "postgresql_grant" "user_database_privileges" {
