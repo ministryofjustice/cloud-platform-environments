@@ -42,6 +42,9 @@ module "irsa" {
 }
 
 data "kubernetes_secret" "audit_secret" {
+  # off until audit secret is created
+  count = 0
+
   metadata {
     name      = "sqs-hmpps-audit-secret"
     namespace = var.namespace
@@ -49,6 +52,7 @@ data "kubernetes_secret" "audit_secret" {
 }
 
 module "hmpps-external-movements-ui-service-account" {
+  # off until audit secret is created
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
   application            = var.application
   business_unit          = var.business_unit
