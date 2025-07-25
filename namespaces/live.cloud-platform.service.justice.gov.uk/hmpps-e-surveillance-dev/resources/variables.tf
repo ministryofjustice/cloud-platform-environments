@@ -73,3 +73,7 @@ variable "s3_bucket_name" {
   type        = string
   default     = "hmpps-e-surveillance-dev-people-and-events-bucket"   
 }
+
+variable "eks_cluster_name" {
+  default = "live"
+}
