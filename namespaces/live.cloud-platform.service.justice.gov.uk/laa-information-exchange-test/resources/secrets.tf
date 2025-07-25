@@ -44,6 +44,11 @@ module "secrets_manager" {
       description             = "Client Secret used by LIBRA",
       recovery_window_in_days = 7,
       k8s_secret_name         = "infox-libra-client-secret"
-    }
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for InfoX Test",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }

@@ -22,7 +22,8 @@ module "rds" {
   maintenance_window = var.maintenance_window
   backup_window = var.backup_window
   db_parameter = var.db_parameter
-
+  deletion_protection = var.deletion_protection
+  
   # PostgreSQL specifics
   db_engine         = var.db_engine
   db_engine_version = var.db_engine_version

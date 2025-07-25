@@ -93,7 +93,7 @@ resource "time_rotating" "weekly" {
 ### then add the variable name to the teams list below                 ###
 
 data "github_team" "move-a-prisoner" {
-  slug = "move-a-prisoner"
+  slug = var.review_team_name
 }
 
 ##########################################################################

@@ -44,6 +44,11 @@ module "secrets_manager" {
       description             = "JKS Keystore",
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-infox-keystore-preprod"
-    }
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for InfoX Preprod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }

@@ -7,7 +7,8 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # Turn off over night
-  enable_rds_auto_start_stop = true
+  # Turn this back on after go live
+  enable_rds_auto_start_stop = false
 
   # RDS configuration
   allow_minor_version_upgrade  = true

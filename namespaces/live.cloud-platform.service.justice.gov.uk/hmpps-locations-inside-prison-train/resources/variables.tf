@@ -20,8 +20,18 @@ variable "team_name" {
   default = "locations-inside-prison"
 }
 
+variable "review_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   default = "development"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "train"
 }
 
 variable "infrastructure_support" {

@@ -1,5 +1,5 @@
-data "aws_ssm_parameter" "court-cases-topic-arn" {
-  name = "/court-probation-preprod/court-cases-topic-arn"
+data "aws_ssm_parameter" "prod-court-cases-topic-arn" {
+  name = "/court-probation-prod/court-cases-topic-arn"
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
