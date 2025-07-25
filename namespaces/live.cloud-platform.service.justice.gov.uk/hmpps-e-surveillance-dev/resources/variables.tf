@@ -75,5 +75,5 @@ variable "s3_bucket_name" {
 }
 
 variable "eks_cluster_name" {
-  default = "live"
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
