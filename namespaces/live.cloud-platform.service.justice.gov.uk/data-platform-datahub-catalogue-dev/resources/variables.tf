@@ -167,5 +167,5 @@ variable db_parameter {
 variable "deletion_protection" {
   description = "Whether to enable deletion protection for the RDS instance"
   type        = bool
-  default     = false
+  default     = true
 }
