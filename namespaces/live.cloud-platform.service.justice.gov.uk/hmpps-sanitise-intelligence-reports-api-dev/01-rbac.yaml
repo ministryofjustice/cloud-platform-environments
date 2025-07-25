@@ -1,0 +1,23 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-sanitise-intelligence-reports-api-dev-admin
+  namespace: hmpps-sanitise-intelligence-reports-api-dev
+subjects:
+  - kind: Group
+    name: "github:hmpps-kotlin"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-typescript"
+    apiGroup: rbac.authorization.k8s.io
+############## COPY - DO NOT REPLACE ##############
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+# hmpps-sre group is required for support functions
+###################################################
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
