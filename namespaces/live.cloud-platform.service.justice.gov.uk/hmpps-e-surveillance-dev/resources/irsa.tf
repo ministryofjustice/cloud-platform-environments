@@ -8,10 +8,11 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
 
   role_policy_arns = {
-      s3  = module.s3.irsa_policy_arn
-      rds = module.rds_instance.irsa_policy_arn
-      sns = module.sns_topic_file_upload.irsa_policy_arn
-    }
+    s3                    = module.s3.irsa_policy_arn
+    rds                   = module.rds.irsa_policy_arn
+    sns_file_upload       = module.sns_topic_file_upload.irsa_policy_arn
+    sns_person_id         = module.sns_topic_person_id.irsa_policy_arn
+  }
 
   # Tags
   business_unit          = var.business_unit
