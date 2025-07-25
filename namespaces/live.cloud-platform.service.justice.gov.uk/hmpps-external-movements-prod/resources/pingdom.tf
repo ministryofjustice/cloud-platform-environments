@@ -1,6 +1,7 @@
 provider "pingdom" {}
 
 resource "pingdom_check" "pingdom_api" {
+  count                    = 0 # remove this line to enable pingdom after rollout
   type                     = "http"
   name                     = "HMPPS external-movements API"
   host                     = "health-kick.prison.service.justice.gov.uk"
@@ -13,10 +14,11 @@ resource "pingdom_check" "pingdom_api" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-external-movements-api,hmpps-external-movements-api,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [144102] # maintenance-alerts-prod
+  integrationids           = [136330] # move-and-improve-alerts
 }
 
 resource "pingdom_check" "pingdom_ui" {
+  count                    = 0 # remove this line to enable pingdom after rollout
   type                     = "http"
   name                     = "HMPPS external-movements UI"
   host                     = "health-kick.prison.service.justice.gov.uk"
@@ -29,5 +31,5 @@ resource "pingdom_check" "pingdom_ui" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-external-movements-ui,hmpps-external-movements-ui,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [144102] # maintenance-alerts-prod
+  integrationids           = [136330] # move-and-improve-alerts
 }
