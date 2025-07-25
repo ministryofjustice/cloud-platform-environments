@@ -69,7 +69,7 @@ variable "github_token" {
 }
 
 variable "s3_bucket_name" {
-  description = "The name of the S3 bucket"
+  description = "HMPPS E-surveillance People and Events bucket"
   type        = string
-  default     = "people-and-events-bucket"   
+  default     = "${var.namespace}-people-and-events-bucket"   
 }
