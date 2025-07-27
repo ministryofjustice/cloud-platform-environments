@@ -107,7 +107,7 @@ resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "person.community.manager.allocated",
+      "create-and-vary-a-licence.invalid-event",
     ]
   })
 }

@@ -6,6 +6,10 @@ locals {
       namespace  = "laa-apply-for-criminal-legal-aid-staging"
       rotated_at = "2025-06-06"
     }
+    "crime_apply_preprod" = {
+      namespace  = "laa-apply-for-criminal-legal-aid-preprod"
+      rotated_at = "2025-25-07"
+    }
     "crime_review" = {
       namespace  = "laa-review-criminal-legal-aid-staging"
       rotated_at = "2025-06-06"

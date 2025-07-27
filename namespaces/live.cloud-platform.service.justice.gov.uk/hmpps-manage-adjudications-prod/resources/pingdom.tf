@@ -14,5 +14,5 @@ resource "pingdom_check" "hmpps-manage-adjudications-prod-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed"
   probefilters             = "region:EU"
-  integrationids           = [96624, 96628]
+  integrationids           = [144102] # maintenance-alerts-prod
 }

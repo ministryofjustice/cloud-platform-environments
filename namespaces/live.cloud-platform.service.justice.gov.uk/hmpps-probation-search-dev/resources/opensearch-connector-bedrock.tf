@@ -9,6 +9,12 @@ resource "aws_iam_role" "bedrock_role" {
         Principal = {
           Service = "opensearchservice.amazonaws.com"
         }
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+            "aws:SourceArn"     = module.opensearch.domain_arn
+          }
+        }
       }
     ]
   })

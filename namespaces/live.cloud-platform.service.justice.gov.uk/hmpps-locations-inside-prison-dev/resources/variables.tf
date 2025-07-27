@@ -20,6 +20,10 @@ variable "team_name" {
   default = "locations-inside-prison"
 }
 
+variable "deployment_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   default = "development"
 }
@@ -34,6 +38,12 @@ variable "is_production" {
 
 variable "slack_channel" {
   default = "locations-inside-prison-dev"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
 }
 
 variable "github_owner" {

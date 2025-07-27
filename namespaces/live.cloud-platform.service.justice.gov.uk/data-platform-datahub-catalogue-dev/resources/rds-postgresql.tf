@@ -23,9 +23,6 @@ module "rds" {
   backup_window = var.backup_window
   db_parameter = var.db_parameter
   deletion_protection = var.deletion_protection
-
-  # Snapshot configuration
-  # snapshot_identifier = "rds:cloud-platform-6cd3d9246577cfa0-finalsnapshot"
   
   # PostgreSQL specifics
   db_engine         = var.db_engine

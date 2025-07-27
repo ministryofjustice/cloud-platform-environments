@@ -13,7 +13,7 @@ resource "pingdom_check" "pingdom_api" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-challenge-support-intervention-plan-api,hmpps-csip-api,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [144102] # maintenance-alerts-prod
 }
 
 resource "pingdom_check" "pingdom_ui" {
@@ -29,5 +29,5 @@ resource "pingdom_check" "pingdom_ui" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-challenge-support-intervention-plan-ui,hmpps-csip-ui,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [144102] # maintenance-alerts-prod
 }
