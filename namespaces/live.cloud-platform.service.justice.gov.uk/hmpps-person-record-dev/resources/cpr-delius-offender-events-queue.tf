@@ -2,7 +2,7 @@
   
 
 resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscription" {
-  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
   filter_policy = jsonencode({
@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+      values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
     }
     resources = ["*"]
   }
