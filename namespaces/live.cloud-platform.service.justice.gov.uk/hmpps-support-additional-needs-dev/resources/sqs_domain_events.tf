@@ -46,7 +46,8 @@ resource "aws_sns_topic_subscription" "hmpps_san_domain_events_subscription" {
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.merged",
-      "prison.education.updated"
+      "prison.education.updated",
+      "prison.education-aln-assessment.updated"
     ]
   })
 }
