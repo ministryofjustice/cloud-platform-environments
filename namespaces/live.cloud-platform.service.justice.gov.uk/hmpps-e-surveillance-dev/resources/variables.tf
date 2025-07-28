@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Technology for Community Offender Management Pathfinder (TCOM)"
+  default     = "Technology for Community Offender Management Pathfinder - TCOM"
 }
 
 variable "namespace" {
