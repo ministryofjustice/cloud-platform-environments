@@ -14,10 +14,6 @@ data "aws_sns_topic" "probation-offender-events" {
   name = "cloud-platform-Digital-Prison-Services-c2d997878cd24eef94e60f1404977153"
 }
 
-data "aws_ssm_parameter" "large-court-cases-s3-bucket-name" {
-  name = "/court-probation-prod/large-court-cases-s3-bucket-name"
-}
-
 data "aws_ssm_parameter" "large-court-cases-s3-bucket-arn" {
   name = "/court-probation-prod/large-court-cases-s3-bucket-arn"
 }
