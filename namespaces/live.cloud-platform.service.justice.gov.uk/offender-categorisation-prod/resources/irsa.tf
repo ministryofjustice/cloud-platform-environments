@@ -21,7 +21,7 @@ locals {
 
 # IRSA for offender-categorisation deployment
 module "irsa_offender_categorisation" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "offender-categorisation"
@@ -41,7 +41,7 @@ module "irsa_offender_categorisation" {
 
 # IRSA for offender-risk-profiler deployment
 module "irsa_offender_risk_profiler" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "offender-risk-profiler"
@@ -61,7 +61,7 @@ module "irsa_offender_risk_profiler" {
 
 # IRSA for hmpps-offender-categorisation-api deployment
 module "irsa_hmpps_offender_categorisation_api" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace              = var.namespace
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-offender-categorisation-api"

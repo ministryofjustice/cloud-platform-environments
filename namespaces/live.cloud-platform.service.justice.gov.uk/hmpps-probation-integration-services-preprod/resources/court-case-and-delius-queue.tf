@@ -65,7 +65,7 @@ resource "kubernetes_secret" "court-case-and-delius-queue-secret" {
 }
 
 module "court-case-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

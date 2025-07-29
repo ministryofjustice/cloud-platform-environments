@@ -97,7 +97,7 @@ resource "aws_iam_policy" "combined_local_sqs_events" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

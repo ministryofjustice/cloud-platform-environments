@@ -11,7 +11,7 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   role_policy_arns = merge(
     local.sns_policies,

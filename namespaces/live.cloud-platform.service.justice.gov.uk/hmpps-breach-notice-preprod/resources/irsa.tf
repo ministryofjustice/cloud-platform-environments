@@ -7,7 +7,7 @@ data "aws_ssm_parameter" "domain_events_policy_arn" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = var.application

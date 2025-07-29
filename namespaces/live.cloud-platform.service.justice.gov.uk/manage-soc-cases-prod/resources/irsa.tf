@@ -10,7 +10,7 @@ locals {
 
 # IRSA for manage-soc-cases deployment
 module "irsa_manage_soc_cases" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "manage-soc-cases"
