@@ -11,7 +11,7 @@ module "s3_snapshot_bucket" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0"
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
