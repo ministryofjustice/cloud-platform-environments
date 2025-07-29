@@ -42,6 +42,7 @@ module "serviceaccount" {
         "jobs",
         "replicasets",
         "statefulsets",
+        "persistentvolumeclaims",
         "poddisruptionbudgets",
         "networkpolicies"
       ],
