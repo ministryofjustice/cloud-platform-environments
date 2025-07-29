@@ -174,12 +174,20 @@ resource "aws_route53_record" "icrir_route53_txt_info" {
   records = ["v=spf1 ip4:194.32.29.0/24 ip4:194.32.31.0/24 ip4:52.208.126.243 ip4:52.31.106.198 ip4:198.154.180.128/26 include:_spf_euwest1.prod.hydra.sophos.com include:spf.protection.outlook.com include:_spf.salesforce.com -all", "sophos-domain-verification=5a55f596b6463909245486932f2d5e27055b1bbf"]
 }
 
+resource "aws_route53_record" "icrir_route53_txt_info_sophos" {
+  zone_id = aws_route53_zone.icrir_route53_zone.zone_id
+  name    = "sophos83abf2d0ead7485dac00fb38cd735dc7._domainkey.info.icrir.independent-inquiry.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo563TjxFBPtVmo6CUHVlEomBFbX1Ts3H21/w42NR6uzNivz3OuekWWN+ifmVnE/YFx9QLSy/bsh/kMegWC7\"\"ac6806qKZkM7Cn8iqWhQdSZUJzNUXw5mFim49LPjKyUrMF0gNYma/Ent9BVgX1uk65jKJSi0/DwZvk1Q5pGJb8J+DhWwAuh8Xmckc8fTd7j3N0\"\"Ip27Jw43SJXkOsimhfF3/6UU7JfN+dr2tRNtTA8r2E6JWupngMXvjpLvun03WAxZm/otdFWQiZvOnRDAJs3hHSDU9kNdCvdFz0zh9nqSAJDKibYR0IE2EFzbjk1ZwYSKYOu5qsCuLDWC4G+5bcNDQIDAQAB"]
+}
+
 resource "aws_route53_record" "icrir_route53_txt_info_dmarc" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
   name    = "_dmarc.info.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; mailto:dmarc-rua@finance-ni.gov.uk,rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=s; aspf=s; pct=100"]
+  records = ["v=DMARC1; p=reject; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:dmarcrua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100"]
 }
 
 resource "aws_route53_record" "icrir_route53_mx" {
