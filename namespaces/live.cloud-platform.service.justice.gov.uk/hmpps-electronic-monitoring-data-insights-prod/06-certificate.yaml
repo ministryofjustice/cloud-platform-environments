@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-electronic-monitoring-data-insights-ui-cert
-  namespace: hmpps-electronic-monitoring-data-insights-preprod
+  namespace: hmpps-electronic-monitoring-data-insights-prod
 spec:
   secretName: hmpps-electronic-monitoring-data-insights-ui-cert
   issuerRef:
