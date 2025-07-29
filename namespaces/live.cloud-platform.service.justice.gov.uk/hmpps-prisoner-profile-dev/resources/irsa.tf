@@ -10,10 +10,10 @@ data "kubernetes_secret" "injected_audit_secret" {
 }
 
 locals {
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sqs_policies = { for item in data.aws_ssm_parameter.audit_irsa_policy_arns : item.name => item.value }
 }
 
-data "aws_ssm_parameter" "audit_irsa_policy_arn" {
+data "aws_ssm_parameter" "audit_irsa_policy_arns" {
   name = "/hmpps-audit-${var.environment_name}/sqs/${data.kubernetes_secret.injected_audit_secret.data.sqs_queue_name}/irsa-policy-arn"
 }
 
