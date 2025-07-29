@@ -34,10 +34,10 @@ data "aws_iam_policy_document" "ccr_claims_policy_uat" {
       "sts:*"
     ]
     resources = [
-      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-cccd-claims-for-ccr",
-      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-cccd-claims-submitted-ccr-dlq",
-      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-responses-for-cccd",
-      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-reponses-for-cccd-dlq",
+      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-cccd-claims-for-ccr",
+      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-cccd-claims-submitted-ccr-dlq",
+      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-responses-for-cccd",
+      "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-reponses-for-cccd-dlq",
     ]
   }
 
