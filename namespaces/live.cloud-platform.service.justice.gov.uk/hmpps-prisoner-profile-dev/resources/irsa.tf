@@ -14,7 +14,7 @@ locals {
 }
 
 data "aws_ssm_parameter" "audit_irsa_policy_arns" {
-  name = "/hmpps-audit-${var.environment_name}/sqs/${data.kubernetes_secret.injected_audit_secret.data.sqs_queue_name}/irsa-policy-arn"
+  name = "/hmpps-audit-dev/sqs/${data.kubernetes_secret.injected_audit_secret.data.sqs_queue_name}/irsa-policy-arn"
 }
 
 module "irsa" {
