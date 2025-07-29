@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-data-claims-api-production" {
   type                     = "http"
   name                     = "${var.application} - ${var.environment} - ping"
-  host                     = "${var.namespace}.cloud-platform.service.justice.gov.uk"
+  host                     = "laa-data-claims-api.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
