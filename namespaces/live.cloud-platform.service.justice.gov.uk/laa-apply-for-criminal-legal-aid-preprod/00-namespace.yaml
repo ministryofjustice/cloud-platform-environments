@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-apply-for-criminal-legal-aid-preprod"
   labels:
+    component: "laa-apply-for-criminal-legal-aid-preprod"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "preprod"
     pod-security.kubernetes.io/enforce: restricted
