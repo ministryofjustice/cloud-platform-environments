@@ -238,6 +238,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
   {
     "Version": "2012-10-17",
     "Id": "${module.hmpps_audit_users_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
       [
         {
           "Sid": "AllowAuditUserQueueManagement",
@@ -279,7 +280,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
                 ]
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
-          "Action": "sqs:SendMessage""
+          "Action": "sqs:SendMessage"
         }
       ]
   }
