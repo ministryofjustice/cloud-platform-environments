@@ -11,8 +11,8 @@ module "create_and_vary_a_licence_api_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_minor_version_upgrade = true
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = false
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "17.5"
   rds_family                  = "postgres17"
