@@ -12,7 +12,7 @@ module "rds_postgres" {
   rds_family                 = "postgres16"
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "500"
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
   prepare_for_major_upgrade  = false
 
   # Tags
