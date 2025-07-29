@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 
@@ -22,7 +22,7 @@ module "irsa" {
 }
 
 module "cross-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 

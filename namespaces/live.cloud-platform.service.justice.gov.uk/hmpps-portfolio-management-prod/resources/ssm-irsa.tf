@@ -31,7 +31,7 @@ resource "aws_iam_policy" "policy" {
 
 
 module "ssm-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name

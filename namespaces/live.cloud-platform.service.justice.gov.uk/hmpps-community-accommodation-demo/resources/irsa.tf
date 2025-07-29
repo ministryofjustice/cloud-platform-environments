@@ -18,7 +18,7 @@ locals {
 }
 
 module "irsa" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-community-accommodation-api-service-account"
   namespace              = var.namespace
@@ -32,7 +32,7 @@ module "irsa" {
 }
 
 module "irsa_ap" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-approved-premises-service-account"
   namespace              = var.namespace
@@ -46,7 +46,7 @@ module "irsa_ap" {
 }
 
 module "irsa_cas2" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-community-accommodation-tier-2-service-account"
   namespace              = var.namespace
@@ -60,7 +60,7 @@ module "irsa_cas2" {
 }
 
 module "irsa_ta" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "hmpps-temporary-accommodation-service-account"
   namespace              = var.namespace
