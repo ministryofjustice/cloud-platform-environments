@@ -36,10 +36,10 @@ resource "kubernetes_secret" "hmpps_service_catalogue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
+resource "kubernetes_secret" "hmpps_service_catalogue_stage" {
   metadata {
     name      = "rds-instance-output-stage"
-    namespace = "hmpps-portfolio-management-prod"
+    namespace = "hmpps-portfolio-management-dev"
   }
 
   data = {
@@ -66,9 +66,9 @@ resource "kubernetes_secret" "hmpps_service_catalogue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
+resource "kubernetes_secret" "hmpps_service_catalogue_stage" {
   metadata {
-    name      = "rds-instance-output-dev"
+    name      = "rds-instance-output-stage"
     namespace = "hmpps-portfolio-management-dev"
   }
 
@@ -133,11 +133,3 @@ resource "helm_release" "generic-aws-prometheus-alerts" {
     }
   }
 }
-
-
-
-
-
-
-
-
