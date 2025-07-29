@@ -15,12 +15,12 @@ module "dps_rds" {
   application                 = var.application
   is_production               = var.is_production
   namespace                   = var.namespace
-  db_engine_version           = "14.12"
+  db_engine_version           = "14"
   db_instance_class           = "db.t3.small"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   prepare_for_major_upgrade   = false
-  allow_minor_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
 
   rds_family = "postgres14"
 
