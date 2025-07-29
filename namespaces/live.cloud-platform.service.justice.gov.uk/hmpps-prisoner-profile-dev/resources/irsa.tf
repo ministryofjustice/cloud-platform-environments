@@ -5,7 +5,7 @@
 data "kubernetes_secret" "injected_audit_secret" {
   metadata {
     name      = "sqs-audit-queue-secret"
-    namespace = var.namespace
+    namespace = "hmpps-audit-dev"
   }
 }
 
