@@ -19,7 +19,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-profile"
-  {
+  role_policy_arns = {
     audit = data.aws_ssm_parameter.audit_irsa_policy_arn.value
   }
   # Tags
