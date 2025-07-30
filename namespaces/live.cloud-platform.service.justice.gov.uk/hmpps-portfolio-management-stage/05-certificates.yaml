@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: developer-portal-strapi5-stage.hmpps.service.justice.gov.uk
+  name: developer-portal-stage.hmpps.service.justice.gov.uk
   namespace: hmpps-portfolio-management-stage
 spec:
-  secretName: hmpps-deloper-portal-strapi5-cert
+  secretName: hmpps-developer-portal-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -15,10 +15,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-service-catalogue-strapi5-cert
+  name: hmpps-service-catalogue-cert
   namespace: hmpps-portfolio-management-stage
 spec:
-  secretName: hmpps-service-catalogue-strapi5-cert
+  secretName: hmpps-service-catalogue-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
