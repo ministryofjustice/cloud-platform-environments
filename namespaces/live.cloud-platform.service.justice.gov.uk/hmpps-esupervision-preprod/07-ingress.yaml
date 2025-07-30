@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ui-internet-modsec
+  namespace: hmpps-esupervision-preprod
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: ui-internet-modsec-hmpps-esupervision-preprod-green
+    external-dns.alpha.kubernetes.io/aws-weight: '100'
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecRuleEngine On
+      SecDefaultAction "phase:2,pass,log,tag:github_team=stg-pathfinders"
+spec:
+  ingressClassName: modsec-non-prod
+  tls:
+    - hosts:
+        - esupervision-preprod.hmpps.service.justice.gov.uk
+      secretName: hmpps-esupervision-ui-cert
+  rules:
+    - host: esupervision-preprod.hmpps.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hmpps-esupervision-ui
+                port:
+                  number: 80
