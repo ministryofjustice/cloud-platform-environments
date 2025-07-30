@@ -40,7 +40,7 @@ module "ecr" {
         "description": "Keep last 50 dev and staging images",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["test"],
+          "tagPrefixList": ["production"],
           "countType": "imageCountMoreThan",
           "countNumber": 50
         },
