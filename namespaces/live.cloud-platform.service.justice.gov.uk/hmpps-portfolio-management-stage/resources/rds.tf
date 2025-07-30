@@ -66,21 +66,6 @@ resource "kubernetes_secret" "hmpps_service_catalogue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue_stage" {
-  metadata {
-    name      = "rds-instance-output-stage"
-    namespace = "hmpps-portfolio-management-dev"
-  }
-
-  data = {
-    rds_instance_endpoint = module.hmpps_service_catalogue.rds_instance_endpoint
-    database_name         = module.hmpps_service_catalogue.database_name
-    database_username     = module.hmpps_service_catalogue.database_username
-    database_password     = module.hmpps_service_catalogue.database_password
-    rds_instance_address  = module.hmpps_service_catalogue.rds_instance_address
-  }
-}
-
 ########################################################################################################
 #if there are multiple databases provisioned, then those names should be added in local variable as well. Like
 #rds_databases = {
