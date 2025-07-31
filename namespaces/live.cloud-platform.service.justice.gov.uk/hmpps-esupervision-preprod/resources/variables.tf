@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -67,3 +67,8 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
