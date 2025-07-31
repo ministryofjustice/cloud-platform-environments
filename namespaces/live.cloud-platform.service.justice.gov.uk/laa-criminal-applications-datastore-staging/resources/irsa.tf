@@ -15,7 +15,8 @@ module "irsa" {
     rds = module.rds.irsa_policy_arn
     s3  = module.s3_bucket.irsa_policy_arn
     sns = module.application-events-sns-topic.irsa_policy_arn
-    sqs = module.application-events-dlq.irsa_policy_arn
+    sqs = module.application-events-queue.irsa_policy_arn
+    sqs_dlq = module.application-events-dlq.irsa_policy_arn
   }
 
   # Tags

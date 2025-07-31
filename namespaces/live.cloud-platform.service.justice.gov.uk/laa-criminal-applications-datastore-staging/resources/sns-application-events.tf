@@ -36,6 +36,19 @@ resource "kubernetes_secret" "application-events-sns-topic" {
 ########### SNS subscriptions ###########
 ###
 
+resource "aws_sns_topic_subscription" "application-events-queue-subscription" {
+  provider  = aws.london
+  topic_arn = module.application-events-sns-topic.topic_arn
+  endpoint  = module.application-events-queue.sqs_arn
+  protocol  = "sqs"
+
+  filter_policy = jsonencode({
+    event_name = [
+      "apply.submission"
+    ]
+  })
+}
+
 resource "aws_sns_topic_subscription" "events-review-subscription" {
   topic_arn = module.application-events-sns-topic.topic_arn
   endpoint  = "https://staging.review-criminal-legal-aid.service.justice.gov.uk/api/events"
