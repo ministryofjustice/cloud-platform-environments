@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: operations-engineering-github-repos-prod-admin
-  namespace: operations-engineering-github-repos-prod
+  name: hmpps-esupervision-preprod-admin
+  namespace: hmpps-esupervision-preprod
 subjects:
   - kind: Group
-    name: "github:operations-engineering"
+    name: "github:stg-pathfinders"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
