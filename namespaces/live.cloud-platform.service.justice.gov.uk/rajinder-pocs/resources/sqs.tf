@@ -28,7 +28,7 @@ module "rajinder_poc_sqs_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "claim-criminal-injuries-application-queue-policy" {
+resource "aws_sqs_queue_policy" "rajinder_poc_sqs_queue" {
   queue_url = module.rajinder_poc_sqs_queue.sqs_id
   policy    = <<EOF
   {
