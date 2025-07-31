@@ -42,3 +42,15 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: monitoring
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: block-egress
+  namespace: laa-review-criminal-legal-aid-staging
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - {}
