@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-cwa-data-api-admin-team"
     cloud-platform.justice.gov.uk/application: "Provider Details Api"
     cloud-platform.justice.gov.uk/owner: "laa-cwa-data-api-admin-team: rajinder.singh@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-cwa-data-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-data-provider-data"
     cloud-platform.justice.gov.uk/team-name: "laa-cwa-data-api-admin-team"
     cloud-platform.justice.gov.uk/review-after: ""
