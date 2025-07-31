@@ -11,9 +11,9 @@ module "secrets_manager" {
 
   secrets = {
     "rajinder-pocs-secrets" = {
-      description             = "Store secrets",                              # Required
-      recovery_window_in_days = 7,                                            # Required
-      k8s_secret_name         = "rajinder-pocs-secrets"                       # The name of the secret in k8s
+      description             = "Store secrets",        # Required
+      recovery_window_in_days = 7,                      # Required
+      k8s_secret_name         = "rajinder-pocs-secrets" # The name of the secret in k8s
     },
   }
 }
