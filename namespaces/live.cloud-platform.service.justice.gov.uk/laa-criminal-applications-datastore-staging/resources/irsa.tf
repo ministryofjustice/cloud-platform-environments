@@ -27,3 +27,15 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+# Store the SQS policy ARN as a secret in Review staging which polls for messages from SQS
+resource "kubernetes_secret" "datastore-staging-sqs-policy-arn-cross-namespace" {
+  metadata {
+    name      = "application-events-queue-policy-arn"
+    namespace = "laa-review-criminal-legal-aid-staging"
+  }
+
+  data = {
+    sqs_irsa_policy_arn = module.application-events-queue.irsa_policy_arn
+  }
+}
