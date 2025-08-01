@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "sqs_send_only" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        for role in local.roles_with_app_tag : role.arn
+        for role in local.sqs_roles_with_app_tag : role.arn
       ]
     }
   }
