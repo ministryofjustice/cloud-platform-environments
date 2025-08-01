@@ -5,7 +5,7 @@ metadata:
   namespace: laa-ccms-user-management-api-prod
 subjects:
   - kind: Group
-    name: "github:laa-ccms-devs"
+    name: "github:repo-admins"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
