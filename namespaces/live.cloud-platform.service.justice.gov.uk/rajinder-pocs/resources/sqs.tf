@@ -7,7 +7,7 @@ module "rajinder_poc_sqs_queue" {
     maxReceiveCount     = 3
   }) */
   encrypt_sqs_kms = "false"
-  
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -61,7 +61,7 @@ resource "aws_sqs_queue_policy" "rajinder_poc_sqs_queue" {
         application            = var.application
         is-production          = var.is_production
         owner                  = var.team_name
-        environment-name       = var.environment-name
+        environment-name       = var.environment
         infrastructure-support = var.infrastructure_support
         namespace              = var.namespace
     }
