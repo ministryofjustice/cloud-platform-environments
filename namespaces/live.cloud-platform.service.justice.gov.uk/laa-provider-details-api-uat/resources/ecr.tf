@@ -14,7 +14,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["laa-cwa-data-api"]
+  github_repositories   = ["laa-data-provider-data"]
   github_actions_prefix = "uat"
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
