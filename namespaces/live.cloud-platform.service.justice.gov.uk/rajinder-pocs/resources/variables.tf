@@ -88,3 +88,8 @@ variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the serviceaccount cluster"
   default     = "KUBE_CLUSTER"
 }
+
+variable "sqs_queue_subscriber_applications" {
+  type = list(string)
+  default = ["CCMS USER MANAGEMENT"]
+}
