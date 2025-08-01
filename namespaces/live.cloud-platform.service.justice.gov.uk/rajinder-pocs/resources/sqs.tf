@@ -27,42 +27,18 @@ resource "aws_sqs_queue_policy" "rajinder_poc_sqs_queue" {
   policy    = data.aws_iam_policy_document.sqs_send_only.json
 }
 
-/* resource "aws_sqs_queue_policy" "rajinder_poc_sqs_queue" {
-  queue_url = module.rajinder_poc_sqs_queue.sqs_id
-  policy    = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "rajinder-poc-queue-access-policy",
-    "Statement": [
-      {
-        "Sid": "rajinder-poc-queue-allow-send",
-        "Effect": "Allow",
-        "Principal": {"AWS": "*"},
-        "Action": "sqs:SendMessage",
-        "Resource": "${module.rajinder_poc_sqs_queue.sqs_arn}",
-        "Condition": {
-          "ArnEquals": {
-            "aws:SourceArn": "${module.irsa.role_arn}"
-          }
-        }
-      }
-    ]
+resource "aws_ssm_parameter" "sqs_queue_arn" {
+  type        = "String"
+  name        = "/${var.namespace}/sqs-queue-arn"
+  value       = module.rajinder_poc_sqs_queue.sqs_arn
+  description = "SQS Queue ARN"
+  tags = {
+      business-unit          = var.business_unit
+      application            = var.application
+      is-production          = var.is_production
+      owner                  = var.team_name
+      environment-name       = var.environment
+      infrastructure-support = var.infrastructure_support
+      namespace              = var.namespace
   }
-  EOF
-} */
-
-  resource "aws_ssm_parameter" "sqs_queue_arn" {
-    type        = "String"
-    name        = "/${var.namespace}/sqs-queue-arn"
-    value       = module.rajinder_poc_sqs_queue.sqs_arn
-    description = "SQS Queue ARN"
-    tags = {
-        business-unit          = var.business_unit
-        application            = var.application
-        is-production          = var.is_production
-        owner                  = var.team_name
-        environment-name       = var.environment
-        infrastructure-support = var.infrastructure_support
-        namespace              = var.namespace
-    }
-  }
+}
