@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "allow_circle_role_s3" {
 }
 
 resource "aws_iam_policy" "allow_circle_role_s3" {
-  name        = "allow-circle-s3-${var.environment-name}"
+  name        = "cica-versions-bucket-allow-circle-s3-${var.environment-name}"
   description = "Policy allowing Circle assumable role access to S3."
   policy      = data.aws_iam_policy_document.allow_circle_role_s3.json
 }
