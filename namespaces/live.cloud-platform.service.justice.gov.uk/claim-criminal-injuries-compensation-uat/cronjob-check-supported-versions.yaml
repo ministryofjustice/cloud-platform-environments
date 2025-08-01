@@ -35,7 +35,8 @@ spec:
                       GROUP BY questionnaire -> 'type', questionnaire -> 'version'\
                     ) TO STDOUT WITH CSV HEADER\
                   " > /tmp/template-versions.csv
-                  node /scripts/verify-supported-versions.js || exit 1
+                  aws s3 cp s3://$BUCKET_NAME/supported_template_versions.json /tmp/supported_template_versions.json
+                  node /scripts/verify-supported-versions.js --csv /tmp/template-versions.csv --json /tmp/supported_template_versions.json
               env:
                 - name: DATABASE_URL_WITH_CREDENTIALS
                   valueFrom:
