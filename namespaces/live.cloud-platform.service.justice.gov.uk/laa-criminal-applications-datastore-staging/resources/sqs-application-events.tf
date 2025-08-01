@@ -39,6 +39,20 @@ resource "kubernetes_secret" "application-events-queue" {
   }
 }
 
+# Duplicate the secret in Review staging which polls for messages from SQS
+resource "kubernetes_secret" "application-events-queue-cross-namespace" {
+  metadata {
+    name      = "application-events-queue"
+    namespace = "laa-review-criminal-legal-aid-staging"
+  }
+
+  data = {
+    sqs_id   = module.application-events-queue.sqs_id
+    sqs_name = module.application-events-queue.sqs_name
+    sqs_arn  = module.application-events-queue.sqs_arn
+  }
+}
+
 resource "aws_sqs_queue_policy" "events-sns-to-application-events-queue-policy" {
   queue_url = module.application-events-queue.sqs_id
 
