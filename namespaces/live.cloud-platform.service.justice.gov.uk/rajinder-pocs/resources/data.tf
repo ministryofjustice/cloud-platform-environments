@@ -32,31 +32,6 @@ data "aws_iam_policy_document" "sqs_send_only" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = data.aws_iam_roles.sqs_subscriber_applications.arns
-    }
-  }
-}
-
-
-data "aws_iam_policy_document" "sqs_send_only" {
-  statement {
-    sid    = "allow"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    actions = [
-      "sqs:SendMessage"
-    ]
-
-    resources = [var.sqs_queue_arn]
-
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
       values = [
         for role in local.roles_with_app_tag : role.arn
       ]
