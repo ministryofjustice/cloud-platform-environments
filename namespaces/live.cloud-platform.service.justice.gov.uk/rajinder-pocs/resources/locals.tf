@@ -7,7 +7,7 @@ locals {
   sqs_roles_with_app_tag = {
     for name, role in data.aws_iam_role.sqs_matching_roles :
     name => role
-    if lookup(role.tags, "application", null) != null &&
+    if can(role.tags["application"]) &&
     (
       role.tags["application"] == var.application ||
       contains(local.sqs_allowed_applications, role.tags["application"])

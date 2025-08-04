@@ -1,5 +1,5 @@
 module "rajinder_poc_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source     = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
   sqs_name   = "rajinder-poc-sqs-queue"
   fifo_queue = false
   /*   redrive_policy = jsonencode({
@@ -33,12 +33,12 @@ resource "aws_ssm_parameter" "sqs_queue_arn" {
   value       = module.rajinder_poc_sqs_queue.sqs_arn
   description = "SQS Queue ARN"
   tags = {
-      business-unit          = var.business_unit
-      application            = var.application
-      is-production          = var.is_production
-      owner                  = var.team_name
-      environment-name       = var.environment
-      infrastructure-support = var.infrastructure_support
-      namespace              = var.namespace
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
 }

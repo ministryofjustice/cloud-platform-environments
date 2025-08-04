@@ -90,6 +90,6 @@ variable "github_actions_secret_kube_cluster" {
 }
 
 variable "sqs_queue_subscriber_applications" {
-  type = list(string)
+  type    = list(string)
   default = ["CCMS USER MANAGEMENT"]
 }
