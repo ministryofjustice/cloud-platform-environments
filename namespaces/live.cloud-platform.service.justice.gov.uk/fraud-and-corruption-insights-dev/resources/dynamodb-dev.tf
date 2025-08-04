@@ -9,8 +9,12 @@ module "dynamodb-fci-dev" {
   is_production          = var.is_production
   namespace              = var.namespace
 
-  hash_key  = "pk"
-  range_key = "sk"
+
+  hash_key          = "pk"
+  range_key         = "sk"
+  enable_encryption = "true"
+  enable_autoscaler = "true"
+
   attributes = [
     {
       name = "pk"
@@ -32,10 +36,10 @@ module "dynamodb-fci-dev" {
       hash_key        = "review_status"
       range_key       = "sk"
       projection_type = "ALL"
+      read_capacity   = 5
+      write_capacity  = 5
     }
   ]
-  enable_encryption = "true"
-  enable_autoscaler = "true"
 
   providers = {
     aws = aws.london
