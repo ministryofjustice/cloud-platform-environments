@@ -26,12 +26,14 @@ module "dynamodb-fci-dev" {
     }
   ]
 
-  global_secondary_index {
-    name            = "review_status_index"
-    hash_key        = "review_status"
-    range_key       = "sk"
-    projection_type = "ALL"
-  }
+  global_secondary_indexes = [
+    {
+      name            = "review_status_index"
+      hash_key        = "review_status"
+      range_key       = "sk"
+      projection_type = "ALL"
+    }
+  ]
   enable_encryption = "true"
   enable_autoscaler = "true"
 
