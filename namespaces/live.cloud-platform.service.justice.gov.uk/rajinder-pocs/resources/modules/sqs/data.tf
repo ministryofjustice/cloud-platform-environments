@@ -5,7 +5,7 @@ This is not a perfect solution but does solve a dependency problem and prevents 
 unpredictable ARNs as a variable application specific */
 
 data "aws_iam_roles" "sqs_subscriber_roles" {
-  name_regex = "^cloud-platform-irsa.*" #--All irsa roles in CP. This has a 1000 limit. Might not be viable
+  name_regex = var.sqs_subscriber_roles_regex_filter
 }
 
 data "aws_iam_role" "sqs_matching_roles" {
@@ -13,8 +13,24 @@ data "aws_iam_role" "sqs_matching_roles" {
   name     = each.value
 }
 
+#--DLQ Policy
+data "aws_iam_policy_document" "dlq" {
+  statement {
+    sid    = "Allow"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "sqs:*"
+    ]
+    resources = [module.dlq.sqs_arn]
+  }
+}
+
 #--This policy will be constructed from the data sources above and some local transformations to grant SQS access
-data "aws_iam_policy_document" "sqs_send_only" {
+data "aws_iam_policy_document" "queue" {
   statement {
     sid    = "AllowSend"
     effect = "Allow"
@@ -28,7 +44,7 @@ data "aws_iam_policy_document" "sqs_send_only" {
       "sqs:SendMessage"
     ]
 
-    resources = [module.rajinder_poc_sqs_queue.sqs_arn]
+    resources = [module.queue.sqs_arn]
 
     condition {
       test     = "ArnEquals"
@@ -56,7 +72,7 @@ data "aws_iam_policy_document" "sqs_send_only" {
       "sqs:GetQueueUrl"
     ]
 
-    resources = [module.rajinder_poc_sqs_queue.sqs_arn]
+    resources = [module.queue.sqs_arn]
 
     condition {
       test     = "ArnEquals"
