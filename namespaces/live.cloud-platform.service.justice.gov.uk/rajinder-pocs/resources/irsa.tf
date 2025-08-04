@@ -1,4 +1,4 @@
-module "irsa" {
+/* module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
@@ -9,7 +9,7 @@ module "irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    sqs = module.rajinder_poc_sqs_queue.irsa_policy_arn
+    sqs = module.sqs.irsa_policy_arn
   }
 
   # Tags
@@ -31,4 +31,4 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
   }
-}
+} */
