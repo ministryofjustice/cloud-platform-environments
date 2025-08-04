@@ -21,7 +21,7 @@ module "secrets_manager" {
         k8s_secret_name         = "${var.environment}-ccms-pui-secrets"
     },
     "${var.environment}-ccms-pui-internal-secrets" = {
-          description             = "Secrets for ccms pui",
+          description             = "Secrets for ccms pui internal",
           recovery_window_in_days = 7,
           k8s_secret_name         = "${var.environment}-ccms-pui-internal-secrets"
     },
