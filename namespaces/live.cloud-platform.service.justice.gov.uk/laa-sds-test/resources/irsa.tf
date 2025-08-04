@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "s3_versioning_policy" {
   }
 }
 resource "aws_iam_policy" "s3_versioning_policy" {
-  name   = "s3_versioning_policy"
+  name   = "s3_versioning_policy_${var.environment}"
   policy = data.aws_iam_policy_document.s3_versioning_policy.json
   tags = {
     business-unit          = var.business_unit
