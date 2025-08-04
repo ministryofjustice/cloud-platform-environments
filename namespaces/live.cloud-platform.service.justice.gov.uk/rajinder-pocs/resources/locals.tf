@@ -1,4 +1,6 @@
 locals {
+  /* The "sqs" locals below are used to transform the data from the lookups in data.tf and used to
+  pass data to a suitable sqs access policy. */
   sqs_allowed_applications = toset(concat([var.application], var.sqs_queue_subscriber_applications))
   sqs_matching_role_names = [
     for arn in data.aws_iam_roles.sqs_subscriber_roles.arns :

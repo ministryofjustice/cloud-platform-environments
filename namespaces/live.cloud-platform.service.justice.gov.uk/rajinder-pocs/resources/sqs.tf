@@ -27,6 +27,7 @@ resource "aws_sqs_queue_policy" "rajinder_poc_sqs_queue" {
   policy    = data.aws_iam_policy_document.sqs_send_only.json
 }
 
+#--Writes queue ARN to SSM, for consumption by other namespaces
 resource "aws_ssm_parameter" "sqs_queue_arn" {
   type        = "String"
   name        = "/${var.namespace}/sqs-queue-arn"
