@@ -9,8 +9,31 @@ module "dynamodb-fci-dev" {
   is_production          = var.is_production
   namespace              = var.namespace
 
-  hash_key          = "pk"
-  range_key         = "sk"
+  hash_key  = "pk"
+  range_key = "sk"
+  attributes = [
+    {
+      name = "pk"
+      type = "S"
+    },
+    {
+      name = "sk"
+      type = "S"
+    },
+    {
+      name = "review_status"
+      type = "S"
+    }
+  ]
+
+  global_secondary_indexes = [
+    {
+      name            = "review_status_index"
+      hash_key        = "review_status"
+      range_key       = "sk"
+      projection_type = "ALL"
+    }
+  ]
   enable_encryption = "true"
   enable_autoscaler = "true"
 
@@ -26,7 +49,7 @@ resource "kubernetes_secret" "dynamodb-fci-dev" {
   }
 
   data = {
-    table_name        = module.dynamodb-fci-dev.table_name
-    table_arn         = module.dynamodb-fci-dev.table_arn
+    table_name = module.dynamodb-fci-dev.table_name
+    table_arn  = module.dynamodb-fci-dev.table_arn
   }
 }
