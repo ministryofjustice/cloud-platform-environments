@@ -11,6 +11,27 @@ module "dynamodb-fci-dev" {
 
   hash_key          = "pk"
   range_key         = "sk"
+  attributes = [
+    {
+      name = "pk"
+      type = "S"
+    },
+    {
+      name = "sk"
+      type = "S"
+    },
+    {
+      name = "review_status"
+      type = "S"
+    }
+  ]
+}
+  global_secondary_index {
+      name            = "review_status_index"
+      hash_key        = "review_status"
+      range_key       = "sk"
+      projection_type = "ALL"
+    }
   enable_encryption = "true"
   enable_autoscaler = "true"
 
