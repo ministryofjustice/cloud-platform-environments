@@ -15,7 +15,7 @@ module "probation-search-api" {
   reviewer_teams                = [var.team_name]
 }
 
-module "probation-search-ui" {
+module "hmpps-tier-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "probation-search-ui"
   application                   = "probation-search-ui"
