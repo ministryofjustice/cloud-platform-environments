@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-claim-for-payment-frontend"
     cloud-platform.justice.gov.uk/team-name: "laa-claim-and-assess"
     cloud-platform.justice.gov.uk/review-after: ""
+    cloud-platform.justice.gov.uk/namespace: laa-claim-for-payment-frontend-uat
