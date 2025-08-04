@@ -1,7 +1,6 @@
 variable "queue_name" {
   type    = string
   description = "SQS Queue Name"
-  default = "rajinder-poc-sqs-queue"
 }
 
 variable "sqs_queue_subscriber_applications" {
