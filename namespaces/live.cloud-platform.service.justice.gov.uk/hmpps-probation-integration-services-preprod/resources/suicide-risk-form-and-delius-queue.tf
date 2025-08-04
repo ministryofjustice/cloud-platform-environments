@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "suicide-risk-form-and-delius-queue-subscr
   protocol  = "sqs"
   endpoint  = module.suicide-risk-form-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = ["probation-case.suicide-risk-form.created", "probation-case.suicide-risk-form.deleted"]
   })
 }
 
