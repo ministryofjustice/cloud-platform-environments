@@ -14,11 +14,11 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["laa-data-provider-data"]
-  github_actions_prefix = "uat"
+  github_repositories   = ["laa-ccms-user-management-api"]
+  github_actions_prefix = "prod"
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
-  github_environments = ["uat"]
+  github_environments = ["prod"]
 
   # Lifecycle policies
   # Uncomment the below to automatically tidy up old Docker images
@@ -41,10 +41,10 @@ module "ecr" {
         },
         {
           "rulePriority": 2,
-          "description": "Keep last 30 dev and staging images",
+          "description": "Keep last 30 prod and staging images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPrefixList": ["dev", "staging"],
+            "tagPrefixList": ["prod"],
             "countType": "imageCountMoreThan",
             "countNumber": 30
           },

@@ -12,7 +12,8 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["laa-data-provider-data"]
-  github_environments = ["uat"]
+  # github_repositories = ["my-repo"]
+  github_repositories = ["laa-ccms-user-management-api"]
+  github_environments = ["prod"]
 
 }
