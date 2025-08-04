@@ -23,7 +23,7 @@ module "secrets_manager" {
     "ccms-pui-internal-secrets" = {
           description             = "Secrets for internal only ccms pui",
           recovery_window_in_days = 7,
-          k8s_secret_name         = "ccms-pui-secrets"
+          k8s_secret_name         = "ccms-pui-internal-secrets"
     },
     "ccms-connector-secrets" = {
         description             = "Secrets for ccms connector",
