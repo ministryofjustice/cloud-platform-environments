@@ -1,64 +1,63 @@
 variable "queue_name" {
-  type    = string
+  type        = string
   description = "SQS Queue Name"
-  default = "rajinder-poc-sqs-queue"
 }
 
 variable "sqs_queue_subscriber_applications" {
-  type    = list(string)
+  type        = list(string)
   description = "List of applications that need to subscribe to the SQS queue, the names provided here must match the application tag on the applications' IRSA service accounts"
 }
 
 variable "sqs_subscriber_roles_regex_filter" {
-  type    = string
+  type        = string
   description = "regex to filter IRSA accounts from all IAM roles in the CP"
-  default = "^cloud-platform-irsa.*" #--This has a 1000 response limit
+  default     = "^cloud-platform-irsa.*" #--This has a 1000 response limit
 }
 
 variable "fifo_queue" {
-  type    = bool
+  type        = bool
   description = "FIFO SQS Queue"
-  default = false
+  default     = false
 }
 
 variable "encrypted_queue" {
-  type    = bool
+  type        = bool
   description = "Encrypt SQS Queue using KMS"
-  default = false
+  default     = false
 }
 
 variable "dlq_max_receive_count" {
-  type    = number
+  type        = number
   description = "DLQ Max Receive Count"
-  default = 3
+  default     = 3
 }
 
 /* CP Dependency Variables. Must be passed directly from calling CP environment
 I.E. business_unit = var.business_unit */
 variable "business_unit" {
-  type    = string
+  type = string
 }
 
 variable "application" {
-  type    = string
+  type = string
 }
 
 variable "is_production" {
-  type    = string
+  type = string
 }
 
 variable "team_name" {
-  type    = string
+  type = string
 }
 
 variable "namespace" {
-  type    = string
+  type = string
 }
 
 variable "environment" {
-  type    = string
+  type = string
 }
 
 variable "infrastructure_support" {
-  type    = string
+  type = string
 }

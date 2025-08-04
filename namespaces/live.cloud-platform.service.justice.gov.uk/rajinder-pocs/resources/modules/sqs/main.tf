@@ -12,25 +12,25 @@ module "queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = var.team_name
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
 module "dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
-  sqs_name   = "${var.queue_name}-dlq"
-  fifo_queue = false
+  source          = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  sqs_name        = "${var.queue_name}-dlq"
+  fifo_queue      = false
   encrypt_sqs_kms = var.encrypted_queue
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
@@ -41,5 +41,5 @@ resource "aws_sqs_queue_policy" "sqs" {
 
 resource "aws_sqs_queue_policy" "dlq" {
   queue_url = module.dlq.sqs_id
-  policy = data.aws_iam_policy_document.dlq.json
+  policy    = data.aws_iam_policy_document.dlq.json
 }

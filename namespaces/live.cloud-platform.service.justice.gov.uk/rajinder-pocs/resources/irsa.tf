@@ -1,4 +1,4 @@
-/* module "irsa" {
+module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
@@ -31,4 +31,4 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
   }
-} */
+}
