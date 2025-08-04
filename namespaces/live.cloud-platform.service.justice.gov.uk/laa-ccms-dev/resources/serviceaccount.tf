@@ -8,11 +8,9 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = [
       "laa-ccms-helm-charts",
-      "laa-ccms-provider-details-api",
       "laa-ccms-service-adapter",
       "laa-ccms-provider-ui",
       "laa-ccms-connector",
-      "laa-ccms-edrms-web-service",
       "laa-ccms-opa-means-v23",
       "laa-ccms-opa-merits-v23",
       "laa-ccms-opa-billing-v23",
