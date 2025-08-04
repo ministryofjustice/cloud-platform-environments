@@ -14,6 +14,32 @@ module "dynamodb-fci-prod" {
   enable_encryption = "true"
   enable_autoscaler = "true"
 
+  attributes = [
+    {
+      name = "pk"
+      type = "S"
+    },
+    {
+      name = "sk"
+      type = "S"
+    },
+    {
+      name = "review_status"
+      type = "S"
+    }
+  ]
+
+  global_secondary_indexes = [
+    {
+      name            = "review_status_index"
+      hash_key        = "review_status"
+      range_key       = "sk"
+      projection_type = "ALL"
+      read_capacity   = 5
+      write_capacity  = 5
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -26,7 +52,7 @@ resource "kubernetes_secret" "dynamodb-fci-prod" {
   }
 
   data = {
-    table_name        = module.dynamodb-fci-prod.table_name
-    table_arn         = module.dynamodb-fci-prod.table_arn
+    table_name = module.dynamodb-fci-prod.table_name
+    table_arn  = module.dynamodb-fci-prod.table_arn
   }
 }
