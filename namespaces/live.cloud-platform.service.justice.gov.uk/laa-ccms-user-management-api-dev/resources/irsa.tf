@@ -7,24 +7,7 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "irsa-sqs-${var.namespace}"
   namespace            = var.namespace # this is also used as a tag
-
-  role_policy_arns = {
-    sqs = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowSQSActions",
-      "Effect": "Allow",
-      "Action": [
-        "sqs:*"
-      ],
-      "Resource": "${data.aws_ssm_parameter.sqs_queue_arn.value}"
-    }
-  ]
-}
-EOF
-  }
+  role_policy_arns = data.aws_ssm_parameter.sqs_policy_arn.value
 
   # Tags
   business_unit          = var.business_unit
