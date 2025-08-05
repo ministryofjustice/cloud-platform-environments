@@ -73,3 +73,9 @@ variable "eks_cluster_name" {
   type        = string
   default     = "example_name"
 }
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-submit-a-bulk-claim-production-service-account"
+}
