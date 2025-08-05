@@ -1,4 +1,4 @@
-module "hmpps_staff_dev" {
+module "hmpps_staff_prod" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-staff-lookup-service"
   application                   = "hmpps-staff-lookup-service"
