@@ -1,3 +1,10 @@
+data "aws_caller_identity" "current" {}
+data "aws_partition" "current" {}
+
+data "aws_eks_cluster" "eks_cluster" {
+name = var.eks_cluster_name
+}
+
 module "iam_assumable_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.30.0"
