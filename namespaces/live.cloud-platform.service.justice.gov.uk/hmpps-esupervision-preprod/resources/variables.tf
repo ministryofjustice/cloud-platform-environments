@@ -8,6 +8,10 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -35,7 +39,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -67,3 +71,14 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "postgres_instance_class" {
+  type = string
+  description = "Class of the postgres instance"
+  default = "db.t4g.micro"
+}
+

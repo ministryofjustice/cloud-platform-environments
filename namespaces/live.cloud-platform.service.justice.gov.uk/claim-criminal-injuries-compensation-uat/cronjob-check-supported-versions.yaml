@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: claim-criminal-injuries-dev-supported-versions
+spec:
+  schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
+  concurrencyPolicy: "Forbid"
+  suspend: true # Disabled
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          serviceAccountName: irsa-cronjob
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+            - name: cica-online-application-version-check
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:supported-version-cronjob
+              imagePullPolicy: Always
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -e
+                  psql  $(DATABASE_URL_WITH_CREDENTIALS) -c "\
+                    COPY (\
+                      SELECT \
+                        questionnaire -> 'type' AS \"templateName\", \
+                        questionnaire -> 'version' AS \"templateVersion\" \
+                      FROM questionnaire \
+                      GROUP BY questionnaire -> 'type', questionnaire -> 'version'\
+                    ) TO STDOUT WITH CSV HEADER\
+                  " > /tmp/template-versions.csv
+                  aws s3 cp s3://$BUCKET_NAME/supported_template_versions.json /tmp/supported_template_versions.json
+                  node /scripts/verify-supported-versions.js --csv /tmp/template-versions.csv --json /tmp/supported_template_versions.json
+              env:
+                - name: DATABASE_URL_WITH_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name: shared-secrets
+                      key: database_url_with_credentials
+          restartPolicy: "Never"
