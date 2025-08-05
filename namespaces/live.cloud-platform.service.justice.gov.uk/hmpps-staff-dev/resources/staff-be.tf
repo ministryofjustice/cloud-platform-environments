@@ -3,7 +3,7 @@ module "hmpps_staff_dev" {
   github_repo                   = "hmpps-staff-lookup-service"
   application                   = "hmpps-staff-lookup-service"
   github_team                   = "manage-a-workforce"
-  environment                   = var.environment_name
+  environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
