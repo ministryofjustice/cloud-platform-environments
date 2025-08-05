@@ -15,6 +15,7 @@ module "serviceaccount" {
         "secrets",
         "services",
         "configmaps",
+        "persistentvolumeclaims",
         "pods"
       ],
       "verbs": [
@@ -42,7 +43,6 @@ module "serviceaccount" {
         "jobs",
         "replicasets",
         "statefulsets",
-        "persistentvolumeclaims",
         "poddisruptionbudgets",
         "networkpolicies"
       ],
