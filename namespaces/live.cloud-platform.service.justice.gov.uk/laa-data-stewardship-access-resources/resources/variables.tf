@@ -99,3 +99,9 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN_ACCESS_RESOURCES" # overridden from "KUBE_TOKEN"
 }
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-data-access-resources-service-account"
+}
