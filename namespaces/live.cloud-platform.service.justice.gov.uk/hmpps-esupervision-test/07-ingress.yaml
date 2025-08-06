@@ -8,7 +8,8 @@ metadata:
     external-dns.alpha.kubernetes.io/aws-weight: '100'
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      SecRuleEngine On
+      SecRuleEngine DetectionOnly
+      SecAuditEngine RelevantOnly
       SecDefaultAction "phase:2,pass,log,tag:github_team=stg-pathfinders"
 spec:
   ingressClassName: modsec-non-prod
