@@ -1,5 +1,5 @@
 module "hmpps_allocations_dev" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.1.0"
   github_repo                   = "hmpps-allocations"
   application                   = "hmpps-allocations"
   github_team                   = "manage-a-workforce"
