@@ -233,21 +233,16 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
 
 data "kubernetes_secret" "approved_audit_user_client_arns_manage" {
   metadata {
-    name      = "approved-audit-user-client-arns-manage"
+    name      = kubernetes_secret.approved_audit_user_client_arns_manage.metadata[0].name
     namespace = var.namespace
   }
 }
 
 data "kubernetes_secret" "approved_audit_user_client_arns_send" {
   metadata {
-    name      = "approved-audit-user-client-arns-send"
+    name      = kubernetes_secret.approved_audit_user_client_arns_send.metadata[0].name
     namespace = var.namespace
   }
-
-  depends_on = [
-    kubernetes_secret.approved_audit_user_client_arns_send,
-    kubernetes_secret.approved_audit_user_client_arns_manage
-  ]
 }
 
 locals {
