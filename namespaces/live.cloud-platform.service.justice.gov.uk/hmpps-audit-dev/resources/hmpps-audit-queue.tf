@@ -231,9 +231,9 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
-data "kubernetes_secret" "approved_audit_user_client_arns_read" {
+data "kubernetes_secret" "approved_audit_user_client_arns_manage" {
   metadata {
-    name      = "approved-audit-user-client-arns-read"
+    name      = "approved-audit-user-client-arns-manage"
     namespace = var.namespace
   }
 }
@@ -243,6 +243,11 @@ data "kubernetes_secret" "approved_audit_user_client_arns_send" {
     name      = "approved-audit-user-client-arns-send"
     namespace = var.namespace
   }
+
+  depends_on = [
+    kubernetes_secret.approved_audit_user_client_arns_send,
+    kubernetes_secret.approved_audit_user_client_arns_manage
+  ]
 }
 
 locals {
@@ -260,7 +265,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "DenyAuditUserQueueRead",
+          "Sid": "DenyAuditUserQueueManage",
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
@@ -304,6 +309,45 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
           "NotAction": "sqs:SendMessage"
+        }
+      ]
+  }
+
+EOF
+
+}
+
+resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
+  queue_url = module.hmpps_audit_users_dead_letter_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Sid": "DenyAuditUserDeadLetterQueueAll",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}",
+          "Action": "sqs:*",
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": ${local.arns_with_read_access}
+                }
+            }
+        },
+        {
+          "Sid": "AllowAuditDeadLetterUserQueueManage",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": ${local.arns_with_read_access}
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action": "sqs:*"
         }
       ]
   }
