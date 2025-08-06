@@ -3,7 +3,7 @@ module "hmpps_probation_estate_dev" {
   github_repo                   = "hmpps-probation-estate-api"
   application                   = "hmpps-probation-estate-api"
   github_team                   = "manage-a-workforce"
-  environment                   = var.environment
+  environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
