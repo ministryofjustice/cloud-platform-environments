@@ -82,3 +82,8 @@ variable "postgres_instance_class" {
   default = "db.t4g.micro"
 }
 
+variable "domain_esupervision_api" {
+  description = "Domain name for the Esupervision API"
+  type        = string
+  default     = "esupervision.hmpps.service.justice.gov.uk"
+}
