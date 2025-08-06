@@ -252,7 +252,7 @@ data "kubernetes_secret" "approved_audit_user_client_arns_send" {
 
 locals {
   arns_with_send_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_send.data : v]
-  arns_with_read_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_read.data : v]
+  arns_with_manage_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_manage.data : v]
 }
 
 resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
@@ -274,7 +274,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${local.arns_with_read_access}
+                  "aws:PrincipalArn": ${local.arns_with_manage_access}
                 }
             }
         },
@@ -305,7 +305,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
           "Sid": "AllowAuditUserQueueManage",
           "Effect": "Allow",
           "Principal": {
-            "AWS": ${local.arns_with_read_access}
+            "AWS": ${local.arns_with_manage_access}
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
           "NotAction": "sqs:SendMessage"
@@ -336,7 +336,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${local.arns_with_read_access}
+                  "aws:PrincipalArn": ${local.arns_with_manage_access}
                 }
             }
         },
@@ -344,7 +344,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
           "Sid": "AllowAuditDeadLetterUserQueueManage",
           "Effect": "Allow",
           "Principal": {
-            "AWS": ${local.arns_with_read_access}
+            "AWS": ${local.arns_with_manage_access}
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
           "Action": "sqs:*"
