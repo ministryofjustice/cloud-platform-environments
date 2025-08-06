@@ -14,5 +14,5 @@ resource "pingdom_check" "laa-landing-page-dev" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.namespace},isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.namespace}"
   probefilters             = "region:EU"
-  integrationids           = [142729]
+  integrationids           = [144249]
 }
