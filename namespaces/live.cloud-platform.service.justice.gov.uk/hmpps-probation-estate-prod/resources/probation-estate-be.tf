@@ -3,6 +3,7 @@ module "hmpps_probation_estate_prod" {
   github_repo                   = "hmpps-probation-estate-api"
   application                   = "hmpps-probation-estate-api"
   github_team                   = "manage-a-workforce"
+  reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "prod"
