@@ -231,6 +231,25 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
+data "kubernetes_secret" "approved_audit_user_client_arns_read" {
+  metadata {
+    name      = "approved-audit-user-client-arns-read"
+    namespace = var.namespace
+  }
+}
+
+data "kubernetes_secret" "approved_audit_user_client_arns_send" {
+  metadata {
+    name      = "approved-audit-user-client-arns-send"
+    namespace = var.namespace
+  }
+}
+
+locals {
+  arns_with_send_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_send.data : v]
+  arns_with_read_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_read.data : v]
+}
+
 resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
   queue_url = module.hmpps_audit_users_queue.sqs_id
 
@@ -241,46 +260,50 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
     "Statement":
       [
         {
-          "Sid": "AllowAuditUserQueueManagement",
-          "Effect": "Allow",
-          "Principal": {
-            "AWS": [
-              "${module.hmpps-audit-api-irsa.role_arn}"
-                ]
-          },
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
-          "Action": "sqs:*"
-        },
-        {
-          "Sid": "DenyAuditUserQueueManagement",
+          "Sid": "DenyAuditUserQueueRead",
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
-          "Action" = [
-            "sqs:ReceiveMessage",
-            "sqs:DeleteMessage",
-            "sqs:ChangeMessageVisibility",
-            "sqs:GetQueueAttributes",
-            "sqs:GetQueueUrl"
-          ],
+          "NotAction": "sqs:SendMessage",
           "Condition":
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": "${module.hmpps-audit-api-irsa.role_arn}"
+                  "aws:PrincipalArn": ${local.arns_with_read_access}
                 }
             }
         },
         {
-          "Sid": "AllowWriteAccessToAuditUserQueue",
+          "Sid": "DenyAuditUserQueueSend",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action" = ["sqs:SendMessage"],
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": ${local.arns_with_send_access}
+                }
+            }
+        },
+        {
+          "Sid": "AllowAuditUserQueueSend",
           "Effect": "Allow",
           "Principal": {
-            "AWS": [
-              "${module.hmpps-audit-api-irsa.role_arn}"
-                ]
+            "AWS": ${local.arns_with_send_access}
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
           "Action": "sqs:SendMessage"
+        },
+        {
+          "Sid": "AllowAuditUserQueueManage",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": ${local.arns_with_read_access}
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "NotAction": "sqs:SendMessage"
         }
       ]
   }
@@ -288,3 +311,4 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
 EOF
 
 }
+
