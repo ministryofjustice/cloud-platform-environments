@@ -231,6 +231,30 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
+resource "kubernetes_secret" "approved_audit_user_client_arns_send" {
+    metadata {
+        name = "approved-audit-user-client-arns-send"
+        namespace = var.namespace
+    }
+
+    data = {
+        hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn
+        hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
+  }
+}
+
+resource "kubernetes_secret" "approved_audit_user_client_arns_manage" {
+    metadata {
+        name = "approved-audit-user-client-arns-manage"
+        namespace = var.namespace
+    }
+
+    data = {
+        hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn
+        hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
+  }
+}
+
 data "kubernetes_secret" "approved_audit_user_client_arns_manage" {
   metadata {
     name      = kubernetes_secret.approved_audit_user_client_arns_manage.metadata[0].name
