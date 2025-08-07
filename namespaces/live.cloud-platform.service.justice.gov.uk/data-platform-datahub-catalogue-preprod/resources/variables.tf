@@ -74,7 +74,7 @@ variable "eks_cluster_name" {
 variable "enable_rds_auto_start_stop" {
   description = "Whether to enable RDS auto start/stop"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "backup_window" {
