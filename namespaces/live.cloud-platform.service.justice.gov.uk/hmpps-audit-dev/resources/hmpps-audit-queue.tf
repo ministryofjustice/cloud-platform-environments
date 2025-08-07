@@ -231,9 +231,9 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
-resource "kubernetes_secret" "approved_audit_user_client_arns_send" {
+resource "kubernetes_secret" "approved_audit_user_client_arn" {
     metadata {
-        name = "approved-audit-user-client-arns-send"
+        name = "approved-audit-user-client-arns"
         namespace = var.namespace
     }
 
@@ -243,35 +243,21 @@ resource "kubernetes_secret" "approved_audit_user_client_arns_send" {
   }
 }
 
-resource "kubernetes_secret" "approved_audit_user_client_arns_manage" {
-    metadata {
-        name = "approved-audit-user-client-arns-manage"
-        namespace = var.namespace
-    }
-
-    data = {
-        hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn
-        hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
-  }
-}
-
-data "kubernetes_secret" "approved_audit_user_client_arns_manage" {
+data "kubernetes_secret" "approved_audit_user_client_arns" {
   metadata {
-    name      = kubernetes_secret.approved_audit_user_client_arns_manage.metadata[0].name
-    namespace = var.namespace
-  }
-}
-
-data "kubernetes_secret" "approved_audit_user_client_arns_send" {
-  metadata {
-    name      = kubernetes_secret.approved_audit_user_client_arns_send.metadata[0].name
+    name      = kubernetes_secret.approved_audit_user_client_arns.metadata[0].name
     namespace = var.namespace
   }
 }
 
 locals {
-  arns_with_send_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_send.data : v]
-  arns_with_manage_access = [for k, v in data.kubernetes_secret.approved_audit_user_client_arns_manage.data : v]
+  // This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
+  audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
+  arns_with_manage_access = [
+    hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn,
+    hmpps-audit-users-queue-arn = module.hmpps_audit_users_queue.sqs_arn
+    hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
+  ]
 }
 
 resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
@@ -302,12 +288,12 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
-          "Action" = ["sqs:SendMessage"],
+          "Action" = "sqs:SendMessage",
           "Condition":
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${local.arns_with_send_access}
+                  "aws:PrincipalArn": ${concat(local.arns_with_send_access, local.arns_with_manage_access)}
                 }
             }
         },
@@ -327,7 +313,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             "AWS": ${local.arns_with_manage_access}
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
-          "NotAction": "sqs:SendMessage"
+          "NotAction": "sqs:*"
         }
       ]
   }
