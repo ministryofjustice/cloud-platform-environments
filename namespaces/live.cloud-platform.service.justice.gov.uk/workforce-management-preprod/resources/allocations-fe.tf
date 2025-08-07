@@ -5,7 +5,7 @@ module "manage_a_workforce_preprod" {
   github_team                   = "manage-a-workforce"
   environment                   = var.environment_name
   is_production                 = var.is_production
-  application_insights_instance = "dev"
+  application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
