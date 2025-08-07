@@ -14,7 +14,7 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "16.4"
+  db_engine_version = "16.8"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres16"
