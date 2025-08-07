@@ -66,7 +66,6 @@ module "irsa_hmpps_offender_categorisation_api" {
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "hmpps-offender-categorisation-api"
-  role_policy_arns = local.irsa_policies_api
   role_policy_arns = merge(
      { "s3" = module.risk_profiler_s3_bucket.irsa_policy_arn },
      local.irsa_policies_api
