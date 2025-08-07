@@ -231,16 +231,11 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
-resource "kubernetes_secret" "approved_audit_user_client_arn" {
+resource "kubernetes_secret" "approved_audit_user_client_arns" {
     metadata {
         name = "approved-audit-user-client-arns"
         namespace = var.namespace
     }
-
-    data = {
-        hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn
-        hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
-  }
 }
 
 data "kubernetes_secret" "approved_audit_user_client_arns" {
@@ -251,7 +246,7 @@ data "kubernetes_secret" "approved_audit_user_client_arns" {
 }
 
 locals {
-  // This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
+  # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
   audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
   arns_with_manage_access = [
     module.hmpps-audit-api-irsa.role_arn,
