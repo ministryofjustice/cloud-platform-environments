@@ -67,3 +67,13 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "default_host_name" {
+  description = "default ingress host name for pingdom"
+  default = "pingdom-default-ingress.apps.live.cloud-platform.service.justice.gov.uk"
+}
+
+variable "modsec_host_name" {
+  description = "modsec ingress host name for pingdom"
+  default = "pingdom-modsec-ingress.apps.live.cloud-platform.service.justice.gov.uk"
+}
