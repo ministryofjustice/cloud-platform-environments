@@ -1,5 +1,5 @@
 module "hmpps_person_record" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-person-record"
   application = "hmpps-person-record"
   github_team = var.team_name

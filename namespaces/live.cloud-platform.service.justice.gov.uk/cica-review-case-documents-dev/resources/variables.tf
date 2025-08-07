@@ -8,56 +8,52 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Check in with your probation officer"
+  default     = "Review case documents"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-esupervision-prod"
+  default     = "cica-review-case-documents-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "CICA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "stg-pathfinders"
+  default     = "cica-review-case-documents"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prod"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "techforcom@justice.gov.uk"
+  default     = "infrastructure@cica.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "stg-pathfinders-dev"
+  default     = "cica-transformation-acceleration"
 }
 
 variable "github_owner" {
@@ -70,20 +66,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "postgres_instance_class" {
-  type = string
-  description = "Class of the postgres instance"
-  default = "db.t4g.micro"
-}
-
-variable "domain_esupervision_api" {
-  description = "Domain name for the Esupervision API"
-  type        = string
-  default     = "esupervision.hmpps.service.justice.gov.uk"
 }
