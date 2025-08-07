@@ -34,7 +34,7 @@ variable "environment" {
   default     = "production"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
