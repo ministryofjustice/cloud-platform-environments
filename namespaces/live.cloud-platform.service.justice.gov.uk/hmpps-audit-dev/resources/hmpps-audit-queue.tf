@@ -254,9 +254,9 @@ locals {
   // This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
   audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
   arns_with_manage_access = [
-    hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn,
-    hmpps-audit-users-queue-arn = module.hmpps_audit_users_queue.sqs_arn,
-    hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
+    module.hmpps-audit-api-irsa.role_arn,
+    module.hmpps_audit_users_queue.sqs_arn,
+    module.hmpps_audit_users_dead_letter_queue.sqs_arn
   ]
 }
 
@@ -293,7 +293,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${concat(local.arns_with_send_access, local.arns_with_manage_access)}
+                  "aws:PrincipalArn": ${concat(local.audit_user_client_arns, local.arns_with_manage_access)}
                 }
             }
         },
@@ -301,7 +301,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
           "Sid": "AllowAuditUserQueueSend",
           "Effect": "Allow",
           "Principal": {
-            "AWS": ${local.arns_with_send_access}
+            "AWS": ${local.audit_user_client_arns}
           },
           "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
           "Action": "sqs:SendMessage"
