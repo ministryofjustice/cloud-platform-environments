@@ -274,7 +274,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${local.arns_with_manage_access}
+                  "aws:PrincipalArn": "${local.arns_with_manage_access}"
                 }
             }
         },
@@ -288,7 +288,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${concat(local.audit_user_client_arns, local.arns_with_manage_access)}
+                  "aws:PrincipalArn": "${concat(local.audit_user_client_arns, local.arns_with_manage_access)}"
                 }
             }
         },
@@ -336,7 +336,7 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": ${local.arns_with_manage_access}
+                  "aws:PrincipalArn": "${local.arns_with_manage_access}"
                 }
             }
         },
