@@ -255,7 +255,7 @@ locals {
   audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
   arns_with_manage_access = [
     hmpps-audit-api-irsa-arn = module.hmpps-audit-api-irsa.role_arn,
-    hmpps-audit-users-queue-arn = module.hmpps_audit_users_queue.sqs_arn
+    hmpps-audit-users-queue-arn = module.hmpps_audit_users_queue.sqs_arn,
     hmpps-audit-users-dead-letter-queue-arn = module.hmpps_audit_users_dead_letter_queue.sqs_arn
   ]
 }
