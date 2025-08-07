@@ -3,9 +3,10 @@ module "hmpps_person_record" {
   github_repo = "hmpps-person-record"
   application = "hmpps-person-record"
   github_team = var.team_name
-  environment = "preprodß"
+  environment = var.environment
+  reviewer_teams                = [var.team_name] # Optional team that should review deployments to this environment.
   is_production                 = var.is_production
-  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  application_insights_instance = var.environment # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
