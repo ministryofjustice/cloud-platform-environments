@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "fraud-and-corruption-insights-dev-sa"
+  service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace
 
   role_policy_arns = {
