@@ -118,34 +118,31 @@ module "s3_bucket" {
    *
    */
 
-
+  /*
+   * Allow a user (foobar) from another account (012345678901) to get objects from
+   * this bucket.
+   *
 
    bucket_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowAnalyticalPlatformIngestionService",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::730335344807:role/transfer"
-            },
-            "Action": [
-                "s3:DeleteObject",
-                "s3:GetObject",
-                "s3:GetObjectAcl",
-                "s3:PutObject",
-                "s3:PutObjectAcl",
-                "s3:PutObjectTagging"
-            ],
-            "Resource": [
-                "${module.s3_bucket.bucket_arn}",
-                "${module.s3_bucket.bucket_arn}/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::012345678901:user/foobar"
+      },
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}/*"
+      ]
+    }
+  ]
 }
 EOF
+*/
 
   /*
    * OIDC for GitHub Actions
@@ -157,6 +154,51 @@ EOF
   github_environments = ["dev"]   # If you're using GH Actions environments
 
 */
+}
+
+
+# Build the policy JSON using the module outputs (no feedback loop)
+data "aws_iam_policy_document" "ap_ingestion" {
+  statement {
+    sid    = "AllowAnalyticalPlatformIngestionService"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::730335344807:role/transfer"]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:PutObjectTagging",
+      "s3:DeleteObject",
+    ]
+
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
+  }
+
+
+  statement {
+    sid     = "AllowListBucketForAPIngestion"
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::730335344807:role/transfer"]
+    }
+
+    actions   = ["s3:ListBucket"]
+    resources = [module.s3_bucket.bucket_arn]
+  }
+}
+
+# Attach the policy to the bucket as its own resource
+resource "aws_s3_bucket_policy" "ap_ingestion" {
+  bucket = module.s3_bucket.bucket_id
+  policy = data.aws_iam_policy_document.ap_ingestion.json
 }
 
 
