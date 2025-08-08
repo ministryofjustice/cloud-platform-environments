@@ -1,5 +1,5 @@
-resource "aws_route53_zone" "laa_sign_in_test" {
-  name = "test.laa-sign-in.external-identity.service.justice.gov.uk"
+resource "aws_route53_zone" "manage_srv_prd" {
+  name = "manage-your-legal-aid-users.service.justice.gov.uk"
 
   tags = {
     business_unit          = var.business_unit
@@ -12,14 +12,14 @@ resource "aws_route53_zone" "laa_sign_in_test" {
   }
 }
 
-resource "kubernetes_secret" "laa_sign_in_test_route53_zone" {
+resource "kubernetes_secret" "manage_srv_prd_route53_zone" {
   metadata {
-    name      = "laa-sign-in-test-route53-zone"
+    name      = "manage-srv-prd-route53-zone"
     namespace = var.namespace
   }
 
   data = {
-    zone_id     = aws_route53_zone.laa_sign_in_test.zone_id
-    nameservers = join("\n", aws_route53_zone.laa_sign_in_test.name_servers)
+    zone_id     = aws_route53_zone.manage_srv_prd.zone_id
+    nameservers = join("\n", aws_route53_zone.manage_srv_prd.name_servers)
   }
 }
