@@ -1,4 +1,4 @@
-module "manage_a_workforce_preprod" {
+module "manage_a_workforce_ui_preprod" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.1.0"
   github_repo                   = "manage-a-workforce-ui"
   application                   = "manage-a-workforce-ui"
