@@ -10,6 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam = "cica-review-case-documents"
     }
   }
 }
@@ -35,6 +36,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam = "cica-review-case-documents"
     }
   }
 }
