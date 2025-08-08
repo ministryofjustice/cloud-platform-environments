@@ -1,7 +1,7 @@
-module "hmpps_allocations_prod" {
+module "manage_a_workforce_prod" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.1.0"
-  github_repo                   = "hmpps-allocations"
-  application                   = "hmpps-allocations"
+  github_repo                   = "manage-a-workforce-ui"
+  application                   = "manage-a-workforce-ui"
   github_team                   = "manage-a-workforce"
   reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
