@@ -1,8 +1,6 @@
 /* --SQS Access Control--
-The two data sources below control access to SQS by looking up the value in the "application" tag
-for a specific namespace.
-This is not a perfect solution but does solve a dependency problem and prevents needing to store
-unpredictable ARNs as a variable application specific */
+The two data sources below control access to SQS by looking up the value in the "namespace" tag
+for a specific namespace. */
 
 data "aws_iam_roles" "sqs_subscriber_roles" {
   name_regex = var.sqs_subscriber_roles_regex_filter
@@ -50,7 +48,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        for role in local.sqs_roles_with_app_tag : role.arn
+        for role in local.sqs_roles_with_namespace_tag : role.arn
       ]
     }
   }
@@ -78,7 +76,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        for role in local.sqs_roles_with_app_tag : role.arn
+        for role in local.sqs_roles_with_namespace_tag : role.arn
       ]
     }
   }
