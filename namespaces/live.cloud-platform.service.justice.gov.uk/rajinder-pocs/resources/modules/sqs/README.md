@@ -2,13 +2,13 @@
 
 ## Usage (Producer Namespace)
 
-In order to configure, provide a list of consumer applications based on their `var.application` value. I.E. the value that is applied to the `application` tag on the consuming applications' IRSA service accounts.
+In order to configure, provide a list of consumer namespaces based on their `var.namespace` value. I.E. the value that is applied to the `namespace` tag on the consuming applications' IRSA service accounts.
 
 ```bash
 module "sqs_queue" {
   source                            = "./modules/sqs"
   queue_name                        = "${var.namespace}-sqs-queue"
-  sqs_queue_subscriber_applications = ["consumer application 1", "consumer_application_2", "CONSUMER-APPLICATION-3"]
+  sqs_queue_subscriber_namespaces = ["consumer-application-1-dev", "consumer-application-2-dev", "consumer-application-3-dev"]
   business_unit                     = var.business_unit
   application                       = var.application
   is_production                     = var.is_production
@@ -122,7 +122,7 @@ resource "kubernetes_secret" "sqs_queue_arn" {
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | n/a | yes |
 | <a name="input_queue_name"></a> [queue\_name](#input\_queue\_name) | SQS Queue Name | `string` | n/a | yes |
-| <a name="input_sqs_queue_subscriber_applications"></a> [sqs\_queue\_subscriber\_applications](#input\_sqs\_queue\_subscriber\_applications) | List of applications that need to subscribe to the SQS queue, the names provided here must match the application tag on the applications' IRSA service accounts | `list(string)` | n/a | yes |
+| <a name="input_sqs_queue_subscriber_namespaces"></a> [sqs\_queue\_subscriber\_namespaces](#input\_sqs\_queue\_subscriber\_namespaces) | List of namespaces that need to subscribe to the SQS queue, the names provided here must match the namespace tag on the namespace' IRSA service accounts | `list(string)` | n/a | yes |
 | <a name="input_sqs_subscriber_roles_regex_filter"></a> [sqs\_subscriber\_roles\_regex\_filter](#input\_sqs\_subscriber\_roles\_regex\_filter) | regex to filter IRSA accounts from all IAM roles in the CP | `string` | `"^cloud-platform-irsa.*"` | no |
 | <a name="input_team_name"></a> [team\_name](#input\_team\_name) | n/a | `string` | n/a | yes |
 

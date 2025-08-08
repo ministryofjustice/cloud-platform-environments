@@ -3,9 +3,9 @@ variable "queue_name" {
   description = "SQS Queue Name"
 }
 
-variable "sqs_queue_subscriber_applications" {
+variable "sqs_queue_subscriber_namespaces" {
   type        = list(string)
-  description = "List of applications that need to subscribe to the SQS queue, the names provided here must match the application tag on the applications' IRSA service accounts"
+  description = "List of namespaces that need to subscribe to the SQS queue, the names provided here must match the namespace tag on the namespace' IRSA service accounts"
 }
 
 variable "sqs_subscriber_roles_regex_filter" {
