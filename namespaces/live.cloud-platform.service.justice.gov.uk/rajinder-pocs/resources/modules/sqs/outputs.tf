@@ -4,7 +4,7 @@ output "sqs_queue_arn" {
 }
 
 output "iam_roles_granted_access" {
-  value       = local.sqs_roles_with_app_tag
+  value       = local.sqs_roles_with_namespace_tag
   description = "IRSA Roles Granted Access to SQS"
 }
 
