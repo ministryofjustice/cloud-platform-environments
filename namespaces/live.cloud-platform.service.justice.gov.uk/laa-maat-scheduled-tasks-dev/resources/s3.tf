@@ -197,7 +197,7 @@ data "aws_iam_policy_document" "ap_ingestion" {
 
 # Attach the policy to the bucket as its own resource
 resource "aws_s3_bucket_policy" "ap_ingestion" {
-  bucket = module.s3_bucket.bucket_id
+  bucket = module.s3_bucket.bucket_name
   policy = data.aws_iam_policy_document.ap_ingestion.json
 }
 
