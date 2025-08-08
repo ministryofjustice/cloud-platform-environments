@@ -118,31 +118,34 @@ module "s3_bucket" {
    *
    */
 
-  /*
-   * Allow a user (foobar) from another account (012345678901) to get objects from
-   * this bucket.
-   *
+
 
    bucket_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
-      },
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAnalyticalPlatformIngestionService",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::730335344807:role/transfer"
+            },
+            "Action": [
+                "s3:DeleteObject",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:PutObjectTagging"
+            ],
+            "Resource": [
+                "${module.s3_bucket.bucket_arn}",
+                "${module.s3_bucket.bucket_arn}/*"
+            ]
+        }
+    ]
 }
 EOF
-*/
 
   /*
    * OIDC for GitHub Actions
