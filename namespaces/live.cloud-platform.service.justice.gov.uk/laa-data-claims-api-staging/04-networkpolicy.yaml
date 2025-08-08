@@ -25,3 +25,16 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: deny-egress-order
+  namespace: laa-data-claims-api-staging
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+    - action: Deny
+  types:
+    - Egress
