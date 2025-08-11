@@ -14,7 +14,7 @@ resource "aws_route53_zone" "manage_srv_dev" {
 
 resource "kubernetes_secret" "manage_srv_dev_route53_zone" {
   metadata {
-    name      = "manage-srv-dev-route53-zone"
+    name      = "manage-srv-route53-zone"
     namespace = var.namespace
   }
 
