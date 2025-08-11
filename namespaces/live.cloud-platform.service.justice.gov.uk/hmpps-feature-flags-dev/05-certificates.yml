@@ -4,7 +4,7 @@ metadata:
   name: feature-flags-cert
   namespace: hmpps-feature-flags-dev
 spec:
-  secretName: hmpps-sentence-plan-ui-cert
+  secretName: hmpps-feature-flags-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
