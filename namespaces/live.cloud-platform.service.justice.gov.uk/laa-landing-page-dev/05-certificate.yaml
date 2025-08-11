@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-landing-page-homepage-dev-cert
+  namespace: laa-landing-page-dev
+spec:
+  secretName: laa-landing-page-homepage-dev-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.your-legal-aid-services.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-srv-dev-cert
+  namespace: laa-landing-page-dev
+spec:
+  secretName:  manage-srv-dev-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dev.manage-your-legal-aid-users.service.justice.gov.uk
