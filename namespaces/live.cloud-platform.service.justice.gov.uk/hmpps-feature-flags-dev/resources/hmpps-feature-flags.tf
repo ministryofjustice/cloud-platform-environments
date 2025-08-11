@@ -1,3 +1,18 @@
+module "hmpps-feature-flags" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  github_repo = "hmpps-feature-flags"
+  application = "hmpps-feature-flags"
+  github_team = "hmpps-lead-developers"
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  is_production                 = var.is_production
+  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "hmpps-template-typescript"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+}
+
+
 module "flipt-db" {
   source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage         = 10
@@ -7,7 +22,7 @@ module "flipt-db" {
   business_unit                = var.business_unit
   application                  = var.application
   is_production                = var.is_production
-  environment_name             = var.environment_name
+  environment_name             = var.environment
   infrastructure_support       = var.infrastructure_support
   namespace                    = var.namespace
   rds_name                     = "flipt-db-${var.environment}"
