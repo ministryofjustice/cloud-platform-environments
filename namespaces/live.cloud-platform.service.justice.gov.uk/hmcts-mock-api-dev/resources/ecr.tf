@@ -13,7 +13,7 @@ module "laa_crime_apps_team_ecr_credentials" {
 
   oidc_providers = ["circleci"]
 
-  github_repositories = ["hmcts-common-platform-mock-api"]
+  github_repositories = ["laa-court-data-ui", "laa-court-data-adaptor", "hmcts-common-platform-mock-api", "laa-court-data-ui-e2e-tests"]
 
   # Tags
   business_unit          = "Crime Apps"
