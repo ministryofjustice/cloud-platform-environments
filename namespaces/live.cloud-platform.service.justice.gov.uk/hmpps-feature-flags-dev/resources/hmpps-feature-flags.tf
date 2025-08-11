@@ -1,5 +1,5 @@
 module "hmpps-feature-flags" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-feature-flags"
   application = "hmpps-feature-flags"
   github_team = "hmpps-lead-developers"
