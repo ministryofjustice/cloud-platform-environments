@@ -10,7 +10,7 @@ module "flipt-db" {
   environment_name             = var.environment_name
   infrastructure_support       = var.infrastructure_support
   namespace                    = var.namespace
-  rds_name                     = "flipt-db-${var.environment_name}"
+  rds_name                     = "flipt-db-${var.environment}"
   rds_family                   = "postgres16"
   db_engine_version            = "16.8"
   db_instance_class            = "db.t4g.small"
