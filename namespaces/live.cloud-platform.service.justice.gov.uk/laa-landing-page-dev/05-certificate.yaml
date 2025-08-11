@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: laa-landing-page-homepage-cert
+  name: laa-landing-page-homepage-dev-cert
   namespace: laa-landing-page-dev
 spec:
-  secretName: laa-landing-page-homepage-secret
+  secretName: laa-landing-page-homepage-dev-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
