@@ -212,5 +212,7 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
+    access_key_id = module.s3_bucket.access_key_id
+    secret_access_key = module.s3_bucket.secret_access_key
   }
 }
