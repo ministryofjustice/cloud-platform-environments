@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-emergency-containment-platform-admin
+  namespace: laa-emergency-containment-platform
+subjects:
+  - kind: Group
+    name: "github:ecp-admin"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
