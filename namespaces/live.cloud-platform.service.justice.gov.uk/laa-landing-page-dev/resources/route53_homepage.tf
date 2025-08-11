@@ -12,9 +12,9 @@ resource "aws_route53_zone" "laa_landing_page_homepage_dev" {
   }
 }
 
-resource "kubernetes_secret" "laa_landing_page_homepage_route53_zone" {
+resource "kubernetes_secret" "laa_landing_page_homepage_dev_route53_zone" {
   metadata {
-    name      = "laa-landing-page-homepage-route53-zone"
+    name      = "laa-landing-page-homepage-dev-route53-zone"
     namespace = var.namespace
   }
 
