@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Feature Flags (Flipt)"
     cloud-platform.justice.gov.uk/owner: "HMPPS Community of Practice: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: ""
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-feature-flags"
     cloud-platform.justice.gov.uk/team-name: "hmpps-lead-developers"
