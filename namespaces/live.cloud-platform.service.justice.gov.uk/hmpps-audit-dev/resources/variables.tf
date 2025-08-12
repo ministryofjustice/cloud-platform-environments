@@ -52,3 +52,9 @@ variable "kubernetes_cluster" {}
 variable "eks_cluster_name" {}
 
 variable "vpc_name" {}
+
+variable "github_team" {
+  description = "The slug of the GitHub team associated with the "
+  type        = string
+  default     = "haha-audit-dev"
+}
