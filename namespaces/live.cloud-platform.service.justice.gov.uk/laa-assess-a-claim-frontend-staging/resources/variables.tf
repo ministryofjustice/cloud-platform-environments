@@ -67,9 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "source_code" {
-  type        = string
-  description = "Github respository location"
-  default     = "https://github.com/ministryofjustice/laa-assess-a-claim-frontend"
-}
