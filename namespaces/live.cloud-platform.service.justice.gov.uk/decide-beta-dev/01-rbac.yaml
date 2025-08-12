@@ -5,7 +5,7 @@ metadata:
   namespace: decide-beta-dev
 subjects:
   - kind: Group
-    name: "github:laa-decide-beta"
+    name: "github:laa-decide"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
     name: cd-serviceaccount

@@ -10,7 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-decide-beta"
+      GithubTeam = "laa-decide"
     }
   }
 }
@@ -23,7 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-decide-beta"
+      GithubTeam = "laa-decide"
     }
   }
 }
@@ -36,7 +36,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-decide-beta"
+      GithubTeam = "laa-decide"
     }
   }
 }
