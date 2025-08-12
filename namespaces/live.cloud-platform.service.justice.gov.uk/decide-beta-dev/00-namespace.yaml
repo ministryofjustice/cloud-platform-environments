@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Civil Decide Beta"
     cloud-platform.justice.gov.uk/owner: "LAA: civil-decide@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-decide"
-    cloud-platform.justice.gov.uk/team-name: "laa-decide-beta"
+    cloud-platform.justice.gov.uk/team-name: "laa-decide"
     cloud-platform.justice.gov.uk/review-after: "2025-09-25"
