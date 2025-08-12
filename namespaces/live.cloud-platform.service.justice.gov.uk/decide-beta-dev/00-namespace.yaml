@@ -4,7 +4,7 @@ metadata:
   name: "decide-beta-dev"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "uat"
+    cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"

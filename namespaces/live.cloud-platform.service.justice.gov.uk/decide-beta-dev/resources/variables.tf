@@ -67,8 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-variable "serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-decide-github-action-service-account"
-}
