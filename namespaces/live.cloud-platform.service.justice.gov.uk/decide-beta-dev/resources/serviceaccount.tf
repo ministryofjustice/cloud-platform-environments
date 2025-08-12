@@ -3,10 +3,8 @@ module "serviceaccount" {
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
-  serviceaccount_name = var.serviceaccount_name
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = ["laa-decide"]
-  github_environments = ["uat"]
 }
