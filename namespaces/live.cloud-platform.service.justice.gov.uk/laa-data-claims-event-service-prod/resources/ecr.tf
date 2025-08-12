@@ -50,10 +50,10 @@ module "ecr" {
         },
         {
           "rulePriority": 3,
-          "description": "Keep last 10 pre-production images",
+          "description": "Keep last 10 staging images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPatternList": ["preprod*"],
+            "tagPatternList": ["staging*"],
             "countType": "imageCountMoreThan",
             "countNumber": 10
           },
@@ -63,10 +63,10 @@ module "ecr" {
         },
         {
           "rulePriority": 4,
-          "description": "Keep last 10 test images",
+          "description": "Keep last 10 uat images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPatternList": ["test*"],
+            "tagPatternList": ["uat*"],
             "countType": "imageCountMoreThan",
             "countNumber": 10
           },
