@@ -1,4 +1,4 @@
-module "opensearch_alert" {
+module "opensearch_bots_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2" #use the latest version
 
     secret_name                    = "live-certificated-bailiffs-preprod-a2bfb8b5b867cbf6"
