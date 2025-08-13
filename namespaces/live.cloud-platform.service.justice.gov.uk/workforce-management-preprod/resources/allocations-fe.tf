@@ -3,6 +3,7 @@ module "manage_a_workforce_ui_preprod" {
   github_repo                   = "manage-a-workforce-ui"
   application                   = "manage-a-workforce-ui"
   github_team                   = "manage-a-workforce"
+  reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "preprod"
