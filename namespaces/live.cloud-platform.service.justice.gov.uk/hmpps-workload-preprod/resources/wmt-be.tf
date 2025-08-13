@@ -3,6 +3,7 @@ module "wmt_worker_preprod" {
   github_repo                   = "wmt-worker"
   application                   = "wmt-worker"
   github_team                   = "manage-a-workforce"
+  reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "preprod"
