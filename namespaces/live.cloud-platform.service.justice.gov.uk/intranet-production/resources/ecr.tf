@@ -8,10 +8,10 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep newest 5 fpm images",
+        "description": "Keep newest 5 images that are tagged with fpm-* and main",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["fpm-"],
+          "tagPatternList": ["fpm-*", "main"],
           "countType": "imageCountMoreThan",
           "countNumber": 5
         },
@@ -21,10 +21,10 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep newest 5 nginx images",
+        "description": "Keep newest 5 images that are tagged with nginx-* and main",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["nginx-"],
+          "tagPatternList": ["nginx-*", "main"],
           "countType": "imageCountMoreThan",
           "countNumber": 5
         },
@@ -34,12 +34,37 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 3,
-        "description": "Keep newest 5 cron images",
+        "description": "Keep newest 5 images that are tagged with cron-* and main",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["cron-"],
+          "tagPatternList": ["cron-*", "main"],
           "countType": "imageCountMoreThan",
           "countNumber": 5
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 4,
+        "description": "Keep newest 15 images that are tagged with qa",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPatternList": ["qa"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 15
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 5,
+        "description": "Keep the newest 100 images (that don't match the above rules)",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 100
         },
         "action": {
           "type": "expire"
