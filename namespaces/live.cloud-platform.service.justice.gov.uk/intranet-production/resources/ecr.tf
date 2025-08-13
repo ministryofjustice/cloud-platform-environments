@@ -47,12 +47,12 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 4,
-        "description": "Keep newest 15 images that are tagged with qa",
+        "description": "Keep newest 5 images that are tagged with s3-push-* and main",
         "selection": {
           "tagStatus": "tagged",
-          "tagPatternList": ["qa"],
+          "tagPatternList": ["s3-push-*", "main"],
           "countType": "imageCountMoreThan",
-          "countNumber": 15
+          "countNumber": 5
         },
         "action": {
           "type": "expire"
@@ -60,6 +60,19 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 5,
+        "description": "Keep newest 20 images that are tagged with qa",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPatternList": ["qa"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 20
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 6,
         "description": "Keep the newest 100 images (that don't match the above rules)",
         "selection": {
           "tagStatus": "any",
