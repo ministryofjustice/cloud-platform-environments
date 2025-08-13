@@ -1,7 +1,7 @@
-module "hmpps_workload_dev" {
+module "wmt_web_dev" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.1.0"
-  github_repo                   = "hmpps-workload"
-  application                   = "hmpps-workload"
+  github_repo                   = "wmt-web"
+  application                   = "wmt-web"
   github_team                   = "manage-a-workforce"
   reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
