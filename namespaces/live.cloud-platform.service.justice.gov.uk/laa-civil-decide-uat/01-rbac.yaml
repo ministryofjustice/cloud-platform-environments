@@ -5,7 +5,7 @@ metadata:
   namespace: laa-civil-decide-uat
 subjects:
   - kind: Group
-    name: "github:laa-civil-decide"
+    name: "github:laa-decide"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

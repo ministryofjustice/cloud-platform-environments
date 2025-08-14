@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-decide"]
+  github_repositories = ["laa-civil-decide"]
 
   # Tags
   business_unit          = var.business_unit
