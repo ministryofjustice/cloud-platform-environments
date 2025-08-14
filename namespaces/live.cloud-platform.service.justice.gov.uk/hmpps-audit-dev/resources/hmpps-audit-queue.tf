@@ -1,5 +1,5 @@
 module "hmpps_audit_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -230,3 +230,129 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
     sqs_queue_name = module.hmpps_audit_users_dead_letter_queue.sqs_name
   }
 }
+
+resource "kubernetes_secret" "approved_audit_user_client_arns" {
+    metadata {
+        name = "approved-audit-user-client-arns"
+        namespace = var.namespace
+    }
+}
+
+data "kubernetes_secret" "approved_audit_user_client_arns" {
+  metadata {
+    name      = kubernetes_secret.approved_audit_user_client_arns.metadata[0].name
+    namespace = var.namespace
+  }
+}
+
+locals {
+  # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
+  audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
+  arns_with_manage_access = [
+    module.hmpps-audit-api-irsa.role_arn,
+    module.hmpps_audit_users_queue.sqs_arn,
+    module.hmpps_audit_users_dead_letter_queue.sqs_arn
+  ]
+}
+
+resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
+  queue_url = module.hmpps_audit_users_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_audit_users_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Sid": "DenyAuditUserQueueManage",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "NotAction": "sqs:SendMessage",
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": "${local.arns_with_manage_access}"
+                }
+            }
+        },
+        {
+          "Sid": "DenyAuditUserQueueSend",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action" = "sqs:SendMessage",
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": "${concat(local.audit_user_client_arns, local.arns_with_manage_access)}"
+                }
+            }
+        },
+        {
+          "Sid": "AllowAuditUserQueueSend",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": ${local.audit_user_client_arns}
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action": "sqs:SendMessage"
+        },
+        {
+          "Sid": "AllowAuditUserQueueManage",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": ${local.arns_with_manage_access}
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "NotAction": "sqs:*"
+        }
+      ]
+  }
+
+EOF
+
+}
+
+resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
+  queue_url = module.hmpps_audit_users_dead_letter_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Sid": "DenyAuditUserDeadLetterQueueAll",
+          "Effect": "Deny",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}",
+          "Action": "sqs:*",
+          "Condition":
+            {
+              "ArnNotEquals":
+                {
+                  "aws:PrincipalArn": "${local.arns_with_manage_access}"
+                }
+            }
+        },
+        {
+          "Sid": "AllowAuditDeadLetterUserQueueManage",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": ${local.arns_with_manage_access}
+          },
+          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Action": "sqs:*"
+        }
+      ]
+  }
+
+EOF
+
+}
+

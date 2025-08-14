@@ -47,6 +47,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "approved_audit_user_clients" {
+  type    = list(string)
+  default = []
+}
+
+
 variable "kubernetes_cluster" {}
 
 variable "eks_cluster_name" {}
