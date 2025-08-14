@@ -1,7 +1,7 @@
 module "sqs" {
   source                          = "./modules/sqs"
   queue_name                      = "${var.namespace}-sqs-queue"
-  sqs_queue_subscriber_namespaces = ["laa-landing-page-dev"]
+  sqs_queue_subscriber_namespaces = ["laa-landing-page-test"]
   fifo_queue                      = true
   business_unit                   = var.business_unit
   application                     = var.application
