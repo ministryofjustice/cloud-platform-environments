@@ -19,3 +19,11 @@ module "hmpps_person_match_irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+module "hmpps_person_match_service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.hmpps_person_match_irsa.service_account.name
+}
