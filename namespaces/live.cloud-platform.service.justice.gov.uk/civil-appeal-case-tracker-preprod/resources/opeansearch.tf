@@ -157,5 +157,6 @@ module "opensearch_alert" {
         }
       }
     )
+    
   }
   
