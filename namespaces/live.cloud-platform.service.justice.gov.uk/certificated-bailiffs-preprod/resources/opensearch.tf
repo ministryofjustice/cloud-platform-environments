@@ -90,7 +90,7 @@ module "opensearch_dos_alert" {
     monitor_period_unit            = "MINUTES"
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "certificated-bailiffs-preprod-dos"
-    serverity                      = "1"
+    serverity                      = "2"
     query_source                   = "ctx.results[0].hits.total.value > 50"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod DoS Alert"
