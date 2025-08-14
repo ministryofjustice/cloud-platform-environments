@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "laa-civil-decide"
     cloud-platform.justice.gov.uk/application: "LAA Civil Decide"
     cloud-platform.justice.gov.uk/owner: "LAA Civil Decide: civil-decide@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-decide"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-civil-decide"
     cloud-platform.justice.gov.uk/team-name: "laa-decide"
     cloud-platform.justice.gov.uk/review-after: ""
