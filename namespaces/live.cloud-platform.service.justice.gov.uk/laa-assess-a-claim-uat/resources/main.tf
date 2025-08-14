@@ -44,7 +44,7 @@ locals {
     "environment-name" = var.environment
     "owner"            = var.team_name
     "namespace"        = var.namespace
-    "source-code"      = "https://github.com/ministryofjustice/laa-assess-a-claim"
+    "source-code"      = var.source_code
     "slack-channel"    = var.slack_channel
     "GithubTeam"       = var.team_name
   }
