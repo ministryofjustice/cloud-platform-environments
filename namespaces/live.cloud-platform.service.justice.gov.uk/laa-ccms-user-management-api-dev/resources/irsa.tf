@@ -7,7 +7,7 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "irsa-sqs-${var.namespace}"
   namespace            = var.namespace
-  
+
   role_policy_arns = {
     sqs = module.sqs.irsa_policy_arn
   }
