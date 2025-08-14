@@ -21,7 +21,7 @@ module "queue" {
 module "dlq" {
   source          = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
   sqs_name        = "${var.queue_name}-dlq"
-  fifo_queue      = false
+  fifo_queue      = var.fifo_queue
   encrypt_sqs_kms = var.encrypted_queue
 
   # Tags
