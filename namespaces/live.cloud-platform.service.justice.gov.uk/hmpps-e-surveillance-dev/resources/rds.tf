@@ -33,3 +33,16 @@ resource "kubernetes_secret" "rds" {
     database_url          = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
+
+resource "kubernetes_secret" "rds-spring" {
+  metadata {
+    name      = "rds-spring"
+    namespace = var.namespace
+  }
+
+  data = {
+    SPRING_DATASOURCE_USERNAME = module.rds.database_username
+    SPRING_DATASOURCE_PASSWORD = module.rds.database_password
+    SPRING_DATASOURCE_URL = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}
