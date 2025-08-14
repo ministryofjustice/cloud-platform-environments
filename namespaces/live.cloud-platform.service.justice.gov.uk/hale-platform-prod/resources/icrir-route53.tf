@@ -115,7 +115,7 @@ resource "aws_route53_record" "icrir_route53_txt_dmarc" {
   name    = "_dmarc.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100; sp=reject"]
+  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100;"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_belfast" {
