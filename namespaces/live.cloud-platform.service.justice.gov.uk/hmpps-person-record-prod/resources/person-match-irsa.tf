@@ -20,7 +20,7 @@ module "hmpps_person_match_irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "service_pod" {
+module "hmpps_person_match_service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
 
   # Configuration
