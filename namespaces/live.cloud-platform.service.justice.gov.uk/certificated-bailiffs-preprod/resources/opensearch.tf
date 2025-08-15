@@ -90,16 +90,15 @@ module "opensearch_dos_alert" {
     monitor_period_unit            = "MINUTES"
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "certificated-bailiffs-preprod-dos"
-    serverity                      = "1"
-    query_source                   = "ctx.results[0].hits.total.value > 10"
+    serverity                      = "2"
+    query_source                   = "ctx.results[0].hits.total.value > 50"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod DoS Alert"
     alert_throttle_enabled         = true
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results[0].aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results[0].aggregations.top_ips.buckets}}"
-                                      
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
     alert_query = jsonencode(
       {
         "size": 20,

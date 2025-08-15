@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-data-stewardship-access-dev
+  namespace: laa-assess-a-claim-uat
 spec:
   hard:
     pods: "50"

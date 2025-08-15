@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-data-stewardship-access-dev-admin
-  namespace: laa-data-stewardship-access-dev
+  name: laa-assess-a-claim-uat-admin
+  namespace: laa-assess-a-claim-uat
 subjects:
   - kind: Group
-    name: "github:laa-data-stewardship-access-team"
+    name: "github:laa-claim-and-assess"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
