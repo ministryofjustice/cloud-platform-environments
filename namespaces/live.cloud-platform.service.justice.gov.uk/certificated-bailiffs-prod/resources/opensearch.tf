@@ -128,22 +128,15 @@ module "opensearch_alert" {
               },
               {
                 "bool": {
-                  "should": [
-                    {
-                      "match_phrase": {
-                        "log_processed.kubernetes_namespace": {
-                          "query": "certificated-bailiffs-prod",
-                          "slop": 0,
-                          "zero_terms_query": "NONE",
-                          "boost": 1
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "log_processed.kubernetes_namespace": "certificated-bailiffs-prod"
                         }
                       }
-                    }
-                  ],
-                  "adjust_pure_negative": true,
-                  "minimum_should_match": "1",
-                  "boost": 1
-                }
+                    ],
+                    "minimum_should_match": 1
+                  }
               }
             ]
           }
