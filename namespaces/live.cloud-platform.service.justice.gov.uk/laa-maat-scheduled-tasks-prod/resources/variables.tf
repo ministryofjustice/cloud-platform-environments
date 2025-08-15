@@ -77,11 +77,6 @@ variable "user_pool_name" {
   default     = "maat-scheduled-tasks-prod-userpool"
 }
 
-variable "cognito_user_pool_client_name_maat" {
-  description = "Cognito user pool client - MAAT"
-  default     = "maat-prod"
-}
-
 variable "cognito_user_pool_client_name_billing" {
   description = "Cognito user pool client - Billing"
   default     = "billing-prod"
