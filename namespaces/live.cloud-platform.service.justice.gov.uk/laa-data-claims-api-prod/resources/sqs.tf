@@ -10,6 +10,3 @@ module "sqs_queue" {
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
 }
-
-laa-dstew-payments
-laa-data-stewardship-payments-team
