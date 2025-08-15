@@ -5,6 +5,7 @@ module "hmpps_person_match_score" {
   github_team                   = var.team_name
   environment                   = var.environment
   is_production                 = var.is_production
+  reviewer_teams                = [var.team_name]
   application_insights_instance = var.environment
   source_template_repo          = "none"
   github_token                  = var.github_token
