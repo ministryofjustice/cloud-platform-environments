@@ -1,7 +1,7 @@
 
 module "sqs_queue" {
   source                            = "./modules/sqs"
-  queue_name                        = "${var.namespace}-sqs-queue"
+  queue_name                        = "claims-api-sqs-queue"
   sqs_queue_subscriber_namespaces = ["laa-data-claims-event-service-staging"]
   business_unit                     = var.business_unit
   application                       = var.application
