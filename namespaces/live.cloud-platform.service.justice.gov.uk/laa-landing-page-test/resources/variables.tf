@@ -6,6 +6,7 @@ variable "vpc_name" {
 variable "eks_cluster_name" {
   type        = string
   description = "eks_cluster_name"
+  default     = "live"
 }
 
 variable "kubernetes_cluster" {
