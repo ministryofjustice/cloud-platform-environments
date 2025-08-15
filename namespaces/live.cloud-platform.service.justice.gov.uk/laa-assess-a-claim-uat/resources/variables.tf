@@ -11,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "dstew-access-service"
+  default     = "LAA Assess a Claim service"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-data-stewardship-access-dev"
+  default     = "laa-assess-a-claim-uat"
 }
 
 variable "business_unit" {
@@ -29,19 +29,19 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-data-stewardship-access-team"
+  default     = "laa-claim-and-assess"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dstew-access@justice.gov.uk"
+  default     = "laa-claim-and-assess-mailbox@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-data-stewardship-access"
+  default     = "laa-e2e-claimandassess"
 }
 
 variable "github_owner" {
@@ -68,40 +68,8 @@ variable "github_token" {
   default     = ""
 }
 
-# Additions
-variable "eks_cluster_name" {
-  description = "Required by the cloud-platform-terraform-secrets-manager module"
+variable "source_code" {
   type        = string
-}
-
-variable "github_environment_name" {
-  description = "Used to create GitHub secrets into the right GitHub environment"
-  type        = string
-  default     = "dev"
-}
-
-variable "github_actions_secret_kube_cluster" {
-  description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_ACCESS_DEV" # overridden from "KUBE_CLUSTER"
-}
-
-variable "github_actions_secret_kube_namespace" {
-  description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_ACCESS_DEV" # overridden from "KUBE_NAMESPACE"
-}
-
-variable "github_actions_secret_kube_cert" {
-  description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_ACCESS_DEV" # overridden from "KUBE_CERT"
-}
-
-variable "github_actions_secret_kube_token" {
-  description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_ACCESS_DEV" # overridden from "KUBE_TOKEN"
-}
-
-variable "serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-data-access-dev-service-account"
+  description = "Github respository location"
+  default     = "https://github.com/ministryofjustice/laa-assess-a-claim"
 }
