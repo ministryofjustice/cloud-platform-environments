@@ -97,7 +97,7 @@ module "opensearch_alert" {
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results[0].aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results[0].aggregations.top_ips.buckets}}"
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
                                       
     alert_query = jsonencode(
       {
@@ -127,22 +127,15 @@ module "opensearch_alert" {
               },
               {
                 "bool": {
-                  "should": [
-                    {
-                      "match_phrase": {
-                        "log_processed.kubernetes_namespace": {
-                          "query": "civil-appeal-case-tracker-preprod",
-                          "slop": 0,
-                          "zero_terms_query": "NONE",
-                          "boost": 1
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-preprod"
                         }
                       }
-                    }
-                  ],
-                  "adjust_pure_negative": true,
-                  "minimum_should_match": "1",
-                  "boost": 1
-                }
+                    ],
+                    "minimum_should_match": 1
+                  }
               }
             ]
           }
@@ -157,6 +150,5 @@ module "opensearch_alert" {
         }
       }
     )
-    
   }
   
