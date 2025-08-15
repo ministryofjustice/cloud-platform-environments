@@ -19,6 +19,7 @@ module "rds" {
   db_max_allocated_storage     = "1000"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  snapshot_identifier = "rds:cloud-platform-16a74aa5ce79e853-2025-08-14-03-24"
 
   # PostgreSQL specifics
   prepare_for_major_upgrade = false
@@ -47,7 +48,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count                        = 1
+  count                        = 0
   source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage         = 50
   storage_type                 = "gp2"
@@ -121,7 +122,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
