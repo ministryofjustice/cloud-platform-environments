@@ -109,3 +109,9 @@ variable "github_actions_secret_kube_token" {
   type        = string
   sensitive   = true
 }
+
+variable "template_bucket_name" {
+  description = "The name of the S3 bucket used for storing templates"
+  default     = "laa-get-payments-finance-data-dev-template-store"
+  type        = string
+}
