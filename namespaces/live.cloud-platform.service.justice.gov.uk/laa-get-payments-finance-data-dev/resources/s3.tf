@@ -5,7 +5,7 @@
  *
  */
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,7 +15,7 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
- // Buckets are private by default
+  # Buckets are private by default
 
   bucket_name = var.template_bucket_name
   versioning = true
