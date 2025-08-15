@@ -136,7 +136,7 @@ module "opensearch_alert" {
                     ],
                     "minimum_should_match": 1
                   }
-                },
+                }
             ]
           }
         },
