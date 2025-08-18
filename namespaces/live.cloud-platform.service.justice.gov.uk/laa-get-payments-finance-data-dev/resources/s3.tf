@@ -17,7 +17,7 @@ module "s3_bucket" {
 
   # Buckets are private by default
 
-  bucket_name = var.template_bucket_name
+  bucket_name = var.file_store_bucket_name
   versioning = true
 }
 

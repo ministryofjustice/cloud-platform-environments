@@ -15,7 +15,7 @@ module "irsa" {
     ecr = module.ecr.irsa_policy_arn
     testing_ect = module.testing_ecr.irsa_policy_arn
     data_ecr = module.data_ecr.irsa_policy_arn
-    template_store_ecr = module.s3_bucket.irsa_policy_arn
+    file_store = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
