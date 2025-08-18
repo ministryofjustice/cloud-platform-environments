@@ -7,8 +7,8 @@ locals {
     "Digital-Prison-Services-dev-hmpps_audit_queue"              = "hmpps-audit-dev",
     "Digital-Prison-Services-dev-activities_domain_events_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-activities_domain_events_dl"    = "hmpps-domain-events-dev"
-    "activities-and-appointments-dev-hmpps_activities_management_jobs_dlq" = "hmpps-domain-events-dev"
-    "activities-and-appointments-dev-hmpps_activities_management_jobs_dlq" = "hmpps-domain-events-dev"
+    # "activities-and-appointments-dev-hmpps_activities_management_jobs_dlq" = "hmpps-domain-events-dev"
+    # "activities-and-appointments-dev-hmpps_activities_management_jobs_dlq" = "hmpps-domain-events-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -38,6 +38,8 @@ module "irsa" {
     },
     { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
     { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn }
+    { (module.hmpps_activities_management_jobs_queue.sqs_name) = module.hmpps_activities_management_jobs_queue.irsa_policy_arn }
+    { (module.hmpps_activities_management_jobs_dlq.sqs_name) = module.hmpps_activities_management_jobs_dlq.irsa_policy_arn }
   )
 
   # Tags
