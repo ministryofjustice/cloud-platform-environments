@@ -35,3 +35,17 @@ resource "kubernetes_secret" "hmpps_person_record_rds" {
     url                   = "postgres://${module.hmpps_person_record_rds.database_username}:${module.hmpps_person_record_rds.database_password}@${module.hmpps_person_record_rds.rds_instance_endpoint}/${module.hmpps_person_record_rds.database_name}"
   }
 }
+
+resource "kubernetes_secret" "hmpps_person_record_preprod_rds_refresh_creds" {
+  metadata {
+    name      = "hmpps-person-record-preprod-rds-instance-output"
+    namespace = "hmpps-person-record-prod"
+  }
+
+  data = {
+    database_name         = module.hmpps_person_record_rds.database_name
+    database_username     = module.hmpps_person_record_rds.database_username
+    database_password     = module.hmpps_person_record_rds.database_password
+    rds_instance_address  = module.hmpps_person_record_rds.rds_instance_address
+  }
+}
