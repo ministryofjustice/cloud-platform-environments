@@ -21,9 +21,9 @@ module "redis" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "redis-secrets" {
+resource "kubernetes_secret" "ec-cluster-output" {
   metadata {
-    name      = "redis-secrets"
+    name      = "ec-cluster-output"
     namespace = var.namespace
   }
 
@@ -32,5 +32,17 @@ resource "kubernetes_secret" "redis-secrets" {
     member_clusters          = jsonencode(module.redis.member_clusters)
     auth_token               = module.redis.auth_token
     replication_group_id     = module.redis.replication_group_id
+  }
+}
+
+resource "kubernetes_secret" "app-redis" {
+  metadata {
+    name      = "app-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    APP_REDIS_ENDPOINT = module.redis.primary_endpoint_address
+    APP_REDIS_PASSWORD = module.redis.auth_token
   }
 }
