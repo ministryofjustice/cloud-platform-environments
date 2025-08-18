@@ -8,12 +8,12 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep newest 5 images that are tagged with fpm-* and main",
+        "description": "Keep newest 20 images that are tagged with *-main-*",
         "selection": {
           "tagStatus": "tagged",
           "tagPatternList": ["*-main-*"],
           "countType": "imageCountMoreThan",
-          "countNumber": 5
+          "countNumber": 20
         },
         "action": {
           "type": "expire"
@@ -21,7 +21,7 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep newest 20 images that are tagged with qa",
+        "description": "Keep newest 20 images that are tagged with *-qa-*",
         "selection": {
           "tagStatus": "tagged",
           "tagPatternList": ["*-qa-*"],
