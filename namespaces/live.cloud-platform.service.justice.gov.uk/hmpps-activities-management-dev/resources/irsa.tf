@@ -7,6 +7,8 @@ locals {
     "Digital-Prison-Services-dev-hmpps_audit_queue"              = "hmpps-audit-dev",
     "Digital-Prison-Services-dev-activities_domain_events_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-activities_domain_events_dl"    = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-activities-and-appointments-dev-hmpps_activities_management_jobs_queue" = "hmpps-domain-events-dev"
+    "Digital-Prison-Services-activities-and-appointments-dev-hmpps_activities_management_jobs_dlq" = "hmpps-domain-events-dev"
   }
 
   # The names of the SNS topics used and the namespace which created them
