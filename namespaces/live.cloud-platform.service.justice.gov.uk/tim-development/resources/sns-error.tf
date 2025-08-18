@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "example_sns_topic2" {
+module "example_sns_topic23" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=6.0.0"
 
   topic_display_name     = "tim-test-topic-display-name2"
