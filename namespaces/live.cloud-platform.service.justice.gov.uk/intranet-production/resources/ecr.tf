@@ -11,7 +11,7 @@ module "ecr_credentials" {
         "description": "Keep newest 5 images that are tagged with fpm-* and main",
         "selection": {
           "tagStatus": "tagged",
-          "tagPatternList": ["fpm-*", "main"],
+          "tagPatternList": ["*-main-*"],
           "countType": "imageCountMoreThan",
           "countNumber": 5
         },
@@ -21,49 +21,10 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep newest 5 images that are tagged with nginx-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["nginx-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 3,
-        "description": "Keep newest 5 images that are tagged with cron-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["cron-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 4,
-        "description": "Keep newest 5 images that are tagged with s3-push-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["s3-push-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 5,
         "description": "Keep newest 20 images that are tagged with qa",
         "selection": {
           "tagStatus": "tagged",
-          "tagPatternList": ["qa"],
+          "tagPatternList": ["*-qa-*"],
           "countType": "imageCountMoreThan",
           "countNumber": 20
         },
@@ -72,7 +33,7 @@ module "ecr_credentials" {
         }
       },
       {
-        "rulePriority": 6,
+        "rulePriority": 3,
         "description": "Keep the newest 100 images (that don't match the above rules)",
         "selection": {
           "tagStatus": "any",
