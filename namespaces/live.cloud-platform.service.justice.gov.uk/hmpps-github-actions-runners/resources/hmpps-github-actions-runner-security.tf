@@ -1,7 +1,7 @@
-module "hmpps_github_actions_runner_owasp" {
+module "hmpps_github_actions_runner_security" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo          = "hmpps-github-actions-runner-owasp"
-  application          = "hmpps-github-actions-runner-owasp"
+  github_repo          = "hmpps-github-actions-runner-security"
+  application          = "hmpps-github-actions-runner-security"
   github_team          = "hmpps-sre"
   environment          = var.environment
   is_production        = var.is_production
