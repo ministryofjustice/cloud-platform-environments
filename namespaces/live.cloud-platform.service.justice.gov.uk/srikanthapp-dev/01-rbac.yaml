@@ -5,7 +5,7 @@ metadata:
   namespace: srikanthapp-dev
 subjects:
   - kind: Group
-    name: "github:lss-sre-team"
+    name: "github:check-my-diary"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
