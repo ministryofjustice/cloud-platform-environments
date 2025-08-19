@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "dev-cot-edit-lines"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "cot-app-channel"
+    cloud-platform.justice.gov.uk/application: "View and edit cot lines"
+    cloud-platform.justice.gov.uk/owner: "COT: cotanalysis@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cot-edit-lines.git"
+    cloud-platform.justice.gov.uk/team-name: "cot-edit-lines-admins"
+    cloud-platform.justice.gov.uk/review-after: ""
