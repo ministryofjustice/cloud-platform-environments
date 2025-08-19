@@ -1,5 +1,5 @@
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-community-payback-api"
   application = "hmpps-community-payback-api"
   github_team = "hmpps-community-payback"
