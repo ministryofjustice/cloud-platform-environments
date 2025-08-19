@@ -1,4 +1,4 @@
-module "token-verification_api" {
+module "token-verification-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "token-verification-api"
   application                   = "token-verification-api"
@@ -14,7 +14,7 @@ module "token-verification_api" {
   kubernetes_cluster            = var.kubernetes_cluster
 }
 
-module "hmpps-external-users_api" {
+module "hmpps-external-users-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-users-api"
   application                   = "hmpps-external-users-api"
