@@ -1,5 +1,5 @@
 module "token_verification_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-users-api"
   application                   = "hmpps-external-users-api"
   github_team                   = "haha-live"
