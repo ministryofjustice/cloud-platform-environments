@@ -1,5 +1,5 @@
 module "court-hearing-event" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "court-hearing-event-receiver"
   application                   = "court-hearing-event-receiver"
   github_team                   = "probation-integration"
@@ -16,7 +16,7 @@ module "court-hearing-event" {
 }
 
 module "crime-portal-gateway" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "crime-portal-gateway"
   application                   = "crime-portal-gateway"
   github_team                   = "probation-integration"
