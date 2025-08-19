@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps auth hmpps audit"
+  default     = "haar"
 }
 
 variable "environment" {
@@ -52,7 +52,6 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
 
 variable "kubernetes_cluster" {}
 
