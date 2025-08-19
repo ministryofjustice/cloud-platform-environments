@@ -109,3 +109,9 @@ variable "domain" {
   default = "get-legal-aid-data.service.justice.gov.uk"
   type    = string
 }
+
+variable "file_store_bucket_name" {
+  description = "The name of the S3 bucket used for storing templates"
+  default     = "laa-get-payments-finance-data-prod-file-store"
+  type        = string
+}
