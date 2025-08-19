@@ -1,4 +1,4 @@
-module "token_verification_api" {
+module "hmpps-external-users_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-users-api"
   application                   = "hmpps-external-users-api"
