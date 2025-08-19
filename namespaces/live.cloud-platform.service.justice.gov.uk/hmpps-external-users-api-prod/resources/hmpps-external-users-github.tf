@@ -1,7 +1,7 @@
-module "hmpps-restricted-patients-api" {
+module "hmpps-external-users-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-users-api"
-  application                   = "hmpps-uxternal-users-api"
+  application                   = "hmpps-external-users-api"
   github_team                   = "haha-live"
   environment                   = var.environment
   is_production                 = var.is_production
