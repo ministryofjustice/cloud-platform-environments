@@ -1,7 +1,7 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name = var.eks_cluster_name
-  service_account_name = "irsa-${var.namespace}"
+  service_account_name = "irsa-landing-page-dev-${var.environment}"
   namespace            = var.namespace
   
   role_policy_arns = {
