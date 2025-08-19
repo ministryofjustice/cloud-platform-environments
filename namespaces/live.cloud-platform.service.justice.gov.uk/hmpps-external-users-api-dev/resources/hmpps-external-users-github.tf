@@ -7,7 +7,7 @@ module "hmpps-external-users_api" {
   selected_branch_patterns      = ["main"]
   protected_branches_only       = true
   is_production                 = var.is_production
-  application_insights_instance = var.environment
+  application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
