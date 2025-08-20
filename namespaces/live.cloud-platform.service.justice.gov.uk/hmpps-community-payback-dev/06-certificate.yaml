@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-community-payback-api-cert
+  name: hmpps-community-payback-dev-cert
   namespace: hmpps-community-payback-dev
 spec:
   secretName: hmpps-community-payback-api-cert
