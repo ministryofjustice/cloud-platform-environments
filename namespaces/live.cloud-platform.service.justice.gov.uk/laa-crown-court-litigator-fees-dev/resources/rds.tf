@@ -111,6 +111,16 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
+resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
+  cidr_blocks       = ["10.26.60.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Allows Hub 2.0 Lambda in MP Dev to connect to CCLF DB"
+}
+
 resource "kubernetes_secret" "rds-instance-migrated" {
   metadata {
     name      = "rds-cclf-${var.environment}"
