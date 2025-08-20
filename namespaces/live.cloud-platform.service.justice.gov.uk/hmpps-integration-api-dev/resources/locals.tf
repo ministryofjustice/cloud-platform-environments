@@ -33,7 +33,8 @@ locals {
     "smoke-test-no-access",
     "test",
     "pmcphee",
-    "geoamey"
+    "geoamey",
+    "zkhan"
   ]
 
   client_queues = {
