@@ -10,6 +10,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - community-payback-dev.hmpps.service.justice.gov.uk
+    - community-payback-api-dev.hmpps.service.justice.gov.uk
 
 ---
