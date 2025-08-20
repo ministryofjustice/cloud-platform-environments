@@ -57,3 +57,15 @@ resource "kubernetes_secret" "person_id_sns_topic" {
     topic_arn = module.sns_topic_person_id.topic_arn
   }
 }
+
+resource "aws_sns_topic_subscription" "file_upload_ingest" {
+  topic_arn = module.sns_topic_file_upload.topic_arn
+  protocol  = "https"
+  endpoint  = "${var.base_url}/ingest"
+}
+
+resource "aws_sns_topic_subscription" "person_id_ingest_events" {
+  topic_arn = module.sns_topic_person_id.topic_arn
+  protocol  = "https"
+  endpoint  = "${var.base_url}/ingest/events"
+}
