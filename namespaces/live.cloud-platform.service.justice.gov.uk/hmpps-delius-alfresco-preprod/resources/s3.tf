@@ -32,7 +32,7 @@ module "s3_bucket" {
     },
     {
       id     = "delete-all-objects"
-      status = "Enabled"
+      enabled = true
 
       # Delete current objects
       expiration = [
