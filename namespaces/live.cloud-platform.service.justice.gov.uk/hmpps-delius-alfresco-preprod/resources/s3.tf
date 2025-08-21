@@ -11,7 +11,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
-      enabled = true
+      enabled = false
 
       noncurrent_version_transition = [
         {
@@ -29,6 +29,25 @@ module "s3_bucket" {
           days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
         },
       ]
+    },
+    {
+      id     = "delete-all-objects"
+      status = "Enabled"
+
+      # Delete current objects
+      expiration {
+        days = 1
+      }
+
+      # Delete previous versions
+      noncurrent_version_expiration {
+        days = 1
+      }
+
+      # Remove expired delete markers automatically
+      abort_incomplete_multipart_upload {
+        days_after_initiation = 1
+      }
     }
   ]
 }
