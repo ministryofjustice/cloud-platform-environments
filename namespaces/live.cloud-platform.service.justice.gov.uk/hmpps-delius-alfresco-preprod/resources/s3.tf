@@ -35,14 +35,18 @@ module "s3_bucket" {
       status = "Enabled"
 
       # Delete current objects
-      expiration {
-        days = 1
-      }
+      expiration = [
+        {
+          days = 1
+        }
+      ]
 
       # Delete previous versions
-      noncurrent_version_expiration {
-        days = 1
-      }
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        }
+      ]
 
       # Remove expired delete markers automatically
       abort_incomplete_multipart_upload {
