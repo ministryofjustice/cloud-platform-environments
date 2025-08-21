@@ -13,6 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers        = ["github"]
   github_repositories   = ["laa-civil-decide"]
+  github_environments   = ["staging"]
   github_actions_prefix = "staging"
 
   # Tags
