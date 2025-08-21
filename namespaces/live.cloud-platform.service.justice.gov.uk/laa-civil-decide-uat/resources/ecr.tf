@@ -11,8 +11,10 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-civil-decide"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-civil-decide"]
+  github_environments   = ["uat"]
+  github_actions_prefix = ["uat"]
 
   # Tags
   business_unit          = var.business_unit
