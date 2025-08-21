@@ -26,6 +26,7 @@ module "rds" {
   db_engine_version = "17.4"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
+  snapshot_identifier = "rds:cloud-platform-16a74aa5ce79e853-2025-08-18-03-29"
 
   # Tags
   application            = var.application
