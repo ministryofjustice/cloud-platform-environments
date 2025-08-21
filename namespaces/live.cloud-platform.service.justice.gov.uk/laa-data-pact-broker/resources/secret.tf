@@ -8,7 +8,6 @@ module "secrets_manager_multiple_secrets" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
     "pact-broker-basic-auth-username" = {
