@@ -16,7 +16,7 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "PACT_BROKER_BASIC_AUTH_USERNAME" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "pact-broker-basic-auth-password" = {
-      description             = "Password associated with the username for authentication.",
+      description             = "Password associated with the username for authentication with the Pact Broker",
       recovery_window_in_days = 0
       k8s_secret_name         = "PACT_BROKER_BASIC_AUTH_PASSWORD" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
