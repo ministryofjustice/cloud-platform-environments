@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "laa-data-pact-broker-secrets" = {
-      description             = "Credentials for laa-data-pact-broker",         # Required
+      description             = "Credentials for laa-data-pact-broker.",         # Required
       recovery_window_in_days = 7,                                              # Required
       k8s_secret_name         = "laa-data-pact-broker-secrets"                  # The name of the secret in k8s
     },
