@@ -11,6 +11,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
+      id     = "${var.environment_name}-lifecycle-rule"
       enabled = false
 
       noncurrent_version_transition = [
@@ -38,6 +39,7 @@ module "s3_bucket" {
       expiration = [
         {
           days = 1
+          expired_object_delete_marker = true
         }
       ]
 
