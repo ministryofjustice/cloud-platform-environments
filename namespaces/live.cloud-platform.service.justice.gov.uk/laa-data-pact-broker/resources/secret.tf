@@ -1,5 +1,4 @@
-module "secrets_manager_multiple_secrets" {
-  # source                 = "../" # use the latest release
+module "secrets_manager" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   team_name              = var.team_name
   application            = var.application
@@ -11,15 +10,10 @@ module "secrets_manager_multiple_secrets" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "pact-broker-basic-auth-username" = {
-      description             = "Username required to authenticate with the Pact Broker.",
-      recovery_window_in_days = 0
-      k8s_secret_name         = "pact-broker-basic-auth-username" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    },
-    "pact-broker-basic-auth-password" = {
-      description             = "Password associated with the username for authentication with the Pact Broker",
-      recovery_window_in_days = 0
-      k8s_secret_name         = "pact-broker-basic-auth-password" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    "laa-data-pact-broker-secrets" = {
+      description             = "Credentials for laa-data-pact-broker",         # Required
+      recovery_window_in_days = 7,                                              # Required
+      k8s_secret_name         = "laa-data-pact-broker-secrets"                  # The name of the secret in k8s
     },
   }
 }
