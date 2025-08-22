@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=feat%2irsa-output-toggle"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=irsa-output-toggle"
 
   repo_name = "${var.namespace}-ecr"
 
