@@ -3,7 +3,10 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
   protocol  = "sqs"
   endpoint  = module.esupervision-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = [
+      "esupervision.check-in.received",
+      "esupervision.check-in.expired"
+    ]
   })
 }
 
