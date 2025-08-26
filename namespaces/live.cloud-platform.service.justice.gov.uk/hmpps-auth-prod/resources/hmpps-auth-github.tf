@@ -3,11 +3,11 @@ module "hmpps-auth" {
   github_repo                   = "hmpps-auth"
   application                   = "hmpps-auth"
   github_team                   = "haha-live"
-  environment                   = var.environment-name
+  environment                   = var.environment
   selected_branch_patterns      = ["main"]
   protected_branches_only       = true
   is_production                 = var.is_production
-  application_insights_instance = var.environment-name
+  application_insights_instance = var.environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
