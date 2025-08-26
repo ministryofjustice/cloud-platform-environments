@@ -1,11 +1,3 @@
-data "aws_ssm_parameter" "sqs_queue_arn" {
-  name = "/${var.namespace}/sqs-queue-arn"
-}
-
-data "aws_ssm_parameter" "sqs_policy_arn" {
-  name = "/${var.namespace}/sqs-policy-arn"
-}
-
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name = var.eks_cluster_name
@@ -13,7 +5,7 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    sqs = data.aws_ssm_parameter.sqs_policy_arn.value
+    sqs = module.sqs_queue.irsa_policy_arn
   }
   business_unit          = var.business_unit
   application            = var.application
@@ -41,6 +33,6 @@ resource "kubernetes_secret" "sqs_queue_arn" {
     namespace = var.namespace
   }
   data = {
-    arn = data.aws_ssm_parameter.sqs_queue_arn.value
+    arn = module.sqs_queue.sqs_queue_arn
   }
 }

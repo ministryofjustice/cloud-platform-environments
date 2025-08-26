@@ -3,7 +3,6 @@ module "serviceaccount" {
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
-  serviceaccount_name = var.serviceaccount_name
   serviceaccount_rules = [
     {
       "api_groups": [
