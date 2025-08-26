@@ -18,6 +18,8 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
+  snapshot_identifier = "test-restore-mikebell-copy"
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
