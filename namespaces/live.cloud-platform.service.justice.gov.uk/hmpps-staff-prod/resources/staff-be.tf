@@ -3,6 +3,7 @@ module "hmpps_staff_prod" {
   github_repo                   = "hmpps-staff-lookup-service"
   application                   = "hmpps-staff-lookup-service"
   github_team                   = "manage-a-workforce"
+  reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "prod"
