@@ -4,25 +4,23 @@
  * releases page of this repository.
  *
  */
-module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+# module "ecr" {
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
 
-  # Repository configuration
-  repo_name = var.namespace
+#   # Repository configuration
+#   repo_name = var.namespace
 
-  # OpenID Connect configuration
-  oidc_providers        = ["github"]
-  github_repositories   = ["laa-civil-decide"]
-  github_environments   = ["uat"]
+#   # OpenID Connect configuration
+#   oidc_providers        = ["github"]
+#   github_repositories   = ["laa-civil-decide"]
+#   github_environments   = ["uat"]
 
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-
-  deletion_protection = false
-}
+#   # Tags
+#   business_unit          = var.business_unit
+#   application            = var.application
+#   is_production          = var.is_production
+#   team_name              = var.team_name # also used for naming the container repository
+#   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+# }
