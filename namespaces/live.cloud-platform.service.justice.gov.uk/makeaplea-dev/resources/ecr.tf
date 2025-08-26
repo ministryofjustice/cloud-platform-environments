@@ -10,6 +10,9 @@ module "ecr_credentials" {
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["circleci"]
 
+  # prepare for environment removal
+  deletion_protection = false
+
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = ["manchester_traffic_offences_pleas", "makeaplea_dx"]
 
