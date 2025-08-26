@@ -32,17 +32,16 @@ module "s3_bucket" {
       ]
     },
     {
-      id     = "delete-all-objects"
+      id     = "Expire current objects"
       enabled = true
 
-      # Delete current objects
       expiration = [
         {
-          expired_object_delete_marker = true
+          days = 1
         }
       ]
 
-      # Delete previous versions
+      # expire previous versions
       noncurrent_version_expiration = [
         {
           days = 1
@@ -53,6 +52,16 @@ module "s3_bucket" {
       abort_incomplete_multipart_upload = [
         {
           days_after_initiation = 1
+        }
+      ]
+    },
+    {
+      id     = "Clean up delete markers"
+      enabled = true
+
+      expiration = [
+        {
+          expired_object_delete_marker = true
         }
       ]
     }
