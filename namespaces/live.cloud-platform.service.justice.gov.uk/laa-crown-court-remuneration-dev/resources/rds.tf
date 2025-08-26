@@ -127,7 +127,7 @@ resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
 
 #RDS role to access HUB 2.0 S3 Bucket
 resource "aws_iam_role" "rds_s3_access" {
-  name = "rds-hub20-s3-access"
+  name = "ccr-rds-hub20-s3-access"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -144,7 +144,7 @@ resource "aws_iam_role" "rds_s3_access" {
 }
 
 resource "aws_iam_policy" "rds_s3_access_policy" {
-  name        = "rds-hub20-s3-bucket-policy"
+  name        = "ccr-rds-hub20-s3-bucket-policy"
   description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket"
 
   policy = jsonencode({
