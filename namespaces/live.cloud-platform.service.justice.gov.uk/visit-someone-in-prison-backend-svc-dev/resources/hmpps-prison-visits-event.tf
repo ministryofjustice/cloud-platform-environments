@@ -26,6 +26,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "prison-offender-events.prisoner.contact-approved",
       "prison-offender-events.prisoner.contact-unapproved",
       "appointments.appointment-instance.created",
+      "appointments.appointment-instance.updated",
       "appointments.appointment-instance.cancelled",
       "appointments.appointment-instance.deleted",
     ]
