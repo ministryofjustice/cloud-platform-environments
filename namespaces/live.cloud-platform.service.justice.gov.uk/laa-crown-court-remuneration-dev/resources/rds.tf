@@ -126,7 +126,7 @@ resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
 }
 
 #RDS role to access HUB 2.0 S3 Bucket
-resource "aws_iam_role" "rds_s3_access" {
+resource "aws_iam_role" "ccr_rds_s3_access" {
   name = "rds-hub20-s3-access"
 
   assume_role_policy = jsonencode({
@@ -143,7 +143,7 @@ resource "aws_iam_role" "rds_s3_access" {
   })
 }
 
-resource "aws_iam_policy" "rds_s3_access_policy" {
+resource "aws_iam_policy" "ccr_rds_s3_access_policy" {
   name        = "rds-hub20-s3-bucket-policy"
   description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket"
 
@@ -168,15 +168,15 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "rds_s3_access_policy_attachment" {
-  role       = aws_iam_role.rds_s3_access.name
-  policy_arn = aws_iam_policy.rds_s3_access_policy.arn
+resource "aws_iam_role_policy_attachment" "ccr_rds_s3_access_policy_attachment" {
+  role       = aws_iam_role.ccr_rds_s3_access.name
+  policy_arn = aws_iam_policy.ccr_rds_s3_access_policy.arn
 }
 
-resource "aws_db_instance_role_association" "rds_s3_role_association" {
+resource "aws_db_instance_role_association" "ccr_rds_s3_role_association" {
   db_instance_identifier = module.rds-mtn.db_identifier
   feature_name           = "S3_INTEGRATION"
-  role_arn               = aws_iam_role.rds_s3_access.arn
+  role_arn               = aws_iam_role.ccr_rds_s3_access.arn
 }
 
 resource "kubernetes_secret" "rds-instance" {
