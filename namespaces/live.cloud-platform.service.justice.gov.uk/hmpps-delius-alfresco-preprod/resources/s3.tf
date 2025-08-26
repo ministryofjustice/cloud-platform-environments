@@ -47,13 +47,6 @@ module "s3_bucket" {
           days = 1
         }
       ]
-
-      # Remove expired delete markers automatically
-      abort_incomplete_multipart_upload = [
-        {
-          days_after_initiation = 1
-        }
-      ]
     },
     {
       id     = "Clean up delete markers"
@@ -62,6 +55,15 @@ module "s3_bucket" {
       expiration = [
         {
           expired_object_delete_marker = true
+        }
+      ]
+    },
+    {
+      id     = "Abort incomplete uploads automatically"
+      enabled = true
+      abort_incomplete_multipart_upload = [
+        {
+          days_after_initiation = 1
         }
       ]
     }
