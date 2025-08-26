@@ -3,7 +3,6 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
   service_account_name = "irsa-sqs-${var.namespace}"
   namespace            = var.namespace
-  create_service_account = false
 
   role_policy_arns = {
     sqs = module.sqs_queue.irsa_policy_arn
