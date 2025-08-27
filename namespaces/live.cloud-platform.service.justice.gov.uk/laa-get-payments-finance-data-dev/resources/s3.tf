@@ -24,7 +24,7 @@ module "s3_bucket" {
   oidc_providers = ["github"]
   github_repositories = ["payforlegalaid"]
   github_environments = ["development"]
-  github_actions_prefix = ["FILE_STORE_"]
+  github_actions_prefix = "FILE_STORE_"
 
 }
 
