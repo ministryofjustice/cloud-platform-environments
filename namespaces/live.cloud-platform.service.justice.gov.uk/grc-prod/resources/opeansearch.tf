@@ -85,13 +85,13 @@ module "opensearch_dos_alert" {
   slack_channel_name_description = "DTS Legacy Services Production Alerts"
   opensearch_alert_name          = "grc-prod-dos"
   opensearch_alert_enabled       = true
-  monitor_period_interval        = "10"
+  monitor_period_interval        = "60"
   monitor_period_unit            = "MINUTES"
   index                          = ["live_kubernetes_ingress-*"]
 
   trigger_name                   = "grc-prod-dos"
   serverity                      = "2"
-  query_source                   = "ctx.results[0].hits.total.value > 75"
+  query_source                   = "ctx.results[0].hits.total.value > 200"
   action_name                    = "grc-prod-send-alert"
   slack_message_subject          = "GRC Prod DOS Alert"
   slack_message_template         = "GRC Prod Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
@@ -138,7 +138,7 @@ module "opensearch_dos_alert" {
             {
               "range": {
                 "@timestamp": {
-                  "gte": "now-10m",
+                  "gte": "now-60m",
                   "lte": "now"
                 }
               }
