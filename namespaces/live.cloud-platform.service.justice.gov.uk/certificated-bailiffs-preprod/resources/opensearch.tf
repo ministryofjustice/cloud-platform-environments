@@ -86,12 +86,12 @@ module "opensearch_dos_alert" {
     slack_channel_name_description = "DTS Legacy Service Pre-Production Alerts"
     opensearch_alert_name          = "certificated-bailiffs-preprod-dos"
     opensearch_alert_enabled       = true
-    monitor_period_interval        = "10"
+    monitor_period_interval        = "60"
     monitor_period_unit            = "MINUTES"
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "certificated-bailiffs-preprod-dos"
     serverity                      = "2"
-    query_source                   = "ctx.results[0].hits.total.value > 50"
+    query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 25)"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod DoS Alert"
     alert_throttle_enabled         = true
@@ -121,7 +121,7 @@ module "opensearch_dos_alert" {
               {
                 "range": {
                   "@timestamp": {
-                    "gte": "now-10m",
+                    "gte": "now-60m",
                     "lte": "now"
                   }
                 }
