@@ -25,7 +25,7 @@ spec:
             severity: laa-benefit-checker-prod
             namespace: laa-benefit-checker-prod
           annotations:
-            message: There has been an increase in server error responses from the Application Tracking Service running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
+            message: There has been an increase in server error responses from the Benefit Checker running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/b3sn32it8ai4ml5kwfkj5f4de91ko9bc/laa-benefit-checker?var-namespace=laa-benefit-checker-prod
         - alert: JVM CPU Usage
           expr: (process_cpu_usage{namespace="laa-benefit-checker-prod"} * 100) > 95
@@ -94,7 +94,7 @@ spec:
             severity: laa-benefit-checker-prod
             namespace: laa-benefit-checker-prod
           annotations:
-            message: There had been an error in the logs of the Application Tracking Service in the past 10 minutes. This indicates that there may be a bug with the application.
+            message: There had been an error in the logs of the Benefit Checker in the past 10 minutes. This indicates that there may be a bug with the application.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/b3sn32it8ai4ml5kwfkj5f4de91ko9bc/laa-benefit-checker?var-namespace=laa-benefit-checker-prod
         - alert: Instance-Down
@@ -104,7 +104,7 @@ spec:
             severity: laa-benefit-checker-prod
             namespace: laa-benefit-checker-prod
           annotations:
-            message: The production instance of the Application Tracking Service has been down for >1m.
+            message: The production instance of the Benefit Checker has been down for >1m.
         - alert: Quota-Exceeded
           expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-benefit-checker-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-benefit-checker-prod"} > 0) > 90
           for: 1m
