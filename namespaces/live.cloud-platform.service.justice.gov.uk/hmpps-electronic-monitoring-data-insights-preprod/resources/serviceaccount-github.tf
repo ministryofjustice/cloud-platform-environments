@@ -98,8 +98,8 @@ resource "time_rotating" "weekly" {
 data "github_team" "hmpps-sre" {
 slug = "hmpps-sre"
 }   
-data "github_team" "hmpps-em-probation" {
-slug = "hmpps-em-probation"
+data "github_team" "hmpps-em-probation-live" {
+slug = "hmpps-em-probation-live"
 }   
 
 ##########################################################################
@@ -113,7 +113,7 @@ resource "github_repository_environment" "env" {
   reviewers {
     teams = [ 
       tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-em-probation.id)
+      tonumber(data.github_team.hmpps-em-probation-live.id)
     ]
   }
   deployment_branch_policy {
