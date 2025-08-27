@@ -2,7 +2,7 @@ module "hmpps_electronic_monitoring_crime_matching_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo = "hmpps-electronic-monitoring-crime-matching-ui"
   application = "hmpps-electronic-monitoring-crime-matching-ui"
-  github_team = "hmpps-em-probation-dev"
+  github_team = "hmpps-em-probation-devs"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional

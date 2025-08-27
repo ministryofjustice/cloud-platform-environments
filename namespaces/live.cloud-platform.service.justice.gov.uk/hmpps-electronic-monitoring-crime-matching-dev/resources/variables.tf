@@ -30,7 +30,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-em-probation-dev"
+  default     = "hmpps-em-probation-devs"
 }
 
 ####################################################################################################################

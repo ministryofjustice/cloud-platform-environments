@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Electronic Monitoring Crime Mapping"
     cloud-platform.justice.gov.uk/owner: "HMPPS Community of Practice: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-crime-matching-api.git,https://github.com/ministryofjustice/hmpps-electronic-monitoring-crime-matching-ui.git"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-em-probation-dev"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-em-probation-devs"

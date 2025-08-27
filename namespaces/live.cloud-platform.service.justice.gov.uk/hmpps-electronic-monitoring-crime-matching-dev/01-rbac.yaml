@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-electronic-monitoring-crime-matching-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-em-probation-dev"
+    name: "github:hmpps-em-probation-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
