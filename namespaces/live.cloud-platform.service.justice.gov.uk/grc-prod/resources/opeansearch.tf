@@ -91,7 +91,7 @@ module "opensearch_dos_alert" {
 
   trigger_name                   = "grc-prod-dos"
   serverity                      = "2"
-  query_source                   = "ctx.results[0].hits.total.value > 200"
+  query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 150)"
   action_name                    = "grc-prod-send-alert"
   slack_message_subject          = "GRC Prod DOS Alert"
   slack_message_template         = "GRC Prod Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
