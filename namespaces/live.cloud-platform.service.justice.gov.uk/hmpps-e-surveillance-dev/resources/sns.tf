@@ -1,3 +1,6 @@
+
+# SNS Topics
+
 module "sns_topic_file_upload" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
   topic_display_name = "${var.namespace}-file-upload-sns"
@@ -18,7 +21,7 @@ module "sns_topic_file_upload" {
 
 module "sns_topic_person_id" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
-  topic_display_name          = "${var.namespace}-person-id-sns"
+  topic_display_name = "${var.namespace}-person-id-sns"
 
   encrypt_sns_kms             = true
   fifo_topic                  = false
@@ -34,11 +37,90 @@ module "sns_topic_person_id" {
   namespace        = var.namespace
 }
 
-resource "kubernetes_secret" "file_upload_sns_topic" {
-  metadata {
-    name = "file-upload-sns-topic"
-    namespace = var.namespace
 
+# SQS Queues
+
+resource "aws_sqs_queue" "file_upload_queue" {
+  name                       = "${var.namespace}-file-upload-queue"
+  visibility_timeout_seconds = 60
+  message_retention_seconds  = 86400
+}
+
+resource "aws_sqs_queue" "person_id_queue" {
+  name                       = "${var.namespace}-person-id-queue"
+  visibility_timeout_seconds = 60
+  message_retention_seconds  = 86400
+}
+
+
+# SNS → SQS Subscriptions
+
+
+resource "aws_sns_topic_subscription" "file_upload_sqs" {
+  topic_arn = module.sns_topic_file_upload.topic_arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.file_upload_queue.arn
+}
+
+resource "aws_sns_topic_subscription" "person_id_sqs" {
+  topic_arn = module.sns_topic_person_id.topic_arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.person_id_queue.arn
+}
+
+
+# Queue Policies (allow SNS to publish)
+
+resource "aws_sqs_queue_policy" "file_upload_policy" {
+  queue_url = aws_sqs_queue.file_upload_queue.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "sns.amazonaws.com"
+        }
+        Action    = "sqs:SendMessage"
+        Resource  = aws_sqs_queue.file_upload_queue.arn
+        Condition = {
+          ArnEquals = {
+            "aws:SourceArn" = module.sns_topic_file_upload.topic_arn
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_sqs_queue_policy" "person_id_policy" {
+  queue_url = aws_sqs_queue.person_id_queue.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "sns.amazonaws.com"
+        }
+        Action    = "sqs:SendMessage"
+        Resource  = aws_sqs_queue.person_id_queue.arn
+        Condition = {
+          ArnEquals = {
+            "aws:SourceArn" = module.sns_topic_person_id.topic_arn
+          }
+        }
+      }
+    ]
+  })
+}
+
+
+# File upload SNS + SQS
+resource "kubernetes_secret" "file_upload_sns" {
+  metadata {
+    name      = "file-upload-sns-topic"
+    namespace = var.namespace
   }
 
   data = {
@@ -46,11 +128,23 @@ resource "kubernetes_secret" "file_upload_sns_topic" {
   }
 }
 
-resource "kubernetes_secret" "person_id_sns_topic" {
+resource "kubernetes_secret" "file_upload_sqs" {
   metadata {
-    name = "person-id-sns-topic"
+    name      = "file-upload-sqs"
     namespace = var.namespace
+  }
 
+  data = {
+    queue_url = aws_sqs_queue.file_upload_queue.id
+    queue_arn = aws_sqs_queue.file_upload_queue.arn
+  }
+}
+
+# Person ID SNS + SQS
+resource "kubernetes_secret" "person_id_sns" {
+  metadata {
+    name      = "person-id-sns-topic"
+    namespace = var.namespace
   }
 
   data = {
@@ -58,14 +152,14 @@ resource "kubernetes_secret" "person_id_sns_topic" {
   }
 }
 
-resource "aws_sns_topic_subscription" "file_upload_ingest" {
-  topic_arn = module.sns_topic_file_upload.topic_arn
-  protocol  = "https"
-  endpoint  = "${var.base_url}/ingest"
-}
+resource "kubernetes_secret" "person_id_sqs" {
+  metadata {
+    name      = "person-id-sqs"
+    namespace = var.namespace
+  }
 
-resource "aws_sns_topic_subscription" "person_id_ingest_events" {
-  topic_arn = module.sns_topic_person_id.topic_arn
-  protocol  = "https"
-  endpoint  = "${var.base_url}/ingest/events"
+  data = {
+    queue_url = aws_sqs_queue.person_id_queue.id
+    queue_arn = aws_sqs_queue.person_id_queue.arn
+  }
 }

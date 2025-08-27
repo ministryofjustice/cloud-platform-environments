@@ -25,7 +25,7 @@ resource "aws_s3_bucket_notification" "file_upload_notification" {
     events    = ["s3:ObjectCreated:*"]
   }
 
-  depends_on = [module.sns_topic_file_upload]
+  depends_on = [module.sns_topic_file_upload, aws_sns_topic_policy.file_upload]
 }
 
 resource "aws_sns_topic_policy" "file_upload" {
@@ -43,7 +43,7 @@ resource "aws_sns_topic_policy" "file_upload" {
         Action   = "SNS:Publish"
         Resource = module.sns_topic_file_upload.topic_arn
         Condition = {
-          ArnLike = {
+          ArnEquals = {
             "aws:SourceArn" = module.s3.bucket_arn
           }
         }
