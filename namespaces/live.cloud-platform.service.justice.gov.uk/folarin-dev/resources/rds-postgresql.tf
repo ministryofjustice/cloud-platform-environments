@@ -109,7 +109,7 @@
      * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
      *
      */
-}
+# }
 
 
 # resource "kubernetes_secret" "read_replica" {
@@ -132,7 +132,7 @@
     secret_access_key     = module.read_replica.secret_access_key
   }
   */
-}
+# }
 
 
 # Configmap to store non-sensitive data related to the RDS instance
