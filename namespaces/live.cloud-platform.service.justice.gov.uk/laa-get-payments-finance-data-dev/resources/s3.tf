@@ -19,6 +19,13 @@ module "s3_bucket" {
 
   bucket_name = var.file_store_bucket_name
   versioning = true
+
+# This allows GitHub Actions to access the S3 bucket using OIDC.
+  oidc_providers = ["github"]
+  github_repositories = ["payforlegalaid"]
+  github_environments = ["development"]
+  github_actions_prefix = "FILE_STORE_DEV"
+
 }
 
 resource "kubernetes_secret" "s3_bucket" {
