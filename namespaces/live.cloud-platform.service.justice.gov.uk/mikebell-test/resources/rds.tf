@@ -1,6 +1,8 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
+  count  = 0
+
   # VPC configuration
   vpc_name = var.vpc_name
 
@@ -29,6 +31,7 @@ module "rds" {
 }
 
 resource "kubernetes_secret" "rds" {
+  count  = 0
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
@@ -45,7 +48,7 @@ resource "kubernetes_secret" "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
   vpc_name               = var.vpc_name
