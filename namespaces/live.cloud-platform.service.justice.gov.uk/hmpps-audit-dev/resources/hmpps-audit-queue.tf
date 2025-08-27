@@ -231,44 +231,47 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
-resource "kubernetes_secret" "approved_audit_user_client_arns" {
+
+# queue permissions for other services
+
+resource "kubernetes_secret" "approved_prisoner_audit_client_arns" {
     metadata {
-        name = "approved-audit-user-client-arns"
+        name = "approved-prisoner-audit-client-arns"
         namespace = var.namespace
     }
 }
 
-data "kubernetes_secret" "approved_audit_user_client_arns" {
+data "kubernetes_secret" "approved_prisoner_audit_client_arns" {
   metadata {
-    name      = kubernetes_secret.approved_audit_user_client_arns.metadata[0].name
+    name      = kubernetes_secret.approved_prisoner_audit_client_arns.metadata[0].name
     namespace = var.namespace
   }
 }
 
 locals {
   # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
-  audit_user_client_arns = [for approved_client in var.approved_audit_user_clients : data.kubernetes_secret.approved_audit_user_client_arns.data[approved_client]]
+  prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
   arns_with_manage_access = [
     module.hmpps-audit-api-irsa.role_arn,
-    module.hmpps_audit_users_queue.sqs_arn,
-    module.hmpps_audit_users_dead_letter_queue.sqs_arn
+    module.hmpps_prisoner_audit_queue.sqs_arn,
+    module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn
   ]
 }
 
-resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
-  queue_url = module.hmpps_audit_users_queue.sqs_id
+resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
+  queue_url = module.hmpps_prisoner_audit_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.hmpps_audit_users_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.hmpps_prisoner_audit_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
-          "Sid": "DenyAuditUserQueueManage",
+          "Sid": "DenyPrisonerAuditQueueManage",
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_queue.sqs_arn}",
           "NotAction": "sqs:SendMessage",
           "Condition":
             {
@@ -279,35 +282,35 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_queue_policy" {
             }
         },
         {
-          "Sid": "DenyAuditUserQueueSend",
+          "Sid": "DenyPrisonerAuditQueueSend",
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_queue.sqs_arn}",
           "Action" = "sqs:SendMessage",
           "Condition":
             {
               "ArnNotEquals":
                 {
-                  "aws:PrincipalArn": "${concat(local.audit_user_client_arns, local.arns_with_manage_access)}"
+                  "aws:PrincipalArn": "${concat(local.prisoner_audit_client_arns, local.arns_with_manage_access)}"
                 }
             }
         },
         {
-          "Sid": "AllowAuditUserQueueSend",
+          "Sid": "AllowPrisonerAuditQueueSend",
           "Effect": "Allow",
           "Principal": {
-            "AWS": ${local.audit_user_client_arns}
+            "AWS": ${local.prisoner_audit_client_arns}
           },
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_queue.sqs_arn}",
           "Action": "sqs:SendMessage"
         },
         {
-          "Sid": "AllowAuditUserQueueManage",
+          "Sid": "AllowPrisonerAuditQueueManage",
           "Effect": "Allow",
           "Principal": {
             "AWS": ${local.arns_with_manage_access}
           },
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_queue.sqs_arn}",
           "NotAction": "sqs:*"
         }
       ]
@@ -317,20 +320,20 @@ EOF
 
 }
 
-resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
-  queue_url = module.hmpps_audit_users_dead_letter_queue.sqs_id
+resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_dead_letter_queue_policy" {
+  queue_url = module.hmpps_prisoner_audit_dead_letter_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
-          "Sid": "DenyAuditUserDeadLetterQueueAll",
+          "Sid": "DenyPrisonerAuditDeadLetterQueueAll",
           "Effect": "Deny",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_audit_users_dead_letter_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn}",
           "Action": "sqs:*",
           "Condition":
             {
@@ -341,12 +344,12 @@ resource "aws_sqs_queue_policy" "hmpps_audit_users_dead_letter_queue_policy" {
             }
         },
         {
-          "Sid": "AllowAuditDeadLetterUserQueueManage",
+          "Sid": "AllowPrisonerAuditDeadLetterQueueManage",
           "Effect": "Allow",
           "Principal": {
             "AWS": ${local.arns_with_manage_access}
           },
-          "Resource": "${module.hmpps_audit_users_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prisoner_audit_queue.sqs_arn}",
           "Action": "sqs:*"
         }
       ]

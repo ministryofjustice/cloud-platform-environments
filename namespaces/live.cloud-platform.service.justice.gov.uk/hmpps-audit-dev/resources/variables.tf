@@ -47,7 +47,13 @@ variable "github_token" {
   default     = ""
 }
 
-variable "approved_audit_user_clients" {
+variable "github_team" {
+  description = "The slug of the GitHub team associated with the "
+  type        = string
+  default     = "haha-audit-dev"
+}
+
+variable "approved_prisoner_audit_clients" {
   type    = list(string)
   default = []
 }
@@ -58,3 +64,4 @@ variable "kubernetes_cluster" {}
 variable "eks_cluster_name" {}
 
 variable "vpc_name" {}
+
