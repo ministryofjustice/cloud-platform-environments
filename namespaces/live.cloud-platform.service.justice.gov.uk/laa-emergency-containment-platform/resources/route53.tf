@@ -1,0 +1,26 @@
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+resource "aws_route53_zone" "aws-prd-legalservices-gov-uk" {
+  name     = "aws.prd.legalservices.gov.uk"
+  vpc {
+    vpc_id = data.aws_vpc.selected.id
+  }
+}
+
+resource "aws_route53_record" "cwa-prod-db" {
+  depends_on = [aws_route53_zone.aws-prd-legalservices-gov-uk]
+  zone_id = aws_route53_zone.aws-prd-legalservices-gov-uk.zone_id
+  name    = "cwa-prod-db"
+  type    = "A"
+
+  alias {
+    name                   = "cwa-production-database-nlb-12d44851fda0f196.elb.eu-west-2.amazonaws.com"
+    zone_id                = "ZD4D7Y8KGAS4G"
+    evaluate_target_health = false
+  }
+}

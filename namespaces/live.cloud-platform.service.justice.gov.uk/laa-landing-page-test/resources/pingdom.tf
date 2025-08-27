@@ -1,10 +1,10 @@
 provider "pingdom" {
 }
 
-resource "pingdom_check" "laa-landing-page-dev" {
+resource "pingdom_check" "laa-landing-page-homepage" {
   type                     = "http"
-  name                     = "laa-landing-page - test - cloud-platform"
-  host                     = "laa-landing-page-test.apps.live.cloud-platform.service.justice.gov.uk"
+  name                     = "laa-landing-page-homepage - test - cloud-platform"
+  host                     = "test.your-legal-aid-services.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6

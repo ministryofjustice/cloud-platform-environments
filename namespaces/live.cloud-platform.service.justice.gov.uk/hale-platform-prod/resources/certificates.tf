@@ -61,6 +61,7 @@ variable "domains" {
     "www.hmppsinsights.service.justice.gov.uk"        = "hmppsinsights-www"
     "www.iapondeathsincustody.org"                    = "iapdc-www"
     "www.iapdeathsincustody.independent.gov.uk"       = "iapdci-www"
+    "www.icrir.independent-inquiry.uk"                = "icrir-www"
     "www.imb.org.uk"                                  = "imb-www"
     "www.justiceinspectorates.gov.uk"                 = "justiceinspectorates-www"
     "www.lawcom.gov.uk"                               = "lawcom-www"

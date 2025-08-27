@@ -26,6 +26,7 @@ module "rds" {
   db_engine_version = "17.4"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
+  snapshot_identifier = "rds:cloud-platform-16a74aa5ce79e853-2025-08-18-03-29"
 
   # Tags
   application            = var.application
@@ -47,7 +48,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count                        = 1
+  count                        = 0
   source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
   db_allocated_storage         = 50
   storage_type                 = "gp2"
@@ -121,7 +122,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"

@@ -3,6 +3,7 @@ module "hmpps_allocations_dev" {
   github_repo                   = "hmpps-allocations"
   application                   = "hmpps-allocations"
   github_team                   = "manage-a-workforce"
+  reviewer_teams                = ["manage-a-workforce"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "dev"

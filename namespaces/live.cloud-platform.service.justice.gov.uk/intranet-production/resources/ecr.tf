@@ -8,12 +8,12 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep newest 5 fpm images",
+        "description": "Keep newest 20 images that are tagged with *-main-*",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["fpm-"],
+          "tagPatternList": ["*-main-*"],
           "countType": "imageCountMoreThan",
-          "countNumber": 5
+          "countNumber": 20
         },
         "action": {
           "type": "expire"
@@ -21,12 +21,12 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep newest 5 nginx images",
+        "description": "Keep newest 20 images that are tagged with *-qa-*",
         "selection": {
           "tagStatus": "tagged",
-          "tagPrefixList": ["nginx-"],
+          "tagPatternList": ["*-qa-*"],
           "countType": "imageCountMoreThan",
-          "countNumber": 5
+          "countNumber": 20
         },
         "action": {
           "type": "expire"
@@ -34,12 +34,11 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 3,
-        "description": "Keep newest 5 cron images",
+        "description": "Keep the newest 100 images (that don't match the above rules)",
         "selection": {
-          "tagStatus": "tagged",
-          "tagPrefixList": ["cron-"],
+          "tagStatus": "any",
           "countType": "imageCountMoreThan",
-          "countNumber": 5
+          "countNumber": 100
         },
         "action": {
           "type": "expire"

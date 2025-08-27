@@ -34,8 +34,8 @@ resource "aws_route53_record" "justiceinspectorates_route53_cname_record_hmicfrs
   zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
   name    = "hmicfrs.justiceinspectorates.gov.uk"
   type    = "CNAME"
-  ttl     = "3600"
-  records = ["web-1202467189.eu-west-2.elb.amazonaws.com"]
+  ttl     = "60"
+  records = ["hmicfrs.b-cdn.net"]
 }
 
 resource "aws_route53_record" "justiceinspectorates_route53_cname_record_hmiprobationeforms" {

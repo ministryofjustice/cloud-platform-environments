@@ -50,11 +50,6 @@ variable "is_production" {
   default     = "false"
 }
 
-variable "domain" {
-  default = "uat.laa-benefit-checker.service.justice.gov.uk"
-  type    = string
-}
-
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string

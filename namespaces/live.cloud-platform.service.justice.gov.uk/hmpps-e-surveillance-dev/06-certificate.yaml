@@ -22,4 +22,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - e-surveillance-dev.hmpps.service.justice.gov.uk
+  - e-surveillance-ui-dev.hmpps.service.justice.gov.uk

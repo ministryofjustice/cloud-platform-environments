@@ -1,5 +1,5 @@
-module "hmpps_authorization" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+module "hmpps-authorization" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-authorization"
   application                   = "hmpps-authorization"
   github_team                   = "haha-live"
@@ -14,8 +14,8 @@ module "hmpps_authorization" {
   github_owner                  = var.github_owner
 }
 
-module "hmpps-authorization_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+module "hmpps-authorization-api" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-authorization-api"
   application                   = "hmpps-authorization-api"
   github_team                   = "haha-live"

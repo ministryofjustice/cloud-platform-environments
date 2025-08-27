@@ -6,10 +6,10 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "irsa-sqs-${var.namespace}"
-  namespace            = var.namespace # this is also used as a tag
-  
+  namespace            = var.namespace
+
   role_policy_arns = {
-    sqs = data.aws_ssm_parameter.sqs_policy_arn.value
+    sqs = module.sqs.irsa_policy_arn
   }
 
   # Tags
@@ -39,6 +39,6 @@ resource "kubernetes_secret" "sqs_queue_arn" {
     namespace = var.namespace
   }
   data = {
-    arn = data.aws_ssm_parameter.sqs_queue_arn.value
+    arn = module.sqs.sqs_queue_arn
   }
 }

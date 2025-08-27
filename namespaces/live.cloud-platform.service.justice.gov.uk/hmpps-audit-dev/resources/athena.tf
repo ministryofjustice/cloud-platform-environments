@@ -1,6 +1,7 @@
 resource "aws_glue_catalog_database" "audit_glue_catalog_database" {
   name = "hmpps_audit_${var.environment-name}_glue_catalog_db"
   location_uri = "s3://${module.s3.bucket_name}/"
+  tags = local.tags
 }
 
 resource "aws_athena_workgroup" "queries" {
@@ -14,6 +15,8 @@ resource "aws_athena_workgroup" "queries" {
       output_location = "s3://${module.s3.bucket_name}/query_results/"
     }
   }
+
+  tags = local.tags
 }
 
 resource "aws_glue_catalog_table" "audit_event_table" {

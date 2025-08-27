@@ -32,6 +32,10 @@ variable "team_name" {
   default     = "probation-in-court"
 }
 
+variable "environment" {
+  default = "prod"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
@@ -77,10 +81,10 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {
- }
+}
 
 variable "slack_channel" {
-    type        = string
-    description = "Cloud Platform will contact our team via this slack channel"
-    default     = "pic-mafia"
+  type        = string
+  description = "Cloud Platform will contact our team via this slack channel"
+  default     = "pic-mafia"
 }

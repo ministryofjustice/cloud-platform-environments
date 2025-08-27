@@ -9,6 +9,24 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
+# PiC Events SQS Policies
+data "aws_iam_policy_document" "pic_link_unlink_sqs" {
+  statement {
+    sid       = "hmppsPiCPolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.pic_link_unlink_queue.sqs_arn,
+      module.pic_link_unlink_dead_letter_queue.sqs_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "pic_link_unlink_sqs" {
+  policy = data.aws_iam_policy_document.pic_link_unlink_sqs.json
+  tags   = local.default_tags
+}
+
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
   statement {
@@ -107,6 +125,7 @@ module "irsa" {
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
+    { pic_link_unlink_sqs = aws_iam_policy.pic_link_unlink_sqs.arn },
     { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )
 
@@ -129,7 +148,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
 
   # Configuration
   namespace            = var.namespace
