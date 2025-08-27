@@ -12,6 +12,7 @@ module "hmpps_authorization" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = ["haha-live"]
 }
 
 module "hmpps-authorization_api" {
@@ -29,4 +30,5 @@ module "hmpps-authorization_api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = ["haha-live"]
 }
