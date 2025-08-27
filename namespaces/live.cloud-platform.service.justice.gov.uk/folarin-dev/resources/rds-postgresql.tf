@@ -4,40 +4,40 @@
  * releases page of this repository.
  *
  */
-module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+# module "rds" {
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
-  # arestore the v17 dbase
-  snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
+#   # arestore the v17 dbase
+#   snapshot_identifier    = "cloud-platform-b177f79887a982d9-finalsnapshot"
 
 
-  # VPC configuration
-  vpc_name = var.vpc_name
+#   # VPC configuration
+#   vpc_name = var.vpc_name
 
-  # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
-  performance_insights_enabled = true
-  db_max_allocated_storage     = "500"
-  prepare_for_major_upgrade   = false
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+#   # RDS configuration
+#   allow_minor_version_upgrade  = true
+#   allow_major_version_upgrade  = false
+#   performance_insights_enabled = true
+#   db_max_allocated_storage     = "500"
+#   prepare_for_major_upgrade   = false
+#   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+#   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.3"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+#   # PostgreSQL specifics
+#   db_engine         = "postgres"
+#   db_engine_version = "17.3"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+#   rds_family        = "postgres17"
+#   db_instance_class = "db.t4g.micro"
 
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-}
+#   # Tags
+#   application            = var.application
+#   business_unit          = var.business_unit
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+#   is_production          = var.is_production
+#   namespace              = var.namespace
+#   team_name              = var.team_name
+# }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
 # from which you are replicating. In this example, we're assuming that rds is the
@@ -90,19 +90,19 @@ module "rds" {
 #   # ]
 # }
 
-resource "kubernetes_secret" "rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
+# resource "kubernetes_secret" "rds" {
+#   metadata {
+#     name      = "rds-postgresql-instance-output"
+#     namespace = var.namespace
+#   }
 
-  data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-  }
+#   data = {
+#     rds_instance_endpoint = module.rds.rds_instance_endpoint
+#     database_name         = module.rds.database_name
+#     database_username     = module.rds.database_username
+#     database_password     = module.rds.database_password
+#     rds_instance_address  = module.rds.rds_instance_address
+#   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
      *
@@ -112,14 +112,14 @@ resource "kubernetes_secret" "rds" {
 }
 
 
-resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
+# resource "kubernetes_secret" "read_replica" {
+#   # default off
+#   count = 0
 
-  metadata {
-    name      = "rds-postgresql-read-replica-output"
-    namespace = var.namespace
-  }
+#   metadata {
+#     name      = "rds-postgresql-read-replica-output"
+#     namespace = var.namespace
+#   }
 
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
@@ -137,14 +137,14 @@ resource "kubernetes_secret" "read_replica" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
+# resource "kubernetes_config_map" "rds" {
+#   metadata {
+#     name      = "rds-postgresql-instance-output"
+#     namespace = var.namespace
+#   }
 
-  data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
-  }
-}
+#   data = {
+#     database_name = module.rds.database_name
+#     db_identifier = module.rds.db_identifier
+#   }
+# }
