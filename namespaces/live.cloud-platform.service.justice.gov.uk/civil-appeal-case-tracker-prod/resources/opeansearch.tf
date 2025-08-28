@@ -83,7 +83,7 @@ module "opensearch_alert" {
     secret_key                     = "OPENSEARCH_SLACK_URL"
     slack_channel_name             = "dts-legacy-apps-system-alerts"
     slack_channel_name_description = "DTS Legacy Services Production Alerts"
-    opensearch_alert_name          = "case-tracker-prod-bots"
+    opensearch_alert_name          = "case-tracker-prod-dos"
     opensearch_alert_enabled       = true
     monitor_period_interval        = "60"
     monitor_period_unit            = "MINUTES"
