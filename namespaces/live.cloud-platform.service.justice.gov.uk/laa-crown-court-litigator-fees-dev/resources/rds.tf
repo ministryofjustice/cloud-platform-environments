@@ -24,6 +24,7 @@ module "rds-instance-migrated" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
+  option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -162,6 +163,28 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
       }
     ]
   })
+}
+
+resource "aws_db_option_group" "rds_s3_option_group" {
+  name                     = "${var.namespace}-option-group"
+  option_group_description = "Option group with S3 integration"
+  engine_name              = "oracle-se2"
+  major_engine_version     = "19"
+
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
+  tags = {
+    name                   = "${var.namespace}-option-group"
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "rds_s3_access_policy_attachment" {
