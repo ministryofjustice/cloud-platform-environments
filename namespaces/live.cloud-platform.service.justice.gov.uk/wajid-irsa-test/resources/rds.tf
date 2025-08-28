@@ -29,7 +29,7 @@ module "rds_mariadb" {
   team_name              = var.team_name
 
   # IRSA
-  enable_irsa = true
+#   enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds_mariadb" {
