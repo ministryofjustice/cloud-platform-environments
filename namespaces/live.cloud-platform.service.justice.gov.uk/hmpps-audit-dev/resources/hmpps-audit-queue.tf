@@ -252,7 +252,7 @@ locals {
   # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
   prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
 
-  prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn, format("%s/*", module.hmpps-audit-api-irsa.role_arn)]
+  prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
 
   prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
 }
@@ -310,49 +310,10 @@ resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
           AWS = local.prisoner_audit_arns_with_manage_access
         },
         Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
-        NotAction = "sqs:*"
+        Action = "sqs:*"
       }
     ]
  })
-}
-
-
-
-resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_dead_letter_queue_policy" {
-  queue_url = module.hmpps_prisoner_audit_dead_letter_queue.sqs_id
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Id      = "${module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
-    Statement = [
-      {
-        Sid       = "DenyPrisonerAuditDeadLetterQueueAll",
-        Effect    = "Deny",
-        Principal = { AWS = "*" },
-        Resource  = module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn,
-        Action = [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:PurgeQueue",
-          "sqs:ChangeMessageVisibility"
-        ],
-        Condition = {
-          ArnNotEquals = {
-            "aws:PrincipalArn" = local.prisoner_audit_arns_with_manage_access
-          }
-        }
-      },
-      {
-        Sid       = "AllowPrisonerAuditDeadLetterQueueManage",
-        Effect    = "Allow",
-        Principal = {
-          AWS = local.prisoner_audit_arns_with_manage_access
-        },
-        Resource = module.hmpps_prisoner_audit_queue.sqs_arn,
-        Action   = "sqs:*"
-      }
-    ]
-  })
 }
 
 
