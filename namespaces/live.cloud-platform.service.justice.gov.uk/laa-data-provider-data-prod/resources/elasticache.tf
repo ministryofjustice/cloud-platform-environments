@@ -44,5 +44,6 @@ resource "kubernetes_secret" "app-redis" {
   data = {
     APP_REDIS_ENDPOINT = module.redis.primary_endpoint_address
     APP_REDIS_PASSWORD = module.redis.auth_token
+    APP_REDIS_PORT     = "6379"
   }
 }
