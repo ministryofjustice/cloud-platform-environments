@@ -1,5 +1,5 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=main"
 
   # VPC configuration
   vpc_name = var.vpc_name
