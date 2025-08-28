@@ -12,7 +12,7 @@ module "s3_bucket" {
   lifecycle_rule = [
     {
       id     = "${var.environment_name}-lifecycle-rule"
-      enabled = false
+      enabled = true
 
       noncurrent_version_transition = [
         {
@@ -33,7 +33,7 @@ module "s3_bucket" {
     },
     {
       id     = "Expire current objects"
-      enabled = true
+      enabled = false
 
       expiration = [
         {
@@ -50,7 +50,7 @@ module "s3_bucket" {
     },
     {
       id     = "Clean up delete markers"
-      enabled = true
+      enabled = false
 
       expiration = [
         {
@@ -60,7 +60,7 @@ module "s3_bucket" {
     },
     {
       id     = "Abort incomplete uploads automatically"
-      enabled = true
+      enabled = false
       abort_incomplete_multipart_upload = [
         {
           days_after_initiation = 1
