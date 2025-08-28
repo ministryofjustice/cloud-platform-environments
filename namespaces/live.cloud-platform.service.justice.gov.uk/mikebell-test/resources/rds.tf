@@ -14,7 +14,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -44,11 +44,9 @@ resource "kubernetes_secret" "rds" {
 }
 
 module "read_replica" {
-  # default off
-  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -64,7 +62,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
@@ -75,6 +73,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  db_max_allocated_storage = "550"
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
