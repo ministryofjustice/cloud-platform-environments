@@ -1,5 +1,5 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=main"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -20,7 +20,7 @@ module "redis" {
   infrastructure_support = var.infrastructure_support
 
   # IRSA
-#   enable_irsa = true
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "redis_secrets" {
