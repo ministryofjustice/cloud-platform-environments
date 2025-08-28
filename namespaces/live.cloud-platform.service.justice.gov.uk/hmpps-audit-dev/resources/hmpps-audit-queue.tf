@@ -270,7 +270,12 @@ resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
         Effect    = "Deny",
         Principal = { AWS = "*" },
         Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
-        NotAction = "sqs:SendMessage",
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:PurgeQueue",
+          "sqs:ChangeMessageVisibility"
+        ],
         Condition = {
           ArnNotEquals = {
             "aws:PrincipalArn" = local.prisoner_audit_arns_with_manage_access
@@ -325,7 +330,12 @@ resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_dead_letter_queue_policy" 
         Effect    = "Deny",
         Principal = { AWS = "*" },
         Resource  = module.hmpps_prisoner_audit_dead_letter_queue.sqs_arn,
-        Action    = "sqs:*",
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:PurgeQueue",
+          "sqs:ChangeMessageVisibility"
+        ],
         Condition = {
           ArnNotEquals = {
             "aws:PrincipalArn" = local.prisoner_audit_arns_with_manage_access
