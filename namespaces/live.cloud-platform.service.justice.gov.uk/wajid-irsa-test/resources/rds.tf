@@ -14,7 +14,7 @@ module "rds_mariadb" {
 
   # MariaDB specifics
   db_engine         = "mariadb"
-  db_engine_version = "10.6.12"
+  db_engine_version = "10.6.18"
   rds_family        = "mariadb10.6"
   db_instance_class = "db.t4g.micro"
   db_parameter      = []
