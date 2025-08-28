@@ -252,7 +252,7 @@ locals {
   # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
   prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
 
-  prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
+  prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn, format("%s/*", module.hmpps-audit-api-irsa.role_arn)]
 
   prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
 }
