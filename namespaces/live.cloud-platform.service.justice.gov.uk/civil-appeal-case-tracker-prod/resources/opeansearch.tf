@@ -83,14 +83,14 @@ module "opensearch_alert" {
     secret_key                     = "OPENSEARCH_SLACK_URL"
     slack_channel_name             = "dts-legacy-apps-system-alerts"
     slack_channel_name_description = "DTS Legacy Services Production Alerts"
-    opensearch_alert_name          = "case-tracker-prod-bots"
+    opensearch_alert_name          = "case-tracker-prod-dos"
     opensearch_alert_enabled       = true
-    monitor_period_interval        = "10"
+    monitor_period_interval        = "60"
     monitor_period_unit            = "MINUTES"
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "case-tracker-prod-dos"
     serverity                      = "2"
-    query_source                   = "ctx.results[0].hits.total.value > 50"
+    query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 160)"
     action_name                    = "case-tracker-prod-send-alert"
     slack_message_subject          = "Case Tracker Prod Dos Alert"
     alert_throttle_enabled         = true
@@ -120,7 +120,7 @@ module "opensearch_alert" {
               {
                 "range": {
                   "@timestamp": {
-                    "gte": "now-10m",
+                    "gte": "now-60m",
                     "lte": "now"
                   }
                 }
