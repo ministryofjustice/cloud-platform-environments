@@ -24,7 +24,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.13"
+  db_engine_version = "14.17"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -80,7 +80,7 @@ module "read_replica" {
   # add them to the replica
 
   rds_family = "postgres14"
-  db_engine_version = "14.13"
+  db_engine_version = "14.17"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
