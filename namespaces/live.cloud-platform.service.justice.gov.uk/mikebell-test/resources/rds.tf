@@ -18,6 +18,8 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
+  snapshot_identifier = "rds-cloud-platform-a803ab047bcaae23-copy-2025-08-28-10-20"
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
