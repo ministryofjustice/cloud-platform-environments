@@ -201,9 +201,11 @@ resource "aws_iam_policy" "person_id_sqs_irsa" {
 # Outputs for IRSA
 
 output "file_upload_sqs_irsa_policy_arn" {
-  value = aws_iam_policy.file_upload_sqs_irsa.arn
+  description = "IAM policy ARN that grants IRSA permissions to consume messages from the file-upload SQS queue"
+  value       = aws_iam_policy.file_upload_sqs_irsa.arn
 }
 
 output "person_id_sqs_irsa_policy_arn" {
-  value = aws_iam_policy.person_id_sqs_irsa.arn
+  description = "IAM policy ARN that grants IRSA permissions to consume messages from the person-id SQS queue"
+  value       = aws_iam_policy.person_id_sqs_irsa.arn
 }
