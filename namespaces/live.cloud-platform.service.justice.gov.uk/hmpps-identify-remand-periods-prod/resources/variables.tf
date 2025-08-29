@@ -52,5 +52,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
 
 variable "kubernetes_cluster" {}
