@@ -1,5 +1,5 @@
 module "hmpps_manage_offences_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-manage-offences"
   application = "hmpps-manage-offences"
   github_team = var.team_name
@@ -14,7 +14,7 @@ module "hmpps_manage_offences_ui" {
 }
 
 module "hmpps_manage_offences_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-manage-offences-api"
   application = "hmpps-manage-offences-api"
   github_team = var.team_name
