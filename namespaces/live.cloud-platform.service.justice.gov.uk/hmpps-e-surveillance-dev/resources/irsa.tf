@@ -11,8 +11,8 @@ module "irsa" {
     rds             = module.rds.irsa_policy_arn
     sns_file_upload = module.sns_topic_file_upload.irsa_policy_arn
     sns_person_id   = module.sns_topic_person_id.irsa_policy_arn
-    sqs_file_upload = module.file_upload_sqs_irsa_policy_arn
-    sqs_person_id   = module.person_id_sqs_irsa_policy_arn
+    sqs_file_upload = aws_iam_policy.file_upload_sqs_irsa.arn
+    sqs_person_id   = aws_iam_policy.person_id_sqs_irsa.arn
   }
 
   # Tags
