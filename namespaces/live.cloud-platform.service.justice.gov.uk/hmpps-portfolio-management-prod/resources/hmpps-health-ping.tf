@@ -1,5 +1,5 @@
 module "hmpps_health_ping" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-health-ping"
   application                   = "hmpps-health-ping"
   github_team                   = "hmpps-sre"
