@@ -54,3 +54,16 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
+variable "cloud_platform_concourse_bot_app_id" {
+  description = "GitHub App ID for the Cloud Platform Concourse Bot Application"
+}
+
+variable "cloud_platform_concourse_bot_installation_id" {
+  description = "GitHub App Installation ID for the Cloud Platform Concourse Bot Application"
+}
+
+variable "cloud_platform_concourse_bot_pem_file" {
+  description = "GitHub App PEM file for the Cloud Platform Concourse Bot Application"
+}
+  
