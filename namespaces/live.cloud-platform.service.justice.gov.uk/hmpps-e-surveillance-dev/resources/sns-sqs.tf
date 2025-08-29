@@ -1,4 +1,3 @@
-
 # SNS Topics
 
 module "sns_topic_file_upload" {
@@ -37,7 +36,6 @@ module "sns_topic_person_id" {
   namespace        = var.namespace
 }
 
-
 # SQS Queues
 
 resource "aws_sqs_queue" "file_upload_queue" {
@@ -52,9 +50,7 @@ resource "aws_sqs_queue" "person_id_queue" {
   message_retention_seconds  = 86400
 }
 
-
 # SNS → SQS Subscriptions
-
 
 resource "aws_sns_topic_subscription" "file_upload_sqs" {
   topic_arn = module.sns_topic_file_upload.topic_arn
@@ -68,8 +64,7 @@ resource "aws_sns_topic_subscription" "person_id_sqs" {
   endpoint  = aws_sqs_queue.person_id_queue.arn
 }
 
-
-# Queue Policies (allow SNS to publish)
+# Queue Policies (allow SNS to publish to SQS)
 
 resource "aws_sqs_queue_policy" "file_upload_policy" {
   queue_url = aws_sqs_queue.file_upload_queue.id
@@ -115,14 +110,13 @@ resource "aws_sqs_queue_policy" "person_id_policy" {
   })
 }
 
+# Kubernetes Secrets (expose SNS + SQS info to workloads)
 
-# File upload SNS + SQS
 resource "kubernetes_secret" "file_upload_sns" {
   metadata {
     name      = "file-upload-sns-topic"
     namespace = var.namespace
   }
-
   data = {
     topic_arn = module.sns_topic_file_upload.topic_arn
   }
@@ -133,20 +127,17 @@ resource "kubernetes_secret" "file_upload_sqs" {
     name      = "file-upload-sqs"
     namespace = var.namespace
   }
-
   data = {
     queue_url = aws_sqs_queue.file_upload_queue.id
     queue_arn = aws_sqs_queue.file_upload_queue.arn
   }
 }
 
-# Person ID SNS + SQS
 resource "kubernetes_secret" "person_id_sns" {
   metadata {
     name      = "person-id-sns-topic"
     namespace = var.namespace
   }
-
   data = {
     topic_arn = module.sns_topic_person_id.topic_arn
   }
@@ -157,9 +148,64 @@ resource "kubernetes_secret" "person_id_sqs" {
     name      = "person-id-sqs"
     namespace = var.namespace
   }
-
   data = {
     queue_url = aws_sqs_queue.person_id_queue.id
     queue_arn = aws_sqs_queue.person_id_queue.arn
   }
+}
+
+# IAM Policies for IRSA (SQS Consumer Permissions)
+
+resource "aws_iam_policy" "file_upload_sqs_irsa" {
+  name        = "${var.namespace}-file-upload-sqs-irsa"
+  description = "Allow IRSA role to consume messages from file-upload queue"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl"
+        ]
+        Resource = aws_sqs_queue.file_upload_queue.arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "person_id_sqs_irsa" {
+  name        = "${var.namespace}-person-id-sqs-irsa"
+  description = "Allow IRSA role to consume messages from person-id queue"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl"
+        ]
+        Resource = aws_sqs_queue.person_id_queue.arn
+      }
+    ]
+  })
+}
+
+# Outputs for IRSA
+
+output "file_upload_sqs_irsa_policy_arn" {
+  description = "IAM policy ARN that grants IRSA permissions to consume messages from the file-upload SQS queue"
+  value       = aws_iam_policy.file_upload_sqs_irsa.arn
+}
+
+output "person_id_sqs_irsa_policy_arn" {
+  description = "IAM policy ARN that grants IRSA permissions to consume messages from the person-id SQS queue"
+  value       = aws_iam_policy.person_id_sqs_irsa.arn
 }
