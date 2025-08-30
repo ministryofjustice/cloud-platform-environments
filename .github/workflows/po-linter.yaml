@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Prometheus Operator Linter
-        uses: prymitive/pint-action@15a55d1427222c36fbdfbc0919f52295b12ce2d7 # v1.84.0
+        uses: prymitive/pint-action@9f54455ede21513d61b0221c8044eca9a9235e33 # v1.92.0
         with:
           token: ${{ github.token }}
           requireOwner: 'true'
