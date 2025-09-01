@@ -78,23 +78,8 @@ resource "kubernetes_secret" "hmpps_service_catalogue_dev" {
 
 resource "kubernetes_secret" "hmpps_service_catalogue_strapi5" {
   metadata {
-    name      = "rds-instance-output-strapi5"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.hmpps_service_catalogue_strapi5.rds_instance_endpoint
-    database_name         = module.hmpps_service_catalogue_strapi5.database_name
-    database_username     = module.hmpps_service_catalogue_strapi5.database_username
-    database_password     = module.hmpps_service_catalogue_strapi5.database_password
-    rds_instance_address  = module.hmpps_service_catalogue_strapi5.rds_instance_address
-  }
-}
-
-resource "kubernetes_secret" "hmpps_service_catalogue_strapi5_dev" {
-  metadata {
     name      = "rds-instance-output-strapi5-dev"
-    namespace = "hmpps-portfolio-management-prod"
+    namespace = var.namespace
   }
 
   data = {
