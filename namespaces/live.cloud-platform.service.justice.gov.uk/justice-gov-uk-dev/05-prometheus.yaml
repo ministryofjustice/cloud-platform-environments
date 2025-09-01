@@ -17,9 +17,9 @@ spec:
         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaalmostfull
         summary: Namespace quota is going to be full.
       expr: |
-        kube_resourcequota{job="kube-state-metrics", type="used"}
+        kube_resourcequota{job="kube-state-metrics", type="used", namespace="justice-gov-uk-dev"}
           / ignoring(instance, job, type)
-        (kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
+        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="justice-gov-uk-dev"} > 0)
           > 0.9 < 1
       for: 15m
       labels:

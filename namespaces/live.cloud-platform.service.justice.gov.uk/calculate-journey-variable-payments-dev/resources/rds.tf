@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name = var.vpc_name
 
@@ -14,7 +14,7 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "16.4"
+  db_engine_version = "16.8"
   db_instance_class = "db.t4g.small"
 
   rds_family = "postgres16"
@@ -37,6 +37,8 @@ module "rds-instance" {
       apply_method = "immediate"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds-instance" {

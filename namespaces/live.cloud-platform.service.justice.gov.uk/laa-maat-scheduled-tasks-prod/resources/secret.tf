@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-scheduled-tasks-env-variables"
     },
+    "maat_scheduled_tasks_alert_webhook_prod" = {
+      description             = "MAAT Scheduled Tasks Slack Webhook for prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "maat-scheduled-tasks-alert-webhook-prod"
+    },
   }
 }

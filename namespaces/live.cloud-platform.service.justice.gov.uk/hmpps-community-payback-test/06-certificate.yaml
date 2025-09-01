@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-payback-test-cert
+  namespace: hmpps-community-payback-test
+spec:
+  secretName: hmpps-community-payback-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-payback-api-test.hmpps.service.justice.gov.uk
+
+---

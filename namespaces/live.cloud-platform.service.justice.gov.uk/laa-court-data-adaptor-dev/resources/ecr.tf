@@ -5,7 +5,7 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
   repo_name = "laa-court-data-adaptor"
   # TODO: Switch this to var.team_name when we are ready to switch repo
   team_name = "laa-crime-apps-team"

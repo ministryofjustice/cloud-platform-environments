@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -8,62 +8,10 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep newest 5 images that are tagged with fpm-* and main",
+        "description": "Keep newest 20 images that are tagged with *-main-*",
         "selection": {
           "tagStatus": "tagged",
-          "tagPatternList": ["fpm-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 2,
-        "description": "Keep newest 5 images that are tagged with nginx-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["nginx-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 3,
-        "description": "Keep newest 5 images that are tagged with cron-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["cron-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 4,
-        "description": "Keep newest 5 images that are tagged with s3-push-* and main",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["s3-push-*", "main"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 5
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 5,
-        "description": "Keep newest 20 images that are tagged with qa",
-        "selection": {
-          "tagStatus": "tagged",
-          "tagPatternList": ["qa"],
+          "tagPatternList": ["*-main-*"],
           "countType": "imageCountMoreThan",
           "countNumber": 20
         },
@@ -72,7 +20,20 @@ module "ecr_credentials" {
         }
       },
       {
-        "rulePriority": 6,
+        "rulePriority": 2,
+        "description": "Keep newest 20 images that are tagged with *-qa-*",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPatternList": ["*-qa-*"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 20
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 3,
         "description": "Keep the newest 100 images (that don't match the above rules)",
         "selection": {
           "tagStatus": "any",
