@@ -8,6 +8,7 @@ module "irsa" {
   service_account_name = "hmpps-esupervision-api"
   role_policy_arns = {
     s3 = module.s3_data_bucket.irsa_policy_arn
+    rekognition = aws_iam_policy.assume_rekognition_policy.arn
   }
 
   # Tags
