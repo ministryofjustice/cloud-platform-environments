@@ -1,5 +1,5 @@
 module "dev_env" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0" # use the latest release
   github_repo                   = "hmpps-template-kotlin"
   application                   = "hmpps-template-kotlin"
   github_team                   = "hmpps-sre"
