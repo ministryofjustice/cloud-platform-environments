@@ -44,12 +44,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: apply-gender-recognition-service-jwks-cert
+  name: gender-recognition-service-jwks-cert
   namespace: grc-prod
 spec:
-  secretName: apply-gender-recognition-jwks-secret
+  secretName: gender-recognition-jwks-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-      - jwks.apply-gender-recognition-certificate.service.gov.uk
+      - jwks.gender-recognition.service.justice.gov.uk
