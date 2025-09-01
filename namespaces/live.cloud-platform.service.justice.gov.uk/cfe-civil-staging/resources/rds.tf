@@ -24,6 +24,8 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
+  prepare_for_major_upgrade = true
+  db_engine = "postgres"
   db_engine_version = "17.16"
 
   # change the instance class as you see fit.
