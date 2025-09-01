@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name = var.vpc_name
 
@@ -37,6 +37,8 @@ module "rds-instance" {
       apply_method = "immediate"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds-instance" {
