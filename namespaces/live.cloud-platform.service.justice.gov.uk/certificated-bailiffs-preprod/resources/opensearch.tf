@@ -86,20 +86,19 @@ module "opensearch_dos_alert" {
     slack_channel_name_description = "DTS Legacy Service Pre-Production Alerts"
     opensearch_alert_name          = "certificated-bailiffs-preprod-dos"
     opensearch_alert_enabled       = true
-    monitor_period_interval        = "10"
+    monitor_period_interval        = "60"
     monitor_period_unit            = "MINUTES"
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "certificated-bailiffs-preprod-dos"
-    serverity                      = "1"
-    query_source                   = "ctx.results[0].hits.total.value > 10"
+    serverity                      = "2"
+    query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 25)"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod DoS Alert"
     alert_throttle_enabled         = true
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results[0].aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results[0].aggregations.top_ips.buckets}}"
-                                      
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
     alert_query = jsonencode(
       {
         "size": 20,
@@ -122,29 +121,22 @@ module "opensearch_dos_alert" {
               {
                 "range": {
                   "@timestamp": {
-                    "gte": "now-10m",
+                    "gte": "now-60m",
                     "lte": "now"
                   }
                 }
               },
               {
                 "bool": {
-                  "should": [
-                    {
-                      "match_phrase": {
-                        "log_processed.kubernetes_namespace": {
-                          "query": "certificated-bailiffs-preprod",
-                          "slop": 0,
-                          "zero_terms_query": "NONE",
-                          "boost": 1
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "log_processed.kubernetes_namespace": "certificated-bailiffs-preprod"
                         }
                       }
-                    }
-                  ],
-                  "adjust_pure_negative": true,
-                  "minimum_should_match": "1",
-                  "boost": 1
-                }
+                    ],
+                    "minimum_should_match": 1
+                  }
               }
             ]
           }

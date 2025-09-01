@@ -1,5 +1,5 @@
 module "hmpps_person_match_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -21,6 +21,8 @@ module "hmpps_person_match_rds" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_person_match_rds" {
@@ -36,5 +38,19 @@ resource "kubernetes_secret" "hmpps_person_match_rds" {
     database_password     = module.hmpps_person_match_rds.database_password
     rds_instance_address  = module.hmpps_person_match_rds.rds_instance_address
     url                   = "postgres://${module.hmpps_person_match_rds.database_username}:${module.hmpps_person_match_rds.database_password}@${module.hmpps_person_match_rds.rds_instance_endpoint}/${module.hmpps_person_match_rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "hmpps_person_match_preprod_rds_refresh_creds" {
+  metadata {
+    name      = "hmpps-person-match-preprod-rds-instance-output"
+    namespace = "hmpps-person-record-prod"
+  }
+
+  data = {
+    database_name         = module.hmpps_person_match_rds.database_name
+    database_username     = module.hmpps_person_match_rds.database_username
+    database_password     = module.hmpps_person_match_rds.database_password
+    rds_instance_address  = module.hmpps_person_match_rds.rds_instance_address
   }
 }

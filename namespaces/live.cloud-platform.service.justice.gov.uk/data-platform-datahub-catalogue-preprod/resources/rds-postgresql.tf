@@ -28,7 +28,7 @@ module "rds_security_group" {
 }
 
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = var.db_allocated_storage
   storage_type         = var.storage_type
 
@@ -65,6 +65,8 @@ module "rds" {
   # with the DB instance - in adition to the default VPC security groups
   # granting access from the Cloud Platform
   vpc_security_group_ids = [module.rds_security_group.security_group_id]
+
+  enable_irsa = true
 }
 
 

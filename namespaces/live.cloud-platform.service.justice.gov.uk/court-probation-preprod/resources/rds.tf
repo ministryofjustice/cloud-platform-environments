@@ -1,5 +1,5 @@
 module "court_case_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -24,6 +24,8 @@ module "court_case_service_rds" {
     aws = aws.london
   }
 
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "court_case_service_rds" {

@@ -33,7 +33,9 @@ module "irsa" {
     {rds_policy = module.activities_api_rds.irsa_policy_arn},
     {analytical-platform   = aws_iam_policy.analytical-platform.arn},
     { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
-    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn }
+    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn },
+    { (module.hmpps_activities_management_jobs_queue.sqs_name) = module.hmpps_activities_management_jobs_queue.irsa_policy_arn },
+    { (module.hmpps_activities_management_jobs_dlq.sqs_name) = module.hmpps_activities_management_jobs_dlq.irsa_policy_arn }
     )
 
   # Tags

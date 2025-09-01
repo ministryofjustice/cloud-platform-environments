@@ -1,5 +1,5 @@
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 20
   storage_type         = "gp3"
 
@@ -26,6 +26,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 
@@ -47,7 +49,7 @@ resource "kubernetes_secret" "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 

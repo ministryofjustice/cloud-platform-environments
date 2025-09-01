@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   github_repositories = ["hmpps-person-match"]
-  github_environments = ["prod"]
+  github_environments = [var.environment]
 
   serviceaccount_name = "github-actions-serviceaccount"
   role_name           = "github-actions-serviceaccount-role"

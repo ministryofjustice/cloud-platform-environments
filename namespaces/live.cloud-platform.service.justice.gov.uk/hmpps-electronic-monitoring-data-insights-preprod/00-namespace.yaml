@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Electronic Monitoring for probation officers"
     cloud-platform.justice.gov.uk/owner: "HMPPS Electronic Monitoring for Probation: john.asafo@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-data-insights-api,https://github.com/ministryofjustice/hmpps-electronic-monitoring-data-insights-ui"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-em-probation"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-em-probation-live"

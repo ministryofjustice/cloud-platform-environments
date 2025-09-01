@@ -77,9 +77,9 @@ variable "user_pool_name" {
   default     = "maat-scheduled-tasks-uat-userpool"
 }
 
-variable "cognito_user_pool_client_name_maat" {
-  description = "Cognito user pool client - MAAT"
-  default     = "maat-uat"
+variable "cognito_user_pool_client_name_fts" {
+  description = "Cognito user pool client - Functional Tests"
+  default     = "fts-uat"
 }
 
 variable "cognito_user_pool_client_name_billing" {
