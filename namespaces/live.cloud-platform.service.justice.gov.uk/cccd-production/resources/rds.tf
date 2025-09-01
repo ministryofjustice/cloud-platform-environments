@@ -6,7 +6,7 @@
  */
 
 module "cccd_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -26,6 +26,8 @@ module "cccd_rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "cccd_rds" {

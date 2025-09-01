@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
@@ -46,6 +46,8 @@ module "dps_rds" {
       apply_method = "immediate"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
@@ -65,7 +67,7 @@ resource "kubernetes_secret" "dps_rds" {
 }
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true
