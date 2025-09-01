@@ -57,6 +57,15 @@ resource "aws_iam_user_policy" "policy" {
   name   = "${var.namespace}-ap-s3-snapshots"
   policy = data.aws_iam_policy_document.ap_access.json
   user   = aws_iam_user.user.name
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
 }
 
 resource "kubernetes_secret" "ap_aws_secret" {
