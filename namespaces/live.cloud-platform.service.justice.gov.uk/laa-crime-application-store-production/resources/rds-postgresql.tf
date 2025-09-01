@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -35,6 +35,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -44,7 +46,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
