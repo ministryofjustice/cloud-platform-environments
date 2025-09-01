@@ -26,7 +26,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "16.2"
+  db_engine_version      = "16.8"
   rds_family             = "postgres16"
   db_instance_class      = "db.t4g.micro"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
