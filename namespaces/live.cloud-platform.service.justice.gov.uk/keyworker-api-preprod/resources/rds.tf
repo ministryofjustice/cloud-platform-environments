@@ -18,6 +18,36 @@ module "dps_rds" {
   rds_family                  = "postgres17"
   db_password_rotated_date    = "15-02-2023"
   prepare_for_major_upgrade   = false
+
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 
@@ -51,4 +81,8 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     database_password     = module.dps_rds.database_password
     rds_instance_address  = module.dps_rds.rds_instance_address
   }
+}
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
