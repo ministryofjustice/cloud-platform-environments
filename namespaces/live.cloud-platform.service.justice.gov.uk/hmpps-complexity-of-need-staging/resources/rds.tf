@@ -23,7 +23,7 @@ module "complexity-of-need-rds" {
   db_name                    = "hmpps_complexity_of_need"
   enable_rds_auto_start_stop = true
 
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
