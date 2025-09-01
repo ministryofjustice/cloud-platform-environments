@@ -38,16 +38,38 @@ module "sns_topic_person_id" {
 
 # SQS Queues
 
+# DLQs
+resource "aws_sqs_queue" "file_upload_dlq" {
+  name                       = "${var.namespace}-file-upload-queue-dlq"
+  visibility_timeout_seconds = 60
+  message_retention_seconds  = 1209600  # 14 days
+}
+
+resource "aws_sqs_queue" "person_id_dlq" {
+  name                       = "${var.namespace}-person-id-queue-dlq"
+  visibility_timeout_seconds = 60
+  message_retention_seconds  = 1209600
+}
+
+# Main Queues
 resource "aws_sqs_queue" "file_upload_queue" {
   name                       = "${var.namespace}-file-upload-queue"
   visibility_timeout_seconds = 60
   message_retention_seconds  = 86400
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.file_upload_dlq.arn
+    maxReceiveCount     = 5
+  })
 }
 
 resource "aws_sqs_queue" "person_id_queue" {
   name                       = "${var.namespace}-person-id-queue"
   visibility_timeout_seconds = 60
   message_retention_seconds  = 86400
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.person_id_dlq.arn
+    maxReceiveCount     = 5
+  })
 }
 
 # SNS → SQS Subscriptions
@@ -151,6 +173,28 @@ resource "kubernetes_secret" "person_id_sqs" {
   data = {
     queue_url = aws_sqs_queue.person_id_queue.id
     queue_arn = aws_sqs_queue.person_id_queue.arn
+  }
+}
+
+resource "kubernetes_secret" "file_upload_sqs_dlq" {
+  metadata {
+    name      = "file-upload-queue-sqs-dl-instance-output"
+    namespace = var.namespace
+  }
+  data = {
+    queue_url = aws_sqs_queue.file_upload_dlq.id
+    queue_arn = aws_sqs_queue.file_upload_dlq.arn
+  }
+}
+
+resource "kubernetes_secret" "person_id_sqs_dlq" {
+  metadata {
+    name      = "person-id-queue-sqs-dl-instance-output"
+    namespace = var.namespace
+  }
+  data = {
+    queue_url = aws_sqs_queue.person_id_dlq.id
+    queue_arn = aws_sqs_queue.person_id_dlq.arn
   }
 }
 
