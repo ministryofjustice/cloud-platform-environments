@@ -4,7 +4,7 @@ module "serviceaccount_nomis-port-forwarder" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "02-09-2025"
 
   serviceaccount_name = "nomis-port-forwarder-migrated"
   role_name           = "nomis-port-forwarder-migrated"
