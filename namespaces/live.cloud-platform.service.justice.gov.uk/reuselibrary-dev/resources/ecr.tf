@@ -1,30 +1,22 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
-module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+module "container_repository" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
-  # Repository configuration
-  repo_name = var.namespace
-
-  # OpenID Connect configuration
+  # Repo & OIDC
+  repo_name           = var.namespace                     # e.g. "reuselibrary-dev"
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["ministryofjustice/reuse-library"]
+  # Optional: scope to a GitHub Environment called "dev"
+  # github_environments = ["dev"]
 
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+  # Tags/metadata (use your env vars)
+  business_unit          = var.business_unit              # e.g. "Platforms"
+  application            = var.application                # "Reuse Library"
+  is_production          = "false"
+  team_name              = var.team_name                  # e.g. "reuse-library"
+  namespace              = var.namespace                  # "reuselibrary-dev"
+  environment_name       = "dev"
+  infrastructure_support = "reuse-library@justice.gov.uk"
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
-  # uncomment below:
-
+  # Optional: allow querying ECR via IRSA from the namespace (read-only)
   # enable_irsa = true
 }
