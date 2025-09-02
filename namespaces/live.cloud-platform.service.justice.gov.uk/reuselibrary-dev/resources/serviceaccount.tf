@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=0.9.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace           = var.namespace                  # e.g. "reuselibrary-dev"
   kubernetes_cluster  = var.kubernetes_cluster         # e.g. "live"
