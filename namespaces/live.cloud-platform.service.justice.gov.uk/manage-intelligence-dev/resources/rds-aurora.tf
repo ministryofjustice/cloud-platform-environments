@@ -33,8 +33,8 @@ module "rds_aurora" {
 }
 
 resource "aws_db_parameter_group" "default" {
-  name   = module.rds_aurora.db_cluster_identifier
-  family = "default.aurora-postgresql17"
+  name   = "default.aurora-postgresql17"
+  family = "aurora-postgresql17"
 
   lifecycle {
     create_before_destroy = true
