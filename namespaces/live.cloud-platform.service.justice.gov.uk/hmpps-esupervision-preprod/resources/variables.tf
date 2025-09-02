@@ -82,3 +82,9 @@ variable "postgres_instance_class" {
   default = "db.t4g.micro"
 }
 
+variable "rekognition_role_arn" {
+  type = string
+  description = "ARN of the role to assume for Rekognition operations"
+  default = "arn:aws:iam::398497927247:role/rekognition-role"
+}
+
