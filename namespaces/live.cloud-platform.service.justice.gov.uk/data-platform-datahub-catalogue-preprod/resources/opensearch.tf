@@ -19,7 +19,7 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = var.opensearch_version
+  engine_version      = var.opensearch_engine_version
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
 
   cluster_config = {
