@@ -1,4 +1,4 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: laa-cst-self-hosted-runners
@@ -8,12 +8,15 @@ spec:
   chart:
     spec:
       chart: ./helm_deploy/laa-cst-self-hosted-runners
+      version: 0.2.0
       sourceRef:
         kind: GitRepository
         name: laa-cst-self-hosted-runners
         namespace: flux-system
   values:
     runnerScaleSet:
+      name: laa-cst-self-hosted-runners
+      githubConfigUrl: https://github.com/ministryofjustice
       githubConfigSecret: laa-cst-self-hosted-runners-secret
       minRunners: 0
       maxRunners: 5
