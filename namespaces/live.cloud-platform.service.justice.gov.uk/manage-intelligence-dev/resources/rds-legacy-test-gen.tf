@@ -6,7 +6,7 @@ module "rds_aurora_legacy_test_gen" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.10"
+  engine_version = "17.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -33,7 +33,7 @@ module "rds_aurora_legacy_test_gen" {
 
 resource "aws_db_parameter_group" "default_test_gen" {
   name   = module.rds_aurora_legacy_test_gen.db_cluster_identifier
-  family = "aurora-postgresql15"
+  family = "aurora-postgresql17"
 
   lifecycle {
     create_before_destroy = true
