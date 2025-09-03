@@ -55,15 +55,23 @@ variable "github_token" {
 variable "eks_cluster_name" {
 }
 
+variable "auth_type" {
+  description = "github authentication type for the kubernetes provider - either 'app' or 'token'"
+  default     = "app"
+}
+
 variable "cloud_platform_concourse_bot_app_id" {
   description = "GitHub App ID for the Cloud Platform Concourse Bot Application"
+  default     = ""
 }
 
 variable "cloud_platform_concourse_bot_installation_id" {
   description = "GitHub App Installation ID for the Cloud Platform Concourse Bot Application"
+  default     = ""
 }
 
 variable "cloud_platform_concourse_bot_pem_file" {
   description = "GitHub App PEM file for the Cloud Platform Concourse Bot Application"
+  default     = ""
 }
   
