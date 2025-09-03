@@ -163,3 +163,28 @@ variable db_parameter {
     }
   ]
 }
+
+variable "opensearch_engine_version" {
+  description = "The OpenSearch engine version to use"
+  type        = string
+  default     = "OpenSearch_2.19"
+}
+
+variable "opensearch_instance_type" {
+  description = "The instance type to use for the OpenSearch cluster"
+  type        = string
+  default     = "t3.medium.search"
+}
+
+variable "opensearch_instance_count" {
+  description = "The number of instances to use for the OpenSearch cluster"
+  type        = number
+  default     = 3
+}
+
+variable "opensearch_ebs_volume_size" {
+  description = "The EBS volume size to use for the OpenSearch cluster"
+  type        = number
+  default     = 50
+  
+}
