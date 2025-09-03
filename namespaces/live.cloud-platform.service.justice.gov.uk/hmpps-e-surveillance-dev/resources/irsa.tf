@@ -9,10 +9,10 @@ module "irsa" {
   role_policy_arns = {
     s3              = module.s3.irsa_policy_arn
     rds             = module.rds.irsa_policy_arn
-    sns_file_upload = module.sns_topic_file_upload.irsa_policy_arn
-    sns_person_id   = module.sns_topic_person_id.irsa_policy_arn
-    sqs_file_upload = aws_iam_policy.file_upload_sqs_irsa.arn
-    sqs_person_id   = aws_iam_policy.person_id_sqs_irsa.arn
+    sns_fileupload  = module.sns_topic_fileupload.irsa_policy_arn
+    sns_personid    = module.sns_topic_personid.irsa_policy_arn
+    sqs_fileupload  = aws_iam_policy.fileupload_sqs_irsa.arn
+    sqs_personid    = aws_iam_policy.personid_sqs_irsa.arn
   }
 
   # Tags
