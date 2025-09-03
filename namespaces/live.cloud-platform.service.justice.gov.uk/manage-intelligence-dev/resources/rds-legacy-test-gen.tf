@@ -6,7 +6,7 @@ module "rds_aurora_legacy_test_gen" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.4"
+  engine_version = "17.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -14,7 +14,7 @@ module "rds_aurora_legacy_test_gen" {
     max_capacity = 4
   }
   replica_count = 1
-
+  db_parameter_group_name     = resource.aws_db_parameter_group.default_test_gen.name
   allow_major_version_upgrade = true
 
   # Tags
@@ -28,6 +28,20 @@ module "rds_aurora_legacy_test_gen" {
 
   providers = {
     aws = aws.london
+  }
+}
+
+resource "aws_db_parameter_group" "default_test_gen" {
+  name   = module.rds_aurora_legacy_test_gen.db_cluster_identifier
+  family = "aurora-postgresql17"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  parameter {
+    name  = "log_error_verbosity"
+    value = "TERSE"
   }
 }
 
