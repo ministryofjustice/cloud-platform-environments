@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: laa-cst-self-hosted-runners
+  namespace: laa-cst-self-hosted-runners
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./helm_deploy/laa-cst-self-hosted-runners
+      sourceRef:
+        kind: GitRepository
+        name: laa-cst-self-hosted-runners
+        namespace: flux-system
+  values:
+    runnerScaleSet:
+      githubConfigSecret: laa-cst-self-hosted-runners-secret
+      minRunners: 0
+      maxRunners: 5
+      labels:
+        - cst-ephemeral-aws
