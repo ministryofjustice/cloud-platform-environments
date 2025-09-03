@@ -14,7 +14,7 @@ module "rds_aurora_legacy_test_gen" {
     max_capacity = 4
   }
   replica_count = 1
-  db_parameter_group_name     = resource.aws_db_parameter_group.default.name
+  db_parameter_group_name     = resource.aws_db_parameter_group_test_gen.default.name
   allow_major_version_upgrade = true
 
   # Tags
@@ -31,7 +31,7 @@ module "rds_aurora_legacy_test_gen" {
   }
 }
 
-resource "aws_db_parameter_group" "default" {
+resource "aws_db_parameter_group_test_gen" "default" {
   name   = module.rds_aurora_legacy_test_gen.db_cluster_identifier
   family = "aurora-postgresql17"
 
