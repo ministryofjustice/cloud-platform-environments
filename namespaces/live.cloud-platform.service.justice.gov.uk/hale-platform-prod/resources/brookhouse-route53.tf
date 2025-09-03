@@ -110,6 +110,14 @@ resource "aws_route53_record" "brookhouse_route53_txt_dkim_07092023" {
   records = ["v=DKIM1; t=s; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApFBvkc4d43rDfJNqF4PxbaTKY3j6hfLVcPrF5TC4IdvHvhMLRE0QSbLi/nJLXskM0MM0ClSUlnPV16HahDgkQdSwRc3nZleV2KqO2fKLdRque2ddG7K\"\"+huY9IvAtyqPD9CeCxuxXeakVYFqUYUyM5uhPoDrtQsHT2lhZ/faAN/e6FpdtBbOIpxiITbuZxanaWaTcn3GoN/A0RWHt0LeLpitU23tepDbysfuZFk7ZCc+qhNKUL+rNd5yWeaHHbs4Ge1KH6rMN7pXgHUMpvNl8YMIR2I1OvTz/R3IKn6M73MdUV8vlgjsdrZ4s+jOYUCBxQL3ukc+ogfWy9babqxgtaQIDAQAB;"]
 }
 
+resource "aws_route53_record" "brookhouse_route53_txt_dkim_20250812" {
+  zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
+  name    = "20250812._domainkey.brookhouseinquiry.org.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["20250812._domainkey.brookhouseinquiry.org.uk  3600 IN TXT "v=DKIM1; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQq1FyQaOs1If2qMDgFcPzoSPxgrW74N5sDgnGe0n4lHdZeuQK9TbSvGXsadobFHsdYi9TaRs7ZcTSXF2YutzPlKYXl1owqP81UpPHB9mdsGoIZpgVqdWvVm+lRwk8KtKXqUh84norLAZveWkWNlfEPwr8Rl7O+QcVYUEln3DCSwIDAQAB;"]
+}
+
 resource "aws_route53_record" "brookhouse_route53_txt_mta" {
   zone_id = aws_route53_zone.brookhouse_route53_zone.zone_id
   name    = "_mta-sts.brookhouseinquiry.org.uk"
