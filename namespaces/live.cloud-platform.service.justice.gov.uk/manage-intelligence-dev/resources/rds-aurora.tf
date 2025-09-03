@@ -15,7 +15,7 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
+  db_parameter_group_name      = "default.aurora-postgresql17"
   allow_major_version_upgrade  = true
 
   # Tags
@@ -33,7 +33,7 @@ module "rds_aurora" {
 }
 
 resource "aws_db_parameter_group" "default" {
-  name   = "default.aurora-postgresql17"
+  name   = module.rds_aurora.db_cluster_identifier
   family = "aurora-postgresql17"
 
   lifecycle {
