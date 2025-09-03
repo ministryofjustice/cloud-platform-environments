@@ -42,7 +42,7 @@ module "fileupload_dlq" {
 module "personid_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name                  = "personidqueue.fifo"
+  sqs_name                  = "personidqueue"
   encrypt_sqs_kms          = true
   fifo_queue               = true
   message_retention_seconds = 86400
@@ -66,7 +66,7 @@ module "personid_queue" {
 module "personid_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name                  = "personidqueuedlq.fifo"
+  sqs_name                  = "personidqueuedlq"
   encrypt_sqs_kms          = true
   fifo_queue               = true
   message_retention_seconds = 1209600  # 14 days
