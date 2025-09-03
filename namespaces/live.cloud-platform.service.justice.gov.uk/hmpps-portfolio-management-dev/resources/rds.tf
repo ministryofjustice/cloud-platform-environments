@@ -63,7 +63,7 @@ resource "kubernetes_secret" "hmpps_service_catalogue_strapi5-dev" {
 locals {
 
   rds_databases = {
-    "rdsAlertsDatabases.${module.hmpps_service_catalogue.db_identifier}" = "hmpps-service-catalogue-db"
+    "rdsAlertsDatabases.${module.hmpps_service_catalogue_strapi5.db_identifier}" = "hmpps-service-catalogue-db"
 
   }
 
