@@ -22,9 +22,6 @@ module "irsa" {
     {
       rekognition = aws_iam_policy.assume_rekognition_policy.arn
     },
-    {
-      rds = module.rds.irsa_policy_arn
-    },
     local.sns_policies
   )
 
