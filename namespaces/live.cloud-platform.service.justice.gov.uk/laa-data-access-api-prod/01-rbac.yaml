@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-data-access-api-prod-admin
+  namespace: laa-data-access-api-prod
+subjects:
+  - kind: Group
+    name: "github:laa-data-stewardship-access-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
