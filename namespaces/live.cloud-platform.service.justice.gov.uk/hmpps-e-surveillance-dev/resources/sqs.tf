@@ -191,29 +191,27 @@ resource "kubernetes_secret" "personid_sqs_dlq" {
 }
 
 # IAM Policies for IRSA (SQS Consumer Permissions)
+resource "random_id" "sqs_irsa" {
+  byte_length = 6
+}
+
+data "aws_iam_policy_document" "sqs_irsa" {
+  version = "2012-10-17"
+  statement {
+    sid       = "AllowSQSActionsFor${random_id.sqs_irsa.hex}"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = [
+      module.fileupload_queue.sqs_arn,
+      module.fileupload_dlq.sqs_arn,
+      module.personid_queue.sqs_arn,
+      module.personid_dlq.sqs_arn
+    ]
+  }
+}
 
 resource "aws_iam_policy" "sqs_irsa" {
   name        = "${var.namespace}-sqs-irsa"
   description = "Allow IRSA role to consume messages from fileupload and personid queues"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = ["sqs:*"]
-        Resource = [
-          module.fileupload_queue.sqs_arn,
-          module.personid_queue.sqs_arn
-        ]
-      }
-    ]
-  })
-}
-
-# Output for IRSA SQS policy
-
-output "sqs_irsa_policy_arn" {
-  description = "IAM policy ARN that grants IRSA permissions to consume messages from the fileupload and personid SQS queues"
-  value       = aws_iam_policy.sqs_irsa.arn
+  policy      = data.aws_iam_policy_document.sqs_irsa.json
 }

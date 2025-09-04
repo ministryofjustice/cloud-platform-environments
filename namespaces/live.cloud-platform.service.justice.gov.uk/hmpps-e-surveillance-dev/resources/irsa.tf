@@ -22,4 +22,5 @@ module "irsa" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  depends_on = [aws_iam_policy.sqs_irsa]
 }
