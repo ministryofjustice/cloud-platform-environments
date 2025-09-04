@@ -212,6 +212,7 @@ data "aws_iam_policy_document" "irsa_policy" {
     ]
   }
 
+
   # S3 permissions
   statement {
     sid       = "AllowS3GetBucketNotificationFor${random_id.irsa_policy.hex}"
