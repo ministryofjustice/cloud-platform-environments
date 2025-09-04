@@ -192,56 +192,28 @@ resource "kubernetes_secret" "personid_sqs_dlq" {
 
 # IAM Policies for IRSA (SQS Consumer Permissions)
 
-resource "aws_iam_policy" "fileupload_sqs_irsa" {
-  name        = "${var.namespace}-fileupload-sqs-irsa"
-  description = "Allow IRSA role to consume messages from fileupload queue"
+resource "aws_iam_policy" "sqs_irsa" {
+  name        = "${var.namespace}-sqs-irsa"
+  description = "Allow IRSA role to consume messages from fileupload and personid queues"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Effect   = "Allow"
-        Action   = [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes",
-          "sqs:GetQueueUrl"
+        Action   = ["sqs:*"]
+        Resource = [
+          module.fileupload_queue.sqs_arn,
+          module.personid_queue.sqs_arn
         ]
-        Resource = module.fileupload_queue.sqs_arn
       }
     ]
   })
 }
 
-resource "aws_iam_policy" "personid_sqs_irsa" {
-  name        = "${var.namespace}-personid-sqs-irsa"
-  description = "Allow IRSA role to consume messages from personid queue"
+# Output for IRSA SQS policy
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes",
-          "sqs:GetQueueUrl"
-        ]
-        Resource = module.personid_queue.sqs_arn
-      }
-    ]
-  })
-}
-
-# Outputs for IRSA
-
-output "fileupload_sqs_irsa_policy_arn" {
-  description = "IAM policy ARN that grants IRSA permissions to consume messages from the fileupload SQS queue"
-  value       = aws_iam_policy.fileupload_sqs_irsa.arn
-}
-
-output "personid_sqs_irsa_policy_arn" {
-  description = "IAM policy ARN that grants IRSA permissions to consume messages from the personid SQS queue"
-  value       = aws_iam_policy.personid_sqs_irsa.arn
+output "sqs_irsa_policy_arn" {
+  description = "IAM policy ARN that grants IRSA permissions to consume messages from the fileupload and personid SQS queues"
+  value       = aws_iam_policy.sqs_irsa.arn
 }

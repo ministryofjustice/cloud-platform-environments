@@ -7,12 +7,11 @@ module "irsa" {
 
   # IRSA configuration
   role_policy_arns = {
-    s3              = module.s3.irsa_policy_arn
-    rds             = module.rds.irsa_policy_arn
-    sns_fileupload  = module.sns_topic_fileupload.irsa_policy_arn
-    sns_personid    = module.sns_topic_personid.irsa_policy_arn
-    sqs_fileupload  = aws_iam_policy.fileupload_sqs_irsa.arn
-    sqs_personid    = aws_iam_policy.personid_sqs_irsa.arn
+    s3             = module.s3.irsa_policy_arn
+    rds            = module.rds.irsa_policy_arn
+    sns_fileupload = module.sns_topic_fileupload.irsa_policy_arn
+    sns_personid   = module.sns_topic_personid.irsa_policy_arn
+    sqs            = aws_iam_policy.sqs_irsa.arn
   }
 
   # Tags
