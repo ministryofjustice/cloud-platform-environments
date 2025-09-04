@@ -45,3 +45,8 @@ resource "kubernetes_secret" "s3" {
     bucket_name = module.s3.bucket_name
   }
 }
+
+resource "aws_s3_bucket_metric" "entire-bucket-metric" {
+  bucket = module.s3.bucket_name
+  name   = "staff-audit-bucket-metrics"
+}

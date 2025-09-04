@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-record-link-service-prd-admin
+  namespace: laa-record-link-service-prd
+subjects:
+  - kind: Group
+    name: "github:case-ownership-transfer"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

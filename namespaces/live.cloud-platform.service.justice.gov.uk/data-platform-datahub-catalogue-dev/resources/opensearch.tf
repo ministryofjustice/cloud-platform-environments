@@ -12,23 +12,23 @@ module "opensearch_snapshot_bucket" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.9"
+  engine_version      = var.opensearch_engine_version
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
 
   cluster_config = {
-    instance_count = 3
-    instance_type  = "t3.medium.search"
+    instance_count = var.opensearch_instance_count
+    instance_type  = var.opensearch_instance_type
   }
 
   ebs_options = {
-    volume_size = 50
+    volume_size = var.opensearch_ebs_volume_size
   }
 
   # Tags

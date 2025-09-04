@@ -87,7 +87,6 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.address.updated",
       "probation-case.address.deleted",
       "probation-case.risk-scores.ogrs.manual-calculation",
-      "probation.staff.updated",
       "plp.induction-schedule.updated",
       "plp.review-schedule.updated",
       "san.plan-creation-schedule.updated",

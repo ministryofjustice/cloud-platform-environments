@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name = var.vpc_name
 
@@ -56,6 +56,8 @@ module "rds-instance" {
       apply_method = "immediate"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds-instance" {
@@ -70,7 +72,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   storage_type = "gp2"
 
   vpc_name = var.vpc_name
@@ -103,6 +105,8 @@ module "rds-read-replica" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  enable_irsa = true
 }
 
 # Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS

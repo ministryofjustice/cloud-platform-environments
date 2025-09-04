@@ -1,6 +1,8 @@
-module "sns_topic_file_upload" {
+# SNS Topics
+
+module "sns_topic_fileupload" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
-  topic_display_name = "${var.namespace}-file-upload-sns"
+  topic_display_name = "${var.namespace}-fileupload-sns"
 
   encrypt_sns_kms             = true
   fifo_topic                  = false
@@ -16,13 +18,13 @@ module "sns_topic_file_upload" {
   namespace        = var.namespace
 }
 
-module "sns_topic_person_id" {
+module "sns_topic_personid" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
-  topic_display_name          = "${var.namespace}-person-id-sns"
+  topic_display_name = "${var.namespace}-personid-sns"
 
   encrypt_sns_kms             = true
-  fifo_topic                  = false
-  content_based_deduplication = false
+  fifo_topic                  = true
+  content_based_deduplication = true
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -34,26 +36,24 @@ module "sns_topic_person_id" {
   namespace        = var.namespace
 }
 
-resource "kubernetes_secret" "file_upload_sns_topic" {
+# Kubernetes Secrets for SNS Topics
+
+resource "kubernetes_secret" "fileupload_sns" {
   metadata {
-    name = "file-upload-sns-topic"
+    name      = "fileupload-sns-topic"
     namespace = var.namespace
-
   }
-
   data = {
-    topic_arn = module.sns_topic_file_upload.topic_arn
+    topic_arn = module.sns_topic_fileupload.topic_arn
   }
 }
 
-resource "kubernetes_secret" "person_id_sns_topic" {
+resource "kubernetes_secret" "personid_sns" {
   metadata {
-    name = "person-id-sns-topic"
+    name      = "personid-sns-topic"
     namespace = var.namespace
-
   }
-
   data = {
-    topic_arn = module.sns_topic_person_id.topic_arn
+    topic_arn = module.sns_topic_personid.topic_arn
   }
 }

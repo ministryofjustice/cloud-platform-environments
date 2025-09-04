@@ -1,17 +1,17 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  # EKS configuration
-  eks_cluster_name = var.eks_cluster_name
-
-  # IRSA configuration
+  # EKS config
+  eks_cluster_name     = var.eks_cluster_name
   service_account_name = "${var.team_name}-${var.environment}"
 
+  # IRSA configuration
   role_policy_arns = {
-    s3                    = module.s3.irsa_policy_arn
-    rds                   = module.rds.irsa_policy_arn
-    sns_file_upload       = module.sns_topic_file_upload.irsa_policy_arn
-    sns_person_id         = module.sns_topic_person_id.irsa_policy_arn
+    s3             = module.s3.irsa_policy_arn
+    rds            = module.rds.irsa_policy_arn
+    sns_fileupload = module.sns_topic_fileupload.irsa_policy_arn
+    sns_personid   = module.sns_topic_personid.irsa_policy_arn
+    sqs            = aws_iam_policy.sqs_irsa.arn
   }
 
   # Tags
@@ -19,7 +19,8 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  namespace              = var.namespace # this is also used to attach your service account to your namespace
+  namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  depends_on = [aws_iam_policy.sqs_irsa]
 }

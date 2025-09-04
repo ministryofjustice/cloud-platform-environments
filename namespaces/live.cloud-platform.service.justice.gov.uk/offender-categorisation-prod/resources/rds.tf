@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -13,6 +13,8 @@ module "dps_rds" {
   db_engine_version           = "14"
   allow_major_version_upgrade = "false"
   performance_insights_enabled = "true"
+
+  enable_irsa = true
 }
 
 resource "random_id" "risk_profiler_role_password" {
