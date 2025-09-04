@@ -15,3 +15,4 @@ spec:
     - pre-sentence-service-wproofreader-preprod.hmpps.service.justice.gov.uk
     - court-case-test-app-preprod.hmpps.service.justice.gov.uk
     - court-case-matcher-preprod.apps.live-1.cloud-platform.service.justice.gov.uk
+    - hmpps-court-case-service-api-preprod.hmpps.service.justice.gov.uk
