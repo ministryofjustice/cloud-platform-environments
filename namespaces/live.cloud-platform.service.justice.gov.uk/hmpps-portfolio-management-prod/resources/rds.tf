@@ -22,7 +22,7 @@ module "hmpps_service_catalogue" {
 
 }
 
-module "hmpps_service_catalogue-strapi5" {
+module "hmpps_service_catalogue_strapi5" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
