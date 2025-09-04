@@ -45,3 +45,8 @@ resource "kubernetes_secret" "hmpps_prisoner_audit_s3" {
     bucket_name = module.hmpps_prisoner_audit_s3.bucket_name
   }
 }
+
+resource "aws_s3_bucket_metric" "prisoner-entire-bucket-metric" {
+  bucket = module.hmpps_prisoner_audit_s3.bucket_name
+  name   = "prisoner-audit-bucket-metrics"
+}
