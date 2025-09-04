@@ -11,7 +11,7 @@ module "irsa" {
     rds            = module.rds.irsa_policy_arn
     sns_fileupload = module.sns_topic_fileupload.irsa_policy_arn
     sns_personid   = module.sns_topic_personid.irsa_policy_arn
-    sqs            = aws_iam_policy.sqs_irsa.arn
+    sqs            = aws_iam_policy.irsa_policy.arn
   }
 
   # Tags
@@ -22,5 +22,5 @@ module "irsa" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  depends_on = [aws_iam_policy.sqs_irsa]
+  depends_on = [aws_iam_policy.irsa_policy]
 }

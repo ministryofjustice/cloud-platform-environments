@@ -190,15 +190,18 @@ resource "kubernetes_secret" "personid_sqs_dlq" {
   }
 }
 
-# IAM Policies for IRSA (SQS Consumer Permissions)
-resource "random_id" "sqs_irsa" {
+# Random ID for uniqueness in IAM policy SID
+resource "random_id" "irsa_policy" {
   byte_length = 6
 }
 
-data "aws_iam_policy_document" "sqs_irsa" {
+# IAM Policy Document for IRSA (SQS + S3 Permissions)
+data "aws_iam_policy_document" "irsa_policy" {
   version = "2012-10-17"
+
+  # SQS permissions
   statement {
-    sid       = "AllowSQSActionsFor${random_id.sqs_irsa.hex}"
+    sid       = "AllowSQSActionsFor${random_id.irsa_policy.hex}"
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
@@ -208,10 +211,20 @@ data "aws_iam_policy_document" "sqs_irsa" {
       module.personid_dlq.sqs_arn
     ]
   }
+
+
+  # S3 permissions
+  statement {
+    sid       = "AllowS3GetBucketNotificationFor${random_id.irsa_policy.hex}"
+    effect    = "Allow"
+    actions   = ["s3:*"]
+    resources = [module.s3.bucket_arn]
+  }
 }
 
-resource "aws_iam_policy" "sqs_irsa" {
-  name        = "${var.namespace}-sqs-irsa"
-  description = "Allow IRSA role to consume messages from fileupload and personid queues"
-  policy      = data.aws_iam_policy_document.sqs_irsa.json
+# IAM Policy resource
+resource "aws_iam_policy" "irsa_policy" {
+  name        = "${var.namespace}-irsa-policy"
+  description = "Allow IRSA role to consume messages from SQS queues and access S3 bucket notifications"
+  policy      = data.aws_iam_policy_document.irsa_policy.json
 }
