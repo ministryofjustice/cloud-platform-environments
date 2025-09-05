@@ -80,26 +80,6 @@ variable "github_environment_name" {
   default     = "uat"
 }
 
-variable "github_actions_secret_kube_cluster" {
-  description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_ACCESS_UAT" # overridden from "KUBE_CLUSTER"
-}
-
-variable "github_actions_secret_kube_namespace" {
-  description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_ACCESS_UAT" # overridden from "KUBE_NAMESPACE"
-}
-
-variable "github_actions_secret_kube_cert" {
-  description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_ACCESS_UAT" # overridden from "KUBE_CERT"
-}
-
-variable "github_actions_secret_kube_token" {
-  description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_ACCESS_UAT" # overridden from "KUBE_TOKEN"
-}
-
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
