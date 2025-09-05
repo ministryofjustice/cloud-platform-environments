@@ -79,3 +79,9 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-data-claims-event-service-uat-service-account"
 }
+
+variable "producer_namespace" {
+  type        = string
+  description = "The namespace of the SQS producer"
+  default     = "laa-data-claims-api-uat"
+}
