@@ -19,7 +19,7 @@ module "allocation-rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   db_engine                   = "postgres"
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
