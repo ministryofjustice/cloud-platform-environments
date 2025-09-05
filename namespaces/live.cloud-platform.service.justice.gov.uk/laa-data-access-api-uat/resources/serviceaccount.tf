@@ -7,7 +7,7 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
-  github_repositories = ["laa-data-access-api", "laa-data-stewardship-helm-charts"]
+  github_repositories = ["laa-data-access-api"]
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token

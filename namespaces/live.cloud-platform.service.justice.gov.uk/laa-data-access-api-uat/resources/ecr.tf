@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-data-access-api", "laa-data-stewardship-helm-charts"]
+  github_repositories = ["laa-data-access-api"]
 
   # Tags
   business_unit          = var.business_unit
