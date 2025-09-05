@@ -2,6 +2,28 @@
 locals {
   namespaces = toset([
     "hmpps-external-users-api-preprod",
+    "hmpps-activities-management-preprod",
+    "hmpps-assess-risks-and-needs-preprod",
+    "hmpps-assess-risks-and-needs-integrations-preprod",
+    "hmpps-assessments-preprod",
+    "hmpps-book-a-video-link-preprod",
+    "hmpps-community-accommodation-preprod",
+    "hmpps-contacts-preprod",
+    "hmpps-education-and-work-plan-preprod",
+    "hmpps-electronic-monitoring-datastore-preprod",
+    "hmpps-incentives-preprod",
+    "hmpps-integration-api-preprod",
+    "hmpps-locations-inside-prison-preprod",
+    "hmpps-manage-adjudications-api-preprod",
+    "hmpps-manage-users-preprod",
+    "hmpps-non-associations-preprod",
+    "hmpps-prisoner-from-nomis-migration-preprod",
+    "hmpps-prisoner-profile-preprod",
+    "hmpps-registers-preprod",
+    "hmpps-subject-access-request-preprod",
+    "hmpps-workload-preprod",
+    "make-recall-decision-preprod",
+    "visit-someone-in-prison-frontend-svc-preprod",
   ])
 }
 
