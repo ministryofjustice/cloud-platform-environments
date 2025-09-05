@@ -101,10 +101,13 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.esupervision-and-delius-queue.sqs_arn,
+      module.suicide-risk-form-and-delius-queue.sqs_arn,
       module.accredited-programmes-and-delius-queue.sqs_arn,
       module.breach-notice-and-delius-queue.sqs_arn,
       module.justice-email-and-delius-queue.sqs_arn,
       module.common-platform-and-delius-queue.sqs_arn,
+      module.common-platform-and-delius-fifo-queue.sqs_arn,
       module.prison-identifier-and-delius-queue.sqs_arn,
       module.cas2-and-delius-queue.sqs_arn,
       module.approved-premises-and-delius-queue.sqs_arn,
@@ -132,10 +135,13 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.esupervision-and-delius-dlq.sqs_arn,
+      module.suicide-risk-form-and-delius-dlq.sqs_arn,
       module.accredited-programmes-and-delius-dlq.sqs_arn,
       module.breach-notice-and-delius-dlq.sqs_arn,
       module.justice-email-and-delius-dlq.sqs_arn,
       module.common-platform-and-delius-dlq.sqs_arn,
+      module.common-platform-and-delius-fifo-dlq.sqs_arn,
       module.prison-identifier-and-delius-dlq.sqs_arn,
       module.cas2-and-delius-dlq.sqs_arn,
       module.approved-premises-and-delius-dlq.sqs_arn,

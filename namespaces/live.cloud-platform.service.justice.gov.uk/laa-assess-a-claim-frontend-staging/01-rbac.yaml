@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-assess-a-claim-frontend-staging-admin
+  namespace: laa-assess-a-claim-frontend-staging
+subjects:
+  - kind: Group
+    name: "github:laa-claim-and-assess"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

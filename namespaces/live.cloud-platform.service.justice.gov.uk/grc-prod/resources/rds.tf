@@ -6,7 +6,7 @@
  */
 
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage      = 10
   storage_type              = "gp2"
   vpc_name                  = var.vpc_name
@@ -15,12 +15,13 @@ module "dps_rds" {
   application               = var.application
   is_production             = var.is_production
   namespace                 = var.namespace
-  db_engine_version = "14.17"
+  db_engine_version         = "14"
   db_instance_class         = "db.t4g.medium"
   db_max_allocated_storage  = "500" # maximum storage for autoscaling
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
+  allow_minor_version_upgrade = "true"
 
   rds_family = "postgres14"
 

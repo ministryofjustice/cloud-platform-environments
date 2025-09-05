@@ -5,7 +5,7 @@
  *
  */
 module "laa_crime_apps_team_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
   repo_name = "hmcts-common-platform-mock-api"
   # TODO: Change this to the correct team name when we are ready to switch ECR repo
   team_name = "laa-crime-apps-team"
@@ -13,7 +13,7 @@ module "laa_crime_apps_team_ecr_credentials" {
 
   oidc_providers = ["circleci"]
 
-  github_repositories = ["hmcts-common-platform-mock-api"]
+  github_repositories = ["laa-court-data-ui", "laa-court-data-adaptor", "hmcts-common-platform-mock-api", "laa-court-data-ui-e2e-tests"]
 
   # Tags
   business_unit          = "Crime Apps"

@@ -1,7 +1,7 @@
 # Shared service account for use by the probation integration team to access all queues in the namespace
 # Note: each service in the namespace also has a dedicated service account
 module "shared-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

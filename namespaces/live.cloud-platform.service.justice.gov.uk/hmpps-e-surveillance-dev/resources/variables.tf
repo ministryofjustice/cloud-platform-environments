@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Technology for Community Offender Management Pathfinder (TCOM)"
+  default     = "Technology for Community Offender Management Pathfinder - TCOM"
 }
 
 variable "namespace" {
@@ -76,4 +76,13 @@ variable "s3_bucket_name" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+variable "base_url" {
+  description = "Name of the base url"
+  type        = string
+  default     = "https://e-surveillance-api-dev.hmpps.service.justice.gov.uk"
 }

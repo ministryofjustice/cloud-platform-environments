@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-submit-a-bulk-claim"
+  default     = "cwa-bulkupload-app-team"
 }
 
 variable "environment" {
@@ -66,4 +66,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  type        = string
+  default     = "example_name"
+}
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-submit-a-bulk-claim-production-service-account"
 }

@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   team_name = var.team_name
@@ -14,7 +14,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["laa-cwa-data-api"]
+  github_repositories   = ["laa-data-provider-data"]
   github_actions_prefix = "dev"
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments

@@ -1,5 +1,5 @@
 module "rds_postgres" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -12,7 +12,7 @@ module "rds_postgres" {
   rds_family                 = "postgres16"
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "500"
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
   prepare_for_major_upgrade  = false
 
   # Tags

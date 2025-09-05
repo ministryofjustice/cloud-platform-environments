@@ -29,6 +29,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
       module.migration_coreperson_queue.sqs_arn,
       module.migration_coreperson_dead_letter_queue.sqs_arn,
+      module.migration_externalmovements_queue.sqs_arn,
+      module.migration_externalmovements_dead_letter_queue.sqs_arn,
       module.migration_sentencing_queue.sqs_arn,
       module.migration_sentencing_dead_letter_queue.sqs_arn,
       module.migration_personalrelationships_queue.sqs_arn,
@@ -67,6 +69,8 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_alerts_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_casenotes_queue.sqs_arn,
       module.prisoner_from_nomis_casenotes_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_externalmovements_queue.sqs_arn,
+      module.prisoner_from_nomis_externalmovements_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_finance_queue.sqs_arn,
       module.prisoner_from_nomis_finance_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_queue.sqs_arn,
@@ -93,7 +97,7 @@ resource "aws_iam_policy" "combined_local_sqs_events" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

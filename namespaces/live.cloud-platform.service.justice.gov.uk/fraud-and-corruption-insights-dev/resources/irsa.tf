@@ -1,11 +1,11 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "fraud-and-corruption-insights-dev-sa"
+  service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace
 
   role_policy_arns = {

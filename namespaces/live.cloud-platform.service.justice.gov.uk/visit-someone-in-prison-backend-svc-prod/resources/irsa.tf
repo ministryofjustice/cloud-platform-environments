@@ -39,7 +39,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 
 
 module "irsa" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   service_account_name = var.application
   role_policy_arns     = local.all_policies

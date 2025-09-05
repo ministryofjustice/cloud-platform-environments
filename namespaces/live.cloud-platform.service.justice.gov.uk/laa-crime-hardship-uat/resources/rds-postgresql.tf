@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -22,7 +22,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.12"
+  db_engine_version = "14.17"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
@@ -37,6 +37,8 @@ module "rds" {
 
   # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
   enable_rds_auto_start_stop = true
+
+  enable_irsa = true
 }
 
 
@@ -47,7 +49,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 

@@ -19,7 +19,7 @@ locals {
 
 # IRSA for pathfinder deployment
 module "irsa_pathfinder" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "pathfinder"
@@ -39,7 +39,7 @@ module "irsa_pathfinder" {
 
 # IRSA for pathfinder-api deployment
 module "irsa_hmpps_pathfinder_api" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace              = var.namespace
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "pathfinder-api"

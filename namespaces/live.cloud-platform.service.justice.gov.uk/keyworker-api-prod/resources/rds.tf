@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -20,6 +20,8 @@ module "dps_rds" {
   maintenance_window          = var.maintenance_window
   deletion_protection         = true
   prepare_for_major_upgrade   = false
+
+  enable_irsa = true
 }
 
 

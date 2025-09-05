@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "aws-secrets"
     },
+    "benefit_checker_alert_webhook_prod" = {
+      description             = "Benefit Checker Slack Webhook for prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "benefit-checker-alert-webhook-prod"
+    },
   }
 }

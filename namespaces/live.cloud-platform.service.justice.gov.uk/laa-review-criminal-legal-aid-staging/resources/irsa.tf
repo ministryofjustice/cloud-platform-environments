@@ -1,5 +1,13 @@
+# SQS policy ARN secret created in Datastore staging
+data "kubernetes_secret" "sqs-policy-arn-cross-namespace" {
+  metadata {
+    name      = "application-events-queue-policy-arn"
+    namespace = var.namespace
+  }
+}
+
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -13,6 +21,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3  = module.s3_bucket.irsa_policy_arn
+    sqs = data.kubernetes_secret.sqs-policy-arn-cross-namespace.data.sqs_irsa_policy_arn
   }
 
   # Tags

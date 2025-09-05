@@ -19,7 +19,7 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -35,7 +35,9 @@ module "irsa" {
       analytical-platform   = aws_iam_policy.analytical-platform.arn
     },
     { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
-    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn }
+    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn },
+    { (module.hmpps_activities_management_jobs_queue.sqs_name) = module.hmpps_activities_management_jobs_queue.irsa_policy_arn },
+    { (module.hmpps_activities_management_jobs_dlq.sqs_name) = module.hmpps_activities_management_jobs_dlq.irsa_policy_arn }
   )
 
   # Tags

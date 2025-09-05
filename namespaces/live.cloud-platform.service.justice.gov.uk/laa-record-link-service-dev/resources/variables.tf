@@ -3,6 +3,11 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  type        = string
+  description = "eks_cluster_name"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string

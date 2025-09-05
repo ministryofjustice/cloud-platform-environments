@@ -1,5 +1,5 @@
 module "hmpps_component_dependencies" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-component-dependencies"
   application                   = "hmpps-component-dependencies"
   github_team                   = "hmpps-sre"

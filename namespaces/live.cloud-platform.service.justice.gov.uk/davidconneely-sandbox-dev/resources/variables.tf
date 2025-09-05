@@ -3,11 +3,6 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "Required by the cloud-platform-terraform-secrets-manager module"
-  type        = string
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -16,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Sandbox for David Conneely"
+  default     = "Testing Application Sandbox"
 }
 
 variable "namespace" {
@@ -46,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "david.conneely@digital.justice.gov.uk"
+  default     = "david.conneely@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -58,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-dces"
+  default     = "David Conneely"
 }
 
 variable "github_owner" {
@@ -71,4 +66,11 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+### Additions
+
+variable "eks_cluster_name" {
+  description = "Required by the cloud-platform-terraform-secrets-manager module"
+  type        = string
 }

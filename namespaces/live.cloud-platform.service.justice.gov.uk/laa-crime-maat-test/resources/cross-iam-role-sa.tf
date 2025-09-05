@@ -1,5 +1,5 @@
 module "irsa_laa_test_viewer" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = "laa-test-viewer"
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "laa-test-viewer-sa"

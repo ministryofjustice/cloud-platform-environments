@@ -10,28 +10,18 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "datasource" = {
-      description             = "[davidconneely-sandbox-dev/datasource] Database connection"
+    "app-secrets" = {
+      description             = "[app-secrets] App secrets"
       recovery_window_in_days = 7
-      k8s_secret_name         = "datasource"
-    }
-    "feature" = {
-      description             = "[davidconneely-sandbox-dev/feature] Feature flag variables"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "feature"
-    }
-    "local" = {
-      description             = "[davidconneely-sandbox-dev/local] Local secrets owned by this application"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "local"
+      k8s_secret_name         = "app-secrets"
     }
     "service1-client" = {
-      description             = "[davidconneely-sandbox-dev/service1-client] Client credentials for service1"
+      description             = "[service1-client] Client credentials for service1"
       recovery_window_in_days = 7
       k8s_secret_name         = "service1-client"
     }
     "service2-client" = {
-      description             = "[davidconneely-sandbox-dev/service2-client] Client credentials for service2"
+      description             = "[service2-client] Client credentials for service2"
       recovery_window_in_days = 7
       k8s_secret_name         = "service2-client"
     }

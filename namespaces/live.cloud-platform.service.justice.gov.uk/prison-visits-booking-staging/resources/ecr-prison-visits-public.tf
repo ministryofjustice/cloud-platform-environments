@@ -1,5 +1,5 @@
 module "ecr-repo-prison-visits-public" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name           = "prison-visits-public"
   oidc_providers      = ["circleci"]

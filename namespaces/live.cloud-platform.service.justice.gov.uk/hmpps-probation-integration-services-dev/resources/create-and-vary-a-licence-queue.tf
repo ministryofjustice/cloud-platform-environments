@@ -68,7 +68,7 @@ resource "kubernetes_secret" "create-and-vary-a-licence-and-delius-queue-secret"
 }
 
 module "create-and-vary-a-licence-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

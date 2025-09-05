@@ -9,7 +9,7 @@ module "hmpps_e_surveillance_api" {
   protected_branches_only       = false                   # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev"
-  source_template_repo          = "none"
+  source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster

@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 
@@ -8,7 +8,8 @@ module "irsa" {
   role_policy_arns = merge(
     {
       dynamodb         = aws_iam_policy.auditdb_policy.arn,
-      s3 = module.laa_sds_equiniti.irsa_policy_arn
+      s3 = module.laa_sds_equiniti.irsa_policy_arn,
+      s3_versioning    = aws_iam_policy.s3_versioning_policy.arn
     },
     { for name, module in module.s3_buckets : name => module.irsa_policy_arn }
   )
@@ -24,7 +25,7 @@ module "irsa" {
 }
 
 module "cross-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 
@@ -40,6 +41,37 @@ module "cross-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+data "aws_iam_policy_document" "s3_versioning_policy" {
+  # Required to call boto3's list_object_versions()
+  statement {
+    actions = ["s3:ListBucketVersions"]
+    resources = [
+      for name in var.bucket_names :
+      "arn:aws:s3:::${name}-${var.environment}"
+    ]
+  }
+
+  # Required to get/hard-delete specific object versions
+  statement {
+    actions = ["s3:GetObjectVersion", "s3:DeleteObjectVersion"]
+    resources = [
+      for name in var.bucket_names :
+      "arn:aws:s3:::${name}-${var.environment}/*"
+    ]
+  }
+}
+resource "aws_iam_policy" "s3_versioning_policy" {
+  name   = "s3_versioning_policy_${var.environment}"
+  policy = data.aws_iam_policy_document.s3_versioning_policy.json
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
 
 data "aws_iam_policy_document" "s3_migrate_policy" {
   # List & location for source & destination S3 bucket.

@@ -824,3 +824,32 @@ spec:
   dnsNames:
     - 51f7cc5f-dev.hmpps.service.justice.gov.uk
     - hmpps-common-platform-event-receiver-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: suicide-risk-form-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: suicide-risk-form-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 7e069acf-dev.hmpps.service.justice.gov.uk
+    - suicide-risk-form-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: esupervision-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: esupervision-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 9c8f8a5c-dev.hmpps.service.justice.gov.uk
+    - esupervision-and-delius-dev.hmpps.service.justice.gov.uk

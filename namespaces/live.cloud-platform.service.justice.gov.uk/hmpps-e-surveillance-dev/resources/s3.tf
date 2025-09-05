@@ -17,19 +17,19 @@ module "s3" {
   }
 }
 
-resource "aws_s3_bucket_notification" "file_upload_notification" {
+resource "aws_s3_bucket_notification" "fileupload_notification" {
   bucket = module.s3.bucket_name
 
   topic {
-    topic_arn = module.sns_topic_file_upload.topic_arn
+    topic_arn = module.sns_topic_fileupload.topic_arn
     events    = ["s3:ObjectCreated:*"]
   }
 
-  depends_on = [module.sns_topic_file_upload]
+  depends_on = [module.sns_topic_fileupload, aws_sns_topic_policy.fileupload]
 }
 
-resource "aws_sns_topic_policy" "file_upload" {
-  arn = module.sns_topic_file_upload.topic_arn
+resource "aws_sns_topic_policy" "fileupload" {
+  arn = module.sns_topic_fileupload.topic_arn
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -41,9 +41,9 @@ resource "aws_sns_topic_policy" "file_upload" {
           Service = "s3.amazonaws.com"
         }
         Action   = "SNS:Publish"
-        Resource = module.sns_topic_file_upload.topic_arn
+        Resource = module.sns_topic_fileupload.topic_arn
         Condition = {
-          ArnLike = {
+          ArnEquals = {
             "aws:SourceArn" = module.s3.bucket_arn
           }
         }
