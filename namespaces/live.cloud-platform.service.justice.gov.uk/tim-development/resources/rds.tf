@@ -9,7 +9,7 @@ module "rds" {
 
   # VPC configuration
   vpc_name = var.vpc_name
-
+  snapshot_identifier = "cloud-platform-b128b7f4b1f5d481-2025-09-05-11-30-copy"
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
