@@ -67,7 +67,7 @@ module "opensearch_alert_ip_prefix" {
 module "opensearch_alert_error_loading_seccomp" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
-  secret_name                    = "opensearch-low-priority-webhook"
+  secret_name                    = "live-monitoring-3ca3cc4085f66db3"
   secret_key                     = "url"
   slack_channel_name             = "lower-priority-alarms"
   slack_channel_name_description = "Cloud Platform lower priority alarms channel"
