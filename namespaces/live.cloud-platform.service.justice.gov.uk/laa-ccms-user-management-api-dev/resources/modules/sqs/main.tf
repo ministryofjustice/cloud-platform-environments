@@ -46,3 +46,4 @@ resource "aws_sqs_queue_policy" "dlq" {
   queue_url = module.dlq.sqs_id
   policy    = data.aws_iam_policy_document.dlq.json
 }
+
