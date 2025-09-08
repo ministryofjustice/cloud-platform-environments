@@ -64,7 +64,7 @@ module "opensearch_alert_ip_prefix" {
   )
 }
 
-module "opensearch_alert_ip_prefix" {
+module "opensearch_alert_error_loading_seccomp" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
   secret_name                    = "opensearch-low-priority-webhook"
@@ -82,7 +82,7 @@ module "opensearch_alert_ip_prefix" {
   query_source           = "ctx.results[0].hits.total.value > 0"
   action_name            = "Error loading seccomp filter - Errno 524 action"
   slack_message_subject  = ":alert: Error loading seccomp filter - Errno 524 :alert:"
-  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status.\n Investigate logs. \n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status.\n Investigate logs and recycle problem node. \n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
   alert_throttle_enabled = true
   throttle_value         = 60
   throttle_unit          = "MINUTES"
