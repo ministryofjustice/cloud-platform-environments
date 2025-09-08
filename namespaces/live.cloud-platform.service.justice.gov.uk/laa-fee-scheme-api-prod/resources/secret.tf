@@ -16,4 +16,4 @@ module "secrets_manager" {
       k8s_secret_name         = "fee-scheme-api-secrets"
     },
   }
-}:
+}
