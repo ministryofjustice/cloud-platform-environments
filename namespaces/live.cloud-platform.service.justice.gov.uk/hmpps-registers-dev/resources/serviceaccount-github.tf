@@ -1,6 +1,6 @@
 locals {
 
-  github_repos   = ["hmpps-registers"]
+  github_repos   = ["hmpps-registers", "prison-register"]
 
   github-actions-sa_rules = [
     {
