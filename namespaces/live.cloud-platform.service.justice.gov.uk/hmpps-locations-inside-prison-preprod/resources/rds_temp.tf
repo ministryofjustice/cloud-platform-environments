@@ -8,8 +8,8 @@ module "dps_rds_temp" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  is_migration           = true
-  snapshot_identifier    = "cloud-platform-a2d6489b50a08faa-copy"
+  #is_migration           = true
+  #snapshot_identifier    = "cloud-platform-a2d6489b50a08faa-copy"
   enable_rds_auto_start_stop = true
 
   db_instance_class           = "db.t4g.small"
