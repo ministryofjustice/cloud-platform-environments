@@ -108,6 +108,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
   endpoint            = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
-    eventType = []
+    eventType = [
+      "todo"
+    ]
   })
 }
