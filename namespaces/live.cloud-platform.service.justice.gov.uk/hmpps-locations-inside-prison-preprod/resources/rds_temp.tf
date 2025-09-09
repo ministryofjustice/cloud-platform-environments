@@ -15,7 +15,7 @@ module "dps_rds_temp" {
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres16"
   db_engine_version           = "16"
-  deletion_protection         = true
+  deletion_protection         = false
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
