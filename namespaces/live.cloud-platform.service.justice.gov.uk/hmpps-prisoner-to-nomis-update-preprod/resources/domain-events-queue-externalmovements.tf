@@ -108,26 +108,6 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
   endpoint            = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
-    eventType = [
-      "externalmovements-api.organisation.created",
-      "externalmovements-api.organisation.updated",
-      "externalmovements-api.organisation.deleted",
-      "externalmovements-api.organisation-types.updated",
-      "externalmovements-api.organisation-address.created",
-      "externalmovements-api.organisation-address.updated",
-      "externalmovements-api.organisation-address.deleted",
-      "externalmovements-api.organisation-email.created",
-      "externalmovements-api.organisation-email.updated",
-      "externalmovements-api.organisation-email.deleted",
-      "externalmovements-api.organisation-web.created",
-      "externalmovements-api.organisation-web.updated",
-      "externalmovements-api.organisation-web.deleted",
-      "externalmovements-api.organisation-phone.created",
-      "externalmovements-api.organisation-phone.updated",
-      "externalmovements-api.organisation-phone.deleted",
-      "externalmovements-api.organisation-address-phone.created",
-      "externalmovements-api.organisation-address-phone.updated",
-      "externalmovements-api.organisation-address-phone.deleted",
-    ]
+    eventType = []
   })
 }
