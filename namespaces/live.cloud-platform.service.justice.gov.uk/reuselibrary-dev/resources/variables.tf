@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "service"
+  default     = "Reuse Library Portal"
 }
 
 variable "namespace" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "sandhya.buddharaju@justice.gov.uk"
+  default     = "reuse-library@justice.gov.uk"
 }
 
 variable "is_production" {
