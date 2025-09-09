@@ -53,7 +53,6 @@ variable "github_token" {
   default     = ""
 }
 
-
 variable "kubernetes_cluster" {}
 
 variable "eks_cluster_name" {

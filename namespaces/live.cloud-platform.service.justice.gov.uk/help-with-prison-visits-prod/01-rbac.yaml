@@ -6,7 +6,7 @@ metadata:
   namespace: help-with-prison-visits-prod
 subjects:
   - kind: Group
-    name: "github:hmpps-help-with-prison-visits"
+    name: "github:hmpps-help-with-prison-visits-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

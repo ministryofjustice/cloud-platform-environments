@@ -5,7 +5,7 @@ metadata:
   namespace: prison-visits-booking-staging
 subjects:
   - kind: Group
-    name: "github:hmpps-prison-visits-booking"
+    name: "github:hmpps-prison-visits-booking-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

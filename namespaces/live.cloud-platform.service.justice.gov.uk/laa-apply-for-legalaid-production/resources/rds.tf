@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
@@ -32,6 +32,8 @@ module "apply-for-legal-aid-rds" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {

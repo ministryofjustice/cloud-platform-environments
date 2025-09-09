@@ -5,11 +5,11 @@ metadata:
   name: hmpps-community-payback-dev-cert
   namespace: hmpps-community-payback-dev
 spec:
-  secretName: hmpps-community-payback-dev-cert
+  secretName: hmpps-community-payback-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - community-payback-dev.hmpps.service.justice.gov.uk
+    - community-payback-api-dev.hmpps.service.justice.gov.uk
 
 ---

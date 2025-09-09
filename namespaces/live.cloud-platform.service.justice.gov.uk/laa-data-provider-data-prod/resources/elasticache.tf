@@ -1,5 +1,5 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0" # use the latest release
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -44,5 +44,6 @@ resource "kubernetes_secret" "app-redis" {
   data = {
     APP_REDIS_ENDPOINT = module.redis.primary_endpoint_address
     APP_REDIS_PASSWORD = module.redis.auth_token
+    APP_REDIS_PORT     = "6379"
   }
 }

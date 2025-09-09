@@ -1,5 +1,5 @@
 module "hmpps_assess_risks_and_needs_integrations_prod_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name

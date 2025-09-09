@@ -32,6 +32,33 @@ variable "dlq_max_receive_count" {
   default     = 3
 }
 
+variable "visibility_timeout_seconds" {
+  type        = number
+  description = "The visibility timeout for the queue. An integer from 0 to 43200"
+  default     = 30
+}
+
+variable "delay_seconds" {
+  type        = number
+  description = "The time in seconds that the delivery of all messages in the queue will be delayed. An integer from 0 to 900"
+  default     = 0
+}
+
+variable "message_retention_seconds" {
+  type        = number
+  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)"
+  default     = 345600
+}
+
+variable "max_message_size" {
+  type        = number
+  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)."
+  default     = 262144
+}
+
+
+
+
 /* CP Dependency Variables. Must be passed directly from calling CP environment
 I.E. business_unit = var.business_unit */
 variable "business_unit" {

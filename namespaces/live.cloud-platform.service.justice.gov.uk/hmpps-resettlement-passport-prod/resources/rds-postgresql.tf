@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -35,6 +35,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 
@@ -45,7 +47,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 

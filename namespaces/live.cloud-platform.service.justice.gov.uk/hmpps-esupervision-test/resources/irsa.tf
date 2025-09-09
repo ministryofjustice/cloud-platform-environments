@@ -1,3 +1,12 @@
+locals {
+  # The names of the SNS topics used and the namespace which created them
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+  }
+
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
@@ -6,9 +15,15 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-esupervision-api"
-  role_policy_arns = {
-    s3 = module.s3_data_bucket.irsa_policy_arn
-  }
+  role_policy_arns = merge(
+    {
+      s3 = module.s3_data_bucket.irsa_policy_arn
+    },
+    {
+      rekognition = aws_iam_policy.assume_rekognition_policy.arn
+    },
+    local.sns_policies
+  )
 
   # Tags
   business_unit          = var.business_unit
@@ -32,3 +47,7 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}

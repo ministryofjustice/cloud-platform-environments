@@ -1,5 +1,5 @@
 module "crime_apps_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
   vpc_name                = var.vpc_name
@@ -17,6 +17,8 @@ module "crime_apps_ec_cluster" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "crime_apps_ec_cluster" {
