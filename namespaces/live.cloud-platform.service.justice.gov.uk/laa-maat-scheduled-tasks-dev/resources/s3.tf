@@ -187,7 +187,7 @@ data "aws_iam_policy_document" "ap_ingestion" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::730335344807:role/transfer"]
+      identifiers = ["arn:aws:iam::471112983409:role/transfer"]
     }
 
     actions   = ["s3:ListBucket"]
