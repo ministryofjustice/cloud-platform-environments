@@ -47,11 +47,6 @@ variable "github_token" {
   default     = ""
 }
 
-variable "approved_prisoner_audit_clients" {
-  type    = list(string)
-  default = ["hmpps-launchpad-dev"]
-}
-
 variable "kubernetes_cluster" {}
 
 variable "eks_cluster_name" {}
