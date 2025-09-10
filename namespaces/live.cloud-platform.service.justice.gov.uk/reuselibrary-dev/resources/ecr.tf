@@ -7,7 +7,6 @@ module "container_repository" {
   github_repositories = ["reuse-library"]
   github_environments = ["dev"]
 
-
   # Tags/metadata
   business_unit          = var.business_unit
   application            = var.application
