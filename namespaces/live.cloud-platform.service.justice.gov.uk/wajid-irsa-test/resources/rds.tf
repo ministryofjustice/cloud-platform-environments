@@ -1,5 +1,5 @@
 module "rds_mariadb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enable-rds-cloudwatch-logs"
 
   # VPC configuration
   vpc_name = var.vpc_name
