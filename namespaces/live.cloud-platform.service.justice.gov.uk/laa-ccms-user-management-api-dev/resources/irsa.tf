@@ -9,8 +9,8 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    sqs     = module.sqs.queue.irsa_policy_arn
-    sqs_dlq = module.sqs.dlq.irsa_policy_arn
+    sqs     = module.sqs.queue_irsa_policy_arn
+    sqs_dlq = module.sqs.dlq_irsa_policy_arn
   }
 
   # Tags
