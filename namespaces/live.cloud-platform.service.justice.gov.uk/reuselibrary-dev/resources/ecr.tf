@@ -4,7 +4,7 @@ module "container_repository" {
   # Repo & OIDC
   repo_name           = var.namespace                     # e.g. "reuselibrary-dev"
   oidc_providers      = ["github"]
-  github_repositories = [reuse-library]
+  github_repositories = ["reuse-library"]
   github_environments = ["dev"]
 
 
