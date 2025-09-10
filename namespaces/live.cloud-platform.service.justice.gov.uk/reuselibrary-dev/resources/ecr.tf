@@ -4,7 +4,8 @@ module "container_repository" {
   # Repo & OIDC
   repo_name           = var.namespace                     # e.g. "reuselibrary-dev"
   oidc_providers      = ["github"]
-  github_repositories = [var.namespace]
+  github_repositories = [reuse-library]
+  github_environments = ["dev"]
 
 
   # Tags/metadata
@@ -13,6 +14,7 @@ module "container_repository" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   # Optional: allow querying ECR via IRSA from the namespace (read-only)
