@@ -158,8 +158,6 @@ data "aws_iam_policy_document" "allow_read_iam_roles_policy_document" {
       "iam:ListRoleTags"
     ]
 
-    resources = [
-      "arn:aws:iam:*:role/cloud-platform-irsa-*"
-    ]
+    resources = ["*"]
   }
 }
