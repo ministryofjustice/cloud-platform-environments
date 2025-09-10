@@ -2,7 +2,7 @@
 resource "aws_ssm_parameter" "sqs_queue_arn" {
   type        = "String"
   name        = "/${var.namespace}/sqs-queue-arn"
-  value       = module.queue.sqs_arn
+  value       = module.sqs.sqs_queue_arn
   description = "SQS Queue ARN"
   tags = {
     business-unit          = var.business_unit
@@ -18,7 +18,7 @@ resource "aws_ssm_parameter" "sqs_queue_arn" {
 resource "aws_ssm_parameter" "sqs_irsa_policy_arn" {
   type        = "String"
   name        = "/${var.namespace}/sqs-policy-arn"
-  value       = module.queue.irsa_policy_arn
+  value       = module.sqs.queue_irsa_policy_arn
   description = "SQS IRSA Policy ARN"
   tags = {
     business-unit          = var.business_unit
