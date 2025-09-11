@@ -11,23 +11,7 @@ data "aws_iam_role" "sqs_matching_roles" {
   name     = each.value
 }
 
-#--DLQ Policy
-data "aws_iam_policy_document" "dlq" {
-  statement {
-    sid    = "Allow"
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "sqs:*"
-    ]
-    resources = [module.dlq.sqs_arn]
-  }
-}
-
-#--This policy will be constructed from the data sources above and some local transformations to grant SQS access
+#--Queue Policy (main queue)
 data "aws_iam_policy_document" "queue" {
   statement {
     sid    = "AllowSend"
@@ -38,18 +22,13 @@ data "aws_iam_policy_document" "queue" {
       identifiers = ["*"]
     }
 
-    actions = [
-      "sqs:SendMessage"
-    ]
-
+    actions   = ["sqs:SendMessage"]
     resources = [module.queue.sqs_arn]
 
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values = [
-        for role in local.sqs_roles_with_namespace_tag : role.arn
-      ]
+      values   = [for role in local.sqs_roles_with_namespace_tag : role.arn]
     }
   }
 
@@ -67,7 +46,7 @@ data "aws_iam_policy_document" "queue" {
       "sqs:DeleteMessage",
       "sqs:ChangeMessageVisibility",
       "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl"
+      "sqs:GetQueueUrl",
     ]
 
     resources = [module.queue.sqs_arn]
@@ -75,9 +54,55 @@ data "aws_iam_policy_document" "queue" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values = [
-        for role in local.sqs_roles_with_namespace_tag : role.arn
-      ]
+      values   = [for role in local.sqs_roles_with_namespace_tag : role.arn]
+    }
+  }
+}
+
+#--DLQ Policy (mirrors main queue)
+data "aws_iam_policy_document" "dlq" {
+  statement {
+    sid    = "AllowSend"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions   = ["sqs:SendMessage"]
+    resources = [module.dlq.sqs_arn]
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [for role in local.sqs_roles_with_namespace_tag : role.arn]
+    }
+  }
+
+  statement {
+    sid    = "AllowReadDelete"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [module.dlq.sqs_arn]
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [for role in local.sqs_roles_with_namespace_tag : role.arn]
     }
   }
 }

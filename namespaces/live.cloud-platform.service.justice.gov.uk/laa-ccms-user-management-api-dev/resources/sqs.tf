@@ -8,11 +8,13 @@ module "sqs" {
   message_retention_seconds       = 1209600
   max_message_size                = 262144
   delay_seconds                   = 1
-  business_unit                   = var.business_unit
-  application                     = var.application
-  is_production                   = var.is_production
-  team_name                       = var.team_name
-  namespace                       = var.namespace
-  environment                     = var.environment
-  infrastructure_support          = var.infrastructure_support
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment            = var.environment
+  infrastructure_support = var.infrastructure_support
 }
