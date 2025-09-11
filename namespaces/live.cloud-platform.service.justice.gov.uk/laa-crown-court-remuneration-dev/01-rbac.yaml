@@ -35,7 +35,3 @@ subjects:
   - kind: Group
     name: "github:laa-dba"
     apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: laa-dba-network-policy-access
-  apiGroup: rbac.authorization.k8s.io
