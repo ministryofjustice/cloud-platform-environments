@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps-official-visits-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-official-visits-api"
   application                   = "hmpps-official-visits-api"
