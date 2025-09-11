@@ -30,7 +30,7 @@ resource "aws_route53_record" "data" {
 resource "aws_route53_record" "cert_validations" {
   count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
 
-  zone_id         = data.kubernetes_secret.route53_zone_output.data["zone_id"]
+  zone_id         = try(data.kubernetes_secret.route53_zone_output.data["zone_id"], null)
 
   name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
   type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
