@@ -11,3 +11,18 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-data-provider-data-staging-calico-np-access
+  namespace: laa-data-provider-data-staging
+subjects:
+  - kind: Group
+    name: "github:laa-data-stewardship-cse-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
+  apiGroup: rbac.authorization.k8s.io
