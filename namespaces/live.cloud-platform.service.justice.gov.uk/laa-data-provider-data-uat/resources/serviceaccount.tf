@@ -9,8 +9,7 @@ module "serviceaccount" {
   github_repositories = [var.github_repository_name]
   github_environments = [
     var.github_environment_name,
-    "${var.github_environment_name}-preview",
-    "${var.github_environment_name}-teardown"
+    "${var.github_environment_name}-preview"
   ]
 
   github_actions_secret_kube_cert      = "DPD_KUBE_CERT"
