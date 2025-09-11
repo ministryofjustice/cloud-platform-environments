@@ -1,8 +1,28 @@
+data "kubernetes_secret" "cloudfront_input_secret" {
+  metadata {
+    name      = "cloudfront-input"
+    namespace = var.namespace
+  }
+}
+
+locals {
+  trusted_key          = {
+    encoded_key = data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY
+    comment     = ""
+    associate   = true
+  }
+  expiring_trusted_key = {
+    encoded_key = try(data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING, null)
+    comment     = ""
+    associate   = true
+  }
+}
+
 module "cloudfront" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1" # use the latest release
 
   # Configuration
-  bucket_id          = module.s3.bucket_name
+  bucket_id          = module.s3_bucket.bucket_name
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
   aliases = [var.cloudfront_alias]
   # SSL certificate for the CloudFront alias.
