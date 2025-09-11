@@ -10,7 +10,7 @@ module "rds_aurora_custom" {
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1
-  db_parameter_group_name     = resource.aws_db_parameter_group.default_test_gen.name
+  db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom.name
 
 
   # Tags
@@ -23,7 +23,7 @@ module "rds_aurora_custom" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "aurora_db2" {
+resource "kubernetes_secret" "rds_aurora_custom" {
   metadata {
     name      = "example-team-rds-cluster-output2"
     namespace = var.namespace
