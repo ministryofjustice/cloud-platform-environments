@@ -44,6 +44,12 @@ variable "is_production" {
   default = "false"
 }
 
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.dev.websitebuilder.service.justice.gov.uk"
+}
+
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "wordpress-gang"
