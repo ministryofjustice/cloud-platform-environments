@@ -7,7 +7,7 @@ data "kubernetes_secret" "cloudfront_input_secret" {
 
 locals {
   trusted_key          = {
-    encoded_key = try(data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY, null)
+    encoded_key = data.kubernetes_secret.cloudfront_input_secret.data.AWS_CLOUDFRONT_PUBLIC_KEY
     comment     = ""
     associate   = true
   }
@@ -52,5 +52,6 @@ resource "kubernetes_secret" "cloudfront_url" {
   data = {
     cloudfront_alias       = var.cloudfront_alias
     cloudfront_url         = module.cloudfront.cloudfront_url
+    cloudfront_public_keys = module.cloudfront.cloudfront_public_keys
   }
 }

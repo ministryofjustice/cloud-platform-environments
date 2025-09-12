@@ -1,10 +1,12 @@
-# Get the kubernetes secret 'route53-zone-output' from intranet-production namespace.
-# This secret contains the zone_id of the hosted zone.
 
-data "kubernetes_secret" "route53_zone_output" {
+
+resource "kubernetes_secret" "cdn_route53_zone" {
   metadata {
-    name      = "route53-zone-output"
+    name      = "cdn_route53-zone-output"
     namespace = var.namespace
+  }
+  data = {
+    zone_id = aws_route53_zone.cdn_route53_zone.zone_id
   }
 }
 
@@ -13,7 +15,7 @@ data "kubernetes_secret" "route53_zone_output" {
 # And the alias.zone_id parameter is set to the CloudFront hosted zone id.
 
 resource "aws_route53_record" "data" {
-  zone_id = data.kubernetes_secret.route53_zone_output.data["zone_id"]
+  zone_id = kubernetes_secret.cdn_route53_zone.data["zone_id"]
   name    = var.cloudfront_alias
   type    = "A"
 
@@ -30,7 +32,7 @@ resource "aws_route53_record" "data" {
 resource "aws_route53_record" "cert_validations" {
   count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
 
-  zone_id         = try(data.kubernetes_secret.route53_zone_output.data["zone_id"], null)
+  zone_id         = kubernetes_secret.cdn_route53_zone.data["zone_id"]
 
   name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
   type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
