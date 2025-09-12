@@ -10,10 +10,10 @@ module "rds_aurora_custom" {
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1
-  # db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom.name
+  db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom.name
   # db_parameter_group_name = "default.aurora-postgresql14"
   # db_cluster_parameter_group_name = "default.aurora-postgresql15"
-  allow_major_version_upgrade = true
+  # allow_major_version_upgrade = true
   
 
 
