@@ -16,6 +16,50 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+# Build the policy JSON using the module outputs (no feedback loop)
+data "aws_iam_policy_document" "ap_ingestion" {
+  statement {
+    sid    = "AllowAnalyticalPlatformIngestionService"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::471112983409:role/transfer"]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:PutObjectTagging",
+      "s3:DeleteObject",
+    ]
+
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
+  }
+
+
+  statement {
+    sid     = "AllowListBucketForAPIngestion"
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::471112983409:role/transfer"]
+    }
+
+    actions   = ["s3:ListBucket"]
+    resources = [module.s3_bucket.bucket_arn]
+  }
+}
+
+# Attach the policy to the bucket as its own resource
+resource "aws_s3_bucket_policy" "ap_ingestion" {
+  bucket = module.s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.ap_ingestion.json
+}
+
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
