@@ -1,4 +1,5 @@
-module "ims_dissemination_storage_bucket" {
+
+module "ims_index_batch_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
@@ -15,14 +16,14 @@ module "ims_dissemination_storage_bucket" {
   }
 }
 
-resource "kubernetes_secret" "ims_dissemination_bucket" {
+resource "kubernetes_secret" "ims_index_batch_bucket" {
   metadata {
-    name      = "ims-dissemination-bucket-output"
+    name      = "ims-index-batch-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.ims_dissemination_storage_bucket.bucket_arn
-    bucket_name = module.ims_dissemination_storage_bucket.bucket_name
+    bucket_arn  = module.ims_index_batch_bucket.bucket_arn
+    bucket_name = module.ims_index_batch_bucket.bucket_name
   }
 }

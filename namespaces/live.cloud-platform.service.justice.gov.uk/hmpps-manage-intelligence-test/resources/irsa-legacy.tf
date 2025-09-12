@@ -9,10 +9,6 @@ data "aws_iam_policy_document" "sqs_full_legacy" {
       module.ims_extractor_dead_letter_queue.sqs_arn,
       module.ims_transformer_queue.sqs_arn,
       module.ims_transformer_dead_letter_queue.sqs_arn,
-      module.ims_test_generator_queue.sqs_arn,
-      module.ims_generator_dead_letter_queue.sqs_arn,
-      module.ims_test_generator_suite_queue.sqs_arn,
-      module.ims_generator_suite_dead_letter_queue.sqs_arn,
       module.attachment_metadata_extractor_queue.sqs_arn,
       module.attachment_metadata_extractor_dead_letter_queue.sqs_arn,
       module.attachment_metadata_transformer_queue.sqs_arn,
@@ -37,7 +33,7 @@ resource "aws_iam_policy" "combined_sqs_legacy" {
 }
 
 module "irsa-legacy" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -54,7 +50,6 @@ module "irsa-legacy" {
     s3_extractor   = module.manage_intelligence_extractor_bucket.irsa_policy_arn
     s3_transformer = module.manage_intelligence_transformer_bucket.irsa_policy_arn
     rds            = module.rds_aurora_legacy.irsa_policy_arn
-    rds_test_gen   = module.rds_aurora_legacy_test_gen.irsa_policy_arn
   }
 
   # Tags
