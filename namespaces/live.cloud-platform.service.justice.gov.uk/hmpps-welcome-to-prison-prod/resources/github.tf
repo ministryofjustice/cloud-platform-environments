@@ -12,6 +12,7 @@ module "hmpps-welcome-people-into-prison-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = [var.review_team_name]
 }
 
 module "hmpps-welcome-people-into-prison-ui" {
@@ -28,4 +29,5 @@ module "hmpps-welcome-people-into-prison-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = [var.review_team_name]
 }

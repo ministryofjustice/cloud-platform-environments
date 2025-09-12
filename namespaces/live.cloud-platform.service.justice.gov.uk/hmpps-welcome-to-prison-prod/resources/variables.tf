@@ -23,6 +23,10 @@ variable "team_name" {
   default     = "dps_shared"
 }
 
+variable "review_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "deployment_team_name" {
   default = "move-a-prisoner"
 }
