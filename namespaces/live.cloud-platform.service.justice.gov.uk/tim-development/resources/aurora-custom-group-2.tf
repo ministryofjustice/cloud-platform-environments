@@ -10,7 +10,7 @@ module "rds_aurora_custom2" {
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1
-  db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom.name
+  db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom2.name
   
 
 
