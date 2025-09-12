@@ -21,6 +21,8 @@ data "aws_iam_policy_document" "sqs_full" {
       module.metadata_status_dead_letter_queue.sqs_arn,
       module.ims_pdf_queue.sqs_arn,
       module.ims_pdf_dead_letter_queue.sqs_arn,
+      module.ims_prisoner_details_queue.sqs_arn,
+      module.ims_prisoner_details_dlq.sqs_arn,
     ]
   }
 }
@@ -39,7 +41,7 @@ resource "aws_iam_policy" "combined_sqs" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -61,6 +63,8 @@ module "irsa" {
     s3_attachments   = module.ims_attachments_storage_bucket.irsa_policy_arn
     s3_dissemination = module.ims_dissemination_storage_bucket.irsa_policy_arn
     rds              = module.rds_aurora.irsa_policy_arn
+    s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
+    s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
   }
 
   # Tags

@@ -1,5 +1,5 @@
 module "ims_index_update_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "ims_index_update_queue_${var.environment}"
@@ -29,7 +29,7 @@ EOF
 }
 
 module "ims_index_update_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "ims_index_update_dl_queue_${var.environment}"
