@@ -15,7 +15,7 @@ resource "aws_route53_zone" "cdn_route53_zone" {
 
 resource "kubernetes_secret" "cdn_route53_zone" {
   metadata {
-    name      = "cdn_route53-zone-output"
+    name      = "cdn-route53-zone-output"
     namespace = var.namespace
   }
   data = {
