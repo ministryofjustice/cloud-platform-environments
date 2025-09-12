@@ -49,9 +49,9 @@ resource "aws_db_parameter_group" "rds_aurora_custom" {
   name   = module.rds_aurora_custom.db_cluster_identifier
   family = "aurora-postgresql15"
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  # lifecycle {
+  #   create_before_destroy = true
+  # }
 
   parameter {
     name  = "log_error_verbosity"
