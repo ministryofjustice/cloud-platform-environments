@@ -6,12 +6,13 @@ module "rds_aurora_custom2" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "14.18"
+  engine_version = "15.13"
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1
   # db_parameter_group_name     = resource.aws_db_parameter_group.rds_aurora_custom2.name
-  db_parameter_group_name = "default.aurora-postgresql14"
+  # db_parameter_group_name = "default.aurora-postgresql14"
+  allow_major_version_upgrade  = true
   
 
 
@@ -45,11 +46,9 @@ resource "kubernetes_secret" "rds_aurora_custom2" {
 
 resource "aws_db_parameter_group" "rds_aurora_custom2" {
   name   = module.rds_aurora_custom2.db_cluster_identifier
-  family = "aurora-postgresql14"
+  family = "aurora-postgresql15"
 
-  lifecycle {
-    create_before_destroy = true
-  }
+
 
   parameter {
     name  = "log_error_verbosity"
