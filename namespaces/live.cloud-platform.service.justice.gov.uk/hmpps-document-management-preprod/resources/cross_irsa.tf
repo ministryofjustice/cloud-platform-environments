@@ -59,3 +59,15 @@ resource "aws_iam_policy" "s3_sync_policy" {
     infrastructure-support = var.infrastructure_support
   }
 }
+
+resource "kubernetes_secret" "cross_irsa" {
+  metadata {
+    name      = "cross-irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.cross_irsa.role_name
+    rolearn        = module.cross_irsa.role_arn
+    serviceaccount = module.cross_irsa.service_account.name
+  }
+}
