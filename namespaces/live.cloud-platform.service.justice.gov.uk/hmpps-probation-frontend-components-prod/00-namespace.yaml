@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hmpps-probation-frontend-components-prod"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "prod"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "probation-connected-services"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "probation-connected-services-alerts"
+    cloud-platform.justice.gov.uk/application: "HMPPS Probation Frontend Components"
+    cloud-platform.justice.gov.uk/owner: "Probation Connected Services: marc-steeven.eyeni-kantsey@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-probation-frontend-component-api"
+    cloud-platform.justice.gov.uk/team-name: "probation-connected-services-developers"
+    cloud-platform.justice.gov.uk/review-after: ""
