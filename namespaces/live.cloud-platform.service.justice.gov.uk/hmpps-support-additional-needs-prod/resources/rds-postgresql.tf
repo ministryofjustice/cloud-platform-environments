@@ -16,7 +16,7 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
