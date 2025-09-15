@@ -15,13 +15,16 @@ module "opensearch" {
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "im4gn.xlarge.search"
+    instance_type            = "m7g.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "m7g.large.search"
   }
   proxy_count = 3
-  ebs_enabled = false
+  ebs_options = {
+    volume_size = 600 # we can reduce this to 300GB after removing keyword search
+    throughput  = 250
+  }
 }
 
 module "opensearch_snapshot_bucket" {
