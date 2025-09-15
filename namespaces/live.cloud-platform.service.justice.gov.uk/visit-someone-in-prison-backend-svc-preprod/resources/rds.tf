@@ -35,7 +35,7 @@ module "visit_scheduler_pg_rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  allow_major_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
   db_engine_version           = "17.4"
