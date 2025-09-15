@@ -20,7 +20,7 @@ module "redis" {
   infrastructure_support = var.infrastructure_support
 
   # IRSA
-#   enable_irsa = true
+  #   enable_irsa = true
 }
 
 resource "kubernetes_secret" "redis_secrets" {
