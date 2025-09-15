@@ -38,8 +38,8 @@ module "visit_scheduler_pg_rds" {
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17"
-  rds_family                  = "postgres17"
+  db_engine_version           = "15.12"
+  rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.small"
   db_allocated_storage        = "35"
 
