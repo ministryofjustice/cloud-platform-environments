@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.10"
+  engine_version = "17.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -15,7 +15,6 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = "default.aurora-postgresql15"
   allow_major_version_upgrade  = true
 
   # Tags
@@ -34,7 +33,7 @@ module "rds_aurora" {
 
 resource "aws_db_parameter_group" "default" {
   name   = module.rds_aurora.db_cluster_identifier
-  family = "aurora-postgresql15"
+  family = "aurora-postgresql17"
 
   parameter {
     name  = "log_error_verbosity"
