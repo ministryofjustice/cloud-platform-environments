@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: app-internal-cert
+  namespace: laa-data-provider-data-prod
+spec:
+  secretName: app-internal-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - laa-data-provider-data-prod.internal-laa.cloud-platform.service.justice.gov.uk
