@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "eks_cluster_name" {
   description = "The name of the cluster (eg.: cloud-platform-live-0)"
   type        = string
-  default     = "example_name"
+  default     = "live"
 }
 
 variable "application" {
