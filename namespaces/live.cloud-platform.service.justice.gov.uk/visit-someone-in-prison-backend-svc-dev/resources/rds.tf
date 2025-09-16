@@ -55,11 +55,11 @@ module "prison_visit_booker_registry_rds" {
   namespace              = var.namespace
 
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
-  db_engine_version           = "15.8"
-  rds_family                  = "postgres15"
-  db_instance_class           = "db.t4g.micro"
+  db_engine_version           = "17.4"
+  rds_family                  = "postgres17"
+  db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "500"
   db_password_rotated_date    = "2023-03-22"
 
