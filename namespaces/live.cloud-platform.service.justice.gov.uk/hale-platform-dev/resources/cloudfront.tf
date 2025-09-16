@@ -4,7 +4,7 @@ module "cloudfront" {
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
-  aliases = [var.cloudfront_alias]
+  aliases            = [var.cloudfront_alias]
   # SSL certificate for the CloudFront alias.
 
   # Tags
@@ -25,7 +25,7 @@ resource "kubernetes_secret" "cloudfront_url" {
   }
 
   data = {
-    cloudfront_alias       = var.cloudfront_alias
-    cloudfront_url         = module.cloudfront.cloudfront_url
+    cloudfront_alias = var.cloudfront_alias
+    cloudfront_url   = module.cloudfront.cloudfront_url
   }
 }
