@@ -16,6 +16,7 @@ module "rds_aurora" {
   replica_count                = 1
   performance_insights_enabled = true
   allow_major_version_upgrade  = true
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
 
   # Tags
   business_unit          = var.business_unit
@@ -34,6 +35,10 @@ module "rds_aurora" {
 resource "aws_db_parameter_group" "default" {
   name   = module.rds_aurora.db_cluster_identifier
   family = "aurora-postgresql17"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   parameter {
     name  = "log_error_verbosity"
