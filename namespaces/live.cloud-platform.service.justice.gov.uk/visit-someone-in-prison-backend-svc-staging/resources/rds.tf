@@ -14,7 +14,7 @@ module "visit_scheduler_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "17.4"
   rds_family                  = "postgres17"
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
   db_password_rotated_date    = "2023-03-22"
 
