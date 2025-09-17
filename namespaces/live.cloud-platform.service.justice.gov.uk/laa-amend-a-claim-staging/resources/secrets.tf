@@ -13,7 +13,7 @@ module "secrets_manager" {
     "laa-amend-a-claim-secrets" = {
       description             = "laa-amend-a-claim ${var.environment} secrets",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-samend-a-claim-secrets"
+      k8s_secret_name         = "laa-amend-a-claim-secrets"
     },
   }
 }

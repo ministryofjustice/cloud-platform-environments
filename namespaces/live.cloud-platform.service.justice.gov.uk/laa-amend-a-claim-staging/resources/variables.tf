@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Submit a bulk claim"
+  default     = "Amend a claim"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cwa-bulkupload-app-team"
+  default     = "laa-amend-a-claim-team"
 }
 
 variable "environment" {
