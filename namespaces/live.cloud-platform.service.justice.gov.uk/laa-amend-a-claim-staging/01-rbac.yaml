@@ -5,7 +5,7 @@ metadata:
   namespace: laa-amend-a-claim-staging
 subjects:
   - kind: Group
-    name: "github:laa-submit-a-bulk-claim"
+    name: "github:laa-amend-a-claim"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
