@@ -2,7 +2,7 @@ module "hmpps_template_kotlin" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-dpr-tools-authoring-api"
   application = "hmpps-dpr-tools-authoring-api"
-  github_team = "hmpps-data-hub"
+  github_team = "hmpps-digital-prison-reporting"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
