@@ -11,7 +11,7 @@ module "hmpps_audit_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  db_instance_class            = "db.t4g.small"
+  db_instance_class            = "db.t4g.micro"
   db_max_allocated_storage     = "500"
   db_engine                    = "postgres"
   rds_family                   = "postgres17"
