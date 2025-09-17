@@ -10,7 +10,7 @@ metadata:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "stg-track-my-case"
     cloud-platform.justice.gov.uk/application: "stg-track-my-case-service"
-    cloud-platform.justice.gov.uk/owner: "stg-victims-pathfinder: munish.jalota@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Service Transformation Team: stgtransformationteam@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-track-my-case-service"
     cloud-platform.justice.gov.uk/team-name: "stg-victims-pathfinder"
     cloud-platform.justice.gov.uk/review-after: ""
