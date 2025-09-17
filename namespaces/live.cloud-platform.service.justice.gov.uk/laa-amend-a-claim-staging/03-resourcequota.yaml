@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-submit-a-bulk-claim-staging
+  namespace: laa-amend-a-claim-staging
 spec:
   hard:
     pods: "50"

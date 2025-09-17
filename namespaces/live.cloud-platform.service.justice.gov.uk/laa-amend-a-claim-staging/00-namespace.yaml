@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "laa-submit-a-bulk-claim-staging"
+  name: "laa-amend-a-claim-staging"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"

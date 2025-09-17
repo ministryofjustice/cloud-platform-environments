@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-submit-a-bulk-claim-staging"
+  default     = "laa-amend-a-claim-staging"
 }
 
 variable "business_unit" {
@@ -77,5 +77,5 @@ variable "eks_cluster_name" {
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-submit-a-bulk-claim-staging-service-account"
+  default     = "laa-amend-a-claim-staging-service-account"
 }
