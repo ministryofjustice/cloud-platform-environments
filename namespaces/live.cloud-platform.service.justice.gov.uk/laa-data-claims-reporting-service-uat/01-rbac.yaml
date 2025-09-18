@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-data-claims-reporting-service-uat-admin
+  namespace: laa-data-claims-reporting-service-uat
+subjects:
+  - kind: Group
+    name: "github:payforlegalaid"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
