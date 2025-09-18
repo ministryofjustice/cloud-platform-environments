@@ -22,9 +22,9 @@ module "hmpps_service_catalogue_strapi5" {
 
 }
 
-resource "kubernetes_secret" "hmpps_service_catalogue" {
+resource "kubernetes_secret" "hmpps_service_catalogue_strapi5" {
   metadata {
-    name      = "rds-instance-output-strapi5-prod"
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 
