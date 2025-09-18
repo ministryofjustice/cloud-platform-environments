@@ -103,7 +103,7 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-module "s3_bucket_new" {
+module "s3_bucket_v2" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -141,7 +141,7 @@ module "s3_bucket_new" {
 }
 
 resource "aws_s3_bucket_accelerate_configuration" "this" {
-  bucket = module.s3_bucket.bucket_name
+  bucket = module.s3_bucket_v2.bucket_name
   status = "Enabled"
 }
 
@@ -155,19 +155,19 @@ resource "aws_iam_access_key" "alfresco_user_access" {
 }
 
 resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
-  policy_arn = module.s3_bucket.irsa_policy_arn
+  policy_arn = module.s3_bucket_v2.irsa_policy_arn
   user       = aws_iam_user.alfresco_user.name
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "s3_bucket_v2" {
   metadata {
     name      = "alf-s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    BUCKET_ARN  = module.s3_bucket.bucket_arn
-    BUCKET_NAME = module.s3_bucket.bucket_name
+    BUCKET_ARN  = module.s3_bucket_v2.bucket_arn
+    BUCKET_NAME = module.s3_bucket_v2.bucket_name
     ACCESSKEY   = aws_iam_access_key.alfresco_user_access.id
     SECRETKEY   = aws_iam_access_key.alfresco_user_access.secret
   }
