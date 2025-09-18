@@ -10,7 +10,7 @@ module "rds" {
   namespace            = var.namespace
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # change the postgres version as you see fit.
   db_instance_class        = "db.t4g.micro"
@@ -24,7 +24,8 @@ module "rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
 
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = true # 22:00–06:00 UTC
+  maintenance_window         = "sun:19:00-sun:21:00"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
