@@ -103,7 +103,7 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
-module "s3_bucket" {
+module "s3_bucket_new" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
