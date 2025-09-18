@@ -21,7 +21,8 @@ module "complexity-of-need-rds" {
   infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
   db_name                    = "hmpps_complexity_of_need"
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = true # 22:00–06:00 UTC
+  maintenance_window         = "sun:19:00-sun:21:00"
 
   db_engine_version           = "15.12"
   rds_family                  = "postgres15"
