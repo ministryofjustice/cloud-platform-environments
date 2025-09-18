@@ -25,7 +25,8 @@ module "allocation-rds" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_name                     = "allocations"
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop  = true # 22:00–06:00 UTC
+  maintenance_window          = "sun:19:00-sun:21:00"
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
 
