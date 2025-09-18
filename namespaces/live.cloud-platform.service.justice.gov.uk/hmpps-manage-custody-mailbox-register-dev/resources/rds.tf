@@ -9,7 +9,9 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # turn off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST
+  enable_rds_auto_start_stop   = true # 22:00–06:00 UTC
+  maintenance_window           = "sun:19:00-sun:21:00"
+
   db_password_rotated_date     = "2025-02-04"
 
   # PostgreSQL specifics
