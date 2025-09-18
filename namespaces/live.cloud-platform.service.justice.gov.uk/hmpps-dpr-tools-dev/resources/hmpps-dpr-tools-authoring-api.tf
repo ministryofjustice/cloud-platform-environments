@@ -3,7 +3,7 @@ module "hmpps_template_kotlin" {
   github_repo = "hmpps-dpr-tools-authoring-api"
   application = "hmpps-dpr-tools-authoring-api"
   github_team = "hmpps-digital-prison-reporting"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment = "dev" # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
