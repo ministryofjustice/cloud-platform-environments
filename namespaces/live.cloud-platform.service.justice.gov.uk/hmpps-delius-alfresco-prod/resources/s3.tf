@@ -145,18 +145,18 @@ resource "aws_s3_bucket_accelerate_configuration" "this" {
   status = "Enabled"
 }
 
-resource "aws_iam_user" "alfresco_user" {
+resource "aws_iam_user" "alfresco_user_v2" {
   name = "${var.namespace}-alfresco_user"
   path = "/system/${var.namespace}-alfresco_user/"
 }
 
-resource "aws_iam_access_key" "alfresco_user_access" {
-  user = aws_iam_user.alfresco_user.name
+resource "aws_iam_access_key" "alfresco_user_access_v2" {
+  user = aws_iam_user.alfresco_user_v2.name
 }
 
-resource "aws_iam_user_policy_attachment" "alfresco_user_policy" {
+resource "aws_iam_user_policy_attachment" "alfresco_user_policy_v2" {
   policy_arn = module.s3_bucket_v2.irsa_policy_arn
-  user       = aws_iam_user.alfresco_user.name
+  user       = aws_iam_user.alfresco_user_v2.name
 }
 
 resource "kubernetes_secret" "s3_bucket_v2" {
@@ -168,7 +168,7 @@ resource "kubernetes_secret" "s3_bucket_v2" {
   data = {
     BUCKET_ARN  = module.s3_bucket_v2.bucket_arn
     BUCKET_NAME = module.s3_bucket_v2.bucket_name
-    ACCESSKEY   = aws_iam_access_key.alfresco_user_access.id
-    SECRETKEY   = aws_iam_access_key.alfresco_user_access.secret
+    ACCESSKEY   = aws_iam_access_key.alfresco_user_access_v2.id
+    SECRETKEY   = aws_iam_access_key.alfresco_user_access_v2.secret
   }
 }
