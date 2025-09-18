@@ -140,7 +140,7 @@ module "s3_bucket_v2" {
   ]
 }
 
-resource "aws_s3_bucket_accelerate_configuration" "this" {
+resource "aws_s3_bucket_accelerate_configuration" "s3_accl_config" {
   bucket = module.s3_bucket_v2.bucket_name
   status = "Enabled"
 }
