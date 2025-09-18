@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "track-my-case"
     cloud-platform.justice.gov.uk/application: "Track My Case"
     cloud-platform.justice.gov.uk/owner: "Service Transformation Team: stgtransformationteam@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-track-my-case-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/track-my-case"
     cloud-platform.justice.gov.uk/team-name: "stg-victims-pathfinder"
     cloud-platform.justice.gov.uk/review-after: ""
