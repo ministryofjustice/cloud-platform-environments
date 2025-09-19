@@ -2,8 +2,9 @@ module "hmpps_template_typescript" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-interventions-ui"
   application = "hmpps-interventions-ui"
-  github_team = "hmpps-interventions-dev"
+  github_team = var.team_name
   environment = var.environment
+  reviewer_teams                = var.team_name
   selected_branch_patterns      = ["main", "hotfix/*"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
