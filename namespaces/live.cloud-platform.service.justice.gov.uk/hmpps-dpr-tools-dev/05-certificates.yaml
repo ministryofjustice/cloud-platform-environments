@@ -12,3 +12,4 @@ spec:
   dnsNames:
     - dpr-tools-api-dev.hmpps.service.justice.gov.uk
     - dpr-tools-ui-dev.hmpps.service.justice.gov.uk
+    - dpr-tools-authoring-api-dev.hmpps.service.justice.gov.uk
