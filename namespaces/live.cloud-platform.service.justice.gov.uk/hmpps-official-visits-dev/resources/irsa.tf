@@ -17,7 +17,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "hmpps-official-visits-api"
+  service_account_name = "hmpps-official-visits"
   role_policy_arns     = merge(local.sns_policies)
 
   # Tags
