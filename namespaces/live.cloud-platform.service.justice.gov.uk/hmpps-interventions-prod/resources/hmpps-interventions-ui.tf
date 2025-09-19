@@ -4,7 +4,7 @@ module "hmpps_template_typescript" {
   application = "hmpps-interventions-ui"
   github_team = var.team_name
   environment = var.environment
-  reviewer_teams                = var.team_name
+  reviewer_teams                = [var.team_name]
   selected_branch_patterns      = ["main", "hotfix/*"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
