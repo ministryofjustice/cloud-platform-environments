@@ -146,8 +146,8 @@ resource "aws_s3_bucket_accelerate_configuration" "s3_accl_config" {
 }
 
 resource "aws_iam_user" "alfresco_user_v2" {
-  name = "${var.namespace}-alfresco_user"
-  path = "/system/${var.namespace}-alfresco_user/"
+  name = "${var.namespace}-alfresco_user_v2"
+  path = "/system/${var.namespace}-alfresco_user_v2/"
 }
 
 resource "aws_iam_access_key" "alfresco_user_access_v2" {
