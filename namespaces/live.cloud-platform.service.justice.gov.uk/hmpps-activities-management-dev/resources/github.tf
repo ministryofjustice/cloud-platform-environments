@@ -16,8 +16,8 @@ module "hmpps-activities-management-api" {
 
 module "hmpps-activities-management" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo                   = "hmpps-activities-management "
-  application                   = "hmpps-activities-management "
+  github_repo                   = "hmpps-activities-management"
+  application                   = "hmpps-activities-management"
   github_team                   = var.team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
