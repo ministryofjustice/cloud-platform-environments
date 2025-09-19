@@ -5,7 +5,7 @@ metadata:
   namespace: prisoner-content-hub-development
 subjects:
   - kind: Group
-    name: "github:hmpps-launchpad"
+    name: "github:hmpps-launchpad-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
