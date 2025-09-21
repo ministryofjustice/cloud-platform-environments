@@ -19,8 +19,7 @@ resource "kubernetes_secret" "dev_reuselibrary_route53_zone_sec" {
     namespace = var.namespace
   }
 
-  # Use string_data so we can provide plain strings (provider encodes as needed)
-  string_data = {
+  data = {
     zone_id     = aws_route53_zone.dev_reuselibrary_team_route53_zone.zone_id
     nameservers = join("\n", aws_route53_zone.dev_reuselibrary_team_route53_zone.name_servers)
   }
