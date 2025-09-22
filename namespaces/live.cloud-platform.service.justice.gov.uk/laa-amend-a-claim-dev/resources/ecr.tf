@@ -116,5 +116,6 @@ module "ecr" {
   application            = var.application
   is_production          = var.is_production
   environment_name       = var.environment
+  deletion_protection    = false
   infrastructure_support = var.infrastructure_support
 }
