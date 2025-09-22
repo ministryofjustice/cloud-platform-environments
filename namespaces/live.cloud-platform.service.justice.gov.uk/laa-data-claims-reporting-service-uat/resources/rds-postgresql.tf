@@ -19,6 +19,7 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
+  prepare_for_major_upgrade = true
   db_engine         = "postgres"
   db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
