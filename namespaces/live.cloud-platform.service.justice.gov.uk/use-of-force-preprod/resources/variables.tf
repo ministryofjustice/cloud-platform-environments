@@ -24,9 +24,19 @@ variable "team_name" {
   default     = "Move a Prisoner"
 }
 
+variable "deployment_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "preprod"
 }
 
 variable "environment-name" {
@@ -46,6 +56,10 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
+}
+
+variable "review_team_name" {
+  default = "move-a-prisoner"
 }
 
 variable "number_cache_clusters" {
