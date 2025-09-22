@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: stg-track-my-case-ui-demo-admin
-  namespace: stg-track-my-case-ui-demo
+  name: stg-track-my-case-service-preprod-admin
+  namespace: stg-track-my-case-service-preprod
 subjects:
   - kind: Group
     name: "github:stg-victims-pathfinder"

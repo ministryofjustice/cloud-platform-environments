@@ -12,9 +12,9 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["stg-track-my-case-ui"]
-  github_environments = ["demo"]
-  github_actions_prefix = "demo"
+  github_repositories = ["stg-track-my-case-service"]
+  github_environments = ["preprod"]
+  github_actions_prefix = "preprod"
 
   # Tags
   business_unit          = var.business_unit
@@ -24,4 +24,5 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
 }

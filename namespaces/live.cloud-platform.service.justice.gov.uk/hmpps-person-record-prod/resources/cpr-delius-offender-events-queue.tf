@@ -17,17 +17,6 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
   })
 }
 
-resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription" {
-  topic_arn = data.aws_sns_topic.probation-offender-events.arn
-  protocol  = "sqs"
-  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "OFFENDER_ALIAS_CHANGED",
-    ]
-  })
-}
-
 module "cpr_delius_offender_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
@@ -72,22 +61,7 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
-  statement {
-    sid     = "ProbationOffenderEventsToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events.arn]
-    }
-    resources = ["*"]
-  }
-}
+ }
 
 resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
   queue_url = module.cpr_delius_offender_events_queue.sqs_id

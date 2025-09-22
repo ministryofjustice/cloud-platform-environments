@@ -4,12 +4,13 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+
   serviceaccount_token_rotated_date = "01-01-2000"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["stg-track-my-case-ui"]
-  github_environments = ["demo"]
+  github_repositories = ["stg-track-my-case-service"]
+  github_environments = ["preprod"]
   serviceaccount_rules = [
     {
       api_groups = [""]

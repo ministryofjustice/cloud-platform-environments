@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: stg-track-my-case-ui-demo
+  namespace: laa-cwa-schedule-uploader-dev
 spec:
   hard:
     pods: "50"

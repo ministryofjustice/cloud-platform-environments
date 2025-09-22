@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Track my case demo"
+  default     = "schedule extract and upload"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "stg-track-my-case-ui-demo"
+  default     = "laa-cwa-schedule-uploader-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "stg-victims-pathfinder"
+  default     = "laa-pcuam"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "demo"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "stgtransformationteam@justice.gov.uk"
+  default     = "laa-pcuam-support@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "stg-track-my-case"
+  default     = "laa-pcuam"
 }
 
 variable "github_owner" {

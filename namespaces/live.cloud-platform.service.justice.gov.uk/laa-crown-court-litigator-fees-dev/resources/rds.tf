@@ -114,6 +114,8 @@ resource "aws_security_group_rule" "rule4" {
   security_group_id = aws_security_group.rds.id
 }
 
+# Allow the Hub 2.0 Lambda move provider details into the CCLF database
+# Allow MojFin to extract data fromt he CCLF database for reporting
 resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
   cidr_blocks       = ["10.26.60.128/25"]
   type              = "ingress"
@@ -121,7 +123,29 @@ resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
-  description       = "Allows Hub 2.0 Lambda in MP Dev to connect to CCLF DB"
+  description       = "Modernisation Platform dev data subnet 2a to connect CCLF DB"
+}
+
+# Allow MojFin to extract data fromt he CCLF database for reporting
+resource "aws_security_group_rule" "mp_dev_subnet_data_2b" {
+  cidr_blocks       = ["10.26.61.0/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform dev data subnet 2b to connect CCLF DB"
+}
+
+# Allow MojFin to extract data fromt he CCLF database for reporting
+resource "aws_security_group_rule" "mp_dev_subnet_data_2c" {
+  cidr_blocks       = ["10.26.61.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform dev data subnet 2c to connect CCLF DB"
 }
 
 #RDS role to access HUB 2.0 S3 Bucket

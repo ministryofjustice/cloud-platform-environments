@@ -22,8 +22,8 @@ module "rds_metabase" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.4"
-  rds_family        = "postgres16"
+  db_engine_version = "17.5"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
   # Tags
