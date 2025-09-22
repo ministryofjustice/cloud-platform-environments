@@ -4,6 +4,8 @@ module "cloudfront" {
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
+  aliases           = [var.cloudfront_alias]
+  acm_certificate_arn = aws_acm_certificate.cloudfront_alias_cert.arn
 
   # Tags
   business_unit          = var.business_unit
@@ -14,7 +16,7 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-
+  depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 
 }
 
