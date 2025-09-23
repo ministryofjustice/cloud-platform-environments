@@ -33,7 +33,7 @@ module "ecr-mock-oidc" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-claim-for-payment"]
-  github_actions_prefix = "mock-oidc"
+  github_actions_prefix = "mock_oidc"
   # Tags
   business_unit          = var.business_unit
   application            = var.application
