@@ -17,6 +17,8 @@ module "visit_scheduler_rds" {
   db_instance_class           = "db.t4g.small"
   db_allocated_storage        = "35"
 
+  snapshot_identifier = "rds:cloud-platform-84e747a7557ea77f-2025-09-23-13-35"
+
   providers = {
     aws = aws.london
   }
