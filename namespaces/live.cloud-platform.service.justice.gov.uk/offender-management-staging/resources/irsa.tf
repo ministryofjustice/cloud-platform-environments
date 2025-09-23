@@ -15,6 +15,7 @@ module "irsa" {
     domain_events_sqs     = module.domain_events_sqs_queue.irsa_policy_arn
     domain_events_sqs_dlq = module.domain_events_sqs_dlq.irsa_policy_arn
     domain_events_sns     = data.aws_ssm_parameter.irsa_policy_arn_sns_domain_events.value
+    rds                   = module.allocation-rds.irsa_policy_arn
   }
 
   # Tags
