@@ -94,7 +94,7 @@ data "aws_iam_policy_document" "allow_dev_irsa_read" {
   }
 }
 
-resource "aws_s3_dev_test_bucket_policy" "allow_dev_irsa_read" {
+resource "aws_s3_bucket_policy" "allow_dev_irsa_read" {
   bucket = module.s3-dev-test.bucket_name
   policy = data.aws_iam_policy_document.allow_dev_irsa_read.json
 }
