@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "s3_sync_policy_dev_tst" {
     ]
     resources = [
       module.s3.bucket_arn,
-      module.s3_dev_test.bucket_arn
+      module.s3-dev-test.bucket_arn
     ]
   }
 
