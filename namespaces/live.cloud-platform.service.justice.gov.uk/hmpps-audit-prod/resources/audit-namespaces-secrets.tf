@@ -24,6 +24,7 @@ locals {
     "hmpps-workload-prod",
     "make-recall-decision-prod",
     "visit-someone-in-prison-frontend-svc-prod",
+    "hmpps-managing-prisoner-apps-prod"
   ])
 }
 
