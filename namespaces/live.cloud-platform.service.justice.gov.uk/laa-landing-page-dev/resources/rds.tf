@@ -10,6 +10,8 @@ module "rds" {
   # Turn this back on after go live
   enable_rds_auto_start_stop = false
 
+  snapshot_identifier = "rds:cloud-platform-faeb1d14a7275a64-2025-09-23-04-04"
+
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
