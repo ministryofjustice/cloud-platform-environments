@@ -9,7 +9,7 @@ module "cross_irsa_dev_test" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  role_policy_arns       = { s3 = aws_iam_policy.s3_sync_policy_dev_tst.arn }
+  role_policy_arns       = { s3 = aws_iam_policy.s3_sync_policy_dev_test.arn }
 }
 
 data "aws_iam_policy_document" "s3_sync_policy_dev_tst" {
