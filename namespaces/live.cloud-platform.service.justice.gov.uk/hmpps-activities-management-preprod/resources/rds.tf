@@ -148,6 +148,8 @@ module "activities_rds_read_replica" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "activities_rds_read_replica" {
