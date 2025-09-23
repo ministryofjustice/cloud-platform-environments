@@ -71,3 +71,30 @@ resource "kubernetes_secret" "cross_irsa_dev_test" {
     serviceaccount = module.cross_irsa_dev_test.service_account.name
   }
 }
+
+data "aws_iam_policy_document" "allow_dev_irsa_read" {
+  statement {
+    sid    = "AllowSourceBucketAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-b4e9e332a070ed0e-live"]
+    }
+
+    resources = [
+      module.s3-dev-test.bucket_arn,
+      "${module.s3-dev-test.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_dev_irsa_read" {
+  bucket = module.s3-dev-test.bucket_name
+  policy = data.aws_iam_policy_document.allow_dev_irsa_read.json
+}
