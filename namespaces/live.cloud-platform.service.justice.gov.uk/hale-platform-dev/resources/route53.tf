@@ -11,6 +11,23 @@ resource "aws_route53_zone" "websitebuilder__dev_route53_zone" {
   }
 }
 
+data "kubernetes_secret" "route53_zone_output" {
+  metadata {
+    name      = "websitebuilder-route53-zone-output"
+    namespace = "hale-platform-prod"
+  }
+}
+
+# Delegate dev. to the child zone's NS set
+resource "aws_route53_record" "delegate_dev_to_child" {
+  zone_id = data.kubernetes_secret.route53_zone_output.data["zone_id"]
+  name    = "dev"  # or "dev.websitebuilder.service.justice.gov.uk."
+  type    = "NS"
+  ttl     = 172800
+
+  records = aws_route53_zone.websitebuilder__dev_route53_zone.name_servers
+}
+
 resource "kubernetes_secret" "websitebuilder_route53_zone" {
   metadata {
     name      = "websitebuilder-dev-route53-zone-output"
