@@ -16,7 +16,7 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "100"
   db_backup_retention_period   = "35"
-  deletion_protection          = true
+  deletion_protection          = false
   enable_irsa = true
 
   # PostgreSQL specifics
