@@ -29,10 +29,3 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arn_sns_domain_events" {
   name = "/hmpps-domain-events-prod/sns/cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08/irsa-policy-arn"
 }
-
-module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
-
-  namespace            = var.namespace
-  service_account_name = module.irsa.service_account.name
-}
