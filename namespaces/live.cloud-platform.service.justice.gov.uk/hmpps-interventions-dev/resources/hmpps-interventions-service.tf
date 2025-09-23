@@ -4,7 +4,7 @@ module "hmpps_template_kotlin" {
   application = "hmpps-interventions-service"
   github_team = "hmpps-interventions-dev"
   environment = var.environment
-  selected_branch_patterns      = ["main", "hotfix/*"]
+  selected_branch_patterns      = ["main", "hotfix/*", "no-ticket/*", "renovate/*"]
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
