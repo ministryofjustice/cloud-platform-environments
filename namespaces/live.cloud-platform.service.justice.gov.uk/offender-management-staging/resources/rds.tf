@@ -9,8 +9,6 @@ module "allocation-rds" {
   db_allocated_storage = 10
   storage_type         = "gp2"
 
-  enable_irsa = true
-
   vpc_name                    = var.vpc_name
   db_instance_class           = "db.t4g.small"
   team_name                   = var.team_name
