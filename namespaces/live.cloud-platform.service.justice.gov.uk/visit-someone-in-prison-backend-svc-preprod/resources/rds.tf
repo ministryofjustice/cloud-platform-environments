@@ -15,7 +15,7 @@ module "visit_scheduler_rds" {
   db_engine_version           = "16.8"
   rds_family                  = "postgres16"
   db_instance_class           = "db.t4g.small"
-  db_allocated_storage        = "35"
+  db_allocated_storage        = "119"
 
   snapshot_identifier = "cloud-platform-84e747a7557ea77f-2025-09-23-13-35"
 
