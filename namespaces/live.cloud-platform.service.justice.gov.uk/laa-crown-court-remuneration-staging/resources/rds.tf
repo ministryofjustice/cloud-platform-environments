@@ -134,6 +134,39 @@ resource "aws_security_group_rule" "rule6" {
   security_group_id = aws_security_group.rds.id
 }
 
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2a" {
+  cidr_blocks       = ["10.27.77.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2a to connect CCR DB"
+}
+
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2b" {
+  cidr_blocks       = ["10.27.76.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2b to connect CCR DB"
+}
+
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2c" {
+  cidr_blocks       = ["10.27.77.0/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2c to connect CCR DB"
+}
+
 resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-ccr-${var.environment}"
