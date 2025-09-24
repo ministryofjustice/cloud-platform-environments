@@ -7,8 +7,8 @@ data "aws_vpc" "selected" {
 }
 
 resource "aws_security_group" "rds" {
-  name_prefix = "${var.namespace}-rds-sg"
-  description = "RDS VPC Security Group for Reporting Service Ingress Traffic"
+  name = "${var.namespace}-rds-sg"
+  description = "RDS VPC Security Group for Reporting Service"
   vpc_id      = data.aws_vpc.selected.id
 
   lifecycle {
