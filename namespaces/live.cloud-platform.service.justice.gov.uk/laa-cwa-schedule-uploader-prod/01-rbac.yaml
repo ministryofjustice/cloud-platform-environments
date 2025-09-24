@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-cwa-schedule-uploader-prod-admin
+  namespace: laa-cwa-schedule-uploader-prod
+subjects:
+  - kind: Group
+    name: "github:laa-pcuam"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
