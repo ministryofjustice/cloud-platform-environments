@@ -4,7 +4,7 @@ module "cross_irsa_dev_test" {
   application            = var.application
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
-  service_account_name   = "${var.namespace}-cross-service-dev-test"
+  service_account_name   = "${var.namespace}-cross-srv-tst"
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment
