@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - feature-flags-temp-dev.hmpps.service.justice.gov.uk
+    - feature-toggles-dev.hmpps.service.justice.gov.uk
