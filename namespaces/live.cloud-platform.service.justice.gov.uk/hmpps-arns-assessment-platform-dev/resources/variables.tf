@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "hmpps-assessments-dev"
 }
 
 variable "environment" {
@@ -30,7 +30,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "arns@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -39,7 +39,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "aap-notifications"
 }
 
 variable "number_cache_clusters" {
