@@ -22,6 +22,7 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  enable_irsa            = true
 }
 
 module "ecr-mock-oidc" {
@@ -42,4 +43,5 @@ module "ecr-mock-oidc" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  enable_irsa            = true
 }
