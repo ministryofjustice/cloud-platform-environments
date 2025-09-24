@@ -4,7 +4,7 @@ module "cross_irsa_dev_test" {
   application            = var.application
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
-  service_account_name   = "${var.namespace}-cross-service-dev-test"
+  service_account_name   = "${var.namespace}-cross-srv-tst"
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment
@@ -97,4 +97,10 @@ data "aws_iam_policy_document" "allow_dev_irsa_read" {
 resource "aws_s3_bucket_policy" "allow_dev_irsa_read" {
   bucket = module.s3-dev-test.bucket_name
   policy = data.aws_iam_policy_document.allow_dev_irsa_read.json
+}
+
+module "tst_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
+  namespace            = var.namespace
+  service_account_name = module.cross_irsa_dev_test.service_account.name
 }
