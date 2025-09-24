@@ -98,3 +98,9 @@ resource "aws_s3_bucket_policy" "allow_dev_irsa_read" {
   bucket = module.s3-dev-test.bucket_name
   policy = data.aws_iam_policy_document.allow_dev_irsa_read.json
 }
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
+  namespace            = var.namespace
+  service_account_name = module.cross_irsa_dev_test.service_account.name
+}
