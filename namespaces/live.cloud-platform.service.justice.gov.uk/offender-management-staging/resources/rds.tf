@@ -22,8 +22,8 @@ module "allocation-rds" {
   db_engine_version           = "17.6"
   rds_family                  = "postgres17"
   allow_minor_version_upgrade = true
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = false
+  prepare_for_major_upgrade   = false
   db_name                     = "allocations"
   enable_rds_auto_start_stop  = true # 22:00–06:00 UTC
   maintenance_window          = "sun:19:00-sun:21:00"
