@@ -8,9 +8,9 @@ locals {
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 
   rds_policies = {
-    visit_scheduler_rds              = module.visit_scheduler_rds.irsa_policy_arn,
+    visit_scheduler_rds              = module.visit_scheduler_pg_rds.irsa_policy_arn,
     prison_visit_booker_reg_rds      = module.prison_visit_booker_reg_rds.irsa_policy_arn,
-    visit_allocation_rds      = module.visit_allocation_rds.irsa_policy_arn
+    visit_allocation_rds             = module.visit_allocation_rds.irsa_policy_arn
   }
 
   all_policies = merge(
