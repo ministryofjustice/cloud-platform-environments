@@ -79,7 +79,8 @@ data "aws_iam_policy_document" "allow_dev_irsa_read" {
 
     actions = [
       "s3:ListBucket",
-      "s3:GetObject"
+      "s3:GetObject",
+      "s3:PutObject",
     ]
 
     principals {
