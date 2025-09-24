@@ -1,31 +1,3 @@
-module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
-  db_engine                   = "postgres"
-  db_engine_version           = "16.8"
-  rds_family                  = "postgres16"
-  db_instance_class           = "db.t4g.small"
-  db_allocated_storage        = "119"
-
-  snapshot_identifier = "cloud-platform-84e747a7557ea77f-2025-09-23-13-35"
-
-  providers = {
-    aws = aws.london
-  }
-
-  enable_irsa = true
-}
-
 module "visit_scheduler_pg_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
   vpc_name               = var.vpc_name
