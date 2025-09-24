@@ -57,6 +57,19 @@ resource "aws_route53_record" "data" {
   }
 }
 
+# Apex alias: dev.websitebuilder.service.justice.gov.uk → ALB
+resource "aws_route53_record" "dev_apex_alias" {
+  zone_id = aws_route53_zone.websitebuilder__dev_route53_zone.zone_id
+  name    = ""
+  type    = "A"
+
+  alias {
+    name                   = "a7a824c08f436470ea14bfc9039e7e40-de8c3f9bc19bdbd1.elb.eu-west-2.amazonaws.com."
+    zone_id                = "ZD4D7Y8KGAS4G"
+    evaluate_target_health = false
+  }
+}
+
 # In acm.tf, an aws_acm_certificate resource is created for the CloudFront alias.
 # As the validation method is set to DNS, a route53 record is created here for the certificate validation.
 
