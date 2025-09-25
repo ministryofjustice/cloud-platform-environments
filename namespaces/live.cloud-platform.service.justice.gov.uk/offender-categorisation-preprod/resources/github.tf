@@ -4,6 +4,7 @@ module "offender-categorisation" {
   application                   = "offender-categorisation"
   github_team                   = "secure-estate-digital-team"
   environment                   = var.environment_name
+  reviewer_teams                = ["secure-estate-digital-restricted-team"]
   is_production                 = var.is_production
   protected_branches_only       = true
   application_insights_instance = var.environment_name
