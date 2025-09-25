@@ -56,8 +56,13 @@ module "irsa" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = ["local.all_policies", aws_iam_policy.combined_sqs_policies.arn]
-
+  role_policy_arns     = merge(
+    local.all_policies,
+    {
+      combined_sqs_policies = aws_iam_policy.combined_sqs_policies.arn
+    }
+  )
+  
   # Tags
   business_unit          = var.business_unit
   application            = var.application
