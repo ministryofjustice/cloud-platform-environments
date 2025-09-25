@@ -67,9 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "repo_name" {
-  type        = string
-  description = "GitHub repository that will be pushing to this registry"
-  default     = "https://github.com/ministryofjustice/laa-crime-court-message-processor"
-}

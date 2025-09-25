@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = var.repo_name
+  github_repositories = ["laa-crime-court-message-processor"]
 
   github_environments = "development"
   github_actions_prefix = "dev"
