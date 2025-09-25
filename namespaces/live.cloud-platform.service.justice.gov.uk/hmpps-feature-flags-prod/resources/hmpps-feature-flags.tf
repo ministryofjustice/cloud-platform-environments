@@ -3,6 +3,7 @@ module "hmpps-feature-flags" {
   github_repo = "hmpps-feature-flags"
   application = "hmpps-feature-flags"
   github_team = "hmpps-lead-developers"
+  reviewer_teams                = ["manage-a-workforce"]
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"

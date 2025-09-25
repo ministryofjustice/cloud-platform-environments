@@ -8,7 +8,6 @@ module "hmpps-feature-flags" {
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
-  reviewer_teams                = ["manage-a-workforce"]
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
