@@ -67,3 +67,15 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  type        = string
+  default     = "example_name"
+}
+
+variable "irsa_serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-data-claims-reporting-service-staging-irsa-sa"
+}
