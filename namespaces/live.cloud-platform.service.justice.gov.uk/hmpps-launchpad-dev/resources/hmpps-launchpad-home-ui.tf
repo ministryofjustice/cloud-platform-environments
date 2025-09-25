@@ -1,5 +1,5 @@
 module "hmpps_launchpad_home_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-launchpad-home-ui"
   application = "hmpps-launchpad-home-ui"
   github_team = "hmpps-launchpad"
