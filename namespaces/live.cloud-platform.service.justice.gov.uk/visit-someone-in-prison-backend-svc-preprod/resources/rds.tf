@@ -16,7 +16,6 @@ module "visit_scheduler_pg_rds" {
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage     = "200"
-  db_allocated_storage         = "35"
   storage_type                 = "gp3"
   db_allocated_storage        = "50"
 
