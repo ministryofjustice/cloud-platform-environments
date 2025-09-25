@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps_launchpad_auth" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-launchpad-auth"
   application = "hmpps-launchpad-auth"
