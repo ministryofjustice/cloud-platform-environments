@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-crime-court-message-processor"]
 
-  github_environments = "development"
+  github_environments = ["development"]
   github_actions_prefix = "dev"
 
   # Tags
