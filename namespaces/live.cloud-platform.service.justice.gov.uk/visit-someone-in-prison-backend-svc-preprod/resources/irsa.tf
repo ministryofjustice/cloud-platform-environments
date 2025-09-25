@@ -14,22 +14,9 @@ locals {
   }
 
   all_policies = merge(
-    {
-      hmpps_prison_visits_event_index_queue                                   = module.hmpps_prison_visits_event_queue.irsa_policy_arn,
-      hmpps_prison_visits_event_index_dead_letter_queue                       = module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
-      hmpps_prison_visits_notification_alerts_index_queue                     = module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
-      hmpps_prison_visits_notification_alerts_index_dead_letter_queue         = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_events_index_queue                       = module.hmpps_prison_visits_allocation_events_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_events_index_dead_letter_queue           = module.hmpps_prison_visits_allocation_events_dead_letter_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_processing_job_index_queue               = module.hmpps_prison_visits_allocation_processing_job_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_processing_job_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_prisoner_retry_index_queue               = module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
-      hmpps_prison_visits_allocation_prisoner_retry_index_dead_letter_queue   = module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
-      (module.hmpps_prison_visits_write_events_queue.sqs_name)                = module.hmpps_prison_visits_write_events_queue.irsa_policy_arn,
-      (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name)    = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
-    },
     local.rds_policies,
-    local.sns_policies)
+    local.sns_policies
+  )
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
@@ -37,12 +24,39 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
+data "aws_iam_policy_document" "combined_sqs_policies" {
+    version = "2012-10-17"
+  statement {
+    sid       = "CombinedSqsPolicies"
+    effect    = "Allow"
+    actions   = ["sqs:*"]
+    resources = [
+      module.hmpps_prison_visits_event_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_event_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_notification_alerts_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_notification_alerts_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_events_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_events_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_processing_job_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_processing_job_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_prisoner_retry_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_allocation_prisoner_retry_dead_letter_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_write_events_queue.irsa_policy_arn,
+      module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sqs_policies" {
+  name   = "${var.application}-combined-sqs-policies"
+  policy = data.aws_iam_policy_document.combined_sqs_policies.json
+}
 
 module "irsa" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = local.all_policies
+  role_policy_arns     = ["local.all_policies", aws_iam_policy.combined_sqs_policies.arn]
 
   # Tags
   business_unit          = var.business_unit
