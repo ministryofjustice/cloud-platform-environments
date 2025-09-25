@@ -12,7 +12,10 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = var.repo_name
+
+  github_environments = "development"
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
