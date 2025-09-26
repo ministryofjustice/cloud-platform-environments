@@ -9,11 +9,4 @@ module "secrets_manager" {
   infrastructure_support = var.infrastructure_support
   eks_cluster_name       = var.eks_cluster_name
 
-  secrets = {
-    "laa-data-claims-reporting-service-secrets" = {
-      description             = "All secrets for LAA Data Claims Reporting Service - UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-data-claims-reporting-service-secrets"
-    },
-  }
 }
