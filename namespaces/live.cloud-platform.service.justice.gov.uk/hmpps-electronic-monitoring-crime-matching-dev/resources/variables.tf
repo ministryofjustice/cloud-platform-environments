@@ -73,3 +73,7 @@ variable "github_token" {
 variable "domain" {
   default = "crime-matching.electronic-monitoring.service.justice.gov.uk"
 }
+
+variable "email_bucket_name" {
+  default = "police-emails"
+}
