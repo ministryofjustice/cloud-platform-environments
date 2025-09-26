@@ -71,5 +71,5 @@ variable "github_token" {
 }
 
 variable "domain" {
-  default = "crime-matching.service.justice.gov.uk"
+  default = "crime-matching.electronic-monitoring.service.justice.gov.uk"
 }
