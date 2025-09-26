@@ -73,12 +73,6 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "irsa_serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-data-claims-reporting-service-uat-irsa-sa"
-}
-
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
