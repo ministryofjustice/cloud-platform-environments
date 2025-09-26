@@ -78,4 +78,3 @@ variable "irsa_serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-data-claims-reporting-service-uat-irsa-sa"
 }
-

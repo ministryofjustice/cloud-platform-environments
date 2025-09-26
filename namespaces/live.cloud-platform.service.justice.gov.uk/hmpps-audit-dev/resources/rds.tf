@@ -18,7 +18,7 @@ module "hmpps_audit_rds" {
   db_engine_version            = "17"
   deletion_protection          = true
   enable_rds_auto_start_stop   = true
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = true
 
   providers = {
