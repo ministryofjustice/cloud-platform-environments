@@ -25,11 +25,6 @@ resource "aws_route53_record" "crime_matching_amazonses_mx" {
   records  = ["10 inbound-smtp.eu-west-2.amazonaws.com"]
 }
 
-# S3 Bucket for email storage
-resource "aws_s3_bucket" "s3_email_bucket" {
-  bucket = var.email_bucket_name
-}
-
 # SES Receipt Rules to define actions when email is ingested
 resource "aws_ses_receipt_rule_set" "main" {
   rule_set_name = "email-ingestion-rules"
@@ -49,7 +44,7 @@ resource "aws_ses_receipt_rule" "store_email" {
   }
 }
 
-# Activate recipient rule set
+# Activate rule set
 resource "aws_ses_active_receipt_rule_set" "main" {
   rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
 }
