@@ -32,7 +32,7 @@ module "rds" {
   db_engine_version         = "17"
   rds_family                = "postgres17"
   db_instance_class         = "db.t4g.micro"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # Set the database_name of the source db
   db_name = var.db_name
@@ -65,7 +65,7 @@ module "read_replica" {
   db_engine_version         = "17"
   rds_family                = "postgres17"
   db_instance_class         = "db.t4g.micro"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # It is mandatory to set the below values to create read replica instance
 
