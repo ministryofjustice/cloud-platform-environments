@@ -15,3 +15,12 @@ resource "aws_security_group" "rds" {
     create_before_destroy = true
   }
 }
+
+resource "aws_security_group_rule" "allow_egress_to_vpc_cidrs" {
+  type                     = "egress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.rds.id
+  cidr_blocks              = [data.aws_vpc.selected.cidr_block]
+}
