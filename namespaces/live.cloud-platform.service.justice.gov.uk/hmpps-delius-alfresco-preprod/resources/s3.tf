@@ -11,7 +11,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
-      id     = "${var.environment_name}-lifecycle-rule"
+      id      = "${var.environment_name}-lifecycle-rule"
       enabled = true
 
       noncurrent_version_transition = [
@@ -22,12 +22,6 @@ module "s3_bucket" {
         {
           days          = var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]
           storage_class = "GLACIER"
-        },
-      ]
-
-      noncurrent_version_expiration = [
-        {
-          days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
         },
       ]
     }
