@@ -14,6 +14,7 @@ module "remand-and-sentencing-api-rds" {
   db_allocated_storage      = 100
   db_max_allocated_storage  = 500
   storage_type         = "gp3"
+  enable_rds_auto_start_stop = true
 
   # Tags
   application            = var.application
