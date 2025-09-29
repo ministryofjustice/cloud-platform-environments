@@ -39,6 +39,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_personalrelationships_dead_letter_queue.sqs_arn,
       module.migration_personalrelationships_profiledetails_queue.sqs_arn,
       module.migration_personalrelationships_profiledetails_dlq.sqs_arn,
+      module.migration_prisonbalance_queue.sqs_arn,
+      module.migration_prisonbalance_dead_letter_queue.sqs_arn,
       module.migration_prisonerbalance_queue.sqs_arn,
       module.migration_prisonerbalance_dead_letter_queue.sqs_arn,
       module.migration_visitbalance_queue.sqs_arn,
