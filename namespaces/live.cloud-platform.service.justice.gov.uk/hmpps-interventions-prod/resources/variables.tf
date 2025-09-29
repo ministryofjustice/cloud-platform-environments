@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-interventions"
+  default     = "hmpps-interventions-dev"
 }
 
 variable "environment" {
