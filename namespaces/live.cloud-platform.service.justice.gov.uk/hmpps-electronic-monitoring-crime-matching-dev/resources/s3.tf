@@ -58,10 +58,10 @@ data "aws_iam_policy_document" "allow_access" {
     }
 
     condition {
-      test     = "ArnEquals"
+      test     = "StringEquals"
       variable = "aws:SourceArn"
       values   = [
-        aws_ses_receipt_rule_set.main.arn
+        "arn:aws:ses:eu-west-2:${data.aws_caller_identity.current.account_id}:receipt-rule-set/${aws_ses_receipt_rule_set.main.rule_set_name}:receipt-rule/store-in-s3"
       ]
     }
   }
