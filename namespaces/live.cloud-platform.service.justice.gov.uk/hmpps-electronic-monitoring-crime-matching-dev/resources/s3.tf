@@ -10,6 +10,10 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -35,8 +39,7 @@ data "aws_iam_policy_document" "allow_access" {
   statement {
     sid = "AllowAccessForSES"
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl"
+      "s3:PutObject"
     ]
 
     resources = [
