@@ -14,7 +14,6 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-crime-court-message-processor"]
   github_environments = ["production"]
-  github_actions_prefix = "prod"
 
   # Tags
   business_unit          = var.business_unit
