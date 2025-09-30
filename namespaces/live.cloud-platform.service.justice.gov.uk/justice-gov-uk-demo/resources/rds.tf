@@ -70,3 +70,4 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+ 
