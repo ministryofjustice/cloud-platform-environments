@@ -14,6 +14,7 @@ module "rds_aurora" {
     max_capacity = 40
   }
   replica_count                = 1
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
   performance_insights_enabled = true
   allow_major_version_upgrade  = true
 

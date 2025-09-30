@@ -1,31 +1,5 @@
-module "visit_scheduler_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
-  vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
-  db_engine                   = "postgres"
-  db_engine_version           = "16.8"
-  rds_family                  = "postgres16"
-  db_instance_class           = "db.t4g.small"
-  db_allocated_storage        = "35"
-
-  providers = {
-    aws = aws.london
-  }
-
-  enable_irsa = true
-}
-
 module "visit_scheduler_pg_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -41,7 +15,9 @@ module "visit_scheduler_pg_rds" {
   db_engine_version           = "17.4"
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
-  db_allocated_storage        = "35"
+  db_max_allocated_storage     = "200"
+  storage_type                 = "gp3"
+  db_allocated_storage        = "50"
 
   providers = {
     aws = aws.london
@@ -115,7 +91,7 @@ resource "kubernetes_secret" "prison_visit_booker_registry_rds" {
 }
 
 module "prison_visit_booker_reg_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

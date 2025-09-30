@@ -21,9 +21,11 @@ locals {
     "hmpps-prisoner-profile-prod",
     "hmpps-registers-prod",
     "hmpps-subject-access-request-prod",
+    "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
     "visit-someone-in-prison-frontend-svc-prod",
+    "hmpps-managing-prisoner-apps-prod"
   ])
 }
 

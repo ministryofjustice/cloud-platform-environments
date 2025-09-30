@@ -11,6 +11,23 @@ resource "aws_route53_zone" "websitebuilder__dev_route53_zone" {
   }
 }
 
+data "kubernetes_secret" "route53_zone_output" {
+  metadata {
+    name      = "websitebuilder-route53-zone-output"
+    namespace = "hale-platform-prod"
+  }
+}
+
+# Delegate dev. to the child zone's NS set
+resource "aws_route53_record" "delegate_dev_to_child" {
+  zone_id = data.kubernetes_secret.route53_zone_output.data["zone_id"]
+  name    = "dev"  # or "dev.websitebuilder.service.justice.gov.uk."
+  type    = "NS"
+  ttl     = 172800
+
+  records = aws_route53_zone.websitebuilder__dev_route53_zone.name_servers
+}
+
 resource "kubernetes_secret" "websitebuilder_route53_zone" {
   metadata {
     name      = "websitebuilder-dev-route53-zone-output"
@@ -37,6 +54,19 @@ resource "aws_route53_record" "data" {
     evaluate_target_health = false
     name                   = module.cloudfront.cloudfront_url
     zone_id                = module.cloudfront.cloudfront_hosted_zone_id
+  }
+}
+
+# Apex alias: dev.websitebuilder.service.justice.gov.uk → ALB
+resource "aws_route53_record" "dev_apex_alias" {
+  zone_id = aws_route53_zone.websitebuilder__dev_route53_zone.zone_id
+  name    = ""
+  type    = "A"
+
+  alias {
+    name                   = "a7a824c08f436470ea14bfc9039e7e40-de8c3f9bc19bdbd1.elb.eu-west-2.amazonaws.com."
+    zone_id                = "ZD4D7Y8KGAS4G"
+    evaluate_target_health = false
   }
 }
 

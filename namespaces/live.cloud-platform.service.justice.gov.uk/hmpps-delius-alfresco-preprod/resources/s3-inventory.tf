@@ -24,19 +24,19 @@ resource "aws_s3_bucket_policy" "s3_inventory_reports" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid: "AllowInventoryWrite",
-        Effect: "Allow",
-        Principal: { AWS: "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" },
-        Action: [ "s3:PutObject" ],
-        Resource: "${module.s3_inventory_reports.bucket_arn}/${var.inventory_prefix}/*",
-        Condition: { StringEquals: { "s3:x-amz-acl": "bucket-owner-full-control" } }
+        Sid : "AllowInventoryWrite",
+        Effect : "Allow",
+        Principal : { "Service" : "s3.amazonaws.com" },
+        Action : ["s3:PutObject", "s3:PutObjectAcl"],
+        Resource : "${module.s3_inventory_reports.bucket_arn}/${var.inventory_prefix}/*",
+        Condition : { StringEquals : { "s3:x-amz-acl" : "bucket-owner-full-control" } }
       },
       {
-        Sid: "AllowGetBucketAcl",
-        Effect: "Allow",
-        Principal: { AWS: "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" },
-        Action: [ "s3:GetBucketAcl" ],
-        Resource: module.s3_inventory_reports.bucket_arn
+        Sid : "AllowGetBucketAcl",
+        Effect : "Allow",
+        Principal : { AWS : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" },
+        Action : ["s3:GetBucketAcl"],
+        Resource : module.s3_inventory_reports.bucket_arn
       }
     ]
   })
@@ -44,13 +44,13 @@ resource "aws_s3_bucket_policy" "s3_inventory_reports" {
 
 # S3 Inventory from your Alfresco content bucket -> destination bucket
 resource "aws_s3_bucket_inventory" "alfresco_s3_inventory_daily" {
-  bucket                   = module.s3_bucket.bucket_name  # source (your content bucket)
+  bucket                   = module.s3_bucket.bucket_name # source (your content bucket)
   name                     = "alfresco-${var.environment_name}-daily-inventory"
-  included_object_versions = "Current"     # use "All" if you want version-level rows
+  included_object_versions = "Current" # use "All" if you want version-level rows
   schedule {
     frequency = "Daily"
   }
-  enabled                  = true
+  enabled = true
 
   destination {
     bucket {

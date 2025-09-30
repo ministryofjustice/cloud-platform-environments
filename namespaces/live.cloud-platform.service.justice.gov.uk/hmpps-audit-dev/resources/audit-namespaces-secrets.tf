@@ -27,10 +27,13 @@ locals {
     "hmpps-prisoner-profile-dev",
     "hmpps-registers-dev",
     "hmpps-subject-access-request-dev",
+    "hmpps-support-additional-needs-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
     "visit-someone-in-prison-frontend-svc-dev",
-    "visit-someone-in-prison-frontend-svc-staging"
+    "visit-someone-in-prison-frontend-svc-staging",
+    "hmpps-managing-prisoner-apps-dev",
+    "hmpps-managing-prisoner-apps-staging"
   ])
 }
 

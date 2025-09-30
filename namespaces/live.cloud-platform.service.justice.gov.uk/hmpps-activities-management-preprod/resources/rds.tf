@@ -142,12 +142,19 @@ module "activities_rds_read_replica" {
       name         = "max_slot_wal_keep_size"
       value        = "5000"
       apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
     }
   ]
 
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "activities_rds_read_replica" {

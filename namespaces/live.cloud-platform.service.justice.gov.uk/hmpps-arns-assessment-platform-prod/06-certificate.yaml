@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-arns-assessment-platform-ui-prod
+  namespace: hmpps-arns-assessment-platform-prod
+spec:
+  secretName: hmpps-arns-assessment-platform-ui-cert-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-assessment-platform.hmpps.service.justice.gov.uk
+    - '*.arns-assessment-platform.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-arns-assessment-platform-api-prod
+  namespace: hmpps-arns-assessment-platform-prod
+spec:
+  secretName: hmpps-arns-assessment-platform-api-cert-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-assessment-platform-api.hmpps.service.justice.gov.uk
+    - '*.arns-assessment-platform-api.hmpps.service.justice.gov.uk'
