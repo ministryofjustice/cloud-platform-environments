@@ -19,6 +19,7 @@ data "aws_iam_policy_document" "s3_sync_policy_dev_tst" {
       "s3:GetBucketLocation"
     ]
     resources = [
+      module.s3-images.bucket_arn,
       module.s3.bucket_arn,
       module.s3-dev-test.bucket_arn
     ]
@@ -42,7 +43,10 @@ data "aws_iam_policy_document" "s3_sync_policy_dev_tst" {
       "s3:GetObject",
       "s3:DeleteObject"
     ]
-    resources = [ "${module.s3.bucket_arn}/*" ]
+    resources = [
+      "${module.s3.bucket_arn}/*",
+      "${module.s3-images.bucket_arn}/*"
+    ]
   }
 }
 
