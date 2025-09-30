@@ -23,12 +23,12 @@ module "secrets_manager" {
     "laa-amend-a-claim-azure-tenant-secret-dev" = {
       description             = "Azure tenant secret",
       recovery_window_in_days = 7
-      k8s_secret_name         = "laa-amend-a-claim-azure-tenant-secret" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      k8s_secret_name         = "laa-amend-a-claim-azure-tenant" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "laa-amend-a-claim-base-url-dev" = {
       description             = "Dev landing page base url",
       recovery_window_in_days = 7
-      k8s_secret_name         = "laa-amend-a-claim-base-url-secret" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      k8s_secret_name         = "laa-amend-a-claim-base-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
   }
 }
