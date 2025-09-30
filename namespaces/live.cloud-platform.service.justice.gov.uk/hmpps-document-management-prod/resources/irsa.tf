@@ -93,7 +93,7 @@ data "aws_iam_policy_document" "allow_preprod_irsa_read" {
 
     resources = [
       module.s3-images.bucket_arn,
-      "${module.s3-images.bucket_arn}/*"
+      "${module.s3-images.bucket_arn}/*",
       module.s3.bucket_arn,
       "${module.s3.bucket_arn}/*"
     ]
