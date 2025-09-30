@@ -152,3 +152,4 @@ resource "kubernetes_config_map" "rds_metabase" {
     db_identifier = module.rds_metabase.db_identifier
   }
 }
+ 

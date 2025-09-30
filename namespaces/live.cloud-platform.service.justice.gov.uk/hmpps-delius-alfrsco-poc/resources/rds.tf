@@ -70,3 +70,4 @@ resource "kubernetes_secret" "rds_refresh" {
     RDS_INSTANCE_ADDRESS  = module.rds_alfresco.rds_instance_address
   }
 }
+ 

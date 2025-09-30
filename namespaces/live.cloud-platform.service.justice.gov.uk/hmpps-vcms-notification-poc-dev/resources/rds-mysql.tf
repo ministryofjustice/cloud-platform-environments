@@ -67,3 +67,4 @@ resource "kubernetes_secret" "rds_mysql" {
     rds_instance_address  = module.rds_mysql.rds_instance_address
   }
 }
+ 
