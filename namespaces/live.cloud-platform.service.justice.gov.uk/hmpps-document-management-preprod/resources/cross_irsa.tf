@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "s3_sync_policy" {
       "s3:GetObjectTagging"
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-86ce211134a73df3c03f1a87c1dbf0a7",
+      "arn:aws:s3:::cloud-platform-86ce211134a73df3c03f1a87c1dbf0a7/*",
       "arn:aws:s3:::cloud-platform-f548ea4a5da62a1d1dff02ad6e1e2d42/*"
     ]
   }
