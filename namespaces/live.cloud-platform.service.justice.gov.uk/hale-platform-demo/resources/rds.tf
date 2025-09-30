@@ -73,3 +73,4 @@ resource "kubernetes_config_map" "rds" {
 
   }
 }
+ 
