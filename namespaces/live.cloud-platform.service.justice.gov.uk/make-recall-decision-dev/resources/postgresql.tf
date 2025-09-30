@@ -3,7 +3,7 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage       = 10
   storage_type               = "gp2"
   enable_rds_auto_start_stop = true
