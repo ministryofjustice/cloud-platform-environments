@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "s3_sync_policy" {
       "s3:DeleteObject"
     ]
     resources = [
-      "${module.s3-images.bucket_arn}/*"
+      "${module.s3-images.bucket_arn}/*",
       "${module.s3.bucket_arn}/*"
     ]
   }
