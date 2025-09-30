@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "dc-explore-sandbox-env2"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "dc-explore-sandbox"
+    cloud-platform.justice.gov.uk/application: "Exploratory sandbox"
+    cloud-platform.justice.gov.uk/owner: "David Conneely: david.conneely@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/dc-explore-sandbox"
+    cloud-platform.justice.gov.uk/team-name: "dc-explore-sandbox-team"
+    cloud-platform.justice.gov.uk/review-after: "2025-12-29"
