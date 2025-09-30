@@ -21,6 +21,7 @@ locals {
     "hmpps-prisoner-profile-preprod",
     "hmpps-registers-preprod",
     "hmpps-subject-access-request-preprod",
+    "hmpps-support-additional-needs-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
     "visit-someone-in-prison-frontend-svc-preprod",
