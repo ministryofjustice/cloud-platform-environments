@@ -5,7 +5,7 @@
  *
  */
 module "allocation-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 20
   storage_type         = "gp3"
 
@@ -84,7 +84,7 @@ resource "kubernetes_secret" "allocation-rds" {
 }
 
 module "allocation-rds-read-replica" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 20
   storage_type         = "gp3"
 
