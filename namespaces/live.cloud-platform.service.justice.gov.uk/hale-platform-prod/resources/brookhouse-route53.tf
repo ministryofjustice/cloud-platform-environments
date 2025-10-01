@@ -27,7 +27,7 @@ resource "aws_route53_record" "brookhouse_route53_mx_record_mail" {
   name    = "brookhouseinquiry.org.uk"
   type    = "MX"
   ttl     = "3600"
-  records = ["0, ."]
+  records = ["0 ."]
 }
 
 resource "aws_route53_record" "brookhouse_route53_txt" {
