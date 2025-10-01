@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "rds" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   storage_type = "gp2"
 
   # VPC configuration
