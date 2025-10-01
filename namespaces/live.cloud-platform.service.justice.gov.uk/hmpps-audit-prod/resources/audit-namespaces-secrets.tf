@@ -26,8 +26,8 @@ locals {
     "make-recall-decision-prod",
     "visit-someone-in-prison-frontend-svc-prod",
     "hmpps-managing-prisoner-apps-prod",
-    "hmpps-jobs-board-dev",
-    "hmpps-education-employment-dev"
+    "hmpps-jobs-board-prod",
+    "hmpps-education-employment-prod"
   ])
 }
 
