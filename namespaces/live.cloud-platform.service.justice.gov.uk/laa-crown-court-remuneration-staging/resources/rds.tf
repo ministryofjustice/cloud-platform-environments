@@ -35,7 +35,7 @@ module "rds-instance-migrated" {
   # enable performance insights
   performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-staging-cp-migration-17092024-manual-copy"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-staging-backup-01-10-25"
 
   providers = {
     aws = aws.london
