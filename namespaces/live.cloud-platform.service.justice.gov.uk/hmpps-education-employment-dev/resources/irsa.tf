@@ -5,7 +5,6 @@ locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
-    "education-skills-work-employment-dev-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
@@ -31,18 +30,6 @@ module "irsa" {
   namespace              = var.namespace # this is also used to attach your service account to your namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-resource "kubernetes_secret" "irsa" {
-  metadata {
-    name      = "irsa-output"
-    namespace = var.namespace
-  }
-  data = {
-    role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
-    rolearn        = module.irsa.role_arn
-  }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
