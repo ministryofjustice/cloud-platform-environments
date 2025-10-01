@@ -25,7 +25,9 @@ locals {
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
     "visit-someone-in-prison-frontend-svc-preprod",
-    "hmpps-managing-prisoner-apps-preprod"
+    "hmpps-managing-prisoner-apps-preprod",
+    "hmpps-jobs-board-preprod",
+    "hmpps-education-employment-preprod"
   ])
 }
 
