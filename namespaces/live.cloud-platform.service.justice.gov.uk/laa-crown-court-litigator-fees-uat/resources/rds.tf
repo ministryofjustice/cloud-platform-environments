@@ -24,6 +24,7 @@ module "rds-instance-migrated" {
   license_model            = "license-included"
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
+  option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -129,6 +130,92 @@ resource "aws_security_group_rule" "rule6" {
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_security_group_rule" "mp_tst_vpc" {
+  cidr_blocks       = ["10.26.96.0/21"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform TST VPC to connect CCLF DB"
+}
+
+#RDS role to access HUB 2.0 S3 Bucket
+resource "aws_iam_role" "rds_s3_access" {
+  name = "cclf-rds-hub20-uat-s3-access"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "rds.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "rds_s3_access_policy" {
+  name        = "rds-hub20-uat-s3-bucket-policy"
+  description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket in MP TST"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:GetObjectVersion",
+          "s3:ListBucket",
+          "s3:ListBucketVersions"
+        ],
+        Resource = [
+          "arn:aws:s3:::hub20-test-cwa-extract-data",
+          "arn:aws:s3:::hub20-test-cwa-extract-data/*"  
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_db_option_group" "rds_s3_option_group" {
+  name                     = "${var.namespace}-option-group"
+  option_group_description = "Option group with S3 integration"
+  engine_name              = "oracle-se2"
+  major_engine_version     = "19"
+
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
+  tags = {
+    name                   = "${var.namespace}-option-group"
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "rds_s3_access_policy_attachment" {
+  role       = aws_iam_role.rds_s3_access.name
+  policy_arn = aws_iam_policy.rds_s3_access_policy.arn
+}
+
+resource "aws_db_instance_role_association" "rds_s3_role_association" {
+  db_instance_identifier = module.rds-instance-migrated.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_access.arn
 }
 
 resource "kubernetes_secret" "rds-instance" {
