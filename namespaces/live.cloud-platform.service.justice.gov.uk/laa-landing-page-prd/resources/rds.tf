@@ -16,6 +16,7 @@ module "rds" {
   db_max_allocated_storage     = "100"
   db_backup_retention_period   = "35"
   deletion_protection          = true
+  enable_irsa = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
