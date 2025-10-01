@@ -36,8 +36,6 @@ resource "aws_route53_record" "judicialappointments_route53_a_record_mta" {
   }
 }
 
-name=dopvhi9dsi04k.cloudfront.net.; evaluate-target-health=true; hosted-zone-id=Z2FDTNDATAQYW2; type=A
-
 resource "aws_route53_record" "judicialappointments_route53_txt_record_main" {
   zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
   name    = "judicialappointments.gov.uk"
