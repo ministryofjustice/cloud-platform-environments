@@ -13,6 +13,7 @@ locals {
     "hmpps-community-accommodation-dev",
     "hmpps-contacts-dev",
     "hmpps-court-register-dev",
+    "hmpps-digital-prison-services-dev",
     "hmpps-document-management-dev",
     "hmpps-external-users-api-dev",
     "hmpps-education-and-work-plan-dev",
