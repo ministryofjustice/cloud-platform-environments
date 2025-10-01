@@ -14,6 +14,9 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["cwa-schedule-uploader-api"]
 
+  # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
+  github_environments = ["development"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
