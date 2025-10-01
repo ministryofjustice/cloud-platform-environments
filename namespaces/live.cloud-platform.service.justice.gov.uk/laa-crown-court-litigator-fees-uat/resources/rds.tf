@@ -161,7 +161,7 @@ resource "aws_iam_role" "rds_s3_access" {
 }
 
 resource "aws_iam_policy" "rds_s3_access_policy" {
-  name        = "rds-hub20-uat-s3-bucket-policy"
+  name        = "cclf-rds-hub20-uat-s3-bucket-policy"
   description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket in MP TST"
 
   policy = jsonencode({
