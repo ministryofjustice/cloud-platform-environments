@@ -100,14 +100,14 @@ resource "kubernetes_secret" "cvl_domain_events_dead_letter_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
+resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "create-and-vary-a-licence.invalid-event",
+      "person.community.manager.allocated",
     ]
   })
 }
