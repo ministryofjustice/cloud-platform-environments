@@ -33,7 +33,9 @@ locals {
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging",
     "hmpps-managing-prisoner-apps-dev",
-    "hmpps-managing-prisoner-apps-staging"
+    "hmpps-managing-prisoner-apps-staging",
+    "hmpps-jobs-board-dev",
+    "hmpps-education-employment-dev"
   ])
 }
 
