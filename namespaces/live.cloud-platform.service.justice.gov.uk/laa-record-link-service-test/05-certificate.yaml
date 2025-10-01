@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-record-link-service-cert
+  namespace: laa-record-link-service-test
+spec:
+  secretName: laa-record-link-service-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - test.laa-ccms-user-data-transfer.service.justice.gov.uk/
