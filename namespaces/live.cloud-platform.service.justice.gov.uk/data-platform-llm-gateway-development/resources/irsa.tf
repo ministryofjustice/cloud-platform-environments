@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "irsa" {
 resource "aws_iam_policy" "irsa_policy" {
   name_prefix = "llm-gateway"
   path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
+  policy      = data.aws_iam_policy_document.irsa.json
 
   tags = {
     business_unit          = var.business_unit
