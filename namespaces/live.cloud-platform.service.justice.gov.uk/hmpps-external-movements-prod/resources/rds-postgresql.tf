@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -73,7 +73,7 @@ resource "kubernetes_secret" "rds" {
 }
 # Uncomment to create DB read replica
 # module "read_replica" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 #
 #   vpc_name               = var.vpc_name
 #   allow_minor_version_upgrade  = true
