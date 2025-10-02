@@ -12,7 +12,7 @@ resource "aws_route53_zone" "llm_gateway" {
   }
 }
 
-resource "kubernetes_secret" "llm_gateway_route53_zone" {
+resource "kubernetes_secret" "llm_gateway_route53" {
   metadata {
     name      = "llm-gateway-route53"
     namespace = var.namespace
