@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
