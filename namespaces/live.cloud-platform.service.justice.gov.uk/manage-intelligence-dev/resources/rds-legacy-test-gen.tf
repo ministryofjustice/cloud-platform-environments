@@ -1,5 +1,5 @@
 module "rds_aurora_legacy_test_gen" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.3.0"
 
   # VPC configuration
   vpc_name = var.vpc_name

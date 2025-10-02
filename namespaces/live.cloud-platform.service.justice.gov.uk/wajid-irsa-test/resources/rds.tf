@@ -1,5 +1,5 @@
 # module "rds_aurora" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=enable-rds-aurora-cloudwatch-logs"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.3.0"
 
 #   # VPC configuration
 #   vpc_name = var.vpc_name
