@@ -24,12 +24,6 @@ module "s3_bucket" {
           storage_class = "GLACIER"
         },
       ]
-
-      noncurrent_version_expiration = [
-        {
-          days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
-        },
-      ]
     },
     {
       id      = "Expire current objects"
