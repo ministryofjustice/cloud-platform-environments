@@ -1,5 +1,5 @@
 module "hmpps_record_a_recall" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-record-a-recall"
   application = "hmpps-record-a-recall"
   github_team = var.team_name
