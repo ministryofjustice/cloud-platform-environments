@@ -26,7 +26,7 @@ resource "pingdom_check" "helloworld_ips" {
   sendnotificationwhendown = 3
   notifyagainevery         = 0
   encryption               = false
-  port                     = 443
+  port                     = 80
   tags                     = "businessunit_platforms,application_prometheus,component_healthcheck,isproduction_false,environment_dev,infrastructuresupport_platforms"
   probefilters             = "region:EU"
   requestheaders           = { "Host" = var.helloworld_host_name }
