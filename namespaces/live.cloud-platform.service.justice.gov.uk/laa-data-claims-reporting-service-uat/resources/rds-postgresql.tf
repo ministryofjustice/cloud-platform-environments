@@ -24,11 +24,6 @@ module "rds" {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
     }
   ]
 
