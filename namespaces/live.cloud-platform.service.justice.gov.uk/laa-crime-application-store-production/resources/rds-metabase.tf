@@ -5,7 +5,7 @@
  *
  */
 module "rds_metabase" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -22,8 +22,8 @@ module "rds_metabase" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.4"
-  rds_family        = "postgres16"
+  db_engine_version = "17.5"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
   # Tags

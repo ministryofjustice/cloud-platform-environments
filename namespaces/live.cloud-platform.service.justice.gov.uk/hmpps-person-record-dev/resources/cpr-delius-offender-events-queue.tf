@@ -12,18 +12,10 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
       "probation-case.address.created",
       "probation-case.address.updated",
       "probation-case.address.deleted",
-      "probation-case.engagement.recovered"
-    ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "cpr_delius_probation_events_subscription" {
-  topic_arn = data.aws_sns_topic.probation-offender-events.arn
-  protocol  = "sqs"
-  endpoint  = module.cpr_delius_offender_events_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "OFFENDER_ALIAS_CHANGED",
+      "probation-case.engagement.recovered",
+      "probation-case.alias.created",
+      "probation-case.alias.updated",
+      "probation-case.alias.deleted"
     ]
   })
 }
@@ -69,21 +61,6 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
       values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
-    }
-    resources = ["*"]
-  }
-  statement {
-    sid     = "ProbationOffenderEventsToQueue"
-    effect  = "Allow"
-    actions = ["sqs:SendMessage"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      variable = "aws:SourceArn"
-      test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }

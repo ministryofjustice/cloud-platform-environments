@@ -159,3 +159,15 @@ resource "aws_route53_record" "ruby_prod_record" {
     evaluate_target_health = false
   }
 }
+
+#######################
+# EMAC Data Ingestion #
+#######################
+
+resource "aws_route53_record" "hmpps_crime_matching_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "crime-matching.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1148.awsdns-15.org.", "ns-1782.awsdns-30.co.uk.", "ns-27.awsdns-03.com.", "ns-654.awsdns-17.net."]
+}

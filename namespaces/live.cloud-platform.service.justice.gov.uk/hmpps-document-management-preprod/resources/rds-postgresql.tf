@@ -1,5 +1,5 @@
 module "rds_postgres" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -30,6 +30,23 @@ resource "kubernetes_secret" "rds_postgres" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_postgres.rds_instance_endpoint
+    database_name         = module.rds_postgres.database_name
+    database_username     = module.rds_postgres.database_username
+    database_password     = module.rds_postgres.database_password
+    rds_instance_address  = module.rds_postgres.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "hmpps_document_management_rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-document-management-prod"
   }
 
   data = {

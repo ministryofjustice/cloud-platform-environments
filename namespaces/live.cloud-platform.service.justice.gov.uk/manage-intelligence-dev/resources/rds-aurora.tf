@@ -1,5 +1,5 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.3.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -15,8 +15,8 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = "default.aurora-postgresql17"
   allow_major_version_upgrade  = true
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
 
   # Tags
   business_unit          = var.business_unit
@@ -31,6 +31,21 @@ module "rds_aurora" {
     aws = aws.london
   }
 }
+
+resource "aws_db_parameter_group" "default" {
+  name   = module.rds_aurora.db_cluster_identifier
+  family = "aurora-postgresql17"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  parameter {
+    name  = "log_error_verbosity"
+    value = "TERSE"
+  }
+}
+
 
 resource "random_id" "manage_intelligence_update_role_password" {
   byte_length = 32

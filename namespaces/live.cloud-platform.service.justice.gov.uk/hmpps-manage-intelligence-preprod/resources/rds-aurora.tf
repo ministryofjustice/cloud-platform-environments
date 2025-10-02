@@ -1,12 +1,12 @@
 module "rds_aurora" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.3.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.5"
+  engine_version = "17.5"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -15,8 +15,8 @@ module "rds_aurora" {
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
   allow_major_version_upgrade  = true
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
 
   # Tags
   business_unit          = var.business_unit
@@ -34,7 +34,7 @@ module "rds_aurora" {
 
 resource "aws_db_parameter_group" "default" {
   name   = module.rds_aurora.db_cluster_identifier
-  family = "aurora-postgresql15"
+  family = "aurora-postgresql17"
 
   parameter {
     name  = "log_error_verbosity"

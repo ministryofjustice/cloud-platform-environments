@@ -10,6 +10,7 @@ spec:
   ingress:
   - from:
     - podSelector: {}
+
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -25,3 +26,77 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: block-egress
+  namespace: laa-data-provider-data-staging
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+    - action: Deny
+  types:
+    - Egress
+
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-ip
+  namespace: laa-data-provider-data-staging
+spec:
+  order: 49.0
+  selector: all()
+  egress:
+    - action: Allow
+      destination:
+        nets:
+          - 172.20.0.0/16  # Cloud Platform AWS VPC - for Redis
+          - 10.26.0.0/16   # Modernisation Platform (dev test) - for CCMS
+          - 10.27.0.0/16   # Modernisation Platform (preprod prod) - for CCMS
+          - 10.202.0.0/20  # LAA Landing Zone (dev) - for CWA
+          - 10.203.0.0/20  # LAA Landing Zone (test) - for CWA
+          - 10.206.0.0/20  # LAA Landing Zone (uat) - for CWA
+          - 10.205.0.0/20  # LAA Landing Zone (stage) - for CWA
+          - 10.204.0.0/20  # LAA Landing Zone (prod) - for CWA
+          - 18.134.215.41/32   # Slack API
+          - 18.168.172.238/32  # Slack API
+          - 18.169.61.189/32   # Slack API
+          - 18.169.120.191/32  # Slack API
+  types:
+    - Egress
+
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-claims-event-service
+  namespace: laa-data-provider-data-staging
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: laa-data-claims-event-service-staging
+
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-submit-a-bulk-claim
+  namespace: laa-data-provider-data-staging
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: laa-submit-a-bulk-claim-staging

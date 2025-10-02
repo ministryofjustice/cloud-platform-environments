@@ -1,6 +1,6 @@
 
 module "remand-and-sentencing-api-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   # VPC configuration
   vpc_name = var.vpc_name
 
@@ -14,6 +14,7 @@ module "remand-and-sentencing-api-rds" {
   db_allocated_storage      = 100
   db_max_allocated_storage  = 500
   storage_type         = "gp3"
+  enable_rds_auto_start_stop = true
 
   # Tags
   application            = var.application

@@ -10,7 +10,7 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 module "hmpps_education_work_plan_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -26,7 +26,7 @@ module "hmpps_education_work_plan_rds" {
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "15.5"
+  db_engine_version      = "15.12"
   rds_family             = "postgres15"
   db_instance_class      = "db.t4g.micro"
 
@@ -75,7 +75,7 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -16,14 +16,15 @@ module "rds" {
   allow_minor_version_upgrade  = true
   prepare_for_major_upgrade  = false
   performance_insights_enabled = true
+  deletion_protection          = true
   #db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.4"
-  rds_family        = "postgres16"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.large"
 
   # Tags

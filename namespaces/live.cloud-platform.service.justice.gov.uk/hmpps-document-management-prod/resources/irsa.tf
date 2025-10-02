@@ -75,3 +75,58 @@ data "aws_iam_policy_document" "cross_namespace_s3_access" {
     resources = ["${local.connect_dps_distingishing_marks_s3}/*", ]
   }
 }
+
+data "aws_iam_policy_document" "allow_preprod_irsa_read" {
+  statement {
+    sid    = "AllowSourceBucketAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-c94f9bbe4f28e0e3-live"]
+    }
+
+    resources = [
+      module.s3.bucket_arn,
+      "${module.s3.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_preprod_irsa_read" {
+  bucket = module.s3.bucket_name
+  policy = data.aws_iam_policy_document.allow_preprod_irsa_read.json
+}
+
+data "aws_iam_policy_document" "s3_images_policy" {
+  statement {
+    sid    = "AllowS3ImagesAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-c94f9bbe4f28e0e3-live"]
+    }
+
+    resources = [
+      module.s3-images.bucket_arn,
+      "${module.s3-images.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_preprod_irsa_s3_images" {
+  bucket = module.s3-images.bucket_name
+  policy = data.aws_iam_policy_document.s3_images_policy.json
+}
+

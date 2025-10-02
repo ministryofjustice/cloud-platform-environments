@@ -8,6 +8,7 @@ locals {
     "hmpps-book-a-video-link-prod",
     "hmpps-community-accommodation-prod",
     "hmpps-contacts-prod",
+    "hmpps-digital-prison-services-prod",
     "hmpps-education-and-work-plan-prod",
     "hmpps-electronic-monitoring-datastore-prod",
     "hmpps-external-users-api-prod",
@@ -21,9 +22,13 @@ locals {
     "hmpps-prisoner-profile-prod",
     "hmpps-registers-prod",
     "hmpps-subject-access-request-prod",
+    "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
     "visit-someone-in-prison-frontend-svc-prod",
+    "hmpps-managing-prisoner-apps-prod",
+    "hmpps-jobs-board-prod",
+    "hmpps-education-employment-prod"
   ])
 }
 

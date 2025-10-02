@@ -61,3 +61,19 @@ module "hmpps-court-case-service-api" {
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
 }
+
+module "hmpps-court-case-data-migration-service" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo                   = "hmpps-court-case-data-migration-service"
+  application                   = "hmpps-court-case-data-migration-service"
+  github_team                   = "hmpps-probation-in-court"
+  environment                   = "dev"
+  is_production                 = var.is_production
+  selected_branch_patterns      = ["main"]
+  application_insights_instance = "dev"
+  source_template_repo          = "hmpps-template-kotlin"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  github_owner                  = var.github_owner
+}

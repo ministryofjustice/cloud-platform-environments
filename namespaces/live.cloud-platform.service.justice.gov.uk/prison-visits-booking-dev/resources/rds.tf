@@ -1,5 +1,5 @@
 module "prison-visits-rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -13,7 +13,7 @@ module "prison-visits-rds" {
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "15.5"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.small"
   db_allocated_storage        = "50"

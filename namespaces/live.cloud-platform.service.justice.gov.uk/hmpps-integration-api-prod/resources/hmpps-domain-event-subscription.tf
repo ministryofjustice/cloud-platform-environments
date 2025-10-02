@@ -88,6 +88,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.risk-scores.ogrs.manual-calculation",
       "plp.induction-schedule.updated",
       "plp.review-schedule.updated",
+      "san.plan-creation-schedule.updated",
+      "san.review-schedule.updated",
       "create-and-vary-a-licence.licence.activated",
       "create-and-vary-a-licence.licence.inactivated",
       "person.alert.created",

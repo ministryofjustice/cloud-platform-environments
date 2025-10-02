@@ -1,5 +1,5 @@
 module "rds-instance-migrated" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -27,7 +27,7 @@ module "rds-instance-migrated" {
   skip_final_snapshot      = true
 
   # the database is being migrated from another hosting platform
-  is_migration = true
+  is_migration = false
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -35,7 +35,7 @@ module "rds-instance-migrated" {
   # enable performance insights
   performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-staging-cp-migration-17092024-manual-copy"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-staging-backup-01-10-25"
 
   providers = {
     aws = aws.london
@@ -132,6 +132,39 @@ resource "aws_security_group_rule" "rule6" {
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
+}
+
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2a" {
+  cidr_blocks       = ["10.27.77.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2a to connect CCR DB"
+}
+
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2b" {
+  cidr_blocks       = ["10.27.76.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2b to connect CCR DB"
+}
+
+# Allow MojFin to extract data from the CCR database for reporting
+resource "aws_security_group_rule" "mp_staging_subnet_data_2c" {
+  cidr_blocks       = ["10.27.77.0/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform staging data subnet 2c to connect CCR DB"
 }
 
 resource "kubernetes_secret" "rds-instance" {

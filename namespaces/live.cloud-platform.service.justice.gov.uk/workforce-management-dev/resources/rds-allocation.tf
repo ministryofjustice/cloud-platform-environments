@@ -1,5 +1,5 @@
 module "rds-allocation" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -17,7 +17,7 @@ module "rds-allocation" {
   db_instance_class = "db.t4g.small"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "15.5"
+  db_engine_version      = "15.12"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 

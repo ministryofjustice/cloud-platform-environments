@@ -87,7 +87,9 @@ resource "aws_sns_topic_subscription" "event_plp_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "PLP_INDUCTION_SCHEDULE_CHANGED",
-      "PLP_REVIEW_SCHEDULE_CHANGED"
+      "PLP_REVIEW_SCHEDULE_CHANGED",
+      "SAN_PLAN_CREATION_SCHEDULE_CHANGED",
+      "SAN_REVIEW_SCHEDULE_CHANGED"
     ]
   })
   depends_on = [

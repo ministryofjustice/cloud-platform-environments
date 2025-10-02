@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -9,8 +9,10 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # turn off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST
-  db_password_rotated_date     = "2025-03-12"
+  enable_rds_auto_start_stop   = true # 22:00–06:00 UTC
+  maintenance_window           = "sun:19:00-sun:21:00"
+
+  db_password_rotated_date = "2025-03-12"
 
   # PostgreSQL specifics
   db_engine         = "postgres"

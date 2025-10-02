@@ -5,7 +5,7 @@
  *
  */
 module "complexity-of-need-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -21,9 +21,10 @@ module "complexity-of-need-rds" {
   infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
   db_name                    = "hmpps_complexity_of_need"
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = true # 22:00–06:00 UTC
+  maintenance_window         = "sun:19:00-sun:21:00"
 
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

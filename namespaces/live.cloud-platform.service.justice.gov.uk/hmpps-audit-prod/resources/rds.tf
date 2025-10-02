@@ -1,5 +1,5 @@
 module "hmpps_audit_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage   = 10
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
@@ -11,10 +11,10 @@ module "hmpps_audit_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  db_instance_class            = "db.t4g.small"
+  db_instance_class            = "db.t4g.large"
   db_engine                    = "postgres"
-  db_engine_version            = "16"
-  rds_family                   = "postgres16"
+  db_engine_version            = "17"
+  rds_family                   = "postgres17"
   db_max_allocated_storage     = "10000"
   prepare_for_major_upgrade    = false
   deletion_protection          = true
@@ -38,5 +38,6 @@ resource "kubernetes_secret" "hmpps_audit_rds" {
     database_username     = module.hmpps_audit_rds.database_username
     database_password     = module.hmpps_audit_rds.database_password
     rds_instance_address  = module.hmpps_audit_rds.rds_instance_address
+    url                   = "postgres://${module.hmpps_audit_rds.database_username}:${module.hmpps_audit_rds.database_password}@${module.hmpps_audit_rds.rds_instance_endpoint}/${module.hmpps_audit_rds.database_name}"
   }
 }

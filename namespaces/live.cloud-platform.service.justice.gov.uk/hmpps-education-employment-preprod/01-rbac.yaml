@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-education-employment-preprod
 subjects:
   - kind: Group
-    name: "education-skills-and-work-live"
+    name: "github:education-skills-and-work-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

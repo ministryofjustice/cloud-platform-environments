@@ -79,10 +79,16 @@ module "opensearch_alert_error_loading_seccomp" {
 
   trigger_name           = "Error loading seccomp filter - Errno 524 trigger"
   serverity              = 1
-  query_source           = "ctx.results[0].hits.total.value > 0"
+  query_source           = "ctx.results[0].hits.total.value > 1000"
   action_name            = "Error loading seccomp filter - Errno 524 action"
   slack_message_subject  = ":alert: Error loading seccomp filter - Errno 524 :alert:"
-  slack_message_template = "Monitor {{ctx.monitor.name}} just entered alert status.\n Investigate logs and recycle problem node. \n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+  slack_message_template = <<EOT
+Monitor {{ctx.monitor.name}} just entered alert status as there have been over 1,000 log hits in the past 10 minutes.
+Please refer to the <https://runbooks.cloud-platform.service.justice.gov.uk/debug-recycle-seccomp-errno-524.html|Runbook> to resolve
+- Creation Timestamp: {{ctx.results[0].hits.hits.0._source.metadata.creationTimestamp}}
+- Node: {{ctx.results[0].hits.hits.0._source.source.host}}
+- Trigger: {{ctx.trigger.name}}
+EOT
   alert_throttle_enabled = true
   throttle_value         = 60
   throttle_unit          = "MINUTES"
@@ -97,7 +103,7 @@ module "opensearch_alert_error_loading_seccomp" {
           }
         }
       ],
-      "size":0,
+      "size":1,
       "query": {
         "bool": {
           "must": [],
@@ -112,7 +118,7 @@ module "opensearch_alert_error_loading_seccomp" {
             {
               "range": {
                 "@timestamp": {
-                    "from": "{{period_end}}||-1m",
+                    "from": "{{period_end}}||-10m",
                     "to": "{{period_end}}",
                     "include_lower": true,
                     "include_upper": true,

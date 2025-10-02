@@ -28,9 +28,19 @@ variable "team_name" {
   default     = "Digital Prison Services/New Nomis"
 }
 
+variable "deployment_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "prod"
 }
 
 variable "environment-name" {
@@ -51,6 +61,11 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
 }
+
+variable "review_team_name" {
+  default = "move-a-prisoner"
+}
+
 
 variable "number_cache_clusters" {
   default = "3"

@@ -34,6 +34,7 @@ module "service_pod_irsa" {
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
     s3 = aws_iam_policy.allow-irsa-read-write.arn
+    iam = aws_iam_policy.allow-read-iam-roles.arn
   }
 
   # Tags
@@ -141,4 +142,22 @@ resource "aws_iam_user" "hmpps-audit-user" {
 
 resource "aws_iam_access_key" "hmpps-audit-user" {
   user = aws_iam_user.hmpps-audit-user.name
+}
+
+resource "aws_iam_policy" "allow-read-iam-roles" {
+  name        = "allow-read-iam-roles"
+  path        = "/cloud-platform/"
+  policy      = data.aws_iam_policy_document.allow_read_iam_roles_policy_document.json
+  description = "Policy allow audit SA to list IAM roles"
+}
+
+data "aws_iam_policy_document" "allow_read_iam_roles_policy_document" {
+  statement {
+    actions = [
+      "iam:ListRoles",
+      "iam:ListRoleTags"
+    ]
+
+    resources = ["*"]
+  }
 }

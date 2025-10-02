@@ -8,7 +8,6 @@ rules:
   - apiGroups: [""]
     resources: ["pods/portforward"]
     verbs: ["create"]
-    resourceNames: ["opensearch-test-proxy"]
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get","list"]
