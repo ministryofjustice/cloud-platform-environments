@@ -3,7 +3,7 @@ data "dns_a_record_set" "helloworld" {
 }
 
 resource "pingdom_check" "helloworld" {
-  type                     = "https"
+  type                     = "http"
   name                     = "ky-dev-test-helloworld"
   host                     = var.helloworld_host_name
   resolution               = 1
@@ -18,7 +18,7 @@ resource "pingdom_check" "helloworld" {
 
 resource "pingdom_check" "helloworld_ips" {
   for_each                 = toset(data.dns_a_record_set.helloworld.addrs)
-  type                     = "https"
+  type                     = "http"
   name                     = "ky-dev-test-${var.helloworld_host_name} : ${each.value}"
   host                     = each.value
   resolution               = 1
