@@ -21,8 +21,8 @@ module "rds" {
   #Enable logical replication from claims-api database
   db_parameter = [
     {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
+      name         = "rds.logical_replication"
+      value        = "1"
       apply_method = "pending-reboot"
     }
   ]
