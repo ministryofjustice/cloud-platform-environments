@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - test.laa-ccms-user-data-transfer.service.justice.gov.uk/
+    - test.laa-ccms-user-data-transfer.service.justice.gov.uk
