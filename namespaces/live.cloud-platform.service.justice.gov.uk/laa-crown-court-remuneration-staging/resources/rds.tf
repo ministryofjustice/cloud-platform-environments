@@ -182,6 +182,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   lifecycle {
-    replace_triggered_by = ["arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-stging-backup-03102025"]
+    replace_triggered_by = [module.rds-instance-migrated.database_password]
   }
 }
