@@ -214,8 +214,7 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = concat([for broker in aws_mq_broker.this : broker.arn], [for config in aws_mq_configuration.this : config.arn])
-    # resources = [for broker in aws_mq_broker.this : broker.arn]
+    resources = [for broker in aws_mq_broker.this : broker.arn]
   }
 }
 
@@ -238,12 +237,12 @@ data "aws_iam_policy_document" "amq_cw_logs" {
       "logs:TestMetricFilter",
       "logs:FilterLogEvents",
     ]
-    resources = [for log_group in concat(data.aws_cloudwatch_log_group.mq_broker_logs_general, data.aws_cloudwatch_log_group.mq_broker_logs_audit) : log_group.arn]
+    resources = [data.aws_cloudwatch_log_group.mq_broker_logs_general.arn, data.aws_cloudwatch_log_group.mq_broker_logs_audit.arn]
   }
 }
 
 resource "aws_iam_policy" "amq" {
-  name        = "cloud-platform-mq-${random_id.amq_id.hex}"
+  name        = "cloud-platform-mq-${var.environment_name}-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
   policy      = data.aws_iam_policy_document.amq.json
 }
