@@ -8,7 +8,7 @@ module "restricted_patients_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.restricted_patients_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 4
+    maxReceiveCount     = 5
   })
 
   # Tags
