@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: crime-court-message-processor-service-prod-admin
-  namespace: crime-court-message-processor-service-prod
+  name: laa-crime-court-message-processor-dev-admin
+  namespace: laa-crime-court-message-processor-dev
 subjects:
   - kind: Group
     name: "github:laa-crime-apps-team"

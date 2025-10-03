@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: crime-court-message-processor-service-test
+  namespace: laa-crime-court-message-processor-dev
 spec:
   hard:
     pods: "50"
