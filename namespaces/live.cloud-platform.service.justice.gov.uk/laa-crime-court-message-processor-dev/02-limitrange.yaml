@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: crime-court-message-processor-service-uat
+  namespace: laa-crime-court-message-processor-dev
 spec:
   limits:
   - default:

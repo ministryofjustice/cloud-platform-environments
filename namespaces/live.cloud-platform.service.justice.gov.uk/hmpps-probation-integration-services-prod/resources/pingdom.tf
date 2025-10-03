@@ -42,7 +42,6 @@ resource "pingdom_check" "pingdom" {
     "accredited-programmes-and-oasys",
     "manage-supervision-and-oasys",
     "oasys-and-delius",
-    "feature-flags",
     "probation-search-and-delius",
     "core-person-record-and-delius",
     "subject-access-requests-and-delius",
