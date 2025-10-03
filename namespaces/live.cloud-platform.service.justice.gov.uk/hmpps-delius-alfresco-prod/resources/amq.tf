@@ -160,7 +160,7 @@ resource "aws_mq_configuration" "this" {
   engine_type    = local.amq_engine_type
   engine_version = local.amq_engine_version
 
-  data = templatefile("${path.module}/files/amq_config.xml")
+  data = file("${path.module}/files/amq_config.xml")
 
   lifecycle {
     create_before_destroy = true
