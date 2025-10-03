@@ -54,15 +54,9 @@
 
   <systemUsage>
     <systemUsage>
-      <memoryUsage>
-        <memoryUsage limit="12gb" />
-      </memoryUsage>
-      <storeUsage>
-        <storeUsage limit="195gb" />
-      </storeUsage>
-      <tempUsage>
-        <tempUsage limit="48gb" />
-      </tempUsage>
+      <memoryUsage limit="16 gb" />
+      <storeUsage limit="500 gb" />
+      <tempUsage limit="100 gb" />
     </systemUsage>
   </systemUsage>
 
@@ -77,8 +71,7 @@
 
         For more information, see: http://activemq.apache.org/delete-inactive-destinations.html
         -->
-        <policyEntry topic="&gt;" gcInactiveDestinations="true"
-          inactiveTimoutBeforeGC="600000">
+        <policyEntry topic="&gt;" gcInactiveDestinations="true" inactiveTimoutBeforeGC="600000">
           <!--
           The constantPendingMessageLimitStrategy is used to prevent
           slow topic consumers to block producers and affect other consumers
@@ -90,8 +83,7 @@
             <constantPendingMessageLimitStrategy limit="1000" />
           </pendingMessageLimitStrategy>
         </policyEntry>
-        <policyEntry queue="&gt;" gcInactiveDestinations="true"
-          inactiveTimoutBeforeGC="600000" />
+        <policyEntry queue="&gt;" gcInactiveDestinations="true" inactiveTimoutBeforeGC="600000" />
         <!--
         Destination policies let you configure a rich set of behaviors for your queues and topics.
         For more information, see http://activemq.apache.org/per-destination-policies.html
