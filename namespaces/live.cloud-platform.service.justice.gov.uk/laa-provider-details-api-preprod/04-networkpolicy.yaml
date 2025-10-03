@@ -85,7 +85,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-claims-event-service
-  namespace: laa-data-provider-data-staging
+  namespace: laa-provider-details-api-preprod
 spec:
   podSelector: {}
   policyTypes:
@@ -101,7 +101,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-submit-a-bulk-claim
-  namespace: laa-data-provider-data-staging
+  namespace: laa-provider-details-api-preprod
 spec:
   podSelector: {}
   policyTypes:
