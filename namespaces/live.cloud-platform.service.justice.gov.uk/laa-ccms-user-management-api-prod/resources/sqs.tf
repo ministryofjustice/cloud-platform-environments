@@ -4,7 +4,7 @@ module "sqs" {
   sqs_queue_subscriber_namespaces = ["laa-landing-page-prd"]
   fifo_queue                      = true
   dlq_max_receive_count           = 28
-  visibility_timeout_seconds      = 30
+  visibility_timeout_seconds      = 43200
   message_retention_seconds       = 1209600
   max_message_size                = 262144
   delay_seconds                   = 1
