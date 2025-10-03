@@ -19,7 +19,7 @@ module "hmpps_prisoner_to_nomis_incentive_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_incentive_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 4
+    maxReceiveCount     = 5
   })
 
   providers = {
