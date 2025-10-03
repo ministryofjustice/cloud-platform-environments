@@ -214,7 +214,7 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = [for broker in aws_mq_broker.this : broker.arn]
+    resources = [aws_mq_broker.this.arn]
   }
 }
 
