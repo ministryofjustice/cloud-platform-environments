@@ -182,6 +182,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   lifecycle {
-    replace_triggered_by = [module.rds-instance-migrated.database_password]
+    replace_triggered_by = [module.rds-instance-migrated.snapshot_identifier]
   }
 }
