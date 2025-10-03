@@ -73,7 +73,7 @@ module "hmpps_prisoner_search_offender_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_search_offender_dlq.sqs_arn
-    maxReceiveCount     = 4
+    maxReceiveCount     = 5
   })
 
   # Tags
