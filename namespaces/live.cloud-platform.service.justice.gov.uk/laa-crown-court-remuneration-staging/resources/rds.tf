@@ -167,6 +167,12 @@ resource "aws_security_group_rule" "mp_staging_subnet_data_2c" {
   description       = "Modernisation Platform staging data subnet 2c to connect CCR DB"
 }
 
+resource "null_resource" "snapshot_trigger" {
+  triggers = {
+    snapshot_id = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-stging-backup-03102025"
+  }
+}
+
 resource "kubernetes_secret" "rds-instance" {
   metadata {
     name      = "rds-ccr-${var.environment}"
@@ -182,6 +188,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   lifecycle {
-    replace_triggered_by = [module.rds-instance-migrated.snapshot_identifier]
+    replace_triggered_by = [null_resource.snapshot_trigger]
   }
 }
