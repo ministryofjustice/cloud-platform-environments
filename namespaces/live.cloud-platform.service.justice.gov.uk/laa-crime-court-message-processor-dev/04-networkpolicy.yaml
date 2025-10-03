@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: crime-court-message-processor-service-dev
+  namespace: laa-crime-court-message-processor-dev
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: crime-court-message-processor-service-dev
+  namespace: laa-crime-court-message-processor-dev
 spec:
   podSelector: {}
   policyTypes:
