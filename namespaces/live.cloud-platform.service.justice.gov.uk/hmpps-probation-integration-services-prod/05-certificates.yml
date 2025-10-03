@@ -604,21 +604,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: feature-flags-cert
-  namespace: hmpps-probation-integration-services-prod
-spec:
-  secretName: feature-flags-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - 25e85f23.hmpps.service.justice.gov.uk
-    - feature-flags.hmpps.service.justice.gov.uk
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: probation-search-and-delius-cert
   namespace: hmpps-probation-integration-services-prod
 spec:
