@@ -73,3 +73,4 @@ variable "db_name" {
   default     = "trackmycase"
   type        = string
 }
+
