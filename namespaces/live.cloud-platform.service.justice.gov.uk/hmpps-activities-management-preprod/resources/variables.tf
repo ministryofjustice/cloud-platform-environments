@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "activities-and-appointments"
+  default     = "activities-and-appointments-live"
 }
 
 variable "environment" {

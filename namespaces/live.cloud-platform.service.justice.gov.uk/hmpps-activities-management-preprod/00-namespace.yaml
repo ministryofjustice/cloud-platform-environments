@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Activities management"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-activities-management.git,https://github.com/ministryofjustice/hmpps-activities-management-api.git"
-    cloud-platform.justice.gov.uk/team-name: "activities-and-appointments"
+    cloud-platform.justice.gov.uk/team-name: "activities-and-appointments-live"
