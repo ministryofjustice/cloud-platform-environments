@@ -113,7 +113,7 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
-  apply_immediately = true
+  apply_immediately = false
 
   storage_type = "ebs"
 
@@ -148,7 +148,7 @@ resource "aws_mq_broker" "this" {
 
   lifecycle {
     ignore_changes = [
-      # configuration,
+      configuration,
       engine_version
     ]
   }
@@ -164,7 +164,7 @@ resource "aws_mq_configuration" "this" {
 
   lifecycle {
     create_before_destroy = true
-    # ignore_changes        = [data]
+    ignore_changes        = [data]
   }
 
   tags = {
