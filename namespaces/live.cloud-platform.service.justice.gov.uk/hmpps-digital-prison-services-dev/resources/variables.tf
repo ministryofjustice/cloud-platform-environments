@@ -1,8 +1,5 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -30,7 +27,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
