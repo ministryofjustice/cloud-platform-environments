@@ -7,6 +7,7 @@ module "hmpps_record_a_recall" {
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = var.environment # Either "dev", "preprod" or "prod"
+  reviewer_teams = [var.team_name]
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
