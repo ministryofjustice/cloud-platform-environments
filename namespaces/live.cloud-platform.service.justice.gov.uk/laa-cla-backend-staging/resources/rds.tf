@@ -32,7 +32,7 @@ module "cla_backend_rds_postgres_14_replica" {
   # Pick the one that defines the postgres version the best
   rds_family        = "postgres14"
   db_engine_version = "14"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.medium"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
