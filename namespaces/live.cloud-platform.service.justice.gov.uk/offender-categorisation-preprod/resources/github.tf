@@ -2,9 +2,9 @@ module "offender-categorisation" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "offender-categorisation"
   application                   = "offender-categorisation"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = var.team_name
   environment                   = var.environment_name
-  reviewer_teams                = ["secure-estate-digital-restricted-team"]
+  reviewer_teams                = [var.team_name]
   is_production                 = var.is_production
   protected_branches_only       = true
   application_insights_instance = var.environment_name
