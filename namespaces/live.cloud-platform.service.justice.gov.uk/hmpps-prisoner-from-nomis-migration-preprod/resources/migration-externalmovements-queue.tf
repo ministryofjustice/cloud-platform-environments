@@ -9,7 +9,7 @@ module "migration_externalmovements_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_externalmovements_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.migration_externalmovements_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
