@@ -9,7 +9,7 @@ module "migration_personalrelationships_profiledetails_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_personalrelationships_profiledetails_dlq.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.migration_personalrelationships_profiledetails_dlq.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
