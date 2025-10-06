@@ -10,7 +10,7 @@ module "migration_sentencing_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_sentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.migration_sentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
