@@ -70,7 +70,7 @@ module "cla_backend_rds_postgres_14_replica" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  db_instance_class        = "db.t4g.large"
+  db_instance_class        = "db.t4g.2xlarge"
   db_allocated_storage     = "30"
   db_max_allocated_storage = "1000"
 
