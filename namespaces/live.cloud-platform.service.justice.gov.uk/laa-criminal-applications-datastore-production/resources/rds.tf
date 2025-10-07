@@ -29,6 +29,9 @@ module "rds" {
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
   prepare_for_major_upgrade = false
 
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
