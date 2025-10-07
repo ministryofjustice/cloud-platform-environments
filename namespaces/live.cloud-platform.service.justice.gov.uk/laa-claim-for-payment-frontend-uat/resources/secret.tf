@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "entra-secret" = {
-      description             = "Auth UAT Secret",   # Required
+      description             = "Auth secret for UAT",   # Required
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "auth-secret-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
