@@ -67,3 +67,15 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "db_name" {
+  description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "trackmycase"
+  type        = string
+}
+
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance"
+  default     = "trackmycase-test"
+  type        = string
+}
