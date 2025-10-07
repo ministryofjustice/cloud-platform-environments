@@ -31,7 +31,7 @@ module "rds-instance-staging-migrated" {
   # enable performance insights
   performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-staging-cp-migration-snapshot-11-11-24"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-staging-backup-07102025"
 
   providers = {
     aws = aws.london
