@@ -1,4 +1,4 @@
-module "rds-instance-migrated" {
+module "rds-instance-staging-migrated" {
   source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name = var.vpc_name
 
@@ -31,7 +31,7 @@ module "rds-instance-migrated" {
   # enable performance insights
   performance_insights_enabled = false
 
-  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-staging-cp-migration-snapshot-11-11-24"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-staging-backup-07102025"
 
   providers = {
     aws = aws.london
@@ -171,10 +171,10 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    database_name     = module.rds-instance-migrated.database_name
-    database_host     = module.rds-instance-migrated.rds_instance_address
-    database_port     = module.rds-instance-migrated.rds_instance_port
-    database_username = module.rds-instance-migrated.database_username
-    database_password = module.rds-instance-migrated.database_password
+    database_name     = module.rds-instance-staging-migrated.database_name
+    database_host     = module.rds-instance-staging-migrated.rds_instance_address
+    database_port     = module.rds-instance-staging-migrated.rds_instance_port
+    database_username = module.rds-instance-staging-migrated.database_username
+    database_password = module.rds-instance-staging-migrated.database_password
   }
 }
