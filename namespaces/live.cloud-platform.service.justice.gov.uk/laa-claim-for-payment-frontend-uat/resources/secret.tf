@@ -10,7 +10,6 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    // the key "test-secret-01" is used to create kubernetes resource and must only contain lowercase alphanumeric characters, dots and dashes
     "entra-secret" = {
       description             = "Auth UAT Secret",   # Required
       recovery_window_in_days = 7,               # Required
