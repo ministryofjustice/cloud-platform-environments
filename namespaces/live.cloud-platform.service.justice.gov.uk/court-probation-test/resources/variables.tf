@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "stg-track-my-case-service"
+  default     = "Probation in Court"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "stg-track-my-case-service-dev"
+  default     = "court-probation-test"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "stg-victims-pathfinder"
+  default     = "hmpps-probation-in-court"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "test"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "munish.jalota@justice.gov.uk"
+  default     = "prepareacaseforsentence-gg@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "stg-track-my-case"
+  default     = "probation_in_court"
 }
 
 variable "github_owner" {
@@ -67,16 +67,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "db_name" {
-  description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
-  default     = "trackmycase"
-  type        = string
-}
-
-variable "rds_name" {
-  description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
-  default     = "trackmycase-dev"
-  type        = string
-}
-

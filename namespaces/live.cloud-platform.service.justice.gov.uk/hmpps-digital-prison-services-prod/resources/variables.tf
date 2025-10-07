@@ -5,7 +5,6 @@ variable "domain" {
 variable "vpc_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "hmpps-digital-prison-services"

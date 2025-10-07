@@ -33,6 +33,9 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {

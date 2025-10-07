@@ -21,6 +21,11 @@ variable "environment-name" {
   default     = "dev"
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "prisonvisitsbooking@digital.justice.gov.uk"
