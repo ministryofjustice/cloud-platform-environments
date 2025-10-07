@@ -6,7 +6,7 @@ module "ecr-repo" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-approved-premises-future-manage"]
+  github_repositories = ["hmpps-approved-premises-future-manage-api"]
 
   # Tags
   business_unit          = var.business_unit
