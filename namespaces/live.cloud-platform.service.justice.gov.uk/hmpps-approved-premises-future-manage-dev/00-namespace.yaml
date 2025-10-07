@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hmpps-approved-premises-future-manage-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps-approved-premises-future-manage"
+    cloud-platform.justice.gov.uk/application: "Future Manage"
+    cloud-platform.justice.gov.uk/owner: "Future Manage: approved-premises-future-manage@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-approved-premises-future-manage-api"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-approved-premises-future-manage-devs"
+    cloud-platform.justice.gov.uk/review-after: ""
