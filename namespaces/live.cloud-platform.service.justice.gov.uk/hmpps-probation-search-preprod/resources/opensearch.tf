@@ -12,6 +12,8 @@ module "opensearch" {
   vpc_name               = var.vpc_name
 
   engine_version      = "OpenSearch_3.1"
+  auto_software_update_enabled = true
+
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
@@ -23,8 +25,8 @@ module "opensearch" {
   proxy_count = 3
   ebs_options = {
     volume_size = 600 # we can reduce this to 300GB after removing keyword search
-    iops        = 10000
-    throughput  = 1000
+    iops        = 3000
+    throughput  = 250
   }
 }
 
