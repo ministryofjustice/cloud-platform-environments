@@ -74,3 +74,9 @@ variable "db_name" {
   type        = string
 }
 
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance"
+  default     = "trackmycase-dev"
+  type        = string
+}
+
