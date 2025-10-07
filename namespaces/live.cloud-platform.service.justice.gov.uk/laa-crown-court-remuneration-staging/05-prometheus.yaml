@@ -10,84 +10,84 @@ spec:
   - name: database-rules
     rules:
     - alert: CCR-RDS-High-CPU
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 75
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 75
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS CPU usage is over 75%
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-Low-Storage
-      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} < 1024*1024*1024
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} < 1024*1024*1024
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS free storage space is less than 1GB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Read-Latency
-      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 0.5
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 0.5
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS read latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Write-Latency
-      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 0.5
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 0.5
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS write latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-Low-Freeable-Memory
-      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} < 500*1024*1024
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} < 500*1024*1024
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS freeable memory is less than 500MB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Write-IOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 300
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 300
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS write operations are over 300 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Read-IOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 900
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 900
       for: 1m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS read operations are over 900 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
     - alert: CCR-RDS-High-Database-Connections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-8eccc874fa0f1708"} > 125
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-ecfc1c4ad6a710c0"} > 125
       for: 5m
       labels:
         severity: laa-crown-court-remuneration-staging
       annotations:
         message: CCR STAGING RDS number of database connections is over 125
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-8eccc874fa0f1708;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-ecfc1c4ad6a710c0;is-cluster=false;tab=monitoring"
 
   - name: application-rules
     rules:
