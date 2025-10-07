@@ -16,4 +16,5 @@ module "ecr-repo" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 }
