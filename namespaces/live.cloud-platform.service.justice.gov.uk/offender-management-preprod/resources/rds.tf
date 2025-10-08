@@ -57,11 +57,6 @@ module "allocation-rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
-    },
-    {
-      name         = "hot_standby_feedback"
-      value        = "1"
-      apply_method = "immediate"
     }
   ]
 
@@ -161,6 +156,11 @@ module "allocation-rds-read-replica" {
     {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]
