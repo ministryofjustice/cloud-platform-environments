@@ -26,25 +26,25 @@ resource "aws_route53_record" "crime_matching_amazonses_mx" {
 }
 
 # SES Receipt Rules to define actions when email is ingested
-# resource "aws_ses_receipt_rule_set" "main" {
-#   rule_set_name = "email-ingestion-rules"
-# }
-#
-# resource "aws_ses_receipt_rule" "store_email" {
-#   name          = "store-in-s3"
-#   rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
-#   recipients    = ["crime-csv@${var.domain}"]
-#   enabled       = true
-#   scan_enabled  = true
-#
-#   s3_action {
-#     bucket_name       = var.email_bucket_name
-#     object_key_prefix = "crime-data/"
-#     position          = 1
-#   }
-# }
-#
-# # Activate rule set
-# resource "aws_ses_active_receipt_rule_set" "main" {
-#   rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
-# }
+resource "aws_ses_receipt_rule_set" "main" {
+  rule_set_name = "email-ingestion-rules"
+}
+
+resource "aws_ses_receipt_rule" "store_email" {
+  name          = "store-in-s3"
+  rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
+  recipients    = ["crime-csv@${var.domain}"]
+  enabled       = true
+  scan_enabled  = true
+
+  s3_action {
+    bucket_name       = var.email_bucket_name
+    object_key_prefix = "crime-data/"
+    position          = 1
+  }
+}
+
+# Activate rule set
+resource "aws_ses_active_receipt_rule_set" "main" {
+  rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
+}
