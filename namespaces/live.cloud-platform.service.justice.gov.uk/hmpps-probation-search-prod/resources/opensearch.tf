@@ -11,7 +11,7 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_3.1"
+  engine_version               = "OpenSearch_3.1"
   auto_software_update_enabled = true
 
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
