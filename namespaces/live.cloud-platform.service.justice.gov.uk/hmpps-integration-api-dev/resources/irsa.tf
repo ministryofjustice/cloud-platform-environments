@@ -55,7 +55,9 @@ module "hmpps-integration-event-irsa" {
       event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
       mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
       pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
-      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn
+      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn,
+      plp_queue                                       = module.event_plp_queue.irsa_policy_arn,
+      zkhan_queue                                     = module.event_zkhan_queue.irsa_policy_arn
     }
 
   )
