@@ -35,6 +35,9 @@ module "apply-for-legal-aid-rds" {
   }
 
   enable_irsa = true
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {
