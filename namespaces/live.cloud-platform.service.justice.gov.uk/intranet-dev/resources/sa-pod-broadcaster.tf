@@ -6,7 +6,10 @@ module "sa_pod_broadcaster" {
 
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
+
   serviceaccount_name = "pod-broadcaster-serviceaccount"
+  role_name           = "pod-broadcaster-serviceaccount-role"
+  rolebinding_name    = "pod-broadcaster-serviceaccount-rolebinding"
 
   serviceaccount_rules = [
     {
