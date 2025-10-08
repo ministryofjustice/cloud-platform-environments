@@ -10,84 +10,84 @@ spec:
   - name: database-rules
     rules:
     - alert: CCLF-RDS-High-CPU
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 75
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 75
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS CPU usage is over 75%
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-Low-Storage
-      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} < 1024*1024*1024
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-13395076eb682423"} < 1024*1024*1024
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS free storage space is less than 1GB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Read-Latency
-      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 0.5
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 0.5
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS read latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Write-Latency
-      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 0.5
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 0.5
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS write latency is over 0.5 seconds
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-Low-Freeable-Memory
-      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} < 500*1024*1024
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-13395076eb682423"} < 500*1024*1024
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS freeable memory is less than 500MB
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Write-IOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 300
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 300
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS write operations are over 300 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Read-IOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 300
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 300
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS read operations are over 300 per second
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
     - alert: CCLF-RDS-High-Database-Connections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-3171e222abc729c3"} > 125
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 125
       for: 5m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
         message: CCLF Staging RDS number of database connections is over 125
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/LOHP/pages/4891410498/Monitoring+and+Alerting"
-        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-3171e222abc729c3;is-cluster=false;tab=monitoring"
+        dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-13395076eb682423;is-cluster=false;tab=monitoring"
 
   - name: application-rules
     rules:
