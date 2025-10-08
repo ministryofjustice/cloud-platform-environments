@@ -4,8 +4,9 @@
 module "sa_pod_broadcaster" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
-  namespace          = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  serviceaccount_name = "pod-broadcaster-serviceaccount"
 
   serviceaccount_rules = [
     {
