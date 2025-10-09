@@ -104,8 +104,7 @@ data "aws_iam_policy_document" "application_queue_policy_document" {
     ]
 
     resources = [
-      module.crime_batch_sqs.sqs_arn,
-      module.crime_batch_sqs_dlq.sqs_arn,
+      module.crime_batch_sqs.sqs_arn
     ]
 
     condition {
