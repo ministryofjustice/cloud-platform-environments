@@ -1,10 +1,12 @@
 module "hmpps_template_typescript" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
-  github_repo                   = "hmpps-suicide-risk-form-ui"
-  application                   = "hmpps-suicide-risk-form-ui"
-  github_team                   = "unilink"
-  reviewer_teams                = ["unilink"]
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  github_repo = "hmpps-suicide-risk-form-ui"
+  application = "hmpps-suicide-risk-form-ui"
+  github_team = "unilink"
+  environment = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
+  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
+  #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
@@ -23,7 +25,7 @@ module "elasticache_redis" {
   application            = module.hmpps_template_typescript.application
   is_production          = var.is_production
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
