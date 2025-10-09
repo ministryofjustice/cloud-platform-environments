@@ -61,3 +61,26 @@ resource "kubernetes_secret" "crime_batch_sqs_dlq" {
     sqs_queue_name = module.crime_batch_sqs_dlq.sqs_name
   }
 }
+
+data "aws_iam_policy_document" "sqs_queue_policy_document" {
+  statement {
+    sid     = "CrimeBatchEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [module.crime_batch_sns.topic_arn]
+    }
+    resources = ["*"]
+  }
+}
+
+resource "aws_sqs_queue_policy" "crime_batch_sqs_policy" {
+  queue_url = module.crime_batch_sqs.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
