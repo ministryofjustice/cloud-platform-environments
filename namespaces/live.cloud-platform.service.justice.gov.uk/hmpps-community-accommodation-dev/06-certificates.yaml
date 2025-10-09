@@ -64,3 +64,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-approved-premises-future-manage-dev-cert
+  namespace: hmpps-community-accommodation-dev
+spec:
+  secretName: hmpps-approved-premises-future-manage-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-approved-premises-future-manage-dev.hmpps.service.justice.gov.uk
