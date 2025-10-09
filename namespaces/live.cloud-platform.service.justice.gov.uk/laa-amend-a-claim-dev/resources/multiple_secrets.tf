@@ -34,6 +34,16 @@ module "secrets_manager" {
       description             = "Dev sentry dsn",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-url" = {
+      description             = "Claims Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-token" = {
+      description             = "Claims Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
   }
 }
