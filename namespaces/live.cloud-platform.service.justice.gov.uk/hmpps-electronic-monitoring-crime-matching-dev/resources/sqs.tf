@@ -84,3 +84,39 @@ resource "aws_sqs_queue_policy" "crime_batch_sqs_policy" {
   queue_url = module.crime_batch_sqs.sqs_id
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
+
+data "aws_iam_policy_document" "application_queue_policy_document" {
+  statement {
+    sid     = "AllowReadDelete"
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl"
+    ]
+
+    resources = [
+      module.crime_batch_sqs.sqs_arn,
+      module.crime_batch_sqs_dlq.sqs_arn,
+    ]
+
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [module.irsa.role_arn]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "application_queue_policy" {
+  queue_url = module.crime_batch_sqs.sqs_id
+  policy = data.aws_iam_policy_document.application_queue_policy_document.json
+}

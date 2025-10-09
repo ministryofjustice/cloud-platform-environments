@@ -41,6 +41,7 @@ resource "aws_ses_receipt_rule" "store_email" {
     bucket_name       = var.email_bucket_name
     object_key_prefix = "crime-data/"
     position          = 1
+    topic_arn         =  module.crime_batch_sns.topic_arn
   }
 }
 
