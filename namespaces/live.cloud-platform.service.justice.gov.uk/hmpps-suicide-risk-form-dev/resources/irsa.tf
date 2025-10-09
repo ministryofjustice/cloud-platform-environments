@@ -10,7 +10,7 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
-  service_account_name = var.application
+  service_account_name = "hmpps-suicide-risk-form"
   namespace            = var.namespace
   role_policy_arns = {
     domain_events_queue = module.queue.irsa_policy_arn,
