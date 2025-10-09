@@ -35,15 +35,39 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
+
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
 }
 
-# To create a read replica, use the below code and update the values to specify the RDS instance
-# from which you are replicating. In this example, we're assuming that rds is the
-# source RDS instance and read-replica is the replica we are creating.
-
 module "read_replica" {
-  # default off
-  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name               = var.vpc_name
@@ -75,16 +99,40 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -104,27 +152,16 @@ resource "kubernetes_secret" "rds" {
 
 
 resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
-
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
   }
 
-  # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-
-  /*
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
   }
-  */
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 
@@ -138,4 +175,8 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
+}
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
