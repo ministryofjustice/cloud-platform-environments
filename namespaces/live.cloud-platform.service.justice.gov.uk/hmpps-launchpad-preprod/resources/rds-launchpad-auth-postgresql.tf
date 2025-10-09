@@ -35,8 +35,7 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  enable_irsa = true
+  enable_irsa            = true
 }
 
 
