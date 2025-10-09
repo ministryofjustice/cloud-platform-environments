@@ -6,8 +6,8 @@
  */
 module "allocation-rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
-  db_allocated_storage = 10
-  storage_type         = "gp2"
+  db_allocated_storage = 20
+  storage_type         = "gp3"
 
   vpc_name                    = var.vpc_name
   db_instance_class           = "db.m5.large"
@@ -19,11 +19,11 @@ module "allocation-rds" {
   environment_name            = "production"
   infrastructure_support      = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                   = "postgres"
-  db_engine_version           = "15.12"
-  rds_family                  = "postgres15"
+  db_engine_version           = "17.6"
+  rds_family                  = "postgres17"
   allow_minor_version_upgrade = true
-  allow_major_version_upgrade = false
-  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = true
+  prepare_for_major_upgrade   = true
   db_name                     = "allocations"
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
