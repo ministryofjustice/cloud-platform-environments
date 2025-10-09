@@ -26,9 +26,37 @@ resource "kubernetes_secret" "crime_batch_sns_topic" {
   }
 }
 
-# TODO filter policy?
-resource "aws_sns_topic_subscription" "queue" {
+resource "aws_sns_topic_subscription" "crime-batch-queue-subscription" {
   topic_arn     = module.crime_batch_sns.topic_arn
   endpoint      = module.crime_batch_sqs.sqs_arn
   protocol      = "sqs"
+}
+
+resource "aws_sns_topic_policy" "ses_to_sns_access" {
+  arn = module.crime_batch_sns.topic_arn
+  policy = data.aws_iam_policy_document.sns_access.json
+}
+
+data "aws_iam_policy_document" "sns_access" {
+  statement {
+    sid = "AllowSESPublish"
+    actions = [
+      "sns:Publish"
+    ]
+
+    resources = [
+      module.crime_batch_sns.topic_arn
+    ]
+
+    principals {
+      type = "Service"
+      identifiers = ["ses.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values = [data.aws_caller_identity.current.account_id]
+    }
+  }
 }
