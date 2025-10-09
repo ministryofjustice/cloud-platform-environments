@@ -15,6 +15,9 @@ subjects:
   name: "github:hmpps-community-accommodation-devs"
   apiGroup: rbac.authorization.k8s.io
 - kind: Group
+  name: "github:hmpps-approved-premises-future-manage-devs"
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
   name: "github:hmpps-sre"
   apiGroup: rbac.authorization.k8s.io
 roleRef:
