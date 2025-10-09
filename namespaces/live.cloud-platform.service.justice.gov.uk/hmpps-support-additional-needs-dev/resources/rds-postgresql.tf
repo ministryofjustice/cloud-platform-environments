@@ -79,8 +79,14 @@ module "read_replica" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  # If any other inputs of the RDS is passed in the source db which are different from defaults,
-  # add them to the replica
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true # Dev database is stopped overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
