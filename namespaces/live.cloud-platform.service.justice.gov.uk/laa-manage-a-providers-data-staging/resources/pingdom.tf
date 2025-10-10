@@ -13,4 +13,5 @@ resource "pingdom_check" "laa-manage-a-providers-data-staging" {
   port             = 443
   tags             = "businessunit_laa,application_manage-a-providers-data,component_ping,isproduction_false,environment_staging,infrastructuresupport_manage-a-providers-data,laa,manage-a-providers-data"
   probefilters     = "region:EU"
+  integrationids   = [145169]
 }
