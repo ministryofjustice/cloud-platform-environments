@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laacrimeapps@justice.gov.uk"
+  default     = "laa-crime-assess-apps-modernisation@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crimeapps-modernisation"
+  default     = "laa-crime-assess-apps"
 }
 
 variable "github_owner" {
