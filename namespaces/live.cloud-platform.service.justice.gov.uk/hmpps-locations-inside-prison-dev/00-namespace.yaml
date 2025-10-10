@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts_non_prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Locations Inside Prison Service"
     cloud-platform.justice.gov.uk/owner: "HMPPS Locations Inside Prison Service: locations-inside-prisons@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-locations-inside-prison-api.git,https://github.com/ministryofjustice/hmpps-locations-inside-prison.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-locations-inside-prison-api.git,https://github.com/ministryofjustice/hmpps-locations-inside-prison.git,https://github.com/ministryofjustice/hmpps-non-residential-locations-ui.git"
     cloud-platform.justice.gov.uk/team-name: "locations-inside-prison"
