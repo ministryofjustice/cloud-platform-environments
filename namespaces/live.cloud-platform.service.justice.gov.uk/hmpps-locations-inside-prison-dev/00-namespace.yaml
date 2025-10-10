@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Locations Inside Prison Service"
     cloud-platform.justice.gov.uk/owner: "Move a Prisoner Squad A: MoveaPrisonerSquadA@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-locations-inside-prison-api.git,https://github.com/ministryofjustice/hmpps-locations-inside-prison.git,https://github.com/ministryofjustice/hmpps-non-residential-locations-ui.git"
-    cloud-platform.justice.gov.uk/team-name: "Move a Prisoner"
+    cloud-platform.justice.gov.uk/team-name: "move-a-prisoner"
