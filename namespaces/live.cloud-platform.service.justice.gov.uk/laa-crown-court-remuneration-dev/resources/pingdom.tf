@@ -12,7 +12,7 @@ resource "pingdom_check" "laa-crown-court-remuneration-dev" {
   url                      = "/ccr/"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
+  tags                     = "businessunit_${lower(var.business_unit)},application_${var.application},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
   probefilters             = "region:EU"
   integrationids           = [135401]
 }
