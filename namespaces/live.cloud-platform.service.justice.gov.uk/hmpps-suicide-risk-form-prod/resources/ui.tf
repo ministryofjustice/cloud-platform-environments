@@ -3,7 +3,7 @@ module "hmpps_template_typescript" {
   github_repo                   = "hmpps-suicide-risk-form-ui"
   application                   = "hmpps-suicide-risk-form-ui"
   github_team                   = "unilink"
-  reviewer_teams                = ["unilink-admin"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["unilink_admin"] # Optional team that should review deployments to this environment.
   #  environment                   = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
