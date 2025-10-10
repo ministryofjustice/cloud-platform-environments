@@ -4,7 +4,7 @@ module "hmpps_template_kotlin" {
   application = "hmpps-suicide-risk-form-api"
   github_team = "unilink"
   environment = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["unilink-admin"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["unilink_admin"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main"] # Optional
   # protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
