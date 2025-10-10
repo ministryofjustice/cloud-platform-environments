@@ -109,7 +109,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visitbalance_subs
   filter_policy = jsonencode({
     eventType = [
       "prison-visit-allocation.adjustment.created",
-      "prisoner-offender-search.prisoner.received",
+      "prison-visit-allocation.balance.reset",
       "prison-offender-events.prisoner.booking.moved"
     ]
   })
