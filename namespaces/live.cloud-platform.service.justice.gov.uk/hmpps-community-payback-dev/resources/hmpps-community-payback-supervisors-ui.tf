@@ -39,7 +39,7 @@ module "supervisors_elasticache_redis" {
   }
 }
 
-resource "supervisors_kubernetes_secret" "supervisors_elasticache_redis" {
+resource "kubernetes_secret" "supervisors_elasticache_redis" {
   metadata {
     name      = "${module.hmpps_community_payback_supervisors_ui.application}-elasticache-redis"
     namespace = var.namespace
