@@ -1,4 +1,4 @@
-module "hmpps_template_typescript" {
+module "hmpps_community_payback_supervisors_ui_typescript" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-community-payback-supervisors-ui"
   application = "hmpps-community-payback-supervisors-ui"
