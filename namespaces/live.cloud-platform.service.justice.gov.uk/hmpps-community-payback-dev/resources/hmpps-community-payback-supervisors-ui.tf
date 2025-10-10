@@ -1,4 +1,4 @@
-module "hmpps_community_payback_supervisors_ui_typescript" {
+module "hmpps_community_payback_supervisors_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-community-payback-supervisors-ui"
   application = "hmpps-community-payback-supervisors-ui"
@@ -17,7 +17,7 @@ module "hmpps_community_payback_supervisors_ui_typescript" {
 
 
 # Note, redis is a requirement for hmpps-template-typescript application.
-module "hmpps_community_payback_supervisors_elasticache_redis" {
+module "supervisors_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -39,16 +39,16 @@ module "hmpps_community_payback_supervisors_elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "supervisors_kubernetes_secret" "supervisors_elasticache_redis" {
   metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
+    name      = "${module.hmpps_community_payback_supervisors_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.supervisors_elasticache_redis.primary_endpoint_address
+    auth_token               = module.supervisors_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.supervisors_elasticache_redis.member_clusters)
+    replication_group_id     = module.supervisors_elasticache_redis.replication_group_id
   }
 }
