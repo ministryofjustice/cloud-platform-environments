@@ -14,6 +14,7 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = {
     domain_events_queue = module.queue.irsa_policy_arn,
+    domain_events_dlq   = module.dead-letter-queue.irsa_policy_arn,
     domain_events_topic = data.aws_ssm_parameter.domain_events_policy_arn.value,
     audit_queue         = data.aws_ssm_parameter.audit_irsa_policy_arn.value,
   }
