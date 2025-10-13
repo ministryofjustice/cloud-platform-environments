@@ -21,6 +21,8 @@ module "prisons_rds" {
 
   db_max_allocated_storage    = "500"
 
+  enable_irsa = true
+
   providers = {
     aws = aws.london
   }
