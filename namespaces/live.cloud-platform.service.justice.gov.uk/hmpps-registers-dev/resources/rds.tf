@@ -17,6 +17,7 @@ module "prisons_rds" {
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
   db_engine_version          = "16.3"
+  enable_irsa = true
 
   providers = {
     aws = aws.london
