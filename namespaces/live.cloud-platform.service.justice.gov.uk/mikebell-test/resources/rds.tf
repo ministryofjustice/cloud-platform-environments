@@ -16,7 +16,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t3.micro"
 
   snapshot_identifier = "rds-cloud-platform-a803ab047bcaae23-copy-2025-08-28-10-20"
 
