@@ -13,7 +13,7 @@ spec:
     - alert: SQS-events-dlq-not-empty
       annotations:
         message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
-        runbook_url: https://dsdmoj.atlassian.net/wiki/x/04CSTAE
+        runbook_url: https://dsdmoj.atlassian.net/wiki/x/IQD7YQE
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
       expr: |-
         sum(aws_sqs_approximate_number_of_messages_visible_maximum{
