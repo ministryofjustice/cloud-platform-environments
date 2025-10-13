@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
-  db_instance_class = "db.t3g.micro"
+  db_instance_class = "db.t3.micro"
 
   # Tags
   application            = var.application
@@ -69,7 +69,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
-  db_instance_class = "db.t3g.micro"
+  db_instance_class = "db.t3.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
