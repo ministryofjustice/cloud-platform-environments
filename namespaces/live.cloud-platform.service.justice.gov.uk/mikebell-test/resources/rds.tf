@@ -83,7 +83,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "rds_t3" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-postgresql-t3-instance-output"
     namespace = var.namespace
   }
 
