@@ -43,6 +43,11 @@ resource "aws_ses_receipt_rule" "store_email" {
     position          = 1
     topic_arn         =  module.crime_batch_sns.topic_arn
   }
+
+  sns_action {
+    position = 2
+    topic_arn = module.crime_batch_sns.topic_arn
+  }
 }
 
 # Activate rule set
