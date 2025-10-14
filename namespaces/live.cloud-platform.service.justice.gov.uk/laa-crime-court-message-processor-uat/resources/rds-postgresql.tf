@@ -35,6 +35,8 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  rds_name               = var.namespace
+
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 
@@ -74,6 +76,9 @@ module "read_replica" {
   prepare_for_major_upgrade = false
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
+
+  # Set the database_name of the source db
+  db_name = module.rds.database_name
 
   # It is mandatory to set the below values to create read replica instance
 
