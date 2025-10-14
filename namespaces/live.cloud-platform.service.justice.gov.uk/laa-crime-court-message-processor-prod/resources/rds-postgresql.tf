@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   # Before upgrading DB versions or changing db_instance_class, read this: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   db_engine_version = "17"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
@@ -71,7 +71,7 @@ module "read_replica" {
   db_engine         = "postgres"
   # Before upgrading DB versions or changing db_instance_class, read this: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   db_engine_version = "17"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
