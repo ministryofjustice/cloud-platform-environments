@@ -26,7 +26,7 @@ module "rds" {
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
-  db_name = laa-crime-court-message-processor-prod
+  db_name = var.namespace
 
   # Tags
   application            = var.application
