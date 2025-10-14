@@ -28,7 +28,7 @@ module "rds" {
 
   # If the rds_name is not specified a random name will be generated ( cp-* )
   # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  db_name = "laa-crime-court-message-processor-dev"
+  rds_name          = var.namespace
 
   # Tags
   application            = var.application
@@ -80,7 +80,7 @@ module "read_replica" {
   db_instance_class = "db.t4g.micro"
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name           = module.rds.database_name
 
   # It is mandatory to set the below values to create read replica instance
 
