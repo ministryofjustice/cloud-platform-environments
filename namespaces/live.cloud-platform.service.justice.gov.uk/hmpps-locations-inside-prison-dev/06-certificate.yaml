@@ -28,10 +28,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: non-residential-locations-ui-dev-cert
+  name: hmpps-non-residential-locations-ui-dev-cert
   namespace: hmpps-locations-inside-prison-dev
 spec:
-  secretName: non-residential-locations-ui-cert
+  secretName: hmpps-non-residential-locations-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
