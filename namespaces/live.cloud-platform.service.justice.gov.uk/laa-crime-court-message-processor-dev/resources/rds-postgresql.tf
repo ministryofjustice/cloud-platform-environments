@@ -26,6 +26,10 @@ module "rds" {
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
+  # If the rds_name is not specified a random name will be generated ( cp-* )
+  # Changing the RDS name requires the RDS to be re-created (destroy + create)
+  rds_name = "laa-crime-court-message-processor-dev"
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
@@ -74,10 +78,6 @@ module "read_replica" {
   prepare_for_major_upgrade = false
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
-
-  # If the rds_name is not specified a random name will be generated ( cp-* )
-  # Changing the RDS name requires the RDS to be re-created (destroy + create)
-  rds_name = "laa-crime-court-message-processor-dev"
 
   # It is mandatory to set the below values to create read replica instance
 
