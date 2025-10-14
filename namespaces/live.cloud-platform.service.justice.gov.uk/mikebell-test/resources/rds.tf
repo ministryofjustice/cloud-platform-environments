@@ -1,100 +1,51 @@
-module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+# module "rds" {
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
-  # VPC configuration
-  vpc_name = var.vpc_name
+#   # VPC configuration
+#   vpc_name = var.vpc_name
 
-  # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
-  performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+#   # RDS configuration
+#   allow_minor_version_upgrade  = true
+#   allow_major_version_upgrade  = false
+#   performance_insights_enabled = false
+#   db_max_allocated_storage     = "500"
+#   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+#   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+#   # PostgreSQL specifics
+#   db_engine         = "postgres"
+#   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+#   rds_family        = "postgres16"
+#   db_instance_class = "db.t4g.micro"
 
-  snapshot_identifier = "rds-cloud-platform-a803ab047bcaae23-copy-2025-08-28-10-20"
+#   snapshot_identifier = "rds-cloud-platform-a803ab047bcaae23-copy-2025-08-28-10-20"
 
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
+#   # Tags
+#   application            = var.application
+#   business_unit          = var.business_unit
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+#   is_production          = var.is_production
+#   namespace              = var.namespace
+#   team_name              = var.team_name
 
-  enable_irsa = true
-}
+#   enable_irsa = true
+# }
 
-module "rds_t3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+# resource "kubernetes_secret" "rds" {
+#   metadata {
+#     name      = "rds-postgresql-instance-output"
+#     namespace = var.namespace
+#   }
 
-  # VPC configuration
-  vpc_name = var.vpc_name
-
-  # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
-  performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
-
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
-  db_instance_class = "db.t3.micro"
-
-  snapshot_identifier = "rds-cloud-platform-a803ab047bcaae23-copy-2025-08-28-10-20"
-
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  enable_irsa = true
-}
-
-resource "kubernetes_secret" "rds" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-  }
-}
-
-resource "kubernetes_secret" "rds_t3" {
-  metadata {
-    name      = "rds-postgresql-t3-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.rds_t3.rds_instance_endpoint
-    database_name         = module.rds_t3.database_name
-    database_username     = module.rds_t3.database_username
-    database_password     = module.rds_t3.database_password
-    rds_instance_address  = module.rds_t3.rds_instance_address
-  }
-}
+#   data = {
+#     rds_instance_endpoint = module.rds.rds_instance_endpoint
+#     database_name         = module.rds.database_name
+#     database_username     = module.rds.database_username
+#     database_password     = module.rds.database_password
+#     rds_instance_address  = module.rds.rds_instance_address
+#   }
+# }
 
 # module "read_replica" {
 #   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
