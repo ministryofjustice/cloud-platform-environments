@@ -5,7 +5,7 @@ metadata:
   namespace: laa-ccms-user-details-api-dev
 subjects:
   - kind: Group
-    name: "github:laa-ccms-user-details-api-admin"
+    name: "github:laa-ccms-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:laa-sre-admins"

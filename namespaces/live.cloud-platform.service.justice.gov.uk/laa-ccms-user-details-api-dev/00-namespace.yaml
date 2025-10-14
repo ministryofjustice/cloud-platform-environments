@@ -8,9 +8,9 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "laa-ccms-user-details-api-admin"
-    cloud-platform.justice.gov.uk/application: "CCMS User Details API"
-    cloud-platform.justice.gov.uk/owner: "laa-ccms-user-details-api-admin: Rajinder.Singh1@justice.gov.uk"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-ccms-user-details-api-support"
+    cloud-platform.justice.gov.uk/application: "CCMS USER DETAILS API"
+    cloud-platform.justice.gov.uk/owner: "CCMS Applications team: applicationoperations@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-ccms-user-details-api"
-    cloud-platform.justice.gov.uk/team-name: "laa-ccms-user-details-api-admin"
+    cloud-platform.justice.gov.uk/team-name: "laa-ccms-devs"
     cloud-platform.justice.gov.uk/review-after: ""
