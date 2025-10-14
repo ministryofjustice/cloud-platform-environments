@@ -158,9 +158,6 @@ resource "kubernetes_secret" "rds" {
 
 
 resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
-
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
