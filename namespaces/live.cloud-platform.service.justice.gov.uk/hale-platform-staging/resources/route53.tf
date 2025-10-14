@@ -38,21 +38,3 @@ resource "kubernetes_secret" "websitebuilder_route53_zone" {
     zone_id = aws_route53_zone.websitebuilder_staging_route53_zone.zone_id
   }
 }
-
-
-# Create an A record in the hosted zone for the CloudFront alias.
-# Note, the zone_id parameter is set to the zone_id from the hale-platform-prod kubernetes secret.
-# And the alias.zone_id parameter is set to the CloudFront hosted zone id.
-
-
-resource "aws_route53_record" "data" {
-  zone_id = aws_route53_zone.websitebuilder__dev_route53_zone.zone_id
-  name    = var.cloudfront_alias
-  type    = "A"
-
-  alias {
-    evaluate_target_health = false
-    name                   = module.cloudfront.cloudfront_url
-    zone_id                = module.cloudfront.cloudfront_hosted_zone_id
-  }
-}
