@@ -17,7 +17,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Namespace {{ $labels.namespace }} is down.
-        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/1386020990/Apply+for+civil+legal+aid+runbook
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Quota-Exceeded
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-apply-for-legalaid-production"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-apply-for-legalaid-production"} > 0) > 90
       for: 1m
@@ -33,7 +33,8 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: More than 50 404 errors in the last 5 minutes
-        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-production))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-production))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
     - alert: nginx-5xx-error
       expr: |-
         # Any 5xx statuses in previous 2 minutes
@@ -74,7 +75,8 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: An HTTP 5xx error has occurred
-        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-production))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),query:(language:kuery,query:''))
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-production))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),query:(language:kuery,query:''))
     - alert: SidekiqQueueSize-Threshold-Reached
       expr: sum(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-production"}) > 10
       for: 1m
@@ -124,6 +126,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: File upload request is taking more than 10 seconds
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: "Long-Request: means_summaries"
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/means_summaries"} > 5
       for: 1m
@@ -131,6 +134,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Means summary generation is taking more than 5 seconds
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Address lookup service
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/address_selections"}[30m])) * 1800 > 1
       for: 1m
@@ -138,6 +142,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Address lookup service request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Benefit Checker
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/check_benefits"}[30m])) * 1800 > 1
       for: 1m
@@ -145,6 +150,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Benefit Checker request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Sign in process failures
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="providers/select_office"}[30m])) * 1800 > 1
       for: 1m
@@ -152,6 +158,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: Sign in process (Office selection, Provider Details API query or CCMS User management API requests) has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: CCMS Submission
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-production", controller="check_merits_answers/continue"}[30m])) * 1800 > 1
       for: 1m
@@ -159,6 +166,7 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4023844869/Stuck+assessment+application+submission
     - alert: 429 (too many requests) alert
       expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-production"}[300s])) * 300 > 5
       labels:
