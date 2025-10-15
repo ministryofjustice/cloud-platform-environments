@@ -146,13 +146,13 @@ spec:
         severity: apply-for-legal-aid-uat
       annotations:
         message: Benefit Checker request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
-    - alert: Provider Details API
-      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-uat", controller="providers/saml/sign_in"}[30m])) * 1800 > 1
+    - alert: Sign in process failures
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-uat", controller="providers/select_office"}[30m])) * 1800 > 1
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
       annotations:
-        message: Provider Details API request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        message: Sign in process (Office selection, Provider Details API query or CCMS User management API requests) has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
     - alert: CCMS Submission
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-uat", controller="check_merits_answers/continue"}[30m])) * 1800 > 1
       for: 1m
