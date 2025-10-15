@@ -174,3 +174,13 @@ spec:
       annotations:
         message: There have been more than 5 blocked(forbidden) calls to the feedback page in the last 5 minutes
         runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-5m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-uat),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'403'),type:phrase),query:(match_phrase:(log_processed.status:'403')))),query:(language:kuery,query:''))
+    - alert: ModSecInterventionsThresholdReached
+      expr: |-
+        sum(increase(nginx_ingress_controller_requests{status=~"400|423", exported_namespace="laa-apply-for-legalaid-uat"}[1h])) > 10
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-uat
+      annotations:
+        message: More than 10 possible modsec interventions detected in the last hour
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/3686039762/ModSecurity
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.kubernetes_namespace,log_processed.http_host),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-3M,to:now))&_q=(filters:!(),query:(language:kuery,query:'%22ModSecurity%22%20AND%20log_processed.kubernetes_namespace:%20%22laa-apply-for-legalaid-uat%22'))
