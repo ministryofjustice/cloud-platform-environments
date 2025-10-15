@@ -60,4 +60,27 @@ data "aws_iam_policy_document" "sns_access" {
       values = [data.aws_caller_identity.current.account_id]
     }
   }
+
+  statement {
+    sid = "AllowS3Publish"
+    effect = "Allow"
+    actions = [
+      "sns:Publish"
+    ]
+
+    resources = [
+      module.crime_batch_sns.topic_arn
+    ]
+
+    principals {
+      type = "Service"
+      identifiers = ["s3.amazonaws.com"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values = [module.s3_bucket.bucket_arn]
+    }
+  }
 }
