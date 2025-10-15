@@ -24,16 +24,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - locations-inside-prison.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: non-residential-locations-ui-preprod-cert
-  namespace: hmpps-locations-inside-prison-prod
-spec:
-  secretName: non-residential-locations-ui-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - non-residential-locations-prod.hmpps.service.justice.gov.uk
+
