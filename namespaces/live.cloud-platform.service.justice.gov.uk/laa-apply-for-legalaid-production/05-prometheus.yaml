@@ -35,8 +35,41 @@ spec:
         message: More than 50 404 errors in the last 5 minutes
         runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-production),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-production))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
     - alert: nginx-5xx-error
-      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-production", status=~"5.."}[5m]))*270 > 0
-      for: 1m
+      expr: |-
+        # Any 5xx statuses in previous 2 minutes
+        #
+        # Note that this approach, while verbose, is more sensitive than detecting `rate` or `increase` on the nginx_ingress_controller_requests counter.
+        # Start with effectively a dictionary of ingress names with the current value of the errors-since-records-began counter (C) for each
+        #
+        # Now subtract the value of the relevant counter 2 minutes ago, so can see how the counter has changed in the last 2 minutes
+        # If for ingress X, C has increased from 3 to 5 in the last 2 minutes, this subtraction will do {X: 5} - {X: 3} and will result in {X: 2}.
+        #
+        # But the counter doesn't start at zero, it starts as undefined. If the counter was undefined 2 minutes ago, but now
+        # has a value of 1 then subtraction becomes {X: 1} - {}, and thanks to how PromQL handles vectors, this will result in {}.
+        # So we need to make sure that in this scenario, the second dictionary has a value for X that is less than the current value
+        # of the counter (C). To achieve this we use "or" to fall back to a value of C - 1, so that our subtraction becomes
+        # {X: 1} - {X: 0} = {X: 1}. Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that
+        # are not positive.
+        #
+            sum by (ingress) (
+              nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-production",status=~"5.."}
+            )
+          -
+            (
+                sum by (ingress) (
+                  nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-production",status=~"5.."} offset 2m
+                )
+              or
+                (
+                    sum by (ingress) (
+                      nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-production",status=~"5.."}
+                    )
+                  -
+                    1
+                )
+            )
+        >
+          0
       labels:
         severity: apply-for-legal-aid-prod
       annotations:
