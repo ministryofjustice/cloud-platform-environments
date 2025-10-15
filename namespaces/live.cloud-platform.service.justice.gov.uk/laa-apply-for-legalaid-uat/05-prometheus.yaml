@@ -15,6 +15,9 @@ spec:
       for: 1m
       labels:
         severity: apply-for-legal-aid-uat
+      annotations:
+        message: Namespace {{ $labels.namespace }} is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/1386020990/Apply+for+civil+legal+aid+runbook
     - alert: Quota-Exceeded
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-apply-for-legalaid-uat"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-apply-for-legalaid-uat"} > 0) > 90
       for: 1m
