@@ -171,3 +171,4 @@ resource "aws_route53_record" "imb_route53_dcv_www_applications" {
   type    = "CNAME"
   ttl     = "300"
   records = ["dcv.digicert.com."]
+}
