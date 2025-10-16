@@ -154,6 +154,45 @@ EOF
   github_environments = ["dev"]   # If you're using GH Actions environments
 
 */
+
+  lifecycle_rule = [
+    {
+      id      = "Retire Processed after 1 days"
+      enabled = true
+      prefix  = "processed/"
+
+      expiration = [
+        {
+          days = 1
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
+        },
+      ]
+
+    },
+    {
+      id      = "Retire Errored after 30 days"
+      enabled = true
+      prefix  = "errored/"
+
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
+        },
+      ]
+
+    }
+  ]
 }
 
 
