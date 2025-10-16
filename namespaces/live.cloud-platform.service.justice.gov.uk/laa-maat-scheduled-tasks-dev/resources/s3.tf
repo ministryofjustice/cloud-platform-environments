@@ -187,7 +187,7 @@ EOF
 
       noncurrent_version_expiration = [
         {
-          days = 7
+          days = 30
         },
       ]
 
