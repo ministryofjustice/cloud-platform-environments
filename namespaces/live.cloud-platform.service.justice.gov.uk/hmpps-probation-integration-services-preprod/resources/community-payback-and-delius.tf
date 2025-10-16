@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "community-payback-and-delius-queue-subscr
   protocol  = "sqs"
   endpoint  = module.community-payback-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = ["community-payback.appointment.outcome"]
   })
 }
 
