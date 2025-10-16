@@ -101,6 +101,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.community-payback-and-delius-queue.sqs_arn,
       module.esupervision-and-delius-queue.sqs_arn,
       module.suicide-risk-form-and-delius-queue.sqs_arn,
       module.accredited-programmes-and-delius-queue.sqs_arn,
@@ -135,6 +136,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.community-payback-and-delius-dlq.sqs_arn,
       module.esupervision-and-delius-dlq.sqs_arn,
       module.suicide-risk-form-and-delius-dlq.sqs_arn,
       module.accredited-programmes-and-delius-dlq.sqs_arn,
