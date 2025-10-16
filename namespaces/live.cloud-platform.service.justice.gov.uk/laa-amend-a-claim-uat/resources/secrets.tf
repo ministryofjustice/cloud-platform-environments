@@ -10,10 +10,40 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "laa-amend-a-claim-secrets" = {
-      description             = "laa-amend-a-claim ${var.environment} secrets",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-amend-a-claim-secrets"
+    "laa-amend-a-claim-azure-client-id-uat" = {
+      description             = "UAT Azure client id",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-azure-client-id" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+    "laa-amend-a-claim-azure-client-secret-uat" = {
+      description             = "UAT Azure client secret",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-azure-client-secret" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-azure-tenant-secret-uat" = {
+      description             = "UAT Azure tenant secret",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-azure-tenant" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-base-url-uat" = {
+      description             = "UAT landing page base url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-base-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-sentry-dsn-uat" = {
+      description             = "UAT sentry dsn",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-url-uat" = {
+      description             = "UAT Claims Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-token-uat" = {
+      description             = "UAT Claims Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    }
   }
 }
