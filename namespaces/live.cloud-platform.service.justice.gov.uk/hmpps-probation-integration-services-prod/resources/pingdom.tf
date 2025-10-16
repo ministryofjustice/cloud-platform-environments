@@ -58,6 +58,7 @@ resource "pingdom_check" "pingdom" {
     "hmpps-common-platform-event-receiver",
     "suicide-risk-form-and-delius",
     "esupervision-and-delius",
+    "community-payback-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
