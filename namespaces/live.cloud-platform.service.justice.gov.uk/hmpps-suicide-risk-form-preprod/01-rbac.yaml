@@ -8,6 +8,9 @@ subjects:
   - kind: Group
     name: "github:unilink"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:version-1-sit-team" # Version1 team access to support testing
+    apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group
     name: "github:hmpps-sre"
