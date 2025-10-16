@@ -2,21 +2,25 @@
 locals {
   namespaces = toset([
     "hmpps-activities-management-prod",
-    "hmpps-assess-risks-and-needs-prod",
+    "hmpps-arns-assessment-platform-prod",
     "hmpps-assess-risks-and-needs-integrations-prod",
+    "hmpps-assess-risks-and-needs-prod",
     "hmpps-assessments-prod",
     "hmpps-book-a-video-link-prod",
     "hmpps-community-accommodation-prod",
     "hmpps-contacts-prod",
     "hmpps-digital-prison-services-prod",
     "hmpps-education-and-work-plan-prod",
+    "hmpps-education-employment-prod",
     "hmpps-electronic-monitoring-datastore-prod",
     "hmpps-external-users-api-prod",
     "hmpps-incentives-prod",
     "hmpps-integration-api-prod",
+    "hmpps-jobs-board-prod",
     "hmpps-locations-inside-prison-prod",
     "hmpps-manage-adjudications-api-prod",
     "hmpps-manage-users-prod",
+    "hmpps-managing-prisoner-apps-prod",
     "hmpps-non-associations-prod",
     "hmpps-prisoner-from-nomis-migration-prod",
     "hmpps-prisoner-profile-prod",
@@ -25,10 +29,7 @@ locals {
     "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
-    "visit-someone-in-prison-frontend-svc-prod",
-    "hmpps-managing-prisoner-apps-prod",
-    "hmpps-jobs-board-prod",
-    "hmpps-education-employment-prod"
+    "visit-someone-in-prison-frontend-svc-prod"
   ])
 }
 
