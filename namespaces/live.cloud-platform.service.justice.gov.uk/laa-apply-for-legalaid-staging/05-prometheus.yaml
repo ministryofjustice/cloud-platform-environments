@@ -113,22 +113,22 @@ spec:
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://staging.apply-for-legal-aid.service.justice.gov.uk/sidekiq
     - alert: Long-Request
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2 and ON() (hour() > 7 < 21)
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports"} > 2 and ON() (hour() > 7 < 21)
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
         message: Request is taking more than 2 seconds
     - alert: "Long-Request: file_uploads"
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|metrics"} > 10
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 10
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
         message: File upload request is taking more than 10 seconds
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
-    - alert: "Long-Request: means_summaries"
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="providers/means_summaries"} > 5
+    - alert: "Long-Request: reports"
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="means_reports|merits_reports"} > 5
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
