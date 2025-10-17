@@ -33,9 +33,7 @@ metadata:
   name: allow-prometheus-scraping
   namespace: laa-ccms-user-details-api-dev
 spec:
-  podSelector:
-    matchLabels:
-      app: user-details-api-pod
+  podSelector: { }
   policyTypes:
     - Ingress
   ingress:
