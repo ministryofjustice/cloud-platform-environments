@@ -46,6 +46,12 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "notify-submission-template"
     },
 
+    "notify-success-template" = {
+      description             = "Notification success template",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "notify-success-template"
+    },
+
     "notify-verification-template" = {
       description             = "Notification verification template",
       recovery_window_in_days = 7,
