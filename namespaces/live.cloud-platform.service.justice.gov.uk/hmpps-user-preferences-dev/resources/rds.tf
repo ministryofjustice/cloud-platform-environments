@@ -15,6 +15,7 @@ module "hmpps_user_preferences_rds" {
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
   prepare_for_major_upgrade = false
+  db_password_rotated_date = "2025-10-17"
 
   providers = {
     aws = aws.london
