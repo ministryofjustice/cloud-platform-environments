@@ -41,7 +41,7 @@ module "ecr" {
         },
         {
           "rulePriority": 2,
-          "description": "Keep last 30 dev, test and staging images",
+          "description": "Keep last 30 test images",
           "selection": {
             "tagStatus": "tagged",
             "tagPrefixList": [""],
