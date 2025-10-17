@@ -70,7 +70,7 @@ spec:
                 )
             )
         >
-          0
+          0 and ON() (hour() > 7 < 22)
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
