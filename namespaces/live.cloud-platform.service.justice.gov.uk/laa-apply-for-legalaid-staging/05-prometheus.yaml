@@ -52,6 +52,7 @@ spec:
         # {X: 1} - {X: 0} = {X: 1}. Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that
         # are not positive.
         #
+          (
             sum by (ingress) (
               nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging",status=~"5.."}
             )
@@ -71,6 +72,7 @@ spec:
             )
         >
           0
+        ) and on() ((hour() >= 6) and (hour() < 22))
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
@@ -113,7 +115,7 @@ spec:
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://staging.apply-for-legal-aid.service.justice.gov.uk/sidekiq
     - alert: Long-Request
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports"} > 2 and ON() (hour() > 7 < 21)
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports"} > 2 and on() ((hour() >= 6) and (hour() < 22))
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
