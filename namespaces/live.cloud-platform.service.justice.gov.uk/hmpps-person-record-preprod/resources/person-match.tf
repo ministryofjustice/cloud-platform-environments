@@ -1,13 +1,13 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
-
-  namespace          = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
-
-  github_repositories = ["hmpps-person-match"]
-  github_environments = [var.environment]
-
-  serviceaccount_name = "github-actions-serviceaccount"
-  role_name           = "github-actions-serviceaccount-role"
-  rolebinding_name    = "github-actions-serviceaccount-rolebinding"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo = "hmpps-person-match"
+  application = "hmpps-person-match"
+  github_team = var.team_name
+  environment = "preprod"
+  is_production                 = var.is_production
+  application_insights_instance = "preprod"
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
 }
