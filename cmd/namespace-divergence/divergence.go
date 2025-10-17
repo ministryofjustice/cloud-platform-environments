@@ -33,6 +33,7 @@ func main() {
 		"opa",
 		"overprovision",
 		"velero",
+		"amazon-guardduty",
 	}
 
 	// get arguments from the user
