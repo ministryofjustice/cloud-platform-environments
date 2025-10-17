@@ -4,6 +4,7 @@ module "serviceaccount" {
   application                   = "hmpps-person-match"
   github_team                   = var.team_name
   environment                   = "prod"
+  reviewer_teams                = [var.team_name]
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "none"
