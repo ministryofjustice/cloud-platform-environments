@@ -25,15 +25,9 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "hmpps-official-visits"
   role_policy_arns     = merge(
-    {
-      official_visits_domain_events_queue = module.official_visits_domain_events_queue.irsa_policy_arn
-    },
-    {
-      official_visits_domain_events_dlq = module.official_visits_domain_events_dlq.irsa_policy_arn
-    },
-    {
-      rds = module.rds.irsa_policy_arn
-    },
+    { official_visits_domain_events_queue = module.official_visits_domain_events_queue.irsa_policy_arn },
+    { official_visits_domain_events_dlq = module.official_visits_domain_events_dlq.irsa_policy_arn },
+    { rds = module.rds.irsa_policy_arn },
     local.sqs_policies,
     local.sns_policies
   )
