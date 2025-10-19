@@ -47,7 +47,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
       type        = "AWS"
       identifiers = ["*"]
     }
-    resources = [module.prisoner-event-queue.sqs_arn]
+    resources = [module.official_visits_domain_events_queue.sqs_arn]
     actions   = ["SQS:SendMessage"]
     condition {
       variable = "aws:SourceArn"

@@ -29,7 +29,7 @@ module "irsa" {
       official_visits_domain_events_queue = module.official_visits_domain_events_queue.irsa_policy_arn
     },
     {
-      official_visits_domain_event_dlq = module.official_visits_domain_event_dlq.irsa_policy_arn
+      official_visits_domain_events_dlq = module.official_visits_domain_events_dlq.irsa_policy_arn
     },
     {
       rds = module.rds.irsa_policy_arn
