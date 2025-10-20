@@ -15,6 +15,9 @@ spec:
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
+      annotations:
+        message: Namespace {{ $labels.namespace }} is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Quota-Exceeded
       expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-apply-for-legalaid-staging"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-apply-for-legalaid-staging"} > 0) > 90
       for: 1m
@@ -30,15 +33,52 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: More than 50 404 errors in the last 5 minutes
-        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'404'),type:phrase),query:(match_phrase:(log_processed.status:'404')))),query:(language:kuery,query:''))
     - alert: nginx-5xx-error
-      expr: sum(rate(nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging", status=~"5.."}[5m]))*270 > 0
-      for: 1m
+      expr: |-
+        # Any 5xx statuses in previous 2 minutes
+        #
+        # Note that this approach, while verbose, is more sensitive than detecting `rate` or `increase` on the nginx_ingress_controller_requests counter.
+        # Start with effectively a dictionary of ingress names with the current value of the errors-since-records-began counter (C) for each
+        #
+        # Now subtract the value of the relevant counter 2 minutes ago, so can see how the counter has changed in the last 2 minutes
+        # If for ingress X, C has increased from 3 to 5 in the last 2 minutes, this subtraction will do {X: 5} - {X: 3} and will result in {X: 2}.
+        #
+        # But the counter doesn't start at zero, it starts as undefined. If the counter was undefined 2 minutes ago, but now
+        # has a value of 1 then subtraction becomes {X: 1} - {}, and thanks to how PromQL handles vectors, this will result in {}.
+        # So we need to make sure that in this scenario, the second dictionary has a value for X that is less than the current value
+        # of the counter (C). To achieve this we use "or" to fall back to a value of C - 1, so that our subtraction becomes
+        # {X: 1} - {X: 0} = {X: 1}. Finally, for the purposes of this alert, we filter out any values of our resulting dictionary that
+        # are not positive.
+        #
+          (
+            sum by (ingress) (
+              nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging",status=~"5.."}
+            )
+          -
+            (
+                sum by (ingress) (
+                  nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging",status=~"5.."} offset 2m
+                )
+              or
+                (
+                    sum by (ingress) (
+                      nginx_ingress_controller_requests{exported_namespace="laa-apply-for-legalaid-staging",status=~"5.."}
+                    )
+                  -
+                    1
+                )
+            )
+        >
+          0
+        ) and on() ((hour() >= 6) and (hour() < 22))
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
         message: An HTTP 5xx error has occurred
-        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),query:(language:kuery,query:''))
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-24h,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(gte:500,lt:599),type:range),range:(log_processed.status:(gte:500,lt:599)))),query:(language:kuery,query:''))
     - alert: SidekiqQueueSize-Threshold-Reached
       expr: sum(ruby_sidekiq_queue_size{namespace="laa-apply-for-legalaid-staging"}) > 10
       for: 1m
@@ -75,7 +115,7 @@ spec:
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://staging.apply-for-legal-aid.service.justice.gov.uk/sidekiq
     - alert: Long-Request
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/means_summaries|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections"} > 2 and ON() (hour() > 7 < 21)
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller!~"providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports"} > 2 and on() ((hour() >= 6) and (hour() < 22))
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
@@ -88,13 +128,15 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: File upload request is taking more than 10 seconds
-    - alert: "Long-Request: means_summaries"
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="providers/means_summaries"} > 5
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+    - alert: "Long-Request: reports"
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-staging", controller="means_reports|merits_reports"} > 5
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
         message: Means summary generation is taking more than 5 seconds
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Address lookup service
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-staging", controller="providers/address_selections"}[30m])) * 1800 > 1
       for: 1m
@@ -102,6 +144,7 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: Address lookup service request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: Benefit Checker
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-staging", controller="providers/check_benefits"}[30m])) * 1800 > 1
       for: 1m
@@ -109,13 +152,15 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: Benefit Checker request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
-    - alert: Provider Details API
-      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-staging", controller="providers/saml/sign_in"}[30m])) * 1800 > 1
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+    - alert: Sign in process failures
+      expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-staging", controller="providers/select_office"}[30m])) * 1800 > 1
       for: 1m
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
-        message: Provider Details API request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        message: Sign in process (Office selection, Provider Details API query or CCMS User management API requests) has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: CCMS Submission
       expr: sum(rate(ruby_http_requests_total{status=~"4..|5..", namespace="laa-apply-for-legalaid-staging", controller="check_merits_answers/continue"}[30m])) * 1800 > 1
       for: 1m
@@ -123,17 +168,29 @@ spec:
         severity: apply-for-legal-aid-staging
       annotations:
         message: CCMS Submission request has multiple consecutive HTTP 4xx or 5xx status errors over the last 30 minutes
-    - alert: 429(too many requests) alert
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4023844869/Stuck+assessment+application+submission
+    - alert: 429 (too many requests) alert
       expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 5
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
         message: There have been more than 5 rate-limited calls to the feedback page in the last 5 minutes
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/3996712986/Handling+a+scripted+Feedback+attack
-    - alert: 403(forbidden) alert
-      expr: sum(rate(ruby_http_requests_total{status="429", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 5
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-5m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'429'),type:phrase),query:(match_phrase:(log_processed.status:'429')))),query:(language:kuery,query:''))
+    - alert: 403 (forbidden) alert
+      expr: sum(rate(ruby_http_requests_total{status="403", namespace="laa-apply-for-legalaid-staging"}[300s])) * 300 > 5
       labels:
         severity: apply-for-legal-aid-staging
       annotations:
-        message: There have been more than 5 blocked(forbidden) calls to the feedback page in the last 5 minutes
-        runbook_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-5m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'403'),type:phrase),query:(match_phrase:(log_processed.status:'403')))),query:(language:kuery,query:''))
+        message: There have been more than 5 blocked (forbidden) calls to the feedback page in the last 5 minutes
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.status,log_processed.request_uri,log_processed.http_referer),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-5m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.kubernetes_namespace,negate:!f,params:(query:laa-apply-for-legalaid-staging),type:phrase),query:(match_phrase:(log_processed.kubernetes_namespace:laa-apply-for-legalaid-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:ef705d70-0d2e-11ef-afac-8f79b1004d33,key:log_processed.status,negate:!f,params:(query:'429'),type:phrase),query:(match_phrase:(log_processed.status:'403')))),query:(language:kuery,query:''))
+    - alert: ModSecInterventionsThresholdReached
+      expr: |-
+        sum(increase(nginx_ingress_controller_requests{status=~"400|423", exported_namespace="laa-apply-for-legalaid-staging"}[1h])) > 10
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-staging
+      annotations:
+        message: More than 10 possible modsec interventions detected in the last hour
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/3686039762/ModSecurity
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log_processed.kubernetes_namespace,log_processed.http_host,log_processed.status,log_processed.request_query),isDirty:!t,sort:!()),metadata:(indexPattern:ef705d70-0d2e-11ef-afac-8f79b1004d33,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now))&_q=(filters:!(),query:(language:kuery,query:'log_processed.kubernetes_namespace:%20%22laa-apply-for-legalaid-staging%22%20AND%20log_processed.status:%20(400%20OR%20423)'))

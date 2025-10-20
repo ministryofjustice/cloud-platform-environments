@@ -5,7 +5,7 @@
  *
  */
 module "allocation-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 20
   storage_type         = "gp3"
 
@@ -57,11 +57,6 @@ module "allocation-rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
-    },
-    {
-      name         = "hot_standby_feedback"
-      value        = "1"
-      apply_method = "immediate"
     }
   ]
 
@@ -106,7 +101,7 @@ resource "kubernetes_secret" "rds_refresh_creds" {
 }
 
 module "allocation-rds-read-replica" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.1"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 20
   storage_type         = "gp3"
 
@@ -161,6 +156,11 @@ module "allocation-rds-read-replica" {
     {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]

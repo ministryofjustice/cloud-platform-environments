@@ -1,5 +1,5 @@
 # module "rds_aurora" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=enable-rds-aurora-cloudwatch-logs"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-aurora?ref=4.3.0"
 
 #   # VPC configuration
 #   vpc_name = var.vpc_name
@@ -40,7 +40,7 @@
 # }
 
 module "rds_mariadb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enable-rds-cloudwatch-logs"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -90,7 +90,7 @@ resource "kubernetes_secret" "rds_mariadb" {
 }
 
 module "rds_mysql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enable-rds-cloudwatch-logs"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -141,7 +141,7 @@ resource "kubernetes_secret" "rds_mysql" {
 }
 
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enable-rds-cloudwatch-logs"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name

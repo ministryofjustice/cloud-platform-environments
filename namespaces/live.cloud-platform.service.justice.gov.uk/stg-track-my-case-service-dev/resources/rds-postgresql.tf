@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -32,6 +32,22 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  # enable_irsa = true
+
+  # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
+  # opt_in_xsiam_logging = true
+
+   # Set the rds name
+      rds_name = var.rds_name
+
+   # Set the database_name of the source db
+      db_name = var.db_name
+
+
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -41,7 +57,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name               = var.vpc_name
 
@@ -81,6 +97,14 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  # enable_irsa = true
+
+  # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
+  # opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {

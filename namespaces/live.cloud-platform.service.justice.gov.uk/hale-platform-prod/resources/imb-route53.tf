@@ -141,3 +141,51 @@ resource "aws_route53_record" "imb_route53_dkim2" {
   records = ["b2.imb-org-uk.dkim.brevo.com"]
 }
 
+resource "aws_route53_record" "imb_route53_dcv_uat_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_7yww96sqdop2re50llypxhy8wytpi76.uat.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dcv.digicert.com."]
+}
+
+resource "aws_route53_record" "imb_route53_dcv_www_uat_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_7yww96sqdop2re50llypxhy8wytpi76.www.uat.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dcv.digicert.com."]
+}
+
+resource "aws_route53_record" "imb_route53_dcv_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_s2gwsz71c9juh61c1n6ps7jaj0lqidh.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dcv.digicert.com."]
+}
+
+resource "aws_route53_record" "imb_route53_dcv_www_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_s2gwsz71c9juh61c1n6ps7jaj0lqidh.www.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dcv.digicert.com."]
+}
+
+resource "aws_route53_record" "imb_route53_cname_uat_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "uat.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["uat-moj-imb-lo-applications.powerappsportals.com."]
+}
+
+resource "aws_route53_record" "imb_route53_cname_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["moj-imb-lo-applications.powerappsportals.com."]
+}
+

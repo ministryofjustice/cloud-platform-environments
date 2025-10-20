@@ -9,7 +9,7 @@
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
@@ -58,7 +58,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   storage_type = "gp2"
 
   vpc_name               = var.vpc_name
@@ -70,7 +70,7 @@ module "cla_backend_rds_postgres_14_replica" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  db_instance_class        = "db.t4g.large"
+  db_instance_class        = "db.t4g.2xlarge"
   db_allocated_storage     = "30"
   db_max_allocated_storage = "1000"
 
@@ -103,7 +103,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name

@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -14,9 +14,10 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  prepare_for_major_upgrade = false
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres16"
-  db_engine_version           = "16"
+  rds_family                  = "postgres17"
+  db_engine_version           = "17.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -68,7 +69,7 @@ module "dps_rds" {
 module "dps_rds_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name               = var.vpc_name
 
@@ -86,8 +87,8 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 

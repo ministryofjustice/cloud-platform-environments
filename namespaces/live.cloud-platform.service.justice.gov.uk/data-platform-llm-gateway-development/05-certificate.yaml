@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: llms-gateway-tls
+  namespace: data-platform-llm-gateway-development
+spec:
+  secretName: llms-gateway-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - llm-gateway.development.data-platform.service.justice.gov.uk

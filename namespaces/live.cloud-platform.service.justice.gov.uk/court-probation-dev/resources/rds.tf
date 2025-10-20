@@ -1,5 +1,5 @@
 module "court_case_service_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage       = 10
   storage_type               = "gp2"
   vpc_name                   = var.vpc_name
@@ -16,6 +16,7 @@ module "court_case_service_rds" {
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
   enable_rds_auto_start_stop = true
+  db_password_rotated_date = "2025-10-14"
 
   providers = {
     aws = aws.london

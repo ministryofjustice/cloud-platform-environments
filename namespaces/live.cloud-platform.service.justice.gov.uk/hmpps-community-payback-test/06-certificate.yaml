@@ -26,3 +26,16 @@ spec:
   dnsNames:
     - community-payback-api-test.hmpps.service.justice.gov.uk
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-payback-supervisors-test-cert
+  namespace: hmpps-community-payback-test
+spec:
+  secretName:  hmpps-community-payback-supervisors-test-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-payback-supervisors-test.hmpps.service.justice.gov.uk
+---

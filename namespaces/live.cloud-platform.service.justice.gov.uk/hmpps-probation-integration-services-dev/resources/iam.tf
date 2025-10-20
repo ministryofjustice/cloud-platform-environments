@@ -71,6 +71,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.community-payback-and-delius-queue.sqs_arn,
       module.esupervision-and-delius-queue.sqs_arn,
       module.suicide-risk-form-and-delius-queue.sqs_arn,
       module.accredited-programmes-and-delius-queue.sqs_arn,
@@ -86,7 +87,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.court-case-and-delius-queue.sqs_arn,
       module.create-and-vary-a-licence-and-delius-queue.sqs_arn,
       module.custody-key-dates-and-delius-queue.sqs_arn,
-      module.hmcts-data-ingestion-queue.sqs_arn,
       module.make-recall-decisions-and-delius-queue.sqs_arn,
       module.manage-offences-and-delius-queue.sqs_arn,
       module.manage-pom-cases-and-delius-queue.sqs_arn,
@@ -105,6 +105,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.community-payback-and-delius-dlq.sqs_arn,
       module.esupervision-and-delius-dlq.sqs_arn,
       module.suicide-risk-form-and-delius-dlq.sqs_arn,
       module.accredited-programmes-and-delius-dlq.sqs_arn,
@@ -120,7 +121,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.court-case-and-delius-dlq.sqs_arn,
       module.create-and-vary-a-licence-and-delius-dlq.sqs_arn,
       module.custody-key-dates-and-delius-dlq.sqs_arn,
-      module.hmcts-data-ingestion-dlq.sqs_arn,
       module.make-recall-decisions-and-delius-dlq.sqs_arn,
       module.manage-offences-and-delius-dlq.sqs_arn,
       module.manage-pom-cases-and-delius-dlq.sqs_arn,

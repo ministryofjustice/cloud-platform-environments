@@ -5,7 +5,7 @@
  *
  */
 module "rds_metabase" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -45,7 +45,7 @@ module "read_replica_metabase" {
 
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -152,3 +152,4 @@ resource "kubernetes_config_map" "rds_metabase" {
     db_identifier = module.rds_metabase.db_identifier
   }
 }
+ 

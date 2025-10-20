@@ -71,3 +71,16 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+########
+# IRSA #
+########
+variable "enable_irsa" {
+  type        = bool
+  default     = true
+  description = "Enable creation of IRSA resources for database snapshot creation (for service pod maintenance etc). Defaults to false"
+}

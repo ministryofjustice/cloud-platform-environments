@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
@@ -34,6 +34,9 @@ module "apply-for-legal-aid-rds" {
   }
 
   enable_irsa = true
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {

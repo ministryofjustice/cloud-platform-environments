@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -43,7 +43,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -61,7 +61,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db

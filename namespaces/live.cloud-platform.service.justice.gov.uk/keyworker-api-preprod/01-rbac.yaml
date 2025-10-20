@@ -12,7 +12,7 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-move-and-improve"
+    name: "github:hmpps-move-and-improve-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:activities-and-appointments-live"

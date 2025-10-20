@@ -1,5 +1,5 @@
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -20,6 +20,8 @@ module "prisons_rds" {
   allow_major_version_upgrade = "false"
 
   db_max_allocated_storage    = "500"
+
+  enable_irsa = true
 
   providers = {
     aws = aws.london

@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "legal-aid-agency"
+  default     = "LAA"
 }
 
 variable "team_name" {

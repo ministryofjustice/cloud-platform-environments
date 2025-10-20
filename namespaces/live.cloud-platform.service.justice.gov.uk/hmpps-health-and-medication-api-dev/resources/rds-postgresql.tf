@@ -5,12 +5,13 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
+  prepare_for_major_upgrade = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
@@ -39,16 +40,6 @@ module "rds" {
 
   # Add parameters to enable logical replication
   db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
     {
       name         = "max_wal_size"
       value        = "1024"

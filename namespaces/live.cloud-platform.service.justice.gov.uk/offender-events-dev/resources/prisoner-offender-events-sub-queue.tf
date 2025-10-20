@@ -9,7 +9,7 @@ module "prisoner_offender_events_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.prisoner_offender_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.prisoner_offender_events_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF

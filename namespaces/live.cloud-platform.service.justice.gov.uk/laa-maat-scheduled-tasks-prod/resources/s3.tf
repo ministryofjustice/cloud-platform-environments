@@ -14,6 +14,47 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  lifecycle_rule = [
+    {
+      id      = "Retire Processed files after 7 days"
+      enabled = true
+      prefix  = "processed/"
+
+      expiration = [
+        {
+          days = 7
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
+        },
+      ]
+
+    },
+    {
+      id      = "Retire Errored files after 30 days"
+      enabled = true
+      prefix  = "errored/"
+
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 30
+        },
+      ]
+
+    }
+  ]
+
+
 }
 
 # Build the policy JSON using the module outputs (no feedback loop)

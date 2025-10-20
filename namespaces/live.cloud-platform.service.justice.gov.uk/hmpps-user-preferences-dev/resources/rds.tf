@@ -1,5 +1,5 @@
 module "hmpps_user_preferences_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage      = 10
   storage_type              = "gp2"
   vpc_name                  = var.vpc_name
@@ -15,6 +15,7 @@ module "hmpps_user_preferences_rds" {
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
   prepare_for_major_upgrade = false
+  db_password_rotated_date = "2025-10-17"
 
   providers = {
     aws = aws.london

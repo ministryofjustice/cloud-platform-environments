@@ -1,5 +1,5 @@
 module "rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage         = 10
   storage_type                 = "gp2"
   vpc_name                     = var.vpc_name
@@ -24,7 +24,7 @@ module "rds" {
 
 module "read_replica" {
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -85,3 +85,4 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+ 

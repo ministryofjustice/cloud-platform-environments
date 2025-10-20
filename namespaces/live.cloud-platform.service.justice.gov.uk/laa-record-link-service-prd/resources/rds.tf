@@ -1,5 +1,5 @@
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0" # use the latest release
 
   # VPC configuration
   vpc_name = var.vpc_name

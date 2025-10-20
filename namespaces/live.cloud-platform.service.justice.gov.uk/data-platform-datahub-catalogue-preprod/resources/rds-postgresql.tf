@@ -28,7 +28,7 @@ module "rds_security_group" {
 }
 
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   db_allocated_storage = var.db_allocated_storage
   storage_type         = var.storage_type
 

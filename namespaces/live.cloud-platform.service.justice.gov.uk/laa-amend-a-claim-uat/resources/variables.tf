@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ccmspuimodernisation@justice.gov.uk"
+  default     = "claim-amendment-team@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -69,13 +69,7 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
-  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  description = "The name of the eks cluster to retrieve the OIDC information"
   type        = string
   default     = "example_name"
-}
-
-variable "serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-amend-a-claim-uat-service-account"
 }

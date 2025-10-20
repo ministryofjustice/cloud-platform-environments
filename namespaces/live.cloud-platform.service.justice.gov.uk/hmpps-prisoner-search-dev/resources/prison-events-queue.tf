@@ -55,6 +55,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFF_HEALTH_PROBLEMS-INSERTED",
       "OFF_HEALTH_PROBLEMS-UPDATED",
       "OFF_HEALTH_PROBLEMS-DELETED",
+      "OFF_MILITARY_REC-INSERTED",
+      "OFF_MILITARY_REC-UPDATED",
+      "OFF_MILITARY_REC-DELETED",
       "SENTENCE_ADJUSTMENT_DELETED",
       "SENTENCE_ADJUSTMENT_UPSERTED",
       "SENTENCE_DATES-CHANGED",
@@ -73,7 +76,7 @@ module "hmpps_prisoner_search_offender_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_search_offender_dlq.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
