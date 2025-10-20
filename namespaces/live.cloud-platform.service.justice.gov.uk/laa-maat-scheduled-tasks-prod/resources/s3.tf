@@ -17,7 +17,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
-      id      = "Retire Processed after 1 days"
+      id      = "Retire Processed files after 7 days"
       enabled = true
       prefix  = "processed/"
 
@@ -35,7 +35,7 @@ module "s3_bucket" {
 
     },
     {
-      id      = "Retire Errored after 30 days"
+      id      = "Retire Errored files after 30 days"
       enabled = true
       prefix  = "errored/"
 
