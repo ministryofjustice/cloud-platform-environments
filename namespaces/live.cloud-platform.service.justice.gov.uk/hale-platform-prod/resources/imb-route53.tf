@@ -172,3 +172,20 @@ resource "aws_route53_record" "imb_route53_dcv_www_applications" {
   ttl     = "300"
   records = ["dcv.digicert.com."]
 }
+
+resource "aws_route53_record" "imb_route53_cname_uat_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "uat.applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["uat-moj-imb-lo-applications.powerappsportals.com."]
+}
+
+resource "aws_route53_record" "imb_route53_cname_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "applications.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["moj-imb-lo-applications.powerappsportals.com."]
+}
+
