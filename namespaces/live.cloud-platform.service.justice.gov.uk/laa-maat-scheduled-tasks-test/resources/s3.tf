@@ -26,4 +26,44 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_arn  = module.s3_bucket.bucket_arn
     bucket_name = module.s3_bucket.bucket_name
   }
+
+  lifecycle_rule = [
+    {
+      id      = "Retire Processed after 1 days"
+      enabled = true
+      prefix  = "processed/"
+
+      expiration = [
+        {
+          days = 7
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
+        },
+      ]
+
+    },
+    {
+      id      = "Retire Errored after 30 days"
+      enabled = true
+      prefix  = "errored/"
+
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 30
+        },
+      ]
+
+    }
+  ]
+
 }
