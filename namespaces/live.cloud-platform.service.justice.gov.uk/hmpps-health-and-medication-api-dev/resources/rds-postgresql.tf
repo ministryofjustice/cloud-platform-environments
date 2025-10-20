@@ -13,7 +13,7 @@ module "rds" {
   # RDS configuration
   prepare_for_major_upgrade = true
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = true
+  allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_allocated_storage      = "100"
   db_max_allocated_storage  = "2000"
