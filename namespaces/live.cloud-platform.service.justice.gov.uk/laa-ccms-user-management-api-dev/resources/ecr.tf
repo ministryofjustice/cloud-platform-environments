@@ -7,7 +7,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers        = ["github"]
   github_repositories   = ["laa-ccms-user-management-api"]
-  github_actions_prefix = "MANAGEMENT-API"
+  github_actions_prefix = "CCMS-MANAGEMENT-API"
 
   # Tags
   business_unit          = var.business_unit
