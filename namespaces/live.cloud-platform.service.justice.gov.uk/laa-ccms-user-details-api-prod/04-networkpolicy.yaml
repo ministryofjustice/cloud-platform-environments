@@ -10,6 +10,7 @@ spec:
   ingress:
   - from:
     - podSelector: {}
+
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
