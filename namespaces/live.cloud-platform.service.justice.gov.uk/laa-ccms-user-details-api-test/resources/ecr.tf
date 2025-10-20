@@ -44,7 +44,7 @@ module "ecr" {
           "description": "Keep last 30 test images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPrefixList": [""],
+            "tagPrefixList": ["test"],
             "countType": "imageCountMoreThan",
             "countNumber": 30
           },
