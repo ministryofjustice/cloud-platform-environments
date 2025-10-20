@@ -157,19 +157,19 @@ EOF
 
   lifecycle_rule = [
     {
-      id      = "Retire Processed after 1 days"
+      id      = "Retire Processed after 7 days"
       enabled = true
       prefix  = "processed/"
 
       expiration = [
         {
-          days = 1
+          days = 7
         }
       ]
 
       noncurrent_version_expiration = [
         {
-          days = 1
+          days = 7
         },
       ]
 
