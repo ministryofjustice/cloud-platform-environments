@@ -14,18 +14,6 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-}
-
-resource "kubernetes_secret" "s3_bucket" {
-  metadata {
-    name      = "s3-bucket-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
-  }
 
   lifecycle_rule = [
     {
@@ -65,5 +53,18 @@ resource "kubernetes_secret" "s3_bucket" {
 
     }
   ]
+
+}
+
+resource "kubernetes_secret" "s3_bucket" {
+  metadata {
+    name      = "s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.s3_bucket.bucket_arn
+    bucket_name = module.s3_bucket.bucket_name
+  }
 
 }
