@@ -23,6 +23,7 @@ module "edu_rds" {
   db_engine_version           = "16"
   rds_family                  = "postgres16"
   enable_rds_auto_start_stop  = true
+  enable_irsa                 = true
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
   providers = {

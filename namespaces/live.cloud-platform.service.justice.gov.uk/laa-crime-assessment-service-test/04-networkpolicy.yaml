@@ -2,26 +2,26 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hmpps-electronic-monitoring-datastore-dev
+  namespace: laa-crime-assessment-service-test
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-      - podSelector: {}
+  - from:
+    - podSelector: {}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hmpps-electronic-monitoring-datastore-dev
+  namespace: laa-crime-assessment-service-test
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            component: ingress-controllers
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
