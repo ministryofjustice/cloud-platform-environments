@@ -27,35 +27,6 @@ spec:
           component: ingress-controllers
 ---
 kind: NetworkPolicy
-apiVersion: projectcalico.org/v3
-metadata:
-  name: deny-egress-order
-  namespace: laa-data-claims-api-staging
-spec:
-  order: 50.0
-  selector: all()
-  egress:
-    - action: Deny
-  types:
-    - Egress
----
-kind: NetworkPolicy
-apiVersion: projectcalico.org/v3
-metadata:
-  name: allow-egress-ip
-  namespace: laa-data-claims-api-staging
-spec:
-  order: 49.0
-  selector: all()
-  egress:
-    - action: Allow
-      destination:
-        nets:
-          - 172.20.0.0/16
-  types:
-    - Egress
----
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-claims-event-service
