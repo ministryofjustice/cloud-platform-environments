@@ -28,5 +28,6 @@ resource "kubernetes_secret" "hmpps_electronic_monitoring_datastore_ui_elasticac
     primary_endpoint_address = module.hmpps_electronic_monitoring_datastore_ui_elasticache_redis.primary_endpoint_address
     auth_token               = module.hmpps_electronic_monitoring_datastore_ui_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.hmpps_electronic_monitoring_datastore_ui_elasticache_redis.member_clusters)
+    replication_group_id     = module.hmpps_electronic_monitoring_datastore_ui_elasticache_redis.replication_group_id
   }
 }
