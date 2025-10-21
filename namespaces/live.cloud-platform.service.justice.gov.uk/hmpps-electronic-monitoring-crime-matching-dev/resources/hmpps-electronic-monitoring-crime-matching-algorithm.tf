@@ -1,5 +1,5 @@
 module "hmpps_electronic_monitoring_crime_matching_algorithm" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-electronic-monitoring-crime-matching-algorithm"
   application                   = "hmpps-electronic-monitoring-crime-matching-algorithm"
   github_team                   = "hmpps-em-probation-devs"
