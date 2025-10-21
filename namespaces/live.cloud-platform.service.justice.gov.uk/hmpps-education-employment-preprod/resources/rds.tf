@@ -17,6 +17,7 @@ module "edu_rds" {
   db_max_allocated_storage    = "500"
   db_engine_version           = "16"
   enable_rds_auto_start_stop  = true
+  enable_irsa                 = true
 
   providers = {
     aws = aws.london
