@@ -9,7 +9,7 @@ module "ecr_credentials" {
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
