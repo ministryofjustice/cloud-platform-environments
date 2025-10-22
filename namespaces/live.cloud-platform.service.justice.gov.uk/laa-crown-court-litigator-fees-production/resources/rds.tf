@@ -25,6 +25,7 @@ module "rds-instance-migrated" {
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252" 
   db_password_rotated_date = "29-05-2025"
+  option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
