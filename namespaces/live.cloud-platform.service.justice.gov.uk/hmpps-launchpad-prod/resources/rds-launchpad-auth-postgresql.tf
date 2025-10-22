@@ -13,7 +13,7 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  prepare_for_major_upgrade  = true
   performance_insights_enabled = true
   db_allocated_storage         = "200"
   deletion_protection          = true
@@ -22,8 +22,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.8"
-  rds_family        = "postgres16"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
   backup_window     = "02:00-04:00"
   db_instance_class = "db.t4g.large"
 
