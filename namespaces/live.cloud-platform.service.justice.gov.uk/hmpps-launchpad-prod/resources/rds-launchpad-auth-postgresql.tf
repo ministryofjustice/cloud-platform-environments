@@ -13,7 +13,7 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
   performance_insights_enabled = true
   db_allocated_storage         = "200"
   deletion_protection          = true
