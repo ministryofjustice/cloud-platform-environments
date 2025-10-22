@@ -17,6 +17,9 @@ module "rds" {
   db_backup_retention_period   = "35"
   deletion_protection          = true
 
+  # RDS logging
+  opt_in_xsiam_logging  = true
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "16"
