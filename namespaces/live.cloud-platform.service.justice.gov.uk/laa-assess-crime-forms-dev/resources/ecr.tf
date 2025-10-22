@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci", "github"]
   github_repositories = ["laa-assess-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-submit-crime-forms"]
 
   # Tags
