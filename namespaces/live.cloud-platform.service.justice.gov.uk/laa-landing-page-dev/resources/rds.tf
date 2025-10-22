@@ -19,6 +19,9 @@ module "rds" {
   deletion_protection          = false
   enable_irsa = true
 
+  # RDS logging
+  opt_in_xsiam_logging  = true
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "16"
