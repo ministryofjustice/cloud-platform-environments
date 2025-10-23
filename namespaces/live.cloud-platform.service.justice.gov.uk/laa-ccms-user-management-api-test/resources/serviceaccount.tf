@@ -56,7 +56,6 @@ module "serviceaccount" {
           "replicasets",
           "statefulsets",
           "networkpolicies",
-          "servicemonitors",
           "roles",
           "rolebindings",
           "poddisruptionbudgets",
@@ -76,6 +75,7 @@ module "serviceaccount" {
           "monitoring.coreos.com",
         ]
         resources = [
+          "servicemonitors",
           "prometheusrules",
         ]
         verbs = [
