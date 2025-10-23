@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "prison-education"
     cloud-platform.justice.gov.uk/slack-alert-channel: "prison-education-alerts"
     cloud-platform.justice.gov.uk/application: "Jobs Board Integration"
-    cloud-platform.justice.gov.uk/owner: "Education Skills Work and Employment: managing.eswe@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Education Skills Work and Employment: getreadyforwork@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-jobs-board-integration-api.git"
     cloud-platform.justice.gov.uk/team-name: "hmpps-education-skills-and-work"
