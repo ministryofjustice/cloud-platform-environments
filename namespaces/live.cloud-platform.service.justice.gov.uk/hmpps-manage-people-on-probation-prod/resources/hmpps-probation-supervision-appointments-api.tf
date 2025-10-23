@@ -4,7 +4,7 @@ module "hmpps_template_kotlin" {
   application = "hmpps-probation-supervision-appointments-api"
   github_team = "probation-integration"
   environment = var.environment # Should match environment name used in helm values file e.g. values-prod.yaml
-  reviewer_teams                = ["mpop-dev-team"]
+  reviewer_teams                = ["hmpps-manage-people-on-probation"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
