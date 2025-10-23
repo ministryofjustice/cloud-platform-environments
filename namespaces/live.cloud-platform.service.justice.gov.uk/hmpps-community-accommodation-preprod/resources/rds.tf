@@ -16,6 +16,8 @@ module "rds" {
   rds_family                   = "postgres14"
   allow_major_version_upgrade  = "false"
   enable_irsa                  = true
+  snapshot_identifier          = "cas-2-merge-snapshot"
+
   providers = {
     aws = aws.london
   }
