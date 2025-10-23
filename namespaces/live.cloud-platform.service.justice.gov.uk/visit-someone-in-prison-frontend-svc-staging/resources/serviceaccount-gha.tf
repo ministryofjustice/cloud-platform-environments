@@ -4,7 +4,7 @@ module "book-a-prison-visit-staff-ui" {
   application = "book-a-prison-visit-staff-ui"
   github_team = "hmpps-prison-visits-booking-live"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-prison-visits-booking-devs"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -21,7 +21,7 @@ module "hmpps-book-a-prison-visit-ui" {
   application = "hmpps-book-a-prison-visit-ui"
   github_team = "hmpps-prison-visits-booking-live"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-prison-visits-booking-devs"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -38,7 +38,7 @@ module "hmpps-visits-internal-admin-ui" {
   application = "hmpps-visits-internal-admin-ui"
   github_team = "hmpps-prison-visits-booking-live"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-prison-visits-booking-devs"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
