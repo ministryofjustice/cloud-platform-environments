@@ -6,7 +6,7 @@
  */
 
 module "cla_backend_rds_postgres_14" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
   vpc_name             = var.vpc_name
@@ -52,7 +52,7 @@ module "cla_backend_rds_postgres_14" {
 }
 
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage   = 10
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
@@ -86,7 +86,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_metabase_rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
