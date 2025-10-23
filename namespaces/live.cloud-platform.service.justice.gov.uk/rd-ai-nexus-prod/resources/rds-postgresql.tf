@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # turn off the db overnight (between 22:00 and 06:00)
   enable_rds_auto_start_stop = false
@@ -46,7 +46,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
 
