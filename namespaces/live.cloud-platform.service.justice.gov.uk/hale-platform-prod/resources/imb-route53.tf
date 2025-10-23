@@ -189,3 +189,11 @@ resource "aws_route53_record" "imb_route53_cname_applications" {
   records = ["moj-imb-lo-applications.powerappsportals.com."]
 }
 
+resource "aws_route53_record" "imb_route53_txt_dnsauth_uat_applications" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "_dnsauth.uat.applications.imb.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["_ed8w6ih9okqhkaw1m9ueacvfosskz6j"]
+}
+
