@@ -48,7 +48,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "mpop-digital-team@justice.gov.uk"
+  default     = "probation-integration-team@digital.justice.gov.uk"
 }
 
 variable "environment-name" {
