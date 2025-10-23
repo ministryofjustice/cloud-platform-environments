@@ -39,7 +39,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: laa-civil-case-api-uat
+              component: laa-cla-backend-uat
         - namespaceSelector:
             matchLabels:
-              cloud-platform.justice.gov.uk/namespace: laa-civil-case-api-uat
+              cloud-platform.justice.gov.uk/namespace: laa-cla-backend-uat
