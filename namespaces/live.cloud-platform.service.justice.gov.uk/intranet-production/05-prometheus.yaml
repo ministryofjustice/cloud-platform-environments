@@ -104,3 +104,37 @@ spec:
     #       message: Namespace {{ $labels.namespace }} (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
     #       runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+runbooks#ServiceInsufficientHeaderHandling
     #       dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-production
+
+    - name: cronjob-alerts
+      rules:
+      - alert: WpCronFailures
+        expr: |
+          sum(
+            max_over_time(
+              kube_job_status_failed{
+                job_name=~"wp-cron-trigger-.*",
+                namespace="intranet-production"
+              }[15m]
+            )
+          ) >= 3
+        for: 0s
+        labels:
+          severity: intranet-alerts
+        annotations:
+          summary: "WordPress cron job has failed 3 times in 15 minutes"
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronFailures
+
+      - alert: WpCronJobStuck
+        expr: |
+          (
+            time() - kube_cronjob_status_last_schedule_time{
+              cronjob="wp-cron-trigger",
+              namespace="intranet-production"
+            }
+          ) > 300
+        for: 2m
+        labels:
+          severity: intranet-alerts
+        annotations:
+          summary: "WordPress cron job hasn't run in over 5 minutes"
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronJobStuck
