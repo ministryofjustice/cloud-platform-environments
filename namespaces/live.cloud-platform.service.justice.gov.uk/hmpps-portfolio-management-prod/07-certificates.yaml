@@ -37,3 +37,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - tech-docs.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-health-ping-cert
+  namespace: hmpps-portfolio-management-prod
+spec:
+  secretName: hmpps-health-ping-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-health-ping.hmpps.service.justice.gov.uk
