@@ -9,8 +9,8 @@ module "irsa" {
       ssm = aws_iam_policy.ssm_access.arn,
       athena = aws_iam_policy.athena_access.arn
       rds = module.rds.irsa_policy_arn,
-      sns_crime_batch = module.crime_batch_sns.irsa_policy_arn
-      sqs_crime_batch = module.crime_batch_sqs.irsa_policy_arn
+      email_notifications_topic = module.email_notifications_topic.irsa_policy_arn
+      email_notifications_queue = module.email_notifications_queue.irsa_policy_arn
     }
   )
 
