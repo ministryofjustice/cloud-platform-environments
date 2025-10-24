@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-runner
+  namespace: hmpps-manage-and-deliver-accredited-programmes-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app: github-actions-runner
+    spec:
+      containers:
+        - name: runner
+          image: quay.io/hmpps/browser-testing-github-actions-runner:latest # Built from https://github.com/ministryofjustice/browser-testing-github-actions-runner
+          resources:
+            limits:
+              memory: 5000Mi
+              cpu: 1000m
+          securityContext:
+            runAsUser: 1001 # 'runner' user
+          env:
+            - name: RUNNER_NAME # Switch this to "RUNNER_NAME_PREFIX" if we start using multiple instances
+              value: hmpps-manage-and-deliver-accredited-programmes-dev-ui-e2e-runner
+            - name: RUNNER_WORKDIR
+              value: '/_work'
+            - name: LABELS
+              value: moj-cloud-platform,hmpps-manage-and-deliver-accredited-programmes-dev-runner
+            - name: REPO_URL
+              value: https://github.com/ministryofjustice/hmpps-accredited-programmes-manage-and-deliver-ui
+            - name: RUN_AS_ROOT
+              value: 'false'
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: ACCESS_TOKEN
+            - name: ImageOS # Required for Ruby: https://github.com/ruby/setup-ruby#using-self-hosted-runners
+              value: ubuntu20
