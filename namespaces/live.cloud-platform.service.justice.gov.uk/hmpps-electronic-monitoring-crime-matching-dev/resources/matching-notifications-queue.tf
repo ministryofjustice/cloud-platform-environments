@@ -136,6 +136,6 @@ resource "aws_sqs_queue_policy" "matching_notifications" {
 
 resource "aws_sns_topic_subscription" "matching_notifications" {
   topic_arn     = module.matching_notifications_topic.topic_arn
-  endpoint      = module.matching_notifications_topic.sqs_arn
+  endpoint      = module.matching_notifications_queue.sqs_arn
   protocol      = "sqs"
 }

@@ -1,6 +1,5 @@
 ###
 # Creates an SNS topic that SES can publish to.
-# Creates an SQS subscription for the topic to store email notifications for async processing.
 ###
 
 module "email_notifications_topic" {
@@ -29,12 +28,6 @@ resource "kubernetes_secret" "email_notifications_topic" {
     topic_arn = module.email_notifications_topic.topic_arn
     topic_name = module.email_notifications_topic.topic_name
   }
-}
-
-resource "aws_sns_topic_subscription" "email_notifications" {
-  topic_arn     = module.email_notifications_topic.topic_arn
-  endpoint      = module.email_notifications_queue.sqs_arn
-  protocol      = "sqs"
 }
 
 resource "aws_sns_topic_policy" "email_notifications" {

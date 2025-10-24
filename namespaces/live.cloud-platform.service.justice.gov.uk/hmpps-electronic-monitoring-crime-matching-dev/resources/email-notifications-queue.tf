@@ -2,6 +2,7 @@
 # Creates an SQS queue for storing email notifications.
 # Creates a DLQ for failed notifications.
 # Creates a policy for processing messages on queue.
+# Creates an SQS subscription for the topic to store email notifications for async processing.
 ###
 
 module "email_notifications_queue" {
@@ -131,4 +132,10 @@ data "aws_iam_policy_document" "email_notifications_queue" {
 resource "aws_sqs_queue_policy" "email_notifications" {
   queue_url = module.email_notifications_queue.sqs_id
   policy    = data.aws_iam_policy_document.email_notifications_queue.json
+}
+
+resource "aws_sns_topic_subscription" "email_notifications" {
+  topic_arn     = module.email_notifications_topic.topic_arn
+  endpoint      = module.email_notifications_queue.sqs_arn
+  protocol      = "sqs"
 }
