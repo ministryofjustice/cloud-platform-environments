@@ -64,6 +64,7 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "horizontalpodautoscalers",
+        "poddisruptionbudgets",
       ]
       verbs = [
         "get",
