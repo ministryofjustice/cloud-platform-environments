@@ -36,7 +36,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "probation-integration"
+  default     = "manage-people-on-probation"
 }
 
 variable "environment" {
@@ -53,13 +53,13 @@ variable "infrastructure_support" {
 
 variable "environment-name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "probation-integration-team"
+  default     = "manage-people-on-probation"
 }
 
 variable "github_owner" {
