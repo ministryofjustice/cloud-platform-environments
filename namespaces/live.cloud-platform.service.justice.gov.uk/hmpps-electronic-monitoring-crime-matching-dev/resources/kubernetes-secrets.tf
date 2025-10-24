@@ -9,6 +9,17 @@ resource "kubernetes_secret" "irsa" {
   }
 }
 
+resource "kubernetes_secret" "crime_matching_algorithm_irsa" {
+  metadata {
+    name      = "${var.namespace}-crime-matching-algorithm-irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.crime_matching_algorithm_irsa.role_name
+    serviceaccount = module.crime_matching_algorithm_irsa.service_account.name
+  }
+}
+
 resource "kubernetes_secret" "athena_roles" {
   metadata {
     name      = "athena-roles"
