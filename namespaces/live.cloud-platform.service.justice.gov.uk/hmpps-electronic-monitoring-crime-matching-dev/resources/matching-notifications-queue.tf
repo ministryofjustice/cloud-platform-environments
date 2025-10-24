@@ -70,31 +70,32 @@ resource "kubernetes_secret" "matching_notifications_dlq" {
 
 data "aws_iam_policy_document" "matching_notifications_queue" {
   statement {
-    sid     = "MatchingNotificationsToQueue"
+    sid     = "AllowMatchingNotificationsToQueue"
     effect  = "Allow"
-    actions = ["sqs:SendMessage"]
+    actions = [
+      "sqs:SendMessage",
+    ]
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [
+        "*",
+      ]
     }
 
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [module.matching_notifications_queue.topic_arn]
+      values   = [
+        module.matching_notifications_topic.topic_arn,
+      ]
     }
 
-    resources = ["*"]
+    resources = [
+      "*",
+    ]
   }
-}
 
-resource "aws_sqs_queue_policy" "matching_notifications" {
-  queue_url = module.matching_notifications_queue.sqs_id
-  policy    = data.aws_iam_policy_document.matching_notifications_queue.json
-}
-
-data "aws_iam_policy_document" "process_matching_notifications" {
   statement {
     sid     = "AllowReadDelete"
     effect  = "Allow"
@@ -102,7 +103,7 @@ data "aws_iam_policy_document" "process_matching_notifications" {
     principals {
       type        = "AWS"
       identifiers = [
-        "*",
+        "*"
       ]
     }
 
@@ -128,9 +129,9 @@ data "aws_iam_policy_document" "process_matching_notifications" {
   }
 }
 
-resource "aws_sqs_queue_policy" "process_matching_notifications" {
+resource "aws_sqs_queue_policy" "matching_notifications" {
   queue_url = module.matching_notifications_queue.sqs_id
-  policy = data.aws_iam_policy_document.process_matching_notifications.json
+  policy    = data.aws_iam_policy_document.matching_notifications_queue.json
 }
 
 resource "aws_sns_topic_subscription" "matching_notifications" {

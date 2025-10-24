@@ -69,38 +69,41 @@ resource "kubernetes_secret" "email_notifications_dlq" {
 
 data "aws_iam_policy_document" "email_notifications_queue" {
   statement {
-    sid     = "EmailNotificationsToQueue"
+    sid     = "AllowEmailNotificationsToQueue"
     effect  = "Allow"
-    actions = ["sqs:SendMessage"]
+    actions = [
+      "sqs:SendMessage",
+    ]
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [
+        "*",
+      ]
     }
 
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [module.email_notifications_queue.topic_arn]
+      values   = [
+        module.email_notifications_topic.topic_arn,
+      ]
     }
 
-    resources = ["*"]
+    resources = [
+      "*",
+    ]
   }
-}
 
-resource "aws_sqs_queue_policy" "email_notifications" {
-  queue_url = module.email_notifications_queue.sqs_id
-  policy    = data.aws_iam_policy_document.email_notifications_queue.json
-}
-
-data "aws_iam_policy_document" "process_email_notifications" {
   statement {
     sid     = "AllowReadDelete"
     effect  = "Allow"
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [
+        "*",
+      ]
     }
 
     actions = [
@@ -108,22 +111,24 @@ data "aws_iam_policy_document" "process_email_notifications" {
       "sqs:DeleteMessage",
       "sqs:ChangeMessageVisibility",
       "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl"
+      "sqs:GetQueueUrl",
     ]
 
     resources = [
-      module.email_notifications_queue.sqs_arn
+      module.email_notifications_queue.sqs_arn,
     ]
 
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [module.irsa.role_arn]
+      values   = [
+        module.irsa.role_arn,
+      ]
     }
   }
 }
 
-resource "aws_sqs_queue_policy" "process_email_notifications" {
+resource "aws_sqs_queue_policy" "email_notifications" {
   queue_url = module.email_notifications_queue.sqs_id
-  policy = data.aws_iam_policy_document.process_email_notifications.json
+  policy    = data.aws_iam_policy_document.email_notifications_queue.json
 }
