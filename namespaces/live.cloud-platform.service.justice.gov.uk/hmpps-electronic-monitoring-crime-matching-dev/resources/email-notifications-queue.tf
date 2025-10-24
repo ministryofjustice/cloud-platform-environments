@@ -69,7 +69,7 @@ resource "kubernetes_secret" "email_notifications_dlq" {
 
 data "aws_iam_policy_document" "email_notifications_queue" {
   statement {
-    sid     = "CrimeBatchEventsToQueue"
+    sid     = "EmailNotificationsToQueue"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
 

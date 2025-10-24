@@ -7,7 +7,7 @@ module "email_notifications_topic" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration
-  topic_display_name = "hmpps-electronic-monitoring-crime-matching-email-notifications"
+  topic_display_name = "${var.namespace}-email-notifications"
 
   # Tags
   business_unit          = var.business_unit
@@ -39,7 +39,7 @@ resource "aws_sns_topic_subscription" "email_notifications" {
 
 resource "aws_sns_topic_policy" "email_notifications" {
   arn = module.email_notifications_topic.topic_arn
-  policy = data.aws_iam_policy_document.email_notifications_topic_policy_document.json
+  policy = data.aws_iam_policy_document.email_notifications_topic.json
 }
 
 data "aws_iam_policy_document" "email_notifications_topic" {
