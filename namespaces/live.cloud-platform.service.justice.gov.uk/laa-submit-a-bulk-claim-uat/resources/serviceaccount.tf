@@ -5,10 +5,6 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name
 
-  github_repositories = [
-    "laa-submit-a-bulk-claim",
-    "bulk-submission-and-fee-scheme-tests-"
-  ]
-
+  github_repositories = ["laa-submit-a-bulk-claim"]
   github_environments = ["uat"]
 }
