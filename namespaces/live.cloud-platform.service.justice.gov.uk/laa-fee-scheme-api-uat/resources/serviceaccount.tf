@@ -6,9 +6,6 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "01-01-2000"
 
-  github_repositories = [
-    "laa-fee-scheme-api",
-    "bulk-submission-and-fee-scheme-tests-"
-  ]
+  github_repositories = ["laa-fee-scheme-api"]
   github_environments = ["uat"]
 }
