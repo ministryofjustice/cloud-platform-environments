@@ -82,6 +82,12 @@ variable "repo_name" {
   default = "laa-data-claims-api"
 }
 
+variable "serviceaccount_suffix" {
+  type        = string
+  description = "Suffix to append to the service account name, has to be underscores only"
+  default     = "laa_data_claims_api_uat"
+}
+
 variable "serviceaccount_name_e2e_tests" {
   type        = string
   description = "Name of the service account used by GitHub Actions to e2e test"
