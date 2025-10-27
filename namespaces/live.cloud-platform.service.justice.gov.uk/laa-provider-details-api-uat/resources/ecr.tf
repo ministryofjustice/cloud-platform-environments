@@ -74,4 +74,6 @@ module "ecr" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  deletion_protection = false
 }
