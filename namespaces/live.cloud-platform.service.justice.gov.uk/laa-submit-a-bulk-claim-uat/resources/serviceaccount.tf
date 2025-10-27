@@ -6,6 +6,5 @@ module "serviceaccount" {
   serviceaccount_name = var.serviceaccount_name
 
   github_repositories = ["laa-submit-a-bulk-claim"]
-
   github_environments = ["uat"]
 }
