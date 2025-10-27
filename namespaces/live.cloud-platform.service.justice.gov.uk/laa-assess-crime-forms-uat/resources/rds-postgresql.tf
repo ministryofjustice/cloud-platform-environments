@@ -19,6 +19,7 @@ module "rds" {
   deletion_protection          = true
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   db_password_rotated_date     = "07-10-2024"
+  opt_in_xsiam_logging = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
