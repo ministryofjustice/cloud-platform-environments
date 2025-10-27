@@ -5,12 +5,13 @@ module "testserviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name_e2e_tests
 
+  role_name = "${var.serviceaccount_name_e2e_tests}-role"
+  rolebinding_name = "${var.serviceaccount_name_e2e_tests}-rolebinding"
   github_actions_secret_kube_cert     = "KUBE_CERT_${var.serviceaccount_suffix}"
   github_actions_secret_kube_token    = "KUBE_TOKEN_${var.serviceaccount_suffix}"
   github_actions_secret_kube_cluster  = "KUBE_CLUSTER_${var.serviceaccount_suffix}"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE_${var.serviceaccount_suffix}"
 
   github_repositories = ["bulk-submission-and-fee-scheme-tests-"]
-
   github_environments = ["uat"]
 }
