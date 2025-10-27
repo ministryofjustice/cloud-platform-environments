@@ -36,7 +36,7 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    repo_arn = module.ecr_credentials.repo_arn
-    repo_url = module.ecr_credentials.repo_url
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
   }
 }
