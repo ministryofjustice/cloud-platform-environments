@@ -81,3 +81,9 @@ variable "eks_cluster_name" {
 variable "repo_name" {
   default = "laa-data-claims-api"
 }
+
+variable "serviceaccount_name_e2e_tests" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to e2e test"
+  default     = "laa-data-claims-api-e2e-test-uat-service-account"
+}
