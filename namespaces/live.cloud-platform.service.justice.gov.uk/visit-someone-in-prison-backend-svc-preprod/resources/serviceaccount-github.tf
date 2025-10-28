@@ -1,7 +1,7 @@
 locals {
 
   # Add more repos when they move from circle-ci to github actions
-  github_repos   = ["hmpps-visit-allocation-api", "prisoner-contact-registry", "hmpps-notifications-alerts-vsip", "hmpps-prison-visit-booker-registry", "hmpps-manage-prison-visits-orchestration"]
+  github_repos   = ["hmpps-visit-allocation-api", "prisoner-contact-registry", "hmpps-notifications-alerts-vsip", "hmpps-prison-visit-booker-registry", "hmpps-manage-prison-visits-orchestration", "visit-scheduler"]
 
   github-actions-sa_rules = [
     {

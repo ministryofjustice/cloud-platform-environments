@@ -110,3 +110,15 @@ variable "file_store_bucket_name" {
   default     = "laa-get-payments-finance-data-uat-file-store"
   type        = string
 }
+
+variable "report_store_bucket_name" {
+  description = "The name of the S3 bucket used for storing complete reports"
+  default     = "laa-get-payments-finance-data-uat-report-store"
+  type        = string
+}
+
+variable "s3_bucket_report_store_logging" {
+  description = "The name of the S3 bucket used for logging the report store bucket"
+  default     = "laa-get-payments-finance-data-uat-report-store-logging"
+  type        = string
+}

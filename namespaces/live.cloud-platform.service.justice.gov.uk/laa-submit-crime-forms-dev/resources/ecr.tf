@@ -14,12 +14,8 @@ module "ecr_credentials" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
   # github actions CI/CD pipelines
-  github_repositories = ["laa-submit-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-assess-crime-forms"]
-
-  # list of github environments, to create the ECR secrets as environment secrets
-  # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
-  # github_environments = ["my-environment"]
-
+  github_repositories   = ["laa-submit-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-assess-crime-forms"]
+  github_actions_prefix = "submit_dev"
 
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.
   # To apply multiple rules, combined them in one policy JSON.

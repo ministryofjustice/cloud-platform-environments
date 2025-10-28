@@ -5,4 +5,4 @@ metadata:
   namespace: folarin-dev
 spec:
   hard:
-    pods: "15"
+    pods: "50"
