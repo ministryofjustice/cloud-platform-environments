@@ -134,6 +134,45 @@ resource "aws_sqs_queue_policy" "email_notifications" {
   policy    = data.aws_iam_policy_document.email_notifications_queue.json
 }
 
+data "aws_iam_policy_document" "email_notifications_dlq" {
+  statement {
+    sid     = "AllowReadDelete"
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "*",
+      ]
+    }
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [
+      module.email_notifications_dlq.sqs_arn,
+    ]
+
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [
+        module.irsa.role_arn,
+      ]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "email_notifications" {
+  queue_url = module.email_notifications_dlq.sqs_id
+  policy    = data.aws_iam_policy_document.email_notifications_dlq.json
+}
+
 resource "aws_sns_topic_subscription" "email_notifications" {
   topic_arn     = module.email_notifications_topic.topic_arn
   endpoint      = module.email_notifications_queue.sqs_arn
