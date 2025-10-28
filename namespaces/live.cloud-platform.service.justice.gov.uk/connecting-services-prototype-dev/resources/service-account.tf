@@ -4,5 +4,4 @@ module "serviceaccount" {
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
   github_repositories = [var.app_repo]
-  github_environments = [var.environment]
 }
