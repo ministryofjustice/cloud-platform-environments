@@ -33,6 +33,20 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  # Enable logical replication with pglogical for testing pglogical nodes blocker
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    }
+  ]
+
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 
