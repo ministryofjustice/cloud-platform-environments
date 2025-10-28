@@ -12,7 +12,7 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version = "10.11.8"
+  db_engine_version           = "10.11.10"
   rds_family                  = "mariadb10.11"
   db_instance_class           = "db.t4g.large"
   environment_name            = var.environment
