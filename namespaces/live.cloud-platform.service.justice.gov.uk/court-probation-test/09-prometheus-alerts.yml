@@ -1,0 +1,84 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prepare-a-case
+    prometheus: cloud-platform
+  name: pic-prometheus-rules-rds
+  namespace: court-probation-test
+spec:
+  groups:
+    - name: PIC-RDS
+      rules:
+        - alert: CCS-RDS-High-CPU
+          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 10
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS Dev RDS CPU usage is over 10%
+            runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-Low-Storage
+          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} < 1024*1024*1024
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS free storage space is less than 1GB
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-High-Read-Latency
+          expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 0.5
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS Dev RDS read latency is over 0.5 seconds
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-High-Write-Latency
+          expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 0.5
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS write latency is over 0.5 seconds
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-Low-Freeable-Memory
+          expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} < 500*1024*1024
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS free-able memory is less than 500MB
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-High-Write-IOPS
+          expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 100
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS write operations are over 100 per second
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-High-Read-IOPS
+          expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 100
+          for: 1m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS read operations are over 100 per second
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
+        - alert: CCS-RDS-High-Database-Connections
+          expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 20
+          for: 5m
+          labels:
+            severity: probation_in_court_alerts_dev
+          annotations:
+            message: CCS DEV RDS number of database connections is over 20
+            runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
+            dashboard_url: "https://eu-west-2.console.aws.amazon.com/rds/home?region=eu-west-2#database:id=cloud-platform-aaade99b4f658d25;is-cluster=false;tab=monitoring"
