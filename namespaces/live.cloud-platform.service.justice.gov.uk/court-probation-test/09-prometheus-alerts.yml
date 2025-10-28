@@ -14,7 +14,7 @@ spec:
           expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 10
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS Dev RDS CPU usage is over 10%
             runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log
@@ -23,7 +23,7 @@ spec:
           expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} < 1024*1024*1024
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS free storage space is less than 1GB
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -32,7 +32,7 @@ spec:
           expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 0.5
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS Dev RDS read latency is over 0.5 seconds
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -41,7 +41,7 @@ spec:
           expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 0.5
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS write latency is over 0.5 seconds
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -50,7 +50,7 @@ spec:
           expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} < 500*1024*1024
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS free-able memory is less than 500MB
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -59,7 +59,7 @@ spec:
           expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 100
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS write operations are over 100 per second
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -68,7 +68,7 @@ spec:
           expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 100
           for: 1m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS read operations are over 100 per second
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
@@ -77,7 +77,7 @@ spec:
           expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-aaade99b4f658d25"} > 20
           for: 5m
           labels:
-            severity: probation_in_court_alerts_dev
+            severity: hmpps_probation_in_court_alerts_nonprod
           annotations:
             message: CCS DEV RDS number of database connections is over 20
             runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/PIC/pages/2680750089/Monitoring+and+Alerting#Alerts-Decision-Log"
