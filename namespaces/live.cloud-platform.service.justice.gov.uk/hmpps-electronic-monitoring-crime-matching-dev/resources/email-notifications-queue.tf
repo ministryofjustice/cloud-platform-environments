@@ -168,7 +168,7 @@ data "aws_iam_policy_document" "email_notifications_dlq" {
   }
 }
 
-resource "aws_sqs_queue_policy" "email_notifications" {
+resource "aws_sqs_queue_policy" "email_notifications_dlq" {
   queue_url = module.email_notifications_dlq.sqs_id
   policy    = data.aws_iam_policy_document.email_notifications_dlq.json
 }
