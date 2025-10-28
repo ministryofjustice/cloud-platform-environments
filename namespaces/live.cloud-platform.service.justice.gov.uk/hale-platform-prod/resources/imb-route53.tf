@@ -194,6 +194,6 @@ resource "aws_route53_record" "imb_route53_txt_dnsauth_uat_applications" {
   name    = "_dnsauth.uat.applications.imb.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["_ed8w6ih9okqhkaw1m9ueacvfosskz6j"]
+  records = ["_ed8w6hi9okqhkaw1m9ueacvfosskz6j"]
 }
 
