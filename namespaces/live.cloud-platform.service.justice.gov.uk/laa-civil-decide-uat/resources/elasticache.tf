@@ -1,4 +1,4 @@
-module "redis" {
+module "elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # VPC configuration
@@ -6,7 +6,7 @@ module "redis" {
 
   # Redis cluster configuration
   node_type               = "cache.t4g.micro"
-  engine_version          = "7.0"
+  engine_version          = "7.1"
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2025-10-27"
 
@@ -20,17 +20,17 @@ module "redis" {
   infrastructure_support  = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "redis_secrets" {
+resource "kubernetes_secret" "elasticache" {
   metadata {
-    name      = "redis-laa-civil-decide-uat"
+    name      = "elasticache-laa-civil-decide-uat"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.redis.primary_endpoint_address
-    member_clusters          = jsonencode(module.redis.member_clusters)
-    auth_token               = module.redis.auth_token
-    replication_group_id     = module.redis.replication_group_id
-    url                      = "rediss://:${module.redis.auth_token}@${module.redis.primary_endpoint_address}:6379"
+    primary_endpoint_address = module.elasticache.primary_endpoint_address
+    member_clusters          = jsonencode(module.elasticache.member_clusters)
+    auth_token               = module.elasticache.auth_token
+    replication_group_id     = module.elasticache.replication_group_id
+    url                      = "rediss://:${module.elasticache.auth_token}@${module.elasticache.primary_endpoint_address}:6379"
   }
 }
