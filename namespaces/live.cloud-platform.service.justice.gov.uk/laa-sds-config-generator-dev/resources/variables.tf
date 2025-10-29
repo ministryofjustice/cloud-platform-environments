@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "securedocumentstorage-gg@justice.gov.uk"
+  default     = "laasecuredocumentstorage@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-secure-document-storage-sensitive"
+  default     = "laa-secure-document-storage"
 }
 
 variable "github_owner" {
