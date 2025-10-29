@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-official-visits-api-cert
+  namespace: hmpps-official-visits-prod
+spec:
+  secretName: hmpps-official-visits-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - official-visits-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-official-visits-ui-cert
+  namespace: hmpps-official-visits-prod
+spec:
+  secretName: hmpps-official-visits-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - official-visits-ui.hmpps.service.justice.gov.uk
