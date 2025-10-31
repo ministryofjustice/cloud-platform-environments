@@ -14,6 +14,10 @@ variable "application" {
   default     = "Electronic Monitoring Datastore"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
@@ -24,10 +28,6 @@ variable "namespace-short" {
   description = "Short-form version of namespace name to get around string-length issues"
   type = string
   default = "hmpps-em-datastore-prod"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "number_cache_clusters" {
