@@ -16,6 +16,11 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  # apply the 7-day edge cache policy
+  default_cache_behavior = {
+    cache_policy_id = aws_cloudfront_cache_policy.seven_days_strict.id
+  }
+
   depends_on = [aws_acm_certificate_validation.cloudfront_alias_cert_validation]
 
 }
@@ -29,5 +34,20 @@ resource "kubernetes_secret" "cloudfront_url" {
   data = {
     cloudfront_url   = module.cloudfront.cloudfront_url
     cloudfront_alias = var.cloudfront_alias
+  }
+}
+
+resource "aws_cloudfront_cache_policy" "seven_days_strict" {
+  name        = "seven-days-fixed"
+  min_ttl     = 604800  # 7d
+  default_ttl = 604800  # 7d
+  max_ttl     = 604800  # 7d
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config  { cookie_behavior = "none" }
+    headers_config  { header_behavior = "none" }
+    query_strings_config { query_string_behavior = "none" }
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
   }
 }
