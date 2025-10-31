@@ -28,15 +28,15 @@ resource "aws_iam_policy" "s3_av_policy" {
   }
 }
 
-# Create IRSA role for S3 access with metadata read/write permissions
-module "irsa_metadata" {
+# Create IRSA role for S3 access with read only permissions
+module "irsa_av" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "justice-gov-uk-dev-metadata-service"
+  service_account_name = "justice-gov-uk-dev-av"
   namespace            = var.namespace
 
   role_policy_arns = {
