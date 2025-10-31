@@ -5,7 +5,7 @@ module "large-court-cases-s3-bucket" {
   business_unit          = var.business_unit
   application            = "large-court-cases"
   is_production          = var.is_production
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
@@ -55,7 +55,7 @@ resource "aws_ssm_parameter" "large-court-cases-s3-bucket-name" {
     application            = var.application
     is-production          = var.is_production
     owner                  = var.team_name
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
@@ -72,7 +72,7 @@ resource "aws_ssm_parameter" "large-court-cases-s3-bucket-arn" {
     application            = var.application
     is-production          = var.is_production
     owner                  = var.team_name
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }

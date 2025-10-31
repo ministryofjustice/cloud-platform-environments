@@ -7,7 +7,7 @@ module "court_case_service_rds" {
   business_unit              = var.business_unit
   namespace                  = var.namespace
   application                = var.application
-  environment_name           = var.environment-name
+  environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
   is_production              = var.is_production
   prepare_for_major_upgrade  = false

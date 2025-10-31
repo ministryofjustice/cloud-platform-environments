@@ -13,7 +13,7 @@ module "court-cases" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the topic
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -32,7 +32,7 @@ resource "aws_ssm_parameter" "court-cases-topic-arn" {
     application            = var.application
     is-production          = var.is_production
     owner                  = var.team_name
-    environment-name       = var.environment-name
+    environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
