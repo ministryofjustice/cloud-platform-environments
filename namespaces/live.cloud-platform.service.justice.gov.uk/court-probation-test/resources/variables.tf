@@ -67,3 +67,7 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "ap-stack-court-case" {
+  default = "hmpps-court-case-test"
+}
