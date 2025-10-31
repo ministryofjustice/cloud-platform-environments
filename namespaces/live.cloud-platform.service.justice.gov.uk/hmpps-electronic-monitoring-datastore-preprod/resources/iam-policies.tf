@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "athena_policy" {
     ]
     resources = [
       data.aws_ssm_parameter.athena_general_role_arn.value,
-      data.aws_ssm_parameter.athena_specials_role_arn.value,
+      data.aws_ssm_parameter.athena_specials_role_arn.value
     ]
   }
 }
