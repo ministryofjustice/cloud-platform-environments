@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Probation-in-Court"
+  default     = "probation-in-court"
 }
 
 variable "namespace" {
@@ -62,11 +62,6 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
-variable "service_account_name" {
-  type = string
-  description = "service account name"
-  default = "court-case-service"
-}
 
 variable "github_token" {
   type        = string
