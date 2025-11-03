@@ -19,7 +19,7 @@ module "court_probation_service_ecr_credentials" {
 resource "kubernetes_secret" "court_probation_service_ecr_credentials" {
   metadata {
     name      = "court-probation-service-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -49,7 +49,7 @@ module "ps_cps_pack_parser_ecr_credentials" {
 resource "kubernetes_secret" "ps_cps_pack_parser_ecr_credentials" {
   metadata {
     name      = "ps-cps-pack-parser-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -79,7 +79,7 @@ module "mock_cp_court_service_ecr_credentials" {
 resource "kubernetes_secret" "mock_cp_court_service_ecr_credentials" {
   metadata {
     name      = "mock-cp-court-service-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -109,7 +109,7 @@ module "court_list_service_ecr_credentials" {
 resource "kubernetes_secret" "court_list_service_ecr_credentials" {
   metadata {
     name      = "court-list-service-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -139,7 +139,7 @@ module "prepare_probation_courtcases_ecr_credentials" {
 resource "kubernetes_secret" "prepare_probation_courtcases_ecr_credentials" {
   metadata {
     name      = "prepare-probation-courtcases-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -169,7 +169,7 @@ module "ndelius_new_tech_ecr_credentials" {
 resource "kubernetes_secret" "ndelius_new_tech_ecr_credentials" {
   metadata {
     name      = "ndelius-new-tech-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -199,7 +199,7 @@ module "community_api_ecr_credentials" {
 resource "kubernetes_secret" "community_api_ecr_credentials" {
   metadata {
     name      = "community-api-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -229,7 +229,7 @@ module "ukcloud_proxy_ecr_credentials" {
 resource "kubernetes_secret" "ukcloud_proxy_ecr_credentials" {
   metadata {
     name      = "ukcloud-proxy-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
@@ -319,7 +319,7 @@ module "court_list_mock_data_ecr_credentials" {
 resource "kubernetes_secret" "court_list_mock_data_ecr_credentials" {
   metadata {
     name      = "court-list-mock-data-ecr-credentials"
-    namespace = "court-probation-dev"
+    namespace = "court-probation-test"
   }
 
   data = {
