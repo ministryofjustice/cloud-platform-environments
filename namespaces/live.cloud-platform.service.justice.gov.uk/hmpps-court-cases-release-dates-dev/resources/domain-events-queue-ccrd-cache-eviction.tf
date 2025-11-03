@@ -116,9 +116,13 @@ resource "aws_sns_topic_subscription" "hmpps_ccrd_cache_eviction_subscription" {
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.sentence.changed",
+      "prison-offender-events.prisoner.sentence-term.changed",
+      "prison-offender-events.prisoner.fine-payment.changed",
+      "prison-offender-events.prisoner.fixed-term-recall.changed",
       "adjudication.punishments.created",
       "adjudication.punishments.updated",
-      "adjudication.punishments.deleted"
+      "adjudication.punishments.deleted",
     ]
   })
 }
