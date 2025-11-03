@@ -3,7 +3,7 @@ module "court-hearing-event" {
   github_repo                   = "court-hearing-event-receiver"
   application                   = "court-hearing-event-receiver"
   github_team                   = "probation-integration-team"
-  environment                   = "dev"
+  environment                   = "test"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "dev"
@@ -19,7 +19,7 @@ module "crime-portal-gateway" {
   github_repo                   = "crime-portal-gateway"
   application                   = "crime-portal-gateway"
   github_team                   = "probation-integration-team"
-  environment                   = "dev"
+  environment                   = "test"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "dev"
@@ -35,7 +35,7 @@ module "pre-sentence-service" {
   github_repo                   = "pre-sentence-service"
   application                   = "pre-sentence-service"
   github_team                   = "hmpps-probation-in-court"
-  environment                   = var.environment
+  environment                   = "test"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "dev"
@@ -51,7 +51,7 @@ module "hmpps-court-case-service-api" {
   github_repo                   = "hmpps-court-case-service-api"
   application                   = "hmpps-court-case-service-api"
   github_team                   = "hmpps-probation-in-court"
-  environment                   = "dev"
+  environment                   = "test"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "dev"
@@ -67,7 +67,7 @@ module "hmpps-court-case-data-migration-service" {
   github_repo                   = "hmpps-court-case-data-migration-service"
   application                   = "hmpps-court-case-data-migration-service"
   github_team                   = "hmpps-probation-in-court"
-  environment                   = "dev"
+  environment                   = "test"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "dev"
