@@ -79,12 +79,6 @@ variable "eks_cluster_name" {
 variable "kubernetes_cluster" {
 }
 
-variable "service_account_name" {
-  type = string
-  description = "service account name"
-  default = "court-case-service"
-}
-
 variable "slack_channel" {
   type        = string
   description = "Cloud Platform will contact our team via this slack channel"
