@@ -18,6 +18,8 @@ locals {
     environment_name       = var.environment
     infrastructure_support = var.infrastructure_support
   }
+
+  identifier = "${var.application}-${var.environment}"
 }
 
 module "court-facing-api-irsa" {
