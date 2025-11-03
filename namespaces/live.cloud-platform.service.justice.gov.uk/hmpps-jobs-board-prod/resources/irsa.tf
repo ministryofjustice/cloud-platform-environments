@@ -20,7 +20,10 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
 
   role_policy_arns = merge(
-    local.sqs_policies
+    local.sqs_policies,
+    {
+      rds = module.rds.irsa_policy_arn
+    }
   )
 
   # Tags

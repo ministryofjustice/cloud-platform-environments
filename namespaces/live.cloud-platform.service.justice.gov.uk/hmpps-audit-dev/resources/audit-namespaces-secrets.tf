@@ -12,6 +12,7 @@ locals {
     "hmpps-auth-stage",
     "hmpps-book-a-video-link-dev",
     "hmpps-community-accommodation-dev",
+    "hmpps-community-payback-dev",
     "hmpps-contacts-dev",
     "hmpps-court-register-dev",
     "hmpps-digital-prison-services-dev",
