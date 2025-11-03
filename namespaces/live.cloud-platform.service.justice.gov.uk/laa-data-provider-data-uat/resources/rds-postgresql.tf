@@ -34,9 +34,6 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # Add DPR security group.
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
-
   # Add parameters to enable logical replication
   db_parameter = [
     {
