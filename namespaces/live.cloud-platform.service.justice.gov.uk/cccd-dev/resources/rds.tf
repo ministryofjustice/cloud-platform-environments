@@ -21,6 +21,7 @@ module "cccd_rds" {
   db_engine_version           = "17.6"
   rds_family                  = "postgres17"
   allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {
