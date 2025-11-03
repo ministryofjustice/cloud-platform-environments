@@ -71,3 +71,26 @@ variable "github_token" {
 variable "ap-stack-court-case" {
   default = "hmpps-court-case-test"
 }
+
+variable "rds-family" {
+  default = "postgres14"
+}
+
+variable "db_engine" {
+  default = "postgres"
+}
+
+variable "db_engine_version" {
+  default = "14.17"
+}
+
+variable "db_instance_class" {
+  default = "db.t4g.small"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "eks_cluster_name" {
+}

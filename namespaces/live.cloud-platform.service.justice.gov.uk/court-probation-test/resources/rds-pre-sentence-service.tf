@@ -7,7 +7,7 @@ module "pre_sentence_service_rds" {
   business_unit               = var.business_unit
   namespace                   = var.namespace
   application                 = "pre-sentence-service"
-  environment_name            = var.environment-name
+  environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   is_production               = var.is_production
   rds_family                  = "postgres14"
