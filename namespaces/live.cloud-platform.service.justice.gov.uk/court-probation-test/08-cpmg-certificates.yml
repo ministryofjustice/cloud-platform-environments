@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: crime-portal-mirror-gateway-dev.service.justice.gov.uk
+  namespace: court-probation-test
+spec:
+  secretName: crime-portal-mirror-gateway-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dev.crime-portal-mirror-gateway.service.justice.gov.uk
