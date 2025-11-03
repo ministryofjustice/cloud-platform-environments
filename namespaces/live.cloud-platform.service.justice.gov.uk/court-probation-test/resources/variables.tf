@@ -62,6 +62,12 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+variable "service_account_name" {
+  type = string
+  description = "service account name"
+  default = "court-case-service"
+}
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
