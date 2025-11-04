@@ -1,18 +1,19 @@
 module "pre_sentence_service_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage        = 10
-  storage_type                = "gp2"
+  db_allocated_storage        = 20
+  storage_type                = "gp3"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
   namespace                   = var.namespace
   application                 = "pre-sentence-service"
+  rds_name                    = "pre-sentence-service-rds-${var.environment}"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   is_production               = var.is_production
-  rds_family                  = "postgres16"
-  db_instance_class           = "db.t3.small"
-  db_engine_version           = "16.8"
+  rds_family                  = var.rds-family
+  db_instance_class           = var.db_instance_class
+  db_engine_version           = var.db_engine
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = true
   enable_rds_auto_start_stop  = true
