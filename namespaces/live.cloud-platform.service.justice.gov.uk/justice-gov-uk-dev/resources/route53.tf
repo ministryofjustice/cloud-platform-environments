@@ -25,10 +25,10 @@ resource "kubernetes_secret" "route53_zone_sec" {
 }
 
 # Create an A record in the hosted zone for the CloudFront alias.
-# Note, the zone_id parameter is set to the zone_id from the intranet-production kubernetes secret.
+# Note, the zone_id parameter is set to the zone_id from the dev.justice.gov.uk route53 zone.
 # And the alias.zone_id parameter is set to the CloudFront hosted zone id.
 resource "aws_route53_record" "data" {
-  zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
+  zone_id = aws_route53_zone.dev_justice_gov_uk_route53_zone.zone_id
   name    = var.cloudfront_alias
   type    = "A"
 
@@ -43,7 +43,7 @@ resource "aws_route53_record" "data" {
 # As the validation method is set to DNS, a route53 record is created here for the certificate validation.
 resource "aws_route53_record" "cert_validations" {
   count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
-  zone_id         = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
+  zone_id         = aws_route53_zone.dev_justice_gov_uk_route53_zone.zone_id
   name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
   type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
   records         = [element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_value, count.index)]
