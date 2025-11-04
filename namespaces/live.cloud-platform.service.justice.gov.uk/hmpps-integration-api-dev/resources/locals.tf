@@ -36,6 +36,7 @@ locals {
     "geoamey",
     "zkhan",
     "socrates",
+    "unify",
   ]
 
   client_queues = {
