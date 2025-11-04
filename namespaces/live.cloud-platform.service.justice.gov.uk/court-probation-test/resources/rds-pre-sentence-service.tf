@@ -14,7 +14,7 @@ module "pre_sentence_service_rds" {
   rds_family                  = var.rds-family
   db_instance_class           = var.db_instance_class
   db_engine_version           = var.db_engine
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   allow_major_version_upgrade = true
   enable_rds_auto_start_stop  = true
 
