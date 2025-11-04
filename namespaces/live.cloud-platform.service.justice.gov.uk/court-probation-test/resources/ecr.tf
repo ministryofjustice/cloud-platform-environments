@@ -10,6 +10,7 @@ module "court_probation_service_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -40,6 +41,7 @@ module "ps_cps_pack_parser_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -70,6 +72,7 @@ module "mock_cp_court_service_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -100,6 +103,7 @@ module "court_list_service_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -130,6 +134,7 @@ module "prepare_probation_courtcases_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -160,6 +165,7 @@ module "ndelius_new_tech_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -190,6 +196,7 @@ module "community_api_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -220,6 +227,7 @@ module "ukcloud_proxy_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -250,6 +258,7 @@ module "delius_oauth2_server_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -280,6 +289,7 @@ module "probation_court_prototype_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
@@ -310,6 +320,7 @@ module "court_list_mock_data_ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 
   providers = {
     aws = aws.london
