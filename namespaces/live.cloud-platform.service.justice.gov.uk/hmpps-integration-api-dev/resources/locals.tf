@@ -34,7 +34,8 @@ locals {
     "test",
     "pmcphee",
     "geoamey",
-    "zkhan"
+    "zkhan",
+    "socrates",
   ]
 
   client_queues = {
