@@ -1,11 +1,12 @@
 module "court_case_service_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage       = 10
-  storage_type               = "gp2"
+  storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
   namespace                  = var.namespace
+  rds_name                   = "court-case-service-rds-${var.environment}"
   application                = var.application
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
