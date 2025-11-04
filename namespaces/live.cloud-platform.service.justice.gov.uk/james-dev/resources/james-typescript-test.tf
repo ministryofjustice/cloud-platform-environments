@@ -1,5 +1,5 @@
 module "james_typescript_test" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "james-typescript-test"
   application = "james-typescript-test"
   github_team = "hmpps-sre"
