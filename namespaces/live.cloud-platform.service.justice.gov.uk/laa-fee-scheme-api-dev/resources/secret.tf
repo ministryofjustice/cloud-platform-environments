@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "fee-scheme-api-secrets"
     },
+    "fee-scheme-api-slack-webhook" = {
+      description             = "Fee Scheme API slack webhook url for DEV",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "fee-scheme-slack-webhook"
+    },
   }
 }
