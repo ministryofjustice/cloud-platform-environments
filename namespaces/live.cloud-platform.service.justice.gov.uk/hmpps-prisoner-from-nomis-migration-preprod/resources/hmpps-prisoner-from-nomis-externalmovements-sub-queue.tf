@@ -120,7 +120,10 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_externalmovements_sub
       "MOVEMENT_APPLICATION_MULTI-DELETED",
       "SCHEDULED_EXT_MOVE-INSERTED",
       "SCHEDULED_EXT_MOVE-UPDATED",
-      "SCHEDULED_EXT_MOVE-DELETED"
+      "SCHEDULED_EXT_MOVE-DELETED",
+      "ADDRESSES_OFFENDER-UPDATED",
+      "ADDRESSES_CORPORATE-UPDATED",
+      "ADDRESSES_AGENCY-UPDATED"
     ]
   })
 }
