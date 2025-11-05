@@ -5,7 +5,7 @@ locals {
 resource "kubernetes_secret" "hmpps_audit_config" {
   metadata {
     namespace = var.namespace
-    name      = "hmpps-audit"
+    name      = "sqs-hmpps-audit-secret"
   }
   data = {
     sqs_queue_url  = "https://sqs.eu-west-2.amazonaws.com/754256621582/${local.audit_queue_name}"
