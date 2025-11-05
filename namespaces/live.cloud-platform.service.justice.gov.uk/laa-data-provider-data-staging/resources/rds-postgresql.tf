@@ -72,7 +72,7 @@ resource "kubernetes_secret" "rds" {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
-
+# PostgreSQL connection details as secrets
   data = {
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
