@@ -79,3 +79,8 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-submit-a-bulk-claim-production-service-account"
 }
+
+variable "domain" {
+  default = "submit-a-bulk-claim.laa.service.justice.gov.uk"
+  type    = string
+}
