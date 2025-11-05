@@ -4,7 +4,7 @@ metadata:
   name: crime-portal-mirror-gateway-test.service.justice.gov.uk
   namespace: court-probation-test
 spec:
-  secretName: crime-portal-mirror-gateway-cert
+  secretName: crime-portal-mirror-gateway-cert-test
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

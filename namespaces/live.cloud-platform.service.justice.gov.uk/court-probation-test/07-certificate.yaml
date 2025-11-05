@@ -4,7 +4,7 @@ metadata:
   name: court-probation-test-cert
   namespace: court-probation-test
 spec:
-  secretName: court-probation-test-cert-secret
+  secretName: court-probation-test-env-cert-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
