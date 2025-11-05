@@ -70,10 +70,30 @@ resource "aws_route53_record" "justiceinspectorates_route53_mx_record_main" {
   records = ["10 mx1.bangdynamics.com", "20 mx2.bangdynamics.com"]
 }
 
-resource "aws_route53_record" "justiceinspectorates_route53_txt_record_main" {
+resource "aws_route53_record" "hmiprisons_route53_cname_record_dkim" {
   zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
-  name    = "justiceinspectorates.gov.uk"
+  name    = "litesrv._domainkey.hmiprisons.justiceinspectorates.gov.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["litesrv._domainkey.mlsend.com"]
+}
+
+resource "aws_route53_record" "hmiprisons_route53_txt_record_spf" {
+  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
+  name    = "hmiprisons.justiceinspectorates.gov.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=spf1 a mx include:servers.mcsv.net ?all"]
+  records = [
+    "\"v=spf1 include:_spf.mlsend.com ip4:194.33.196.8/32 ip4:194.33.192.8/32 include:spf.protection.outlook.com -all\""
+  ]
 }
+
+resource "aws_route53_record" "hmiprisons_route53_txt_record_verification" {
+  zone_id = aws_route53_zone.justiceinspectorates_route53_zone.zone_id
+  name    = "hmiprisons.justiceinspectorates.gov.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["\"mailerlite-domain-verification=042a934207bc9e97f86a70915a70ca23e0378b35\""]
+}
+
+
