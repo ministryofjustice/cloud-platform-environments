@@ -32,6 +32,10 @@ variable "team_name" {
   default     = "move-a-prisoner"
 }
 
+variable "review_team_name" {
+  default = "move-a-prisoner"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
@@ -54,6 +58,12 @@ variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
   default     = "move-a-prisoner-digital"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "preprod"
 }
 
 variable "github_owner" {
