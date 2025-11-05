@@ -9,7 +9,7 @@ module "service_pod_irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    ecr = module.ecr_credentials.repo_arn
+    ecr = module.ecr_credentials.irsa_policy_arn
     s3  = module.s3_bucket.irsa_policy_arn
   }
 

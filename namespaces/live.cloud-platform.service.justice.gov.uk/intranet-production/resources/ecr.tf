@@ -51,6 +51,9 @@ module "ecr_credentials" {
   oidc_providers      = ["github"]
   github_repositories = ["intranet"]
 
+  # Let us access ECR via the service pod
+  enable_irsa = true
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
