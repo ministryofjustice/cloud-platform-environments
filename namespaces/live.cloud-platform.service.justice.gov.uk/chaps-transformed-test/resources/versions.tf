@@ -5,14 +5,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.78.0"
     }
-    pingdom = {
+    /*pingdom = {
       source  = "DrFaust92/pingdom"
       version = "~> 1.3.1"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0"
-    }
+    }*/
     github = {
       source  = "integrations/github"
       version = "~> 5.39.0"
