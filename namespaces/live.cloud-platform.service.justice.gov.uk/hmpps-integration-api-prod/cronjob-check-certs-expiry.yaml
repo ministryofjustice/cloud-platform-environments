@@ -32,7 +32,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: slack-webhook
-                      key: slack_webhook_url
+                      key: webhook_url
               volumeMounts:
                 - mountPath: "/home/appuser/ca-cert"
                   name: ca-crt
