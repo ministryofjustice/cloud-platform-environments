@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-support-api-cert
+  namespace: hmpps-community-support-dev
+spec:
+  secretName: hmpps-community-support-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-support-api-dev.hmpps.service.justice.gov.uk
+    - '*.community-support-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-support-ui-cert
+  namespace: hmpps-community-support-dev
+spec:
+  secretName: hmpps-community-support-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-support-dev.hmpps.service.justice.gov.uk
+    - '*.community-support-dev.hmpps.service.justice.gov.uk'
