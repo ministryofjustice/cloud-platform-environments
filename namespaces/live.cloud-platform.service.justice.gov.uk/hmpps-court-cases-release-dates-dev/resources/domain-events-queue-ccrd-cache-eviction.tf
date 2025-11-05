@@ -124,6 +124,7 @@ resource "aws_sns_topic_subscription" "hmpps_ccrd_cache_eviction_subscription" {
       "adjudication.punishments.created",
       "adjudication.punishments.updated",
       "adjudication.punishments.deleted",
+      "calculate-release-dates.prisoner.changed",
     ]
   })
 }
