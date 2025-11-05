@@ -5,7 +5,7 @@ module "service_pod_irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "intranet-production-service"
+  service_account_name = "intranet-production-service-pod"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
