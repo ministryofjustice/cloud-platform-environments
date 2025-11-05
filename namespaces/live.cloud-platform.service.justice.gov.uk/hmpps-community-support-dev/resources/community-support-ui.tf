@@ -1,4 +1,4 @@
-module "hmpps_community_support_ui" {
+module "hmpps_template_typescript" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-community-support-ui"
   application = "hmpps-community-support-ui"
