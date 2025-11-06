@@ -27,11 +27,5 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-prod"
     },
-
-    "auth-redirect-url" = {
-      description             = "Auth redirect URL from Entra for production environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-redirect-url-prod"
-    },
   }
 }
