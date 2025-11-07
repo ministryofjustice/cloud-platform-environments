@@ -166,6 +166,18 @@ resource "aws_cognito_user_pool_client" "mlra" {
   generate_secret                      = true
 }
 
+resource "aws_cognito_user_pool_client" "cas" {
+  name                                 = var.cognito_user_pool_client_name_cas
+  user_pool_id                         = aws_cognito_user_pool.pool.id
+  explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
+  allowed_oauth_flows                  = ["client_credentials"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes                 = aws_cognito_resource_server.resource.scope_identifiers
+  prevent_user_existence_errors        = "ENABLED"
+  supported_identity_providers         = ["COGNITO"]
+  generate_secret                      = true
+}
+
 resource "aws_cognito_resource_server" "resource" {
   identifier = var.resource_server_identifier
   name       = var.resource_server_name
@@ -215,5 +227,7 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
     cccd_secret = aws_cognito_user_pool_client.cccd.client_secret
     mlra_id     = aws_cognito_user_pool_client.mlra.id
     mlra_secret = aws_cognito_user_pool_client.mlra.client_secret
+    cas_id     = aws_cognito_user_pool_client.cas.id
+    cas_secret = aws_cognito_user_pool_client.cas.client_secret
   }
 }
