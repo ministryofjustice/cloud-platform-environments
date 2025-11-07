@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "ui-get-legal-aid-data-prod" {
   type                     = "http"
   name                     = "ui get legal aid data - prod - cloud platform"
-  host                     = "get-legal-aid-data.service.justice.gov.uk"
+  host                     = "laa-get-payments-finance-data.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 2147483647
@@ -21,7 +21,7 @@ resource "pingdom_check" "ui-get-legal-aid-data-prod" {
 resource "pingdom_check" "api-get-legal-aid-data-prod" {
   type                     = "http"
   name                     = "api get legal aid data - prod - cloud platform"
-  host                     = "laa-get-payments-finance-data-api-prod.apps.live.cloud-platform.service.justice.gov.uk"
+  host                     = "laa-get-payments-finance-data.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
