@@ -36,8 +36,7 @@ module "secrets_manager_multiple_secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "tmc-ui-oauth-tokenendpoint"
     },
-    tags = {
-      GithubTeam = var.team_name
-    }
   }
+  # Tags
+  GithubTeam             = var.team_name  
 }
