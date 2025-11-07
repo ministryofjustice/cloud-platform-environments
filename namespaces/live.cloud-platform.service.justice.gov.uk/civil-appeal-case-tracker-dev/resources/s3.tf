@@ -5,7 +5,6 @@
  *
  */
 module "s3_bucket" {
-
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -18,6 +17,7 @@ module "s3_bucket" {
 
 resource "aws_s3_bucket_policy" "restricted_policy" {
   bucket = module.s3_bucket.bucket_name
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -45,11 +45,10 @@ data "aws_iam_policy_document" "external_user_s3_access_policy" {
   statement {
     sid = "AllowExternalUserToReadAndPutObjectsInS3"
     actions = [
-      "s3:PutObject",
-      "s3:ListBucket",
       "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
     ]
-
     resources = [
       module.s3_bucket.bucket_arn,
       "${module.s3_bucket.bucket_arn}/*"
@@ -71,7 +70,6 @@ resource "aws_iam_user_policy" "policy" {
   policy = data.aws_iam_policy_document.external_user_s3_access_policy.json
   user   = aws_iam_user.user.name
 }
-
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
