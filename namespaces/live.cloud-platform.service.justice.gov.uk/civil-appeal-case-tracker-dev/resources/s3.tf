@@ -16,13 +16,38 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+resource "aws_s3_bucket_policy" "restricted_policy" {
+  bucket = module.s3_bucket.bucket_name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "AllowExternalUserToReadAndPutObjectsInS3"
+        Effect = "Allow"
+        Principal = {
+          AWS = aws_iam_user.user.arn
+        }
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          module.s3_bucket.bucket_arn,
+          "${module.s3_bucket.bucket_arn}/*"
+        ]
+      }
+    ]
+  })
+}
+
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
   statement {
     sid = "AllowExternalUserToReadAndPutObjectsInS3"
     actions = [
       "s3:PutObject",
       "s3:ListBucket",
-      "s3:GetObject*",
+      "s3:GetObject",
     ]
 
     resources = [
