@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-external-api"
+  default     = "hmpps-integration-api"
 }
 
 variable "environment" {
