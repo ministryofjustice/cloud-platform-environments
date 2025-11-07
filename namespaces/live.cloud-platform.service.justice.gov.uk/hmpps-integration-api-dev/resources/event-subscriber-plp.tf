@@ -85,18 +85,7 @@ resource "aws_sns_topic_subscription" "event_plp_subscription" {
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_plp_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "PLP_INDUCTION_SCHEDULE_CHANGED",
-      "PLP_REVIEW_SCHEDULE_CHANGED",
-      "SAN_PLAN_CREATION_SCHEDULE_CHANGED",
-      "SAN_REVIEW_SCHEDULE_CHANGED",
-      "PRISONER_BASE_LOCATION_CHANGED",
-      "PERSON_EDUCATION_ASSESSMENTS_CHANGED",
-      "PERSON_STATUS_CHANGED"
-
-    ]
-  })
+  filter_policy = data.aws_secretsmanager_secret_version.plp_filter_list.secret_string
   depends_on = [
     module.hmpps-integration-events
   ]
