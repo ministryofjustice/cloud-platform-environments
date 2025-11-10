@@ -20,3 +20,18 @@ module "rds_instance" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "rds" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
+    database_name         = module.rds_instance.database_name
+    database_username     = module.rds_instance.database_username
+    database_password     = module.rds_instance.database_password
+    rds_instance_address  = module.rds_instance.rds_instance_address
+  }
+}
