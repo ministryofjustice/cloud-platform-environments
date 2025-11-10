@@ -1,24 +1,24 @@
-resource "aws_glue_catalog_database" "audit_glue_catalog_database" {
-  name = "hmpps_audit_${var.environment-name}_glue_catalog_db"
-  location_uri = "s3://${module.s3.bucket_name}/"
+resource "aws_glue_catalog_database" "prisoner_audit_glue_catalog_database" {
+  name = "hmpps_prisoner_audit_${var.environment-name}_glue_catalog_db"
+  location_uri = "s3://${module.hmpps_prisoner_audit_s3.bucket_name}/"
 }
 
-resource "aws_athena_workgroup" "queries" {
-  name = "hmpps_audit_${var.environment-name}"
+resource "aws_athena_workgroup" "prisoner_audit_queries" {
+  name = "hmpps_prisoner_audit_${var.environment-name}"
 
   configuration {
     enforce_workgroup_configuration    = true
     publish_cloudwatch_metrics_enabled = true
 
     result_configuration {
-      output_location = "s3://${module.s3.bucket_name}/query_results/"
+      output_location = "s3://${module.hmpps_prisoner_audit_s3.bucket_name}/query_results/"
     }
   }
 }
 
-resource "aws_glue_catalog_table" "audit_event_table" {
-  database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
-  name          = "audit_events"
+resource "aws_glue_catalog_table" "prisoner_audit_event_table" {
+  database_name = aws_glue_catalog_database.prisoner_audit_glue_catalog_database.name
+  name          = "prisoner_audit_events"
 
   table_type = "EXTERNAL_TABLE"
 
@@ -64,7 +64,7 @@ resource "aws_glue_catalog_table" "audit_event_table" {
       type = "string"
     }
 
-    location      = "s3://${module.s3.bucket_name}/"
+    location      = "s3://${module.hmpps_prisoner_audit_s3.bucket_name}/"
     input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
     compressed    = true
@@ -101,45 +101,45 @@ resource "aws_glue_catalog_table" "audit_event_table" {
   }
 }
 
-resource "kubernetes_secret" "glue-database-name-secret" {
+resource "kubernetes_secret" "prisoner-audit-glue-database-name-secret" {
   metadata {
-    name      = "glue-database-name"
+    name      = "prisoner-audit-glue-database-name"
     namespace = var.namespace
   }
   data = {
-    database_arn  = aws_glue_catalog_database.audit_glue_catalog_database.arn
-    database_name = aws_glue_catalog_database.audit_glue_catalog_database.name
+    database_arn  = aws_glue_catalog_database.prisoner_audit_glue_catalog_database.arn
+    database_name = aws_glue_catalog_database.prisoner_audit_glue_catalog_database.name
   }
 }
 
-resource "kubernetes_secret" "glue-catalog-table-name-secret" {
+resource "kubernetes_secret" "prisoner-audit-glue-catalog-table-name-secret" {
   metadata {
-    name      = "glue-catalog-table-name"
+    name      = "prisoner-audit-glue-catalog-table-name"
     namespace = var.namespace
   }
   data = {
-    table_arn  = aws_glue_catalog_table.audit_event_table.arn
-    table_name = aws_glue_catalog_table.audit_event_table.name
+    table_arn  = aws_glue_catalog_table.prisoner_audit_event_table.arn
+    table_name = aws_glue_catalog_table.prisoner_audit_event_table.name
   }
 }
 
-resource "kubernetes_secret" "athena-workgroup-secret" {
+resource "kubernetes_secret" "prisoner-audit-athena-workgroup-secret" {
   metadata {
-    name      = "athena-workgroup-secret"
+    name      = "prisoner-athena-workgroup-secret"
     namespace = var.namespace
   }
   data = {
-    workgroup_arn  = aws_athena_workgroup.queries.arn
-    workgroup_name = aws_athena_workgroup.queries.name
+    workgroup_arn  = aws_athena_workgroup.prisoner_audit_queries.arn
+    workgroup_name = aws_athena_workgroup.prisoner_audit_queries.name
   }
 }
 
-resource "kubernetes_secret" "athena-output-location-secret" {
+resource "kubernetes_secret" "prisoner-audit-athena-output-location-secret" {
   metadata {
-    name      = "athena-output-location-secret"
+    name      = "prisoner-athena-output-location-secret"
     namespace = var.namespace
   }
   data = {
-    output_location = "s3://${module.s3.bucket_name}/"
+    output_location = "s3://${module.hmpps_prisoner_audit_s3.bucket_name}/"
   }
 }

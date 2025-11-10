@@ -1,4 +1,4 @@
-module "s3" {
+module "hmpps_prisoner_audit_s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # S3 configuration
@@ -12,13 +12,13 @@ module "s3" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   logging_enabled        = true
-  log_target_bucket      = module.s3_logging_bucket.bucket_name
+  log_target_bucket      = module.hmpps_prisoner_audit_s3_logging.bucket_name
   log_path               = "logs/"
 }
 
 
-resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration" {
-  bucket = module.s3.bucket_name
+resource "aws_s3_bucket_object_lock_configuration" "hmpps_prisoner_audit_s3_lock_configuration" {
+  bucket = module.hmpps_prisoner_audit_s3.bucket_name
 
   rule {
     default_retention {
@@ -28,20 +28,19 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
   }
 
   depends_on = [
-    module.s3
+    module.hmpps_prisoner_audit_s3
   ]
 
 }
 
-resource "kubernetes_secret" "s3" {
+resource "kubernetes_secret" "hmpps_prisoner_audit_s3" {
   metadata {
-    name      = "s3-output"
+    name      = "hmpps-prisoner-audit-s3"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.s3.bucket_arn
-    bucket_name = module.s3.bucket_name
+    bucket_arn  = module.hmpps_prisoner_audit_s3.bucket_arn
+    bucket_name = module.hmpps_prisoner_audit_s3.bucket_name
   }
 }
-
