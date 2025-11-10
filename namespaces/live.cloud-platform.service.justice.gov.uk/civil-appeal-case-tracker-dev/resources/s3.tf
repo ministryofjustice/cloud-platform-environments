@@ -5,7 +5,6 @@
  *
  */
 module "s3_bucket" {
-
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -14,39 +13,42 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+}
 
-  enable_allow_block_pub_access = false
+resource "aws_s3_bucket_policy" "restricted_policy" {
+  bucket = module.s3_bucket.bucket_name
 
-  bucket_policy = <<EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "AWS": "*"
-          },
-          "Action": [
-            "s3:GetObject"
-          ],
-          "Resource": [
-            "$${bucket_arn}/*"
-          ]
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "AllowExternalUserToReadAndPutObjectsInS3"
+        Effect = "Allow"
+        Principal = {
+          AWS = aws_iam_user.user.arn
         }
-      ]
-    }
-    EOF
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          module.s3_bucket.bucket_arn,
+          "${module.s3_bucket.bucket_arn}/*"
+        ]
+      }
+    ]
+  })
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
   statement {
     sid = "AllowExternalUserToReadAndPutObjectsInS3"
     actions = [
+      "s3:GetObject",
       "s3:PutObject",
-      "s3:ListBucket",
-      "s3:GetObject*",
+      "s3:ListBucket"
     ]
-
     resources = [
       module.s3_bucket.bucket_arn,
       "${module.s3_bucket.bucket_arn}/*"
@@ -68,7 +70,6 @@ resource "aws_iam_user_policy" "policy" {
   policy = data.aws_iam_policy_document.external_user_s3_access_policy.json
   user   = aws_iam_user.user.name
 }
-
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
