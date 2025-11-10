@@ -111,7 +111,13 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_officialvisits_subscr
     eventType = [
       "OFFENDER_OFFICIAL_VISIT-INSERTED",
       "OFFENDER_OFFICIAL_VISIT-UPDATED",
-      "OFFENDER_OFFICIAL_VISIT-DELETED"
+      "OFFENDER_OFFICIAL_VISIT-DELETED",
+      "AGENCY_VISIT_TIMES-INSERTED",
+      "AGENCY_VISIT_TIMES-UPDATED",
+      "AGENCY_VISIT_TIMES-DELETED",
+      "AGENCY_VISIT_SLOTS-INSERTED",
+      "AGENCY_VISIT_SLOTS-UPDATED",
+      "AGENCY_VISIT_SLOTS-DELETED"
     ]
   })
 }
