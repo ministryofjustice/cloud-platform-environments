@@ -28,10 +28,10 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
+    database_name         = module.rds_instance.database_name
+    database_username     = module.rds_instance.database_username
+    database_password     = module.rds_instance.database_password
+    rds_instance_address  = module.rds_instance.rds_instance_address
   }
 }
