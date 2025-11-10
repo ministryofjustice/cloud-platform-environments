@@ -152,6 +152,11 @@ variable "cognito_user_pool_client_name_mlra" {
   default     = "mlra-uat"
 }
 
+variable "cognito_user_pool_client_name_cas" {
+  description = "Cognito user pool client - Crime Assessment Service"
+  default     = "cas-uat"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "maat-api-uat"
