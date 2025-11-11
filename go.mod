@@ -1,6 +1,6 @@
 module github.com/ministryofjustice/cloud-platform-environments
 
-go 1.19
+go 1.23.0
 
 require (
 	github.com/aws/aws-sdk-go v1.44.198
