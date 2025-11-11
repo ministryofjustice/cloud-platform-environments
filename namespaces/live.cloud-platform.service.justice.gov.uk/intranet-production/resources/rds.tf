@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -12,9 +12,9 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version = "10.11.10"
+  db_engine_version           = "10.11.13"
   rds_family                  = "mariadb10.11"
-  db_instance_class           = "db.t4g.2xlarge"
+  db_instance_class           = "db.t4g.xlarge"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   db_allocated_storage        = "400"

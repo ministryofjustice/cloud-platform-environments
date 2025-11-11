@@ -50,6 +50,7 @@ module "serviceaccount" {
         "monitoring.coreos.com",
         "rbac.authorization.k8s.io",
         "autoscaling",
+        "policy",
       ]
       resources = [
         "deployments",
@@ -64,6 +65,7 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "horizontalpodautoscalers",
+        "poddisruptionbudgets",
       ]
       verbs = [
         "get",

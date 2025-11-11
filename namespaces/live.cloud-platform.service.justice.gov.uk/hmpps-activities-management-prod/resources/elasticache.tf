@@ -8,7 +8,7 @@ module "elasticache_redis" {
   infrastructure_support = var.infrastructure_support
   team_name              = var.team_name
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t4g.small"
+  node_type              = "cache.t4g.medium"
   engine_version         = "7.1"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace

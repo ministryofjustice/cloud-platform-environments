@@ -16,7 +16,7 @@ module "track_a_query_s3" {
   cors_rule = [
     {
       allowed_headers = ["*"]
-      allowed_methods = ["GET", "POST", "PUT"]
+      allowed_methods = ["GET", "POST", "PUT", "DELETE"]
       allowed_origins = [
         "https://development.track-a-query.service.justice.gov.uk",
         "http://localhost:3000"

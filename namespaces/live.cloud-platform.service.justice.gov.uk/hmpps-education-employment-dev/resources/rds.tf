@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "edu_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -22,7 +22,7 @@ module "edu_rds" {
   db_max_allocated_storage    = "500"
   db_engine_version           = "16"
   rds_family                  = "postgres16"
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop  = false
   enable_irsa                 = true
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 

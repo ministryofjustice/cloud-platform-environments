@@ -6,7 +6,7 @@
  */
 
 module "cccd_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -18,9 +18,10 @@ module "cccd_rds" {
   db_allocated_storage        = "70"
   db_max_allocated_storage    = "500"
   db_instance_class           = "db.t4g.micro"
-  db_engine_version           = "13"
-  rds_family                  = "postgres13"
+  db_engine_version           = "17.6"
+  rds_family                  = "postgres17"
   allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   providers = {

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: connecting-services-prototype-dev
+spec:
+  hard:
+    pods: "10"

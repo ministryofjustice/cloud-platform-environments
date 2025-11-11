@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -22,8 +22,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
   # Tags
@@ -37,6 +37,36 @@ module "rds" {
 
   # Add DPR security group.
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  # Add parameters to enable logical replication
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+
 
   enable_irsa = true
 }

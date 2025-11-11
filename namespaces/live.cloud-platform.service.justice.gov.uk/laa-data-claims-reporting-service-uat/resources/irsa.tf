@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    gpfd_s3 = aws_iam_policy.upload_to_s3_bucket_in_gpfd_dev_namespace_policy.arn
   }
 
   # Tags
@@ -24,3 +25,27 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+data "aws_iam_policy_document" "upload_to_s3_bucket_in_gpfd_dev_namespace" {
+  statement {
+    actions = [
+      "s3:PutObject",
+    ]
+    resources = [
+      "arn:aws:s3:::laa-get-payments-finance-data-dev-report-store/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "upload_to_s3_bucket_in_gpfd_dev_namespace_policy" {
+  name   = "upload_to_s3_bucket_in_gpfd_dev_namespace_policy"
+  policy = data.aws_iam_policy_document.upload_to_s3_bucket_in_gpfd_dev_namespace.json
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}

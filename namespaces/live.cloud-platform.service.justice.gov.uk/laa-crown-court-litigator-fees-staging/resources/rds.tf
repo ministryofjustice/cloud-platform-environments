@@ -1,5 +1,5 @@
 module "rds-instance-staging-migrated" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name = var.vpc_name
 
   application            = var.application

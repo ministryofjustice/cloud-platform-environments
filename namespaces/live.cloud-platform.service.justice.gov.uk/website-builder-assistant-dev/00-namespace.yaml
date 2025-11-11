@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "website-builder-assistant-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/slack-channel: "website-builder-devs"
+    cloud-platform.justice.gov.uk/application: "AI Assiastant for Website Builder Platform"
+    cloud-platform.justice.gov.uk/owner: "Website Builder: wordpress@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/websitebuilder-rag-prototype"
+    cloud-platform.justice.gov.uk/team-name: "jotw-content-devs"
+    cloud-platform.justice.gov.uk/review-after: "2026-01-22"

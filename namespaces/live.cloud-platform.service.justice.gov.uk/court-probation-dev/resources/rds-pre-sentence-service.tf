@@ -1,5 +1,5 @@
 module "pre_sentence_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -12,7 +12,7 @@ module "pre_sentence_service_rds" {
   is_production               = var.is_production
   rds_family                  = "postgres14"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "14.13"
+  db_engine_version           = "14.17"
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = true
   enable_rds_auto_start_stop  = true

@@ -1,5 +1,5 @@
 module "grafana_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   db_engine                = "postgres"
   db_engine_version        = "17"

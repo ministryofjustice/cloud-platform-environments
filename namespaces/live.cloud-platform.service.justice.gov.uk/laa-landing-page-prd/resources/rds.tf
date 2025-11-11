@@ -1,5 +1,5 @@
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -17,6 +17,9 @@ module "rds" {
   db_backup_retention_period   = "35"
   deletion_protection          = true
   enable_irsa = true
+
+  # RDS logging
+  opt_in_xsiam_logging  = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"

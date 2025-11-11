@@ -5,7 +5,7 @@
  *
 */
 module "rds_mssql" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type = "gp2"
 
   # VPC configuration

@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 100
   storage_type         = "gp2"
 
