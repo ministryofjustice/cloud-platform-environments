@@ -18,7 +18,7 @@ module "hmpps_education_work_plan_rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # Dev database is stopped overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -34,16 +34,16 @@ module "hmpps_education_work_plan_rds" {
 
   # Add parameters to enable DPR team to configure replication
   db_parameter = [
-    # {
-    #   name         = "rds.logical_replication"
-    #   value        = "1"
-    #   apply_method = "pending-reboot"
-    # },
-    # {
-    #   name         = "shared_preload_libraries"
-    #   value        = "pglogical"
-    #   apply_method = "pending-reboot"
-    # },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
     {
       name         = "max_wal_size"
       value        = "1024"
