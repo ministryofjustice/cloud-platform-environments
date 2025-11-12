@@ -5,10 +5,10 @@ metadata:
   namespace: laa-data-claims-reporting-service-staging
 spec:
   limits:
-    - default:
-        cpu: 2
-        memory: 8Gi
-      defaultRequest:
-        cpu: 1
-        memory: 4Gi
-      type: Container
+  - default:
+      cpu: 2
+      memory: 8Gi
+    defaultRequest:
+      cpu: 1
+      memory: 4Gi
+    type: Container
