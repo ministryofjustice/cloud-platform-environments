@@ -4,11 +4,9 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_name = var.serviceaccount_name
   serviceaccount_token_rotated_date = "01-01-2000"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["laa-secure-document-storage-config-generator"]
-  github_environments = ["staging"]
+  # github_repositories = ["danc-demo-app"]
 }
