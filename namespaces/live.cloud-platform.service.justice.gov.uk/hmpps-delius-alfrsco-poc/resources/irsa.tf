@@ -13,6 +13,7 @@ module "irsa" {
     s3_logging_bucket                  = module.s3_logging_bucket.irsa_policy_arn
     s3_opensearch_snapshots_bucket     = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
     s3_opensearch_snapshots_bucket_dev = data.kubernetes_secret.s3_opensearch_snapshots_bucket_dev.data["IRSA_POLICY_ARN"]
+    efs                                = aws_iam_policy.efs_policy.arn # Attach the EFS policy created in efs.tf for EFS access
   }
 
   # Tags
