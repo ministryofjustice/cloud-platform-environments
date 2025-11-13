@@ -155,3 +155,20 @@ spec:
           message: ElastiCache instance {{ $labels.cache_cluster_id }} freeable memory is below 500MB.
           runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#ElastiCacheFreeableMemoryLow
           dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/XWHVBzmvR?orgId=1
+
+    - name: cronjob-alerts
+      rules:
+      - alert: WpCronJobStuck
+        expr: |
+          (
+            time() - kube_cronjob_status_last_successful_time{
+              cronjob="wp-cron-trigger",
+              namespace="intranet-production"
+            }
+          ) > 300
+        for: 0s
+        labels:
+          severity: intranet-production
+        annotations:
+          summary: "WordPress cron job hasn't run successfully in over 5 minutes"
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronJobStuck
