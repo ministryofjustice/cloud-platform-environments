@@ -97,34 +97,18 @@ spec:
 
     - name: cronjob-alerts
       rules:
-      - alert: WpCronFailures
-        expr: |
-          sum(
-            max_over_time(
-              kube_job_status_failed{
-                job_name=~"wp-cron-trigger-.*",
-                namespace="intranet-demo"
-              }[15m]
-            )
-          ) >= 3
-        for: 0s
-        labels:
-          severity: intranet-demo
-        annotations:
-          summary: "WordPress cron job has failed 3 times in 15 minutes"
-          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronFailures
-
       - alert: WpCronJobStuck
         expr: |
           (
-            time() - kube_cronjob_status_last_schedule_time{
+            time() - kube_cronjob_status_last_successful_time{
               cronjob="wp-cron-trigger",
               namespace="intranet-demo"
             }
           ) > 300
-        for: 2m
+          AND ON() (7 <= hour() <= 21)
+        for: 0s
         labels:
           severity: intranet-demo
         annotations:
-          summary: "WordPress cron job hasn't run in over 5 minutes"
+          summary: "WordPress cron job hasn't run successfully in over 5 minutes"
           runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronJobStuck
