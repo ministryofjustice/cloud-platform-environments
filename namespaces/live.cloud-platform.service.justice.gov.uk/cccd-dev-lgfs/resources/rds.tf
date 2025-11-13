@@ -16,10 +16,11 @@ module "cccd_rds" {
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
   db_allocated_storage        = "50"
-  db_instance_class           = "db.t3.small"
-  db_engine_version           = "13"
-  rds_family                  = "postgres13"
+  db_instance_class           = "db.t4g.small"
+  db_engine_version           = "17.6"
+  rds_family                  = "postgres17"
   allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = "true"
   db_parameter                = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
 
   snapshot_identifier = "cloud-platform-a149a0c2b2575f5f-manual-snapshot-2021-04-26-15-20"
