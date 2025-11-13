@@ -1,6 +1,6 @@
 module github.com/ministryofjustice/cloud-platform-environments/cmd/compare-namespace
 
-go 1.19
+go 1.23.0
 
 require (
 	github.com/google/go-github v17.0.0+incompatible
@@ -18,8 +18,8 @@ require (
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/sethvargo/go-envconfig v0.8.0 // indirect
 	github.com/zclconf/go-cty v1.12.1 // indirect
-	golang.org/x/net v0.23.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 )
