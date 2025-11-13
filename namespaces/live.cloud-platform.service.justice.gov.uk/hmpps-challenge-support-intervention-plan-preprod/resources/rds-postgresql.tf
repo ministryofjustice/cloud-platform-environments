@@ -61,6 +61,11 @@ module "rds" {
       name         = "max_slot_wal_keep_size"
       value        = "5000"
       apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
     }
   ]
 
