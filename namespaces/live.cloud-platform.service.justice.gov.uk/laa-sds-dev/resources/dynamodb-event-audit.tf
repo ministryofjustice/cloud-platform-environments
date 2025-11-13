@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "event_audit_db_write_only_access" {
 }
 
 resource "aws_iam_policy" "event_auditdb_write_only_policy" {
-  name        = "${var.namespace}-event_auditdb_policy"
-  description = "Grants R/W access to specified DynamoDB table"
+  name        = "${var.namespace}-event_auditdb_write_only_policy"
+  description = "Grants write-access to specified DynamoDB table"
   policy      = data.aws_iam_policy_document.event_audit_db_write_only_access.json
 }
