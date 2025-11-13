@@ -134,3 +134,24 @@ spec:
           message: RDS instance {{ $labels.dbinstance_identifier }} freeable memory is below 1.8GiB.
           runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceFreeableMemoryLow
           dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/LwC6lOgDR?orgId=1
+
+    - name: elasticache-rules
+      rules:
+      - alert: ElastiCacheCPUUtilizationHigh
+        expr: aws_elasticache_cpuutilization_average{cache_cluster_id=~"cp-78d7f414c59df971-00[12]"} > 70
+        for: 0m
+        labels:
+          severity: intranet-production
+        annotations:
+          message: ElastiCache instance {{ $labels.cache_cluster_id }} CPU utilization is above 70%.
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#ElastiCacheCPUUtilizationHigh
+          dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/XWHVBzmvR?orgId=1
+      - alert: ElastiCacheFreeableMemoryLow
+        expr: aws_elasticache_freeable_memory_average{cache_cluster_id=~"cp-78d7f414c59df971-00[12]"} < 500000000
+        for: 0m
+        labels:
+          severity: intranet-production
+        annotations:
+          message: ElastiCache instance {{ $labels.cache_cluster_id }} freeable memory is below 500MB.
+          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#ElastiCacheFreeableMemoryLow
+          dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/XWHVBzmvR?orgId=1
