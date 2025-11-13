@@ -13,7 +13,7 @@ module "hmpps_education_work_plan_rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # Pre-prod database is stopped overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
