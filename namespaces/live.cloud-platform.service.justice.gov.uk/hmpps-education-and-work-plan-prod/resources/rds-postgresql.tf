@@ -13,7 +13,7 @@ module "hmpps_education_work_plan_rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
