@@ -20,7 +20,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -32,6 +32,20 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  # enable_irsa = true
+
+  # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
+  # opt_in_xsiam_logging = true
+
+    # Set the rds name
+       rds_name = var.rds_name
+
+    # Set the database_name of the source db
+       db_name = var.db_name
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -43,7 +57,7 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -59,7 +73,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
@@ -81,6 +95,14 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  # enable_irsa = true
+
+  # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
+  # opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {

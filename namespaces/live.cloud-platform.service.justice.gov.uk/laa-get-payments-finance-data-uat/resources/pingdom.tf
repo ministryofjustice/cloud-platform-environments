@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "get-legal-aid-data-uat" {
   type                     = "http"
   name                     = "get legal aid data - uat - cloud platform"
-  host                     = "laa-get-payments-finance-data-api-uat.apps.live.cloud-platform.service.justice.gov.uk"
+  host                     = "uat-laa-get-payments-finance-data.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6

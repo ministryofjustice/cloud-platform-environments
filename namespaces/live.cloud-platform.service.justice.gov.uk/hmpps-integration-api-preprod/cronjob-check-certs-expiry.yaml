@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: check-certs-expiry
+spec:
+  schedule: "0 7 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: ca-crt
+              secret:
+                secretName: client-certificate-auth
+          containers:
+            - name: check-certs-expiry
+              image: ghcr.io/ministryofjustice/hmpps-devops-tools
+              imagePullPolicy: Always
+              env:
+                - name: ENV
+                  value: preprod
+                - name: EXPIRY_DAY_CHECK
+                  value: '30'
+                - name: AWS_CREDS
+                  valueFrom:
+                    secretKeyRef:
+                      name: aws-services
+                      key: api-gateway
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: slack-webhook
+                      key: webhook_url
+              volumeMounts:
+                - mountPath: "/home/appuser/ca-cert"
+                  name: ca-crt
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  mkdir -p /home/appuser/scripts
+                  mkdir -p /home/appuser/pem-certs
+                  curl -o /home/appuser/scripts/check_certs_expiry.sh https://raw.githubusercontent.com/ministryofjustice/hmpps-integration-api/main/scripts/check_certs_expiry.sh
+                  chmod +x /home/appuser/scripts/check_certs_expiry.sh
+                  cd /home/appuser/scripts
+                  ./check_certs_expiry.sh
+          restartPolicy: OnFailure

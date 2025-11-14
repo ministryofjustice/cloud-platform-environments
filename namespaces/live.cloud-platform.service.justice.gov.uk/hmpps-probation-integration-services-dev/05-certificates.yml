@@ -303,21 +303,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: sentence-plan-and-oasys-cert
-  namespace: hmpps-probation-integration-services-dev
-spec:
-  secretName: sentence-plan-and-oasys-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - 4713f3dc-dev.hmpps.service.justice.gov.uk
-    - sentence-plan-and-oasys-dev.hmpps.service.justice.gov.uk
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: domain-events-and-delius-cert
   namespace: hmpps-probation-integration-services-dev
 spec:

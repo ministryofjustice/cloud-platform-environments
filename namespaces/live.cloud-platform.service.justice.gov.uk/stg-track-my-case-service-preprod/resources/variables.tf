@@ -73,3 +73,9 @@ variable "db_name" {
   default     = "trackmycase"
   type        = string
 }
+
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "trackmycase-preprod"
+  type        = string
+}

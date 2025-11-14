@@ -98,6 +98,11 @@ variable "user_pool_name_ccc" {
   default     = "laa-crime-auth-userpool-ccc"
 }
 
+variable "user_pool_name_cas" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-cas"
+}
+
 variable "user_pool_name_orchestration" {
   description = "Cognito user pool name"
   default     = "laa-crime-auth-userpool-orchestration"
@@ -170,6 +175,26 @@ variable "cognito_user_pool_ccc_client_name_uat" {
 
 variable "cognito_user_pool_ccc_client_name_prd" {
   description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-prd"
+}
+
+variable "cognito_user_pool_cas_client_name_dev" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-dev"
+}
+
+variable "cognito_user_pool_cas_client_name_tst" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-tst"
+}
+
+variable "cognito_user_pool_cas_client_name_uat" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-uat"
+}
+
+variable "cognito_user_pool_cas_client_name_prd" {
+  description = "Cognito user pool Crime Assessment Service client name"
   default     = "crown-court-contribution-client-prd"
 }
 
@@ -411,6 +436,25 @@ variable "ccc_scope_description" {
   default = "Standard scope for the Crown Court Contribution service"
 }
 
+variable "cas_resource_server_identifier" {
+  default     = "cas"
+  description = "Cognito resource server identifier for Crime Assessment Service"
+}
+
+variable "cas_resource_server_name" {
+  default     = "cas-resource-server"
+  description = "Cognito resource server name for Crime Assessment Service"
+}
+
+variable "cas_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "cas_scope_description" {
+  default = "Standard scope for the Crime Assessment Service"
+}
+
 variable "orchestration_resource_server_identifier" {
   default     = "orchestration"
   description = "Cognito resource server identifier for MAAT Orchestration service"
@@ -471,6 +515,10 @@ variable "cognito_user_pool_domain_name_ccp" {
 
 variable "cognito_user_pool_domain_name_ccc" {
   default = "laa-crime-auth-ccc"
+}
+
+variable "cognito_user_pool_domain_name_cas" {
+  default = "laa-crime-auth-cas"
 }
 
 variable "cognito_user_pool_domain_name_orchestration" {

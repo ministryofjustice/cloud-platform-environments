@@ -22,7 +22,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.13"
+  db_engine_version = "14.17"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
@@ -115,6 +115,24 @@ resource "kubernetes_secret" "rds" {
      *
      */
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-resettlement-passport-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
 
 
 resource "kubernetes_secret" "read_replica" {

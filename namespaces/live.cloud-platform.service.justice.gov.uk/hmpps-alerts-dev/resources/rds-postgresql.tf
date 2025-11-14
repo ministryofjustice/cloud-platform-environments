@@ -11,6 +11,7 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
@@ -19,8 +20,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
   # Tags

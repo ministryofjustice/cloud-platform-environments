@@ -7,9 +7,10 @@ module "irsa" {
 
   role_policy_arns = merge(
     {
-      dynamodb         = aws_iam_policy.auditdb_policy.arn,
-      s3 = module.laa_sds_equiniti.irsa_policy_arn,
-      s3_versioning    = aws_iam_policy.s3_versioning_policy.arn
+      dynamodb             = aws_iam_policy.auditdb_policy.arn,
+      dynamodb-event-audit = aws_iam_policy.event_auditdb_policy.arn,
+      s3                   = module.laa_sds_equiniti.irsa_policy_arn,
+      s3_versioning        = aws_iam_policy.s3_versioning_policy.arn
     },
     { for name, module in module.s3_buckets : name => module.irsa_policy_arn }
   )

@@ -111,3 +111,19 @@ resource "aws_cognito_user_pool_domain" "ats_domain" {
   domain       = var.cognito_user_pool_domain_name_ats
   user_pool_id = aws_cognito_user_pool.ats_user_pool.id
 }
+
+resource "aws_cognito_user_pool" "cas_user_pool" {
+  name = var.user_pool_name_cas
+
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "admin_only"
+      priority = 1
+    }
+  }
+}
+
+resource "aws_cognito_user_pool_domain" "cas_domain" {
+  domain       = var.cognito_user_pool_domain_name_cas
+  user_pool_id = aws_cognito_user_pool.cas_user_pool.id
+}

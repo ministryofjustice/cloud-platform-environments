@@ -117,7 +117,6 @@ resource "kubernetes_secret" "rds" {
      */
 }
 
-
 resource "kubernetes_secret" "read_replica" {
   # default off
   count = 0

@@ -14,6 +14,11 @@ module "secrets_manager" {
       description             = "[app-secrets] App secrets for Provider data"
       recovery_window_in_days = 7
       k8s_secret_name         = "app-secrets"
+    },
+    "app-secrets-secondary" = {
+      description             = "[app-secrets-secondary] Secondary app secrets for Provider data"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "app-secrets-secondary"
     }
   }
 }

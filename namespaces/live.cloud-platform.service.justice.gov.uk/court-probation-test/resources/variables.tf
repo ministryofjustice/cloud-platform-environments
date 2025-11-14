@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Probation in Court"
+  default     = "probation-in-court"
 }
 
 variable "namespace" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "probation_in_court"
+  default     = "probation-in-court"
 }
 
 variable "github_owner" {
@@ -62,8 +62,36 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "ap-stack-court-case" {
+  default = "hmpps-court-case-test"
+}
+
+variable "rds-family" {
+  default = "postgres17"
+}
+
+variable "db_engine" {
+  default = "postgres"
+}
+
+variable "db_engine_version" {
+  default = "17.6"
+}
+
+variable "db_instance_class" {
+  default = "db.t4g.small"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "eks_cluster_name" {
 }
