@@ -53,7 +53,7 @@ module "s3_bucket" {
 
     },
     {
-      id      = "Retire Commitals after 2 days"
+      id      = "Retire Commitals after 7 days"
       enabled = true
       prefix  = "maat-xhibit/committal/incoming/"
 
