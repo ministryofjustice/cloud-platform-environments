@@ -8,7 +8,7 @@ subjects:
     name: "github:pact-broker-maintainers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-sre""
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
