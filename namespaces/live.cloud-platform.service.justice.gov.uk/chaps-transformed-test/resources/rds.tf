@@ -153,7 +153,10 @@ data "aws_iam_policy_document" "bucket_policy" {
   statement {
     sid     = "AllowRDSRoleObjects"
     effect  = "Allow"
-    principals { type = "AWS", identifiers = [aws_iam_role.rds_s3_backup_restore.arn] }
+    principals = { 
+      type = "AWS"
+      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
+    }
     actions = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
     resources = ["arn:aws:s3:::${var.backup_bucket}/${var.backup_prefix}*"]
   }
