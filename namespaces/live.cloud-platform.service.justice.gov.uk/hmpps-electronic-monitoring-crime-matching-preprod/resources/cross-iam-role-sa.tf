@@ -6,6 +6,7 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     {
+      ssm = aws_iam_policy.ssm_access.arn,
       rds = module.rds.irsa_policy_arn,
     }
   )
