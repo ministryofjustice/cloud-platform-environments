@@ -7,6 +7,7 @@ module "irsa" {
     local.sqs_policies,
     {
       ssm = aws_iam_policy.ssm_access.arn,
+      athena = aws_iam_policy.athena_access.arn
       rds = module.rds.irsa_policy_arn,
     }
   )
