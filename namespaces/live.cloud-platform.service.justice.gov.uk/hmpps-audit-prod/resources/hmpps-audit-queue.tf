@@ -1,4 +1,5 @@
 module "hmpps_audit_queue" {
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -10,6 +11,7 @@ module "hmpps_audit_queue" {
   {
     "deadLetterTargetArn": "${module.hmpps_audit_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
+
 EOF
 
   # Tags
@@ -73,7 +75,6 @@ resource "kubernetes_secret" "hmpps_audit_dead_letter_queue_secret" {
     sqs_queue_name = module.hmpps_audit_dead_letter_queue.sqs_name
   }
 }
-
 
 module "hmpps_prisoner_audit_queue" {
 

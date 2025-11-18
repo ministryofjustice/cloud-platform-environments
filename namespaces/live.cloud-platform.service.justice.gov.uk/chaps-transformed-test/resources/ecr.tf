@@ -4,7 +4,7 @@ module "ecr" {
 
   # OIDC configuration
   oidc_providers      = ["github"]
-  github_repositories = ["chaps"]
+  github_repositories = ["CHAPS"]
 
   # Tags
   business_unit          = var.business_unit

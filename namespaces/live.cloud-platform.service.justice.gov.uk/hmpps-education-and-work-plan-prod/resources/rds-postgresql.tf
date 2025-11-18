@@ -20,9 +20,9 @@ module "hmpps_education_work_plan_rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15.12"
-  rds_family        = "postgres15"
-  db_instance_class = "db.t4g.medium"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
