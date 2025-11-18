@@ -185,7 +185,7 @@ spec:
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCR DEV - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCR DEV - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-dev"
 
@@ -194,7 +194,7 @@ spec:
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCR DEV - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCR DEV - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-dev"
 
@@ -203,6 +203,6 @@ spec:
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCR DEV - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCR DEV - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-dev"
