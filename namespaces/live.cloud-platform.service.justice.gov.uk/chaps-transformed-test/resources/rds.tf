@@ -25,7 +25,7 @@ module "rds_mssql" {
   rds_family           = "sqlserver-web-14.0"
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
-  db_option_group_name = aws_db_option_group.sqlserver_backup_restore.name
+  option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
