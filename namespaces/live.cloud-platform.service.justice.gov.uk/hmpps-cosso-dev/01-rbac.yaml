@@ -1,0 +1,23 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-cosso-dev-admin
+  namespace: hmpps-cosso-dev
+subjects:
+  - kind: Group
+    name: "github:unilink"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:version-1-sit-team" # Version1 team access to support testing
+    apiGroup: rbac.authorization.k8s.io
+############## COPY - DO NOT REPLACE ##############
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+# hmpps-sre group is required for support functions
+###################################################
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
