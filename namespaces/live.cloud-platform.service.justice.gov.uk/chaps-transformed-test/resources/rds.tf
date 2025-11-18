@@ -25,6 +25,7 @@ module "rds_mssql" {
   rds_family           = "sqlserver-web-14.0"
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
+  db_option_group_name = aws_db_option_group.sqlserver_backup_restore.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -70,5 +71,19 @@ resource "kubernetes_config_map" "rds_mssql" {
   data = {
     rds_instance_endpoint = module.rds_mssql.rds_instance_endpoint
     rds_instance_address  = module.rds_mssql.rds_instance_address
+  }
+}
+
+resource "aws_db_option_group" "sqlserver_backup_restore" {
+  name                 = "${var.namespace}-sqlserver-14-backup-restore"
+  engine_name          = "sqlserver-web"
+  major_engine_version = "14.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+    option_settings {
+      name = "IAM_ROLE_ARN"
+      value  = aws_iam_role.rds_s3_backup_restore.arn
+    }
   }
 }
