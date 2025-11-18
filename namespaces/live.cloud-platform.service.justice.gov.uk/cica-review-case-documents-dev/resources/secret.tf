@@ -9,6 +9,8 @@ module "secret" {
       recovery_window_in_days = 7
       k8s_secret_name         = "cica-case-review-documents-secrets"
     },
+
+    # basic-auth is temporary for redacted demo purposes only
     "basic-auth" = {
       description             = "Temporary basic auth for CICA ingress"
       recovery_window_in_days = 7
