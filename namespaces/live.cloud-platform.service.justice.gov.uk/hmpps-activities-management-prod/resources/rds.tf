@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "activities_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -18,10 +18,12 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
+  db_max_allocated_storage    = "200"
   db_engine_version           = "17.4"
   db_engine                   = "postgres"
   performance_insights_enabled = true
   deletion_protection         = true
+  
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
@@ -77,7 +79,7 @@ resource "kubernetes_secret" "activities_api_rds" {
 }
 
 module "activities_rds_read_replica" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
