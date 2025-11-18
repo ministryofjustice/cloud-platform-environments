@@ -78,7 +78,7 @@ module "hmpps-court-case-data-migration-service" {
   github_owner                  = var.github_owner
 }
 
-module "hmpps-court-case-service-api" {
+module "hmpps-probation-in-court-automation-tests-service" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-probation-in-court-automation-tests-service"
   application                   = "hmpps-probation-in-court-automation-tests-service"
