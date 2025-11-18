@@ -130,12 +130,14 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
 }
 
 
-
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
     sid     = "AllowRDSRole"
     effect  = "Allow"
-    principals { type = "AWS", identifiers = [aws_iam_role.rds_s3_backup_restore.arn] }
+    principals = { 
+      type = "AWS"
+      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
+    }
     actions = ["s3:ListBucket"]
     resources = ["arn:aws:s3:::${var.backup_bucket}"]
   }
