@@ -191,11 +191,20 @@ spec:
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceFreeableMemoryLow
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
     - alert: RDSCPUUtilizationHigh
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 40
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 75
       for: 0m
       labels:
         severity: justice-gov-uk-production-alerts
       annotations:
-        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 40%.
+        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 75%.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSCPUUtilizationHigh
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
+    - alert: RDSCPUUtilizationConsistentlyHigh
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 50
+      for: 12h
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 50% for 12 hours.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSCPUUtilizationHigh
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
