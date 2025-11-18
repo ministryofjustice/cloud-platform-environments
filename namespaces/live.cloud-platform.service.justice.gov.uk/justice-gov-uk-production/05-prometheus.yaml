@@ -44,19 +44,19 @@ spec:
           }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
       expr: |-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[15m]) * 60 * 5 > 0
-      for: 1h
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[5m]) * 60 > 0
+      for: 5m
       labels:
         severity: justice-gov-uk-production-alerts
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
-          state for longer than an hour.
+          state for longer than 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
       expr: |-
         sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-production"}) 
         > 0
-      for: 1h
+      for: 5m
       labels:
         severity: justice-gov-uk-production-alerts
     - alert: KubeDeploymentGenerationMismatch
@@ -160,3 +160,42 @@ spec:
       for: 3m
       labels:
         severity: justice-gov-uk-production-alerts
+
+  - name: rds-rules
+    rules:
+    - alert: RDSInstanceReadIOPSHigh
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 100
+      for: 0m
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} read IOPS is above 100.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceReadIOPSHigh
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
+    - alert: RDSInstanceReadIOPSVeryHigh
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 500
+      for: 0m
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} read IOPS is above 500.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceReadIOPSVeryHigh
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
+    - alert: RDSInstanceFreeableMemoryLow
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} < 1800000000
+      for: 0m
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} freeable memory is below 1.8GiB.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceFreeableMemoryLow
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
+    - alert: RDSCPUUtilizationHigh
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 40
+      for: 0m
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 40%.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSCPUUtilizationHigh
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1

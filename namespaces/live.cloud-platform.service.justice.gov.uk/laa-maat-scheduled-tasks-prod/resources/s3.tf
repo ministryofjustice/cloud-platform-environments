@@ -35,19 +35,37 @@ module "s3_bucket" {
 
     },
     {
-      id      = "Retire Errored files after 30 days"
+      id      = "Retire Errored files after 7 days"
       enabled = true
       prefix  = "errored/"
 
       expiration = [
         {
-          days = 30
+          days = 7
         }
       ]
 
       noncurrent_version_expiration = [
         {
-          days = 30
+          days = 7
+        },
+      ]
+
+    },
+    {
+      id      = "Retire Commitals after 7 days"
+      enabled = true
+      prefix  = "maat-xhibit/committal/incoming/"
+
+      expiration = [
+        {
+          days = 7
+        }
+      ]
+
+      noncurrent_version_expiration = [
+        {
+          days = 7
         },
       ]
 
