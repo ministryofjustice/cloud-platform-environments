@@ -23,7 +23,7 @@ spec:
               > 0.9 < 1
           for: 15m
           labels:
-            severity: intranet-alerts
+            severity: intranet-staging
         - alert: KubeQuota-Exceeded
           annotations:
             message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
@@ -36,7 +36,7 @@ spec:
             > 90
           for: 15m
           labels:
-            severity: intranet-alerts
+            severity: intranet-staging
         - alert: KubePodCrashLooping
           # pint file/disable alerts/template
           annotations:
@@ -44,21 +44,21 @@ spec:
               }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
           expr: |-
-            rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="intranet-staging"}[15m]) * 60 * 5 > 0
-          for: 1h
+            rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="intranet-staging"}[5m]) * 60 > 0
+          for: 5m
           labels:
-            severity: intranet-alerts
+            severity: intranet-staging
         - alert: KubePodNotReady
           annotations:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
-              state for longer than an hour.
+              state for longer than 5 minutes.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
           expr: |-
             sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="intranet-staging"}) 
             > 0
-          for: 1h
+          for: 5m
           labels:
-            severity: intranet-alerts
+            severity: intranet-staging
         - alert: KubeDeploymentGenerationMismatch
           annotations:
             message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
@@ -71,7 +71,7 @@ spec:
             kube_deployment_metadata_generation{job="kube-state-metrics", namespace="intranet-staging"}
           for: 15m
           labels:
-            severity: intranet-alerts
+            severity: intranet-staging
 
     - name: application-rules
       rules:
@@ -107,34 +107,18 @@ spec:
 
     - name: cronjob-alerts
       rules:
-      - alert: WpCronFailures
-        expr: |
-          sum(
-            max_over_time(
-              kube_job_status_failed{
-                job_name=~"wp-cron-trigger-.*",
-                namespace="intranet-staging"
-              }[15m]
-            )
-          ) >= 3
-        for: 0s
-        labels:
-          severity: intranet-alerts
-        annotations:
-          summary: "WordPress cron job has failed 3 times in 15 minutes"
-          runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronFailures
-
       - alert: WpCronJobStuck
         expr: |
           (
-            time() - kube_cronjob_status_last_schedule_time{
+            time() - kube_cronjob_status_last_successful_time{
               cronjob="wp-cron-trigger",
               namespace="intranet-staging"
             }
           ) > 300
-        for: 2m
+          AND ON() (7 <= hour() <= 21)
+        for: 0s
         labels:
-          severity: intranet-alerts
+          severity: intranet-staging
         annotations:
-          summary: "WordPress cron job hasn't run in over 5 minutes"
+          summary: "WordPress cron job hasn't run successfully in over 5 minutes"
           runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#WpCronJobStuck

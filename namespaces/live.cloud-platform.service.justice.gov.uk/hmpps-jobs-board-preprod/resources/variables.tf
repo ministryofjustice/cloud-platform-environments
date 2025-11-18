@@ -47,7 +47,7 @@ variable "deployment_environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "managing.eswe@digital.justice.gov.uk"
+  default     = "getreadyforwork@justice.gov.uk"
 }
 
 variable "is_production" {
