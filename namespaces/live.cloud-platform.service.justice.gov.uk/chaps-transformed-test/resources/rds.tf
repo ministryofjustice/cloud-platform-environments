@@ -88,8 +88,17 @@ resource "aws_db_option_group" "sqlserver_backup_restore" {
   }
 }
 
-variable "backup_bucket" { type = string default = "tp-dbbackups"}          # e.g. "tp-dbbackups"
-variable "backup_prefix" { type = string default = "chaps-dev/" } 
+variable "backup_bucket" { 
+  type = string 
+  default = "tp-dbbackups"
+  description = "S3 bucket that stores SQL Server .bak files" 
+}        
+
+variable "backup_prefix" { 
+  type = string 
+  default = "chaps-dev/"
+  description = "Key prefix within the backup bucket" 
+} 
 
 resource "aws_iam_role" "rds_s3_backup_restore" {
   name = "${var.namespace}-rds-s3-backup-restore"
