@@ -118,7 +118,7 @@ spec:
 
     - alert: High404Rate
       annotations:
-        message: More than 15% of responses were 404 errors (during weekday working hours).
+        message: More than 50% of responses were 404 errors (during weekday working hours).
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High404Rate
         dashboard_url: >-
           https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now&var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
@@ -126,7 +126,7 @@ spec:
         sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status="404"}[1m]))
         /
         sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
-        > 0.15
+        > 0.50
         AND ON() (7 <= hour() <= 19)
         AND ON() (1 <= day_of_week() <= 5)
       for: 3m
@@ -190,12 +190,20 @@ spec:
         message: RDS instance {{ $labels.dbinstance_identifier }} freeable memory is below 1.8GiB.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSInstanceFreeableMemoryLow
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
-    - alert: RDSCPUUtilizationHigh
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 40
+    - alert: RDSCPUUtilizationSpike
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"} > 80
       for: 0m
       labels:
         severity: justice-gov-uk-production-alerts
       annotations:
-        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 40%.
+        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 75%.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSCPUUtilizationSpike
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
+    - alert: RDSCPUUtilizationHigh
+      expr: avg_over_time(aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-500c191860718eb0"}[12h]) > 50
+      labels:
+        severity: justice-gov-uk-production-alerts
+      annotations:
+        message: RDS instance {{ $labels.dbinstance_identifier }} CPU utilization is above 50% for 12 hours.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#RDSCPUUtilizationHigh
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/goto/7vJT-zmDR?orgId=1
