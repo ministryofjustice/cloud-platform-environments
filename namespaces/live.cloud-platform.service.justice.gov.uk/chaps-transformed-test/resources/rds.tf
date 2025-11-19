@@ -130,7 +130,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
       {
         Sid             = "ListBucket"
         Effect          = "Allow"
-        Action          = ["s3:ListBucket"]
+        Action          = ["s3:ListBucket", "s3:GetBucketLocation"]
         Resource        = local.bucket_arn
         Condition       = {
           StringLike    = { 
