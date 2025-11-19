@@ -1,7 +1,7 @@
 module "hmpps_template_typescript" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo = "hmpps-cosso-ui"
-  application = "hmpps-cosso-ui"
+  github_repo = "hmpps-breach-report-co-sso-ui"
+  application = "hmpps-breach-report-co-sso-ui"
   github_team = "unilink"
   environment = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["unilink_admin"] # Optional team that should review deployments to this environment.
