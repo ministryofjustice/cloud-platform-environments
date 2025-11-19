@@ -136,7 +136,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Condition       = {
           StringLike    = { 
             "s3:prefix" = [
-              format("%$*", var.backup_prefix), 
+              format("%s*", var.backup_prefix), 
               var.backup_prefix
             ]
           }
@@ -175,7 +175,7 @@ data "aws_iam_policy_document" "bucket_policy" {
       type        = "AWS"
       identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
     }
-    
+
     actions   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
     resources = [local.objects_prefix_arn]
   }
