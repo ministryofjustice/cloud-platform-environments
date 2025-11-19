@@ -100,6 +100,7 @@ variable "backup_prefix" {
   description = "Key prefix within the backup bucket" 
 } 
 
+
 resource "aws_iam_role" "rds_s3_backup_restore" {
   name = "${var.namespace}-rds-s3-backup-restore"
   assume_role_policy = jsonencode({
@@ -112,27 +113,40 @@ resource "aws_iam_role" "rds_s3_backup_restore" {
   })
 }
 
+
+locals {
+  bucket_arn         = format("arn:aws:s3:::%s", var.backup_bucket)
+  objects_prefix_arn = format("arn:aws:s3:::%s/%s*", var.backup_bucket, var.backup_prefix)
+}
+
+
 # Least-privilege inline policy: list bucket + R/W objects in the prefix
 resource "aws_iam_role_policy" "rds_s3_backup_restore" {
   name = "${var.namespace}-rds-s3-backup-restore"
   role = aws_iam_role.rds_s3_backup_restore.id
+
   policy = jsonencode({
-    Version = "2012-10-17",
+    Version   = "2012-10-17",
     Statement = [
       {
-        Sid: "ListBucket",
-        Effect: "Allow",
-        Action: ["s3:ListBucket"],
-        Resource: "arn:aws:s3:::${var.backup_bucket}",
-        Condition: {
-          StringLike: { "s3:prefix": ["${var.backup_prefix}*", "${var.backup_prefix}"] }
+        Sid             = "ListBucket"
+        Effect          = "Allow"
+        Action          = ["s3:ListBucket"]
+        Resource.       = local.bucket_arn
+        Condition       = {
+          StringLike    = { 
+            "s3:prefix" = [
+              format("%$*", var.backup_prefix), 
+              var.backup_prefix
+            ]
+          }
         }
       },
       {
-        Sid: "RWPrefix",
-        Effect: "Allow",
-        Action: ["s3:GetObject","s3:PutObject","s3:DeleteObject"],
-        Resource: "arn:aws:s3:::${var.backup_bucket}/${var.backup_prefix}*"
+        Sid      = "RWPrefix",
+        Effect   = "Allow",
+        Action   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
+        Resource = local.objects_prefix_arn
       }
     ]
   })
@@ -141,24 +155,25 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
-    sid     = "AllowRDSRole"
-    effect  = "Allow"
-    principals = { 
-      type = "AWS"
+    sid           = "AllowRDSRoleList"
+    effect        = "Allow"
+    principals    = { 
+      type        = "AWS"
       identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
     }
-    actions = ["s3:ListBucket"]
-    resources = ["arn:aws:s3:::${var.backup_bucket}"]
+    actions   = ["s3:ListBucket"]
+    resources = [local.bucket_arn]
   }
+
   statement {
-    sid     = "AllowRDSRoleObjects"
-    effect  = "Allow"
-    principals = { 
-      type = "AWS"
+    sid           = "AllowRDSRoleObjects"
+    effect        = "Allow"
+    principals    = { 
+      type        = "AWS"
       identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
     }
-    actions = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
-    resources = ["arn:aws:s3:::${var.backup_bucket}/${var.backup_prefix}*"]
+    actions   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
+    resources = [local.objects_prefix_arn]
   }
 }
 
