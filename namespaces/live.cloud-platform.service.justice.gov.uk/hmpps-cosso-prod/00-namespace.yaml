@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-cosso-notifications"
     cloud-platform.justice.gov.uk/application: "HMPPS Cosso"
     cloud-platform.justice.gov.uk/owner: "National Delius Service Team / Unilink <hmpps-unilink-delius@digital.justice.gov.uk>"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-cosso-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-breach-report-co-sso-ui"
     cloud-platform.justice.gov.uk/team-name: "unilink"
