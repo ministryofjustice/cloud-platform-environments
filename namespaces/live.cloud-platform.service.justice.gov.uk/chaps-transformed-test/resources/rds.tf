@@ -27,7 +27,6 @@ module "rds_mssql" {
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
   enable_irsa          = true 
-  apply_immediately    = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
