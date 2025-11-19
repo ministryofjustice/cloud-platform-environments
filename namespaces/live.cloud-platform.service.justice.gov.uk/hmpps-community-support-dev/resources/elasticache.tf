@@ -23,6 +23,7 @@ module "elasticache_redis" {
   providers = {
     aws = aws.london
   }
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "elasticache_redis" {
