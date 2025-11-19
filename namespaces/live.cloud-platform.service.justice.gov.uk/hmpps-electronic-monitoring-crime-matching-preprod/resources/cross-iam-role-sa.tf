@@ -6,9 +6,11 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     {
-      ssm = aws_iam_policy.ssm_access.arn,
+      ssm = aws_iam_policy.ssm_access.arn
       athena = aws_iam_policy.athena_access.arn
-      rds = module.rds.irsa_policy_arn,
+      rds = module.rds.irsa_policy_arn
+      email_notifications_queue = module.email_notifications_queue.irsa_policy_arn
+      email_notifications_dlq = module.email_notifications_dlq.irsa_policy_arn
     }
   )
 
