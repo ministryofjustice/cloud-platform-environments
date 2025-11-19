@@ -71,3 +71,6 @@ variable "domain" {
   default = "crime-matching-preprod.electronic-monitoring.service.justice.gov.uk"
 }
 
+variable "email_bucket_name" {
+  default = "electronic-monitoring-police-emails-preprod"
+}
