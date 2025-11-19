@@ -26,6 +26,7 @@ module "rds_mssql" {
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
+  enable_irsa          = true 
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -46,8 +47,6 @@ module "rds_mssql" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds_mssql" {
@@ -131,7 +130,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
       {
         Sid             = "ListBucket"
         Effect          = "Allow"
-        Action          = ["s3:ListBucket"]
+        Action          = ["s3:ListBucket", "s3:GetBucketLocation"]
         Resource        = local.bucket_arn
         Condition       = {
           StringLike    = { 
@@ -150,38 +149,4 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
       }
     ]
   })
-}
-
-
-data "aws_iam_policy_document" "bucket_policy" {
-  statement {
-    sid           = "AllowRDSRoleList"
-    effect        = "Allow"
-    
-    principals { 
-      type        = "AWS"
-      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
-    }
-
-    actions   = ["s3:ListBucket"]
-    resources = [local.bucket_arn]
-  }
-
-  statement {
-    sid           = "AllowRDSRoleObjects"
-    effect        = "Allow"
-
-    principals { 
-      type        = "AWS"
-      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
-    }
-
-    actions   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
-    resources = [local.objects_prefix_arn]
-  }
-}
-
-resource "aws_s3_bucket_policy" "backup_bucket" {
-  bucket = var.backup_bucket
-  policy = data.aws_iam_policy_document.bucket_policy.json
 }
