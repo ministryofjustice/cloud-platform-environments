@@ -40,6 +40,8 @@ resource "kubernetes_secret" "event_audit_dynamodb" {
   }
 }
 
+# The event_audit_db_access policy is not currently in use (not referenced in irsa.tf)
+# but is retained here, for now, to enable convenient switching back.
 data "aws_iam_policy_document" "event_audit_db_access" {
   statement {
     actions   = [
