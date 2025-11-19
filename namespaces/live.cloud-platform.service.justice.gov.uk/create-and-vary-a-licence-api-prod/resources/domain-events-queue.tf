@@ -107,7 +107,7 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "create-and-vary-a-licence.invalid-event",
+      "person.community.manager.allocated",
     ]
   })
 }
