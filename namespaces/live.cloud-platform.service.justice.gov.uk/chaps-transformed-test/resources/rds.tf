@@ -48,8 +48,6 @@ module "rds_mssql" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds_mssql" {
