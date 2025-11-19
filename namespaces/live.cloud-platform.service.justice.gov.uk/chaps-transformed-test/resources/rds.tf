@@ -132,7 +132,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Sid             = "ListBucket"
         Effect          = "Allow"
         Action          = ["s3:ListBucket"]
-        Resource.       = local.bucket_arn
+        Resource        = local.bucket_arn
         Condition       = {
           StringLike    = { 
             "s3:prefix" = [
