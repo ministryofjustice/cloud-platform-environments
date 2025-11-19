@@ -26,6 +26,8 @@ module "rds_mssql" {
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
+  enable_irsa          = true 
+  apply_immediately    = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -150,38 +152,4 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
       }
     ]
   })
-}
-
-
-data "aws_iam_policy_document" "bucket_policy" {
-  statement {
-    sid           = "AllowRDSRoleList"
-    effect        = "Allow"
-    
-    principals { 
-      type        = "AWS"
-      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
-    }
-
-    actions   = ["s3:ListBucket"]
-    resources = [local.bucket_arn]
-  }
-
-  statement {
-    sid           = "AllowRDSRoleObjects"
-    effect        = "Allow"
-
-    principals { 
-      type        = "AWS"
-      identifiers = [aws_iam_role.rds_s3_backup_restore.arn] 
-    }
-
-    actions   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
-    resources = [local.objects_prefix_arn]
-  }
-}
-
-resource "aws_s3_bucket_policy" "backup_bucket" {
-  bucket = var.backup_bucket
-  policy = data.aws_iam_policy_document.bucket_policy.json
 }
