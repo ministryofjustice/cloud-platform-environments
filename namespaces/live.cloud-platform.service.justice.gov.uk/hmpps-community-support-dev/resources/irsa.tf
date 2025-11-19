@@ -7,9 +7,7 @@ module "irsa" {
   namespace              = var.namespace
   service_account_name   = "hmpps-community-support"
 
-  role_policy_arns = {
-    elasticache = module.elasticache_redis.irsa_policy_arn
-  }
+  role_policy_arns = {}
 
   # Tags
   business_unit          = var.business_unit
