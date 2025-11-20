@@ -40,6 +40,8 @@ resource "kubernetes_secret" "event_audit_dynamodb" {
   }
 }
 
+# The event_audit_db_access policy is not currently in use (not referenced in irsa.tf)
+# but is retained here, for now, to enable convenient switching back.
 data "aws_iam_policy_document" "event_audit_db_access" {
   statement {
     actions   = [
@@ -58,4 +60,18 @@ resource "aws_iam_policy" "event_auditdb_policy" {
   name        = "${var.namespace}-event_auditdb_policy"
   description = "Grants R/W access to specified DynamoDB table"
   policy      = data.aws_iam_policy_document.event_audit_db_access.json
+}
+
+data "aws_iam_policy_document" "event_audit_db_write_only_access" {
+  statement {
+    actions   = [
+      "dynamodb:PutItem"
+    ]
+    resources = [module.event_audit_dynamodb.table_arn]
+  }
+}
+resource "aws_iam_policy" "event_auditdb_write_only_policy" {
+  name        = "${var.namespace}-event_auditdb_write_only_policy"
+  description = "Grants write-access to specified DynamoDB table"
+  policy      = data.aws_iam_policy_document.event_audit_db_write_only_access.json
 }
