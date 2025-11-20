@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-finance-sync-cert
+  namespace: hmpps-prisoner-finance-sync-dev
+spec:
+  secretName: hmpps-prisoner-finance-sync-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-finance-sync-api-dev.hmpps.service.justice.gov.uk
