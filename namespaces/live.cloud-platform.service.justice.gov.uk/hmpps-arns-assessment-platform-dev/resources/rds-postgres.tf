@@ -36,7 +36,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
+  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -86,11 +86,19 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    database_name         = module.read_replica.database_name
+    database_username     = module.read_replica.database_username
+    database_password     = module.read_replica.database_password
+    rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
 
@@ -106,5 +114,17 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+resource "kubernetes_config_map" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.read_replica.database_name
+    db_identifier = module.read_replica.db_identifier
   }
 }
