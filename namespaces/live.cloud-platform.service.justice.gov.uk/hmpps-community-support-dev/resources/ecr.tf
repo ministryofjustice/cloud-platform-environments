@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-community-support-ui"]
+  github_repositories = ["hmpps-community-support-ui","hmpps-community-support-api"]
 
   # Tags
   business_unit          = var.business_unit
