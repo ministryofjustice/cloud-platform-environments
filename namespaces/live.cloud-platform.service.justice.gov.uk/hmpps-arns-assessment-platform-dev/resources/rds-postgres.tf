@@ -53,6 +53,14 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true
+  db_password_rotated_date     = "2025-09-24"
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "16"
@@ -66,6 +74,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
