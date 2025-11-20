@@ -94,11 +94,11 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    database_name         = module.read_replica.database_name
-    database_username     = module.read_replica.database_username
-    database_password     = module.read_replica.database_password
-    rds_instance_address  = module.read_replica.rds_instance_address
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
 }
 
@@ -124,7 +124,7 @@ resource "kubernetes_config_map" "read_replica" {
   }
 
   data = {
-    database_name = module.read_replica.database_name
-    db_identifier = module.read_replica.db_identifier
+    database_name = module.read_replica[0].database_name
+    db_identifier = module.read_replica[0].db_identifier
   }
 }
