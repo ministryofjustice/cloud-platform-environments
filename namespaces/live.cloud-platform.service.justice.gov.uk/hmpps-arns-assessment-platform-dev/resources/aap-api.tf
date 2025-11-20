@@ -8,6 +8,7 @@ source                          = "github.com/ministryofjustice/cloud-platform-t
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
+  selected_branch_patterns      = ["*"]
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
