@@ -27,7 +27,7 @@ resource "aws_route53_record" "crime_matching_amazonses_mx" {
 
 # SES Receipt Rules to define actions when email is ingested
 resource "aws_ses_receipt_rule_set" "main" {
-  rule_set_name = "email-ingestion-rules"
+  rule_set_name = "email-ingestion-rules-${var.environment}"
 }
 
 resource "aws_ses_receipt_rule" "store_email" {
