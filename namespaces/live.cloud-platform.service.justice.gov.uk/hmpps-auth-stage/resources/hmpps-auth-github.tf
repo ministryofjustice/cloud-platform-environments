@@ -4,7 +4,7 @@ module "hmpps-auth" {
   application                   = "hmpps-auth"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
@@ -20,7 +20,7 @@ module "hmpps-manage-users-ui" {
   application                   = "hmpps-manage-users"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
@@ -36,7 +36,7 @@ module "hmpps-manage-users-api" {
   application                   = "hmpps-manage-users-api"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
@@ -52,7 +52,7 @@ module "hmpps-external-users-api" {
   application                   = "hmpps-external-users-api"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
@@ -68,7 +68,7 @@ module "nomis-user-roles-api" {
   application                   = "nomis-user-roles-api"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
@@ -84,7 +84,7 @@ module "token-verification-api" {
   application                   = "token-verification-api"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = "dev"
