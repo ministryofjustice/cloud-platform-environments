@@ -36,7 +36,7 @@ module "irsa_av" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "justice-gov-uk-dev-av"
+  service_account_name = "s3-av-serviceaccount"
   namespace            = var.namespace
 
   role_policy_arns = {
