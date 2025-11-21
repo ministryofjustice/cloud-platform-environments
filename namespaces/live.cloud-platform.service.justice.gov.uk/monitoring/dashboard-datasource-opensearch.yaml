@@ -1,0 +1,4606 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-datasource-opensearch
+  labels:
+    grafana_dashboard: ""
+data:
+  datasource-opensearch-dashboard.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "Visualize Amazon OpenSearch metrics",
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": 273,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 27,
+          "panels": [],
+          "title": "Overall Health",
+          "type": "row"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Indicates shard allocation status.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "ClusterStatus.green_Maximum"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-green",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "ClusterStatus.red_Maximum"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "ClusterStatus.yellow_Maximum"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 0,
+            "y": 1
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "Green",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ClusterStatus.green",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "Yellow",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ClusterStatus.yellow",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "Red",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ClusterStatus.red",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            }
+          ],
+          "title": "Cluster Status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Indicates whether the cluster is accepting or blocking write requests. If your cluster is blocking write requests, check storage space, JVM memory pressure and CPU utilization.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 4,
+            "y": 1
+          },
+          "id": 5,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": true,
+              "id": "m3",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ClusterIndexWritesBlocked",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "Green",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "(m3*(-1))+1",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "alias": "Red",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "m3*2",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Cluster Writes Status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Indicates where data nodes can reach the master node. Failures are usually the result of a network connectivity problem.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 8,
+            "y": 1
+          },
+          "id": 56,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": true,
+              "id": "m3",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "MasterReachableFromNode",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "Green",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "m3",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "alias": "Red",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "(m3*(-2))+2",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Master instance connection status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Failure indicate that no automated snapshot has succeeded in the past 36 hours.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "max": 2,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 12,
+            "y": 1
+          },
+          "id": 25,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": true,
+              "id": "m3",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "AutomatedSnapshotFailure",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "Green",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "(m3*(-1))+1",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "alias": "Red",
+              "datasource": "$datasource",
+              "dimensions": {},
+              "expression": "m3*2",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 1,
+              "metricName": "",
+              "metricQueryType": 0,
+              "namespace": "",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Snapshot failure status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The total number of nodes for your cluster. This metric can increase (often doubling) during configuration changes and service software updates.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 16,
+            "y": 1
+          },
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "Nodes",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Minimum"
+            }
+          ],
+          "title": "Total nodes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The total number of searchable documents across all indices in the cluster.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 20,
+            "y": 1
+          },
+          "id": 22,
+          "interval": "1m",
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SearchableDocuments",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Searchable documents",
+          "type": "stat"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 6
+          },
+          "id": 29,
+          "panels": [],
+          "title": "Service Performance",
+          "type": "row"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The number of indexing and search operations per minute. \n\nA single call to the _bulk API that adds two documents and updates two counts as four operations plus four additional operations per replica. Document deletions do not towards this metric.\n\nA single call to the _search API that returns results from five shards counts as five operations.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 7
+          },
+          "id": 20,
+          "interval": "30s",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "IndexingRate",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SearchRate",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Rate",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The average time that it takes a shard to complete a search or index operation.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 7
+          },
+          "id": 33,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "IndexingLatency",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SearchLatency",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The number of requests to a domain, aggregated by HTTP response code (2xx, 3xx, 4xx, 5xx).",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "hue",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 0,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "2XX"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-green",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "3XX"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-blue",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "4XX"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "5XX"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 7
+          },
+          "id": 34,
+          "options": {
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": true,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "2XX",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "2XX",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "2xx",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "D",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "alias": "3XX",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "3XX",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "3xx",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "alias": "4XX",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "4XX",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "4xx",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "alias": "5XX",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "5XX",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "5xx",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            }
+          ],
+          "title": "Errors",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 14
+          },
+          "id": 70,
+          "panels": [],
+          "title": "Cluster Usage",
+          "type": "row"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Maximum CPU utilization percentage for all data nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 15
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "CPUUtilization",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "CPUUtilization",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "CPUUtilization",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            }
+          ],
+          "title": "CPU Utilization ",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Disk read and write operations per second",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 15
+          },
+          "id": 73,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "WriteIOPS",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ReadIOPS",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            }
+          ],
+          "title": "IOPS",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The total amount of free storage space, accross all data nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 3,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "decmbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 15
+          },
+          "id": 21,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "FreeStorageSpace",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            }
+          ],
+          "title": "Total free storage space",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Maximum JVM memory pressure percentage for all data nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 0,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 22
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "JVMMemoryPressure",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "id": "",
+              "label": "JVMMemoryPressure",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "JVMMemoryPressure",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            }
+          ],
+          "title": "JVMMemoryPressure",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "Disk read and write throughput",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 100,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Bps"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Red"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 22
+          },
+          "id": 75,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "WriteThroughput",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            },
+            {
+              "alias": "",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ReadThroughput",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Maximum"
+            }
+          ],
+          "title": "Throughput",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "$datasource",
+          "description": "The amount of free storage space on the data node with the smallest amount of free storage space in the cluster.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 2,
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "decmbytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 22
+          },
+          "id": 39,
+          "interval": "1m",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "targets": [
+            {
+              "alias": "FreeStorageSpace",
+              "datasource": "$datasource",
+              "dimensions": {
+                "ClientId": "$clientId",
+                "DomainName": "$domainName"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "FreeStorageSpace",
+              "metricQueryType": 0,
+              "namespace": "AWS/ES",
+              "period": "1m",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "$region",
+              "sqlExpression": "",
+              "statistic": "Minimum"
+            }
+          ],
+          "title": "Minimum free storage space",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 29
+          },
+          "id": 38,
+          "panels": [
+            {
+              "datasource": "$datasource",
+              "description": "Maximum CPU utilization percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 0,
+                "y": 31
+              },
+              "id": 60,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmCPUUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "CPUUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "CPU Utilization ",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Maximum JVM memory pressure percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 8,
+                "y": 31
+              },
+              "id": 61,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmJVMMemoryPressure",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "JVMMemoryPressure",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "JVM Memory Pressure",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Maximum memory usage percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 10,
+                "w": 8,
+                "x": 16,
+                "y": 31
+              },
+              "id": 40,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "SysMemoryUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "SysMemoryUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "1m",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "System Memory Utilization",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The amount of time, in milliseconds that the cluster has spent performing \"Young generation\" garbage collection.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "opacity",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "normal"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 2,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ms"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 0,
+                "y": 41
+              },
+              "id": 44,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "JVMGCYoungCollectionTime",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "JVMGCYoungCollectionTime",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "JVMGCYoungCollectionTime",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Young Collection Time",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The number of times that \"Young generation\" garbage collection has run. A large number if runs is a normal part of cluster operations. ",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 41
+              },
+              "id": 41,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "JVMGCYoungCollectionCount",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "JVMGCYoungCollectionCount",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "JVMGCYoungCollectionCount",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Young Collection",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The amount of time, in milliseconds that the cluster has spent performing \"Old generation\" garbage collection.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "opacity",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "normal"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 2,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      }
+                    ]
+                  },
+                  "unit": "ms"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 12,
+                "y": 41
+              },
+              "id": 80,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "JVMGCOldCollectionTime",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "JVMGCOldCollectionTime",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "JVMGCOldCollectionTime",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Old Collection Time",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The number of times that \"Old generation\" garbage collection has run. A large number if runs is a normal part of cluster operations. ",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 18,
+                "y": 41
+              },
+              "id": 78,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "JVMGCYoungCollectionCount",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "JVMGCOldCollectionCount",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Old Collection",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Data Instances",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 30
+          },
+          "id": 59,
+          "panels": [
+            {
+              "datasource": "$datasource",
+              "description": "Maximum CPU utilization percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 0,
+                "y": 74
+              },
+              "id": 76,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmCPUUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "WarmCPUUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum CPU Utilization ",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Maximum JVM memory pressure percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 74
+              },
+              "id": 77,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmJVMMemoryPressure",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "WarmJVMMemoryPressure",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum JVMMemoryPressure",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The amount of free storage space on the data node with the smallest amount of free storage space in the cluster.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 2,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "decmbytes"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 12,
+                "y": 74
+              },
+              "id": 62,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmFreeStorageSpace",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "hide": false,
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "WarmFreeStorageSpace",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "1m",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Minimum"
+                }
+              ],
+              "title": "Minimum free storage space",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Maximum memory usage percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 18,
+                "y": 74
+              },
+              "id": 63,
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "max"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "WarmSysMemoryUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "WarmSysMemoryUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "1m",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum Memory Utilization",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Warm Instances",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 31
+          },
+          "id": 31,
+          "panels": [
+            {
+              "datasource": "$datasource",
+              "description": "CPU utilization percentage for the master node.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 0,
+                "y": 75
+              },
+              "id": 3,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "MasterCPUUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "MasterCPUUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum CPU Utilization",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "JVM memory pressure percentage for the master node.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 75
+              },
+              "id": 36,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "MasterJVMMemoryPressure",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "MasterJVMMemoryPressure",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum JVMMemoryPressure",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "The amount of free storage space on the data node with the smallest amount of free storage space in the cluster.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 2,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "decmbytes"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 12,
+                "y": 75
+              },
+              "id": 67,
+              "interval": "1m",
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "MasterFreeStorageSpace",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "hide": false,
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "MasterFreeStorageSpace",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "1m",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Minimum"
+                }
+              ],
+              "title": "Minimum free storage space",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Maximum memory usage percentage for all data nodes.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "links": [],
+                  "mappings": [],
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percent"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 18,
+                "y": 75
+              },
+              "id": 68,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "MasterSysMemoryUtilization",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName",
+                    "NodeId": "*"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "MasterSysMemoryUtilization",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "1m",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Maximum Memory Utilization",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Dedicated Master Instances",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 32
+          },
+          "id": 51,
+          "panels": [
+            {
+              "datasource": "$datasource",
+              "description": "Metrics for the write thread pool: number of threads, tasks in the queue and rejected tasks. If the queue size is consistently high or rejected count is high, consider scaling your cluster.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Queue Depth"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-green",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Rejected Count"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-blue",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-yellow",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 0,
+                "y": 48
+              },
+              "id": 8,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "ThreadCount",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolWriteThreads",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Queue Depth",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolWriteQueue",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "B",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Rejected Count",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolWriteRejected",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "C",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Write Thread Pool",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Metrics for search thread pool: number of threads tasks in the queue and rejected tasks. If the queue size is consistently high or rejected count is high, consider scaling your cluster.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Queue Depth"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-green",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Rejected Count"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-blue",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-yellow",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 48
+              },
+              "id": 15,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "ThreadCount",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "ThreadCount",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolSearchThreads",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Queue Depth",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "Queue Depth",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolSearchQueue",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "B",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Rejected Count",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "label": "Rejected Count",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolSearchRejected",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "C",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Search Thread Pool",
+              "type": "timeseries"
+            },
+            {
+              "datasource": "$datasource",
+              "description": "Metrics for the force merge thread pool: number of threads tasks in the queue and rejected tasks. If the queue size is consistently high or rejected count is high, consider scaling your cluster.",
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 0,
+                  "links": [],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Queue Depth"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-green",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Rejected Count"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-blue",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "dark-yellow",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "ThreadCount"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 12,
+                "y": 48
+              },
+              "id": 47,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "targets": [
+                {
+                  "alias": "ThreadCount",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolForce_mergeThreads",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "A",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Queue Depth",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolForce_mergeQueue",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "B",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                },
+                {
+                  "alias": "Rejected Count",
+                  "datasource": "$datasource",
+                  "dimensions": {
+                    "ClientId": "$clientId",
+                    "DomainName": "$domainName"
+                  },
+                  "expression": "",
+                  "id": "",
+                  "matchExact": true,
+                  "metricEditorMode": 0,
+                  "metricName": "ThreadpoolForce_mergeRejected",
+                  "metricQueryType": 0,
+                  "namespace": "AWS/ES",
+                  "period": "",
+                  "queryMode": "Metrics",
+                  "refId": "C",
+                  "region": "$region",
+                  "sqlExpression": "",
+                  "statistic": "Maximum"
+                }
+              ],
+              "title": "Merge Thread Pool",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Thread Pools",
+          "type": "row"
+        }
+      ],
+      "preload": false,
+      "refresh": "1m",
+      "schemaVersion": 40,
+      "tags": [
+        "AWS",
+        "AWSElasticSearch",
+        "OpenSearch",
+        "CloudWatch"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "text": "Cloudwatch-Datasource",
+              "value": "Cloudwatch-Datasource"
+            },
+            "includeAll": false,
+            "label": "Datasource",
+            "name": "datasource",
+            "options": [],
+            "query": "cloudwatch",
+            "refresh": 1,
+            "regex": "",
+            "type": "datasource"
+          },
+          {
+            "current": {
+              "text": "default",
+              "value": "default"
+            },
+            "datasource": "$datasource",
+            "definition": "regions()",
+            "includeAll": false,
+            "label": "Region",
+            "name": "region",
+            "options": [],
+            "query": "regions()",
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": "cp-live-app-logs",
+              "value": "cp-live-app-logs"
+            },
+            "datasource": "$datasource",
+            "definition": "dimension_values($region, AWS/ES, ClusterStatus.green, DomainName)\t",
+            "includeAll": false,
+            "label": "DomainName",
+            "name": "domainName",
+            "options": [],
+            "query": "dimension_values($region, AWS/ES, ClusterStatus.green, DomainName)\t",
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": "754256621582",
+              "value": "754256621582"
+            },
+            "datasource": "$datasource",
+            "definition": "dimension_values($region, AWS/ES, ClusterStatus.green, ClientId)",
+            "includeAll": false,
+            "label": "ClientId",
+            "name": "clientId",
+            "options": [],
+            "query": "dimension_values($region, AWS/ES, ClusterStatus.green, ClientId)",
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "AWS OpenSearch",
+      "uid": "eCN_s8yWk",
+      "version": 2,
+      "weekStart": ""
+    }
