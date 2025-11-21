@@ -1,0 +1,23 @@
+module "irsa" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = var.namespace-short
+  namespace            = var.namespace
+  role_policy_arns = merge(
+    local.sqs_policies,
+    {
+      rds = module.rds.irsa_policy_arn
+      email_notifications_queue = module.email_notifications_queue.irsa_policy_arn
+      email_notifications_dlq = module.email_notifications_dlq.irsa_policy_arn
+      matching_notifications_topic = module.matching_notifications_topic.irsa_policy_arn
+    }
+  )
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
