@@ -7,6 +7,10 @@ module "irsa" {
     local.sqs_policies,
     {
       rds = module.rds.irsa_policy_arn
+      email_notifications_queue = module.email_notifications_queue.irsa_policy_arn
+      email_notifications_dlq = module.email_notifications_dlq.irsa_policy_arn
+      matching_notifications_topic = module.matching_notifications_topic.irsa_policy_arn
+    }
     }
   )
 
