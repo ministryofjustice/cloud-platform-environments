@@ -11,7 +11,6 @@ module "irsa" {
       email_notifications_dlq = module.email_notifications_dlq.irsa_policy_arn
       matching_notifications_topic = module.matching_notifications_topic.irsa_policy_arn
     }
-    }
   )
 
   # Tags
