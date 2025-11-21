@@ -10,4 +10,5 @@ module "sqs_queue" {
   namespace                         = var.namespace
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
+  visibility_timeout_seconds        = 600
 }
