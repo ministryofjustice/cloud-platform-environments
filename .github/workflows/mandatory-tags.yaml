@@ -1,0 +1,55 @@
+name: Mandatory Tags Check
+
+on:
+  pull_request:
+    paths:
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/templates/*.yaml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/templates/*.yml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/templates/*.yaml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/templates/*.yml
+  workflow_dispatch:
+    
+permissions:
+  pull-requests: write
+
+jobs:
+  mandatory-tags-check:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Mandatory Tags Check
+        id: mandatory-tags
+        continue-on-error: true
+        run: go run main.go -namespace abundant-namespace-dev -branch update-template-default-tags -v 
+
+      - name: Fail if Mandatory Tags Check failed
+        if: ${{ steps.mandatory-tags.outcome == 'failure' }}
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              event: 'REQUEST_CHANGES',
+              body: '❌ Mandatory Tags Check failed. Please ensure all required tags are present, 
+              Link to documentation: https://example.com/mandatory-tags.'
+            })
+      
+      - name: Success if Mandatory Tags Check passed
+        if: ${{ steps.mandatory-tags.outcome == 'success' }}
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: '✅ Mandatory Tags Check passed. All required tags are present.'
+            })
