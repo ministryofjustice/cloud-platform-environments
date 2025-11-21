@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hmpps-electronic-monitoring-crime-matching-preprod
+  name: hmpps-electronic-monitoring-crime-matching-prod
   labels:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "prod"
