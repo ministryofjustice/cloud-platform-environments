@@ -79,4 +79,31 @@ resource "aws_iam_policy" "s3_cross_bucket_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
-  
+
+data "aws_iam_policy_document" "cloudfront_access_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudfront:GetDistribution",
+      "cloudfront:ListDistributions",
+      "cloudfront:CreateInvalidation",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "cloudfront_access_policy" {
+  name   = "hale-platform-dev-cloudfront-access-policy"
+  policy = data.aws_iam_policy_document.cloudfront_access_policy.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
