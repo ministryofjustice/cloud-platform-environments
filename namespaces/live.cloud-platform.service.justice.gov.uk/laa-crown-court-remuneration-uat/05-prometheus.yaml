@@ -206,3 +206,12 @@ spec:
         message: "CCR UAT - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-uat"
+
+    - alert: CCR-Supplier-Get-Errors
+      expr: increase(supplier_get_errors_total{namespace="laa-crown-court-remuneration-uat"}[5m]) > 0
+      labels:
+        severity: laa_ccr_uat
+      annotations:
+        message: CCR UAT - {{ printf "%0.0f" $value }} new error in the retrieval and insertion of suppliers the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-uat"
