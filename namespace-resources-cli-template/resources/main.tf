@@ -13,6 +13,7 @@ provider "aws" {
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }
@@ -30,6 +31,7 @@ provider "aws" {
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }
@@ -47,6 +49,7 @@ provider "aws" {
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
     }

@@ -5,13 +5,7 @@ metadata:
   namespace: hmpps-feature-flags-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-lead-developers"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:manage-a-workforce"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:probation-integration"
+    name: "github:hmpps-feature-flag-admins"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
