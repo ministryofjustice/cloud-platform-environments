@@ -234,4 +234,3 @@ spec:
       for: 0m
       labels:
         severity: justice-gov-uk-production-alerts
-  
