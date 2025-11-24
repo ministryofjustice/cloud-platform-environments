@@ -182,7 +182,7 @@ resource "aws_route53_record" "hmpps_crime_matching_preprod_zone" {
 
 resource "aws_route53_record" "hmpps_crime_matching_prod_zone" {
   zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "crime-matching-prod.${var.domain}"
+  name    = "crime-matching.${var.domain}"
   type    = "NS"
   ttl     = "600"
   records = ["ns-1426.awsdns-50.org.", "ns-1959.awsdns-52.co.uk.", "ns-231.awsdns-28.com.", "ns-855.awsdns-42.net."]
