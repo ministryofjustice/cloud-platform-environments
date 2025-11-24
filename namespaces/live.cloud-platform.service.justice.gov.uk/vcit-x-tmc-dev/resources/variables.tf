@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "vcitwebapp-dev"
+  default     = "vcit-x-tmc-dev"
 }
 
 variable "business_unit" {
