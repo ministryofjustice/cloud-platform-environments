@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-prisoner-finance-sync-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-prisoner-finance"
+    name: "github:hmpps-prisoner-finance-dev"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
