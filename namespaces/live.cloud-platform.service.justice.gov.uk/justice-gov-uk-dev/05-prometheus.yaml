@@ -72,3 +72,17 @@ spec:
       for: 15m
       labels:
         severity: justice-gov-uk-alerts
+
+  - name: s3-antivirus-scan
+    rules:
+    - alert: S3AntiVirusCronJobFailed
+      annotations:
+        message: An scheduled antivirus job in namespace {{ $labels.namespace }} has failed. Click the Dashboard link for to view the logs.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/5124292758/Alerts+PHP+NodeJS+runbooks#S3AntiVirusJobFailed
+        summary: S3 Antivirus Scan CronJob has failed.
+        dashboard_url: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(kubernetes.container_name,log),isDirty:!f,sort:!()),metadata:(indexPattern:bb90f230-0d2e-11ef-bf63-53113938c53a,view:discover))&_g=(time:(from:now-7d,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.namespace_name,negate:!f,params:(query:justice-gov-uk-dev),type:phrase),query:(match_phrase:(kubernetes.namespace_name:justice-gov-uk-dev))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.container_name,negate:!f,params:(query:s3-antivirus-scan),type:phrase),query:(match_phrase:(kubernetes.container_name:s3-antivirus-scan)))))
+      expr: |
+        kube_job_failed{namespace="justice-gov-uk-dev",job_name=~"s3-antivirus-scan-weekly.*"} > 0
+      for: 0m
+      labels:
+        severity: justice-gov-uk-dev-alerts
