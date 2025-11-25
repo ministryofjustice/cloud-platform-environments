@@ -88,6 +88,9 @@ data "aws_iam_policy_document" "cloudfront_access_policy" {
       "cloudfront:GetDistribution",
       "cloudfront:ListDistributions",
       "cloudfront:CreateInvalidation",
+      "cloudfront:GetInvalidation",
+      "cloudfront:ListInvalidations",
+      "cloudfront:GetCachePolicy"
     ]
     resources = [
       "*"
