@@ -179,3 +179,11 @@ resource "aws_route53_record" "hmpps_crime_matching_preprod_zone" {
   ttl     = "600"
   records = ["ns-1329.awsdns-38.org.", "ns-1921.awsdns-48.co.uk.", "ns-164.awsdns-20.com.", "ns-981.awsdns-58.net."]
 }
+
+resource "aws_route53_record" "hmpps_crime_matching_prod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "crime-matching.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1146.awsdns-15.org.", "ns-1558.awsdns-02.co.uk.", "ns-291.awsdns-36.com.", "ns-676.awsdns-20.net."]
+}
