@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "probation-recruitment-merit-list"
     cloud-platform.justice.gov.uk/owner: "people-analytics: peopleanalytics@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/probation-recruitment-merit-list"
-    cloud-platform.justice.gov.uk/team-name: "probation-recruitment-merit-list-admin"
+    cloud-platform.justice.gov.uk/team-name: "probation-recruitment-merit-list-admins"
     cloud-platform.justice.gov.uk/review-after: "25-May-26"
