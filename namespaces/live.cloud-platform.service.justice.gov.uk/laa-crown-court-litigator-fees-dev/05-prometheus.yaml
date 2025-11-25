@@ -208,7 +208,7 @@ spec:
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-dev"
 
     - alert: CCLF-Supplier-Get-Errors
-      expr: increase(supplier_get_errors{namespace="laa-crown-court-litigator-fees-dev"}[5m]) > 0
+      expr: increase(supplier_get_errors_total{namespace="laa-crown-court-litigator-fees-dev"}[5m]) > 0
       labels:
         severity: laa-crown-court-litigator-fees-dev
       annotations:
