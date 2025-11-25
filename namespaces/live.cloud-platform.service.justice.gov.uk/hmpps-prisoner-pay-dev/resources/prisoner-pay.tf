@@ -36,7 +36,7 @@ module "hmpps_prisoner_pay_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-prisoner-pay-ui"
   application = "hmpps-prisoner-pay-ui"
-  github_team = "hmpps-sre"
+  github_team = "activities-and-appointments"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
    reviewer_teams                = ["activities-and-appointments","activities-and-appointments-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
