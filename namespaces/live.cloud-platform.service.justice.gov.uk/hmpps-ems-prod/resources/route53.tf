@@ -185,5 +185,5 @@ resource "aws_route53_record" "hmpps_crime_matching_prod_zone" {
   name    = "crime-matching.${var.domain}"
   type    = "NS"
   ttl     = "600"
-  records = ["ns-1426.awsdns-50.org.", "ns-1959.awsdns-52.co.uk.", "ns-231.awsdns-28.com.", "ns-855.awsdns-42.net."]
+  records = ["ns-1146.awsdns-15.org.", "ns-1558.awsdns-02.co.uk.", "ns-291.awsdns-36.com.", "ns-676.awsdns-20.net."]
 }
