@@ -9,10 +9,9 @@ module "court_case_service_rds" {
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
   is_production               = var.is_production
-  prepare_for_major_upgrade   = true
-  allow_major_version_upgrade = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "14.13"
+  db_engine_version           = "14.17"
   db_instance_class           = "db.t4g.xlarge"
   rds_family                  = "postgres14"
   db_allocated_storage        = "35"
