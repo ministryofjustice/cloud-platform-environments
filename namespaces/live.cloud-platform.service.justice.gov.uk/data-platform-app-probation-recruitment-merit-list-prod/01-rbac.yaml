@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-probation-recruitment-merit-list-prod
 subjects:
   - kind: Group
-    name: "github:probation-recruitment-merit-list-admin"
+    name: "github:probation-recruitment-merit-list-admins"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:analytics-hq"
