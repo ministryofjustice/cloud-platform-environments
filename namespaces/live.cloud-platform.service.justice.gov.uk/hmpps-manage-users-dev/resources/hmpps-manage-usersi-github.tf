@@ -30,7 +30,7 @@ module "hmpps-manage-users-api" {
   kubernetes_cluster            = var.kubernetes_cluster
 }
 
-module "hmpps-manage-users" {
+module "hmpps-manage-users-temp-rewrite" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-manage-users-temp-rewrite"
   application                   = "hmpps-manage-users-temp-rewrite"
