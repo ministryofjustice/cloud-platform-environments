@@ -1,0 +1,40 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-pay-ui-cert
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  secretName: prisoner-pay-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-pay-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-pay-api-cert
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  secretName: prisoner-pay-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-pay-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-pay-orchestrator-api-cert
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  secretName: prisoner-pay-orchestrator-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-pay-orchestrator-api-dev.hmpps.service.justice.gov.uk
