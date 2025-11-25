@@ -6,8 +6,8 @@ resource "aws_kinesis_firehose_delivery_stream" "extended_s3_stream" {
   extended_s3_configuration {
     role_arn            = aws_iam_role.firehose_role.arn
     bucket_arn          = module.track_a_move_s3_bucket.bucket_arn
-    buffer_size         = 5
-    buffer_interval     = 300
+    buffering_size      = 5
+    buffering_interval  = 300
     prefix              = "${local.suppliers[count.index]}/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
     error_output_prefix = "error/"
   }
