@@ -32,6 +32,12 @@ variable "team_name" {
   default     = "laa-get-access"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information & Advice"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
