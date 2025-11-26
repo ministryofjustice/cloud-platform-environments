@@ -23,6 +23,11 @@ variable "team_name" {
   default     = "activities-and-appointments"
 }
 
+variable "service_area" {
+  description = "The Service Area in which this namespace is owned"
+  default     = "Activities and Visits"
+}
+
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
