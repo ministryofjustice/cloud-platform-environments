@@ -66,19 +66,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: authorization-stage.hmpps.service.justice.gov.uk
-  namespace: hmpps-auth-stage
-spec:
-  secretName: hmpps-authorization-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - authorization-stage.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: manage-users-stage.hmpps.service.justice.gov.uk
   namespace: hmpps-auth-stage
 spec:
