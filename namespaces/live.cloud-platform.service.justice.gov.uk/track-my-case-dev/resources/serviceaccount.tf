@@ -71,6 +71,7 @@ module "serviceaccount" {
       ]
       resources = [
         "prometheusrules",
+        "servicemonitors",
       ]
       verbs = [
         "*",

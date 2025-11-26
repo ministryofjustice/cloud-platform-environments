@@ -23,6 +23,11 @@ variable "team_name" {
   default     = "hmpps-prison-visits-booking-devs"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Activities and Visits"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
