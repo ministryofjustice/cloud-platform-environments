@@ -30,6 +30,12 @@ variable "is_production" {
   default = "false"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information & Advice"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "eligibility@digital.justice.gov.uk"
