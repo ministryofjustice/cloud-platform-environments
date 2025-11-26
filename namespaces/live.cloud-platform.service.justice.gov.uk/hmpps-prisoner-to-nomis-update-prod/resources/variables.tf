@@ -21,7 +21,7 @@ variable "business_unit" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Platform & Reporting"
+  default     = "Platform and Reporting"
 }
 
 variable "team_name" {
