@@ -54,7 +54,8 @@ provider "aws" {
       owner         = var.team_name
       service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
-      slack-channel = var.slack_channel    }
+      slack-channel = var.slack_channel
+    }
   }
 }
 
