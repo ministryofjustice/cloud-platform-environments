@@ -25,7 +25,6 @@ variable "team_name" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  type        = string
   default     = "Activities and Visits"
 }
 
