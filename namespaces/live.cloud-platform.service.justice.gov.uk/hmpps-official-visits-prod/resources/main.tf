@@ -8,10 +8,16 @@ provider "aws" {
 
   default_tags {
     tags = {
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
-      GithubTeam = var.team_name
+
     }
   }
 }
@@ -22,10 +28,16 @@ provider "aws" {
 
   default_tags {
     tags = {
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
-      GithubTeam = var.team_name
+
     }
   }
 }
@@ -36,10 +48,15 @@ provider "aws" {
 
   default_tags {
     tags = {
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
-      GithubTeam = var.team_name
     }
   }
 }
