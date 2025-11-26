@@ -11,11 +11,11 @@ module "dps_rds" {
   infrastructure_support    = var.infrastructure_support
   db_instance_class         = "db.t4g.large"
   db_engine                 = "postgres"
-  db_engine_version         = "17"
-  rds_family                = "postgres17"
+  db_engine_version         = "18"
+  rds_family                = "postgres18"
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
   storage_type              = "gp3"
   db_allocated_storage      = "50"
   db_max_allocated_storage  = "2000"
