@@ -1,5 +1,5 @@
 module "hmpps_probation_check_in_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-probation-check-in-ui"
   application = "hmpps-probation-check-in-ui"
   github_team = "stg-pathfinders"
