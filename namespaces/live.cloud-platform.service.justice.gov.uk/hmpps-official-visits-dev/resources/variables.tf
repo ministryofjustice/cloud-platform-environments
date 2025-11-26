@@ -35,7 +35,7 @@ variable "team_name" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Official Visits"
+  default     = "Activities and visits"
 }
 
 ####################################################################################################################
