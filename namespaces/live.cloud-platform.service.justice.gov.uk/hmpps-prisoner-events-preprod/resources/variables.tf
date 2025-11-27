@@ -21,6 +21,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Platform and Reporting"
+}
+
 variable "team_name" {
   description = "The name of your preprodelopment team"
   default     = "syscon-devs"
