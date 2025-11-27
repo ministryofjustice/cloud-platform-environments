@@ -1,0 +1,103 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-data-claims-api-prod
+  labels:
+    prometheus: cloud-platform
+    role: alert-rules
+  name: prometheus-custom-rules-laa-data-claims-api-prod
+spec:
+  groups:
+  - name: application-rules
+    interval: 60s
+    rules:
+    - alert: NamespaceDown
+      expr: absent(up{namespace="laa-data-claims-api-prod"}) == 1
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: Namespace {{ $labels.namespace }} is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: KubeLowPodCount
+      expr: sum (kube_pod_status_phase{namespace="laa-data-claims-api-prod", phase="Running"}) < 1
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: Namespace laa-data-claims-api-prod has fewer than expected number of running pods.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: KubeQuotaExceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-data-claims-api-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-data-claims-api-prod"} > 0) > 90
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+
+    - alert: 400ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="400"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 400 (Bad Request) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: 401ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="401"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 401 (Unauthorized) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: 403ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="403"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 403 (Forbidden) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: 404ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="404"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 404 (Not Found) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: 429ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="429"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 429 (Too Many Requests) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
+
+    - alert: 500ThresholdReached
+      expr: |-
+        sum(increase(http_server_requests_seconds_count{namespace="laa-data-claims-api-prod",status="500"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-api-prod
+      annotations:
+        message: More than 50 500 (Internal Server Error) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
