@@ -1,4 +1,4 @@
-module "moj_dashboard_dev_irsa" {
+module "moj_dashboard_prod_irsa" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name      = var.eks_cluster_name
   namespace             = var.namespace
