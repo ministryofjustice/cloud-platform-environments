@@ -4,7 +4,6 @@ module "hmpps_prisoner_pay_api" {
   application = "hmpps-prisoner-pay-api"
   github_team = "activities-and-appointments"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["activities-and-appointments","activities-and-appointments-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -21,7 +20,6 @@ module "hmpps_prisoner_pay_orchestrator_api" {
   application = "hmpps-prisoner-pay-orchestrator-api"
   github_team = "activities-and-appointments"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["activities-and-appointments","activities-and-appointments-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -38,7 +36,6 @@ module "hmpps_prisoner_pay_ui" {
   application = "hmpps-prisoner-pay-ui"
   github_team = "activities-and-appointments"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-   reviewer_teams                = ["activities-and-appointments","activities-and-appointments-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
