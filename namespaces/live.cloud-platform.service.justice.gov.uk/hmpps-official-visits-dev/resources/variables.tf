@@ -32,6 +32,12 @@ variable "team_name" {
   default     = "hmpps-move-and-improve"
 }
 
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Activities and visits"
+}
+
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
