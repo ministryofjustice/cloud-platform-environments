@@ -74,3 +74,7 @@ variable "domain" {
 variable "email_bucket_name" {
   default = "electronic-monitoring-police-emails-prod"
 }
+
+variable "email_rule_set_name" {
+  default = "email-receiving-rules"
+}
