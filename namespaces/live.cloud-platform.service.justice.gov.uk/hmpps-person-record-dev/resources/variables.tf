@@ -6,7 +6,8 @@ variable "application" {
 }
 
 variable "service_area" {
-  default = "Enabling Technologies"
+  description = "Service area responsible for this service"
+  default     = "Enabling Technologies"
 }
 
 variable "namespace" {
@@ -14,7 +15,8 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  default = "HMPPS"
+  description = "Area of the MOJ responsible for the service."
+  default     = "HMPPS"
 }
 
 variable "owner" {
@@ -22,11 +24,13 @@ variable "owner" {
 }
 
 variable "team_name" {
-  default = "hmpps-person-record"
+  description = "The name of your development team"
+  default     = "hmpps-person-record"
 }
 
 variable "environment" {
-  default = "development"
+  description = "The type of environment you're deploying to."
+  default     = "development"
 }
 
 variable "infrastructure_support" {
