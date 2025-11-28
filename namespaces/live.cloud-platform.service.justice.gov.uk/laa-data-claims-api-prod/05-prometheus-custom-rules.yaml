@@ -9,7 +9,6 @@ metadata:
 spec:
   groups:
   - name: application-rules
-    interval: 60s
     rules:
     - alert: NamespaceDown
       expr: absent(up{namespace="laa-data-claims-api-prod"}) == 1
@@ -17,7 +16,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: Namespace {{ $labels.namespace }} is down.
+        message: Namespace laa-data-claims-api-prod is down.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -43,7 +42,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 400 (Bad Request) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 400 (Bad Request) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -54,7 +53,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 401 (Unauthorized) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 401 (Unauthorized) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -65,7 +64,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 403 (Forbidden) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 403 (Forbidden) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -76,7 +75,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 404 (Not Found) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 404 (Not Found) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -87,7 +86,7 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 429 (Too Many Requests) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 429 (Too Many Requests) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -98,6 +97,6 @@ spec:
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: More than 50 500 (Internal Server Error) errors in the last 5 minutes in namespace {{ $labels.namespace }}.
+        message: More than 50 500 (Internal Server Error) errors in the last 5 minutes in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
