@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Education, Skills & Work"
+  default     = "Education, Skills and Work"
 }
 
 variable "number_cache_clusters" {
