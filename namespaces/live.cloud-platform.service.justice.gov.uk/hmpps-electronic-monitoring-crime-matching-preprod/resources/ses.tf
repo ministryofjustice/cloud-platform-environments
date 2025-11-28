@@ -28,7 +28,7 @@ resource "aws_route53_record" "crime_matching_amazonses_mx" {
 # SES Receipt Rules to define actions when email is ingested
 
 resource "aws_ses_receipt_rule" "store_email" {
-  name          = "store-in-s3-${var.domain}"
+  name          = "store-in-s3-${var.environment}"
   rule_set_name = var.email_rule_set_name
   recipients    = ["crime-csv@${var.domain}"]
   enabled       = true
