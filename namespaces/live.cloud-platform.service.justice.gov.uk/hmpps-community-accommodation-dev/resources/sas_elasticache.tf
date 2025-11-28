@@ -1,5 +1,5 @@
 module "sas_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment
@@ -28,6 +28,7 @@ resource "kubernetes_secret" "sas_elasticache_redis" {
 
   data = {
     primary_endpoint_address = module.sas_elasticache_redis.primary_endpoint_address
+    reader_endpoint_address = module.sas_elasticache_redis.reader_endpoint_address
     auth_token               = module.sas_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.sas_elasticache_redis.member_clusters)
     replication_group_id     = module.sas_elasticache_redis.replication_group_id
