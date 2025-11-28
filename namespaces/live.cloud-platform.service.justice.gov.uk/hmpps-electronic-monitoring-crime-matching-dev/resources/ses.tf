@@ -27,12 +27,17 @@ resource "aws_route53_record" "crime_matching_amazonses_mx" {
 
 # SES Receipt Rules to define actions when email is ingested
 resource "aws_ses_receipt_rule_set" "main" {
-  rule_set_name = "email-ingestion-rules"
+  rule_set_name = var.email_rule_set_name
+}
+
+# Activate rule set
+resource "aws_ses_active_receipt_rule_set" "main" {
+  rule_set_name = var.email_rule_set_name
 }
 
 resource "aws_ses_receipt_rule" "store_email" {
   name          = "store-in-s3"
-  rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
+  rule_set_name = var.email_rule_set_name
   recipients    = ["crime-csv@${var.domain}"]
   enabled       = true
   scan_enabled  = true
@@ -43,9 +48,4 @@ resource "aws_ses_receipt_rule" "store_email" {
     position          = 1
     topic_arn         =  module.email_notifications_topic.topic_arn
   }
-}
-
-# Activate rule set
-resource "aws_ses_active_receipt_rule_set" "main" {
-  rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
 }
