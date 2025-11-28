@@ -28,7 +28,7 @@ variable "business_unit" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Education, Skills & Work"
+  default     = "Education, Skills and Work"
 }
 
 variable "number_cache_clusters" {
