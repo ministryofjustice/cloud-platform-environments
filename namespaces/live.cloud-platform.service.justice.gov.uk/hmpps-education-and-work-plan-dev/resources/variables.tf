@@ -26,6 +26,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Education, Skills & Work"
+}
+
 variable "number_cache_clusters" {
   default = "2"
 }
