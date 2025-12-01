@@ -50,6 +50,12 @@ variable "is_production" {
   default     = "false"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information & Advice"
+}
+
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
