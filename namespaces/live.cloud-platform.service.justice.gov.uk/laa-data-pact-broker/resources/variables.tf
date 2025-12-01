@@ -75,5 +75,5 @@ variable "eks_cluster_name" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Information & Advice"
+  default     = "Common Services and Enterprise"
 }
