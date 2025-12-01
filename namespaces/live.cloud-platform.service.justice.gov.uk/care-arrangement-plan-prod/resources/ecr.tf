@@ -7,11 +7,11 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep the newest 100 images and mark the rest for expiration",
+        "description": "Keep the newest 200 images and mark the rest for expiration",
         "selection": {
           "tagStatus": "any",
           "countType": "imageCountMoreThan",
-          "countNumber": 100
+          "countNumber": 200
         },
         "action": {
           "type": "expire"
