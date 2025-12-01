@@ -1,5 +1,4 @@
 # Add outputs that need to be consumed in other namespaces here.
-
 locals {
   sqs_irsa_policies = {
     (module.cfo_queue.sqs_name)                                                    = module.cfo_queue.irsa_policy_arn,
@@ -43,9 +42,7 @@ locals {
     (module.pic_probation_offender_events_queue.sqs_name)                          = module.pic_probation_offender_events_queue.irsa_policy_arn,
     (module.pic_probation_offender_events_dead_letter_queue.sqs_name)              = module.pic_probation_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.whereabouts_api_queue.sqs_name)                                        = module.whereabouts_api_queue.irsa_policy_arn,
-    (module.whereabouts_api_dead_letter_queue.sqs_name)                            = module.whereabouts_api_dead_letter_queue.irsa_policy_arn,
-    (module.afer_probation_events_queue.sqs_name)                                  = module.afer_probation_events_queue.irsa_policy_arn,
-    (module.afer_probation_events_dead_letter_queue.sqs_name)                      = module.afer_probation_events_dead_letter_queue.irsa_policy_arn
+    (module.whereabouts_api_dead_letter_queue.sqs_name)                            = module.whereabouts_api_dead_letter_queue.irsa_policy_arn
   }
 
   sns_irsa_policies = {
