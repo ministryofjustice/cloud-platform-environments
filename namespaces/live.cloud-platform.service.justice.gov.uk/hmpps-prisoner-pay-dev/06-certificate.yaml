@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-pay-dev.hmpps.service.justice.gov.uk
+    - prisoner-pay-dev.prison.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
