@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dstew-common@justice.gov.uk"
+  default     = "laa-dstew-enterprise@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -85,4 +85,10 @@ variable "github_environment_name" {
   description = "Used to create GitHub secrets into the right GitHub environment"
   type        = string
   default     = "staging"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information & Advice"
 }
