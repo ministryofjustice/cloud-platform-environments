@@ -14,10 +14,10 @@ module "hmpps_audit_rds" {
   db_instance_class            = "db.t4g.micro"
   db_max_allocated_storage     = "500"
   db_engine                    = "postgres"
-  rds_family                   = "postgres17"
-  db_engine_version            = "17"
+  rds_family                   = "postgres18"
+  db_engine_version            = "18"
   deletion_protection          = true
-  prepare_for_major_upgrade    = false
+  prepare_for_major_upgrade    = true
   performance_insights_enabled = true
 
   providers = {
