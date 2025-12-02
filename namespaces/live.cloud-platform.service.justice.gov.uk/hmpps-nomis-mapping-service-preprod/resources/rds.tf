@@ -15,7 +15,7 @@ module "dps_rds" {
   rds_family                = "postgres18"
   db_password_rotated_date  = "2023-02-21"
   deletion_protection       = true
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   storage_type              = "gp3"
   db_allocated_storage      = "50"
   db_max_allocated_storage  = "2000"
