@@ -30,7 +30,7 @@ variable "infrastructure_support" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Information & Advice"
+  default     = "Information and Advice"
 }
 
 variable "vpc_name" {
