@@ -21,7 +21,7 @@ module "cloudfront_with_ordered" {
   enable_ordered_cache_behavior = true # default is false
 
   ordered_cache_behavior = {
-    path_pattern = "/uploads/sites/*/*colours*.css"
+    path_pattern = "/uploads/sites/*/*colours.css"
   }
 
   depends_on = [aws_acm_certificate_validation.cloudfront_alias_cert_validation]
