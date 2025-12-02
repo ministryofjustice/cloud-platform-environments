@@ -80,3 +80,10 @@ variable "rds_name" {
   type        = string
 }
 
+variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "development"
+}
+
+variable "eks_cluster_name" {
+}
