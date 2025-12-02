@@ -51,14 +51,3 @@ resource "aws_iam_user" "dso_s3_rds_user" {
 resource "aws_iam_access_key" "dso_s3_rds_user_key" {
   user = aws_iam_user.dso_s3_rds_user.name
 }
-resource "aws_iam_user_policy_attachment" "dso_s3_rds_user_s3_policy" {
-  user       = aws_iam_user.dso_s3_rds_user.name
-  policy_arn = module.irsa.role_policy_arns["s3"]
-}
-
-resource "aws_iam_user_policy_attachment" "dso_s3_rds_user_rds_policy" {
-
-  name   = "${var.namespace}-ap-rds"
-  user       = aws_iam_user.dso_s3_rds_user.name
-  policy_arn = module.irsa.role_policy_arns["rds"]
-}
