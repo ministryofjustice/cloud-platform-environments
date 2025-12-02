@@ -15,7 +15,7 @@ module "hmpps_dps_reconciliation_rds" {
   db_engine_version          = "18"
   rds_family                 = "postgres18"
   deletion_protection        = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = true
   db_max_allocated_storage   = "500"
 }
