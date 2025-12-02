@@ -1,5 +1,6 @@
-module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1" # use the latest release
+module "cloudfront_with_ordered" {
+  # source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=ordered_cache_behavior"
 
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
@@ -16,6 +17,25 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  enable_default_cache_behavior = false # default is true
+  enable_ordered_cache_behavior = true # default is false
+  
+  ordered_cache_behavior = [
+  {
+    path_pattern = "/uploads/sites/*/custom-colours-ie.css"
+  },
+  {
+    path_pattern = "/uploads/sites/*/custom-colours.css"
+  },
+  {
+    path_pattern = "/uploads/sites/*/temp-colours-ie.css"
+  },
+  {
+    path_pattern = "/uploads/sites/*/temp-colours.css"
+  }
+]
+
+
   depends_on = [aws_acm_certificate_validation.cloudfront_alias_cert_validation]
 
 }
@@ -27,7 +47,7 @@ resource "kubernetes_secret" "cloudfront_url" {
   }
 
   data = {
-    cloudfront_url   = module.cloudfront.cloudfront_url
+    cloudfront_url   = module.cloudfront_with_ordered.cloudfront_url
     cloudfront_alias = var.cloudfront_alias
   }
 }
