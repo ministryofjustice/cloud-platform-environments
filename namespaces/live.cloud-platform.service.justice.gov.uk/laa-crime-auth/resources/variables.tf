@@ -308,24 +308,24 @@ variable "cognito_user_pool_hardship_client_name_prd" {
   default     = "hardship-client-prd"
 }
 
-variable "cognito_user_pool_mst_client_name_dev" {
-  description = "Cognito user pool MST client name"
-  default     = "mst-client-dev"
+variable "cognito_user_pool_chb_client_name_dev" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-dev"
 }
 
-variable "cognito_user_pool_mst_client_name_tst" {
-  description = "Cognito user pool MST client name"
-  default     = "mst-client-tst"
+variable "cognito_user_pool_chb_client_name_tst" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-tst"
 }
 
-variable "cognito_user_pool_mst_client_name_uat" {
-  description = "Cognito user pool MST client name"
-  default     = "mst-client-uat"
+variable "cognito_user_pool_chb_client_name_uat" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-uat"
 }
 
-variable "cognito_user_pool_mst_client_name_prd" {
-  description = "Cognito user pool MST client name"
-  default     = "mst-client-prd"
+variable "cognito_user_pool_chb_client_name_prd" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-prd"
 }
 
 variable "cognito_user_pool_functional_tests_name" {
