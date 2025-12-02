@@ -46,6 +46,7 @@ resource "kubernetes_secret" "basm_reporting_bucket" {
 
 }
 resource "aws_iam_user" "dso_s3_rds_user" {
+  name = "dso-s3-rds-user-${var.environment}"
   path = "/system/dso-s3-rds-user/"
 }
 resource "aws_iam_access_key" "dso_s3_rds_user_key" {
