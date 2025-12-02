@@ -6,8 +6,7 @@ module "hmpps_workload_offender_events_queue" {
   sqs_name                  = "hmpps_workload_offender_events_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
-  delay_seconds             = 2
-  receive_wait_time_seconds = 20
+  delay_seconds             = 5
 
   redrive_policy = <<EOF
   {
