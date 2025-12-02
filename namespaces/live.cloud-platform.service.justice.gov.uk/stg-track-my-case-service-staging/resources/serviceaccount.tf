@@ -10,7 +10,7 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["stg-track-my-case-service"]
-  github_environments = ["dev"]
+  github_environments = ["staging"]
   serviceaccount_rules = [
     {
       api_groups = [""]
