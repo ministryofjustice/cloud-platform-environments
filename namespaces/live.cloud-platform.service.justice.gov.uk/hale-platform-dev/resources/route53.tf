@@ -21,7 +21,7 @@ data "kubernetes_secret" "route53_zone_output" {
 # Delegate dev. to the child zone's NS set
 resource "aws_route53_record" "delegate_dev_to_child" {
   zone_id = data.kubernetes_secret.route53_zone_output.data["zone_id"]
-  name    = "dev"  # or "dev.websitebuilder.service.justice.gov.uk."
+  name    = "dev" # or "dev.websitebuilder.service.justice.gov.uk."
   type    = "NS"
   ttl     = 172800
 
@@ -52,8 +52,8 @@ resource "aws_route53_record" "data" {
 
   alias {
     evaluate_target_health = false
-    name                   = module.cloudfront.cloudfront_url
-    zone_id                = module.cloudfront.cloudfront_hosted_zone_id
+    name                   = module.cloudfront_with_ordered.cloudfront_url
+    zone_id                = module.cloudfront_with_ordered.cloudfront_hosted_zone_id
   }
 }
 
@@ -62,9 +62,9 @@ resource "aws_route53_record" "data" {
 # As the validation method is set to DNS, a route53 record is created here for the certificate validation.
 
 resource "aws_route53_record" "cert_validations" {
-  count           = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
+  count = length(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options)
 
-  zone_id         = aws_route53_zone.websitebuilder__dev_route53_zone.zone_id
+  zone_id = aws_route53_zone.websitebuilder__dev_route53_zone.zone_id
 
   name            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_name, count.index)
   type            = element(aws_acm_certificate.cloudfront_alias_cert.domain_validation_options[*].resource_record_type, count.index)
