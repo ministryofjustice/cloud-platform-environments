@@ -47,6 +47,11 @@ module "calculate_release_dates_api_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
 
@@ -119,6 +124,16 @@ module "read_replica" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]
