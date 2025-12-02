@@ -52,3 +52,17 @@ resource "aws_iam_user" "dso_s3_rds_user" {
 resource "aws_iam_access_key" "dso_s3_rds_user_key" {
   user = aws_iam_user.dso_s3_rds_user.name
 }
+resource "aws_iam_user_policy_attachment" "dso_user_s3_policy" {
+  user       = aws_iam_user.dso_s3_rds_user.name
+  policy_arn = module.calculate-journey-variable-payments_s3_bucket.irsa_policy_arn
+}
+
+resource "aws_iam_user_policy_attachment" "dso_user_rds_policy" {
+  user       = aws_iam_user.dso_s3_rds_user.name
+  policy_arn = module.rds-instance.irsa_policy_arn
+}
+
+resource "aws_iam_user_policy_attachment" "dso_user_basm_policy" {
+  user       = aws_iam_user.dso_s3_rds_user.name
+  policy_arn = data.aws_ssm_parameter.basm-bucket.value
+}
