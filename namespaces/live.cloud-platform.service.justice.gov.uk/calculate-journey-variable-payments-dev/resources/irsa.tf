@@ -42,4 +42,25 @@ resource "kubernetes_secret" "basm_reporting_bucket" {
   data = {
     bucket_name = data.aws_ssm_parameter.basm-bucket-name.value
   }
+
+
+}
+resource "aws_iam_user" "dso_s3_rds_user" {
+  name = "dso-s3-rds-user-${var.environment}"
+  path = "/system/dso-s3-rds-user/"
+}
+resource "aws_iam_access_key" "dso_s3_rds_user_key" {
+  user = aws_iam_user.dso_s3_rds_user.name
+}
+resource "aws_iam_user_policy_attachment" "dso_s3_rds_user_s3_policy" {
+  name   = "${var.namespace}-ap-s3"
+  user       = aws_iam_user.dso_s3_rds_user.name
+  policy_arn = module.irsa.role_policy_arns["s3"]
+}
+
+resource "aws_iam_user_policy_attachment" "dso_s3_rds_user_rds_policy" {
+
+  name   = "${var.namespace}-ap-rds"
+  user       = aws_iam_user.dso_s3_rds_user.name
+  policy_arn = module.irsa.role_policy_arns["rds"]
 }
