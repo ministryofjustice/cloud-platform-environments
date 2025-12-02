@@ -31,6 +31,22 @@ resource "aws_cognito_user_pool_domain" "hardship_domain" {
   user_pool_id = aws_cognito_user_pool.hardship_user_pool.id
 }
 
+resource "aws_cognito_user_pool" "mst_user_pool" {
+  name = var.user_pool_name_mst
+
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "admin_only"
+      priority = 1
+    }
+  }
+}
+
+resource "aws_cognito_user_pool_domain" "mst_domain" {
+  domain       = var.cognito_user_pool_domain_name_mst
+  user_pool_id = aws_cognito_user_pool.mst_user_pool.id
+}
+
 
 resource "aws_cognito_user_pool" "cma_user_pool" {
   name = var.user_pool_name_cma
