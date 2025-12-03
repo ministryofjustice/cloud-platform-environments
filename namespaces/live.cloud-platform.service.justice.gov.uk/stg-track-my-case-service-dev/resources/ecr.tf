@@ -4,6 +4,7 @@
  * releases page of this repository.
  *
  */
+ # Adding new line
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
