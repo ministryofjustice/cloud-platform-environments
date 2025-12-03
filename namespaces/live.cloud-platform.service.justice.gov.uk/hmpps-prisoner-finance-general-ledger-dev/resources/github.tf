@@ -1,8 +1,8 @@
 module "hmpps_prisoner_finance_general_ledger_dev" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-prisoner-finance-general-ledger-api"
-  application = "hmpps-prisoner-financer-general-ledger-api"
-  github_team = "hmpps-sre"
+  application = "hmpps-prisoner-finance-general-ledger-api"
+  github_team = "hmpps-prisoner-finance"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main"] # Optional
