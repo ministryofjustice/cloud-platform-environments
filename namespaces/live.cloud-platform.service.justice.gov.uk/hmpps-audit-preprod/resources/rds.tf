@@ -17,7 +17,7 @@ module "hmpps_audit_rds" {
   rds_family                   = "postgres18"
   db_engine_version            = "18"
   deletion_protection          = true
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   performance_insights_enabled = true
 
   providers = {
