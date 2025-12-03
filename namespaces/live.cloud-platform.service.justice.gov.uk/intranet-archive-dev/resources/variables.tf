@@ -39,7 +39,7 @@ variable "eks_cluster_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "central-digital-product-team@digital.justice.gov.uk"
+  default     = "wordpress@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -48,7 +48,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cdpt-intranet"
+  default     = "website-builder-devs"
 }
 
 variable "github_owner" {
