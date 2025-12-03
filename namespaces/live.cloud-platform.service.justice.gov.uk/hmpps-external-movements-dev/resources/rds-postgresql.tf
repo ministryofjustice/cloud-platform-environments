@@ -11,17 +11,18 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade    = false
+  prepare_for_major_upgrade    = true
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
+  storage_type                 = "gp3"
   db_max_allocated_storage     = "500"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "18"
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
