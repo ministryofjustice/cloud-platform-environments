@@ -1,7 +1,6 @@
 provider "pingdom" {}
 
 resource "pingdom_check" "pingdom_api" {
-  count                    = 0 # remove this line to enable pingdom after rollout
   type                     = "http"
   name                     = "HMPPS external-movements API"
   host                     = "health-kick.prison.service.justice.gov.uk"
@@ -18,7 +17,6 @@ resource "pingdom_check" "pingdom_api" {
 }
 
 resource "pingdom_check" "pingdom_ui" {
-  count                    = 0 # remove this line to enable pingdom after rollout
   type                     = "http"
   name                     = "HMPPS external-movements UI"
   host                     = "health-kick.prison.service.justice.gov.uk"
