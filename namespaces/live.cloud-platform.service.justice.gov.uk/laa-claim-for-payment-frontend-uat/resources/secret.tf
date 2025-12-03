@@ -15,5 +15,20 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "auth-secret-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+    "entra-client-id" = {
+      description             = "Client ID for UAT",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "client-id-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "claims-api-scope" = {
+      description             = "Claims API scope for UAT",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "claims-api-scope-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "oidc-issuer-url" = {
+      description             = "OIDC Issuer URL for UAT",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "oidc-issuer-url-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
   }
 }
