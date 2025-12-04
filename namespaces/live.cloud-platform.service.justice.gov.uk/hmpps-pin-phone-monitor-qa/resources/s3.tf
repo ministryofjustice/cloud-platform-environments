@@ -111,7 +111,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             ]
           }
           "StringNotEqualsIfExists": {
-            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
+            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
           },
           "StringNotEquals": {
             "aws:PrincipalArn": [
@@ -150,7 +150,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             ]
           },
           "StringNotEqualsIfExists": {
-            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
+            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
           },
           "StringNotEquals": {
             "aws:PrincipalArn": [
