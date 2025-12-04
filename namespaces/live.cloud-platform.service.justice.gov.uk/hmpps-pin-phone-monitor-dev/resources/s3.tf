@@ -101,42 +101,79 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "SourceIP"
-        Effect    = "Deny"
-        Principal = "*"
-        Action = [
-          "s3:GetObject*",
-          "s3:PutObject*",
-          "s3:List*",
-          "s3:DeleteObject*",
-        ]
-        Resource = [
+        "Sid": "DenyBucketLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": ["s3:List*"],
+        "Resource": [
           module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
-        ]
-        Condition = {
-          "NotIpAddress" = {
-            # Live-1 IP and MoJ VPN addresses
-            "aws:SourceIp" = [
+        ],
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
               "35.177.252.54",
               "81.134.202.29/32",
               "51.149.250.0/24",
               "51.149.251.0/24",
-              "35.176.93.186/32"
+              "35.176.93.186/32",
             ]
           },
-          "Bool" = { "aws:ViaAWSService" : "false" },
-          "StringNotEquals" = {
-            "aws:PrincipalArn" = [
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
+          },
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
               aws_iam_user.bt_upload_user.arn
             ]
-          }
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
         }
       },
+      {
+        "Sid": "DenyObjectLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject*",
+          "s3:PutObject*",
+          "s3:DeleteObject*"
+        ],
+        "Resource": [
+          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        ],
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
+              "35.178.209.113",
+              "3.8.51.207",
+              "35.177.252.54",
+              "81.134.202.29/32",
+              "51.149.250.0/24",
+              "51.149.251.0/24",
+              "35.176.93.186/32",
+            ]
+          },
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
+          },
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
+              aws_iam_role.translate_s3_data_role.arn,
+              aws_iam_role.transcribe_s3_data_role.arn,
+              aws_iam_user.bt_upload_user.arn
+            ]
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
+        }
+      }
     ]
   })
 }
