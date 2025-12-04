@@ -18,11 +18,6 @@ variable "application" {
   default     = "Calculate fees for claims submitted by LAA Providers"
 }
 
-variable "service_area" {
-  description = "Service area responsible for this service"
-  default = "Payments and Billing"
-}
-
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
