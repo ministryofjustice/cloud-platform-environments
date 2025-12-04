@@ -119,23 +119,14 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "SourceIP"
-        Effect    = "Deny"
-        Principal = "*"
-        Action = [
-          "s3:GetObject*",
-          "s3:PutObject*",
-          "s3:List*",
-          "s3:DeleteObject*",
-        ]
-        Resource = [
-          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
-          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
-        ]
-        Condition = {
-          "NotIpAddress" = {
-            # Live-1 IP and MoJ VPN addresses
-            "aws:SourceIp" = [
+        "Sid": "DenyBucketLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": ["s3:ListBucket"],
+        "Resource": "arn:aws:s3:::cloud-platform-709440e7f285910d512c895a7202b5ea",
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
               "81.134.202.29/32",
               "51.149.250.0/24",
               "51.149.251.0/24",
@@ -144,16 +135,39 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
               "194.73.47.216/29",
             ]
           },
-          "Bool" = { "aws:ViaAWSService" : "false" },
-          "StringNotEquals" = {
-            "aws:PrincipalArn" = [
-              aws_iam_role.translate_s3_data_role.arn,
-              aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
-            ]
-          }
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"]
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
         }
       },
+      {
+        "Sid": "DenyObjectLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject*",
+          "s3:PutObject*",
+          "s3:DeleteObject*"
+        ],
+        "Resource": "arn:aws:s3:::cloud-platform-709440e7f285910d512c895a7202b5ea/*",
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
+              "81.134.202.29/32",
+              "51.149.250.0/24",
+              "51.149.251.0/24",
+              "35.176.93.186/32",
+              "194.33.249.0/24",
+              "194.73.47.216/29",
+            ]
+          },
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"]
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
+        }
+      }
     ]
   })
 }
