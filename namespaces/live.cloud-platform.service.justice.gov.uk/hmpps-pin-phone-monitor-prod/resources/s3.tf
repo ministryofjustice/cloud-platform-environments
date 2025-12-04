@@ -123,10 +123,14 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
         "Effect": "Deny",
         "Principal": "*",
         "Action": ["s3:List*"],
-        "Resource": "arn:aws:s3:::cloud-platform-709440e7f285910d512c895a7202b5ea",
+        "Resource": [
+          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        ],
         "Condition": {
           "NotIpAddress": {
             "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
               "35.177.252.54",
@@ -141,8 +145,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           "StringNotEqualsIfExists": {
             "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
           },
-          "StringNotEquals" = {
-            "aws:PrincipalArn" = [
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
               aws_iam_user.bt_upload_user.arn
@@ -160,10 +164,14 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           "s3:PutObject*",
           "s3:DeleteObject*"
         ],
-        "Resource": "arn:aws:s3:::cloud-platform-709440e7f285910d512c895a7202b5ea/*",
+        "Resource": [
+          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        ],
         "Condition": {
           "NotIpAddress": {
             "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
               "35.177.252.54",
@@ -178,8 +186,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           "StringNotEqualsIfExists": {
             "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
           },
-          "StringNotEquals" = {
-            "aws:PrincipalArn" = [
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
               aws_iam_user.bt_upload_user.arn
