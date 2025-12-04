@@ -14,8 +14,8 @@ module "subject_access_request_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "18"
   rds_family                  = "postgres18"
-  prepare_for_major_upgrade   = true
-  allow_major_version_upgrade = true
+  prepare_for_major_upgrade   = false
+  allow_major_version_upgrade = false
   deletion_protection         = true
   performance_insights_enabled = true
 
