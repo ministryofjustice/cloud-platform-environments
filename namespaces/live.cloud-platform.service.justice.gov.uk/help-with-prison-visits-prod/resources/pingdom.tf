@@ -12,7 +12,7 @@ resource "pingdom_check" "help-with-prison-visits-external" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/status"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.application}-external,isproduction_${var.is_production},owner_prison-visits-booking"
@@ -28,7 +28,7 @@ resource "pingdom_check" "help-with-prison-visits-internal" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/status"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.application}-internal,isproduction_${var.is_production},owner_prison-visits-booking"
