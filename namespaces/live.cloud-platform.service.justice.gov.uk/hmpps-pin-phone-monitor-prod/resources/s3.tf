@@ -136,9 +136,6 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           "NotIpAddress" = {
             # Live-1 IP and MoJ VPN addresses
             "aws:SourceIp" = [
-              "35.178.209.113",
-              "3.8.51.207",
-              "35.177.252.54",
               "81.134.202.29/32",
               "51.149.250.0/24",
               "51.149.251.0/24",
