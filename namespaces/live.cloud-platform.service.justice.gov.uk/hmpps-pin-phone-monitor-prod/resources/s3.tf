@@ -122,7 +122,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
         "Sid": "DenyBucketLevelUnlessVpceOrAllowedIPs",
         "Effect": "Deny",
         "Principal": "*",
-        "Action": ["s3:ListBucket"],
+        "Action": ["s3:List*"],
         "Resource": "arn:aws:s3:::cloud-platform-709440e7f285910d512c895a7202b5ea",
         "Condition": {
           "NotIpAddress": {
@@ -140,13 +140,13 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           },
           "StringNotEqualsIfExists": {
             "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
-            "StringNotEquals" = {
-              "aws:PrincipalArn" = [
-                aws_iam_role.translate_s3_data_role.arn,
-                aws_iam_role.transcribe_s3_data_role.arn,
-                aws_iam_user.bt_upload_user.arn
-              ]
-            }
+          },
+          "StringNotEquals" = {
+            "aws:PrincipalArn" = [
+              aws_iam_role.translate_s3_data_role.arn,
+              aws_iam_role.transcribe_s3_data_role.arn,
+              aws_iam_user.bt_upload_user.arn
+            ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
         }
@@ -177,13 +177,13 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
           },
           "StringNotEqualsIfExists": {
             "aws:sourceVpce": ["vpce-xxxxxxxxxxxxxxxxx"],
-              "StringNotEquals" = {
-                "aws:PrincipalArn" = [
-                  aws_iam_role.translate_s3_data_role.arn,
-                  aws_iam_role.transcribe_s3_data_role.arn,
-                  aws_iam_user.bt_upload_user.arn
-                ]
-              }
+          },
+          "StringNotEquals" = {
+            "aws:PrincipalArn" = [
+              aws_iam_role.translate_s3_data_role.arn,
+              aws_iam_role.transcribe_s3_data_role.arn,
+              aws_iam_user.bt_upload_user.arn
+            ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
         }
