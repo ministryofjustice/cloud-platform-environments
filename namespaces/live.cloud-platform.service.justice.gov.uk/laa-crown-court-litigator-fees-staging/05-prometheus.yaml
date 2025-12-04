@@ -179,30 +179,30 @@ spec:
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-staging"
 
-    - alert: CCLF-Defendant-Details-API-Defendants-Request
-      expr: increase(defendant_details_defendants_request_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
+    - alert: CCLF-Defendant-Details-API-Defendants-Error
+      expr: increase(defendant_details_defendants_error_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCLF STAGING - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCLF STAGING - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-staging"
 
-    - alert: CCLF-Defendant-Details-API-Defendant-Histories-Request
-      expr: increase(defendant_details_defendant_histories_request_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
+    - alert: CCLF-Defendant-Details-API-Defendant-Histories-Error
+      expr: increase(defendant_details_defendant_histories_error_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCLF STAGING - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCLF STAGING - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-staging"
 
-    - alert: CCLF-Defendant-Details-API-Rep-Orders-Request
-      expr: increase(defendant_details_rep_orders_request_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
+    - alert: CCLF-Defendant-Details-API-Rep-Orders-Error
+      expr: increase(defendant_details_rep_orders_error_total{namespace="laa-crown-court-litigator-fees-staging"}[5m]) > 0
       labels:
         severity: laa-alerts-cclf-ccr-maat-integrations-non-prod
       annotations:
-        message: "CCLF STAGING - {{ if eq $labels.error_count \"0\" }}:green-alert: Successful{{ else }}:alert: Failed{{ end }} request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
+        message: "CCLF STAGING - :alert: Failed request to {{ $labels.exported_endpoint }} - {{ $labels.record_count }} records were received and {{ $labels.error_count }} records failed to insert."
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-staging"
 
