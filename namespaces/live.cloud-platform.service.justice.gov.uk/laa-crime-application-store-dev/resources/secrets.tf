@@ -26,11 +26,6 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "app-secrets"
     },
-    "analytics-user-config" = {
-      description             = "analytics-user-config"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "analytics-user-config"
-    },
     "provider-client-secret" = {
       description             = "provider-client-secret"
       recovery_window_in_days = 7
