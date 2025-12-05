@@ -48,8 +48,6 @@ resource "kubernetes_secret" "rds-instance" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.dso_s3_rds_user_key.id
-    secret_access_key = aws_iam_access_key.dso_s3_rds_user_key.secret
     database_name     = module.rds-instance.database_name
     database_host     = module.rds-instance.rds_instance_address
     database_port     = module.rds-instance.rds_instance_port
