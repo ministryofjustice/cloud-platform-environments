@@ -4,6 +4,7 @@ module "container_repository" {
   # Repository configuration
   repo_name = var.namespace
 
+  deletion_protection = false
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["hmpps-prisoner-finance-general-ledger-api"]
