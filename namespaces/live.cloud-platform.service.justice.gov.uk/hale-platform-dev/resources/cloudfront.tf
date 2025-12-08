@@ -1,6 +1,6 @@
 module "cloudfront_with_ordered" {
   # source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1" # use the latest release
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=ordered_cache_behavior"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.5.0"
 
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
