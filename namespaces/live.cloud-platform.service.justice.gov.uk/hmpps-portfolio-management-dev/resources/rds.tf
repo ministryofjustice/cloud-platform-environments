@@ -78,37 +78,3 @@ locals {
     for m in local.database_list : (m.identifier) => m
   }
 }
-
-resource "helm_release" "generic-aws-prometheus-alerts" {
-  name       = "generic-aws-prometheus-alerts"
-  repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
-  chart      = "generic-aws-prometheus-alerts"
-  version    = "1.0.1"
-  namespace  = var.namespace
-
-  set {
-    name  = "targetApplication"
-    value = "hmpps-service-catalogue"
-  }
-
-  set {
-    name  = "alertSeverity"
-    value = "digital-prison-service-dev"
-  }
-
-  dynamic "set" {
-    for_each = local.database_details
-    content {
-      name  = set.value["identifier"]
-      value = set.value["desc"]
-    }
-  }
-}
-
-
-
-
-
-
-
-
