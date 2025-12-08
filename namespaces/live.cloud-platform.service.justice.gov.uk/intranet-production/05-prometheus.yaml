@@ -179,7 +179,7 @@ spec:
         expr: |
           (
             time() - kube_cronjob_status_last_successful_time{
-              cronjob="wp-cron-trigger",  
+              cronjob="wp-cron-trigger",
               namespace="intranet-production"
             }
           ) > 300
