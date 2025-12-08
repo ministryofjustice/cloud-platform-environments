@@ -87,7 +87,7 @@ spec:
 
       - alert: ServiceAbsentAccessPolicy
         expr: absent(http_status_code_wp_home{namespace="intranet-demo"}) == 1
-        for: 1m
+        for: 15m
         labels:
           severity: intranet-demo
         annotations:
