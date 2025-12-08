@@ -1,5 +1,5 @@
 module "cloudfront" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.5.0" # use the latest release
 
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
@@ -15,6 +15,14 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  service_area           = var.service_area
+
+  enable_ordered_cache_behavior = true # default is false
+
+  ordered_cache_behavior = {
+    path_pattern = "/uploads/sites/*/*colours*.css"
+    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
+  }
 
   depends_on = [aws_acm_certificate_validation.cloudfront_alias_cert_validation]
 
