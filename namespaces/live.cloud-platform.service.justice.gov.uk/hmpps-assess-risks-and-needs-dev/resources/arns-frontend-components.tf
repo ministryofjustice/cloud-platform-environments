@@ -1,7 +1,7 @@
-module "hmpps-arns-frontend-component-api" {
+module "hmpps-arns-frontend-components" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo                   = "hmpps-arns-frontend-component-api"
-  application                   = "hmpps-arns-frontend-component-api"
+  github_repo                   = "hmpps-arns-frontend-components"
+  application                   = "hmpps-arns-frontend-components"
   github_team                   = "hmpps-assessments-devs"
   environment                   = var.environment_name
   is_production                 = var.is_production
@@ -18,7 +18,7 @@ module "elasticache_redis" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps-arns-frontend-component-api.application
+  application            = module.hmpps-arns-frontend-components.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment_name
@@ -37,7 +37,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "${module.hmpps-arns-frontend-component-api.application}-elasticache-redis"
+    name      = "${module.hmpps-arns-frontend-components.application}-elasticache-redis"
     namespace = var.namespace
   }
 
