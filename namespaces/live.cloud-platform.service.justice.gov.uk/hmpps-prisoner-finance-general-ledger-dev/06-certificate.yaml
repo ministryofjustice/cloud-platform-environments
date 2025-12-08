@@ -5,7 +5,7 @@ metadata:
   name: hmpps-prisoner-finance-general-ledger-api-cert
   namespace: hmpps-prisoner-finance-general-ledger-dev
 spec:
-  secretName: hmpps-prisoner-finance-general-ledger-cert
+  secretName: hmpps-prisoner-finance-general-ledger-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
