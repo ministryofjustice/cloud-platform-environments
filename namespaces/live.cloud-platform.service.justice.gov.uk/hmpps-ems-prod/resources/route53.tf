@@ -69,30 +69,6 @@ resource "aws_route53_record" "hmpps_ems_mapping_prod_zone" {
   records = ["ns-785.awsdns-34.net.", "ns-1610.awsdns-09.co.uk.", "ns-230.awsdns-28.com.", "ns-1150.awsdns-15.org."]
 }
 
-resource "aws_route53_record" "hmpps_ems_tagging_test_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.test.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-788.awsdns-34.net.", "ns-1858.awsdns-40.co.uk.", "ns-70.awsdns-08.com.", "ns-1045.awsdns-02.org."]
-}
-
-resource "aws_route53_record" "hmpps_ems_tagging_preprod_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.pp.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-967.awsdns-56.net.", "ns-1745.awsdns-26.co.uk.", "ns-153.awsdns-19.com.", "ns-1180.awsdns-19.org."]
-}
-
-resource "aws_route53_record" "hmpps_ems_tagging_prod_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-1017.awsdns-63.net.", "ns-1682.awsdns-18.co.uk.", "ns-428.awsdns-53.com.", "ns-1300.awsdns-34.org."]
-}
-
 resource "aws_route53_record" "auth0_platform_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "auth.platform.${var.domain}"
