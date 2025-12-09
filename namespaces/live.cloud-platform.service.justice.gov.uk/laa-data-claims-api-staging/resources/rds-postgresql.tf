@@ -41,7 +41,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.m6g.large"
 
   # Tags
   application            = var.application
