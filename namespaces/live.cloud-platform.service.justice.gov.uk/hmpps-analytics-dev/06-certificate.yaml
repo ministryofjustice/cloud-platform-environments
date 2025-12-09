@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-matomo-dev-cert
+  namespace: hmpps-analytics-dev
+spec:
+  secretName: hmpps-matomo-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - matomo-dev.hmpps.service.justice.gov.uk
