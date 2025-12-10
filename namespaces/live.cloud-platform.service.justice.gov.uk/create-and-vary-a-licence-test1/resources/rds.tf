@@ -24,8 +24,9 @@ module "create_and_vary_a_licence_api_rds" {
   }
 
   # DPR security group
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
+  # DPR specific parameters
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -73,34 +74,34 @@ resource "kubernetes_secret" "create_and_vary_a_licence_api_rds" {
 }
 
 module "create_and_vary_a_licence_api_read_replica" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name             = var.vpc_name
+  vpc_name                    = var.vpc_name
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
 
   # Tags
-  team_name            = var.team_name
-  business_unit        = var.business_unit
-  application          = var.application
-  is_production        = var.is_production
-  namespace            = var.namespace
-  environment_name     = var.environment
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.5"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.small"
-  db_allocated_storage        = 10
-  storage_type                = "gp2"
+  db_engine            = "postgres"
+  db_engine_version    = "17.5"
+  rds_family           = "postgres17"
+  db_instance_class    = "db.t4g.small"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # Read replica specifics
-  replicate_source_db = module.create_and_vary_a_licence_api_rds.db_identifier
-  skip_final_snapshot = true
+  replicate_source_db        = module.create_and_vary_a_licence_api_rds.db_identifier
+  skip_final_snapshot        = true
   db_backup_retention_period = 0
 
   providers = {
@@ -108,9 +109,9 @@ module "create_and_vary_a_licence_api_read_replica" {
   }
 
   # DPR security group
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
-
+  # DPR specific parameters
   db_parameter = [
     {
       name         = "rds.logical_replication"
