@@ -86,3 +86,9 @@ variable "github_environment_name" {
   type        = string
   default     = "staging"
 }
+
+variable "pingdom_api_key" {
+  description = "Pingdom API key used to authenticate with Pingdom provider"
+  type        = string
+  sensitive   = true
+}
