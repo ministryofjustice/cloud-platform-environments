@@ -11,7 +11,7 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
 
   # PostgresSQL specifics
   db_engine         = "postgres"
