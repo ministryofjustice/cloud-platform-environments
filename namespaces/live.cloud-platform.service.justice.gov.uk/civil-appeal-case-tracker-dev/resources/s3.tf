@@ -15,30 +15,87 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+# --------------------------------------------------------
+# VPC ENDPOINT FOR S3 BUCKET ACCESS FROM WITHIN VPC
+# --------------------------------------------------------
+resource "aws_vpc_endpoint" "s3_gateway" {
+  vpc_id            = aws_vpc.main.id
+  service_name      = "com.amazonaws.${var.aws_region}.s3"
+  vpc_endpoint_type = "Gateway"
+
+  route_table_ids = [
+    aws_route_table.private.id,
+  ]
+}
+
+# --------------------------------------------------------
+# BUCKET POLICY (external user + VPC restriction)
+# --------------------------------------------------------
+data "aws_iam_policy_document" "merged_bucket_policy" {
+
+  # Allow the external user access
+  statement {
+    sid    = "AllowExternalUserToReadAndPutObjectsInS3"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.user.arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+  }
+
+  # Deny everything unless request used the VPC endpoint
+  statement {
+    sid    = "DenyUnlessViaVpcEndpoint"
+    effect = "Deny"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "s3:*"
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+
+    condition {
+      test     = "StringNotEquals"
+      variable = "aws:SourceVpce"
+      values   = [aws_vpc_endpoint.s3_gateway.id]
+    }
+  }
+}
+
+# --------------------------------------------------------
+# MERGED POLICY TO THE BUCKET
+# --------------------------------------------------------
 resource "aws_s3_bucket_policy" "restricted_policy" {
   bucket = module.s3_bucket.bucket_name
+  policy = data.aws_iam_policy_document.merged_bucket_policy.json
+}
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid = "AllowExternalUserToReadAndPutObjectsInS3"
-        Effect = "Allow"
-        Principal = {
-          AWS = aws_iam_user.user.arn
-        }
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:ListBucket"
-        ]
-        Resource = [
-          module.s3_bucket.bucket_arn,
-          "${module.s3_bucket.bucket_arn}/*"
-        ]
-      }
-    ]
-  })
+# --------------------------------------------------------
+# 4. EXTERNAL USER FOR S3 BUCKET ACCESS
+# --------------------------------------------------------
+resource "aws_iam_user" "user" {
+  name = "external-s3-access-user-${var.environment}"
+  path = "/system/external-s3-access-user/"
 }
 
 data "aws_iam_policy_document" "external_user_s3_access_policy" {
@@ -54,11 +111,6 @@ data "aws_iam_policy_document" "external_user_s3_access_policy" {
       "${module.s3_bucket.bucket_arn}/*"
     ]
   }
-}
-
-resource "aws_iam_user" "user" {
-  name = "external-s3-access-user-${var.environment}"
-  path = "/system/external-s3-access-user/"
 }
 
 resource "aws_iam_access_key" "user" {
