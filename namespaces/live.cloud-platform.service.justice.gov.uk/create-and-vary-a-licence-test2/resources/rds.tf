@@ -111,7 +111,6 @@ module "create_and_vary_a_licence_api_read_replica" {
   # DPR security group
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
-
   # DPR specific parameters
   db_parameter = [
     {
