@@ -1,5 +1,5 @@
 module "redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -21,7 +21,7 @@ module "redis" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "ec-cluster-output" {
+resource "kubernetes_secret" "ec_cluster_output" {
   metadata {
     name      = "ec-cluster-output"
     namespace = var.namespace
@@ -35,7 +35,7 @@ resource "kubernetes_secret" "ec-cluster-output" {
   }
 }
 
-resource "kubernetes_secret" "app-redis" {
+resource "kubernetes_secret" "app_redis" {
   metadata {
     name      = "app-redis"
     namespace = var.namespace
