@@ -26,6 +26,7 @@ module "create_and_vary_a_licence_api_rds" {
   # DPR security group
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
+  # DPR specific parameters
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -95,8 +96,8 @@ module "create_and_vary_a_licence_api_read_replica" {
   db_engine_version = "17.5"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
-  db_allocated_storage        = 10
-  storage_type                = "gp2"
+  db_allocated_storage = 10
+  storage_type = "gp2"
 
   # Read replica specifics
   replicate_source_db = module.create_and_vary_a_licence_api_rds.db_identifier
@@ -111,6 +112,7 @@ module "create_and_vary_a_licence_api_read_replica" {
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
 
+  # DPR specific parameters
   db_parameter = [
     {
       name         = "rds.logical_replication"
