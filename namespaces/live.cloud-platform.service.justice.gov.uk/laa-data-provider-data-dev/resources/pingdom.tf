@@ -1,17 +1,8 @@
-terraform {
-  required_providers {
-    pingdom = {
-      source  = "pingdom/pingdom"
-      version = "1.16.0" # or whatever version you use
-    }
-  }
-}
-
 provider "pingdom" {
   api_key = var.pingdom_api_key
 }
 
-resource "pingdom_check" "laa-data-provider-data-dev" {
+resource "pingdom_check" "laa_data_provider_data_dev" {
   name                     = "LAA Provider Details API DEV Healthcheck"
   host                     = "laa-provider-details-api-dev.apps.live.cloud-platform.service.justice.gov.uk"
   type                     = "http"
