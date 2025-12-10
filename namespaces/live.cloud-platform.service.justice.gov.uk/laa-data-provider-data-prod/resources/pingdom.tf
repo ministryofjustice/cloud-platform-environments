@@ -2,7 +2,7 @@ provider "pingdom" {
   api_key = var.pingdom_api_key
 }
 
-resource "pingdom_check" "laa-data-provider-data-prod" {
+resource "pingdom_check" "laa_data_provider_data_prod" {
   name                     = "LAA Provider Details API PROD Healthcheck"
   host                     = "laa-provider-details-api-prod.apps.live.cloud-platform.service.justice.gov.uk"
   type                     = "http"
