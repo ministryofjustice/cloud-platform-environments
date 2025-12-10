@@ -71,3 +71,9 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
+
+variable "aws_region" {
+  description = "The AWS region to deploy resources to"
+  type        = string
+  default     = "eu-west-2"
+}
