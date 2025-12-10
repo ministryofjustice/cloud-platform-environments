@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-matomo"
+  default     = "hmpps-matomo-admin"
 }
 
 variable "service_area" {

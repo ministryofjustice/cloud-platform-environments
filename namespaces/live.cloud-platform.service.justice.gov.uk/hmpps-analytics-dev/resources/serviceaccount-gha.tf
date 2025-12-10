@@ -1,6 +1,6 @@
 module "hmpps_matomo_dev" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo = "hmpps-matomo"
+  github_repo = "hmpps-matomo-analytics"
   application = "hmpps-matomo"
   github_team = "hmpps-matomo-admin"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
