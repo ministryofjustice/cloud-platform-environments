@@ -77,3 +77,9 @@ variable "aws_region" {
   type        = string
   default     = "eu-west-2"
 }
+
+variable "service_area" {
+  description = "Team Service Area"
+  type        = string
+  default     = "DTS Legacy Services"
+}
