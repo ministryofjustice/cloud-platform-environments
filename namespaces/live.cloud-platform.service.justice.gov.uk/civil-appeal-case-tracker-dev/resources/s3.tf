@@ -72,6 +72,7 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
   }
 }
 
+
 resource "aws_s3_bucket_policy" "restricted_policy" {
   bucket = module.s3_bucket.bucket_name
   policy = data.aws_iam_policy_document.merged_bucket_policy.json
