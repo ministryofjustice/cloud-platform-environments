@@ -1,5 +1,4 @@
 provider "pingdom" {
-  api_key = var.pingdom_api_key
 }
 
 resource "pingdom_check" "laa_data_provider_data_dev" {
@@ -18,22 +17,5 @@ resource "pingdom_check" "laa_data_provider_data_dev" {
   # This ensures Pingdom marks the check as "up" only when it gets a 200 response
   requestheaders = {
     "Accept" = "application/json"
-  }
-
-  # You can optionally restrict to specific Pingdom regions:
-  # probe_filters = "region:EU"
-  # --- Operational Hours: 07:00–21:30 daily ---
-  hoursofoperation {
-    days_of_week = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday"
-    ]
-    from = "07:00"
-    to   = "21:30"
   }
 }
