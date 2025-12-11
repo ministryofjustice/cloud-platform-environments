@@ -15,6 +15,7 @@ resource "pingdom_check" "laa_data_provider_data_dev" {
 
   # Optional: expected HTTP status code
   # This ensures Pingdom marks the check as "up" only when it gets a 200 response
+
   requestheaders = {
     "Accept" = "application/json"
   }
