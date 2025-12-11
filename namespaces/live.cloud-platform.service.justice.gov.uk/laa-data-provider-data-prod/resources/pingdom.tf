@@ -1,5 +1,4 @@
 provider "pingdom" {
-  api_key = var.pingdom_api_key
 }
 
 resource "pingdom_check" "laa_data_provider_data_prod" {
