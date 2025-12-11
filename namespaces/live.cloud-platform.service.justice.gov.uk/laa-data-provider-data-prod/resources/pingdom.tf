@@ -18,21 +18,4 @@ resource "pingdom_check" "laa_data_provider_data_prod" {
   requestheaders = {
     "Accept" = "application/json"
   }
-
-  # You can optionally restrict to specific Pingdom regions:
-  # probe_filters = "region:EU"
-  # --- Operational Hours: 07:00–21:30 daily ---
-  hoursofoperation {
-    days_of_week = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday"
-    ]
-    from = "07:00"
-    to   = "21:30"
-  }
 }
