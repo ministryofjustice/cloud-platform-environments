@@ -19,27 +19,6 @@ module "s3_bucket" {
 # --------------------------------------------------------
 data "aws_iam_policy_document" "merged_bucket_policy" {
 
-  statement {
-    sid    = "AllowExternalUserToReadAndPutObjectsInS3"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_user.user.arn]
-    }
-
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:ListBucket"
-    ]
-
-    resources = [
-      module.s3_bucket.bucket_arn,
-      "${module.s3_bucket.bucket_arn}/*"
-    ]
-  }
-
     # --- VPCE-restricted ---
   statement {
     sid    = "AllowS3AccessFromVPCE"
@@ -47,7 +26,7 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.user.arn]
+      identifiers = ["*"]
     }
 
     actions = [
