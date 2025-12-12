@@ -27,5 +27,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-production"
     },
+
+    "base_url_map" = {
+      description             = "API Base URL Map for production environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "base-url-map-production"
+    },
   }
 }
