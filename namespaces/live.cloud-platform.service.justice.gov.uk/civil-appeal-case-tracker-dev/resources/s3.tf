@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
 
     # --- VPCE-restricted ---
   statement {
-    sid    = "AllowS3AccessFromVPCE"
+    sid    = "AllowApplicationS3AccessFromVPCE"
     effect = "Allow"
 
     principals {
