@@ -19,13 +19,14 @@ module "s3_bucket" {
 # --------------------------------------------------------
 data "aws_iam_policy_document" "merged_bucket_policy" {
 
+    # --- VPCE-restricted ---
   statement {
-    sid    = "AllowExternalUserToReadAndPutObjectsInS3"
+    sid    = "AllowApplicationS3AccessFromVPCE"
     effect = "Allow"
 
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.user.arn]
+      identifiers = ["*"]
     }
 
     actions = [
@@ -38,6 +39,15 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
       module.s3_bucket.bucket_arn,
       "${module.s3_bucket.bucket_arn}/*"
     ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceVpce"
+
+      values = [
+        "vpce-0f82cc8809dc37503"
+      ]
+    }
   }
 
     # --- VPCE-restricted ---
