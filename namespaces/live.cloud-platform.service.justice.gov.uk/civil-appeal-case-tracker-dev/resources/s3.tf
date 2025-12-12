@@ -20,7 +20,7 @@ module "s3_bucket" {
 # --------------------------------------------------------
 data "aws_iam_policy_document" "merged_bucket_policy" {
 
-    # --- VPCE-restricted ---
+    # --- VPCE-restricted for apps running in VPC ---
   statement {
     sid    = "AllowApplicationS3AccessFromVPCE"
     effect = "Allow"
@@ -44,13 +44,31 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceVpce"
-
-      values = [
-        "vpce-0f82cc8809dc37503"
-      ]
+      values = ["vpce-0f82cc8809dc37503"]
     }
   }
 
+  # --- External IAM user (can access from anywhere with credentials) ---
+  statement {
+    sid    = "AllowExternalUserToReadAndPutObjectsInS3"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.user.arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      module.s3_bucket.bucket_arn,
+      "${module.s3_bucket.bucket_arn}/*"
+    ]
+  }
 }
 
 
