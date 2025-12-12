@@ -14,6 +14,7 @@ module "s3_bucket" {
   namespace              = var.namespace
 }
 
+
 # --------------------------------------------------------
 # BUCKET POLICY (Allow the external user)
 # --------------------------------------------------------
