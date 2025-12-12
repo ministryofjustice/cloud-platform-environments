@@ -51,36 +51,6 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
     }
   }
 
-    # --- VPCE-restricted ---
-  statement {
-    sid    = "AllowS3AccessFromVPCE"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_user.user.arn]
-    }
-
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:ListBucket"
-    ]
-
-    resources = [
-      module.s3_bucket.bucket_arn,
-      "${module.s3_bucket.bucket_arn}/*"
-    ]
-
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceVpce"
-
-      values = [
-        "vpce-0f82cc8809dc37503"
-      ]
-    }
-  }
 }
 
 
