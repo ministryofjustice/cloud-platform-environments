@@ -72,3 +72,7 @@ variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
   default     = "calculate123"
 }
+
+variable "service_area" {
+  default = "Manage Custody"
+}
