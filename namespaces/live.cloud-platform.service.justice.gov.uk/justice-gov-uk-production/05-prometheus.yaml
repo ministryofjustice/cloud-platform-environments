@@ -54,7 +54,7 @@ spec:
       for: 5m
       labels:
         severity: hale-platform-alerts
-    - alert: KubePodNotReady # ‼️ Critical alert
+    - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
           state for longer than 5 minutes.
@@ -62,6 +62,17 @@ spec:
       expr: |-
         sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-production"}) 
         > 0
+      for: 5m
+      labels:
+        severity: justice-gov-uk-production-alerts
+    - alert: KubePodsMultipleNotReady # ‼️ Critical alert
+      annotations:
+        message: 2 or more pods in {{ $labels.namespace }} have been in a non-ready
+          state for longer than 5 minutes.
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
+      expr: |-
+        sum by (namespace) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-production"}) 
+        >= 2
       for: 5m
       labels:
         severity: hale-platform-alerts

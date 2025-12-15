@@ -1,13 +1,20 @@
-module "container_repository" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0" # use the latest release
+/*
+ * Make sure that you use the latest version of the module by changing the
+ * `ref=` value in the `source` attribute to the latest version listed on the
+ * releases page of this repository.
+ *
+ */
+module "ecr" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace
 
-  deletion_protection = false
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-prisoner-finance-general-ledger-api"]
+  github_repositories = ["data-platform-app-release-in-error"]
+  github_environments   = ["dev"]
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
