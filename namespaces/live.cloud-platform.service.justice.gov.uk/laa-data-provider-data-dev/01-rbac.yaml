@@ -8,6 +8,9 @@ subjects:
   - kind: Group
     name: "github:laa-data-stewardship-cse-team"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-sre-admins"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
@@ -28,4 +31,4 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: calico-network-policy-access
-  apiGroup: rbac.authorization.k8s
+  apiGroup: rbac.authorization.k8s.io
