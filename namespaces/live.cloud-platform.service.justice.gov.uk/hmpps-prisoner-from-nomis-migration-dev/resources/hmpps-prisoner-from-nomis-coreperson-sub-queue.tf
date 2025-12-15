@@ -109,7 +109,10 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_coreperson_subscripti
   endpoint  = module.prisoner_from_nomis_coreperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "OFFENDER_PHYSICAL_DETAILS-CHANGED"
+      "OFFENDER_PHYSICAL_DETAILS-CHANGED",
+      "OFFENDER_BELIEFS-INSERTED",
+      "OFFENDER_BELIEFS-UPDATED",
+      "OFFENDER_BELIEFS-DELETED"
     ]
   })
 }
