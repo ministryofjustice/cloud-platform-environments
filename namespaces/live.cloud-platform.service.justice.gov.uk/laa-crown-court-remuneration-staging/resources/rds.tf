@@ -80,60 +80,6 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rule1" {
-  cidr_blocks       = ["10.204.0.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule2" {
-  cidr_blocks       = ["10.204.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule3" {
-  cidr_blocks       = ["10.200.16.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule4" {
-  cidr_blocks       = ["10.200.16.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule5" {
-  cidr_blocks       = ["10.205.0.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
-resource "aws_security_group_rule" "rule6" {
-  cidr_blocks       = ["10.205.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
-}
-
 # Allow MojFin to extract data from the CCR database for reporting
 resource "aws_security_group_rule" "mp_staging_subnet_data_2a" {
   cidr_blocks       = ["10.27.77.128/25"]
