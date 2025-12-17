@@ -47,7 +47,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "stgtransformationteam@justice.gov.uk"
+  default     = "rohit.gokhale@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -72,4 +72,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "db_name" {
+  description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "tmcprototype"
+  type        = string
+}
+
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "tmc-prototype-dev"
+  type        = string
 }
