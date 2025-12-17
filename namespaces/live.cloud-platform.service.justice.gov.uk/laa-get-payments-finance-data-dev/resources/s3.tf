@@ -57,6 +57,9 @@ module "s3_bucket_report_store" {
   bucket_name = var.report_store_bucket_name
   versioning = false
 
+  # A file should pick the shortest rule that applies to it.
+  # A file in reports/daily will have two rules, and will pick the 1 day as its shorter than the 31 days
+  # A file in reports/monthly will follow the base 31 days rule
   lifecycle_rule = [
     {
       enabled = true
@@ -64,7 +67,17 @@ module "s3_bucket_report_store" {
       prefix  = "reports/"
       expiration = [
         {
-          days = 30
+          days = 31
+        }
+      ]
+    },
+    {
+      enabled = true
+      id      = "Delete any daily report a day after generation"
+      prefix  = "reports/daily/"
+      expiration = [
+        {
+          days = 1
         }
       ]
     }
