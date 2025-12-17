@@ -38,6 +38,11 @@ variable "environment-name" {
   default     = "preprod"
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
@@ -59,5 +64,7 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+}
 
 variable "kubernetes_cluster" {}
