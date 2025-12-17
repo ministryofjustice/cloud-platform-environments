@@ -31,6 +31,7 @@ module "crime_matching_algorithm_irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
+    athena = aws_iam_policy.athena_access.arn
     matching_notifications_queue = module.matching_notifications_queue.irsa_policy_arn
     matching_notifications_dlq = module.matching_notifications_dlq.irsa_policy_arn
   }
