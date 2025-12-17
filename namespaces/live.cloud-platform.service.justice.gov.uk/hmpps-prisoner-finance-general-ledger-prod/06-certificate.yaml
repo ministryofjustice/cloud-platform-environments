@@ -10,6 +10,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-finance-general-ledger-api-prod.hmpps.service.justice.gov.uk
-    - pf-general-ledger-api-prod.hmpps.service.justice.gov.uk
+    - prisoner-finance-general-ledger-api.hmpps.service.justice.gov.uk
+    - pf-general-ledger-api.hmpps.service.justice.gov.uk
 
