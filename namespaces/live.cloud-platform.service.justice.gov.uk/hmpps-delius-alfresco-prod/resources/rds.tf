@@ -50,7 +50,12 @@ module "rds_alfresco" {
       name         = "maintenance_work_mem", 
       value        = "1048576", # kB = 1GB
       apply_method = "immediate" 
-    } 
+    },
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    }
   ]
 
   db_backup_retention_period = "28"
