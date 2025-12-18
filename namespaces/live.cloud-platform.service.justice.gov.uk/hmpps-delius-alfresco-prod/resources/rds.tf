@@ -45,7 +45,12 @@ module "rds_alfresco" {
       name         = "max_parallel_maintenance_workers"
       value        = "6"
       apply_method = "immediate"
-    }
+    },
+    { 
+      name         = "maintenance_work_mem", 
+      value        = "1048576", # kB = 1GB
+      apply_method = "immediate" 
+    } 
   ]
 
   db_backup_retention_period = "28"
