@@ -45,7 +45,9 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     { sqs_all = aws_iam_policy.combined_local_sqs.arn },
-    { rds = module.prisoner_pay_rds.irsa_policy_arn }
+    { rds = module.prisoner_pay_rds.irsa_policy_arn },
+    { (module.hmpps_prisoner_pay_api_jobs_queue.sqs_name) = module.hmpps_prisoner_pay_api_jobs_queue.irsa_policy_arn },
+    { (module.hmpps_prisoner_pay_api_jobs_dlq.sqs_name) = module.hmpps_prisoner_pay_api_jobs_dlq.irsa_policy_arn }
   )
 
   # Tags
