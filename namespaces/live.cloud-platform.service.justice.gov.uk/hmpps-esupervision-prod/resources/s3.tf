@@ -9,15 +9,41 @@ module "s3_data_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # Enable versioning to preserve old photos when updated
+  versioning = true
+
   cors_rule =[
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "PUT"]
-      allowed_origins = ["https://esupervision.hmpps.service.justice.gov.uk"]
+      allowed_origins = ["https://esupervision.hmpps.service.justice.gov.uk","https://manage-people-on-probation.hmpps.service.justice.gov.uk","https://probation-check-in.hmpps.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     }
   ]
+}
+
+# Bucket policy to allow Rekognition role to read S3 objects for facial comparison
+resource "aws_s3_bucket_policy" "rekognition_access" {
+  bucket = module.s3_data_bucket.bucket_name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowRekognitionRoleAccess"
+        Effect    = "Allow"
+        Principal = {
+          AWS = var.rekognition_role_arn
+        }
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ]
+        Resource = "${module.s3_data_bucket.bucket_arn}/*"
+      }
+    ]
+  })
 }
 
 # info about the bucket
