@@ -31,6 +31,8 @@ module "prison-visits-rds" {
 
   performance_insights_enabled = true
 
+  enable_irsa = true
+
   providers = {
     aws = aws.london
   }
