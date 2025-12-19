@@ -76,7 +76,7 @@ variable "github_token" {
 
 variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "preprod"
+  default     = "prod"
 }
 
 variable "github_actions_team" {
