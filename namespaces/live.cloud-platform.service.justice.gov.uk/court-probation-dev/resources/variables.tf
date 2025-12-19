@@ -42,6 +42,10 @@ variable "rds-family" {
   default = "postgres14"
 }
 
+variable "rds_16_family" {
+  default = "postgres16"
+}
+
 variable "db_engine" {
   default = "postgres"
 }
