@@ -42,6 +42,10 @@ variable "rds-family" {
   default = "postgres14"
 }
 
+variable "rds_16_family" {
+  default = "postgres16"
+}
+
 variable "db_engine" {
   default = "postgres"
 }
@@ -49,6 +53,11 @@ variable "db_engine" {
 variable "db_engine_version" {
   default = "14.17"
 }
+
+variable "db_engine_version_16" {
+  default = "16.10"
+}
+
 
 variable "db_instance_class" {
   default = "db.t4g.small"
