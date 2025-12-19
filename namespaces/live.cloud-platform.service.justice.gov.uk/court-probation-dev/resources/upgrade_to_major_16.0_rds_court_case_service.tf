@@ -1,4 +1,4 @@
-module "court_case_service_rds" {
+module "court_case_service_rds_16" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage       = 10
   storage_type               = "gp2"
