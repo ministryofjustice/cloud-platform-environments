@@ -1,6 +1,5 @@
 module "court_case_service_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_engine_version = "16.10"
   db_allocated_storage       = 10
   storage_type               = "gp2"
   vpc_name                   = var.vpc_name
@@ -14,7 +13,7 @@ module "court_case_service_rds" {
   prepare_for_major_upgrade  = false
   rds_family                 = var.rds_16_family
   db_engine                  = var.db_engine
-  db_engine_version          = var.db_engine_version
+  db_engine_version          = var.db_engine_version_16
   db_instance_class          = var.db_instance_class
 
   prepare_for_major_upgrade = true

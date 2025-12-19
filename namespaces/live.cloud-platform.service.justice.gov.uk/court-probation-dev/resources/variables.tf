@@ -54,6 +54,11 @@ variable "db_engine_version" {
   default = "14.17"
 }
 
+variable "db_engine_version_16" {
+  default = "16.10"
+}
+
+
 variable "db_instance_class" {
   default = "db.t4g.small"
 }
