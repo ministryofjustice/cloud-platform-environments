@@ -30,7 +30,7 @@ module "court_case_service_rds" {
 
 }
 
-esource "kubernetes_secret" "court_case_service_rds" {
+resource "kubernetes_secret" "court_case_service_rds" {
   metadata {
     name      = "court-case-service-rds-instance-output"
     namespace = var.namespace
