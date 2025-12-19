@@ -25,7 +25,6 @@ module "court_case_service_rds" {
     aws = aws.london
   }
 
-
   enable_irsa = true
 
 }
