@@ -16,7 +16,7 @@ module "rds_alfresco" {
   # Storage configuration
   db_max_allocated_storage     = "1500"
   db_allocated_storage         = "200"
-  db_iops                      = "16000"
+  db_iops                      = "12000"
   #db_storage_throughput           = "1000" # This doesn't exist as a variable in the module yet.
 
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -33,12 +33,12 @@ module "rds_alfresco" {
   db_parameter = [
     {
       name         = "max_wal_size"
-      value        = "32768"          # MB (32GB)
+      value        = "2048"          # MB (2GB)
       apply_method = "immediate"
     },
     {
       name         = "checkpoint_timeout"
-      value        = "900"            # seconds (15 min)
+      value        = "300"            # seconds (5 min)
       apply_method = "immediate"
     },
     {
