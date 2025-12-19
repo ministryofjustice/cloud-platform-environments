@@ -73,3 +73,12 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "environment_name" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
+}
+
+variable "github_actions_team" {
+  default = "hmpps-calculate-release-dates-team-live"
+}
