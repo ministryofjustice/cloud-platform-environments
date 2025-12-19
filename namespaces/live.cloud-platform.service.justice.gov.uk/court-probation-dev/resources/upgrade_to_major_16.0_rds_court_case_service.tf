@@ -30,19 +30,3 @@ module "court_case_service_rds" {
 
 }
 
-resource "kubernetes_secret" "court_case_service_rds" {
-  metadata {
-    name      = "court-case-service-rds-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.court_case_service_rds.rds_instance_endpoint
-    database_name         = module.court_case_service_rds.database_name
-    database_username     = module.court_case_service_rds.database_username
-    database_password     = module.court_case_service_rds.database_password
-    rds_instance_address  = module.court_case_service_rds.rds_instance_address
-    url                   = "postgres://${module.court_case_service_rds.database_username}:${module.court_case_service_rds.database_password}@${module.court_case_service_rds.rds_instance_endpoint}/${module.court_case_service_rds.database_name}"
-  }
-}
-
