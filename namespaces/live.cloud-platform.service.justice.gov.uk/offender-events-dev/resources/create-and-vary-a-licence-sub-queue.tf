@@ -88,6 +88,19 @@ resource "aws_sns_topic_subscription" "cvl_prison_events_subscription" {
   })
 }
 
+resource "kubernetes_secret" "create_and_vary_a_licence_prison_events_queue" {
+  metadata {
+    name      = "create-and-vary-a-licence-prison-events-sqs-instance-output"
+    namespace = "create-and-vary-a-licence-dev"
+  }
+
+  data = {
+    sqs_id   = module.cvl_prison_events_queue.sqs_id
+    sqs_arn  = module.cvl_prison_events_queue.sqs_arn
+    sqs_name = module.cvl_prison_events_queue.sqs_name
+  }
+}
+
 resource "kubernetes_secret" "create_and_vary_a_licence_prison_events_dead_letter_queue" {
   metadata {
     name      = "create-and-vary-a-licence-prison-events-sqs-dl-instance-output"
