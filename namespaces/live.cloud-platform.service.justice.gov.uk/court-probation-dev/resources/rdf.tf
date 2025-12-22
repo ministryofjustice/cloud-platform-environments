@@ -10,9 +10,9 @@ module "court_case_service_rds" {
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
   is_production              = var.is_production
-  rds_family                 = var.rds_16_family
+  rds_family                 = var.rds_family
   db_engine                  = var.db_engine
-  db_engine_version          = var.db_engine_version_16
+  db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
 
   prepare_for_major_upgrade = true
