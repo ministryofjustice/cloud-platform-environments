@@ -10,20 +10,23 @@ module "court_case_service_rds" {
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
   is_production              = var.is_production
-  prepare_for_major_upgrade  = false
-  rds_family                 = var.rds-family
+  rds_family                 = var.rds_family
   db_engine                  = var.db_engine
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
+
+  prepare_for_major_upgrade = true
+
   enable_rds_auto_start_stop = true
   db_password_rotated_date = "2025-10-14"
+
 
   providers = {
     aws = aws.london
   }
 
-
   enable_irsa = true
+
 }
 
 resource "kubernetes_secret" "court_case_service_rds" {
@@ -41,3 +44,4 @@ resource "kubernetes_secret" "court_case_service_rds" {
     url                   = "postgres://${module.court_case_service_rds.database_username}:${module.court_case_service_rds.database_password}@${module.court_case_service_rds.rds_instance_endpoint}/${module.court_case_service_rds.database_name}"
   }
 }
+

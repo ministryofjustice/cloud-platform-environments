@@ -38,12 +38,8 @@ variable "is_production" {
   default = "false"
 }
 
-variable "rds-family" {
-  default = "postgres14"
-}
-
-variable "rds_16_family" {
-  default = "postgres16"
+variable "rds_family" {
+  default = "postgres17"
 }
 
 variable "db_engine" {
@@ -51,11 +47,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "14.17"
-}
-
-variable "db_engine_version_16" {
-  default = "16.10"
+  default = "17.6"
 }
 
 
