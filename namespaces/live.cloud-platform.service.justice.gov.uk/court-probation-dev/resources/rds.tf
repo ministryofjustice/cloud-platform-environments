@@ -15,7 +15,7 @@ module "court_case_service_rds" {
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   enable_rds_auto_start_stop = true
   db_password_rotated_date = "2025-10-14"
