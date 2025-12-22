@@ -4,9 +4,7 @@ resource "aws_sns_topic_subscription" "create-and-vary-a-licence-and-delius-queu
   endpoint  = module.create-and-vary-a-licence-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "create-and-vary-a-licence.licence.activated",
-      "create-and-vary-a-licence.prrd-licence.activated",
-      "create-and-vary-a-licence.time-served-licence.activated",
+      "create-and-vary-a-licence.licence.activated"
     ]
   })
 }
