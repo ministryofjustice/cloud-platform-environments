@@ -47,7 +47,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "17.60"
+  default = "17.6"
 }
 
 
