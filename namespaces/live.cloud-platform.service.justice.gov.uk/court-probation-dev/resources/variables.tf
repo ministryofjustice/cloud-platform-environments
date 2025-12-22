@@ -39,7 +39,7 @@ variable "is_production" {
 }
 
 variable "rds_family" {
-  default = "postgres18"
+  default = "postgres17"
 }
 
 variable "db_engine" {
@@ -47,7 +47,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "18.1"
+  default = "17.6"
 }
 
 
