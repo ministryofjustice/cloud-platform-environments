@@ -74,7 +74,7 @@ variable "ap-stack-court-case" {
 }
 
 variable "rds-family" {
-  default = "postgres17"
+  default = "postgres18"
 }
 
 variable "db_engine" {
@@ -82,7 +82,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "17.6"
+  default = "18.1
 }
 
 variable "db_instance_class" {
