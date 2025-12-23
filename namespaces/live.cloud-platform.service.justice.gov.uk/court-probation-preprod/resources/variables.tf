@@ -24,22 +24,6 @@ variable "team_name" {
   default     = "probation-in-court-team"
 }
 
-variable "rds_family" {
-  default = "postgres17"
-}
-
-variable "db_engine" {
-  default = "postgres"
-}
-
-variable "db_engine_version" {
-  default = "17.6"
-}
-
-variable "db_instance_class" {
-  default = "db.t4g.xlarge"
-}
-
 variable "environment" {
   default = "preprod"
 }
