@@ -82,7 +82,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "18.1
+  default = "18.1"
 }
 
 variable "db_instance_class" {
