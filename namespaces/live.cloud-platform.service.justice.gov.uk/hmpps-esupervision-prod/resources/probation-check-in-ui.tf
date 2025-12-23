@@ -4,6 +4,7 @@ module "hmpps_probation_check_in_ui" {
   application = "hmpps-probation-check-in-ui"
   github_team = "stg-pathfinders"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["stg-pathfinders"]
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
