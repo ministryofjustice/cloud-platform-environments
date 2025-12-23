@@ -40,13 +40,13 @@ spec:
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/3c878b0d42914a8fa421f798cfb3ba8f/laa-maat-data-api?var-namespace=laa-maat-data-api-prod
         - alert: Client Response Errors (404 Errors)
-          expr: sum(increase(http_server_requests_seconds_count{status="404",outcome="CLIENT_ERROR",namespace="laa-maat-data-api-prod"}[10m])) > 1
+          expr: sum(increase(http_server_requests_seconds_count{status="404",outcome="CLIENT_ERROR",namespace="laa-maat-data-api-prod"}[10m])) > 35
           for: 1m
           labels:
             severity: laa-maat-data-api-prod
             namespace: laa-maat-data-api-prod
           annotations:
-            message: There has been an increase in 404 error responses in the MAAT Data API running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+            message: There has been an increase of 35 x 404 error responses in the MAAT Data API running on production in the past 10 minutes (considered a high sample). This may indicate a problem with clients calling the application - including intrusion attempts.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/3c878b0d42914a8fa421f798cfb3ba8f/laa-maat-data-api?var-namespace=laa-maat-data-api-prod
         - alert: MAAT Data API Rollback Error
