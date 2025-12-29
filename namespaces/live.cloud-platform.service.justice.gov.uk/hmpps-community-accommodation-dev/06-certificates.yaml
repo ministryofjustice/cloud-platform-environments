@@ -129,3 +129,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - single-accommodation-service-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-accommodation-data-domain-api-dev-cert
+  namespace: hmpps-community-accommodation-dev
+spec:
+  secretName: hmpps-accommodation-data-domain-api-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - accommodation-data-domain-api-dev.hmpps.service.justice.gov.uk
