@@ -1,5 +1,5 @@
 module "hmpps_content-hub-feedback-reports" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-content-hub-feedback-reports"
   application = "hmpps-content-hub-feedback-reports"
   github_team = "hmpps-launchpad"
