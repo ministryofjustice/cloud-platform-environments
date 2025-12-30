@@ -1,7 +1,7 @@
-module "hmpps_content-hub-feedback-reports" {
+module "hmpps_content_hub_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo = "hmpps-content-hub-feedback-reports"
-  application = "hmpps-content-hub-feedback-reports"
+  github_repo = "hmpps-content-hub-ui"
+  application = "hmpps-content-hub-ui"
   github_team = "hmpps-launchpad"
   environment = var.environment-name # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-launchpad"] # Optional team that should review deployments to this environment.
