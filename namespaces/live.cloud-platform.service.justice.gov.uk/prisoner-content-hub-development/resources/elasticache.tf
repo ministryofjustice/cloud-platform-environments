@@ -70,7 +70,7 @@ resource "kubernetes_secret" "frontend_redis" {
   }
 }
 
-module "content_hub_ui_redis" {
+module "ui_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -99,9 +99,9 @@ resource "kubernetes_secret" "ui_redis" {
   }
 
   data = {
-    primary_endpoint_address = module.content_hub_ui_redis.primary_endpoint_address
-    auth_token               = module.content_hub_ui_redis.auth_token
-    member_clusters          = jsonencode(module.content_hub_ui_redis.member_clusters)
-    replication_group_id     = module.content_hub_ui_redis.replication_group_id
+    primary_endpoint_address = module.ui_redis.primary_endpoint_address
+    auth_token               = module.ui_redis.auth_token
+    member_clusters          = jsonencode(module.ui_redis.member_clusters)
+    replication_group_id     = module.ui_redis.replication_group_id
   }
 }
