@@ -6,10 +6,10 @@ metadata:
   namespace: hmpps-prisoner-profile-dev
 subjects:
   - kind: Group
-    name: "github:connect-dps"
+    name: "github:connect-dps-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:connect-dps-collaborators-devs"
+    name: "github:connect-dps-devs-collaborators-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
