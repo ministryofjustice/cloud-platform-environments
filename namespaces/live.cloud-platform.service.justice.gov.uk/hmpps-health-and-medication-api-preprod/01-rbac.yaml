@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-health-and-medication-api-preprod
 subjects:
   - kind: Group
-    name: "github:connect-dps"
+    name: "github:connect-dps-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
