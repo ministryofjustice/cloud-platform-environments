@@ -22,6 +22,7 @@ module "rds_alfresco" {
   db_engine_version         = "14"
   rds_family                = "postgres14"
   db_instance_class         = "db.m8g.large"
+  db_iops                   = "12000"
 
   # Tagst
   application            = var.application
