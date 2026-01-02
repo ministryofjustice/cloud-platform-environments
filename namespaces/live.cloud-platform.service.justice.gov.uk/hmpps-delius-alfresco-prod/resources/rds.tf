@@ -46,9 +46,14 @@ module "rds_alfresco" {
       value        = "6"
       apply_method = "immediate"
     },
+    {
+      name         = "max_parallel_workers_per_gather"
+      value        = "6"
+      apply_method = "immediate"
+    },
     { 
       name         = "maintenance_work_mem", 
-      value        = "1048576", # kB = 1GB
+      value        = "2097152", # 2GB
       apply_method = "immediate" 
     },
     {
