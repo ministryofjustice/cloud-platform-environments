@@ -1,7 +1,7 @@
-module "hmpps_approved_premises_api" {
+module "hmpps_single_accommodation_service_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo = "hmpps-approved-premises-api"
-  application = "hmpps-approved-premises-api"
+  github_repo = "hmpps-single-accommodation-service-api"
+  application = "hmpps-single-accommodation-service-api"
   github_team = "hmpps-community-accommodation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-development.yaml
   reviewer_teams                = ["hmpps-community-accommodation-live"] # Optional team that should review deployments to this environment.

@@ -1,5 +1,5 @@
 module "hmpps_approved_premises_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-approved-premises-ui"
   application = "hmpps-approved-premises-ui"
   github_team = "hmpps-community-accommodation"
