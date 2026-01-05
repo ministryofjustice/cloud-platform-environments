@@ -2,7 +2,7 @@ module "hmpps_prisoner_pay_api_jobs_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "hmpps_prisoner_pay_api_jobs_queue"
+  sqs_name                   = "api_jobs_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 #12 hours
   visibility_timeout_seconds = 600   #10 mins
@@ -16,7 +16,7 @@ module "hmpps_prisoner_pay_api_jobs_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "hmpps-prisoner-pay" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -30,14 +30,14 @@ module "hmpps_prisoner_pay_api_jobs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_prisoner_pay_api_jobs_dlq"
+  sqs_name        = "api_jobs_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "hmpps-prisoner-pay" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
