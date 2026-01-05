@@ -104,7 +104,16 @@ module "opensearch_alert" {
                 }
               ],
               "should": [],
-              "must_not": []
+              "must_not": [
+                {
+              "wildcard": {
+                  "log_processed.http_user_agent": {
+                      "value": "*pingdom*",
+                      "case_insensitive": true
+                  }
+              }
+            }
+              ]
             }
         }
     }
