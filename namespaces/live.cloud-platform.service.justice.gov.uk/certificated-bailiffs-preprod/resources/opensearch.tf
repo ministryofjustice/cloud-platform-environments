@@ -115,6 +115,14 @@ module "opensearch_alert" {
             }
           ]
         }
+      },
+      "aggs" : {
+        "top_user_agents" : {
+          "terms" : {
+            "field" : "log_processed.http_user_agent.keyword",
+            "size" : 10
+          }
+        }
       }
     }
   )
@@ -196,4 +204,4 @@ module "opensearch_dos_alert" {
     }
   )
 }
-  
+
