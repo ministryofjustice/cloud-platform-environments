@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "activities-and-appointments"
+  default     = "hmpps-prisoner-pay"
 }
 
 variable "service_area" {
@@ -47,7 +47,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "activities-and-appointments-dev"
+  default     = "ask-activities-management"
 }
 
 variable "number_cache_clusters" {
