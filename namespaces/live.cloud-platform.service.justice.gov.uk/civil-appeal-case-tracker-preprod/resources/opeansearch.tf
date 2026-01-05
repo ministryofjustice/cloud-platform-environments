@@ -4,7 +4,7 @@ module "opensearch_alert" {
     secret_name                    = "live-civil-appeal-case-tracker-preprod-cd48a1d8f6100258"
     secret_key                     = "OPENSEARCH_SLACK_URL"
     slack_channel_name             = "dts-legacy-apps-system-alerts"
-    slack_channel_name_description = "DTS Legacy Services Production Alerts"
+    slack_channel_name_description = "DTS Legacy Services Pre-production Alerts"
     opensearch_alert_name          = "case-tracker-preprod-bots"
     opensearch_alert_enabled       = true
     monitor_period_interval        = "30"
@@ -75,7 +75,7 @@ module "opensearch_alert" {
           },
           {
             "match_phrase": {
-              "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-prod"
+              "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-preprod"
             }
           },
           {
@@ -117,7 +117,7 @@ module "opensearch_alert" {
     secret_name                    = "live-civil-appeal-case-tracker-preprod-cd48a1d8f6100258"
     secret_key                     = "OPENSEARCH_SLACK_URL"
     slack_channel_name             = "dts-legacy-apps-system-alerts"
-    slack_channel_name_description = "DTS Legacy Services Production Alerts"
+    slack_channel_name_description = "DTS Legacy Services Pre-production Alerts"
     opensearch_alert_name          = "case-tracker-preprod-dos"
     opensearch_alert_enabled       = true
     monitor_period_interval        = "60"
@@ -132,7 +132,7 @@ module "opensearch_alert" {
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status for DoS. Please investigate the issue.\n- Total hits in last 60m: {{ctx.results.0.hits.total.value}} \n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top offending IPs:\n{{#ctx.results.0.aggregations.top_ips.buckets}}  IP: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_ips.buckets}}"
                                       
     alert_query = jsonencode(
       {
