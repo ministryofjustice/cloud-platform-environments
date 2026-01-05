@@ -13,17 +13,17 @@ module "opensearch_alert" {
 
     trigger_name                   = "certificated-bailiffs-preprod-bots"
     serverity                      = "1"
-    query_source                   = "ctx.results[0].hits.total.value > 3"
+    query_source                   = "ctx.results[0].hits.total.value > 15"
     action_name                    = "certificated-bailiffs-preprod-send-alert"
     slack_message_subject          = "Certificated Bailiffs Pre-prod Bot Alert"
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top bot agents:\n{{#ctx.results.0.aggregations.top_user_agents.buckets}} Agent: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_user_agents.buckets}}"
     alert_throttle_enabled         = true
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
     alert_query = jsonencode(
       {
-         "size": 20,
+         "size": 0,
          "query": {
             "bool": {
               "must": [],
@@ -47,8 +47,43 @@ module "opensearch_alert" {
                   "bool": {
                     "should": [
                       {
-                        "match_phrase": {
-                          "log_processed.http_user_agent": "bot"
+                        "wildcard": {
+                          "log_processed.http_user_agent": {
+                            "value": "*bot*",
+                            "case_insensitive": true
+                          }
+                        }
+                      },
+                      {
+                        "wildcard": {
+                          "log_processed.http_user_agent": {
+                            "value": "*crawler*",
+                            "case_insensitive": true
+                          }
+                        }
+                      },
+                      {
+                        "wildcard": {
+                          "log_processed.http_user_agent": {
+                            "value": "*spider*",
+                            "case_insensitive": true
+                          }
+                        }
+                      },
+                      {
+                        "wildcard": {
+                          "log_processed.http_user_agent": {
+                            "value": "*robot*",
+                            "case_insensitive": true
+                          }
+                        }
+                      },
+                      {
+                        "wildcard": {
+                          "log_processed.http_user_agent": {
+                            "value": "*crawl*",
+                            "case_insensitive": true
+                          }
                         }
                       }
                     ],
