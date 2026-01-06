@@ -31,7 +31,7 @@ resource "aws_route53_record" "judicialappointments_route53_a_record_main" {
   records = ["192.0.78.141", "192.0.78.225"]
 }
 
-resource "aws_route53_record" "judicialappointments_route53_a_record_main_ww" {
+resource "aws_route53_record" "judicialappointments_route53_a_record_main_www" {
   zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
   name    = "www.judicialappointments.gov.uk"
   type    = "A"
