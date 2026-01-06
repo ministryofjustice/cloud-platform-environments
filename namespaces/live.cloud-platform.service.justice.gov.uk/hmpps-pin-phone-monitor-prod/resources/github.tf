@@ -3,6 +3,7 @@ module "hmpps-prisoner-communication-monitoring" {
   github_repo                   = "hmpps-prisoner-communication-monitoring"
   application                   = "hmpps-prisoner-communication-monitoring"
   github_team                   = "secure-estate-digital-team"
+  reviewer_teams                = ["secure-estate-digital-restricted-team"]
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true
