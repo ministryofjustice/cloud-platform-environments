@@ -2,7 +2,7 @@ module "github-automation-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-alerts-api"
   application                   = "hmpps-alerts-api"
-  github_team                   = var.team_name
+  github_team                   = "connect-dps-devs"
   environment                   = "dev" # should ideally come from var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
@@ -18,7 +18,7 @@ module "github-automation-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-alerts-ui"
   application                   = "hmpps-alerts-ui"
-  github_team                   = var.team_name
+  github_team                   = "connect-dps-devs"
   environment                   = "dev" # should ideally come from var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
