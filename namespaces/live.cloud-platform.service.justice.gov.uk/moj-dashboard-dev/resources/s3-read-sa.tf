@@ -1,10 +1,10 @@
-module "moj_dashboard_dev_irsa" {
+module "moj_dashboard_dev_s3_read_irsa" {
   source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name      = var.eks_cluster_name
   namespace             = var.namespace
-  service_account_name  = "moj-dashboard-dev-cp-data-access"
+  service_account_name  = "moj-dashboard-dev-s3-read"
   role_policy_arns = {
-    data_access_policy = aws_iam_policy.moj_dashboard_dev.arn
+    s3_read_policy = aws_iam_policy.moj_dashboard_dev_s3_read.arn
   }
 
   # Tags
@@ -16,33 +16,32 @@ module "moj_dashboard_dev_irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_iam_policy_document" "moj_dashboard_dev" {
-  # Permission to get data from athena (via ap) to create data snapshot
+data "aws_iam_policy_document" "moj_dashboard_dev_s3_read" {
+  # Permissions to read snapshot from s3 bucket
   statement {
     effect = "Allow"
     actions = [
-      "sts:AssumeRole"
-    ]
-    resources = [
-      "arn:aws:iam::593291632749:role/alpha_app_mbpr-test"
-    ]
-  }
-  # Permission to wite the snapshot to s3 bucket
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-      "s3:DeleteObject"
+      "s3:GetObject",
     ]
     resources = [
       "${module.s3_bucket.bucket_arn}/*"
     ]
   }
+  
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = [
+      module.s3_bucket.bucket_arn
+    ]
+  }
 }
 
-resource "aws_iam_policy" "moj_dashboard_dev" {
-  name   = "moj-dashboard-dev"
-  policy = data.aws_iam_policy_document.moj_dashboard_dev.json
+resource "aws_iam_policy" "moj_dashboard_dev_s3_read" {
+  name   = "moj-dashboard-dev-s3-read"
+  policy = data.aws_iam_policy_document.moj_dashboard_dev_s3_read.json
 
   tags = {
     business-unit          = var.business_unit
@@ -54,14 +53,14 @@ resource "aws_iam_policy" "moj_dashboard_dev" {
   }
 }
 
-resource "kubernetes_secret" "irsa" {
+resource "kubernetes_secret" "s3_read_irsa" {
   metadata {
-    name      = "moj-dashboard-dev-irsa-output"
+    name      = "moj-dashboard-dev-s3-read-irsa-output"
     namespace = var.namespace
   }
   data = {
-    role           = module.moj_dashboard_dev_irsa.role_name
-    rolearn        = module.moj_dashboard_dev_irsa.role_arn
-    serviceaccount = module.moj_dashboard_dev_irsa.service_account.name
+    role           = module.moj_dashboard_dev_s3_read_irsa.role_name
+    rolearn        = module.moj_dashboard_dev_s3_read_irsa.role_arn
+    serviceaccount = module.moj_dashboard_dev_s3_read_irsa.service_account.name
   }
 }
