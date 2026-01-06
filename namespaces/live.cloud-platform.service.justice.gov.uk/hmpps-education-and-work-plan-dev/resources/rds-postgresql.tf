@@ -96,10 +96,10 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.rds.database_name
+  db_name = module.hmpps_education_work_plan_rds.database_name
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.hmpps_education_work_plan_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
