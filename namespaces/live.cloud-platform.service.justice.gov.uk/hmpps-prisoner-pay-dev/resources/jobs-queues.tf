@@ -2,7 +2,7 @@ module "hmpps_prisoner_pay_api_jobs_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "api_jobs_queue"
+  sqs_name                   = "jobs_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 #12 hours
   visibility_timeout_seconds = 600   #10 mins
@@ -30,7 +30,7 @@ module "hmpps_prisoner_pay_api_jobs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "api_jobs_dlq"
+  sqs_name        = "jobs_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
