@@ -1,5 +1,5 @@
 module "opensearch_alert_app_log" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=1.0.2" # use the latest module
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2" # use the latest module
 
   secret_name                    = "live-laa-data-claims-api-uat-40b01d3ef57692f3" 
   secret_key                     = "slack-alert-webhook"
@@ -20,7 +20,7 @@ module "opensearch_alert_app_log" {
                 "filter": [
                     {
                         "multi_match": {
-                            "query": "Suspicious SQL-like pattern",
+                            "query": "Suspicious SQL",
                             "fields": [],
                             "type": "phrase",
                             "operator": "OR",
@@ -51,7 +51,7 @@ module "opensearch_alert_app_log" {
                                 "to": "{{period_end}}",
                                 "include_lower": true,
                                 "include_upper": true,
-                                "format": "strict_date_optional_time",
+                                "format": "epoch_millis",
                                 "boost": 1
                             }
                         }
