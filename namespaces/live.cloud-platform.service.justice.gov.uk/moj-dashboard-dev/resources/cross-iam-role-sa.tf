@@ -14,6 +14,7 @@ module "moj_dashboard_dev_irsa" {
   environment_name       = var.environment
   team_name              = var.team_name
   infrastructure_support = var.infrastructure_support
+}
 
 data "aws_iam_policy_document" "moj_dashboard_dev" {
   # Permission to get data from athena (via ap) to create data snapshot
