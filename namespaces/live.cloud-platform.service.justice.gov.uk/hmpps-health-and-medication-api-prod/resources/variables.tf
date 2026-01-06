@@ -96,5 +96,5 @@ variable "github_review_team" {
 
 variable "github_deployment_team" {
   description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
-  default     = "$replacement"
+  default     = "connect-dps-live"
 }
