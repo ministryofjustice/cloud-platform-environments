@@ -38,6 +38,7 @@ locals {
     "socrates",
     "unify",
     "smartinbox",
+    "cats",
   ]
 
   client_queues = {
