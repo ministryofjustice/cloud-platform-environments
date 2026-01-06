@@ -68,11 +68,6 @@ variable "service_area" {
   default     = "Foundations"
 }
 
-variable "github_review_team" {
-  description = "The name of the GitHub team that can review and merge PRs."
-  default     = "connect-dps-devs"
-}
-
 variable "github_deployment_team" {
   description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
   default     = "connect-dps-live"
