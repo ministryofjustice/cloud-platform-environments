@@ -2,7 +2,6 @@ module "github-automation" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-digital-prison-services"
   application                   = "hmpps-digital-prison-services"
-  github_team                   = var.github_review_team
   environment                   = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
