@@ -13,67 +13,102 @@ module "opensearch_alert" {
 
     trigger_name                   = "case-tracker-prod-bots"
     serverity                      = 1
-    query_source                   = "ctx.results[0].hits.total.value > 5"
+    query_source                   = "ctx.results[0].hits.total.value > 45"
     action_name                    = "case-tracker-prod-send-alert"
     slack_message_subject          = "Case Tracker Prod Bot Alert"
-    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}"
+    slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top bot agents:\n{{#ctx.results.0.aggregations.top_user_agents.buckets}}  Agent: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_user_agents.buckets}}"
     alert_throttle_enabled         = true
     throttle_value                 = 60
     throttle_unit                  = "MINUTES"
     environment_name               = var.environment
-    alert_query = jsonencode(
-      {
-         "size": 20,
-         "query": {
+    alert_query = jsonencode({
+    "size": 0,
+    "query": {
+      "bool": {
+        "filter": [
+          {
             "bool": {
-              "must": [],
-              "filter": [
+              "should": [
                 {
-                  "match_all": {}
-                },
-                {
-                  "bool": {
-                    "should": [
-                      {
-                        "match_phrase": {
-                          "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-prod"
-                        }
-                      }
-                    ],
-                    "minimum_should_match": 1
+                  "wildcard": {
+                    "log_processed.http_user_agent": {
+                      "value": "*bot*",
+                      "case_insensitive": true
+                    }
                   }
                 },
                 {
-                  "bool": {
-                    "should": [
-                      {
-                        "match_phrase": {
-                          "log_processed.http_user_agent": "bot"
-                        }
-                      }
-                    ],
-                    "minimum_should_match": 1
+                  "wildcard": {
+                    "log_processed.http_user_agent": {
+                      "value": "*crawler*",
+                      "case_insensitive": true
+                    }
                   }
                 },
                 {
-                  "range": {
-                    "@timestamp": {
-                    "from": "{{period_end}}||-30m",
-                    "to": "{{period_end}}",
-                    "include_lower": true,
-                    "include_upper": true,
-                    "format": "epoch_millis",
-                    "boost": 1
+                  "wildcard": {
+                    "log_processed.http_user_agent": {
+                      "value": "*spider*",
+                      "case_insensitive": true
+                    }
+                  }
+                },
+                {
+                  "wildcard": {
+                    "log_processed.http_user_agent": {
+                      "value": "*robot*",
+                      "case_insensitive": true
+                    }
+                  }
+                },
+                {
+                  "wildcard": {
+                    "log_processed.http_user_agent": {
+                      "value": "*crawl*",
+                      "case_insensitive": true
                     }
                   }
                 }
               ],
-              "should": [],
-              "must_not": []
+              "minimum_should_match": 1
             }
+          },
+          {
+            "match_phrase": {
+              "log_processed.kubernetes_namespace": "civil-appeal-case-tracker-prod"
+            }
+          },
+          {
+            "range": {
+              "@timestamp": {
+                "from": "{{period_end}}||-30m",
+                "to": "{{period_end}}",
+                "format": "epoch_millis"
+              }
+            }
+          }
+        ],
+        "must_not": [
+          {
+              "wildcard": {
+                  "log_processed.http_user_agent": {
+                      "value": "*pingdom*",
+                      "case_insensitive": true
+                  }
+              }
+          }
+        ]
+      }
+    },
+    "aggs": {
+      "top_user_agents": {
+        "terms": {
+          "field": "log_processed.http_user_agent.keyword",
+          "size": 10
         }
+      }
     }
-    )
+  })
   }
 
     module "opensearch_dos_alert" {
@@ -90,7 +125,7 @@ module "opensearch_alert" {
     index                          = ["live_kubernetes_ingress-*"]
     trigger_name                   = "case-tracker-prod-dos"
     serverity                      = "2"
-    query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 160)"
+    query_source                   = "ctx.results[0].aggregations.top_ips.buckets.stream().anyMatch(b -> b.doc_count > 300)"
     action_name                    = "case-tracker-prod-send-alert"
     slack_message_subject          = "Case Tracker Prod Dos Alert"
     alert_throttle_enabled         = true
