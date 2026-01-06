@@ -6,7 +6,6 @@ module "hmpps-prisoner-communication-monitoring" {
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true
-  application_insights_instance = var.environment-name
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
