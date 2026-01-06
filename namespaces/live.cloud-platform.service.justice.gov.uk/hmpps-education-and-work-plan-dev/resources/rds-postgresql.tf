@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "rds" {
+module "hmpps_education_work_plan_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
@@ -148,11 +148,11 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.hmpps_education_work_plan_rds.rds_instance_endpoint
+    database_name         = module.hmpps_education_work_plan_rds.database_name
+    database_username     = module.hmpps_education_work_plan_rds.database_username
+    database_password     = module.hmpps_education_work_plan_rds.database_password
+    rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
   }
 }
 
@@ -178,8 +178,8 @@ resource "kubernetes_config_map" "rds" {
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.hmpps_education_work_plan_rds.database_name
+    db_identifier = module.hmpps_education_work_plan_rds.db_identifier
   }
 }
 
