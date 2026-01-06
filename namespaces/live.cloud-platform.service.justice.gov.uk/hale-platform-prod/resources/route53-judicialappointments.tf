@@ -164,7 +164,7 @@ resource "aws_route53_record" "judicialappointments_route53_cname_record_k2" {
   records = ["dkim2.mcsv.net"]
 }
 
-resource "aws_route53_record" "judicialappointments_route53_cname_record_k2" {
+resource "aws_route53_record" "judicialappointments_route53_cname_record_k3" {
   zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
   name    = "k3._domainkey.judicialappointments.gov.uk"
   type    = "CNAME"
