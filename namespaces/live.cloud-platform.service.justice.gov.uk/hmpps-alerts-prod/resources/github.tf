@@ -6,7 +6,7 @@ module "github-automation-api" {
   environment                   = "prod" # should ideally come from var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  reviewer_teams                = [var.github_deployment_team, var.team_name_replacement]
+  reviewer_teams                = [var.github_deployment_team]
   application_insights_instance = "prod" # should ideally come from var.environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
@@ -23,7 +23,7 @@ module "github-automation-ui" {
   environment                   = "prod" # should ideally come from var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  reviewer_teams                = [var.github_deployment_team, var.team_name_replacement]
+  reviewer_teams                = [var.github_deployment_team]
   application_insights_instance = "prod" # should ideally come from var.environment
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
