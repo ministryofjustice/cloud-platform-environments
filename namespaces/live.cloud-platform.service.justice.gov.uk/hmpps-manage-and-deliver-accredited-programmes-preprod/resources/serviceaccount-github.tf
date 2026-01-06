@@ -95,8 +95,8 @@ data "github_team" "hmpps-sre" {
   slug = "hmpps-sre"
 }
 
-data "github_team" "hmpps-accredited-programmes-manage-and-deliver-devs" {
-  slug = "hmpps-accredited-programmes-manage-and-deliver-devs"
+data "github_team" "hmpps-accredited-programmes-manage-and-deliver-live" {
+  slug = "hmpps-accredited-programmes-manage-and-deliver-live"
 }
 
 ##########################################################################
@@ -108,7 +108,7 @@ resource "github_repository_environment" "env" {
   reviewers {
     teams = [
       tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-accredited-programmes-manage-and-deliver-devs.id)
+      tonumber(data.github_team.hmpps-accredited-programmes-manage-and-deliver-live.id)
     ]
   }
   deployment_branch_policy {
