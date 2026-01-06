@@ -97,7 +97,7 @@ resource "aws_route53_record" "judicialappointments_route53_cname_record_autodis
   name    = "autodiscover.judicialappointments.gov.uk"
   type    = "CNAME"
   ttl     = "3600"
-  records = ["autodiscover.outlook.com."]
+  records = ["autodiscover.outlook.com"]
 }
 
 resource "aws_route53_record" "judicialappointments_route53_cname_record_mta_sts" {
@@ -154,4 +154,20 @@ resource "aws_route53_record" "judicialappointments_route53_cname_record_selecto
   type    = "CNAME"
   ttl     = "3600"
   records = ["selector2-judicialappointments-gov-uk._domainkey.justiceuk.onmicrosoft.com"]
+}
+
+resource "aws_route53_record" "judicialappointments_route53_cname_record_k2" {
+  zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
+  name    = "k2._domainkey.judicialappointments.gov.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["dkim2.mcsv.net"]
+}
+
+resource "aws_route53_record" "judicialappointments_route53_cname_record_k3" {
+  zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
+  name    = "k3._domainkey.judicialappointments.gov.uk"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["dkim3.mcsv.net"]
 }
