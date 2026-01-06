@@ -2,7 +2,7 @@ module "hmpps_health_and_medication_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-health-and-medication-api"
   application                   = "hmpps-health-and-medication-api"
-  github_team                   = "connect-dps"
+  github_team                   = var.github_review_team
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "dev"
