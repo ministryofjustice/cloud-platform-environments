@@ -19,9 +19,6 @@ metadata:
       https://github.com/ministryofjustice/hmpps-approved-premises-api.git,
       https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-ui,
       https://github.com/ministryofjustice/hmpps-community-accommodation-tier-2-bail-ui,
-      https://github.com/ministryofjustice/hmpps-approved-premises-future-manage-api,
-      https://github.com/ministryofjustice/hmpps-approved-premises-manage-a-resident-api,
-      https://github.com/ministryofjustice/hmpps-approved-premises-manage-a-resident-ui,
       https://github.com/ministryofjustice/hmpps-single-accommodation-service-api,
       https://github.com/ministryofjustice/hmpps-single-accommodation-service-ui,
       https://github.com/ministryofjustice/hmpps-accommodation-data-domain-api
