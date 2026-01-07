@@ -12,4 +12,5 @@ module "hmpps-accommodation-data-domain-api" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = ["hmpps-community-accommodation-devs"]
 }
