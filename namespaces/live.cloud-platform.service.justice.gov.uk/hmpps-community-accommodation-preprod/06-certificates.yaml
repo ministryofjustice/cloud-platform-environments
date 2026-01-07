@@ -91,3 +91,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - single-accommodation-service-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-accommodation-data-domain-api-preprod-cert
+  namespace: hmpps-community-accommodation-preprod
+spec:
+  secretName: hmpps-accommodation-data-domain-api-preprod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - accommodation-data-domain-api-preprod.hmpps.service.justice.gov.uk
