@@ -13,17 +13,17 @@ module "hmpps_education_work_plan_rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # Dev database is stopped overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
-  db_engine              = "postgres"
-  db_engine_version      = "17"
-  rds_family             = "postgres17"
-  db_instance_class      = "db.t4g.micro"
+  db_engine         = "postgres"
+  db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
 
   # Tags
   application            = var.application
@@ -35,6 +35,7 @@ module "hmpps_education_work_plan_rds" {
   team_name              = var.team_name
 
   enable_irsa = true
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
@@ -69,26 +70,29 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name = var.vpc_name
-
-  # Tags
-  application            = var.application
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
   business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
   namespace              = var.namespace
-  team_name              = var.team_name
 
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true # Dev database is stopped overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
   prepare_for_major_upgrade = false
 
-
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "17"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
@@ -128,6 +132,11 @@ module "read_replica" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
     }
   ]
 }
@@ -159,7 +168,6 @@ resource "kubernetes_secret" "read_replica" {
     rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 
