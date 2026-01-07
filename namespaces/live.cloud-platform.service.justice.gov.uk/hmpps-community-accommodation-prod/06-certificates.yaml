@@ -89,4 +89,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - accommodation-data-domain-api-prod.hmpps.service.justice.gov.uk
+    - accommodation-data-domain-api.hmpps.service.justice.gov.uk
