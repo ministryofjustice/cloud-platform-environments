@@ -50,5 +50,6 @@ locals {
     bmadley   = module.event_bmadley_queue.sqs_name # testing
     kilco     = module.event_kilco_queue.sqs_name
     test      = module.event_kilco_queue.sqs_name # testing
+    cats      = module.event_cats_queue.sqs_name
   }
 }
