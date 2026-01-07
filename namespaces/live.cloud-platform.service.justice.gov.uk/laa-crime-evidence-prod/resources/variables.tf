@@ -38,6 +38,11 @@ variable "environment" {
   default     = "production"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
