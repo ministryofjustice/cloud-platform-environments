@@ -1,7 +1,11 @@
 variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
 }
 
 variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "eks_cluster_name" {
@@ -43,7 +47,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "laa-crimeapps-core"
+  default     = "laa-crime-assess-apps"
 }
 
 variable "github_owner" {
@@ -54,6 +58,11 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
 }
 
 variable "serviceaccount_rules" {
