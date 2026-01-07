@@ -77,3 +77,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-approved-premises-future-manage.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-accommodation-data-domain-api-prod-cert
+  namespace: hmpps-community-accommodation-prod
+spec:
+  secretName: hmpps-accommodation-data-domain-api-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - accommodation-data-domain-api.hmpps.service.justice.gov.uk
