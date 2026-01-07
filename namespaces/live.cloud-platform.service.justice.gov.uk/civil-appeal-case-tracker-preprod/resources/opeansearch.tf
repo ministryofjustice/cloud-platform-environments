@@ -13,7 +13,7 @@ module "opensearch_alert" {
 
     trigger_name                   = "case-tracker-preprod-bots"
     serverity                      = "1"
-    query_source                   = "ctx.results[0].aggregations.top_user_agents.buckets.stream().anyMatch(b -> b.doc_count > 50)"
+    query_source                   = "ctx.results[0].aggregations.top_user_agents.buckets.stream().anyMatch(b -> b.doc_count > 15)"
     action_name                    = "case-tracker-preprod-send-alert"
     slack_message_subject          = "Case Tracker Pre-prod Bot Alert"
     slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}\n- Top bot agents:\n{{#ctx.results.0.aggregations.top_user_agents.buckets}}  Agent: {{key}} - Count: {{doc_count}}\n{{/ctx.results.0.aggregations.top_user_agents.buckets}}"
