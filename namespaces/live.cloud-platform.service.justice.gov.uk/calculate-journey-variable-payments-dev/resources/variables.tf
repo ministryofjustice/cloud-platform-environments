@@ -33,12 +33,6 @@ variable "environment-name" {
   default     = "dev"
 }
 
-variable "deployment_environment" {
-  type = string
-  description = "Environment code used when deploying, e.g. dev, preprod or prod"
-  default = "dev"
-}
-
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "moveaprisoner@digital.justice.gov.uk"
