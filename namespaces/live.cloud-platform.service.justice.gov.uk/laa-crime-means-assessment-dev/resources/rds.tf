@@ -30,7 +30,7 @@ module "rds" {
   db_engine = "postgres"
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.13"
+  db_engine_version = "14.17"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
