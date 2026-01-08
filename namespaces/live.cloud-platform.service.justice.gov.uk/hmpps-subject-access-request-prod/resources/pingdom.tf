@@ -64,3 +64,4 @@ resource "pingdom_check" "subject-access-request-html-renderer-prod-check" {
   probefilters             = "region:EU"
   integrationids           = [146296] #subject-access-request-alerts-prod
 }
+
