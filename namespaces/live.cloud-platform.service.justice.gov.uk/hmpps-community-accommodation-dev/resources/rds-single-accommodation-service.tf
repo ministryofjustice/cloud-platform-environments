@@ -53,7 +53,7 @@ module "single_accommodation_service_rds" {
 
 resource "kubernetes_secret" "single_accommodation_service_rds" {
   metadata {
-    name      = "single_accommodation_service_rds-instance-output"
+    name      = "single-accommodation-service-rds-instance-output"
     namespace = var.namespace
   }
 
