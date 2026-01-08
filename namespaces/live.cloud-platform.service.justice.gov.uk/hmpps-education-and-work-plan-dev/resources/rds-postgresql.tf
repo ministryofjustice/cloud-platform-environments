@@ -73,27 +73,31 @@ module "hmpps_education_work_plan_rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
-  # default off
-  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
-  team_name              = var.team_name
-  business_unit          = var.business_unit
+
+  # Tags
   application            = var.application
-  is_production          = var.is_production
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
   namespace              = var.namespace
+  team_name              = var.team_name
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-
+  # PostgreSQL specifics
+  db_engine              = "postgres"
+  db_engine_version      = "17"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
-  db_name = module.hmpps_education_work_plan_rds.database_name
+  db_name = null # "db_name": conflicts with replicate_source_db
 
   # Set the db_identifier of the source db
   replicate_source_db = module.hmpps_education_work_plan_rds.db_identifier
@@ -102,16 +106,38 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
-
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -129,27 +155,17 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
-
 resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
-
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
   }
 
-  # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-
-  /*
   data = {
     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
     rds_instance_address  = module.read_replica.rds_instance_address
   }
-  */
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 
