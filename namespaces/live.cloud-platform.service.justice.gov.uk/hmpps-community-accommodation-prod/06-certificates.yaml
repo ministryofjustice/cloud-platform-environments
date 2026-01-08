@@ -81,6 +81,32 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: hmpps-single-accommodation-service-api-prod-cert
+  namespace: hmpps-community-accommodation-prod
+spec:
+  secretName: hmpps-single-accommodation-service-api-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - single-accommodation-service-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-single-accommodation-service-prod-cert
+  namespace: hmpps-community-accommodation-prod
+spec:
+  secretName: hmpps-single-accommodation-service-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - single-accommodation-service.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: hmpps-accommodation-data-domain-api-prod-cert
   namespace: hmpps-community-accommodation-prod
 spec:
