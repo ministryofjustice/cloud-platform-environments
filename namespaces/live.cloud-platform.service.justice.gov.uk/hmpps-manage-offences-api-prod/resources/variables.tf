@@ -68,5 +68,9 @@ variable "github_actions_team" {
    default = "hmpps-calculate-release-dates-team-live"
 }
 
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}
 
 variable "kubernetes_cluster" {}
