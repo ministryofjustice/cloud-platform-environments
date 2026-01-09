@@ -40,3 +40,20 @@ resource "kubernetes_secret" "edu_rds" {
     url                   = "postgres://${module.edu_rds.database_username}:${module.edu_rds.database_password}@${module.edu_rds.rds_instance_endpoint}/${module.edu_rds.database_name}"
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-education-employment-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.edu_rds.rds_instance_endpoint
+    database_name         = module.edu_rds.database_name
+    database_username     = module.edu_rds.database_username
+    database_password     = module.edu_rds.database_password
+    rds_instance_address  = module.edu_rds.rds_instance_address
+  }
+}
