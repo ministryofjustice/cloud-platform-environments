@@ -15,7 +15,7 @@ variable "eks_cluster_name" {
 variable "domain" {
   description = "Domain from which the application is served"
   type        = string
-  default     = "health-and-medication.hmpps.service.justice.gov.uk"
+  default     = "health-and-medication-api.hmpps.service.justice.gov.uk"
 }
 
 variable "application" {
