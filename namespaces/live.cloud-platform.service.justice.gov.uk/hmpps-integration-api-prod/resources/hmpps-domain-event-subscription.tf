@@ -115,6 +115,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "prison-offender-events.prisoner.person-restriction.deleted",
       "prison-offender-events.prisoner.non-association-detail.changed",
       "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.merged",
       "calculate-release-dates.prisoner.changed",
       "risk-assessment.scores.ogrs.determined",
       "risk-assessment.scores.rsr.determined",
