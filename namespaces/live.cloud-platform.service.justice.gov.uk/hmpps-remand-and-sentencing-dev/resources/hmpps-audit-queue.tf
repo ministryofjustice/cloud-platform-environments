@@ -5,7 +5,7 @@ resource "kubernetes_secret" "hmpps_audit_queue_secret" {
   }
 
   data = {
-    sqs_queue_name = "Digital-Prison-Services-${var.environment_name}-hmpps_audit_queue"
-    sqs_queue_url = "https://sqs.eu-west-2.amazonaws.com/754256621582/Digital-Prison-Services-${var.environment_name}-hmpps_audit_queue"
+    sqs_queue_name = "Digital-Prison-Services-${var.environment}-hmpps_audit_queue"
+    sqs_queue_url = "https://sqs.eu-west-2.amazonaws.com/754256621582/Digital-Prison-Services-${var.environment}-hmpps_audit_queue"
   }
 }
