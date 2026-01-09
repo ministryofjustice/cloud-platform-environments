@@ -20,6 +20,9 @@ module "irsa" {
       s3 = module.s3_data_bucket.irsa_policy_arn
     },
     {
+      rds = module.rds.irsa_policy_arn
+    },
+    {
       rekognition = aws_iam_policy.assume_rekognition_policy.arn
     },
     local.sns_policies
