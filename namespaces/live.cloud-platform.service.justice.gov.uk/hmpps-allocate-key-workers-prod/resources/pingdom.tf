@@ -13,5 +13,5 @@ resource "pingdom_check" "pingdom_ui" {
   encryption               = true
   tags                     = "hmpps,cloudplatform-managed,hmpps-allocate-key-workers-ui,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [144102] # maintenance-alerts-prod
 }
