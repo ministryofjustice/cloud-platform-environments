@@ -16,7 +16,6 @@ module "hmpps_person_record_rds" {
   performance_insights_enabled = true
   allow_major_version_upgrade  = "true"
   deletion_protection          = true
-  db_password_rotated_date    = "09-01-2026"
 
   providers = {
     aws = aws.london
