@@ -36,7 +36,7 @@ module "irsa-ui" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-remand-and-sentencing"
-  role_policy_arns     = ui_sqs_policies
+  role_policy_arns     = local.ui_sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -52,6 +52,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_ui_sqs" {
-  for_each = local.sqs_queues
+  for_each = local.ui_sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
