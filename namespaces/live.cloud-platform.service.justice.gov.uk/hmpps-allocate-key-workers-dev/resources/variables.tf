@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-move-and-improve"
+  default     = "hmpps-prisons-digital-live-support"
 }
 
 variable "environment" {
@@ -45,7 +45,7 @@ variable "eks_cluster_name" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "moveandimprove@justice.gov.uk"
+  default     = "HMPPSLiveServicesMaintenanceTeam@JusticeUK.onmicrosoft.com"
 }
 
 variable "is_production" {
@@ -57,7 +57,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "public_move-and-improve"
+  default     = "ask-live-services-maintenance-team"
 }
 
 variable "github_owner" {
