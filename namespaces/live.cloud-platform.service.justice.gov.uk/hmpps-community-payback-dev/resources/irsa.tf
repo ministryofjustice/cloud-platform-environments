@@ -23,5 +23,13 @@ module "irsa-api" {
   team_name              = var.team_name
 
   service_account_name   = "hmpps-community-payback-api"
-  role_policy_arns       = local.sns_policies
+  role_policy_arns       = merge(
+    {
+        sqs     = module.hmpps_cp_domain_events_queue.irsa_policy_arn
+    },
+    {
+        sqs_dlq = module.hmpps_cp_domain_events_dlq.irsa_policy_arn
+    },
+    local.sns_policies
+  )
 }
