@@ -5,7 +5,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_prisoner_audit_queue" = "hmpps-audit-preprod",
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value },
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   rds_policies = { rds = module.rds.irsa_policy_arn }
 }
 
