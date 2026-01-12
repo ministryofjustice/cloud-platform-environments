@@ -14,5 +14,6 @@ locals {
   client_queues = {
     meganexus          = module.event_plp_queue.sqs_name
     pnd                = module.event_pnd_queue.sqs_name
+    cats               = module.event_cats_queue.sqs_name
   }
 }
