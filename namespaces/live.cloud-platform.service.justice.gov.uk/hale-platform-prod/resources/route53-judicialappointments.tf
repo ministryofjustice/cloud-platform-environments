@@ -23,23 +23,6 @@ resource "kubernetes_secret" "judicialappointments_route53_zone_sec" {
   }
 }
 
-
-resource "aws_route53_record" "judicialappointments_route53_a_record_main" {
-  zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
-  name    = "judicialappointments.gov.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["192.0.78.141", "192.0.78.225"]
-}
-
-resource "aws_route53_record" "judicialappointments_route53_a_record_main_www" {
-  zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
-  name    = "www.judicialappointments.gov.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["192.0.78.141", "192.0.78.225"]
-}
-
 resource "aws_route53_record" "judicialappointments_route53_a_record_mta" {
   zone_id = aws_route53_zone.judicialappointments_route53_zone.zone_id
   name    = "mta-sts.judicialappointments.gov.uk"
