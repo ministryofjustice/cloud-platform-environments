@@ -24,7 +24,12 @@ module "secret" {
       description             = "PND event filter list",
       recovery_window_in_days = 7,
       k8s_secret_name         = "pnd-filter-list"
-    }
+    },
+    "integration-api-event-cats-filter-list" = {
+      description             = "CATS event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cats-filter-list"
+    },
   }
 
   # Tags
