@@ -53,7 +53,7 @@ resource "aws_sns_topic_subscription" "adda_domain_events_subscription" {
 
 resource "kubernetes_secret" "adda_domain_events_queue_secret" {
   metadata {
-    name      = "sas-domain-events-queue-secret"
+    name      = "adda-domain-events-queue-secret"
     namespace = var.namespace
   }
 
@@ -66,7 +66,7 @@ resource "kubernetes_secret" "adda_domain_events_queue_secret" {
 
 resource "kubernetes_secret" "adda_domain_events_dlq_secret" {
   metadata {
-    name      = "sas-domain-events-dlq-secret"
+    name      = "adda-domain-events-dlq-secret"
     namespace = var.namespace
   }
 
