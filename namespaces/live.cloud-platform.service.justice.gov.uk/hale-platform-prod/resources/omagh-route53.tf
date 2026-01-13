@@ -59,7 +59,7 @@ resource "aws_route53_record" "omagh_route53_txt_dmarc" {
   name    = "_dmarc.omagh.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["v=DMARC1; p=quarantine; rua=mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100; sp=reject"]
+  records = ["v=DMARC1; p=quarantine; pct=100; adkim=r; aspf=r; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:7c8cbf1d@inbox.ondmarc.com; ruf=mailto:7c8cbf1d@inbox.ondmarc.com; fo=1; ri=3600"]
 }
 
 resource "aws_route53_record" "omagh_route53_txt_smtp" {
