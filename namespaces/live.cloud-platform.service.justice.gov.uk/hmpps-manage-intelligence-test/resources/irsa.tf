@@ -48,7 +48,7 @@ resource "aws_iam_policy" "combined_sqs" {
 locals {
   # The names of the SNS topics used and the namespace which created them
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-${var.environment}"
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
