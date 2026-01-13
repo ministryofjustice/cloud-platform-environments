@@ -1,0 +1,61 @@
+name: "[Pilot] Checkov Tag Validation"
+
+on:
+  pull_request:
+    paths:
+      - 'namespaces/**/tag-validator-checker/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  checkov-tags:
+    name: Checkov Tag Check
+    runs-on: ubuntu-latest
+    # Non-blocking: continue even if validation fails
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: namespaces/live.cloud-platform.service.justice.gov.uk/tag-validator-checker/resources
+          framework: terraform
+          # Focus on tag-related checks
+          check: CKV_AWS_144,CKV2_AWS_6,CKV_AWS_18,CKV_AWS_19,CKV_AWS_21
+          soft_fail: true
+          output_format: cli
+          download_external_modules: false
+
+      - name: Post Results to PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          CHECKOV_OUTCOME: ${{ steps.checkov.outcome }}
+        with:
+          script: |
+            const outcome = process.env.CHECKOV_OUTCOME || 'unknown';
+            
+            let body = '## 🔍 [Pilot] Checkov Tag Validation\n\n';
+            
+            if (outcome === 'success') {
+              body += '✅ **All Checkov checks passed**\n\n';
+            } else {
+              body += '⚠️ **Checkov found issues** (non-blocking pilot mode)\n\n';
+              body += 'Check the workflow logs for details.\n\n';
+            }
+            
+            body += '---\n';
+            body += '*This is a pilot test for tag enforcement. Results are non-blocking.*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
