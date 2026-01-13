@@ -23,6 +23,8 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_pdf_dead_letter_queue.sqs_arn,
       module.ims_prisoner_details_queue.sqs_arn,
       module.ims_prisoner_details_dlq.sqs_arn,
+      module.domain_events_queue.sqs_arn,
+      module.domain_events_dlq.sqs_arn,
     ]
   }
 }
@@ -40,6 +42,17 @@ resource "aws_iam_policy" "combined_sqs" {
   }
 }
 
+# Add the names of the SNS topics which the app needs permissions to access.
+# The value of each item should be the namespace where the queue or topic was created.
+# This information is used to collect the IAM policies which are used by the IRSA module.
+locals {
+  # The names of the SNS topics used and the namespace which created them
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-${var.environment}"
+  }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
@@ -53,7 +66,7 @@ module "irsa" {
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = {
+  role_policy_arns = merge(local.sns_policies, {
     policy           = aws_iam_policy.combined_sqs.arn
     s3_ims           = module.manage_intelligence_storage_bucket.irsa_policy_arn
     s3_rds           = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
@@ -65,7 +78,7 @@ module "irsa" {
     rds              = module.rds_aurora.irsa_policy_arn
     s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
     s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
-  }
+  })
 
   # Tags
   business_unit          = var.business_unit
@@ -86,4 +99,9 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn
   }
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
