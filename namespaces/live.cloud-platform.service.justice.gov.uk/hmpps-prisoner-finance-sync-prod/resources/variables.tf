@@ -41,7 +41,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -60,6 +60,10 @@ variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
   default     = "hmpps-prisoner-finance"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "github_owner" {
