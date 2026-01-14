@@ -76,6 +76,15 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
+
+variable "environment_name" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
+}
+
 variable "service_area" {
   default = "Manage Custody"
 }
