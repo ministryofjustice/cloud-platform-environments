@@ -30,6 +30,7 @@ locals {
     "hmpps-managing-prisoner-apps-dev",
     "hmpps-managing-prisoner-apps-staging",
     "hmpps-non-associations-dev",
+    "hmpps-prisoner-pay-dev",
     "hmpps-prisoner-from-nomis-migration-dev",
     "hmpps-prisoner-profile-dev",
     "hmpps-registers-dev",
