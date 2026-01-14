@@ -72,6 +72,10 @@ variable "github_token" {
   default     = ""
 }
 
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
+
 variable "number_cache_clusters" {
   default = "2"
 }
