@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-devs"
 }
 
 variable "environment" {
