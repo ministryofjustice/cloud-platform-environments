@@ -65,5 +65,5 @@ variable "eks_cluster_name" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Criminal Applications"
+  default     = "Criminal Application"
 }
