@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "WMT"
     cloud-platform.justice.gov.uk/owner: "Manage a Workforce: manage-a-workforce-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/wmt-worker"
-    cloud-platform.justice.gov.uk/team-name: "manage-a-workforce"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-manage-a-workforce"
     cloud-platform.justice.gov.uk/review-after: "2021-08-27"
