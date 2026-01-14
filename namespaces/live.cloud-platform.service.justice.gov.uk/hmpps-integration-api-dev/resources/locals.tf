@@ -51,5 +51,6 @@ locals {
     kilco     = module.event_kilco_queue.sqs_name
     test      = module.event_kilco_queue.sqs_name # testing
     cats      = module.event_cats_queue.sqs_name
+    moj-esw   = module.event_moj_esw_queue.sqs_name # testing
   }
 }
