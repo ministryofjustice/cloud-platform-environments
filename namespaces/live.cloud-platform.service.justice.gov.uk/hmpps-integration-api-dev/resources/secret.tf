@@ -40,6 +40,11 @@ module "secret" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "cats-filter-list"
     },
+    "integration-api-event-moj-esw-filter-list" = { # dev testing only
+      description             = "moj-esw event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "moj-esw-filter-list"
+    },
   }
 
   # Tags
