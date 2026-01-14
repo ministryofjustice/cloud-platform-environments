@@ -16,7 +16,7 @@ module "rds-history" {
   db_iops = "12000"
 
   # change the postgres version as you see fit.
-  db_engine_version = "15.5"
+  db_engine_version = "15.12"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
