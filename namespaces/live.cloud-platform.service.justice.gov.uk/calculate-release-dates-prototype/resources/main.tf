@@ -13,7 +13,7 @@ default_tags {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
-      GithubTeam = "farsight-devs"
+      GithubTeam = "calculate-release-dates-prototype-admin-team"
     }
   }
 }
@@ -30,7 +30,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
-      GithubTeam = "farsight-devs"
+      GithubTeam = "calculate-release-dates-prototype-admin-team"
     }
   }
 }
