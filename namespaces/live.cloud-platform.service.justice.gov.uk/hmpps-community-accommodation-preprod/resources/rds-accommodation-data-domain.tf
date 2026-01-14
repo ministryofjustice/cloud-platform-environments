@@ -17,7 +17,7 @@ module "accommodation_data_domain_rds" {
   db_engine                   = "postgres"
   rds_family                  = "postgres18"
   # db_password_rotated_date    = "07-01-2026"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
 
   enable_irsa = true
 
