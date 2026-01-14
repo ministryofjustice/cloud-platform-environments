@@ -8,6 +8,9 @@ subjects:
     name: "github:hmpps-calculate-release-dates-team-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:calculate-release-dates-prototype-admin-team"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
