@@ -8,9 +8,6 @@ subjects:
     name: "github:hmpps-lead-developers"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-manage-a-workforce-live"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
