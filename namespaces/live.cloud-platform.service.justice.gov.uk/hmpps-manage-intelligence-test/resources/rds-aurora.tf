@@ -10,13 +10,13 @@ module "rds_aurora" {
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
-    min_capacity = 1
-    max_capacity = 4
+    min_capacity = 5
+    max_capacity = 40
   }
   replica_count                = 1
   performance_insights_enabled = true
-  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
   allow_major_version_upgrade  = true
+  db_parameter_group_name      = resource.aws_db_parameter_group.default.name
 
   # Tags
   business_unit          = var.business_unit
@@ -39,6 +39,14 @@ resource "aws_db_parameter_group" "default" {
   parameter {
     name  = "log_error_verbosity"
     value = "TERSE"
+  }
+  parameter {
+    name  = "work_mem"
+    value = 4096
+  }
+  parameter {
+    name  = "max_parallel_workers_per_gather"
+    value = 4
   }
 }
 
