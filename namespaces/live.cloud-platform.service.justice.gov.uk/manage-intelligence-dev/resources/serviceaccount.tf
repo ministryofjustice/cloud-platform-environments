@@ -88,9 +88,7 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment-name
   repository  = each.key
-  reviewers {
-    teams = [data.github_team.dps_soct_tech.id]
-  }
+
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
