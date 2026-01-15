@@ -3,7 +3,7 @@ module "wmt_web_prod" {
   github_repo                   = "wmt-web"
   application                   = "wmt-web"
   github_team                   = "hmpps-manage-a-workforce"
-  reviewer_teams                = ["hmpps-manage-a-workforce"]
+  reviewer_teams                = ["hmpps-manage-a-workforce-live"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "prod"
