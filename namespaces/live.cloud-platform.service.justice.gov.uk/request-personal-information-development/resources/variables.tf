@@ -23,6 +23,12 @@ variable "namespace" {
   default     = "request-personal-information-development"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Service Transformation Group"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
