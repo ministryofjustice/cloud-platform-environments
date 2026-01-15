@@ -8,6 +8,9 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -20,12 +23,6 @@ variable "namespace" {
   default     = "request-personal-information-development"
 }
 
-variable "service_area" {
-  description = "Service area responsible for this service"
-  type        = string
-  default     = "Service Transformation Group"
-}
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -36,6 +33,10 @@ variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
   default     = "central-digital-product-team"
+}
+
+variable "repo_name" {
+  default = "request-personal-information"
 }
 
 variable "environment" {
