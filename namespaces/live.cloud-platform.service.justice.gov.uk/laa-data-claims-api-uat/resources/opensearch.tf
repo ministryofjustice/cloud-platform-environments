@@ -19,15 +19,16 @@ module "opensearch_alert_app_log" {
             "bool": {
                 "filter": [
                     {
-                        "multi_match": {
-                            "type": "phrase",
-                            "query": "Suspicious SQL",
-                            "lenient": true
-                        }
+                        "match_all": {}
                     },
                     {
                         "match_phrase": {
                             "kubernetes.namespace_name": "laa-data-claims-api-uat"
+                        }
+                    },
+                    {
+                        "match_phrase": {
+                            "log": "Suspicious SQL"
                         }
                     },
                     {
