@@ -19,15 +19,16 @@ module "opensearch_alert_app_log" {
             "bool": {
                 "filter": [
                     {
-                        "multi_match": {
-                            "type": "phrase",
-                            "query": "Suspicious SQL",
-                            "lenient": true
-                        }
+                        "match_all": {}
                     },
                     {
                         "match_phrase": {
                             "kubernetes.namespace_name": "laa-data-claims-api-staging"
+                        }
+                    },
+                    {
+                        "match_phrase": {
+                            "log": "Suspicious SQL"
                         }
                     },
                     {
@@ -106,7 +107,7 @@ module "opensearch_alert_app_log" {
   query_source                   = "ctx.results[0].hits.total.value > 1"
   action_name                    = "laa-data-claims-api-staging-sql-action"
   slack_message_subject          = ":alert: Suspicious SQL-like pattern detected in *laa-data-claims-api-staging* :alert:"
-  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- *Trigger*: {{ctx.trigger.name}}\n- *Severity*: {{ctx.trigger.severity}}\n- *Dashboard*: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log),isDirty:!t,sort:!()),metadata:(indexPattern:bb90f230-0d2e-11ef-bf63-53113938c53a,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.namespace_name,negate:!f,params:(query:laa-data-claims-api-staging),type:phrase),query:(match_phrase:(kubernetes.namespace_name:laa-data-claims-api-staging)))),query:(language:kuery,query:'Suspicious%20SQL'))" 
+  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- *Trigger*: {{ctx.trigger.name}}\n- *Severity*: {{ctx.trigger.severity}}\n- *Dashboard*: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log),isDirty:!t,sort:!()),metadata:(indexPattern:bb90f230-0d2e-11ef-bf63-53113938c53a,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.namespace_name,negate:!f,params:(query:laa-data-claims-api-staging),type:phrase),query:(match_phrase:(kubernetes.namespace_name:laa-data-claims-api-staging))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:log,negate:!f,params:(query:'Suspicious%20SQL'),type:phrase),query:(match_phrase:(log:'Suspicious%20SQL')))),query:(language:kuery,query:''))" 
   alert_throttle_enabled         = true
   throttle_value                 = 5
   throttle_unit                  = "MINUTES"
