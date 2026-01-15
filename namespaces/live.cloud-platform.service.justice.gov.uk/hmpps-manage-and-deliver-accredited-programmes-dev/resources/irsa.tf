@@ -11,9 +11,9 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-manage-and-deliver-accredited-programmes"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-manage-and-deliver-accredited-programmes"
 
   role_policy_arns = merge(
     { elasticache = module.elasticache_redis.irsa_policy_arn },
@@ -38,4 +38,27 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+module "irsa-cronjob" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "irsa-cronjob"
+  namespace            = var.namespace
+
+  role_policy_arns = merge(
+    {
+      sqlserver_backup_s3_bucket_policy = module.sqlserver_backup_s3_bucket.irsa_policy_arn
+    },
+    {
+      upload_s3_bucket_policy = module.upload_s3_bucket.irsa_policy_arn
+    }
+  )
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 }
