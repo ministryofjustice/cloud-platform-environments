@@ -20,7 +20,7 @@ module "elasticache_redis" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps_template_typescript.application
+  application            = module.hmpps_prisoner_finance_sync_ui.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
