@@ -39,7 +39,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
+    name      = "${module.hmpps_prisoner_finance_sync_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
