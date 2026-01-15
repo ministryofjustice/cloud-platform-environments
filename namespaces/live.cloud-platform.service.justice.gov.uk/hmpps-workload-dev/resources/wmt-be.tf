@@ -2,8 +2,8 @@ module "wmt_worker_dev" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.1.0"
   github_repo                   = "wmt-worker"
   application                   = "wmt-worker"
-  github_team                   = "hmpps-manage-a-workforce"
-  reviewer_teams                = ["hmpps-manage-a-workforce"]
+  github_team                   = "hmpps-manage-a-workforce-devs"
+  reviewer_teams                = ["hmpps-manage-a-workforce-devs"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "dev"
