@@ -8,7 +8,7 @@ module "hmpps_redis" {
   team_name              = var.team_name
   business_unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t4g.micro"
+  node_type              = "cache.t4g.small"
   engine_version         = "7.1"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
