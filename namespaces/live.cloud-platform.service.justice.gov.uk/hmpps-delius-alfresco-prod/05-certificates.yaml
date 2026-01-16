@@ -11,3 +11,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - share.hmpps-delius-alfresco-prod.apps.live.cloud-platform.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: share
+  namespace: hmpps-delius-alfresco-prod
+spec:
+  secretName: repository-ingress-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - hmpps-delius-alfresco-prod.apps.live.cloud-platform.service.justice.gov.uk
+  - alfresco.probation.service.justice.gov.uk
