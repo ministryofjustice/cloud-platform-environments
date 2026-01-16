@@ -1988,19 +1988,25 @@ data:
         "list": [
           {
             "current": {
-              "text": [
-                "hmpps-digital-prison-reporting-mi-test"
-              ],
-              "value": [
-                "hmpps-digital-prison-reporting-mi-test"
-              ]
+              "text": "Prometheus",
+              "value": "prometheus"
             },
+            "includeAll": false,
+            "label": "Source",
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "type": "datasource"
+          },
+          {
             "datasource": {
               "type": "prometheus",
               "uid": "${datasource}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, exported_namespace)",
             "includeAll": true,
+            "label": "Namespace",
             "multi": true,
             "name": "namespace",
             "options": [],
@@ -2008,26 +2014,19 @@ data:
               "query": "label_values(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, exported_namespace)",
               "refId": "StandardVariableQuery"
             },
-            "refresh": 1,
+            "refresh": 2,
             "regex": "",
             "sort": 1,
             "type": "query"
           },
           {
-            "current": {
-              "text": [
-                "All"
-              ],
-              "value": [
-                "$__all"
-              ]
-            },
             "datasource": {
               "type": "prometheus",
               "uid": "${datasource}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=~\"$namespace\"}, exported_service)",
             "includeAll": true,
+            "label": "Service",
             "multi": true,
             "name": "service",
             "options": [],
@@ -2035,38 +2034,10 @@ data:
               "query": "label_values(nginx_ingress_controller_requests{exported_namespace=~\"$namespace\"}, exported_service)",
               "refId": "StandardVariableQuery"
             },
-            "refresh": 1,
+            "refresh": 2,
             "regex": "",
             "sort": 1,
             "type": "query"
-          },
-          {
-            "current": {
-              "text": "Prometheus",
-              "value": "prometheus"
-            },
-            "hide": 2,
-            "includeAll": false,
-            "name": "DS_PROMETHEUS",
-            "options": [],
-            "query": "prometheus",
-            "refresh": 1,
-            "regex": "Prometheus",
-            "type": "datasource"
-          },
-          {
-            "current": {
-              "text": "Thanos",
-              "value": "P5DCFC7561CCDE821"
-            },
-            "hide": 2,
-            "includeAll": false,
-            "name": "DS_THANOS",
-            "options": [],
-            "query": "prometheus",
-            "refresh": 1,
-            "regex": "Thanos",
-            "type": "datasource"
           }
         ]
       },
