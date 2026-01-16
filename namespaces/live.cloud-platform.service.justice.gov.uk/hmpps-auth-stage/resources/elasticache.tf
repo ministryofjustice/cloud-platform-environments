@@ -10,7 +10,7 @@ module "hmpps_redis" {
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t4g.small"
   engine_version         = "7.1"
-  parameter_group_name   = "aws_elasticache_parameter_group.token_store.name"
+  parameter_group_name   = aws_elasticache_parameter_group.token_store.name
   namespace              = var.namespace
 
   providers = {
