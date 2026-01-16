@@ -43,6 +43,9 @@ resource "aws_sns_topic_subscription" "hmpps_cp_domain_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "community-payback.appointment.updated"
+    ],
+    environment = [
+      "dev"
     ]
   })
 }
