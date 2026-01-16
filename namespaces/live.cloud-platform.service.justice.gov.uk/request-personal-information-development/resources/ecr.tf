@@ -6,7 +6,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["var.repo_name"]
+  github_repositories = ["request-personal-information"]
 
   # Tags
   business_unit          = var.business_unit
