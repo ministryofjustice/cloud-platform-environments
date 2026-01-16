@@ -11,13 +11,14 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_allocated_storage      = "100"
-  db_max_allocated_storage  = "2000"
+  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "2000"
   enable_rds_auto_start_stop   = true # Turns off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  deletion_protection          = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -63,16 +64,16 @@ module "rds" {
     }
   ]
 
-
   enable_irsa = true
 }
 
+# Secret to store confidential credentials to the RDS instance
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
-# PostgreSQL connection details as secrets
+
   data = {
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
