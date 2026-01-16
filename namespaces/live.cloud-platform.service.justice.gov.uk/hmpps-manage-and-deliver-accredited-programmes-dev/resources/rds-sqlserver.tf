@@ -10,6 +10,7 @@ module "sqlserver" {
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
   is_production              = var.is_production
+  license_model              = "license-included"
   namespace                  = var.namespace
   option_group_name          = aws_db_option_group.sqlserver_backup_rds_option_group.name
   rds_family                 = var.db_rds_family
