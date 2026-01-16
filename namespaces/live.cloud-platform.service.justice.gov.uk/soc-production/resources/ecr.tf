@@ -46,8 +46,7 @@ module "ecr_credentials" {
           "rulePriority": 3,
           "description": "Expire untagged images older than 90 days",
           "selection": {
-              "tagStatus": "tagged",
-              "tagPrefixList": ["sha-"],
+              "tagStatus": "untagged",
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 90
