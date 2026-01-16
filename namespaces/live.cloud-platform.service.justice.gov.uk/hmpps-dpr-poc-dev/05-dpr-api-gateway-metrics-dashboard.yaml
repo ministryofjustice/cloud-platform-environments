@@ -43,7 +43,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Request distribution across DPR namespaces",
           "fieldConfig": {
@@ -102,7 +102,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[${__range_s}s])) by (exported_namespace) != 0",
@@ -117,7 +117,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Average response time (p95) for DPR services",
           "fieldConfig": {
@@ -179,7 +179,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.95, max(irate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) by (le)) > 0",
@@ -193,7 +193,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Total error count (4xx + 5xx) for DPR services",
           "fieldConfig": {
@@ -255,7 +255,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\", status=~\"4.*|5.*\"}[${__range_s}s]))",
@@ -269,7 +269,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Distribution of HTTP status codes across DPR services",
           "fieldConfig": {
@@ -390,7 +390,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[${__range_s}s])) by (status) != 0",
@@ -405,7 +405,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Summary table of key metrics for all DPR services",
           "fieldConfig": {
@@ -542,7 +542,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -556,7 +556,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -571,7 +571,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -620,7 +620,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Total number of requests served across all DPR services",
           "fieldConfig": {
@@ -678,7 +678,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[${__range_s}s]))",
@@ -692,7 +692,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Breakdown of error types (4xx vs 5xx)",
           "fieldConfig": {
@@ -784,7 +784,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\", status=~\"4.*\"}[${__range_s}s]))",
@@ -795,7 +795,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\", status=~\"5.*\"}[${__range_s}s]))",
@@ -811,7 +811,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Current success rate percentage for DPR services",
           "fieldConfig": {
@@ -875,7 +875,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(irate(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\", status!~\"5.*|499\"}[$__rate_interval])) / sum(irate(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) * 100",
@@ -889,7 +889,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Total bandwidth usage (ingress + egress) for DPR services",
           "fieldConfig": {
@@ -947,7 +947,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_request_size_sum{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[${__range_s}s])) + sum(increase(nginx_ingress_controller_response_size_sum{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[${__range_s}s]))",
@@ -961,7 +961,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Current requests per second across all DPR services",
           "fieldConfig": {
@@ -1019,7 +1019,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval]))",
@@ -1033,7 +1033,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Request rate over time for all DPR services",
           "fieldConfig": {
@@ -1119,7 +1119,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) by (exported_namespace)",
@@ -1134,7 +1134,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Error rate over time for selected DPR services",
           "fieldConfig": {
@@ -1248,7 +1248,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace=~\"$namespace\", exported_service=~\"$service\", status=~\"4.*|5.*\"}[$__rate_interval])) by (status)",
@@ -1263,7 +1263,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Request distribution by service within selected namespaces",
           "fieldConfig": {
@@ -1322,7 +1322,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(increase(nginx_ingress_controller_requests{exported_namespace=~\"$namespace\", exported_service=~\"$service\"}[${__range_s}s])) by (exported_service) != 0",
@@ -1337,7 +1337,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Pod restart count for DPR services - indicates stability issues",
           "fieldConfig": {
@@ -1426,7 +1426,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (pod) (increase(kube_pod_container_status_restarts_total{namespace=~\"$namespace\"}[10m])) > 0",
@@ -1441,7 +1441,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Pod health status for DPR services",
           "fieldConfig": {
@@ -1571,7 +1571,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(kube_pod_status_phase{namespace=~\"$namespace\", phase=\"Running\"}) by (phase)",
@@ -1582,7 +1582,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(kube_pod_status_phase{namespace=~\"$namespace\", phase=\"Pending\"}) by (phase)",
@@ -1594,7 +1594,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(kube_pod_status_phase{namespace=~\"$namespace\", phase=\"Failed\"}) by (phase)",
@@ -1610,7 +1610,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Memory usage by pod for DPR services",
           "fieldConfig": {
@@ -1694,7 +1694,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod!=\"\", container!=\"\"}) by (pod)",
@@ -1709,7 +1709,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "CPU usage by pod for DPR services",
           "fieldConfig": {
@@ -1793,7 +1793,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod!=\"\", container!=\"\"}[$__rate_interval])) by (pod)",
@@ -1808,7 +1808,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_THANOS}"
+            "uid": "${datasource}"
           },
           "description": "Response time percentiles (p50, p95, p99) for DPR services",
           "fieldConfig": {
@@ -1938,7 +1938,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.50, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) by (le))",
@@ -1949,7 +1949,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) by (le))",
@@ -1961,7 +1961,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_THANOS}"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}[$__rate_interval])) by (le))",
@@ -1997,7 +1997,7 @@ data:
             },
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "${datasource}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, exported_namespace)",
             "includeAll": true,
@@ -2024,7 +2024,7 @@ data:
             },
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "${datasource}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=~\"$namespace\"}, exported_service)",
             "includeAll": true,
