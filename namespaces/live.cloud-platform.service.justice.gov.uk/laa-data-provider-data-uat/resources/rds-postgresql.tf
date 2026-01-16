@@ -65,7 +65,7 @@ module "rds" {
     { # specific to uat, because of preview releases.
       name         = "max_connections"
       value        = "121"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     }
   ]
 
