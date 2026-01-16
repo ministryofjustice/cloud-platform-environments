@@ -33,7 +33,7 @@ module "ecr_credentials" {
           "description": "Expire sha build images older than 90 days",
           "selection": {
               "tagStatus": "tagged",
-              "tagPrefixList": ["sha-"]
+              "tagPrefixList": ["sha-"],
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 90
@@ -47,7 +47,7 @@ module "ecr_credentials" {
           "description": "Expire untagged images older than 90 days",
           "selection": {
               "tagStatus": "tagged",
-              "tagPrefixList": ["sha-"]
+              "tagPrefixList": ["sha-"],
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 90
