@@ -30,9 +30,24 @@ module "ecr_credentials" {
       },
       {
           "rulePriority": 2,
-          "description": "Expire images older than 30 days",
+          "description": "Expire sha build images older than 90 days",
           "selection": {
-              "tagStatus": "any",
+              "tagStatus": "tagged",
+              "tagPrefixList": ["sha-"],
+              "countType": "sinceImagePushed",
+              "countUnit": "days",
+              "countNumber": 90
+          },
+          "action": {
+              "type": "expire"
+          }
+      },
+      {
+          "rulePriority": 3,
+          "description": "Expire untagged images older than 90 days",
+          "selection": {
+              "tagStatus": "tagged",
+              "tagPrefixList": ["sha-"],
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 90
