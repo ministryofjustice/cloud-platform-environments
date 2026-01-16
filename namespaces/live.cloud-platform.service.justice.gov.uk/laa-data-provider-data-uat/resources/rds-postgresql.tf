@@ -11,13 +11,14 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_allocated_storage      = "100"
-  db_max_allocated_storage  = "2000"
+  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "2000"
   enable_rds_auto_start_stop   = true # Turns off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  deletion_protection          = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -60,13 +61,18 @@ module "rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
+    },
+    { # specific to uat, because of preview releases.
+      name         = "max_connections"
+      value        = "121"
+      apply_method = "immediate"
     }
   ]
-
 
   enable_irsa = true
 }
 
+# Secret to store confidential credentials to the RDS instance
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
