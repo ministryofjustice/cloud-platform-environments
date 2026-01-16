@@ -1601,21 +1601,8 @@ data:
               "value": "prometheus"
             },
             "includeAll": false,
-            "label": "Prometheus",
-            "name": "DS_PROMETHEUS",
-            "options": [],
-            "query": "prometheus",
-            "refresh": 1,
-            "type": "datasource"
-          },
-          {
-            "current": {
-              "text": "Thanos",
-              "value": "thanos"
-            },
-            "includeAll": false,
-            "label": "Thanos",
-            "name": "DS_THANOS",
+            "label": "Source",
+            "name": "datasource",
             "options": [],
             "query": "prometheus",
             "refresh": 1,
@@ -1626,16 +1613,17 @@ data:
               "type": "prometheus",
               "uid": "${datasource}"
             },
-            "definition": "label_values(http_server_requests_seconds_count{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
+            "definition": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
             "includeAll": true,
+            "label": "Namespace",
             "multi": true,
             "name": "namespace",
             "options": [],
             "query": {
-              "query": "label_values(http_server_requests_seconds_count{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
+              "query": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
               "refId": "StandardVariableQuery"
             },
-            "refresh": 1,
+            "refresh": 2,
             "regex": "",
             "sort": 1,
             "type": "query"
