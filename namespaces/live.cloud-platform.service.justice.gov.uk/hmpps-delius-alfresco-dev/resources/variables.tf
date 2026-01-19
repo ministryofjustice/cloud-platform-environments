@@ -183,3 +183,8 @@ variable "serviceaccount_rules" {
     },
   ]
 }
+
+variable "domain" {
+  default = "_acme-challenge.alfresco.dev.alfresco.probation.hmpps.dsd.io"
+  type    = string
+}
