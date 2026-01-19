@@ -1,4 +1,4 @@
-module "hmpps_template_typescript" {
+module "hmpps_probation_supervision_reminders_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-probation-supervision-reminders-ui"
   application = "hmpps-probation-supervision-reminders-ui"
