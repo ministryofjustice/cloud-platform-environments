@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "hmpps-prisoner-finance"
     cloud-platform.justice.gov.uk/application: "hmpps-prisoner-finance-sync-api"
     cloud-platform.justice.gov.uk/owner: "Prisoner Finance: digital-prisoner-finance@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-finance-sync-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-finance-sync-api,https://github.com/ministryofjustice/hmpps-prisoner-finance-sync-ui"
     cloud-platform.justice.gov.uk/team-name: "hmpps-prisoner-finance"
     cloud-platform.justice.gov.uk/review-after: ""
