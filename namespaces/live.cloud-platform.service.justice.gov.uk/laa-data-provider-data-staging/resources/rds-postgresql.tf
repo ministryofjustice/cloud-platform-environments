@@ -61,6 +61,11 @@ module "rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_connections"
+      value        = "121"
+      apply_method = "pending-reboot"
     }
   ]
 
