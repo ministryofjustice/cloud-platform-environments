@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: hmpps-manage-and-deliver-accredited-programmes-s3-file-transfer
+  name: hmpps-manage-and-deliver-ap-s3-file-transfer
   namespace: hmpps-manage-and-deliver-accredited-programmes-dev
 spec:
   schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
