@@ -116,3 +116,9 @@ variable "db_storage_type" {
   type        = string
   default     = "gp2"
 }
+
+variable "force_ssl_value" {
+  description = "The value to set for forcing SSL"
+  type        = number
+  default     = 1
+}
