@@ -21,7 +21,7 @@ module "sqlserver" {
   db_parameter = [
     {
       name         = "rds.force_ssl"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     }
   ]
@@ -50,7 +50,7 @@ resource "kubernetes_secret" "sqlserver" {
 resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   name                     = "hmpps-acp-${var.environment}-sqlserver-backup"
   option_group_description = "Enable SQL Server Backup/Restore"
-  engine_name              = var.db_engine_version
+  engine_name              = var.db_engine
   major_engine_version     = join(".", slice(split(".", var.db_engine_version), 0, 2))
 
   option {
