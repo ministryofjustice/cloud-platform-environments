@@ -117,6 +117,12 @@ variable "db_storage_type" {
   default     = "gp2"
 }
 
+variable "force_ssl_apply_method" {
+  description = "The apply method for force SSL"
+  type        = string
+  default     = "pending-reboot"
+}
+
 variable "force_ssl_value" {
   description = "The value to set for forcing SSL"
   type        = number
