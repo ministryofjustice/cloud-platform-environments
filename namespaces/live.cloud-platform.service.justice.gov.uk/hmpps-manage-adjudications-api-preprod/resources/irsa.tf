@@ -23,7 +23,7 @@ module "irsa" {
     local.sns_policies,
     { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
     { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn },
-    { rds = module.rds.irsa_policy_arn }
+    { rds = module.ma_rds.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
