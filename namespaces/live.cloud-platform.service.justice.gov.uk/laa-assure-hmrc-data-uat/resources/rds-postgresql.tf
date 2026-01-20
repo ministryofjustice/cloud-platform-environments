@@ -40,7 +40,7 @@ module "rds" {
   enable_irsa = true
 
   # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
-  opt_in_xsiam_logging = true
+  opt_in_xsiam_logging = false
 }
 
 resource "kubernetes_secret" "rds" {
