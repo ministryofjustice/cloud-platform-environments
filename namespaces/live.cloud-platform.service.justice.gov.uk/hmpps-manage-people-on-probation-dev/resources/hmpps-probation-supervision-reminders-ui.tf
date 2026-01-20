@@ -22,7 +22,7 @@ module "elasticache_redis" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps_template_typescript.application
+  application            = module.hmpps_probation_supervision_reminders_ui.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
@@ -41,7 +41,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis_reminders-ui" {
   metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
+    name      = "${module.hmpps_probation_supervision_reminders_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
