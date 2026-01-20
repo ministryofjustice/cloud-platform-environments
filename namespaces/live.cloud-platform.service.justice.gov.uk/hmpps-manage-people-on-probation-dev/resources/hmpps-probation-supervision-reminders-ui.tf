@@ -39,7 +39,7 @@ module "elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "elasticache_redis_reminders-ui" {
   metadata {
     name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
     namespace = var.namespace
