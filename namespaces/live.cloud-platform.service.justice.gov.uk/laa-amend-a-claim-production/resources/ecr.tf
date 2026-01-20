@@ -26,14 +26,14 @@ module "ecr" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "ecr_credentials" {
+resource "kubernetes_secret" "ecr" {
   metadata {
     name      = "ecr-repo-${var.namespace}"
     namespace = var.namespace
   }
 
   data = {
-    repo_arn = module.ecr_credentials.repo_arn
-    repo_url = module.ecr_credentials.repo_url
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
   }
 }
