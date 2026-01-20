@@ -79,7 +79,7 @@ resource "aws_route53_record" "ccrc_route53_txt_record_main" {
   name    = "ccrc.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "68mnpg8h53n9jr4htpl2529xm5jyvx4f", "v=spf1 a mx include:spf.protection.outlook.com include:mailgun.org include:_spf.elasticemail.com ip4:80.6.91.150 ip4:141.193.33.66 -all"]
+  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "68mnpg8h53n9jr4htpl2529xm5jyvx4f", "v=spf1 a mx include:spf.protection.outlook.com include:mailgun.org include:_spf.elasticemail.com ip4:80.6.91.150 ip4:141.193.33.66 -all"]
 }
 
 resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
