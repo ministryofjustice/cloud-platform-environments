@@ -18,6 +18,14 @@ module "sqlserver" {
   team_name                  = var.team_name
   vpc_name                   = var.vpc_name
 
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -40,7 +48,7 @@ resource "kubernetes_secret" "sqlserver" {
 }
 
 resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
-  name                     = "sqlserver-backup"
+  name                     = "hmpps-acp-${var.environment}-sqlserver-backup"
   option_group_description = "Enable SQL Server Backup/Restore"
   engine_name              = var.db_engine_version
   major_engine_version     = join(".", slice(split(".", var.db_engine_version), 0, 2))
