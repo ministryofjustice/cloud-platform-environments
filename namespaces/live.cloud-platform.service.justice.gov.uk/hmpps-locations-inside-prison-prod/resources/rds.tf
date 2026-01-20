@@ -27,6 +27,9 @@ module "dps_rds" {
   providers = {
     aws = aws.london
   }
+
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -95,6 +98,11 @@ module "dps_rds_replica" {
     {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]
