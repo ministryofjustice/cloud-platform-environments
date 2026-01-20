@@ -22,7 +22,7 @@ module "sqlserver" {
     {
       name         = "rds.force_ssl"
       value        = var.force_ssl_value
-      apply_method = "pending-reboot"
+      apply_method = var.force_ssl_apply_method
     }
   ]
 
