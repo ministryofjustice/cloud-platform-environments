@@ -1,4 +1,4 @@
-module "sqlserver" {
+/*module "sqlserver" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   application                = var.application
   business_unit              = var.business_unit
@@ -62,3 +62,4 @@ resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
     }
   }
 }
+*/
