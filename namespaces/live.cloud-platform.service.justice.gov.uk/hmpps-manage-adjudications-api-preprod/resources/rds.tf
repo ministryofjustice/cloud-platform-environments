@@ -17,6 +17,7 @@ module "ma_rds" {
   db_password_rotated_date    = "15-02-2023"
   prepare_for_major_upgrade   = false
   db_allocated_storage        = "1500"
+  enable_irsa                 = true
 
   providers = {
     aws = aws.london
