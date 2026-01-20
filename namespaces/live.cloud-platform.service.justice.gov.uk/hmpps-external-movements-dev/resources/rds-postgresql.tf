@@ -17,6 +17,7 @@ module "rds" {
   performance_insights_enabled = false
   storage_type                 = "gp3"
   db_max_allocated_storage     = "500"
+  db_allocated_storage         = "100"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
