@@ -15,7 +15,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "18.1"
   db_instance_class           = "db.t4g.small"
@@ -32,7 +32,7 @@ module "rds" {
   enable_irsa = true
 
   # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
-  opt_in_xsiam_logging = false
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {
