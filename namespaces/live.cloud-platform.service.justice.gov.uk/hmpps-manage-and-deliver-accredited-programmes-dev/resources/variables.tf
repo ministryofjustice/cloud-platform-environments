@@ -120,5 +120,5 @@ variable "db_storage_type" {
 variable "force_ssl_value" {
   description = "The value to set for forcing SSL"
   type        = number
-  default     = 0
+  default     = 1
 }
