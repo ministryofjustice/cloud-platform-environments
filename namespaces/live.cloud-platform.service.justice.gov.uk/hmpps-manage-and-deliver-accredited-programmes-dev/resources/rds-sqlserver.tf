@@ -21,7 +21,7 @@ module "sqlserver" {
   db_parameter = [
     {
       name         = "rds.force_ssl"
-      value        = "0"
+      value        = var.force_ssl_value
       apply_method = "pending-reboot"
     }
   ]
