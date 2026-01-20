@@ -11,11 +11,12 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - share.hmpps-delius-alfresco-prod.apps.live.cloud-platform.service.justice.gov.uk
+  - alfresco.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: legacy-domain-cert
+  name: repository-ingress-cert
   namespace: hmpps-delius-alfresco-prod
 spec:
   secretName: repository-ingress-cert
@@ -24,4 +25,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - hmpps-delius-alfresco-prod.apps.live.cloud-platform.service.justice.gov.uk
-  - alfresco.probation.service.justice.gov.uk
+  - alfresco.hmpps.service.justice.gov.uk
