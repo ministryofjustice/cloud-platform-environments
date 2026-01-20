@@ -79,7 +79,7 @@ resource "aws_route53_record" "ccrc_route53_txt_record_main" {
   name    = "ccrc.gov.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "68mnpg8h53n9jr4htpl2529xm5jyvx4f", "v=spf1 include:spf.protection.outlook.com include:mailgun.org ip4:80.6.91.150 ip4:141.193.33.66 -all"]
+  records = ["MS=ms13510705", "moTzn29k+pERDZNgHyOtkGiR+/ckQKBhpJDwsM558yZCe4wETnTgQswUIVDMjxIQrRQyPxznbg0qy6o17si9qQ==", "68mnpg8h53n9jr4htpl2529xm5jyvx4f", "v=spf1 a mx include:spf.protection.outlook.com include:mailgun.org include:_spf.elasticemail.com ip4:80.6.91.150 ip4:141.193.33.66 -all"]
 }
 
 resource "aws_route53_record" "ccrc_route53_txt_record_asvdns" {
@@ -136,6 +136,22 @@ resource "aws_route53_record" "ccrc_route53_txt_record_s1" {
   type    = "TXT"
   ttl     = "300"
   records = ["k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8+d/wBBjA8aowURIzHyUMEDn4eUfkcyfLpRP9yUlRLeeuRcT9ZoxGAnZu0iSNoct7TjDAVzwveQs9j06jfoHXtSXtLWql\"\"x//Xn624rZkUAI/8XSKZfj9ivczZR8MK7PUhiRiPe8B52dYAGIN4W+mTrergQBtNv40sx9masfhaUfsheOa+0aMp3uHz0+CDypls9WjZN6tTUDIV+VPlVX2cslNLWqNg8gy9zWNX7fNc85yRGAjtY12AYv1uBfZOabwYXDyCmEpjz/13VOHobZ0tVO9DWY4qU9YtIGICa2pEBfj1VsoI+TlPxhRFJ1kUhtsnsbh4tiEUtq1H60Q194dKwIDAQAB"]
+}
+
+resource "aws_route53_record" "ccrc_route53_txt_record_api_dk" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "api._domainkey.ccrc.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["k=rsa;t=s;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbmGbQMzYeMvxwtNQoXN0waGYaciuKx8mtMh5czguT4EZlJXuCt6V+l56mmt3t68FEX5JJ0q4ijG71BGoFRkl87uJi7LrQt1ZZ\"\"mZCvrEII0YO4mp8sDLXC8g1aUAoi8TJgxq2MJqCaMyj5kAm3Fdy2tzftPCV/lbdiJqmBnWKjtwIDAQAB"]
+}
+
+resource "aws_route53_record" "ccrc_route53_cname_record_tracking" {
+  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
+  name    = "tracking.ccrc.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["api.elasticemail.com"]
 }
 
 resource "aws_route53_record" "ccrc_route53_cname_record_mwn" {

@@ -60,7 +60,7 @@ resource "aws_route53_record" "niofficialhistory_route53_txt_record_dmarc" {
   name    = "_dmarc.niofficialhistory.org.uk"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=reject; rua=mailto:postmaster@nio.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100;"]
+  records = ["v=DMARC1; p=reject; pct=100; adkim=r; aspf=r; rua=mailto:postmaster@nio.gov.uk,mailto:7c8cbf1d@inbox.ondmarc.com; ruf=mailto:7c8cbf1d@inbox.ondmarc.com; fo=1; ri=3600"]
 }
 
 resource "aws_route53_record" "niofficialhistory_route53_txt_record_smtp" {
