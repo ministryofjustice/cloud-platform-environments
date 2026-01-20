@@ -13,7 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-amend-a-claim"]
-  github_environments = ["test"]
+  github_environments = ["production"]
 
 
   # Tags
