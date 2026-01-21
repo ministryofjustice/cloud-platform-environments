@@ -44,12 +44,12 @@ module "secrets_manager" {
       description             = "Claims Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    }
+    },
     "laa-amend-a-claim-e2e-claims-api-token" = {
       description             = "Claims Api Mock Token used for e2e tests",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-e2e-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    }
+    },
     "laa-amend-a-claim-e2e-github-token" = {
       description             = "Github Token used for e2e tests",
       recovery_window_in_days = 7
