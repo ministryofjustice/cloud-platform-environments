@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "pfl-connecting-services-app"
+  default     = "pfl-connecting-services"
 }
