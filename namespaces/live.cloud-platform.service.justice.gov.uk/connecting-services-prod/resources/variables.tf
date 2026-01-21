@@ -11,7 +11,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of Application you are deploying"
   type        = string
-  default     = "Connecting Services Prototype"
+  default     = "PFL Connecting Services App"
 }
 
 variable "namespace" {
@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "connecting-services-prototype"
+  default     = "pfl-connecting-services"
 }
