@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "pfl-connecting-services-app-dev"
+  default     = "pfl-connecting-services-dev"
 }
 
 variable "business_unit" {
@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "pfl-connecting-services-app"
+  default     = "pfl-connecting-services"
 }

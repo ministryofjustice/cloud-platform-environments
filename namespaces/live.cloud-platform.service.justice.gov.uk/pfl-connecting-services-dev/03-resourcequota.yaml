@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: pfl-connecting-services-app-dev
+  namespace: pfl-connecting-services-dev
 spec:
   hard:
     pods: "10"
