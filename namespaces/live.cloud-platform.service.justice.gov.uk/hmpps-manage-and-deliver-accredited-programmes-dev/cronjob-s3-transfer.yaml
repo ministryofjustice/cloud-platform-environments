@@ -24,6 +24,8 @@ spec:
                 allowPrivilegeEscalation: false
               imagePullPolicy: IfNotPresent
               env:
+                - name: HOME
+                  value: /tmp
                 - name: UPLOAD_S3_BUCKET_NAME
                   valueFrom:
                     secretKeyRef:
