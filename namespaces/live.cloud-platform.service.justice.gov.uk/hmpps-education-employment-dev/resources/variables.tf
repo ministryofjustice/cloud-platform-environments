@@ -21,6 +21,12 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Education, Skills and Work"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "education-skills-and-work-devs"
@@ -43,7 +49,7 @@ variable "eks_cluster_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "getreadyforwork@digital.justice.gov.uk"
+  default     = "getreadyforwork@justice.gov.uk"
 }
 
 variable "is_production" {

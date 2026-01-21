@@ -14,8 +14,8 @@ module "checkmydiary_rds" {
   db_max_allocated_storage   = "500"
   db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
-  db_engine_version          = "17"
-  rds_family                 = "postgres17"
+  db_engine_version          = "18"
+  rds_family                 = "postgres18"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true
   prepare_for_major_upgrade  = false

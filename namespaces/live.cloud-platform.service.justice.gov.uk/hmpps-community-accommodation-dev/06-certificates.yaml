@@ -68,45 +68,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-approved-premises-future-manage-dev-cert
-  namespace: hmpps-community-accommodation-dev
-spec:
-  secretName: hmpps-approved-premises-future-manage-dev-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - hmpps-approved-premises-future-manage-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-approved-premises-manage-a-resident-api-dev-cert
-  namespace: hmpps-community-accommodation-dev
-spec:
-  secretName: hmpps-approved-premises-manage-a-resident-api-dev-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - approved-premises-manage-a-resident-api-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-approved-premises-manage-a-resident-dev-cert
-  namespace: hmpps-community-accommodation-dev
-spec:
-  secretName: hmpps-approved-premises-manage-a-resident-dev-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - approved-premises-manage-a-resident-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: hmpps-single-accommodation-service-api-dev-cert
   namespace: hmpps-community-accommodation-dev
 spec:
@@ -129,3 +90,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - single-accommodation-service-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-accommodation-data-domain-api-dev-cert
+  namespace: hmpps-community-accommodation-dev
+spec:
+  secretName: hmpps-accommodation-data-domain-api-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - accommodation-data-domain-api-dev.hmpps.service.justice.gov.uk

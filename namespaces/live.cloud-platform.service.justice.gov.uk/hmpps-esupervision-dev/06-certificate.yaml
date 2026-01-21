@@ -23,3 +23,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - esupervision-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-probation-check-in-ui-cert
+  namespace: hmpps-esupervision-dev
+spec:
+  secretName: hmpps-probation-check-in-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - probation-check-in-dev.hmpps.service.justice.gov.uk

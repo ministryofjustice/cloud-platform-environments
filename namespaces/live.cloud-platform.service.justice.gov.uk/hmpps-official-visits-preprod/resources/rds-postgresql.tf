@@ -27,7 +27,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "17"
   rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [
     {
@@ -95,5 +95,21 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-official-visits-prod"
+  }
+
+  data = {
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
 }

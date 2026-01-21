@@ -13,10 +13,11 @@ module "moj_dashboard_dev_irsa" {
   is_production          = false
   environment_name       = var.environment
   team_name              = var.team_name
-  infrastructure_support = "missionbrilliantperformancereportingteam@justice.gov.uk"
+  infrastructure_support = var.infrastructure_support
 }
 
 data "aws_iam_policy_document" "moj_dashboard_dev" {
+  # Permission to get data from athena (via ap) to create data snapshot
   statement {
     effect = "Allow"
     actions = [
@@ -24,6 +25,17 @@ data "aws_iam_policy_document" "moj_dashboard_dev" {
     ]
     resources = [
       "arn:aws:iam::593291632749:role/alpha_app_mbpr-test"
+    ]
+  }
+  # Permission to wite the snapshot to s3 bucket
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:DeleteObject"
+    ]
+    resources = [
+      "${module.s3_bucket.bucket_arn}/*"
     ]
   }
 }
@@ -38,7 +50,7 @@ resource "aws_iam_policy" "moj_dashboard_dev" {
     is-production          = false
     environment-name       = var.environment
     owner                  = var.team_name
-    infrastructure-support = "missionbrilliantperformancereportingteam@justice.gov.uk"
+    infrastructure-support = var.infrastructure_support
   }
 }
 

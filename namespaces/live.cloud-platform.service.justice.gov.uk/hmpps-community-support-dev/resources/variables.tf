@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Community Support"
+  default     = "hmpps-community-support"
 }
 
 variable "namespace" {
@@ -35,7 +35,11 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
+}
+
+variable "environment-name" {
+  default = "development"
 }
 
 variable "infrastructure_support" {
@@ -66,6 +70,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "number_cache_clusters" {

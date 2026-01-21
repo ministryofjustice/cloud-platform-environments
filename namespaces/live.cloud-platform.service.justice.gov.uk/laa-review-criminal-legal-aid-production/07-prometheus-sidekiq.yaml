@@ -10,8 +10,6 @@
 #
 # Alerts will be sent to the slack channel: #laa-crime-apply-alerts
 #
-# The rules below are copied from laa-assess-crime-forms
-#
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -24,51 +22,33 @@ spec:
   groups:
   - name: sidekiq-rules
     rules:
-    - alert: CrimeReview-Production-Sidekiq-DeadJobThresholdReached
-      expr: |-
-        # Any dead jobs added in past 2 minutes
-        #
-        # We use average because each worker pod will report the same number of dead jobs.
-        #
-        # To find those added in the last 2 minutes we take current dead jobs and take away either the number
-        # of dead jobs 2 minutes ago, or the current number minus 1 (to force a diff where there were no dead
-        # jobs previously, because no dead jobs will be represented by an empty value, {}, rather than 0).
-        # 
-        # If the resulting number is greater than 0 then a dead job has been added to the queue. It should be noted
-        # that the number could be less than 0 if dead jobs are cleared/deleted.
-        #
-        avg(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"})
-         - (
-             avg(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"} offset 2m)
-             or 
-             avg(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"}) - 1
-           )
-          > 0
+    - alert: CrimeReview-Production-Sidekiq-DeadJobsDetected
+      expr: max(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"}) > 0
+      for: 5m
       labels:
         severity: laa-crime-apply-alerts
       annotations:
-        message: Crime Review production - One or more Sidekiq jobs moved to dead
+        message: Crime Review production - {{ $value }} jobs detected in the Sidekiq dead set.
 
-    - alert: CrimeReview-Production-Sidekiq-QueueSizeThresholdReached
-      expr: |-
-        # We exclude queues named sidekiq-alive* as these are purely used to test liveness.
-        #
-        # We use `sum by` to "group [counts] by" queue name and `avg by` to divide by the number of worker pods
-        # from which the stats are produced (which are duplicating stats).
-        #
-        # Example: If there are 2 workers and queue1 has size 1 and queue2 has 2 then total queue size is (1+2) * 2 = 6.
-        #          The sum by and avg by "should" result in (6/2)/2 = 1.5
-        #
-        # This is based on guesswork as it is hard to test and we can refine it if we start to see alerts that are not
-        # an issue.
-        #
-        avg by (pod) (
-          sum by (queue) (
-            ruby_sidekiq_queue_backlog{namespace="laa-review-criminal-legal-aid-production", queue!~"sidekiq-alive.*"}
-          )
-        ) > 2
-      for: 1m
+    - alert: CrimeReview-Production-Sidekiq-DeadJobsIncreased
+      expr: max(delta(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"}[10m])) > 0
       labels:
         severity: laa-crime-apply-alerts
       annotations:
-        message: Crime Review production - Total Sidekiq queue sizes are more than 2
+        message: Crime Review production - size of the Sidekiq dead set increased in the last 10m.
+
+    - alert: CrimeReview-Production-Sidekiq-HighRetries
+      expr: max(ruby_sidekiq_stats_retry_size{namespace="laa-review-criminal-legal-aid-production"}) > 50
+      for: 10m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - size of the Sidekiq retry has been more than 50 for at least 10m.
+
+    - alert: CrimeReview-Production-Sidekiq-HighQueueBacklog
+      expr: max by (queue) (ruby_sidekiq_queue_backlog{namespace="laa-review-criminal-legal-aid-production"}) > 50
+      for: 5m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - Sidekiq queue {{ $labels.queue }} has had a backlog of {{ $value }} jobs for 5 min.

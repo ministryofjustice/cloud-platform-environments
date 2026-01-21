@@ -31,6 +31,11 @@ variable "environment" {
   default     = "staging"
 }
 
+variable "service_area" {
+  default = "Central Digital"
+}
+
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }

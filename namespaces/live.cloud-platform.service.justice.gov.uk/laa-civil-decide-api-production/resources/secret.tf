@@ -10,6 +10,30 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "auth-client-id" = {
+      description             = "Auth client ID from Entra for production environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "auth-client-id-production"
+    },
+
+    "auth-client-secret" = {
+      description             = "Auth client secret from Entra for production environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "auth-client-secret-production"
+    },
+
+    "auth-directory-url" = {
+      description             = "Auth directory URL from Entra for production environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "auth-directory-url-production"
+    },
+
+    "base_url_map" = {
+      description             = "API Base URL Map for Production",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "base-url-map-production"
+    },
+
     "gov-notify-api-key" = {
       description             = "API key for GOV Notify",
       recovery_window_in_days = 7,

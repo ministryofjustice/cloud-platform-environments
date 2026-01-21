@@ -31,8 +31,18 @@ variable "environment" {
   default     = "prod"
 }
 
+variable "service_area" {
+  default = "Central Digital"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.websitebuilder.service.justice.gov.uk"
 }
 
 variable "infrastructure_support" {

@@ -10,3 +10,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - assess-risks-and-needs-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: arns-frontend-components-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-assess-risks-and-needs-dev
+spec:
+  secretName: hmpps-arns-frontend-components-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-frontend-components-dev.hmpps.service.justice.gov.uk

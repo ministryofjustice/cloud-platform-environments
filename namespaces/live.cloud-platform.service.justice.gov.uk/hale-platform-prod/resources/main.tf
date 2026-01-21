@@ -4,18 +4,64 @@ terraform {
 }
 
 provider "aws" {
+  default_tags {
+    tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+    }
+  }
   region = "eu-west-2"
 }
 
 provider "aws" {
   alias  = "london"
+  default_tags {
+    tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+    }
+  }
   region = "eu-west-2"
 }
 
 provider "aws" {
   alias  = "ireland"
+  default_tags {
+    tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+    }
+  }
   region = "eu-west-1"
 }
+
+provider "aws" {
+  alias  = "virginia"
+  default_tags {
+    tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+    }
+  }
+  region = "us-east-1"
+}
+
 
 provider "github" {
   token = var.github_token

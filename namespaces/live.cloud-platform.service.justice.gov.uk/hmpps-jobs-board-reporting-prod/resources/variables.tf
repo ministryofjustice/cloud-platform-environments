@@ -26,6 +26,12 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Education, Skills and Work"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -47,7 +53,7 @@ variable "deployment_environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "managing.eswe@digital.justice.gov.uk"
+  default     = "getreadyforwork@justice.gov.uk"
 }
 
 variable "is_production" {

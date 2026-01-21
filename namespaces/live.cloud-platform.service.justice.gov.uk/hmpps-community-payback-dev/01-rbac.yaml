@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-community-payback-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-community-payback"
+    name: "github:hmpps-community-payback-devs"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group

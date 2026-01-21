@@ -163,6 +163,16 @@ resource "aws_api_gateway_api_key" "api_keys" {
   count = length(local.suppliers)
   name  = "${local.suppliers[count.index]}${var.environment_suffix}-key"
   value = "${local.suppliers[count.index]}${var.environment_suffix}-${random_id.key[count.index].hex}"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "kubernetes_secret" "apikeys" {
@@ -185,6 +195,16 @@ resource "aws_api_gateway_usage_plan" "default" {
     api_id = aws_api_gateway_rest_api.apigw.id
     stage  = aws_api_gateway_deployment.live.stage_name
   }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {
@@ -201,6 +221,16 @@ resource "aws_api_gateway_domain_name" "apigw_fqdn" {
 
   endpoint_configuration {
     types = ["REGIONAL"]
+  }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
 
   depends_on = [aws_acm_certificate_validation.apigw_custom_hostname]

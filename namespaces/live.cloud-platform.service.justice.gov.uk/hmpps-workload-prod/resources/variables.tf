@@ -26,7 +26,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "manage-a-workforce"
+  default     = "hmpps-manage-a-workforce-live"
 }
 
 variable "environment" {

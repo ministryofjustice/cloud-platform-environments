@@ -71,10 +71,10 @@ module "service_account" {
   serviceaccount_name                  = "manage-intelligence-ga"
   github_environments                  = [var.environment-name]
   github_repositories                  = local.github_repos
-  github_actions_secret_kube_cert      = "${upper(var.environment-name)}_KUBE_CERT"
-  github_actions_secret_kube_token     = "${upper(var.environment-name)}_KUBE_TOKEN"
-  github_actions_secret_kube_cluster   = "${upper(var.environment-name)}_KUBE_CLUSTER"
-  github_actions_secret_kube_namespace = "${upper(var.environment-name)}_KUBE_NAMESPACE"
+  github_actions_secret_kube_cert      = "KUBE_CERT"
+  github_actions_secret_kube_token     = "KUBE_TOKEN"
+  github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
+  github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
   serviceaccount_token_rotated_date    = time_rotating.weekly.unix
   depends_on                           = [github_repository_environment.env]
@@ -88,9 +88,7 @@ resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment-name
   repository  = each.key
-  reviewers {
-    teams = [data.github_team.dps_soct_tech.id]
-  }
+
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false

@@ -33,8 +33,6 @@ module "domain_events_dlq" {
 }
 
 resource "aws_sns_topic_subscription" "domain_events_subscription" {
-  count = 0 # remove this line when the api service is ready to listen to the events
-
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.domain_events_queue.sqs_arn

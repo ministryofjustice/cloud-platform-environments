@@ -36,7 +36,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
+  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -53,6 +53,14 @@ module "read_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true
+  db_password_rotated_date     = "2025-09-24"
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "16"
@@ -66,6 +74,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
@@ -86,11 +96,19 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
 }
 
@@ -106,5 +124,17 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+resource "kubernetes_config_map" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.read_replica[0].database_name
+    db_identifier = module.read_replica[0].db_identifier
   }
 }

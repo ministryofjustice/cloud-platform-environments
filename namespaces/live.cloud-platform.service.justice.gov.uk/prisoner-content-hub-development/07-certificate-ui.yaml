@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-content-hub-ui-cert
+  namespace: prisoner-content-hub-development
+spec:
+  secretName: hmpps-content-hub-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - content-hub-dev.hmpps.service.justice.gov.uk

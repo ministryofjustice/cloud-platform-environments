@@ -33,6 +33,14 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = var.force_ssl_value
+      apply_method = var.force_ssl_apply_method
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {

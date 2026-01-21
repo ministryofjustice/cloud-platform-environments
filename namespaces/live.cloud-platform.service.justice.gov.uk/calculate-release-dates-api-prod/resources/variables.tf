@@ -74,3 +74,7 @@ variable "mp_dps_sg_name" {
 variable "github_actions_team" {
    default = "hmpps-calculate-release-dates-team-live"
 }
+
+variable "service_area" {
+  default = "Manage Custody"
+}

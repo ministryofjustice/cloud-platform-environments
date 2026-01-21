@@ -14,7 +14,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.17"
+  db_engine_version = "14"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 

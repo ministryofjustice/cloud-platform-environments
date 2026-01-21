@@ -18,10 +18,12 @@ module "activities_api_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
+  db_max_allocated_storage    = "200"
   db_engine_version           = "17.4"
   db_engine                   = "postgres"
   performance_insights_enabled = true
   deletion_protection         = true
+
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 

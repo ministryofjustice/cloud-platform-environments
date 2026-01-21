@@ -13,6 +13,7 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["cica-review-case-documents"]
+  github_environments = ["dev"]
 
   # Tags
   business_unit          = var.business_unit

@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -14,6 +14,11 @@ module "secrets_manager" {
       description             = "[app-secrets] App secrets for Provider data"
       recovery_window_in_days = 7
       k8s_secret_name         = "app-secrets"
+    }
+    "app-secrets-secondary" = {
+      description             = "[app-secrets-secondary] Secondary app secrets for Provider data"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "app-secrets-secondary"
     }
   }
 }

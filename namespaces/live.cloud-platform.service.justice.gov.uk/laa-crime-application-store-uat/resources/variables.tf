@@ -72,6 +72,12 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "repo_name" {
+  description = "Name of github repository"
+  default = "laa-crime-application-store"
+  type = string
+}
+
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"
 

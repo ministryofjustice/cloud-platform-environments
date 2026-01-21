@@ -19,7 +19,7 @@ module "rds-allocation" {
   db_allocated_storage   = "750"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "15.8"
+  db_engine_version      = "15.12"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 

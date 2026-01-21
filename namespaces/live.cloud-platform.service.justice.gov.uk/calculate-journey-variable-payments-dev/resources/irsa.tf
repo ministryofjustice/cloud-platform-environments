@@ -42,4 +42,6 @@ resource "kubernetes_secret" "basm_reporting_bucket" {
   data = {
     bucket_name = data.aws_ssm_parameter.basm-bucket-name.value
   }
+
+
 }

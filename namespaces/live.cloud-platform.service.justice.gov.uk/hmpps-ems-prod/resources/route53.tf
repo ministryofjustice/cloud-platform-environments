@@ -69,30 +69,6 @@ resource "aws_route53_record" "hmpps_ems_mapping_prod_zone" {
   records = ["ns-785.awsdns-34.net.", "ns-1610.awsdns-09.co.uk.", "ns-230.awsdns-28.com.", "ns-1150.awsdns-15.org."]
 }
 
-resource "aws_route53_record" "hmpps_ems_tagging_test_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.test.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-788.awsdns-34.net.", "ns-1858.awsdns-40.co.uk.", "ns-70.awsdns-08.com.", "ns-1045.awsdns-02.org."]
-}
-
-resource "aws_route53_record" "hmpps_ems_tagging_preprod_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.pp.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-967.awsdns-56.net.", "ns-1745.awsdns-26.co.uk.", "ns-153.awsdns-19.com.", "ns-1180.awsdns-19.org."]
-}
-
-resource "aws_route53_record" "hmpps_ems_tagging_prod_zone" {
-  zone_id = aws_route53_zone.route53_zone.zone_id
-  name    = "tagging.${var.domain}"
-  type    = "NS"
-  ttl     = "600"
-  records = ["ns-1017.awsdns-63.net.", "ns-1682.awsdns-18.co.uk.", "ns-428.awsdns-53.com.", "ns-1300.awsdns-34.org."]
-}
-
 resource "aws_route53_record" "auth0_platform_record" {
   zone_id = aws_route53_zone.route53_zone.zone_id
   name    = "auth.platform.${var.domain}"
@@ -170,4 +146,20 @@ resource "aws_route53_record" "hmpps_crime_matching_zone" {
   type    = "NS"
   ttl     = "600"
   records = ["ns-1208.awsdns-23.org.", "ns-1644.awsdns-13.co.uk.", "ns-439.awsdns-54.com.", "ns-552.awsdns-05.net."]
+}
+
+resource "aws_route53_record" "hmpps_crime_matching_preprod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "crime-matching-preprod.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1329.awsdns-38.org.", "ns-1921.awsdns-48.co.uk.", "ns-164.awsdns-20.com.", "ns-981.awsdns-58.net."]
+}
+
+resource "aws_route53_record" "hmpps_crime_matching_prod_zone" {
+  zone_id = aws_route53_zone.route53_zone.zone_id
+  name    = "crime-matching.${var.domain}"
+  type    = "NS"
+  ttl     = "600"
+  records = ["ns-1146.awsdns-15.org.", "ns-1558.awsdns-02.co.uk.", "ns-291.awsdns-36.com.", "ns-676.awsdns-20.net."]
 }

@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dstew-common@justice.gov.uk"
+  default     = "laa-dstew-enterprise@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -70,4 +70,10 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Common Services and Enterprise"
 }

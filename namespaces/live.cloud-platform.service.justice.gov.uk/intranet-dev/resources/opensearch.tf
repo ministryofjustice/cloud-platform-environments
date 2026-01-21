@@ -46,7 +46,7 @@ module "opensearch" {
 # Output the proxy URL
 resource "kubernetes_secret" "opensearch" {
   metadata {
-    name      = "${var.team_name}-opensearch-proxy-url"
+    name      = "opensearch-output"
     namespace = var.namespace
   }
 

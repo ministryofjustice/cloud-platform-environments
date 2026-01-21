@@ -9,8 +9,8 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
     cloud-platform.justice.gov.uk/application: "keyworker-api"
-    cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/keyworker-api.git"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "dps_alerts"
-    cloud-platform.justice.gov.uk/slack-channel: "dps_adjudications"
-    cloud-platform.justice.gov.uk/team-name: "dps-core"
+    cloud-platform.justice.gov.uk/owner: "Live Services Maintenance: HMPPSLiveServicesMaintenanceTeam@JusticeUK.onmicrosoft.com"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-prisons-digital-live-support"
+    cloud-platform.justice.gov.uk/slack-channel: "ask-live-services-maintenance-team"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "maintenance-alerts-prod"

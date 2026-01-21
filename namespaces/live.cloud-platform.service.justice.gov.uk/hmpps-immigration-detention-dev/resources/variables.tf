@@ -72,3 +72,8 @@ variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}

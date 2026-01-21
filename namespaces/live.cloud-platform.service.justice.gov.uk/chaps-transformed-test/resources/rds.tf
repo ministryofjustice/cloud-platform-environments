@@ -25,6 +25,8 @@ module "rds_mssql" {
   rds_family           = "sqlserver-web-14.0"
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
+  option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
+  enable_irsa          = true 
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -45,8 +47,6 @@ module "rds_mssql" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-
-  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds_mssql" {
@@ -71,4 +71,88 @@ resource "kubernetes_config_map" "rds_mssql" {
     rds_instance_endpoint = module.rds_mssql.rds_instance_endpoint
     rds_instance_address  = module.rds_mssql.rds_instance_address
   }
+}
+
+resource "aws_db_option_group" "sqlserver_backup_restore" {
+  name                 = "${var.namespace}-sqlserver-14-backup-restore"
+  engine_name          = "sqlserver-web"
+  major_engine_version = "14.00"
+
+  option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+    option_settings {
+      name = "IAM_ROLE_ARN"
+      value  = aws_iam_role.rds_s3_backup_restore.arn
+    }
+  }
+}
+
+variable "backup_bucket" { 
+  type = string 
+  default = "tp-dbbackups"
+  description = "S3 bucket that stores SQL Server .bak files" 
+}        
+
+variable "backup_prefix" { 
+  type = string 
+  default = "chaps-dev/"
+  description = "Key prefix within the backup bucket" 
+} 
+
+
+resource "aws_iam_role" "rds_s3_backup_restore" {
+  name = "${var.namespace}-rds-s3-backup-restore"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = { Service = "rds.amazonaws.com" },
+      Action   = "sts:AssumeRole"
+    }]
+  })
+}
+
+
+locals {
+  bucket_arn         = format("arn:aws:s3:::%s", var.backup_bucket)
+  objects_prefix_arn = format("arn:aws:s3:::%s/%s*", var.backup_bucket, var.backup_prefix)
+}
+
+
+# Least-privilege inline policy: list bucket + R/W objects in the prefix
+resource "aws_iam_role_policy" "rds_s3_backup_restore" {
+  name = "${var.namespace}-rds-s3-backup-restore"
+  role = aws_iam_role.rds_s3_backup_restore.id
+
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Sid      = "BucketLocation"
+        Effect   = "Allow"
+        Action   = ["s3:GetBucketLocation"]
+        Resource = local.bucket_arn
+      },
+      {
+        Sid             = "ListBucket"
+        Effect          = "Allow"
+        Action          = ["s3:ListBucket"]
+        Resource        = local.bucket_arn
+        Condition       = {
+          StringLike    = { 
+            "s3:prefix" = [
+              format("%s*", var.backup_prefix), 
+              var.backup_prefix
+            ]
+          }
+        }
+      },
+      {
+        Sid      = "RWPrefix",
+        Effect   = "Allow",
+        Action   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
+        Resource = local.objects_prefix_arn
+      }
+    ]
+  })
 }

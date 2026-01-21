@@ -64,10 +64,10 @@ module "rds" {
     }
   ]
 
-
   enable_irsa = true
 }
 
+# Secret to store confidential credentials to the RDS instance
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"

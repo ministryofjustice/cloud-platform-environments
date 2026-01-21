@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Community Payback"
     cloud-platform.justice.gov.uk/owner: "Community Payback: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-community-payback-api,https://github.com/ministryofjustice/hmpps-community-payback-ui"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-community-payback"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-community-payback-devs"

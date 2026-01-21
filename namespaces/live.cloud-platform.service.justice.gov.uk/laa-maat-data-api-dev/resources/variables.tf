@@ -32,6 +32,11 @@ variable "team_name" {
   default     = "laa-crime-apps-team"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

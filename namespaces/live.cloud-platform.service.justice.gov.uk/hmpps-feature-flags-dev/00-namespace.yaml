@@ -13,4 +13,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Feature Flags"
     cloud-platform.justice.gov.uk/owner: "HMPPS Community of Practice: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-feature-flags"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-lead-developers"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-feature-flag-admins"

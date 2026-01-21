@@ -14,8 +14,8 @@ subjects:
     name: "github:probation-integration"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
-    name: cd-serviceaccount
-    namespace: hmpps-probation-integration
+    name: default
+    namespace: hmpps-github-actions-runners
 roleRef:
   kind: ClusterRole
   name: admin

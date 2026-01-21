@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-cosso-api-cert
+  namespace: hmpps-cosso-dev
+spec:
+  secretName: hmpps-cosso-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cosso-api-dev.hmpps.service.justice.gov.uk
+    - '*.cosso-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-cosso-ui-cert
+  namespace: hmpps-cosso-dev
+spec:
+  secretName: hmpps-cosso-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cosso-ui-dev.hmpps.service.justice.gov.uk
+    - '*.cosso-ui-dev.hmpps.service.justice.gov.uk'

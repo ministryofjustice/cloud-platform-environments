@@ -12,7 +12,9 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_notification_alerts_s
       "prison-visit.booked",
       "prison-visit.changed",
       "prison-visit.cancelled",
-      "prison-visit-request.approved"
+      "prison-visit-request.approved",
+      "prison-visit-booker.visitor-approved",
+      "prison-visit-booker.visitor-rejected"
     ]
   })
 }

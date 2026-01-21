@@ -2,8 +2,8 @@ module "hmpps_person_integration_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-person-integration-api"
   application                   = "hmpps-person-integration-api"
-  github_team                   = "connect-dps"
-  reviewer_teams                = ["connect-dps", "hmpps-person-record"]
+  github_team                   = var.github_review_team
+  reviewer_teams                = [var.github_deployment_team, "hmpps-person-record"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "prod"

@@ -167,6 +167,7 @@ resource "aws_iam_role_policy" "sqs" {
           "sqs:ChangeMessageVisibility",
           "sqs:DeleteMessage",
           "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl",
           "sqs:PurgeQueue",
           "sqs:ReceiveMessage",
         ],
