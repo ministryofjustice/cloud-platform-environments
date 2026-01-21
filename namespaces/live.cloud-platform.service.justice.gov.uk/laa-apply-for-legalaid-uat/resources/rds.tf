@@ -17,7 +17,7 @@ module "apply-for-legal-aid-rds" {
   infrastructure_support   = "apply-for-civil-legal-aid@justice.gov.uk"
 
   # Database configuration
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "18.1"
   rds_family                  = "postgres18"
