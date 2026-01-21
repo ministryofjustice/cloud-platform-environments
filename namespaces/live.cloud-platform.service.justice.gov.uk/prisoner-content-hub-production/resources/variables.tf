@@ -60,5 +60,9 @@ variable "github_token" {
   default     = ""
 }
 
+variable "service_area" {
+  description = "The service area responsible for the service."
+  default     = "Prisoner Transitional Services Replacement"
+}
 
 variable "kubernetes_cluster" {}
