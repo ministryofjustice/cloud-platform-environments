@@ -109,7 +109,30 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     eventType = [
-      "todo"
+      "person.temporary-absence-authorisation.pending",
+      "person.temporary-absence-authorisation.approved",
+      "person.temporary-absence-authorisation.denied",
+      "person.temporary-absence-authorisation.cancelled",
+      "person.temporary-absence-authorisation.expired",
+      "person.temporary-absence-authorisation.recategorised",
+      "person.temporary-absence-authorisation.date-range-changed",
+      "person.temporary-absence-authorisation.accompaniment-changed",
+      "person.temporary-absence-authorisation.comments-changed",
+      "person.temporary-absence-authorisation.transport-changed",
+      "person.temporary-absence-authorisation.deferred",
+      "person.temporary-absence.scheduled",
+      "person.temporary-absence.denied",
+      "person.temporary-absence.cancelled",
+      "person.temporary-absence.started",
+      "person.temporary-absence.completed",
+      "person.temporary-absence.overdue",
+      "person.temporary-absence.expired",
+      "person.temporary-absence.recategorised",
+      "person.temporary-absence.rescheduled",
+      "person.temporary-absence.relocated",
+      "person.temporary-absence.accompaniment-changed",
+      "person.temporary-absence.transport-changed",
+      "person.temporary-absence.comments-changed"
     ]
   })
 }
