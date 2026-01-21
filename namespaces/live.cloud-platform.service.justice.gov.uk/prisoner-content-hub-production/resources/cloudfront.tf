@@ -15,4 +15,5 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  service_area           = var.service_area
 }
