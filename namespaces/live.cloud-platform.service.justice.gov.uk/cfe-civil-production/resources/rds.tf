@@ -24,10 +24,10 @@ module "rds" {
   performance_insights_enabled = true
 
   # Database configuration
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
-  db_engine_version           = "17.6"
-  rds_family                  = "postgres17"
+  db_engine_version           = "18.1"
+  rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
   allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "false"
