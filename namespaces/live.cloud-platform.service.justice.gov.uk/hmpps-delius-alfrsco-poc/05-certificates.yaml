@@ -11,3 +11,18 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - share.hmpps-delius-alfrsco-poc.apps.live.cloud-platform.service.justice.gov.uk
+  - share.alfresco.poc.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: short-domain-cert
+  namespace: hmpps-delius-alfrsco-poc
+spec:
+  secretName: short-domain-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - hmpps-delius-alfrsco-poc.apps.live.cloud-platform.service.justice.gov.uk
+  - alfresco.poc.hmpps.service.justice.gov.uk
