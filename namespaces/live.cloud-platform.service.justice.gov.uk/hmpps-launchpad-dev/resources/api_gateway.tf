@@ -164,9 +164,9 @@ resource "aws_api_gateway_stage" "main" {
     })
   }
 
-  lifecycle {
+/*  lifecycle {
     create_before_destroy = true
-  }
+  }*/
 
   depends_on = [
     aws_api_gateway_deployment.main,
