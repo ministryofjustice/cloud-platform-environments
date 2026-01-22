@@ -9,9 +9,10 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "laa-eligibility-platform"
+    cloud-platform.justice.gov.uk/service-area: "Access to Legal Aid"
+    cloud-platform.justice.gov.uk/slack-channel: "apply-dev"
     cloud-platform.justice.gov.uk/application: "CFE Civil"
-    cloud-platform.justice.gov.uk/owner: "Check Client Qualifies: ccq@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Apply for civil legal aid: apply-for-civil-legal-aid@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cfe-civil"
-    cloud-platform.justice.gov.uk/team-name: "check-client-qualifies"
+    cloud-platform.justice.gov.uk/team-name: "laa-apply-for-legal-aid"
     cloud-platform.justice.gov.uk/review-after: ""
