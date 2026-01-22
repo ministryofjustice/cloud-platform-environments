@@ -3,7 +3,8 @@ resource "kubernetes_secret" "api_gateway_api_keys" {
 
   metadata {
     name      = "api-gateway-api-key-${each.key}"
-    namespace = var.namespace}
+    namespace = var.namespace
+  }
 
   data = {
     api_key_id = aws_api_gateway_api_key.clients[each.key].id
