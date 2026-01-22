@@ -141,10 +141,6 @@ resource "aws_api_gateway_deployment" "main" {
     aws_api_gateway_integration.authorize_get,
     aws_api_gateway_integration.token_post,
   ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 # Stage
