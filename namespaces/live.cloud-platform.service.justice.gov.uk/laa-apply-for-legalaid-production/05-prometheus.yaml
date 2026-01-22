@@ -112,8 +112,8 @@ spec:
         message: One or more Sidekiq jobs moved to dead in namespace laa-apply-for-legalaid-production
         runbook_url: https://github.com/discourse/prometheus_exporter?tab=readme-ov-file#metrics-collected-by-sidekiq-instrumentation
         dashboard_url: https://apply-for-legal-aid.service.justice.gov.uk/sidekiq
-    - alert: Long-Request
-      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/bank_statements|v1/bank_statements|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports"} > 5
+    - alert: "Long-Request: general"
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-production", controller!~"providers/bank_statements|v1/bank_statements|providers/application_merits_task/statement_of_cases|v1/statement_of_cases|providers/uploaded_evidence_collections|providers/uploaded_evidence_collections|v1/uploaded_evidence_collections|means_reports|merits_reports|providers/home_address/selections"} > 5
       for: 1m
       labels:
         severity: apply-for-legal-aid-prod
@@ -126,6 +126,14 @@ spec:
         severity: apply-for-legal-aid-prod
       annotations:
         message: File upload request is taking more than 10 seconds
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
+    - alert: "Long-Request: API calls"
+      expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="providers/home_address/selections"} > 10
+      for: 1m
+      labels:
+        severity: apply-for-legal-aid-prod
+      annotations:
+        message: API call request is taking more than 10 seconds
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/ATPPB/pages/4237557912/Runbooks
     - alert: "Long-Request: reports"
       expr: ruby_http_request_duration_seconds{namespace="laa-apply-for-legalaid-production", controller="means_reports|merits_reports"} > 5
