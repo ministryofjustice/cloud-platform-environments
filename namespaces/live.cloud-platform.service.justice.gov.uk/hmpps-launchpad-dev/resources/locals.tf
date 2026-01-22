@@ -8,4 +8,10 @@ locals {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+
+  # API Gateway clients
+  api_clients = [
+    "nutrition-app-dev",
+    "app-2-dev",
+    "app-3-dev",]
 }
