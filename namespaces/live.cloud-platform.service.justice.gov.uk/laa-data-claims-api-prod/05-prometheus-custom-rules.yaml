@@ -102,12 +102,12 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
     - alert: RDSLowStorage
-      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m < 5000000000
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m < 200000000000
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: RDS free storage space is less than 5GB in namespace laa-data-claims-api-prod.
+        message: RDS free storage space is less than 200GB in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -122,22 +122,22 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
     - alert: RDSLowMemory
-      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m < 500000000
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m < 1717986918
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: RDS freeable memory is less than 500MB in namespace laa-data-claims-api-prod.
+        message: RDS freeable memory is less than 1.6GB (20%) in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
     - alert: RDSHighConnections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 80
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 560
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: RDS database connections are above 80 in namespace laa-data-claims-api-prod.
+        message: RDS database connections are above 560 in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
@@ -162,21 +162,21 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
     - alert: RDSHighReadIOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 1000
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: RDS read IOPS is above 1000 in namespace laa-data-claims-api-prod.
+        message: RDS read IOPS is above 2400 in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
 
     - alert: RDSHighWriteIOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 1000
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} offset 10m > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
       annotations:
-        message: RDS write IOPS is above 1000 in namespace laa-data-claims-api-prod.
+        message: RDS write IOPS is above 2400 in namespace laa-data-claims-api-prod.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-s-api-prod-a-claims-api/a080904?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=prod&var-helmInstallClaimUI=prod
