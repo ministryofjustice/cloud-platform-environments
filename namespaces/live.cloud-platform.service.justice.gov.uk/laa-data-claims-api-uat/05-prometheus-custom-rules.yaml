@@ -112,22 +112,22 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
 
     - alert: RDSHighCPU
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 75
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 60
       for: 5m
       labels:
         severity: laa-data-claims-api-uat
       annotations:
-        message: RDS CPU utilization is above 75% in namespace laa-data-claims-api-uat.
+        message: RDS CPU utilization is above 60% in namespace laa-data-claims-api-uat.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
 
     - alert: RDSLowMemory
-      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m < 500000000
+      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m < 200000000
       for: 5m
       labels:
         severity: laa-data-claims-api-uat
       annotations:
-        message: RDS freeable memory is less than 500MB in namespace laa-data-claims-api-uat.
+        message: RDS freeable memory is less than 200MB in namespace laa-data-claims-api-uat.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
 
@@ -162,21 +162,21 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
 
     - alert: RDSHighReadIOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 1000
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-uat
       annotations:
-        message: RDS read IOPS is above 1000 in namespace laa-data-claims-api-uat.
+        message: RDS read IOPS is above 2400 in namespace laa-data-claims-api-uat.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
 
     - alert: RDSHighWriteIOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 1000
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-65ff79e4b66c729c"} offset 10m > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-uat
       annotations:
-        message: RDS write IOPS is above 1000 in namespace laa-data-claims-api-uat.
+        message: RDS write IOPS is above 2400 in namespace laa-data-claims-api-uat.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
