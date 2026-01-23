@@ -54,18 +54,26 @@ spec:
     - action: Allow
       destination:
         nets:
+          # /terraform/aws-accounts/cloud-platform-aws/vpc/main.tf#L49
           - 172.20.0.0/16  # Cloud Platform AWS VPC - for Redis
+          # /terraform/aws-accounts/cloud-platform-aws/vpc/transit-gateway-routes/routes.tf#L20-26
           - 10.26.0.0/16   # Modernisation Platform (dev test) - for CCMS
           - 10.27.0.0/16   # Modernisation Platform (preprod prod) - for CCMS
           - 10.202.0.0/20  # LAA Landing Zone (dev) - for CWA
           - 10.203.0.0/20  # LAA Landing Zone (test) - for CWA
           - 10.206.0.0/20  # LAA Landing Zone (uat) - for CWA
-          - 10.205.0.0/20  # LAA Landing Zone (stage) - for CWA
+          - 10.205.0.0/20  # LAA Landing Zone (stage ecp) - for CWA
           - 10.204.0.0/20  # LAA Landing Zone (prod) - for CWA
+          # `nslookup api.slack.com`
           - 18.134.215.41/32   # Slack API
           - 18.168.172.238/32  # Slack API
           - 18.169.61.189/32   # Slack API
           - 18.169.120.191/32  # Slack API
+          # https://sentry.io/changelog/ingestion-ip-addresses-are-changing/
+          - 34.120.195.249/32  # Sentry ingestion API (old old-us)
+          - 34.120.62.213/32   # Sentry ingestion API (old-eu)
+          - 34.160.81.0/32     # Sentry ingestion API (new new-eu new-us)
+          - 34.102.210.18/32   # Sentry ingestion API (new new-eu new-us)
   types:
     - Egress
 
