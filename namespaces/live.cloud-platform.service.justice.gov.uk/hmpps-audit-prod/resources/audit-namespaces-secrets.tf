@@ -14,6 +14,7 @@ locals {
     "hmpps-education-employment-prod",
     "hmpps-electronic-monitoring-datastore-prod",
     "hmpps-external-users-api-prod",
+    "hmpps-auth-prod",
     "hmpps-incentives-prod",
     "hmpps-integration-api-prod",
     "hmpps-jobs-board-prod",
