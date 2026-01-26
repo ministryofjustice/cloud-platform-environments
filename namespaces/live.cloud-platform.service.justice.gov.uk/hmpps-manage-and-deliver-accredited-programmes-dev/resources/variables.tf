@@ -128,3 +128,9 @@ variable "force_ssl_value" {
   type        = number
   default     = 1
 }
+
+variable "sqlserver_restore_create_snapshot" {
+  description = "Boolean to declare whether or not a snapshot should be taken before the sqlserver restore"
+  type        = bool
+  default     = true
+}

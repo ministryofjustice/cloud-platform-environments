@@ -64,3 +64,15 @@ resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
     }
   }
 }
+
+resource "kubernetes_config_map" "sqlserver_restore_config_map" {
+  metadata {
+    name      = "rds-sqlserver-restore-config-map"
+    namespace = var.namespace
+  }
+
+  data = {
+    create_snapshot = var.sqlserver_restore_create_snapshot
+    db_port         = module.sqlserver.rds_instance_port
+  }
+}
