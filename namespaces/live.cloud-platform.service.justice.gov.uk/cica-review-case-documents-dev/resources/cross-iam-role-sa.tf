@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "access_cica_s3" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::589450497571:role/CicaFindCicaS3Bucket"
+      "arn:aws:iam::589450497571:role/CaseReviewDocsCPNamespaceS3Access"
     ]
   }
 
