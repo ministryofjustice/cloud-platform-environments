@@ -14,6 +14,7 @@ locals {
     "hmpps-education-employment-preprod",
     "hmpps-electronic-monitoring-datastore-preprod",
     "hmpps-external-users-api-preprod",
+    "hmpps-auth-preprod",
     "hmpps-incentives-preprod",
     "hmpps-integration-api-preprod",
     "hmpps-jobs-board-preprod",
