@@ -5,7 +5,7 @@ metadata:
   name: hmpps-electronic-monitoring-crime-matching-ui-cert
   namespace: hmpps-electronic-monitoring-crime-matching-dev
 spec:
-  secretName: hmpps-electronic-monitoring-crime-matching-ui-cert
+  secretName: hmpps-electronic-monitoring-crime-matching-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
