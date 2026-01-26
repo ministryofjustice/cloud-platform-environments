@@ -1,4 +1,4 @@
-/*module "sqlserver" {
+module "sqlserver" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   application                = var.application
   business_unit              = var.business_unit
@@ -76,4 +76,4 @@ resource "kubernetes_config_map" "sqlserver_restore_config_map" {
     create_snapshot = var.sqlserver_restore_create_snapshot
     db_port         = module.sqlserver.rds_instance_port
   }
-}*/
+}
