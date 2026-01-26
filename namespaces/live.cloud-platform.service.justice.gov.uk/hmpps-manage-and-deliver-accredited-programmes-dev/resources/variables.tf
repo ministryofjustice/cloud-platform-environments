@@ -105,6 +105,12 @@ variable "db_instance_class" {
   default     = "db.m5.large"
 }
 
+variable "db_name" {
+  description = "The name of the DB"
+  type        = string
+  default     = "hmpps-manage-and-deliver-acp-dev-mssql"
+}
+
 variable "db_rds_family" {
   description = "The RDS family for the RDS instance"
   type        = string

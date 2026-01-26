@@ -6,6 +6,7 @@ module "sqlserver" {
   db_engine                  = var.db_engine
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
+  db_name                    = var.db_name
   enable_rds_auto_start_stop = true
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
