@@ -89,3 +89,27 @@ variable "cloud_platform_launchpad_auth_api_url" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "launchpad_auth_service_url" {
+  description = "URL of the hmpps-launchpad-auth backend service"
+  type        = string
+  default     = "https://hmpps-launchpad-auth-service.hmpps-launchpad-dev.svc.cluster.local"
+}
+
+variable "api_gateway_quota_limit" {
+  description = "Monthly quota limit for API Gateway usage plan"
+  type        = number
+  default     = 10000
+}
+
+variable "api_gateway_burst_limit" {
+  description = "Burst limit for API Gateway throttling"
+  type        = number
+  default     = 100
+}
+
+variable "api_gateway_rate_limit" {
+  description = "Rate limit for API Gateway throttling"
+  type        = number
+  default     = 50
+}
