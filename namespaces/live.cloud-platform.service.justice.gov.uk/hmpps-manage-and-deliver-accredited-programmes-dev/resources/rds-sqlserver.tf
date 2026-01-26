@@ -18,6 +18,8 @@ module "sqlserver" {
   team_name                  = var.team_name
   vpc_name                   = var.vpc_name
 
+  enable_irsa = true
+
   db_parameter = [
     {
       name         = "rds.force_ssl"

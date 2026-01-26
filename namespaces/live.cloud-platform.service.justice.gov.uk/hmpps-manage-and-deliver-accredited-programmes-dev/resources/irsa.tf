@@ -48,6 +48,9 @@ module "irsa-cronjob" {
 
   role_policy_arns = merge(
     {
+      sqlserver = module.sqlserver.irsa_policy_arn
+    },
+    {
       sqlserver_backup_s3_bucket_policy = module.sqlserver_backup_s3_bucket.irsa_policy_arn
     },
     {
