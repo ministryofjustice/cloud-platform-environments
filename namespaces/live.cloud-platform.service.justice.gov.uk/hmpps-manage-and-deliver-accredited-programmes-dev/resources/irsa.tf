@@ -63,7 +63,7 @@ module "irsa-cronjob" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "irsa-sqlserver" {
+/*module "irsa-sqlserver" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "irsa-sqlserver"
@@ -81,4 +81,4 @@ module "irsa-sqlserver" {
   team_name              = var.team_name
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
-}
+}*/
