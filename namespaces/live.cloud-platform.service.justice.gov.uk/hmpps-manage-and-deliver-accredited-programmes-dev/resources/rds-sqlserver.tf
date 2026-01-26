@@ -1,4 +1,4 @@
-module "sqlserver" {
+/*module "sqlserver" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   application                = var.application
   business_unit              = var.business_unit
@@ -6,6 +6,7 @@ module "sqlserver" {
   db_engine                  = var.db_engine
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
+  db_name                    = var.db_name
   enable_rds_auto_start_stop = true
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
@@ -75,4 +76,4 @@ resource "kubernetes_config_map" "sqlserver_restore_config_map" {
     create_snapshot = var.sqlserver_restore_create_snapshot
     db_port         = module.sqlserver.rds_instance_port
   }
-}
+}*/
