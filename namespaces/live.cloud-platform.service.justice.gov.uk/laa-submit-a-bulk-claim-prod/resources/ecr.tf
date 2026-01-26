@@ -24,10 +24,10 @@ module "ecr" {
       "rules": [
         {
           "rulePriority": 1,
-          "description": "Keep last 10 production images",
+          "description": "Keep last 10 prod images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPatternList": ["production*"],
+            "tagPatternList": ["prod*"],
             "countType": "imageCountMoreThan",
             "countNumber": 10
           },
@@ -37,12 +37,12 @@ module "ecr" {
         },
         {
           "rulePriority": 2,
-          "description": "Keep last 60 release images for rollbacks",
+          "description": "Keep last 10 stg images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPatternList": ["release*"],
+            "tagPatternList": ["stg*"],
             "countType": "imageCountMoreThan",
-            "countNumber": 60
+            "countNumber": 10
           },
           "action": {
             "type": "expire"
@@ -50,10 +50,10 @@ module "ecr" {
         },
         {
           "rulePriority": 3,
-          "description": "Keep last 10 pre-production images",
+          "description": "Keep last 10 uat images",
           "selection": {
             "tagStatus": "tagged",
-            "tagPatternList": ["preprod*"],
+            "tagPatternList": ["uat*"],
             "countType": "imageCountMoreThan",
             "countNumber": 10
           },
@@ -63,32 +63,6 @@ module "ecr" {
         },
         {
           "rulePriority": 4,
-          "description": "Keep last 10 test images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPatternList": ["test*"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 10
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 5,
-          "description": "Keep last 10 development images",
-          "selection": {
-            "tagStatus": "tagged",
-            "tagPatternList": ["development*"],
-            "countType": "imageCountMoreThan",
-            "countNumber": 10
-          },
-          "action": {
-            "type": "expire"
-          }
-        },
-        {
-          "rulePriority": 6,
           "description": "Keep the newest 100 images",
           "selection": {
             "tagStatus": "any",
