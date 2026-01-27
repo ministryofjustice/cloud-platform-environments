@@ -215,3 +215,13 @@ spec:
         message: CCLF DEV - {{ printf "%0.0f" $value }} new error in the retrieval and insertion of suppliers the last 5 minutes.
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-dev"
+
+    - alert: CCLF-secrets-changed
+      expr: secretsmanager_put_secret_value_sum{exported_job=""} > 0
+      for: 1m
+      labels:
+        severity: laa-crown-court-litigator-fees-dev
+      annotations:
+        message: |
+          CCLF-dev secrets has been modified by user "{{ $labels.user_arn }}".
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3149890276/Crown+Court+Litigator+Fees+CCLF+Runbook#Monitoring-and-Alerting"
