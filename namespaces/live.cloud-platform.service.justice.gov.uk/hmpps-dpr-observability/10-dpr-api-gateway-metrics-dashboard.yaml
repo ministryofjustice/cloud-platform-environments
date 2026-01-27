@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: dpr-api-gateway-metrics-dashboard
-  namespace: hmpps-dpr-poc-dev
+  namespace: hmpps-dpr-observability
   labels:
     grafana_dashboard: ""
 data:
