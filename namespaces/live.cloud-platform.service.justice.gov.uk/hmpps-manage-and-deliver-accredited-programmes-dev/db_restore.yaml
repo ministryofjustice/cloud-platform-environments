@@ -1,0 +1,97 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-restore-cronjob
+  namespace: hmpps-manage-and-deliver-accredited-programmes-dev
+spec:
+  schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          serviceAccountName: irsa-sqlserver
+          restartPolicy: OnFailure
+          initContainers:
+            - name: create-rds-snapshot
+              image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              securityContext:
+                runAsUser: 1000
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              env:
+                - name: HOME
+                  value: /tmp
+                - name: DATABASE_IDENTIFIER
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-sqlserver-instance-output
+                      key: database_identifier
+                - name: CREATE_SNAPSHOT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: rds-sqlserver-restore-config-map
+                      key: create_snapshot
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -e
+                  
+                  if [ "${CREATE_SNAPSHOT}" != "true" ]; then
+                    echo "create_snapshot=${CREATE_SNAPSHOT}; skipping RDS snapshot"
+                    exit 0
+                  fi
+                  
+                  if [ -z "${DATABASE_IDENTIFIER}" ]; then
+                    echo "DATABASE_IDENTIFIER is empty"
+                    exit 1
+                  fi
+
+                  TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+                  SNAPSHOT_ID="${DATABASE_IDENTIFIER}-${TIMESTAMP}"
+
+                  echo "Creating snapshot: ${SNAPSHOT_ID}"
+
+                  aws rds create-db-snapshot \
+                    --db-instance-identifier "${DATABASE_IDENTIFIER}" \
+                    --db-snapshot-identifier "${SNAPSHOT_ID}"
+                  
+                  echo "Successfully created snapshot: ${SNAPSHOT_ID}"
+          containers:
+            - name: port-forward
+              image: ministryofjustice/port-forward
+              securityContext:
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              ports:
+                - containerPort: 1433
+              env:
+                - name: REMOTE_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-sqlserver-instance-output
+                      key: rds_instance_address
+                - name: LOCAL_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: rds-sqlserver-restore-config-map
+                      key: db_port
+                - name: REMOTE_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: rds-sqlserver-restore-config-map
+                      key: db_port
