@@ -24,7 +24,7 @@ locals {
     "unilink",
     "prisonerfacing",
     "moj-esw",
-    "abritton", 
+    "abritton",
     "jbetton",
     "bmadley",
     "sleach",
@@ -53,5 +53,6 @@ locals {
     test      = module.event_kilco_queue.sqs_name # testing
     cats      = module.event_cats_queue.sqs_name
     moj-esw   = module.event_moj_esw_queue.sqs_name # testing
+    ctrlo     = module.event_ctrlo_queue.sqs_name
   }
 }
