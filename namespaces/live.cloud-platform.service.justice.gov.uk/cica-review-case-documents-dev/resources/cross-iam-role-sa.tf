@@ -1,33 +1,27 @@
-module "irsa" {
-  source           = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name = var.eks_cluster_name
-  namespace        = var.namespace
+
+module "irsa-cica-s3" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name      = var.eks_cluster_name
+  service_account_name  = "irsa-cica-s3"
+  namespace             = var.namespace
+
+  role_policy_arns = {
+    s3kms = aws_iam_policy.cica_s3_kms_access.arn
+  }
 
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
+  team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  team_name              = var.team_name
-
-  service_account_name = "${var.namespace}-to-cica-s3"
-  role_policy_arns = {
-    cica_s3 = aws_iam_policy.access_cica_s3.arn
-  }
 }
 
-data "aws_iam_policy_document" "access_cica_s3" {
-  statement {
-    actions = [
-      "sts:AssumeRole"
-    ]
-    resources = [
-      "arn:aws:iam::589450497571:role/CaseReviewDocsCPNamespaceS3Access"
-    ]
-  }
 
+data "aws_iam_policy_document" "cica_s3_kms_access" {
   statement {
-    sid    = "AllowS3Read"
+    sid    = "AllowS3GetObject"
     effect = "Allow"
     actions = [
       "s3:GetObject"
@@ -51,9 +45,9 @@ data "aws_iam_policy_document" "access_cica_s3" {
   }
 }
 
-resource "aws_iam_policy" "access_cica_s3" {
-  name   = "${var.namespace}-access-cica-s3-policy"
-  policy = data.aws_iam_policy_document.access_cica_s3.json
+resource "aws_iam_policy" "cica_s3_kms_access" {
+  name   = "${var.namespace}-cica-s3-kms-access-policy"
+  policy = data.aws_iam_policy_document.cica_s3_kms_access.json
 
   tags = {
     business_unit          = var.business_unit
@@ -63,15 +57,16 @@ resource "aws_iam_policy" "access_cica_s3" {
     owner                  = var.team_name
     infrastructure_support = var.infrastructure_support
   }
-
 }
-resource "kubernetes_secret" "irsa" {
+
+resource "kubernetes_secret" "irsa_cica_s3" {
   metadata {
-    name      = "irsa-output"
+    name      = "irsa-cica-s3-output"
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
-    serviceaccount = module.irsa.service_account.name
+    role           = module.irsa-cica-s3.role_name
+    serviceaccount = module.irsa-cica-s3.service_account.name
+    rolearn        = module.irsa-cica-s3.role_arn
   }
 }
