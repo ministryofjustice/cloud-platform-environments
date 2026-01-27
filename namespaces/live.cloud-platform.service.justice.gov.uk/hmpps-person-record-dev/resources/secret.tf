@@ -14,5 +14,6 @@ module "secrets_manager" {
       description             = "hmpps person record servicenow client information",
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-person-record-servicenow-client"
+    }
   }
 }
