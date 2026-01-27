@@ -8,97 +8,96 @@ metadata:
     role: alert-rules
 spec:
   groups:
-    - name: dpr-golden-signals-dev
-      rules:
-        # ============================================
-        # LATENCY ALERTS
-        # ============================================
-        - alert: DPR-Dev-HighLatencyP95
-          expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[5m])) by (namespace, le)) > 5
-          for: 5m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] High p95 latency ({{ $value | printf \"%.2f\" }}s) in namespace {{ $labels.namespace }}"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/latency.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
+  - name: dpr-golden-signals-dev
+    rules:
+    # ============================================
+    # LATENCY ALERTS
+    # ============================================
+    - alert: DPR-Dev-HighLatencyP95
+      expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[5m])) by (namespace, le)) > 5
+      for: 5m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] High p95 latency ({{ $value | printf \"%.2f\" }}s) in namespace {{ $labels.namespace }}"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
 
-        # ============================================
-        # ERROR RATE ALERTS
-        # ============================================
-        - alert: DPR-Dev-HighErrorRate
-          expr: |
-            (
-              sum(rate(http_server_requests_seconds_count{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", status=~"5.."}[5m])) by (namespace)
-              /
-              sum(rate(http_server_requests_seconds_count{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[5m])) by (namespace)
-            ) * 100 > 10
-          for: 5m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] High error rate ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/errors.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
+    # ============================================
+    # ERROR RATE ALERTS
+    # ============================================
+    - alert: DPR-Dev-HighErrorRate
+      expr: |
+        (
+          sum(rate(http_server_requests_seconds_count{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", status=~"5.."}[5m])) by (namespace)
+          /
+          sum(rate(http_server_requests_seconds_count{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[5m])) by (namespace)
+        ) * 100 > 10
+      for: 5m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] High error rate ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
 
-        # ============================================
-        # SATURATION ALERTS (CPU)
-        # ============================================
-        - alert: DPR-Dev-HighCPUSaturation
-          expr: |
-            (
-              sum(rate(container_cpu_usage_seconds_total{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", container!="POD", container=~".+"}[5m])) by (namespace)
-              /
-              sum(kube_pod_container_resource_requests{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", resource="cpu"}) by (namespace)
-            ) * 100 > 90
-          for: 10m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] High CPU saturation ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/saturation.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
+    # ============================================
+    # SATURATION ALERTS (CPU)
+    # ============================================
+    - alert: DPR-Dev-HighCPUSaturation
+      expr: |
+        (
+          sum(rate(container_cpu_usage_seconds_total{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", container!="POD", container=~".+"}[5m])) by (namespace)
+          /
+          sum(kube_pod_container_resource_requests{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", resource="cpu"}) by (namespace)
+        ) * 100 > 90
+      for: 10m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] High CPU saturation ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
 
-        # ============================================
-        # SATURATION ALERTS (MEMORY)
-        # ============================================
-        - alert: DPR-Dev-HighMemorySaturation
-          expr: |
-            (
-              sum(container_memory_usage_bytes{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", container!="POD", container=~".+"}) by (namespace)
-              /
-              sum(kube_pod_container_resource_requests{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", resource="memory"}) by (namespace)
-            ) * 100 > 90
-          for: 10m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] High memory saturation ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/saturation.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
+    # ============================================
+    # SATURATION ALERTS (MEMORY)
+    # ============================================
+    - alert: DPR-Dev-HighMemorySaturation
+      expr: |
+        (
+          sum(container_memory_usage_bytes{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", container!="POD", container=~".+"}) by (namespace)
+          /
+          sum(kube_pod_container_resource_requests{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", resource="memory"}) by (namespace)
+        ) * 100 > 90
+      for: 10m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] High memory saturation ({{ $value | printf \"%.1f\" }}%) in namespace {{ $labels.namespace }}"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
 
-        # ============================================
-        # POD HEALTH ALERTS
-        # ============================================
-        - alert: DPR-Dev-PodNotReady
-          expr: |
-            kube_pod_status_ready{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", condition="true"} == 0
-          for: 10m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] Pod {{ $labels.pod }} in {{ $labels.namespace }} is not ready"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/pod-issues.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
+    # ============================================
+    # POD HEALTH ALERTS
+    # ============================================
+    - alert: DPR-Dev-PodNotReady
+      expr: |
+        kube_pod_status_ready{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev", condition="true"} == 0
+      for: 10m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] Pod {{ $labels.pod }} in {{ $labels.namespace }} is not ready"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
 
-        - alert: DPR-Dev-PodRestarting
-          expr: |
-            increase(kube_pod_container_status_restarts_total{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[1h]) > 5
-          for: 5m
-          labels:
-            severity: dpr-dev
-          annotations:
-            message: "[DEV] Pod {{ $labels.pod }} in {{ $labels.namespace }} has restarted {{ $value | printf \"%.0f\" }} times in the last hour"
-            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-poc/blob/main/docs/runbooks/pod-issues.md"
-            dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
-
+    - alert: DPR-Dev-PodRestarting
+      expr: |
+        increase(kube_pod_container_status_restarts_total{namespace=~"hmpps-dpr-.*-dev|hmpps-digital-prison-reporting-.*-dev"}[1h]) > 5
+      for: 5m
+      labels:
+        severity: dpr-dev
+      annotations:
+        message: "[DEV] Pod {{ $labels.pod }} in {{ $labels.namespace }} has restarted {{ $value | printf \"%.0f\" }} times in the last hour"
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/6034948576/CP+Observability+Alerts+Runbooks"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/dpr-golden-signals-java"
