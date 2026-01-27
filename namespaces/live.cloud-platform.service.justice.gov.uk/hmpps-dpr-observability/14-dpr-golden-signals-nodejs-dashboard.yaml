@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: dpr-golden-signals-nodejs-dashboard
-  namespace: hmpps-dpr-poc-dev
+  namespace: hmpps-dpr-observability
   labels:
     grafana_dashboard: ""
 data:
@@ -76,7 +76,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "📊 Latency (p95)",
+          "title": "Latency (p95)",
           "type": "gauge"
         },
         {
@@ -196,10 +196,10 @@ data:
               "refId": "A"
             }
           ],
-          "title": "🔥 Saturation (CPU %)",
+          "title": "Saturation (CPU %)",
           "type": "gauge"
         },
-        {"collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 6}, "id": 101, "title": "📊 Latency", "type": "row"},
+        {"collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 6}, "id": 101, "title": "Latency", "type": "row"},
         {
           "datasource": {"type": "prometheus", "uid": "${datasource}"},
           "description": "Response time percentiles over time",
