@@ -25,3 +25,23 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-scraping
+  namespace: laa-amend-a-claim-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: laa-amend-a-claim
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            component: monitoring
+      ports:
+        - protocol: TCP
+          port: 8182
