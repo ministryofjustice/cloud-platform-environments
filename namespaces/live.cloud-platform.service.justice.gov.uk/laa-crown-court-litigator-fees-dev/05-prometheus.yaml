@@ -220,7 +220,8 @@ spec:
       expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-litigator-fees-dev-0344535a25b95949-1rIjI6"} > 0
       for: 1m
       labels:
-        severity: laa-crown-court-litigator-fees-dev
+        severity: info-laa-crown-court-litigator-fees-dev
+        status_icon: information
       annotations:
         message: |
           CCLF-dev secrets has been modified by user "{{ $labels.user_arn }}".
