@@ -217,7 +217,7 @@ spec:
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-litigator-fees-dev"
 
     - alert: CCLF-secrets-changed
-      expr: secretsmanager_put_secret_value_sum{exported_job=""} > 0
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-litigator-fees-dev-0344535a25b95949-1rIjI6"} > 0
       for: 1m
       labels:
         severity: laa-crown-court-litigator-fees-dev
