@@ -219,11 +219,11 @@ data "aws_iam_policy_document" "amq" {
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
-  name = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/general"
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
 }
 
 data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
-  name = "/aws/amazonmq/broker/${aws_mq_broker.this[count.index].id}/audit"
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
 }
 
 data "aws_iam_policy_document" "amq_cw_logs" {
