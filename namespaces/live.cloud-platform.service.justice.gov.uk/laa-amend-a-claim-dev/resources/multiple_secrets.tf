@@ -54,6 +54,16 @@ module "secrets_manager" {
       description             = "Github Token used for e2e tests",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-e2e-github-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-provider-api-url" = {
+      description             = "Provider Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-provider-api-token" = {
+      description             = "Provider Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
   }
 }
