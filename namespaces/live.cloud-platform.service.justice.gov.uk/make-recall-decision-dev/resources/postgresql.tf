@@ -3,7 +3,6 @@
 ##
 
 module "make_recall_decision_api_rds" {
-  prepare_for_major_upgrade  = true
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage       = 10
   storage_type               = "gp2"
