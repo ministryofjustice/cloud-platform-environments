@@ -21,36 +21,22 @@ resource "aws_api_gateway_resource" "oauth2" {
   parent_id   = aws_api_gateway_resource.v1.id
   path_part   = "oauth2"
 }
-
-# /v1/oauth2/authorize resource
-resource "aws_api_gateway_resource" "authorize" {
+#===== Catch-all - Handles /v1/auth2/authorize ==========================
+resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.oauth2.id
-  path_part   = "authorize"
+  parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
+  path_part   = "{proxy+}"
 }
 
-# /v1/oauth2/token resource
-resource "aws_api_gateway_resource" "token" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.oauth2.id
-  path_part   = "token"
-}
-
-# GET /v1/oauth2/authorize method
-resource "aws_api_gateway_method" "authorize_get" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.authorize.id
-  http_method             = aws_api_gateway_method.authorize_get.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "GET"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/authorize"
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
 
   request_parameters = {
-    "integration.request.querystring.client_id"     = "method.request.querystring.client_id"
-    "integration.request.querystring.response_type" = "method.request.querystring.response_type"
-    "integration.request.querystring.redirect_uri"  = "method.request.querystring.redirect_uri"
-    "integration.request.querystring.nonce"         = "method.request.querystring.nonce"
-    "integration.request.querystring.state"         = "method.request.querystring.state"
+    "method.request.path.proxy" = true
   }
 }
 
@@ -67,6 +53,15 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
     "integration.request.path.proxy" = "method.request.path.proxy"
   }
 }
+#=====End============================================================
+
+# ====== POST /v1/oauth2/token ======
+# /v1/oauth2/token resource
+resource "aws_api_gateway_resource" "token" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_resource.oauth2.id
+  path_part   = "token"
+}
 
 # POST /v1/oauth2/token method
 resource "aws_api_gateway_method" "token_post" {
@@ -77,7 +72,7 @@ resource "aws_api_gateway_method" "token_post" {
   api_key_required = true
 }
 
-# POST /v1/oauth2/token integration
+# POST /v1/oauth2/token end point integration
 resource "aws_api_gateway_integration" "token_post" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.token.id
@@ -88,24 +83,6 @@ resource "aws_api_gateway_integration" "token_post" {
 
   request_templates = {
     "application/x-www-form-urlencoded" = "$input.body"
-  }
-}
-
-resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
-  path_part   = "{proxy+}"
-}
-
-resource "aws_api_gateway_method" "proxy" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.proxy.id
-  http_method      = "ANY"
-  authorization    = "NONE"
-  api_key_required = true
-
-  request_parameters = {
-    "method.request.path.proxy" = true
   }
 }
 
@@ -159,7 +136,7 @@ resource "aws_api_gateway_deployment" "main" {
   }
 
   depends_on = [
-    aws_api_gateway_method.authorize_get,
+    aws_api_gateway_method.proxy,
     aws_api_gateway_method.token_post,
     aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.token_post,
