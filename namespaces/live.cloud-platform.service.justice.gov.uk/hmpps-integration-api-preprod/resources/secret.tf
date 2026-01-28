@@ -30,6 +30,11 @@ module "secret" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "cats-filter-list"
     },
+    "integration-api-event-ctrlo-filter-list" = {
+      description             = "Ctrl O event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ctrlo-filter-list"
+    },
   }
 
   # Tags
