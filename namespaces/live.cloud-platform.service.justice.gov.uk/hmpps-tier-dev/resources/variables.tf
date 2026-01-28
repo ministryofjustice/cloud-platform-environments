@@ -24,6 +24,11 @@ variable "team_name" {
   default     = "probation-integration"
 }
 
+variable "github_team_name" {
+  description = "The name of your development team"
+  default     = "probation-integration-devs"
+}
+
 variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "dev"

@@ -2,7 +2,7 @@ module "hmpps-tier-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-tier"
   application                   = "hmpps-tier"
-  github_team                   = var.team_name
+  github_team                   = var.github_team_name
   environment                   = var.environment_name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
@@ -18,7 +18,7 @@ module "hmpps-tier-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-tier-ui"
   application                   = "hmpps-tier-ui"
-  github_team                   = var.team_name
+  github_team                   = var.github_team_name
   environment                   = var.environment_name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
