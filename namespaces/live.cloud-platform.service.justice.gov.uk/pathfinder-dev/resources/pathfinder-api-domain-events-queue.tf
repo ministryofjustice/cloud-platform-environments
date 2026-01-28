@@ -107,7 +107,15 @@ resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_domain_events_su
   endpoint  = module.pathfinder_api_queue_for_domain_events.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "adjudication.report.created"
+      "adjudication.report.created",
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.received",
+      "OFFENDER_BOOKING-REASSIGNED",
+      "OFFENDER_UPDATED",
+      "BOOKING_NUMBER-CHANGED",
+      "BED_ASSIGNMENT_HISTORY-INSERTED",
+      "SENTENCE_DATES-CHANGED",
+      "CONFIRMED_RELEASE_DATE-CHANGED"
     ]
   })
 }
