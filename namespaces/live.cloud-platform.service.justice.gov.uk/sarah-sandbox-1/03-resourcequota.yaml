@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: sarah-sandbox-1
-spec:
-  hard:
-    pods: "50"
