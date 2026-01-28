@@ -3,10 +3,10 @@ module "pathfinder" {
   github_repo                   = "pathfinder"
   application                   = "pathfinder"
   github_team                   = "secure-estate-digital-team"
-  environment                   = var.environment-name
+  environment                   = var.environment_name
   is_production                 = var.is_production
   protected_branches_only       = true
-  application_insights_instance = var.environment-name
+  application_insights_instance = var.environment_name
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
