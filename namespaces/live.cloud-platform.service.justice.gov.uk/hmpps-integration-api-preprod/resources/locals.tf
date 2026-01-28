@@ -15,5 +15,6 @@ locals {
     meganexus = module.event_plp_queue.sqs_name
     pnd       = module.event_pnd_queue.sqs_name
     cats      = module.event_cats_queue.sqs_name
+    ctrlo     = module.event_ctrlo_queue.sqs_name
   }
 }
