@@ -1,6 +1,6 @@
 module "secrets_manager" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
-  team_name              = var.team_name
+  team_name              = "hmpps-person-record"
   application            = var.application
   business_unit          = var.business_unit
   is_production          = var.is_production
