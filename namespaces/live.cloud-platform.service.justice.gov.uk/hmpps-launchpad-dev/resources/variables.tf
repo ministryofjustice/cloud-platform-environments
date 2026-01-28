@@ -90,12 +90,6 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
-variable "launchpad_auth_service_url" {
-  description = "URL of the hmpps-launchpad-auth backend service"
-  type        = string
-  default     = "https://hmpps-launchpad-auth-service.hmpps-launchpad-dev.svc.cluster.local"
-}
-
 variable "api_gateway_quota_limit" {
   description = "Monthly quota limit for API Gateway usage plan"
   type        = number

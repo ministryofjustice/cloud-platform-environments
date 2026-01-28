@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
-  name = "${var.namespace}-external-auth"
-  disable_execute_api_endpoint = false
+  name                          = var.namespace
+  disable_execute_api_endpoint  = false
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -21,46 +21,46 @@ resource "aws_api_gateway_resource" "oauth2" {
   parent_id   = aws_api_gateway_resource.v1.id
   path_part   = "oauth2"
 }
-
-# /v1/oauth2/authorize resource
-resource "aws_api_gateway_resource" "authorize" {
+#===== Catch-all - Handles /v1/auth2/authorize ==========================
+resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.oauth2.id
-  path_part   = "authorize"
+  parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
+  path_part   = "{proxy+}"
 }
 
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
+}
+
+# GET /v1/oauth2/authorize integration
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
+  type                    = "HTTP_PROXY"
+  integration_http_method = "ANY"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
+
+  request_parameters = {
+    "integration.request.path.proxy" = "method.request.path.proxy"
+  }
+}
+#=====End============================================================
+
+# ====== POST /v1/oauth2/token ======
 # /v1/oauth2/token resource
 resource "aws_api_gateway_resource" "token" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_resource.oauth2.id
   path_part   = "token"
-}
-
-# GET /v1/oauth2/authorize method
-resource "aws_api_gateway_method" "authorize_get" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.authorize.id
-  http_method      = "GET"
-  authorization    = "NONE"
-  api_key_required = true
-
-  request_parameters = {
-    "method.request.querystring.client_id"     = true
-    "method.request.querystring.response_type" = true
-    "method.request.querystring.redirect_uri"  = true
-    "method.request.querystring.nonce"         = true
-    "method.request.querystring.state"         = true
-  }
-}
-
-# GET /v1/oauth2/authorize integration
-resource "aws_api_gateway_integration" "authorize_get" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.authorize.id
-  http_method             = aws_api_gateway_method.authorize_get.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "GET"
-  uri                     = "${var.launchpad_auth_service_url}/v1/oauth2/authorize"
 }
 
 # POST /v1/oauth2/token method
@@ -72,14 +72,14 @@ resource "aws_api_gateway_method" "token_post" {
   api_key_required = true
 }
 
-# POST /v1/oauth2/token integration
+# POST /v1/oauth2/token end point integration
 resource "aws_api_gateway_integration" "token_post" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.token.id
   http_method             = aws_api_gateway_method.token_post.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "POST"
-  uri                     = "${var.launchpad_auth_service_url}/v1/oauth2/token"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/token"
 
   request_templates = {
     "application/x-www-form-urlencoded" = "$input.body"
@@ -130,15 +130,15 @@ resource "aws_api_gateway_deployment" "main" {
     redeployment = sha1(jsonencode([
       "manual-deploy-trigger",
       local.api_clients,
-      var.launchpad_auth_service_url,
+      var.cloud_platform_launchpad_auth_api_url,
       md5(file("api_gateway.tf")),
     ]))
   }
 
   depends_on = [
-    aws_api_gateway_method.authorize_get,
+    aws_api_gateway_method.proxy,
     aws_api_gateway_method.token_post,
-    aws_api_gateway_integration.authorize_get,
+    aws_api_gateway_integration.proxy_http_proxy,
     aws_api_gateway_integration.token_post,
   ]
 
@@ -182,7 +182,7 @@ resource "aws_api_gateway_stage" "main" {
 
 # CloudWatch Logs
 resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
-  name              = "Lauchpad-API-Gateway-Logs_${aws_api_gateway_rest_api.api_gateway_lp_auth.id}/${var.namespace}"
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway_lp_auth.id}/${var.namespace}"
   retention_in_days = 60
   tags              = local.default_tags
 }
@@ -198,4 +198,97 @@ resource "aws_api_gateway_method_settings" "all" {
     logging_level      = "INFO"
     data_trace_enabled = false
   }
+}
+
+# The block below creates an ACM certificate (DNS validation), Route53 validation records,
+# a regional API Gateway custom domain and an alias record. This enables a custom hostname like
+# ${var.hostname}.${var.base_domain} to point at the API Gateway.
+
+data "aws_route53_zone" "hmpps" {
+  name         = var.base_domain
+  private_zone = false
+}
+
+resource "aws_acm_certificate" "api_gateway_custom_hostname" {
+  domain_name       = "${var.hostname}.${var.base_domain}"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+  tags = local.default_tags
+}
+
+resource "aws_route53_record" "cert_validations" {
+  for_each = {
+    for dvo in aws_acm_certificate.api_gateway_custom_hostname.domain_validation_options : dvo.domain_name => {
+      name    = dvo.resource_record_name
+      record  = dvo.resource_record_value
+      type    = dvo.resource_record_type
+      zone_id = data.aws_route53_zone.hmpps.zone_id
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = each.value.zone_id
+}
+
+resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
+  for_each = aws_route53_record.cert_validations
+
+  certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
+  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
+
+  timeouts {
+    create = "10m"
+  }
+  depends_on = [aws_route53_record.cert_validations]
+}
+
+resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
+
+  domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
+  security_policy          = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  # No mTLS for launchpad-dev by default (omit mutual_tls_authentication)
+  depends_on = [
+    aws_acm_certificate_validation.api_gateway_custom_hostname
+  ]
+  tags = local.default_tags
+}
+
+resource "aws_route53_record" "data" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  zone_id = data.aws_route53_zone.hmpps.zone_id
+  name    = "${var.hostname}.${data.aws_route53_zone.hmpps.name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].regional_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_api_gateway_base_path_mapping" "hostname" {
+  for_each = aws_api_gateway_domain_name.api_gateway_fqdn
+
+  api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
+  stage_name  = aws_api_gateway_stage.main.stage_name
+
+  depends_on = [
+    aws_api_gateway_domain_name.api_gateway_fqdn
+  ]
 }
