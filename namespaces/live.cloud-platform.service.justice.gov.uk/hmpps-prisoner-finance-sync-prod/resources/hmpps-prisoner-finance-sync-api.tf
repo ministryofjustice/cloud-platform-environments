@@ -4,7 +4,7 @@ module "hmpps_prisoner_finance_sync_api" {
   application                   = "hmpps-prisoner-finance-sync-api"
   github_team                   = "hmpps-prisoner-finance-live"
   environment                   = var.environment
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-prisoner-finance-live"]
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = "prod"
