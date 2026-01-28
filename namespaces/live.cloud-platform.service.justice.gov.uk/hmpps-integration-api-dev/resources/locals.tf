@@ -40,6 +40,7 @@ locals {
     "smartinbox",
     "cats",
     "jwylde",
+    "community-payback-dev",
   ]
 
   client_queues = {
