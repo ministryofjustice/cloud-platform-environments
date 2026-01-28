@@ -10,10 +10,10 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "hmpps-person-record-servicenow-client" = {
+    "hmpps-person-record-servicenow-client-secret" = {
       description             = "hmpps person record servicenow client information",
       recovery_window_in_days = 7
-      k8s_secret_name         = "hmpps-person-record-servicenow-client"
+      k8s_secret_name         = "hmpps-person-record-servicenow-client-secret"
       GithubTeam = var.team_name
     }
   }
