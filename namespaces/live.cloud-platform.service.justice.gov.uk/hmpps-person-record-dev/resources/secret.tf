@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "hmpps-person-record-servicenow-client" = {
-      description             = "hmpps person record servicenow client information",
+      description             = "hmpps person record servicenow client info",
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-person-record-servicenow-client"
     }
