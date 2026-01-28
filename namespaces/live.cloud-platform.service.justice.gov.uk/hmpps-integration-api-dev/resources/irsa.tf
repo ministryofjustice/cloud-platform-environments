@@ -62,6 +62,7 @@ module "hmpps-integration-event-irsa" {
       plp_queue                                       = module.event_plp_queue.irsa_policy_arn,
       moj_esw_queue                                   = module.event_moj_esw_queue.irsa_policy_arn
       zkhan_queue                                     = module.event_zkhan_queue.irsa_policy_arn
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn
     }
 
   )
