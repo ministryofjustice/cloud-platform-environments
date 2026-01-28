@@ -1,15 +1,15 @@
-module "event_moj_esw_queue" {
+module "event_ctrlo_queue" {
 
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "events_moj_esw_queue"
+  sqs_name                  = "events_ctrlo_queue"
   encrypt_sqs_kms           = "true"
   message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.event_moj_esw_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.event_ctrlo_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
   }
   EOF
 
@@ -23,11 +23,11 @@ module "event_moj_esw_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "event_moj_esw_dead_letter_queue" {
+module "event_ctrlo_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "event_moj_esw_queue_dl"
+  sqs_name        = "event_ctrlo_queue_dl"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -40,19 +40,19 @@ module "event_moj_esw_dead_letter_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "aws_sqs_queue_policy" "event_moj_esw_queue_policy" {
-  queue_url = module.event_moj_esw_queue.sqs_id
+resource "aws_sqs_queue_policy" "event_ctrlo_queue_policy" {
+  queue_url = module.event_ctrlo_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.event_moj_esw_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.event_ctrlo_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.event_moj_esw_queue.sqs_arn}",
+          "Resource": "${module.event_ctrlo_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
@@ -71,48 +71,48 @@ resource "aws_sqs_queue_policy" "event_moj_esw_queue_policy" {
 }
 
 
-data "aws_secretsmanager_secret" "moj_esw_filter_list" {
-  name = module.secret.secret_names["integration-api-event-moj-esw-filter-list"]
+data "aws_secretsmanager_secret" "ctrlo_filter_list" {
+  name = module.secret.secret_names["integration-api-event-ctrlo-filter-list"]
 }
 
-data "aws_secretsmanager_secret_version" "moj_esw_filter_list" {
-  secret_id = data.aws_secretsmanager_secret.moj_esw_filter_list.id
+data "aws_secretsmanager_secret_version" "ctrlo_filter_list" {
+  secret_id = data.aws_secretsmanager_secret.ctrlo_filter_list.id
 }
 
 
-resource "aws_sns_topic_subscription" "event_moj_esw_subscription" {
+resource "aws_sns_topic_subscription" "event_ctrlo_subscription" {
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
-  endpoint      = module.event_moj_esw_queue.sqs_arn
-  filter_policy = data.aws_secretsmanager_secret_version.moj_esw_filter_list.secret_string
+  endpoint      = module.event_ctrlo_queue.sqs_arn
+  filter_policy = data.aws_secretsmanager_secret_version.ctrlo_filter_list.secret_string
   depends_on = [
     module.hmpps-integration-events
   ]
 }
 
-resource "kubernetes_secret" "event_moj_esw_queue" {
+resource "kubernetes_secret" "event_ctrlo_queue" {
   metadata {
-    name      = "event-moj-esw-queue"
+    name      = "event-ctrlo-queue"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id                          = module.event_moj_esw_queue.sqs_id
-    sqs_arn                         = module.event_moj_esw_queue.sqs_arn
-    sqs_name                        = module.event_moj_esw_queue.sqs_name
-    moj_esw_filter_policy_secret_id = data.aws_secretsmanager_secret_version.moj_esw_filter_list.secret_id
+    sqs_id                        = module.event_ctrlo_queue.sqs_id
+    sqs_arn                       = module.event_ctrlo_queue.sqs_arn
+    sqs_name                      = module.event_ctrlo_queue.sqs_name
+    ctrlo_filter_policy_secret_id = data.aws_secretsmanager_secret_version.ctrlo_filter_list.secret_id
   }
 }
 
-resource "kubernetes_secret" "event_moj_esw_dead_letter_queue" {
+resource "kubernetes_secret" "event_ctrlo_dead_letter_queue" {
   metadata {
-    name      = "event-moj-esw-dl-queue"
+    name      = "event-ctrlo-dl-queue"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.event_moj_esw_dead_letter_queue.sqs_id
-    sqs_arn  = module.event_moj_esw_dead_letter_queue.sqs_arn
-    sqs_name = module.event_moj_esw_dead_letter_queue.sqs_name
+    sqs_id   = module.event_ctrlo_dead_letter_queue.sqs_id
+    sqs_arn  = module.event_ctrlo_dead_letter_queue.sqs_arn
+    sqs_name = module.event_ctrlo_dead_letter_queue.sqs_name
   }
 }
