@@ -49,7 +49,6 @@ module "hmpps-integration-event-irsa" {
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
@@ -62,9 +61,8 @@ module "hmpps-integration-event-irsa" {
       plp_queue                                       = module.event_plp_queue.irsa_policy_arn,
       moj_esw_queue                                   = module.event_moj_esw_queue.irsa_policy_arn
       zkhan_queue                                     = module.event_zkhan_queue.irsa_policy_arn
-      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn
+      subscription_management                         = aws_iam_policy.subscription_management.arn
     }
-
   )
   # Tags
   business_unit          = var.business_unit
