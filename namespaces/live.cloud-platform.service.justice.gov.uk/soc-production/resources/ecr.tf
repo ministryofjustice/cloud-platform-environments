@@ -36,7 +36,7 @@ module "ecr_credentials" {
               "tagPrefixList": ["sha-"],
               "countType": "sinceImagePushed",
               "countUnit": "days",
-              "countNumber": 90
+              "countNumber": 365
           },
           "action": {
               "type": "expire"
