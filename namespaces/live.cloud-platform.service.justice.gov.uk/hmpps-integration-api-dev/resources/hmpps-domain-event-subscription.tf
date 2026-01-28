@@ -79,7 +79,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
-  filter_policy = jsondecode(data.http.filter_policy.body)
+  filter_policy = data.http.filter_policy.body
 }
 
 resource "kubernetes_secret" "integration_api_domain_events_queue" {
