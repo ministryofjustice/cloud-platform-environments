@@ -71,88 +71,15 @@ resource "aws_sqs_queue_policy" "integration_api_domain_events_queue_policy" {
    EOF
 }
 
+data "http" "filter_policy" {
+  url = "https://raw.githubusercontent.com/ministryofjustice/hmpps-integration-api/main/src/main/resources/event-filter-policies/domain-events-subscription-filter-policy-dev.json"
+}
+
 resource "aws_sns_topic_subscription" "integration_api_domain_events_subscription" {
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.integration_api_domain_events_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "probation-case.registration.added",
-      "probation-case.registration.updated",
-      "probation-case.registration.deleted",
-      "probation-case.registration.deregistered",
-      "probation-case.engagement.created",
-      "probation-case.prison-identifier.added",
-      "probation-case.address.created",
-      "probation-case.address.updated",
-      "probation-case.address.deleted",
-      "probation-case.risk-scores.ogrs.manual-calculation",
-      "probation-case.mappa-information.created",
-      "probation-case.mappa-information.updated",
-      "probation-case.mappa-information.deleted",
-      "probation-case.mappa-export.created",
-      "probation-case.mappa-export.terminated",
-      "probation-case.assessment-summary.created",
-      "probation-case.supervision-appointment.created",
-      "probation-case.supervision.created",
-      "probation-case.cas3-booking.created",
-      "plp.induction-schedule.updated",
-      "plp.review-schedule.updated",
-      "san.plan-creation-schedule.updated",
-      "san.review-schedule.updated",
-      "create-and-vary-a-licence.licence.activated",
-      "create-and-vary-a-licence.licence.inactivated",
-      "person.alert.created",
-      "person.alert.changed",
-      "person.alert.updated",
-      "person.alert.deleted",
-      "person.community.manager.allocated",
-      "person.community.manager.transferred",
-      "person.case-note.created",
-      "person.case-note.updated",
-      "person.case-note.deleted",
-      "prisoner-offender-search.prisoner.created",
-      "prisoner-offender-search.prisoner.received",
-      "prisoner-offender-search.prisoner.updated",
-      "prisoner-offender-search.prisoner.released",
-      "prison-offender-events.prisoner.released",
-      "prison-offender-events.prisoner.contact-added",
-      "prison-offender-events.prisoner.contact-approved",
-      "prison-offender-events.prisoner.contact-unapproved",
-      "prison-offender-events.prisoner.contact-removed",
-      "prison-offender-events.prisoner.restriction.changed",
-      "prison-offender-events.prisoner.person-restriction.upserted",
-      "prison-offender-events.prisoner.person-restriction.deleted",
-      "prison-offender-events.prisoner.non-association-detail.changed",
-      "prison-offender-events.prisoner.received",
-      "prison-offender-events.prisoner.merged",
-      "calculate-release-dates.prisoner.changed",
-      "risk-assessment.scores.ogrs.determined",
-      "risk-assessment.scores.rsr.determined",
-      "assessment.summary.produced",
-      "incentives.iep-review.inserted",
-      "incentives.iep-review.updated",
-      "incentives.iep-review.deleted",
-      "prison-visit.booked",
-      "prison-visit.changed",
-      "prison-visit.cancelled",
-      "adjudication.hearing.created",
-      "adjudication.hearingCompleted.created",
-      "adjudication.hearing.deleted",
-      "adjudication.punishments.created",
-      "adjudication.report.created",
-      "non-associations.created",
-      "non-associations.amended",
-      "non-associations.closed",
-      "non-associations.deleted",
-      "location.inside.prison.created",
-      "location.inside.prison.amended",
-      "location.inside.prison.deleted",
-      "location.inside.prison.deactivated",
-      "location.inside.prison.reactivated",
-      "location.inside.prison.signed-op-cap.amended"
-    ]
-  })
+  filter_policy = jsondecode(data.http.filter_policy.body)
 }
 
 resource "kubernetes_secret" "integration_api_domain_events_queue" {
