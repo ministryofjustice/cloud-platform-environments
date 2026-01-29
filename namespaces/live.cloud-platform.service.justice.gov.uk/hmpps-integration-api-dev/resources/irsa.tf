@@ -52,16 +52,7 @@ module "hmpps-integration-event-irsa" {
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
-      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
-      mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
-      pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
-      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn,
-      kilco_queue                                     = module.event_kilco_queue.irsa_policy_arn,
-      cats_queue                                      = module.event_cats_queue.irsa_policy_arn,
-      plp_queue                                       = module.event_plp_queue.irsa_policy_arn,
-      moj_esw_queue                                   = module.event_moj_esw_queue.irsa_policy_arn
-      zkhan_queue                                     = module.event_zkhan_queue.irsa_policy_arn
-      ctrlo_queue                                     = module.event_ctrlo_queue.irsa_policy_arn
+      sqs                                             = aws_iam_policy.sqs_policy.arn
       subscription_management                         = aws_iam_policy.subscription_management.arn
     }
   )
