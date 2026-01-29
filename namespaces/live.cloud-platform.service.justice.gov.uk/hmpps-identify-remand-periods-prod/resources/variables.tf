@@ -16,7 +16,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your prodelopment team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-live"
 }
 
 variable "eks_cluster_name" {
