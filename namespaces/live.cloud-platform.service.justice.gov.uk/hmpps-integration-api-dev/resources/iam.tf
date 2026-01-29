@@ -243,27 +243,18 @@ resource "aws_iam_role_policy" "sqs" {
   })
 }
 
-# Merge integration queue IAM policies into a single IAM policy
-data "aws_iam_policy" "source_policies" {
-  for_each = toset(
-    module.event_mapps_queue.irsa_policy_arn,
-    module.event_pnd_queue.irsa_policy_arn,
-    module.event_test_client_queue.irsa_policy_arn,
-    module.event_kilco_queue.irsa_policy_arn,
-    module.event_cats_queue.irsa_policy_arn,
-    module.event_plp_queue.irsa_policy_arn,
-    module.event_moj_esw_queue.irsa_policy_arn,
-    module.event_zkhan_queue.irsa_policy_arn,
-    module.event_ctrlo_queue.irsa_policy_arn,
-  )
-  arn = each.value
+data "aws_iam_policy_document" "integration_events_sqs" {
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = ["sqs:*",]
+    resources = [
+      "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${var.team_name}-${var.environment}-*",
+    ]
+  }
 }
 
-data "aws_iam_policy_document" "merged_policy" {
-  source_policy_documents = [for p in data.aws_iam_policy.source_policies : p.policy]
-}
-
-resource "aws_iam_policy" "sqs_policy" {
+resource "aws_iam_policy" "integration_events_sqs" {
   name        = "${var.namespace}-events-sqs"
-  policy      = data.aws_iam_policy_document.merged_policy.json
+  policy      = data.aws_iam_policy_document.integration_events_sqs.json
 }
