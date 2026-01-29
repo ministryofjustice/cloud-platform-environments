@@ -183,3 +183,32 @@ resource "aws_iam_role_policy" "sqs" {
     ]
   })
 }
+
+data "aws_iam_policy_document" "integration_events_sqs" {
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListMessageMoveTasks",
+      "sqs:ListQueueTags",
+      "sqs:CancelMessageMoveTask",
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:StartMessageMoveTask"
+    ]
+    resources = [
+      "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${var.team_name}-${var.environment}-events_*_queue",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "integration_events_sqs" {
+  name        = "${var.namespace}-events-sqs"
+  policy      = data.aws_iam_policy_document.integration_events_sqs.json
+}
