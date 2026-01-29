@@ -72,56 +72,50 @@ resource "kubernetes_secret" "rds" {
     rds_instance_address  = module.rds.rds_instance_address
   }
 }
-# Uncomment to create DB read replica
-# module "read_replica" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-#
-#   vpc_name               = var.vpc_name
-#   allow_minor_version_upgrade  = true
-#
-#   # Tags
-#   application            = var.application
-#   business_unit          = var.business_unit
-#   environment_name       = var.environment
-#   infrastructure_support = var.infrastructure_support
-#   is_production          = var.is_production
-#   namespace              = var.namespace
-#   team_name              = var.team_name
-#
-#   # PostgreSQL specifics
-#   db_engine                = "postgres"
-#   db_engine_version        = "17"
-#   rds_family               = "postgres17"
-#   db_instance_class        = "db.t4g.medium"
-#   db_max_allocated_storage = "500"
-#   db_allocated_storage     = "100"
-#
-#   # It is mandatory to set the below values to create read replica instance
-#   # Set the db_identifier of the source db
-#   replicate_source_db = module.rds.db_identifier
-#
-#   # No backups or snapshots are created for read replica
-#   skip_final_snapshot        = "true"
-#   db_backup_retention_period = 0
-#
-#   vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
-# }
-#
-# data "aws_security_group" "mp_dps_sg" {
-#   name = var.mp_dps_sg_name
-# }
-#
-# resource "kubernetes_secret" "read_replica" {
-#   metadata {
-#     name      = "rds-read-replica-instance-output"
-#     namespace = var.namespace
-#   }
-#
-#   data = {
-#     rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-#     database_name         = module.read_replica.database_name
-#     database_username     = module.read_replica.database_username
-#     database_password     = module.read_replica.database_password
-#     rds_instance_address  = module.read_replica.rds_instance_address
-#   }
-# }
+
+module "read_replica" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name               = var.vpc_name
+  allow_minor_version_upgrade  = true
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # PostgreSQL specifics
+  db_engine                 = "postgres"
+  db_engine_version         = "18"
+  rds_family                = "postgres18"
+  db_instance_class         = "db.t4g.medium"
+  db_max_allocated_storage  = "500"
+  db_allocated_storage      = "100"
+
+  # It is mandatory to set the below values to create read replica instance
+  # Set the db_identifier of the source db
+  replicate_source_db = module.rds.db_identifier
+
+  # No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+}
+
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-read-replica-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    database_name         = module.read_replica.database_name
+    database_username     = module.read_replica.database_username
+    database_password     = module.read_replica.database_password
+    rds_instance_address  = module.read_replica.rds_instance_address
+  }
+}
