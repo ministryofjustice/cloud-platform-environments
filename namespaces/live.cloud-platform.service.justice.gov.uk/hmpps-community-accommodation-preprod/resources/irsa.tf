@@ -18,6 +18,10 @@ module "irsa" {
   role_policy_arns = merge(
     { cas-2-sqs = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
     { cas-2-sqs-dlq = module.cas-2-domain-events-listener-dlq.irsa_policy_arn },
+    { adda-sqs    = module.adda_domain_events_queue.irsa_policy_arn },
+    { adda-sqs-dlq    = module.adda_domain_events_dlq.irsa_policy_arn },
+    { sas-sqs    = module.sas_domain_events_queue.irsa_policy_arn },
+    { sas-sqs-dlq    = module.sas_domain_events_dlq.irsa_policy_arn },
     { rds = module.rds.irsa_policy_arn },
     local.sns_policies
   )
