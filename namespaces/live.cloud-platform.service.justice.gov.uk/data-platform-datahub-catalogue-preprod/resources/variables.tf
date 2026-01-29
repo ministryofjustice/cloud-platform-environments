@@ -116,7 +116,7 @@ variable allow_major_version_upgrade {
 variable prepare_for_major_upgrade {
   description = "Whether to prepare for major upgrades for the RDS instance"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "performance_insights_enabled" {
