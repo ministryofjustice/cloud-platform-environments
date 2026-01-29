@@ -215,3 +215,13 @@ spec:
         message: CCR DEV - {{ printf "%0.0f" $value }} new error in the retrieval and insertion of suppliers the last 5 minutes.
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-dev"
+
+    - alert: CCR-secrets-changed
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-remuneration-dev-2ca196d5eda39fe8-zyCvym"} > 0
+      for: 1m
+      labels:
+        severity: info-laa_crown_court_renumeration_alerts_dev
+        status_icon: information
+      annotations:
+        message: CCR-dev secrets has been modified.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
