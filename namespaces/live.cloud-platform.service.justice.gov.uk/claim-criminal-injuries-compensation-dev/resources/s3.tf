@@ -60,7 +60,10 @@ module "cica-letter-bucket" {
           "s3:AbortMultipartUpload",
           "s3:DeleteObject"
         ],
-        "Resource": "$${bucket_arn}",
+        "Resource": [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ],
         "Condition": {
           "ArnEquals": {
             "aws:SourceArn": "${module.irsa-letter-service.role_arn}"
