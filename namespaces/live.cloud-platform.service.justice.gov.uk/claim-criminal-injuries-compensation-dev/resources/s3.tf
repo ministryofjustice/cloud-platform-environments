@@ -50,7 +50,7 @@ module "cica-letter-bucket" {
       {
         "Sid": "cica-letter-bucket-allow-letter-service",
         "Effect": "Allow",
-        "Principal": "*",
+        "Principal": { "AWS": "${module.irsa-letter-service.role_arn}" },
         "Action": [
           "s3:ListBucket",
           "s3:GetBucketLocation",
@@ -63,12 +63,7 @@ module "cica-letter-bucket" {
         "Resource": [
           "$${bucket_arn}",
           "$${bucket_arn}/*"
-        ],
-        "Condition": {
-          "ArnEquals": {
-            "aws:SourceArn": "${module.irsa-letter-service.role_arn}"
-          }
-        }
+        ]
       },
       {
         "Sid": "cica-letter-bucket-allow-tempus-broker",
@@ -79,7 +74,7 @@ module "cica-letter-bucket" {
           "s3:PutObjectTagging",
           "s3:AbortMultipartUpload"
         ],
-        "Resource": "$${bucket_arn}"
+        "Resource": "$${bucket_arn}/*"
       },
       {
         "Sid": "AlwaysEncrypted",
