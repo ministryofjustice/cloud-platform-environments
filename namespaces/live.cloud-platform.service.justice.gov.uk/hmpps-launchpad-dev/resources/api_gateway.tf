@@ -1,6 +1,7 @@
 resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   name                          = var.namespace
   disable_execute_api_endpoint  = false
+  api_key_source                = "HEADER"
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -116,7 +117,6 @@ resource "aws_api_gateway_usage_plan" "default" {
 # Associate API Keys with Usage Plan
 resource "aws_api_gateway_usage_plan_key" "clients" {
   for_each = aws_api_gateway_api_key.clients
-
   key_id        = aws_api_gateway_api_key.clients[each.key].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.default.id
