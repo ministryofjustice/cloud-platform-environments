@@ -74,6 +74,8 @@ locals {
         "delete",
         "create",
         "patch",
+        "list",
+        "watch",
       ]
     },
   ]
