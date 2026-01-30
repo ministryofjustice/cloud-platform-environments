@@ -9,20 +9,6 @@ resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   tags = local.default_tags
 }
 
-# /v1 resource
-resource "aws_api_gateway_resource" "v1" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
-  path_part   = "v1"
-}
-
-# /v1/oauth2 resource
-resource "aws_api_gateway_resource" "oauth2" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.v1.id
-  path_part   = "oauth2"
-}
-#===== Catch-all - Handles /v1/auth2/authorize ==========================
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
@@ -41,7 +27,6 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-# GET /v1/oauth2/authorize integration
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
@@ -52,38 +37,6 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy"
-  }
-}
-#=====End============================================================
-
-# ====== POST /v1/oauth2/token ======
-# /v1/oauth2/token resource
-resource "aws_api_gateway_resource" "token" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.oauth2.id
-  path_part   = "token"
-}
-
-# POST /v1/oauth2/token method
-resource "aws_api_gateway_method" "token_post" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.token.id
-  http_method      = "POST"
-  authorization    = "NONE"
-  api_key_required = true
-}
-
-# POST /v1/oauth2/token end point integration
-resource "aws_api_gateway_integration" "token_post" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.token.id
-  http_method             = aws_api_gateway_method.token_post.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "POST"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/token"
-
-  request_templates = {
-    "application/x-www-form-urlencoded" = "$input.body"
   }
 }
 
@@ -102,15 +55,6 @@ resource "aws_api_gateway_usage_plan" "default" {
     stage  = aws_api_gateway_stage.main.stage_name
   }
 
-  quota_settings {
-    limit  = var.api_gateway_quota_limit
-    period = "MONTH"
-  }
-
-  throttle_settings {
-    burst_limit = var.api_gateway_burst_limit
-    rate_limit  = var.api_gateway_rate_limit
-  }
   tags = local.default_tags
 }
 
@@ -137,9 +81,7 @@ resource "aws_api_gateway_deployment" "main" {
 
   depends_on = [
     aws_api_gateway_method.proxy,
-    aws_api_gateway_method.token_post,
     aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.token_post,
   ]
 
   lifecycle {
