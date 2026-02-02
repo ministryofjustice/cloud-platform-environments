@@ -25,5 +25,10 @@ module "secrets_manager_multiple_secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "shared-secrets"
     },
+    "letter-service-aws-secrets" = {
+      description             = "Letter service secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "letter-service-secrets"
+    },
   }
 }
