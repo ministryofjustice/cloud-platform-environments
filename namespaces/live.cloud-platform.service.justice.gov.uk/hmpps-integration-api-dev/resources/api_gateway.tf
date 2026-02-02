@@ -202,7 +202,7 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client_three" {
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client_four" {
-  description = "Client certificate presented to the backend API expires 02/02/2026"
+  description = "Client certificate presented to the backend API expires 02/02/2027"
   tags        = local.default_tags
 }
 
