@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   type        = string
-  default     = "#pfl-connecting-services"
+  default     = "pfl-connecting-services"
 }
 
 variable "github_owner" {
