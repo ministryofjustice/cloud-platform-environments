@@ -1,3 +1,103 @@
+# Data sources for VPC and subnets
+data "aws_vpc" "this" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name]
+  }
+}
+
+data "aws_subnets" "private" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.this.id]
+  }
+  filter {
+    name   = "tag:SubnetType"
+    values = ["Private"]
+  }
+}
+
+# Network Load Balancer for VPC Link
+resource "aws_lb" "api_gateway_nlb" {
+  name               = "${var.namespace}-nlb"
+  internal           = true
+  load_balancer_type = "network"
+  subnets            = data.aws_subnets.private.ids
+
+  enable_deletion_protection = false
+  enable_cross_zone_load_balancing = true
+
+  tags = local.default_tags
+}
+
+# Target Group for the NLB (pointing to Kubernetes ingress)
+resource "aws_lb_target_group" "api_gateway_tg" {
+  name        = "${var.namespace}-tg"
+  port        = 443
+  protocol    = "TCP"
+  vpc_id      = data.aws_vpc.this.id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    protocol            = "TCP"
+    port                = "traffic-port"
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    interval            = 30
+  }
+
+  tags = local.default_tags
+}
+
+# Get the ingress controller service to find its internal IPs
+data "kubernetes_service" "ingress_controller" {
+  metadata {
+    name      = "nginx-ingress-acme-controller"
+    namespace = "ingress-controllers"
+  }
+}
+
+# Register ingress controller IPs with NLB target group
+# Loops over the Kubernetes service’s status.load_balancer_ingress IPs and
+# attaches them as ip targets on port443 to aws_lb_target_group.api_gateway_tg,
+# so the NLB forwards traffic to the ingress endpoints
+resource "aws_lb_target_group_attachment" "ingress_ips" {
+  for_each = toset([
+    for ingress in try(data.kubernetes_service.ingress_controller.status[0].load_balancer_ingress, []) :
+    ingress.ip if ingress.ip != null && ingress.ip != ""
+  ])
+
+  target_group_arn = aws_lb_target_group.api_gateway_tg.arn
+  target_id        = each.value
+  port             = 443
+}
+
+# Listener for the NLB
+resource "aws_lb_listener" "api_gateway_listener" {
+  load_balancer_arn = aws_lb.api_gateway_nlb.arn
+  port              = "443"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.api_gateway_tg.arn
+  }
+
+  tags = local.default_tags
+}
+
+# VPC Link for API Gateway
+resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
+  name        = "${var.namespace}-vpc-link"
+  description = "VPC Link for ${var.namespace} API Gateway to private NLB"
+  target_arns = [aws_lb.api_gateway_nlb.arn]
+
+  tags = local.default_tags
+}
+#===============================================================================
+# API Gateway for Launchpad Auth API
+#===============================================================================
 resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   name                          = var.namespace
   disable_execute_api_endpoint  = false
@@ -9,15 +109,29 @@ resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   tags = local.default_tags
 }
 
-resource "aws_api_gateway_resource" "proxy" {
+# /v1 resource
+resource "aws_api_gateway_resource" "v1" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
+  path_part   = "v1"
+}
+
+# /v1/oauth2 resource
+resource "aws_api_gateway_resource" "oauth2" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "oauth2"
+}
+
+resource "aws_api_gateway_resource" "oauth2_proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_resource.oauth2.id
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "proxy" {
+resource "aws_api_gateway_method" "oauth2_proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.proxy.id
+  resource_id      = aws_api_gateway_resource.oauth2_proxy.id
   http_method      = "ANY"
   authorization    = "NONE"
   api_key_required = true
@@ -27,13 +141,15 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-resource "aws_api_gateway_integration" "proxy_http_proxy" {
+resource "aws_api_gateway_integration" "oauth2_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.proxy.id
-  http_method             = aws_api_gateway_method.proxy.http_method
+  resource_id             = aws_api_gateway_resource.oauth2_proxy.id
+  http_method             = aws_api_gateway_method.oauth2_proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
+  uri                     = "${var.cloud_platform_launchpad_auth_ingress_host}/v1/oauth2/{proxy}"
+  connection_type         = "VPC_LINK"
+  connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
 
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy"
@@ -80,8 +196,8 @@ resource "aws_api_gateway_deployment" "main" {
   }
 
   depends_on = [
-    aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,
+    aws_api_gateway_method.oauth2_proxy,
+    aws_api_gateway_integration.oauth2_proxy,
   ]
 
   lifecycle {
