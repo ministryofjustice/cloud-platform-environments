@@ -32,9 +32,7 @@ metadata:
   name: allow-prometheus-scraping
   namespace: laa-amend-a-claim-dev
 spec:
-  podSelector:
-    matchLabels:
-      app: laa-amend-a-claim
+  podSelector: {}
   policyTypes:
     - Ingress
   ingress:
