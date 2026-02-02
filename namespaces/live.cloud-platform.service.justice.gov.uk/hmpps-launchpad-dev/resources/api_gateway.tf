@@ -64,7 +64,7 @@ data "kubernetes_service" "ingress_controller" {
 # so the NLB forwards traffic to the ingress endpoints
 resource "aws_lb_target_group_attachment" "ingress_ips" {
   for_each = toset([
-    for ingress in try(data.kubernetes_service.ingress_controller.status[0].load_balancer_ingress, []) :
+    for ingress in try(data.kubernetes_service.ingress_controller.status[0].load_balancer.ingress, []) :
     ingress.ip if ingress.ip != null && ingress.ip != ""
   ])
 
