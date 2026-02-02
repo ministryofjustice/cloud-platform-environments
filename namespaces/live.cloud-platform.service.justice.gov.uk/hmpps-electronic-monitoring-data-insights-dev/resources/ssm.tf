@@ -1,3 +1,8 @@
+data "aws_ssm_parameter" "athena_general_role_arn" {
+  name = "/${var.namespace}/athena_general_role_arn"
+  with_decryption = true
+}
+
 resource "aws_ssm_parameter" "athena_general_role_arn" {
   name        = "/${var.namespace}/athena_general_role_arn"
   type        = "SecureString"
