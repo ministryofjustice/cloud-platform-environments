@@ -27,8 +27,8 @@ data "aws_iam_policy_document" "cica_s3_kms_access" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::dev-documentsearch-kta-bucket ",
-      "arn:aws:s3:::dev-documentsearch-kta-bucket /*"
+      "arn:aws:s3:::dev-documentsearch-kta-bucket",
+      "arn:aws:s3:::dev-documentsearch-kta-bucket/*"
     ]
   }
 
