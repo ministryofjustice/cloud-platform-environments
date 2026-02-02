@@ -44,6 +44,16 @@ module "secrets_manager" {
       description             = "Claims Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-provider-api-url" = {
+      description             = "Staging Provider Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-url"
+    },
+    "laa-amend-a-claim-provider-api-token" = {
+      description             = "Staging Provider Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-token"
     }
   }
 }
