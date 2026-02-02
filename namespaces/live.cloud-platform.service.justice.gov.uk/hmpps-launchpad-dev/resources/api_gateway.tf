@@ -63,10 +63,7 @@ data "kubernetes_service" "ingress_controller" {
 # attaches them as ip targets on port443 to aws_lb_target_group.api_gateway_tg,
 # so the NLB forwards traffic to the ingress endpoints
 resource "aws_lb_target_group_attachment" "ingress_ips" {
-  for_each = toset([
-    for ingress in try(data.kubernetes_service.ingress_controller.status[0].load_balancer.ingress, []) :
-    ingress.ip if ingress.ip != null && ingress.ip != ""
-  ])
+  for_each = local.ingress_ips
 
   target_group_arn = aws_lb_target_group.api_gateway_tg.arn
   target_id        = each.value
