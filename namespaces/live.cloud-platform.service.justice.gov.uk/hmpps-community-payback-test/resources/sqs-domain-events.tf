@@ -42,6 +42,7 @@ resource "aws_sns_topic_subscription" "hmpps_cp_domain_events_subscription" {
   endpoint  = module.hmpps_cp_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "community-payback.appointment.created",
       "community-payback.appointment.updated"
     ],
     environment = [
