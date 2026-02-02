@@ -70,3 +70,4 @@ resource "aws_route53_record" "niofficialhistory_route53_txt_record_smtp" {
   ttl     = "300"
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
+
