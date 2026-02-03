@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-data-claims-reporting-service-secrets"
     },
+    "laa-data-claims-reporting-service-alert-webhook-uat" = {
+      description             = "[laa-data-claims-reporting-service-alert-webhook-prod] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-data-claims-reporting-service-alert-webhook-prod"
+    }
   }
 }
