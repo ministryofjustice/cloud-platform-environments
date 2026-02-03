@@ -17,6 +17,7 @@ module "ma_rds" {
   db_engine                   = "postgres"
   rds_family                  = "postgres17"
   db_password_rotated_date    = "15-02-2023"
+  enable_irsa                 = true
 
   providers = {
     aws = aws.london
