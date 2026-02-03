@@ -2,9 +2,9 @@ module "hmpps_prisoner_finance_sync_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-prisoner-finance-sync-ui"
   application = "hmpps-prisoner-finance-sync-ui"
-  github_team = "hmpps-prisoner-finance"
+  github_team = "hmpps-prisoner-finance-live"
   environment = var.environment 
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-prisoner-finance-live"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-typescript"
