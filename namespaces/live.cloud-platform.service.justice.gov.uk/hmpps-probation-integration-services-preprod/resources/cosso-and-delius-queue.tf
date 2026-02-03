@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "cosso-and-delius-queue-subscription" {
   protocol  = "sqs"
   endpoint  = module.cosso-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = ["probation-case.cosso-breach-notice.created", "probation-case.cosso-breach-notice.deleted"]
   })
 }
 
