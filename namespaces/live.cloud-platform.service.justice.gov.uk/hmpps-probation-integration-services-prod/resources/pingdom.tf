@@ -58,6 +58,7 @@ resource "pingdom_check" "pingdom" {
     "suicide-risk-form-and-delius",
     "esupervision-and-delius",
     "community-payback-and-delius",
+    "cosso-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
