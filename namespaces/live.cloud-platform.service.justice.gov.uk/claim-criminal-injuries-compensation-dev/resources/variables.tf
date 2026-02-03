@@ -77,6 +77,6 @@ variable "repo_name" {
   description = "List of repos"
   type        = list
   default     = [ "cica-apply-application-service", "cica-apply-maintenance-page", "cica-apply-data-capture-service", "cica-apply-web",
-  "cica-apply-notify-gateway"]
+  "cica-apply-notify-gateway", "cica-apply-letter-service"]
 }
 variable "kubernetes_cluster" {}
