@@ -3,7 +3,7 @@
 locals {
   sqs_irsa_policies = {
     (module.course_completion_events_queue.sqs_name) = module.course_completion_events_queue.irsa_policy_arn,
-    (module.course_completion_events_dlq.sqs_name) = module.course_completion_events_dlq.irsa_policy_arn
+    (module.course_completion_events_dlq.sqs_name)   = module.course_completion_events_dlq.irsa_policy_arn
   }
 }
 

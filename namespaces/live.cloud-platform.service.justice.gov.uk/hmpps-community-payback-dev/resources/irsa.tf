@@ -1,6 +1,8 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "hmpps-community-payback-devs-dev-course_completion_events_queue" = "hmpps-community-payback-dev",
+    "hmpps-community-payback-devs-dev-course_completion_events_dlq"   = "hmpps-community-payback-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
