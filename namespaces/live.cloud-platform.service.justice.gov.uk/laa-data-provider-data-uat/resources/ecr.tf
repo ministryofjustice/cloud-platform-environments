@@ -6,7 +6,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers         = ["github"]
-  github_repositories    = [var.github_repository_name]
+  github_repositories    = var.github_repository_names
   github_actions_prefix  = "DPD"  # prefix for ECR_* secrets
 
   # Tags
