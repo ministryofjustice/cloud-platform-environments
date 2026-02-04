@@ -19,7 +19,7 @@ module "ma_rds" {
   db_password_rotated_date    = "15-02-2023"
   enable_irsa                 = true
 
-  snapshot_identifier = "rds:cloud-platform-1ec554469922ee81-2026-02-04-14-45"
+  snapshot_identifier = "rds:cloud-platform-1ec554469922ee81-2026-02-04-15-32"
 
   providers = {
     aws = aws.london
