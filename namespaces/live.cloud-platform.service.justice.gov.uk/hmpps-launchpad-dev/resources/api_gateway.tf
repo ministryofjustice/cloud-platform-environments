@@ -1,94 +1,25 @@
-# Data sources for VPC and subnets
-data "aws_vpc" "this" {
-  filter {
-    name   = "tag:Name"
-    values = [var.vpc_name]
+# Use existing internal ingress controller NLB (managed by Cloud Platform)
+data "aws_lb" "ingress_internal_non_prod_nlb" {
+  tags = {
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-internal-non-prod-controller"
   }
 }
 
-data "aws_subnets" "private" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.this.id]
-  }
-  filter {
-    name   = "tag:SubnetType"
-    values = ["Private"]
-  }
-}
-
-# Network Load Balancer for VPC Link
-resource "aws_lb" "api_gateway_nlb" {
-  name               = "${var.namespace}-nlb"
-  internal           = true
-  load_balancer_type = "network"
-  subnets            = data.aws_subnets.private.ids
-
-  enable_deletion_protection = false
-  enable_cross_zone_load_balancing = true
-
-  tags = local.default_tags
-}
-
-# Target Group for the NLB (pointing to Kubernetes ingress)
-resource "aws_lb_target_group" "api_gateway_tg" {
-  name        = "${var.namespace}-tg"
-  port        = 443
-  protocol    = "TCP"
-  vpc_id      = data.aws_vpc.this.id
-  target_type = "ip"
-
-  health_check {
-    enabled             = true
-    protocol            = "TCP"
-    port                = "traffic-port"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    interval            = 30
-  }
-
-  tags = local.default_tags
-}
-
-# Get the ingress controller service to find its internal IPs
-data "kubernetes_service" "ingress_controller" {
+# Get the Kubernetes service to extract the internal NLB IP addresses that
+# VPC Link connects to
+# These IPs should be added to the ingress allowlist to allow API Gateway traffic
+data "kubernetes_service" "ingress_internal_non_prod_controller" {
   metadata {
-    name      = "nginx-ingress-acme-controller"
+    name      = "nginx-ingress-internal-non-prod-controller"
     namespace = "ingress-controllers"
   }
-}
-
-# Register ingress controller IPs with NLB target group
-# Loops over the Kubernetes service’s status.load_balancer_ingress IPs and
-# attaches them as ip targets on port443 to aws_lb_target_group.api_gateway_tg,
-# so the NLB forwards traffic to the ingress endpoints
-resource "aws_lb_target_group_attachment" "ingress_ips" {
-  for_each = local.ingress_ips
-
-  target_group_arn = aws_lb_target_group.api_gateway_tg.arn
-  target_id        = each.value
-  port             = 443
-}
-
-# Listener for the NLB
-resource "aws_lb_listener" "api_gateway_listener" {
-  load_balancer_arn = aws_lb.api_gateway_nlb.arn
-  port              = "443"
-  protocol          = "TCP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.api_gateway_tg.arn
-  }
-
-  tags = local.default_tags
 }
 
 # VPC Link for API Gateway
 resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
   name        = "${var.namespace}-vpc-link"
-  description = "VPC Link for ${var.namespace} API Gateway to private NLB"
-  target_arns = [aws_lb.api_gateway_nlb.arn]
+  description = "VPC Link for ${var.namespace} API Gateway to internal NLB"
+  target_arns = [data.aws_lb.ingress_internal_non_prod_nlb.arn]
 
   tags = local.default_tags
 }
@@ -144,7 +75,7 @@ resource "aws_api_gateway_integration" "oauth2_proxy" {
   http_method             = aws_api_gateway_method.oauth2_proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_ingress_host}/v1/oauth2/{proxy}"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/{proxy}"
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
 
@@ -256,7 +187,7 @@ resource "aws_api_gateway_method_settings" "all" {
 }
 
 # The block below creates an ACM certificate (DNS validation), Route53 validation records,
-# a regional API Gateway custom domain and an alias record. This enables a custom hostname like
+# a regional API Gateway custom domain and an alias record. Enables
 # ${var.hostname}.${var.base_domain} to point at the API Gateway.
 
 data "aws_route53_zone" "hmpps" {

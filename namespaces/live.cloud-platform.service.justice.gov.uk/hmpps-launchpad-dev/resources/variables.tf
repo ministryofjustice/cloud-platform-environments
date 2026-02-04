@@ -89,8 +89,3 @@ variable "cloud_platform_launchpad_auth_api_url" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
-
-variable "cloud_platform_launchpad_auth_ingress_host" {
-  description = "Ingress hostname for the launchpad auth backend (without https://)"
-  default     = "launchpad-auth-dev.hmpps.service.justice.gov.uk"
-}
