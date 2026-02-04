@@ -1,6 +1,6 @@
 module "ma_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage        = 10
+  db_allocated_storage        = 20
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -18,6 +18,8 @@ module "ma_rds" {
   rds_family                  = "postgres17"
   db_password_rotated_date    = "15-02-2023"
   enable_irsa                 = true
+
+  snapshot_identifier = "rds:cloud-platform-1ec554469922ee81-2026-02-04-14-45"
 
   providers = {
     aws = aws.london
