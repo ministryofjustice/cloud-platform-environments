@@ -1,0 +1,60 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hmpps-manage-and-deliver-acp-s3-transfer
+  namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
+spec:
+  schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          serviceAccountName: irsa-s3-cronjob
+          restartPolicy: OnFailure
+          containers:
+            - name: s3-transfer
+              image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              securityContext:
+                runAsUser: 1000
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: HOME
+                  value: /tmp
+                - name: UPLOAD_S3_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: upload-s3-bucket-output
+                      key: bucket_name
+                - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: sqlserver-backup-s3-bucket-output
+                      key: bucket_name
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -euo pipefail
+
+                  echo "Starting S3 transfer at $(date)"
+
+                  aws s3 sync \
+                    s3://$UPLOAD_S3_BUCKET_NAME \
+                    s3://$SQLSERVER_BACKUP_S3_BUCKET_NAME \
+                    --only-show-errors
+
+                  echo "Sync complete. Deleting source objects..."
+
+                  aws s3 rm \
+                    s3://$UPLOAD_S3_BUCKET_NAME \
+                    --recursive \
+                    --only-show-errors
+
+                  echo "Transfer completed successfully at $(date)"
