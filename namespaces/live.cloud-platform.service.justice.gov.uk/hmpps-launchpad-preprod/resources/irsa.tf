@@ -14,7 +14,7 @@ module "irsa" {
 
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
-  service_account_name   = "hmpps-launchpad-home-ui"
+  service_account_name   = "${var.team_name}-${var.environment}"
   role_policy_arns       = merge(local.sqs_policies, local.rds_policies)
   # Tags
   business_unit          = var.business_unit
