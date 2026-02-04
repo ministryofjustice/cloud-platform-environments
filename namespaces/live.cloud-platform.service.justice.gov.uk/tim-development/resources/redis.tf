@@ -21,3 +21,17 @@ module "redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "redis_secrets" {
+  metadata {
+    name      = "example-team-ec-cluster-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.redis.primary_endpoint_address
+    member_clusters          = jsonencode(module.redis.member_clusters)
+    auth_token               = module.redis.auth_token
+    replication_group_id     = module.redis.replication_group_id
+  }
+}
