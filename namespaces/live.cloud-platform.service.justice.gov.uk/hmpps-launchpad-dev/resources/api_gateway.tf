@@ -1,3 +1,31 @@
+# Use existing internal ingress controller NLB (managed by Cloud Platform)
+data "aws_lb" "ingress_internal_non_prod_nlb" {
+  tags = {
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-internal-non-prod-controller"
+  }
+}
+
+# Get the Kubernetes service to extract the internal NLB IP addresses that
+# VPC Link connects to
+# These IPs should be added to the ingress allowlist to allow API Gateway traffic
+data "kubernetes_service" "ingress_internal_non_prod_controller" {
+  metadata {
+    name      = "nginx-ingress-internal-non-prod-controller"
+    namespace = "ingress-controllers"
+  }
+}
+
+# VPC Link for API Gateway
+resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
+  name        = "${var.namespace}-vpc-link"
+  description = "VPC Link for ${var.namespace} API Gateway to internal NLB"
+  target_arns = [data.aws_lb.ingress_internal_non_prod_nlb.arn]
+
+  tags = local.default_tags
+}
+#===============================================================================
+# API Gateway for Launchpad Auth API
+#===============================================================================
 resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   name                          = var.namespace
   disable_execute_api_endpoint  = false
@@ -9,15 +37,29 @@ resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   tags = local.default_tags
 }
 
-resource "aws_api_gateway_resource" "proxy" {
+# /v1 resource
+resource "aws_api_gateway_resource" "v1" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
+  path_part   = "v1"
+}
+
+# /v1/oauth2 resource
+resource "aws_api_gateway_resource" "oauth2" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "oauth2"
+}
+
+resource "aws_api_gateway_resource" "oauth2_proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_resource.oauth2.id
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "proxy" {
+resource "aws_api_gateway_method" "oauth2_proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.proxy.id
+  resource_id      = aws_api_gateway_resource.oauth2_proxy.id
   http_method      = "ANY"
   authorization    = "NONE"
   api_key_required = true
@@ -27,13 +69,15 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-resource "aws_api_gateway_integration" "proxy_http_proxy" {
+resource "aws_api_gateway_integration" "oauth2_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.proxy.id
-  http_method             = aws_api_gateway_method.proxy.http_method
+  resource_id             = aws_api_gateway_resource.oauth2_proxy.id
+  http_method             = aws_api_gateway_method.oauth2_proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/{proxy}"
+  connection_type         = "VPC_LINK"
+  connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
 
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy"
@@ -80,8 +124,8 @@ resource "aws_api_gateway_deployment" "main" {
   }
 
   depends_on = [
-    aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,
+    aws_api_gateway_method.oauth2_proxy,
+    aws_api_gateway_integration.oauth2_proxy,
   ]
 
   lifecycle {
@@ -143,7 +187,7 @@ resource "aws_api_gateway_method_settings" "all" {
 }
 
 # The block below creates an ACM certificate (DNS validation), Route53 validation records,
-# a regional API Gateway custom domain and an alias record. This enables a custom hostname like
+# a regional API Gateway custom domain and an alias record. Enables
 # ${var.hostname}.${var.base_domain} to point at the API Gateway.
 
 data "aws_route53_zone" "hmpps" {
