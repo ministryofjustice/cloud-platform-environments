@@ -120,6 +120,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
       "person.temporary-absence-authorisation.comments-changed",
       "person.temporary-absence-authorisation.transport-changed",
       "person.temporary-absence-authorisation.deferred",
+      "person.temporary-absence-authorisation.relocated",
       "person.temporary-absence.scheduled",
       "person.temporary-absence.denied",
       "person.temporary-absence.cancelled",
