@@ -9,12 +9,17 @@ module "ma_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  allow_major_version_upgrade = "false"
+
+  enable_rds_auto_start_stop = true
+
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "15"
-  db_engine                   = "postgres"
   rds_family                  = "postgres15"
+  db_engine_version           = "15"
+  deletion_protection         = true
+  db_engine                   = "postgres"
   db_password_rotated_date    = "15-02-2023"
+  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_allocated_storage        = "1500"
   enable_irsa                 = true
@@ -23,6 +28,35 @@ module "ma_rds" {
     aws = aws.london
   }
 
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+      {
+        name         = "rds.logical_replication"
+        value        = "1"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "shared_preload_libraries"
+        value        = "pglogical"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "max_wal_size"
+        value        = "1024"
+        apply_method = "immediate"
+      },
+      {
+        name         = "wal_sender_timeout"
+        value        = "0"
+        apply_method = "immediate"
+      },
+      {
+        name         = "max_slot_wal_keep_size"
+        value        = "40000"
+        apply_method = "immediate"
+      }
+    ]
 }
 
 resource "kubernetes_secret" "dps_rds" {
@@ -32,6 +66,8 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
+    db_identifier         = module.ma_rds.db_identifier
+    resource_id           = module.ma_rds.resource_id
     rds_instance_endpoint = module.ma_rds.rds_instance_endpoint
     database_name         = module.ma_rds.database_name
     database_username     = module.ma_rds.database_username
@@ -56,4 +92,10 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     database_password     = module.ma_rds.database_password
     rds_instance_address  = module.ma_rds.rds_instance_address
   }
+}
+
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
