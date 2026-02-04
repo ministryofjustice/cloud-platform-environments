@@ -40,3 +40,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-claim-for-payment-frontend-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-assess-a-claim-frontend-uat

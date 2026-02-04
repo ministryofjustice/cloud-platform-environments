@@ -8,9 +8,7 @@ module "redis" {
   node_type               = "cache.t4g.micro"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
-  auth_token_rotated_date = "2023-08-30"
-
-  enable_irsa             = true
+  auth_token_rotated_date = "2023-07-04"
 
   # Tags
   business_unit          = var.business_unit
@@ -22,9 +20,9 @@ module "redis" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "redis_secrets" {
+resource "kubernetes_secret" "claimandassess_assess_redis" {
   metadata {
-    name      = "example-team-ec-cluster-output"
+    name      = "claimandassess-assess-redis"
     namespace = var.namespace
   }
 
