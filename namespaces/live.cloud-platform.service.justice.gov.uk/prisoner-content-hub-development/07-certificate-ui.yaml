@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - content-hub-dev.hmpps.service.justice.gov.uk
+    - staff.content-ui-dev.hmpps.service.justice.gov.uk  
