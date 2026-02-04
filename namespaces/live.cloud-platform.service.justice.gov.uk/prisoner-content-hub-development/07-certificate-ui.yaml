@@ -10,4 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - content-hub-dev.hmpps.service.justice.gov.uk
+    - content-hub-ui-dev.hmpps.service.justice.gov.uk
+    - staff.content-hub-ui-dev.hmpps.service.justice.gov.uk  
