@@ -75,10 +75,13 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "github_repository_name" {
-  description = "Used to create GitHub secrets into the right GitHub repository"
-  type        = string
-  default     = "laa-data-provider-data"
+variable "github_repository_names" {
+  description = "Used to create GitHub secrets into the right GitHub repositories"
+  type        = list(string)
+  default     = [
+    "laa-data-provider-data",
+    "laa-provider-data-platform"
+  ]
 }
 
 variable "github_environment_name" {
