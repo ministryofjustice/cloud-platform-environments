@@ -1,6 +1,6 @@
 module "ma_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage        = 10
+  db_allocated_storage        = 20
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
@@ -23,6 +23,8 @@ module "ma_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
+
+  snapshot_identifier = "rds-cloud-platform-1ec554469922ee81-2026-02-04-15-32"
 
   providers = {
     aws = aws.london
