@@ -45,13 +45,7 @@ module "opensearch_alert_app_log" {
                     }
                 ],
                 "should": [],
-                "must_not": [
-                    {
-                        "match_phrase": {
-                            "log": "Suspicious SQL-like pattern ' and '"
-                        }
-                    }
-                ]
+                "must_not": []
             }
         },
         "version": true,
@@ -110,11 +104,11 @@ module "opensearch_alert_app_log" {
   )
   trigger_name                   = "laa-data-claims-api-uat-sql-trigger"
   serverity                      = "1"
-  query_source                   = "ctx.results[0].hits.total.value > 1"
+  query_source                   = "ctx.results[0].hits.total.value > 5"
   action_name                    = "laa-data-claims-api-uat-sql-action"
   slack_message_subject          = ":alert: Suspicious SQL-like pattern detected in *laa-data-claims-api-uat* :alert:"
-  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- *Trigger*: {{ctx.trigger.name}}\n- *Severity*: {{ctx.trigger.severity}}\n- *Dashboard*: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log),isDirty:!t,sort:!()),metadata:(indexPattern:bb90f230-0d2e-11ef-bf63-53113938c53a,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.namespace_name,negate:!f,params:(query:laa-data-claims-api-uat),type:phrase),query:(match_phrase:(kubernetes.namespace_name:laa-data-claims-api-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:log,negate:!f,params:(query:'Suspicious%20SQL'),type:phrase),query:(match_phrase:(log:'Suspicious%20SQL'))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:log,negate:!t,params:(query:'Suspicious%20SQL-like%20pattern%20!'%20and%20!''),type:phrase),query:(match_phrase:(log:'Suspicious%20SQL-like%20pattern%20!'%20and%20!'')))),query:(language:kuery,query:''))"
+  slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- *Trigger*: {{ctx.trigger.name}}\n- *Severity*: {{ctx.trigger.severity}}\n- *Dashboard*: https://app-logs.cloud-platform.service.justice.gov.uk/_dashboards/app/data-explorer/discover#?_a=(discover:(columns:!(log),isDirty:!t,sort:!()),metadata:(indexPattern:bb90f230-0d2e-11ef-bf63-53113938c53a,view:discover))&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))&_q=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:kubernetes.namespace_name,negate:!f,params:(query:laa-data-claims-api-uat),type:phrase),query:(match_phrase:(kubernetes.namespace_name:laa-data-claims-api-uat))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:bb90f230-0d2e-11ef-bf63-53113938c53a,key:log,negate:!f,params:(query:'Suspicious%20SQL'),type:phrase),query:(match_phrase:(log:'Suspicious%20SQL')))),query:(language:kuery,query:''))"
   alert_throttle_enabled         = true
-  throttle_value                 = 5
+  throttle_value                 = 15
   throttle_unit                  = "MINUTES"
 }
