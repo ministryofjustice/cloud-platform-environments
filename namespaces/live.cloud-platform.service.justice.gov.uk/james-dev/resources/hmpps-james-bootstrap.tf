@@ -3,8 +3,8 @@ module "hmpps_james_bootstrap" {
   github_repo = "hmpps-james-bootstrap"
   application = "hmpps-james-bootstrap"
   github_team = "hmpps-sre"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  environment = var.environment # 
+  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] #
   selected_branch_patterns      = ["main", "**/**", "**", "fix/**"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
