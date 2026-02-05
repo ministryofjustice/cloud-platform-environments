@@ -22,7 +22,7 @@ resource "pingdom_check" "pcms-production-check" {
   integrationids           = [96624, 96628, 126838]
 }
 
-resource "pingdom_check" "pcms-production-check" {
+resource "pingdom_check" "pcms-api-production-check" {
   type                     = "http"
   name                     = "DPS - ${var.application} API"
   host                     = "health-kick.prison.service.justice.gov.uk"
