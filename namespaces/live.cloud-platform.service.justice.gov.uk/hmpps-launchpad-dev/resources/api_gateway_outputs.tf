@@ -32,11 +32,11 @@ output "api_gateway_api_key_secret_names" {
 
 # Internal NLB IP addresses to add to ingress allowlist
 output "internal_nlb_ip_addresses" {
-  description = "Private IP addresses of the internal NLB - ADD THESE TO YOUR INGRESS ALLOWLIST in values-dev.yaml"
+  description = "Private IP addresses of the internal NLB - Add these to Ingress Allow List in values-dev.yaml"
   value = toset(flatten([
-    for ing in try(data.kubernetes_service.ingress_internal_non_prod_controller.status[0].load_balancer[0].ingress, []) : [
-      ing.ip
-    ] if try(ing.ip, null) != null && ing.ip != ""
+    for eni_id, eni in data.aws_network_interface.nlb_eni_details : [
+      eni.private_ip
+    ]
   ]))
 }
 
@@ -50,13 +50,14 @@ output "internal_nlb_arn" {
   value       = data.aws_lb.ingress_internal_non_prod_nlb.arn
 }
 
+output "internal_nlb_dns_name" {
+  description = "DNS name of the internal NLB"
+  value       = data.aws_lb.ingress_internal_non_prod_nlb.dns_name
+}
+
 output "allowlist_cidr_blocks" {
-  description = "CIDR blocks to add to ingress allowlist (for use in values-dev.yaml)"
+  description = "CIDR blocks to add to Ingress Allow List (for use in values-dev.yaml)"
   value = [
-    for ip in toset(flatten([
-      for ing in try(data.kubernetes_service.ingress_internal_non_prod_controller.status[0].load_balancer[0].ingress, []) : [
-        ing.ip
-      ] if try(ing.ip, null) != null && ing.ip != ""
-    ])) : "${ip}/32"
+    for eni_id, eni in data.aws_network_interface.nlb_eni_details : "${eni.private_ip}/32"
   ]
 }

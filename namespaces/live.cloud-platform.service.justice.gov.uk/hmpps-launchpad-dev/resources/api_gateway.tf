@@ -15,6 +15,30 @@ data "kubernetes_service" "ingress_internal_non_prod_controller" {
   }
 }
 
+# Get the subnets used by the NLB to extract IP addresses
+data "aws_subnet" "nlb_subnets" {
+  for_each = toset(data.aws_lb.ingress_internal_non_prod_nlb.subnets)
+  id       = each.value
+}
+
+# Get network interfaces associated with the NLB to extract private IPs
+data "aws_network_interfaces" "nlb_enis" {
+  filter {
+    name   = "description"
+    values = ["ELB ${data.aws_lb.ingress_internal_non_prod_nlb.arn_suffix}"]
+  }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_lb.ingress_internal_non_prod_nlb.vpc_id]
+  }
+}
+
+# Get details of each network interface to extract private IP addresses
+data "aws_network_interface" "nlb_eni_details" {
+  for_each = toset(data.aws_network_interfaces.nlb_enis.ids)
+  id       = each.value
+}
+
 # VPC Link for API Gateway
 resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
   name        = "${var.namespace}-vpc-link"
@@ -37,29 +61,16 @@ resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   tags = local.default_tags
 }
 
-# /v1 resource
-resource "aws_api_gateway_resource" "v1" {
+# /Handles All Resources
+resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
-  path_part   = "v1"
-}
-
-# /v1/oauth2 resource
-resource "aws_api_gateway_resource" "oauth2" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.v1.id
-  path_part   = "oauth2"
-}
-
-resource "aws_api_gateway_resource" "oauth2_proxy" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  parent_id   = aws_api_gateway_resource.oauth2.id
   path_part   = "{proxy+}"
 }
 
-resource "aws_api_gateway_method" "oauth2_proxy" {
+resource "aws_api_gateway_method" "proxy" {
   rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id      = aws_api_gateway_resource.oauth2_proxy.id
+  resource_id      = aws_api_gateway_resource.proxy.id
   http_method      = "ANY"
   authorization    = "NONE"
   api_key_required = true
@@ -69,19 +80,26 @@ resource "aws_api_gateway_method" "oauth2_proxy" {
   }
 }
 
-resource "aws_api_gateway_integration" "oauth2_proxy" {
+# Handles any path
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
-  resource_id             = aws_api_gateway_resource.oauth2_proxy.id
-  http_method             = aws_api_gateway_method.oauth2_proxy.http_method
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/v1/oauth2/{proxy}"
+  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}/{proxy}"
+  #uri                    = "${var.cloud_platform_internal_nlb_url}/{proxy}"
+
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  timeout_milliseconds    = 29000
 
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy"
+    "integration.request.header.Host" = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
   }
+  # Ensure query strings are passed through
+  cache_key_parameters = ["method.request.path.proxy"]
 }
 
 # API Keys
