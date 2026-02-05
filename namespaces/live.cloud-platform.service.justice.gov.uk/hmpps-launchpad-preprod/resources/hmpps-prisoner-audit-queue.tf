@@ -5,6 +5,6 @@ resource "kubernetes_secret" "hmpps_prisoner_audit_queue_secret" {
   }
 
   data = {
-    sqs_queue_url = "https://sqs.eu-west-2.amazonaws.com/754256621582/-preprod-hmpps_prisoner_audit_queue"
+    sqs_queue_url = "https://sqs.eu-west-2.amazonaws.com/754256621582/Digital-Prison-Services-preprod-hmpps_prisoner_audit_queue"
   }
 }
