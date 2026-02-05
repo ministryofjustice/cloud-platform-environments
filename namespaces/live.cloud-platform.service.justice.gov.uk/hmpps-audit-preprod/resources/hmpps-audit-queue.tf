@@ -259,62 +259,62 @@ locals {
 }
 
 
-resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
-  queue_url = module.hmpps_prisoner_audit_queue.sqs_id
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Id      = "${module.hmpps_prisoner_audit_queue.sqs_arn}/SQSDefaultPolicy",
-    Statement = [
-      {
-        Sid       = "DenyPrisonerAuditQueueManage",
-        Effect    = "Deny",
-        Principal = { AWS = "*" },
-        Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
-        Action = [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:PurgeQueue",
-          "sqs:ChangeMessageVisibility"
-        ],
-        Condition = {
-          ArnNotEquals = {
-            "aws:PrincipalArn" = local.prisoner_audit_arns_with_manage_access
-          }
-        }
-      },
-      {
-        Sid       = "DenyPrisonerAuditQueueSend",
-        Effect    = "Deny",
-        Principal = { AWS = "*" },
-        Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
-        Action    = "sqs:SendMessage",
-        Condition = {
-          ArnNotEquals = {
-            "aws:PrincipalArn" = local.prisoner_audit_arns_with_send_access
-          }
-        }
-      },
-      {
-        Sid       = "AllowPrisonerAuditQueueSend",
-        Effect    = "Allow",
-        Principal = {
-          AWS = local.prisoner_audit_arns_with_send_access
-        },
-        Resource = module.hmpps_prisoner_audit_queue.sqs_arn,
-        Action   = "sqs:SendMessage"
-      },
-      {
-        Sid       = "AllowPrisonerAuditQueueManage",
-        Effect    = "Allow",
-        Principal = {
-          AWS = local.prisoner_audit_arns_with_manage_access
-        },
-        Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
-        Action = "sqs:*"
-      }
-    ]
-  })
-}
+# resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
+#   queue_url = module.hmpps_prisoner_audit_queue.sqs_id
+#
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Id      = "${module.hmpps_prisoner_audit_queue.sqs_arn}/SQSDefaultPolicy",
+#     Statement = [
+#       {
+#         Sid       = "DenyPrisonerAuditQueueManage",
+#         Effect    = "Deny",
+#         Principal = { AWS = "*" },
+#         Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
+#         Action = [
+#           "sqs:ReceiveMessage",
+#           "sqs:DeleteMessage",
+#           "sqs:PurgeQueue",
+#           "sqs:ChangeMessageVisibility"
+#         ],
+#         Condition = {
+#           ArnNotEquals = {
+#             "aws:PrincipalArn" = local.prisoner_audit_arns_with_manage_access
+#           }
+#         }
+#       },
+#       {
+#         Sid       = "DenyPrisonerAuditQueueSend",
+#         Effect    = "Deny",
+#         Principal = { AWS = "*" },
+#         Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
+#         Action    = "sqs:SendMessage",
+#         Condition = {
+#           ArnNotEquals = {
+#             "aws:PrincipalArn" = local.prisoner_audit_arns_with_send_access
+#           }
+#         }
+#       },
+#       {
+#         Sid       = "AllowPrisonerAuditQueueSend",
+#         Effect    = "Allow",
+#         Principal = {
+#           AWS = local.prisoner_audit_arns_with_send_access
+#         },
+#         Resource = module.hmpps_prisoner_audit_queue.sqs_arn,
+#         Action   = "sqs:SendMessage"
+#       },
+#       {
+#         Sid       = "AllowPrisonerAuditQueueManage",
+#         Effect    = "Allow",
+#         Principal = {
+#           AWS = local.prisoner_audit_arns_with_manage_access
+#         },
+#         Resource  = module.hmpps_prisoner_audit_queue.sqs_arn,
+#         Action = "sqs:*"
+#       }
+#     ]
+#   })
+# }
 
 
