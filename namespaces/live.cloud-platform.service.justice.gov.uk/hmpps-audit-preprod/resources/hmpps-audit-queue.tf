@@ -232,31 +232,31 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
   }
 }
 
+# commented out while queue renamed
+# # queue permissions for other services
+#
+# resource "kubernetes_secret" "approved_prisoner_audit_client_arns" {
+#   metadata {
+#     name = "approved-prisoner-audit-client-arns"
+#     namespace = var.namespace
+#   }
+# }
+#
+# data "kubernetes_secret" "approved_prisoner_audit_client_arns" {
+#   metadata {
+#     name      = kubernetes_secret.approved_prisoner_audit_client_arns.metadata[0].name
+#     namespace = var.namespace
+#   }
+# }
 
-# queue permissions for other services
-
-resource "kubernetes_secret" "approved_prisoner_audit_client_arns" {
-  metadata {
-    name = "approved-prisoner-audit-client-arns"
-    namespace = var.namespace
-  }
-}
-
-data "kubernetes_secret" "approved_prisoner_audit_client_arns" {
-  metadata {
-    name      = kubernetes_secret.approved_prisoner_audit_client_arns.metadata[0].name
-    namespace = var.namespace
-  }
-}
-
-locals {
-  # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
-  prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
-
-  prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
-
-  prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
-}
+# locals {
+#   # This will intentionally cause the pipeline to fail if the target secret does not contain the expects keys.
+#   prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
+#
+#   prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
+#
+#   prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
+# }
 
 
 # resource "aws_sqs_queue_policy" "hmpps_prisoner_audit_queue_policy" {
