@@ -1,5 +1,5 @@
 module "secret" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
   eks_cluster_name       = var.eks_cluster_name
   team_name              = var.team_name
   application            = var.application
