@@ -10,7 +10,6 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - prisonvisits.service.gov.uk
-  - www.prisonvisits.service.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
