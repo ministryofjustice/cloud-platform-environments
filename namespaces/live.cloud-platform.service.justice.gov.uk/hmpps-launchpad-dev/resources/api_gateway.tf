@@ -87,7 +87,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}/{proxy}"
+  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:80/{proxy}"
   #uri                    = "${var.cloud_platform_internal_nlb_url}/{proxy}"
 
   connection_type         = "VPC_LINK"
@@ -95,8 +95,10 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   timeout_milliseconds    = 29000
 
   request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy"
-    "integration.request.header.Host" = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
+    "integration.request.path.proxy"                = "method.request.path.proxy"
+    "integration.request.header.Host"               = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
+    "integration.request.header.X-Forwarded-Proto"  = "'https'"
+    "integration.request.header.X-Forwarded-Port"   = "'443'"
   }
   # Ensure query strings are passed through
   cache_key_parameters = ["method.request.path.proxy"]
