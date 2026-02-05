@@ -24,7 +24,7 @@ module "ma_rds" {
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
 
-  snapshot_identifier = "rds-cloud-platform-1ec554469922ee81-2026-02-04-15-32"
+  snapshot_identifier = "rds-cloud-platform-1ec554469922ee81-2026-02-05-10-07"
 
   providers = {
     aws = aws.london
