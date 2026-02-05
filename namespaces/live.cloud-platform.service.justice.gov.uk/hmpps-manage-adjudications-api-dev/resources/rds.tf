@@ -14,7 +14,7 @@ module "ma_rds" {
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres17"
   db_engine_version           = "17.4"
-  deletion_protection         = false
+  deletion_protection         = true
   db_engine                   = "postgres"
   db_password_rotated_date    = "15-02-2023"
   enable_irsa                 = true
@@ -23,8 +23,6 @@ module "ma_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
-
-  snapshot_identifier = "rds-cloud-platform-1ec554469922ee81-2026-02-05-10-07"
 
   providers = {
     aws = aws.london
