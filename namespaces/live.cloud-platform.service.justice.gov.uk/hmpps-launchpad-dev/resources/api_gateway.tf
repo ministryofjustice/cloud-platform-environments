@@ -142,8 +142,8 @@ resource "aws_api_gateway_deployment" "main" {
   }
 
   depends_on = [
-    aws_api_gateway_method.oauth2_proxy,
-    aws_api_gateway_integration.oauth2_proxy,
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy_http_proxy,
   ]
 
   lifecycle {
