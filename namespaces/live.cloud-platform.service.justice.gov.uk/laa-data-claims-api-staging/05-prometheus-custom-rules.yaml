@@ -102,81 +102,71 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
 
     - alert: RDSLowStorage
-      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m < 200000000000
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} < 1024*1024*1024
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
-        message: RDS free storage space is less than 200GB in namespace laa-data-claims-api-staging.
+        message: RDS free storage space is less than 1GB in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighCPU
-      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 75
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} > 75
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS CPU utilization is above 75% in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
-
-    - alert: RDSLowMemory
-      expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m < 1717986918
-      for: 5m
-      labels:
-        severity: laa-data-claims-api-staging
-      annotations:
-        message: RDS freeable memory is less than 1.6GB (20%) in namespace laa-data-claims-api-staging.
-        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighConnections
-      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 560
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} > 560
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS database connections are above 560 in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighReadLatency
-      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 0.1
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} > 0.1
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS read latency is above 100ms in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighWriteLatency
-      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 0.1
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} > 0.1
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS write latency is above 100ms in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighReadIOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 2400
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS read IOPS is above 2400 in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
 
     - alert: RDSHighWriteIOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} offset 10m > 2400
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-541749e1c5742f0a"} 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-staging
       annotations:
         message: RDS write IOPS is above 2400 in namespace laa-data-claims-api-staging.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-541749e1c5742f0a
