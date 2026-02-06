@@ -64,6 +64,11 @@ module "secrets_manager" {
       description             = "Provider Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-provider-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-alert-webhook-dev" = {
+      description             = "[laa-amend-a-claim-alert-webhook-dev] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-alert-webhook-dev"
     }
   }
 }
