@@ -25,6 +25,7 @@ module "ma_rds" {
   enable_rds_auto_start_stop  = true
 
   snapshot_identifier = "rds-cloud-platform-1ec554469922ee81-2026-02-05-16-17"
+  // comment to be deleted in post-restore tidyup
 
   providers = {
     aws = aws.london
