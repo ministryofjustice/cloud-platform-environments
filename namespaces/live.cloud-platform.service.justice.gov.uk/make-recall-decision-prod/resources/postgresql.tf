@@ -27,6 +27,8 @@ module "make_recall_decision_api_rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
+
 }
 
 resource "kubernetes_secret" "make_recall_decision_api_rds" {
