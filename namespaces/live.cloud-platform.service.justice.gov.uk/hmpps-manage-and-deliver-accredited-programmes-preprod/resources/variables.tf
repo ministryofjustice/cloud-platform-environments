@@ -108,7 +108,7 @@ variable "db_instance_class" {
 variable "db_name" {
   description = "The name of the DB"
   type        = string
-  default     = "hmpps-manage-and-deliver-acp-prepared-mssql"
+  default     = "hmpps-manage-and-deliver-acp-preprod-mssql"
 }
 
 variable "db_rds_family" {
