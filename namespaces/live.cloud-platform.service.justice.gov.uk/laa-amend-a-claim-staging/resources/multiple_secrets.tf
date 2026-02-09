@@ -54,6 +54,11 @@ module "secrets_manager" {
       description             = "Staging Provider Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-provider-api-token"
-    }
+    },
+    "laa-amend-a-claim-cookie-bypass-dev" = {
+      description             = "Maintenance bypass cookie"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-maintenance-bypass-dev"
+      }
   }
 }
