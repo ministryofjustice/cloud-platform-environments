@@ -68,6 +68,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "repo_name" {
+  type        = string
+  description = "Required for Github Service Account"
+  default     = "laa-assess-crime-forms"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
