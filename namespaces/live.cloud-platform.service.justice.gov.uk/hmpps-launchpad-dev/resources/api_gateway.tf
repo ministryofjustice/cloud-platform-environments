@@ -5,22 +5,6 @@ data "aws_lb" "ingress_internal_non_prod_nlb" {
   }
 }
 
-# Get the Kubernetes service to extract the internal NLB IP addresses that
-# VPC Link connects to
-# These IPs should be added to the ingress allowlist to allow API Gateway traffic
-data "kubernetes_service" "ingress_internal_non_prod_controller" {
-  metadata {
-    name      = "nginx-ingress-internal-non-prod-controller"
-    namespace = "ingress-controllers"
-  }
-}
-
-# Get the subnets used by the NLB to extract IP addresses
-data "aws_subnet" "nlb_subnets" {
-  for_each = toset(data.aws_lb.ingress_internal_non_prod_nlb.subnets)
-  id       = each.value
-}
-
 # Get network interfaces associated with the NLB to extract private IPs
 data "aws_network_interfaces" "nlb_enis" {
   filter {
@@ -87,8 +71,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:80/{proxy}"
-  #uri                    = "${var.cloud_platform_internal_nlb_url}/{proxy}"
+  uri                     = "https://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:443/{proxy}"
 
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
@@ -96,7 +79,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
   request_parameters = {
     "integration.request.path.proxy"                = "method.request.path.proxy"
-    "integration.request.header.Host"               = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
+    "integration.request.header.Host"               = "'launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk'"
     "integration.request.header.X-Forwarded-Proto"  = "'https'"
     "integration.request.header.X-Forwarded-Port"   = "'443'"
   }
