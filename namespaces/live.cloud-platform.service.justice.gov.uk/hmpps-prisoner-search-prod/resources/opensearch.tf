@@ -10,7 +10,7 @@ module "hmpps_prisoner_search_opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.9"
+  engine_version = "OpenSearch_2.19"
 
   cluster_config = {
     instance_count = 6 # should always be a multiple of 3, to split nodes evenly across three availability zones
