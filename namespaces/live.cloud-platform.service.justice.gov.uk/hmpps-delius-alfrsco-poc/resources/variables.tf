@@ -145,6 +145,7 @@ variable "serviceaccount_rules" {
         "networkpolicies",
         "daemonsets",
         "statefulsets",
+        "statefulsets/scale",
       ]
       verbs = [
         "get",
