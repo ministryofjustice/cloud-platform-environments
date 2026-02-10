@@ -8,7 +8,7 @@ module "serviceaccount_github" {
   role_name            = "github-actions-role"
   rolebinding_name     = "github-action-rolebinding"
 
-  serviceaccount_token_rotated_date = "3-12-2025"
+  serviceaccount_token_rotated_date = "10-02-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
