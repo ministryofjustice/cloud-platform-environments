@@ -87,7 +87,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:80/{proxy}"
+  uri                     = "https://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:443/{proxy}"
   #uri                    = "${var.cloud_platform_internal_nlb_url}/{proxy}"
 
   connection_type         = "VPC_LINK"
