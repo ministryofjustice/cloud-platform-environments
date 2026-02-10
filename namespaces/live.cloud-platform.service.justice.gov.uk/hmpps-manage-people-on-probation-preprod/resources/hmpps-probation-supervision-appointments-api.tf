@@ -8,7 +8,7 @@ module "hmpps_template_kotlin" {
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
-  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
