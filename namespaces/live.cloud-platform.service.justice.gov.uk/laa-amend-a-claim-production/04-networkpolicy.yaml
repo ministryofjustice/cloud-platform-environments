@@ -30,7 +30,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-prometheus-scraping
-  namespace: laa-amend-a-claim-dev
+  namespace: laa-amend-a-claim-production
 spec:
   podSelector: {}
   policyTypes:
