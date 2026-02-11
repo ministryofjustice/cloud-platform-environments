@@ -75,7 +75,7 @@ variable "eks_cluster_name" {
 }
 
 variable "domain" {
-  default = "amend-a-bulk-claim.laa.service.justice.gov.uk"
+  default = "amend-a-claim.laa.service.justice.gov.uk"
   type    = string
 }
 
