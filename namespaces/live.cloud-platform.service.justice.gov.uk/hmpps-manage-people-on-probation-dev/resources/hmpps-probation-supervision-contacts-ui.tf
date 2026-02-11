@@ -17,7 +17,7 @@ module "hmpps-probation-supervision-contacts-ui" {
 
 
 # Note, redis is a requirement for hmpps-template-typescript application.
-module "elasticache_redis" {
+module "contacts_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
