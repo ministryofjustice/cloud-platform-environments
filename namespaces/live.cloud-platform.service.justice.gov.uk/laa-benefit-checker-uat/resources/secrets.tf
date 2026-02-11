@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "aws-secrets"
     },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Benefit checker UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }
