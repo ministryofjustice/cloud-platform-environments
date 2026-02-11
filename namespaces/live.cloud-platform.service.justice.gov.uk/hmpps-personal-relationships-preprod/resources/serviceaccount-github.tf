@@ -1,5 +1,5 @@
 module "hmpps-personal-relationships-api" {
-  source      = "ggithub.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
   github_repo = "hmpps-personal-relationships-api"
   application = "hmpps-personal-relationships-api"
   github_team = "hmpps-prison-visits-booking"
