@@ -11,28 +11,5 @@ module "secrets_manager" {
 
   secrets = {
     # TODO: what secrets do we need?
-    "auth-client-id" = {
-      description             = "Auth client ID from Entra for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-client-id-uat"
-    },
-
-    "auth-client-secret" = {
-      description             = "Auth client secret from Entra for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-client-secret-uat"
-    },
-
-    "auth-directory-url" = {
-      description             = "Auth directory URL from Entra for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-directory-url-uat"
-    },
-
-    "base_url_map" = {
-      description             = "API Base URL Map for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "base-url-map-uat"
-    },
   }
 }
