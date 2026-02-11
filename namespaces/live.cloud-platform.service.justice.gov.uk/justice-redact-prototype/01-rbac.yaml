@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: justice-redact-prototype-admin
-  namespace: justice-redact-prototype
+  name: justiceredact-prototype-admin
+  namespace: justiceredact-prototype
 subjects:
   - kind: Group
     name: "github:justice-redact"
