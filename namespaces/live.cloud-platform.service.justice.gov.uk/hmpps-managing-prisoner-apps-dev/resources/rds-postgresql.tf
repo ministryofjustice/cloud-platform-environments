@@ -40,7 +40,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -107,7 +107,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
