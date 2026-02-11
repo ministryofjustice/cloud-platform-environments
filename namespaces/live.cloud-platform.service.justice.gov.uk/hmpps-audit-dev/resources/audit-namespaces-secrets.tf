@@ -13,6 +13,7 @@ locals {
     "hmpps-book-a-video-link-dev",
     "hmpps-community-accommodation-dev",
     "hmpps-community-payback-dev",
+    "hmpps-community-payback-test",
     "hmpps-contacts-dev",
     "hmpps-court-register-dev",
     "hmpps-digital-prison-services-dev",
