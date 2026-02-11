@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-amend-a-claim-uat-pingdom" {
   type             = "http"
   name             = "${var.application} ${var.environment} - ping"
-  host             = "laa-amend-a-claim-uat.apps.live.cloud-platform.service.justice.gov.uk/"
+  host             = "laa-amend-a-claim-uat.apps.live.cloud-platform.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
   sendnotificationwhendown = 6
