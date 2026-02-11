@@ -64,14 +64,14 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-# Handles any path
+# Handles any path (Use http to avoid cert validation with internal NLB, terminate TLS at the NLB)
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "https://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:443/{proxy}"
+  uri                     = "http://${data.aws_lb.ingress_internal_non_prod_nlb.dns_name}:80/{proxy}"
 
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
