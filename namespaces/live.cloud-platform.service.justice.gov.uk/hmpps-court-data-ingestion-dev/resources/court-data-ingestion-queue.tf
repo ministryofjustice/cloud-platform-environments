@@ -74,3 +74,21 @@ resource "kubernetes_secret" "hmpps_court_data_ingestion_dead_letter_queue" {
     sqs_queue_name = module.hmpps_court_data_ingestion_dead_letter_queue.sqs_name
   }
 }
+
+resource "aws_sqs_queue_policy" "hmpps_court_data_ingestion_queue_mp_policy" {
+  queue_url = module.hmpps_court_data_ingestion_queue.sqs_id
+
+    policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        AWS = "arn:aws:iam::953751538119:role/apigw-sqs-role-mp"
+      }
+      Action = [
+        "sqs:SendMessage"
+      ]
+      Resource = module.hmpps_court_data_ingestion_queue.sqs_arn
+    }]
+  })
+}
