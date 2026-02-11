@@ -4,7 +4,7 @@ module "hmpps-personal-relationships-api" {
   application = "hmpps-personal-relationships-api"
   github_team = "hmpps-prison-visits-booking"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-prison-visits-booking-live"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-prison-visits-booking"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
