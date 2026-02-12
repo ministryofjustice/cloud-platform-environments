@@ -11,41 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Personal Relationships"
+  default     = "LAA Data Stewardship Permissions API"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-personal-relationships-preprod"
+  default     = "laa-data-stewardship-permissions-api-uat"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Data Stewardship"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-move-and-improve"
+  default     = "laa-decide"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preprod"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "civil-decide@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -57,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "public_move-and-improve"
+  default     = "laa-civil-decide"
 }
 
 variable "github_owner" {
@@ -70,14 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "mp_dps_sg_name" {
-  type        = string
-  description = "Required for MP DPR Traffic ingress into CP DPS"
-  default     = "cloudplatform-mp-dps-sg"
 }
