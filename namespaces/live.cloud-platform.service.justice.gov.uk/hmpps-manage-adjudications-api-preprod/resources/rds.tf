@@ -59,7 +59,7 @@ module "ma_rds" {
     ]
 }
 
-module "test_rds" {
+module "rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -119,7 +119,7 @@ module "test_rds" {
     ]
 }
 
-resource "kubernetes_secret" "dps_rds" {
+resource "kubernetes_secret" "dps_ma_rds" {
   metadata {
     name      = "ma-rds-instance-output"
     namespace = var.namespace
@@ -134,6 +134,23 @@ resource "kubernetes_secret" "dps_rds" {
     database_password     = module.ma_rds.database_password
     rds_instance_address  = module.ma_rds.rds_instance_address
     url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "dps_rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    db_identifier         = module.rds.db_identifier
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
