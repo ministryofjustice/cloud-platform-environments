@@ -10,7 +10,7 @@ resource "aws_cognito_user_pool" "pool" {
 }
 
 # The resource named 'client' is our internal app client for testing
-resource "aws_cognito_user_pool_client" "client" {
+resource "aws_cognito_user_pool_client" "client_recreate" {
   name                                 = var.default_app_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
@@ -22,7 +22,7 @@ resource "aws_cognito_user_pool_client" "client" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "advantis" {
+resource "aws_cognito_user_pool_client" "advantis_recreate" {
   name                                 = var.advantis_app_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
