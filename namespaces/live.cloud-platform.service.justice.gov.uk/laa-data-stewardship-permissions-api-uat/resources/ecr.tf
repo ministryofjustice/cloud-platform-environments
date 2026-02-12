@@ -11,8 +11,8 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers        = ["github"]
-  github_repositories   = ["laa-permissions-api"]
+  oidc_providers      = ["github"]
+  github_repositories = ["laa-data-stewardship-permissions-api"]
 
   # Tags
   business_unit          = var.business_unit
@@ -22,4 +22,9 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
+  # uncomment below:
+
+  # enable_irsa = true
 }

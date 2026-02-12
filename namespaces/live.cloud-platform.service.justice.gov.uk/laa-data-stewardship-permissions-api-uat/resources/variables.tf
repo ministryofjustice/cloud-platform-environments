@@ -11,13 +11,19 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "LAA Permissions API"
+  default     = "LAA Data Stewardship Permissions API"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
   default     = "laa-data-stewardship-permissions-api-uat"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Data Stewardship"
 }
 
 variable "business_unit" {
@@ -29,7 +35,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-civil-decide"
+  default     = "laa-decide"
 }
 
 variable "environment" {
@@ -38,15 +44,9 @@ variable "environment" {
   default     = "uat"
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to use, a secret prefix"
-  type        = string
-}
-
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  # TODO: what email?
   default     = "civil-decide@justice.gov.uk"
 }
 
@@ -59,7 +59,6 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  # TODO: what slack channel?
   default     = "laa-civil-decide"
 }
 

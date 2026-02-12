@@ -9,8 +9,10 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-civil-decide"
-    cloud-platform.justice.gov.uk/application: "LAA Permissions API"
-    cloud-platform.justice.gov.uk/owner: "LAA Civil Decide: civil-decide@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-permissions-api"
-    cloud-platform.justice.gov.uk/team-name: "laa-civil-decide"
+    cloud-platform.justice.gov.uk/application:
+      "Data Stewardship Permissions API"
+    cloud-platform.justice.gov.uk/owner:
+      "LAA Civil Decide: civil-decide@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-data-stewardship-permissions-api"
+    cloud-platform.justice.gov.uk/team-name: "laa-decide"
     cloud-platform.justice.gov.uk/review-after: ""

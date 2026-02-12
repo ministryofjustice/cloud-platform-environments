@@ -5,7 +5,7 @@ metadata:
   namespace: laa-data-stewardship-permissions-api-uat
 subjects:
   - kind: Group
-    name: "github:laa-permissions-api"
+    name: "github:laa-decide"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
