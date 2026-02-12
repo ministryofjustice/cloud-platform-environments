@@ -78,7 +78,6 @@ module "test_rds" {
   db_engine_version           = "15.12"
   deletion_protection         = true
   db_engine                   = "postgres"
-  db_password_rotated_date    = "15-02-2023"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
