@@ -1,4 +1,4 @@
-module "hmpps_prisoner_finance_general_ledger_dev" {
+module "hmpps_prisoner_finance_api_dev" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-prisoner-finance-api"
   application = "hmpps-prisoner-finance-api"
