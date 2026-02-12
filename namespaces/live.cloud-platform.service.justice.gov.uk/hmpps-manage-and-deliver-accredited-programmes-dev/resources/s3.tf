@@ -7,6 +7,32 @@ module "upload_s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            module.irsa-cronjob.role_arn,
+            "arn:aws:iam::778742069978:role/im-preprod-s3-datasync"
+          ]
+        }
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      },
+    ]
+  })
+
   providers = {
     aws = aws.london
   }
