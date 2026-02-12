@@ -9,16 +9,10 @@ resource "pingdom_check" "laa-amend-a-claim-dev-pingdom" {
   notifywhenbackup = true
   sendnotificationwhendown = 6
   notifyagainevery = 0
-  url              = "/actuator/health"
+  url              = "/"
   encryption       = true
   port             = 443
   tags             = "businessunit_${var.business_unit},application_${var.namespace},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
   probefilters     = "region:EU"
   integrationids   = [146737]
-
-  # Optional: expected HTTP status code
-  # This ensures Pingdom marks the check as "up" only when it gets a 200 response
-  requestheaders = {
-    "Accept" = "application/json"
-  }
 }
