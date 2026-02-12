@@ -13,8 +13,8 @@ module "dps_rds" {
   db_instance_class            = "db.t4g.small"
   db_max_allocated_storage     = "500"
   deletion_protection          = true
-  prepare_for_major_upgrade   =  true
-  allow_major_version_upgrade =  true
+  prepare_for_major_upgrade   =  false
+  allow_major_version_upgrade =  false
   rds_family                   = "postgres18"
   db_engine                    = "postgres"
   db_engine_version            = "18"
