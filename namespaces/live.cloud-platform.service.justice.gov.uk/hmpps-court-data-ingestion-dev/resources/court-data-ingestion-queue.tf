@@ -5,6 +5,7 @@ module "hmpps_court_data_ingestion_queue" {
   # Queue configuration
   sqs_name                   = "hmpps_court_data_ingestion_queue"
   encrypt_sqs_kms            = "true"
+  kms_external_access        = ["arn:aws:iam::953751538119:role/apigw-sqs-role-mp"]
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
