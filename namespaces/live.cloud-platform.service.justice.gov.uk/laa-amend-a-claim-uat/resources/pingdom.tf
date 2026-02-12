@@ -9,10 +9,10 @@ resource "pingdom_check" "laa-amend-a-claim-uat-pingdom" {
   notifywhenbackup = true
   sendnotificationwhendown = 6
   notifyagainevery = 0
-  url              = "/ping"
+  url              = "/"
   encryption       = true
   port             = 443
   tags             = "businessunit_${var.business_unit},application_${var.namespace},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
   probefilters     = "region:EU"
-  integrationids   = [135342]
+  integrationids   = [146737]
 }
