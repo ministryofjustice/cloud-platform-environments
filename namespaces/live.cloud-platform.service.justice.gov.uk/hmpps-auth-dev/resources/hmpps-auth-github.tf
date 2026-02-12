@@ -4,7 +4,7 @@ module "hmpps-auth" {
   application                   = "hmpps-auth"
   github_team                   = "haha-live"
   environment                   = var.environment-name
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "HAAR-3277-remove-forked-oauth-library-INTEGRATION"]
   protected_branches_only       = true
   is_production                 = var.is_production
   application_insights_instance = var.environment-name
