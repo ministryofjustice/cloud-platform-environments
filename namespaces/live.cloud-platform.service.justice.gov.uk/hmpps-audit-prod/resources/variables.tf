@@ -58,7 +58,7 @@ variable "github_token" {
 
 variable "approved_prisoner_audit_clients" {
   type    = list(string)
-  default = ["hmpps-launchpad-prod", "hmpps-launchpad-prod-2"]
+  default = ["hmpps-launchpad-prod-2"]
 }
 
 variable "kubernetes_cluster" {}
