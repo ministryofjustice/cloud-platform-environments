@@ -2,6 +2,8 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-cvl_domain_events_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-cvl_domain_events_dead_letter_queue" = "hmpps-domain-events-dev",
+    "Digital-Prison-Services-dev-cvl_prison_events_queue"       = "offender-events-dev",
+    "Digital-Prison-Services-dev-cvl_prison_events_queue_dl"    = "offender-events-dev"
   }
   sqs_policies = {
     cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
