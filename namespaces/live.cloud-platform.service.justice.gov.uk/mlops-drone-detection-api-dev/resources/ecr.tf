@@ -12,7 +12,9 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["https://github.com/ministryofjustice/mlops-drone-detection-api"]
+  github_environments = ["dev"]
+  github_actions_prefix = "dev"
 
   # Tags
   business_unit          = var.business_unit
