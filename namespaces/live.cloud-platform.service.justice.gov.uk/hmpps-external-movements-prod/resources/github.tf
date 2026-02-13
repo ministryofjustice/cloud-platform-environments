@@ -1,5 +1,5 @@
 module "external-movements-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-movements-api"
   application                   = "hmpps-external-movements-api"
   github_team                   = var.team_name
@@ -16,7 +16,7 @@ module "external-movements-api" {
 }
 
 module "external-movements-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo                   = "hmpps-external-movements-ui"
   application                   = "hmpps-external-movements-ui"
   github_team                   = var.team_name
