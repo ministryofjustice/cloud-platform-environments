@@ -44,7 +44,7 @@ resource "aws_sns_topic_subscription" "adda_domain_events_subscription" {
   endpoint  = module.adda_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "sas.proposed.accommodation.updated",
+      "sas.accommodation.updated",
     ]
   })
 }
