@@ -59,7 +59,7 @@ module "ma_rds" {
     ]
 }
 
-module "test_rds" {
+module "rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -137,6 +137,23 @@ resource "kubernetes_secret" "dps_rds" {
   }
 }
 
+resource "kubernetes_secret" "dps_new_rds" {
+  metadata {
+    name      = "rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    db_identifier         = module.rds.db_identifier
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}
+
 # This places a secret for this preprod RDS instance in the production namespace,
 # this can then be used by a kubernetes job which will refresh the preprod data.
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
@@ -151,6 +168,24 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     database_username     = module.ma_rds.database_username
     database_password     = module.ma_rds.database_password
     rds_instance_address  = module.ma_rds.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_new_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-manage-adjudications-api-prod"
+  }
+
+  data = {
+    db_identifier         = module.rds.db_identifier
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
 }
 
