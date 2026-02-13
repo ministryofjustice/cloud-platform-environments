@@ -109,10 +109,20 @@ resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_domain_events_su
       "adjudication.report.created",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_offender_events_subscription_details" {
+  provider  = aws.london
+  topic_arn = module.offender_events.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.pathfinder_api_queue_for_domain_events.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
       "OFFENDER_BOOKING-REASSIGNED",
       "OFFENDER_UPDATED",
       "BOOKING_NUMBER-CHANGED",
-      "BED_ASSIGNMENT_HISTORY-INSERTED",
       "SENTENCE_DATES-CHANGED",
       "CONFIRMED_RELEASE_DATE-CHANGED"
     ]
