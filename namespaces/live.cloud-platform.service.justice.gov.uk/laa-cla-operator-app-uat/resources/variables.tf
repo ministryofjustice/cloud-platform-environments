@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Information and Advice"
+  default     = "Information & Advice"
 }
 
 variable "business_unit" {
