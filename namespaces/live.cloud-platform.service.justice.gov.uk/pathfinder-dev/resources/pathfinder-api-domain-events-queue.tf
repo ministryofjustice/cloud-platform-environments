@@ -42,9 +42,9 @@ resource "aws_sqs_queue_policy" "pathfinder_api_queue_for_domain_events_queue_po
           "Action": "SQS:SendMessage",
           "Condition":
           {
-            "ForAnyValue:ArnEquals":
+            "ArnEquals":
               {
-                "aws:SourceArn": ["${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}", "${data.aws_ssm_parameter.offender-events-topic-arn.value}"]
+                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
               }
           }
         }
@@ -110,22 +110,6 @@ resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_domain_events_su
       "adjudication.report.created",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
-    ]
-  })
-}
-
-resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_offender_events_subscription_details" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.pathfinder_api_queue_for_domain_events.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "OFFENDER_BOOKING-REASSIGNED",
-      "OFFENDER_UPDATED",
-      "BOOKING_NUMBER-CHANGED",
-      "SENTENCE_DATES-CHANGED",
-      "CONFIRMED_RELEASE_DATE-CHANGED"
     ]
   })
 }
