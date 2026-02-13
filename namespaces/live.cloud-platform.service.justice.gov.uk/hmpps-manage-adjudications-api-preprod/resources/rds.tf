@@ -119,7 +119,7 @@ module "rds" {
     ]
 }
 
-resource "kubernetes_secret" "dps_ma_rds" {
+resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "ma-rds-instance-output"
     namespace = var.namespace
@@ -137,7 +137,7 @@ resource "kubernetes_secret" "dps_ma_rds" {
   }
 }
 
-resource "kubernetes_secret" "dps_rds" {
+resource "kubernetes_secret" "dps_new_rds" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
@@ -168,6 +168,24 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
     database_username     = module.ma_rds.database_username
     database_password     = module.ma_rds.database_password
     rds_instance_address  = module.ma_rds.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_new_rds_refresh_creds" {
+  metadata {
+    name      = "rds-instance-output-preprod"
+    namespace = "hmpps-manage-adjudications-api-prod"
+  }
+
+  data = {
+    db_identifier         = module.rds.db_identifier
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
 }
 
