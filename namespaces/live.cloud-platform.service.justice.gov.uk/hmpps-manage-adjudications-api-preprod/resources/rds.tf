@@ -81,7 +81,7 @@ module "rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
-  db_allocated_storage        = "1500"
+  db_allocated_storage        = "2000"
   enable_irsa                 = true
 
   snapshot_identifier = "rds-cloud-platform-6c035586d92ac925-2026-02-11-14-31"
