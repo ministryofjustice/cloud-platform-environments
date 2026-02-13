@@ -42,11 +42,11 @@ resource "aws_sqs_queue_policy" "pathfinder_api_queue_for_domain_events_queue_po
           "Action": "SQS:SendMessage",
           "Condition":
           {
-            "ArnEquals":
+            "ForAnyValue:ArnEquals":
               {
-                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                "aws:SourceArn": ["${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}", "${data.aws_ssm_parameter.offender-events-topic-arn.value}"]
               }
-            }
+          }
         }
       ]
   }
