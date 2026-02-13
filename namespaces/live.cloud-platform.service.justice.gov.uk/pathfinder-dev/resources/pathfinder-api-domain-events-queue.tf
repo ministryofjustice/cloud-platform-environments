@@ -116,7 +116,7 @@ resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_domain_events_su
 
 resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_offender_events_subscription_details" {
   provider  = aws.london
-  topic_arn = module.offender_events.topic_arn
+  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.pathfinder_api_queue_for_domain_events.sqs_arn
   filter_policy = jsonencode({
