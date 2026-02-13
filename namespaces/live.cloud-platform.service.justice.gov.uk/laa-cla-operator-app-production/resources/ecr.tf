@@ -6,7 +6,6 @@
  */
 module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-  team_name = var.team_name
 
   # ECR Repository configuration
   repo_name = "laa-cla-operator-app-ecr"
