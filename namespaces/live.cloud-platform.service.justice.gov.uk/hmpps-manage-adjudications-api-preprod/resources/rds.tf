@@ -94,25 +94,6 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
   }
 }
 
-# This places a secret for this preprod RDS instance in the production namespace,
-# this can then be used by a kubernetes job which will refresh the preprod data.
-resource "kubernetes_secret" "dps_new_rds_refresh_creds" {
-  metadata {
-    name      = "rds-instance-output-preprod"
-    namespace = "hmpps-manage-adjudications-api-prod"
-  }
-
-  data = {
-    db_identifier         = module.rds.db_identifier
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-  }
-}
-
-
 # Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
