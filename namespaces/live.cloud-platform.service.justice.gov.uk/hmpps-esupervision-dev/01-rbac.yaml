@@ -13,6 +13,9 @@ subjects:
   - kind: Group
     name: "github:hmpps-haar-client-admin"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-esupervision-devs"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
