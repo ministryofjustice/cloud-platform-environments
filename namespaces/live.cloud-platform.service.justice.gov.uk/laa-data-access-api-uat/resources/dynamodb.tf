@@ -20,6 +20,33 @@ module "laa_data_access_api_dynamodb" {
   autoscale_min_read_capacity = 1
   autoscale_min_write_capacity = 1
 
+  attributes = [
+    {
+      name = "pk"
+      type = "S"
+    },
+    {
+      name = "sk"
+      type = "S"
+    },
+    {
+      name = "gs1pk"
+      type = "S"
+    },
+    {
+      name = "gs1sk"
+      type = "S"
+    },
+    {
+      name = "gs2pk"
+      type = "S"
+    },
+    {
+      name = "gs2sk"
+      type = "S"
+    }
+  ]
+
   global_secondary_indexes = [
     {
       name               = "gs-index-1"
