@@ -2,7 +2,7 @@ module "hmpps_template_kotlin" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-probation-supervision-appointments-api"
   application = "hmpps-probation-supervision-appointments-api"
-  github_team = "probation-integration"
+  github_team = "hmpps-manage-people-on-probation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-prod.yaml
   reviewer_teams                = ["hmpps-manage-people-on-probation"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
