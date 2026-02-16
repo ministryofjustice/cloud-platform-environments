@@ -40,7 +40,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
+  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -107,7 +107,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -117,14 +117,20 @@ resource "kubernetes_secret" "read_replica" {
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
 
-  /*
+
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_address  = module.read_replica[0].rds_instance_address
+
+    # rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    # rds_instance_address  = module.read_replica[0].rds_instance_address
+    # access_key_id         = module.read_replica[0].access_key_id
+    # secret_access_key     = module.read_replica[0].secret_access_key
   }
-  */
+
 }
 
 
