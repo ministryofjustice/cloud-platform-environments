@@ -19,9 +19,10 @@ module "rds" {
   db_max_allocated_storage     = "500"
 
   # PostgresSQL specifics
+  prepare_for_major_upgrade = true
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
   # Tags
