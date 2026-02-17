@@ -5,7 +5,6 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    s3 = module.s3.irsa_policy_arn
     rds = module.rds.irsa_policy_arn
   }
 
