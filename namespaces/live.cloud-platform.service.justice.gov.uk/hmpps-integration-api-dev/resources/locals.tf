@@ -42,6 +42,7 @@ locals {
     "jwylde",
     "community-payback-dev",
     "daso",
+    "community-campus",
   ]
 
   client_queues = {
