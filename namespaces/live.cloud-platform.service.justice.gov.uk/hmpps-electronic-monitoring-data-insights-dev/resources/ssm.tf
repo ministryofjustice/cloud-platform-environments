@@ -3,7 +3,18 @@ data "aws_ssm_parameter" "athena_general_role_arn" {
   with_decryption = true
 }
 
-# This is read after updating using aws cli
+# -----------------------------------------------------------------------------
+# This SSM parameter stores the MOD Platform IAM role ARN that the application
+# will assume when querying Athena.
+#
+# IMPORTANT:
+# - Terraform only creates the parameter and manages its name/lifecycle.
+# - The *value* is intentionally set to a placeholder and must be updated
+#   manually (or via platform automation) to the real MOD role ARN.
+#
+# The application reads this parameter via namespace Terraform and exposes it
+# to the pod as ATHENA_GENERAL_IAM_ROLE.
+# -----------------------------------------------------------------------------
 resource "aws_ssm_parameter" "athena_general_role_arn" {
   name        = "/${var.namespace}/athena_general_role_arn"
   type        = "SecureString"
