@@ -75,7 +75,7 @@ module "laa_data_access_api_dynamodb" {
 
 resource "kubernetes_secret" "laa_data_access_api_dynamodb" {
   metadata {
-    name      = "domain_events"
+    name      = "domain-events"
     namespace = var.namespace
   }
   data = {
