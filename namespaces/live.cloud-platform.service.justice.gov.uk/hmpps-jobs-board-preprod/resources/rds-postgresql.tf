@@ -121,8 +121,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "read_replica" {
-  # default off
-  count                = 0
+  count                = 1
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
