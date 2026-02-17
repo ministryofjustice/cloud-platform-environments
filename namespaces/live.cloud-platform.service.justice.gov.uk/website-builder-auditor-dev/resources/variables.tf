@@ -44,6 +44,12 @@ variable "environment" {
   default     = "development"
 }
 
+variable "eks_cluster_name" {
+  type        = string
+  description = "The name of the EKS cluster to deploy to.
+  default = "live"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
