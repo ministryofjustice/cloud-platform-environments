@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-manage-a-civil-application-dev-admin
-  namespace: laa-manage-a-civil-application-dev
+  name: laa-civil-manage-dev-admin
+  namespace: laa-civil-manage-dev
 subjects:
   - kind: Group
     name: "github:laa-civil-manage-an-application"
