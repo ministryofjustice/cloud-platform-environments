@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ai-website-prod
+  name: ai-unit-leveson-prod
   labels:
     cloud-platform.justice.gov.uk/is-production: "true"
     cloud-platform.justice.gov.uk/environment-name: "production"
@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "justice-ai-unit"
     cloud-platform.justice.gov.uk/application: "Justice AI"
     cloud-platform.justice.gov.uk/owner: "Justice AI Unit: ai@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ai-website"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ai-unit-leveson"
     cloud-platform.justice.gov.uk/team-name: "justice-ai-unit"
     cloud-platform.justice.gov.uk/review-after: "2026-01-23"

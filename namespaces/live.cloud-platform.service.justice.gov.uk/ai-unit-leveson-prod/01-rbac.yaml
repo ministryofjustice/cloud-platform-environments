@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: ai-website-prod-admin
-  namespace: ai-website-prod
+  name: ai-unit-leveson-prod-admin
+  namespace: ai-unit-leveson-prod
 subjects:
   - kind: Group
     name: "github:justice-ai-unit"
