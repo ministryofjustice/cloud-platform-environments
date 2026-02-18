@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Apply for criminal legal aid"
+  default     = "apply-for-criminal-legal-aid"
 }
 
 variable "namespace" {
