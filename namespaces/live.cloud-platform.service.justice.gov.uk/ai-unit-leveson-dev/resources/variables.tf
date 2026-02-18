@@ -11,7 +11,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of Application you are deploying"
   type        = string
-  default     = "Justice AI - Leveson Website"
+  default     = "Leveson modernisation Website"
 }
 
 variable "namespace" {
@@ -59,7 +59,7 @@ variable "slack_channel" {
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
-  default     = "JusticeAIUnit"
+  default     = "ministryofjustice"
 }
 
 variable "github_token" {
@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "leveson"
+  default     = "ai-unit-leveson"
 }
