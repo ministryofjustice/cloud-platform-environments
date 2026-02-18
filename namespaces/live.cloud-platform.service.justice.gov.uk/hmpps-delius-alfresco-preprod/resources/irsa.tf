@@ -83,7 +83,7 @@ resource "aws_ssm_parameter" "s3_bucket_name" {
   }
 }
 
-resource "aws_ssm_parameter" "s3-bucket-arn" {
+resource "aws_ssm_parameter" "s3_bucket_arn" {
   type        = "String"
   # this will be namespace-two
   name        = "/${var.namespace}/s3-bucket-arn"
