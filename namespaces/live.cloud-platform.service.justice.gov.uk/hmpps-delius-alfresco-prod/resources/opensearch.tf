@@ -93,6 +93,19 @@ resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
   }
 }
 
+resource "kubernetes_secret" "s3_opensearch_snapshots_bucket_refresh" {
+  metadata {
+    name      = "s3-opensearch-snapshots-bucket-output-prod"
+    namespace = "hmpps-delius-alfresco-preprod"
+  }
+
+  data = {
+    BUCKET_ARN      = module.s3_opensearch_snapshots_bucket.bucket_arn
+    BUCKET_NAME     = module.s3_opensearch_snapshots_bucket.bucket_name
+    IRSA_POLICY_ARN = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
+  }
+}
+
 resource "aws_iam_user" "opensearch_snapshots" {
   name = "${var.namespace}-opensearch_snapshots_user"
   path = "/system/${var.namespace}-opensearch_snapshots_user/"
