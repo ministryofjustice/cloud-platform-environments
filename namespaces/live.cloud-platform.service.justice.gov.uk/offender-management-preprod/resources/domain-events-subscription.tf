@@ -11,7 +11,6 @@ resource "aws_sns_topic_subscription" "domain_events" {
       "prisoner-offender-search.prisoner.released",
       "probation-case.registration.added",
       "probation-case.registration.deleted",
-      "probation-case.registration.deregistered",
       "probation-case.registration.updated",
       "tier.calculation.complete"
     ]
