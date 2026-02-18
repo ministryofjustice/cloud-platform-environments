@@ -123,7 +123,6 @@ data "aws_security_group" "mp_dps_sg" {
 module "read_replica" {
   count                = 1
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage = 20
   storage_type         = "gp2"
 
   # Add security group id
