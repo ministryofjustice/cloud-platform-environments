@@ -39,6 +39,7 @@ locals {
     "hmpps-support-additional-needs-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
+    "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging"
   ])
