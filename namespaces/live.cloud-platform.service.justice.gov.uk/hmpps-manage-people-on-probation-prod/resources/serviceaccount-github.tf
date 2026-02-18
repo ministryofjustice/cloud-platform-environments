@@ -95,8 +95,8 @@ resource "time_rotating" "weekly" {
 ### Copy these three lines and change accordingly for your github team ###
 ### then add the variable name to the teams list below                 ###
 
-data "github_team" "probation-integration" {
-  slug = "probation-integration"
+data "github_team" "hmpps-manage-people-on-probation" {
+  slug = "hmpps-manage-people-on-probation"
 }   
 
 ##########################################################################
@@ -109,7 +109,7 @@ resource "github_repository_environment" "env" {
 # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.probation-integration.id)
+      tonumber(data.github_team.hmpps-manage-people-on-probation.id)
     ]
   }
   deployment_branch_policy {
