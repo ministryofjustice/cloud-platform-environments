@@ -63,3 +63,10 @@ resource "aws_iam_policy" "athena_allow_irsa" {
   description = "IRSA policy to run Athena queries for S3 Inventory checker"
   policy      = data.aws_iam_policy_document.athena_irsa.json
 }
+
+data "kubernetes_service_account" "prod_irsa" {
+  metadata {
+    name      = "hmpps-migration-prod"
+    namespace = "hmpps-delius-alfresco-prod"
+  }
+}

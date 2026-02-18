@@ -77,6 +77,37 @@ module "s3_opensearch_snapshots_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowBucketAccess"
+        Effect = "Allow"
+
+        Principal = {
+          AWS = [
+            module.irsa.role_arn,
+            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"]
+          ]
+        }
+
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:GetObjectVersion",
+          "s3:DeleteObject",
+          "s3:ListMultipartUploadParts",
+          "s3:AbortMultipartUpload",
+          "s3:ListBucketMultipartUploads"
+        ]
+
+        Resource = [
+          "$${bucket_arn}/*",
+          "$${bucket_arn}"
+        ]
+      }
+    ]
+  })
 }
 
 resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
