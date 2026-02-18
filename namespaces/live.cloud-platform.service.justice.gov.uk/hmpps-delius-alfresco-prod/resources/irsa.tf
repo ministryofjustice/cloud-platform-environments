@@ -10,6 +10,7 @@ module "irsa" {
     s3        = module.s3_bucket.irsa_policy_arn
     migration = aws_iam_policy.migration_policy.arn
     athena    = aws_iam_policy.athena_allow_irsa.arn
+
   }
 
   # Tags
@@ -62,38 +63,4 @@ resource "aws_iam_policy" "athena_allow_irsa" {
   path        = "/cloud-platform/"
   description = "IRSA policy to run Athena queries for S3 Inventory checker"
   policy      = data.aws_iam_policy_document.athena_irsa.json
-}
-
-# Enable Prod SA role to Access Preprod S3 bucket for file Sync
-data "aws_ssm_parameter" "s3-bucket-arn" {
-  name = "/hmpps-delius-alfresco-preprod/s3-bucket-arn"
-}
-
-data "aws_iam_policy_document" "hmpps-delius-alfresco-preprod-s3-access" {
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-    ]
-    resources = [
-      "${data.aws_ssm_parameter.s3-bucket-arn.value}/*",
-    ]
-  }
-}
-
-resource "aws_iam_policy" "hmpps-delius-alfresco-preprod-s3-access" {
-    name   = "hmpps-delius-alfresco-preprod-s3-access"
-    policy = data.aws_iam_policy_document.hmpps-delius-alfresco-preprod-s3-access.json
-
-    tags = {
-      business_unit          = var.business_unit
-      application            = var.application
-      is_production          = var.is_production
-      team_name              = var.team_name
-      namespace              = var.namespace # this is also used to attach your service account to your namespace
-      environment_name       = var.environment_name
-      infrastructure_support = var.infrastructure_support
-    }
 }
