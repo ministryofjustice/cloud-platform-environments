@@ -19,7 +19,7 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "550"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   enable_irsa                  = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
@@ -127,6 +127,8 @@ module "read_replica" {
 
   # Add security group id
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_max_allocated_storage = "550"
 
   vpc_name               = var.vpc_name
   application            = var.application
