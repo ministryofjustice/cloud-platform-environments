@@ -10,7 +10,6 @@ module "irsa" {
     s3        = module.s3_bucket.irsa_policy_arn
     migration = aws_iam_policy.migration_policy.arn
     athena    = aws_iam_policy.athena_allow_irsa.arn
-
   }
 
   # Tags
