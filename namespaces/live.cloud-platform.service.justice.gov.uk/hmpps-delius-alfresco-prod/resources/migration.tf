@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "migration_policy" {
     resources = [
       "${module.s3_bucket.bucket_arn}/*",
       "arn:aws:s3:::tf-eu-west-2-hmpps-delius-prod-alfresco-storage-s3bucket/*",
-      "data.aws_ssm_parameter.s3_bucket_arn.value/*"
+      "${data.aws_ssm_parameter.s3_bucket_arn.value}/*"
     ]
   }
   statement {
