@@ -13,6 +13,9 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
+
   # change the postgres version as you see fit.
   db_engine         = "postgres"
   db_engine_version = "17"
