@@ -128,7 +128,14 @@ resource "aws_iam_policy" "opensearch_s3_listbucket" {
   })
 }
 
+locals {
+  snapshot_role_name = element(
+    split("/", module.opensearch.snapshot_role_arn),
+    1
+  )
+}
+
 resource "aws_iam_role_policy_attachment" "attach_snapshot_listbucket" {
-  role       = module.opensearch.snapshot_role_arn
+  role       = local.snapshot_role_name
   policy_arn = aws_iam_policy.opensearch_s3_listbucket.arn
 }
