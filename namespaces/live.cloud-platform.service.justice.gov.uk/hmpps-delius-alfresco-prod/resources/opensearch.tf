@@ -87,11 +87,13 @@ module "s3_opensearch_snapshots_bucket" {
         Principal = {
           AWS = [
             module.irsa.role_arn,
-            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"]
+            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"],
+            module.opensearch.snapshot_role_arn
           ]
         }
 
         Action = [
+          "s3:ListBucket",
           "s3:GetObject",
           "s3:PutObject",
           "s3:GetObjectVersion",
