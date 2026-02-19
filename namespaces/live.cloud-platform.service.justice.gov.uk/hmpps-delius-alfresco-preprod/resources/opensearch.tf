@@ -122,7 +122,7 @@ resource "aws_iam_policy" "opensearch_s3_listbucket" {
       {
         Effect   = "Allow"
         Action   = "s3:ListBucket"
-        Resource = data.aws_ssm_parameter.s3_bucket_arn
+        Resource = data.aws_ssm_parameter.s3_bucket_arn.value
       }
     ]
   })
