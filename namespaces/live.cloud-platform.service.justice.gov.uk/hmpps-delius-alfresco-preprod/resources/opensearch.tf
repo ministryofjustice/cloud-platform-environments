@@ -114,15 +114,27 @@ data "aws_ssm_parameter" "s3_bucket_arn" {
 
 resource "aws_iam_policy" "opensearch_s3_listbucket" {
   name        = "opensearch-s3-listbucket"
-  description = "Allow OpenSearch snapshot role to list the S3 bucket for snapshots"
+  description = "Allow OpenSearch snapshot role to pull S3 bucket snapshots"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = "s3:ListBucket"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ]
         Resource = data.aws_ssm_parameter.s3_bucket_arn.value
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${data.aws_ssm_parameter.s3_bucket_arn.value}/*"
       }
     ]
   })
