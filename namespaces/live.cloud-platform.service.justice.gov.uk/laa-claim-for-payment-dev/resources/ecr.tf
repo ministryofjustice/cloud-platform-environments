@@ -53,7 +53,7 @@ module "stub-civil-claims-api-ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-claim-for-payment-stubs"]
-  github_actions_prefix = "stub-civil-claims-api"
+  github_actions_prefix = "stub_civil_claims_api"
   # Tags
   business_unit          = var.business_unit
   application            = var.application
