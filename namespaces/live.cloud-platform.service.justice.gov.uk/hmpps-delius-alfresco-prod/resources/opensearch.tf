@@ -93,6 +93,7 @@ module "s3_opensearch_snapshots_bucket" {
         }
 
         Action = [
+          "s3:ListBucket",
           "s3:GetObject",
           "s3:PutObject",
           "s3:GetObjectVersion",
