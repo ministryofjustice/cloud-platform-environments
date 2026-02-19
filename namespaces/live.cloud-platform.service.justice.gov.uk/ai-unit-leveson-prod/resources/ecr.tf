@@ -1,7 +1,7 @@
 module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
-  repo_name = "${var.namespace}-ecr"
+  repo_name = "ai-unit-leveson"
 
   lifecycle_policy = <<EOF
   {
