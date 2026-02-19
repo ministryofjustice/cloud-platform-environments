@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: laa-data-stewardship-permissions-api-uat
+  namespace: laa-ds-permissions-api-uat
 spec:
   limits:
   - default:

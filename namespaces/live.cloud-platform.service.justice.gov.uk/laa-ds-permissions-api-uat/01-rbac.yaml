@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-data-stewardship-permissions-api-uat-admin
-  namespace: laa-data-stewardship-permissions-api-uat
+  name: laa-ds-permissions-api-uat-admin
+  namespace: laa-ds-permissions-api-uat
 subjects:
   - kind: Group
     name: "github:laa-decide"
