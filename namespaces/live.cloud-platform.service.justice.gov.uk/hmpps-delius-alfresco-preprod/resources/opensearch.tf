@@ -106,3 +106,29 @@ resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
 }
+
+# Enable preprod snapshot role to access prod snapshot S3 bucket
+data "aws_ssm_parameter" "s3_bucket_arn" {
+  name = "/hmpps-delius-alfresco-prod/opensearch-snapshot-s3bucket"
+}
+
+resource "aws_iam_policy" "opensearch_s3_listbucket" {
+  name        = "opensearch-s3-listbucket"
+  description = "Allow OpenSearch snapshot role to list the S3 bucket for snapshots"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "s3:ListBucket"
+        Resource = data.aws_ssm_parameter.s3_bucket_arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach_snapshot_listbucket" {
+  role       = module.opensearch.snapshot_role_arn
+  policy_arn = aws_iam_policy.opensearch_s3_listbucket.arn
+}
