@@ -26,7 +26,6 @@ module "opensearch" {
     warm_type    = "ultrawarm1.medium.search"
   }
 
-
   advanced_options = {
     # increase the maxClauseCount to 4096
     "indices.query.bool.max_clause_count" = "4096"
@@ -151,4 +150,21 @@ resource "aws_iam_access_key" "opensearch_snapshots" {
 resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
+}
+
+# Enable preprod SA access to prod bucket
+resource "aws_ssm_parameter" "s3_bucket_name" {
+  type        = "String"
+  name        = "/${var.namespace}/opensearch-snapshot-s3bucket"
+  value       = module.s3_opensearch_snapshots_bucket.bucket_arn
+  description = "ARN of opensearch snapshot s3 bucket"
+  tags = {
+      business-unit          = var.business_unit
+      application            = var.application
+      is-production          = var.is_production
+      owner                  = var.team_name
+      environment-name       = var.environment_name
+      infrastructure-support = var.infrastructure_support
+      namespace              = var.namespace
+  }
 }
