@@ -44,7 +44,7 @@ module "ecr-mock-oidc" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "claim-stubs" {
+module "stub-civil-claims-api-ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
@@ -52,8 +52,8 @@ module "claim-stubs" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment-stubs", "laa-claim-for-payment", "laa-claim-for-payment-frontend", "laa-assess-a-claim-frontend"]
-  github_actions_prefix = "api_stubs"
+  github_repositories = ["laa-claim-for-payment-stubs"]
+  github_actions_prefix = "stub-civil-claims-api"
   # Tags
   business_unit          = var.business_unit
   application            = var.application
