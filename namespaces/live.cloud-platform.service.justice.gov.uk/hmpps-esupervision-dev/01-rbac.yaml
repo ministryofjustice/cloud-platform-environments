@@ -8,12 +8,6 @@ subjects:
     name: "github:stg-pathfinders"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-sre"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:hmpps-haar-client-admin"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:hmpps-esupervision-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
