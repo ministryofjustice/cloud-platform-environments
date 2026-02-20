@@ -59,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "property"
+  default     = "dmet-corporate"
 }
 
 variable "github_owner" {
