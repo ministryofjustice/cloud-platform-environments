@@ -29,6 +29,7 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
+    module.hmpps-integration-events.irsa_policy_arn,
   )
   # Tags
   business_unit          = var.business_unit
