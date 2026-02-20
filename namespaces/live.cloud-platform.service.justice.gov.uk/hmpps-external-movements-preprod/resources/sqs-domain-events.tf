@@ -45,6 +45,7 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
       "person.temporary-absence-authorisation.denied",
       "person.temporary-absence-authorisation.cancelled",
       "person.temporary-absence-authorisation.deferred",
+      "person.temporary-absence-authorisation.expired",
     ]
   })
 }
