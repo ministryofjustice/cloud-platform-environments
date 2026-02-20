@@ -128,14 +128,14 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
-    db_identifier         = module.rds.db_identifier
-    resource_id           = module.rds.resource_id
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    db_identifier         = module.ma_rds.db_identifier
+    resource_id           = module.ma_rds.resource_id
+    rds_instance_endpoint = module.ma_rds.rds_instance_endpoint
+    database_name         = module.ma_rds.database_name
+    database_username     = module.ma_rds.database_username
+    database_password     = module.ma_rds.database_password
+    rds_instance_address  = module.ma_rds.rds_instance_address
+    url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
   }
 }
 
@@ -148,11 +148,11 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.ma_rds.rds_instance_endpoint
+    database_name         = module.ma_rds.database_name
+    database_username     = module.ma_rds.database_username
+    database_password     = module.ma_rds.database_password
+    rds_instance_address  = module.ma_rds.rds_instance_address
   }
 }
 
