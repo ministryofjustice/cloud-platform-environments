@@ -129,7 +129,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
             ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
@@ -168,7 +169,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
             ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
@@ -267,6 +269,42 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
         ],
         Resource = module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
       },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "unify_s3_upload_role" {
+  name = "pcms-dev-unify-s3-upload-role"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::754256621582:role/cloud-platform-irsa-c2feaa360fb001e8-live" # TEMP: using pathfinder IRSA for dev testing only
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "unify_s3_upload_role_policy" {
+  name = "pcms-dev-unify-s3-upload-role-policy"
+  role = aws_iam_role.unify_s3_upload_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
       {
         Effect = "Allow",
         Action = [
