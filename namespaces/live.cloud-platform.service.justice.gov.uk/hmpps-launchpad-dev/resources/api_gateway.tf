@@ -76,14 +76,16 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
   timeout_milliseconds    = 29000
+  passthrough_behavior    = "WHEN_NO_MATCH"
 
   request_parameters = {
     "integration.request.path.proxy"                = "method.request.path.proxy"
+    # Tell the backend the original client protocol was HTTPS to prevent 308 redirects
+    "integration.request.header.X-Forwarded-Proto"  = "'https'"
+    "integration.request.header.X-Forwarded-Port"   = "'443'"
     "integration.request.header.Host"               = "'launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk'"
-    "integration.request.header.X-Forwarded-Proto"  = "'http'"
-    "integration.request.header.X-Forwarded-Port"   = "'80'"
   }
-  # Ensure query strings are passed through
+  # Pass proxy path as cache key so query strings are forwarded correctly
   cache_key_parameters = ["method.request.path.proxy"]
 }
 
