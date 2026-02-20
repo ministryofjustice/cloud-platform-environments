@@ -5,7 +5,7 @@ metadata:
   namespace: laa-crown-court-litigator-fees-staging
 subjects:
   - kind: Group
-    name: "github:laa-clair-taskforce"
+    name: "github:LAA-CLAIR-Taskforce"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:laa-sre-admins"

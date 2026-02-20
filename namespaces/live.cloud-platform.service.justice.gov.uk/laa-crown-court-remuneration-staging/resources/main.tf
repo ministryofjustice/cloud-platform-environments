@@ -16,7 +16,7 @@ provider "aws" {
       service-area = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-clair-taskforce"
+      GithubTeam = "LAA-CLAIR-Taskforce"
     }
   }
 }
@@ -35,7 +35,7 @@ provider "aws" {
       service-area = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-clair-taskforce"
+      GithubTeam = "LAA-CLAIR-Taskforce"
     }
   }
 }
@@ -54,7 +54,7 @@ provider "aws" {
       service-area = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam = "laa-clair-taskforce"
+      GithubTeam = "LAA-CLAIR-Taskforce"
     }
   }
 }
