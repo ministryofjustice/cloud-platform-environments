@@ -64,14 +64,14 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-# Handles any path (Use http to avoid cert validation with internal NLB, terminate TLS at the NLB)
+# Handles any path (Use https)
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk/{proxy}"
+  uri                     = "https://launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk/{proxy}"
 
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
@@ -79,13 +79,10 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   passthrough_behavior    = "WHEN_NO_MATCH"
 
   request_parameters = {
-    "integration.request.path.proxy"                = "method.request.path.proxy"
-    # Tell the backend the original client protocol was HTTPS to prevent 308 redirects
-    "integration.request.header.X-Forwarded-Proto"  = "'https'"
-    "integration.request.header.X-Forwarded-Port"   = "'443'"
-    "integration.request.header.Host"               = "'launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk'"
+    "integration.request.path.proxy"  = "method.request.path.proxy"
+    "integration.request.header.Host" = "'launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk'"
   }
-  # Pass proxy path as cache key so query strings are forwarded correctly
+
   cache_key_parameters = ["method.request.path.proxy"]
 }
 
