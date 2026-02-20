@@ -13,6 +13,8 @@ module "rds" {
   enable_irsa                  = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
+  snapshot_identifier          = "cloud-platform-a3cd3a06708f99a5-2026-02-20-13-07-manual-snapshot"
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "17"
