@@ -30,9 +30,9 @@ output "api_gateway_api_key_secret_names" {
   }
 }
 
-# Internal NLB IP addresses to add to ingress allowlist
-output "internal_nlb_ip_addresses" {
-  description = "Private IP addresses of the internal NLB - Add these to Ingress Allow List in values-dev.yaml"
+# NLB IP addresses to add to ingress allowlist
+output "non_prod_nlb_ip_addresses" {
+  description = "IP addresses of the default NLB - Add these to Ingress Allow List in values-dev.yaml"
   value = toset(flatten([
     for eni_id, eni in data.aws_network_interface.nlb_eni_details : [
       eni.private_ip
@@ -41,18 +41,18 @@ output "internal_nlb_ip_addresses" {
 }
 
 output "vpc_link_id" {
-  description = "VPC Link ID connecting API Gateway to internal NLB"
+  description = "VPC Link ID connecting API Gateway to default NLB"
   value       = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
 }
 
 output "internal_nlb_arn" {
-  description = "ARN of the internal NLB used by VPC Link"
-  value       = data.aws_lb.ingress_internal_non_prod_nlb.arn
+  description = "ARN of the default NLB used by VPC Link"
+  value       = data.aws_lb.ingress_default_non_prod_nlb.arn
 }
 
-output "internal_nlb_dns_name" {
-  description = "DNS name of the internal NLB"
-  value       = data.aws_lb.ingress_internal_non_prod_nlb.dns_name
+output "non_prod_nlb_nlb_dns_name" {
+  description = "DNS name of the default NLB"
+  value       = data.aws_lb.ingress_default_non_prod_nlb.dns_name
 }
 
 output "allowlist_cidr_blocks" {
