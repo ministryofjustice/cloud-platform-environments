@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "laa-apply-for-criminal-legal-aid"
+  default     = "apply-for-criminal-legal-aid"
 }
 
 variable "namespace" {
