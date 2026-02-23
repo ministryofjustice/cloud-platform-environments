@@ -26,3 +26,4 @@ spec:
   dnsNames:
     - manage-and-deliver-acp-api-dev.hmpps.service.justice.gov.uk
     - accredited-programmes-manage-and-deliver-api-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-data-importer-dev.hmpps.service.justice.gov.uk
