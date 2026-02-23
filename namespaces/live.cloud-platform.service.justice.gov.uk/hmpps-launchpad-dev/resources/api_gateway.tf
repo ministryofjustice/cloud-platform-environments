@@ -1,7 +1,8 @@
-# Use existing internal ingress controller NLB (managed by Cloud Platform)
-data "aws_lb" "ingress_internal_non_prod_nlb" {
+# Use default ingress controller NLB (managed by Cloud Platform)
+data "aws_lb" "ingress_default_non_prod_nlb" {
   tags = {
-    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-internal-non-prod-controller"
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-default-non-prod-controller"
+    "kubernetes.io/cluster/live" = "owned"
   }
 }
 
@@ -9,11 +10,11 @@ data "aws_lb" "ingress_internal_non_prod_nlb" {
 data "aws_network_interfaces" "nlb_enis" {
   filter {
     name   = "description"
-    values = ["ELB ${data.aws_lb.ingress_internal_non_prod_nlb.arn_suffix}"]
+    values = ["ELB ${data.aws_lb.ingress_default_non_prod_nlb.arn_suffix}"]
   }
   filter {
     name   = "vpc-id"
-    values = [data.aws_lb.ingress_internal_non_prod_nlb.vpc_id]
+    values = [data.aws_lb.ingress_default_non_prod_nlb.vpc_id]
   }
 }
 
@@ -26,8 +27,8 @@ data "aws_network_interface" "nlb_eni_details" {
 # VPC Link for API Gateway
 resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
   name        = "${var.namespace}-vpc-link"
-  description = "VPC Link for ${var.namespace} API Gateway to internal NLB"
-  target_arns = [data.aws_lb.ingress_internal_non_prod_nlb.arn]
+  description = "VPC Link for ${var.namespace} API Gateway to NLB"
+  target_arns = [data.aws_lb.ingress_default_non_prod_nlb.arn]
 
   tags = local.default_tags
 }
@@ -64,29 +65,23 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-# Handles any path (Use http to avoid cert validation with internal NLB, terminate TLS at the NLB)
+# Handles any path - HTTPS to public hostname via VPC Link → default NLB → NGINX → pod
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk/{proxy}"
+  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
 
-  connection_type         = "VPC_LINK"
-  connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
-  timeout_milliseconds    = 29000
-  passthrough_behavior    = "WHEN_NO_MATCH"
+  connection_type      = "VPC_LINK"
+  connection_id        = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  timeout_milliseconds = 29000
 
   request_parameters = {
-    "integration.request.path.proxy"                = "method.request.path.proxy"
-    # Tell the backend the original client protocol was HTTPS to prevent 308 redirects
-    "integration.request.header.X-Forwarded-Proto"  = "'https'"
-    "integration.request.header.X-Forwarded-Port"   = "'443'"
-    "integration.request.header.Host"               = "'launchpad-auth-dev.internal-non-prod.cloud-platform.service.justice.gov.uk'"
+    "integration.request.path.proxy"  = "method.request.path.proxy"
+    "integration.request.header.Host" = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
   }
-  # Pass proxy path as cache key so query strings are forwarded correctly
-  cache_key_parameters = ["method.request.path.proxy"]
 }
 
 # API Keys
@@ -147,15 +142,18 @@ resource "aws_api_gateway_stage" "main" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
     format = jsonencode({
-      extendedRequestId = "$context.extendedRequestId"
-      ip                = "$context.identity.sourceIp"
-      requestTime       = "$context.requestTime"
-      httpMethod        = "$context.httpMethod"
-      resourcePath      = "$context.resourcePath"
-      status            = "$context.status"
-      responseLength    = "$context.responseLength"
-      error             = "$context.error.message"
-      apiKeyId          = "$context.identity.apiKeyId"
+      extendedRequestId       = "$context.extendedRequestId"
+      ip                      = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      httpMethod              = "$context.httpMethod"
+      resourcePath            = "$context.resourcePath"
+      status                  = "$context.status"
+      responseLength          = "$context.responseLength"
+      error                   = "$context.error.message"
+      apiKeyId                = "$context.identity.apiKeyId"
+      integrationStatus       = "$context.integration.status"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+      integrationLatency      = "$context.integrationLatency"
     })
   }
 

@@ -26,6 +26,9 @@ module "rds" {
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
+
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
   prepare_for_major_upgrade = false
 
