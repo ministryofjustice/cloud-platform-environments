@@ -18,6 +18,7 @@ module "sqlserver" {
   storage_type               = var.db_storage_type
   team_name                  = var.team_name
   vpc_name                   = var.vpc_name
+  character_set_name         = var.character_set_name
 
   enable_irsa = true
 
