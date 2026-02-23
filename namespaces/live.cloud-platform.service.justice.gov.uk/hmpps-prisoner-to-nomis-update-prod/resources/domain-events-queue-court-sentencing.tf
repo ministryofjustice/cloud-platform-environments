@@ -9,7 +9,7 @@ module "hmpps_prisoner_to_nomis_court_sentencing_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 10
+    maxReceiveCount     = 20
   })
 
   # Tags
