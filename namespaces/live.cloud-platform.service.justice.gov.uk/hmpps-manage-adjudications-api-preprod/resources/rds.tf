@@ -76,7 +76,7 @@ module "rds" {
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres15"
   db_engine_version           = "15.12"
-  deletion_protection         = true
+  deletion_protection         = false
   db_engine                   = "postgres"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
