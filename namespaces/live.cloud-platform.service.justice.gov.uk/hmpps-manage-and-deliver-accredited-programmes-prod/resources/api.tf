@@ -1,5 +1,5 @@
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-accredited-programmes-manage-and-deliver-api"
   application = "hmpps-accredited-programmes-manage-and-deliver-api"
   github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"
