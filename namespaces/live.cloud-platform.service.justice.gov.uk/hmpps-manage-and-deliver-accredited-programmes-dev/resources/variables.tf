@@ -123,6 +123,12 @@ variable "db_storage_type" {
   default     = "gp2"
 }
 
+variable "character_set_name" {
+  description = "The character set name for the RDS instance. Cannot be set with the snapshot identifier. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+  type        = string
+  default     = null
+}
+
 variable "force_ssl_apply_method" {
   description = "The apply method for force SSL"
   type        = string
