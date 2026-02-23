@@ -84,6 +84,8 @@ module "rds" {
   db_allocated_storage        = "2000"
   enable_irsa                 = true
 
+  snapshot_identifier = "cloud-platform-bda2b0e455edefc4-final-23-02-26"
+
   providers = {
     aws = aws.london
   }
