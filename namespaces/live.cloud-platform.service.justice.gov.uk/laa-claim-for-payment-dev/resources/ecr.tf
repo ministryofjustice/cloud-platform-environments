@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment"]
+  github_repositories = ["laa-claim-for-payment", "claim-assess-regression-tests"]
+  github_actions_prefix = "laa_claim_for_payment"
 
   # Tags
   business_unit          = var.business_unit
@@ -64,22 +65,3 @@ module "stub-civil-claims-api-ecr" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "claim-assess-regression-tests-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-
-  # Repository configuration
-  repo_name = "claim-assess-regression-tests"
-
-  # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["claim-assess-regression-tests"]
-
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-}
