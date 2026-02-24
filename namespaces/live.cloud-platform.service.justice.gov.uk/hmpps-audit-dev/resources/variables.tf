@@ -60,7 +60,7 @@ variable "github_team" {
 
 variable "approved_prisoner_audit_clients" {
   type    = list(string)
-  default = ["hmpps-launchpad-dev", "prisoner-content-hub"]
+  default = ["hmpps-launchpad-dev", "prisoner-content-hub-development"]
 }
 
 
