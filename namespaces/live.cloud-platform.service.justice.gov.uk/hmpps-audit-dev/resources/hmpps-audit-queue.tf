@@ -248,20 +248,6 @@ data "kubernetes_secret" "approved_prisoner_audit_client_arns" {
   }
 }
 
-# Validate the approved prisoner clients arns are contained within the kubernetes secret.
-variable "approved_prisoner_audit_clients" {
-  type = list(string)
-
-  validation {
-    condition = alltrue([
-      for client in var.approved_prisoner_audit_clients :
-      contains(keys(data.kubernetes_secret.approved_prisoner_audit_client_arns.data), client)
-    ])
-    error_message = "An approved client does not exist in the Kubernetes secret."
-  }
-}
-
-
 locals {
   prisoner_audit_client_arns = [for approved_client in var.approved_prisoner_audit_clients : data.kubernetes_secret.approved_prisoner_audit_client_arns.data[approved_client]]
 
