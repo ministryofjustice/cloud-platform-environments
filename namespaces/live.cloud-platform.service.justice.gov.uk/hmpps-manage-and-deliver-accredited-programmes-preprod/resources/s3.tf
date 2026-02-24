@@ -25,7 +25,10 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
         Principal = {
           AWS = [
             module.irsa-cronjob.role_arn,
-            "arn:aws:iam::778742069978:role/im-preprod-s3-datasync"
+            # The following role was provided by NEC, but has since caused 
+            # deployment issues.  Commenting out while NEC investigate.
+            # --TJWC 2026-02-24
+            # "arn:aws:iam::778742069978:role/im-preprod-s3-datasync"
           ]
         }
         Action = [
