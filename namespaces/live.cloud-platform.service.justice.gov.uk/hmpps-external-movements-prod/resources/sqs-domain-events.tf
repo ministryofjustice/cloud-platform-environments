@@ -41,11 +41,6 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved",
       "person.temporary-absence-authorisation.approved",
-      "person.temporary-absence-authorisation.pending",
-      "person.temporary-absence-authorisation.denied",
-      "person.temporary-absence-authorisation.cancelled",
-      "person.temporary-absence-authorisation.deferred",
-      "person.temporary-absence-authorisation.expired",
     ]
   })
 }
