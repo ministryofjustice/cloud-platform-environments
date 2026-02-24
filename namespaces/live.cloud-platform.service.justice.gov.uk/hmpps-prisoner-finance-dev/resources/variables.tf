@@ -48,6 +48,7 @@ variable "slack_channel" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -58,8 +59,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
 }
