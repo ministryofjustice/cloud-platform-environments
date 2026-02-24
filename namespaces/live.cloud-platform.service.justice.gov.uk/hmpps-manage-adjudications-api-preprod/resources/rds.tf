@@ -9,6 +9,7 @@ module "ma_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
+  is_migration                = true
 
   enable_rds_auto_start_stop = true
 
