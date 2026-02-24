@@ -65,14 +65,16 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
-# Handles any path - HTTPS to public hostname via VPC Link → default NLB → NGINX → pod
+# Handles any path - HTTPS via VPC Link → default NLB → NGINX → pod
+# URI uses *.apps.live.cloud-platform hostname to match default NLB TLS cert
+# Host header routes to correct ingress rule (launchpad-auth-dev.hmpps.service.justice.gov.uk)
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
+  uri                     = "https://hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk/{proxy}"
 
   connection_type      = "VPC_LINK"
   connection_id        = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
