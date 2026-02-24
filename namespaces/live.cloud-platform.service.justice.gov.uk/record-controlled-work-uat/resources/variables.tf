@@ -79,3 +79,15 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "rcw-github-action-service-account"
 }
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  type        = string
+  default     = "uat"
+}
+
+variable "app_repo" {
+  description = "Name of application repository"
+  type        = string
+  default     = "laa-record-controlled-work"
+}
