@@ -3,8 +3,8 @@ module "hmpps_prisoner_finance_ui" {
   github_repo = "hmpps-prisoner-finance-ui"
   application = "hmpps-prisoner-finance-ui"
   github_team = "hmpps-prisoner-finance"
-  environment = var.environment 
-  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"]
+  environment = var.environment
+  reviewer_teams                = ["hmpps-prisoner-finance-live"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-typescript"
