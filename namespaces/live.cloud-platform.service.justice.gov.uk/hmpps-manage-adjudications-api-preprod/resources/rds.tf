@@ -74,6 +74,7 @@ module "rds" {
 
   enable_rds_auto_start_stop = true
 
+  db_name                     = "db6c035586d92ac925"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres15"
   db_engine_version           = "15.12"
@@ -85,7 +86,7 @@ module "rds" {
   db_allocated_storage        = "2000"
   enable_irsa                 = true
 
-  snapshot_identifier = "cloud-platform-bda2b0e455edefc4-final-23-02-26"
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cloud-platform-bda2b0e455edefc4-final-23-02-26" ## DO NOT REMOVE UNTIL LOOPING RDS RE-CREATE ISSUE IS RESOLVED
 
   providers = {
     aws = aws.london
