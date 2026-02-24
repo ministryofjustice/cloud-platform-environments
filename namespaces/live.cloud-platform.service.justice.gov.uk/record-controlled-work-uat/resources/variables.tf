@@ -80,12 +80,6 @@ variable "serviceaccount_name" {
   default     = "rcw-github-action-service-account"
 }
 
-variable "environment" {
-  description = "The type of environment you're deploying to."
-  type        = string
-  default     = "uat"
-}
-
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
