@@ -38,6 +38,12 @@ variable "infrastructure_support" {
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
+variable "is_migration" {
+  description = "Set this to true if you are creating a new RDS instance using an existing snapshot (via snapshot_identifier)"
+  type        = bool
+  default     = true
+}
+
 variable "is_production" {
   default = "false"
 }
