@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-prisoner-finance-alerts"
     cloud-platform.justice.gov.uk/application: "Prisoner Finance"
     cloud-platform.justice.gov.uk/owner: "Prisoner Finance: digital-prisoner-finance@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-finance-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-finance-api,https://github.com/ministryofjustice/hmpps-prisoner-finance-ui"
     cloud-platform.justice.gov.uk/team-name: "hmpps-prisoner-finance"
