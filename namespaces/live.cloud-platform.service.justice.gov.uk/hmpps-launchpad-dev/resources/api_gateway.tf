@@ -66,8 +66,9 @@ resource "aws_api_gateway_method" "proxy" {
 }
 
 # Handles any path - HTTPS via VPC Link → default NLB → NGINX → pod
-# URI uses *.apps.live.cloud-platform hostname to match default NLB TLS cert
-# Host header routes to correct ingress rule (launchpad-auth-dev.hmpps.service.justice.gov.uk)
+# URI uses *.apps.live.cloud-platform hostname to match default NLB TLS cert CN
+# Host header must match URI hostname - NGINX uses SNI from TLS for routing
+# apiGatewayIngress in values-dev.yaml must have this same hostname
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
@@ -82,7 +83,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
   request_parameters = {
     "integration.request.path.proxy"  = "method.request.path.proxy"
-    "integration.request.header.Host" = "'launchpad-auth-dev.hmpps.service.justice.gov.uk'"
+    "integration.request.header.Host" = "'hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk'"
   }
 }
 
