@@ -8,7 +8,16 @@ module "upload_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = jsonencode({
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
+  bucket = module.upload_s3_bucket.bucket_name
+  depends_on = [module.irsa-cronjob]
+
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -26,16 +35,12 @@ module "upload_s3_bucket" {
           "s3:DeleteObject"
         ]
         Resource = [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
+          module.upload_s3_bucket.bucket_arn,
+          "${module.upload_s3_bucket.bucket_arn}/*"
         ]
       },
     ]
   })
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "kubernetes_secret" "upload_s3_bucket" {
