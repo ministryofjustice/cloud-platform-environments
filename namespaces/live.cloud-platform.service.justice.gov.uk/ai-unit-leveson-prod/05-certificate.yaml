@@ -4,7 +4,7 @@ metadata:
   name: ai-unit-leveson-prod-cert
   namespace: ai-unit-leveson-prod
 spec:
-  secretName: ai-website-cert-secret
+  secretName: ai-unit-leveson-cert-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
