@@ -21,7 +21,7 @@ module "cloudfront_with_ordered" {
   enable_ordered_cache_behavior = true # default is false
 
   ordered_cache_behavior = {
-    path_pattern = "/uploads/sites/*"
+    path_pattern = "/uploads/sites/64/*"
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
   }
 
