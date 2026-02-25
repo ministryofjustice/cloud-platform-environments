@@ -95,3 +95,106 @@ variable "service_area" {
   type        = string
   default     = "Common Services and Enterprise"
 }
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this service account"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  ### See https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount/blob/03ed80145d5d39c43055ea8208a5f55cbb659fa4/variables.tf#L20-L107
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",  ### typo, but see api_group "apps", resource "deployments" below
+        "secrets",
+        "services",
+        "configmaps",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling",
+      ]
+      resources = [
+        "hpa",  ### typo, but see resource "horizontalpodautoscalers" below
+        "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+      ]
+    },
+    ### Addition to allow service account to scale deployments
+    {
+      api_groups = [
+        "apps",
+      ]
+      resources = [
+        "deployments/scale",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "patch",
+      ]
+    },
+  ]
+}
