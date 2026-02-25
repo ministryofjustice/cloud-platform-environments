@@ -5,4 +5,4 @@ metadata:
   namespace: namespace-demo-dan1
 spec:
   hard:
-    pods: "50"
+    pods: "10"
