@@ -18,6 +18,10 @@ variable "environment-name" {
   default = "production"
 }
 
+variable "environment" {
+  default = "prod"
+}
+
 variable "service_area" {
   description = "Service area responsible for this service"
   default     = "Activities and Visits"
