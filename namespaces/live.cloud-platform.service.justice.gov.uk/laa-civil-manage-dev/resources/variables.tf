@@ -44,6 +44,11 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to use, a secret prefix"
+  type        = string
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
