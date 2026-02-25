@@ -10,6 +10,10 @@ variable "environment-name" {
   default = "staging"
 }
 
+variable "environment" {
+  default = "preprod"
+}
+
 variable "team_name" {
   default = "hmpps-prison-visits-booking-live"
 }
