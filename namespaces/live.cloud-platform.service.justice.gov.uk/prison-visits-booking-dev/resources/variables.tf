@@ -6,6 +6,10 @@ variable "environment_name" {
   default = "dev"
 }
 
+variable "environment" {
+  default = "dev"
+}
+
 variable "team_name" {
   default = "hmpps-prison-visits-booking-devs"
 }
