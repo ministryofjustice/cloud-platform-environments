@@ -238,18 +238,6 @@ resource "kubernetes_config_map" "rds" {
   }
 }
 
-resource "kubernetes_secret" "read_replica" {
-  metadata {
-    name      = "rds-postgresql-read-replica-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-  }
-}
-
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
