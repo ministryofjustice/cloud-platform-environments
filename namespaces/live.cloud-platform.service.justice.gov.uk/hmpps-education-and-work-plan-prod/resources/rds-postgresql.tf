@@ -146,20 +146,6 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
-
-resource "kubernetes_secret" "read_replica" {
-  metadata {
-    name      = "rds-postgresql-read-replica-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-  }
-}
-
-
 # Configmap to store non-sensitive data related to the RDS instance
 
 resource "kubernetes_config_map" "rds" {
