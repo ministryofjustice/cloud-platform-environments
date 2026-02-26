@@ -13,6 +13,7 @@ module "ecr-repo-prison-visits-staff" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  delete_protection      = false
 }
 
 resource "kubernetes_secret" "ecr-repo-prison-visits-staff" {
