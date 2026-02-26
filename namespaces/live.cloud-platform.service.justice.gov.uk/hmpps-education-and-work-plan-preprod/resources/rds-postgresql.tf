@@ -188,3 +188,19 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.hmpps_education_work_plan_rds.db_identifier
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-education-and-work-plan-prod"
+  }
+
+  data = {
+    database_name         = module.hmpps_education_work_plan_rds.database_name
+    database_username     = module.hmpps_education_work_plan_rds.database_username
+    database_password     = module.hmpps_education_work_plan_rds.database_password
+    rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
+  }
+}
