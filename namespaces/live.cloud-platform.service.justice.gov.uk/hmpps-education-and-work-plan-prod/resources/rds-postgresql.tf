@@ -56,11 +56,6 @@ module "hmpps_education_work_plan_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
     }
   ]
 }
