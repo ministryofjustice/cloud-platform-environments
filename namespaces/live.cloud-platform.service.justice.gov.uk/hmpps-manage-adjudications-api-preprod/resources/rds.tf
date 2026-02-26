@@ -81,7 +81,7 @@ module "rds" {
   deletion_protection         = false
   db_engine                   = "postgres"
   allow_major_version_upgrade = "false"
-  allow_minor_version_upgrade = "true"
+  allow_minor_version_upgrade = true
   prepare_for_major_upgrade   = false
   db_allocated_storage        = "2000"
   enable_irsa                 = true
