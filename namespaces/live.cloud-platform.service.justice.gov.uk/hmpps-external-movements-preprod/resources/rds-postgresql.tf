@@ -17,7 +17,7 @@ module "rds" {
   performance_insights_enabled = false
   storage_type                 = "gp3"
   db_max_allocated_storage     = "500"
-  db_allocated_storage         = "250"
+  db_allocated_storage         = "380"
   enable_rds_auto_start_stop   = false
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
