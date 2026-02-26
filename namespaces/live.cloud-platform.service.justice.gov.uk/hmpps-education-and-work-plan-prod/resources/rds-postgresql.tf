@@ -56,6 +56,11 @@ module "hmpps_education_work_plan_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
 }
@@ -129,6 +134,18 @@ module "read_replica" {
       apply_method = "immediate"
     }
   ]
+}
+
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
+  }
 }
 
 resource "kubernetes_secret" "rds" {
