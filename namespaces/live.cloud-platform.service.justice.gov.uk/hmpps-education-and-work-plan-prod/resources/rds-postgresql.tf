@@ -4,6 +4,11 @@
  * releases page of this repository.
  *
  */
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
 module "hmpps_education_work_plan_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -16,26 +21,18 @@ module "hmpps_education_work_plan_rds" {
   prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = false
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.small"
+  db_engine              = "postgres"
+  db_engine_version      = "17"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.t4g.micro"
 
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  enable_irsa = true
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
+  # Add parameters to enable DPR team to configure replication
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -56,19 +53,8 @@ module "hmpps_education_work_plan_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
     }
   ]
-}
-
-module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-
-  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -79,15 +65,43 @@ module "read_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  enable_irsa = true
+}
+
+# To create a read replica, use the below code and update the values to specify the RDS instance
+# from which you are replicating. In this example, we're assuming that rds is the
+# source RDS instance and read-replica is the replica we are creating.
+
+module "read_replica" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name               = var.vpc_name
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # If any other inputs of the RDS is passed in the source db which are different from defaults,
+  # add them to the replica
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = false
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
   prepare_for_major_upgrade = false
 
-
+  # PostgreSQL specifics
+  db_engine              = "postgres"
+  db_engine_version      = "17"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
@@ -99,8 +113,6 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-
-  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -151,6 +163,18 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
+  }
+}
+
 # Configmap to store non-sensitive data related to the RDS instance
 
 resource "kubernetes_config_map" "rds" {
@@ -163,8 +187,4 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.hmpps_education_work_plan_rds.database_name
     db_identifier = module.hmpps_education_work_plan_rds.db_identifier
   }
-}
-
-data "aws_security_group" "mp_dps_sg" {
-  name = var.mp_dps_sg_name
 }
