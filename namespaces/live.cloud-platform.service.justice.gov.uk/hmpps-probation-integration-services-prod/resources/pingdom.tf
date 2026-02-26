@@ -59,6 +59,7 @@ resource "pingdom_check" "pingdom" {
     "esupervision-and-delius",
     "community-payback-and-delius",
     "cosso-and-delius",
+    "manage-people-on-probation-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"
