@@ -853,3 +853,18 @@ spec:
   dnsNames:
     - 5d9fa5d6.hmpps.service.justice.gov.uk
     - cosso-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-people-on-probation-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: manage-people-on-probation-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 68155d24.hmpps.service.justice.gov.uk
+    - manage-people-on-probation-and-delius.hmpps.service.justice.gov.uk
