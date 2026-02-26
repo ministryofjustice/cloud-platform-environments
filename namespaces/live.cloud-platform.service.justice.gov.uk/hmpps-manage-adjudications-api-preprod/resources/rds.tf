@@ -70,7 +70,7 @@ module "rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  is_migration                = true
+  is_migration                = false
 
   enable_rds_auto_start_stop = true
 
