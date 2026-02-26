@@ -290,7 +290,7 @@ resource "aws_iam_role" "unify_s3_upload_role" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::754256621582:role/cloud-platform-irsa-c2feaa360fb001e8-live" # TEMP: using pathfinder IRSA for dev testing only
+          AWS = "arn:aws:iam::668236265794:role/unify-s3-upload-role"
         },
         Action = "sts:AssumeRole"
       }
