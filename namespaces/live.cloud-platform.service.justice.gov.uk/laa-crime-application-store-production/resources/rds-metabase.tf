@@ -26,6 +26,13 @@ module "rds_metabase" {
   db_engine_version = "17.5"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
+  db_parameter = [
+    {
+      name         = "log_statement"
+      value        = "mod"
+      apply_method = "immediate"
+    }
+  ]
 
   # Tags
   application            = var.application
