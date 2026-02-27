@@ -11,7 +11,7 @@ module "secrets_manager_multiple_secrets" {
 
   secrets = {
     "track-my-case-preprod-secrets" = {
-      description             = "Secrets to hold for track my case backend service",
+      description             = "Secrets to hold for track my case frontend service",
       recovery_window_in_days = 7
       k8s_secret_name         = "track-my-case-preprod-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
