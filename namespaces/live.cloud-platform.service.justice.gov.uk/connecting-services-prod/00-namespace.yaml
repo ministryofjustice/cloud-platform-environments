@@ -8,7 +8,7 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
-    cloud-platform.justice.gov.uk/slack-channel: "pfl-connecting-services"
+    cloud-platform.justice.gov.uk/slack-channel: "pfl-cs-alerts"
     cloud-platform.justice.gov.uk/application: "PFL Connecting Services"
     cloud-platform.justice.gov.uk/owner: "Central Digital Product Team: central-digital-product-team@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pfl-connecting-services"
