@@ -79,3 +79,7 @@ variable "rds_name" {
   default     = "trackmycase-prod"
   type        = string
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+}
