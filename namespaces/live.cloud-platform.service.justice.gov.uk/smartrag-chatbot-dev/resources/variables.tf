@@ -1,11 +1,13 @@
 variable "vpc_name" {
   description = "VPC name to create security groups in for the ElastiCache and RDS modules"
   type        = string
+  default     = ""
 }
 
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
+  default     = ""
 }
 
 variable "application" {
@@ -35,7 +37,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dmet-pocs"
+  default     = "data-engineering"
 }
 
 variable "environment" {
