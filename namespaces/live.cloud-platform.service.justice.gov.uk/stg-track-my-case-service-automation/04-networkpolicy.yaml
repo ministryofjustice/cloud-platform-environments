@@ -24,4 +24,4 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          component: tmc-ui-dev
+          component: ingress-controllers
