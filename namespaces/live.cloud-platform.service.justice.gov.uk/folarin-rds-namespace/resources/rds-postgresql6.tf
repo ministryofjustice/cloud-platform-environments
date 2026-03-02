@@ -10,9 +10,6 @@ module "rds" {
   # VPC configuration
   vpc_name = var.vpc_name
 
-  # Restore from snapshot
-  snapshot_identifier = "folarin-restore-test-2026-03-02"
-
   # RDS configuration
   allow_minor_version_upgrade  = true
   prepare_for_major_upgrade    = true
