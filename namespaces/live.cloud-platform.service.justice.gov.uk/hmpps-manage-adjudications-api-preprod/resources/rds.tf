@@ -141,9 +141,9 @@ resource "kubernetes_secret" "dps_rds" {
   }
 }
 
-resource "kubernetes_secret" "dps_rds" {
+resource "kubernetes_secret" "upgraded_rds" {
   metadata {
-    name      = "test-rds-instance-output"
+    name      = "upgraded-rds-instance-output"
     namespace = var.namespace
   }
 
