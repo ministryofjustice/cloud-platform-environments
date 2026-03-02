@@ -35,13 +35,13 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "automation"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "munish.jalota@justice.gov.uk"
+  default     = "stgtransformationteam@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -76,7 +76,7 @@ variable "db_name" {
 
 variable "rds_name" {
   description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
-  default     = "trackmycase-dev"
+  default     = "trackmycase-automation"
   type        = string
 }
 
