@@ -179,7 +179,7 @@ module "cla_backend_mcc_rds_postgres_14" {
   is_production        = var.is_production
   namespace            = var.namespace
 
-  db_name = "cla_backend"
+  db_name = "cla_backend_mcc_integration"
   # change the postgres version as you see fit.
   db_engine_version      = "14"
   db_instance_class      = "db.t4g.small"
