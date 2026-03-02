@@ -168,7 +168,7 @@ resource "kubernetes_secret" "cla_backend_metabase_rds" {
   }
 }
 
-odule "cla_backend_mcc_rds_postgres_14" {
+Module "cla_backend_mcc_rds_postgres_14" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
