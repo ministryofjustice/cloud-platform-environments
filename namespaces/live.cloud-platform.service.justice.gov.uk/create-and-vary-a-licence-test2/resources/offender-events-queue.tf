@@ -90,27 +90,27 @@ resource "aws_sns_topic_subscription" "cvl_prison_events_subscription" {
 
 resource "kubernetes_secret" "cvl_prison_events_queue" {
   metadata {
-    name      = "cvl-prison-events-sqs-instance-output"
+    name      = "sqs-prison-events-queue-secret"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.cvl_prison_events_queue.sqs_id
-    sqs_arn  = module.cvl_prison_events_queue.sqs_arn
-    sqs_name = module.cvl_prison_events_queue.sqs_name
+    sqs_queue_url   = module.cvl_prison_events_queue.sqs_id
+    sqs_queue_arn  = module.cvl_prison_events_queue.sqs_arn
+    sqs_queue_name = module.cvl_prison_events_queue.sqs_name
   }
 }
 
 resource "kubernetes_secret" "cvl_prison_events_dead_letter_queue" {
   metadata {
-    name      = "cvl-prison-events-sqs-dl-instance-output"
+    name      = "sqs-prison-events-dlq-secret"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.cvl_prison_events_dead_letter_queue.sqs_id
-    sqs_arn  = module.cvl_prison_events_dead_letter_queue.sqs_arn
-    sqs_name = module.cvl_prison_events_dead_letter_queue.sqs_name
+    sqs_queue_url   = module.cvl_prison_events_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.cvl_prison_events_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.cvl_prison_events_dead_letter_queue.sqs_name
   }
 }
 
