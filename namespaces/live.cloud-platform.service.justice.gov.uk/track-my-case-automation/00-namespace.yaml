@@ -4,9 +4,9 @@ metadata:
   name: "track-my-case-automation"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "development"
+    cloud-platform.justice.gov.uk/environment-name: "automation"
     pod-security.kubernetes.io/enforce: restricted
-    component: track-my-case-dev
+    component: track-my-case-automation
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "track-my-case"

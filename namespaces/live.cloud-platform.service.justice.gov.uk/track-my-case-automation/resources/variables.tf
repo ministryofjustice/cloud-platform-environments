@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Central Digital"
+  default     = "HQ"
 }
 
 variable "team_name" {
@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "automation"
 }
 
 variable "infrastructure_support" {
