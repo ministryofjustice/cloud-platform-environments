@@ -67,3 +67,8 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Central Digital"
+}
