@@ -17,6 +17,7 @@ module "irsa" {
     ecr                    = module.ecr_credentials.irsa_policy_arn,
     ecr2                   = module.ecr_feed_parser.irsa_policy_arn,
     rds                    = module.rds.irsa_policy_arn,
+    cloudfront             = aws_iam_policy.cloudfront_access_policy.arn,
   }
 
   # Tags
@@ -75,6 +76,39 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
 resource "aws_iam_policy" "s3_cross_bucket_policy" {
   name   = "hale-platform-prod-s3-cross-bucket-policy"
   policy = data.aws_iam_policy_document.s3_cross_bucket_policy.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "cloudfront_access_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudfront:GetDistribution",
+      "cloudfront:ListDistributions",
+      "cloudfront:CreateInvalidation",
+      "cloudfront:GetInvalidation",
+      "cloudfront:ListInvalidations",
+      "cloudfront:GetCachePolicy"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
+
+resource "aws_iam_policy" "cloudfront_access_policy" {
+  name   = "hale-platform-prod-cloudfront-access-policy"
+  policy = data.aws_iam_policy_document.cloudfront_access_policy.json
+
 
   tags = {
     business_unit          = var.business_unit
