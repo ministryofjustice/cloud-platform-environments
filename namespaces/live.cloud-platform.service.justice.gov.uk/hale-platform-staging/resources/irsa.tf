@@ -17,6 +17,7 @@ module "irsa" {
     ecr                    = module.ecr_credentials.irsa_policy_arn,
     ecr2                   = module.ecr_feed_parser.irsa_policy_arn,
     rds                    = module.rds.irsa_policy_arn
+    cloudfront             = aws_iam_policy.cloudfront_access_policy.arn
   }
 
   # Tags
