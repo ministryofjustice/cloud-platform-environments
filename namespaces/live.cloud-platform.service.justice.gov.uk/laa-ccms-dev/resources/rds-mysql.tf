@@ -13,8 +13,8 @@ module "opa_hub_db" {
 
   # MySQL specifics
   db_engine         = "mysql"
-  db_engine_version = "8.0.42"
-  rds_family        = "mysql8.0"
+  db_engine_version = "8.4.8"
+  rds_family        = "mysql8.4"
   db_instance_class = "db.t4g.micro"
   db_parameter      = []
 
