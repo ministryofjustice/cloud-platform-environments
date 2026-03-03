@@ -24,13 +24,10 @@ data "aws_network_interface" "nlb_eni_details" {
   id       = each.value
 }
 
-# VPC Link for API Gateway
-resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
-  name        = "${var.namespace}-vpc-link"
-  description = "VPC Link for ${var.namespace} API Gateway to NLB"
-  target_arns = [data.aws_lb.ingress_default_non_prod_nlb.arn]
-
-  tags = local.default_tags
+# Reuse VPC Link created by hmpps-launchpad-dev namespace
+# One VPC Link per NLB is shared across all namespaces using that NLB
+data "aws_api_gateway_vpc_link" "shared_vpc_link" {
+  name = "hmpps-launchpad-dev-vpc-link"
 }
 #===============================================================================
 # API Gateway for Launchpad Auth API
@@ -78,7 +75,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   uri                     = "https://${var.api_gateway_ingress_hostname}/{proxy}"
 
   connection_type         = "VPC_LINK"
-  connection_id           = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  connection_id           = data.aws_api_gateway_vpc_link.shared_vpc_link.id
   timeout_milliseconds    = 29000
 
   request_parameters = {
