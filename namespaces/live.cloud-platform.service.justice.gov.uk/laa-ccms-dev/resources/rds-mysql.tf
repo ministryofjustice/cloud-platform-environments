@@ -11,6 +11,8 @@ module "opa_hub_db" {
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = false
 
+  prepare_for_major_upgrade = true
+
   # MySQL specifics
   db_engine         = "mysql"
   db_engine_version = "8.4.8"
