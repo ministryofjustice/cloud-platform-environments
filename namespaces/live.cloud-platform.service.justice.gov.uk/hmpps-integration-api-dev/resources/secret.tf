@@ -50,6 +50,11 @@ module "secret" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "ctrlo-filter-list"
     },
+    "integration-api-event-daso-filter-list" = {
+      description             = "DASO event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "daso-filter-list"
+    },
   }
 
   # Tags
