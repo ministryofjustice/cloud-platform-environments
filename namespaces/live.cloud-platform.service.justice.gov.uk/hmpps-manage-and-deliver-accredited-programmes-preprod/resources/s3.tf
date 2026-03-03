@@ -95,7 +95,8 @@ module "s3_upload_logging_bucket" {
           ]
         }
         Action = [
-          "s3:GetObject"
+          "s3:GetObject",
+          "s3:ListObject"
         ]
         Resource = [
           "$${bucket_arn}",
