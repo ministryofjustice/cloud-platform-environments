@@ -868,3 +868,18 @@ spec:
   dnsNames:
     - 68155d24.hmpps.service.justice.gov.uk
     - manage-people-on-probation-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-my-community-sentence-and-delius-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: manage-my-community-sentence-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 615a3c43.hmpps.service.justice.gov.uk
+    - manage-my-community-sentence-and-delius.hmpps.service.justice.gov.uk
