@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-review-send-recall-dev
+  namespace: stg-track-my-case-service-automation
 spec:
   hard:
     pods: "50"

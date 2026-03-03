@@ -41,8 +41,8 @@ output "non_prod_nlb_ip_addresses" {
 }
 
 output "vpc_link_id" {
-  description = "VPC Link ID connecting API Gateway to default NLB"
-  value       = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  description = "VPC Link ID (shared from hmpps-launchpad-dev namespace)"
+  value       = data.aws_api_gateway_vpc_link.shared_from_dev.id
 }
 
 output "internal_nlb_arn" {

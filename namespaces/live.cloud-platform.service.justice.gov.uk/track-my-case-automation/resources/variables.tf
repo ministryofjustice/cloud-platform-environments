@@ -11,37 +11,37 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Manage Your Civil Cases"
+  default     = "Track My Case"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-manage-your-civil-cases-staging"
+  default     = "track-my-case-automation"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "check-client-qualifies"
+  default     = "stg-victims-pathfinder"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "automation"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ccq@justice.gov.uk"
+  default     = "stgtransformationteam@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ccq-team"
+  default     = "track-my-case"
 }
 
 variable "github_owner" {
@@ -68,12 +68,7 @@ variable "github_token" {
   default     = ""
 }
 
-variable "serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "mcc-github-action-service-account"
-}
-
-variable "number_cache_clusters" {
-  default = "2"
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Central Digital"
 }
