@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["moj-analytical-services/genai_data_engineering_assistant"]
+  github_owner = "moj-analytical-services"
+  github_repositories = ["genai_data_engineering_assistant"]
 
   # Tags
   business_unit          = var.business_unit
