@@ -15,6 +15,7 @@ module "ecr" {
   github_owner = "moj-analytical-services"
   github_repositories = ["genai_data_engineering_assistant"]
 
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

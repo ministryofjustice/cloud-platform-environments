@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "LAA Criminal Applications Datastore microservice"
+  default     = "laa-criminal-applications-datastore-microservice"
 }
 
 variable "namespace" {
