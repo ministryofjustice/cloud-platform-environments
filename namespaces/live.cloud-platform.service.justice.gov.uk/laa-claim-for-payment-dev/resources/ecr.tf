@@ -44,24 +44,3 @@ module "ecr-mock-oidc" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
-module "stub-civil-claims-api-ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-
-  # Repository configuration
-  repo_name = "claim-for-payment-stubs-civil-claims-api"
-
-  # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment-stubs"]
-  github_actions_prefix = "stub_civil_claims_api"
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-}
-
