@@ -71,6 +71,8 @@ resource "aws_sns_topic_subscription" "official_visits_domain_events_subscriptio
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.booking.moved",
     ]
   })
 }
