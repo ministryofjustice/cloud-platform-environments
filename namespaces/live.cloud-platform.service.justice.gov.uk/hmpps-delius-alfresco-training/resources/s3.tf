@@ -11,7 +11,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
-      id      = "${var.environment_name}-lifecycle-rule"
+      id      = "${var.environment}-lifecycle-rule"
       enabled = true
 
       noncurrent_version_transition = [
