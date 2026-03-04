@@ -18,7 +18,7 @@ module "opensearch" {
     # Dedicated primary nodes
     dedicated_master_enabled = true
     dedicated_master_count   = 3 # can only either be 3 or 5
-    dedicated_master_type    = "m6g.medium.search"
+    dedicated_master_type    = "m6g.large.search"
 
     # Ultrawarm nodes (omit if you aren't going to use this)
     warm_enabled = false
