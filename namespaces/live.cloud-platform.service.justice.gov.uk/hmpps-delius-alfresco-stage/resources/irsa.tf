@@ -21,10 +21,3 @@ module "irsa" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
-
-data "kubernetes_service_account" "prod_irsa" {
-  metadata {
-    name      = "hmpps-migration-prod"
-    namespace = "hmpps-delius-alfresco-prod"
-  }
-}
