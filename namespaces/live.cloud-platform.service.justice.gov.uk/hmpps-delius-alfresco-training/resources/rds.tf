@@ -15,7 +15,7 @@ module "rds_alfresco" {
 
   # Storage configuration
   db_max_allocated_storage = "1500"
-  db_allocated_storage     = "200"
+  db_allocated_storage     = "400"
   db_iops                  = "16000"
   #db_storage_throughput           = "1000" # This doesn't exist as a variable in the module yet.
 
