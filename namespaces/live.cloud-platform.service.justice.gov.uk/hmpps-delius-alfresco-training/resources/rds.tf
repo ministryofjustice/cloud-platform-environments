@@ -11,23 +11,18 @@ module "rds_alfresco" {
   allow_major_version_upgrade = false
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # Storage configuration
-  db_max_allocated_storage = "1500"
+  db_max_allocated_storage = "500"
   db_allocated_storage     = "200"
-  db_iops                  = "16000"
-  #db_storage_throughput           = "1000" # This doesn't exist as a variable in the module yet.
-
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
   db_engine_version         = "14.17"
   rds_family                = "postgres14"
-  db_instance_class         = "db.m8g.large"
+  db_instance_class         = "db.t4g.micro"
   deletion_protection       = true
 
   db_parameter = [
