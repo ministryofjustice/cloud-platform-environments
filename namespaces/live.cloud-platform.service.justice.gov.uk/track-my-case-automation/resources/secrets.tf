@@ -10,7 +10,7 @@ module "secrets_manager_multiple_secrets" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "track-my-case-dev-secrets" = {
+    "track-my-case-automation-secrets" = {
       description             = "Secrets to hold for track my case frontend service",
       recovery_window_in_days = 7
       k8s_secret_name         = "track-my-case-automation-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
