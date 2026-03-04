@@ -40,7 +40,13 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
           "s3:GetObject",
           "s3:ListBucket",
           "s3:DeleteObject",
-          "s3:GetBucketLocation"
+          "s3:GetBucketLocation",
+          "s3:GetObjectAcl",
+          "s3:GetObjectVersion",
+          "s3:GetObjectTagging",
+          "s3:ListBucketMultipartUploads",
+          "s3:ListMultipartUploadParts",
+          "s3:AbortMultipartUpload",
         ]
         Resource = [
           module.upload_s3_bucket.bucket_arn,
