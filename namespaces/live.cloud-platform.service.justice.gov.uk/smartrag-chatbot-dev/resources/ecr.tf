@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["genai_data_engineering_assistant"]
+  github_repositories = []
+
 
 
   # Tags
