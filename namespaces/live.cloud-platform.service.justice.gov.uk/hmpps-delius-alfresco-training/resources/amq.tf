@@ -242,7 +242,7 @@ data "aws_iam_policy_document" "amq_cw_logs" {
 }
 
 resource "aws_iam_policy" "amq" {
-  name        = "cloud-platform-mq-${var.environment_name}-${random_id.amq_id.hex}"
+  name        = "cloud-platform-mq-${var.environment}-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
   policy      = data.aws_iam_policy_document.amq.json
 }
