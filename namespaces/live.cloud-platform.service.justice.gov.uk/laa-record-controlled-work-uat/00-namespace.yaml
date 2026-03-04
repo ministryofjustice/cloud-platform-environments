@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Record Controlled Work Datastore"
     cloud-platform.justice.gov.uk/owner: "Means and Match: rcw-datastore-team@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-record-controlled-work-datastore"
-    cloud-platform.justice.gov.uk/team-name: "rcw-datastore-team"
+    cloud-platform.justice.gov.uk/team-name: "rcw-datastore"
     cloud-platform.justice.gov.uk/review-after: ""
