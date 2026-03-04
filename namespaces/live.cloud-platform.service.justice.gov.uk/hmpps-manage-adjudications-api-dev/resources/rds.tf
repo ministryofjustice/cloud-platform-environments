@@ -9,7 +9,6 @@ module "ma_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
 
-# ephemeral change for testing. Will be returned to db.t4g.small asap.
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres17"
   db_engine_version           = "17.6"
