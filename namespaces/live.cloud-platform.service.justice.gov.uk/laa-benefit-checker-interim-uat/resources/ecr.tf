@@ -11,8 +11,9 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
+
   oidc_providers      = ["github"]
-  github_repositories = ["example-repository"]
+  github_repositories = ["laa-dwp-benefit-checker"]
 
   # Tags
   business_unit          = var.business_unit
