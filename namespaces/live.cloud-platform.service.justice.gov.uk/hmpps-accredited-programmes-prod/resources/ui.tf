@@ -14,4 +14,3 @@ module "hmpps_template_typescript" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
-
