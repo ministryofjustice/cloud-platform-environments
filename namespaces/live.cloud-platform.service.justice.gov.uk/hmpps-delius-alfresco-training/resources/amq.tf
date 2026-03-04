@@ -61,7 +61,7 @@ resource "random_id" "config_id" {
 }
 
 locals {
-  identifier         = "cloud-platform-${var.environment}-${random_id.amq_id.hex}"
+  identifier         = "alfresco-${var.environment}-${random_id.amq_id.hex}"
   mq_admin_user      = "cp${random_string.amq_username.result}"
   mq_admin_password  = random_string.amq_password.result
   subnets            = data.aws_subnets.this.ids
@@ -101,7 +101,7 @@ resource "aws_mq_broker" "this" {
   engine_type         = local.amq_engine_type
   engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
-  host_instance_type  = "mq.m5.2xlarge"
+  host_instance_type  = "mq.m5.large"
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
@@ -242,7 +242,7 @@ data "aws_iam_policy_document" "amq_cw_logs" {
 }
 
 resource "aws_iam_policy" "amq" {
-  name        = "cloud-platform-mq-${var.environment}-${random_id.amq_id.hex}"
+  name        = "alfresco-mq-${var.environment}-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
   policy      = data.aws_iam_policy_document.amq.json
 }
