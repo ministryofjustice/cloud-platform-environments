@@ -41,7 +41,8 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
           "s3:ListBucket",
           "s3:DeleteObject",
           "s3:GetBucketLocation",
-          "s3:GetObjectAcl"
+          "s3:GetObjectAcl",
+          "s3:GetObjectVersion"
         ]
         Resource = [
           module.upload_s3_bucket.bucket_arn,
