@@ -156,7 +156,7 @@ module "arns_assessment_view_rds" {
   db_password_rotated_date     = "2026-03-05"
 
   # PostgreSQL specifics
-  db_allocated_storage         = 10
+  db_allocated_storage         = 20
   storage_type                 = "gp3"
   rds_family                   = "postgres18"
   db_engine                    = "postgres"
