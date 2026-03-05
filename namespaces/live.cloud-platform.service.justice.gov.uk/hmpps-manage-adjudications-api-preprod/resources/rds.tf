@@ -13,7 +13,6 @@ module "ma_rds" {
   enable_rds_auto_start_stop = true
 
   db_instance_class           = "db.t4g.small"
-  db_iops                     = "12000"
   rds_family                  = "postgres17"
   db_engine_version           = "17.6"
   deletion_protection         = true
