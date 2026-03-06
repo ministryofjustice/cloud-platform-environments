@@ -45,7 +45,8 @@ resource "aws_s3_bucket_policy" "rekognition_access" {
         }
         Action = [
           "s3:GetObject",
-          "s3:GetObjectVersion"
+          "s3:GetObjectVersion",
+          "s3:PutObject",
         ]
         Resource = "${module.s3_data_bucket.bucket_arn}/*"
       }
