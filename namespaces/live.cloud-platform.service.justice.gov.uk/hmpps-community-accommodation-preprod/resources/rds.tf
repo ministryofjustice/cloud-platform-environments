@@ -1,5 +1,5 @@
 module "rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage         = 50
   storage_type                 = "gp2"
   vpc_name                     = var.vpc_name
@@ -15,6 +15,7 @@ module "rds" {
   db_instance_class            = "db.t3.xlarge"
   rds_family                   = "postgres14"
   allow_major_version_upgrade  = "false"
+  enable_irsa                  = true
 
   providers = {
     aws = aws.london
@@ -24,7 +25,7 @@ module "rds" {
 
 module "read_replica" {
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 50
   storage_type         = "gp2"
 

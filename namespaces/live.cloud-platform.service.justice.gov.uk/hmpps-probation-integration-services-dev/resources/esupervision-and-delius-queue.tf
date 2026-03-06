@@ -5,7 +5,9 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
   filter_policy = jsonencode({
     eventType = [
       "esupervision.check-in.received",
-      "esupervision.check-in.expired"
+      "esupervision.check-in.expired",
+      "esupervision.check-in.reviewed",
+      "esupervision.check-in.updated"
     ]
   })
 }

@@ -93,6 +93,16 @@ resource "aws_route53_record" "send_money_txt__dmarc" {
   ]
 }
 
+resource "aws_route53_record" "send_money_txt__asvdns" {
+  name    = "_asvdns-51841f54-de17-43fa-be41-9fb054466e27.send-money-to-prisoner.service.gov.uk."
+  zone_id = aws_route53_zone.send_money.zone_id
+  type    = "TXT"
+  ttl     = "300"
+  records = [
+    "asvdns_e5aca31e-75d2-4354-bb57-78c8657d9b4b"
+  ]
+}
+
 resource "aws_route53_zone" "start_page" {
   name = "sendmoneytoaprisoner.justice.gov.uk."
 

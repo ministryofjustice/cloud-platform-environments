@@ -83,3 +83,8 @@ variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}

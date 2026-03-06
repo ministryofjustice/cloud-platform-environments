@@ -124,6 +124,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   request_parameters = {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
+    "integration.request.header.cert-serial-number"         = "context.identity.clientCert.serialNumber"
   }
 }
 
@@ -200,11 +201,17 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
   tags        = local.default_tags
 }
 
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client_three" {
+  description = "Client certificate presented to the backend API expires 02/02/2027"
+  tags        = local.default_tags
+}
+
 resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_three.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn

@@ -42,4 +42,10 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information and Advice"
+}
+
 variable "kubernetes_cluster" {}

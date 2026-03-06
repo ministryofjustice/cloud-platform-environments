@@ -13,6 +13,6 @@ resource "pingdom_check" "dps-production-check" {
   port                     = 443
   tags                     = "dps,hmpps,cloudplatform-managed,keyworker-api,isproduction_true"
   probefilters             = "region:EU"
-  integrationids           = [136330] # move-and-improve-alerts
+  integrationids           = [144102] # maintenance-alerts-prod
 }
 

@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: hmpps-analytics-dev
+spec:
+  hard:
+    pods: "50"

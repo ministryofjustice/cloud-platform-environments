@@ -10,6 +10,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
+      GithubTeam    = "hmpps-esupervision-devs"
     }
   }
 }
@@ -22,18 +23,7 @@ provider "aws" {
     tags = {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-    }
-  }
-}
-
-provider "aws" {
-  alias  = "ireland"
-  region = "eu-west-1"
-
-  default_tags {
-    tags = {
-      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
-      slack-channel = var.slack_channel
+      GithubTeam    = "hmpps-esupervision-devs"
     }
   }
 }

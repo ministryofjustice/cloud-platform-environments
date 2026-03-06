@@ -12,6 +12,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "education-skills-work-employment-dev"
     cloud-platform.justice.gov.uk/slack-alert-channel: "prison-education-alerts-non-prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Prisoner Base Location"
-    cloud-platform.justice.gov.uk/owner: "Education, Skills and Work Team: getreadyforwork@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Education Skills and Work Team: getreadyforwork@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-base-location-api.git"
     cloud-platform.justice.gov.uk/team-name: "education-skills-and-work-live"

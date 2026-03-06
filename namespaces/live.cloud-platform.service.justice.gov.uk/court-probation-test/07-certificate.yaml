@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: court-probation-test-cert
+  namespace: court-probation-test
+spec:
+  secretName: court-probation-test-env-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - court-hearing-event-receiver-test.hmpps.service.justice.gov.uk
+    - court-case-test-app-test.hmpps.service.justice.gov.uk
+    - pre-sentence-service-test.hmpps.service.justice.gov.uk
+    - pre-sentence-service-wproofreader-test.hmpps.service.justice.gov.uk
+    - court-case-matcher-test.apps.live-1.cloud-platform.service.justice.gov.uk
+    - hmpps-court-case-service-api-test.hmpps.service.justice.gov.uk
+    - hmpps-court-case-data-migration-service-test.hmpps.service.justice.gov.uk

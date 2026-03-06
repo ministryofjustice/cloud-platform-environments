@@ -12,8 +12,12 @@ locals {
   }
   sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
   irsa_policies_api = merge(local.sqs_policies_api, {
-    pathfinder_api_queue_for_domain_events                   = module.pathfinder_api_queue_for_domain_events.irsa_policy_arn
-    pathfinder_api_queue_for_domain_events_dead_letter_queue = module.pathfinder_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    pathfinder_api_queue_for_domain_events                      = module.pathfinder_api_queue_for_domain_events.irsa_policy_arn
+    pathfinder_api_queue_for_domain_events_dead_letter_queue    = module.pathfinder_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    pathfinder_api_queue_for_offender_events                    = module.pathfinder_api_offender_queue.irsa_policy_arn
+    pathfinder_api_queue_for_offender_events_dead_letter_queue  = module.pathfinder_api_offender_dlq.irsa_policy_arn
+    pathfinder_api_queue_for_probation_events                   = module.pathfinder_api_queue_for_probation_events.irsa_policy_arn
+    pathfinder_api_queue_for_probation_events_dead_letter_queue = module.pathfinder_api_queue_for_probation_events_dead_letter_queue.irsa_policy_arn
   })
 }
 

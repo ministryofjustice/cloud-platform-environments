@@ -4,6 +4,8 @@ locals {
   sqs_irsa_policies = {
     (module.hmpps_audit_queue.sqs_name)             = module.hmpps_audit_queue.irsa_policy_arn
     (module.hmpps_audit_dead_letter_queue.sqs_name) = module.hmpps_audit_dead_letter_queue.irsa_policy_arn
+    (module.hmpps_prisoner_audit_queue.sqs_name)    = module.hmpps_prisoner_audit_queue.irsa_policy_arn
+
   }
 }
 

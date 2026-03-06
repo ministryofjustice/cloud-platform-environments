@@ -5,7 +5,7 @@ module "hmpps_template_typescript" {
   github_team = var.team_name
   environment = var.environment
   reviewer_teams                = [var.team_name]
-  selected_branch_patterns      = ["main", "hotfix/*", "no-ticket/*", "renovate/*"]
+  selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-typescript"

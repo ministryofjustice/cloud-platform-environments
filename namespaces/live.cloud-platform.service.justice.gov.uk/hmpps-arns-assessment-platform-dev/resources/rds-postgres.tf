@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -16,7 +16,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16"
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -26,6 +26,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -34,10 +36,10 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  count  = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -50,6 +52,14 @@ module "read_replica" {
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
+
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true
+  db_password_rotated_date     = "2025-09-24"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -64,6 +74,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
@@ -84,17 +96,24 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
   }
+
+  data = {
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_address  = module.read_replica[0].rds_instance_address
+  }
 }
 
 
 # Configmap to store non-sensitive data related to the RDS instance
-
 resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
@@ -104,5 +123,75 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+resource "kubernetes_config_map" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.read_replica[0].database_name
+    db_identifier = module.read_replica[0].db_identifier
+  }
+}
+
+# RDS for other users to access AAP data
+module "arns_assessment_view_rds" {
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  # VPC configuration
+  vpc_name                     = var.vpc_name
+
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  prepare_for_major_upgrade    = false
+  performance_insights_enabled = false
+  deletion_protection          = true
+  db_max_allocated_storage     = "500"
+  enable_rds_auto_start_stop   = true
+  db_password_rotated_date     = "2026-03-05"
+
+  # PostgreSQL specifics
+  db_allocated_storage         = 20
+  storage_type                 = "gp3"
+  rds_family                   = "postgres18"
+  db_engine                    = "postgres"
+  db_engine_version            = "18"
+  db_instance_class            = "db.t4g.micro"
+
+  # Tags
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  namespace                    = var.namespace
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+
+  # Name
+  rds_name                     = "hmpps-arns-assessment-view-db-${var.environment}"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "arns_assessment_view_rds" {
+  metadata {
+    name      = "rds-arns-assessment-view-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.arns_assessment_view_rds.rds_instance_endpoint
+    database_name         = module.arns_assessment_view_rds.database_name
+    database_username     = module.arns_assessment_view_rds.database_username
+    database_password     = module.arns_assessment_view_rds.database_password
+    rds_instance_address  = module.arns_assessment_view_rds.rds_instance_address
+    url                   = "postgres://${module.arns_assessment_view_rds.database_username}:${module.arns_assessment_view_rds.database_password}@${module.arns_assessment_view_rds.rds_instance_endpoint}/${module.arns_assessment_view_rds.database_name}"
   }
 }

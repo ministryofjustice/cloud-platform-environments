@@ -61,3 +61,8 @@ variable "kubernetes_cluster" {
 variable "github_actions_team" {
    default = "hmpps-adjustments"
 }
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}

@@ -5,7 +5,7 @@ metadata:
   namespace: laa-court-data-ui-uat
 subjects:
   - kind: Group
-    name: "github:laa-assess-a-claim"
+    name: "github:laa-access-court-data"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

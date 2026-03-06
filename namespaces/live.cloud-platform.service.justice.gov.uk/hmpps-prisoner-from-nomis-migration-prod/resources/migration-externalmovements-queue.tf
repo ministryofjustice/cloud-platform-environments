@@ -1,3 +1,4 @@
+
 module "migration_externalmovements_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
@@ -5,11 +6,11 @@ module "migration_externalmovements_queue" {
   sqs_name                   = "migration_externalmovements_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 345600
-  visibility_timeout_seconds = 120
+  visibility_timeout_seconds = 600
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_externalmovements_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.migration_externalmovements_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF

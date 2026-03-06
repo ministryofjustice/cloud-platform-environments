@@ -24,3 +24,10 @@ resource "kubernetes_secret" "cccd_route53_zone_sec" {
   }
 }
 
+resource "aws_route53_record" "cccd_route53_txt_asvdns" {
+  zone_id = aws_route53_zone.cccd_route53_zone.zone_id
+  name    = "_asvdns-92d02e3a-d85d-494a-bcf8-ae171fb84c1a.claim-crown-court-defence.service.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_d44746ad-298c-48f3-960f-04643dbfde09"]
+}

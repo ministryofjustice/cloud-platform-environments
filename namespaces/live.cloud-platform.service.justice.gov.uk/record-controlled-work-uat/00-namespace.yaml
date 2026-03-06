@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "record-controlled-work-uat"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-e2e-meansandmatch"
+    cloud-platform.justice.gov.uk/application: "Record controlled work"
+    cloud-platform.justice.gov.uk/owner: "LAA Means and Match: MeansandMatchE2E@JusticeUK.onmicrosoft.com"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-record-controlled-work"
+    cloud-platform.justice.gov.uk/team-name: "laa-record-controlled-work"
+    cloud-platform.justice.gov.uk/review-after: ""

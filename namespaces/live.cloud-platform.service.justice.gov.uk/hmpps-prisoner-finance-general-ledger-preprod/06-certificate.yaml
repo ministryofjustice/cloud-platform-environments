@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-finance-general-ledger-api-cert
+  namespace: hmpps-prisoner-finance-general-ledger-preprod
+spec:
+  secretName: hmpps-prisoner-finance-general-ledger-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-finance-general-ledger-api-preprod.hmpps.service.justice.gov.uk
+    - pf-general-ledger-api-preprod.hmpps.service.justice.gov.uk
+

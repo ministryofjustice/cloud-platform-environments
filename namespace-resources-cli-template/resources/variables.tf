@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "{{ .Namespace }}"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "{{ .ServiceArea }}"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

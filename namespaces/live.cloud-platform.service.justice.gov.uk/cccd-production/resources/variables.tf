@@ -60,3 +60,8 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
+}

@@ -31,6 +31,11 @@ variable "environment" {
   default     = "staging"
 }
 
+variable "service_area" {
+  default = "Central Digital"
+}
+
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
@@ -77,4 +82,10 @@ variable "github_actions_secret_kube_cert" {
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.staging.websitebuilder.service.justice.gov.uk"
 }

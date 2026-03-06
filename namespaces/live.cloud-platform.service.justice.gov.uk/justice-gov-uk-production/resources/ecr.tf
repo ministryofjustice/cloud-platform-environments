@@ -8,11 +8,11 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "description": "Keep the newest 100 images and mark the rest for expiration",
         "selection": {
           "tagStatus": "any",
           "countType": "imageCountMoreThan",
-          "countNumber": 50
+          "countNumber": 100
         },
         "action": {
           "type": "expire"
@@ -33,8 +33,6 @@ module "ecr_credentials" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  enable_irsa = true
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

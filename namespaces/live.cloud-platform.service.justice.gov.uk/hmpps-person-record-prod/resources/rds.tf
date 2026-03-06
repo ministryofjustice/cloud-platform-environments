@@ -1,5 +1,5 @@
 module "hmpps_person_record_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                     = var.vpc_name
   team_name                    = var.team_name
   business_unit                = var.business_unit
@@ -16,6 +16,7 @@ module "hmpps_person_record_rds" {
   performance_insights_enabled = true
   allow_major_version_upgrade  = "true"
   deletion_protection          = true
+  db_password_rotated_date    = "09-01-2026"
 
   providers = {
     aws = aws.london

@@ -14,7 +14,9 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-
+  logging_enabled        = true
+  log_target_bucket      = module.nscc_s3_logging_bucket.bucket_name
+  log_path               = "/log"
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
@@ -184,6 +186,45 @@ resource "aws_s3_bucket_metric" "entire-bucket-metric" {
   name   = "laa-submit-crime-forms-uploads"
 }
 
+module "nscc_s3_logging_bucket" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  team_name              = var.team_name
+  acl                    = "private"
+  versioning             = false
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  bucket_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+        "Sid": "S3ServerAccessLogsPolicy",
+        "Effect": "Allow",
+        "Principal": {
+            "Service": "logging.s3.amazonaws.com"
+        },
+        "Action": [
+          "s3:PutObject"
+        ],
+        "Resource": [
+          "$${bucket_arn}/*"
+        ]
+    }
+  ]
+}
+EOF
+
+
+  providers = {
+    aws = aws.london
+  }
+}
+
 
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
@@ -196,3 +237,5 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
+
+

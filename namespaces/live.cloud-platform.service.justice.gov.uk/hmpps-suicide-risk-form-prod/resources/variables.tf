@@ -4,6 +4,9 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "HMPPS Suicide Risk Form"
@@ -25,7 +28,7 @@ variable "team_name" {
 
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
-variable "environment" {
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
 }
@@ -58,4 +61,12 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
+}
+
+variable "domain_events_topic_name" {
+  default = "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08"
 }

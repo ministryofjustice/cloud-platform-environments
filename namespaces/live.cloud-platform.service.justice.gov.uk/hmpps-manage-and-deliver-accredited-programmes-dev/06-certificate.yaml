@@ -25,4 +25,18 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-and-deliver-acp-api-dev.hmpps.service.justice.gov.uk
-    - accredited-programmes-manage-and-deliver-api-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-api-dev.hmpps.service.justice.gov.uk    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-and-deliver-accredited-programmes-data-importer-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-and-deliver-accredited-programmes-dev
+spec:
+  secretName: hmpps-manage-and-deliver-accredited-programmes-data-importer-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-and-deliver-acp-data-importer-dev.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-data-importer-dev.hmpps.service.justice.gov.uk

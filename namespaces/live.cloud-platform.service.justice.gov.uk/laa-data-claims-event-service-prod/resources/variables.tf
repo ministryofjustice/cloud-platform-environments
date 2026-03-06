@@ -74,8 +74,20 @@ variable "eks_cluster_name" {
   default     = "example_name"
 }
 
-variable "serviceaccount_name" {
+variable "cd_serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-data-claims-event-service-production-service-account"
+  default     = "claims-event-service-prod-cd-serviceaccount"
+}
+
+variable "irsa_serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "claims-event-service-prod-irsa-serviceaccount"
+}
+
+variable "producer_namespace" {
+  type        = string
+  description = "The namespace of the SQS producer"
+  default     = "laa-data-claims-api-prod"
 }

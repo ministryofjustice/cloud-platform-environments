@@ -6,7 +6,7 @@
  */
 
 module "prison-visits-rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
@@ -30,6 +30,8 @@ module "prison-visits-rds" {
   db_password_rotated_date = "2023-05-11"
 
   performance_insights_enabled = true
+
+  enable_irsa = true
 
   providers = {
     aws = aws.london

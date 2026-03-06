@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -26,6 +26,8 @@ module "rds" {
 
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
   prepare_for_major_upgrade = false
+
+  enable_irsa = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

@@ -3,12 +3,11 @@ kind: CronJob
 metadata:
   name: check-certs-expiry
 spec:
-  schedule: "0 7 * * 1-5"
-  successfulJobsHistoryLimit: 1
+  schedule: "0 7 * * *"
+  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
-      ttlSecondsAfterFinished: 180
       template:
         spec:
           volumes:

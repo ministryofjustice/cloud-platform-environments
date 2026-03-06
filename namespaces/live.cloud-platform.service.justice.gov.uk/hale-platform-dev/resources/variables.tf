@@ -84,3 +84,7 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN"
 }
+
+variable "service_area" {
+  default = "Central Digital"
+}

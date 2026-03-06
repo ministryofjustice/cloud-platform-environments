@@ -23,29 +23,7 @@ module "mandd_queue" {
 
 resource "aws_sqs_queue_policy" "hmpps_manage_and_deliver_domain_events_queue_policy" {
   queue_url = module.mandd_queue.sqs_id
-  policy    = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.mandd_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.mandd_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-                      {
-                        "ArnEquals":
-                          {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-                          }
-                        }
-        }
-      ]
-  }
-
-EOF
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
 }
 
 module "mandd_dlq" {

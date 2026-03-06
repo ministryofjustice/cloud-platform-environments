@@ -20,6 +20,10 @@ variable "namespace" {
   default = "make-recall-decision-prod"
 }
 
+variable "service_area" {
+  default = "Protecting the Public"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"

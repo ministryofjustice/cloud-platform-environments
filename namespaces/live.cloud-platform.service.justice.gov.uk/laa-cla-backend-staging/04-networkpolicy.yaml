@@ -49,3 +49,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-staging
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-manage-your-civil-cases-staging

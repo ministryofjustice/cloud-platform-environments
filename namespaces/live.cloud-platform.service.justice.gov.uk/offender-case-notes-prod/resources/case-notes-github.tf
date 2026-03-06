@@ -2,7 +2,7 @@ module "case-notes-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "offender-case-notes"
   application                   = "offender-case-notes"
-  github_team                   = var.team_name
+  github_team                   = var.github_review_team
   environment                   = var.environment-name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
@@ -12,5 +12,5 @@ module "case-notes-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = [var.github_deployment_team]
 }

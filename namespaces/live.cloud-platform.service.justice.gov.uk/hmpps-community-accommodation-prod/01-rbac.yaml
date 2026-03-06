@@ -11,6 +11,9 @@ subjects:
 - kind: Group
   name: "github:hmpps-community-accommodation-live"
   apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: "github:hmpps-approved-premises-future-manage-live"
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

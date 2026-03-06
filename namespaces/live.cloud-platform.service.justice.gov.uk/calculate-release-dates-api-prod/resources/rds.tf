@@ -1,5 +1,5 @@
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
@@ -47,6 +47,11 @@ module "calculate_release_dates_api_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
 
@@ -69,7 +74,7 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
 }
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true
@@ -119,6 +124,16 @@ module "read_replica" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]

@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Apply for Criminal Legal Aid"
+  default     = "apply-for-criminal-legal-aid"
 }
 
 variable "namespace" {

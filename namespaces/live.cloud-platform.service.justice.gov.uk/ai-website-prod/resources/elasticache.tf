@@ -14,6 +14,7 @@ module "elasticache" {
   parameter_group_name    = "default.redis7"
   number_cache_clusters   = "2"
   node_type               = "cache.t4g.micro"
+  auth_token_rotated_date = "2025-12-10"
 }
 
 resource "kubernetes_secret" "elasticache" {

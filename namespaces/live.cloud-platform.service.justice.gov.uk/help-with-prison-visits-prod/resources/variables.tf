@@ -16,6 +16,11 @@ variable "team_name" {
   default     = "hmpps-help-with-prison-visits-live"
 }
 
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "prod"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"

@@ -3,9 +3,10 @@ module "queue" {
   sqs_name   = var.queue_name
   fifo_queue = var.fifo_queue
 
-  message_retention_seconds = var.message_retention_seconds
-  max_message_size          = var.max_message_size
-  delay_seconds             = var.delay_seconds
+  message_retention_seconds  = var.message_retention_seconds
+  max_message_size           = var.max_message_size
+  visibility_timeout_seconds = var.visibility_timeout_seconds
+  delay_seconds              = var.delay_seconds
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.dlq.sqs_arn
@@ -25,9 +26,14 @@ module "queue" {
 }
 
 module "dlq" {
-  source          = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
-  sqs_name        = "${var.queue_name}-dlq"
-  fifo_queue      = var.fifo_queue
+  source     = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  sqs_name   = "${var.queue_name}-dlq"
+  fifo_queue = var.fifo_queue
+
+  message_retention_seconds  = var.message_retention_seconds
+  max_message_size           = var.max_message_size
+  visibility_timeout_seconds = var.visibility_timeout_seconds
+
   encrypt_sqs_kms = var.encrypted_queue
 
   # Tags

@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment"]
+  github_repositories = ["laa-claim-for-payment", "claim-assess-regression-tests"]
+  github_actions_prefix = "laa_claim_for_payment"
 
   # Tags
   business_unit          = var.business_unit
@@ -43,3 +44,5 @@ module "ecr-mock-oidc" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+

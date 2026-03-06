@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-lead-developers"
+  default     = "hmpps-feature-flag-admins"
 }
 
 variable "environment" {
@@ -70,4 +70,8 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }

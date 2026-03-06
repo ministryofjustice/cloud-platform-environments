@@ -1,3 +1,7 @@
+# For Cloud Platform deployed projects based on the hmpps-template-typescript template:
+# Make a copy of this file in your namespace, then modify according to the instructions here:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
+
 module "hmpps_template_typescript" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-template-typescript"

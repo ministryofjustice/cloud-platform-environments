@@ -2,7 +2,7 @@ module "hmpps_staff_dev" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
   github_repo                   = "hmpps-staff-lookup-service"
   application                   = "hmpps-staff-lookup-service"
-  github_team                   = "manage-a-workforce"
+  github_team                   = "hmpps-manage-a-workforce-devs"
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "dev"

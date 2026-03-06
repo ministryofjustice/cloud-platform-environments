@@ -26,10 +26,17 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+# NB: connect-dps now look after hmpps-alerts but `team_name` may affect existing infrastructure
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-move-and-improve" # this is now connect dps but it was not updated as this will affect infrastructure - eg it is used to name queues
+  default     = "hmpps-move-and-improve"
+}
+# `team_name_replacement` can be changed without affecting infrastructure
+variable "team_name_replacement" {
+  description = "Name of the actual development team responsible for this service"
+  type        = string
+  default     = "connect-dps"
 }
 
 variable "environment" {
@@ -80,4 +87,19 @@ variable "mp_dps_sg_name" {
   type        = string
   description = "Required for MP DPR Traffic ingress into CP DPS"
   default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
+  default     = "connect-dps-live"
 }
