@@ -14,5 +14,13 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5.1"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.13.0"
+    }
   }
 }
