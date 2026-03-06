@@ -30,3 +30,15 @@ module "ecr" {
 
   enable_irsa = true
 }
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
+  }
+}
