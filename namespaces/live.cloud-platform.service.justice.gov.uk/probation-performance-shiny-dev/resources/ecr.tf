@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "ecr_credentials" {
+module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
@@ -38,7 +38,7 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    repo_arn = module.ecr_credentials.repo_arn
-    repo_url = module.ecr_credentials.repo_url
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
   }
 }
