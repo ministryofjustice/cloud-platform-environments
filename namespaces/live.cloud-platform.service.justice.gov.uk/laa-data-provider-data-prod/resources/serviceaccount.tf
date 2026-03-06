@@ -7,7 +7,7 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = var.github_repository_names
-  github_environments = [var.github_environment_name]
+  github_environments = [var.github_environment_name, "prod_auto_without_approval"]
 
   github_actions_secret_kube_cert      = "DPD_KUBE_CERT"
   github_actions_secret_kube_cluster   = "DPD_KUBE_CLUSTER"
