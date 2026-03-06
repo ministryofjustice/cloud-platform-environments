@@ -28,7 +28,7 @@ module "ecr" {
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
   # uncomment below:
 
-  enable_irsa = true
+  # enable_irsa = true
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
