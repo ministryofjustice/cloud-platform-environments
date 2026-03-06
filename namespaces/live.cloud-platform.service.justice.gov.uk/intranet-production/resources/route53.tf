@@ -53,6 +53,16 @@ resource "aws_route53_record" "domain_key" {
   ]
 }
 
+resource "aws_route53_record" "asvdns" {
+  zone_id = aws_route53_zone.intranet_justice_gov_uk_zone.zone_id
+  name    = "_asvdns-e914dd4b-36b1-4636-8d1c-0585998d4500.intranet.justice.gov.uk."
+  type    = "TXT"
+  ttl     = 300
+  records = [
+    "asvdns_20b2fb63-528e-4e1b-b657-bf0b913678b7"
+  ]
+}
+
 resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
     name      = "route53-zone-output"

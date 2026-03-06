@@ -11,11 +11,11 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:probation-integration"
+    name: "github:probation-integration-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
-    name: cd-serviceaccount
-    namespace: hmpps-probation-integration
+    name: default
+    namespace: hmpps-github-actions-runners
 roleRef:
   kind: ClusterRole
   name: admin

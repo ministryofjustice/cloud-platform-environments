@@ -1287,7 +1287,6 @@ data:
               },
               "decimals": 0,
               "mappings": [],
-              "max": 6,
               "min": 0,
               "thresholds": {
                 "mode": "absolute",

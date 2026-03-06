@@ -1,7 +1,11 @@
 
 locals {
 
-  github_repos   = ["hmpps-accredited-programmes-manage-and-deliver-api", "hmpps-accredited-programmes-manage-and-deliver-ui"]
+  github_repos   = [
+    "hmpps-accredited-programmes-manage-and-deliver-api", 
+    "hmpps-accredited-programmes-manage-and-deliver-ui",
+    "hmpps-accredited-programmes-manage-and-deliver-data-importer"
+  ]
 
   github-actions-sa_rules = [
     {

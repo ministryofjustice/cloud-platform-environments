@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cwa-bulkupload-app-team"
+  default     = "laa-submit-a-bulk-claim"
 }
 
 variable "environment" {
@@ -78,4 +78,16 @@ variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-submit-a-bulk-claim-uat-service-account"
+}
+
+variable "serviceaccount_suffix" {
+  type        = string
+  description = "Suffix to append to the service account name, has to be underscores only"
+  default     = "laa_submit_a_bulk_claim_uat"
+}
+
+variable "serviceaccount_name_e2e_tests" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to e2e test"
+  default     = "laa-submit-a-bulk-claim-e2e-test-uat-service-account"
 }

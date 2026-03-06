@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -33,6 +33,14 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = var.force_ssl_value
+      apply_method = var.force_ssl_apply_method
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {

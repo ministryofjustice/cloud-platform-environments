@@ -15,6 +15,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Digital-Prison-Services"
@@ -53,7 +58,7 @@ variable "github_token" {
 
 variable "approved_prisoner_audit_clients" {
   type    = list(string)
-  default = []
+  default = ["hmpps-launchpad-prod-2"]
 }
 
 variable "kubernetes_cluster" {}

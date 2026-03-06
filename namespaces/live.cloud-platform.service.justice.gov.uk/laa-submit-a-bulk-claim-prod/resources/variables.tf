@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "cwa-bulkupload-app-team"
+  default     = "laa-submit-a-bulk-claim"
 }
 
 variable "environment" {
@@ -78,4 +78,9 @@ variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-submit-a-bulk-claim-production-service-account"
+}
+
+variable "domain" {
+  default = "submit-a-bulk-claim.laa.service.justice.gov.uk"
+  type    = string
 }

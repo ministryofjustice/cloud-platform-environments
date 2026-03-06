@@ -8,6 +8,9 @@ subjects:
     name: "github:hmpps-assessments"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:hmpps-assessments-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:

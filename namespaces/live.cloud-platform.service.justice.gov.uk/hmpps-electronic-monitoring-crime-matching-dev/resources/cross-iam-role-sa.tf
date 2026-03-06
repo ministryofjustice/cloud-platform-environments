@@ -8,9 +8,33 @@ module "irsa" {
     {
       ssm = aws_iam_policy.ssm_access.arn,
       athena = aws_iam_policy.athena_access.arn
-      rds = module.rds.irsa_policy_arn
+      rds = module.rds.irsa_policy_arn,
+      email_notifications_queue = module.email_notifications_queue.irsa_policy_arn
+      email_notifications_dlq = module.email_notifications_dlq.irsa_policy_arn
+      matching_notifications_topic = module.matching_notifications_topic.irsa_policy_arn
     }
   )
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+module "crime_matching_algorithm_irsa" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "${var.namespace}-crime-matching-algorithm"
+  namespace            = var.namespace
+
+  role_policy_arns = {
+    athena = aws_iam_policy.athena_access.arn
+    matching_notifications_queue = module.matching_notifications_queue.irsa_policy_arn
+    matching_notifications_dlq = module.matching_notifications_dlq.irsa_policy_arn
+  }
 
   # Tags
   business_unit          = var.business_unit

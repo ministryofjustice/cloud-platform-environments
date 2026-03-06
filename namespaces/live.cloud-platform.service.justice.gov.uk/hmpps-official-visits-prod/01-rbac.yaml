@@ -1,0 +1,22 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-official-visits-prod-admin
+  namespace: hmpps-official-visits-prod
+subjects:
+  - kind: Group
+    name: "github:hmpps-move-and-improve-live"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:syscon-devs"
+    apiGroup: rbac.authorization.k8s.io
+  ############## COPY - DO NOT REPLACE ##############
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+# hmpps-sre group is required for support functions
+###################################################
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

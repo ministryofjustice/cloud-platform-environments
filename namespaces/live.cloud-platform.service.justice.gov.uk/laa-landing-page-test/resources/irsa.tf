@@ -6,6 +6,7 @@ module "irsa" {
   
   role_policy_arns = {
     sqs = data.aws_ssm_parameter.sqs_policy_arn.value
+    rds = module.rds.irsa_policy_arn
   }
   business_unit          = var.business_unit
   application            = var.application

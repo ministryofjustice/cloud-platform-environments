@@ -67,4 +67,6 @@ variable "rds_name" {
   description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
   default     = "arns-assessment-platform-preprod"
   type        = string
+variable "eks_cluster_name" {
+    description = "The name of the eks cluster to retrieve the OIDC information"
 }

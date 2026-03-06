@@ -1,5 +1,5 @@
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  
+
   name = "/hmpps-domain-events-dev/topic-arn"
 }
 
@@ -87,6 +87,17 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.address.updated",
       "probation-case.address.deleted",
       "probation-case.risk-scores.ogrs.manual-calculation",
+      "probation-case.mappa-information.created",
+      "probation-case.mappa-information.updated",
+      "probation-case.mappa-information.deleted",
+      "probation-case.mappa-export.created",
+      "probation-case.mappa-export.terminated",
+      "probation-case.assessment-summary.created",
+      "probation-case.supervision-appointment.created",
+      "probation-case.supervision.created",
+      "probation-case.cas3-booking.created",
+      "probation-case.exclusion.updated",
+      "probation-case.restriction.updated",
       "plp.induction-schedule.updated",
       "plp.review-schedule.updated",
       "san.plan-creation-schedule.updated",

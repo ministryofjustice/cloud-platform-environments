@@ -1,5 +1,5 @@
 module "hmpps_interventions_postgres14" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -40,7 +40,7 @@ resource "kubernetes_secret" "hmpps_interventions_postgres14" {
 }
 
 module "hmpps_interventions_postgres14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage   = 10
   storage_type           = "gp2"
   vpc_name               = var.vpc_name

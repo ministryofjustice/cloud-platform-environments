@@ -80,3 +80,77 @@ variable "eks_cluster_name" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "db_allocated_storage" {
+  description = "The allocated storage for the RDS instance"
+  type        = number
+  default     = 200
+}
+
+variable "db_engine" {
+  description = "The DB engine to use for the RDS instance"
+  type        = string
+  default     = "sqlserver-web"
+}
+
+variable "db_engine_version" {
+  description = "The DB engine version for the RDS instance"
+  type        = string
+  default     = "15.00.4345.5.v1"
+}
+
+variable "db_instance_class" {
+  description = "The DB instance class for the RDS instance"
+  type        = string
+  default     = "db.m5.large"
+}
+
+variable "db_name" {
+  description = "The name of the DB"
+  type        = string
+  default     = "hmpps-manage-and-deliver-acp-preprod-mssql"
+}
+
+variable "db_rds_family" {
+  description = "The RDS family for the RDS instance"
+  type        = string
+  default     = "sqlserver-web-15.0"
+}
+
+variable "db_storage_type" {
+  description = "The storage type for the RDS instance"
+  type        = string
+  default     = "gp2"
+}
+
+variable "character_set_name" {
+  description = "The character set name for the RDS instance. Cannot be set with the snapshot identifier. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+  type        = string
+  default     = null
+}
+
+variable "force_ssl_apply_method" {
+  description = "The apply method for force SSL"
+  type        = string
+  default     = "pending-reboot"
+}
+
+variable "force_ssl_value" {
+  description = "The value to set for forcing SSL"
+  type        = number
+  default     = 1
+}
+
+variable "logging_enabled" {
+  default = true
+}
+
+variable "log_path" {
+  default = "logs/"
+}
+
+variable "sqlserver_restore_create_snapshot" {
+  description = "Boolean to declare whether or not a snapshot should be taken before the sqlserver restore"
+  type        = bool
+  default     = true
+}

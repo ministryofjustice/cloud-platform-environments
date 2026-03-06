@@ -31,6 +31,7 @@ locals {
     victims-commissioner               = { host = "victimscommissioner.org.uk", url = "/" }
     Website-Builder-Prod-Platform-Page = { host = "websitebuilder.service.justice.gov.uk", url = "/" }
     Website-Builder-Staging-Test-Site  = { host = "staging.websitebuilder.service.justice.gov.uk", url = "/" }
+    Ministy-of-Justice-Main-Site       = { host = "www.justice.gov.uk", url = "/" }
   }
 }
 

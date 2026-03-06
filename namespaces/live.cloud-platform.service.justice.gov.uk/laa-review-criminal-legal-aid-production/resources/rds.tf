@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -20,6 +20,9 @@ module "rds" {
   db_max_allocated_storage     = "10000"
   db_password_rotated_date     = "2023-04-25"
 
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "17"
@@ -33,6 +36,9 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {

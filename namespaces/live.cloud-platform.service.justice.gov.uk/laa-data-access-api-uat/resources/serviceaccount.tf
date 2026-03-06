@@ -4,7 +4,87 @@ module "serviceaccount" {
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name
-
+  serviceaccount_rules = [
+    {
+      "api_groups": [
+        ""
+      ],
+      "resources": [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "persistentvolumeclaims",
+        "pods"
+      ],
+      "verbs": [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy"
+      ],
+      "resources": [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "poddisruptionbudgets",
+        "networkpolicies"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "monitoring.coreos.com"
+      ],
+      "resources": [
+        "prometheusrules",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "api_groups": [
+        "autoscaling"
+      ],
+      "resources": [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
+  ]
   serviceaccount_token_rotated_date = "01-01-2000"
 
   # Uncomment and provide repository names to create github actions secrets

@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "dps_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -16,8 +16,8 @@ module "dps_rds" {
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres16"
-  db_engine_version           = "16"
+  rds_family                  = "postgres17"
+  db_engine_version           = "17.6"
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
@@ -30,6 +30,36 @@ module "dps_rds" {
   providers = {
     aws = aws.london
   }
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -39,7 +69,7 @@ module "dps_rds" {
 module "dps_rds_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
 
@@ -59,8 +89,8 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
@@ -100,6 +130,11 @@ module "dps_rds_replica" {
     {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]

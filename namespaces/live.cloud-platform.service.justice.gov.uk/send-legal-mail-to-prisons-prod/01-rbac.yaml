@@ -6,6 +6,9 @@ metadata:
   namespace: send-legal-mail-to-prisons-prod
 subjects:
   - kind: Group
+    name: "github:hmpps-prisons-digital-live-support-live"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hmpps-send-legal-mail-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

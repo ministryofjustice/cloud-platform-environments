@@ -1,25 +1,204 @@
-resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
-  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
+# Use default ingress controller NLB (managed by Cloud Platform)
+data "aws_lb" "ingress_default_non_prod_nlb" {
+  tags = {
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-default-non-prod-controller"
+    "kubernetes.io/cluster/live" = "owned"
+  }
+}
 
-  domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
-  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
-  security_policy          = "TLS_1_2"
+# Get network interfaces associated with the NLB to extract private IPs
+data "aws_network_interfaces" "nlb_enis" {
+  filter {
+    name   = "description"
+    values = ["ELB ${data.aws_lb.ingress_default_non_prod_nlb.arn_suffix}"]
+  }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_lb.ingress_default_non_prod_nlb.vpc_id]
+  }
+}
+
+# Get details of each network interface to extract private IP addresses
+data "aws_network_interface" "nlb_eni_details" {
+  for_each = toset(data.aws_network_interfaces.nlb_enis.ids)
+  id       = each.value
+}
+
+# VPC Link for API Gateway
+resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
+  name        = "${var.namespace}-vpc-link"
+  description = "VPC Link for ${var.namespace} API Gateway to NLB"
+  target_arns = [data.aws_lb.ingress_default_non_prod_nlb.arn]
+
+  tags = local.default_tags
+}
+#===============================================================================
+# API Gateway for Launchpad Auth API
+#===============================================================================
+resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
+  name                          = var.namespace
+  disable_execute_api_endpoint  = false
+  api_key_source                = "HEADER"
 
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+  tags = local.default_tags
+}
 
-  mutual_tls_authentication {
-    truststore_uri     = "s3://${module.truststore_s3_bucket.bucket_name}/${aws_s3_object.truststore.id}"
-    truststore_version = aws_s3_object.truststore.version_id
+# /Handles All Resources
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
+  path_part   = "{proxy+}"
+}
+
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  resource_id      = aws_api_gateway_resource.proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
+  api_key_required = true
+
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
+}
+
+# Handles any path - HTTPS via VPC Link → default NLB → NGINX → pod
+# URI uses *.apps.live.cloud-platform hostname to match default NLB TLS cert CN
+# Host header must match URI hostname - NGINX uses SNI from TLS for routing
+# apiGatewayIngress in values-dev.yaml must have this same hostname
+resource "aws_api_gateway_integration" "proxy_http_proxy" {
+  rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  resource_id             = aws_api_gateway_resource.proxy.id
+  http_method             = aws_api_gateway_method.proxy.http_method
+  type                    = "HTTP_PROXY"
+  integration_http_method = "ANY"
+  uri                     = "https://hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk/{proxy}"
+
+  connection_type      = "VPC_LINK"
+  connection_id        = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  timeout_milliseconds = 29000
+
+  request_parameters = {
+    "integration.request.path.proxy"  = "method.request.path.proxy"
+    "integration.request.header.Host" = "'hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk'"
+  }
+}
+
+# API Keys
+resource "aws_api_gateway_api_key" "clients" {
+  for_each = toset(local.api_clients)
+  name     = each.key
+  tags = local.default_tags
+}
+
+# Usage Plan
+resource "aws_api_gateway_usage_plan" "default" {
+  name = "${var.namespace}-external-apps"
+  api_stages {
+    api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+    stage  = aws_api_gateway_stage.main.stage_name
+  }
+
+  tags = local.default_tags
+}
+
+# Associate API Keys with Usage Plan
+resource "aws_api_gateway_usage_plan_key" "clients" {
+  for_each = aws_api_gateway_api_key.clients
+  key_id        = aws_api_gateway_api_key.clients[each.key].id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.default.id
+}
+
+# Deployment
+resource "aws_api_gateway_deployment" "main" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+
+  triggers = {
+    redeployment = sha1(jsonencode([
+      "manual-deploy-trigger",
+      local.api_clients,
+      var.cloud_platform_launchpad_auth_api_url,
+      md5(file("api_gateway.tf")),
+    ]))
   }
 
   depends_on = [
-    aws_acm_certificate_validation.api_gateway_custom_hostname,
-    aws_s3_object.truststore
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy_http_proxy,
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Stage
+resource "aws_api_gateway_stage" "main" {
+  deployment_id = aws_api_gateway_deployment.main.id
+  rest_api_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  stage_name    = var.namespace
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
+    format = jsonencode({
+      extendedRequestId       = "$context.extendedRequestId"
+      ip                      = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      httpMethod              = "$context.httpMethod"
+      resourcePath            = "$context.resourcePath"
+      status                  = "$context.status"
+      responseLength          = "$context.responseLength"
+      error                   = "$context.error.message"
+      apiKeyId                = "$context.identity.apiKeyId"
+      integrationStatus       = "$context.integration.status"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+      integrationLatency      = "$context.integrationLatency"
+    })
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_deployment.main,
+    aws_cloudwatch_log_group.api_gateway_access_logs
   ]
 
   tags = local.default_tags
+}
+
+# CloudWatch Logs
+resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway_lp_auth.id}/${var.namespace}"
+  retention_in_days = 60
+  tags              = local.default_tags
+}
+
+# Method Settings
+resource "aws_api_gateway_method_settings" "all" {
+  rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
+  stage_name  = aws_api_gateway_stage.main.stage_name
+  method_path = "*/*"
+
+  settings {
+    metrics_enabled    = true
+    logging_level      = "INFO"
+    data_trace_enabled = false
+  }
+}
+
+# The block below creates an ACM certificate (DNS validation), Route53 validation records,
+# a regional API Gateway custom domain and an alias record. Enables
+# ${var.hostname}.${var.base_domain} to point at the API Gateway.
+
+data "aws_route53_zone" "hmpps" {
+  name         = var.base_domain
+  private_zone = false
 }
 
 resource "aws_acm_certificate" "api_gateway_custom_hostname" {
@@ -29,26 +208,7 @@ resource "aws_acm_certificate" "api_gateway_custom_hostname" {
   lifecycle {
     create_before_destroy = true
   }
-
   tags = local.default_tags
-}
-
-resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
-  for_each = aws_route53_record.cert_validations
-
-  certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
-  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
-
-  timeouts {
-    create = "10m"
-  }
-
-  depends_on = [aws_route53_record.cert_validations]
-}
-
-data "aws_route53_zone" "hmpps" {
-  name         = var.base_domain
-  private_zone = false
 }
 
 resource "aws_route53_record" "cert_validations" {
@@ -69,6 +229,36 @@ resource "aws_route53_record" "cert_validations" {
   zone_id         = each.value.zone_id
 }
 
+resource "aws_acm_certificate_validation" "api_gateway_custom_hostname" {
+  for_each = aws_route53_record.cert_validations
+
+  certificate_arn         = aws_acm_certificate.api_gateway_custom_hostname.arn
+  validation_record_fqdns = [aws_route53_record.cert_validations[each.key].fqdn]
+
+  timeouts {
+    create = "10m"
+  }
+  depends_on = [aws_route53_record.cert_validations]
+}
+
+resource "aws_api_gateway_domain_name" "api_gateway_fqdn" {
+  for_each = aws_acm_certificate_validation.api_gateway_custom_hostname
+
+  domain_name              = aws_acm_certificate.api_gateway_custom_hostname.domain_name
+  regional_certificate_arn = aws_acm_certificate_validation.api_gateway_custom_hostname[each.key].certificate_arn
+  security_policy          = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  # No mTLS for launchpad-dev by default (omit mutual_tls_authentication)
+  depends_on = [
+    aws_acm_certificate_validation.api_gateway_custom_hostname
+  ]
+  tags = local.default_tags
+}
+
 resource "aws_route53_record" "data" {
   for_each = aws_api_gateway_domain_name.api_gateway_fqdn
 
@@ -83,150 +273,14 @@ resource "aws_route53_record" "data" {
   }
 }
 
-resource "aws_api_gateway_method" "proxy" {
-  rest_api_id      = aws_api_gateway_rest_api.api_gateway.id
-  resource_id      = aws_api_gateway_resource.proxy.id
-  http_method      = "ANY"
-  authorization    = "NONE"
-  api_key_required = false
-
-  request_parameters = {
-    "method.request.path.proxy" = true
-  }
-}
-
-resource "aws_api_gateway_integration" "proxy_http_proxy" {
-  rest_api_id             = aws_api_gateway_rest_api.api_gateway.id
-  resource_id             = aws_api_gateway_resource.proxy.id
-  http_method             = aws_api_gateway_method.proxy.http_method
-  type                    = "HTTP_PROXY"
-  integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
-
-  request_parameters = {
-    "integration.request.path.proxy"                        = "method.request.path.proxy",
-    "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
-  }
-}
-
-resource "aws_api_gateway_rest_api" "api_gateway" {
-  name                         = var.namespace
-  disable_execute_api_endpoint = false
-
-  endpoint_configuration {
-    types = ["REGIONAL"]
-  }
-
-  tags = local.default_tags
-}
-
-resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "{proxy+}"
-}
-
-resource "aws_api_gateway_stage" "main" {
-  deployment_id         = aws_api_gateway_deployment.main.id
-  rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
-  stage_name            = var.namespace
-  # client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_two.id
-
-  access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
-    format = jsonencode({
-      extendedRequestId  = "$context.extendedRequestId"
-      ip                 = "$context.identity.sourceIp"
-      client             = "$context.identity.clientCert.subjectDN"
-      issuerDN           = "$context.identity.clientCert.issuerDN"
-      requestTime        = "$context.requestTime"
-      httpMethod         = "$context.httpMethod"
-      resourcePath       = "$context.resourcePath"
-      status             = "$context.status"
-      responseLength     = "$context.responseLength"
-      error              = "$context.error.message"
-      authenticateStatus = "$context.authenticate.status"
-      authenticateError  = "$context.authenticate.error"
-      integrationStatus  = "$context.integration.status"
-      integrationError   = "$context.integration.error"
-      apiKeyId           = "$context.identity.apiKeyId"
-    })
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  depends_on = [
-    aws_api_gateway_deployment.main,
-    aws_cloudwatch_log_group.api_gateway_access_logs
-  ]
-
-  tags = local.default_tags
-}
-
-resource "aws_api_gateway_method_settings" "all" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-  stage_name  = aws_api_gateway_stage.main.stage_name
-  method_path = "*/*"
-
-  settings {
-    metrics_enabled    = true
-    logging_level      = "INFO"
-    data_trace_enabled = true
-  }
-}
-
 resource "aws_api_gateway_base_path_mapping" "hostname" {
   for_each = aws_api_gateway_domain_name.api_gateway_fqdn
 
-  api_id      = aws_api_gateway_rest_api.api_gateway.id
+  api_id      = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   domain_name = aws_api_gateway_domain_name.api_gateway_fqdn[each.key].domain_name
   stage_name  = aws_api_gateway_stage.main.stage_name
 
   depends_on = [
     aws_api_gateway_domain_name.api_gateway_fqdn
   ]
-}
-
-resource "aws_api_gateway_usage_plan" "default" {
-  name = var.namespace
-
-  api_stages {
-    api_id = aws_api_gateway_rest_api.api_gateway.id
-    stage  = aws_api_gateway_stage.main.stage_name
-  }
-
-  tags = local.default_tags
-}
-
-
-resource "aws_api_gateway_deployment" "main" {
-  rest_api_id = aws_api_gateway_rest_api.api_gateway.id
-
-  triggers = {
-    redeployment = sha1(jsonencode([
-      # "manual-deploy-trigger",
-      # local.clients,
-      var.cloud_platform_launchpad_auth_api_url,
-      md5(file("api_gateway.tf")),
-      md5(file("api_gateway-assume-role-endpoint.tf")),
-    ]))
-  }
-
-  depends_on = [
-    aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.proxy_http_proxy,
-    aws_api_gateway_integration.sts_integration,
-  ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_cloudwatch_log_group" "api_gateway_access_logs" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.api_gateway.id}/${var.namespace}"
-  retention_in_days = 60
-  tags              = local.default_tags
 }

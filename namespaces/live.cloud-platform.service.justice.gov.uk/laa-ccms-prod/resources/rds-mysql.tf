@@ -1,5 +1,5 @@
 module "opa_hub_db" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -13,7 +13,7 @@ module "opa_hub_db" {
 
   # MySQL specifics
   db_engine         = "mysql"
-  db_engine_version = "8.0.40"
+  db_engine_version = "8.0.42"
   rds_family        = "mysql8.0"
   db_instance_class = "db.t3.large"
   db_parameter      = []

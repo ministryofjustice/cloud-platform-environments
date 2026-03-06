@@ -65,3 +65,8 @@ variable "github_token" {
 variable "rds_family" {
   default = "postgres16"
 }
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}

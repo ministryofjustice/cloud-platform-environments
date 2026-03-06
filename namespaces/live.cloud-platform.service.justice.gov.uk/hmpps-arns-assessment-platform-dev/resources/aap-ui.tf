@@ -8,6 +8,7 @@ module "hmpps_arns_assessment_platform_ui" {
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
+  selected_branch_patterns      = ["*"]
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }

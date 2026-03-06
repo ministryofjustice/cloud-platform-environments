@@ -8,12 +8,12 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep newest 20 images that are tagged with *-main-*",
+        "description": "Keep newest 100 images that are tagged with *-main-*",
         "selection": {
           "tagStatus": "tagged",
           "tagPatternList": ["*-main-*"],
           "countType": "imageCountMoreThan",
-          "countNumber": 20
+          "countNumber": 100
         },
         "action": {
           "type": "expire"
@@ -50,6 +50,9 @@ module "ecr_credentials" {
 
   oidc_providers      = ["github"]
   github_repositories = ["intranet"]
+
+  # Let us access ECR via the service pod
+  enable_irsa = true
 
   # Tags
   business_unit          = var.business_unit

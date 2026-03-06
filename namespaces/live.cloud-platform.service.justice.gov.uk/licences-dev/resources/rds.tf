@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -8,7 +8,7 @@ module "dps_rds" {
   application                 = var.application
   is_production               = var.is_production
   namespace                   = var.namespace
-  environment_name            = var.environment-name
+  environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

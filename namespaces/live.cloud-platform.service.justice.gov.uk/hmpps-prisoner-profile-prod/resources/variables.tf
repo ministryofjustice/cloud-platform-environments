@@ -5,7 +5,6 @@ variable "domain" {
 variable "vpc_name" {
 }
 
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "hmpps-prisoner-profile"
@@ -52,6 +51,7 @@ variable "slack_channel" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -66,4 +66,19 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
+  default     = "connect-dps-live"
 }

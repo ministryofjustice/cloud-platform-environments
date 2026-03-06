@@ -69,9 +69,14 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
-  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  description = "The name of the eks cluster to retrieve the OIDC information"
   type        = string
-  default     = "example_name"
+}
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-data-claims-reporting-service-staging-sa"
 }
 
 variable "irsa_serviceaccount_name" {
@@ -79,3 +84,4 @@ variable "irsa_serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-data-claims-reporting-service-staging-irsa-sa"
 }
+

@@ -1,7 +1,5 @@
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
-  db_allocated_storage        = 10
-  storage_type                = "gp2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -10,18 +8,53 @@ module "ma_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  allow_major_version_upgrade = "false"
+
   db_instance_class           = "db.t4g.small"
-  prepare_for_major_upgrade   = false
-  db_engine_version           = "17.4"
-  db_engine                   = "postgres"
   rds_family                  = "postgres17"
+  db_engine_version           = "17.6"
+  deletion_protection         = true
+  db_engine                   = "postgres"
   db_password_rotated_date    = "15-02-2023"
+  enable_irsa                 = true
+
+  allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
+  prepare_for_major_upgrade   = false
+  enable_rds_auto_start_stop  = true
 
   providers = {
     aws = aws.london
   }
 
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+      {
+        name         = "rds.logical_replication"
+        value        = "1"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "shared_preload_libraries"
+        value        = "pglogical"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "max_wal_size"
+        value        = "1024"
+        apply_method = "immediate"
+      },
+      {
+        name         = "wal_sender_timeout"
+        value        = "0"
+        apply_method = "immediate"
+      },
+      {
+        name         = "max_slot_wal_keep_size"
+        value        = "40000"
+        apply_method = "immediate"
+      }
+    ]
 }
 
 resource "kubernetes_secret" "dps_rds" {
@@ -31,6 +64,8 @@ resource "kubernetes_secret" "dps_rds" {
   }
 
   data = {
+    db_identifier         = module.ma_rds.db_identifier
+    resource_id           = module.ma_rds.resource_id
     rds_instance_endpoint = module.ma_rds.rds_instance_endpoint
     database_name         = module.ma_rds.database_name
     database_username     = module.ma_rds.database_username
@@ -38,4 +73,10 @@ resource "kubernetes_secret" "dps_rds" {
     rds_instance_address  = module.ma_rds.rds_instance_address
     url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }

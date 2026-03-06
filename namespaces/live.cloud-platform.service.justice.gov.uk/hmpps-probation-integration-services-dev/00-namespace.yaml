@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "hmpps-probation-integration-services"
     cloud-platform.justice.gov.uk/owner: "probation-integration: probation-integration-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-probation-integration-services"
-    cloud-platform.justice.gov.uk/team-name: "probation-integration"
+    cloud-platform.justice.gov.uk/team-name: "probation-integration-devs"
     cloud-platform.justice.gov.uk/review-after: ""

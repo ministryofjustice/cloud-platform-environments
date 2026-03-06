@@ -1,5 +1,5 @@
 module "hmpps_service_catalogue_strapi5" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -78,37 +78,3 @@ locals {
     for m in local.database_list : (m.identifier) => m
   }
 }
-
-resource "helm_release" "generic-aws-prometheus-alerts" {
-  name       = "generic-aws-prometheus-alerts"
-  repository = "https://ministryofjustice.github.io/hmpps-helm-charts"
-  chart      = "generic-aws-prometheus-alerts"
-  version    = "1.0.1"
-  namespace  = var.namespace
-
-  set {
-    name  = "targetApplication"
-    value = "hmpps-service-catalogue"
-  }
-
-  set {
-    name  = "alertSeverity"
-    value = "digital-prison-service-dev"
-  }
-
-  dynamic "set" {
-    for_each = local.database_details
-    content {
-      name  = set.value["identifier"]
-      value = set.value["desc"]
-    }
-  }
-}
-
-
-
-
-
-
-
-

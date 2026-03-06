@@ -9,7 +9,7 @@ module "prisoner_from_nomis_externalmovements_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prisoner_from_nomis_externalmovements_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 5
+    maxReceiveCount     = 7
   })
 
   # Tags
@@ -45,7 +45,8 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_externalmovements_queue_pol
                         "ArnEquals":
                           {
                             "aws:SourceArn": [
-                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
                             ]
                           }
                         }
@@ -115,12 +116,24 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_externalmovements_sub
       "MOVEMENT_APPLICATION-INSERTED",
       "MOVEMENT_APPLICATION-UPDATED",
       "MOVEMENT_APPLICATION-DELETED",
-      "MOVEMENT_APPLICATION_MULTI-INSERTED",
-      "MOVEMENT_APPLICATION_MULTI-UPDATED",
-      "MOVEMENT_APPLICATION_MULTI-DELETED",
       "SCHEDULED_EXT_MOVE-INSERTED",
       "SCHEDULED_EXT_MOVE-UPDATED",
-      "SCHEDULED_EXT_MOVE-DELETED"    ]
+      "SCHEDULED_EXT_MOVE-DELETED",
+      "ADDRESSES_OFFENDER-UPDATED",
+      "ADDRESSES_CORPORATE-UPDATED",
+      "ADDRESSES_AGENCY-UPDATED"
+    ]
   })
 }
 
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_externalmovements_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_externalmovements_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.booking.moved"
+    ]
+  })
+}

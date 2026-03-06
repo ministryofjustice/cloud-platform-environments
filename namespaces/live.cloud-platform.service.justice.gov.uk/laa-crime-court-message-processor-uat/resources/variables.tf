@@ -20,6 +20,11 @@ variable "namespace" {
   default     = "laa-crime-court-message-processor-uat"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -66,4 +71,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }

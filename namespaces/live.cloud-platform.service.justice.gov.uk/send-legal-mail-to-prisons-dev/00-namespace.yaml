@@ -5,7 +5,7 @@ metadata:
   name: send-legal-mail-to-prisons-dev
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
-    cloud-platform.justice.gov.uk/environment-name: "development"
+    cloud-platform.justice.gov.uk/environment-name: "dev"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"

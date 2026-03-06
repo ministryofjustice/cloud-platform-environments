@@ -6,6 +6,7 @@ metadata:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
     pod-security.kubernetes.io/enforce: restricted
+    cloud-platform.justice.gov.uk/namespace: "laa-assess-a-claim-frontend-staging"
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/slack-channel: "laa-e2e-claimandassess"
@@ -14,3 +15,5 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-assess-a-claim-frontend"
     cloud-platform.justice.gov.uk/team-name: "laa-claim-and-assess"
     cloud-platform.justice.gov.uk/review-after: ""
+    cloud-platform.justice.gov.uk/namespace: laa-assess-a-claim-frontend-uat
+

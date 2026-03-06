@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -15,15 +15,15 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
+  storage_type                 = "gp3"
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  db_allocated_storage         = "100"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "18"
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.xlarge"
 
   # Tags
   application            = var.application

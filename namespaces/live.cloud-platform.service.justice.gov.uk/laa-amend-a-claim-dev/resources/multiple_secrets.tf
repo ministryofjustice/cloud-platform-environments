@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -34,6 +34,46 @@ module "secrets_manager" {
       description             = "Dev sentry dsn",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-url" = {
+      description             = "Claims Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-claims-api-token" = {
+      description             = "Claims Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-e2e-claims-api-token" = {
+      description             = "Claims Api Mock Token used for e2e tests",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-e2e-claims-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-e2e-github-token" = {
+      description             = "Github Token used for e2e tests",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-e2e-github-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-provider-api-url" = {
+      description             = "Provider Api Url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-provider-api-token" = {
+      description             = "Provider Api Token",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-provider-api-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-amend-a-claim-alert-webhook-dev" = {
+      description             = "[laa-amend-a-claim-alert-webhook-dev] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-alert-webhook-dev"
+    },
+    "laa-amend-a-claim-cookie-bypass-dev" = {
+      description             = "Maintenance bypass cookie"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-maintenance-bypass-dev"
     }
   }
 }

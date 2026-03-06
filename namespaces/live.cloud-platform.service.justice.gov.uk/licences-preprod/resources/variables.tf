@@ -18,10 +18,10 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "create-and-vary-a-licence-devs-prod"
+  default     = "create-and-vary-a-licence-live"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
 }

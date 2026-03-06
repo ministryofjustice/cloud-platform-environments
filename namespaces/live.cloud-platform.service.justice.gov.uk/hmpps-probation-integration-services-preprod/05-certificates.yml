@@ -303,21 +303,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: sentence-plan-and-oasys-cert
-  namespace: hmpps-probation-integration-services-preprod
-spec:
-  secretName: sentence-plan-and-oasys-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - 4713f3dc-preprod.hmpps.service.justice.gov.uk
-    - sentence-plan-and-oasys-preprod.hmpps.service.justice.gov.uk
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: domain-events-and-delius-cert
   namespace: hmpps-probation-integration-services-preprod
 spec:
@@ -853,3 +838,63 @@ spec:
   dnsNames:
     - 9c8f8a5c-preprod.hmpps.service.justice.gov.uk
     - esupervision-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: community-payback-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: community-payback-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f7db1a89-preprod.hmpps.service.justice.gov.uk
+    - community-payback-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cosso-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: cosso-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 5d9fa5d6-preprod.hmpps.service.justice.gov.uk
+    - cosso-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-people-on-probation-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: manage-people-on-probation-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 68155d24-preprod.hmpps.service.justice.gov.uk
+    - manage-people-on-probation-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-my-community-sentence-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: manage-my-community-sentence-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 615a3c43-preprod.hmpps.service.justice.gov.uk
+    - manage-my-community-sentence-and-delius-preprod.hmpps.service.justice.gov.uk

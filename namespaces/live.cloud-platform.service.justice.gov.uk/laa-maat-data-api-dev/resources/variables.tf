@@ -32,6 +32,11 @@ variable "team_name" {
   default     = "laa-crime-apps-team"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
@@ -150,6 +155,11 @@ variable "cognito_user_pool_client_name_fts" {
 variable "cognito_user_pool_client_name_mlra" {
   description = "Cognito user pool client - MLRA"
   default     = "mlra-dev"
+}
+
+variable "cognito_user_pool_client_name_cas" {
+  description = "Cognito user pool client - Crime Assessment Service"
+  default     = "cas-dev"
 }
 
 variable "resource_server_identifier" {

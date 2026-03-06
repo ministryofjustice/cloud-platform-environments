@@ -5,4 +5,4 @@ metadata:
   namespace: justice-gov-uk-production
 spec:
   hard:
-    pods: "24"
+    pods: "50"

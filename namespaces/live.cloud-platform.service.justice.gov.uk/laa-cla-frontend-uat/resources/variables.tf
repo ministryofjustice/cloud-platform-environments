@@ -32,6 +32,12 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information and Advice"
+}
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"

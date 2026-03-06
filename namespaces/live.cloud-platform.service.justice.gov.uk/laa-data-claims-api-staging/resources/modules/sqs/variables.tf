@@ -32,6 +32,12 @@ variable "dlq_max_receive_count" {
   default     = 3
 }
 
+variable "visibility_timeout_seconds" {
+  description = "The visibility timeout for the queue. An integer from 0 to 43200 (12 hours)."
+  default     = 30
+  type        = number
+}
+
 /* CP Dependency Variables. Must be passed directly from calling CP environment
 I.E. business_unit = var.business_unit */
 variable "business_unit" {

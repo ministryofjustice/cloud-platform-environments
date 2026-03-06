@@ -1,5 +1,5 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -12,14 +12,14 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version = "10.11.10"
+  db_engine_version           = "10.11.13"
   rds_family                  = "mariadb10.11"
-  db_instance_class           = "db.t4g.medium"
-  db_allocated_storage        = "20"
+  db_instance_class           = "db.t4g.large"
+  db_allocated_storage        = "100"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
-  deletion_protection = true
+  deletion_protection         = true
 
   # overwrite db_parameters
   db_parameter = [

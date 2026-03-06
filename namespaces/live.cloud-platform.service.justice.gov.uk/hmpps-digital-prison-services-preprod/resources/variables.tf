@@ -1,8 +1,5 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "application" {
   description = "Name of Application you are deploying"
@@ -64,4 +61,19 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
+  default     = "connect-dps-live"
 }

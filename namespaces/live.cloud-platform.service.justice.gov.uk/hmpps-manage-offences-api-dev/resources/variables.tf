@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-devs"
 }
 
 variable "environment" {
@@ -64,5 +64,9 @@ variable "github_token" {
   default     = ""
 }
 
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}
 
 variable "kubernetes_cluster" {}

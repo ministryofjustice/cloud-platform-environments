@@ -1,5 +1,5 @@
 module "rds-live" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -18,7 +18,7 @@ module "rds-live" {
   db_iops = "12000"
 
   # change the postgres version as you see fit.
-  db_engine_version      = "15"
+  db_engine_version      = "15.12"
   db_allocated_storage   = "750"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

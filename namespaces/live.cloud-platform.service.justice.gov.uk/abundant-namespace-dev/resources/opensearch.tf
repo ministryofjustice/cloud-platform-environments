@@ -12,7 +12,7 @@ module "opensearch_snapshot_bucket" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=main"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name

@@ -168,6 +168,32 @@ resource "aws_iam_policy" "secrets_manager_access" {
   }
 }
 
+data "aws_iam_policy_document" "subscription_management" {
+  statement {
+    actions = [
+      "sns:GetSubscriptionAttributes",
+      "sns:SetSubscriptionAttributes",
+    ]
+    resources = [
+      aws_sns_topic_subscription.integration_api_domain_events_subscription.arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "subscription_management" {
+  name   = "${var.namespace}-subscription-management"
+  policy = data.aws_iam_policy_document.subscription_management.json
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
 resource "aws_iam_role" "sqs" {
   name = "${var.namespace}-sqs"
   assume_role_policy = jsonencode({
@@ -200,6 +226,7 @@ resource "aws_iam_role_policy" "sqs" {
           "sqs:ChangeMessageVisibility",
           "sqs:DeleteMessage",
           "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl",
           "sqs:PurgeQueue",
           "sqs:ReceiveMessage",
         ],
@@ -214,4 +241,33 @@ resource "aws_iam_role_policy" "sqs" {
       },
     ]
   })
+}
+
+data "aws_iam_policy_document" "integration_events_sqs" {
+  statement {
+    sid    = "QueueManagement"
+    effect = "Allow"
+    actions = [
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListMessageMoveTasks",
+      "sqs:ListQueueTags",
+      "sqs:CancelMessageMoveTask",
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:StartMessageMoveTask"
+    ]
+    resources = [
+      "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${var.team_name}-${var.environment}-events_*_queue",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "integration_events_sqs" {
+  name        = "${var.namespace}-events-sqs"
+  policy      = data.aws_iam_policy_document.integration_events_sqs.json
 }

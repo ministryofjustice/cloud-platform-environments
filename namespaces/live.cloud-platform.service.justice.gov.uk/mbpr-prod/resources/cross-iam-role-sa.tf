@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "mbpr_prod" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::992382429243:role/mbpr-dev-ap-data-access"
+      "arn:aws:iam::593291632749:role/alpha_app_mbpr-test"
     ]
   }
 }

@@ -1,5 +1,5 @@
 module "dps_rds" {
-  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage         = 10
   storage_type                 = "gp2"
   vpc_name                     = var.vpc_name
@@ -15,9 +15,9 @@ module "dps_rds" {
   deletion_protection          = true
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade =  false
-  rds_family                   = "postgres17"
+  rds_family                   = "postgres18"
   db_engine                    = "postgres"
-  db_engine_version            = "17"
+  db_engine_version            = "18"
 
   providers = {
     aws = aws.london

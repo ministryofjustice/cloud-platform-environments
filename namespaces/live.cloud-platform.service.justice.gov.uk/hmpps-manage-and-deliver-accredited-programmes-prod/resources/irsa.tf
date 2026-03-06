@@ -1,11 +1,15 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
   sqs_queues = {
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
 
   # The names of the SNS topics used and the namespace which created them
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
@@ -24,6 +28,7 @@ module "irsa" {
       sqs_dlq = module.mandd_dlq.irsa_policy_arn
     },
     local.sqs_policies,
+    local.sns_policies
   )
 
   # Tags
@@ -33,6 +38,11 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {

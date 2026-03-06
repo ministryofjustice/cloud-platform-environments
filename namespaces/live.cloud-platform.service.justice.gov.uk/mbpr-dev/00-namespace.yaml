@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "mission-brilliant-experiment"
     cloud-platform.justice.gov.uk/application: "Mission Brilliant Performance Reporting"
     cloud-platform.justice.gov.uk/owner: "Mission Brilliant Performance Reporting Team: missionbrilliantperformancereportingteam@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/mbpr-test"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/mbpr-dashboard"
     cloud-platform.justice.gov.uk/team-name: "mission-brilliant-performance-reporting"
     cloud-platform.justice.gov.uk/review-after: ""

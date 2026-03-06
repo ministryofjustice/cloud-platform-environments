@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:legacy-systems-x-product-prototype-admin-team"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-calculate-release-dates-team-live"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

@@ -1,5 +1,5 @@
 module "hmpps_temporary_accommodation_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-temporary-accommodation-ui"
   application = "hmpps-temporary-accommodation-ui"
   github_team = "hmpps-community-accommodation"

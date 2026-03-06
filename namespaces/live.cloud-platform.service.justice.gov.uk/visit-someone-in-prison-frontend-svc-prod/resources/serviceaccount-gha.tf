@@ -1,0 +1,50 @@
+module "book-a-prison-visit-staff-ui" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo = "book-a-prison-visit-staff-ui"
+  application = "book-a-prison-visit-staff-ui"
+  github_team = "hmpps-prison-visits-booking-live"
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-prison-visits-booking-live"] # Optional team that should review deployments to this environment.
+  # selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
+  is_production                 = var.is_production
+  application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+}
+
+module "hmpps-book-a-prison-visit-ui" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo = "hmpps-book-a-prison-visit-ui"
+  application = "hmpps-book-a-prison-visit-ui"
+  github_team = "hmpps-prison-visits-booking-live"
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-prison-visits-booking-live"] # Optional team that should review deployments to this environment.
+  # selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
+  is_production                 = var.is_production
+  application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+}
+
+module "hmpps-visits-internal-admin-ui" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo = "hmpps-visits-internal-admin-ui"
+  application = "hmpps-visits-internal-admin-ui"
+  github_team = "hmpps-prison-visits-booking-live"
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-prison-visits-booking-live"] # Optional team that should review deployments to this environment.
+  # selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
+  is_production                 = var.is_production
+  application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+}

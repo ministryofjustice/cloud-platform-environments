@@ -5,7 +5,7 @@ metadata:
   name: hmpps-arns-assessment-platform-ui-prod
   namespace: hmpps-arns-assessment-platform-prod
 spec:
-  secretName: hmpps-arns-assessment-platform-ui-cert-prod
+  secretName: hmpps-arns-assessment-platform-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -20,7 +20,7 @@ metadata:
   name: hmpps-arns-assessment-platform-api-prod
   namespace: hmpps-arns-assessment-platform-prod
 spec:
-  secretName: hmpps-arns-assessment-platform-api-cert-prod
+  secretName: hmpps-arns-assessment-platform-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

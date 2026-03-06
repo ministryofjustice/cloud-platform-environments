@@ -1,7 +1,7 @@
 
 module "secrets_manager" {
   #   source = "../"
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit

@@ -47,3 +47,9 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information and Advice"
+}

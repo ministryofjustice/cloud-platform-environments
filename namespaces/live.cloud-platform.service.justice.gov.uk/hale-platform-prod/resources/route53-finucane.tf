@@ -40,7 +40,7 @@ resource "aws_route53_record" "finucane_route53_dmarc" {
   type    = "TXT"
   ttl     = 300
   records = [
-    "v=DMARC1; p=reject; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; adkim=r; aspf=r; pct=100"
+    "v=DMARC1; p=reject; pct=100; adkim=r; aspf=r; rua=mailto:dmarc-rua@finance-ni.gov.uk,mailto:7c8cbf1d@inbox.ondmarc.com; ruf=mailto:7c8cbf1d@inbox.ondmarc.com; fo=1; ri=3600"
   ]
 }
 

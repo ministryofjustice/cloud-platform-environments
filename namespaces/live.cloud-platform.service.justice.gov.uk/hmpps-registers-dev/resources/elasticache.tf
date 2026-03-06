@@ -20,6 +20,7 @@ module "hmpps_registers_elasticache_redis" {
   providers = {
     aws = aws.london
   }
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_registers_elasticache_redis" {

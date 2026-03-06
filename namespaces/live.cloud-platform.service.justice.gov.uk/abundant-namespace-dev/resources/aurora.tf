@@ -7,7 +7,7 @@ module "aurora_db" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "14.15"
+  engine_version = "14.17"
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1

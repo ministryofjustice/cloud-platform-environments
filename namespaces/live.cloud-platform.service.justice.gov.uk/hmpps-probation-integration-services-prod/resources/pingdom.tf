@@ -22,7 +22,6 @@ resource "pingdom_check" "pingdom" {
     "sentence-plan-and-delius",
     "pathfinder-and-delius",
     "soc-and-delius",
-    "sentence-plan-and-oasys",
     "domain-events-and-delius",
     "external-api-and-delius",
     "manage-offences-and-delius",
@@ -58,6 +57,10 @@ resource "pingdom_check" "pingdom" {
     "hmpps-common-platform-event-receiver",
     "suicide-risk-form-and-delius",
     "esupervision-and-delius",
+    "community-payback-and-delius",
+    "cosso-and-delius",
+    "manage-people-on-probation-and-delius",
+    "manage-my-community-sentence-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

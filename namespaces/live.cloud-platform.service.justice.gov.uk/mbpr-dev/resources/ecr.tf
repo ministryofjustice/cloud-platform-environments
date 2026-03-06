@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["mbpr-test"]
+  github_repositories = ["mbpr-dashboard"]
 
   # Tags
   business_unit          = var.business_unit

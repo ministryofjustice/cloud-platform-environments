@@ -26,6 +26,11 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -150,6 +155,11 @@ variable "cognito_user_pool_client_name_fts" {
 variable "cognito_user_pool_client_name_mlra" {
   description = "Cognito user pool client - MLRA"
   default     = "mlra-uat"
+}
+
+variable "cognito_user_pool_client_name_cas" {
+  description = "Cognito user pool client - Crime Assessment Service"
+  default     = "cas-uat"
 }
 
 variable "resource_server_identifier" {

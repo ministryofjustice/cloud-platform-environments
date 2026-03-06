@@ -9,7 +9,7 @@ module "elasticache_redis" {
   business_unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = "cache.t4g.micro"
-  engine_version         = "7.0"
+  engine_version         = "7.1"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 

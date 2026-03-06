@@ -159,3 +159,8 @@ variable "resource_server_scope_description" {
 variable "cognito_user_pool_domain_name" {
   default = "cclf-staging"
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
+}

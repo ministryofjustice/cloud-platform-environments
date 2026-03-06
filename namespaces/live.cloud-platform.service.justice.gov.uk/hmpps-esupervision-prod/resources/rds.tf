@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -10,6 +10,7 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = !var.is_production
+  enable_irsa                  = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics

@@ -10,7 +10,8 @@ locals {
     "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"                  = "visit-someone-in-prison-backend-svc-dev",
     "locations-inside-prison-development-update_from_external_system_events_queue"  = "hmpps-locations-inside-prison-dev"
     "hmpps-farsight-reduce-re-offend-development-eawp_assessment_events_queue"      = "hmpps-education-and-work-plan-dev",
-    "activities-and-appointments-dev-update_from_external_system_events_queue"      = "hmpps-activities-management-dev"
+    "activities-and-appointments-dev-update_from_external_system_events_queue"      = "hmpps-activities-management-dev",
+    "hmpps-community-payback-devs-dev-course_completion_events_queue"               = "hmpps-community-payback-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
@@ -28,6 +29,12 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
+    {
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      event_topic = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues = aws_iam_policy.integration_events_sqs.arn,
+    }
   )
   # Tags
   business_unit          = var.business_unit
@@ -48,16 +55,13 @@ module "hmpps-integration-event-irsa" {
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
       event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
-      mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
-      pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
-      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn
+      event_queues                                    = aws_iam_policy.integration_events_sqs.arn
+      subscription_management                         = aws_iam_policy.subscription_management.arn
     }
-
   )
   # Tags
   business_unit          = var.business_unit

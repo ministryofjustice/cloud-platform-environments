@@ -1,5 +1,5 @@
 module "edu_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 10
   storage_type                = "gp2"
   vpc_name                    = var.vpc_name
@@ -17,6 +17,7 @@ module "edu_rds" {
   db_max_allocated_storage    = "500"
   db_engine_version           = "16"
   enable_rds_auto_start_stop  = true
+  enable_irsa                 = true
 
   providers = {
     aws = aws.london
@@ -37,5 +38,22 @@ resource "kubernetes_secret" "edu_rds" {
     database_password     = module.edu_rds.database_password
     rds_instance_address  = module.edu_rds.rds_instance_address
     url                   = "postgres://${module.edu_rds.database_username}:${module.edu_rds.database_password}@${module.edu_rds.rds_instance_endpoint}/${module.edu_rds.database_name}"
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-education-employment-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.edu_rds.rds_instance_endpoint
+    database_name         = module.edu_rds.database_name
+    database_username     = module.edu_rds.database_username
+    database_password     = module.edu_rds.database_password
+    rds_instance_address  = module.edu_rds.rds_instance_address
   }
 }

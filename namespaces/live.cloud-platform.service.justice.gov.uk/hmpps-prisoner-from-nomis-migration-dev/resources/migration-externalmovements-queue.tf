@@ -6,7 +6,7 @@ module "migration_externalmovements_queue" {
   sqs_name                   = "migration_externalmovements_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 345600
-  visibility_timeout_seconds = 120
+  visibility_timeout_seconds = 600
 
   redrive_policy = <<EOF
   {

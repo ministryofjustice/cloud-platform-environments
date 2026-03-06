@@ -18,6 +18,11 @@ variable "application" {
   default     = "Calculate fees for claims submitted by LAA Providers"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
@@ -70,4 +75,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_suffix" {
+  type        = string
+  description = "Suffix to append to the service account name, has to be underscores only"
+  default     = "laa_fee_scheme_api_uat"
+}
+
+variable "serviceaccount_name_e2e_tests" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to e2e test"
+  default     = "laa-fee-scheme-api-e2e-test-uat-service-account"
 }
