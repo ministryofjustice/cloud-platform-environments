@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "ecr" {
+module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
@@ -28,5 +28,17 @@ module "ecr" {
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
   # uncomment below:
 
-  enable_irsa = true
+  # enable_irsa = true
+}
+
+resource "kubernetes_secret" "ecr_credentials" {
+  metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+  }
+
+  data = {
+    repo_arn = module.ecr_credentials.repo_arn
+    repo_url = module.ecr_credentials.repo_url
+  }
 }
