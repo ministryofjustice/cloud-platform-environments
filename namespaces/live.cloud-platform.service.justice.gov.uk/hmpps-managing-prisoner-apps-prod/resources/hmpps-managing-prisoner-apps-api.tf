@@ -1,5 +1,5 @@
 module "hmpps_managing_prisoner_apps_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
   github_repo = "hmpps-managing-prisoner-apps-api"
   application = "hmpps-managing-prisoner-apps-api"
   github_team = "hmpps-launchpad"
