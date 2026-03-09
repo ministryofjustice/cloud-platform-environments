@@ -14,12 +14,24 @@ resource "aws_iam_access_key" "s3_local_user" {
 data "aws_iam_policy_document" "s3_local_access" {
   statement {
     actions = [
-      "s3:GetObject",
-      "s3:PutObject",
       "s3:ListBucket",
+      "s3:ListBucketVersions",
+      "s3:GetBucketLocation",
+      "s3:GetBucketPolicy",
     ]
     resources = [
       module.s3_data_bucket.bucket_arn,
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:PutObject",
+      "s3:DeleteObject",
+    ]
+    resources = [
       "${module.s3_data_bucket.bucket_arn}/*",
     ]
   }
