@@ -11,37 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Launchpad"
+  default     = "What is the name of your application/service?genai-data-eng-assistant"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-launchpad-preprod"
+  default     = "genai-data-eng-assistant-dev"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Service Transformation Group"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-launchpad"
+  default     = "data-engineering"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preprod"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "thehub@digital.justice.gov.uk"
+  default     = "dataengineering-gg@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hub_dev"
+  default     = "dmet-corporate"
 }
 
 variable "github_owner" {
@@ -66,41 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
-########
-# IRSA #
-########
-variable "enable_irsa" {
-  type        = bool
-  default     = true
-  description = "Enable creation of IRSA resources for database snapshot creation (for service pod maintenance etc). Defaults to false"
-}
-
-variable "base_domain" {
-  default = "hmpps.service.justice.gov.uk"
-}
-
-variable "hostname" {
-  description = "Host part of the api gateway"
-  default     = "launchpad-sso-preprod"
-}
-
-variable "cloud_platform_launchpad_auth_api_url" {
-  description = "Pre-defined domain for the namespace provided by Cloud Platform"
-  default     = "https://launchpad-auth-preprod.hmpps.service.justice.gov.uk"
-}
-
-variable "api_gateway_ingress_hostname" {
-  description = "Hostname for API Gateway to route traffic via NLB (must match default NLB TLS cert CN pattern)"
-  type        = string
-  default     = "hmpps-launchpad-auth-preprod.apps.live.cloud-platform.service.justice.gov.uk"
 }

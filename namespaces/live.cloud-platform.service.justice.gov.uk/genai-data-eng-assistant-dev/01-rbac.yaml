@@ -1,15 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: licences-prod-admin
-  namespace: licences-prod
+  name: genai-data-eng-assistant-dev-admin
+  namespace: genai-data-eng-assistant-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-sre"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:create-and-vary-a-licence-live"
+    name: "github:data-engineering"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
