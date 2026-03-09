@@ -8,7 +8,7 @@ module "dps_rds" {
   application                 = var.application
   is_production               = var.is_production
   namespace                   = var.namespace
-  environment_name            = var.environment-name
+  environment_name            = "production"
   infrastructure_support      = var.infrastructure_support
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
