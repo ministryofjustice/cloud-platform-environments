@@ -34,7 +34,7 @@ resource "kubernetes_secret" "ecr_pull_secret" {
 
   data = {
     ".dockercfg" = base64encode(jsonencode({
-      "${module.ecr_credentials.ecr_registry_url}" = {
+      (module.ecr_credentials.ecr_registry_url) = {
         "username" = "AWS"
         "password" = module.ecr_credentials.ecr_repository_registry_id
         "email"    = "no-reply@justice.gov.uk"
