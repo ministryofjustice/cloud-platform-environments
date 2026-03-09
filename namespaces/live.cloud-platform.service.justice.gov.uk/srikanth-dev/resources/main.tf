@@ -48,13 +48,12 @@ provider "kubernetes" {}
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name = var.kubernetes_cluster
+  eks_cluster_name = "live"
 
-  service_account_name = "srikanth-service-account"
+  service_account_name = var.serviceaccount_name
   namespace            = var.namespace
 
   role_policy_arns = {}
-  
 
   business_unit          = var.business_unit
   application            = var.application
