@@ -48,16 +48,13 @@ provider "kubernetes" {}
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name = var.eks_cluster_name
+  eks_cluster_name = var.kubernetes_cluster
 
   service_account_name = "srikanth-service-account"
   namespace            = var.namespace
 
-  role_policy_arns = {
-    s3  = module.s3.irsa_policy_arn
-    dms = module.dms.irsa_policy_arn
-    sqs = module.sqs.irsa_policy_arn
-  }
+  role_policy_arns = {}
+  
 
   business_unit          = var.business_unit
   application            = var.application
