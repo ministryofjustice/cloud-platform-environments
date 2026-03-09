@@ -3,7 +3,7 @@ module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # ECR Repository name
-  ecr_repository_name = "laa-generic-app"
+  repo_name = "laa-generic-app"
 
   # Tags
   business_unit          = var.business_unit
