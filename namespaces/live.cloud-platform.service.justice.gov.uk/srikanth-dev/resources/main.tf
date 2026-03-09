@@ -50,7 +50,7 @@ module "irsa" {
 
   eks_cluster_name = "live"
 
-  service_account_name = var.serviceaccount_name
+  service_account_name = var.irsa_serviceaccount_name
   namespace            = var.namespace
 
   role_policy_arns = {}
