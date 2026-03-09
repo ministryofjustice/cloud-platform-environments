@@ -35,6 +35,12 @@ data "aws_iam_policy_document" "s3_local_access" {
       "${module.s3_data_bucket.bucket_arn}/*",
     ]
   }
+
+  statement {
+    sid     = "AssumeRekognitionRole"
+    actions = ["sts:AssumeRole"]
+    resources = [var.rekognition_role_arn]
+  }
 }
 
 resource "aws_iam_user_policy" "s3_local_access" {
