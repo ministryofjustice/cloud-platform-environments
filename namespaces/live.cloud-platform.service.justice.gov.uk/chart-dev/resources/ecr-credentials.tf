@@ -1,6 +1,6 @@
 # ECR Credentials for GitHub Actions to push Docker images
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # ECR Repository name
   ecr_repository_name = "laa-generic-app"
