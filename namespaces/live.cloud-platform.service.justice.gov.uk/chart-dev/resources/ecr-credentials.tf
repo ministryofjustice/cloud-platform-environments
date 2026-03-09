@@ -34,9 +34,9 @@ resource "kubernetes_secret" "ecr_pull_secret" {
 
   data = {
     ".dockercfg" = base64encode(jsonencode({
-      (module.ecr_credentials.ecr_registry_url) = {
+      (module.ecr_credentials.registry_url) = {
         "username" = "AWS"
-        "password" = module.ecr_credentials.ecr_repository_registry_id
+        "password" = module.ecr_credentials.secret_access_key
         "email"    = "no-reply@justice.gov.uk"
       }
     }))
@@ -50,7 +50,7 @@ resource "kubernetes_secret" "ecr_pull_secret" {
 # Output ECR credentials for GitHub Actions
 output "ecr_repository_url" {
   description = "ECR repository URL"
-  value       = module.ecr_credentials.repository_url
+  value       = module.ecr_credentials.registry_url
 }
 
 output "ecr_repository_arn" {
