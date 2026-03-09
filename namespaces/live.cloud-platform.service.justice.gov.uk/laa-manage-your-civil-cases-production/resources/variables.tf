@@ -73,3 +73,7 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "mcc-github-action-service-account"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
