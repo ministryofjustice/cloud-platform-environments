@@ -68,9 +68,14 @@ variable "github_token" {
   default     = ""
 }
 
-
 variable "serviceaccount_name" {
   type        = string
-  description = "Service account name for srikanth-dev namespace"
+  description = "GitHub Actions service account name for srikanth-dev namespace"
+  default     = "srikanth-service-account"
+}
+
+variable "irsa_serviceaccount_name" {
+  type        = string
+  description = "IRSA service account name for workloads needing AWS access"
   default     = "srikanth-irsa-service-account"
 }
