@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-civil-manage-dev"
   labels:
+    component: "laa-civil-manage-dev"
     cloud-platform.justice.gov.uk/namespace: "laa-civil-manage-dev"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "dev"
