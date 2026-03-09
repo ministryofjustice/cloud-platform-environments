@@ -18,10 +18,6 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
-  # Naming
-  db_name  = var.db_name
-  rds_name = var.rds_name
-
   # Tags
   application            = var.application
   business_unit          = var.business_unit
