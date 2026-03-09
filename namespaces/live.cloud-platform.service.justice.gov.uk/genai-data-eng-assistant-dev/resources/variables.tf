@@ -12,6 +12,7 @@ variable "application" {
   description = "Name of the application you are deploying"
   type        = string
   default     = "genai-data-eng-assistant"
+
 }
 
 variable "namespace" {

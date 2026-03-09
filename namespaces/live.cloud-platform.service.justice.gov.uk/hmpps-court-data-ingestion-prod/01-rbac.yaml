@@ -1,15 +1,17 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: licences-prod-admin
-  namespace: licences-prod
+  name: court-data-ingestion-prod-admin
+  namespace: hmpps-court-data-ingestion-prod
 subjects:
+  - kind: Group
+    name: "github:hmpps-calculate-release-dates-team-devs"
+    apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:create-and-vary-a-licence-live"
+    name: "github:syscon-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
