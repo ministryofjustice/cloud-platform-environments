@@ -7,19 +7,11 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "~> 6.6.0"
+      version = ">= 6.5.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.7.1"
-    }
-    pingdom = {
-      source  = "DrFaust92/pingdom"
-      version = "~> 1.3.1"
     }
   }
 }
