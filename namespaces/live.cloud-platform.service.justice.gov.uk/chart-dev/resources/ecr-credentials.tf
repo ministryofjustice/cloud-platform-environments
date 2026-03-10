@@ -33,7 +33,7 @@ data "aws_iam_roles" "ecr_github_roles" {
 resource "aws_iam_role_policy" "ecr_push_policy" {
   provider = aws.london
   name     = "ecr-push-policy"
-  role     = data.aws_iam_roles.ecr_github_roles.names[0]
+  role     = tolist(data.aws_iam_roles.ecr_github_roles.names)[0]
 
   policy = jsonencode({
     "Version" = "2012-10-17"
