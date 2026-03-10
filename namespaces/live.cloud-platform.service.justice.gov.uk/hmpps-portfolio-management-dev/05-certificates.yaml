@@ -50,3 +50,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-slack-relay-bot-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: developer-portal-stage.hmpps.service.justice.gov.uk
+  namespace: hmpps-portfolio-management-dev
+spec:
+  secretName: hmpps-developer-portal-stage-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - developer-portal-stage.hmpps.service.justice.gov.uk
