@@ -22,3 +22,31 @@ module "ecr_credentials" {
     aws = aws.london
   }
 }
+
+# Add ECR push permissions to the role
+resource "aws_iam_role_policy" "ecr_push_policy" {
+  provider = aws.london
+
+  name = "ecr-push-policy"
+  role = module.ecr_credentials.iam_role_name
+
+  policy = jsonencode({
+    "Version" = "2012-10-17"
+    "Statement" = [
+      {
+        "Effect" = "Allow"
+        "Action" = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:PutImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:DescribeImages",
+          "ecr:GetAuthorizationToken"
+        ]
+        "Resource" = "*"
+      }
+    ]
+  })
+}
