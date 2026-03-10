@@ -91,3 +91,15 @@ variable "producer_namespace" {
   description = "The namespace of the SQS producer"
   default     = "laa-data-claims-api-uat"
 }
+
+variable "serviceaccount_suffix" {
+  type        = string
+  description = "Suffix to append to the service account name, has to be underscores only"
+  default     = "laa_data_claims_event_service_uat"
+}
+
+variable "serviceaccount_name_e2e_tests" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to e2e test"
+  default     = "laa-data-claims-event-service-e2e-test-uat-service-account"
+}
