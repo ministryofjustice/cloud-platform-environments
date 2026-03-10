@@ -8,8 +8,15 @@ provider "aws" {
 
   default_tags {
     tags = {
-      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       slack-channel = var.slack_channel
+      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
     }
   }
 }
@@ -20,8 +27,15 @@ provider "aws" {
 
   default_tags {
     tags = {
-      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       slack-channel = var.slack_channel
+      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
     }
   }
 }
@@ -32,8 +46,15 @@ provider "aws" {
 
   default_tags {
     tags = {
-      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
+      application   = var.application
+      business-unit = var.business_unit
+      GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
       slack-channel = var.slack_channel
+      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
     }
   }
 }
@@ -43,13 +64,15 @@ provider "aws" {
   region = "us-east-1"
   default_tags {
     tags = {
-      business-unit = var.business_unit
       application   = var.application
-      is-production = var.is_production
-      owner         = var.team_name
-      namespace     = var.namespace
-      service-area  = var.service_area
+      business-unit = var.business_unit
       GithubTeam    = var.team_name
+      is-production = var.is_production
+      namespace     = var.namespace
+      owner         = var.team_name
+      service-area  = var.service_area
+      slack-channel = var.slack_channel
+      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
     }
   }
 }
