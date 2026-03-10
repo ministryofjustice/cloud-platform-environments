@@ -8,6 +8,9 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  providers = {
+    aws = aws.london
+  }
 
   cors_rule = [
     {
