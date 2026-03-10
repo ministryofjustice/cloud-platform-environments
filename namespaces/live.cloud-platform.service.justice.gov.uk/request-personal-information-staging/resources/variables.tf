@@ -74,3 +74,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.request-personal-information.service.justice.gov.uk"
+}
