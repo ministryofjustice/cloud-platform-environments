@@ -23,17 +23,18 @@ module "ecr_credentials" {
   }
 }
 
-# Find the IAM role created by the ECR module for this namespace
+# Find the IAM role created by the ECR module
 data "aws_iam_roles" "ecr_github_roles" {
-  provider = aws.london
-
-  name_regex = ".*${var.namespace}.*"
+  provider   = aws.london
+  name_regex = "^cloud-platform-ecr-.*-github$"
 }
 
 resource "aws_iam_role_policy" "ecr_push_policy" {
   provider = aws.london
   name     = "ecr-push-policy"
   role     = tolist(data.aws_iam_roles.ecr_github_roles.names)[0]
+
+  depends_on = [module.ecr_credentials]
 
   policy = jsonencode({
     "Version" = "2012-10-17"
