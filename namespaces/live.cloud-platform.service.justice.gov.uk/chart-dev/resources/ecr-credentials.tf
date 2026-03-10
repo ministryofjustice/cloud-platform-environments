@@ -29,6 +29,11 @@ data "aws_iam_roles" "ecr_github_roles" {
   name_regex = "^cloud-platform-ecr-.*-github$"
 }
 
+# Get current AWS account ID for use in resource ARN
+data "aws_caller_identity" "current" {
+  provider = aws.london
+}
+
 resource "aws_iam_role_policy" "ecr_push_policy" {
   provider = aws.london
   name     = "ecr-push-policy"
@@ -53,7 +58,7 @@ resource "aws_iam_role_policy" "ecr_push_policy" {
         ]
         "Resource" = [
           module.ecr_credentials.repo_arn,
-          "arn:aws:ecr:eu-west-2:754256621582:repository/*"
+          "arn:aws:ecr:eu-west-2:${data.aws_caller_identity.current.account_id}:repository/*"
         ]
       }
     ]
