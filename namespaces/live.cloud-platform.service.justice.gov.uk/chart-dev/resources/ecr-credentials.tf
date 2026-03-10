@@ -23,12 +23,17 @@ module "ecr_credentials" {
   }
 }
 
-# Add ECR push permissions to the role
+# Find the IAM role created by the ECR module and attach ECR push permissions
+data "aws_iam_roles" "ecr_github_roles" {
+  provider       = aws.london
+  name_regex     = "^cloud-platform-ecr-.*-github$"
+  path_prefix    = "/"
+}
+
 resource "aws_iam_role_policy" "ecr_push_policy" {
   provider = aws.london
-
-  name = "ecr-push-policy"
-  role = module.ecr_credentials.iam_role_name
+  name     = "ecr-push-policy"
+  role     = data.aws_iam_roles.ecr_github_roles.names[0]
 
   policy = jsonencode({
     "Version" = "2012-10-17"
