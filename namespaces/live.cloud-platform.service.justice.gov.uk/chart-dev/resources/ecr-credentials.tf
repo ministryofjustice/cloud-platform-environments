@@ -23,11 +23,11 @@ module "ecr_credentials" {
   }
 }
 
-# Find the IAM role created by the ECR module and attach ECR push permissions
+# Find the IAM role created by the ECR module for this namespace
 data "aws_iam_roles" "ecr_github_roles" {
-  provider       = aws.london
-  name_regex     = "^cloud-platform-ecr-.*-github$"
-  path_prefix    = "/"
+  provider = aws.london
+
+  name_regex = ".*${var.namespace}.*"
 }
 
 resource "aws_iam_role_policy" "ecr_push_policy" {
@@ -50,7 +50,10 @@ resource "aws_iam_role_policy" "ecr_push_policy" {
           "ecr:DescribeImages",
           "ecr:GetAuthorizationToken"
         ]
-        "Resource" = "*"
+        "Resource" = [
+          module.ecr_credentials.repo_arn,
+          "arn:aws:ecr:eu-west-2:754256621582:repository/*"
+        ]
       }
     ]
   })
