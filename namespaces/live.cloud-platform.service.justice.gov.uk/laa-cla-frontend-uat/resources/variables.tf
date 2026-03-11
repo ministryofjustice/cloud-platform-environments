@@ -3,8 +3,7 @@ variable "namespace" {
 }
 
 variable "vpc_name" {
-  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
-  type        = string
+  default = "live-1"
 }
 
 variable "business_unit" {
