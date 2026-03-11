@@ -36,30 +36,41 @@ data "aws_caller_identity" "current" {
   provider = aws.london
 }
 
+# Define the ECR push policy with separate statements
+data "aws_iam_policy_document" "ecr_push_policy" {
+  provider = aws.london
+
+  statement {
+    sid    = "AllowLogin"
+    effect = "Allow"
+    actions = [
+      "ecr:GetAuthorizationToken"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowPushPull"
+    effect = "Allow"
+    actions = [
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+      "ecr:PutImage",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:DescribeImages"
+    ]
+    resources = [module.ecr_credentials.repo_arn]
+  }
+}
+
 resource "aws_iam_role_policy" "ecr_push_policy" {
   provider = aws.london
   name     = "ecr-push-policy"
   role     = tolist(data.aws_iam_roles.ecr_github_roles.names)[0]
 
-  depends_on = [module.ecr_credentials]
+  policy = data.aws_iam_policy_document.ecr_push_policy.json
 
-  policy = jsonencode({
-    "Version" = "2012-10-17"
-    "Statement" = [
-      {
-        "Effect" = "Allow"
-        "Action" = [
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "ecr:PutImage",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload",
-          "ecr:DescribeImages",
-          "ecr:GetAuthorizationToken"
-        ]
-        "Resource" = module.ecr_credentials.repo_arn
-      }
-    ]
-  })
+  depends_on = [module.ecr_credentials]
 }
