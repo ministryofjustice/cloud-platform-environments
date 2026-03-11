@@ -49,6 +49,14 @@ resource "aws_route53_record" "pq_route53_dmarc_record" {
   records = ["v=DMARC1; p=none; rua=mailto:yl0zvgmk@ag.dmarcian.com; ruf=mailto:yl0zvgmk@fr.dmarcian.com;"]
 }
 
+resource "aws_route53_record" "pq_route53_myncsc_verification" {
+  zone_id = aws_route53_zone.parliamentary_questions.zone_id
+  name    = "_asvdns-9caf655a-9751-4b05-bc21-f14c4fa186f1.trackparliamentaryquestions.service.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_eaf8aa69-9928-42d9-b260-b5dbc73ede08"]
+}
+
 resource "aws_route53_record" "pq_route53_mx_record" {
   zone_id = aws_route53_zone.parliamentary_questions.zone_id
   name    = "."
