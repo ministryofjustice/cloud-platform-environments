@@ -2,6 +2,11 @@ variable "namespace" {
   default = "laa-cla-frontend-uat"
 }
 
+variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}
+
 variable "business_unit" {
   default = "LAA"
 }
