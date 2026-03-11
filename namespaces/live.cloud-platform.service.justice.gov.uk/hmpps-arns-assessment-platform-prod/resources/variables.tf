@@ -60,7 +60,7 @@ variable "github_token" {
 
 variable "db_name" {
   description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
-  default     = "arns-assessment-platform"
+  default     = "arnsassessmentplatform"
   type        = string
 }
 
