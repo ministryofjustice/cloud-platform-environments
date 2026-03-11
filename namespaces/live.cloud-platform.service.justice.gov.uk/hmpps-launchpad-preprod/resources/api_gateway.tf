@@ -1,8 +1,7 @@
-# Use default ingress controller NLB (managed by Cloud Platform)
-data "aws_lb" "ingress_default_non_prod_nlb" {
+# Use internal NLB for VPC Link traffic
+data "aws_lb" "ingress_internal_non_prod_nlb" {
   tags = {
-    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-default-non-prod-controller"
-    "kubernetes.io/cluster/live" = "owned"
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-internal-non-prod-controller"
   }
 }
 
@@ -10,11 +9,11 @@ data "aws_lb" "ingress_default_non_prod_nlb" {
 data "aws_network_interfaces" "nlb_enis" {
   filter {
     name   = "description"
-    values = ["ELB ${data.aws_lb.ingress_default_non_prod_nlb.arn_suffix}"]
+    values = ["ELB ${data.aws_lb.ingress_internal_non_prod_nlb.arn_suffix}"]
   }
   filter {
     name   = "vpc-id"
-    values = [data.aws_lb.ingress_default_non_prod_nlb.vpc_id]
+    values = [data.aws_lb.ingress_internal_non_prod_nlb.vpc_id]
   }
 }
 
@@ -73,7 +72,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "https://${var.api_gateway_ingress_hostname}/{proxy}"
+  uri                     = "http://${var.api_gateway_ingress_hostname}/{proxy}"
 
   connection_type         = "VPC_LINK"
   connection_id           = data.aws_api_gateway_vpc_link.shared_from_dev.id

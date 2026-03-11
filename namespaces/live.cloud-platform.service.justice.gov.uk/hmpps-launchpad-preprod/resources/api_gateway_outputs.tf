@@ -47,12 +47,12 @@ output "vpc_link_id" {
 
 output "internal_nlb_arn" {
   description = "ARN of the default NLB used by VPC Link"
-  value       = data.aws_lb.ingress_default_non_prod_nlb.arn
+  value       = data.aws_lb.ingress_internal_non_prod_nlb.arn
 }
 
 output "non_prod_nlb_nlb_dns_name" {
   description = "DNS name of the default NLB"
-  value       = data.aws_lb.ingress_default_non_prod_nlb.dns_name
+  value       = data.aws_lb.ingress_internal_non_prod_nlb.dns_name
 }
 
 output "allowlist_cidr_blocks" {
