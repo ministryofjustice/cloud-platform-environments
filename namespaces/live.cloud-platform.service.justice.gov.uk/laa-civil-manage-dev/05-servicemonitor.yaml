@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: laa-civil-manage
+      app.kubernetes.io/instance: laa-civil-manage
   endpoints:
     - port: http
       interval: 15s
