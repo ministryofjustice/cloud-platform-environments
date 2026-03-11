@@ -7,16 +7,16 @@ module "rds_alfresco" {
   db_name = "alfresco"
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_minor_version_upgrade = true
+  allow_major_version_upgrade = false
 
   # enable performance insights
   performance_insights_enabled = true
 
   # Storage configuration
-  db_max_allocated_storage     = "1500"
-  db_allocated_storage         = "200"
-  db_iops                      = "16000"
+  db_max_allocated_storage = "1500"
+  db_allocated_storage     = "200"
+  db_iops                  = "16000"
   #db_storage_throughput           = "1000" # This doesn't exist as a variable in the module yet.
 
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -33,12 +33,12 @@ module "rds_alfresco" {
   db_parameter = [
     {
       name         = "max_wal_size"
-      value        = "2048"          # MB (2GB)
+      value        = "2048" # MB (2GB)
       apply_method = "immediate"
     },
     {
       name         = "checkpoint_timeout"
-      value        = "300"            # seconds (5 min)
+      value        = "300" # seconds (5 min)
       apply_method = "immediate"
     },
     {
@@ -51,10 +51,10 @@ module "rds_alfresco" {
       value        = "6"
       apply_method = "immediate"
     },
-    { 
-      name         = "maintenance_work_mem", 
+    {
+      name         = "maintenance_work_mem",
       value        = "2097152", # 2GB
-      apply_method = "immediate" 
+      apply_method = "immediate"
     },
     {
       name         = "rds.force_ssl"
@@ -74,6 +74,8 @@ module "rds_alfresco" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
 
 resource "kubernetes_secret" "rds" {
