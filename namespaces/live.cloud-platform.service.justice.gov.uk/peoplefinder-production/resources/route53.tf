@@ -78,6 +78,14 @@ resource "aws_route53_record" "peoplefinder_route53_sendgrid_dmarc" {
   records = ["v=DMARC1; p=none; rua=mailto:dmarc-rua@dmarc.service.gov.uk,mailto:yl0zvgmk@ag.dmarcian.com; ruf=mailto:yl0zvgmk@fr.dmarcian.com;"]
 }
 
+resource "aws_route53_record" "peoplefinder_route53_myncsc_verification" {
+  zone_id = aws_route53_zone.parliamentary_questions.zone_id
+  name    = "asvdns-131c49f6-a8ef-40d3-9327-6f01a5f5d61e.peoplefinder.service.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_14e6d5b9-0881-476d-8ad9-e94a406c84d0"]
+}
+
 # Other records copied from template deploy - Do we need this one? Get rid?
 resource "aws_route53_record" "peoplefinder_route53_mx" {
   zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
