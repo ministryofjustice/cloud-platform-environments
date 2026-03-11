@@ -36,7 +36,12 @@ data "aws_caller_identity" "current" {
   provider = aws.london
 }
 
-# Define the ECR push policy with separate statements
+# NOTE: While the ecr_credentials module creates the OIDC role, it does not
+# attach ECR push permissions by default. This custom policy is required to
+# grant GitHub Actions the necessary permissions to push Docker images to the
+# ECR repository, including ecr:InitiateLayerUpload, ecr:PutImage, and related
+# actions. Without this policy, GitHub Actions workflows will fail with
+# authorization errors when attempting to push images.
 data "aws_iam_policy_document" "ecr_push_policy" {
   provider = aws.london
 
