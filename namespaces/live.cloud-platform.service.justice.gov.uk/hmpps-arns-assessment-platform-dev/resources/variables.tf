@@ -57,6 +57,18 @@ variable "github_token" {
   default     = ""
 }
 
+variable "db_name" {
+  description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "arns-assessment-platform"
+  type        = string
+}
+
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "arns-assessment-platform-dev"
+  type        = string
+}
+
 variable "eks_cluster_name" {
     description = "The name of the eks cluster to retrieve the OIDC information"
 }
