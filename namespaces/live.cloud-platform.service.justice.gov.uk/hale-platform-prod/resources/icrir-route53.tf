@@ -120,10 +120,10 @@ resource "aws_route53_record" "icrir_route53_txt_belfast" {
 
 resource "aws_route53_record" "icrir_route53_txt_asvdns" {
   zone_id = aws_route53_zone.icrir_route53_zone.zone_id
-  name    = "_asvdns-2ac0f8fb-9a02-4dfc-888e-7a804e21d5d2.icrir.independent-inquiry.uk"
+  name    = "_asvdns-8a599dcb-3639-4b98-90d9-b0608bdcc635.icrir.independent-inquiry.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["asvdns_597b5b92-f07e-4cca-95f2-f41a0b123faf"]
+  records = ["asvdns_3ae49c96-5bbf-47b2-af13-8300c2867f6a"]
 }
 
 resource "aws_route53_record" "icrir_route53_txt_asvdns3" {
