@@ -79,7 +79,7 @@ resource "aws_route53_record" "peoplefinder_route53_sendgrid_dmarc" {
 }
 
 resource "aws_route53_record" "peoplefinder_route53_myncsc_verification" {
-  zone_id = aws_route53_zone.parliamentary_questions.zone_id
+  zone_id = aws_route53_zone.peoplefinder_route53_zone.zone_id
   name    = "asvdns-131c49f6-a8ef-40d3-9327-6f01a5f5d61e.peoplefinder.service.gov.uk"
   type    = "TXT"
   ttl     = "300"
