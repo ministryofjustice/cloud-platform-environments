@@ -27,6 +27,9 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  # Testing RDS Restore
+  deletion_protection = false
+
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 
