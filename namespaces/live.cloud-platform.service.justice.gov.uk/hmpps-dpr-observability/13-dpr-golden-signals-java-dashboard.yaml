@@ -1492,7 +1492,7 @@ data:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "(sum(jvm_memory_used_bytes{namespace=~\"$namespace\", area=\"heap\"}) by (pod) / sum(jvm_memory_max_bytes{namespace=~\"$namespace\", area=\"heap\"}) by (pod)) * 100",
+              "expr": "(sum(jvm_memory_used_bytes{namespace=~\"$namespace\", id=~\".*heap.*|.*Heap.*\"}) by (pod) / sum(jvm_memory_max_bytes{namespace=~\"$namespace\", id=~\".*heap.*|.*Heap.*\"}) by (pod)) * 100",
               "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"
@@ -1591,7 +1591,7 @@ data:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(jvm_threads_live_threads{namespace=~\"$namespace\"}) by (pod)",
+              "expr": "sum(jvm_threads_live_threads{namespace=~\"$namespace\"}) by (pod, namespace)",
               "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"
