@@ -3,13 +3,14 @@ module "hmpps-ems-cemo" {
   github_repo = "hmpps-electronic-monitoring-create-an-order"
   application = "hmpps-electronic-monitoring-create-an-order"
   github_team = var.team_name
-  environment = "dev" 
+  environment = "prod" 
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  application_insights_instance = "dev"
+  application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = var.team_name
 }
 
