@@ -11,6 +11,5 @@ module "hmpps-ems-cemo" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = [var.team_name]
 }
 
