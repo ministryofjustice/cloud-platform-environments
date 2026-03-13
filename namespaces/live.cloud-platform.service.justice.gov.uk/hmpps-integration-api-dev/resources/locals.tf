@@ -43,6 +43,7 @@ locals {
     "community-payback-dev",
     "daso",
     "community-campus",
+    "enhanced-reception-checks",
   ]
 
   client_queues = {
