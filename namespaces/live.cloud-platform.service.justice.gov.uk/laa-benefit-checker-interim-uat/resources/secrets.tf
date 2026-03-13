@@ -10,10 +10,20 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "aws-secrets" = {
-      description             = "Benefit Checker Interim Environment Variables for UAT",
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Benefit checker UAT",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "aws-secrets"
+      k8s_secret_name         = "sentry-dsn"
+    },
+    "client-ids" = {
+      description             = "Which client ids are valid to call the service",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ids" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "dwp-url" = {
+      description             = "URL of the DWP service we are calling",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dwl-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }
 }
