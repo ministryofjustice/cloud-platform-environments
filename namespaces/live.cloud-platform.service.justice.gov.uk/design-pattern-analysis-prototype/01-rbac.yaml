@@ -5,7 +5,7 @@ metadata:
   namespace: design-pattern-analysis-prototype
 subjects:
   - kind: Group
-    name: "github:ministryofjustice"
+    name: "github:reuse-library-gh-admins"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
