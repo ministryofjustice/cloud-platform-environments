@@ -102,5 +102,5 @@ variable "cloud_platform_launchpad_auth_api_url" {
 variable "api_gateway_ingress_hostname" {
   description = "Hostname for API Gateway to route traffic via NLB (must match default NLB TLS cert CN pattern)"
   type        = string
-  default     = "hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk"
+  default     = "hmpps-launchpad-auth-preprod.apps.live.cloud-platform.service.justice.gov.uk"
 }
