@@ -141,6 +141,14 @@ variable "force_ssl_value" {
   default     = 1
 }
 
+variable "logging_enabled" {
+  default = true
+}
+
+variable "log_path" {
+  default = "logs/"
+}
+
 variable "sqlserver_restore_create_snapshot" {
   description = "Boolean to declare whether or not a snapshot should be taken before the sqlserver restore"
   type        = bool

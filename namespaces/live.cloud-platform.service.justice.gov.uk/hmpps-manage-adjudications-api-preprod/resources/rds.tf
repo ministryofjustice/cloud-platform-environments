@@ -12,7 +12,7 @@ module "ma_rds" {
 
   enable_rds_auto_start_stop = true
 
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres17"
   db_engine_version           = "17.6"
   deletion_protection         = true
@@ -138,6 +138,24 @@ resource "kubernetes_secret" "dps_rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "upgraded_rds" {
+  metadata {
+    name      = "upgraded-rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    db_identifier         = module.ma_rds.db_identifier
+    resource_id           = module.ma_rds.resource_id
+    rds_instance_endpoint = module.ma_rds.rds_instance_endpoint
+    database_name         = module.ma_rds.database_name
+    database_username     = module.ma_rds.database_username
+    database_password     = module.ma_rds.database_password
+    rds_instance_address  = module.ma_rds.rds_instance_address
+    url                   = "postgres://${module.ma_rds.database_username}:${module.ma_rds.database_password}@${module.ma_rds.rds_instance_endpoint}/${module.ma_rds.database_name}"
   }
 }
 

@@ -18,6 +18,10 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
 
+  # Naming
+  db_name  = var.db_name
+  rds_name = var.rds_name
+
   # Tags
   application            = var.application
   business_unit          = var.business_unit
@@ -39,7 +43,7 @@ module "read_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -114,7 +118,6 @@ resource "kubernetes_secret" "read_replica" {
 
 
 # Configmap to store non-sensitive data related to the RDS instance
-
 resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
