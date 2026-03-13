@@ -75,7 +75,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "https://hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk/{proxy}"
+  uri                     = "https://${var.api_gateway_ingress_hostname}/{proxy}"
 
   connection_type      = "VPC_LINK"
   connection_id        = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
@@ -83,7 +83,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
 
   request_parameters = {
     "integration.request.path.proxy"  = "method.request.path.proxy"
-    "integration.request.header.Host" = "'hmpps-launchpad-auth.apps.live.cloud-platform.service.justice.gov.uk'"
+    "integration.request.header.Host" = "'${var.api_gateway_ingress_hostname}'"
   }
 }
 

@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-data-claims-event-service"]
+  github_repositories = ["laa-data-claims-event-service", "laa-submit-a-bulk-claim"]
 
   # Lifecycle policies
   lifecycle_policy = <<EOF

@@ -2,6 +2,10 @@ variable "namespace" {
   default = "laa-cla-frontend-uat"
 }
 
+variable "vpc_name" {
+  default = "live-1"
+}
+
 variable "business_unit" {
   default = "LAA"
 }

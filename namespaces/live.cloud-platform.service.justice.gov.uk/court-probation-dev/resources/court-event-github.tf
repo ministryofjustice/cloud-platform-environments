@@ -125,3 +125,35 @@ module "hmpps-user-preferences" {
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
 }
+
+module "prepare-a-case" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo                   = "prepare-a-case"
+  application                   = "prepare-a-case"
+  github_team                   = "hmpps-probation-in-court"
+  environment                   = var.environment
+  is_production                 = var.is_production
+  selected_branch_patterns      = ["main"]
+  application_insights_instance = var.environment
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  github_owner                  = var.github_owner
+}
+
+module "court-case-service" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  github_repo                   = "court-case-service"
+  application                   = "court-case-service"
+  github_team                   = "hmpps-probation-in-court"
+  environment                   = var.environment
+  is_production                 = var.is_production
+  selected_branch_patterns      = ["main"]
+  application_insights_instance = var.environment
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  github_owner                  = var.github_owner
+}

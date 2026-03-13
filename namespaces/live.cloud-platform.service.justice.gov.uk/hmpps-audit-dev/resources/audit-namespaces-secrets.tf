@@ -7,7 +7,6 @@ locals {
     "hmpps-assess-risks-and-needs-integrations-dev",
     "hmpps-assess-risks-and-needs-integrations-test",
     "hmpps-assessments-dev",
-    "hmpps-audit-poc-dev",
     "hmpps-auth-dev",
     "hmpps-auth-stage",
     "hmpps-book-a-video-link-dev",

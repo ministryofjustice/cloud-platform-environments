@@ -10,6 +10,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - arns-handover-service-dev.hmpps.service.justice.gov.uk
+    - '*.arns-handover-service-dev.hmpps.service.justice.gov.uk'
     - assess-risks-and-needs-handover-service-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -24,6 +25,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - arns-oastub-dev.hmpps.service.justice.gov.uk
+    - '*.arns-oastub-dev.hmpps.service.justice.gov.uk'
     - assess-risks-and-needs-oastub-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
@@ -38,4 +40,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - arns-coordinator-api-dev.hmpps.service.justice.gov.uk
+    - '*.arns-coordinator-api-dev.hmpps.service.justice.gov.uk'
     - assess-risks-and-needs-coordinator-api-dev.hmpps.service.justice.gov.uk

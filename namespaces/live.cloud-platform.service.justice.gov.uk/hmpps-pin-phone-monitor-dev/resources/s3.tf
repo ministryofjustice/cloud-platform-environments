@@ -290,7 +290,7 @@ resource "aws_iam_role" "unify_s3_upload_role" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::668236265794:role/unify-s3-upload-role"
+          AWS = "arn:aws:iam::668236265794:user/unify-s3-upload-user"
         },
         Action = "sts:AssumeRole"
       }
