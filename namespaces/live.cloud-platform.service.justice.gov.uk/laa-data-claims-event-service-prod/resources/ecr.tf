@@ -16,7 +16,9 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-data-claims-event-service", "laa-submit-a-bulk-claim"]
+  # E2E repository does have trailing "-" character, this is not a typo.
+  github_repositories = ["laa-data-claims-event-service", "laa-submit-a-bulk-claim", "bulk-submission-and-fee-scheme-tests-"]
+  github_actions_prefix = "laa_data_claims_event_service"
 
   # Lifecycle policies
   lifecycle_policy = <<EOF
