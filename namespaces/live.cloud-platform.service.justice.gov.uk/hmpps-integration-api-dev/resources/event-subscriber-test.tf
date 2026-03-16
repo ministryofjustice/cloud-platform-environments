@@ -80,7 +80,7 @@ resource "aws_sns_topic_subscription" "event_test_client_subscription" {
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_test_client_queue.sqs_arn
-  filter_policy = coalesce(data.github_repository_file.test_subscription_filter_policy.content, var.default_subscription_filter_policy)
+  filter_policy = coalesce(var.default_subscription_filter_policy, data.github_repository_file.test_subscription_filter_policy.content)
   depends_on = [
     module.hmpps-integration-events
   ]
