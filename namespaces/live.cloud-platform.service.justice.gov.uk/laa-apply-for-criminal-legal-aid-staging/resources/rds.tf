@@ -34,6 +34,9 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  snapshot_identifier = "laa-apply-for-criminal-legal-aid-staging-dr-exercise-16-03-26"
+
 }
 
 resource "kubernetes_secret" "rds" {
