@@ -13,14 +13,14 @@ module "cloudfront" {
   trusted_public_keys  = local.expiring_trusted_key.encoded_key == null ? [local.trusted_key] : [local.trusted_key, local.expiring_trusted_key]
 
   # Tags
-  business_unit          = var.business_unit
   application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  namespace              = var.namespace
+  business_unit          = var.business_unit
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  service-area            = var.service_area
+  is_production          = var.is_production
+  namespace              = var.namespace
+  service_area           = var.service_area
+  team_name              = var.team_name
 
   depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
