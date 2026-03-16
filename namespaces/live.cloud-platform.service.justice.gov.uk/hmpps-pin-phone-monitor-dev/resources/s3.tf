@@ -202,7 +202,6 @@ resource "aws_iam_role" "translate_s3_data_role" {
 resource "aws_iam_role_policy" "translate_s3_data_role_policy" {
   name = "pcms-dev-translate-s3-data-role-policy"
   role = aws_iam_role.translate_s3_data_role.id
-  tags = local.default_tags
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -254,7 +253,6 @@ resource "aws_iam_role" "transcribe_s3_data_role" {
 resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
   name = "pcms-dev-transcribe-s3-data-role-policy"
   role = aws_iam_role.transcribe_s3_data_role.id
-  tags = local.default_tags
 
   policy = jsonencode({
     Version = "2012-10-17",
