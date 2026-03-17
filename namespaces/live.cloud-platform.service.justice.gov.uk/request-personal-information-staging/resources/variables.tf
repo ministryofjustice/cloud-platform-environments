@@ -79,3 +79,9 @@ variable "vpc_name" {
   description = "VPC name to create security groups in for the ElastiCache and RDS modules"
   type        = string
 }
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
+  type        = string
+  default     = "cdn.request-personal-information-staging.service.justice.gov.uk"
+}
