@@ -16,7 +16,7 @@ module "cloudfront" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   service_area           = var.service_area
-ß
+
   depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }
 
