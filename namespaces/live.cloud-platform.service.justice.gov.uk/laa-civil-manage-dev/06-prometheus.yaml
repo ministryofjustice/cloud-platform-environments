@@ -24,7 +24,7 @@ spec:
       labels:
         severity: laa-civil-manage-dev
       annotations:
-        message: "Warning: Pod {{ $labels.app.kubernetes.io/instance }} in namespace {{ $labels.app.kubernetes.io/name }} has been in CrashLoopBackOff for over 10 minutes."
+        message: "Warning: a pod in namespace {{ $labels.namespace }} has been in CrashLoopBackOff for over 10 minutes."
 
     - alert: HighHttp5xxErrorRate
       expr: sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev", status_code=~"5.."}[5m])) / sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev"}[5m])) > 0.05
@@ -32,4 +32,4 @@ spec:
       labels:
         severity: laa-civil-manage-dev
       annotations:
-        message: "CRITICAL: The 5xx error rate in {{ $labels.app.kubernetes.io/name }} has exceeded 5% for the last 5 minutes."
+        message: "CRITICAL: The 5xx error rate in {{ $labels.namespace }} has exceeded 5% for the last 5 minutes."
