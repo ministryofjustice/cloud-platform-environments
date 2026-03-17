@@ -14,7 +14,7 @@ spec:
       expr: sum(kube_pod_status_phase{namespace="laa-civil-manage-dev", phase="Running"}) == 0 or absent(kube_pod_status_phase{namespace="laa-civil-manage-dev", phase="Running"})
       for: 5m
       labels:
-        severity: TODO_ADD_ME
+        severity: laa-civil-manage-dev
       annotations:
         message: "CRITICAL: There are zero running pods in the laa-civil-manage-dev namespace."
 
@@ -22,7 +22,7 @@ spec:
       expr: kube_pod_container_status_waiting_reason{namespace="laa-civil-manage-dev", reason="CrashLoopBackOff"} > 0
       for: 10m
       labels:
-        severity: TODO_ADD_ME
+        severity: laa-civil-manage-dev
       annotations:
         message: "Warning: Pod {{ $labels.app.kubernetes.io/instance }} in namespace {{ $labels.app.kubernetes.io/name }} has been in CrashLoopBackOff for over 10 minutes."
 
@@ -30,6 +30,6 @@ spec:
       expr: sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev", status_code=~"5.."}[5m])) / sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev"}[5m])) > 0.05
       for: 5m
       labels:
-        severity: TODO_ADD_ME
+        severity: laa-civil-manage-dev
       annotations:
         message: "CRITICAL: The 5xx error rate in {{ $labels.app.kubernetes.io/name }} has exceeded 5% for the last 5 minutes."
