@@ -4,6 +4,7 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  serviceaccount_name = "cd-serviceaccount"
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = ["laa-info-and-advice-datastore"]
