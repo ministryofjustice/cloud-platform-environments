@@ -1,23 +1,17 @@
-data "aws_iam_policy_document" "modernisation_platform_secret_manager_policy_data" {
-  statement {
-    effect = "Allow"
+resource "aws_iam_policy" "modernisation_platform_secret_manager_policy" {
+  name        = "modernisation-platform-secret-manager-policy"
 
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    actions   = [
-        "secretsmanager:GetSecretValue",
-        "secretsmanager:PutSecretValue"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:PutSecretValue"
+        ]
+        Resource = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
+      }
     ]
-    resources = [
-      "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
-    ]
-  }
-}
-
-resource "aws_secretsmanager_secret_policy" "modernisation_platform_secret_manager_policy" {
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
-  policy     = data.aws_iam_policy_document.modernisation_platform_secret_manager_policy_data.json
+  })
 }
