@@ -80,12 +80,16 @@ data "aws_secretsmanager_secret_version" "plp_filter_list" {
   secret_id = data.aws_secretsmanager_secret.plp_filter_list.id
 }
 
+data "github_repository_file" "plp_subscription_filter_policy" {
+  repository          = "${var.github_owner}/${var.github_repo_name}"
+  file                = "src/main/resources/event-filter-policies/${var.environment}/meganexus-subscription-filter.json"
+}
 
 resource "aws_sns_topic_subscription" "event_plp_subscription" {
   topic_arn = module.hmpps-integration-events.topic_arn
   protocol  = "sqs"
   endpoint  = module.event_plp_queue.sqs_arn
-  filter_policy = data.aws_secretsmanager_secret_version.plp_filter_list.secret_string
+  filter_policy = coalesce(var.default_subscription_filter_policy, data.github_repository_file.plp_subscription_filter_policy.content)
   depends_on = [
     module.hmpps-integration-events
   ]

@@ -80,12 +80,16 @@ data "aws_secretsmanager_secret_version" "moj_esw_filter_list" {
   secret_id = data.aws_secretsmanager_secret.moj_esw_filter_list.id
 }
 
+data "github_repository_file" "moj_esw_subscription_filter_policy" {
+  repository          = "${var.github_owner}/${var.github_repo_name}"
+  file                = "src/main/resources/event-filter-policies/${var.environment}/moj-esw-subscription-filter.json"
+}
 
 resource "aws_sns_topic_subscription" "event_moj_esw_subscription" {
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.event_moj_esw_queue.sqs_arn
-  filter_policy = data.aws_secretsmanager_secret_version.moj_esw_filter_list.secret_string
+  filter_policy = coalesce(var.default_subscription_filter_policy, data.github_repository_file.moj_esw_subscription_filter_policy.content)
   depends_on = [
     module.hmpps-integration-events
   ]
