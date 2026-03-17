@@ -17,8 +17,8 @@ module "hmpps_template_kotlin" {
 
 module "data_importer_service" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
-  github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
-  application = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
+  github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
+  application = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
   github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"
   environment = var.environment
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
