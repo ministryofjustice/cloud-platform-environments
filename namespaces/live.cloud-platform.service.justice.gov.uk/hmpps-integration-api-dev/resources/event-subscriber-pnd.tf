@@ -89,7 +89,7 @@ resource "aws_sns_topic_subscription" "event_pnd_subscription" {
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.event_pnd_queue.sqs_arn
-  filter_policy = coalesce(var.default_subscription_filter_policy, data.github_repository_file.pnd_subscription_filter_policy.content)
+  filter_policy = coalesce(data.github_repository_file.pnd_subscription_filter_policy.content, var.default_subscription_filter_policy)
   depends_on = [
     module.hmpps-integration-events
   ]
