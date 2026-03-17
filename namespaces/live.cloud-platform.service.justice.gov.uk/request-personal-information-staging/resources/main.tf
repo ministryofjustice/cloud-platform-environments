@@ -4,26 +4,8 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-2"
-
-  default_tags {
-    tags = {
-      business-unit = var.business_unit
-      application = var.application
-      is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
-      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
-      slack-channel = var.slack_channel
-    }
-  }
-}
-
-provider "aws" {
   alias  = "london"
   region = "eu-west-2"
-
   default_tags {
     tags = {
       business-unit = var.business_unit
@@ -41,7 +23,6 @@ provider "aws" {
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
-
   default_tags {
     tags = {
       business-unit = var.business_unit
@@ -54,6 +35,23 @@ provider "aws" {
       slack-channel = var.slack_channel
     }
   }
+}
+
+provider "aws" {
+  alias  = "virginia"
+  default_tags {
+    tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+      source-code   = "github.com/ministryofjustice/cloud-platform-environments"
+      slack-channel = var.slack_channel
+    }
+  }
+  region = "us-east-1"
 }
 
 provider "github" {
