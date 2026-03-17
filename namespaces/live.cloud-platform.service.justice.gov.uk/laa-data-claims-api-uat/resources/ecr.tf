@@ -12,7 +12,10 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-data-claims-api"]
+# REQUIRED: GitHub repositories that push to this container repository
+# E2E repository does have trailing "-" character, this is not a typo.
+  github_repositories = ["laa-data-claims-api", "bulk-submission-and-fee-scheme-tests-"]
+  github_actions_prefix = "laa_data_claims_api"
 
   # Tags
   business_unit          = var.business_unit
