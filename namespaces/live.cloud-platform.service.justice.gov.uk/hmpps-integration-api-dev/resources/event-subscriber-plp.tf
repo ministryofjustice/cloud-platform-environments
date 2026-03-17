@@ -90,6 +90,9 @@ resource "aws_sns_topic_subscription" "event_plp_subscription" {
   protocol  = "sqs"
   endpoint  = module.event_plp_queue.sqs_arn
   filter_policy = coalesce(var.default_subscription_filter_policy, data.github_repository_file.plp_subscription_filter_policy.content)
+  depends_on = [
+    module.hmpps-integration-events
+  ]
 }
 
 resource "kubernetes_secret" "event_plp_queue" {
