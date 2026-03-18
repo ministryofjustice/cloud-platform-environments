@@ -38,7 +38,7 @@ module "ecr_credentials" {
                 "tagPrefixList": ["branch"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 1000
-            },`
+            },
             "action": {
                 "type": "expire"
             }
