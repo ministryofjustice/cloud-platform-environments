@@ -29,7 +29,6 @@ module "rds" {
 
   # Testing RDS Restore
   deletion_protection = false
-  snapshot_identifier = "temp-manual-snapshot-cloud-platform-47d4c6e80a73418c"
 
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
