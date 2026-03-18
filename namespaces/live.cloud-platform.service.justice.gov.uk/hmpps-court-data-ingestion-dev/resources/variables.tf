@@ -81,3 +81,15 @@ variable "service_area" {
   description = "service area"
   default     = "Manage Custody"
 }
+
+variable "modernisation_platform_autorizer_lambda" {
+  type = string
+  description = "The ARN of the role used by modernisation platform authorizer lambda"
+  default = "arn:aws:sts::953751538119:assumed-role/authorizer-role-mp/hmac-authorizer"
+}
+
+variable "modernisation_platform_secrets_manager" {
+  type = string
+  description = "The ARN of the secret storing the hmac key in modernisation platform"
+  default = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
+}
