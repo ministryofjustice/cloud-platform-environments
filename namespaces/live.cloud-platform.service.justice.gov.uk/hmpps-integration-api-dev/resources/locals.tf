@@ -44,6 +44,7 @@ locals {
     "daso",
     "community-campus",
     "enhanced-reception-checks",
+    "synalogik",
   ]
 
   client_queues = {
