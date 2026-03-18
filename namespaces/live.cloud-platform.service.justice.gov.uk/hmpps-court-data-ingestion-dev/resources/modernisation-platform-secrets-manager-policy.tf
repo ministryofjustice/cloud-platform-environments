@@ -1,3 +1,4 @@
+
 resource "aws_iam_policy" "modernisation_platform_secret_manager_policy" {
   name        = "modernisation-platform-secret-manager-policy"
 
@@ -10,8 +11,19 @@ resource "aws_iam_policy" "modernisation_platform_secret_manager_policy" {
           "secretsmanager:GetSecretValue",
           "secretsmanager:PutSecretValue"
         ]
-        Resource = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
+        Resource = var.modernisation_platform_secrets_manager
       }
     ]
   })
+}
+
+resource "kubernetes_secret" "modernisation_platform_secret_manager" {
+  metadata {
+    name      = "secret-manager-modernisation-platform"
+    namespace = var.namespace
+  }
+
+  data = {
+    secret_id  = var.modernisation_platform_secrets_manager
+  }
 }
