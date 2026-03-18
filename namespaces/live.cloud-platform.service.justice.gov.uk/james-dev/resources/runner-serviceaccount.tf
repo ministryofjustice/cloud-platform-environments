@@ -1,4 +1,4 @@
-# Weekly token rotation — replaces the time_rotating inside the template
+# Weekly token rotation — replaces the time_rotating in the template
 resource "time_rotating" "weekly" {
   rotation_days = 7
 }
