@@ -3,7 +3,7 @@
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.0"
   github_repo = "hmpps-template-kotlin"
   application = "hmpps-template-kotlin"
   github_team = "hmpps-sre"
