@@ -13,7 +13,8 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-record-controlled-work"]
-
+  github_actions_prefix = "RCW_"
+  
   # Tags
   business_unit          = var.business_unit
   application            = var.application
