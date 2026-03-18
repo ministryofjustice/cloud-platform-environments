@@ -59,7 +59,7 @@ module "copy" {
   rds_family        = "postgres15"
   db_instance_class = "db.t4g.micro"
   rds_name          = "demo-dan1-copy"
-  snapshot_identifier = “temp-manual-snapshot-cloud-platform-47d4c6e80a73418c"
+  snapshot_identifier = "temp-manual-snapshot-cloud-platform-47d4c6e80a73418c"
 
   # Tags
   application            = var.application
