@@ -34,7 +34,7 @@ module "laa_check_client_qualifies_ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
-  repo_name = var.namespace
+  repo_name = "laa-check-client-qualifies"
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
