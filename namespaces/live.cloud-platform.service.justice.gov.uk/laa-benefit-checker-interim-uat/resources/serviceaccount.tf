@@ -4,7 +4,9 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "01-10-2026"
+  serviceaccount_name = "github-actions"
 
   github_repositories = ["laa-dwp-benefit-checker"]
+  github_environments = ["uat"]
 }
