@@ -92,9 +92,6 @@ resource "aws_iam_user" "user" {
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 
-    # Assigning the trigger value to this field will force a refresh on the first pipeline build
-    pgp_key = var.access_key_rotation_trigger
-
     lifecycle {
       replace_triggered_by = [
         null_resource.access_key_rotation
