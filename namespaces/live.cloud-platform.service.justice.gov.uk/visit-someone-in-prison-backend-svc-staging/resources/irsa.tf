@@ -29,7 +29,6 @@ locals {
       (module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_name)        = module.hmpps_prison_visits_write_events_dead_letter_queue.irsa_policy_arn,
       (module.hmpps_prison_visits_create_contact_event_queue.sqs_name)            = module.hmpps_prison_visits_create_contact_event_queue.irsa_policy_arn,
       (module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_name)= module.hmpps_prison_visits_create_contact_event_dead_letter_queue.irsa_policy_arn
-
     },
     local.sns_policies,
     local.rds_policies
