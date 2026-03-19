@@ -29,6 +29,51 @@ spec:
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
+  name: allow-dns-egress
+  namespace: kristian-helloworld
+spec:
+  order: 49.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: UDP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-hmpps-activities-management-api
+  namespace: kristian-helloworld
+spec:
+  order: 48.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "hmpps-activities-management-dev"
+      selector: projectcalico.org/serviceaccount == "hmpps-activities-management-api"
+      ports:
+      - 8080
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
   name: deny-egress-order
   namespace: kristian-helloworld
 spec:
