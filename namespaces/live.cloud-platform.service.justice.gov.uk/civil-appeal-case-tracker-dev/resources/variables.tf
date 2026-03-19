@@ -87,5 +87,5 @@ variable "service_area" {
 variable "access_key_rotation_trigger" {
   description = "External S3 Access Key Rotation Trigger"
   type        = string
-  default     = "19/03/2026"
+  default     = "20260319#1"
 }
