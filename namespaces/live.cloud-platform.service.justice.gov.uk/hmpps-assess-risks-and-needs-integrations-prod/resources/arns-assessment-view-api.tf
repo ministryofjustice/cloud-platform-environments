@@ -3,6 +3,7 @@ module "hmpps_arns_assessment_view_api" {
   github_repo                   = "hmpps-arns-assessment-view-api"
   application                   = "hmpps-arns-assessment-view-api"
   github_team                   = "hmpps-assessments"
+  reviewer_teams                = ["hmpps-assessments", "hmpps-sentence-planning"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "prod"
