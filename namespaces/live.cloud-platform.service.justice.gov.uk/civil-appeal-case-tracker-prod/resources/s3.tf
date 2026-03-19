@@ -79,6 +79,12 @@ resource "aws_s3_bucket_policy" "restricted_policy" {
 # --------------------------------------------------------
 # IAM USER FOR EXTERNAL S3 ACCESS
 # --------------------------------------------------------
+resource "null_resource" "access_key_rotation" {
+  triggers = {
+    rotation = var.access_key_rotation_trigger
+  }
+}
+
 resource "aws_iam_user" "user" {
   name = "external-s3-access-user-${var.environment}"
   path = "/system/external-s3-access-user/"
@@ -86,6 +92,15 @@ resource "aws_iam_user" "user" {
 
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
+
+  # Assigning the rotaton trigger variable to this field will ensure an instant refresh
+  pgp_key = var.access_key_rotation_trigger
+
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.access_key_rotation
+    ]
+  }
 }
 
 # --------------------------------------------------------
