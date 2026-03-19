@@ -30,7 +30,7 @@ apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
   name: deny-egress-order
-  namespace: var.namespace
+  namespace: kristian-helloworld
 spec:
   order: 50.0
   selector: all()
