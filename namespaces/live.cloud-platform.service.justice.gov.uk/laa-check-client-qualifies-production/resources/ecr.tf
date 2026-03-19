@@ -10,10 +10,10 @@ module "ecr_credentials" {
   repo_name = "laa-check-client-qualifies-ecr"
 
   # enable the oidc implementation for CircleCI and Github
-  oidc_providers = ["circleci", "github"]
+  oidc_providers = ["circleci"]
 
   # specify which GitHub repository your CircleCI and Github job runs from
-  github_repositories = ["laa-check-client-qualifies", "laa-record-controlled-work"]
+  github_repositories = ["laa-check-client-qualifies"]
 
   # set your namespace name to create a ConfigMap of credentials you need in CircleCI
   namespace = var.namespace
