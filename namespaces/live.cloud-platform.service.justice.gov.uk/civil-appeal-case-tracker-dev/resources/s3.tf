@@ -80,8 +80,10 @@ resource "aws_s3_bucket_policy" "restricted_policy" {
 # --------------------------------------------------------
 # IAM USER FOR EXTERNAL S3 ACCESS
 # --------------------------------------------------------
-resource "terraform_data" "rotation_trigger" {
-  input = var.access_key_rotation_trigger
+resource "null_resource" "access_key_rotation" {
+  triggers = {
+    rotation = var.access_key_rotation_trigger
+  }
 }
 
 resource "aws_iam_user" "user" {
@@ -94,7 +96,7 @@ resource "aws_iam_access_key" "user" {
 
   lifecycle {
     replace_triggered_by = [
-      terraform_data.rotation_trigger
+      null_resource.access_key_rotation
     ]
   }
 }
