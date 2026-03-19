@@ -1,4 +1,4 @@
-########################### IMPORTANT ##################################
+
 ## This parameter determines which application insights account is used
 ## so you will need to change depending on environment
 ##
@@ -10,6 +10,7 @@ data "aws_ssm_parameter" "application_insights_key" {
   name = "/application_insights/key-dev"
 }
 
+# This is only ever going to be dev in my repo
 ########################################################################
 
 resource "kubernetes_secret" "application-insights" {
