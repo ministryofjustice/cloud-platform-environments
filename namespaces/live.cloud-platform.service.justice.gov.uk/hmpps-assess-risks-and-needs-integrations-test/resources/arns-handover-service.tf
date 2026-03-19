@@ -1,5 +1,5 @@
 module "hmpps_assess_risks_and_needs_handover_service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.7"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.0"
   github_repo                   = "hmpps-assess-risks-and-needs-handover-service"
   application                   = "hmpps-assess-risks-and-needs-handover-service"
   github_team                   = "hmpps-assessments"
