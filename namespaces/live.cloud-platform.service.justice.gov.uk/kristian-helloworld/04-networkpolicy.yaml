@@ -32,7 +32,7 @@ metadata:
   name: deny-egress-order
   namespace: kristian-helloworld
 spec:
-  order: 50.0
+  order: 51.0
   selector: all()
   egress:
   - action: Deny
