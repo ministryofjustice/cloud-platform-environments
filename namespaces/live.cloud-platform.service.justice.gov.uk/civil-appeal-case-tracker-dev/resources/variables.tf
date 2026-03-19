@@ -83,3 +83,9 @@ variable "service_area" {
   type        = string
   default     = "DTS Legacy Services"
 }
+
+variable "access_key_rotation_trigger" {
+  description = "External S3 Access Key Rotation Trigger"
+  type        = string
+  default     = "19/03/2026"
+}

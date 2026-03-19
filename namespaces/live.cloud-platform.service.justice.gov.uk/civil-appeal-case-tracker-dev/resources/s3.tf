@@ -87,6 +87,12 @@ resource "aws_iam_user" "user" {
 
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
+
+  lifecycle {
+    replace_triggered_by = [
+      var.access_key_rotation_trigger
+    ]
+  }
 }
 
 # --------------------------------------------------------
