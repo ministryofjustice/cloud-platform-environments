@@ -16,7 +16,11 @@ resource "aws_iam_policy" "modernisation_platform_secret_manager_policy" {
       {
         Effect = "Allow"
         Action = [
-          "kms:Encrypt", "kms:DescribeKey", "kms:ReEncrypt*"
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:DescribeKey",
+          "kms:GenerateDataKey",
+          "kms:ReEncrypt*",
         ]
         Resource = var.modernisation_platform_secrets_manager_key
       }
