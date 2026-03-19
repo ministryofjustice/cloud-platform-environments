@@ -1,5 +1,5 @@
 module "hmpps_assess_risks_and_needs_coordinator_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=0.0.7"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.0"
   github_repo                   = "hmpps-assess-risks-and-needs-coordinator-api"
   application                   = "hmpps-assess-risks-and-needs-coordinator-api"
   github_team                   = "hmpps-assessments"
