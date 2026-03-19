@@ -93,3 +93,9 @@ variable "modernisation_platform_secrets_manager" {
   description = "The ARN of the secret storing the hmac key in modernisation platform"
   default = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
 }
+
+variable "modernisation_platform_secrets_manager_key" {
+  type = string
+  description = "The ARN of the key used in secret manager modernisation platform"
+  default = "arn:aws:kms:eu-west-2:953751538119:key/58e3dd4b-e088-407f-8cc2-0df1f2fdd800"
+}
