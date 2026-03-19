@@ -1,10 +1,10 @@
 ### Subscribe to the prisoner-contact.created event, used by hmpps-prison-visit-booker-registry
 
-resource "aws_sns_topic_subscription" "hmpps_prison_visits_create_prisoner_contact_event" {
+resource "aws_sns_topic_subscription" "hmpps_prison_visits_create_contact_event" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_arn
+  endpoint  = module.hmpps_prison_visits_create_contact_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "contacts-api.prisoner-contact.created"
@@ -12,17 +12,17 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_create_prisoner_conta
   })
 }
 
-module "hmpps_prison_visits_create_prisoner_contact_event_queue" {
+module "hmpps_prison_visits_create_contact_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "hmpps_prison_visits_create_prisoner_contact_event_queue"
+  sqs_name                   = "hmpps_prison_visits_create_contact_event_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -40,19 +40,19 @@ module "hmpps_prison_visits_create_prisoner_contact_event_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "hmpps_prison_visits_create_prisoner_contact_event_queue_policy" {
-  queue_url = module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_id
+resource "aws_sqs_queue_policy" "hmpps_prison_visits_create_contact_event_queue_policy" {
+  queue_url = module.hmpps_prison_visits_create_contact_event_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.hmpps_prison_visits_create_contact_event_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_arn}",
+          "Resource": "${module.hmpps_prison_visits_create_contact_event_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
@@ -69,11 +69,11 @@ EOF
 
 ######## Dead letter queue
 
-module "hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue" {
+module "hmpps_prison_visits_create_contact_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_prison_visits_create_prisoner_contact_event_dlq"
+  sqs_name        = "hmpps_prison_visits_create_contact_event_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -92,32 +92,32 @@ module "hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue" {
 
 ########  Secrets
 
-resource "kubernetes_secret" "hmpps_prison_visits_create_prisoner_contact_event" {
+resource "kubernetes_secret" "hmpps_prison_visits_create_contact_event" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-prison-visits-create-prisoner-contact-event-secret"
+    name = "sqs-prison-visits-create-contact-event-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-preprod"
   }
 
   data = {
-    sqs_queue_url  = module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prison_visits_create_prisoner_contact_event_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_create_contact_event_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_create_contact_event_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_create_contact_event_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue" {
+resource "kubernetes_secret" "hmpps_prison_visits_create_contact_event_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-prison-visits-create-prisoner-contact-event-dlq-secret"
+    name = "sqs-prison-visits-create-contact-event-dlq-secret"
     ## Name space where the listening service is found
     namespace = "visit-someone-in-prison-backend-svc-preprod"
   }
 
   data = {
-    sqs_queue_url  = module.hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue.sqs_id
-    sqs_queue_arn  = module.hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue.sqs_arn
-    sqs_queue_name = module.hmpps_prison_visits_create_prisoner_contact_event_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_name
   }
 }
