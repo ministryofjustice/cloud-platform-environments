@@ -65,3 +65,14 @@ spec:
         severity: hale-platform-alerts
       annotations:
         message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
+    - alert: HpaReachedMaxReplicas
+      annotations:
+        message: Maximum HPA replicas reached.
+        runbook_url: http://test.com
+      expr: |-
+        kube_horizontalpodautoscaler_status_current_replicas{namespace="hale-platform-dev",horizontalpodautoscaler="hale-platform-hpa"}
+        == on (namespace, horizontalpodautoscaler)
+        kube_horizontalpodautoscaler_spec_max_replicas{namespace="hale-platform-dev",horizontalpodautoscaler="hale-platform-hpa"}
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
