@@ -85,7 +85,7 @@ variable "service_area" {
 variable "modernisation_platform_autorizer_lambda" {
   type = string
   description = "The ARN of the role used by modernisation platform authorizer lambda"
-  default = "arn:aws:sts::953751538119:assumed-role/authorizer-role-mp/hmac-authorizer"
+  default = "arn:aws:iam::953751538119:authorizer-role-mp"
 }
 
 variable "modernisation_platform_secrets_manager" {
