@@ -38,15 +38,13 @@ spec:
   - action: Allow
     protocol: UDP
     destination:
-      nets:
-      - 10.100.0.10/32
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
       ports:
       - 53
   - action: Allow
     protocol: TCP
     destination:
-      nets:
-      - 10.100.0.10/32
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
       ports:
       - 53
   types:
