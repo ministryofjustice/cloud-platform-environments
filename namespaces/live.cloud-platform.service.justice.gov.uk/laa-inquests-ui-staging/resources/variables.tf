@@ -11,37 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "civil appeal case tracker"
+  default     = "inquests"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "civil-appeal-case-tracker-prod"
+  default     = "laa-inquests-ui-staging"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "inquests"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMCTS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dts-legacy"
+  default     = "laa-inquests"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prod"
+  default     = "staging"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dts-legacy-apps-support-team@hmcts.net"
+  default     = "LAAInquests@JusticeUK.onmicrosoft.com"
 }
 
 variable "is_production" {
@@ -53,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "dts-legacy-apps-support-team"
+  default     = "laa-inquests"
 }
 
 variable "github_owner" {
@@ -67,26 +73,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster"
-}
-
-variable "aws_region" {
-  description = "The AWS region to deploy resources to"
-  type        = string
-  default     = "eu-west-2"
-}
-
-variable "service_area" {
-  description = "Team Service Area"
-  type        = string
-  default     = "DTS Legacy Services"
-}
-
-variable "access_key_rotation_trigger" {
-  description = "External S3 Access Key Rotation Trigger"
-  type        = string
-  default     = "20260319#2"
-}
-

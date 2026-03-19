@@ -93,9 +93,6 @@ resource "aws_iam_user" "user" {
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 
-  # Assigning the rotaton trigger variable to this field will ensure an instant refresh
-  pgp_key = var.access_key_rotation_trigger
-
   lifecycle {
     replace_triggered_by = [
       null_resource.access_key_rotation

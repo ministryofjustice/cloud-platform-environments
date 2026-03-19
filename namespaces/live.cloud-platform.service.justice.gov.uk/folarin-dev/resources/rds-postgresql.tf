@@ -43,6 +43,33 @@ module "rds" {
   # opt_in_xsiam_logging = true
 }
 
+# Cross-DB restore test: same namespace
+module "rds_copy" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+
+  db_engine         = "postgres"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
+  rds_name          = "folarin-dev-copy"
+  snapshot_identifier = "cross-db-restore-2026-03-19"
+
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
 # To create a read replica, use the below code and update the values to specify the RDS instance
 # from which you are replicating. In this example, we're assuming that rds is the
 # source RDS instance and read-replica is the replica we are creating.
@@ -121,6 +148,21 @@ resource "kubernetes_secret" "rds" {
      */
 }
 
+
+resource "kubernetes_secret" "rds_copy" {
+  metadata {
+    name      = "rds-postgresql-copy-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_copy.rds_instance_endpoint
+    database_name         = module.rds_copy.database_name
+    database_username     = module.rds_copy.database_username
+    database_password     = module.rds_copy.database_password
+    rds_instance_address  = module.rds_copy.rds_instance_address
+  }
+}
 
 resource "kubernetes_secret" "read_replica" {
   # default off

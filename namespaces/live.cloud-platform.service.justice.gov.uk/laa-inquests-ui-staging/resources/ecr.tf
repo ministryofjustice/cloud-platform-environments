@@ -12,9 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["probation-performance-shiny"]
-  github_environments = ["prod"]
-  github_actions_prefix = "prod"
+  github_repositories = ["laa-inquests-ui"]
 
   # Tags
   business_unit          = var.business_unit
@@ -29,16 +27,4 @@ module "ecr" {
   # uncomment below:
 
   # enable_irsa = true
-}
-
-resource "kubernetes_secret" "ecr_credentials" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_arn = module.ecr.repo_arn
-    repo_url = module.ecr.repo_url
-  }
 }
