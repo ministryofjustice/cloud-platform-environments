@@ -1,9 +1,8 @@
-module "hmpps_assess_risks_and_needs_coordinator_api" {
+module "hmpps_arns_assessment_view_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.0"
-  github_repo                   = "hmpps-assess-risks-and-needs-coordinator-api"
-  application                   = "hmpps-assess-risks-and-needs-coordinator-api"
+  github_repo                   = "hmpps-arns-assessment-view-api"
+  application                   = "hmpps-arns-assessment-view-api"
   github_team                   = "hmpps-assessments"
-  reviewer_teams                = ["hmpps-assessments", "hmpps-sentence-planning"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "preprod"
