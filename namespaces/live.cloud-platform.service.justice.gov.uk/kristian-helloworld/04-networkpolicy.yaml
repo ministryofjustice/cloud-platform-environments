@@ -25,3 +25,16 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: deny-egress-order
+  namespace: kristian-helloworld
+spec:
+  order: 51.0
+  selector: all()
+  egress:
+  - action: Deny
+  types:
+  - Egress
