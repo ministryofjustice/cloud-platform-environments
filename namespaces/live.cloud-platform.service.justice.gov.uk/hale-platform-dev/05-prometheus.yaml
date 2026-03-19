@@ -64,4 +64,4 @@ spec:
       labels:
         severity: hale-platform-alerts
       annotations:
-      message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
+        message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
