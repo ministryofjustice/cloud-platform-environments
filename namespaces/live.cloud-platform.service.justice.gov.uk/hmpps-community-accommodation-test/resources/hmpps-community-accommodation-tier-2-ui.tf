@@ -1,5 +1,7 @@
 module "hmpps_community_accommodation_tier_2_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-community-accommodation-tier-2-ui"
   application = "hmpps-community-accommodation-tier-2-ui"
   github_team = "hmpps-community-accommodation"

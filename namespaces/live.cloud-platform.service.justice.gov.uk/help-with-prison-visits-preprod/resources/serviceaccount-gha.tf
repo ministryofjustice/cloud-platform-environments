@@ -1,5 +1,7 @@
 module "help-with-prison-visits-asynchronous-worker" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "help-with-prison-visits-asynchronous-worker"
   application = "help-with-prison-visits-asynchronous-worker"
   github_team = "hmpps-help-with-prison-visits-live"
@@ -16,7 +18,9 @@ module "help-with-prison-visits-asynchronous-worker" {
 }
 
 module "help-with-prison-visits-external" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "help-with-prison-visits-external"
   application = "help-with-prison-visits-external"
   github_team = "hmpps-help-with-prison-visits-live"
@@ -33,7 +37,9 @@ module "help-with-prison-visits-external" {
 }
 
 module "help-with-prison-visits-internal" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "help-with-prison-visits-internal"
   application = "help-with-prison-visits-internal"
   github_team = "hmpps-help-with-prison-visits-live"

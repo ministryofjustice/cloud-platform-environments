@@ -1,5 +1,7 @@
 module "hmpps-auth" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-auth"
   application                   = "hmpps-auth"
   github_team                   = "haha-live"
@@ -15,7 +17,9 @@ module "hmpps-auth" {
 }
 
 module "hmpps-manage-users-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-manage-users"
   application                   = "hmpps-manage-users"
   github_team                   = "haha-live"
@@ -31,7 +35,9 @@ module "hmpps-manage-users-ui" {
 }
 
 module "hmpps-manage-users-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-manage-users-api"
   application                   = "hmpps-manage-users-api"
   github_team                   = "haha-live"
@@ -47,7 +53,9 @@ module "hmpps-manage-users-api" {
 }
 
 module "hmpps-external-users-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-external-users-api"
   application                   = "hmpps-external-users-api"
   github_team                   = "haha-live"
@@ -63,7 +71,9 @@ module "hmpps-external-users-api" {
 }
 
 module "nomis-user-roles-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "nomis-user-roles-api"
   application                   = "nomis-user-roles-api"
   github_team                   = "haha-live"
@@ -79,7 +89,9 @@ module "nomis-user-roles-api" {
 }
 
 module "token-verification-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "token-verification-api"
   application                   = "token-verification-api"
   github_team                   = "haha-live"

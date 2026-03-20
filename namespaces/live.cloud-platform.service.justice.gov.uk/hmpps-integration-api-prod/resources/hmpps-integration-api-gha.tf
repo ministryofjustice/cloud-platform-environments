@@ -1,5 +1,7 @@
 module "hmpps_integration_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-integration-api"
   application = "hmpps-integration-api"
   github_team = "hmpps-integration-api"
@@ -16,7 +18,9 @@ module "hmpps_integration_api" {
 }
 
 module "hmpps_integration_events" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-integration-events"
   application = "hmpps-integration-events"
   github_team = "hmpps-integration-api"
