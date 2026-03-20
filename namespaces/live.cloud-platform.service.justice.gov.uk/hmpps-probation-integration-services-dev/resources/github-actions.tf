@@ -8,6 +8,7 @@ module "github_actions_service_account" {
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
+  serviceaccount_token_rotated_date = "20-03-2026"
 }
 
 data "kubernetes_secret_v1" "service_account_secret" {

@@ -14,4 +14,5 @@ module "testserviceaccount" {
 
   github_repositories = ["bulk-submission-and-fee-scheme-tests-"]
   github_environments = ["uat"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

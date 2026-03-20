@@ -16,4 +16,5 @@ module "serviceaccount_github_actions" {
   github_actions_secret_kube_token     = "K8S_GHA_UAT_TOKEN"
   github_actions_secret_kube_cluster   = "K8S_GHA_UAT_CLUSTER_NAME"
   github_actions_secret_kube_namespace = "K8S_GHA_UAT_NAMESPACE"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

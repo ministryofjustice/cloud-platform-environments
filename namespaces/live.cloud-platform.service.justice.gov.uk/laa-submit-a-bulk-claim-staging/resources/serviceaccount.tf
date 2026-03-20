@@ -89,4 +89,5 @@ module "serviceaccount" {
 
   github_repositories = ["laa-submit-a-bulk-claim"]
   github_environments = ["staging"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }
