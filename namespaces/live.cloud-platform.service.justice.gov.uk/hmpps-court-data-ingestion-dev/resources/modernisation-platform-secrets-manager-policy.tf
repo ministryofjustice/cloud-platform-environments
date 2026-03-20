@@ -9,7 +9,8 @@ resource "aws_iam_policy" "modernisation_platform_secret_manager_policy" {
         Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue",
-          "secretsmanager:PutSecretValue"
+          "secretsmanager:PutSecretValue",
+          "secretsmanager:UpdateSecret"
         ]
         Resource = var.modernisation_platform_secrets_manager
       },
