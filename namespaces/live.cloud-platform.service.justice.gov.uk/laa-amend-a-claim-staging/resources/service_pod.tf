@@ -1,4 +1,6 @@
 module "irsa" {
+  service_account_name = "laa-amend-a-claim-staging-service-account"
+
   role_policy_arns = {
         elasticache_redis  = module.elasticache_redis.irsa_policy_arn
     }
