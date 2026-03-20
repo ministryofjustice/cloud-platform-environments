@@ -70,4 +70,5 @@ module "serviceaccount" {
   role_name            = "circleci"
   serviceaccount_rules = local.sa_rules
   rolebinding_name     = "circleci"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }
