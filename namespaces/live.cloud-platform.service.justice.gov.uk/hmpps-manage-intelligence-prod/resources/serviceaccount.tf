@@ -90,6 +90,7 @@ module "circleci-sa" {
   namespace            = var.namespace
   kubernetes_cluster   = var.kubernetes_cluster
   serviceaccount_rules = local.sa_rules
+  serviceaccount_token_rotated_date    = "20-03-2026"
 }
 
 # Service account used by github actions
@@ -105,7 +106,7 @@ module "service_account" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   depends_on                           = [github_repository_environment.env]
 }
 
