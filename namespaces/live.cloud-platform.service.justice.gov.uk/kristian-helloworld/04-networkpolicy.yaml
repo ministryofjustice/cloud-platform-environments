@@ -32,19 +32,21 @@ metadata:
   name: allow-dns-egress
   namespace: kristian-helloworld
 spec:
-  order: 49.0
+  order: 43.0
   selector: all()
   egress:
   - action: Allow
     protocol: UDP
     destination:
-      selector: 'k8s-app == "kube-dns"'
+      nets:
+        - 10.100.0.10/32
       ports:
       - 53
   - action: Allow
     protocol: TCP
     destination:
-      selector: 'k8s-app == "kube-dns"'
+      nets:
+        - 10.100.0.10/32
       ports:
       - 53
   types:
@@ -56,7 +58,7 @@ metadata:
   name: allow-egress-hmpps-activities-management-api
   namespace: kristian-helloworld
 spec:
-  order: 48.0
+  order: 49.0
   selector: all()
   egress:
   - action: Allow
@@ -66,9 +68,6 @@ spec:
       selector: projectcalico.org/serviceaccount == "hmpps-activities-management-api"
       ports:
       - 8080
-      - 80
-      - 3000
-      - 443
   types:
   - Egress
 ---
