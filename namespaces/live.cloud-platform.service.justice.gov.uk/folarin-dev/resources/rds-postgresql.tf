@@ -86,7 +86,7 @@ module "rds_dan" {
   rds_family        = "postgres15"
   db_instance_class = "db.t4g.micro"
   rds_name          = "rds-restore-dan"
-  snapshot_identifier = "cloud-platform-47d4c6e80a73418c-2026-03-20-05-01"
+  snapshot_identifier = "rds:cloud-platform-47d4c6e80a73418c-2026-03-20-05-01"
 
   application            = var.application
   business_unit          = var.business_unit
