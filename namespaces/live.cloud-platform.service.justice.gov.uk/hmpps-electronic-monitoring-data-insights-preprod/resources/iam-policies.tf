@@ -11,8 +11,6 @@ data "aws_iam_policy_document" "ssm_policy" {
   }
 }
 
-# TODO the above will need changing for preprod
-
 resource "aws_iam_policy" "ssm_access" {
   name   = "${var.namespace}-ssm-policy"
   policy = data.aws_iam_policy_document.ssm_policy.json
