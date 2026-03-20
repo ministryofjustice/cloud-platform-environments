@@ -44,7 +44,3 @@ provider "github" {
 }
 
 provider "kubernetes" {}
-
-resource "made_up_resource" "break-my-appy" {
-  name = "break-my-appy"
-}
