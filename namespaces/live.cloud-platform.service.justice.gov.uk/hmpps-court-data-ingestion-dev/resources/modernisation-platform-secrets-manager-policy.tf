@@ -36,5 +36,6 @@ resource "kubernetes_secret" "modernisation_platform_secret_manager" {
 
   data = {
     secret_id  = var.modernisation_platform_secrets_manager
+    key_id     = var.modernisation_platform_secrets_manager_key
   }
 }
