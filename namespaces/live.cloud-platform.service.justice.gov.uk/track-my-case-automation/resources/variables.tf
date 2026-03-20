@@ -72,3 +72,7 @@ variable "service_area" {
   description = "Service area responsible for this service"
   default     = "Central Digital"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+}
