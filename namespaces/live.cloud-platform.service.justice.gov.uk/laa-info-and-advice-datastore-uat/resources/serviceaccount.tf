@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "cd-serviceaccount"
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   github_repositories = ["laa-info-and-advice-datastore"]
 }

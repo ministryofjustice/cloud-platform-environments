@@ -7,4 +7,5 @@ module "serviceaccount" {
   # Creates repo-level secrets (ca.crt / token / server)
   github_repositories = ["reuse-library"]
 
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

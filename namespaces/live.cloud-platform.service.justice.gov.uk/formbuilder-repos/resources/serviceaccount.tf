@@ -6,7 +6,7 @@ module "serviceaccount" {
 
   serviceaccount_name = "circleci-tf-formbuilder-repos"
 
-  serviceaccount_token_rotated_date = "03-01-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {
