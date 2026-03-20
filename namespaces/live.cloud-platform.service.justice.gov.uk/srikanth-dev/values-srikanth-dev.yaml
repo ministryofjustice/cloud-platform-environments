@@ -1,0 +1,92 @@
+appName: srikanth-dev-test
+namespace: srikanth-dev
+serviceAccountName: srikanth-service-account
+environmentName: dev
+replicaCount: 1
+minReplicaCount: 1
+
+image:
+  registry: "docker.io"
+  repository: nginxinc/nginx-unprivileged
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  port: 8080
+
+ingress:
+  green:
+    enabled: true
+    className: beta
+    hostname: "srikanth-dev-test.beta.cloud-platform.service.justice.gov.uk"
+    path: /
+    pathType: Prefix
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      external-dns.alpha.kubernetes.io/hostname: "srikanth-dev-test.beta.cloud-platform.service.justice.gov.uk"
+      external-dns.alpha.kubernetes.io/aws-weight: "100"
+      external-dns.alpha.kubernetes.io/set-identifier: "srikanth-dev-test-green-srikanth-dev-green"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 101
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  runAsUser: 101
+
+# Disable probes - nginx-unprivileged serves on / but may need time to start
+livenessProbe: null
+readinessProbe: null
+
+autoscaling:
+  enabled: false
+
+certificate:
+  enabled: false
+
+servicemonitor:
+  enabled: false
+
+podDisruptionBudget:
+  enabled: false
+
+networkPolicy:
+  enabled: false
+
+configMap:
+  enabled: false
+
+secrets:
+  enabled: false
+
+containerEnvironment:
+  enabled: false
+
+tolerations:
+  - key: "monitoring-node"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+  - key: "containment-node"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+security:
+  podSecurityStandard: baseline
+  networkIsolation: false
