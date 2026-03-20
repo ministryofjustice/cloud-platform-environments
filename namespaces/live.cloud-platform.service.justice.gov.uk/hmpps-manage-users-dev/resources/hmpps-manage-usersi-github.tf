@@ -1,7 +1,7 @@
 module "hmpps-manage-users" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-manage-users"
   application                   = "hmpps-manage-users"
   github_team                   = "haha-live"
@@ -19,7 +19,7 @@ module "hmpps-manage-users" {
 module "hmpps-manage-users-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-manage-users-api"
   application                   = "hmpps-manage-users-api"
   github_team                   = "haha-live"
@@ -37,7 +37,7 @@ module "hmpps-manage-users-api" {
 module "hmpps-manage-users-temp-rewrite" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-manage-users-temp-rewrite"
   application                   = "hmpps-manage-users-temp-rewrite"
   github_team                   = "haha-live"

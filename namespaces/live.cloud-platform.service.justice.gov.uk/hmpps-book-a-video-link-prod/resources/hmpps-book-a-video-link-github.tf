@@ -1,7 +1,7 @@
 module "hmpps-book-a-video-link-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-book-a-video-link-api"
   application                   = "hmpps-book-a-video-link-api"
   github_team                   = var.team_name
@@ -20,7 +20,7 @@ module "hmpps-book-a-video-link-api" {
 module "hmpps-book-a-video-link-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-book-a-video-link-ui"
   application                   = "hmpps-book-a-video-link-ui"
   github_team                   = var.team_name
@@ -39,7 +39,7 @@ module "hmpps-book-a-video-link-ui" {
 module "hmpps-video-conference-schedule-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-video-conference-schedule-ui"
   application                   = "hmpps-video-conference-schedule-ui"
   github_team                   = var.team_name

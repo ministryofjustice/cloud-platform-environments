@@ -1,7 +1,7 @@
 module "book-a-prison-visit-staff-ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "book-a-prison-visit-staff-ui"
   application = "book-a-prison-visit-staff-ui"
   github_team = "hmpps-prison-visits-booking-live"
@@ -20,7 +20,7 @@ module "book-a-prison-visit-staff-ui" {
 module "hmpps-book-a-prison-visit-ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-book-a-prison-visit-ui"
   application = "hmpps-book-a-prison-visit-ui"
   github_team = "hmpps-prison-visits-booking-live"
@@ -39,7 +39,7 @@ module "hmpps-book-a-prison-visit-ui" {
 module "hmpps-visits-internal-admin-ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-visits-internal-admin-ui"
   application = "hmpps-visits-internal-admin-ui"
   github_team = "hmpps-prison-visits-booking-live"

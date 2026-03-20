@@ -1,7 +1,7 @@
 module "send-legal-mail-to-prisons" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "send-legal-mail-to-prisons"
   application = "send-legal-mail-to-prisons"
   github_team = "hmpps-send-legal-mail-live"
@@ -20,7 +20,7 @@ module "send-legal-mail-to-prisons" {
 module "send-legal-mail-to-prisons-api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "send-legal-mail-to-prisons-api"
   application = "send-legal-mail-to-prisons-api"
   github_team = "hmpps-send-legal-mail-live"
@@ -39,7 +39,7 @@ module "send-legal-mail-to-prisons-api" {
 module "hmpps-send-legal-mail-staff-ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-send-legal-mail-staff-ui"
   application = "hmpps-send-legal-mail-staff-ui"
   github_team = "hmpps-send-legal-mail-live"

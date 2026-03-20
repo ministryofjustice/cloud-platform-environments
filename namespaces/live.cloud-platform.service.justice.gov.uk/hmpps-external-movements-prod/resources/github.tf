@@ -1,7 +1,7 @@
 module "external-movements-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-external-movements-api"
   application                   = "hmpps-external-movements-api"
   github_team                   = var.team_name
@@ -20,7 +20,7 @@ module "external-movements-api" {
 module "external-movements-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-external-movements-ui"
   application                   = "hmpps-external-movements-ui"
   github_team                   = var.team_name
@@ -39,7 +39,7 @@ module "external-movements-ui" {
 module "document-generation-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-document-generation-api"
   application                   = "hmpps-document-generation-api"
   github_team                   = var.team_name
@@ -58,7 +58,7 @@ module "document-generation-api" {
 module "document-generation-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-document-generation-ui"
   application                   = "hmpps-document-generation-ui"
   github_team                   = var.team_name

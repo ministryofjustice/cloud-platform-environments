@@ -1,7 +1,7 @@
 module "hmpps-accommodation-data-domain-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-accommodation-data-domain-api"
   application                   = "hmpps-accommodation-data-domain-api"
   github_team                   = "hmpps-community-accommodation"

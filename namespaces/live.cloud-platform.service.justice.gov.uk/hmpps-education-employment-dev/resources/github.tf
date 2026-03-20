@@ -1,7 +1,7 @@
 module "hmpps-education-employment-ui" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-education-employment-ui"
   application                   = "hmpps-education-employment-ui"
   github_team                   = var.team_name
@@ -18,7 +18,7 @@ module "hmpps-education-employment-ui" {
 module "hmpps-education-employment-api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-education-employment-api"
   application                   = "hmpps-education-employment-api"
   github_team                   = var.team_name

@@ -1,7 +1,7 @@
 module "court-hearing-event" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "court-hearing-event-receiver"
   application                   = "court-hearing-event-receiver"
   github_team                   = "probation-integration"
@@ -20,7 +20,7 @@ module "court-hearing-event" {
 module "crime-portal-gateway" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "crime-portal-gateway"
   application                   = "crime-portal-gateway"
   github_team                   = "probation-integration"
@@ -38,7 +38,7 @@ module "crime-portal-gateway" {
 module "pre-sentence-service" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "pre-sentence-service"
   application                   = "pre-sentence-service"
   github_team                   = "hmpps-probation-in-court"
@@ -57,7 +57,7 @@ module "pre-sentence-service" {
 module "hmpps-user-preferences" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-user-preferences"
   application                   = "hmpps-user-preferences"
   github_team                   = "hmpps-probation-in-court"
@@ -76,7 +76,7 @@ module "hmpps-user-preferences" {
 module "prepare-a-case" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "prepare-a-case"
   application                   = "prepare-a-case"
   github_team                   = "hmpps-probation-in-court"

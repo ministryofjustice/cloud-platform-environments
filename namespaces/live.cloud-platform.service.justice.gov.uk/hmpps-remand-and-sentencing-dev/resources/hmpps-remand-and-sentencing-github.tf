@@ -1,7 +1,7 @@
 module "hmpps_remand_and_sentencing_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-remand-and-sentencing"
   application = "hmpps-remand-and-sentencing"
   github_team = var.team_name
@@ -18,7 +18,7 @@ module "hmpps_remand_and_sentencing_ui" {
 module "hmpps_remand_and_sentencing_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-remand-and-sentencing-api"
   application = "hmpps-remand-and-sentencing-api"
   github_team = var.team_name

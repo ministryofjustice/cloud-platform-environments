@@ -1,7 +1,7 @@
 module "hmpps_assess_risks_and_needs_coordinator_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-assess-risks-and-needs-coordinator-api"
   application                   = "hmpps-assess-risks-and-needs-coordinator-api"
   github_team                   = "hmpps-assessments"

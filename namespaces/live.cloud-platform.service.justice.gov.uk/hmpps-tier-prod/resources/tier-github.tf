@@ -1,7 +1,7 @@
 module "hmpps-tier-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-tier"
   application                   = "hmpps-tier"
   github_team                   = var.team_name
@@ -21,7 +21,7 @@ module "hmpps-tier-api" {
 module "hmpps-tier-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-tier-ui"
   application                   = "hmpps-tier-ui"
   github_team                   = var.team_name

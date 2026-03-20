@@ -1,7 +1,7 @@
 module "hmpps_template_kotlin" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-accredited-programmes-manage-and-deliver-api"
   application = "hmpps-accredited-programmes-manage-and-deliver-api"
   github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"
@@ -20,7 +20,7 @@ module "hmpps_template_kotlin" {
 module "data_importer_service" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
   application = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
   github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"

@@ -1,7 +1,7 @@
 module "hmpps_resettlement-passport-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-resettlement-passport-api"
   application                   = "hmpps-resettlement-passport-api"
   github_team                   = var.team_name
@@ -19,7 +19,7 @@ module "hmpps_resettlement-passport-api" {
 module "hmpps-resettlement-passport-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-resettlement-passport-ui"
   application                   = "hmpps-resettlement-passport-ui"
   github_team                   = var.team_name
@@ -37,7 +37,7 @@ module "hmpps-resettlement-passport-ui" {
 module "hmpps-resettlement-passport-person-on-probation-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-resettlement-passport-person-on-probation-ui"
   application                   = "hmpps-resettlement-passport-person-on-probation-ui"
   github_team                   = var.team_name

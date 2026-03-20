@@ -1,7 +1,7 @@
 module "hmpps-historical-prisoner-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-historical-prisoner-api"
   application                   = "hmpps-historical-prisoner-api"
   github_team                   = var.team_name
@@ -19,7 +19,7 @@ module "hmpps-historical-prisoner-api" {
 module "hmpps-historical-prisoner-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-historical-prisoner-ui"
   application                   = "hmpps-historical-prisoner-ui"
   github_team                   = var.team_name

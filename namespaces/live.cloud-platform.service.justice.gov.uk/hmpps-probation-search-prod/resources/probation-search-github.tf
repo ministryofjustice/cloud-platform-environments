@@ -1,7 +1,7 @@
 module "probation-search-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "probation-offender-search"
   application                   = "probation-offender-search"
   github_team                   = var.team_name
@@ -20,7 +20,7 @@ module "probation-search-api" {
 module "hmpps-tier-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "probation-search-ui"
   application                   = "probation-search-ui"
   github_team                   = var.team_name
@@ -39,7 +39,7 @@ module "hmpps-tier-ui" {
 module "probation-search-services" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
-  input_custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-probation-search-services"
   application                   = "probation-search"
   github_team                   = var.team_name
