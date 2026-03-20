@@ -38,15 +38,13 @@ spec:
   - action: Allow
     protocol: UDP
     destination:
-      nets:
-      - 10.100.0.10/32
+      selector: 'k8s-app == "kube-dns"'
       ports:
       - 53
   - action: Allow
     protocol: TCP
     destination:
-      nets:
-      - 10.100.0.10/32
+      selector: 'k8s-app == "kube-dns"'
       ports:
       - 53
   types:
@@ -68,6 +66,9 @@ spec:
       selector: projectcalico.org/serviceaccount == "hmpps-activities-management-api"
       ports:
       - 8080
+      - 80
+      - 3000
+      - 443
   types:
   - Egress
 ---
