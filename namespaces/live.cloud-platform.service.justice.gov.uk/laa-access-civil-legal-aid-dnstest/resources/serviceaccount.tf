@@ -4,6 +4,8 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  serviceaccount_token_rotated_date = "20-3-2026"
+
   # Creates Kubernetes' GitHub actions secrets in the repository
   github_repositories = ["laa-access-civil-legal-aid"]
   github_environments = ["dnstest"]
