@@ -1,5 +1,7 @@
 module "hmpps_prisoner_pay_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-api"
   application = "hmpps-prisoner-pay-api"
   github_team = "activities-and-appointments"
@@ -15,7 +17,9 @@ module "hmpps_prisoner_pay_api" {
 }
 
 module "hmpps_prisoner_pay_orchestrator_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-orchestrator-api"
   application = "hmpps-prisoner-pay-orchestrator-api"
   github_team = "activities-and-appointments"
@@ -31,7 +35,9 @@ module "hmpps_prisoner_pay_orchestrator_api" {
 }
 
 module "hmpps_prisoner_pay_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-ui"
   application = "hmpps-prisoner-pay-ui"
   github_team = "activities-and-appointments"

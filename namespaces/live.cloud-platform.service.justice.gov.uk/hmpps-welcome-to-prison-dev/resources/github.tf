@@ -1,5 +1,7 @@
 module "hmpps-welcome-people-into-prison-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-api"
   application                   = "hmpps-welcome-people-into-prison-api"
   github_team                   = var.deployment_team_name
@@ -15,7 +17,9 @@ module "hmpps-welcome-people-into-prison-api" {
 }
 
 module "hmpps-welcome-people-into-prison-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-ui"
   application                   = "hmpps-welcome-people-into-prison-ui"
   github_team                   = var.deployment_team_name

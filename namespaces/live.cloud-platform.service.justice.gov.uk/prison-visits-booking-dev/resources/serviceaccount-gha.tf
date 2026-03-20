@@ -1,5 +1,7 @@
 module "prison-visits-public" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "prison-visits-public"
   application = "prison-visits-public"
   github_team = "hmpps-prison-visits-booking-live"
@@ -16,7 +18,9 @@ module "prison-visits-public" {
 }
 
 module "prison-visits-staff" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "prison-visits-2"
   application = "prison-visits-staff"
   github_team = "hmpps-prison-visits-booking-live"

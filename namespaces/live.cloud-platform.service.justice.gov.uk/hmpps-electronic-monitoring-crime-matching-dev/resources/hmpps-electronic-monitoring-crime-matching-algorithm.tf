@@ -3,7 +3,9 @@ locals {
 }
 
 module "hmpps_electronic_monitoring_crime_matching_algorithm" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo                   = local.crime_matching_algorithm_repo
   application                   = local.crime_matching_algorithm_repo
   github_team                   = "hmpps-em-probation-devs"

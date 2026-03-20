@@ -1,5 +1,7 @@
 module "hmpps_content-hub-feedback-reports" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-content-hub-feedback-reports"
   application = "hmpps-content-hub-feedback-reports"
   github_team = "hmpps-launchpad"

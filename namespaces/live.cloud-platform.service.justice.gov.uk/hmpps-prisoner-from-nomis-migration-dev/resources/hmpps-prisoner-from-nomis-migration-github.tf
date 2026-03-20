@@ -1,5 +1,7 @@
 module "hmpps-prisoner-from-nomis-migration" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prisoner-from-nomis-migration"
   application                   = "hmpps-prisoner-from-nomis-migration"
   github_team                   = var.team_name
@@ -15,7 +17,9 @@ module "hmpps-prisoner-from-nomis-migration" {
 }
 
 module "hmpps-nomis-sync-dashboard" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  input_custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-nomis-sync-dashboard"
   application                   = "hmpps-nomis-sync-dashboard"
   github_team                   = var.team_name
