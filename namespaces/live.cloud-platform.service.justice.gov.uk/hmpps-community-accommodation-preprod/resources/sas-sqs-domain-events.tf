@@ -46,6 +46,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
     eventType = [
       "accommodation.cas3.person.arrived",
       "approved-premises.person.arrived",
+      "tier.calculation.complete",
     ]
   })
 }
