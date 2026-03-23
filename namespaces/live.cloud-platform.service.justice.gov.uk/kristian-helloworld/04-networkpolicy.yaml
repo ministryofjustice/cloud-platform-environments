@@ -55,6 +55,32 @@ spec:
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
+  name: allow-kube-dns-coredns-kubedns
+  namespace: kristian-helloworld
+spec:
+  order: 45
+  selector: all()
+  egress:
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: 'kubernetes.io/metadata.name == "kube-system"'
+        selector: 'k8s-app in {"kube-dns", "coredns"}'
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: 'kubernetes.io/metadata.name == "kube-system"'
+        selector: 'k8s-app in {"kube-dns", "coredns"}'
+        ports:
+          - 53
+  types:
+    - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
   name: allow-egress-hmpps-activities-management-api
   namespace: kristian-helloworld
 spec:
@@ -65,9 +91,9 @@ spec:
     protocol: TCP
     destination:
       namespaceSelector: kubernetes.io/metadata.name == "hmpps-activities-management-dev"
-      selector: projectcalico.org/serviceaccount == "hmpps-activities-management-api"
+      selector: 'app == "hmpps-activities-management-api"'
       ports:
-      - 8080
+      - 80
   types:
   - Egress
 ---
