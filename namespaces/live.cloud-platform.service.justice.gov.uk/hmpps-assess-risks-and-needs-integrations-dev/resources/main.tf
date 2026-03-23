@@ -1,6 +1,20 @@
 terraform {
   backend "s3" {
   }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "6.17.0"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "6.6.0"
+    }
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "1.26.0"
+    }
+  }
 }
 
 provider "aws" {
@@ -37,6 +51,17 @@ provider "aws" {
     }
   }
 }
+
+provider "aws" {
+  alias  = "secrets"
+  region = "eu-west-2"
+
+  assume_role {
+    role_arn     = "arn:aws:iam::771283872747:role/dpr-data-api-cross-account-role"
+    session_name = "terraform"
+  }
+}
+
 provider "github" {
   token = var.github_token
   owner = var.github_owner
