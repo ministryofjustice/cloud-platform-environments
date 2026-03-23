@@ -41,7 +41,7 @@ jobs:
           echo "deletionProtection=$DELETION_PROTECTION" >> $GITHUB_OUTPUT
 
       - name: Create comment in the PR
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 ##v4.0.0
+        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 ##v5.0.0
         if: steps.deletion-protection.outputs.deletionProtection == 'true'
         with:
           issue-number: ${{ github.event.pull_request.number }}
