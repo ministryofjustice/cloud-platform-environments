@@ -1,20 +1,6 @@
 terraform {
   backend "s3" {
   }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "6.17.0"
-    }
-    github = {
-      source  = "integrations/github"
-      version = "6.6.0"
-    }
-    postgresql = {
-      source  = "cyrilgdn/postgresql"
-      version = "1.26.0"
-    }
-  }
 }
 
 provider "aws" {
