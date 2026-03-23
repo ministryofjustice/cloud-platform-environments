@@ -18,7 +18,7 @@ module "rds" {
   environment_name         = var.environment
   infrastructure_support   = var.infrastructure_support
 
-  db_engine_version           = "15.7"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

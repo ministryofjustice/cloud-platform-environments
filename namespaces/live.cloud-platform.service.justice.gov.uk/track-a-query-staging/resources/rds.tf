@@ -17,7 +17,7 @@ module "track_a_query_rds" {
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.3"
+  db_engine_version          = "16.8"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_staging"
   environment_name           = var.environment
