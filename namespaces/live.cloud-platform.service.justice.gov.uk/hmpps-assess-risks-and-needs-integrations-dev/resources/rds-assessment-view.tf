@@ -75,7 +75,7 @@ data "aws_secretsmanager_secret_version" "db" {
   secret_id = local.secret_arn
 }
 
-resource "kubernetes_secret" "db_credentials" {
+resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
     name      = "dpr-db-credentials"
     namespace = "default"
@@ -83,7 +83,7 @@ resource "kubernetes_secret" "db_credentials" {
 
   type = "Opaque"
 
-  string_data = {
+  data = {
     username = local.db_secret.username
     password = local.db_secret.password
     engine   = local.db_secret.engine
