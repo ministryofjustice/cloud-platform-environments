@@ -18,6 +18,8 @@ module "hmpps_dps_reconciliation_rds" {
   prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = false
   db_max_allocated_storage   = "500"
+  backup_window              = "03:00-03:30"
+  enable_irsa                = true
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
