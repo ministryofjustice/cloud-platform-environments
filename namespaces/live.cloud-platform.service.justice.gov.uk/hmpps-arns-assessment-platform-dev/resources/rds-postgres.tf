@@ -17,7 +17,7 @@ module "rds" {
   db_engine_version = "16"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
-  db_iops = "6000"
+  # db_iops = "6000"
 
   # Naming
   db_name  = var.db_name
