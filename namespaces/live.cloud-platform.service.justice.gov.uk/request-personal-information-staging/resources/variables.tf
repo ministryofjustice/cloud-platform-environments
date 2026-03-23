@@ -83,5 +83,5 @@ variable "vpc_name" {
 variable "cloudfront_alias" {
   description = "Aliases for the CloudFront distribution. Should be a subdomain of the base domain."
   type        = string
-  default     = "cdn.staging.request-personal-information.service.justice.gov.uk"
+  default     = "cdn.request-personal-information-staging.service.justice.gov.uk"
 }
