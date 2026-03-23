@@ -60,8 +60,6 @@ data "aws_iam_policy_document" "rds_policy_document" {
 }
 
 resource "aws_iam_policy" "irsa" {
-  name   = "cloud-platform-rds-instance-b58b51dd02b491a0"
-  path   = "/cloud-platform/rds-instance/"
   policy = data.aws_iam_policy_document.rds_policy_document.json
 }
 
