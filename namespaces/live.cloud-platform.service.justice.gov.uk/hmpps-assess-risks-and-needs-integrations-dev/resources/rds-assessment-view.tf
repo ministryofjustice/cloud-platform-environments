@@ -92,3 +92,23 @@ resource "kubernetes_secret_v1" "db_credentials" {
     dbname   = local.db_secret.dbname
   }
 }
+
+resource "aws_iam_user_policy" "manager_concourse_read_secret" {
+  name = "read-cross-account-secret"
+  user = "manager-concourse"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ReadSpecificSecret"
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ]
+        Resource = local.secret_arn
+      }
+    ]
+  })
+}
