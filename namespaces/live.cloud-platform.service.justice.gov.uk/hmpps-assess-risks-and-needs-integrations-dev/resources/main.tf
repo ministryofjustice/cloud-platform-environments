@@ -1,6 +1,20 @@
 terraform {
   backend "s3" {
   }
+  required_providers {
+    github = {
+      source  = "integrations/github"
+      version = "6.6.0"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "6.6.0"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "6.6.0"
+    }
+  }
 }
 
 provider "aws" {
@@ -43,7 +57,7 @@ provider "aws" {
   region = "eu-west-2"
 
   assume_role {
-    role_arn     = "arn:aws:iam::771283872747:role/dpr-data-api-cross-account-role"
+    role_arn     = var.dpr_cross_account_role_arn
     session_name = "terraform"
   }
 }
