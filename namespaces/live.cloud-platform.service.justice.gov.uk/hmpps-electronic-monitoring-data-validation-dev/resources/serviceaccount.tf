@@ -7,4 +7,5 @@ module "serviceaccount" {
   serviceaccount_name = "serviceaccount-${var.team_name}"
   serviceaccount_token_rotated_date = "01-01-2000"
 
+  github_repositories = ["electronic-monitoring-data-dashboard"]
 }
