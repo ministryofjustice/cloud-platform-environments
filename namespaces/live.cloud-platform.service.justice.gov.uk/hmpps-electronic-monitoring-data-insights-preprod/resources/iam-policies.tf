@@ -25,6 +25,9 @@ data "aws_iam_policy_document" "athena_policy" {
     resources = [
       aws_ssm_parameter.athena_general_role_arn.value
     ]
+    depends_on = [
+      aws_ssm_parameter.athena_general_role_arn
+    ]
   }
 }
 
