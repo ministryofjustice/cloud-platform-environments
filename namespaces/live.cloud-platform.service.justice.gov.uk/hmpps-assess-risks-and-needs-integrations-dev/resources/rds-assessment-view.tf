@@ -72,13 +72,14 @@ locals {
 }
 
 data "aws_secretsmanager_secret_version" "db" {
+  provider = aws.secrets
   secret_id = local.secret_arn
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
     name      = "dpr-db-credentials"
-    namespace = "default"
+    namespace = var.namespace
   }
 
   type = "Opaque"
@@ -91,24 +92,4 @@ resource "kubernetes_secret_v1" "db_credentials" {
     port     = tostring(local.db_secret.port)
     dbname   = local.db_secret.dbname
   }
-}
-
-resource "aws_iam_user_policy" "manager_concourse_read_secret" {
-  name = "read-cross-account-secret"
-  user = "manager-concourse"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "ReadSpecificSecret"
-        Effect = "Allow"
-        Action = [
-          "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
-        ]
-        Resource = local.secret_arn
-      }
-    ]
-  })
 }
