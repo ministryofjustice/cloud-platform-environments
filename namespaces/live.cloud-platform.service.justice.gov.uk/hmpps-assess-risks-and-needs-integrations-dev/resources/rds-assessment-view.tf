@@ -72,7 +72,7 @@ locals {
 }
 
 data "aws_secretsmanager_secret_version" "db" {
-  provider = aws.secrets
+  provider  = aws.secrets
   secret_id = local.secret_arn
 }
 
@@ -102,9 +102,9 @@ resource "aws_iam_user_policy" "manager_concourse_assume_cross_account_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "AssumeTargetRole"
-        Effect = "Allow"
-        Action = "sts:AssumeRole"
+        Sid      = "AssumeTargetRole"
+        Effect   = "Allow"
+        Action   = "sts:AssumeRole"
         Resource = var.dpr_cross_account_role_arn
       }
     ]
