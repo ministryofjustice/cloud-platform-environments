@@ -71,6 +71,12 @@ data "aws_iam_policy_document" "rds_policy_document" {
       "arn:aws:rds:eu-west-2:754256621582:db:dps-temp-b58b51dd02b491a0",
     ]
   }
+  statement {
+    sid    = "KeyAccess"
+    effect = "Allow"
+    actions = ["kms:CreateGrant", "kms:DescribeKey"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "irsa" {
