@@ -35,10 +35,18 @@ data "aws_iam_policy_document" "combined_sqs" {
     actions = [
       "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
-      "sqs:ReceiveMessage",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListMessageMoveTasks",
+      "sqs:ListQueueTags",
+      "sqs:CancelMessageMoveTask",
+      "sqs:ChangeMessageVisibility",
       "sqs:DeleteMessage",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
       "sqs:SendMessage",
+      "sqs:StartMessageMoveTask",
     ]
+
 
     resources = [
       module.hmpps_prison_visits_event_queue.sqs_arn,
