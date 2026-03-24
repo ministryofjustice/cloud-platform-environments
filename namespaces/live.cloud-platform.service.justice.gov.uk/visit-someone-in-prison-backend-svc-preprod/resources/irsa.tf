@@ -47,7 +47,6 @@ data "aws_iam_policy_document" "combined_sqs" {
       "sqs:StartMessageMoveTask",
     ]
 
-
     resources = [
       module.hmpps_prison_visits_event_queue.sqs_arn,
       module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn,
