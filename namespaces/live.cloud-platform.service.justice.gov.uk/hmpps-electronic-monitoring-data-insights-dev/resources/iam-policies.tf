@@ -15,9 +15,6 @@ resource "aws_iam_policy" "ssm_access" {
   name   = "${var.namespace}-ssm-policy"
   policy = data.aws_iam_policy_document.ssm_policy.json
   tags = local.tags
-  depends_on = [
-    aws_ssm_parameter.athena_general_role_arn
-  ]
 }
 
 data "aws_iam_policy_document" "athena_policy" {
