@@ -1,9 +1,6 @@
 data "aws_ssm_parameter" "athena_general_role_arn" {
   name = "/${var.namespace}/athena_general_role_arn"
   with_decryption = true
-  depends_on = [
-    aws_ssm_parameter.athena_general_role_arn
-  ]
 }
 
 # -----------------------------------------------------------------------------
