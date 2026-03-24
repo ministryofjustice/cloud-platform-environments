@@ -79,3 +79,14 @@ spec:
       for: 3m
       labels:
         severity: hale-platform-alerts
+    - alert: PodLimitReached
+      annotations:
+        message: The platform has reached the pod limit.
+        runbook_url: http://test.com
+      expr: |-
+        kube_horizontalpodautoscaler_status_current_replicas{namespace="hale-platform-prod",horizontalpodautoscaler="hale-platform-hpa"}
+        == on (namespace, horizontalpodautoscaler)
+        kube_horizontalpodautoscaler_spec_max_replicas{namespace="hale-platform-prod",horizontalpodautoscaler="hale-platform-hpa"}
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
