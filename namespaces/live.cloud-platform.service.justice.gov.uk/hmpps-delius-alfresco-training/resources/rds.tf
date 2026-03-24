@@ -23,7 +23,7 @@ module "rds_alfresco" {
   db_engine_version         = "14.17"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.micro"
-  deletion_protection       = true
+  deletion_protection       = false
 
   db_parameter = [
     {
