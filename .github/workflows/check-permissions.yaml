@@ -12,9 +12,6 @@ env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
   BRANCH: ${{ github.head_ref }}
 
-  # GITHUB_OAUTH_TOKEN created manually by the cloud-platform-bot-user in last pass.
-  GITHUB_OAUTH_TOKEN: ${{ secrets.CHECK_GITHUB_TEAM }}
-
 jobs:
   rbac-permissions-check:
     runs-on: ${{ matrix.os }}
