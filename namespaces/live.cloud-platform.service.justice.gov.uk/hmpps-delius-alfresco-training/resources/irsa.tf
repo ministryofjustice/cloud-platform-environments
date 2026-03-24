@@ -11,7 +11,7 @@ module "irsa" {
     migration = aws_iam_policy.migration_policy.arn
     amq       = aws_iam_policy.amq.arn
     athena    = aws_iam_policy.athena_allow_irsa.arn
-    # rds       = module.rds_alfresco.irsa_policy_arn
+    rds       = module.rds_alfresco.irsa_policy_arn
   }
 
   # Tags
