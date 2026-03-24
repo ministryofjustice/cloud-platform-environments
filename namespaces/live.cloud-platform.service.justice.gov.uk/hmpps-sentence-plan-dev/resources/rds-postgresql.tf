@@ -57,6 +57,8 @@ module "rds" {
   deletion_protection = false
 
   enable_irsa = true
+
+  snapshot_identifier = "rds:sentence-planning-dev-2026-03-22-22-17"
 }
 
 
