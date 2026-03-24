@@ -1,5 +1,5 @@
 module "hmpps_probation_mi_ui_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
 
   vpc_name = var.vpc_name
 
