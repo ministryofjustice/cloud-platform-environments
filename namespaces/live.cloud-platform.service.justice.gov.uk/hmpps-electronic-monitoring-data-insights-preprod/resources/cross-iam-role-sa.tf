@@ -4,11 +4,13 @@ module "irsa" {
   service_account_name = var.namespace-short
   namespace            = var.namespace
 
-  role_policy_arns = {
-    ssm    = aws_iam_policy.ssm_access.arn
-    athena = aws_iam_policy.athena_access.arn
-    rds = module.rds.irsa_policy_arn
-  }
+  role_policy_arns = merge(
+    {
+      ssm = aws_iam_policy.ssm_access.arn
+      athena = aws_iam_policy.athena_access.arn
+      rds = module.rds.irsa_policy_arn
+    }
+  )
 
   # Tags
   business_unit          = var.business_unit
