@@ -16,7 +16,7 @@ custom_token_rotation_date = "2026-03-20"
 }
 
 # Note, redis is used for the cache of hot assessments
-module "elasticache_redis" {
+module "assessment-query-cache-elasticache-redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -38,16 +38,16 @@ module "elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "assessment-query-cache-elasticache-redis" {
   metadata {
     name      = "assessment-query-cache-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.assessment-query-cache-elasticache-redis.primary_endpoint_address
+    auth_token               = module.assessment-query-cache-elasticache-redis.auth_token
+    member_clusters          = jsonencode(module.assessment-query-cache-elasticache-redis.member_clusters)
+    replication_group_id     = module.assessment-query-cache-elasticache-redis.replication_group_id
   }
 }
