@@ -69,8 +69,3 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
-variable "dpr_cross_account_role_arn" {
-  type        = string
-  description = "The arn of the cross-account role"
-  default     = "arn:aws:iam::771283872747:role/dpr-data-api-cross-account-role"
-}

@@ -94,19 +94,3 @@ resource "kubernetes_secret_v1" "db_credentials" {
   }
 }
 
-resource "aws_iam_user_policy" "manager_concourse_assume_cross_account_role" {
-  name = "assume-dpr-data-api-cross-account-role"
-  user = "manager-concourse"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid      = "AssumeTargetRole"
-        Effect   = "Allow"
-        Action   = "sts:AssumeRole"
-        Resource = var.dpr_cross_account_role_arn
-      }
-    ]
-  })
-}
