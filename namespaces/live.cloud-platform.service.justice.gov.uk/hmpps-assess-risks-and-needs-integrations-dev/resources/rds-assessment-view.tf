@@ -57,6 +57,7 @@ resource "kubernetes_secret" "arns_assessment_view_rds" {
 }
 
 locals {
+  # test secret
   secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-test-secret-Vpq1q0"
 
   db_secret_raw = jsondecode(data.aws_secretsmanager_secret_version.db.secret_string)
