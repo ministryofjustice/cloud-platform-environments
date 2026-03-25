@@ -12,6 +12,7 @@ module "hmpps_arns_assessment_platform_api" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = ["hmpps-assessments-live"]
 }
 
 # Note, redis is used for the cache of hot assessments
