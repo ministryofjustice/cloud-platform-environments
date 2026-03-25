@@ -55,4 +55,3 @@ resource "kubernetes_secret" "arns_assessment_view_rds" {
     url                   = "postgres://${module.arns_assessment_view_rds.database_username}:${module.arns_assessment_view_rds.database_password}@${module.arns_assessment_view_rds.rds_instance_endpoint}/${module.arns_assessment_view_rds.database_name}"
   }
 }
-
