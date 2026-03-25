@@ -4,7 +4,7 @@ metadata:
   name: people-on-probation-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-people-on-probation-dev
 spec:
-  secretName: people-on-probation-ui-cert
+  secretName: hmpps-people-on-probation-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -18,7 +18,7 @@ metadata:
   name: people-on-probation-api-dev.hmpps.service.justice.gov.uk
   namespace: hmpps-people-on-probation-dev
 spec:
-  secretName: people-on-probation-api-cert
+  secretName: hmpps-people-on-probation-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
