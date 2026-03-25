@@ -67,7 +67,7 @@ module "hmpps-probation-supervision-contacts-ui-service-account" {
   service_account_name = "hmpps-probation-supervision-contacts-ui"
   role_policy_arns = merge(
     { elasticache = module.elasticache.irsa_policy_arn },
-    local.sns_policies
+    local.sqs_policies
   )
 }
 
