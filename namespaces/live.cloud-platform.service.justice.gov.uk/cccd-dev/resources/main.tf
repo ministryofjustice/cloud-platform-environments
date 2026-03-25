@@ -13,7 +13,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
-      GithubTeam = "laa-claim-for-payment"
+      GithubTeam = var.github_team
     }
   }
 }
@@ -30,7 +30,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
-      GithubTeam = "laa-claim-for-payment"
+      GithubTeam = var.github_team
     }
   }
 }
