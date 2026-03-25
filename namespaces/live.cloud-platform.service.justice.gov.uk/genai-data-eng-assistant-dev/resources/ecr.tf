@@ -48,7 +48,6 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
 # Add Lambda deployment permissions for GitHub Actions
 resource "aws_iam_role_policy" "github_lambda_deploy" {
   name = "lambda-deployment-policy"
