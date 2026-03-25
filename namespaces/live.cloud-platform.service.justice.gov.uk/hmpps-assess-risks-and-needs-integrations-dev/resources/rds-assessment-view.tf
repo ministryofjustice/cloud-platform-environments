@@ -56,9 +56,3 @@ resource "kubernetes_secret" "arns_assessment_view_rds" {
   }
 }
 
-# Temporarily removed: locals (secret_arn, db_secret_raw, db_secret),
-# data.aws_secretsmanager_secret_version.db, and kubernetes_secret_v1.db_credentials.
-# These depend on the aws.secrets provider with assume_role, which requires
-# arns-dev-mp-secrets-access to exist first. Restore in the next PR once the
-# role has been created by this apply.
-
