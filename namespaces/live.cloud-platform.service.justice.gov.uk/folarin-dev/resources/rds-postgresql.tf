@@ -59,7 +59,7 @@ module "rds_copy" {
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   rds_name          = "folarin-dev-copy"
-  snapshot_identifier = "cross-db-restore-2026-03-19"
+  snapshot_identifier = "folarin-dev-copy-20260325-1616"
 
   application            = var.application
   business_unit          = var.business_unit
