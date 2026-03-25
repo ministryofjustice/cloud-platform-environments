@@ -37,6 +37,14 @@ provider "aws" {
     }
   }
 }
+
+provider "aws" {
+  alias  = "secrets"
+  region = "eu-west-2"
+  # assume_role block temporarily removed - bootstrapping the arns-dev-mp-secrets-access role.
+  # Restore once the role exists in AWS (after this pipeline run creates it via mp-secrets-access-role.tf).
+}
+
 provider "github" {
   token = var.github_token
   owner = var.github_owner
