@@ -40,6 +40,7 @@ EOF
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -108,6 +109,7 @@ EOF
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -176,6 +178,7 @@ EOF
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -197,6 +200,7 @@ module "ccr_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -218,6 +222,7 @@ module "cclf_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -239,6 +244,7 @@ module "cccd_response_dead_letter_queue" {
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
