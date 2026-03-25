@@ -23,6 +23,8 @@ module "hmpps_strengths_based_needs_assessments_dev_rds" {
   }
 
   vpc_security_group_ids = [module.rds_security_group.security_group_id]
+
+  enable_irsa = true
 }
 
 data "aws_vpc" "this" {
