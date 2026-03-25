@@ -5,9 +5,6 @@ metadata:
   namespace: hmpps-resettlement-passport-dev
 subjects:
   - kind: Group
-    name: "github:resettlement-passport"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:education-skills-and-work-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
