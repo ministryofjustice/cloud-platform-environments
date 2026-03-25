@@ -5,7 +5,7 @@ metadata:
   namespace: rp-prototype
 subjects:
   - kind: Group
-    name: "github:resettlement-passport"
+    name: "github:reducation-skills-and-work-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
