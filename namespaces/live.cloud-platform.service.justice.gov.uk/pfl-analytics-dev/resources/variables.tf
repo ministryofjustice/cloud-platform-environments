@@ -68,6 +68,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "oidc_name" {
+  description = "Name of the OIDC provider (github or circleci)"
+  type        = string
+  default     = "github"
+}
+
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
