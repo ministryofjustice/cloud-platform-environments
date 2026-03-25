@@ -13,7 +13,6 @@ module "hmpps_arns_assessment_platform_ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   reviewer_teams                = ["hmpps-assessments-live"]
-
 }
 
 # Note, redis is a requirement for hmpps-template-typescript application.
