@@ -50,24 +50,11 @@ module "ecr" {
       },
       {
         "rulePriority": 3,
-        "description": "Keep last 50 images (transition protection until version tagging deployed)",
+        "description": "Keep last 50 images overall",
         "selection": {
           "tagStatus": "any",
           "countType": "imageCountMoreThan",
           "countNumber": 50
-        },
-        "action": {
-          "type": "expire"
-        }
-      },
-      {
-        "rulePriority": 4,
-        "description": "Expire preview/commit-SHA images older than 30 days",
-        "selection": {
-          "tagStatus": "any",
-          "countType": "sinceImagePushed",
-          "countUnit": "days",
-          "countNumber": 30
         },
         "action": {
           "type": "expire"
