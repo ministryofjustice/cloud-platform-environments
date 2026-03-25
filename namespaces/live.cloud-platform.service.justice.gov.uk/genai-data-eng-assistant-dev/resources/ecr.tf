@@ -28,3 +28,53 @@ module "ecr" {
 
   # enable_irsa = true
 }
+
+module "ecr" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+
+  # Repository configuration
+  repo_name = var.namespace
+
+  # OpenID Connect configuration
+  oidc_providers      = ["github"]
+  github_repositories = ["genai_data_engineering_assistant"]
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+# Add Lambda deployment permissions for GitHub Actions
+resource "aws_iam_role_policy" "github_lambda_deploy" {
+  name = "lambda-deployment-policy"
+  role = module.ecr.oidc_role_name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "lambda:GetFunction",
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionCode",
+          "lambda:UpdateFunctionConfiguration",
+          "lambda:PublishVersion",
+          "lambda:AddPermission",
+          "lambda:RemovePermission"
+        ]
+        Resource = "arn:aws:lambda:eu-west-2:754256621582:function:*"
+      },
+      {
+        Effect = "Allow"
+        Action = "iam:PassRole"
+        Resource = "arn:aws:iam::754256621582:role/lambda_smart_rag-role-*"
+      }
+    ]
+  })
+}
