@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
@@ -13,10 +13,10 @@ module "irsa" {
 
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
-  service_account_name   = "hmpps-assess-risks-and-needs-integrations"
+  service_account_name   = "hmpps-strengths-based-needs-assessments"
   role_policy_arns       = merge(
     {
-      rds = module.hmpps_assess_risks_and_needs_integrations_prod_rds.irsa_policy_arn
+      rds = module.hmpps_strengths_based_needs_assessments_dev_rds.irsa_policy_arn
     },
     local.sqs_policies
   )
@@ -25,7 +25,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 

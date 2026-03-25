@@ -13,10 +13,10 @@ module "irsa" {
 
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
-  service_account_name   = "hmpps-assess-risks-and-needs-integrations"
+  service_account_name   = "hmpps-strengths-based-needs-assessments"
   role_policy_arns       = merge(
     {
-      rds = module.hmpps_assess_risks_and_needs_integrations_prod_rds.irsa_policy_arn
+      rds = module.hmpps_strengths_based_needs_assessments_prod_rds.irsa_policy_arn
     },
     local.sqs_policies
   )
@@ -25,7 +25,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
