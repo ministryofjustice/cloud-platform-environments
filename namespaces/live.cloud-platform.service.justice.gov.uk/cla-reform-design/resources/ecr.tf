@@ -3,6 +3,8 @@ module "ecr-repo" {
 
   repo_name = "${var.namespace}-ecr"
 
+  deletion_protection = false
+
   oidc_providers      = ["github"]
   github_repositories = [var.namespace]
 
