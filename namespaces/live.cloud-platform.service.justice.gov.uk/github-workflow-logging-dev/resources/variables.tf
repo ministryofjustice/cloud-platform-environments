@@ -91,3 +91,8 @@ variable "github_actions_environments" {
   type        = list(string)
   default     = []
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster (not the endpoint URL)"
+  type        = string
+}

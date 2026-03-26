@@ -40,7 +40,7 @@ module "opensearch" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
   vpc_name         = var.vpc_name
-  eks_cluster_name = var.kubernetes_cluster
+  eks_cluster_name = var.eks_cluster_name
   engine_version   = "OpenSearch_3.1"
 
   business_unit          = var.business_unit
