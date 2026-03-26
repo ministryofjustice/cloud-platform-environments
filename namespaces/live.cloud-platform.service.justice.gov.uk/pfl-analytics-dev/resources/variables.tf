@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "care-arrangement-plan-analytics"
+  default     = "pfl-analytics"
 }
