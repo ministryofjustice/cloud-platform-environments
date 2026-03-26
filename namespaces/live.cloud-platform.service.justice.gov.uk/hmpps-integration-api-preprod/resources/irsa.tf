@@ -28,7 +28,13 @@ module "irsa" {
   service_account_name = "hmpps-integration-api"
   role_policy_arns = merge(
     local.sqs_policies,
-    local.sns_policies
+    local.sns_policies,
+    {
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      event_topic = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues = aws_iam_policy.integration_events_sqs.arn,
+    }
   )
 
   # Tags

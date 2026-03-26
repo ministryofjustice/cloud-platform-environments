@@ -43,6 +43,8 @@ locals {
     "community-payback-dev",
     "daso",
     "community-campus",
+    "enhanced-reception-checks",
+    "synalogik",
   ]
 
   client_queues = {

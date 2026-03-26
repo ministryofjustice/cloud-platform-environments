@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Information & Advice"
+  default     = "Information and Advice"
 }
 
 variable "business_unit" {
@@ -72,4 +72,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "cd-serviceaccount"
 }

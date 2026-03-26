@@ -1,7 +1,7 @@
 # Note, this resource is for use with the template app hmpps-template-typescript.
 
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -24,7 +24,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "elasticache-redis"
+    name      = "${module.hmpps_managing_prisoner_apps_staff_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 

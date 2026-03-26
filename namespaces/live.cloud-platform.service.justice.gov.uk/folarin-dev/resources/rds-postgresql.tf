@@ -16,6 +16,7 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   rds_name                     = "restored-from-snapshot"
+  snapshot_identifier          = "folarin-dev-restored-from-snapshot-20260325-1616"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -41,6 +42,60 @@ module "rds" {
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
+}
+
+# Cross-DB restore test: same namespace
+module "rds_copy" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+
+  db_engine         = "postgres"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
+  rds_name          = "folarin-dev-copy"
+  snapshot_identifier = "folarin-dev-copy-20260325-1616"
+
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
+# Cross-namespace restore from namespace-demo-dan1
+module "rds_dan" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+
+  db_engine         = "postgres"
+  db_engine_version = "15" 
+  rds_family        = "postgres15"
+  db_instance_class = "db.t4g.micro"
+  rds_name          = "rds-restore-dan"
+  snapshot_identifier = "rds:cloud-platform-47d4c6e80a73418c-2026-03-20-05-01"
+
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -122,6 +177,38 @@ resource "kubernetes_secret" "rds" {
 }
 
 
+resource "kubernetes_secret" "rds_copy" {
+  metadata {
+    name      = "rds-postgresql-copy-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_copy.rds_instance_endpoint
+    database_name         = module.rds_copy.database_name
+    database_username     = module.rds_copy.database_username
+    database_password     = module.rds_copy.database_password
+    rds_instance_address  = module.rds_copy.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "rds_dan" {
+  metadata {
+    name      = "rds-postgresql-dan-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_dan.rds_instance_endpoint
+    database_name         = module.rds_dan.database_name
+    database_username     = module.rds_dan.database_username
+    database_password     = module.rds_dan.database_password
+    rds_instance_address  = module.rds_dan.rds_instance_address
+  }
+}
+
+
+
 resource "kubernetes_secret" "read_replica" {
   # default off
   count = 0
@@ -156,5 +243,18 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+
+resource "kubernetes_config_map" "rds_dan" {
+  metadata {
+    name      = "rds-postgresql-dan-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.rds_dan.database_name
+    db_identifier = module.rds_dan.db_identifier
   }
 }

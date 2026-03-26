@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster  = var.kubernetes_cluster
   serviceaccount_name = "circleci-terraform-module-formbuilder-platform-live-dev"
 
-  serviceaccount_token_rotated_date = "18-12-2023"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
 
   serviceaccount_rules = [

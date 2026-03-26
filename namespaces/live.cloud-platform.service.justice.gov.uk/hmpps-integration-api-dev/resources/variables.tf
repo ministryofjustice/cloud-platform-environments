@@ -78,6 +78,12 @@ variable "cloud_platform_integration_event_url" {
 }
 
 
+variable "default_subscription_filter_policy" {
+  description = "Default subscription filter policy"
+  default     = "{\"eventType\":[\"default\"]}"
+}
+
+
 variable "eks_cluster_name" {}
 
 variable "region" {

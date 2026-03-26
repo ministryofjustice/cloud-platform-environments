@@ -8,4 +8,5 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["help-with-child-arrangements"]
   github_environments = ["production"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

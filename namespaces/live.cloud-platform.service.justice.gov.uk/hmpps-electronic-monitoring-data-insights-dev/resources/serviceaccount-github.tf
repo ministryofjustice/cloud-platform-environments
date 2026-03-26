@@ -81,7 +81,7 @@ module "service_account" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.github-actions-sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   role_name                            = "serviceaccount-github"
   rolebinding_name                     = "serviceaccount-github-rolebinding"
   depends_on                           = [github_repository_environment.env]
@@ -97,21 +97,21 @@ resource "time_rotating" "weekly" {
 
 data "github_team" "hmpps-sre" {
 slug = "hmpps-sre"
-}   
+}
 data "github_team" "hmpps-em-probation-devs" {
 slug = "hmpps-em-probation-devs"
-}   
+}
 
 ##########################################################################
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
+  repository  = each.key
 # Not working - waiting for Cloud Platforms to help me fix this
 # prevent_self_review = true
   reviewers {
-    teams = [ 
+    teams = [
       tonumber(data.github_team.hmpps-sre.id),
       tonumber(data.github_team.hmpps-em-probation-devs.id)
     ]
@@ -122,11 +122,11 @@ resource "github_repository_environment" "env" {
   }
 }
 
-# The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
-resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
-  variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
-}
+# # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
+# resource "github_actions_environment_variable" "namespace_env_var" {
+#   for_each    = toset(local.github_repos)
+#   repository  = each.key
+#   environment = var.environment
+#   variable_name = "KUBE_NAMESPACE"
+#   value = var.namespace
+# }

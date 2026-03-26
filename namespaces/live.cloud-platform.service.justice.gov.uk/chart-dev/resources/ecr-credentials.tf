@@ -5,6 +5,10 @@ module "ecr_credentials" {
   # ECR Repository name
   repo_name = "laa-generic-app"
 
+  # OpenID Connect configuration for GitHub Actions
+  oidc_providers      = ["github"]
+  github_repositories = ["laa-generic-helm-chart"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

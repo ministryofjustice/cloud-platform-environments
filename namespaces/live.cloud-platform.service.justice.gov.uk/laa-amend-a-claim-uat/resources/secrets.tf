@@ -59,6 +59,11 @@ module "secrets_manager" {
       description             = "Maintenance bypass cookie"
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-maintenance-bypass-uat"
-      }
+      },
+    "laa-amend-a-claim-alert-webhook-uat" = {
+      description             = "[laa-amend-a-claim-alert-webhook-uat] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-alert-webhook-uat"
+    }
   }
 }

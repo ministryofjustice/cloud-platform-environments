@@ -84,23 +84,3 @@ variable "enable_irsa" {
   default     = true
   description = "Enable creation of IRSA resources for database snapshot creation (for service pod maintenance etc). Defaults to false"
 }
-
-variable "base_domain" {
-  default = "hmpps.service.justice.gov.uk"
-}
-
-variable "hostname" {
-  description = "Host part of the api gateway"
-  default     = "launchpad-sso-preprod"
-}
-
-variable "cloud_platform_launchpad_auth_api_url" {
-  description = "Pre-defined domain for the namespace provided by Cloud Platform"
-  default     = "https://launchpad-auth-preprod.hmpps.service.justice.gov.uk"
-}
-
-variable "api_gateway_ingress_hostname" {
-  description = "Hostname for API Gateway to route traffic via NLB (must match default NLB TLS cert CN pattern)"
-  type        = string
-  default     = "hmpps-launchpad-auth-preprod.apps.live.cloud-platform.service.justice.gov.uk"
-}

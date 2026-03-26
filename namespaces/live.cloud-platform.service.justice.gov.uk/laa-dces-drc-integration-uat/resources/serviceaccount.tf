@@ -4,7 +4,7 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "19-10-2023"
+  serviceaccount_token_rotated_date = "20-03-2026"
   serviceaccount_name               = "circleci"
 
   # Uncomment and provide repository names to create github actions secrets

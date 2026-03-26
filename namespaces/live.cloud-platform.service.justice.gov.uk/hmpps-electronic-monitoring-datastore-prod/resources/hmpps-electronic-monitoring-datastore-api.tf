@@ -1,5 +1,7 @@
 module "hmpps_electronic_monitoring_datastore_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-electronic-monitoring-datastore-api"
   application = "hmpps-electronic-monitoring-datastore-api"
   github_team = "hmpps-electronic-monitoring"
