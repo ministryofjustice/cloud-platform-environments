@@ -5,7 +5,7 @@ module "create-and-vary-a-licence" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "create-and-vary-a-licence"
   application = "create-and-vary-a-licence"
-  github_team = "create-and-vary-a-licence-devs"
+  github_team = "create-and-vary-a-licence-live"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["create-and-vary-a-licence-devs"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
