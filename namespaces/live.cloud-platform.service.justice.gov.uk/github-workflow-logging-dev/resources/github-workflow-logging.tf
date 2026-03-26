@@ -34,25 +34,6 @@ module "backfill_state_bucket" {
   versioning = true
 }
 
-# ── SQS: workflow run event queue ────────────────────────────────────────────
-
-module "log_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
-
-  application             = var.application
-  sqs_name                = "log-events"
-  encrypt_sqs_kms         = "true"
-  message_retention_seconds  = 345600  # 4 days
-  visibility_timeout_seconds = 300     # 5 minutes
-
-  business_unit          = var.business_unit
-  namespace              = var.namespace
-  environment_name       = var.environment_name
-  is_production          = var.is_production
-  team_name              = var.team_name
-  infrastructure_support = var.infrastructure_support
-}
-
 # ── OpenSearch: log index cluster ────────────────────────────────────────────
 
 module "opensearch" {
@@ -104,17 +85,14 @@ module "deploy_serviceaccount" {
         "deployment",
         "secrets",
         "services",
-        "pods",
-        "serviceaccounts",
         "configmaps",
-        "persistentvolumeclaims",
-        "events",
+        "pods",
       ]
       verbs = [
-        "update",
         "patch",
         "get",
         "create",
+        "update",
         "delete",
         "list",
         "watch",
@@ -126,7 +104,6 @@ module "deploy_serviceaccount" {
         "apps",
         "batch",
         "networking.k8s.io",
-        "rbac.authorization.k8s.io",
         "policy",
       ]
       resources = [
@@ -135,12 +112,8 @@ module "deploy_serviceaccount" {
         "cronjobs",
         "jobs",
         "replicasets",
-        "statefulsets",
-        "networkpolicies",
-        "servicemonitors",
-        "roles",
-        "rolebindings",
         "poddisruptionbudgets",
+        "networkpolicies",
       ]
       verbs = [
         "get",
@@ -158,9 +131,26 @@ module "deploy_serviceaccount" {
       ]
       resources = [
         "prometheusrules",
+        "servicemonitors",
       ]
       verbs = [
         "*",
+      ]
+    },
+    {
+      api_groups = [
+        "autoscaling",
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
       ]
     },
   ]
@@ -192,3 +182,4 @@ module "container_repository" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
+
