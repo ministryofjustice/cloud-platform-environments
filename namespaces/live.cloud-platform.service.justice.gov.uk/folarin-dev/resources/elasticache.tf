@@ -73,9 +73,9 @@ resource "kubernetes_secret" "elasticache_redis_default_azs" {
   }
 }
 
-# Backward compatibility test: using official 8.1.0 ref
+# Backward compatibility test: switched from 8.1.0 to feature branch
 module "elasticache_redis_official" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add-preferred-azs-variable"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment
