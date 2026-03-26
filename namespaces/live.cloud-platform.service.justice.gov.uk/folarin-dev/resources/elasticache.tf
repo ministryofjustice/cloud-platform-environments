@@ -72,3 +72,40 @@ resource "kubernetes_secret" "elasticache_redis_default_azs" {
     replication_group_id     = module.elasticache_redis_default_azs.replication_group_id
   }
 }
+
+# Backward compatibility test: using official 8.1.0 ref
+module "elasticache_redis_official" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
+  vpc_name               = var.vpc_name
+  application            = var.application
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  namespace              = var.namespace
+
+  node_type            = "cache.t4g.micro"
+  engine_version       = "7.0"
+  parameter_group_name = "default.redis7"
+
+  number_cache_clusters = "2"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "elasticache_redis_official" {
+  metadata {
+    name      = "elasticache-redis-official"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.elasticache_redis_official.primary_endpoint_address
+    auth_token               = module.elasticache_redis_official.auth_token
+    member_clusters          = jsonencode(module.elasticache_redis_official.member_clusters)
+    replication_group_id     = module.elasticache_redis_official.replication_group_id
+  }
+}
