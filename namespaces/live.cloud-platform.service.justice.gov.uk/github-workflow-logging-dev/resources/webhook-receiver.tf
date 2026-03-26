@@ -5,7 +5,7 @@ resource "kubernetes_secret" "webhook_receiver" {
   }
 
   data = {
-    sqs_queue_url         = module.log_events_queue.sqs_url
+    sqs_queue_url         = module.log_events_queue.sqs_id
     github_webhook_secret = random_password.github_webhook_secret.result
   }
 
@@ -30,5 +30,5 @@ output "github_webhook_secret" {
 
 output "sqs_queue_url" {
   description = "SQS queue URL for webhook receiver to publish to"
-  value       = module.log_events_queue.sqs_url
+  value       = module.log_events_queue.sqs_id
 }
