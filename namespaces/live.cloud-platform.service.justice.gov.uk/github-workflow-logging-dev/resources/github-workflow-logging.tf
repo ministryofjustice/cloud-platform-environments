@@ -39,6 +39,10 @@ module "backfill_state_bucket" {
 module "opensearch" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
+  vpc_name         = var.vpc_name
+  eks_cluster_name = var.kubernetes_cluster
+  engine_version   = "OpenSearch_3.1"
+
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
