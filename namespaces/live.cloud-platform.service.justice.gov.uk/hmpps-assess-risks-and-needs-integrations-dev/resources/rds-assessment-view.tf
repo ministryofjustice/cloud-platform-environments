@@ -55,3 +55,43 @@ resource "kubernetes_secret" "arns_assessment_view_rds" {
     url                   = "postgres://${module.arns_assessment_view_rds.database_username}:${module.arns_assessment_view_rds.database_password}@${module.arns_assessment_view_rds.rds_instance_endpoint}/${module.arns_assessment_view_rds.database_name}"
   }
 }
+
+# Temporarily commented out until IAM role and policies are fully propagated
+# locals {
+#   # test secret on mp - kms encrypted
+#   secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-test-secret-Vpq1q0"
+#
+#   db_secret_raw = jsondecode(data.aws_secretsmanager_secret_version.db.secret_string)
+#
+#   db_secret = {
+#     username = tostring(local.db_secret_raw.username)
+#     password = tostring(local.db_secret_raw.password)
+#     engine   = tostring(local.db_secret_raw.engine)
+#     host     = tostring(local.db_secret_raw.host)
+#     port     = tonumber(local.db_secret_raw.port)
+#     dbname   = tostring(local.db_secret_raw.dbname)
+#   }
+# }
+#
+# data "aws_secretsmanager_secret_version" "db" {
+#   provider  = aws.secrets
+#   secret_id = local.secret_arn
+# }
+#
+# resource "kubernetes_secret_v1" "db_credentials" {
+#   metadata {
+#     name      = "dpr-db-credentials"
+#     namespace = var.namespace
+#   }
+#
+#   type = "Opaque"
+#
+#   data = {
+#     username = local.db_secret.username
+#     password = local.db_secret.password
+#     engine   = local.db_secret.engine
+#     host     = local.db_secret.host
+#     port     = tostring(local.db_secret.port)
+#     dbname   = local.db_secret.dbname
+#   }
+# }
