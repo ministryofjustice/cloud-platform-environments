@@ -3,4 +3,5 @@ module "serviceaccount" {
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
   serviceaccount_name = "moj-cloud-platform-github-actions-serviceaccount"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

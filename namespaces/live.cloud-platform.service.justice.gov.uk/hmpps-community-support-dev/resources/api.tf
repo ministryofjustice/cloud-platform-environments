@@ -1,5 +1,7 @@
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-community-support-api"
   application = "hmpps-community-support-api"
   github_team = "hmpps-find-and-refer-an-intervention"

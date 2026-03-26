@@ -51,5 +51,6 @@ locals {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
+    service-area           = var.service_area
   }
 }

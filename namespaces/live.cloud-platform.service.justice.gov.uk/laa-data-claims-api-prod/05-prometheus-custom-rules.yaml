@@ -152,7 +152,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-f16b66bfcc6a6515
 
     - alert: RDSHighReadIOPS
-      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} 2400
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-prod
@@ -162,7 +162,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-f16b66bfcc6a6515
 
     - alert: RDSHighWriteIOPS
-      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} 2400
+      expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-f16b66bfcc6a6515"} > 2400
       for: 5m
       labels:
         severity: laa-data-claims-api-prod

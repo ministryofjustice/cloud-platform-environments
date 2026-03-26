@@ -9,10 +9,4 @@ locals {
     namespace              = var.namespace
     GithubTeam             = var.team_name
   }
-
-  # API Gateway clients
-  api_clients = [
-    "nutrition-app-preprod",
-    "app-2-preprod",
-    "app-3-preprod",]
 }

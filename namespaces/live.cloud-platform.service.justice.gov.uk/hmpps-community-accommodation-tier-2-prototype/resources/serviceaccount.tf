@@ -5,4 +5,5 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   github_repositories = [var.namespace]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

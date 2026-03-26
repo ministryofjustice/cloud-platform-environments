@@ -11,4 +11,5 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
   github_repositories                  = ["hmpps-arns-integrations-test-playwright-poc"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

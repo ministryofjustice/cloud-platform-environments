@@ -5,7 +5,7 @@ module "scheduled_downtime_service_account" {
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name               = "scheduled-downtime-serviceaccount"
-  serviceaccount_token_rotated_date = "04-03-2025"
+  serviceaccount_token_rotated_date = "20-03-2026"
   role_name                         = "scheduled-downtime-serviceaccount-role"
   rolebinding_name                  = "scheduled-downtime-serviceaccount-rolebinding"
   serviceaccount_rules              = [
