@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "ssm_policy" {
       "ssm:PutParameter"
     ]
     resources = [
-      "arn:aws:ssm:eu-west-2:754256621582:parameter/dev/athena_general_role_arn"
+      "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/athena_general_role_arn"
     ]
   }
 }
