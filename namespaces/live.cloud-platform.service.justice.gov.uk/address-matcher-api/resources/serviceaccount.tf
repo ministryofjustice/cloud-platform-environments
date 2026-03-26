@@ -7,6 +7,7 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "01-01-2000"
 
   github_repositories = ["address-matcher-api"]
+  github_environments = ["dev"]
   serviceaccount_rules = [
     {
       api_groups = [""]
