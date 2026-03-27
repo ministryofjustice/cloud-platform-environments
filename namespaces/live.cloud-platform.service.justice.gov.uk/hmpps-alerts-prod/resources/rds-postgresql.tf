@@ -11,7 +11,7 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
