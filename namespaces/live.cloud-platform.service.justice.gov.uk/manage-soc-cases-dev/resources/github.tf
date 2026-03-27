@@ -1,5 +1,5 @@
 module "manage-soc-cases" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   github_repo                   = "manage-soc-cases"
   application                   = "manage-soc-cases"
   github_team                   = "secure-estate-digital-team"
@@ -16,7 +16,7 @@ module "manage-soc-cases" {
 }
 
 module "manage-soc-cases-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   github_repo                   = "manage-soc-cases-api"
   application                   = "manage-soc-cases-api"
   github_team                   = "secure-estate-digital-team"
