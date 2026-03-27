@@ -44,6 +44,12 @@ variable "environment" {
   default     = "live"
 }
 
+variable "environment_name" {
+  description = "Environment name used by cloud-platform Terraform modules"
+  type        = string
+  default     = "live"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
@@ -72,4 +78,21 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "github_actions_repositories" {
+  description = "GitHub repositories to publish Actions secrets/variables into"
+  type        = list(string)
+  default     = ["ministry-of-justice-github-analysis"]
+}
+
+variable "github_actions_environments" {
+  description = "Optional GitHub environments in which to publish actions secrets/variables"
+  type        = list(string)
+  default     = []
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster (not the endpoint URL)"
+  type        = string
 }
