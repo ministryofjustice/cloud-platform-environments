@@ -11,4 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hmpps-probation-mi-ui-dev.hmpps.service.justice.gov.uk
-
+    - hmpps-probation-mi-api-dev.hmpps.service.justice.gov.uk
