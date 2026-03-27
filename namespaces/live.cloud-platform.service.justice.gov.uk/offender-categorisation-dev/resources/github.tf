@@ -4,7 +4,7 @@ module "offender-categorisation" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "offender-categorisation"
   application                   = "offender-categorisation"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence"
   environment                   = var.environment_name
   is_production                 = var.is_production
   protected_branches_only       = true
