@@ -35,8 +35,8 @@ module "rds" {
     aws = aws.london
   }
 
-  snapshot_identifier = "laa-apply-for-criminal-legal-aid-staging-dr-exercise-16-03-26"
-
+  # snapshot exercise preperation
+  deletion_protection = false
 }
 
 resource "kubernetes_secret" "rds" {
