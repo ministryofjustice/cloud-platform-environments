@@ -4,9 +4,9 @@ module "offender-categorisation" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "offender-categorisation"
   application                   = "offender-categorisation"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment_name
-  reviewer_teams                = ["secure-estate-digital-restricted-team"]
+  reviewer_teams                = ["hmpps-security-intelligence-live"]
   is_production                 = var.is_production
   protected_branches_only       = true
   application_insights_instance = var.environment_name
@@ -23,9 +23,9 @@ module "hmpps-offender-categorisation-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-offender-categorisation-api"
   application                   = "hmpps-offender-categorisation-api"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment_name
-  reviewer_teams                = ["secure-estate-digital-restricted-team"]
+  reviewer_teams                = ["hmpps-security-intelligence-live"]
   is_production                 = var.is_production
   protected_branches_only       = true
   application_insights_instance = var.environment_name
