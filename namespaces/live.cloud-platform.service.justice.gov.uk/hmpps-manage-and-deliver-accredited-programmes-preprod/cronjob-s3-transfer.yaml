@@ -4,7 +4,8 @@ metadata:
   name: hmpps-manage-and-deliver-acp-s3-transfer
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
-  schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
+  # Run every night at 02:00 UTC (03:00 BST)
+  schedule: "0 2 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 5
