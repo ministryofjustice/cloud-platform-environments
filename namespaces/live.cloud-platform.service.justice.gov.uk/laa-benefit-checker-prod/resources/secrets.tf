@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "benefit-checker-alert-webhook-prod"
     },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Benefit Checker prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
   }
 }
