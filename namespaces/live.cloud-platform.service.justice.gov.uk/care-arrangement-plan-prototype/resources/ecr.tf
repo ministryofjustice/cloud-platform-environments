@@ -25,6 +25,7 @@ module "ecr_credentials" {
   github_repositories = [var.app_repo]
 
   # Tags
+  # https://github.com/ministryofjustice/cap-prototype-ur
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
