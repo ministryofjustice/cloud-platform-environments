@@ -17,6 +17,9 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  # Prepare for deletion
+  deletion_protection = false
+
   lifecycle_policy = <<EOF
     {
       "rules": [
