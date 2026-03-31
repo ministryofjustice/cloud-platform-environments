@@ -148,12 +148,16 @@ spec:
                       key: db_port
           containers:
             - name: db-restore
-              # mssql-tools provides sqlcmd. The binary path differs between image versions:
-              #   mssql-tools  -> /opt/mssql-tools/bin/sqlcmd
-              #   mssql-tools18 -> /opt/mssql-tools18/bin/sqlcmd
-              # The startup script probes for both.
-              image: mcr.microsoft.com/mssql-tools:latest
+              # mcr.microsoft.com/mssql/server:2019-latest includes sqlcmd at:
+              #   /opt/mssql-tools18/bin/sqlcmd (newer builds)
+              #   /opt/mssql-tools/bin/sqlcmd  (older builds)
+              # The startup script probes for both. We override the container
+              # entrypoint so SQL Server itself is never started.
+              image: mcr.microsoft.com/mssql/server:2019-latest
+              imagePullPolicy: IfNotPresent
               securityContext:
+                runAsUser: 10001
+                runAsNonRoot: true
                 allowPrivilegeEscalation: false
                 capabilities:
                   drop:
@@ -283,4 +287,3 @@ spec:
 
                     sleep 30
                   done
-                      key: db_port
