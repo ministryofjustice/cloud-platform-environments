@@ -4,8 +4,8 @@ metadata:
   name: db-restore-cronjob
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
-  # Run every night at 03:00 UTC (04:00 BST) — one hour after the s3-transfer job
-  schedule: "0 3 * * *"
+  # Run every night at 05:45 UTC (06:45 BST) — 0:45:00 after the s3-transfer job
+  schedule: "45 5 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 5
