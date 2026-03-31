@@ -62,8 +62,6 @@ module "rds_parm_is_migration_true" {
 
   # Testing RDS Restore
   deletion_protection = false
-  snapshot_identifier = "demo-dan1-rds-pg15-source-20260330"
-  is_migration        = true
 }
 
 module "red" {
