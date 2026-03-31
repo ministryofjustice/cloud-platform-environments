@@ -10,6 +10,10 @@ terraform {
       source  = "integrations/github"
       version = "~> 6.6.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.13.0"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0"
