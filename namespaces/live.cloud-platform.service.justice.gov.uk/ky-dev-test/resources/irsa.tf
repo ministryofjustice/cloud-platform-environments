@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
-    # rds = module.rds.irsa_policy_arn
+    rds = aws_iam_policy.rds_access.arn
   }
 
   # Tags
@@ -23,4 +23,23 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+// new policy for RDS access
+resource "aws_iam_policy" "rds_access" {
+  name        = "ky-dev-test-rds-access"
+  description = "Policy to allow access to RDS for ky-dev-test service account" 
+  policy      = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "rds:DescribeDBInstances",
+          "rds:Connect"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
 }
