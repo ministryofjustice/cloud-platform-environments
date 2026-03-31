@@ -37,13 +37,17 @@ jobs:
 
       # If the user isn't permitted to make the change, write a comment in the issue.
       - name: Create comment in the PR
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
-
-        if: steps.review_pr.outputs.reviewOutput == 'false'
+        uses: actions/github-script@v7
+        if: steps.review_pr.outputs.reviewOutput == 'false'        
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            The owner of this PR isn't a member of the relevant rbac teams.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: github.event.pull_request.number,
+              body: "The owner of this PR isn't a member of the relevant rbac teams.."
+            })
 
       # We need GitHub Actions to report a fail if the user isn't permitted.
       - name: If user not in the rbac group; then fail
