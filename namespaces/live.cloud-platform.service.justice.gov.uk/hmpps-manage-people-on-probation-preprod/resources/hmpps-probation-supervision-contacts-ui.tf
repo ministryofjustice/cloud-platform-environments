@@ -48,9 +48,9 @@ resource "kubernetes_secret" "elasticache_redis_contacts-ui" {
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.contacts_elasticache_redis.primary_endpoint_address
+    auth_token               = module.contacts_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.contacts_elasticache_redis.member_clusters)
+    replication_group_id     = module.contacts_elasticache_redis.replication_group_id
   }
 }
