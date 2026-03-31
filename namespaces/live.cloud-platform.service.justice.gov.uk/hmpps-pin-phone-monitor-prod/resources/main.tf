@@ -6,10 +6,10 @@ terraform {
 provider "aws" {
   region = "eu-west-2"
 
-  # Allow resources to be visible to secure-estate-digital-team
+  # Allow resources to be visible to hmpps-security-intelligence-live team
   default_tags {
     tags = {
-      GithubTeam = "secure-estate-digital-team"
+      GithubTeam = "hmpps-security-intelligence-live"
     }
   }
 }
