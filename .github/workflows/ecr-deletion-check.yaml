@@ -50,13 +50,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: github.event.pull_request.number,
-              body: `
-You are deleting an existing ECR resource from your Terraform configuration. 
-Kindly make sure to disable deletion_protection by setting \`deletion_protection = false\` in your ecr module.
-
-1. Raise and merge a PR with \`deletion_protection = false\`
-2. Rebase and rerun the checks on this PR and then merge
-              `
+              body: "You are deleting an existing ECR resource from your Terraform configuration.<br />Kindly make sure to disable deletion_protection by setting `deletion_protection = false` in your ecr module.<br /><br />1. Raise and merge a PR with `deletion_protection = false`<br />2. Rebase and rerun the checks on this PR and then merge."
             })
 
       - name: Fail action if ecr is deleted without deletion_protection disabled
