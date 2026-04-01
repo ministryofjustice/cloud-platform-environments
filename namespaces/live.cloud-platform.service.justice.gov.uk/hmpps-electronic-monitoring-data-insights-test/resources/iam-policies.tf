@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "athena_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev" //TODO replace with test resource
+      "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev" #TODO replace with test resource
     ]
   }
 }

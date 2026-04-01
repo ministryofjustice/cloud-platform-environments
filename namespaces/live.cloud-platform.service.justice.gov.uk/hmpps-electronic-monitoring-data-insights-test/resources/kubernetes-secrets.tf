@@ -16,7 +16,7 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev" //TODO replace with test role
+    general_role_arn = "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev" #TODO replace with test role
   }
 }
 
