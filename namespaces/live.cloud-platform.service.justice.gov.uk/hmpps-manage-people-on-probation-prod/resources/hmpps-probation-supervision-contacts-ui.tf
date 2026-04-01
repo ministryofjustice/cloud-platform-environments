@@ -6,7 +6,7 @@ module "hmpps-probation-supervision-contacts-ui" {
   application = "hmpps-probation-supervision-contacts-ui"
   github_team = "hmpps-manage-people-on-probation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-manage-people-on-probation"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
