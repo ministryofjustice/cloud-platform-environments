@@ -26,3 +26,43 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-ip
+  namespace: dc-learning-sandbox
+spec:
+  order: 49.0
+  selector: all()
+  egress:
+    - action: Allow
+      destination:
+        nets:
+          # /terraform/aws-accounts/cloud-platform-aws/vpc/main.tf#L49
+          - 172.20.0.0/16  # Cloud Platform AWS VPC
+          # /terraform/aws-accounts/cloud-platform-aws/vpc/transit-gateway-routes/routes.tf#L20-26
+          - 10.26.0.0/16   # Modernisation Platform (dev test)
+          - 10.27.0.0/16   # Modernisation Platform (preprod prod)
+          - 10.202.0.0/20  # LAA Landing Zone (dev)
+          - 10.203.0.0/20  # LAA Landing Zone (test)
+          - 10.206.0.0/20  # LAA Landing Zone (uat)
+          - 10.205.0.0/20  # LAA Landing Zone (stage ecp)
+          - 10.204.0.0/20  # LAA Landing Zone (prod)
+  types:
+    - Egress
+
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: block-egress
+  namespace: dc-learning-sandbox
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+    - action: Deny
+  types:
+    - Egress
