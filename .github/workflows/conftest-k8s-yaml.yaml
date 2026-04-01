@@ -23,6 +23,7 @@ jobs:
         run: |
           wget https://github.com/open-policy-agent/conftest/releases/download/v0.67.1/conftest_0.67.1_Linux_x86_64.tar.gz
           tar xzf conftest_0.67.1_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |
