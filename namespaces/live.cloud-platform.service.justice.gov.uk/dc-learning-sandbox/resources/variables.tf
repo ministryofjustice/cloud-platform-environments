@@ -69,7 +69,14 @@ variable "github_owner" {
 }
 
 variable "github_token" {
-  type        = string
   description = "Required by the GitHub Terraform provider"
+  type        = string
   default     = ""
+}
+
+### Additions
+
+variable "eks_cluster_name" {
+  description = "Required by the cloud-platform-terraform-secrets-manager module"
+  type        = string
 }
