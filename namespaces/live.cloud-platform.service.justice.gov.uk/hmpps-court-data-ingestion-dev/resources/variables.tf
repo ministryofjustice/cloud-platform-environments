@@ -91,7 +91,7 @@ variable "modernisation_platform_autorizer_lambda" {
 variable "modernisation_platform_secrets_manager" {
   type = string
   description = "The ARN of the secret storing the hmac key in modernisation platform"
-  default = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-auth-token-olmeRm"
+  default = "arn:aws:secretsmanager:eu-west-2:953751538119:secret:ingestion-api-hmac-auth-token-9FLQQU"
 }
 
 variable "modernisation_platform_secrets_manager_key" {
