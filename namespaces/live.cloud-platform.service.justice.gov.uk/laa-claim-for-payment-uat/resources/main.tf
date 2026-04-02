@@ -39,7 +39,6 @@ provider "kubernetes" {}
 locals {
   default_tags = {
     "business-unit"    = var.business_unit
-    "service-area"     = var.service_area
     "application"      = var.application
     "is-production"    = var.is_production
     "environment-name" = var.environment
