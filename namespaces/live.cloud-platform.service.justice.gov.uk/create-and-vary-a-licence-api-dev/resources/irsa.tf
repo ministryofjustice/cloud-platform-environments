@@ -2,14 +2,14 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-cvl_domain_events_queue" = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-cvl_domain_events_dead_letter_queue" = "hmpps-domain-events-dev",
+    "hmpps_hdc_api_queue"                 = "licences-dev",
+    "hmpps_hdc_api_dead_letter_queue"     = "licences-dev",
   }
   sqs_policies = {
     cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
     cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
     cvl_prison_events_queue             = module.cvl_prison_events_queue.irsa_policy_arn,
     cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
-    hmpps_hdc_api_queue                 = module.hmpps_hdc_api_queue.irsa_policy_arn,
-    hmpps_hdc_api_dead_letter_queue     = module.hmpps_hdc_api_dead_letter_queue.irsa_policy_arn
   }
 
   sns_topics = {
