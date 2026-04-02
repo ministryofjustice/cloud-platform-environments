@@ -25,8 +25,8 @@ module "irsa" {
   namespace              = var.namespace
   service_account_name   = "hmpps-hdc-api"
   role_policy_arns       = merge(
-                            local.sqs_policies,     # old SSM-based queues
-                            local.hdc_sqs_policies  # new direct queue ARNs
+                            local.sqs_policies,
+                            local.hdc_sqs_policies
                           )
   # Tags
   business_unit          = var.business_unit
