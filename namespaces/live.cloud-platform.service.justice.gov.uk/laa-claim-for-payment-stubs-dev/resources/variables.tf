@@ -23,19 +23,13 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Service Transformation Group"
+  default     = "Payments and Billing"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
   default     = "LAA"
-}
-
-variable "service_area" {
-  description = "Service area responsible for this service"
-  type        = string
-  default     = "Payments and Billing"
 }
 
 variable "team_name" {
