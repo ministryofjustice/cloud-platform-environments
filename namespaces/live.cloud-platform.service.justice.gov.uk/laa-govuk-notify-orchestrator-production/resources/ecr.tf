@@ -5,7 +5,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # GitHub repositories that push to this container repository
   github_repositories = [var.repo_name]

@@ -22,15 +22,16 @@ jobs:
       name: commit check
       uses: docker://ministryofjustice/cloud-platform-commit-check:1.0.0
 
-    - name: auto approve
-      if: ${{ steps.commit-check.outputs.approval == 'approval_not_needed' }}
-      uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
-      with:
-        review-message: 'Automatically approving PR for skip file'
-        github-token: "${{ secrets.HAMMER_BOT_TOKEN }}"
+# Disabling flagged external action. Could be replaced with non-external alternative 
+#    - name: auto approve
+#      if: ${{ steps.commit-check.outputs.approval == 'approval_not_needed' }}
+#      uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
+#      with:
+#        review-message: 'Automatically approving PR for skip file'
+#        github-token: "${{ secrets.HAMMER_BOT_TOKEN }}"
 
     - name: cloud platform approval needed
-      if: ${{ steps.commit-check.outputs.approval == 'approval_needed' }}
+#      if: ${{ steps.commit-check.outputs.approval == 'approval_needed' }}
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
       with:
         github-token: "${{ secrets.HAMMER_BOT_TOKEN }}"

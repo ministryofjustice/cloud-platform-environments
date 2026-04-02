@@ -31,19 +31,23 @@ jobs:
       # correct GitHub team.
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
-        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@main
+        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@b43be43ec5562d8884fa18c6949d9ee6b8d022fd #main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # If the user isn't permitted to make the change, write a comment in the issue.
       - name: Create comment in the PR
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
-
-        if: steps.review_pr.outputs.reviewOutput == 'false'
+        uses: actions/github-script@e69ef5462fd455e02edcaf4dd7708eda96b9eda0 #v7
+        if: steps.review_pr.outputs.reviewOutput == 'false'        
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            The owner of this PR isn't a member of the relevant rbac teams.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: github.event.pull_request.number,
+              body: "The owner of this PR isn't a member of the relevant rbac teams.."
+            })
 
       # We need GitHub Actions to report a fail if the user isn't permitted.
       - name: If user not in the rbac group; then fail

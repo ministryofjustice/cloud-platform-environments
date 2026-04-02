@@ -4,7 +4,7 @@ module "hmpps-prisoner-communication-monitoring" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prisoner-communication-monitoring"
   application                   = "hmpps-prisoner-communication-monitoring"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -21,7 +21,7 @@ module "hmpps-prisoner-communication-monitoring-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prisoner-communication-monitoring-api"
   application                   = "hmpps-prisoner-communication-monitoring-api"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true

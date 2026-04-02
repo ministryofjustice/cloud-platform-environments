@@ -6,6 +6,11 @@ on:
 env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
   GITHUB_OAUTH_TOKEN: ${{ secrets.DOCUMENT_REVIEW_GITHUB }}
+  PR_NUMBER: ${{ github.event.number }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_APP_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
+  GITHUB_APP_INSTALLATION_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
+  GITHUB_APP_PRIVATE_KEY: ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
 
 jobs:
   check-diff:
@@ -17,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout PR code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: Run git diff against repository
@@ -25,12 +30,4 @@ jobs:
           git diff origin/main HEAD > changes
       - name: Run iam/role policy changes check
         id: review_pr
-        uses: ministryofjustice/github-actions/iam-role-policy-changes-check@7c689fe2de15e1692f5cceceb132919ab854081c # v14
-      - name: Request changes in the PR
-        uses: andrewmusgrave/automatic-pull-request-review@5351aff944ea8013eb2a8d162d98903a5bef2da6 # 0.0.5
-        if: steps.review_pr.outputs.review_pr_iam_check == 'false'
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN  }}"
-          event: COMMENT
-          body: |
-            There are potential IAM Role and/or policy Changes/additions. Reviewer - If satisfied with the changes/additions - dismiss this request
+        uses: ministryofjustice/cloud-platform-iam-policy-github-action@be4e89b261989978665c1d0e5603e0d61be000df

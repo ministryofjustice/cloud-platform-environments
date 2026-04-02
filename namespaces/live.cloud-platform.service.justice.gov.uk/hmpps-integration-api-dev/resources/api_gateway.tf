@@ -174,7 +174,7 @@ resource "aws_api_gateway_usage_plan" "default" {
   }
 
   quota_settings {
-    limit  = 2000000
+    limit  = 3000000
     period = "MONTH"
   }
 
