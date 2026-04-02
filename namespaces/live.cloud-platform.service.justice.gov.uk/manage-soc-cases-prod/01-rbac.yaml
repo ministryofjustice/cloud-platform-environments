@@ -6,7 +6,7 @@ metadata:
   namespace: manage-soc-cases-prod
 subjects:
   - kind: Group
-    name: "github:secure-estate-digital-restricted-team"
+    name: "github:hmpps-security-intelligence"
     apiGroup: rbac.authorization.k8s.io
   - kind: User
     name: github:james-jdgtl
