@@ -5,12 +5,18 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hdc_domain_events_queue"       = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-hdc_domain_events_dl"          = "hmpps-domain-events-dev",
-    "hmpps_hdc_api_queue"                                       = module.hmpps_hdc_api_queue.irsa_policy_arn,
-    "hmpps_hdc_api_dead_letter_queue"                           = module.hmpps_hdc_api_dead_letter_queue.irsa_policy_arn
+    "Digital-Prison-Services-dev-hdc_domain_events_dl"          = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
+
+locals {
+  hdc_sqs_policies = {
+    hmpps_hdc_api_queue             = module.hmpps_hdc_api_queue.irsa_policy_arn,
+    hmpps_hdc_api_dead_letter_queue = module.hmpps_hdc_api_dead_letter_queue.irsa_policy_arn
+  }
+}
+
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
@@ -18,7 +24,10 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-hdc-api"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns       = merge(
+                            local.sqs_policies,     # old SSM-based queues
+                            local.hdc_sqs_policies  # new direct queue ARNs
+                          )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
