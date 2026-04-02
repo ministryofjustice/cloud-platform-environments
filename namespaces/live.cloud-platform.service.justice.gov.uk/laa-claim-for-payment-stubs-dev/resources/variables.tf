@@ -32,6 +32,12 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Payments and Billing"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
