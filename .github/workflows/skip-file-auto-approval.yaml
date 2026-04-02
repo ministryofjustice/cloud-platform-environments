@@ -20,7 +20,7 @@ jobs:
 
     - id: commit-check
       name: commit check
-      uses: docker://ministryofjustice/cloud-platform-commit-check@fcaea6f842119aa49d3b16d0f3ab640875857c6d #1.0.0
+      uses: docker://ministryofjustice/cloud-platform-commit-check@sha256:fcaea6f842119aa49d3b16d0f3ab640875857c6d #1.0.0
 
 # Auto Approval was here. Removed because of flagged external action, see history for old code. Could be replaced with non-external alternative 
 
