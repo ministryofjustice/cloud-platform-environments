@@ -59,7 +59,7 @@ module "opensearch" {
   }
 
   ebs_options = {
-    volume_size = 400
+    volume_size = 200
   }
 }
 
