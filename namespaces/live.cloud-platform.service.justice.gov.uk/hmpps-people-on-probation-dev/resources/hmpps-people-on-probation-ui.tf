@@ -34,8 +34,9 @@ module "elasticache_redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  number_cache_clusters = 1
   # sized for micro in dev, preprod, suggest small for production
-  node_type            = "cache.t4g.small"
+  node_type            = "cache.t4g.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 
