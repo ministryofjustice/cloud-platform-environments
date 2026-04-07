@@ -88,12 +88,9 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.6"
-  rds_family        = "postgres17"
+  db_engine_version = "15.12"
+  rds_family        = "postgres15"
   db_instance_class = "db.t4g.large"
-
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
 
   # It is mandatory to set the below values to create read replica instance
 
