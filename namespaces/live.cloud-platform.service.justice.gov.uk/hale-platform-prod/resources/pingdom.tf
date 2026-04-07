@@ -3,7 +3,6 @@ provider "pingdom" {
 
 locals {
   websites = {
-    brook-house-inquiry                = { host = "brookhouseinquiry.org.uk", url = "/" }
     cjji                               = { host = "cjji.justiceinspectorates.gov.uk", url = "/" }
     criminal-cases-review-commission   = { host = "ccrc.gov.uk", url = "/" }
     hmcpsi                             = { host = "hmcpsi.justiceinspectorates.gov.uk", url = "/" }
@@ -24,7 +23,7 @@ locals {
     prisons-and-probation-ombudsman    = { host = "ppo.gov.uk", url = "/" }
     public-defender-service            = { host = "publicdefenderservice.org.uk", url = "/" }
     recriwtio-ynadon                   = { host = "magistrates.judiciary.uk", url = "/cymraeg" }
-    showcase                           = { host = "showcase.websitebuilder.service.justice.gov.uk", url = "/" }
+    showcase-site                      = { host = "showcase.websitebuilder.service.justice.gov.uk", url = "/" }
     sifocc                             = { host = "sifocc.org", url = "/" }
     victim-and-witness-information     = { host = "victimandwitnessinformation.org.uk", url = "/" }
     victim-and-witness-information-cym = { host = "cym.victimandwitnessinformation.org.uk", url = "/" }
