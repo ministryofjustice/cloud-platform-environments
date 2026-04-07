@@ -3,7 +3,6 @@ provider "pingdom" {
 
 locals {
   websites = {
-    brook-house-inquiry                = { host = "brookhouseinquiry.org.uk", url = "/" }
     cjji                               = { host = "cjji.justiceinspectorates.gov.uk", url = "/" }
     criminal-cases-review-commission   = { host = "ccrc.gov.uk", url = "/" }
     hmcpsi                             = { host = "hmcpsi.justiceinspectorates.gov.uk", url = "/" }
