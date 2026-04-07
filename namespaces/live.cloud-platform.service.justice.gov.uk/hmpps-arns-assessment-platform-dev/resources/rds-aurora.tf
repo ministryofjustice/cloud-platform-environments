@@ -13,7 +13,7 @@ module "rds_aurora" {
 
   serverlessv2_scaling_configuration = {
     min_capacity = 1
-    max_capacity = 4
+    max_capacity = 8
   }
 
   allow_major_version_upgrade = false
