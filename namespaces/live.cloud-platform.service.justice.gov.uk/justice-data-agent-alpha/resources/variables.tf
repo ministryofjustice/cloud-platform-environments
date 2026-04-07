@@ -11,42 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "dces-report-service"
+  default     = "Gov.UK Prototype Kit"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-dces-report-service-staging"
+  default     = "justice-data-agent-alpha"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = ""
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
-}
-
-variable "service_area" {
-  description = "Service area responsible for this service"
-  default     = "Criminal Applications"
+  default     = "HQ"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-crime-apps-team"
+  default     = "justice-data-agent"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -58,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crimeapps"
+  default     = "public-justice-data-agent"
 }
 
 variable "github_owner" {
@@ -71,7 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }

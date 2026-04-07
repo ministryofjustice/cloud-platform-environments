@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-dces-report-service-staging
+  namespace: justice-data-agent-alpha
 spec:
   hard:
-    pods: "5"
+    pods: "50"

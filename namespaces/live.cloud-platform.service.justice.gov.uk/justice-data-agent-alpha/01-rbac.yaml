@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-dces-drc-integration-staging-admin
-  namespace: laa-dces-drc-integration-staging
+  name: justice-data-agent-alpha-admin
+  namespace: justice-data-agent-alpha
 subjects:
   - kind: Group
-    name: "github:laa-crime-apps-team"
+    name: "github:justice-data-agent"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
