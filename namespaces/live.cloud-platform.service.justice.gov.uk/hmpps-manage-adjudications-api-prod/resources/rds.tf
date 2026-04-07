@@ -88,7 +88,7 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
+  db_engine_version = "15.12"
   rds_family        = "postgres15"
   db_instance_class = "db.t4g.large"
 
