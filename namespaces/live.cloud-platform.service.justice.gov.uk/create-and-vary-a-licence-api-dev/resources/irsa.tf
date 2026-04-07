@@ -10,6 +10,8 @@ locals {
     cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
     cvl_prison_events_queue             = module.cvl_prison_events_queue.irsa_policy_arn,
     cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
+    hmpps_hdc_api_queue                 = data.aws_ssm_parameter.hmpps_hdc_api_queue_irsa_policy.value,
+    hmpps_hdc_api_dead_letter_queue     = data.aws_ssm_parameter.hmpps_hdc_api_dlq_irsa_policy.value,
   }
 
   sns_topics = {
@@ -37,4 +39,12 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "hmpps_hdc_api_queue_irsa_policy" {
+  name = "/licences-dev/sqs/hmpps_hdc_api_queue/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "hmpps_hdc_api_dlq_irsa_policy" {
+  name = "/licences-dev/sqs/hmpps_hdc_api_dlq/irsa-policy-arn"
 }
