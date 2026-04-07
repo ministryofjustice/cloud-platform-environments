@@ -48,4 +48,3 @@ data "aws_ssm_parameter" "hmpps_hdc_api_queue_irsa_policy" {
 data "aws_ssm_parameter" "hmpps_hdc_api_dlq_irsa_policy" {
   name = "/licences-dev/sqs/create-and-vary-a-licence-devs-dev-hmpps_hdc_api_dlq/irsa-policy-arn"
 }
-
