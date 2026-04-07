@@ -10,11 +10,11 @@ module "ma_rds" {
   infrastructure_support      = var.infrastructure_support
 
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres17"
-  db_engine_version           = "17.6"
+  rds_family                  = "postgres15"
+  db_engine_version           = "15.12"
   deletion_protection         = true
   db_password_rotated_date    = "15-02-2023"
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   enable_irsa                 = true
 
@@ -22,7 +22,7 @@ module "ma_rds" {
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
