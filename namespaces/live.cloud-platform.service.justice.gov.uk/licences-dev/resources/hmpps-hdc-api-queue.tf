@@ -72,35 +72,3 @@ resource "kubernetes_secret" "hmpps_hdc_api_dead_letter_queue_secret" {
     sqs_queue_name = module.hmpps_hdc_api_dead_letter_queue.sqs_name
   }
 }
-
-resource "aws_ssm_parameter" "hmpps_hdc_api_queue_irsa_policy" {
-  type  = "String"
-  name  = "/${var.namespace}/sqs/${module.hmpps_hdc_api_queue.sqs_name}/irsa-policy-arn"
-  value = module.hmpps_hdc_api_queue.irsa_policy_arn
-
-  tags = {
-    business_unit          = var.business_unit
-    application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    namespace              = var.namespace
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
-  }
-}
-
-resource "aws_ssm_parameter" "hmpps_hdc_api_dlq_irsa_policy" {
-  type  = "String"
-  name  = "/${var.namespace}/sqs/${module.hmpps_hdc_api_dead_letter_queue.sqs_name}/irsa-policy-arn"
-  value = module.hmpps_hdc_api_dead_letter_queue.irsa_policy_arn
-
-  tags = {
-    business_unit          = var.business_unit
-    application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    namespace              = var.namespace
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
-  }
-}
