@@ -19,8 +19,6 @@ module "rds_aurora" {
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = true
 
-  snapshot_identifier = "arns-assessment-platform-dev-manual-snapshot"
-
   db_name = var.db_name
 
   # Tags
