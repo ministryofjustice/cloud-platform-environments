@@ -10,8 +10,8 @@ module "ma_rds" {
   infrastructure_support      = var.infrastructure_support
 
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15"
+  rds_family                  = "postgres17"
+  db_engine_version           = "17.6"
   deletion_protection         = true
   db_password_rotated_date    = "15-02-2023"
   allow_major_version_upgrade = "false"
@@ -22,7 +22,7 @@ module "ma_rds" {
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
@@ -88,8 +88,8 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "17.6"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
