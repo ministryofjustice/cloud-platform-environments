@@ -22,7 +22,7 @@ module "ma_rds" {
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
