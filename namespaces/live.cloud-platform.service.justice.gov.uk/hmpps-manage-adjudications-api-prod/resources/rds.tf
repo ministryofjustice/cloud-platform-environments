@@ -14,7 +14,7 @@ module "ma_rds" {
   db_engine_version           = "17.6"
   deletion_protection         = true
   db_password_rotated_date    = "15-02-2023"
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   enable_irsa                 = true
 
@@ -91,8 +91,6 @@ module "dps_rds_replica" {
   db_engine_version = "17.6"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.large"
-  allow_major_version_upgrade = true
-  prepare_for_major_upgrade   = true
 
   # It is mandatory to set the below values to create read replica instance
 
