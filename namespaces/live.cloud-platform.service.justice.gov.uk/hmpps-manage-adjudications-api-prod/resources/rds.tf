@@ -9,7 +9,7 @@ module "ma_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
 
-  db_instance_class           = "db.t4g.small"
+  db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres15"
   db_engine_version           = "15"
   deletion_protection         = true
@@ -90,7 +90,7 @@ module "dps_rds_replica" {
   db_engine         = "postgres"
   db_engine_version = "15"
   rds_family        = "postgres15"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
