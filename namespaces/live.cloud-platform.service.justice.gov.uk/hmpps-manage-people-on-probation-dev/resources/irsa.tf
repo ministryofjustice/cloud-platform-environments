@@ -71,6 +71,24 @@ module "hmpps-probation-supervision-contacts-ui-service-account" {
   )
 }
 
+module "hmpps-probation-supervision-reminders-ui-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "hhmpps-probation-supervision-reminders-ui"
+  role_policy_arns = merge(
+    { elasticache = module.elasticache.irsa_policy_arn },
+    local.sqs_policies
+  )
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
