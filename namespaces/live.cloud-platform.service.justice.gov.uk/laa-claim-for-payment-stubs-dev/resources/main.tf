@@ -42,6 +42,7 @@ locals {
     "slack-channel"    = var.slack_channel
     "GithubTeam"       = var.team_name
   }
+}
 
 provider "github" {
   token = var.github_token
