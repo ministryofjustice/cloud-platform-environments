@@ -27,5 +27,4 @@ module "ecr" {
   # uncomment below:
 
   # enable_irsa = true
-  deletion_protection = false
 }
