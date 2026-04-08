@@ -8,7 +8,7 @@ module "community-api" {
   environment                   = var.environment_name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  application_insights_instance = "dev"
+  application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
@@ -26,7 +26,7 @@ module "ndelius-new-tech" {
   environment                   = var.environment_name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  application_insights_instance = "dev"
+  application_insights_instance = "preprod"
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
@@ -44,7 +44,7 @@ module "pdf-generator" {
   environment                   = var.environment_name
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
-  application_insights_instance = "dev"
+  application_insights_instance = "preprod"
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
