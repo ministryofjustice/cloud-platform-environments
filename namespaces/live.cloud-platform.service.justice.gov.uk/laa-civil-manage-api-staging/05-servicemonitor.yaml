@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: laa-civil-manage-api-dev-service-monitor
+  name: laa-civil-manage-api-staging-service-monitor
 spec:
   selector:
     matchLabels:
