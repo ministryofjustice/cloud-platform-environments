@@ -12,14 +12,12 @@ module "rds_aurora" {
   replica_count  = 1
 
   serverlessv2_scaling_configuration = {
-    min_capacity = 1
-    max_capacity = 4
+    min_capacity = 2
+    max_capacity = 16
   }
 
   allow_major_version_upgrade = false
   auto_minor_version_upgrade  = true
-
-  snapshot_identifier = "arns-assessment-platform-dev-manual-snapshot"
 
   db_name = var.db_name
 
