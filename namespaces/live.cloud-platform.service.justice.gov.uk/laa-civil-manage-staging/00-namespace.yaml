@@ -4,6 +4,7 @@ metadata:
   name: "laa-civil-manage-staging"
   labels:
     component: "laa-civil-manage-staging"
+    cloud-platform.justice.gov.uk/namespace: "laa-civil-manage-staging"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
     pod-security.kubernetes.io/enforce: restricted
