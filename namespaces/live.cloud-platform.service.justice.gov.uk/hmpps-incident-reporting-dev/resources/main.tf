@@ -46,3 +46,4 @@ locals {
     "slack-channel"    = var.slack_channel
     "GithubTeam"       = var.team_name
   }
+}
