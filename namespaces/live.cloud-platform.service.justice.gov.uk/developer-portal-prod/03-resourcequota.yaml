@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: developer-portal-dev
+  namespace: developer-portal-prod
 spec:
   hard:
     pods: "50"

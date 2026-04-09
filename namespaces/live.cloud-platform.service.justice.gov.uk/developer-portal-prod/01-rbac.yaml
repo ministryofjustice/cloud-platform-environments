@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: developer-portal-dev-admin
-  namespace: developer-portal-dev
+  name: developer-portal-prod-admin
+  namespace: developer-portal-prod
 subjects:
   - kind: Group
     name: "github:octo-developer-experience"
