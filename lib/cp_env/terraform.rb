@@ -95,7 +95,7 @@ class CpEnv
       "terraform #{operation} #{last}"
     end
 
-    def add_tagging_scp_terraform_output_mask()
+    def add_tagging_scp_terraform_output_mask
       tagging_scp_id = "p-w8ht8v1x"
 
       "sed -E 's|#{tagging_scp_id}|#{tagging_scp_id} (Enforce mandatory tags), please see our tagging policy https://cloud-optimisation-and-accountability.justice.gov.uk/documentation/finops-and-greenops-at-moj/standards/tagging.html|g'"
