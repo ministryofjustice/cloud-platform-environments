@@ -29,7 +29,7 @@ variable "service_area" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "office-of-the-cto"
+  default     = "Platforms"
 }
 
 variable "team_name" {
