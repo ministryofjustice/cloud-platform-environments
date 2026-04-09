@@ -1,11 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ .Namespace }}-admin
-  namespace: {{ .Namespace }}
+  name: developer-portal-dev-admin
+  namespace: developer-portal-dev
 subjects:
   - kind: Group
-    name: "github:{{ .GithubTeam }}"
+    name: "github:octo-developer-experience"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
