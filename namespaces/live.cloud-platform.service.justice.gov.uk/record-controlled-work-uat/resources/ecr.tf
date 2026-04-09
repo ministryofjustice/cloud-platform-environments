@@ -13,7 +13,6 @@ module "ecr" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-record-controlled-work"]
-  github_actions_prefix = "RCW"
   
   # Tags
   business_unit          = var.business_unit
@@ -30,17 +29,17 @@ module "ecr" {
   # enable_irsa = true
 }
 
-module "laa_check_client_qualifies_ecr" {
+module "ecr_nginx_unprivileged" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
-  repo_name = "laa-check-client-qualifies"
+  repo_name = "${var.namespace}-nginx-unprivileged"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-record-controlled-work", "laa-check-client-qualifies"]
-  github_actions_prefix = "CCQ"
-  
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-record-controlled-work"]
+  github_actions_prefix = "NGINX"
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

@@ -1,0 +1,24 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ephemeral-container-access
+  namespace: hmpps-book-a-video-link-preprod
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["get", "patch", "update", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ephemeral-container-access-binding
+  namespace: hmpps-book-a-video-link-preprod
+subjects:
+  - kind: Group
+    name: "github:hmpps-book-a-video-link"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ephemeral-container-access
+  apiGroup: rbac.authorization.k8s.io

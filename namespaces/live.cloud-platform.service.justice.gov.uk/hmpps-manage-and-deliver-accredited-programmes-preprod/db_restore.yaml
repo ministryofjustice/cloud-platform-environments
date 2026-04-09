@@ -4,7 +4,8 @@ metadata:
   name: db-restore-cronjob
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
-  schedule: "0 0 31 2 *" # Disabled schedule (Feb 31 — never runs automatically)
+  # Run every night at 05:45 UTC (06:45 BST) — 0:45:00 after the s3-transfer job
+  schedule: "45 5 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 5
@@ -15,6 +16,9 @@ spec:
         spec:
           serviceAccountName: irsa-sqlserver
           restartPolicy: OnFailure
+          volumes:
+            - name: backup-info
+              emptyDir: {}
           initContainers:
             - name: create-rds-snapshot
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
@@ -45,12 +49,12 @@ spec:
                 - -c
                 - |
                   set -e
-                  
+
                   if [ "${CREATE_SNAPSHOT}" != "true" ]; then
                     echo "create_snapshot=${CREATE_SNAPSHOT}; skipping RDS snapshot"
                     exit 0
                   fi
-                  
+
                   if [ -z "${DATABASE_IDENTIFIER}" ]; then
                     echo "DATABASE_IDENTIFIER is empty"
                     exit 1
@@ -64,11 +68,58 @@ spec:
                   aws rds create-db-snapshot \
                     --db-instance-identifier "${DATABASE_IDENTIFIER}" \
                     --db-snapshot-identifier "${SNAPSHOT_ID}"
-                  
+
                   echo "Successfully created snapshot: ${SNAPSHOT_ID}"
-          containers:
+
+            - name: find-backup-file
+              image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              securityContext:
+                runAsUser: 1000
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              volumeMounts:
+                - name: backup-info
+                  mountPath: /backup-info
+              env:
+                - name: HOME
+                  value: /tmp
+                - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: sqlserver-backup-s3-bucket-output
+                      key: bucket_name
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -euo pipefail
+
+                  echo "Searching for latest backup in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
+
+                  BACKUP_KEY=$(aws s3 ls "s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/" \
+                    --recursive \
+                    | sort \
+                    | tail -1 \
+                    | awk '{print $4}')
+
+                  if [ -z "${BACKUP_KEY}" ]; then
+                    echo "No backup file found in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
+                    exit 1
+                  fi
+
+                  echo "Found backup file: ${BACKUP_KEY}"
+                  echo "${BACKUP_KEY}" > /backup-info/backup-key
+
+            # Kubernetes native sidecar (restartPolicy: Always on an initContainer requires k8s >= 1.29).
+            # Starts before the main container and is terminated automatically when it exits.
             - name: port-forward
               image: ministryofjustice/port-forward
+              restartPolicy: Always
               securityContext:
                 runAsNonRoot: true
                 allowPrivilegeEscalation: false
@@ -95,3 +146,144 @@ spec:
                     configMapKeyRef:
                       name: rds-sqlserver-restore-config-map
                       key: db_port
+          containers:
+            - name: db-restore
+              # mcr.microsoft.com/mssql/server:2019-latest includes sqlcmd at:
+              #   /opt/mssql-tools18/bin/sqlcmd (newer builds)
+              #   /opt/mssql-tools/bin/sqlcmd  (older builds)
+              # The startup script probes for both. We override the container
+              # entrypoint so SQL Server itself is never started.
+              image: mcr.microsoft.com/mssql/server:2019-latest
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                runAsUser: 10001
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              volumeMounts:
+                - name: backup-info
+                  mountPath: /backup-info
+              env:
+                - name: DB_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: rds-sqlserver-restore-config-map
+                      key: db_port
+                - name: DATABASE_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-sqlserver-instance-output
+                      key: database_name
+                - name: DATABASE_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-sqlserver-instance-output
+                      key: database_username
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-sqlserver-instance-output
+                      key: database_password
+                - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: sqlserver-backup-s3-bucket-output
+                      key: bucket_name
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -euo pipefail
+
+                  # Locate sqlcmd binary — path differs between mssql-tools and mssql-tools18 images
+                  SQLCMD=/opt/mssql-tools18/bin/sqlcmd
+                  if [ ! -f "${SQLCMD}" ]; then
+                    SQLCMD=/opt/mssql-tools/bin/sqlcmd
+                  fi
+
+                  BACKUP_KEY=$(cat /backup-info/backup-key)
+                  BACKUP_S3_ARN="arn:aws:s3:::${SQLSERVER_BACKUP_S3_BUCKET_NAME}/${BACKUP_KEY}"
+
+                  echo "Starting restore at $(date)"
+                  echo "Source : ${BACKUP_S3_ARN}"
+                  echo "Target : ${DATABASE_NAME}"
+
+                  # Wait for the port-forward sidecar to be ready
+                  echo "Waiting for SQL Server to be reachable via port-forward..."
+                  RETRIES=0
+                  until "${SQLCMD}" \
+                      -S "localhost,${DB_PORT}" \
+                      -U "${DATABASE_USERNAME}" \
+                      -P "${DATABASE_PASSWORD}" \
+                      -Q "SELECT 1" > /dev/null 2>&1; do
+                    RETRIES=$((RETRIES + 1))
+                    if [ "${RETRIES}" -ge 30 ]; then
+                      echo "Timed out waiting for SQL Server after $((RETRIES * 10))s"
+                      exit 1
+                    fi
+                    echo "  attempt ${RETRIES}/30 — retrying in 10s..."
+                    sleep 10
+                  done
+                  echo "SQL Server reachable."
+
+                  # Kill any existing connections so the overwrite restore can proceed
+                  echo "Setting database to SINGLE_USER to clear existing connections..."
+                  "${SQLCMD}" \
+                    -S "localhost,${DB_PORT}" \
+                    -U "${DATABASE_USERNAME}" \
+                    -P "${DATABASE_PASSWORD}" \
+                    -b \
+                    -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
+                          ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;"
+
+                  # Submit the native RDS restore task.
+                  # RDS pulls the .bak directly from S3 using the option-group IAM role —
+                  # no file transfer into the pod is required.
+                  echo "Submitting rds_restore_database task..."
+                  "${SQLCMD}" \
+                    -S "localhost,${DB_PORT}" \
+                    -U "${DATABASE_USERNAME}" \
+                    -P "${DATABASE_PASSWORD}" \
+                    -b \
+                    -Q "EXEC msdb.dbo.rds_restore_database
+                          @restore_db_name    = '${DATABASE_NAME}',
+                          @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
+                          @with_norecovery    = 0,
+                          @type               = 'FULL';"
+
+                  echo "Restore task submitted. Polling rds_task_status for completion..."
+
+                  # Poll every 30 s; time out after 60 minutes (120 * 30s)
+                  POLL_COUNT=0
+                  while true; do
+                    STATUS_OUTPUT=$("${SQLCMD}" \
+                      -S "localhost,${DB_PORT}" \
+                      -U "${DATABASE_USERNAME}" \
+                      -P "${DATABASE_PASSWORD}" \
+                      -h -1 -W \
+                      -Q "EXEC msdb.dbo.rds_task_status @db_name = '${DATABASE_NAME}';" 2>&1)
+
+                    echo "$(date) | ${STATUS_OUTPUT}"
+
+                    if echo "${STATUS_OUTPUT}" | grep -qi "SUCCESS"; then
+                      echo "Restore completed successfully at $(date)"
+                      exit 0
+                    fi
+
+                    if echo "${STATUS_OUTPUT}" | grep -qi "ERROR"; then
+                      echo "Restore task reported an error at $(date)"
+                      exit 1
+                    fi
+
+                    POLL_COUNT=$((POLL_COUNT + 1))
+                    if [ "${POLL_COUNT}" -ge 120 ]; then
+                      echo "Restore timed out after 60 minutes"
+                      exit 1
+                    fi
+
+                    sleep 30
+                  done

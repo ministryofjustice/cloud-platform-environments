@@ -4,7 +4,7 @@ module "hmpps-offender-categorisation-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-offender-categorisation-api"
   application                   = "hmpps-offender-categorisation-api"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence"
   environment                   = var.environment_name
   is_production                 = var.is_production
   protected_branches_only       = true

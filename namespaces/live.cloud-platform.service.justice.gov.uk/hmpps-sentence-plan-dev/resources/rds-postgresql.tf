@@ -54,11 +54,7 @@ module "rds" {
   # This will rotate the db password. Update the value to the current date.
   db_password_rotated_date = "11-04-2023"
 
-  deletion_protection = false
-
   enable_irsa = true
-
-  snapshot_identifier = "rds:sentence-planning-dev-2026-03-22-22-17"
 }
 
 

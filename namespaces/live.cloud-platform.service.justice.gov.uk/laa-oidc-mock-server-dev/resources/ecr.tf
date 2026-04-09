@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim"]
+  github_repositories = ["bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim", "laa-oidc-mock-server"]
   github_actions_prefix = "laa_oidc_mock_server"
 
   # Lifecycle policies

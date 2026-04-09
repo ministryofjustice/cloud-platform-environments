@@ -2,6 +2,13 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
+
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
+
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
@@ -26,4 +33,45 @@ module "manage-people-on-probation-ui-service-account" {
     { elasticache = module.elasticache.irsa_policy_arn },
     local.sqs_policies,
   )
+}
+
+module "manage-people-on-probation-api-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "manage-people-on-probation-api"
+  role_policy_arns = merge(
+    { elasticache = module.elasticache.irsa_policy_arn },
+    local.sns_policies
+  )
+}
+
+module "hmpps-probation-supervision-contacts-ui-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "hmpps-probation-supervision-contacts-ui"
+  role_policy_arns = merge(
+    { elasticache = module.elasticache.irsa_policy_arn },
+    local.sqs_policies
+  )
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }

@@ -16,7 +16,6 @@ module "hmpps_assess_risks_and_needs_integrations_dev_rds" {
 
   allow_major_version_upgrade = "true"
   prepare_for_major_upgrade = false
-  deletion_protection = false
 
   enable_irsa = true
 

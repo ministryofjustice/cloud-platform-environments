@@ -38,3 +38,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - probation-supervision-appointments-api-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-probation-supervision-contacts-ui-cert
+  namespace: hmpps-manage-people-on-probation-preprod
+spec:
+  secretName: hmpps-probation-supervision-contacts-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - probation-supervision-contacts-ui-preprod.hmpps.service.justice.gov.uk

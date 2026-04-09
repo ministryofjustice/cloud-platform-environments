@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Check edited files for terraform modules
-        uses: ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest@main
+        uses: ministryofjustice/cloud-platform-environments/cmd/check-terraform-modules-are-latest@db98433dc286a8751bce8ab68d2a49ae1fb505dc #main
         env:
           REPO_NAME: cloud-platform-environments
           API_URL: ${{ vars.TERRAFORM_MODULE_VERSIONS_API_URL }}

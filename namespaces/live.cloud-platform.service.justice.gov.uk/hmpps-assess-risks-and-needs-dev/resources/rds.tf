@@ -23,8 +23,6 @@ module "hmpps_assess_risks_and_needs_dev_rds" {
   }
 
   enable_irsa = true
-
-  snapshot_identifier = "rds:cloud-platform-26b976b3c8c87f2f-2026-03-23-04-40"
 }
 
 resource "kubernetes_secret" "hmpps_assess_risks_and_needs_dev_rds_secret" {

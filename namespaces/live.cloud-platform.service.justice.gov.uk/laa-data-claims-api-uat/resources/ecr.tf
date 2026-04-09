@@ -17,6 +17,53 @@ module "ecr" {
   github_repositories = ["laa-data-claims-api", "bulk-submission-and-fee-scheme-tests-"]
   github_actions_prefix = "laa_data_claims_api"
 
+  # Lifecycle policy to manage ECR image retention
+  # Keeps version-tagged releases indefinitely, cleans up preview/commit-SHA images
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Expire untagged images older than 7 days",
+        "selection": {
+          "tagStatus": "untagged",
+          "countType": "sinceImagePushed",
+          "countUnit": "days",
+          "countNumber": 7
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 2,
+        "description": "Keep last 50 version-tagged release images (data-claims-api-*)",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["data-claims-api-"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 3,
+        "description": "Keep last 50 images overall",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

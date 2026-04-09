@@ -44,7 +44,9 @@ resource "aws_sns_topic_subscription" "application-events-queue-subscription" {
 
   filter_policy = jsonencode({
     event_name = [
-      "apply.submission"
+      "apply.submission",
+      "Deleting::Archived",
+      "Deleting::SoftDeleted"
     ]
   })
 }

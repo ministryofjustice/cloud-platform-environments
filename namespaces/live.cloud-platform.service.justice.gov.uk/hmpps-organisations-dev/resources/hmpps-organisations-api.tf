@@ -4,10 +4,11 @@ module "hmpps_template_kotlin" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-organisations-api"
   application                   = "hmpps-organisations-api"
-  github_team                   = "hmpps-move-and-improve"
+  github_team                   = "hmpps-prison-visits-booking-devs"
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
+  reviewer_teams                = ["hmpps-prison-visits-booking-devs"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
