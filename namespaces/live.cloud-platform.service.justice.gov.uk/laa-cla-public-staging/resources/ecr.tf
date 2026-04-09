@@ -9,6 +9,7 @@ module "ecr-repo" {
   }
   # enable the oidc implementation for CircleCI
   oidc_providers = ["circleci"]
+  deletion_protection = false
 
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "cla_frontend", "fala"]
