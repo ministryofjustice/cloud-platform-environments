@@ -7,7 +7,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
     ssm = aws_iam_policy.ssm_access.arn
-    cross_account_access = aws_iam_policy.cross_account_access.arn
+    # cross_account_access = aws_iam_policy.cross_account_access.arn
   }
 
   # Tags
