@@ -44,7 +44,7 @@ resource "kubernetes_secret" "sqlserver" {
   data = {
     rds_instance_endpoint = module.sqlserver.rds_instance_endpoint
     database_identifier   = module.sqlserver.db_identifier
-    database_name         = module.sqlserver.database_name
+    database_name         = var.db_name
     database_password     = module.sqlserver.database_password
     database_username     = module.sqlserver.database_username
     rds_instance_address  = module.sqlserver.rds_instance_address
