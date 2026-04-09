@@ -109,8 +109,7 @@ provider "postgresql" {
 # Read-only login user
 resource "postgresql_role" "app_readonly" {
   name                = local.db_secret.username
-  password_wo         = local.db_secret.password
-  password_wo_version = 1 # For rotation
+  password            = local.db_secret.password
   login               = true
   superuser           = false
   create_database     = false
