@@ -25,7 +25,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               component: ingress-controllers
-              component: ingress-controllers
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
