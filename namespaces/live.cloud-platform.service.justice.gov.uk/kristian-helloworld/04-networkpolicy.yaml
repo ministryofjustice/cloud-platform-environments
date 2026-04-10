@@ -1,3 +1,4 @@
+# Deny ingress to all pods, allow ingress from pods within the namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -11,13 +12,17 @@ spec:
   - from:
     - podSelector: {}
 ---
+# Allow ingress to the connectivity app UI only, only on port 8080 and only from 
+# the ingress controller pods in the ingress-controllers namespace
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
   namespace: kristian-helloworld
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: network-connectivity-test-ui
   policyTypes:
   - Ingress
   ingress:
@@ -25,7 +30,15 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-nginx
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 8080
 ---
+# Allow DNS egress to the cluster DNS server by IP range
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
@@ -52,6 +65,8 @@ spec:
   types:
   - Egress
 ---
+# Adds a secondary DNS allow rule using cluster labels and selectors
+# Adding some resilience should IP range or namespace name change
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
@@ -78,6 +93,7 @@ spec:
   types:
   - Egress
 ---
+# Allow any pod in the namespace to route egress traffic via the Envoy HTTPS proxy deployment
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
@@ -96,6 +112,7 @@ spec:
   types:
   - Egress
 ---
+# Automatically managed allowlist that allows egress to Azure Monitor to bypass the HTTPS proxy, based on the published Azure Monitor IP ranges for North Europe
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
@@ -172,42 +189,46 @@ spec:
   types:
   - Egress
 ---
-apiVersion: projectcalico.org/v3
-kind: NetworkPolicy
-metadata:
-  name: allow-egress-cluster-services-and-rds
-  namespace: kristian-helloworld
-spec:
-  order: 48.0
-  selector: all()
-  egress:
-  - action: Allow
-    protocol: TCP
-    destination:
-      nets:
-      - 172.20.0.0/16
-  types:
-  - Egress
----
-apiVersion: projectcalico.org/v3
-kind: NetworkPolicy
-metadata:
-  name: allow-egress-hmpps-activities-management-api
-  namespace: kristian-helloworld
-spec:
-  order: 49.0
-  selector: all()
-  egress:
-  - action: Allow
-    protocol: TCP
-    destination:
-      namespaceSelector: kubernetes.io/metadata.name == "hmpps-activities-management-dev"
-      selector: app == "hmpps-activities-management-api"
-      ports:
-      - 80
-  types:
-  - Egress
----
+# Allows all traffic in-cluster, disabled as overly-permissive
+# apiVersion: projectcalico.org/v3
+# kind: NetworkPolicy
+# metadata:
+#   name: allow-egress-cluster-services-and-rds
+#   namespace: kristian-helloworld
+# spec:
+#   order: 48.0
+#   selector: all()
+#   egress:
+#   - action: Allow
+#     protocol: TCP
+#     destination:
+#       nets:
+#       - 172.20.0.0/16
+#   types:
+#   - Egress
+# ---
+# Allow egress direct service-to-service egress example
+# Disabled as we typically route traffic between UIs and APIs using public DNS so it goes via ingress controllers (would be via the proxy)
+# apiVersion: projectcalico.org/v3
+# kind: NetworkPolicy
+# metadata:
+#   name: allow-egress-hmpps-activities-management-api
+#   namespace: kristian-helloworld
+# spec:
+#   order: 49.0
+#   selector: all()
+#   egress:
+#   - action: Allow
+#     protocol: TCP
+#     destination:
+#       namespaceSelector: kubernetes.io/metadata.name == "hmpps-activities-management-dev"
+#       selector: app == "hmpps-activities-management-api"
+#       ports:
+#       - 80
+#   types:
+#   - Egress
+# ---
+# Allow the Envoy HTTPS proxy to communicate with the outside world
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
@@ -227,6 +248,7 @@ spec:
   types:
   - Egress
 ---
+# Deny all other egress traffic that isnt specifically permitted by the rules above
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
