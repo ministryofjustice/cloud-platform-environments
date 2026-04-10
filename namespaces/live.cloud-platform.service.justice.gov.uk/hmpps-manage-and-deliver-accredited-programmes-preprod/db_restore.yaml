@@ -45,7 +45,7 @@ spec:
                       name: rds-sqlserver-restore-config-map
                       key: create_snapshot
               command:
-                - /bin/sh
+                - /bin/bash
                 - -c
                 - |
                   set -e
@@ -94,7 +94,7 @@ spec:
                       name: sqlserver-backup-s3-bucket-output
                       key: bucket_name
               command:
-                - /bin/sh
+                - /bin/bash
                 - -c
                 - |
                   set -euo pipefail
@@ -194,7 +194,7 @@ spec:
                       name: sqlserver-backup-s3-bucket-output
                       key: bucket_name
               command:
-                - /bin/sh
+                - /bin/bash
                 - -c
                 - |
                   set -euo pipefail
