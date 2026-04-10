@@ -7,7 +7,7 @@ env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
   GITHUB_OAUTH_TOKEN: ${{ secrets.DOCUMENT_REVIEW_GITHUB }}
   PR_NUMBER: ${{ github.event.number }}
-  GITHUB_REPOSITORY: cloud-platform-environments
+  GITHUB_REPOSITORY: ${{ github.repository }}
   GITHUB_APP_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
   GITHUB_APP_INSTALLATION_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
   GITHUB_APP_PRIVATE_KEY: ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
@@ -30,4 +30,4 @@ jobs:
           git diff origin/main HEAD > changes
       - name: Run iam/role policy changes check
         id: review_pr
-        uses: ministryofjustice/cloud-platform-iam-policy-github-action@be4e89b261989978665c1d0e5603e0d61be000df
+        uses: ministryofjustice/cloud-platform-iam-policy-github-action@b4b8bd1cc4a74a28ee3b2b835f0c8edbe5fd0ada # v2.0.1
