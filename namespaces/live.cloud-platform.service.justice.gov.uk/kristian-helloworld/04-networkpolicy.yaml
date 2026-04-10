@@ -13,7 +13,7 @@ spec:
     - podSelector: {}
 ---
 # Allow ingress to the connectivity app UI only, only on port 8080 and only from 
-# the ingress controller pods in the ingress-controllers namespace
+# the ingress-default ingress controllers
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -32,7 +32,7 @@ spec:
           component: ingress-controllers
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: ingress-nginx
+          app.kubernetes.io/name: ingress-default
           app.kubernetes.io/component: controller
     ports:
     - protocol: TCP
