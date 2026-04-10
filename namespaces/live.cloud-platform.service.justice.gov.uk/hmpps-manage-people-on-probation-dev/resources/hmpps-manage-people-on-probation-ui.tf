@@ -28,7 +28,7 @@ module "elasticache" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  node_type            = "cache.t4g.small"
+  node_type            = "cache.t4g.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 
