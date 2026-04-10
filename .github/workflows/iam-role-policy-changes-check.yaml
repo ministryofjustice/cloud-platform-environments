@@ -7,7 +7,7 @@ env:
   PR_OWNER: ${{ github.event.pull_request.user.login }}
   GITHUB_OAUTH_TOKEN: ${{ secrets.DOCUMENT_REVIEW_GITHUB }}
   PR_NUMBER: ${{ github.event.number }}
-  GITHUB_REPOSITORY: ${{ github.event.repository.name }}
+  GITHUB_REPOSITORY: cloud-platform-environments
   GITHUB_APP_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_APP_ID }}
   GITHUB_APP_INSTALLATION_ID: ${{ secrets.CLOUD_PLATFORM_ACTIONS_INSTALL_ID }}
   GITHUB_APP_PRIVATE_KEY: ${{ secrets.CLOUD_PLATFORM_ACTIONS_PRIVATE_KEY }}
