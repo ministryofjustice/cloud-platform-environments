@@ -90,3 +90,14 @@ spec:
       for: 0m
       labels:
         severity: hale-platform-alerts
+    - alert: TrafficSpike
+      annotations:
+        message: High levels of traffic - around 2000 request per minute (30rps).
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now&var-namespace=All&var-ingress=hale-platform-ingress
+      expr: |-
+        sum(rate(nginx_ingress_controller_requests{exported_namespace="hale-platform-prod"}[5m])) by (ingress)
+        > 30
+      for: 3m
+      labels:
+        severity: hale-platform-alerts
