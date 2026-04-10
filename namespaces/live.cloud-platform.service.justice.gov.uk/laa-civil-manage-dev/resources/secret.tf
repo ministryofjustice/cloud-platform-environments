@@ -33,5 +33,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-dev"
     },
+
+    "e2e-github-token" = {
+      description             = "GitHub token for E2E tests in dev environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "e2e-github-token"
+    }
   }
 }
