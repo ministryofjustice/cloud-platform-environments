@@ -1,5 +1,7 @@
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-manage-people-on-probation-ui"
   application = "hmpps-manage-people-on-probation-ui"
   github_team = "hmpps-manage-people-on-probation"
@@ -26,7 +28,7 @@ module "elasticache" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  node_type            = "cache.t4g.small"
+  node_type            = "cache.t4g.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 

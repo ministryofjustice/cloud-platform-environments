@@ -10,6 +10,7 @@ module "irsa" {
     s3        = module.s3_bucket.irsa_policy_arn
     migration = aws_iam_policy.migration_policy.arn
     athena    = aws_iam_policy.athena_allow_irsa.arn
+    rds       = module.rds_alfresco.irsa_policy_arn
   }
 
   # Tags
@@ -51,7 +52,7 @@ data "aws_iam_policy_document" "athena_irsa" {
       module.s3_inventory_reports.bucket_arn,
       "${module.s3_inventory_reports.bucket_arn}/*",
 
-      module.s3_bucket.bucket_arn,                    # (optional) allow reading content-bucket metrics if needed
+      module.s3_bucket.bucket_arn, # (optional) allow reading content-bucket metrics if needed
       "${module.s3_bucket.bucket_arn}/*"
     ]
   }
@@ -66,27 +67,27 @@ resource "aws_iam_policy" "athena_allow_irsa" {
 
 # Enable prod SA access to preprod bucket
 resource "aws_ssm_parameter" "s3_bucket_name" {
-  type        = "String"
+  type = "String"
   # this will be namespace-two
-  name        = "/${var.namespace}/s3-bucket-name"
+  name = "/${var.namespace}/s3-bucket-name"
   # specify the module of an existing resource here
   value       = module.s3_bucket.bucket_name
   description = "Name of Bucket to be accessed from prod"
   tags = {
-      business-unit          = var.business_unit
-      application            = var.application
-      is-production          = var.is_production
-      owner                  = var.team_name
-      environment-name       = var.environment_name
-      infrastructure-support = var.infrastructure_support
-      namespace              = var.namespace
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
 }
 
 resource "aws_ssm_parameter" "s3_bucket_arn" {
-  type        = "String"
+  type = "String"
   # this will be namespace-two
-  name        = "/${var.namespace}/s3-bucket-arn"
+  name = "/${var.namespace}/s3-bucket-arn"
   # specify the module of an existing resource here
   value       = module.s3_bucket.bucket_arn
   description = "ARN of Bucket to be accessed from prod"

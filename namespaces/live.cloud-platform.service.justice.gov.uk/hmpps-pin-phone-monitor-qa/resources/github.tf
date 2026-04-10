@@ -1,8 +1,10 @@
 module "hmpps-prisoner-communication-monitoring" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prisoner-communication-monitoring"
   application                   = "hmpps-prisoner-communication-monitoring"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -14,10 +16,12 @@ module "hmpps-prisoner-communication-monitoring" {
 }
 
 module "hmpps-prisoner-communication-monitoring-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prisoner-communication-monitoring-api"
   application                   = "hmpps-prisoner-communication-monitoring-api"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment-name
   is_production                 = var.is_production
   protected_branches_only       = true

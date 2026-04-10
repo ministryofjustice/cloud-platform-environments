@@ -1,5 +1,7 @@
 module "hmpps_arns_assessment_platform_ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-arns-assessment-platform-ui"
   application                   = "hmpps-arns-assessment-platform-ui"
   github_team                   = "hmpps-assessments-live"
@@ -10,6 +12,7 @@ module "hmpps_arns_assessment_platform_ui" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = ["hmpps-assessments-live"]
 }
 
 # Note, redis is a requirement for hmpps-template-typescript application.

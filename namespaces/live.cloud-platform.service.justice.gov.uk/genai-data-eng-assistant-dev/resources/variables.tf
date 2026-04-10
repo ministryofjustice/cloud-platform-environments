@@ -11,7 +11,8 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "What is the name of your application/service?genai-data-eng-assistant"
+  default     = "genai-data-eng-assistant"
+
 }
 
 variable "namespace" {

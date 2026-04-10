@@ -14,7 +14,12 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
   service_account_name   = "hmpps-sentence-plan"
-  role_policy_arns       = local.sqs_policies
+  role_policy_arns       = merge(
+    {
+      rds = module.rds.irsa_policy_arn
+    },
+    local.sqs_policies
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application

@@ -33,6 +33,8 @@ module "rds_alfresco" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
 
 resource "kubernetes_secret" "rds" {

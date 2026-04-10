@@ -25,3 +25,217 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: kristian-helloworld
+spec:
+  order: 43.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: UDP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-dns-coredns-kubedns
+  namespace: kristian-helloworld
+spec:
+  order: 45
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: UDP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+      selector: k8s-app in {"kube-dns", "coredns"}
+      ports:
+      - 53
+  - action: Allow
+    protocol: TCP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+      selector: k8s-app in {"kube-dns", "coredns"}
+      ports:
+      - 53
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-envoy-https-proxy
+  namespace: kristian-helloworld
+spec:
+  order: 46.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      selector: app == "envoy-https-proxy"
+      ports:
+      - 3128
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-azure-monitor-north-europe
+  namespace: kristian-helloworld
+  annotations:
+    cloud-platform-tutorial-kristian.justice.gov.uk/managed-by: sync-egress-allowlists
+spec:
+  order: 47.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 104.41.224.134/32
+      - 13.69.229.240/29
+      - 13.69.229.64/29
+      - 13.69.233.0/30
+      - 13.69.233.96/27
+      - 13.69.239.108/31
+      - 13.69.239.96/29
+      - 13.74.107.88/30
+      - 13.74.108.128/29
+      - 13.74.111.152/29
+      - 13.74.201.88/30
+      - 13.74.203.16/28
+      - 13.74.203.56/29
+      - 137.116.226.81/32
+      - 20.166.40.64/28
+      - 20.38.80.68/31
+      - 20.50.65.80/28
+      - 20.50.68.112/29
+      - 20.50.68.120/30
+      - 20.50.68.124/31
+      - 20.50.68.128/29
+      - 20.50.74.146/31
+      - 20.50.74.148/31
+      - 20.50.74.176/28
+      - 20.50.76.152/29
+      - 20.50.80.200/29
+      - 20.50.80.228/30
+      - 20.50.83.136/29
+      - 20.50.83.96/28
+      - 23.102.44.211/32
+      - 23.102.45.216/32
+      - 4.207.185.0/24
+      - 4.207.252.128/27
+      - 4.207.252.192/26
+      - 4.209.249.192/26
+      - 4.231.242.128/26
+      - 40.112.74.241/32
+      - 40.115.103.168/32
+      - 40.115.104.31/32
+      - 40.127.144.141/32
+      - 40.69.194.158/32
+      - 40.69.81.159/32
+      - 40.87.138.220/32
+      - 40.87.140.215/32
+      - 52.138.222.110/32
+      - 52.138.226.88/29
+      - 52.138.227.128/29
+      - 52.146.133.32/27
+      - 52.155.162.238/32
+      - 52.164.120.183/32
+      - 52.164.125.22/32
+      - 52.164.225.5/32
+      - 52.169.15.254/32
+      - 52.169.30.110/32
+      - 52.169.4.236/32
+      - 52.169.64.244/32
+      ports:
+      - 443
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-cluster-services-and-rds
+  namespace: kristian-helloworld
+spec:
+  order: 48.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 172.20.0.0/16
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-hmpps-activities-management-api
+  namespace: kristian-helloworld
+spec:
+  order: 49.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "hmpps-activities-management-dev"
+      selector: app == "hmpps-activities-management-api"
+      ports:
+      - 80
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-envoy-https-proxy-upstream-egress
+  namespace: kristian-helloworld
+spec:
+  order: 50.0
+  selector: app == "envoy-https-proxy"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 0.0.0.0/0
+      ports:
+      - 443
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: deny-egress-order
+  namespace: kristian-helloworld
+spec:
+  order: 51.0
+  selector: all()
+  egress:
+  - action: Deny
+  types:
+  - Egress

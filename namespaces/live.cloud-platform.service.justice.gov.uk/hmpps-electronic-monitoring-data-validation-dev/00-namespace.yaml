@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Electronic Monitoring Data Validation"
     cloud-platform.justice.gov.uk/owner: "HMPPS Electronic Monitoring Data Store: EMDataEngineering@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/electronic-monitoring-data-dashboard.git"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring-data-store"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring-data-dashboard"

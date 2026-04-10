@@ -39,12 +39,13 @@ provider "kubernetes" {}
 locals {
   default_tags = {
     "business-unit"    = var.business_unit
+    "service-area"     = var.service_area
     "application"      = var.application
     "is-production"    = var.is_production
     "environment-name" = var.environment
     "owner"            = var.team_name
     "namespace"        = var.namespace
-    "source-code"      = "https://github.com/ministryofjustice/laa-claim-for-payment-frontend"
+    "source-code"      = "https://github.com/ministryofjustice/laa-claim-for-payment"
     "slack-channel"    = var.slack_channel
     "GithubTeam"       = var.team_name
   }

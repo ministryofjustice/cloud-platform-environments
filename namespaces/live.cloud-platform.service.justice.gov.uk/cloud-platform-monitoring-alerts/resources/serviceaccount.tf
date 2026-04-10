@@ -6,4 +6,5 @@ module "serviceaccount" {
   
   github_repositories = ["cloud-platform-monitoring-alerts"]
 
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

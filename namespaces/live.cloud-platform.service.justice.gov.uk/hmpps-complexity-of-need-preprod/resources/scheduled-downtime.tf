@@ -8,7 +8,7 @@ module "scheduled_downtime_service_account" {
   role_name           = "scheduled-downtime-serviceaccount-role"
   rolebinding_name    = "scheduled-downtime-serviceaccount-rolebinding"
 
-  serviceaccount_token_rotated_date = "20-05-2025"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {

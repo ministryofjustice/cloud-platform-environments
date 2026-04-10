@@ -11,4 +11,5 @@ module "serviceaccount" {
   # list of github environments, to create the service account secrets as environment secrets
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments = ["staging"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

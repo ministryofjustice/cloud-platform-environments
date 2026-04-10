@@ -168,6 +168,16 @@ resource "aws_api_gateway_usage_plan" "default" {
     stage  = aws_api_gateway_stage.main.stage_name
   }
 
+  throttle_settings {
+    burst_limit = 20
+    rate_limit  = 10
+  }
+
+  quota_settings {
+    limit  = 3000000
+    period = "MONTH"
+  }
+
   tags = local.default_tags
 }
 

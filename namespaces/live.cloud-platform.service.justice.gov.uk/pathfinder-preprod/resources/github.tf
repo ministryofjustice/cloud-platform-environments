@@ -1,8 +1,10 @@
 module "pathfinder" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "pathfinder"
   application                   = "pathfinder"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment_name
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -15,10 +17,12 @@ module "pathfinder" {
 }
 
 module "pathfinder-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "pathfinder-api"
   application                   = "pathfinder-api"
-  github_team                   = "secure-estate-digital-team"
+  github_team                   = "hmpps-security-intelligence-live"
   environment                   = var.environment_name
   is_production                 = var.is_production
   protected_branches_only       = true

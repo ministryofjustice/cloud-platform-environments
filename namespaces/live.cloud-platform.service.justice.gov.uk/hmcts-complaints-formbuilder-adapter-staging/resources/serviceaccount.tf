@@ -6,7 +6,7 @@ module "serviceaccount" {
 
   serviceaccount_name = "circleci-hmcts-complaints-formbuilder-adapter"
 
-  serviceaccount_token_rotated_date = "18-12-2023"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {

@@ -7,4 +7,5 @@ module "circleci_service_account" {
   serviceaccount_name  = "circleci"
   role_name            = "circleci"
   rolebinding_name     = "circleci"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -9,7 +9,10 @@ subjects:
     name: "github:dps-soct-tech"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:secure-estate-digital-team"
+    name: "github:hmpps-security-intelligence"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: github:james-jdgtl
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

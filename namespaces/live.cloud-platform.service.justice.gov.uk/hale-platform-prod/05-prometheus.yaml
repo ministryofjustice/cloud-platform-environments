@@ -65,3 +65,39 @@ spec:
         severity: hale-platform-alerts
       annotations:
         message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
+    - alert: High404Rate
+      annotations:
+        message: More than 50% of responses were 404 errors.
+        runbook_url: "Need to add one"
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/b89fb7c?orgId=1&refresh=1m&var-controller_class=$__all&var-pod=$__all&var-datasource=default&from=now-1h&to=now&var-namespace=$__all&var-ingress=hale-platform-ingress&timezone=browser
+      expr: |-
+        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="hale-platform-prod",status="404"}[1m]))
+        /
+        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="hale-platform-prod"}[1m]))
+        > 0.50
+      for: 3m
+      labels:
+        severity: hale-platform-alerts
+    - alert: PodLimitReached
+      annotations:
+        message: The platform has reached the pod limit.
+        runbook_url: http://test.com
+      expr: |-
+        kube_horizontalpodautoscaler_status_current_replicas{namespace="hale-platform-prod",horizontalpodautoscaler="hale-platform-hpa"}
+        == on (namespace, horizontalpodautoscaler)
+        kube_horizontalpodautoscaler_spec_max_replicas{namespace="hale-platform-prod",horizontalpodautoscaler="hale-platform-hpa"}
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+    - alert: TrafficSpike
+      annotations:
+        message: High levels of traffic - around 2000 request per minute (30rps).
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now&var-namespace=All&var-ingress=hale-platform-ingress
+      expr: |-
+        sum(rate(nginx_ingress_controller_requests{exported_namespace="hale-platform-prod"}[5m])) by (ingress)
+        > 30
+      for: 3m
+      labels:
+        severity: hale-platform-alerts

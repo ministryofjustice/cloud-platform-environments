@@ -15,5 +15,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-staging"
     },
+    "pda-authorization-token" = {
+      description             = "API Key for PDA Staging/PreProd environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "pda-authorization-token-staging"
+    },
+    "base_url_map" = {
+      description             = "API Base URL Map for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "base-url-map-staging"
+    },
   }
 }

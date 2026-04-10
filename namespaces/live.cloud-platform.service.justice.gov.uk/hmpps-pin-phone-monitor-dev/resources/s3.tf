@@ -183,6 +183,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
 resource "aws_iam_role" "translate_s3_data_role" {
   name = "pcms-dev-translate-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -233,6 +234,7 @@ resource "aws_iam_role_policy" "translate_s3_data_role_policy" {
 resource "aws_iam_role" "transcribe_s3_data_role" {
   name = "pcms-dev-transcribe-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",

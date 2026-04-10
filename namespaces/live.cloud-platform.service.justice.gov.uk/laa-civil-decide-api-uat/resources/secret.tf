@@ -15,5 +15,15 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-uat"
     },
+    "pda-authorization-token" = {
+      description             = "API Key for PDA UAT environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "pda-authorization-token-uat"
+    },
+    "base_url_map" = {
+      description             = "API Base URL Map for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "base-url-map-uat"
+    },
   }
 }
