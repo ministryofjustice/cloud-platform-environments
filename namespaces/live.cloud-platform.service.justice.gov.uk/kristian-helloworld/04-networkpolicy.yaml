@@ -32,7 +32,7 @@ spec:
           component: ingress-controllers
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: ingress-default-non-prod
+          app.kubernetes.io/name: ingress-default
           app.kubernetes.io/component: controller
     ports:
     - protocol: TCP
