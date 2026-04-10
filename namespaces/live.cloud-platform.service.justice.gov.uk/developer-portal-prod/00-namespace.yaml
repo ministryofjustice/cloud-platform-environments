@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "developer-portal-prod"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Platforms"
+    cloud-platform.justice.gov.uk/slack-channel: "developer-experience-team"
+    cloud-platform.justice.gov.uk/application: "developer-portal"
+    cloud-platform.justice.gov.uk/owner: "OCTO Developer Experience Team: DeveloperExperienceTeam@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/ministry-of-justice-developer-portal"
+    cloud-platform.justice.gov.uk/team-name: "octo-developer-experience"
+    cloud-platform.justice.gov.uk/review-after: ""
