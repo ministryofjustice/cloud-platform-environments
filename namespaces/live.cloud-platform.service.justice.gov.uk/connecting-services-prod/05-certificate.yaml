@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pfl-connecting-services-cert
+  namespace: pfl-connecting-services-prod
+spec:
+  secretName: pfl-connecting-services-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - find-child-arrangement-option.service.gov.uk
