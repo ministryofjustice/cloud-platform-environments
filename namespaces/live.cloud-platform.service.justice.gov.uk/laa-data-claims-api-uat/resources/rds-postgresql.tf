@@ -38,10 +38,11 @@ module "rds" {
   ]
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  prepare_for_major_upgrade = true
+  db_engine                 = "postgres"
+  db_engine_version         = "18.1"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family                = "postgres18"
+  db_instance_class         = "db.t4g.micro"
 
   # Tags
   application            = var.application
@@ -77,10 +78,10 @@ module "read_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
+  db_engine                 = "postgres"
+  db_engine_version         = "18.1"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family                = "postgres18"
+  db_instance_class         = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
@@ -88,7 +89,7 @@ module "read_replica" {
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
+  db_backup_retention_period = 0I think I'd need other data stewardship developers input on this one as I'm not sure if this is a default property we should be setting? It's seperated from the normal default Spring Boot profile so I don't know if this is a default profile to run whenever we run bootRun either
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
