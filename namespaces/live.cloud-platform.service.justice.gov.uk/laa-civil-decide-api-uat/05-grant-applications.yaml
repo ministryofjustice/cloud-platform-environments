@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: grant-applications
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 100
+      template:
+        spec:
+          containers:
+          - name: laa-civil-decide-api
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cica/cica-repo-dev:push-to-gateway-image
+            command:
+            - curl --request GET \
+            - url http://laa-civil-decide-api-uat.apps.live.cloud-platform.service.justice.gov.uk/autogrant
+          restartPolicy: OnFailure
+          
