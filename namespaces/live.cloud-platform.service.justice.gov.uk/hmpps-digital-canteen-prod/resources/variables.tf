@@ -47,7 +47,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "private-launchpad-v1-tech-analysis"
+  default     = "digital-canteen-launchpad-tech-team"
 }
 
 variable "number_cache_clusters" {
