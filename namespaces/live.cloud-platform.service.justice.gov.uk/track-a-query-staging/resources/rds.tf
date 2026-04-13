@@ -6,7 +6,8 @@
 module "track_a_query_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage       = 30
-  storage_type               = "io2"
+  storage_type               = "io1"
+  db_iops                    = 3000
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
