@@ -7,6 +7,7 @@ module "hmpps-digital-canteen-api" {
   github_team = "hmpps-digital-canteen-live"
   environment = var.environment
   selected_branch_patterns      = ["main"]
+  reviewer_teams                = [var.github_deployment_team]
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-kotlin"

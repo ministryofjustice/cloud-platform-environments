@@ -68,3 +68,13 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "hmpps-digital-canteen-live"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
+  default     = "hmpps-digital-canteen-live"
+}
