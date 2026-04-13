@@ -89,7 +89,7 @@ module "read_replica" {
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
-  db_backup_retention_period = 0I think I'd need other data stewardship developers input on this one as I'm not sure if this is a default property we should be setting? It's seperated from the normal default Spring Boot profile so I don't know if this is a default profile to run whenever we run bootRun either
+  db_backup_retention_period = 0
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
