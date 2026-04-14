@@ -1,4 +1,4 @@
----
+# Deny ingress to all pods, allow ingress from pods within the namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -7,22 +7,166 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-      - podSelector: {}
+  - from:
+    - podSelector: {}
 ---
+# Allow ingress to the prisoner pay UI, API and Orchestrator, only on port 8080 and only from 
+# the ingress-default ingress controllers
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
   namespace: hmpps-prisoner-pay-dev
 spec:
-  podSelector: {}
+  podSelector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - hmpps-prisoner-pay-ui
+      - hmpps-prisoner-pay-api
+      - hmpps-prisoner-pay-orchestrator-api
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            component: ingress-controllers
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-default
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 8080
+---
+# Allow DNS egress to the cluster DNS server by IP range
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 20.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: UDP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 10.100.0.10/32
+      ports:
+      - 53
+  types:
+  - Egress
+---
+# Adds a secondary DNS allow rule using cluster labels and selectors
+# Adding some resilience should IP range or namespace name change
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-dns-coredns-kubedns
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 25.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: UDP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+      selector: k8s-app in {"kube-dns", "coredns"}
+      ports:
+      - 53
+  - action: Allow
+    protocol: TCP
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+      selector: k8s-app in {"kube-dns", "coredns"}
+      ports:
+      - 53
+  types:
+  - Egress
+---
+# Allow any pod in the namespace to route egress traffic via the Envoy HTTPS proxy deployment
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-envoy-https-proxy
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 40.0
+  selector: all()
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      selector: app == "envoy-https-proxy"
+      ports:
+      - 3128
+  types:
+  - Egress
+---
+# Allow the Envoy HTTPS proxy to communicate with the outside world
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-envoy-https-proxy-upstream-egress
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 50.0
+  selector: app == "envoy-https-proxy"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 0.0.0.0/0
+      ports:
+      - 443
+  types:
+  - Egress
+---
+# Allows the prisoner pay API to reach in-cluster endpoints on the PostgreSQL port only
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-cluster-services-and-rds
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 60.0
+  selector: app == "hmpps-prisoner-pay-api"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 172.20.0.0/16
+      ports:
+      - 5432
+  types:
+  - Egress
+---
+# Deny all other egress traffic that isnt specifically permitted by the rules above
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: deny-egress-order
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 90.0
+  selector: all()
+  egress:
+  - action: Deny
+  types:
+  - Egress
