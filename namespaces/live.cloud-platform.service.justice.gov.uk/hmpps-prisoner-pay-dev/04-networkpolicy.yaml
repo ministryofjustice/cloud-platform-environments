@@ -137,6 +137,26 @@ spec:
   types:
   - Egress
 ---
+# Allows the prisoner pay API to reach in-cluster endpoints on the PostgreSQL port only
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-cluster-services-and-rds
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 60.0
+  selector: app == "hmpps-prisoner-pay-api"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 172.20.0.0/16
+      ports:
+      - 5432
+  types:
+  - Egress
+---
 # Deny all other egress traffic that isnt specifically permitted by the rules above
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
