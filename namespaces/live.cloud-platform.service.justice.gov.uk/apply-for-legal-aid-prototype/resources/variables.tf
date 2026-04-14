@@ -66,3 +66,9 @@ variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
   default     = "prototype"
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
+}
+
