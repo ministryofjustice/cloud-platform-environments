@@ -15,11 +15,6 @@ resource "aws_iam_role_policy" "opensearch_connector_irsa_policy" {
         Resource = [
           aws_iam_role.bedrock_role.arn
         ]
-        Condition = {
-          StringEquals = {
-            "iam:PassedToService" = "opensearchservice.amazonaws.com"
-          }
-        }
       }
     ]
   })
