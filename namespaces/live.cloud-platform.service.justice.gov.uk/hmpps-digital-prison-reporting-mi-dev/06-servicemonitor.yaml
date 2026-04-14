@@ -17,17 +17,17 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: hmpps-digital-prison-reporting-mi
+  name: hmpps-digital-prison-reporting-mi-ui
   namespace: hmpps-digital-prison-reporting-mi-dev
 spec:
   selector:
     matchLabels:
-      app: hmpps-digital-prison-reporting-mi
+      app: hmpps-digital-prison-reporting-mi-ui
   namespaceSelector:
     matchNames:
       - hmpps-digital-prison-reporting-mi-dev
   endpoints:
     - port: http
-      path: /prometheus
+      path: /metrics
       interval: 15s
 
