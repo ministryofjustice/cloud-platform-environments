@@ -10,10 +10,12 @@ module "elasticache" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version          = "7.1"
-  parameter_group_name    = "default.redis7"
-  number_cache_clusters   = "2"
-  node_type               = "cache.t4g.micro"
+  engine_version              = "7.1"
+  parameter_group_name        = "default.redis7"
+  number_cache_clusters       = "2"
+  node_type                   = "cache.t4g.micro"
+  # Specify AZs to skip eu-west-2b (which has capacity issues)
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
 }
 
 resource "kubernetes_secret" "elasticache" {
