@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "developer-portal-dev"
+  default     = "developer-portal-prod"
 }
 
 variable "service_area" {
@@ -41,19 +41,19 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "production"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "sandhya.buddharaju@justice.gov.uk"
+  default     = "DeveloperExperienceTeam@justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
