@@ -32,3 +32,17 @@ resource "github_actions_environment_secret" "github_secrets" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+# Workaround for GitHub Actions not allowing cross-environment jobs. We add the preprod credentials to the azure-prod GitHub environment, so we can replay messages from prod to preprod in the same job.
+resource "github_actions_environment_secret" "github_secrets_for_azure_environment" {
+  for_each = {
+    (var.github_actions_secret_kube_cluster)   = var.kubernetes_cluster
+    (var.github_actions_secret_kube_namespace) = var.namespace
+    (var.github_actions_secret_kube_cert)      = sensitive(lookup(data.kubernetes_secret_v1.service_account_secret.data, "ca.crt"))
+    (var.github_actions_secret_kube_token)     = sensitive(lookup(data.kubernetes_secret_v1.service_account_secret.data, "token"))
+  }
+  repository      = "hmpps-probation-integration-services"
+  environment     = "azure-prod"
+  secret_name     = each.key
+  plaintext_value = each.value
+}
