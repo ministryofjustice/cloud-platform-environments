@@ -12,5 +12,6 @@ module "shared-service-account" {
   team_name              = var.team_name
 
   service_account_name = var.application
-  role_policy_arns     = { for key, policy in aws_iam_policy.sqs_management_policy : key => policy.arn }
+  role_policy_arns     =
+    {for key, policy in aws_iam_policy.sqs_management_policy : key => policy.arn}
 }
