@@ -39,10 +39,5 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-prod"
     },
-    "allow-auto-grant" = {
-      description             = "Flag for allowing autogrant within the API for Production",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "allow-auto-grant-prod"
-    },
   }
 }
