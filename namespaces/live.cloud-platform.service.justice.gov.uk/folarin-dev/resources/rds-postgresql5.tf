@@ -45,10 +45,11 @@ module "rds" {
 }
 
 module "rds2" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=enhance-is-migration-for-cross-db-restore"
 
   snapshot_identifier = "folarin-dev-db1-3rows-20260416"
   rds_name            = "folarin-dev-db2-restored"
+  is_migration        = true
 
   # VPC configuration
   vpc_name = var.vpc_name
