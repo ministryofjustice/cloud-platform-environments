@@ -34,6 +34,8 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  deletion_protection = false
 }
 
 resource "kubernetes_secret" "rds" {
