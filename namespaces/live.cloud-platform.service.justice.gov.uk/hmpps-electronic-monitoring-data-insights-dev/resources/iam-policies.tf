@@ -26,6 +26,10 @@ data "aws_iam_policy_document" "athena_policy" {
       "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev"
     ]
   }
+
+
+
+
 }
 
 resource "aws_iam_policy" "athena_access" {
