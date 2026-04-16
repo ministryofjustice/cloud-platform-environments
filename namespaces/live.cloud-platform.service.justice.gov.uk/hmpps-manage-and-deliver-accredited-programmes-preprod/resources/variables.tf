@@ -157,6 +157,6 @@ variable "sqlserver_restore_create_snapshot" {
 
 variable "db_backup_retention_period" {
   description = "Number of days to retain automated backups"
-  type        = number
-  default     = 0
+  type        = string
+  default     = "0"
 }
