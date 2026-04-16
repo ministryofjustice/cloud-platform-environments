@@ -239,6 +239,15 @@ spec:
                     -b \
                     -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
                           ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;"
+                  
+                  echo "Dropping existing database if it exists..."
+                  "${SQLCMD}" \
+                    -S "localhost,${DB_PORT}" \
+                    -U "${DATABASE_USERNAME}" \
+                    -P "${DATABASE_PASSWORD}" \
+                    -b \
+                    -C -Q "IF DB_ID(N'${DATABASE_NAME}') IS NOT NULL
+                             DROP DATABASE [${DATABASE_NAME}];"
 
                   # Submit the native RDS restore task.
                   # RDS pulls the .bak directly from S3 using the option-group IAM role —
