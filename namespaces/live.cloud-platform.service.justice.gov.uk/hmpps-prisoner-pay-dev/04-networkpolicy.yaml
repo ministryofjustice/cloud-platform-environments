@@ -12,6 +12,60 @@ spec:
   - from:
     - podSelector: {}
 ---
+# Allow ingress to the prisoner pay UI on port 3000 from the ingress-default ingress controllers
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-ingress-controllers-ui
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: hmpps-prisoner-pay-ui
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-default
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 3000
+---
+# Allow ingress to the prisoner pay API and Orchestrator on port 8080 from the ingress-default ingress controllers
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-ingress-controllers-apis
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  podSelector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - hmpps-prisoner-pay-api
+      - hmpps-prisoner-pay-orchestrator-api
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-default
+          app.kubernetes.io/component: controller
+    ports:
+    - protocol: TCP
+      port: 8080
+---
 # Allow DNS egress to the cluster DNS server by IP range
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
@@ -126,7 +180,27 @@ spec:
   types:
   - Egress
 ---
-# Deny all other egress traffic that isnt specifically permitted by the rules above
+# Allows the prisoner pay UI to reach the ElastiCache Redis instance directly (bypasses Envoy)
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-redis
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 70.0
+  selector: app == "hmpps-prisoner-pay-ui"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 172.20.0.0/16
+      ports:
+      - 6379
+  types:
+  - Egress  
+---
+# Deny all other egress traffic that isnt specifically permitted by the rules above.
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
