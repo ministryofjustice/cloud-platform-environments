@@ -200,7 +200,7 @@ spec:
   types:
   - Egress  
 ---
-# Deny all other egress traffic that isnt specifically permitted by the rules above
+# Deny all other egress traffic that isnt specifically permitted by the rules above.
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
