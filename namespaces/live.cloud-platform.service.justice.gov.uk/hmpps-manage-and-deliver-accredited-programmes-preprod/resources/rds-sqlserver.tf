@@ -19,7 +19,7 @@ module "sqlserver" {
   team_name                  = var.team_name
   vpc_name                   = var.vpc_name
   character_set_name         = var.character_set_name
-  backup_retention_period    = 0
+  backup_retention_period    = var.db_backup_retention_period
 
   enable_irsa = true
 
