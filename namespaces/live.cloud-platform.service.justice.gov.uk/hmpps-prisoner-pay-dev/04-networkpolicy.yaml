@@ -12,37 +12,6 @@ spec:
   - from:
     - podSelector: {}
 ---
-# Allow ingress to the prisoner pay UI, API and Orchestrator, only on port 3000 and only from 
-# the ingress-default ingress controllers
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-ingress-controllers
-  namespace: hmpps-prisoner-pay-dev
-spec:
-  podSelector:
-    matchExpressions:
-    - key: app
-      operator: In
-      values:
-      - hmpps-prisoner-pay-ui
-      - hmpps-prisoner-pay-api
-      - hmpps-prisoner-pay-orchestrator-api
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: ingress-default
-          app.kubernetes.io/component: controller
-    ports:
-    - protocol: TCP
-      port: 3000
----
 # Allow DNS egress to the cluster DNS server by IP range
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
