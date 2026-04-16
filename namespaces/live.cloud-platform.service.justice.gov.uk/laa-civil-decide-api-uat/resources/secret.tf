@@ -25,5 +25,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-uat"
     },
+    "allow-auto-grant" = {
+      description             = "Flag for allowing autogrant within the API for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "allow-auto-grant-uat"
+    },
   }
 }
