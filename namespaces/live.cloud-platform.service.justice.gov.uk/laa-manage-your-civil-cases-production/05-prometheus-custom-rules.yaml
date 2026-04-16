@@ -23,11 +23,11 @@ spec:
         - alert: MCCProductionLowPodCount
           runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubepodnotready
           expr: |-
-            sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-manage-your-civil-cases-production", job="kube-state-metrics", phase=~"Pending|Unknown"}) < 2
+            sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-manage-your-civil-cases-production", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
           for: 1m
           labels:
             severity: laa-manage-your-civil-cases-production
           annotations:
-            message: PRODUCTION environment has fewer than 4 running pods
+            message: PRODUCTION environment has at least 1 pod in a non-ready state
             runbook_url: https://ministryofjustice.github.io/laa-manage-your-civil-cases/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/a2ad4e88-e130-46ee-bafa-75cf69a10e72/mcc-ingress-manage-your-civil-cases?var-namespace=laa-manage-your-civil-cases-production
