@@ -5,9 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-
-  snapshot_identifier = "folarin-dev-db1-3rows-20260416"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=add-snapshot-identifier-lifecycle-ignore"
 
   # VPC configuration
   vpc_name = var.vpc_name
