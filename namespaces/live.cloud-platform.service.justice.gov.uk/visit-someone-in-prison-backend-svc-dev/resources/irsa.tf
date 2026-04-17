@@ -62,6 +62,8 @@ data "aws_iam_policy_document" "combined_sqs" {
       module.hmpps_prison_visits_write_events_dead_letter_queue.sqs_arn,
       module.hmpps_prison_visits_create_contact_event_queue.sqs_arn,
       module.hmpps_prison_visits_create_contact_event_dead_letter_queue.sqs_arn,
+      module.hmpps_prison_visits_booker_events_queue.sqs_arn,
+      module.hmpps_prison_visits_booker_events_dead_letter_queue.sqs_arn,
     ]
   }
 }
