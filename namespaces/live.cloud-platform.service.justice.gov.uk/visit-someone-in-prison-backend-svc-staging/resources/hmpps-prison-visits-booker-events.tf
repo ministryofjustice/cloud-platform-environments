@@ -7,8 +7,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_booker_events" {
   endpoint  = module.hmpps_prison_visits_booker_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "contacts-api.prisoner-contact.created",
-      "contacts-api.prisoner-contact.updated"
+      "contacts-api.prisoner-contact.created"
     ]
   })
 }
