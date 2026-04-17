@@ -64,7 +64,7 @@ locals {
   identifier         = "cloud-platform-${var.environment_name}-${random_id.amq_id.hex}"
   mq_admin_user      = "cp${random_string.amq_username.result}"
   mq_admin_password  = random_string.amq_password.result
-  amq_subnet_id      = "subnet-042d27892b9d249dc"
+  subnets            = data.aws_subnets.this.ids
   amq_engine_version = "5.18"
   amq_engine_type    = "ActiveMQ"
 }
@@ -103,7 +103,7 @@ resource "aws_mq_broker" "this" {
   deployment_mode     = "SINGLE_INSTANCE"
   host_instance_type  = "mq.m5.large"
   publicly_accessible = false
-  subnet_ids          = [local.amq_subnet_id]
+  subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
 
   auto_minor_version_upgrade = true
