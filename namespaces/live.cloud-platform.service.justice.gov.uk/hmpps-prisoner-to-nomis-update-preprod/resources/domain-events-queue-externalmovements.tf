@@ -133,7 +133,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
       "person.temporary-absence.relocated",
       "person.temporary-absence.accompaniment-changed",
       "person.temporary-absence.transport-changed",
-      "person.temporary-absence.comments-changed"
+      "person.temporary-absence.comments-changed",
+      "person.temporary-absence.unscheduled"
     ]
   })
 }
