@@ -38,9 +38,10 @@ module "rds" {
   ]
 
   # PostgreSQL specifics
+  prepare_for_major_upgrade = true
   db_engine         = "postgres"
-  db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres17"
+  db_engine_version = "18.1"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres18"
   db_instance_class = "db.m6g.large"
 
   # Tags
@@ -51,6 +52,11 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -78,8 +84,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.4"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres17"
+  db_engine_version = "18.1"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
@@ -100,6 +106,11 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
