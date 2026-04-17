@@ -28,6 +28,9 @@ subjects:
   - kind: Group
     name: "github:hmpps-manage-people-on-probation-dev"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-manage-people-on-probation"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
   name: opensearch-port-forward
