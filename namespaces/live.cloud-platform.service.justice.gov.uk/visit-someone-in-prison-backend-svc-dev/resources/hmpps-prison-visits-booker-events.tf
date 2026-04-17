@@ -1,4 +1,4 @@
-### Subscribe to domain events (contact created / more to come), used by hmpps-prison-visit-booker-registry
+### Subscribe to domain events, used by hmpps-prison-visit-booker-registry
 
 resource "aws_sns_topic_subscription" "hmpps_prison_visits_booker_events" {
   provider  = aws.london
@@ -7,7 +7,8 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_booker_events" {
   endpoint  = module.hmpps_prison_visits_booker_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "contacts-api.prisoner-contact.created"
+      "contacts-api.prisoner-contact.created",
+      "contacts-api.prisoner-contact.updated"
     ]
   })
 }
