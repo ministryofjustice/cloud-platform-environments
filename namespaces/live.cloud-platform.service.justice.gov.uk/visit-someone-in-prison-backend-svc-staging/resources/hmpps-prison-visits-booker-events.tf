@@ -113,7 +113,7 @@ resource "kubernetes_secret" "hmpps_prison_visits_booker_events_dead_letter_queu
   metadata {
     name = "sqs-prison-visits-booker-events-dlq-secret"
     ## Name space where the listening service is found
-    namespace = "visit-someone-in-prison-backend-svc-dev"
+    namespace = "visit-someone-in-prison-backend-svc-staging"
   }
 
   data = {
