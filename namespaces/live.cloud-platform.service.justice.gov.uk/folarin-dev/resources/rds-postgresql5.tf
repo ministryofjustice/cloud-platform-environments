@@ -164,7 +164,6 @@ resource "kubernetes_secret" "rds" {
 module "rds3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  snapshot_identifier = "folarin-dev-db1-3rows-20260416"
   rds_name            = "folarin-dev-db3-migration-test"
 
   # VPC configuration
