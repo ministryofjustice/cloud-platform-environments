@@ -59,5 +59,6 @@ locals {
     cats      = module.event_cats_queue.sqs_name
     moj-esw   = module.event_moj_esw_queue.sqs_name # testing
     ctrlo     = module.event_ctrlo_queue.sqs_name
+    daso      = module.event_daso_queue.sqs_name
   }
 }
