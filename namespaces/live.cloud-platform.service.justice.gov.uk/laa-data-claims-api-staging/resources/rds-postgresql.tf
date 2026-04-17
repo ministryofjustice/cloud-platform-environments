@@ -52,6 +52,11 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -101,6 +106,11 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
+
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
