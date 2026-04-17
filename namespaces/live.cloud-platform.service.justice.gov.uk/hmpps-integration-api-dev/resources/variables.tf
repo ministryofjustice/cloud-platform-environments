@@ -7,7 +7,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Integration API"
+  default     = "HMPPS External API"
 }
 
 variable "namespace" {
@@ -19,9 +19,15 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "HMPPS External API"
+}
+
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-integration-api"
+  default     = "hmpps-external-api"
 }
 
 variable "environment" {
@@ -31,7 +37,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "hmpps-integration-api@digital.justice.gov.uk"
+  default     = "hmpps-external-api@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -40,7 +46,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps-integration-api"
+  default     = "#ask-hmpps-external-api"
 }
 
 variable "github_owner" {
@@ -82,7 +88,6 @@ variable "default_subscription_filter_policy" {
   description = "Default subscription filter policy"
   default     = "{\"eventType\":[\"default\"]}"
 }
-
 
 variable "eks_cluster_name" {}
 
