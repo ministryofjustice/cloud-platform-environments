@@ -161,6 +161,64 @@ resource "kubernetes_secret" "rds" {
      */
 }
 
+module "rds3" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  snapshot_identifier = "folarin-dev-db1-3rows-20260416"
+  rds_name            = "folarin-dev-db3-migration-test"
+
+  # VPC configuration
+  vpc_name = var.vpc_name
+
+  # RDS configuration
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "500"
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.micro"
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
+resource "kubernetes_secret" "rds3" {
+  metadata {
+    name      = "rds-postgresql-instance-output-3"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds3.rds_instance_endpoint
+    database_name         = module.rds3.database_name
+    database_username     = module.rds3.database_username
+    database_password     = module.rds3.database_password
+    rds_instance_address  = module.rds3.rds_instance_address
+  }
+}
+
+resource "kubernetes_config_map" "rds3" {
+  metadata {
+    name      = "rds-postgresql-instance-output-3"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.rds3.database_name
+    db_identifier = module.rds3.db_identifier
+  }
+}
+
 resource "kubernetes_secret" "rds2" {
   metadata {
     name      = "rds-postgresql-instance-output-2"
