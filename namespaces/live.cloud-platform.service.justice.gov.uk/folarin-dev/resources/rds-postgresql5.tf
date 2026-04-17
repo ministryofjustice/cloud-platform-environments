@@ -63,6 +63,7 @@ module "rds2" {
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
+  snapshot_identifier = "folarin-dev-db1-3rows-20260416"
 
   # Tags
   application            = var.application
