@@ -7,6 +7,7 @@ module "sqlserver" {
   db_engine_version          = var.db_engine_version
   db_instance_class          = var.db_instance_class
   db_name                    = var.db_name
+  db_backup_retention_period = var.db_backup_retention_period
   enable_rds_auto_start_stop = true
   environment_name           = var.environment-name
   infrastructure_support     = var.infrastructure_support
@@ -19,6 +20,7 @@ module "sqlserver" {
   team_name                  = var.team_name
   vpc_name                   = var.vpc_name
   character_set_name         = var.character_set_name
+
 
   enable_irsa = true
 

@@ -11,49 +11,55 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "utiac"
+  default     = "Gov.UK Prototype Kit"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "utiac-prod"
+  default     = "hmpps-prisoner-apps-prototype"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = ""
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMCTS"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dts-legacy"
+  default     = "launchpad-prototype"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "dts-legacy-apps-support-team@hmcts.net"
+  default     = "platforms@digital.justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "dts-legacy-apps-support-team"
+  default     = "ask_prisoner_facing_services"
 }
 
 variable "github_owner" {
@@ -66,14 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster"
-}
-
-variable "service_area" {
-  description = "Team Service Area"
-  type        = string
-  default     = "DTS Legacy Services"
 }

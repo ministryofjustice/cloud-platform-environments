@@ -219,7 +219,7 @@ spec:
                       -S "localhost,${DB_PORT}" \
                       -U "${DATABASE_USERNAME}" \
                       -P "${DATABASE_PASSWORD}" \
-                      -Q "SELECT 1" > /dev/null 2>&1; do
+                      -C -Q "SELECT 1" > /dev/null 2>&1; do
                     RETRIES=$((RETRIES + 1))
                     if [ "${RETRIES}" -ge 30 ]; then
                       echo "Timed out waiting for SQL Server after $((RETRIES * 10))s"
@@ -237,8 +237,17 @@ spec:
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
                     -b \
-                    -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
+                    -C -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
                           ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;"
+                  
+                  echo "Dropping existing database if it exists..."
+                  "${SQLCMD}" \
+                    -S "localhost,${DB_PORT}" \
+                    -U "${DATABASE_USERNAME}" \
+                    -P "${DATABASE_PASSWORD}" \
+                    -b \
+                    -C -Q "IF DB_ID(N'${DATABASE_NAME}') IS NOT NULL
+                             DROP DATABASE [${DATABASE_NAME}];"
 
                   # Submit the native RDS restore task.
                   # RDS pulls the .bak directly from S3 using the option-group IAM role —
@@ -249,7 +258,7 @@ spec:
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
                     -b \
-                    -Q "EXEC msdb.dbo.rds_restore_database
+                    -C -Q "EXEC msdb.dbo.rds_restore_database
                           @restore_db_name    = '${DATABASE_NAME}',
                           @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
                           @with_norecovery    = 0,
@@ -265,7 +274,7 @@ spec:
                       -U "${DATABASE_USERNAME}" \
                       -P "${DATABASE_PASSWORD}" \
                       -h -1 -W \
-                      -Q "EXEC msdb.dbo.rds_task_status @db_name = '${DATABASE_NAME}';" 2>&1)
+                      -C -Q "EXEC msdb.dbo.rds_task_status @db_name = '${DATABASE_NAME}';" 2>&1)
 
                     echo "$(date) | ${STATUS_OUTPUT}"
 
