@@ -8,10 +8,6 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the EKS cluster"
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
