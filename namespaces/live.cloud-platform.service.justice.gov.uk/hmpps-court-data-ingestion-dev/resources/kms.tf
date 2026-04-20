@@ -73,7 +73,9 @@ resource "aws_iam_policy" "secret_ingestion_api_auth_token_kms_irsa_policy" {
           "kms:Decrypt",
           "kms:ReEncrypt*",
           "kms:CreateGrant",
-          "kms:DescribeKey"
+          "kms:DescribeKey",
+          "kms:GenerateDataKey*"
+
         ]
         Resource = module.secrets_kms.key_arn
       }

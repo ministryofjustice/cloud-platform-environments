@@ -46,8 +46,7 @@ resource "aws_iam_policy" "secret_ingestion_api_auth_token_irsa_policy" {
         Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue",
-          "secretsmanager:PutSecretValue",
-          "secretsmanager:UpdateSecret"
+          "secretsmanager:PutSecretValue"
         ]
         Resource = module.secret_ingestion_api_auth_token.secret_arn
       }
