@@ -45,7 +45,6 @@ module "rds" {
 module "rds4" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  snapshot_identifier = "folarin-dev-db1-3rows-20260416"
   rds_name            = "folarin-dev-db4-deletion-protection-test"
 
   # VPC configuration
