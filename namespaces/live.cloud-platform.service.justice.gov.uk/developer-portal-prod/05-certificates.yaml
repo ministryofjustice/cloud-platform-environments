@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: developerportal.service.justice.gov.uk
+  name: developer-portal-prod-cert
   namespace: developer-portal-prod
 spec:
-  secretName: developerportal-prod-cert
+  secretName: developer-portal-prod-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - developerportal.service.justice.gov.uk
+  - developer-portal.service.justice.gov.uk
