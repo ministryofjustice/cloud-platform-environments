@@ -30,8 +30,6 @@ resource "aws_kms_key_policy" "key_policy" {
         "Action": [
             "kms:Encrypt",
             "kms:Decrypt",
-            "kms:ReEncrypt*",
-            # "kms:GenerateDataKey*"
         ],
         "Resource": "*"
     },
@@ -59,5 +57,26 @@ resource "aws_kms_key_policy" "key_policy" {
     # }
     ]
     Version = "2012-10-17"
+  })
+}
+
+resource "aws_iam_policy" "secret_ingestion_api_auth_token_kms_irsa_policy" {
+  name        = "${var.namespace}-secret-auth-kms-irsa-policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:CreateGrant",
+          "kms:DescribeKey"
+        ]
+        Resource = module.secrets_kms.key_arn
+      }
+    ]
   })
 }
