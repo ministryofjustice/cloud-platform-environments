@@ -2,19 +2,21 @@ module "grafana_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   db_engine                = "postgres"
-  db_engine_version        = "17"
-  rds_family               = "postgres17"
+  db_engine_version        = "18"
+  rds_family               = "postgres18"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "50"
   vpc_name                 = var.vpc_name
 
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  namespace              = var.namespace
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  team_name                   = var.team_name
+  namespace                   = var.namespace
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
+  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = true
 }
 
 resource "kubernetes_secret" "grafana_rds" {
