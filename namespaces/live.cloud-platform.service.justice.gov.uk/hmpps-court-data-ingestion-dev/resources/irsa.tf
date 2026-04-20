@@ -11,7 +11,7 @@ locals {
     hmpps_court_data_prisoner_created_dead_letter_queue   = module.hmpps_court_data_prisoner_created_dead_letter_queue.irsa_policy_arn,
   }
   sm_policies = {
-    hmpps_modernisation_platform_secret_manager = aws_secretsmanager_secret_policy.secret_ingestion_api_auth_token_policy.id
+    hmpps_modernisation_platform_secret_manager = aws_iam_policy.secret_ingestion_api_auth_token_irsa_policy.arn
   }
 }
 
