@@ -11,6 +11,7 @@ provider "aws" {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
       GithubTeam    = var.team_name
+      service-area  = var.service_area
     }
   }
 }
@@ -24,6 +25,7 @@ provider "aws" {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
       GithubTeam    = var.team_name
+      service-area  = var.service_area
     }
   }
 }
@@ -37,6 +39,7 @@ provider "aws" {
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
       GithubTeam    = var.team_name
+      service-area  = var.service_area
     }
   }
 }
