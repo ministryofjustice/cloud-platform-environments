@@ -59,9 +59,10 @@ module "rds4" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version   = "16"
+  rds_family          = "postgres16"
+  db_instance_class   = "db.t4g.micro"
+  deletion_protection = true
 
   # Tags
   application            = var.application
