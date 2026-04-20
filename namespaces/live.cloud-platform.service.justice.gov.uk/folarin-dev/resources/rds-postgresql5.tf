@@ -166,6 +166,7 @@ module "rds3" {
 
   rds_name            = "folarin-dev-db3-migration-test"
   skip_final_snapshot = true
+  snapshot_identifier = "cloud-platform-37062b9a30121c9a-finalsnapshot"
 
   # VPC configuration
   vpc_name = var.vpc_name
