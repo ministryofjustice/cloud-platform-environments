@@ -165,7 +165,6 @@ module "rds3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   rds_name            = "folarin-dev-db3-migration-test"
-  snapshot_identifier = "cloud-platform-37062b9a30121c9a-finalsnapshot"
   skip_final_snapshot = true
 
   # VPC configuration
