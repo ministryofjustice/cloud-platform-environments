@@ -11,10 +11,16 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-managing-prisoner-apps"
-  role_policy_arns       = local.sqs_policies
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-managing-prisoner-apps"
+  role_policy_arns = merge(
+    local.sqs_policies,
+    {
+      managing_prisoner_apps_domain_events_queue = module.managing_prisoner_apps_domain_events_queue.irsa_policy_arn
+      managing_prisoner_apps_domain_events_dlq   = module.managing_prisoner_apps_domain_events_dlq.irsa_policy_arn
+    }
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
