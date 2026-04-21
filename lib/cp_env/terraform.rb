@@ -68,7 +68,7 @@ class CpEnv
         last: %(-auto-approve)
       )
 
-      execute("cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; #{cmd}")
+      execute("cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; #{cmd} 2>&1 | #{add_tagging_scp_terraform_output_mask}")
     end
 
     def tf_plan
@@ -93,6 +93,12 @@ class CpEnv
       last = opts.fetch(:last)
 
       "terraform #{operation} #{last}"
+    end
+
+    def add_tagging_scp_terraform_output_mask
+      tagging_scp_id = "p-w8ht8v1x"
+
+      "sed -E 's|#{tagging_scp_id}|#{tagging_scp_id} (Enforce mandatory tags), please see our tagging policy https://cloud-optimisation-and-accountability.justice.gov.uk/documentation/finops-and-greenops-at-moj/standards/tagging.html|g'"
     end
   end
 end
