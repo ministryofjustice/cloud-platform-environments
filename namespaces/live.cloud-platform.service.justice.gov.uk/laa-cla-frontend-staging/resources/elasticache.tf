@@ -6,7 +6,7 @@
  */
 module "cla-frontend-redis-elasticache" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
-  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
   
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -19,7 +19,7 @@ module "cla-frontend-redis-elasticache" {
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
   node_type              = "cache.t4g.micro"
-  number_cache_clusters   = "3"
+  number_cache_clusters   = "2"
 
   auth_token_rotated_date = "2026-03-18"
 
