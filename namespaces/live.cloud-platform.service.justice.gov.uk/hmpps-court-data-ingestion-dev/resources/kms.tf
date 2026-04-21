@@ -30,6 +30,7 @@ resource "aws_kms_key_policy" "key_policy" {
         "Action": [
             "kms:Encrypt",
             "kms:Decrypt",
+            "kms:DescribeKey"
         ],
         "Resource": "*"
     },
