@@ -11,8 +11,10 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["ministry-of-justice-developer-portal"]
+  oidc_providers = ["github"]
+  # This repo is already wired from developer-portal-prod. Keeping it here causes
+  # repo-level Actions variable collisions (ECR_REGION/ECR_REPOSITORY).
+  # github_repositories = ["ministry-of-justice-developer-portal"]
 
   # Tags
   business_unit          = var.business_unit

@@ -8,5 +8,7 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["ministry-of-justice-developer-portal"]
+  # This repo is already wired from developer-portal-prod to avoid shared
+  # repo-level secret/variable ownership conflicts.
+  # github_repositories = ["ministry-of-justice-developer-portal"]
 }
