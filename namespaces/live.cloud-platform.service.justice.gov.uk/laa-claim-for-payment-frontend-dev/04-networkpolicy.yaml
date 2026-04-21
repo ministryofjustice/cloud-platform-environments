@@ -34,7 +34,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: laa-claim-for-payment-frontend
+      app.kubernetes.io/name: laa-claim-for-payment-frontend
   policyTypes:
   - Ingress
   ingress:
