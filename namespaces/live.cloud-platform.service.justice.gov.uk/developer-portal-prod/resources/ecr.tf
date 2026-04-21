@@ -10,6 +10,10 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "prod"
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["ministry-of-justice-developer-portal"]
@@ -23,8 +27,4 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
-  # uncomment below:
-
-  # enable_irsa = true
 }
