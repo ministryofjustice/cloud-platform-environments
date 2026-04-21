@@ -898,3 +898,18 @@ spec:
   dnsNames:
     - 34fd12b2.hmpps.service.justice.gov.uk
     - single-accommodation-and-delius.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: probation-access-control-cert
+  namespace: hmpps-probation-integration-services-prod
+spec:
+  secretName: probation-access-control-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - c8c4c763.hmpps.service.justice.gov.uk
+    - probation-access-control.hmpps.service.justice.gov.uk
