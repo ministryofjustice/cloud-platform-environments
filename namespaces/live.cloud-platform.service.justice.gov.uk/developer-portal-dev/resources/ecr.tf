@@ -11,7 +11,9 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
+  oidc_providers = ["github"]
+
+  # specify which GitHub repository you're pushing from
   github_repositories = ["ministry-of-justice-developer-portal"]
 
   # Tags
@@ -23,8 +25,4 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
-  # uncomment below:
-
-  # enable_irsa = true
 }

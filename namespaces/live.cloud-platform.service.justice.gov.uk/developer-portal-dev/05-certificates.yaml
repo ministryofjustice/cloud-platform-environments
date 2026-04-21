@@ -5,9 +5,9 @@ metadata:
   name: dev.developerportal.service.justice.gov.uk
   namespace: developer-portal-dev
 spec:
-  secretName: developerportal-dev-cert
+  secretName: developer-portal-dev-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - dev.developerportal.service.justice.gov.uk
+  - dev.developer-portal.service.justice.gov.uk
