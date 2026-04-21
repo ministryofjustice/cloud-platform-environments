@@ -12,9 +12,9 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers = ["github"]
-  # This repo is already wired from developer-portal-prod. Keeping it here causes
-  # repo-level Actions variable collisions (ECR_REGION/ECR_REPOSITORY).
-  # github_repositories = ["ministry-of-justice-developer-portal"]
+
+  # specify which GitHub repository you're pushing from
+  github_repositories = ["ministry-of-justice-developer-portal"]
 
   # Tags
   business_unit          = var.business_unit
@@ -25,8 +25,4 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
-  # uncomment below:
-
-  # enable_irsa = true
 }
