@@ -84,7 +84,7 @@ variable "number_cache_clusters" {
 variable "db_allocated_storage" {
   description = "The allocated storage for the RDS instance"
   type        = number
-  default     = 200
+  default     = 600
 }
 
 variable "db_engine" {
