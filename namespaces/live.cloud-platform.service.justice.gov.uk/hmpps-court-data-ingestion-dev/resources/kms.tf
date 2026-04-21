@@ -25,37 +25,13 @@ resource "aws_kms_key_policy" "key_policy" {
         "Sid": "Allow use of the key for modernisation platform ",
         "Effect": "Allow",
         "Principal": {
-            "AWS": "arn:aws:iam::953751538119:root"
+            "AWS": var.modernisation_platform_autorizer_lambda
         },
         "Action": [
-            "kms:Encrypt",
-            "kms:Decrypt",
+            "kms:Decrypt"
         ],
         "Resource": "*"
-    },
-    # { TODO test if required for GET access.
-    #     "Sid": "Allow reading of key metadata",
-    #     "Effect": "Allow",
-    #     "Principal": {
-    #         "AWS": "arn:aws:iam::953751538119:root"
-    #     },
-    #     "Action": "kms:DescribeKey",
-    #     "Resource": "*"
-    # },
-    # {
-    #     "Sid": "Allow attachment of persistent resources",
-    #     "Effect": "Allow",
-    #     "Principal": {
-    #         "AWS": "arn:aws:iam::953751538119:root"
-    #     },
-    #     "Action": [
-    #         "kms:CreateGrant",
-    #         "kms:ListGrants",
-    #         "kms:RevokeGrant"
-    #     ],
-    #     "Resource": "*"
-    # }
-    ]
+    }]
     Version = "2012-10-17"
   })
 }
