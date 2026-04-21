@@ -19,7 +19,7 @@ module "cla-frontend-redis-elasticache" {
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
   node_type              = "cache.t4g.micro"
-  number_cache_clusters   = "3"
+  number_cache_clusters   = "2"
 
   auth_token_rotated_date = "2026-03-18"
 
