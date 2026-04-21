@@ -9,7 +9,6 @@ module "rds" {
 
   # VPC configuration
   vpc_name = var.vpc_name
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -82,10 +81,4 @@ resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
-}
-
-# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
-
-data "aws_security_group" "mp_dps_sg" {
-  name = var.mp_dps_sg_name
 }
