@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: laa-claim-for-payment-frontend
+      app.kubernetes.io/name: laa-claim-for-payment-frontend
   endpoints:
     - port: http
       interval: 15s
