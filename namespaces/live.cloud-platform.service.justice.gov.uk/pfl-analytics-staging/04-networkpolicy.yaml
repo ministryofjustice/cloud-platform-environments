@@ -25,3 +25,5 @@ spec:
         - namespaceSelector:
             matchLabels:
               component: ingress-controllers
+
+# This file is used to allow ingress controllers to access the application pods in the namespace.
