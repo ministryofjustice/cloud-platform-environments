@@ -9,6 +9,7 @@ module "hmpps-ems-cemo" {
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
   application_insights_instance = var.environment
+  reviewer_teams = [var.team_name]
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
@@ -26,6 +27,7 @@ module "hmpps-ems-cemo-api" {
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
   application_insights_instance = var.environment
+  reviewer_teams = [var.team_name]
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
