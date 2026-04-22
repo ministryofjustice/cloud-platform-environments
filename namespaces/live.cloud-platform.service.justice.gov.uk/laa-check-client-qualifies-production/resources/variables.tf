@@ -21,6 +21,12 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information and Advice"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "check-client-qualifies"
