@@ -17,13 +17,8 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "locations-inside-prison"
+  default = "map-developers-live"
 }
-
-variable "review_team_name" {
-  default = "move-a-prisoner"
-}
-
 
 variable "environment" {
   default = "production"
