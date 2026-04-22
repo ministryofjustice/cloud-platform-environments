@@ -5,7 +5,7 @@ metadata:
   namespace: laa-manage-your-civil-cases-uat
 subjects:
   - kind: Group
-    name: "github:check-client-qualifies"
+    name: "github:manage-your-civil-cases"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:laa-sre-admins"
