@@ -5,7 +5,7 @@ module "hmpps-ems-cemo" {
   github_repo = "hmpps-electronic-monitoring-create-an-order"
   application = "hmpps-electronic-monitoring-create-an-order"
   github_team = var.team_name
-  environment = var.environment
+  environment = "prod"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
   application_insights_instance = "prod"
@@ -23,7 +23,7 @@ module "hmpps-ems-cemo-api" {
   github_repo = "hmpps-electronic-monitoring-create-an-order-api"
   application = "hmpps-electronic-monitoring-create-an-order-api"
   github_team = var.team_name
-  environment = var.environment
+  environment = "prod"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
   application_insights_instance = "prod"
