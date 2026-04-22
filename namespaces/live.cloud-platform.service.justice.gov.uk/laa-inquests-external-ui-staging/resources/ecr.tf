@@ -10,15 +10,10 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
-  # Use env-specific GitHub Actions variable names to avoid repo-level collisions
-  # with developer-portal-prod (ECR_REGION/ECR_REPOSITORY).
-  github_actions_prefix = "dev"
-
   # OpenID Connect configuration
-  oidc_providers = ["github"]
-
-  # specify which GitHub repository you're pushing from
-  github_repositories = ["ministry-of-justice-developer-portal"]
+  oidc_providers      = ["github"]
+  github_repositories = ["laa-inquests-external-ui"]
+  github_environments = [var.environment]
 
   # Tags
   business_unit          = var.business_unit
@@ -29,4 +24,8 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
+  # uncomment below:
+
+  # enable_irsa = true
 }

@@ -3,10 +3,6 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -15,49 +11,55 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Court Data Ingestion"
+  default     = "inquests"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-court-data-ingestion-preprod"
+  default     = "laa-inquests-external-ui-prod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "inquests"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "calculate-release-dates-team"
+  default     = "laa-inquests"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preprod"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "calculatereleasedatesdevelopers@justice.gov.uk"
+  default     = "LAAInquests@JusticeUK.onmicrosoft.com"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "calculate_release_dates_public_channel"
+  default     = "laa-inquests"
 }
 
 variable "github_owner" {
@@ -71,20 +73,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "service_area" {
-  type        = string
-  description = "service area"
-  default     = "Manage Custody"
-}
-
-variable "modernisation_platform_autorizer_lambda" {
-  type = string
-  description = "The ARN of the role used by modernisation platform authorizer lambda"
-  default = "arn:aws:iam::548277373878:role/authorizer-role-mp"
-}
-
