@@ -125,6 +125,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
     "integration.request.header.cert-serial-number"         = "context.identity.clientCert.serialNumber"
+    "integration.request.header.X-On-Behalf-Of"             = "method.request.header.X-On-Behalf-Of"
   }
 }
 
