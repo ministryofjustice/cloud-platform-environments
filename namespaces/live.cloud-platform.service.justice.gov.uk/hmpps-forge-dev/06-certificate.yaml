@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-forge-dev
+  namespace: hmpps-forge-dev
+spec:
+  secretName: hmpps-forge-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - forge-developer-guide-dev.hmpps.service.justice.gov.uk
+    - '*.forge-developer-guide-dev.hmpps.service.justice.gov.uk'
