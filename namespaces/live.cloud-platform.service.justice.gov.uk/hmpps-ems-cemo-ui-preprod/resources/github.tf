@@ -24,7 +24,7 @@ module "hmpps-ems-cemo-api" {
   github_team = var.team_name
   environment = "preprod" 
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main",] 
+  selected_branch_patterns      = ["main"] 
   application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
