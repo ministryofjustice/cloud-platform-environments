@@ -1,7 +1,7 @@
 module "hmpps_forge" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   github_repo                   = "hmpps-forge"
-  application                   = "hmpps-forge"
+  application                   = "hmpps-forge-examples-app"
   github_team                   = var.team_name
   environment                   = var.environment
   is_production                 = var.is_production
