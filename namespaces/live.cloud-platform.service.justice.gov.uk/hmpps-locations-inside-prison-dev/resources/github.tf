@@ -4,7 +4,7 @@ module "hmpps-locations-inside-prison-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-locations-inside-prison-api"
   application                   = "hmpps-locations-inside-prison-api"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -22,7 +22,7 @@ module "hmpps-locations-inside-prison" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-locations-inside-prison"
   application                   = "hmpps-locations-inside-prison"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -40,7 +40,7 @@ module "hmpps-non-residential-locations-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-non-residential-locations-ui"
   application                   = "hmpps-non-residential-locations-ui"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
