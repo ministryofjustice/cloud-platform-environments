@@ -14,6 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-inquests-ui"]
   github_environments = [var.environment]
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
