@@ -8,7 +8,7 @@ module "hmpps-ems-cemo" {
   environment = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
-  application_insights_instance = var.environment
+  application_insights_instance = "prod"
   reviewer_teams = [var.team_name]
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
@@ -26,7 +26,7 @@ module "hmpps-ems-cemo-api" {
   environment = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"] 
-  application_insights_instance = var.environment
+  application_insights_instance = "prod"
   reviewer_teams = [var.team_name]
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
