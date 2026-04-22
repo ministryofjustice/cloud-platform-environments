@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-forge-dev
+  name: hmpps-forge-examples-app-dev
   namespace: hmpps-forge-dev
 spec:
-  secretName: hmpps-forge-cert
+  secretName: hmpps-forge-examples-app-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
