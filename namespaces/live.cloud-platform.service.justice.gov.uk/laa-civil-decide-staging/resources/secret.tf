@@ -33,5 +33,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-staging"
     },
+
+    "data_store_auth_scope" = {
+      description             = "Auth scope for integration with Data Store",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "data_store_auth_scope-staging"
+    },
   }
 }
