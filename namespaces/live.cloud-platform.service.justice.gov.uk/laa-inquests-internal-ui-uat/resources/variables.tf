@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-inquests-ui-uat"
+  default     = "laa-inquests-internal-ui-uat"
 }
 
 variable "service_area" {

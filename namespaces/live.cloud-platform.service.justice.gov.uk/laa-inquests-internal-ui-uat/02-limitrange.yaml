@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: laa-inquests-ui-uat
+  namespace: laa-inquests-internal-ui-uat
 spec:
   limits:
   - default:

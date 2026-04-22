@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-inquests-ui-uat
+  namespace: laa-inquests-internal-ui-uat
 spec:
   hard:
     pods: "50"
