@@ -4,7 +4,7 @@ variable "kubernetes_cluster" {}
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Forge"
+  default     = "HMPPS Forge Examples App"
 }
 
 variable "namespace" {
