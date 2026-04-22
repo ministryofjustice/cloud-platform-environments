@@ -3,57 +3,65 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Accredited Programmes"
+  default     = "inquests"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-accredited-programmes-dev"
+  default     = "laa-inquests-internal-ui-prod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "inquests"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-accredited-programmes-devs"
+  default     = "laa-inquests"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "team.acp@digital.justice.gov.uk"
+  default     = "LAAInquests@JusticeUK.onmicrosoft.com"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "accredited-programme-team"
+  default     = "laa-inquests"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
-}
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -65,16 +73,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
-variable "mp_dps_sg_name" {
-  type        = string
-  description = "Required for MP DPR Traffic ingress into CP DPS"
-  default     = "cloudplatform-mp-dps-sg"
-}
-
-variable "kubernetes_cluster" {}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
