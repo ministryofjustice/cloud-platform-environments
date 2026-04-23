@@ -33,7 +33,7 @@ resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
 }
 
 resource "aws_sns_topic_subscription" "offender-events-queue-subscription" {
-  topic_arn = data.aws_ssm_parameter.probation-offender-events-topic-arn.value
+  topic_arn = data.aws_sns_topic.probation-offender-events.arn
   protocol  = "sqs"
   endpoint  = module.hmpps-tier-events-queue.sqs_arn
   filter_policy = jsonencode({
@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "sns_to_sqs" {
     resources = ["*"]
   }
   statement {
-    sid     = "OffenderEventsToQueue"
+    sid     = "ProbationOffenderEventsToQueue"
     effect  = "Allow"
     actions = ["sqs:SendMessage"]
     principals {
@@ -88,7 +88,7 @@ data "aws_iam_policy_document" "sns_to_sqs" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_ssm_parameter.probation-offender-events-topic-arn.value]
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }
