@@ -59,3 +59,20 @@ resource "aws_ssm_parameter" "large-court-cases-s3-bucket-arn" {
   description = "ARN of Bucket used to store large court messages"
   tags        = local.default_tags
 }
+
+resource "aws_ssm_parameter" "large-court-cases-s3-bucket-policy" {
+  type        = "String"
+  name        = "/${var.namespace}/large-court-cases-s3-bucket-policy"
+  value       = module.large-court-cases-s3-bucket.irsa_policy_arn
+  description = "Policy of Bucket used to store large court messages"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment.name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
