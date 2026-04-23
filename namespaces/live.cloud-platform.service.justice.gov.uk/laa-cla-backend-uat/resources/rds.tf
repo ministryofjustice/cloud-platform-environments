@@ -25,6 +25,8 @@ module "cla_backend_rds_postgres_14" {
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  #added for testing delete and restor of DB
+  deletion_protection = false
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
