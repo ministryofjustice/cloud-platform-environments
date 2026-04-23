@@ -7,7 +7,7 @@ data "aws_ssm_parameter" "court_hearings_large_messages_bucket_arn" {
   name = "/hmpps-person-record-${var.environment_name}/cpr-large-court-cases-s3-bucket-arn"
 }
 
-data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy" {
+data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_document" {
   statement {
     effect = "Allow"
 
@@ -18,5 +18,17 @@ data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy" {
     resources = [
       "${data.aws_ssm_parameter.court_hearings_large_messages_bucket_arn.value}/*",
     ]
+  }
+}
+
+data "aws_iam_policy" "court_hearings_large_messages_bucket_policy" {
+  name = "${var.namespace}-court-hearings-large-messages-bucket-policy"
+  policy = data.aws_iam_policy_document.court_hearings_large_messages_bucket_policy_document.json
+  tags = {
+    business_unit          = var.business_unit
+    environment_name       = var.environment_name
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    owner                  = var.team_name
   }
 }
