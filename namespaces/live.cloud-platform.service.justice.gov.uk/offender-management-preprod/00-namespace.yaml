@@ -12,3 +12,4 @@ metadata:
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offender-management-allocation-manager"
     cloud-platform.justice.gov.uk/slack-channel: "manage-pom-cases"
+    cloud-platform.justice.gov.uk/team-name: "offender-management"
