@@ -1,9 +1,18 @@
-variable "environment" {
+
+variable "environment_name" {
   default = "staging"
 }
 
 variable "team_name" {
   default = "offender-management"
+}
+
+variable "service_area" {
+  default = "Manage Custody"
+}
+
+variable "business_unit" {
+  default = "HMPPS"
 }
 
 variable "is_production" {
