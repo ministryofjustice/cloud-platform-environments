@@ -12,5 +12,8 @@ module "shared-service-account" {
   team_name              = var.team_name
 
   service_account_name = var.application
-  role_policy_arns     = { for key, policy in aws_iam_policy.sqs_management_policy : key => policy.arn }
+  role_policy_arns     = merge(
+    { for key, policy in aws_iam_policy.sqs_management_policy : key => policy.arn },
+    { large-court-cases-s3 = data.aws_ssm_parameter.court_hearings_large_messages_bucket_policy.value}
+)
 }
