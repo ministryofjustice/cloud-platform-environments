@@ -20,9 +20,24 @@ resource "aws_sns_topic_subscription" "hmpps-tier-events-queue-subscription" {
       "probation-case.requirement.deleted",
       "probation-case.requirement.terminated",
       "probation-case.requirement.unterminated",
+      "probation-case.sentence.created",
+      "probation-case.sentence.amended",
+      "probation-case.sentence.terminated",
+      "probation-case.sentence.unterminated",
+      "probation-case.sentence.deleted",
+      "probation-case.sentence.moved",
       "probation-case.unmerge.completed",
       "risk-assessment.scores.determined",
     ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "offender-events-queue-subscription" {
+  topic_arn = data.aws_ssm_parameter.probation-offender-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.hmpps-tier-events-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = ["CONVICTION_CHANGED"]
   })
 }
 
@@ -59,6 +74,21 @@ data "aws_iam_policy_document" "sns_to_sqs" {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
       values   = [data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value]
+    }
+    resources = ["*"]
+  }
+  statement {
+    sid     = "OffenderEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_ssm_parameter.probation-offender-events-topic-arn.value]
     }
     resources = ["*"]
   }
