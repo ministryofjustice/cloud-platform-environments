@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: offender-management-preprod
   labels:
-    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "preprod"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
