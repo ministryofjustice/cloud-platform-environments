@@ -15,7 +15,7 @@ module "hmpps-locations-inside-prison-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [ var.review_team_name ]
+  reviewer_teams                = [ var.team_name ]
 }
 
 module "hmpps-locations-inside-prison" {
@@ -34,7 +34,7 @@ module "hmpps-locations-inside-prison" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [ var.review_team_name ]
+  reviewer_teams                = [ var.team_name ]
 }
 
 module "hmpps-non-residential-locations-ui" {
@@ -53,5 +53,5 @@ module "hmpps-non-residential-locations-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.team_name]
 }
