@@ -9,8 +9,6 @@ data "aws_ssm_parameter" "court_hearings_large_messages_bucket_arn" {
 
 data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_document" {
   statement {
-    effect = "Allow"
-
     actions = [
       "s3:GetObject"
     ]
@@ -21,11 +19,12 @@ data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_docu
   }
 }
 
-data "aws_iam_policy" "court_hearings_large_messages_bucket_policy" {
+resource "aws_iam_policy" "court_hearings_large_messages_bucket_policy" {
   name = "${var.namespace}-court-hearings-large-messages-bucket-policy"
   policy = data.aws_iam_policy_document.court_hearings_large_messages_bucket_policy_document.json
   tags = {
     business_unit          = var.business_unit
+    application            = var.application
     environment_name       = var.environment_name
     infrastructure_support = var.infrastructure_support
     is_production          = var.is_production
