@@ -33,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "meansandmatche2e@justiceuk.onmicrosoft.com"
+  default     = "means-and-match-infra@justice.gov.uk"
 }
 
 variable "is_production" {
