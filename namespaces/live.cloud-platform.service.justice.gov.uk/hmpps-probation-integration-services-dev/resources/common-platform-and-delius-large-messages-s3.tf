@@ -18,4 +18,5 @@ data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy" {
     resources = [
       "${data.aws_ssm_parameter.court_hearings_large_messages_bucket_arn.value}/*",
     ]
-  }}
+  }
+}
