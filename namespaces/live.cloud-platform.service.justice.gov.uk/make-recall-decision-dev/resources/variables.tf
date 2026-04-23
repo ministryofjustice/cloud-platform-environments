@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Making a recall decision"
+  default     = "Consider a Recall (CaR)"
 }
 
 variable "eks_cluster_name" {
@@ -23,6 +23,11 @@ variable "namespace" {
 variable "service_area" {
   default = "Protecting the Public"
 }
+
+variable "owner" {
+  default = "Consider A Recall: ConsideraRecall-gg@justice.gov.uk"
+}
+
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
@@ -41,7 +46,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "making-recall-decisions-tech@digital.justice.gov.uk"
+  default     = "ConsideraRecall-gg@justice.gov.uk"
 }
 
 variable "is_production" {
