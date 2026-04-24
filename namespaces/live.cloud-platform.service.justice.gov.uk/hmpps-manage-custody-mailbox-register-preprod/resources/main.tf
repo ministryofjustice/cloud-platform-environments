@@ -11,7 +11,7 @@ locals {
     owner         = var.team_name
     namespace     = var.namespace
     service-area  = var.service_area
-    source-code   = "github.com/ministryofjustice/cloud-platform-environments"
+    source-code   = "github.com/ministryofjustice/hmpps-manage-custody-mailbox-register"
     slack-channel = var.slack_channel
     GithubTeam    = var.team_name
   }
