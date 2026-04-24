@@ -5,7 +5,7 @@ module "hmpps-book-a-secure-move-frontend" {
   github_repo                   = "hmpps-book-secure-move-frontend"
   application                   = "hmpps-book-secure-move-frontend"
   github_team                   = var.team_name
-  environment                   = var.environment-name
+  environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
   application_insights_instance = "dev"
