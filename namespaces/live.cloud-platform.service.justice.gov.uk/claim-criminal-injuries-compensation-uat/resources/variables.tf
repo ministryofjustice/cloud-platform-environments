@@ -79,6 +79,12 @@ variable "repo_name" {
 
 variable "kubernetes_cluster" {}
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Apply Service"
+}
+
 variable "dcs_project_id" {
   type        = string
   description = "The circle project ID for data-capture-service"
