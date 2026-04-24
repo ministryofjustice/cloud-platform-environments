@@ -57,6 +57,9 @@ spec:
     - Ingress
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              component: monitoring
+      - namespaceSelector:
+          matchLabels:
+            component: monitoring
+      ports:
+        - protocol: TCP
+          port: 8182
