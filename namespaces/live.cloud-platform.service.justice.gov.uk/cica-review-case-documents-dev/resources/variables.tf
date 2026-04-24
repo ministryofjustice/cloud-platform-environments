@@ -68,7 +68,7 @@ variable "github_token" {
   default     = ""
 }
 
-variable "service area" {
+variable "service_area" {
   type        = string
   description = "Service Area"
   default     = "CICA Digital Find app"
