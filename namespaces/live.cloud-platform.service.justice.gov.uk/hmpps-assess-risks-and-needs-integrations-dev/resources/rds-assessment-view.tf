@@ -94,3 +94,82 @@ resource "kubernetes_secret_v1" "db_credentials" {
     dbname   = local.db_secret.dbname
   }
 }
+
+# Create read-only user for DPR
+provider "postgresql" {
+  database         = module.arns_assessment_view_rds.database_name
+  host             = module.arns_assessment_view_rds.rds_instance_address
+  port             = module.arns_assessment_view_rds.rds_instance_port
+  username         = module.arns_assessment_view_rds.database_username
+  password         = module.arns_assessment_view_rds.database_password
+  expected_version = "18"
+  sslmode          = "require"
+}
+
+# Read-only login user
+resource "postgresql_role" "app_readonly" {
+  name                = local.db_secret.username
+  password            = local.db_secret.password
+  login               = true
+  superuser           = false
+  create_database     = false
+  create_role         = false
+  inherit             = true
+  replication         = false
+  connection_limit    = -1
+}
+
+# Allow connecting to the database
+resource "postgresql_grant" "readonly_database" {
+  database    = module.arns_assessment_view_rds.database_name
+  role        = postgresql_role.app_readonly.name
+  object_type = "database"
+  privileges  = ["CONNECT"]
+}
+
+# Allow using the schema
+resource "postgresql_grant" "readonly_schema" {
+  database    = module.arns_assessment_view_rds.database_name
+  role        = postgresql_role.app_readonly.name
+  schema      = "assessment-view"
+  object_type = "schema"
+  privileges  = ["USAGE"]
+}
+
+# Read existing tables
+resource "postgresql_grant" "readonly_tables" {
+  database    = module.arns_assessment_view_rds.database_name
+  role        = postgresql_role.app_readonly.name
+  schema      = "assessment-view"
+  object_type = "table"
+  privileges  = ["SELECT"]
+}
+
+# Read existing sequences
+resource "postgresql_grant" "readonly_sequences" {
+  database    = module.arns_assessment_view_rds.database_name
+  role        = postgresql_role.app_readonly.name
+  schema      = "assessment-view"
+  object_type = "sequence"
+  privileges  = ["USAGE", "SELECT"]
+}
+
+# Future tables created by app_owner stay readable
+resource "postgresql_default_privileges" "readonly_future_tables" {
+  database    = module.arns_assessment_view_rds.database_name
+  owner       = module.arns_assessment_view_rds.database_username
+  role        = postgresql_role.app_readonly.name
+  schema      = "assessment-view"
+  object_type = "table"
+  privileges  = ["SELECT"]
+}
+
+# Future sequences created by app_owner stay readable
+resource "postgresql_default_privileges" "readonly_future_sequences" {
+  database    = module.arns_assessment_view_rds.database_name
+  owner       = module.arns_assessment_view_rds.database_username
+  role        = postgresql_role.app_readonly.name
+  schema      = "assessment-view"
+  object_type = "sequence"
+  privileges  = ["USAGE", "SELECT"]
+}
