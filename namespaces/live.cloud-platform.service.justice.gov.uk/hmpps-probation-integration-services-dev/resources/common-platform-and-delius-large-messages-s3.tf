@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_docu
 }
 
 resource "aws_iam_policy" "court_hearings_large_messages_bucket_policy-dev" {
-  name = "${var.namespace}-court-hearings-large-messages-bucket-policy"
+  name = "${var.namespace}-court-hearings-large-messages-bucket-policy-dev"
   policy = data.aws_iam_policy_document.court_hearings_large_messages_bucket_policy_document-dev.json
   tags = {
     business_unit          = var.business_unit
