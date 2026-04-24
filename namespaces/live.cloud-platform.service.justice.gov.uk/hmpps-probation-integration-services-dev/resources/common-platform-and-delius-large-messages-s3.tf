@@ -3,11 +3,11 @@ data "aws_ssm_parameter" "court_hearings_large_messages_bucket_name" {
   name = "/hmpps-person-record-${var.environment_name}/cpr-large-court-cases-s3-bucket-name"
 }
 
-data "aws_ssm_parameter" "court_hearings_large_messages_bucket_arn" {
+data "aws_ssm_parameter" "court_hearings_large_messages_bucket_arn-dev" {
   name = "/hmpps-person-record-${var.environment_name}/cpr-large-court-cases-s3-bucket-arn"
 }
 
-data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_document" {
+data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_document-dev" {
   statement {
     actions = [
       "s3:GetObject",
@@ -16,14 +16,14 @@ data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_docu
     ]
 
     resources = [
-      "${data.aws_ssm_parameter.court_hearings_large_messages_bucket_arn.value}/*",
+      "${data.aws_ssm_parameter.court_hearings_large_messages_bucket_arn-dev.value}/*",
     ]
   }
 }
 
-resource "aws_iam_policy" "court_hearings_large_messages_bucket_policy" {
+resource "aws_iam_policy" "court_hearings_large_messages_bucket_policy-dev" {
   name = "${var.namespace}-court-hearings-large-messages-bucket-policy"
-  policy = data.aws_iam_policy_document.court_hearings_large_messages_bucket_policy_document.json
+  policy = data.aws_iam_policy_document.court_hearings_large_messages_bucket_policy_document-dev.json
   tags = {
     business_unit          = var.business_unit
     application            = var.application
