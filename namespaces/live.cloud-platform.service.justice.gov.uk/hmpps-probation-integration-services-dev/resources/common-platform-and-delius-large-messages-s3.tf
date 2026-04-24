@@ -10,7 +10,9 @@ data "aws_ssm_parameter" "court_hearings_large_messages_bucket_arn" {
 data "aws_iam_policy_document" "court_hearings_large_messages_bucket_policy_document" {
   statement {
     actions = [
-      "s3:GetObject"
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:DeleteObject"
     ]
 
     resources = [
