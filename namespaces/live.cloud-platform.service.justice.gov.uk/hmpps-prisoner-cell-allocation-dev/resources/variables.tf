@@ -27,6 +27,17 @@ variable "deployment_team_name" {
   default = "move-a-prisoner"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "development"
