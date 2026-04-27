@@ -4,7 +4,7 @@ module "hmpps-book-a-secure-move-frontend" {
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-book-secure-move-frontend"
   application                   = "hmpps-book-secure-move-frontend"
-  github_team                   = var.team_name
+  github_team                   = var.github_review_team
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
