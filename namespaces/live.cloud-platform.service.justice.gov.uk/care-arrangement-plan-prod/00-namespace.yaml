@@ -14,3 +14,5 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/care-arrangement-plan"
     cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
     cloud-platform.justice.gov.uk/review-after: "2026-02-24"
+
+# This file is managed by Terraform. Do not edit it manually.
