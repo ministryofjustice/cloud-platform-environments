@@ -5,7 +5,7 @@ module "serviceaccount_github" {
   github_repo              = "hmpps-complexity-of-need"
   application              = "hmpps-complexity-of-need"
   github_team              = var.team_name
-  environment              = var.environment
+  environment              = var.environment_name
   is_production            = var.is_production
   selected_branch_patterns = ["main", "staging"]
   source_template_repo     = "none"

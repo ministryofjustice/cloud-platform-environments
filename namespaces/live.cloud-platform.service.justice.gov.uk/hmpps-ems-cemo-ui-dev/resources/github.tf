@@ -7,7 +7,9 @@ module "hmpps-ems-cemo" {
   github_team = var.team_name
   environment = "dev" 
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"] # Add more patterns to allow branches other than main into dev
+  protected_branches_only = false
+  reviewer_teams = [var.team_name]
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
@@ -24,7 +26,9 @@ module "hmpps-ems-cemo-api" {
   github_team = var.team_name
   environment = "dev" 
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "**/**", "**"] # Add more patterns to allow branches other than main into dev
+  protected_branches_only = false
+  reviewer_teams = [var.team_name]
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token

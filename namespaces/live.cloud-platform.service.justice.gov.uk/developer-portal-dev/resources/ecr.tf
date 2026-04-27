@@ -10,6 +10,10 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
+  # Use env-specific GitHub Actions variable names to avoid repo-level collisions
+  # with developer-portal-prod (ECR_REGION/ECR_REPOSITORY).
+  github_actions_prefix = "dev"
+
   # OpenID Connect configuration
   oidc_providers = ["github"]
 
