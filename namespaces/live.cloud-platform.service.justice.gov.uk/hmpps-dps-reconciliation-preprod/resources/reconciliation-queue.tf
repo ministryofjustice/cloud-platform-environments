@@ -111,7 +111,8 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_offender_subscri
     eventType = [
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
       "EXTERNAL_MOVEMENT-CHANGED",
-      "BOOKING_NUMBER-CHANGED"
+      "BOOKING_NUMBER-CHANGED",
+      "OFFENDER_BOOKING-REASSIGNED"
     ]
   })
 }
@@ -125,7 +126,9 @@ resource "aws_sns_topic_subscription" "hmpps_dps_reconciliation_domain_subscript
     eventType = [
       "prisoner-offender-search.prisoner.received",
       "prisoner-offender-search.prisoner.released",
-      "restricted-patients.patient.removed"
+      "restricted-patients.patient.removed",
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }
