@@ -2,6 +2,11 @@ variable "team_name" {
   default = "book-a-secure-move"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
 variable "environment-name" {
   default = "uat"
 }
