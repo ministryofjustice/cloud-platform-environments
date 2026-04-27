@@ -2,6 +2,10 @@ variable "team_name" {
   default = "book-a-secure-move"
 }
 
+variable "review_team_name" {
+  default = "map-developers-live"
+}
+
 variable "environment-name" {
   default = "preprod"
 }
