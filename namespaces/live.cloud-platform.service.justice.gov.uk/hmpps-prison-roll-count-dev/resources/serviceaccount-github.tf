@@ -105,9 +105,7 @@ data "github_team" "move-a-prisoner" {
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
-# prevent_self_review = true
+  repository  = each.key
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
