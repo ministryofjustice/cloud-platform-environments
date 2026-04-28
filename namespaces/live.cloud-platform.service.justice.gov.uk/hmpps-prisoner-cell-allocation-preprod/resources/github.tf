@@ -4,7 +4,7 @@ module "hmpps-change-someones-cell" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-change-someones-cell"
   application                   = "hmpps-change-someones-cell"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.github_review_team
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -14,5 +14,5 @@ module "hmpps-change-someones-cell" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.github_deployment_team]
 }
