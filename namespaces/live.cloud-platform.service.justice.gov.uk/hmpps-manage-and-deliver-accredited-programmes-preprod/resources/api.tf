@@ -22,7 +22,7 @@ module "data_importer_service" {
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
-  application = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
+  application = "hmpps-accredited-programmes-manage-and-deliver-dis"
   github_team = "hmpps-accredited-programmes-manage-and-deliver-live"
   environment = var.environment
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
