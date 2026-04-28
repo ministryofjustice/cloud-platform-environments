@@ -208,7 +208,7 @@ metadata:
   namespace: hmpps-prisoner-pay-dev
 spec:
   order: 90.0
-  selector: app == "hmpps-prisoner-pay-api"
+  selector: app in {"hmpps-prisoner-pay-api", "hmpps-prisoner-pay-orchestrator-api"}
   egress:
   - action: Deny
   types:
