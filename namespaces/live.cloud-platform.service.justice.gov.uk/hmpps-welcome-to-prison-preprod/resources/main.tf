@@ -45,6 +45,6 @@ locals {
     "namespace"        = var.namespace
     "source-code"      = "github.com/ministryofjustice/cloud-platform-environments"
     "slack-channel"    = var.slack_channel
-    "GithubTeam"       = var.github_review_team
+    "GithubTeam"       = var.review_team_name
   }
 }
