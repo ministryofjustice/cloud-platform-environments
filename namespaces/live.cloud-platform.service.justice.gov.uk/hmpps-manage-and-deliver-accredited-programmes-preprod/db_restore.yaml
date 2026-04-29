@@ -48,7 +48,7 @@ spec:
                 - /bin/bash
                 - -c
                 - |
-                  set -e
+                  set -euo pipefail
 
                   if [ "${CREATE_SNAPSHOT}" != "true" ]; then
                     echo "create_snapshot=${CREATE_SNAPSHOT}; skipping RDS snapshot"
@@ -69,7 +69,12 @@ spec:
                     --db-instance-identifier "${DATABASE_IDENTIFIER}" \
                     --db-snapshot-identifier "${SNAPSHOT_ID}"
 
-                  echo "Successfully created snapshot: ${SNAPSHOT_ID}"
+                  echo "Waiting for snapshot to become available..."
+
+                  aws rds wait db-snapshot-available \
+                    --db-snapshot-identifier "${SNAPSHOT_ID}"
+
+                  echo "Snapshot ${SNAPSHOT_ID} is available."
 
             - name: find-backup-file
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
