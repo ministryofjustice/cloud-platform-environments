@@ -23,6 +23,11 @@ spec:
                 runAsUser: 1000
                 runAsNonRoot: true
                 allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
               imagePullPolicy: IfNotPresent
               resources:
                 requests:
