@@ -19,11 +19,25 @@ spec:
           containers:
             - name: s3-transfer
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              imagePullPolicy: IfNotPresent
               securityContext:
                 runAsUser: 1000
                 runAsNonRoot: true
                 allowPrivilegeEscalation: false
-              imagePullPolicy: IfNotPresent
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 100Mi
+                  ephemeral-storage: 1Gi
+                limits:
+                  cpu: 1000m
+                  memory: 1000Mi
+                  ephemeral-storage: 2Gi
               env:
                 - name: HOME
                   value: /tmp
@@ -38,7 +52,7 @@ spec:
                       name: sqlserver-backup-s3-bucket-output
                       key: bucket_name
               command:
-                - /bin/sh
+                - /bin/bash
                 - -c
               args:
                 - |
@@ -46,15 +60,32 @@ spec:
 
                   echo "Starting S3 transfer at $(date)"
 
-                  aws s3 sync \
-                    s3://$UPLOAD_S3_BUCKET_NAME \
-                    s3://$SQLSERVER_BACKUP_S3_BUCKET_NAME \
+                  # Find the latest .bak file in the upload bucket by filename sort
+                  # (filename encodes date as YYYYMMDDHHmmss — alphabetic sort = date sort).
+                  # We copy only the latest file rather than syncing everything, to avoid
+                  # accumulating a large backlog that can exhaust node ephemeral storage.
+                  LATEST_BAK=$(aws s3 ls "s3://$UPLOAD_S3_BUCKET_NAME/" \
+                    | awk '{print $4}' \
+                    | grep '\.bak$' \
+                    | sort \
+                    | tail -1)
+
+                  if [ -z "$LATEST_BAK" ]; then
+                    echo "No .bak files found in s3://$UPLOAD_S3_BUCKET_NAME — nothing to transfer."
+                    exit 0
+                  fi
+
+                  echo "Latest .bak file: $LATEST_BAK"
+
+                  aws s3 cp \
+                    "s3://$UPLOAD_S3_BUCKET_NAME/$LATEST_BAK" \
+                    "s3://$SQLSERVER_BACKUP_S3_BUCKET_NAME/$LATEST_BAK" \
                     --only-show-errors
 
-                  echo "Sync complete. Deleting source objects..."
+                  echo "Copy complete. Deleting all objects from upload bucket..."
 
                   aws s3 rm \
-                    s3://$UPLOAD_S3_BUCKET_NAME \
+                    "s3://$UPLOAD_S3_BUCKET_NAME" \
                     --recursive \
                     --only-show-errors
 
