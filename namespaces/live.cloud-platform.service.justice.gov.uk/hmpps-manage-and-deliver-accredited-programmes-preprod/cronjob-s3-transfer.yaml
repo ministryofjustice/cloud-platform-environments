@@ -4,7 +4,7 @@ metadata:
   name: hmpps-manage-and-deliver-acp-s3-transfer
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
-  # Run every night at 05:00 UTC (06:00 BST)
+  #  Run every night at 05:00 UTC (06:00 BST)
   schedule: "0 5 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
