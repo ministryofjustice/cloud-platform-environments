@@ -64,7 +64,6 @@ spec:
                   # (filename encodes date as YYYYMMDDHHmmss — alphabetic sort = date sort).
                   # We copy only the latest file rather than syncing everything, to avoid
                   # accumulating a large backlog that can exhaust node ephemeral storage.
-                  # -- RW 2026-04-29
                   LATEST_BAK=$(aws s3 ls "s3://$UPLOAD_S3_BUCKET_NAME/" \
                     | awk '{print $4}' \
                     | grep '\.bak$' \
