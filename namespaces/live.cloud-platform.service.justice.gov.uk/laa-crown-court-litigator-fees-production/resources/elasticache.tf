@@ -14,6 +14,18 @@ module "elasticache_redis" {
   parameter_group_name    = "default.redis7"
   number_cache_clusters   = "2"
   node_type               = "cache.t4g.micro"
+
+  tags = {
+    name                   = "${var.namespace}-option-group"
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+    service_area           = var.service_area
+  }
 }
 
 resource "kubernetes_secret" "elasticache_redis" {
