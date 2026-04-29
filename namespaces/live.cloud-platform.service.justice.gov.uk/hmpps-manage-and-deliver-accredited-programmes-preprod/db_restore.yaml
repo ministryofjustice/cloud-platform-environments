@@ -48,7 +48,7 @@ spec:
                 - /bin/bash
                 - -c
                 - |
-                  set -e
+                  set -euo pipefail
 
                   if [ "${CREATE_SNAPSHOT}" != "true" ]; then
                     echo "create_snapshot=${CREATE_SNAPSHOT}; skipping RDS snapshot"
@@ -69,7 +69,12 @@ spec:
                     --db-instance-identifier "${DATABASE_IDENTIFIER}" \
                     --db-snapshot-identifier "${SNAPSHOT_ID}"
 
-                  echo "Successfully created snapshot: ${SNAPSHOT_ID}"
+                  echo "Waiting for snapshot to become available..."
+
+                  aws rds wait db-snapshot-available \
+                    --db-snapshot-identifier "${SNAPSHOT_ID}"
+
+                  echo "Snapshot ${SNAPSHOT_ID} is available."
 
             - name: find-backup-file
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
@@ -101,11 +106,17 @@ spec:
 
                   echo "Searching for latest backup in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
 
+                  # Sort by filename only (not S3 listing date/time columns) so the
+                  # filename-encoded date (YYYYMMDDHHmmss) determines "latest".
+                  # Previously `sort` operated on the full listing line which caused
+                  # older .bak files to be selected when S3 write timestamps differed
+                  # from the filename date.
                   BACKUP_KEY=$(aws s3 ls "s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/" \
                     --recursive \
+                    | awk '{print $4}' \
+                    | grep '\.bak$' \
                     | sort \
-                    | tail -1 \
-                    | awk '{print $4}')
+                    | tail -1)
 
                   if [ -z "${BACKUP_KEY}" ]; then
                     echo "No backup file found in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"

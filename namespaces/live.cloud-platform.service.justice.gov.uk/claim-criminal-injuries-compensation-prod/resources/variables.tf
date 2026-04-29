@@ -73,4 +73,11 @@ variable "slack_channel" {
   type        = string
   default     = "cica-digital"
 }
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Apply Service"
+}
+
 variable "kubernetes_cluster" {}
