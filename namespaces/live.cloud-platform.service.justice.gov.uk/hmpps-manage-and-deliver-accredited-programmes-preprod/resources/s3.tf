@@ -134,6 +134,20 @@ module "sqlserver_backup_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # Expire old .bak files after 7 days — the DB restore only ever uses the latest file.
+  # Files accumulate at ~32GB/day so this keeps storage costs bounded.
+  lifecycle_rule = [
+    {
+      id      = "expire-old-backups"
+      enabled = true
+      expiration = [
+        {
+          days = 14
+        }
+      ]
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
