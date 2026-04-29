@@ -210,6 +210,7 @@ resource "aws_db_option_group" "rds_s3_option_group" {
     is_production          = var.is_production
     namespace              = var.namespace
     team_name              = var.team_name
+    service_area           = var.service_area
   }
 }
 
