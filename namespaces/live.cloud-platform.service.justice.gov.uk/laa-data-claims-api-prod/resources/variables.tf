@@ -85,5 +85,5 @@ variable "repo_name" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Payments and Billing"
+  default     = "Billing and Payments"
 }
