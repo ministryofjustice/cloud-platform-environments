@@ -20,5 +20,6 @@ resource "aws_ssm_parameter" "tf-outputs-sqs-irsa-policies" {
       environment-name       = var.environment
       infrastructure-support = var.infrastructure_support
       namespace              = var.namespace
+      service_area           = var.service_area
   }
 }

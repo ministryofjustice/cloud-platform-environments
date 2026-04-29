@@ -21,6 +21,7 @@ module "api_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
+  service_area           = var.service_area
   business_unit          = var.business_unit
   application            = module.hmpps_template_kotlin.application
   is_production          = var.is_production

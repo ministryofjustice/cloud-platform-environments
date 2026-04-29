@@ -10,6 +10,7 @@ module "course_completion_events_queue" {
   })
 
   business_unit          = var.business_unit
+  service_area           = var.service_area
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name

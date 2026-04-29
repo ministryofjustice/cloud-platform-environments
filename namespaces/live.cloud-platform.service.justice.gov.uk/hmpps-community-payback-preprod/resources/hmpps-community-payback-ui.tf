@@ -29,6 +29,7 @@ module "elasticache_redis" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  service_area           = var.service_area
 
   number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
