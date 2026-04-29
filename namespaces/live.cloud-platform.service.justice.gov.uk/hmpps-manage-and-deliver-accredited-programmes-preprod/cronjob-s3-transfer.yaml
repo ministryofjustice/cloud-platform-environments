@@ -82,11 +82,10 @@ spec:
                     "s3://$SQLSERVER_BACKUP_S3_BUCKET_NAME/$LATEST_BAK" \
                     --only-show-errors
 
-                  echo "Copy complete. Deleting all objects from upload bucket..."
+                  echo "Copy complete. Removing $LATEST_BAK from upload bucket..."
 
                   aws s3 rm \
-                    "s3://$UPLOAD_S3_BUCKET_NAME" \
-                    --recursive \
+                    "s3://$UPLOAD_S3_BUCKET_NAME/$LATEST_BAK" \
                     --only-show-errors
 
                   echo "Transfer completed successfully at $(date)"
