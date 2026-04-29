@@ -26,7 +26,6 @@ module "supervisors_elasticache_redis" {
   business_unit          = var.business_unit
   application            = module.hmpps_template_typescript.application
   is_production          = var.is_production
-  service_area           = var.service_area
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

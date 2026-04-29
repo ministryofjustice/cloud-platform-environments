@@ -14,7 +14,6 @@ module "hmpps_cp_domain_events_queue" {
   namespace                = var.namespace
   environment_name         = var.environment
   infrastructure_support   = var.infrastructure_support
-  service_area             = var.service_area
 }
 
 resource "aws_sqs_queue_policy" "hmpps_cp_domain_events_queue_policy" {
