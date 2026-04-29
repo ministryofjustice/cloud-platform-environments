@@ -34,12 +34,12 @@ module "secrets_manager" {
       description             = "Secrets for CAAB UI",
       recovery_window_in_days = 7,
       k8s_secret_name         = "caab-ui-secrets"
-    }
+    },
     "caab-regression-test-secrets" = {
       description             = "Secrets for CAAB Regression Tests",
       recovery_window_in_days = 7,
       k8s_secret_name         = "caab-regression-test-secrets"
-    }
+    },
     "ccms-api-gateway-secrets" = {
       description             = "Secrets for CCMS API Gateway",
       recovery_window_in_days = 7,
