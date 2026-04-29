@@ -34,7 +34,6 @@ module "hmpps_cp_domain_events_dlq" {
   namespace                 = var.namespace
   environment_name          = var.environment
   infrastructure_support    = var.infrastructure_support
-  service_area              = var.service_area
 }
 
 resource "aws_sns_topic_subscription" "hmpps_cp_domain_events_subscription" {
