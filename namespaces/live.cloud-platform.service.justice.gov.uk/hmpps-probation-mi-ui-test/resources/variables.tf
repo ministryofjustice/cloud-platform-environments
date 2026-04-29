@@ -71,3 +71,11 @@ variable "github_token" {
   default     = ""
 }
 
+variable "owner" {
+  default = "digitalprisonreporting@digital.justice.gov.uk"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Platform and Reporting"
+}
