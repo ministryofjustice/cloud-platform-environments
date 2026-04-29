@@ -77,3 +77,8 @@ variable "service_area" {
   description = "The full name of the Service Area in which your team is based"
   default     = "Manage Custody"
 }
+
+variable "eks_cluster_name" {
+  description = "Name of the EKS cluster"
+  type        = string
+}
