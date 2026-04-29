@@ -19,6 +19,7 @@ spec:
           containers:
             - name: s3-transfer
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              imagePullPolicy: IfNotPresent
               securityContext:
                 runAsUser: 1000
                 runAsNonRoot: true
@@ -28,7 +29,6 @@ spec:
                     - ALL
                 seccompProfile:
                   type: RuntimeDefault
-              imagePullPolicy: IfNotPresent
               resources:
                 requests:
                   cpu: 10m
@@ -52,7 +52,7 @@ spec:
                       name: sqlserver-backup-s3-bucket-output
                       key: bucket_name
               command:
-                - /bin/sh
+                - /bin/bash
                 - -c
               args:
                 - |
