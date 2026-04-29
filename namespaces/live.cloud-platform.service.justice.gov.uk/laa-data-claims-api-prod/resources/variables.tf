@@ -81,3 +81,9 @@ variable "eks_cluster_name" {
 variable "repo_name" {
   default = "laa-data-claims-api"
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Payments and Billing"
+}
