@@ -11,7 +11,7 @@ spec:
   failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
-      backoffLimit: 3
+      backoffLimit: 1  # Reduced from 3 — retries re-submit RDS restores which conflict
       activeDeadlineSeconds: 5400  # Hard timeout: 90 minutes (covers 60-min poll + overhead)
       template:
         spec:
