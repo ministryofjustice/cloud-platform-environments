@@ -14,6 +14,10 @@ variable "court-application" {
   default = "court-register"
 }
 
+variable "application" {
+  default = "HMPPS Registers Service"
+}
+
 variable "prison-application" {
   default = "prison-register"
 }
@@ -44,6 +48,21 @@ variable "team_name" {
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
+variable "slack_channel" {
+  default     = "move-a-prisoner-digital"
 }
 
 variable "infrastructure_support" {

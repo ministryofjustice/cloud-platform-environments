@@ -24,16 +24,22 @@ variable "team_name" {
 }
 
 variable "review_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-devs"
 }
 
 variable "deployment_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-live"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "infrastructure_support" {

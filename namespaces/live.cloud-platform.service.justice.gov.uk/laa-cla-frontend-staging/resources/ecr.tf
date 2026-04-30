@@ -12,6 +12,8 @@ module "cla_frontend_app_credentials" {
 
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "cla_public", "fala"]
+  # String prefix for GitHub Actions variable and secrets key
+  github_actions_prefix="CLA_FRONTEND"
 
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI
