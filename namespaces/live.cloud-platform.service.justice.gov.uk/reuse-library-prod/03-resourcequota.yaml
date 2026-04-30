@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: reuselibrary-dev
+  namespace: reuse-library-prod
 spec:
   hard:
     pods: "50"

@@ -4,8 +4,11 @@ module "serviceaccount" {
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
 
-  # Creates repo-level secrets (ca.crt / token / server)
+  # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["gov-reuse"]
+  github_actions_secret_kube_namespace = "PROD_KUBE_NAMESPACE"
+  github_actions_secret_kube_cert      = "PROD_KUBE_CERT"
+  github_actions_secret_kube_token     = "PROD_KUBE_TOKEN"
 
   serviceaccount_token_rotated_date = "20-03-2026"
 }

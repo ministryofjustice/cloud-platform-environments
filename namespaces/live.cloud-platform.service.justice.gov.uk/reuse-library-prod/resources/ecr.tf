@@ -3,9 +3,14 @@ module "container_repository" {
 
   # Repo & OIDC
   repo_name           = var.namespace
+
+  # set this if you use one GitHub repository to push to multiple container repositories
+  # this ensures the variable key used in the workflow is unique
+  github_actions_prefix = "prod"
+
   oidc_providers      = ["github"]
   github_repositories = ["gov-reuse"]
-  github_environments = ["dev"]
+  
 
   # Tags/metadata
   business_unit          = var.business_unit
@@ -16,6 +21,4 @@ module "container_repository" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # Optional: allow querying ECR via IRSA from the namespace (read-only)
-  # enable_irsa = true
 }

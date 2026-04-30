@@ -13,14 +13,14 @@ resource "aws_route53_zone" "dev_reuselibrary_team_route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "dev_reuselibrary_route53_zone_sec" {
+resource "kubernetes_secret" "route53_zone_sec" {
   metadata {
-    name      = "${var.namespace}-route53-zone-output"
+    name      = "route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id     = aws_route53_zone.dev_reuselibrary_team_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.dev_reuselibrary_team_route53_zone.name_servers)
+    zone_id     = aws_route53_zone.route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.route53_zone.name_servers)
   }
 }
