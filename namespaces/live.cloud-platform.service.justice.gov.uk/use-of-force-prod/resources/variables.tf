@@ -29,7 +29,7 @@ variable "team_name" {
 }
 
 variable "deployment_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-live"
 }
 
 variable "environment" {
@@ -63,7 +63,7 @@ variable "slack_channel" {
 }
 
 variable "review_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-devs"
 }
 
 
