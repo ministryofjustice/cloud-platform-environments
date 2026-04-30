@@ -88,4 +88,24 @@ spec:
                     "s3://$UPLOAD_S3_BUCKET_NAME/$LATEST_BAK" \
                     --only-show-errors
 
+                  # Tidy up any remaining .bak files older than 14 days from the upload bucket,
+                  # but only if there is more than one file remaining — never delete the last one.
+                  CUTOFF=$(date -d '14 days ago' +%Y-%m-%d 2>/dev/null || date -v-14d +%Y-%m-%d)
+                  ALL_BAKS=$(aws s3 ls "s3://$UPLOAD_S3_BUCKET_NAME/" | grep '\.bak$')
+                  BAK_COUNT=$(echo "$ALL_BAKS" | grep -c '\.bak' || true)
+
+                  if [ "${BAK_COUNT:-0}" -gt 1 ]; then
+                    echo "Found $BAK_COUNT .bak files remaining — checking for files older than $CUTOFF..."
+                    echo "$ALL_BAKS" | while read -r line; do
+                      FILE_DATE=$(echo "$line" | awk '{print $1}')
+                      FILE_NAME=$(echo "$line" | awk '{print $4}')
+                      if [ "$FILE_DATE" \< "$CUTOFF" ]; then
+                        echo "Deleting old file: $FILE_NAME (last modified $FILE_DATE)"
+                        aws s3 rm "s3://$UPLOAD_S3_BUCKET_NAME/$FILE_NAME" --only-show-errors
+                      fi
+                    done
+                  else
+                    echo "Only $BAK_COUNT .bak file(s) remaining — skipping age-based cleanup to preserve last file."
+                  fi
+
                   echo "Transfer completed successfully at $(date)"
