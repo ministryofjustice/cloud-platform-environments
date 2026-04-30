@@ -3,6 +3,11 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "Name of the EKS cluster"
+  type        = string
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -76,9 +81,4 @@ variable "environment_name" {
 variable "service_area" {
   description = "The full name of the Service Area in which your team is based"
   default     = "Manage Custody"
-}
-
-variable "eks_cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
 }
