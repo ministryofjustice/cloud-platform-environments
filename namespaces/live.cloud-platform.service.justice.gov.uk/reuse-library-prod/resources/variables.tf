@@ -68,8 +68,4 @@ variable "github_token" {
   default     = ""
 }
 
-variable "domain" {
-  type        = string
-  description = "Domain name for the service"
-  default     = "dev.reuselibrary.service.justice.gov.uk"
-}
+
