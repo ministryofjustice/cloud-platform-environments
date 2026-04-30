@@ -14,7 +14,7 @@ module "rds-instance-migrated" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-10.rur-2025-10.r1"
+  db_engine_version        = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   storage_type             = "gp2"
@@ -151,6 +151,7 @@ resource "aws_db_option_group" "rds_s3_option_group" {
     is_production          = var.is_production
     namespace              = var.namespace
     team_name              = var.team_name
+    service_area           = var.service_area
   }
 }
 
