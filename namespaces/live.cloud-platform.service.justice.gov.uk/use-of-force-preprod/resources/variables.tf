@@ -33,6 +33,12 @@ variable "environment" {
   default     = "preprod"
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "deployment_environment" {
   type = string
   description = "Environment code used when deploying, e.g. dev, preprod or prod"
