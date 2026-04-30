@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-challenge-support-intervention-plan-api"
     cloud-platform.justice.gov.uk/team-name: "hmpps-prisons-digital-live-support"
     cloud-platform.justice.gov.uk/slack-alert-channel: "maintenance-alerts-non-prod"
+    cloud-platform.justice.gov.uk/service-area: "Live Support"
