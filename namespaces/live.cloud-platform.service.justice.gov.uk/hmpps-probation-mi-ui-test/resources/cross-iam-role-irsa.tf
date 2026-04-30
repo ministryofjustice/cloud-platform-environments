@@ -45,12 +45,14 @@ resource "aws_iam_policy" "cross_iam_dpr_oidc" {
   policy = data.aws_iam_policy_document.cross_iam_dpr_oidc.json
 
   tags = {
-    business_unit          = var.business_unit
+    business-unit          = var.business_unit
     application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
+    is-production          = var.is_production
+    team-name              = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    owner = var.owner
+    service-area = var.service_area
   }
 }
 
@@ -103,12 +105,14 @@ resource "aws_iam_policy" "cross_iam_policy_mp" {
   policy = data.aws_iam_policy_document.cross_iam_policy_mp.json
 
   tags = {
-    business_unit          = var.business_unit
+    business-unit          = var.business_unit
     application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
+    is-production          = var.is_production
+    team-name              = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    owner = var.owner
+    service-area = var.service_area
   }
 }
 
