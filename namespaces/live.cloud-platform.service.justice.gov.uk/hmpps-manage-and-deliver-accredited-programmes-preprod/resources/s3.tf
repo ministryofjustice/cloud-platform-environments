@@ -11,6 +11,21 @@ module "upload_s3_bucket" {
   log_path               = var.log_path
   namespace              = var.namespace
 
+  # Safety net: auto-delete files after 30 days if the cronjob fails to remove them.
+  # Normal operation removes files within hours; this prevents runaway accumulation
+  # (e.g. the 1.47TB incident of Apr 29 2026 caused by weeks of missed deletions).
+  lifecycle_rule = [
+    {
+      id      = "expire-stale-uploads"
+      enabled = true
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
