@@ -13,7 +13,7 @@ module "secrets_manager" {
     "slack-webhook" = {
       description             = "Contains the slack webhook url to send notifications",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "utiac-staging-slack-webhook"
+      k8s_secret_name         = "utiac-prod-slack-webhook"
     }
   }
 }
