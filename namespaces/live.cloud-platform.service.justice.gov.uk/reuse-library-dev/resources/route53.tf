@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "dev_reuselibrary_team_route53_zone" {
-  name = var.domain
+  name = "dev.reuselibrary.service.justice.gov.uk"
 
   tags = {
     team_name              = var.team_name

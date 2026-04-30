@@ -10,5 +10,5 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = "DEV_KUBE_CERT"
   github_actions_secret_kube_token     = "DEV_KUBE_TOKEN"
 
-  serviceaccount_token_rotated_date = "20-03-2026"
+  serviceaccount_token_rotated_date = "30-04-2026"
 }
