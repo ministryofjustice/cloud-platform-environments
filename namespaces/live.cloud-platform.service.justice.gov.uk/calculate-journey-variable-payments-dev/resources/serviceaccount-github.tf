@@ -89,7 +89,7 @@ resource "time_rotating" "weekly" {
 }
 
 data "github_team" "move-a-prisoner" {
-  slug = "move-a-prisoner"
+  slug = "map-developers-devs"
 }
 
 resource "github_repository_environment" "env" {
