@@ -21,7 +21,6 @@ spec:
             runbook_url: https://ministryofjustice.github.io/laa-manage-your-civil-cases/
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/djtEK4abc/ccq-ingress-check-if-your-client-qualifies-for-legal-aid?orgId=1&var-namespace=laa-manage-your-civil-cases-production&var-ingress=check-client-qualifies-laa-estimate-eligibility
         - alert: MCCProductionLowPodCount
-          runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubepodnotready
           expr: |-
             sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-manage-your-civil-cases-production", job="kube-state-metrics", phase=~"Pending|Unknown"}) > 0
           for: 1m
