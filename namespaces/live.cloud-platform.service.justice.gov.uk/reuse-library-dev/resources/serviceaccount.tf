@@ -1,11 +1,14 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace           = var.namespace
   kubernetes_cluster  = var.kubernetes_cluster
 
   # Creates repo-level secrets (ca.crt / token / server)
   github_repositories = ["gov-reuse"]
+  github_actions_secret_kube_namespace = "DEV_KUBE_NAMESPACE"
+  github_actions_secret_kube_cert      = "DEV_KUBE_CERT"
+  github_actions_secret_kube_token     = "DEV_KUBE_TOKEN"
 
   serviceaccount_token_rotated_date = "20-03-2026"
 }

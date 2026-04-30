@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "reuselibrary-dev"
+  default     = "reuse-library-dev"
 }
 
 variable "business_unit" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "reuse-portal"
+  default     = "reuse-library"
 }
 
 variable "github_owner" {
@@ -68,8 +68,6 @@ variable "github_token" {
   default     = ""
 }
 
-variable "domain" {
-  type        = string
-  description = "Domain name for the service"
-  default     = "dev.reuselibrary.service.justice.gov.uk"
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
