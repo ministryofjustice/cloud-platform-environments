@@ -82,7 +82,7 @@ module "hmpps-probation-supervision-reminders-ui-service-account" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  service_account_name = "hhmpps-probation-supervision-reminders-ui"
+  service_account_name = "hmpps-probation-supervision-reminders-ui"
   role_policy_arns = merge(
     { elasticache = module.elasticache.irsa_policy_arn },
     local.sqs_policies

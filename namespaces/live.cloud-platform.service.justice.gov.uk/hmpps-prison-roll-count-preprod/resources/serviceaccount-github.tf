@@ -97,7 +97,7 @@ data "github_team" "hmpps-sre" {
 }
 
 data "github_team" "move-a-prisoner" {
-  slug = "move-a-prisoner"
+  slug = "map-developers-live"
 }
 
 ##########################################################################

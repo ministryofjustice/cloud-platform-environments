@@ -83,5 +83,5 @@ variable "kubernetes_cluster" {
 variable "slack_channel" {
   type        = string
   description = "Cloud Platform will contact our team via this slack channel"
-  default     = "pic-mafia"
+  default     = "probation_in_court"
 }

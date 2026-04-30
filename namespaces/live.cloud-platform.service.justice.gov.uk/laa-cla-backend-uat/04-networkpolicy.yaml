@@ -42,9 +42,6 @@ spec:
           cloud-platform.justice.gov.uk/namespace: laa-cla-frontend-uat
     - namespaceSelector:
         matchLabels:
-          cloud-platform.justice.gov.uk/namespace: laa-cla-public-staging
-    - namespaceSelector:
-        matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-govuk-notify-orchestrator-dev
     - namespaceSelector:
         matchLabels:
@@ -52,9 +49,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-uat
-    - namespaceSelector:
-        matchLabels:
-          cloud-platform.justice.gov.uk/namespace: laa-cla-public-dnstest
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-dnstest

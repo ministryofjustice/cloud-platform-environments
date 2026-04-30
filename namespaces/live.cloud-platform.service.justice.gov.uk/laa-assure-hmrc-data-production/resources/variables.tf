@@ -156,3 +156,8 @@ variable "serviceaccount_rules" {
     },
   ]
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
+}

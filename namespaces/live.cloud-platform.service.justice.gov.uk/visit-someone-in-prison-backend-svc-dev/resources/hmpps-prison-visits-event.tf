@@ -17,18 +17,20 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "non-associations.deleted",
       "non-associations.closed",
       "non-associations.amended",
-      "prison-offender-events.visitor.restriction.upserted",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.restriction.changed",
       "prisoner-offender-search.prisoner.alerts-updated",
-      "prison-offender-events.prisoner.person-restriction.upserted",
       "prison-offender-events.prisoner.contact-approved",
       "prison-offender-events.prisoner.contact-unapproved",
       "appointments.appointment-instance.created",
       "appointments.appointment-instance.updated",
       "appointments.appointment-instance.cancelled",
       "appointments.appointment-instance.deleted",
+      "contacts-api.prisoner-contact-restriction.updated",
+      "contacts-api.prisoner-contact-restriction.created",
+      "contacts-api.contact-restriction.updated",
+      "contacts-api.contact-restriction.created",
     ]
   })
 }

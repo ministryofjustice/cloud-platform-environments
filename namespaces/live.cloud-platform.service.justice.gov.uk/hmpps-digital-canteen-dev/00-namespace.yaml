@@ -9,7 +9,7 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "private-launchpad-v1-tech-analysis"
+    cloud-platform.justice.gov.uk/slack-channel: "digital-canteen-launchpad-tech-team"
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-digital-canteen-nonprod-alerts"
     cloud-platform.justice.gov.uk/application: "digital canteen"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"

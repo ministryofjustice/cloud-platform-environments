@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
@@ -84,7 +84,7 @@ variable "number_cache_clusters" {
 variable "db_allocated_storage" {
   description = "The allocated storage for the RDS instance"
   type        = number
-  default     = 200
+  default     = 600
 }
 
 variable "db_engine" {
@@ -153,4 +153,10 @@ variable "sqlserver_restore_create_snapshot" {
   description = "Boolean to declare whether or not a snapshot should be taken before the sqlserver restore"
   type        = bool
   default     = true
+}
+
+variable "db_backup_retention_period" {
+  description = "Number of days to retain automated backups"
+  type        = string
+  default     = "0"
 }

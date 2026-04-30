@@ -6,3 +6,5 @@ metadata:
 spec:
   hard:
     pods: "10"
+
+# This ResourceQuota limits the number of pods that can be created in the namespace to 10.

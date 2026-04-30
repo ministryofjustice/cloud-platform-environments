@@ -18,7 +18,8 @@ module "rds_apex" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  enable_rds_auto_start_stop   = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # Oracle specifics
@@ -100,4 +101,8 @@ resource "aws_db_option_group" "oracle_apex" {
   }
 }
 
-
+resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
+  db_instance_identifier = module.rds_apex.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_integration.arn
+}
