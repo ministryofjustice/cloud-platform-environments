@@ -5,7 +5,7 @@ module "container_repository" {
   repo_name           = var.namespace
   oidc_providers      = ["github"]
   github_repositories = ["gov-reuse"]
-  github_environments = ["dev"]
+  github_actions_prefix = "dev"
 
   # Tags/metadata
   business_unit          = var.business_unit
