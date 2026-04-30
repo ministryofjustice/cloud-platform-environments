@@ -12,6 +12,7 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: 3
+      activeDeadlineSeconds: 5400  # Hard timeout: 90 minutes (covers 60-min poll + overhead)
       template:
         spec:
           serviceAccountName: irsa-sqlserver
@@ -264,18 +265,30 @@ spec:
                   # RDS pulls the .bak directly from S3 using the option-group IAM role —
                   # no file transfer into the pod is required.
                   echo "Submitting rds_restore_database task..."
-                  "${SQLCMD}" \
+                  SUBMIT_OUTPUT=$("${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
+                    -h -1 -W \
                     -b \
                     -C -Q "EXEC msdb.dbo.rds_restore_database
                           @restore_db_name    = '${DATABASE_NAME}',
                           @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
                           @with_norecovery    = 0,
-                          @type               = 'FULL';"
+                          @type               = 'FULL';" 2>&1)
 
-                  echo "Restore task submitted. Polling rds_task_status for completion..."
+                  # Extract the task_id from the "Task Id: <N>" line in the submission output.
+                  # This is more reliable than parsing the tabular row, which varies by column width.
+                  TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE 'Task Id:\s*[0-9]+' | grep -oE '[0-9]+' || true)
+
+                  if [ -z "${TASK_ID}" ]; then
+                    echo "Failed to extract task_id from submission output:"
+                    echo "${SUBMIT_OUTPUT}"
+                    exit 1
+                  fi
+
+                  echo "Restore task submitted. Task ID: ${TASK_ID}"
+                  echo "Polling rds_task_status for task ${TASK_ID}..."
 
                   # Poll every 30 s; time out after 60 minutes (120 * 30s)
                   POLL_COUNT=0
@@ -285,17 +298,22 @@ spec:
                       -U "${DATABASE_USERNAME}" \
                       -P "${DATABASE_PASSWORD}" \
                       -h -1 -W \
-                      -C -Q "EXEC msdb.dbo.rds_task_status @db_name = '${DATABASE_NAME}';" 2>&1)
+                      -C -Q "EXEC msdb.dbo.rds_task_status @task_id = ${TASK_ID};" 2>&1)
 
                     echo "$(date) | ${STATUS_OUTPUT}"
 
-                    if echo "${STATUS_OUTPUT}" | grep -qi "SUCCESS"; then
+                    # Extract the lifecycle column value for this task.
+                    # rds_task_status returns: task_id, task_type, lifecycle, ...
+                    # With @task_id filter, only one row is returned.
+                    LIFECYCLE=$(echo "${STATUS_OUTPUT}" | grep -oE '\b(SUCCESS|ERROR|CANCELLED|CREATED|IN_PROGRESS)\b' | head -1 || true)
+
+                    if [ "${LIFECYCLE}" = "SUCCESS" ]; then
                       echo "Restore completed successfully at $(date)"
                       exit 0
                     fi
 
-                    if echo "${STATUS_OUTPUT}" | grep -qi "ERROR"; then
-                      echo "Restore task reported an error at $(date)"
+                    if [ "${LIFECYCLE}" = "ERROR" ] || [ "${LIFECYCLE}" = "CANCELLED" ]; then
+                      echo "Restore task failed (lifecycle=${LIFECYCLE}) at $(date)"
                       exit 1
                     fi
 
