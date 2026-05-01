@@ -6,7 +6,7 @@ metadata:
   namespace: manage-soc-cases-preprod
 subjects:
   - kind: Group
-    name: "github:secure-estate-digital-restricted-team"
+    name: "github:hmpps-security-intelligence-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: User
     name: github:james-jdgtl
