@@ -65,7 +65,7 @@ describe CpEnv::Terraform do
 
       tf_init = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform init -backend-config=\"bucket=bucket\" -backend-config=\"key=key-prefix/live-1.cloud-platform.service.justice.gov.uk/mynamespace/terraform.tfstate\" -backend-config=\"dynamodb_table=lock-table\" -backend-config=\"region=region\""
 
-      tf_apply = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform apply -auto-approve"
+      tf_apply = "cd #{tf_dir}; export TF_VAR_kubernetes_cluster=#{kubernetes_cluster}; terraform apply -auto-approve 2>&1 | sed -E 's|p-w8ht8v1x|p-w8ht8v1x (Enforce mandatory tags), please see our tagging policy https://cloud-optimisation-and-accountability.justice.gov.uk/documentation/finops-and-greenops-at-moj/standards/tagging.html|g'"
 
       expect_execute(tf_init, "", success)
       expect_execute(tf_apply, "", success)
