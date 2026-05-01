@@ -7,6 +7,9 @@ resource "aws_sns_topic_subscription" "core-person-record-and-delius-queue-subsc
       "core-person-record.probation.address.created",
       "core-person-record.probation.address.updated",
       "core-person-record.probation.address.deleted",
+    ],
+    eventSource = [
+      { "anything-but" = ["delius"] }
     ]
   })
 }

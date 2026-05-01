@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-jobs-board-integration-dev
+  namespace: justice-redact-dev
 spec:
   hard:
     pods: "50"

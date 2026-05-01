@@ -11,31 +11,31 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Record controlled work"
+  default     = "Justice Redact"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "record-controlled-work-uat"
+  default     = "justice-redact-dev"
 }
 
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Information and Advice"
+  default     = "Offender Subject Access Request (O-SAR)"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "OCTO"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-record-controlled-work"
+  default     = "justice-redact"
 }
 
 variable "environment" {
@@ -47,7 +47,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "email@email.com"
+  default     = "justiceredactteam@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -59,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-e2e-meansandmatch"
+  default     = "justice-redact-team"
 }
 
 variable "github_owner" {
@@ -72,20 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "serviceaccount_name" {
-  type        = string
-  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "rcw-github-action-service-account"
-}
-
-variable "app_repo" {
-  description = "Name of application repository"
-  type        = string
-  default     = "laa-record-controlled-work"
-}
-
-variable "number_cache_clusters" {
-  default = "2"
 }

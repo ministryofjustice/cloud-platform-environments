@@ -24,7 +24,7 @@ module "dpr_mi_assume_role" {
   source                         = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version                        = "5.13.0"
   create_role                    = true
-  role_name                      = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
+  role_name                      = "dpr-reporting-probation-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
   provider_url                   = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
   role_policy_arns               = [aws_iam_policy.cross_iam_dpr_oidc.arn]
   oidc_fully_qualified_subjects  = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(local.environments_map, lower(var.environment))}-cross-iam"]

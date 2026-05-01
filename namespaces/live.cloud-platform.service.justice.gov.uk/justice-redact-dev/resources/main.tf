@@ -9,15 +9,13 @@ provider "aws" {
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
-      # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
     }
   }
 }
@@ -29,14 +27,13 @@ provider "aws" {
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
     }
   }
 }
@@ -48,32 +45,20 @@ provider "aws" {
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
       slack-channel = var.slack_channel
-      GithubTeam    = var.team_name
     }
   }
 }
+
 provider "github" {
   token = var.github_token
   owner = var.github_owner
 }
 
 provider "kubernetes" {}
-
-locals {
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    owner                  = var.team_name
-    environment            = var.environment
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
-  }
-}
