@@ -6,7 +6,6 @@ module "hmpps_probation_mi_ui_ec_cluster" {
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
   node_type            = "cache.t4g.micro"
-
   team_name              = var.team_name
   namespace              = var.namespace
   business_unit          = var.business_unit
@@ -15,6 +14,7 @@ module "hmpps_probation_mi_ui_ec_cluster" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   enable_irsa            = true
+  service_area = var.service_area
 }
 
 resource "kubernetes_secret" "hmpps_probation_mi_ui_ec_cluster" {
