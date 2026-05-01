@@ -8,6 +8,7 @@ locals {
     "hmpps-assessments-preprod",
     "hmpps-book-a-video-link-preprod",
     "hmpps-community-accommodation-preprod",
+    "hmpps-community-payback-preprod",
     "hmpps-contacts-preprod",
     "hmpps-digital-prison-services-preprod",
     "hmpps-education-and-work-plan-preprod",
@@ -30,8 +31,7 @@ locals {
     "hmpps-support-additional-needs-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
-    "visit-someone-in-prison-frontend-svc-preprod",
-    "hmpps-community-payback-preprod"
+    "visit-someone-in-prison-frontend-svc-preprod"
   ])
 }
 
