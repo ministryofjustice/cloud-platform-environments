@@ -30,7 +30,8 @@ locals {
     "hmpps-support-additional-needs-preprod",
     "hmpps-workload-preprod",
     "make-recall-decision-preprod",
-    "visit-someone-in-prison-frontend-svc-preprod"
+    "visit-someone-in-prison-frontend-svc-preprod",
+    "hmpps-community-payback-preprod"
   ])
 }
 
