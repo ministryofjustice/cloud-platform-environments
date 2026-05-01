@@ -6,7 +6,6 @@ module "hmpps_probation_mi_ui_ec_cluster" {
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
   node_type            = "cache.t4g.micro"
-
   team_name              = var.team_name
   namespace              = var.namespace
   business_unit          = var.business_unit
