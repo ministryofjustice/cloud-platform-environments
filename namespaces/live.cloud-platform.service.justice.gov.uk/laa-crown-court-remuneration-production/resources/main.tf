@@ -18,6 +18,10 @@ provider "aws" {
       slack-channel = var.slack_channel
       GithubTeam = "laa-clair-taskforce"
       team-name = var.team_name
+      business_unit = var.business_unit
+      service_area = var.service_area
+      is_production = var.is_production
+      team_name = var.team_name
     }
   }
 }
@@ -38,6 +42,10 @@ provider "aws" {
       slack-channel = var.slack_channel
       GithubTeam = "laa-clair-taskforce"
       team-name = var.team_name
+      business_unit = var.business_unit
+      service_area = var.service_area
+      is_production = var.is_production
+      team_name = var.team_name
     }
   }
 }
@@ -58,6 +66,10 @@ provider "aws" {
       slack-channel = var.slack_channel
       GithubTeam = "laa-clair-taskforce"
       team-name = var.team_name
+      business_unit = var.business_unit
+      service_area = var.service_area
+      is_production = var.is_production
+      team_name = var.team_name
     }
   }
 }
