@@ -242,24 +242,24 @@ spec:
                   done
                   echo "SQL Server reachable."
 
-                  # Kill any existing connections so the overwrite restore can proceed
+                  # Kill any existing connections so the overwrite restore can proceed.
+                  # This may fail if the DB doesn't exist, is recovering after an RDS
+                  # auto-start, or was already dropped by a previous attempt — all OK.
                   echo "Setting database to SINGLE_USER to clear existing connections..."
                   "${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
-                    -b \
                     -C -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
-                          ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;"
+                          ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;" 2>&1 || echo "  (SINGLE_USER failed — DB may not exist or is recovering, continuing...)"
                   
                   echo "Dropping existing database if it exists..."
                   "${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
-                    -b \
                     -C -Q "IF DB_ID(N'${DATABASE_NAME}') IS NOT NULL
-                             DROP DATABASE [${DATABASE_NAME}];"
+                             DROP DATABASE [${DATABASE_NAME}];" 2>&1 || echo "  (DROP DATABASE failed — DB may not exist, continuing...)"
 
                   # Submit the native RDS restore task.
                   # RDS pulls the .bak directly from S3 using the option-group IAM role —
@@ -269,7 +269,7 @@ spec:
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
-                    -h -1 -W \
+                    -W \
                     -b \
                     -C -Q "EXEC msdb.dbo.rds_restore_database
                           @restore_db_name    = '${DATABASE_NAME}',
@@ -277,9 +277,13 @@ spec:
                           @with_norecovery    = 0,
                           @type               = 'FULL';" 2>&1)
 
-                  # Extract the task_id from the "Task Id: <N>" line in the submission output.
-                  # This is more reliable than parsing the tabular row, which varies by column width.
+                  # Extract task_id: prefer the explicit "Task Id: <N>" line printed by
+                  # rds_restore_database; fall back to the first numeric field in the
+                  # result set (the task_id column is always first).
                   TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE 'Task Id:\s*[0-9]+' | grep -oE '[0-9]+' || true)
+                  if [ -z "${TASK_ID}" ]; then
+                    TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE '^\s*[0-9]+' | head -1 | tr -d ' ' || true)
+                  fi
 
                   if [ -z "${TASK_ID}" ]; then
                     echo "Failed to extract task_id from submission output:"
