@@ -85,3 +85,7 @@ variable "app_repo" {
   type        = string
   default     = "laa-record-controlled-work"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
