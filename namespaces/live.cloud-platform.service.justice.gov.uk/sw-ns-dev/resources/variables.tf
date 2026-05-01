@@ -71,3 +71,7 @@ variable "github_token" {
 variable "eks_cluster_name" {
 }
 
+variable "service_area" {
+  type        = string
+  default     = "Hosting"
+}
