@@ -11,7 +11,8 @@ spec:
   failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
-      backoffLimit: 3
+      backoffLimit: 1  # Reduced from 3 — retries re-submit RDS restores which conflict
+      activeDeadlineSeconds: 5400  # Hard timeout: 90 minutes (covers 60-min poll + overhead)
       template:
         spec:
           serviceAccountName: irsa-sqlserver
@@ -48,7 +49,7 @@ spec:
                 - /bin/bash
                 - -c
                 - |
-                  set -e
+                  set -euo pipefail
 
                   if [ "${CREATE_SNAPSHOT}" != "true" ]; then
                     echo "create_snapshot=${CREATE_SNAPSHOT}; skipping RDS snapshot"
@@ -69,7 +70,12 @@ spec:
                     --db-instance-identifier "${DATABASE_IDENTIFIER}" \
                     --db-snapshot-identifier "${SNAPSHOT_ID}"
 
-                  echo "Successfully created snapshot: ${SNAPSHOT_ID}"
+                  echo "Waiting for snapshot to become available..."
+
+                  aws rds wait db-snapshot-available \
+                    --db-snapshot-identifier "${SNAPSHOT_ID}"
+
+                  echo "Snapshot ${SNAPSHOT_ID} is available."
 
             - name: find-backup-file
               image: public.ecr.aws/aws-cli/aws-cli:2.15.15
@@ -101,11 +107,17 @@ spec:
 
                   echo "Searching for latest backup in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
 
+                  # Sort by filename only (not S3 listing date/time columns) so the
+                  # filename-encoded date (YYYYMMDDHHmmss) determines "latest".
+                  # Previously `sort` operated on the full listing line which caused
+                  # older .bak files to be selected when S3 write timestamps differed
+                  # from the filename date.
                   BACKUP_KEY=$(aws s3 ls "s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/" \
                     --recursive \
+                    | awk '{print $4}' \
+                    | grep '\.bak$' \
                     | sort \
-                    | tail -1 \
-                    | awk '{print $4}')
+                    | tail -1)
 
                   if [ -z "${BACKUP_KEY}" ]; then
                     echo "No backup file found in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
@@ -230,41 +242,57 @@ spec:
                   done
                   echo "SQL Server reachable."
 
-                  # Kill any existing connections so the overwrite restore can proceed
+                  # Kill any existing connections so the overwrite restore can proceed.
+                  # This may fail if the DB doesn't exist, is recovering after an RDS
+                  # auto-start, or was already dropped by a previous attempt — all OK.
                   echo "Setting database to SINGLE_USER to clear existing connections..."
                   "${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
-                    -b \
                     -C -Q "IF DB_ID('${DATABASE_NAME}') IS NOT NULL
-                          ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;"
+                          ALTER DATABASE [${DATABASE_NAME}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;" 2>&1 || echo "  (SINGLE_USER failed — DB may not exist or is recovering, continuing...)"
                   
                   echo "Dropping existing database if it exists..."
                   "${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
-                    -b \
                     -C -Q "IF DB_ID(N'${DATABASE_NAME}') IS NOT NULL
-                             DROP DATABASE [${DATABASE_NAME}];"
+                             DROP DATABASE [${DATABASE_NAME}];" 2>&1 || echo "  (DROP DATABASE failed — DB may not exist, continuing...)"
 
                   # Submit the native RDS restore task.
                   # RDS pulls the .bak directly from S3 using the option-group IAM role —
                   # no file transfer into the pod is required.
                   echo "Submitting rds_restore_database task..."
-                  "${SQLCMD}" \
+                  SUBMIT_OUTPUT=$("${SQLCMD}" \
                     -S "localhost,${DB_PORT}" \
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
+                    -W \
                     -b \
                     -C -Q "EXEC msdb.dbo.rds_restore_database
                           @restore_db_name    = '${DATABASE_NAME}',
                           @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
                           @with_norecovery    = 0,
-                          @type               = 'FULL';"
+                          @type               = 'FULL';" 2>&1)
 
-                  echo "Restore task submitted. Polling rds_task_status for completion..."
+                  # Extract task_id: prefer the explicit "Task Id: <N>" line printed by
+                  # rds_restore_database; fall back to the first numeric field in the
+                  # result set (the task_id column is always first).
+                  TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE 'Task Id:\s*[0-9]+' | grep -oE '[0-9]+' || true)
+                  if [ -z "${TASK_ID}" ]; then
+                    TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE '^\s*[0-9]+' | head -1 | tr -d ' ' || true)
+                  fi
+
+                  if [ -z "${TASK_ID}" ]; then
+                    echo "Failed to extract task_id from submission output:"
+                    echo "${SUBMIT_OUTPUT}"
+                    exit 1
+                  fi
+
+                  echo "Restore task submitted. Task ID: ${TASK_ID}"
+                  echo "Polling rds_task_status for task ${TASK_ID}..."
 
                   # Poll every 30 s; time out after 60 minutes (120 * 30s)
                   POLL_COUNT=0
@@ -274,17 +302,22 @@ spec:
                       -U "${DATABASE_USERNAME}" \
                       -P "${DATABASE_PASSWORD}" \
                       -h -1 -W \
-                      -C -Q "EXEC msdb.dbo.rds_task_status @db_name = '${DATABASE_NAME}';" 2>&1)
+                      -C -Q "EXEC msdb.dbo.rds_task_status @task_id = ${TASK_ID};" 2>&1)
 
                     echo "$(date) | ${STATUS_OUTPUT}"
 
-                    if echo "${STATUS_OUTPUT}" | grep -qi "SUCCESS"; then
+                    # Extract the lifecycle column value for this task.
+                    # rds_task_status returns: task_id, task_type, lifecycle, ...
+                    # With @task_id filter, only one row is returned.
+                    LIFECYCLE=$(echo "${STATUS_OUTPUT}" | grep -oE '\b(SUCCESS|ERROR|CANCELLED|CREATED|IN_PROGRESS)\b' | head -1 || true)
+
+                    if [ "${LIFECYCLE}" = "SUCCESS" ]; then
                       echo "Restore completed successfully at $(date)"
                       exit 0
                     fi
 
-                    if echo "${STATUS_OUTPUT}" | grep -qi "ERROR"; then
-                      echo "Restore task reported an error at $(date)"
+                    if [ "${LIFECYCLE}" = "ERROR" ] || [ "${LIFECYCLE}" = "CANCELLED" ]; then
+                      echo "Restore task failed (lifecycle=${LIFECYCLE}) at $(date)"
                       exit 1
                     fi
 

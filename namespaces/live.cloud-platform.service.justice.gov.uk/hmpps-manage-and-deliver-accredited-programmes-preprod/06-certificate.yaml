@@ -39,4 +39,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-and-deliver-acp-data-importer-preprod.hmpps.service.justice.gov.uk
-    - accredited-programmes-manage-and-deliver-data-importer-preprod.hmpps.service.justice.gov.uk
+    - accredited-programmes-manage-and-deliver-dis-preprod.hmpps.service.justice.gov.uk

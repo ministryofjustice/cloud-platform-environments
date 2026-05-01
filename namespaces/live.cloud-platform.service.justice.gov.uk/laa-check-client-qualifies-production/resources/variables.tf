@@ -39,7 +39,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "ccq@justice.gov.uk"
+  default     = "means-and-match-infra@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -48,7 +48,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "laa-ccq-team"
+  default     = "laa-e2e-meansandmatch"
 }
 
 variable "github_owner" {

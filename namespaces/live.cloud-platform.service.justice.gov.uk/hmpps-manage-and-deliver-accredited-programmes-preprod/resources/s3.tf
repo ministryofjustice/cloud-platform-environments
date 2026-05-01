@@ -11,6 +11,21 @@ module "upload_s3_bucket" {
   log_path               = var.log_path
   namespace              = var.namespace
 
+  # Safety net: auto-delete files after 30 days if the cronjob fails to remove them.
+  # Normal operation removes files within hours; this prevents runaway accumulation
+  # (e.g. the 1.47TB incident of Apr 29 2026 caused by weeks of missed deletions).
+  lifecycle_rule = [
+    {
+      id      = "expire-stale-uploads"
+      enabled = true
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -28,8 +43,9 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
         Principal = {
           AWS = [
             module.irsa-cronjob.role_arn,
-            # NEC preprod datasync role - re-enabled after NEC resolved deployment issues
-            "arn:aws:iam::778742069978:role/im-preprod-s3-datasync",
+            # NEC preprod datasync role - commented out as the IAM role does not yet exist in AWS account 778742069978.
+            # Re-enable once NEC confirm the role has been created.
+            #"arn:aws:iam::778742069978:role/im-preprod-s3-datasync",
             "arn:aws:iam::778742069978:role/im-production-s3-datasync"
           ]
         }
@@ -132,6 +148,20 @@ module "sqlserver_backup_s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  # Expire old .bak files after 14 days — the DB restore only ever uses the latest file.
+  # Files accumulate at ~32GB/day so this keeps storage costs bounded.
+  lifecycle_rule = [
+    {
+      id      = "expire-old-backups"
+      enabled = true
+      expiration = [
+        {
+          days = 14
+        }
+      ]
+    }
+  ]
 
   providers = {
     aws = aws.london

@@ -180,6 +180,25 @@ spec:
   types:
   - Egress
 ---
+# Allows the make-payments CronJob pod to call the in-namespace API service directly
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-make-payments-job-to-api
+  namespace: hmpps-prisoner-pay-dev
+spec:
+  order: 65.0
+  selector: app == "hmpps-prisoner-pay-api-make-payments-job"
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      selector: app == "hmpps-prisoner-pay-api"
+      ports:
+      - 8080
+  types:
+  - Egress
+---
 # Allows the prisoner pay UI to reach the ElastiCache Redis instance directly (bypasses Envoy)
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
@@ -208,8 +227,7 @@ metadata:
   namespace: hmpps-prisoner-pay-dev
 spec:
   order: 90.0
-#  selector: all()
-  selector: app == "disabled"
+  selector: all()
   egress:
   - action: Deny
   types:

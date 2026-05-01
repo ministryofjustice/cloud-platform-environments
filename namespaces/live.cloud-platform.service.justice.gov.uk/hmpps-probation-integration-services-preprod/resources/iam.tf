@@ -93,14 +93,10 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 }
 
 # Policies to manage queues e.g. view and redrive messages
-# data "aws_sqs_queue" "queues_from_other_namespaces" {
-#   for_each = toset([])
-#   name = each.value
-# }
-
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.core-person-record-and-delius-queue.sqs_arn,
       module.cosso-and-delius-queue.sqs_arn,
       module.community-payback-and-delius-queue.sqs_arn,
       module.esupervision-and-delius-queue.sqs_arn,
@@ -137,6 +133,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.workforce-allocations-to-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.core-person-record-and-delius-dlq.sqs_arn,
       module.cosso-and-delius-dlq.sqs_arn,
       module.community-payback-and-delius-dlq.sqs_arn,
       module.esupervision-and-delius-dlq.sqs_arn,
@@ -173,7 +170,6 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       data.aws_sqs_queue.hmpps-tier-events-queue.arn,
       data.aws_sqs_queue.hmpps-tier-events-dlq.arn
     ]
-    #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
     sid    = "ListAndDecrypt"

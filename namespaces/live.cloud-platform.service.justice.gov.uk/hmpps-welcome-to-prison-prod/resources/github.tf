@@ -4,7 +4,7 @@ module "hmpps-welcome-people-into-prison-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-api"
   application                   = "hmpps-welcome-people-into-prison-api"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.review_team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -14,7 +14,7 @@ module "hmpps-welcome-people-into-prison-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.deployment_team_name]
 }
 
 module "hmpps-welcome-people-into-prison-ui" {
@@ -23,7 +23,7 @@ module "hmpps-welcome-people-into-prison-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-ui"
   application                   = "hmpps-welcome-people-into-prison-ui"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.review_team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -33,5 +33,5 @@ module "hmpps-welcome-people-into-prison-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.deployment_team_name]
 }
