@@ -11,13 +11,19 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Reuse Library Portal"
+  default     = "Reuse Library"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
   default     = "reuse-library-dev"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Cross-Gov Reuse Library"
 }
 
 variable "business_unit" {
@@ -35,7 +41,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
@@ -66,8 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }
