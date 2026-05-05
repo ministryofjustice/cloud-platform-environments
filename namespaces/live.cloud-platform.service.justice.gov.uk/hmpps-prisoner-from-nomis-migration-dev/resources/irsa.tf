@@ -19,8 +19,6 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_appointments_dead_letter_queue.sqs_arn,
       module.migration_visits_queue.sqs_arn,
       module.migration_visits_dead_letter_queue.sqs_arn,
-      module.migration_incidents_queue.sqs_arn,
-      module.migration_incidents_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
