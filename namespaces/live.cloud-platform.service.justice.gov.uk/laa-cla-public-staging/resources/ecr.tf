@@ -18,6 +18,9 @@ module "ecr-repo" {
   # of credentials you need in CircleCI
   namespace = var.namespace
 
+  # set protecction off to deprecate all cla_public namespaces
+  deletion_protection = false
+  
   # Tags
   business_unit          = var.business_unit
   application            = var.application
