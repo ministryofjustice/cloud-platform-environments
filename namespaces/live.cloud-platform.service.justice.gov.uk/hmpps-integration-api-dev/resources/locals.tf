@@ -45,6 +45,7 @@ locals {
     "community-campus",
     "enhanced-reception-checks",
     "synalogik",
+    "jaiu-onboarding-optimisation",
   ]
 
   client_queues = {
