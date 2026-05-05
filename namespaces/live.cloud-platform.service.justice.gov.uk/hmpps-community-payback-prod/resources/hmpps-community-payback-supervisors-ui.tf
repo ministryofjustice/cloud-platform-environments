@@ -5,7 +5,7 @@ module "hmpps_community_payback_supervisors_ui" {
   github_repo = "hmpps-community-payback-supervisors-ui"
   application = "hmpps-community-payback-supervisors-ui"
   github_team = "hmpps-community-payback-live"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment = var.environment
   reviewer_teams                = ["hmpps-community-payback-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
