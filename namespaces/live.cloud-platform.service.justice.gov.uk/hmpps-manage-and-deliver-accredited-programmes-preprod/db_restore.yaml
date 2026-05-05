@@ -7,6 +7,7 @@ spec:
   # Run every night at 05:45 UTC (06:45 BST) — 0:45:00 after the s3-transfer job
   schedule: "45 5 * * *"
   concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 600  # If the scheduler misses the window by >10min, skip this run
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 5
   jobTemplate:
@@ -165,7 +166,7 @@ spec:
               #   /opt/mssql-tools/bin/sqlcmd  (older builds)
               # The startup script probes for both. We override the container
               # entrypoint so SQL Server itself is never started.
-              image: mcr.microsoft.com/mssql/server:2019-latest
+              image: mcr.microsoft.com/mssql/server:2019-CU31-ubuntu-20.04
               imagePullPolicy: IfNotPresent
               securityContext:
                 runAsUser: 10001
@@ -218,6 +219,10 @@ spec:
                   fi
 
                   BACKUP_KEY=$(cat /backup-info/backup-key)
+                  if [ -z "${BACKUP_KEY}" ]; then
+                    echo "ERROR: /backup-info/backup-key is empty — find-backup-file init container may have failed"
+                    exit 1
+                  fi
                   BACKUP_S3_ARN="arn:aws:s3:::${SQLSERVER_BACKUP_S3_BUCKET_NAME}/${BACKUP_KEY}"
 
                   echo "Starting restore at $(date)"
@@ -270,16 +275,23 @@ spec:
                     -U "${DATABASE_USERNAME}" \
                     -P "${DATABASE_PASSWORD}" \
                     -W \
-                    -b \
                     -C -Q "EXEC msdb.dbo.rds_restore_database
                           @restore_db_name    = '${DATABASE_NAME}',
                           @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
                           @with_norecovery    = 0,
-                          @type               = 'FULL';" 2>&1)
+                          @type               = 'FULL';" 2>&1) || true
 
                   # Extract task_id: prefer the explicit "Task Id: <N>" line printed by
                   # rds_restore_database; fall back to the first numeric field in the
                   # result set (the task_id column is always first).
+                  # First, check if the output indicates a SQL error — don't attempt
+                  # extraction from error messages as numeric codes could false-match.
+                  if echo "${SUBMIT_OUTPUT}" | grep -qE '^Msg [0-9]+, Level [0-9]+'; then
+                    echo "rds_restore_database returned a SQL error:"
+                    echo "${SUBMIT_OUTPUT}"
+                    exit 1
+                  fi
+
                   TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE 'Task Id:\s*[0-9]+' | grep -oE '[0-9]+' || true)
                   if [ -z "${TASK_ID}" ]; then
                     TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE '^\s*[0-9]+' | head -1 | tr -d ' ' || true)
@@ -296,13 +308,14 @@ spec:
 
                   # Poll every 30 s; time out after 60 minutes (120 * 30s)
                   POLL_COUNT=0
+                  CONSECUTIVE_FAILURES=0
                   while true; do
                     STATUS_OUTPUT=$("${SQLCMD}" \
                       -S "localhost,${DB_PORT}" \
                       -U "${DATABASE_USERNAME}" \
                       -P "${DATABASE_PASSWORD}" \
                       -h -1 -W \
-                      -C -Q "EXEC msdb.dbo.rds_task_status @task_id = ${TASK_ID};" 2>&1)
+                      -C -Q "EXEC msdb.dbo.rds_task_status @task_id = ${TASK_ID};" 2>&1) || true
 
                     echo "$(date) | ${STATUS_OUTPUT}"
 
@@ -310,6 +323,16 @@ spec:
                     # rds_task_status returns: task_id, task_type, lifecycle, ...
                     # With @task_id filter, only one row is returned.
                     LIFECYCLE=$(echo "${STATUS_OUTPUT}" | grep -oE '\b(SUCCESS|ERROR|CANCELLED|CREATED|IN_PROGRESS)\b' | head -1 || true)
+
+                    if [ -z "${LIFECYCLE}" ]; then
+                      CONSECUTIVE_FAILURES=$((CONSECUTIVE_FAILURES + 1))
+                      if [ "${CONSECUTIVE_FAILURES}" -ge 5 ]; then
+                        echo "Port-forward appears dead — ${CONSECUTIVE_FAILURES} consecutive poll failures"
+                        exit 1
+                      fi
+                    else
+                      CONSECUTIVE_FAILURES=0
+                    fi
 
                     if [ "${LIFECYCLE}" = "SUCCESS" ]; then
                       echo "Restore completed successfully at $(date)"
