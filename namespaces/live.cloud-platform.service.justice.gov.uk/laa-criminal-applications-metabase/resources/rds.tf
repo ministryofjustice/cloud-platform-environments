@@ -29,6 +29,8 @@ module "rds" {
   # use "prepare_for_major_upgrade" when upgrading the major version of an engine
   prepare_for_major_upgrade = false
 
+  deletion_protection = false
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
