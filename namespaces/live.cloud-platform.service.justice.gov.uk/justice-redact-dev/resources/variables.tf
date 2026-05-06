@@ -11,7 +11,8 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Justice Redact"
+  default     = "J
+  ustice Redact"
 }
 
 variable "namespace" {
@@ -23,7 +24,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Offender Subject Access Request (O-SAR)"
+  default     = "Offender Subject Access Request (OSAR)"
 }
 
 variable "business_unit" {
