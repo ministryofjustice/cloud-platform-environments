@@ -3,16 +3,16 @@ locals {
 
   accounts_map = {
     development = "771283872747",
-    test = "203591025782",
-    preprod = "972272129531",
-    prod = "004723187462"
+    test        = "203591025782",
+    preprod     = "972272129531",
+    prod        = "004723187462"
   }
 
   environments_map = {
     development = "development",
-    test = "test",
-    preprod = "preproduction",
-    prod = "production"
+    test        = "test",
+    preprod     = "preproduction",
+    prod        = "production"
   }
 }
 
@@ -21,14 +21,14 @@ data "aws_eks_cluster" "eks_cluster" {
 }
 
 module "dpr_mi_assume_role" {
-  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version                       = "5.13.0"
-  create_role                   = true
-  role_name                     = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
-  provider_url                  = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
-  role_policy_arns              = [aws_iam_policy.cross_iam_dpr_oidc.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(local.environments_map, lower(var.environment))}-cross-iam"]
-  oidc_fully_qualified_audiences= ["sts.amazonaws.com"]
+  source                         = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version                        = "5.13.0"
+  create_role                    = true
+  role_name                      = "dpr-reporting-mi-${var.environment}-cross-iam-${var.eks_cluster_name}"
+  provider_url                   = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  role_policy_arns               = [aws_iam_policy.cross_iam_dpr_oidc.arn]
+  oidc_fully_qualified_subjects  = ["system:serviceaccount:${var.namespace}:dpr-reporting-mi-${lookup(local.environments_map, lower(var.environment))}-cross-iam"]
+  oidc_fully_qualified_audiences = ["sts.amazonaws.com"]
 }
 
 data "aws_iam_policy_document" "cross_iam_dpr_oidc" {
@@ -55,11 +55,11 @@ resource "aws_iam_policy" "cross_iam_dpr_oidc" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns     = {
+  role_policy_arns = {
     secrets = aws_iam_policy.cross_iam_policy_mp.arn
   }
 
