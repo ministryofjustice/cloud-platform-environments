@@ -12,6 +12,7 @@ module "rds-snapshot-restore" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
+  db_allocated_storage         = "100"
   db_max_allocated_storage     = "250"
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -68,10 +69,10 @@ resource "kubernetes_secret" "rds-snapshot-restore" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.rds-snapshot-restore.rds_instance_endpoint
+    database_name         = module.rds-snapshot-restore.database_name
+    database_username     = module.rds-snapshot-restore.database_username
+    database_password     = module.rds-snapshot-restore.database_password
+    rds_instance_address  = module.rds-snapshot-restore.rds_instance_address
   }
 }
