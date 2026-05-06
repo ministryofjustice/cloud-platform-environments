@@ -58,3 +58,19 @@ resource "kubernetes_config_map" "rds_aurora" {
     db_cluster_identifier = module.rds_aurora.db_cluster_identifier
   }
 }
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "rds_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-aurora-instance"
+    namespace = "hmpps-arns-assessment-platform-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_aurora.rds_cluster_endpoint
+    database_name         = module.rds_aurora.database_name
+    database_username     = module.rds_aurora.database_username
+    database_password     = module.rds_aurora.database_password
+    url                   = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
+  }
+}
