@@ -22,7 +22,7 @@ module "claims_events_sns_topic" {
 
 resource "kubernetes_secret" "claims_events_sns_topic" {
   metadata {
-    name      = "claims_events_sns_topic"
+    name      = "claims-events-sns-topic"
     namespace = var.namespace
   }
 
