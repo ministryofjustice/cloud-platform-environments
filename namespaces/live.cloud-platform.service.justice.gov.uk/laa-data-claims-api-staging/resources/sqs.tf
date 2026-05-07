@@ -34,4 +34,5 @@ resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
         }
       ]
   }
+  EOF
 }
