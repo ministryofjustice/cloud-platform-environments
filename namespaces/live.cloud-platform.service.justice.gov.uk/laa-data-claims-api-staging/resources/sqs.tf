@@ -12,3 +12,26 @@ module "sqs_queue" {
   infrastructure_support            = var.infrastructure_support
   visibility_timeout_seconds        = 600
 }
+resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
+  queue_url = module.sqs_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.sqs_queue.sqs_queue_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": { "Service": "sns.amazonaws.com" },
+          "Resource": "${module.sqs_queue.sqs_queue_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": "${module.claims_events_sns_topic.topic_arn}"
+            }
+          }
+        }
+      ]
+  }
+}
