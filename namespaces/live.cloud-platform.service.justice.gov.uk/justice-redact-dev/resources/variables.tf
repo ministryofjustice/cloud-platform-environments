@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Offender Subject Access Request (OSAR)"
+  default     = "Offender Subject Access Request"
 }
 
 variable "business_unit" {
