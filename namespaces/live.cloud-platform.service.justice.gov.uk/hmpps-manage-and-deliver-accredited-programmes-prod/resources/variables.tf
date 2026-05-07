@@ -84,5 +84,6 @@ variable "number_cache_clusters" {
 variable "slack_webhook_url_prod" {
   description = "Slack webhook URL for production alerts"
   type        = string
+  default     = ""
   sensitive   = true
 }
