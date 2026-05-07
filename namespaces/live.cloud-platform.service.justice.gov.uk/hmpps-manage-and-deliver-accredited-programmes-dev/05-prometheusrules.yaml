@@ -6,6 +6,12 @@ metadata:
     role: alert-rules
     namespace: hmpps-manage-and-deliver-accredited-programmes-dev
   name: hmpps-manage-and-deliver-accredited-programmes-dev
+  # NOTE: severity labels currently use the shared team receiver
+  # "hmpps-accredited-programmes-alerts-preprod" which routes to the existing
+  # team Slack channel. When the dedicated Data Importer Service receivers are
+  # created, update severity to:
+  #   "hmpps-accredited-programmes-manage-and-deliver-alerts-nonprod"
+  # and register a matching receiver pointing to the new Slack channel.
 spec:
 
   groups:
