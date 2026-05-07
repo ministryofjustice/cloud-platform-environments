@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-jobs-board-integration-preprod
+  namespace: laa-data-claims-certificated-api-prod
 spec:
   hard:
     pods: "50"

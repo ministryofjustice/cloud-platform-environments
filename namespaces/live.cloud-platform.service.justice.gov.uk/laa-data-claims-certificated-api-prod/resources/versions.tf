@@ -1,4 +1,3 @@
-
 terraform {
   required_version = ">= 1.2.5"
   required_providers {
@@ -9,10 +8,6 @@ terraform {
     github = {
       source  = "integrations/github"
       version = "~> 6.6.0"
-    }
-    time = {
-      source  = "hashicorp/time"
-      version = "~> 0.13.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
