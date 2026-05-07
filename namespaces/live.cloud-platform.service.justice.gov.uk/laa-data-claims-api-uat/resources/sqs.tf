@@ -10,3 +10,28 @@ module "sqs_queue" {
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
 }
+
+resource "aws_sqs_queue_policy" "claims-events-sns-to-sqs-policy" {
+  queue_url = module.sqs_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.sqs_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": { "Service": "sns.amazonaws.com" },
+          "Resource": "${module.sqs_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": "${module.claims-events-sns-topic.topic_arn}"
+            }
+          }
+        }
+      ]
+  }
+  EOF
+}
