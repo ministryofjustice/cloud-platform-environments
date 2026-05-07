@@ -12,7 +12,7 @@ module "sqs_queue" {
 }
 
 resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
-  queue_url = module.sqs_queue.sqs_queue_id
+  queue_url = module.sqs_queue.sqs_id
 
   policy = <<EOF
   {
