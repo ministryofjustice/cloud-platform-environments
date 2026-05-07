@@ -25,6 +25,9 @@ subjects:
   - kind: Group
     name: "github:hmpps-electronic-monitoring-data-dashboard"
     apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: serviceaccount-hmpps-electronic-monitoring-data-store
+    namespace: hmpps-electronic-monitoring-data-validation-dev
 roleRef:
   kind: ClusterRole
   name: calico-network-policy-access
