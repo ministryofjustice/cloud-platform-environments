@@ -80,3 +80,9 @@ variable "eks_cluster_name" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "slack_webhook_url_prod" {
+  description = "Slack webhook URL for production alerts"
+  type        = string
+  sensitive   = true
+}

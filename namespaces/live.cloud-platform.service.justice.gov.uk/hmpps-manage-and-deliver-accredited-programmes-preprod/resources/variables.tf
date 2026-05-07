@@ -160,3 +160,9 @@ variable "db_backup_retention_period" {
   type        = string
   default     = "0"
 }
+
+variable "slack_webhook_url_nonprod" {
+  description = "Slack webhook URL for non-production alerts"
+  type        = string
+  sensitive   = true
+}
