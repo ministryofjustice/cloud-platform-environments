@@ -39,7 +39,7 @@ module "rds" {
   # enable_irsa = true
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
-  # opt_in_xsiam_logging = true
+  opt_in_xsiam_logging = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -49,7 +49,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
 
@@ -96,7 +96,7 @@ module "read_replica" {
   # enable_irsa = true
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
-  # opt_in_xsiam_logging = true
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {
