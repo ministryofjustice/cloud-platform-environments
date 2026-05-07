@@ -39,6 +39,6 @@ resource "kubernetes_secret" "claims_events_sns_topic" {
 resource "aws_sns_topic_subscription" "claims_events_queue_subscription" {
   provider  = aws.london
   topic_arn = module.claims_events_sns_topic.topic_arn
-  endpoint  = data.aws_ssm_parameter.sqs_queue_arn.value
+  endpoint  = module.sqs_queue.sqs_queue_arn
   protocol  = "sqs"
 }

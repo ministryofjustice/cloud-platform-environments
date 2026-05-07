@@ -12,18 +12,18 @@ module "sqs_queue" {
 }
 
 resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
-  queue_url = module.sqs_queue.sqs_id
+  queue_url = module.sqs_queue.sqs_queue_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.sqs_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.sqs_queue.sqs_queue_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": { "Service": "sns.amazonaws.com" },
-          "Resource": "${module.sqs_queue.sqs_arn}",
+          "Resource": "${module.sqs_queue.sqs_queue_arn}",
           "Action": "SQS:SendMessage",
           "Condition": {
             "ArnEquals": {
