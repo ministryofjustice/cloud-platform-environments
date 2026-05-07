@@ -55,7 +55,12 @@ module "serviceaccount" {
       api_groups = ["crd.projectcalico.org"]
       resources  = ["networkpolicies"]
       verbs      = ["get", "list", "describe", "create", "delete", "watch", "update"]
-    }
+    },
+    {
+      api_groups = ["crd.projectcalico.org"]
+      resources  = ["tiers"]
+      verbs      = ["get"]
+    },
   ]
 
 }
