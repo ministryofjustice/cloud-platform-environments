@@ -1,4 +1,4 @@
-module "claims-events-sns-topic" {
+module "claims_events_sns_topic" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration
@@ -20,15 +20,15 @@ module "claims-events-sns-topic" {
   }
 }
 
-resource "kubernetes_secret" "claims-events-sns-topic" {
+resource "kubernetes_secret" "claims_events_sns_topic" {
   metadata {
-    name      = "claims-events-sns-topic"
+    name      = "claims_events_sns_topic"
     namespace = var.namespace
   }
 
   data = {
-    topic_name = module.claims-events-sns-topic.topic_name
-    topic_arn  = module.claims-events-sns-topic.topic_arn
+    topic_name = module.claims_events_sns_topic.topic_name
+    topic_arn  = module.claims_events_sns_topic.topic_arn
   }
 }
 
@@ -36,9 +36,9 @@ resource "kubernetes_secret" "claims-events-sns-topic" {
 ########### SNS subscriptions ###########
 ###
 
-resource "aws_sns_topic_subscription" "claims-events-queue-subscription" {
+resource "aws_sns_topic_subscription" "claims_events_queue_subscription" {
   provider  = aws.london
-  topic_arn = module.claims-events-sns-topic.topic_arn
+  topic_arn = module.claims_events_sns_topic.topic_arn
   endpoint  = data.aws_ssm_parameter.sqs_queue_arn.value
   protocol  = "sqs"
 }

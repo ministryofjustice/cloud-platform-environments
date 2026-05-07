@@ -11,7 +11,7 @@ module "sqs_queue" {
   infrastructure_support            = var.infrastructure_support
 }
 
-resource "aws_sqs_queue_policy" "claims-events-sns-to-sqs-policy" {
+resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
   queue_url = module.sqs_queue.sqs_id
 
   policy = <<EOF
@@ -27,7 +27,7 @@ resource "aws_sqs_queue_policy" "claims-events-sns-to-sqs-policy" {
           "Action": "SQS:SendMessage",
           "Condition": {
             "ArnEquals": {
-              "aws:SourceArn": "${module.claims-events-sns-topic.topic_arn}"
+              "aws:SourceArn": "${module.claims_events_sns_topic.topic_arn}"
             }
           }
         }
