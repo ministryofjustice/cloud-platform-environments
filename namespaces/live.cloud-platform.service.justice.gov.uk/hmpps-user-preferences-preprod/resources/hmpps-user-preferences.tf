@@ -14,5 +14,5 @@ module "hmpps-user-preferences" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["hmpps-probation-in-court", "probation-in-court-devs"]
+  # reviewer_teams                = ["hmpps-probation-in-court", "probation-in-court-devs"] # Optional, adds manual approval gate
 }
