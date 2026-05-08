@@ -6,6 +6,7 @@ module "irsa" {
 
   role_policy_arns = {
     sqs = module.sqs_queue.irsa_policy_arn
+    sns = module.claims_events_sns_topic.irsa_policy_arn
   }
   business_unit          = var.business_unit
   application            = var.application
