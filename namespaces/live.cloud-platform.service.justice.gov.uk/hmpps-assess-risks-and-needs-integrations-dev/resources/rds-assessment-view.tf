@@ -72,7 +72,7 @@ locals {
     password = random_password.ro_password.result
     engine   = "postgres"
     host     = module.arns_assessment_view_rds.rds_instance_endpoint
-    port     = module.arns_assessment_view_rds.port
+    port     = module.arns_assessment_view_rds.rds_instance_port
     dbname   = module.arns_assessment_view_rds.database_name
   }
 }
