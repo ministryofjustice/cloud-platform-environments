@@ -13,14 +13,14 @@ module "s3_snapshot_bucket" {
 
 # Create the domain
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_3.3"
+  engine_version      = "OpenSearch_3.5"
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
   proxy_count         = 2
 
