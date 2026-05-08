@@ -52,6 +52,7 @@ resource "aws_iam_policy" "mp_secrets_read" {
         Sid    = "UseMPKMSKeyForSecret"
         Effect = "Allow"
         Action = [
+          "kms:Encrypt",
           "kms:Decrypt",
           "kms:DescribeKey",
           "kms:GenerateDataKey"
