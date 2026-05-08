@@ -65,7 +65,7 @@ data "aws_security_group" "mp_dps_sg" {
 
 locals {
   # test secret on mp - kms encrypted
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-assessment-view-db"
+  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-view-db-SRFTzm"
 
   db_secret = {
     username = random_string.ro_username.result
