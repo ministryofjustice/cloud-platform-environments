@@ -65,7 +65,7 @@ data "aws_security_group" "mp_dps_sg" {
 
 locals {
   # test secret on mp - kms encrypted
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-test-secret-Vpq1q0"
+  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-assessment-view-db"
 
   db_secret = {
     username = random_string.ro_username.result
@@ -129,6 +129,7 @@ provider "postgresql" {
   password         = module.arns_assessment_view_rds.database_password
   expected_version = "18"
   sslmode          = "require"
+  superuser        = false
 }
 
 # Read-only login user
