@@ -49,11 +49,12 @@ resource "aws_iam_policy" "mp_secrets_read" {
         Resource = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-*"
       },
       {
-        Sid    = "DecryptMPSecretKMSKey"
+        Sid    = "UseMP KMSKeyForSecret"
         Effect = "Allow"
         Action = [
           "kms:Decrypt",
-          "kms:DescribeKey"
+          "kms:DescribeKey",
+          "kms:GenerateDataKey"
         ]
         Resource = "arn:aws:kms:eu-west-2:771283872747:key/*"
       }

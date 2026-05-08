@@ -95,12 +95,13 @@ resource "random_password" "ro_password" {
   }
 }
 
-resource "aws_secretsmanager_secret_version" "db" {
-  provider  = aws.secrets
-  secret_id = local.secret_arn
-
-  secret_string = jsonencode(local.db_secret)
-}
+# Temporarily commented out, IAM policy (PutSecretValue + kms:GenerateDataKey) must propagate
+# resource "aws_secretsmanager_secret_version" "db" {
+#   provider  = aws.secrets
+#   secret_id = local.secret_arn
+#
+#   secret_string = jsonencode(local.db_secret)
+# }
 
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
