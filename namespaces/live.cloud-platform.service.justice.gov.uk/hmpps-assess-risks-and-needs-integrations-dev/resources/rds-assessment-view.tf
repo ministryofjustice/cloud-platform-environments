@@ -95,7 +95,7 @@ resource "random_password" "ro_password" {
   }
 }
 
-data "aws_secretsmanager_secret_version" "db" {
+resource "aws_secretsmanager_secret_version" "db" {
   provider  = aws.secrets
   secret_id = local.secret_arn
 
