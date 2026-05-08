@@ -68,8 +68,8 @@ locals {
   secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-test-secret-Vpq1q0"
 
   db_secret = {
-    username = random_string.username.result
-    password = random_password.password.result
+    username = random_string.ro_username.result
+    password = random_password.ro_password.result
     engine   = "postgres"
     host     = module.arns_assessment_view_rds.rds_instance_endpoint
     port     = module.arns_assessment_view_rds.port
