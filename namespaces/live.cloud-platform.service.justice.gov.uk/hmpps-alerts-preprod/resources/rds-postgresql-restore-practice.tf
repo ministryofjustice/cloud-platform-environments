@@ -3,6 +3,7 @@ module "rds-snapshot-restore" {
 
   rds_name = "hmpps-alerts-preprod-snapshot-restore-test"
   snapshot_identifier = "alerts-preprod-test-snapshot-20260506"
+  skip_final_snapshot = true
 
   # VPC configuration
   vpc_name = var.vpc_name
