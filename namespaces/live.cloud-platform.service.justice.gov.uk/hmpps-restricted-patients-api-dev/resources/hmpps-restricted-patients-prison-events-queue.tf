@@ -108,7 +108,9 @@ resource "aws_sns_topic_subscription" "restricted_patients_subscription" {
   protocol  = "sqs"
   endpoint  = module.restricted_patients_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = []
+    eventType = [
+      "OFFENDER_MOVEMENT-DUMMY"
+    ]
   })
 }
 
