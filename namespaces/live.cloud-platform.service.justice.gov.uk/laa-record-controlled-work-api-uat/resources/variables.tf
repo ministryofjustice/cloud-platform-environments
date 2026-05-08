@@ -73,3 +73,19 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "rcw-api-github-action-service-account"
+}
+
+variable "app_repo" {
+  description = "Name of application repository"
+  type        = string
+  default     = "laa-record-controlled-work-api"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
