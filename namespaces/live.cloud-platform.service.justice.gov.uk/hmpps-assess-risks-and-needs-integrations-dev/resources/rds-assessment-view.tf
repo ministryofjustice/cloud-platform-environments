@@ -95,13 +95,12 @@ resource "random_password" "ro_password" {
   }
 }
 
-# Commenting out the write, while I update the policy...
-# resource "aws_secretsmanager_secret_version" "db" {
-#   provider  = aws.secrets
-#   secret_id = local.secret_arn
-#
-#   secret_string = jsonencode(local.db_secret)
-# }
+resource "aws_secretsmanager_secret_version" "db" {
+  provider  = aws.secrets
+  secret_id = local.secret_arn
+
+  secret_string = jsonencode(local.db_secret)
+}
 
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
