@@ -87,7 +87,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37  # v6.1.0
         with:
-          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          role-to-assume: "arn:aws:iam::111111111111:role/my-read-only-role"
+          role-session-name: "myrolesessionname"
           aws-region: "eu-west-2"
 
       - name: Set mock default terraform vars
