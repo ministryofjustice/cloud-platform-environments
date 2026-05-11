@@ -7,5 +7,5 @@ module "serviceaccount" {
 
   github_repositories = ["laa-data-claims-notify-service"]
   github_environments = ["uat"]
-  serviceaccount_token_rotated_date = "11-05-2026"
+  serviceaccount_token_rotated_date = "12-05-2026"
 }
