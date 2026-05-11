@@ -3,7 +3,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "hmpps-prison-users-api-prod-check" {
   type                     = "http"
-  name                     = ""DPS - ${var.application}"
+  name                     = "DPS - ${var.application}"
   host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
