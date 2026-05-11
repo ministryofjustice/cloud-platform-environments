@@ -1,4 +1,4 @@
-module "s3" {
+module "hmpps_dps_reconciliation_s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # S3 configuration
@@ -20,7 +20,7 @@ resource "kubernetes_secret" "s3" {
   }
 
   data = {
-    bucket_arn  = module.s3.bucket_arn
-    bucket_name = module.s3.bucket_name
+    bucket_arn  = module.hmpps_dps_reconciliation_s3.bucket_arn
+    bucket_name = module.hmpps_dps_reconciliation_s3.bucket_name
   }
 }
