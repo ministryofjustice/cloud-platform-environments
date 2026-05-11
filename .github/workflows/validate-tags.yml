@@ -91,6 +91,12 @@ jobs:
       #     role-to-assume: "arn:aws:iam::111111111111:role/my-read-only-role"
       #     role-session-name: "myrolesessionname"
       #     aws-region: "eu-west-2"
+
+      - name: Set mock terraform vars
+        run: |
+          echo "TF_VAR_vpc_name=XIHIUHIU-1" >> "$GITHUB_ENV"
+          echo "TF_VAR_eks_cluster_name=XIHIUHIU" >> "$GITHUB_ENV"
+          echo "TF_VAR_kubernetes_cluster="XIHIUHIU.eks.amazonaws.com"" >> "$GITHUB_ENV"
           
       - name: Validate Tags
         if: ${{ steps.changed-files.outputs.skip_tflint != 'true' }}
