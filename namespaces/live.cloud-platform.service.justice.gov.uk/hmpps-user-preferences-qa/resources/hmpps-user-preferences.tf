@@ -8,7 +8,7 @@ module "hmpps-user-preferences" {
   environment                   = "qa"
   is_production                 = var.is_production
   selected_branch_patterns      = ["*"] # Optional
-  application_insights_instance = "dev"
+  # application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
