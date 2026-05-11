@@ -32,6 +32,24 @@ resource "kubernetes_secret" "claims_events_sns_topic" {
   }
 }
 
+# Writes the topic ARN to SSM so other namespaces (e.g. laa-data-claims-notify-service-*)
+# can subscribe via `data "aws_ssm_parameter"`. Matches the repo-wide /${namespace}/topic-arn convention.
+resource "aws_ssm_parameter" "claims_events_sns_topic_arn" {
+  type        = "String"
+  name        = "/${var.namespace}/topic-arn"
+  value       = module.claims_events_sns_topic.topic_arn
+  description = "Claims events SNS topic ARN"
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
+}
+
 ###
 ########### SNS subscriptions ###########
 ###
