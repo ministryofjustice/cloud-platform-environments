@@ -3,7 +3,7 @@ module "serviceaccount" {
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
-  serviceaccount_name = var.cd_serviceaccount_name
+  serviceaccount_name = var.cserviceaccount_name
 
   github_repositories = ["laa-data-claims-notify-service"]
   github_environments = ["uat"]
