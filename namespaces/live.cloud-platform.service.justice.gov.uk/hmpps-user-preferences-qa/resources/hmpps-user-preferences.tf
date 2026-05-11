@@ -5,7 +5,7 @@ module "hmpps-user-preferences" {
   github_repo                   = "hmpps-user-preferences"
   application                   = "hmpps-user-preferences"
   github_team                   = "hmpps-probation-in-court"
-  environment                   = "preprod"
+  environment                   = "qa"
   is_production                 = var.is_production
   selected_branch_patterns      = ["*"] # Optional
   application_insights_instance = "preprod"
