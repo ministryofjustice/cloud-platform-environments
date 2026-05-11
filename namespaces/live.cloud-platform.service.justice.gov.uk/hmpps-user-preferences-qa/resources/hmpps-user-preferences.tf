@@ -5,10 +5,10 @@ module "hmpps-user-preferences" {
   github_repo                   = "hmpps-user-preferences"
   application                   = "hmpps-user-preferences"
   github_team                   = "hmpps-probation-in-court"
-  environment                   = "staging"
+  environment                   = "preprod"
   is_production                 = var.is_production
   selected_branch_patterns      = ["*"] # Optional
-  application_insights_instance = "staging"
+  application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
