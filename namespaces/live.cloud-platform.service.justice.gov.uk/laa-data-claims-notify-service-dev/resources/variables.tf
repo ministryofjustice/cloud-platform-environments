@@ -81,5 +81,5 @@ variable "eks_cluster_name" {
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "claims-notify-service-uat-service-account"
+  default     = "claims-notify-service-dev-service-account"
 }
