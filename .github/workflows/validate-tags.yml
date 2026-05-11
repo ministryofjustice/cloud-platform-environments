@@ -84,13 +84,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      # # Required if data blocks used in terraform configuration, for AWS read operations
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37  # v6.1.0
-      #   with:
-      #     role-to-assume: "arn:aws:iam::111111111111:role/my-read-only-role"
-      #     role-session-name: "myrolesessionname"
-      #     aws-region: "eu-west-2"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37  # v6.1.0
+        with:
+          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.ECR_REGION }}
 
       - name: Set mock terraform vars
         run: |
@@ -100,10 +98,6 @@ jobs:
           
       - name: Validate Tags
         if: ${{ steps.changed-files.outputs.skip_tflint != 'true' }}
-        env:
-          AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
-          AWS_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-          AWS_DEFAULT_REGION: "eu-west-2"
         id: validate
         uses: ministryofjustice/coat-tag-validator@37cca54b0e16536130d99bdf184cafd8bf2b71ae #v2.1.3
         with:
