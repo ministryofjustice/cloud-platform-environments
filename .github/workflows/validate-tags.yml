@@ -90,7 +90,7 @@ jobs:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: "eu-west-2"
 
-      - name: Set mock terraform vars
+      - name: Set mock default terraform vars
         run: |
           echo "TF_VAR_vpc_name=XIHIUHIU-1" >> "$GITHUB_ENV"
           echo "TF_VAR_eks_cluster_name=XIHIUHIU" >> "$GITHUB_ENV"
