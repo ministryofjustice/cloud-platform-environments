@@ -33,6 +33,7 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "person.alert.created",
       "person.alert.updated",
       "person.alert.deleted",
+      "person.alert.inactive",
     ]
   })
 }
