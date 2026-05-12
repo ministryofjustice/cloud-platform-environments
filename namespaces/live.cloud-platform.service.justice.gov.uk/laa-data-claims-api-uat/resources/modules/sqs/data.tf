@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        module.claims_events_sns_topic.topic_arn
+        var.sns_topic_arn
       ]
     }
   }
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        module.claims_events_sns_topic.topic_arn
+        var.sns_topic_arn
       ]
     }
   }

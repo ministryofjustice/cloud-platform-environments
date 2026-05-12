@@ -59,5 +59,9 @@ variable "environment" {
 }
 
 variable "infrastructure_support" {
+  type = strings
+}
+
+variable "sns_topic_arn" {
   type = string
 }
