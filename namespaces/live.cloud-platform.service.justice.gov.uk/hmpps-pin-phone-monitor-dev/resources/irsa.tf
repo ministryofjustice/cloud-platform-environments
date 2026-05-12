@@ -1,4 +1,5 @@
 locals {
+  sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
   irsa_policies_api = merge(local.sqs_policies_api, {
       pcms_api_queue_for_domain_events                   = module.pcms_api_queue_for_domain_events.irsa_policy_arn
       pcms_api_queue_for_domain_events_dead_letter_queue = module.pcms_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
@@ -18,14 +19,15 @@ module "irsa" {
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = merge({
-    rds        = module.rds_aurora.irsa_policy_arn
-    s3         = aws_iam_policy.irsa_s3_policy.arn
-    s3_sqs     = module.hmpps_pin_phone_monitor_s3_event_queue.irsa_policy_arn
-    s3_sqs_dlq = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.irsa_policy_arn
-   },
-   local.irsa_policies_api
-  )
+  role_policy_arns = merge(
+       {
+           rds        = module.rds_aurora.irsa_policy_arn
+           s3         = aws_iam_policy.irsa_s3_policy.arn
+           s3_sqs     = module.hmpps_pin_phone_monitor_s3_event_queue.irsa_policy_arn
+           s3_sqs_dlq = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.irsa_policy_arn
+      },
+       local.irsa_policies_api
+    )
 
   # Tags
   business_unit          = var.business_unit
