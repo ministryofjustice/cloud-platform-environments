@@ -1,4 +1,7 @@
 locals {
+  sns_topics_api = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+  }
   sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
   irsa_policies_api = merge(local.sqs_policies_api, {
       pcms_api_queue_for_domain_events                   = module.pcms_api_queue_for_domain_events.irsa_policy_arn
