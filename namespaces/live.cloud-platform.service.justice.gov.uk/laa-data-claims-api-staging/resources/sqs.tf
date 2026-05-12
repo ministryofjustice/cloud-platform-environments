@@ -2,6 +2,7 @@
 module "sqs_queue" {
   source                            = "./modules/sqs"
   queue_name                        = "claims-api-sqs-queue"
+  sns_topic_arn                     = module.claims_events_sns_topic.topic_arn
   sqs_queue_subscriber_namespaces = ["laa-data-claims-event-service-staging"]
   business_unit                     = var.business_unit
   application                       = var.application
