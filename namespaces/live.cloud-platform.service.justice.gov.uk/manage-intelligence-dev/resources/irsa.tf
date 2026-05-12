@@ -25,6 +25,10 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_prisoner_details_dlq.sqs_arn,
       module.domain_events_queue.sqs_arn,
       module.domain_events_dlq.sqs_arn,
+      module.ims_ai_request_queue.sqs_arn,
+      module.ims_ai_request_dead_letter_queue.sqs_arn,
+      module.ims_ai_response_queue.sqs_arn,
+      module.ims_ai_response_dead_letter_queue.sqs_arn,
     ]
   }
 }
