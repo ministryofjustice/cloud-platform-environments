@@ -58,7 +58,7 @@ resource "kubernetes_secret" "ims_ai_request_queue" {
   }
 
   data = {
-    sqs_url  = module.ims_ai_request_queue.sqs_url
+    sqs_url  = module.ims_ai_request_queue.sqs_id
     sqs_arn  = module.ims_ai_request_queue.sqs_arn
     sqs_name = module.ims_ai_request_queue.sqs_name
   }
@@ -71,7 +71,7 @@ resource "kubernetes_secret" "ims_ai_request_dlq" {
   }
 
   data = {
-    sqs_url  = module.ims_ai_request_dlq.sqs_url
+    sqs_url  = module.ims_ai_request_dlq.sqs_id
     sqs_arn  = module.ims_ai_request_dlq.sqs_arn
     sqs_name = module.ims_ai_request_dlq.sqs_name
   }
@@ -137,7 +137,7 @@ resource "kubernetes_secret" "ims_ai_response_queue" {
   }
 
   data = {
-    sqs_url  = module.ims_ai_response_queue.sqs_url
+    sqs_url  = module.ims_ai_response_queue.sqs_id
     sqs_arn  = module.ims_ai_response_queue.sqs_arn
     sqs_name = module.ims_ai_response_queue.sqs_name
   }
@@ -150,7 +150,7 @@ resource "kubernetes_secret" "ims_ai_response_dlq" {
   }
 
   data = {
-    sqs_url  = module.ims_ai_response_dlq.sqs_url
+    sqs_url  = module.ims_ai_response_dlq.sqs_id
     sqs_arn  = module.ims_ai_response_dlq.sqs_arn
     sqs_name = module.ims_ai_response_dlq.sqs_name
   }
