@@ -33,5 +33,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-staging"
     },
+
+    "slack-webhook-url" = {
+      description             = "Slack webhook URL for non-production environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "slack-webhook-url-alerts-non-prod"
+    }
   }
 }
