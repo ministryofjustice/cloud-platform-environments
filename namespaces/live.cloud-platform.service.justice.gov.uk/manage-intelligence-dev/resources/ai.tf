@@ -1,17 +1,17 @@
 # ----- SQS request queues -----
-module "ims_sanitisation_request_queue" {
+module "ims_ai_request_queue" {
   
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "ims_sanitisation_request_queue"
+  sqs_name                   = "ims_ai_request_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.ims_sanitisation_request_dlq.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.ims_ai_request_dlq.sqs_arn}","maxReceiveCount": 3
   }
 
 EOF
@@ -30,11 +30,11 @@ EOF
   }
 }
 
-module "ims_sanitisation_request_dlq" {
+module "ims_ai_request_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "ims_sanitisation_request_dl_queue"
+  sqs_name        = "ims_ai_request_dl_queue"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -51,46 +51,46 @@ module "ims_sanitisation_request_dlq" {
   }
 }
 
-resource "kubernetes_secret" "ims_sanitisation_request_queue" {
+resource "kubernetes_secret" "ims_ai_request_queue" {
   metadata {
-    name      = "ims-sanitisation-request-queue-instance-output"
+    name      = "ims-ai-request-queue-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_url  = module.ims_sanitisation_request_queue.sqs_url
-    sqs_arn  = module.ims_sanitisation_request_queue.sqs_arn
-    sqs_name = module.ims_sanitisation_request_queue.sqs_name
+    sqs_url  = module.ims_ai_request_queue.sqs_url
+    sqs_arn  = module.ims_ai_request_queue.sqs_arn
+    sqs_name = module.ims_ai_request_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "ims_sanitisation_request_dlq" {
+resource "kubernetes_secret" "ims_ai_request_dlq" {
   metadata {
-    name      = "ims-sanitisation-request-dlq-instance-output"
+    name      = "ims-ai-request-dlq-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_url  = module.ims_sanitisation_request_dlq.sqs_url
-    sqs_arn  = module.ims_sanitisation_request_dlq.sqs_arn
-    sqs_name = module.ims_sanitisation_request_dlq.sqs_name
+    sqs_url  = module.ims_ai_request_dlq.sqs_url
+    sqs_arn  = module.ims_ai_request_dlq.sqs_arn
+    sqs_name = module.ims_ai_request_dlq.sqs_name
   }
 }
 
 # ----- SQS response queues -----
-module "ims_sanitisation_response_queue" {
+module "ims_ai_response_queue" {
 
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "ims_sanitisation_response_queue"
+  sqs_name                   = "ims_ai_response_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.ims_sanitisation_response_dlq.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.ims_ai_response_dlq.sqs_arn}","maxReceiveCount": 3
   }
 
 EOF
@@ -109,11 +109,11 @@ EOF
   }
 }
 
-module "ims_sanitisation_response_dlq" {
+module "ims_ai_response_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "ims_sanitisation_response_dl_queue"
+  sqs_name        = "ims_ai_response_dl_queue"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -130,34 +130,34 @@ module "ims_sanitisation_response_dlq" {
   }
 }
 
-resource "kubernetes_secret" "ims_sanitisation_response_queue" {
+resource "kubernetes_secret" "ims_ai_response_queue" {
   metadata {
-    name      = "ims-sanitisation-response-queue-instance-output"
+    name      = "ims-ai-response-queue-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_url  = module.ims_sanitisation_response_queue.sqs_url
-    sqs_arn  = module.ims_sanitisation_response_queue.sqs_arn
-    sqs_name = module.ims_sanitisation_response_queue.sqs_name
+    sqs_url  = module.ims_ai_response_queue.sqs_url
+    sqs_arn  = module.ims_ai_response_queue.sqs_arn
+    sqs_name = module.ims_ai_response_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "ims_sanitisation_response_dlq" {
+resource "kubernetes_secret" "ims_ai_response_dlq" {
   metadata {
-    name      = "ims-sanitisation-response-dlq-instance-output"
+    name      = "ims-ai-response-dlq-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_url  = module.ims_sanitisation_response_dlq.sqs_url
-    sqs_arn  = module.ims_sanitisation_response_dlq.sqs_arn
-    sqs_name = module.ims_sanitisation_response_dlq.sqs_name
+    sqs_url  = module.ims_ai_response_dlq.sqs_url
+    sqs_arn  = module.ims_ai_response_dlq.sqs_arn
+    sqs_name = module.ims_ai_response_dlq.sqs_name
   }
 }
 
 # ----- S3 Buckets -----
-module "ims_sanitisation_bucket" {
+module "ims_ai_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
@@ -174,14 +174,14 @@ module "ims_sanitisation_bucket" {
   }
 }
 
-resource "kubernetes_secret" "ims_sanitisation_bucket" {
+resource "kubernetes_secret" "ims_ai_bucket" {
   metadata {
-    name      = "ims-sanitisation-bucket-output"
+    name      = "ims-ai-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn  = module.ims_sanitisation_bucket.bucket_arn
-    bucket_name = module.ims_sanitisation_bucket.bucket_name
+    bucket_arn  = module.ims_ai_bucket.bucket_arn
+    bucket_name = module.ims_ai_bucket.bucket_name
   }
 }
