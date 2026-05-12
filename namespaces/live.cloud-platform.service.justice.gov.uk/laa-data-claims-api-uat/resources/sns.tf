@@ -59,4 +59,5 @@ resource "aws_sns_topic_subscription" "claims_events_queue_subscription" {
   topic_arn = module.claims_events_sns_topic.topic_arn
   endpoint  = module.sqs_queue.sqs_queue_arn
   protocol  = "sqs"
+  raw_message_delivery = true
 }
