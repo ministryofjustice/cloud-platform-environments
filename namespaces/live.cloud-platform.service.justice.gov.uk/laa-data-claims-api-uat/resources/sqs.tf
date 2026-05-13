@@ -10,6 +10,12 @@ module "sqs_queue" {
   namespace                         = var.namespace
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
+
+  encrypt_sqs_kms = true
+  message_retention_seconds = 1209600
+  providers = {
+    aws = aws.london
+  }
 }
 
 resource "kubernetes_secret" "sqs_queue" {
