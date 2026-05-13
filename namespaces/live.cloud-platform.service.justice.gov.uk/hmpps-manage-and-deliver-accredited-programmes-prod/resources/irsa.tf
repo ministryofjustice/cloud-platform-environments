@@ -63,6 +63,10 @@ module "irsa-sqlserver" {
     {
       # db-restore job needs to list the backup bucket to discover the latest .bak file
       sqlserver_backup_s3_bucket_policy = module.sqlserver_backup_s3_bucket.irsa_policy_arn
+    },
+    {
+      # Cross-namespace: read preprod backup bucket for initial data load and Phase 2 copy
+      preprod_backup_s3_read = aws_iam_policy.preprod_backup_s3_read.arn
     }
   )
 
