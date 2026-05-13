@@ -2,7 +2,7 @@ module "rds-restored-20260513" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   rds_name = "hmpps-alerts-prod-db-20260513"
-  snapshot_identifier = "<TODO: INSERT SNAPSHOT IDENTIFIER HERE>"
+  snapshot_identifier = "alerts-db-production-snapshot-20260513-1"
 
   # VPC configuration
   vpc_name = var.vpc_name
