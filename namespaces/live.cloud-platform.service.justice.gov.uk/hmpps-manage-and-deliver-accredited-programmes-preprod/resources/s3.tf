@@ -179,3 +179,37 @@ resource "kubernetes_secret" "sqlserver_backup_s3_bucket" {
     bucket_name = module.sqlserver_backup_s3_bucket.bucket_name
   }
 }
+
+# Allow prod namespace roles to read .bak files from this bucket.
+# Prod's RDS IAM role uses rds_restore_database to pull directly from S3.
+# Prod's IRSA role (irsa-sqlserver) lists/discovers the latest .bak file.
+resource "aws_s3_bucket_policy" "sqlserver_backup_allow_prod_read" {
+  bucket = module.sqlserver_backup_s3_bucket.bucket_name
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "AllowProdRDSAndIRSARead",
+        Effect = "Allow",
+        Principal = {
+          AWS = [
+            # Prod RDS IAM role (used by rds_restore_database)
+            var.prod_rds_iam_role_arn,
+            # Prod IRSA role (used by irsa-sqlserver service account)
+            var.prod_irsa_sqlserver_role_arn
+          ]
+        },
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
+        Resource = [
+          module.sqlserver_backup_s3_bucket.bucket_arn,
+          "${module.sqlserver_backup_s3_bucket.bucket_arn}/*"
+        ]
+      }
+    ]
+  })
+}
