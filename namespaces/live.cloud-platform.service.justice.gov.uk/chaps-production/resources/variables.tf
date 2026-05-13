@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Correspondence handling and processing system"
+  default     = "Correspondence Handling and Processing System"
 }
 
 variable "namespace" {
@@ -24,12 +24,17 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "dotnet"
+  default     = "central-digital-product-team"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
+}
+
+variable "domain" {
+  description = "The domain name to use for the Route53 zone."
+  default = "correspondence-handling-and-processing.service.justice.gov.uk"
 }
 
 variable "infrastructure_support" {
@@ -56,28 +61,8 @@ variable "github_token" {
   default     = ""
 }
 
-variable "github_actions_secret_kube_token" {
-  description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_PRODUCTION"
-}
-
-variable "github_actions_secret_kube_cluster" {
-  description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_PRODUCTION"
-}
-
-variable "github_actions_secret_kube_namespace" {
-  description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_PRODUCTION"
-}
-
-variable "github_actions_secret_kube_cert" {
-  description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_PRODUCTION"
-}
-
-variable "serviceaccount_rules" {
-  description = "The capabilities of this serviceaccount"
+variable "service_account_rules" {
+  description = "The capabilities of this service account"
 
   type = list(object({
     api_groups = list(string),
