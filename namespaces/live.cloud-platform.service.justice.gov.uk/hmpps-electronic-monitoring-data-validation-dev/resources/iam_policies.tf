@@ -24,7 +24,8 @@ data "aws_iam_policy_document" "cross_account_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      data.aws_ssm_parameter.data_store_general_role_arn.value
+      data.aws_ssm_parameter.data_store_general_role_arn.value,
+      data.aws_ssm_parameter.data_store_ear_sar_role_arn.value,
     ]
   }
 }
