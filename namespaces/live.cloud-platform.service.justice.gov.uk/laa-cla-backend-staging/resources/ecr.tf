@@ -12,7 +12,7 @@ module "ecr-repo" {
   oidc_providers = ["circleci", "github"]
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_public", "cla_frontend", "fala", "laa-access-civil-legal-aid"]
+  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_frontend", "fala", "laa-access-civil-legal-aid"]
   # String prefix for GitHub Actions variable and secrets key
   github_actions_prefix="CLA_BACKEND"
 
