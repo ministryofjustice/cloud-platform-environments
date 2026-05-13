@@ -3,6 +3,11 @@ data "aws_ssm_parameter" "data_store_general_role_arn" {
   with_decryption = true
 }
 
+data "aws_ssm_parameter" "data_store_ear_sar_role_arn" {
+  name = "/${var.namespace}/data_store_ear_sar_role_arn"
+  with_decryption = true
+}
+
 resource "aws_ssm_parameter" "data_store_general_role_arn" {
   name        = "/${var.namespace}/data_store_general_role_arn"
   type        = "SecureString"
