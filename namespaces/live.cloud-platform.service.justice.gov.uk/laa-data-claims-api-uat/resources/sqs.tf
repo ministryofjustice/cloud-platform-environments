@@ -12,6 +12,19 @@ module "sqs_queue" {
   infrastructure_support            = var.infrastructure_support
 }
 
+resource "kubernetes_secret" "sqs_queue" {
+  metadata {
+    name      = "sqs-claims-events-queue-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id   = module.sqs-queue.sqs_id
+    sqs_name = module.sqs-queue.sqs_name
+    sqs_arn  = module.sqs-queue.sqs_queue_arn
+  }
+}
+
 resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
   queue_url = module.sqs_queue.sqs_id
 
