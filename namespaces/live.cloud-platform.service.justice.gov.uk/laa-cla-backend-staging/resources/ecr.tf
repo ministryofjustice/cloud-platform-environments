@@ -9,7 +9,7 @@ module "ecr-repo" {
   }
 
   # enable the oidc implementation for CircleCI and Github
-  oidc_providers = ["circleci", "github"]
+  oidc_providers = ["github"]
 
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_frontend", "fala", "laa-access-civil-legal-aid"]
