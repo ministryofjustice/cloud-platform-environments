@@ -8,5 +8,5 @@ module "serviceaccount_circleci" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["cla_backend"]
   # GitHub environment in which to create github actions secrets
-  github_environments = ["uat"]
+  github_environments = ["uat", "uat-static"]
 }
