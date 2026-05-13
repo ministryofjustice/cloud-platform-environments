@@ -60,4 +60,7 @@ resource "aws_sns_topic_subscription" "claims_events_queue_subscription" {
   endpoint  = module.sqs_queue.sqs_queue_arn
   protocol  = "sqs"
   raw_message_delivery = true
+  filter_policy = jsonencode({
+    SubmissionEventType = ["PARSE_BULK_SUBMISSION", "VALIDATE_SUBMISSION"]
+  })
 }
