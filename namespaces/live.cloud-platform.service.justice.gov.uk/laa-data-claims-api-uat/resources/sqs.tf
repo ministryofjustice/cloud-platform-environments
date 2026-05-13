@@ -19,9 +19,9 @@ resource "kubernetes_secret" "sqs_queue" {
   }
 
   data = {
-    sqs_id   = module.sqs-queue.sqs_id
-    sqs_name = module.sqs-queue.sqs_name
-    sqs_arn  = module.sqs-queue.sqs_queue_arn
+    sqs_id   = module.sqs_queue.sqs_id
+    sqs_name = module.sqs_queue.sqs_name
+    sqs_arn  = module.sqs_queue.sqs_queue_arn
   }
 }
 
