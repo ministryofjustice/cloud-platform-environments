@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cdpt-chaps"
     cloud-platform.justice.gov.uk/application: "CHAPS"
     cloud-platform.justice.gov.uk/owner: "CDPT: chaps-support@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/chapsdotnet"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/chaps"
     cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
     cloud-platform.justice.gov.uk/review-after: ""
