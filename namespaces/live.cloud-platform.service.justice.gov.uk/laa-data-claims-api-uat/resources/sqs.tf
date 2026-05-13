@@ -11,8 +11,6 @@ module "sqs_queue" {
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
 
-  encrypt_sqs_kms = true
-  message_retention_seconds = 1209600
   providers = {
     aws = aws.london
   }
