@@ -33,3 +33,11 @@ module "location_api_irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.location_api_irsa.service_account.name
+}
