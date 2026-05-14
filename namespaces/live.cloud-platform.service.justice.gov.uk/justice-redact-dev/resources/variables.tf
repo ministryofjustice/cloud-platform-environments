@@ -3,6 +3,21 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
+
+variable "role_policy_arns" {
+  description = "Map of ARNs of IAM policies to attach to IAM role"
+  type        = map(string)
+}
+
+variable "service_account_name" {
+  description = "Name of the service account"
+  type        = string
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
