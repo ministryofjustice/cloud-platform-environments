@@ -17,7 +17,7 @@ module "rds_mssql" {
 
   # SQL Server specifics
   db_engine            = "sqlserver-web"
-  db_engine_version    = "14.0.3520.4.v1"
+  db_engine_version    = "14.00.3520.4.v1"
   rds_family           = "sqlserver-web-14.0"
   db_instance_class    = "db.t3.large"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
