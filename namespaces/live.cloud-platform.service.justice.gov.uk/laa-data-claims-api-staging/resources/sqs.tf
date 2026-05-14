@@ -12,7 +12,25 @@ module "sqs_queue" {
   environment                       = var.environment
   infrastructure_support            = var.infrastructure_support
   visibility_timeout_seconds        = 600
+
+  providers = {
+    aws = aws.london
+  }
 }
+
+resource "kubernetes_secret" "sqs_queue" {
+  metadata {
+    name      = "sqs-claims-events-queue-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_id   = module.sqs_queue.sqs_id
+    sqs_name = module.sqs_queue.sqs_name
+    sqs_arn  = module.sqs_queue.sqs_queue_arn
+  }
+}
+
 resource "aws_sqs_queue_policy" "claims_events_sns_to_sqs_policy" {
   queue_url = module.sqs_queue.sqs_id
 

@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "queue" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["sns.amazonaws.com"]
     }
 
     actions = [
