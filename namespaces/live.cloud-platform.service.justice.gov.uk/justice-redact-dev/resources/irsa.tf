@@ -8,13 +8,13 @@
     ]
   }
 }
-
+*/
 resource "aws_iam_policy" "policy" {
   name        = "simple-policy-for-testing-irsa"
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
   description = "Policy for testing cloud-platform-terraform-irsa"
-} */
+} 
 
 module "irsa" {
   #always replace with latest version from Github
