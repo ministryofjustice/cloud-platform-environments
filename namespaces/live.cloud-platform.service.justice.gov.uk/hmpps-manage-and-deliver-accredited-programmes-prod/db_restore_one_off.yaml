@@ -1,0 +1,249 @@
+# One-off Job for initial data load or ad-hoc re-restores.
+# Usage: kubectl apply -f db_restore_one_off.yaml
+# Clean up after: kubectl delete job db-restore-from-preprod-001
+# Increment the name suffix (e.g. -002) for subsequent runs.
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-restore-from-preprod-001
+  namespace: hmpps-manage-and-deliver-accredited-programmes-prod
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 5400  # 90 minutes
+  template:
+    spec:
+      serviceAccountName: irsa-sqlserver
+      restartPolicy: OnFailure
+      volumes:
+        - name: backup-info
+          emptyDir: {}
+      initContainers:
+        - name: find-backup-file
+          image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: backup-info
+              mountPath: /backup-info
+          env:
+            - name: HOME
+              value: /tmp
+            # Hardcoded to preprod backup bucket for initial data load
+            - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
+              value: "cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              echo "Searching for latest backup in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
+
+              BACKUP_KEY=$(aws s3 ls "s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/" \
+                --recursive \
+                | awk '{print $4}' \
+                | grep '\.bak$' \
+                | sort \
+                | tail -1)
+
+              if [ -z "${BACKUP_KEY}" ]; then
+                echo "No backup file found in s3://${SQLSERVER_BACKUP_S3_BUCKET_NAME}/"
+                exit 1
+              fi
+
+              echo "Found backup file: ${BACKUP_KEY}"
+              echo "${BACKUP_KEY}" > /backup-info/backup-key
+
+        - name: port-forward
+          image: ministryofjustice/port-forward
+          restartPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - containerPort: 1433
+          env:
+            - name: REMOTE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rds-sqlserver-instance-output
+                  key: rds_instance_address
+            - name: LOCAL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-sqlserver-restore-config-map
+                  key: db_port
+            - name: REMOTE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-sqlserver-restore-config-map
+                  key: db_port
+      containers:
+        - name: db-restore
+          image: mcr.microsoft.com/mssql/server:2019-CU31-ubuntu-20.04
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 10001
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: backup-info
+              mountPath: /backup-info
+          env:
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rds-sqlserver-restore-config-map
+                  key: db_port
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: rds-sqlserver-instance-output
+                  key: database_name
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rds-sqlserver-instance-output
+                  key: database_username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rds-sqlserver-instance-output
+                  key: database_password
+            # Hardcoded to preprod backup bucket for initial data load
+            - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
+              value: "cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              # Locate sqlcmd binary
+              SQLCMD=/opt/mssql-tools18/bin/sqlcmd
+              if [ ! -f "${SQLCMD}" ]; then
+                SQLCMD=/opt/mssql-tools/bin/sqlcmd
+              fi
+
+              BACKUP_KEY=$(cat /backup-info/backup-key)
+              if [ -z "${BACKUP_KEY}" ]; then
+                echo "ERROR: /backup-info/backup-key is empty"
+                exit 1
+              fi
+              BACKUP_S3_ARN="arn:aws:s3:::${SQLSERVER_BACKUP_S3_BUCKET_NAME}/${BACKUP_KEY}"
+
+              echo "Starting restore at $(date)"
+              echo "Source : ${BACKUP_S3_ARN}"
+              echo "Target : ${DATABASE_NAME}"
+
+              # Wait for port-forward sidecar
+              echo "Waiting for SQL Server to be reachable..."
+              RETRIES=0
+              until "${SQLCMD}" -S "localhost,${DB_PORT}" -U "${DATABASE_USERNAME}" -P "${DATABASE_PASSWORD}" -C -Q "SELECT 1" > /dev/null 2>&1; do
+                RETRIES=$((RETRIES + 1))
+                if [ "${RETRIES}" -ge 30 ]; then
+                  echo "Timed out after $((RETRIES * 10))s"
+                  exit 1
+                fi
+                echo "  attempt ${RETRIES}/30 — retrying in 10s..."
+                sleep 10
+              done
+              echo "SQL Server reachable."
+
+              # Submit the RDS restore task — first restore, no existing DB to drop
+              echo "Submitting rds_restore_database task..."
+              SUBMIT_OUTPUT=$("${SQLCMD}" \
+                -S "localhost,${DB_PORT}" \
+                -U "${DATABASE_USERNAME}" \
+                -P "${DATABASE_PASSWORD}" \
+                -W \
+                -C -Q "EXEC msdb.dbo.rds_restore_database
+                      @restore_db_name    = '${DATABASE_NAME}',
+                      @s3_arn_to_restore_from = '${BACKUP_S3_ARN}',
+                      @with_norecovery    = 0,
+                      @type               = 'FULL';" 2>&1) || true
+
+              # Check for SQL error
+              if echo "${SUBMIT_OUTPUT}" | grep -qE '^Msg [0-9]+, Level [0-9]+'; then
+                echo "rds_restore_database returned a SQL error:"
+                echo "${SUBMIT_OUTPUT}"
+                exit 1
+              fi
+
+              # Extract task_id
+              TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE 'Task Id:\s*[0-9]+' | grep -oE '[0-9]+' || true)
+              if [ -z "${TASK_ID}" ]; then
+                TASK_ID=$(echo "${SUBMIT_OUTPUT}" | grep -oE '^\s*[0-9]+' | head -1 | tr -d ' ' || true)
+              fi
+
+              if [ -z "${TASK_ID}" ]; then
+                echo "Failed to extract task_id:"
+                echo "${SUBMIT_OUTPUT}"
+                exit 1
+              fi
+
+              echo "Restore task submitted. Task ID: ${TASK_ID}"
+              echo "Polling rds_task_status..."
+
+              # Poll every 30s; timeout 60 minutes
+              POLL_COUNT=0
+              CONSECUTIVE_FAILURES=0
+              while true; do
+                STATUS_OUTPUT=$("${SQLCMD}" \
+                  -S "localhost,${DB_PORT}" \
+                  -U "${DATABASE_USERNAME}" \
+                  -P "${DATABASE_PASSWORD}" \
+                  -h -1 -W \
+                  -C -Q "EXEC msdb.dbo.rds_task_status @task_id = ${TASK_ID};" 2>&1) || true
+
+                echo "$(date) | ${STATUS_OUTPUT}"
+
+                LIFECYCLE=$(echo "${STATUS_OUTPUT}" | grep -oE '\b(SUCCESS|ERROR|CANCELLED|CREATED|IN_PROGRESS)\b' | head -1 || true)
+
+                if [ -z "${LIFECYCLE}" ]; then
+                  CONSECUTIVE_FAILURES=$((CONSECUTIVE_FAILURES + 1))
+                  if [ "${CONSECUTIVE_FAILURES}" -ge 5 ]; then
+                    echo "Port-forward appears dead"
+                    exit 1
+                  fi
+                else
+                  CONSECUTIVE_FAILURES=0
+                fi
+
+                if [ "${LIFECYCLE}" = "SUCCESS" ]; then
+                  echo "Restore completed successfully at $(date)"
+                  exit 0
+                fi
+
+                if [ "${LIFECYCLE}" = "ERROR" ] || [ "${LIFECYCLE}" = "CANCELLED" ]; then
+                  echo "Restore failed (lifecycle=${LIFECYCLE}) at $(date)"
+                  exit 1
+                fi
+
+                POLL_COUNT=$((POLL_COUNT + 1))
+                if [ "${POLL_COUNT}" -ge 120 ]; then
+                  echo "Timed out after 60 minutes"
+                  exit 1
+                fi
+
+                sleep 30
+              done
+
