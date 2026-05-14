@@ -18,6 +18,7 @@ module "hmpps_dps_reconciliation_rds" {
   prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = true
   db_max_allocated_storage   = "500"
+  db_password_rotated_date   = "2026-05-14"
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
