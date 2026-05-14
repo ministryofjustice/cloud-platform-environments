@@ -127,8 +127,9 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
         Principal = {
           AWS = [
             module.irsa-cronjob.role_arn,
-            # NEC prod DataSync role — uncomment once NEC confirm the role has been created.
-            # "arn:aws:iam::778742069978:role/im-production-s3-datasync-prod"
+            # NEC DataSync role — uncomment once NEC confirm prod should receive files directly.
+            # This is the same role currently active in preprod's upload bucket policy.
+            # "arn:aws:iam::778742069978:role/im-production-s3-datasync"
           ]
         }
         Action = [
