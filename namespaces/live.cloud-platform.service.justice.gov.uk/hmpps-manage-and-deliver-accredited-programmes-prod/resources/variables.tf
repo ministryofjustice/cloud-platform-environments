@@ -158,3 +158,11 @@ variable "preprod_backup_bucket_arn" {
   type        = string
   default     = "arn:aws:s3:::cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
 }
+
+variable "logging_enabled" {
+  default = true
+}
+
+variable "log_path" {
+  default = "logs/"
+}
