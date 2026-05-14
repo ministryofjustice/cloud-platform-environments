@@ -16,7 +16,7 @@ module "rp_rds" {
   db_engine_version         = "18"
   rds_family                = "postgres18"
   db_password_rotated_date  = "15-02-2023"
-  deletion_protection       = true
+  deletion_protection       = false
   prepare_for_major_upgrade = false
 
   providers = {
