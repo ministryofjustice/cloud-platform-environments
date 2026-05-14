@@ -17,3 +17,8 @@ output "sqs_id" {
   value       = module.queue.sqs_id
   description = "SQS Queue ID"
 }
+
+output "sqs_name" {
+  value       = module.queue.sqs_name
+  description = "SQS Queue Name"
+}  
