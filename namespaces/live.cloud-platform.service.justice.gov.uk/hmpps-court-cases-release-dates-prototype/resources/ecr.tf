@@ -4,6 +4,8 @@ module "ecr-repo" {
   # Repository configuration
   repo_name = "${var.namespace}-ecr"
 
+  deletion_protection = false
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = [var.namespace]
