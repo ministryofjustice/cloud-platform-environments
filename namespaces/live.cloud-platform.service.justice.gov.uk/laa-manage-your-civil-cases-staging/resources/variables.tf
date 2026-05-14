@@ -26,10 +26,16 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "The full name of the Service Area in which the team is based"
+  type        = string
+  default     = "Information and Advice"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "check-client-qualifies"
+  default     = "manage-your-civil-cases"
 }
 
 variable "environment" {
@@ -41,7 +47,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ccq@justice.gov.uk"
+  default     = "MCC.LAADigital@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ccq-team"
+  default     = "laa-mcc-team"
 }
 
 variable "github_owner" {

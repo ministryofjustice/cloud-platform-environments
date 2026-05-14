@@ -68,6 +68,11 @@ variable "github_token" {
   default     = ""
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Find app"
+}
 
 variable "eks_cluster_name" {
 }

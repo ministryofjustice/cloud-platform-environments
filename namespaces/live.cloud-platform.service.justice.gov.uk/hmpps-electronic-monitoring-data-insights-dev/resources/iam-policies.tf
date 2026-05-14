@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "athena_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      aws_ssm_parameter.athena_general_role_arn.value
+      "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev"
     ]
   }
 }

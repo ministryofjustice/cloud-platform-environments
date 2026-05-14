@@ -3,7 +3,7 @@ module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # ECR Repository name
-  repo_name = "laa-generic-app"
+  repo_name = "laa-sre-admins/laa-generic-app"
 
   # OpenID Connect configuration for GitHub Actions
   oidc_providers      = ["github"]
@@ -22,3 +22,13 @@ module "ecr_credentials" {
     aws = aws.london
   }
 }
+
+# Find the IAM role created by the ECR module
+data "aws_iam_roles" "ecr_github_roles" {
+  provider   = aws.london
+  name_regex = "^cloud-platform-ecr-.*-github$"
+
+  depends_on = [module.ecr_credentials]
+}
+
+

@@ -37,19 +37,3 @@ resource "pingdom_check" "dps-production-check-cmd-api" {
   probefilters             = "region:EU"
   integrationids           = [126478]
 }
-
-resource "pingdom_check" "dps-production-check-csr-api" {
-  type                     = "http"
-  name                     = "CMD - csr-api.prison.service.justice.gov.uk"
-  host                     = "health-kick.prison.service.justice.gov.uk"
-  resolution               = 1
-  notifywhenbackup         = true
-  sendnotificationwhendown = 6
-  notifyagainevery         = 0
-  url                      = "/https/csr-api.prison.service.justice.gov.uk"
-  encryption               = true
-  port                     = 443
-  tags                     = "dps,hmpps,cloudplatform-managed"
-  probefilters             = "region:EU"
-  integrationids           = [126478]
-}

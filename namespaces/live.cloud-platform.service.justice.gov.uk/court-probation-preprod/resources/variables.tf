@@ -1,17 +1,29 @@
-/*
- * When using this module through the cloud-platform-environments, the following
- * variable is automatically supplied by the pipeline.
- *
- */
 variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}
+
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "application" {
-  default = "court-case-service"
+  description = "Name of the application you are deploying"
+  type        = string
+  default     = "court-case-service"
 }
 
 variable "namespace" {
-  default = "court-probation-preprod"
+  description = "Name of the namespace these resources are part of"
+  type        = string
+  default     = "court-probation-preprod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Probation In Court"
 }
 
 variable "business_unit" {
@@ -20,7 +32,8 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  description = "The name of your development team"
+  description = "Name of the development team responsible for this service"
+  type        = string
   default     = "probation-in-court-team"
 }
 
@@ -41,7 +54,9 @@ variable "db_instance_class" {
 }
 
 variable "environment" {
-  default = "preprod"
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "preprod"
 }
 
 variable "environment-name" {
@@ -50,12 +65,15 @@ variable "environment-name" {
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "Prepare a Case for Sentence: prepareacaseforsentence-gg@justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "false"
+  description = "Whether this environment type is production or not"
+  type        = string
+  default     = "false"
 }
 
 variable "number_cache_clusters" {
@@ -80,11 +98,8 @@ variable "github_token" {
 variable "eks_cluster_name" {
 }
 
-variable "kubernetes_cluster" {
-}
-
 variable "slack_channel" {
+  description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  description = "Cloud Platform will contact our team via this slack channel"
-  default     = "pic-mafia"
+  default     = "probation_in_court"
 }

@@ -121,6 +121,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
       "person.temporary-absence-authorisation.transport-changed",
       "person.temporary-absence-authorisation.deferred",
       "person.temporary-absence-authorisation.relocated",
+      "person.temporary-absence-authorisation.paused",
+      "person.temporary-absence-authorisation.resumed",
       "person.temporary-absence.scheduled",
       "person.temporary-absence.denied",
       "person.temporary-absence.cancelled",
@@ -133,7 +135,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements
       "person.temporary-absence.relocated",
       "person.temporary-absence.accompaniment-changed",
       "person.temporary-absence.transport-changed",
-      "person.temporary-absence.comments-changed"
+      "person.temporary-absence.comments-changed",
+      "person.temporary-absence.unscheduled",
+      "person.temporary-absence.paused",
+      "person.temporary-absence.resumed"
     ]
   })
 }

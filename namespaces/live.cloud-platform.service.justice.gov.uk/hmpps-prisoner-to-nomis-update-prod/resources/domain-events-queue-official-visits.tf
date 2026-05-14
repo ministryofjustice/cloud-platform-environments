@@ -110,7 +110,18 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_officialvisits_su
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     eventType = [
-      "tbd"
+      "official-visits-api.time-slot.created",
+      "official-visits-api.time-slot.updated",
+      "official-visits-api.time-slot.deleted",
+      "official-visits-api.visit-slot.created",
+      "official-visits-api.visit-slot.updated",
+      "official-visits-api.visit-slot.deleted",
+      "official-visits-api.visit.created",
+      "official-visits-api.visit.updated",
+      "official-visits-api.visit.deleted",
+      "official-visits-api.visitor.created",
+      "official-visits-api.visitor.updated",
+      "official-visits-api.visitor.deleted"
     ]
   })
 }

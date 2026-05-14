@@ -158,3 +158,20 @@ resource "kubernetes_config_map" "rds" {
 
   }
 }
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "rds_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-instance"
+    namespace = "hmpps-sentence-plan-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}

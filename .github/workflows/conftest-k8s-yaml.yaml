@@ -19,8 +19,11 @@ jobs:
         with:
           files_ignore: .github/**
 
-      - name: Setup conftest
-        uses: princespaghetti/setup-conftest@d75fd184422abf484802a0fefc0453f2cda20f95 ##v1.1.23
+      - name: Install Conftest
+        run: |
+          wget https://github.com/open-policy-agent/conftest/releases/download/v0.67.1/conftest_0.67.1_Linux_x86_64.tar.gz
+          tar xzf conftest_0.67.1_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin
 
       - name: Run conftest k8s checks on added or modified YAML files
         run: |

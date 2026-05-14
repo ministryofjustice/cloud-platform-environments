@@ -1,5 +1,5 @@
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add-preferred-azs-variable"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment
@@ -38,7 +38,7 @@ resource "kubernetes_secret" "elasticache_redis" {
 
 # Test: no AZs specified, validating default behavior
 module "elasticache_redis_default_azs" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add-preferred-azs-variable"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment
@@ -75,7 +75,7 @@ resource "kubernetes_secret" "elasticache_redis_default_azs" {
 
 # Backward compatibility test: switched from 8.1.0 to feature branch
 module "elasticache_redis_official" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=add-preferred-azs-variable"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment

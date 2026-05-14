@@ -16,7 +16,7 @@ module "prisons_rds" {
   prepare_for_major_upgrade  = false
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
-  db_engine_version          = "16.3"
+  db_engine_version          = "16.8"
   enable_irsa = true
 
   providers = {

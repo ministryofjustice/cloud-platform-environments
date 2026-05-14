@@ -6,6 +6,10 @@ variable "team_name" {
   default = "offender-management"
 }
 
+variable "service_area" {
+  default = "Manage Custody"
+}
+
 variable "application" {
   default = "offender-management-allocation-manager"
 }
