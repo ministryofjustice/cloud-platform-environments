@@ -82,6 +82,10 @@ module "irsa-sqlserver" {
   role_policy_arns = merge(
     {
       sqlserver = module.sqlserver.irsa_policy_arn
+    },
+    {
+      # db-restore job needs to list the backup bucket to discover the latest .bak file
+      sqlserver_backup_s3_bucket_policy = module.sqlserver_backup_s3_bucket.irsa_policy_arn
     }
   )
 

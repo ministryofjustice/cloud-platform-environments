@@ -4,7 +4,7 @@ module "hmpps-uof-data-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-uof-data-api"
   application                   = "hmpps-uof-data-api"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.github_review_team
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -22,7 +22,7 @@ module "use-of-force" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "use-of-force"
   application                   = "use-of-force"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.github_review_team
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true

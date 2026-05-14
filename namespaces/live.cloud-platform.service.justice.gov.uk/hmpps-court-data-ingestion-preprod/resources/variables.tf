@@ -81,3 +81,10 @@ variable "service_area" {
   description = "service area"
   default     = "Manage Custody"
 }
+
+variable "modernisation_platform_autorizer_lambda" {
+  type = string
+  description = "The ARN of the role used by modernisation platform authorizer lambda"
+  default = "arn:aws:iam::548277373878:role/authorizer-role-mp"
+}
+

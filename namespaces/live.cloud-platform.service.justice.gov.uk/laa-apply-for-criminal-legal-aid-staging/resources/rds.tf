@@ -35,8 +35,7 @@ module "rds" {
     aws = aws.london
   }
 
-  # snapshot exercise preperation
-  deletion_protection = false
+  deletion_protection = true
 }
 
 resource "kubernetes_secret" "rds" {

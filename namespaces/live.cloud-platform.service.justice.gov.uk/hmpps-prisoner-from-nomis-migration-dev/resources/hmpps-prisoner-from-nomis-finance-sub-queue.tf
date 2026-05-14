@@ -111,10 +111,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_finance_subscription"
     eventType = [
       "OFFENDER_TRANSACTIONS-INSERTED",
       "OFFENDER_TRANSACTIONS-UPDATED",
-      "OFFENDER_TRANSACTIONS-DELETED",
-      "GL_TRANSACTIONS-INSERTED",
-      "GL_TRANSACTIONS-UPDATED",
-      "GL_TRANSACTIONS-DELETED"
+      "OFFENDER_TRANSACTIONS-DELETED"
     ]
   })
 }

@@ -96,7 +96,7 @@ resource "aws_route53_record" "judicialappointments_route53_cname_record_autodis
   name    = "autodiscover.judicialappointments.gov.uk"
   type    = "CNAME"
   ttl     = "3600"
-  records = ["autodiscover.outlook.com"]
+  records = ["autodiscover.outlook.com."]
 }
 
 resource "aws_route53_record" "judicialappointments_route53_cname_record_mta_sts" {

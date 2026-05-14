@@ -60,3 +60,8 @@ variable "team_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
+}

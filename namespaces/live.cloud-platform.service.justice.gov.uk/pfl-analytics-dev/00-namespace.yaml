@@ -14,3 +14,5 @@ metadata:
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/pfl-analytics"
     cloud-platform.justice.gov.uk/team-name: "central-digital-product-team"
     cloud-platform.justice.gov.uk/review-after: "2027-03-20"
+
+# This file is used to create the namespace for the PFL Analytics application in the development environment.

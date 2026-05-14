@@ -18,6 +18,11 @@ variable "namespace" {
   default = "hmpps-manage-adjudications-api-preprod"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"

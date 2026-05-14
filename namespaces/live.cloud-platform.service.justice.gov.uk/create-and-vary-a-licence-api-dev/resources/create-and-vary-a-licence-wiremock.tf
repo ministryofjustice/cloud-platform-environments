@@ -7,7 +7,7 @@ module "create-and-vary-a-licence-wiremock" {
   application = "create-and-vary-a-licence-wiremock"
   github_team = "create-and-vary-a-licence-devs"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["create-and-vary-a-licence-devs"]
+  #reviewer_teams                = ["create-and-vary-a-licence-devs"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

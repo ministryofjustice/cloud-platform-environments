@@ -12,7 +12,8 @@ module "irsa" {
   service_account_name = "hmpps-arns-assessment-platform-service-account"
   role_policy_arns = merge(
     {
-      rds = module.rds.irsa_policy_arn
+      rds        = module.rds.irsa_policy_arn
+      rds_aurora = module.rds_aurora.irsa_policy_arn
     },
     local.sqs_policies
   )

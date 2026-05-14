@@ -2,6 +2,11 @@ variable "team_name" {
   default = "move-a-prisoner"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
 variable "environment-name" {
   default = "staging"
 }
@@ -45,8 +50,26 @@ variable "github_token" {
   default     = ""
 }
 
+variable "slack_channel" {
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "move-a-prisoner-digital"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "staging"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "kubernetes_cluster" {}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}

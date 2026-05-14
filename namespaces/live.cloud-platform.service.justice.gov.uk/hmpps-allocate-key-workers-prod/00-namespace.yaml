@@ -14,3 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/team-name: "hmpps-prisons-digital-live-support"
     cloud-platform.justice.gov.uk/slack-channel: "ask-live-services-maintenance-team"
     cloud-platform.justice.gov.uk/slack-alert-channel: "maintenance-alerts-prod"
+    cloud-platform.justice.gov.uk/service-area: "Live Support"

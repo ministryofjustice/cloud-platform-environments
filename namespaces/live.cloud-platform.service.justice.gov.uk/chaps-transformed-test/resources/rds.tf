@@ -14,7 +14,7 @@ module "rds_mssql" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  performance_insights_enabled = false
+  performance_insights_enabled = true
   db_max_allocated_storage     = "100"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2025-11-10" # Uncomment to rotate your database password.
@@ -27,6 +27,7 @@ module "rds_mssql" {
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
   enable_irsa          = true 
+  deletion_protection  = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".

@@ -4,7 +4,7 @@ locals {
   github_repos   = [
     "hmpps-accredited-programmes-manage-and-deliver-api", 
     "hmpps-accredited-programmes-manage-and-deliver-ui",
-    "hmpps-accredited-programmes-manage-and-deliver-data-importer"
+    "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
   ]
 
   github-actions-sa_rules = [

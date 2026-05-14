@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sync-nomis-monitor-dev
+  namespace: hmpps-prisoner-finance-sync-dev
+spec:
+  selector:
+    matchLabels:
+      app: hmpps-prisoner-finance-sync-api
+  endpoints:
+    - port: http
+      interval: 15s

@@ -83,6 +83,7 @@ module "common-platform-and-delius-service-account" {
     sqs_fifo = module.common-platform-and-delius-fifo-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
     s3  = module.common-platform-and-delius-s3-bucket.irsa_policy_arn
+    large_cases_s3 = aws_iam_policy.court_hearings_large_messages_bucket_policy-preprod.arn
   }
 }
 

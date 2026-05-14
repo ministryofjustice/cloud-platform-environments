@@ -1,0 +1,24 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ephemeral-container-access
+  namespace: hmpps-community-accommodation-test
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["get", "patch", "update", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ephemeral-container-access-binding
+  namespace: hmpps-community-accommodation-test
+subjects:
+  - kind: Group
+    name: "github:hmpps-community-accommodation-devs"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ephemeral-container-access
+  apiGroup: rbac.authorization.k8s.io
