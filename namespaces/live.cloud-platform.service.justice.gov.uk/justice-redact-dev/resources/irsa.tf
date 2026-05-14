@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "document" {
+/* data "aws_iam_policy_document" "document" {
   statement {
     actions = [
       "s3:*",
@@ -14,12 +14,12 @@ resource "aws_iam_policy" "policy" {
   path        = "/cloud-platform/"
   policy      = data.aws_iam_policy_document.document.json
   description = "Policy for testing cloud-platform-terraform-irsa"
-}
+} */
 
 module "irsa" {
   #always replace with latest version from Github
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  source = "../"
+  # source = "../"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -39,7 +39,7 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
+/*
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "${var.team_name}-irsa"
@@ -50,3 +50,4 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
   }
 }
+*/
