@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        var.sns_topic_arn
+        for role in local.sqs_roles_with_namespace_tag : role.arn
       ]
     }
   }
