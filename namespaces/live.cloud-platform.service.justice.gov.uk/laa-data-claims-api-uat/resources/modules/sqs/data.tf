@@ -17,8 +17,8 @@ data "aws_iam_policy_document" "dlq" {
     sid    = "Allow"
     effect = "Allow"
     principals {
-      type        = "Service"
-      identifiers = ["sns.amazonaws.com"]
+      type        = "AWS"
+      identifiers = ["*"]
     }
     actions = [
       "sqs:*"
@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "queue" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["sns.amazonaws.com"]
     }
 
     actions = [
