@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "dmet-corporate"
     cloud-platform.justice.gov.uk/application: "PMOProject Property Project Management"
     cloud-platform.justice.gov.uk/owner: "Property: dataengineering-gg@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/moj-analytical-services/projectsdb"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/projectsdb"
     cloud-platform.justice.gov.uk/team-name: "data-engineering"
     cloud-platform.justice.gov.uk/review-after: ""

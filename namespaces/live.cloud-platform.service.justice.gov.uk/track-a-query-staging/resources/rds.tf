@@ -5,16 +5,16 @@
 
 module "track_a_query_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage       = 10
-  storage_type               = "gp2"
+  db_allocated_storage       = 100
+  storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production
   namespace                  = var.namespace
-  db_instance_class          = "db.t4g.micro"
-  db_max_allocated_storage   = "500"
+  db_instance_class          = "db.r6g.large"
+  db_max_allocated_storage   = "1000"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
   db_engine_version          = "16.8"

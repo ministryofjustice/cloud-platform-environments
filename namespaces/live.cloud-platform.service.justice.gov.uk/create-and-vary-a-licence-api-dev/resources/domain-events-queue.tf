@@ -108,7 +108,9 @@ resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "person.community.manager.allocated",
-      "prisoner-offender-search.prisoner.updated"
+      "prisoner-offender-search.prisoner.updated",
+      "recall.inserted",
+      "recall.updated",
     ]
   })
 }

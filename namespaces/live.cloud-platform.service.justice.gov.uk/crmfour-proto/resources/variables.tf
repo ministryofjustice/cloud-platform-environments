@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Gov.UK Prototype Kit"
+  default     = "NSCC protoype kit"
 }
 
 variable "namespace" {
@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "crmteam-proto"
+  default     = "laa-crime-forms-team"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "NSCC: nscc@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crm"
+  default     = "laa-non-standard-crime-claims"
 }
 
 variable "github_owner" {
@@ -78,4 +78,9 @@ variable "basic-auth-username" {
 variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
   default     = "prior-auth!"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
 }

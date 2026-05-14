@@ -17,7 +17,7 @@ module "complexity-of-need-rds" {
   application                = "hmpps-complexity-of-need"
   is_production              = "false"
   namespace                  = var.namespace
-  environment_name           = var.environment
+  environment_name           = var.environment_name
   infrastructure_support     = "manage-pom-cases@digital.justice.gov.uk"
   db_engine                  = "postgres"
   db_name                    = "hmpps_complexity_of_need"

@@ -14,6 +14,9 @@ module "elasticache_redis" {
   parameter_group_name    = "default.redis7"
   number_cache_clusters   = "2"
   node_type               = "cache.t4g.micro"
+
+  # Enable IRSA to allow service account access to ElastiCache
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "elasticache_redis" {

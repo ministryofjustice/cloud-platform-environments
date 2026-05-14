@@ -6,6 +6,7 @@ module "hmpps_court_data_ingestion_api" {
   application = "hmpps-court-data-ingestion-api"
   github_team = var.team_name
   environment = var.environment
+  reviewer_teams = [var.team_name]
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = var.environment # Either "dev", "prod" or "prod"

@@ -3,7 +3,7 @@ resource "aws_sns_topic_subscription" "pre-sentence-reports-to-delius-queue-subs
   protocol  = "sqs"
   endpoint  = module.pre-sentence-reports-to-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["pre-sentence.report.completed"]
+    eventType = ["pre-sentence.report.created"]
   })
 }
 

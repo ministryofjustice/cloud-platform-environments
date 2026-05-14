@@ -22,12 +22,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hmpps-digital-prison-reporting-mi
+      app: hmpps-digital-prison-reporting-mi-ui
   namespaceSelector:
     matchNames:
       - hmpps-digital-prison-reporting-mi-test
   endpoints:
     - port: http
-      path: /prometheus
+      path: /metrics
       interval: 15s
 

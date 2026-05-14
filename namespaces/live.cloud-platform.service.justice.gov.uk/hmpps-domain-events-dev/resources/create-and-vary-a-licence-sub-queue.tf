@@ -82,10 +82,7 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
-      "prisoner-offender-search.prisoner.updated",
-      "prisoner-offender-search.prisoner.received",
       "prisoner-offender-search.prisoner.released"
     ]
   })

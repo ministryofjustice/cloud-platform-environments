@@ -2,8 +2,8 @@ module "grafana_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   db_engine                = "postgres"
-  db_engine_version        = "17"
-  rds_family               = "postgres17"
+  db_engine_version        = "18"
+  rds_family               = "postgres18"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "50"
   vpc_name                 = var.vpc_name

@@ -97,7 +97,7 @@ slug = "hmpps-sre"
 }
 
 data "github_team" "move-a-prisoner" {
-  slug = "move-a-prisoner"
+  slug = "map-developers-live"
 }
 
 ##########################################################################
@@ -110,7 +110,8 @@ resource "github_repository_environment" "env" {
 # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.hmpps-sre.id)
+      tonumber(data.github_team.hmpps-sre.id),
+      tonumber(data.github_team.move-a-prisoner.id)
     ]
   }
   deployment_branch_policy {

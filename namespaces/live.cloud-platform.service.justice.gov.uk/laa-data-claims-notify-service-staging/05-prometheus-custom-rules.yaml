@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-data-claims-notify-service-staging
+  labels:
+    prometheus: cloud-platform
+    role: alert-rules
+  name: prometheus-custom-rules-laa-data-claims-notify-service-staging
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: NamespaceDown
+      expr: absent(up{namespace="laa-data-claims-notify-service-staging"}) == 1
+      for: 1m
+      labels:
+        severity: laa-data-claims-notify-service-staging
+      annotations:
+        message: Namespace laa-data-claims-notify-service-staging is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+
+    - alert: KubeLowPodCount
+      expr: sum (kube_pod_status_phase{namespace="laa-data-claims-notify-service-staging", phase="Running"}) < 1
+      labels:
+        severity: laa-data-claims-notify-service-staging
+      annotations:
+        message: Namespace laa-data-claims-notify-service-staging has fewer than expected number of running pods.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+
+    - alert: KubeQuotaExceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-data-claims-notify-service-staging"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-data-claims-notify-service-staging"} > 0) > 90
+      for: 1m
+      labels:
+        severity: laa-data-claims-notify-service-staging
+      annotations:
+        message: Namespace laa-data-claims-notify-service-staging is using more than 90% of its allocated resources.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims

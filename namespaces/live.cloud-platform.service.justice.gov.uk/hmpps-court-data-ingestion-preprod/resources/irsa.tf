@@ -5,8 +5,16 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
-    hmpps_court_data_ingestion_queue             = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
-    hmpps_court_data_ingestion_dead_letter_queue = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_queue                      = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_dead_letter_queue          = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_queue               = module.hmpps_court_data_prisoner_created_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_dead_letter_queue   = module.hmpps_court_data_prisoner_created_dead_letter_queue.irsa_policy_arn,
+  }
+  sm_policies = {
+    hmpps_court_data_auth_token_secret_manager = aws_iam_policy.secret_ingestion_api_auth_token_irsa_policy.arn
+  }
+  kms_policies = {
+    hmpps_court_data_auth_token_kms_secret_manager = aws_iam_policy.secret_ingestion_api_auth_token_kms_irsa_policy.arn
   }
 }
 
@@ -16,7 +24,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-court-data-ingestion-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, { rds_policy = module.hmpps-court-data-ingestion-api-rds.irsa_policy_arn })
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, local.sm_policies, local.kms_policies, { rds_policy = module.hmpps-court-data-ingestion-api-rds.irsa_policy_arn })
   # Tags
   business_unit          = var.business_unit
   application            = var.application

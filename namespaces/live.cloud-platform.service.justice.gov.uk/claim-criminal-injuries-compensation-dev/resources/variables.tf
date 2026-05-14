@@ -79,4 +79,11 @@ variable "repo_name" {
   default     = [ "cica-apply-application-service", "cica-apply-maintenance-page", "cica-apply-data-capture-service", "cica-apply-web",
   "cica-apply-notify-gateway", "cica-apply-letter-service"]
 }
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Apply Service"
+}
+
 variable "kubernetes_cluster" {}

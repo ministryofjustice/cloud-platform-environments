@@ -4,15 +4,11 @@ locals {
   datastore_api_consumers = {
     "crime_apply" = {
       namespace  = "laa-apply-for-criminal-legal-aid-staging"
-      rotated_at = "2025-06-06"
-    }
-    "crime_apply_preprod" = {
-      namespace  = "laa-apply-for-criminal-legal-aid-preprod"
-      rotated_at = "2025-25-07"
+      rotated_at = "2026-04-20"
     }
     "crime_review" = {
       namespace  = "laa-review-criminal-legal-aid-staging"
-      rotated_at = "2025-06-06"
+      rotated_at = "2026-04-20"
     }
     #
     # Other MAAT non-prod consumers without direct datastore equivalence
@@ -20,11 +16,11 @@ locals {
     #
     "maat_adapter_dev" = {
       namespace  = "laa-crime-applications-adaptor-dev"
-      rotated_at = "2025-06-06"
+      rotated_at = "2026-04-20"
     }
     "maat_adapter_uat" = {
       namespace  = "laa-crime-applications-adaptor-uat"
-      rotated_at = "2025-06-06"
+      rotated_at = "2026-04-20"
     }
   }
 }
