@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "queue" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["sns.amazonaws.com"]
     }
 
     actions = [
@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        for role in local.sqs_roles_with_namespace_tag : role.arn
+        var.sns_topic_arn
       ]
     }
   }
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "queue" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values = [
-        for role in local.sqs_roles_with_namespace_tag : role.arn
+        var.sns_topic_arn
       ]
     }
   }
