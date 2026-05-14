@@ -19,6 +19,7 @@ module "hmpps_dps_reconciliation_rds" {
   enable_rds_auto_start_stop = false
   db_max_allocated_storage   = "500"
   backup_window              = "02:30-03:00"
+  db_password_rotated_date   = "2026-05-14"
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
