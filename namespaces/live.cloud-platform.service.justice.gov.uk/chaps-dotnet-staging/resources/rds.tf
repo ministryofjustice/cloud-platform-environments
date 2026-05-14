@@ -17,13 +17,14 @@ module "rds_mssql" {
 
   # SQL Server specifics
   db_engine            = "sqlserver-web"
-  db_engine_version    = "14.00.3381.3.v1"
+  db_engine_version    = "14.00.3520.4.v1"
   rds_family           = "sqlserver-web-14.0"
-  db_instance_class    = "db.t3.2xlarge"
+  db_instance_class    = "db.t3.large"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
   enable_irsa          = true
   deletion_protection  = true
+  enable_rds_auto_start_stop = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
