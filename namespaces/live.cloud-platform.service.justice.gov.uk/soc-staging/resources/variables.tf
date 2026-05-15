@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "service_area" {
   description = "The service area of the MOJ responsible for the service."
-  default     = "Central, Victims and Vulnerability"
+  default     = "Central Victims and Vulnerability"
 }
 
 variable "team_name" {
