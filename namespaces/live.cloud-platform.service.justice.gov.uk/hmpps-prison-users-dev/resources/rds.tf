@@ -42,5 +42,4 @@ resource "kubernetes_secret" "prison_users_rds" {
     rds_instance_address  = module.prison_users_rds.rds_instance_address
     url                   = "postgres://${module.prison_users_rds.database_username}:${module.prison_users_rds.database_password}@${module.prison_users_rds.rds_instance_endpoint}/${module.prison_users_rds.database_name}"
   }
-  depends_on = [module.prison_users_rds]
 }
