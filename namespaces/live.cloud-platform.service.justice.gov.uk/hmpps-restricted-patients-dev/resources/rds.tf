@@ -4,6 +4,7 @@ module "rp_rds" {
   storage_type         = "gp2"
 
   db_name                    = "hmpps_restricted_patients_api_dev"
+  rds_name                   = "hmpps-restricted-patients-api-dev"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
