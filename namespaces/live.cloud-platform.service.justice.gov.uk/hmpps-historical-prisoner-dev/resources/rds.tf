@@ -2,6 +2,7 @@ module "historical_prisoner_rds" {
   source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
+  rds_name                  = "hmpps-historical-prisoner-api-dev"
   business_unit             = var.business_unit
   application               = var.application
   is_production             = var.is_production
@@ -47,4 +48,6 @@ resource "kubernetes_secret" "historical_prisoner_rds" {
     DB_PASS              = module.historical_prisoner_rds.database_password
     rds_instance_address = module.historical_prisoner_rds.rds_instance_address
   }
+
+  depends_on = [module.historical_prisoner_rds]
 }
