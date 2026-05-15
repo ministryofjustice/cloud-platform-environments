@@ -4,6 +4,7 @@ module "rp_rds" {
   storage_type         = "gp2"
 
   db_name                    = "hmpps_restricted_patients_api_preprod"
+  rds_name                   = "hmpps-restricted-patients-api-preprod"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -16,7 +17,7 @@ module "rp_rds" {
   db_engine                  = "postgres"
   db_engine_version          = "18"
   rds_family                 = "postgres18"
-  db_password_rotated_date   = "15-02-2023"
+  db_password_rotated_date   = "2026-05-15"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
 
