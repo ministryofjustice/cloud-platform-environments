@@ -1,21 +1,3 @@
-data "aws_iam_policy_document" "document" {
-  statement {
-    actions = [
-      "s3:*",
-    ]
-    resources = [
-      "arn:aws:s3:::cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca",   # The Bucket
-      "arn:aws:s3:::cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca/*" # The Objects
-    ]
-  }
-}
-
-resource "aws_iam_policy" "policy" {
-  name        = "simple-policy-for-testing-irsa"
-  path        = "/cloud-platform/"
-  policy      = data.aws_iam_policy_document.document.json
-  description = "Policy for testing cloud-platform-terraform-irsa"
-} 
 
 module "irsa" {
   #always replace with latest version from Github
@@ -29,7 +11,7 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.policy.arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags
