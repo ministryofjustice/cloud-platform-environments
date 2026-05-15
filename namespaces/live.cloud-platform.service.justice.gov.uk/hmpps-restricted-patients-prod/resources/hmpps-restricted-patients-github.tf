@@ -24,7 +24,7 @@ module "hmpps-restricted-patients-api" {
   github_repo                   = "hmpps-restricted-patients-api"
   application                   = "hmpps-restricted-patients-api"
   github_team                   = "syscon-devs"
-  environment                   = "prod-ui"
+  environment                   = "prod"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
   application_insights_instance = var.environment
