@@ -24,7 +24,6 @@ module "rp_rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "dps_rds" {
