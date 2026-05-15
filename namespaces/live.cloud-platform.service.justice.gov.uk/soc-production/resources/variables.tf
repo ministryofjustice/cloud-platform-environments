@@ -31,6 +31,11 @@ variable "team_name" {
   default     = "central-digital-product-team"
 }
 
+variable "service_area" {
+  description = "The service area of the MOJ responsible for the service."
+  default     = "Central, Victims and Vulnerability"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
