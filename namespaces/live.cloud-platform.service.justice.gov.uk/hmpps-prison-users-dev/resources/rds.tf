@@ -4,6 +4,7 @@ module "prison_users_rds" {
   storage_type         = "gp2"
 
   db_name                    = "hmpps_prison_users_api_dev"
+  rds_name                   = "hmpps-prison-users-api-dev"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -41,4 +42,5 @@ resource "kubernetes_secret" "prison_users_rds" {
     rds_instance_address  = module.prison_users_rds.rds_instance_address
     url                   = "postgres://${module.prison_users_rds.database_username}:${module.prison_users_rds.database_password}@${module.prison_users_rds.rds_instance_endpoint}/${module.prison_users_rds.database_name}"
   }
+  depends_on = [module.prison_users_rds]
 }
