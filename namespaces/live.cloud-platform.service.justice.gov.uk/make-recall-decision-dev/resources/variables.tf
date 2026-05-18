@@ -45,8 +45,8 @@ variable "environment" {
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "ConsideraRecall-gg@justice.gov.uk"
+  description = "The team responsible for managing the infrastructure. Should be of the form <team-name>: <team-email>"
+  default     = "Consider A Recall: ConsideraRecall-gg@justice.gov.uk"
 }
 
 variable "is_production" {
