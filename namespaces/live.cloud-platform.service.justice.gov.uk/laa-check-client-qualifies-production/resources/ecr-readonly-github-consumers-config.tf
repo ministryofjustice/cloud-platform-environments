@@ -4,7 +4,7 @@
 
 locals {
   ecr_readonly_name_prefix         = "ccq-ecr-readonly"
-  ecr_readonly_github_organisation = "ministryofjustice"
+  ecr_readonly_github_organisation = var.github_owner
 
   ecr_readonly_tags = {
     component = "ecr-readonly-consumer-access"
@@ -25,11 +25,13 @@ locals {
 
       # Prefix used for GitHub Actions secrets/variables in the consumer repo.
       #
+      # Secrets:
       # - secrets.CCQ_ECR_READONLY_ROLE_TO_ASSUME
+      # - secrets.CCQ_ECR_REGISTRY_URL
+      #
+      # Variables:
       # - vars.CCQ_ECR_REGION
-      # - vars.CCQ_ECR_REGISTRY_URL
       # - vars.CCQ_ECR_REPOSITORY
-      # - vars.CCQ_ECR_REPOSITORY_URL
       prefix = "CCQ"
     }
   }

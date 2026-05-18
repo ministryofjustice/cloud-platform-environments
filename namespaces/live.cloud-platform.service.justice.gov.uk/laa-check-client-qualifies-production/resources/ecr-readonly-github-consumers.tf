@@ -3,7 +3,7 @@
 # - This service owns the ECR repository.
 # - GitHub consumer repositories can pull the image.
 # - Each consumer gets its own GitHub Actions OIDC IAM role.
-# - GitHub Actions secrets/variables are always written to the consumer repo.
+# - GitHub Actions secrets/variables are written to the consumer repo.
 
 data "aws_region" "current" {}
 
@@ -22,7 +22,7 @@ locals {
     for name, consumer in local.ecr_readonly_consumers :
     name => [
       for subject in consumer.subjects :
-      "repo:ministryofjustice/${consumer.repository}:${subject}"
+      "repo:${local.ecr_readonly_github_organisation}/${consumer.repository}:${subject}"
     ]
   }
 
@@ -45,10 +45,10 @@ locals {
 
 ####################################################
 
-# IAM: pull-only ECR policy
+# Read-only IAM policy for ECR
 ####################################################
 
-data "aws_iam_policy_document" "ecr_pull_only" {
+data "aws_iam_policy_document" "ecr_readonly" {
   statement {
     sid     = "AllowEcrLogin"
     effect  = "Allow"
@@ -75,11 +75,11 @@ data "aws_iam_policy_document" "ecr_pull_only" {
   }
 }
 
-resource "aws_iam_policy" "ecr_pull_only" {
+resource "aws_iam_policy" "ecr_readonly" {
   count = length(local.ecr_readonly_consumers) > 0 ? 1 : 0
 
-  name   = substr("${local.ecr_readonly_name_prefix}-pull-only", 0, 128)
-  policy = data.aws_iam_policy_document.ecr_pull_only.json
+  name   = substr("${local.ecr_readonly_name_prefix}-policy", 0, 128)
+  policy = data.aws_iam_policy_document.ecr_readonly.json
 
   tags = merge(local.ecr_readonly_tags, {
     ecr-access-level = "readonly"
@@ -88,7 +88,7 @@ resource "aws_iam_policy" "ecr_pull_only" {
 
 ####################################################
 
-# IAM: GitHub Actions assume-role policies
+# IAM policy per GitHub Actions consumer
 ####################################################
 
 data "aws_iam_policy_document" "github_assume_role" {
@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "github_assume_role" {
 
 ####################################################
 
-# IAM role per consuming GitHub repository
+# IAM role per consumer with consumer policy attachment
 ####################################################
 
 resource "aws_iam_role" "github_consumer" {
@@ -139,11 +139,11 @@ resource "aws_iam_role" "github_consumer" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "github_consumer_ecr_pull" {
+resource "aws_iam_role_policy_attachment" "github_consumer_ecr_readonly" {
   for_each = local.ecr_readonly_consumers
 
   role       = aws_iam_role.github_consumer[each.key].name
-  policy_arn = aws_iam_policy.ecr_pull_only[0].arn
+  policy_arn = aws_iam_policy.ecr_readonly[0].arn
 }
 
 ####################################################
@@ -167,38 +167,10 @@ resource "github_actions_secret" "ecr_registry_url" {
   plaintext_value = local.ecr_registry
 }
 
-resource "github_actions_secret" "ecr_repository_url" {
-  for_each = local.ecr_readonly_consumers
-
-  repository      = each.value.repository
-  secret_name     = "${upper(each.value.prefix)}_ECR_REPOSITORY_URL"
-  plaintext_value = module.ecr_credentials.repo_url
-}
-
 resource "github_actions_variable" "ecr_values" {
   for_each = local.ecr_readonly_consumer_variables
 
   repository    = each.value.repository
   variable_name = each.value.name
   value         = each.value.value
-}
-
-####################################################
-
-# Outputs
-####################################################
-
-output "ecr_readonly_consumers" {
-  description = "Read-only ECR pull configuration for GitHub Actions consumers."
-
-  value = {
-    for name, role in aws_iam_role.github_consumer :
-    name => {
-      role_arn         = role.arn
-      registry_url     = local.ecr_registry
-      repository       = local.ecr_repo
-      repository_url   = module.ecr_credentials.repo_url
-      allowed_subjects = local.ecr_readonly_consumer_subjects[name]
-    }
-  }
 }
