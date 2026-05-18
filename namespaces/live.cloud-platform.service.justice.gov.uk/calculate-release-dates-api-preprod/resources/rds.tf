@@ -39,7 +39,7 @@ module "calculate_release_dates_api_rds" {
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pglogical,pg_stat_statements"
       apply_method = "pending-reboot"
     },
     {
@@ -56,6 +56,21 @@ module "calculate_release_dates_api_rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
+    },
+    {
+      name         = "track_activity_query_size"
+      value        = "2048"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "pg_stat_statements.track"
+      value        = "ALL"
+      apply_method = "pending-reboot"
+    },
+    {
+    name         = "pg_stat_statements.max"
+    value        = "10000"
+    apply_method = "pending-reboot"
     }
   ]
 
@@ -152,7 +167,7 @@ module "read_replica" {
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pglogical,pg_stat_statements"
       apply_method = "pending-reboot"
     },
     {
@@ -174,11 +189,6 @@ module "read_replica" {
       name         = "hot_standby_feedback"
       value        = "1"
       apply_method = "immediate"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pg_stat_statements"
-      apply_method = "pending-reboot"
     },
     {
       name         = "track_activity_query_size"
