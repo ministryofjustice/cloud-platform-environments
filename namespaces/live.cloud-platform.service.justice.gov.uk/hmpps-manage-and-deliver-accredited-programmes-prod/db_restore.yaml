@@ -34,6 +34,13 @@ spec:
                     - ALL
                 seccompProfile:
                   type: RuntimeDefault
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+                limits:
+                  cpu: 250m
+                  memory: 256Mi
               env:
                 - name: HOME
                   value: /tmp
@@ -90,6 +97,13 @@ spec:
                     - ALL
                 seccompProfile:
                   type: RuntimeDefault
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+                limits:
+                  cpu: 250m
+                  memory: 256Mi
               volumeMounts:
                 - name: backup-info
                   mountPath: /backup-info
@@ -133,6 +147,13 @@ spec:
                     - ALL
                 seccompProfile:
                   type: RuntimeDefault
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
               ports:
                 - containerPort: 1433
               env:
@@ -164,6 +185,13 @@ spec:
                     - ALL
                 seccompProfile:
                   type: RuntimeDefault
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 256Mi
+                limits:
+                  cpu: 500m
+                  memory: 1Gi
               volumeMounts:
                 - name: backup-info
                   mountPath: /backup-info
