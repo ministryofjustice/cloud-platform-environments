@@ -4,15 +4,16 @@ module "hmpps_arns_assessment_platform_api" {
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-arns-assessment-platform-api"
   application                   = "hmpps-arns-assessment-platform-api"
-  github_team                   = "hmpps-assessments-live"
+  github_team                   = var.team_name
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
+  selected_branch_patterns      = ["main"]
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = ["hmpps-assessments-live"]
+  reviewer_teams                = [var.team_name]
 }
 
 # Note, redis is used for the cache of hot assessments

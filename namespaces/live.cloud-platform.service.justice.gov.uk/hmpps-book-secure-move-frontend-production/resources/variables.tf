@@ -6,6 +6,28 @@ variable "environment-name" {
   default = "production"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-live"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
+variable "slack_channel" {
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "move-a-prisoner-digital"
+}
+
 variable "is_production" {
   default = "true"
 }

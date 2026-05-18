@@ -7,7 +7,7 @@ module "hmpps-user-preferences" {
   github_team                   = "hmpps-probation-in-court"
   environment                   = "dev"
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["develop", "main"]
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token

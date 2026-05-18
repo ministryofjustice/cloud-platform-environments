@@ -20,6 +20,11 @@ variable "team_name" {
   default     = "hmpps-prisons-digital-live-support"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"

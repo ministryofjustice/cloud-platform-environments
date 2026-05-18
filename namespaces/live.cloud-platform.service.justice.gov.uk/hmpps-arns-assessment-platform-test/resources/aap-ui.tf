@@ -1,10 +1,10 @@
 module "hmpps_arns_assessment_platform_ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-arns-assessment-platform-ui"
   application                   = "hmpps-arns-assessment-platform-ui"
-  github_team                   = "hmpps-assessments-devs"
+  github_team                   = var.team_name
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "dev"

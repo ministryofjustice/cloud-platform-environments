@@ -91,3 +91,9 @@ variable "producer_namespace" {
   description = "The namespace of the SQS producer"
   default     = "laa-data-claims-api-staging"
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Billing and Payments"
+}

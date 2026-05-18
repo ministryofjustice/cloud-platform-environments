@@ -2,9 +2,9 @@ module "container_repository" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repo & OIDC
-  repo_name           = var.namespace                     # e.g. "reuselibrary-dev"
+  repo_name           = var.namespace
   oidc_providers      = ["github"]
-  github_repositories = ["reuse-library"]
+  github_repositories = ["gov-reuse"]
   github_environments = ["dev"]
 
   # Tags/metadata

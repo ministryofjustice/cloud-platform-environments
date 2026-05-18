@@ -18,6 +18,7 @@ module "hmpps_dps_reconciliation_rds" {
   prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = true
   db_max_allocated_storage   = "500"
+  db_password_rotated_date   = "2026-05-14"
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
@@ -33,5 +34,22 @@ resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
     database_password     = module.hmpps_dps_reconciliation_rds.database_password
     rds_instance_address  = module.hmpps_dps_reconciliation_rds.rds_instance_address
     url                   = "postgres://${module.hmpps_dps_reconciliation_rds.database_username}:${module.hmpps_dps_reconciliation_rds.database_password}@${module.hmpps_dps_reconciliation_rds.rds_instance_endpoint}/${module.hmpps_dps_reconciliation_rds.database_name}"
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "dps-rds-instance-output-preprod"
+    namespace = "hmpps-dps-reconciliation-prod"
+  }
+
+  data = {
+    database_name        = module.hmpps_dps_reconciliation_rds.database_name
+    database_username    = module.hmpps_dps_reconciliation_rds.database_username
+    database_password    = module.hmpps_dps_reconciliation_rds.database_password
+    rds_instance_address = module.hmpps_dps_reconciliation_rds.rds_instance_address
+    rds_instance         = module.hmpps_dps_reconciliation_rds.db_identifier
   }
 }

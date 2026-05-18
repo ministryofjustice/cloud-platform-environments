@@ -39,20 +39,23 @@ resource "aws_iam_policy" "mp_secrets_read" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "ReadMPSecret"
+        Sid    = "ReadAndUpdateMPSecret"
         Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:PutSecretValue"
         ]
-        Resource = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:dev/dpr-crossaccount-test-secret-*"
+        Resource = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-*"
       },
       {
-        Sid    = "DecryptMPSecretKMSKey"
+        Sid    = "UseMPKMSKeyForSecret"
         Effect = "Allow"
         Action = [
+          "kms:Encrypt",
           "kms:Decrypt",
-          "kms:DescribeKey"
+          "kms:DescribeKey",
+          "kms:GenerateDataKey"
         ]
         Resource = "arn:aws:kms:eu-west-2:771283872747:key/*"
       }

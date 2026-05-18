@@ -13,7 +13,7 @@ module "s3_snapshot_bucket" {
 
 # Create the domain
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name

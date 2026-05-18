@@ -22,7 +22,7 @@ module "hmpps-cell-sharing-risk-assessment-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-cell-sharing-risk-assessment-ui"
   application                   = "hmpps-cell-sharing-risk-assessment-ui"
-  github_team                   = var.team_name
+  github_team                   = var.review_team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true

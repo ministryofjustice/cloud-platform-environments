@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster  = var.kubernetes_cluster
 
   # Creates repo-level secrets (ca.crt / token / server)
-  github_repositories = ["reuse-library"]
+  github_repositories = ["gov-reuse"]
 
   serviceaccount_token_rotated_date = "20-03-2026"
 }

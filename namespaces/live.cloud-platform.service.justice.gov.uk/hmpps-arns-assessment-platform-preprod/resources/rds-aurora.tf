@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "16.6"
+  engine_version = "16"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   replica_count  = 1
@@ -56,5 +56,21 @@ resource "kubernetes_config_map" "rds_aurora" {
   data = {
     database_name         = module.rds_aurora.database_name
     db_cluster_identifier = module.rds_aurora.db_cluster_identifier
+  }
+}
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "rds_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-aurora-instance"
+    namespace = "hmpps-arns-assessment-platform-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_aurora.rds_cluster_endpoint
+    database_name         = module.rds_aurora.database_name
+    database_username     = module.rds_aurora.database_username
+    database_password     = module.rds_aurora.database_password
+    url                   = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
   }
 }

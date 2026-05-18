@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - adjustments-api-preprod.hmpps.service.justice.gov.uk
+    - adjustments-api-alt-preprod.hmpps.service.justice.gov.uk

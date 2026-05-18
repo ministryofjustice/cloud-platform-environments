@@ -34,6 +34,12 @@ variable "deployment_environment" {
   default = "train"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "infrastructure_support" {
   default = "dps-hmpps@digital.justice.gov.uk"
 }

@@ -41,6 +41,7 @@ module "serviceaccount" {
         "networking.k8s.io",
         "rbac.authorization.k8s.io",
         "policy",
+        "external-secrets.io",
       ]
       resources = [
         "deployments",
@@ -54,6 +55,7 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "poddisruptionbudgets",
+        "externalsecrets",
       ]
       verbs = [
         "get",

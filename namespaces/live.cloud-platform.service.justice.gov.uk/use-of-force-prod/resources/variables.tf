@@ -29,7 +29,7 @@ variable "team_name" {
 }
 
 variable "deployment_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-live"
 }
 
 variable "environment" {
@@ -48,6 +48,12 @@ variable "environment-name" {
   default     = "prod"
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
@@ -63,7 +69,7 @@ variable "slack_channel" {
 }
 
 variable "review_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-devs"
 }
 
 

@@ -4,26 +4,49 @@
  *
  */
 variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}
+
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "application" {
-  default = "court-case-service"
+  description = "Name of the application you are deploying"
+  type        = string
+  default     = "court-case-service"
 }
 
 variable "namespace" {
-  default = "court-probation-dev"
+  description = "Name of the namespace these resources are part of"
+  type        = string
+  default     = "court-probation-dev"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Probation In Court"
 }
 
 variable "business_unit" {
-  default = "HMPPS"
+  description = "Area of the MOJ responsible for this service"
+  type        = string
+  default     = "HMPPS"
 }
 
 variable "team_name" {
-  default = "probation-in-court-team"
+  description = "Name of the development team responsible for this service"
+  type        = string
+  default     = "probation-in-court-team"
 }
 
 variable "environment" {
-  default = "dev"
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "dev"
 }
 
 variable "environment-name" {
@@ -31,11 +54,15 @@ variable "environment-name" {
 }
 
 variable "infrastructure_support" {
-  default = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "false"
+  description = "Whether this environment type is production or not"
+  type        = string
+  default     = "false"
 }
 
 variable "rds_family" {
@@ -62,6 +89,7 @@ variable "number_cache_clusters" {
 variable "ap-stack-court-case" {
   default = "hmpps-court-case-dev"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -75,9 +103,6 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
-}
-
-variable "kubernetes_cluster" {
 }
 
 variable "slack_channel" {

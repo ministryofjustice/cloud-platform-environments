@@ -34,6 +34,11 @@ variable "team_name" {
   default     = "move-a-prisoner"
 }
 
+variable "review_team_name" {
+  description = "The name of your development team"
+  default     = "map-developers-devs"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
@@ -56,6 +61,12 @@ variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
   default     = "move-a-prisoner-digital"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "deployment_environment" {

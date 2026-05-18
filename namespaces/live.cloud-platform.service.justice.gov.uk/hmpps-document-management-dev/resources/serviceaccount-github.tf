@@ -1,125 +1,17 @@
-locals {
 
-  # Add more repos when they move from circle-ci to github actions
-  github_repos   = ["hmpps-document-management-api"]
-
-  github-actions-sa_rules = [
-    {
-      api_groups = [""]
-      resources = [
-        "pods/portforward",
-        "deployment",
-        "secrets",
-        "services",
-        "configmaps",
-        "pods",
-      ]
-      verbs = [
-        "patch",
-        "get",
-        "create",
-        "update",
-        "delete",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "extensions",
-        "apps",
-        "batch",
-        "networking.k8s.io",
-        "policy",
-      ]
-      resources = [
-        "deployments",
-        "ingresses",
-        "cronjobs",
-        "jobs",
-        "replicasets",
-        "poddisruptionbudgets",
-        "networkpolicies"
-      ]
-      verbs = [
-        "get",
-        "update",
-        "delete",
-        "create",
-        "patch",
-        "list",
-        "watch",
-      ]
-    },
-    {
-      api_groups = [
-        "monitoring.coreos.com",
-      ]
-      resources = [
-        "prometheusrules",
-        "servicemonitors"
-      ]
-      verbs = [
-        "*",
-      ]
-    },
-  ]
-}
-
-# Service account used by github actions
-module "service_account" {
-  source                               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
-  namespace                            = var.namespace
-  kubernetes_cluster                   = var.kubernetes_cluster
-  serviceaccount_name                  = "github-actions-sa"
-  github_environments                  = [var.environment]
-  github_repositories                  = local.github_repos
-  github_actions_secret_kube_cert      = "KUBE_CERT"
-  github_actions_secret_kube_token     = "KUBE_TOKEN"
-  github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
-  github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
-  serviceaccount_rules                 = local.github-actions-sa_rules
-  serviceaccount_token_rotated_date    = "20-03-2026"
-  role_name                            = "serviceaccount-github"
-  rolebinding_name                     = "serviceaccount-github-rolebinding"
-  depends_on                           = [github_repository_environment.env]
-}
-
-resource "time_rotating" "weekly" {
-  rotation_days = 7
-}
-
-##########################################################################
-
-data "github_team" "hmpps-document-management" {
-slug = "hmpps-document-management"
-}
-
-##########################################################################
-
-resource "github_repository_environment" "env" {
-  for_each    = toset(local.github_repos)
+module "hmpps-document-management-api" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
+  github_repo = "hmpps-document-management-api"
+  application = "hmpps-document-management-api"
+  github_team = var.team_name
   environment = var.environment
-  repository  = each.key  
-  # Not working - waiting for Cloud Platforms to fix this
-  # prevent_self_review = true
-  reviewers {
-    teams = [ 
-      tonumber(data.github_team.hmpps-document-management.id)
-    ]
-  }
-  deployment_branch_policy {
-    protected_branches     = true
-    custom_branch_policies = false
-  }
-}
-
-###########################################################################
-
-resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
-  variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  selected_branch_patterns      = ["main"]
+  is_production                 = var.is_production
+  application_insights_instance = var.environment # Either "dev", "preprod" or "prod"
+  source_template_repo          = "hmpps-template-kotlin"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
 }

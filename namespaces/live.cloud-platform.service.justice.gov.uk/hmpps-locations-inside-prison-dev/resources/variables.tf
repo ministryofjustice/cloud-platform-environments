@@ -20,6 +20,12 @@ variable "team_name" {
   default = "map-developers-devs"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "environment" {
   default = "development"
 }

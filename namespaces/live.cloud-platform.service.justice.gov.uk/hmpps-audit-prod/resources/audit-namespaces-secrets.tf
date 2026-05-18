@@ -8,6 +8,7 @@ locals {
     "hmpps-assessments-prod",
     "hmpps-book-a-video-link-prod",
     "hmpps-community-accommodation-prod",
+    "hmpps-community-payback-prod",
     "hmpps-contacts-prod",
     "hmpps-digital-prison-services-prod",
     "hmpps-education-and-work-plan-prod",

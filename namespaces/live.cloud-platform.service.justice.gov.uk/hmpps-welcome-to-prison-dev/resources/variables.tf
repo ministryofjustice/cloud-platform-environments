@@ -23,8 +23,9 @@ variable "team_name" {
   default     = "dps_shared"
 }
 
-variable "deployment_team_name" {
-  default = "move-a-prisoner"
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
 }
 
 variable "environment" {
@@ -39,6 +40,12 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "false"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "slack_channel" {

@@ -6,7 +6,7 @@ module "irsa" {
   role_policy_arns = {
     hmpps_dps_reconciliation_queue             = module.hmpps_dps_reconciliation_queue.irsa_policy_arn
     hmpps_dps_reconciliation_dead_letter_queue = module.hmpps_dps_reconciliation_dead_letter_queue.irsa_policy_arn
-    hmpps_dps_reconciliation_rds               = aws_iam_policy.irsa.arn
+    hmpps_dps_reconciliation_s3                = module.hmpps_dps_reconciliation_s3.irsa_policy_arn
   }
 
   # Tags

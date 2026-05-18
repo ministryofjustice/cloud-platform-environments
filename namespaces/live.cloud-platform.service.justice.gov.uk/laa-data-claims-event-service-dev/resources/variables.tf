@@ -79,3 +79,9 @@ variable "serviceaccount_name" {
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "laa-data-claims-event-service-dev-service-account"
 }
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Billing and Payments"
+}

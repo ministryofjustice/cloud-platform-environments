@@ -11,6 +11,21 @@ module "upload_s3_bucket" {
   log_path               = var.log_path
   namespace              = var.namespace
 
+  # Safety net: auto-delete files after 30 days if the cronjob fails to remove them.
+  # Normal operation removes files within hours; this prevents runaway accumulation
+  # (e.g. the 1.47TB incident of Apr 29 2026 caused by weeks of missed deletions).
+  lifecycle_rule = [
+    {
+      id      = "expire-stale-uploads"
+      enabled = true
+      expiration = [
+        {
+          days = 30
+        }
+      ]
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -28,9 +43,8 @@ resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
         Principal = {
           AWS = [
             module.irsa-cronjob.role_arn,
-            # The following role was provided by NEC, but has since caused 
-            # deployment issues.  Commenting out while NEC investigate.
-            # --TJWC 2026-02-24 --RW 2026-03-02
+            # NEC preprod datasync role - commented out as the IAM role does not yet exist in AWS account 778742069978.
+            # Re-enable once NEC confirm the role has been created.
             #"arn:aws:iam::778742069978:role/im-preprod-s3-datasync",
             "arn:aws:iam::778742069978:role/im-production-s3-datasync"
           ]
@@ -135,6 +149,20 @@ module "sqlserver_backup_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # Expire old .bak files after 14 days — the DB restore only ever uses the latest file.
+  # Files accumulate at ~32GB/day so this keeps storage costs bounded.
+  lifecycle_rule = [
+    {
+      id      = "expire-old-backups"
+      enabled = true
+      expiration = [
+        {
+          days = 14
+        }
+      ]
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
@@ -150,4 +178,38 @@ resource "kubernetes_secret" "sqlserver_backup_s3_bucket" {
     bucket_arn  = module.sqlserver_backup_s3_bucket.bucket_arn
     bucket_name = module.sqlserver_backup_s3_bucket.bucket_name
   }
+}
+
+# Allow prod namespace roles to read .bak files from this bucket.
+# Prod's RDS IAM role uses rds_restore_database to pull directly from S3.
+# Prod's IRSA role (irsa-sqlserver) lists/discovers the latest .bak file.
+resource "aws_s3_bucket_policy" "sqlserver_backup_allow_prod_read" {
+  bucket = module.sqlserver_backup_s3_bucket.bucket_name
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "AllowProdRDSAndIRSARead",
+        Effect = "Allow",
+        Principal = {
+          AWS = [
+            # Prod RDS IAM role (used by rds_restore_database)
+            var.prod_rds_iam_role_arn,
+            # Prod IRSA role (used by irsa-sqlserver service account)
+            var.prod_irsa_sqlserver_role_arn
+          ]
+        },
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ],
+        Resource = [
+          module.sqlserver_backup_s3_bucket.bucket_arn,
+          "${module.sqlserver_backup_s3_bucket.bucket_arn}/*"
+        ]
+      }
+    ]
+  })
 }

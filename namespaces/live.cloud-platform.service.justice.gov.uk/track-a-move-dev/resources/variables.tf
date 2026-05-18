@@ -23,6 +23,11 @@ variable "team_name" {
   default     = "Move a Prisoner"
 }
 
+variable "github_review_team" {
+  description = "The name of your development team"
+  default     = "map-developers-devs"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "development"
@@ -50,6 +55,12 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "base_domain" {

@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
@@ -152,11 +152,23 @@ variable "log_path" {
 variable "sqlserver_restore_create_snapshot" {
   description = "Boolean to declare whether or not a snapshot should be taken before the sqlserver restore"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "db_backup_retention_period" {
   description = "Number of days to retain automated backups"
   type        = string
   default     = "0"
+}
+
+variable "prod_rds_iam_role_arn" {
+  description = "ARN of the prod RDS IAM role that needs read access to this bucket for rds_restore_database"
+  type        = string
+  default     = "arn:aws:iam::754256621582:role/hmpps-acp-prod-sqlserver-backup-s3-iam-role"
+}
+
+variable "prod_irsa_sqlserver_role_arn" {
+  description = "ARN of the prod irsa-sqlserver IRSA role that needs read access to list/discover .bak files"
+  type        = string
+  default     = "arn:aws:iam::754256621582:role/cloud-platform-irsa-f5e19b28e8b34753-live"
 }

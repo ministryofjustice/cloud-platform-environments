@@ -9,7 +9,20 @@ locals {
     namespace              = var.namespace
   }
 
-  clients = ["ctrlo", "heartbeat", "event-service", "moj-pes", "meganexus", "pnd", "pmcphee", "smoke-test", "smartinbox", "prisonerfacing", "enhanced-reception-checks"]
+  clients = [
+    "ctrlo",
+    "heartbeat",
+    "event-service",
+    "moj-pes",
+    "meganexus",
+    "pnd",
+    "pmcphee",
+    "smoke-test",
+    "smartinbox",
+    "prisonerfacing",
+    "enhanced-reception-checks",
+    "community-campus",
+  ]
 
   client_queues = {
     meganexus = module.event_plp_queue.sqs_name

@@ -17,6 +17,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      team-name = var.team_name
     }
   }
 }
@@ -36,6 +37,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      team-name = var.team_name
     }
   }
 }
@@ -55,6 +57,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      team-name = var.team_name
     }
   }
 }
