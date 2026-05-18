@@ -13,8 +13,8 @@ module "prisons_rds" {
   db_instance_class          = "db.t4g.micro"
   db_max_allocated_storage   = "1000"
   deletion_protection        = true
-  
-  prepare_for_major_upgrade = false
+
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = false
   
