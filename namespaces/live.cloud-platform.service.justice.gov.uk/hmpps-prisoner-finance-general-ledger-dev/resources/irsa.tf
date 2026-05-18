@@ -14,7 +14,7 @@ module "hmpps_prisoner_finance_gl_irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = var.application
+  service_account_name = var.service_account_name
   role_policy_arns     = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
