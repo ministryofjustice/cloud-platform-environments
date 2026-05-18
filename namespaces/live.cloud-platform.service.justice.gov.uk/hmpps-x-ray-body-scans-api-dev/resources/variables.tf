@@ -66,3 +66,9 @@ variable "github_review_team" {
   description = "The name of the GitHub team that can review and merge PRs."
   default     = "connect-dps-devs"
 }
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
