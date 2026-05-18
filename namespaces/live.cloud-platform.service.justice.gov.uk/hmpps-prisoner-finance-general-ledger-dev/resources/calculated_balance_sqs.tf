@@ -39,7 +39,9 @@ resource "aws_iam_policy" "gl_calculated_balances_sqs" {
         Action = [
           "sqs:SendMessage",
           "sqs:ReceiveMessage",
-          "sqs:GetQueueUrl"
+          "sqs:GetQueueUrl",
+          "sqs:DeleteMesssage"
+
         ],
         Resource = module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_arn
       }
@@ -53,6 +55,7 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances_dead_lette
   # Queue configuration
   sqs_name        = "gl-queue-for-calculated-balances-dlq"
   encrypt_sqs_kms = "true"
+  fifo_queue      = true
 
   # Tags
   business_unit          = var.business_unit
