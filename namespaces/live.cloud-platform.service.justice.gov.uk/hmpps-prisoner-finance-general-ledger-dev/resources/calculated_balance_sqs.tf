@@ -5,7 +5,6 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances" {
 
   sqs_name                        = "prisoner_finance_general_ledger_queue_for_calculated_balances"
   encrypt_sqs_kms                 = "true"
-  sqs_queue_subscriber_namespaces = []
   fifo_queue                      = true
   delay_seconds                   = 0
 
@@ -27,35 +26,25 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances" {
   }
 }
 
-resource "aws_sqs_queue_policy" "prisoner_finance_general_ledger_queue_for_calculated_balances_policy" {
-  queue_url = module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_id
+resource "aws_iam_policy" "gl_calculated_balances_sqs" {
+  name        = "${var.namespace}-gl-calculated-balances-sqs"
+  description = "Allow GL app to send/receive/delete messages on calculated balances queue"
 
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_arn}",
-          "Action": [
-            "SQS:SendMessage",
-            "SQS:ReceiveMessage"
-          ],
-          "Condition":
-                        {
-                        "ArnEquals":
-                          {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.calculated_balance_queue_topic_arn.value}"
-                          }
-                        }
-        },
-        
-      ]
-  }
-   EOF
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "AllowSendReceiveCalculatedBalances",
+        Effect = "Allow",
+        Action = [
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:GetQueueUrl"
+        ],
+        Resource = module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_arn
+      }
+    ]
+  })
 }
 
 module "prisoner_finance_general_ledger_queue_for_calculated_balances_dead_letter_queue" {
