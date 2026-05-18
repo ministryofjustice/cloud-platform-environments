@@ -3,7 +3,7 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
 
-  sqs_name                        = "prisoner-finance-general-ledger-queue-for-calculated-balances"
+  sqs_name                        = "prisoner-finance-gl-queue-for-calculated-balances"
   encrypt_sqs_kms                 = "true"
   fifo_queue                      = true
   delay_seconds                   = 0
@@ -51,7 +51,7 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances_dead_lette
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "prisoner-finance-general-ledger-queue-for-calculated-balances-dlq"
+  sqs_name        = "prisoner-finance-gl-queue-for-calculated-balances-dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
