@@ -43,6 +43,7 @@ module "serviceaccount" {
         "rbac.authorization.k8s.io",
         "external-secrets.io",
         "policy",
+        "autoscaling",
       ]
       resources = [
         "deployments",
@@ -57,6 +58,8 @@ module "serviceaccount" {
         "rolebindings",
         "poddisruptionbudgets",
         "externalsecrets",
+        "hpa",
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "get",
