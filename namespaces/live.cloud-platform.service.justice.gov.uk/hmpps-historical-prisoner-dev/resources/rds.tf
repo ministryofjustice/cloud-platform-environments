@@ -48,6 +48,4 @@ resource "kubernetes_secret" "historical_prisoner_rds" {
     DB_PASS              = module.historical_prisoner_rds.database_password
     rds_instance_address = module.historical_prisoner_rds.rds_instance_address
   }
-
-  depends_on = [module.historical_prisoner_rds]
 }
