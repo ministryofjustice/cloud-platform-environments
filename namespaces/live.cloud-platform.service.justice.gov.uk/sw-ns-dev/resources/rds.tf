@@ -38,9 +38,9 @@ resource "kubernetes_secret" "doc_gen_test" {
   }
 
   data = {
-    database_name         = module.doc_gen_postgres.database_name
-    database_username     = module.doc_gen_postgres.database_username
-    database_password     = module.doc_gen_postgres.database_password
-    database_server       = module.doc_gen_postgres.rds_instance_address
+    database_name         = module.doc_gen_test.database_name
+    database_username     = module.doc_gen_test.database_username
+    database_password     = module.doc_gen_test.database_password
+    database_server       = module.doc_gen_test.rds_instance_address
   }
 }
