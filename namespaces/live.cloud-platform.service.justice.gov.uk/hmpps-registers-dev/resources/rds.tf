@@ -16,7 +16,7 @@ module "prisons_rds" {
 
   prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = false
   
   rds_family                 = "postgres16"
   db_engine                  = "postgres"
