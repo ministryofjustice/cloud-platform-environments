@@ -184,6 +184,77 @@ module "cla_backend_snapshot_restore" {
   enable_irsa = true
 }
 
+module "cla_backend_intermediary" {
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type  = "gp2"
+  vpc_name      = var.vpc_name
+  team_name     = var.team_name
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
+  namespace     = var.namespace
+
+  db_name                      = "cla_backend_intermediary"
+  db_instance_class            = "db.t4g.large"
+  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "1000"
+  performance_insights_enabled = true
+
+  # change the postgres version as you see fit.
+  db_engine_version      = "14"
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres14
+  # Pick the one that defines the postgres version the best
+  rds_family = "postgres14"
+
+  rds_name = "cla-backend-intermediary"
+  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-18-02-53"
+
+  # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
+  # You will need to specify "pending-reboot" here, as default is set to "immediate".
+
+
+  # use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "false"
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    }
+
+  ]
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+
+  enable_irsa = true
+}
+
+resource "kubernetes_secret" "cla_backend_intermediary" {
+  metadata {
+    name      = "database-intermediary"
+    namespace = var.namespace
+  }
+
+  data = {
+    endpoint         = module.cla_backend_intermediary.rds_instance_endpoint
+    host             = module.cla_backend_intermediary.rds_instance_address
+    port             = module.cla_backend_intermediary.rds_instance_port
+    name             = module.cla_backend_intermediary.database_name
+    user             = module.cla_backend_intermediary.database_username
+    password         = module.cla_backend_intermediary.database_password
+    replica_host     = module.cla_backend_intermediary.rds_instance_address
+    replica_endpoint = module.cla_backend_intermediary.rds_instance_endpoint
+    db_identifier    = module.cla_backend_intermediary.db_identifier
+  }
+}
+
 resource "kubernetes_secret" "cla_backend_snapshot_restore" {
   metadata {
     name      = "database-snapshot-restore"
