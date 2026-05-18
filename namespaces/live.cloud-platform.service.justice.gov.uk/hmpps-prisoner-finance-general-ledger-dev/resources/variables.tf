@@ -63,3 +63,7 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+
+variable "service_account_name" {
+  description = "The name of the service account to retrieve the OIDC information"
+}
