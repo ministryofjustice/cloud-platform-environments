@@ -68,7 +68,7 @@ spec:
                     | awk '{print $4}' \
                     | grep '\.bak$' \
                     | sort \
-                    | tail -1)
+                    | tail -1 || true)
 
                   if [ -z "$LATEST_BAK" ]; then
                     echo "No .bak files found in s3://$UPLOAD_S3_BUCKET_NAME — nothing to transfer."
