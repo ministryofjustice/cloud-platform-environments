@@ -40,8 +40,8 @@ resource "aws_iam_policy" "gl_calculated_balances_sqs" {
           "sqs:SendMessage",
           "sqs:ReceiveMessage",
           "sqs:GetQueueUrl",
-          "sqs:DeleteMessage"
-
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
         ],
         Resource = module.prisoner_finance_general_ledger_queue_for_calculated_balances.sqs_arn
       }
