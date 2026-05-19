@@ -9,8 +9,8 @@ module "reuse_library_elasticache_redis" {
   number_cache_clusters  = var.number_cache_clusters
   business_unit          = var.business_unit
   node_type              = "cache.t4g.micro"
-  engine_version         = "9.0"
-  parameter_group_name   = "default.redis9"
+  engine_version         = "7.1"
+  parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 
   providers = {
