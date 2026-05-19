@@ -30,17 +30,3 @@ module "doc_gen_test" {
 
   enable_irsa = true
 }
-
-resource "kubernetes_secret" "doc_gen_test" {
-  metadata {
-    name      = "hmpps-document-generation-api-postgres"
-    namespace = var.namespace
-  }
-
-  data = {
-    database_name         = module.doc_gen_test.database_name
-    database_username     = module.doc_gen_test.database_username
-    database_password     = module.doc_gen_test.database_password
-    database_server       = module.doc_gen_test.rds_instance_address
-  }
-}
