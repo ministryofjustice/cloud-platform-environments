@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-document-generation-api-dev-cert
+  namespace: hmpps-document-generation-dev
+spec:
+  secretName: hmpps-document-generation-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - doc-generation-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-document-generation-ui-dev-cert
+  namespace: hmpps-document-generation-dev
+spec:
+  secretName: hmpps-document-generation-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - doc-generation-dev.hmpps.service.justice.gov.uk
