@@ -15,12 +15,10 @@ locals {
       repository = "laa-record-controlled-work"
 
       # GitHub Actions OIDC subject suffixes.
-      #
-      # - ref:refs/heads/main
-      # - environment:e2e
-      # - pull_request
+      # https://docs.github.com/en/actions/reference/security/oidc#example-subject-claims
       subjects = [
-        "ref:refs/heads/main"
+        "ref:refs/heads/main",
+        "pull_request"
       ]
 
       # Prefix used for GitHub Actions secrets/variables in the consumer repo.
