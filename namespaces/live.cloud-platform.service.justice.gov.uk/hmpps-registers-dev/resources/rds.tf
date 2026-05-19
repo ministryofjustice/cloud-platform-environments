@@ -14,13 +14,13 @@ module "prisons_rds" {
   db_max_allocated_storage   = "1000"
   deletion_protection        = true
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = false
   
-  rds_family                 = "postgres18"
+  rds_family                 = "postgres16"
   db_engine                  = "postgres"
-  db_engine_version          = "18.3"
+  db_engine_version          = "16.8"
   enable_irsa = true
   
 
@@ -30,33 +30,33 @@ module "prisons_rds" {
 
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
-  # db_parameter = [
-  #     {
-  #       name         = "rds.logical_replication"
-  #       value        = "1"
-  #       apply_method = "pending-reboot"
-  #     },
-  #     {
-  #       name         = "shared_preload_libraries"
-  #       value        = "pglogical"
-  #       apply_method = "pending-reboot"
-  #     },
-  #     {
-  #       name         = "max_wal_size"
-  #       value        = "1024"
-  #       apply_method = "immediate"
-  #     },
-  #     {
-  #       name         = "wal_sender_timeout"
-  #       value        = "0"
-  #       apply_method = "immediate"
-  #     },
-  #     {
-  #       name         = "max_slot_wal_keep_size"
-  #       value        = "40000"
-  #       apply_method = "immediate"
-  #     }
-  #   ]
+  db_parameter = [
+      {
+         name         = "rds.logical_replication"
+         value        = "1"
+         apply_method = "pending-reboot"
+       },
+       {
+         name         = "shared_preload_libraries"
+         value        = "pglogical"
+         apply_method = "pending-reboot"
+       },
+       {
+         name         = "max_wal_size"
+         value        = "1024"
+         apply_method = "immediate"
+       },
+       {
+         name         = "wal_sender_timeout"
+         value        = "0"
+         apply_method = "immediate"
+       },
+       {
+         name         = "max_slot_wal_keep_size"
+         value        = "40000"
+         apply_method = "immediate"
+       }
+     ]
 }
 
 resource "kubernetes_secret" "prisons_rds" {
