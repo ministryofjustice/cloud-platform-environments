@@ -132,7 +132,7 @@ resource "aws_iam_policy" "guard-duty_s3_custom" {
           "s3:PutObject"
         ]
         Resource = [
-          "arn:aws:s3:::${module.s3_bucket.bucket_name}/malware-protection-resource-validation-object"
+          "arn:aws:s3:::${module.laa_ccms_pui_docs.bucket_name}/malware-protection-resource-validation-object"
         ]
         Condition = {
           StringEquals = {
