@@ -6,7 +6,6 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    models      = module.address_matcher_models_s3.irsa_policy_arn
     lookup_data = module.address_matcher_lookup_data_s3.irsa_policy_arn
   }
 
