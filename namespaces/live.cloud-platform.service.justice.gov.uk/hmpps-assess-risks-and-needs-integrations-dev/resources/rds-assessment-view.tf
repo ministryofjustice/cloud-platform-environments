@@ -65,15 +65,16 @@ data "aws_security_group" "mp_dps_sg" {
 
 locals {
   # test secret on mp - kms encrypted
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-view-db-SRFTzm"
+  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets"
 
   db_secret = {
-    username = random_string.ro_username.result
-    password = random_password.ro_password.result
-    engine   = "postgres"
-    host     = module.arns_assessment_view_rds.rds_instance_endpoint
-    port     = module.arns_assessment_view_rds.rds_instance_port
-    dbname   = module.arns_assessment_view_rds.database_name
+    username           = random_string.ro_username.result
+    user               = random_string.ro_username.result
+    password           = random_password.ro_password.result
+    endpoint           = module.arns_assessment_view_rds.rds_instance_endpoint
+    heartbeat_endpoint = "" # should be blank, unless we have a read replica
+    port               = module.arns_assessment_view_rds.rds_instance_port
+    db_name            = module.arns_assessment_view_rds.database_name
   }
 }
 
@@ -111,12 +112,13 @@ resource "kubernetes_secret_v1" "db_credentials" {
   type = "Opaque"
 
   data = {
-    username = local.db_secret.username
-    password = local.db_secret.password
-    engine   = local.db_secret.engine
-    host     = local.db_secret.host
-    port     = tostring(local.db_secret.port)
-    dbname   = local.db_secret.dbname
+    username           = local.db_secret.username
+    user               = local.db_secret.username
+    password           = local.db_secret.password
+    endpoint           = local.db_secret.endpoint
+    heartbeat_endpoint = local.db_secret.heartbeat_endpoint
+    port               = tostring(local.db_secret.port)
+    db_name            = local.db_secret.db_name
   }
 }
 
