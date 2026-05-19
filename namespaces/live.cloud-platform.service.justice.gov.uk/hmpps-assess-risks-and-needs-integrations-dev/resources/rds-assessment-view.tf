@@ -65,7 +65,7 @@ data "aws_security_group" "mp_dps_sg" {
 
 locals {
   # test secret on mp - kms encrypted
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets"
+  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 
   db_secret = {
     username           = random_string.ro_username.result
@@ -96,12 +96,12 @@ resource "random_password" "ro_password" {
   }
 }
 
-resource "aws_secretsmanager_secret_version" "db" {
-  provider  = aws.secrets
-  secret_id = local.secret_arn
-
-  secret_string = jsonencode(local.db_secret)
-}
+# resource "aws_secretsmanager_secret_version" "db" {
+#   provider  = aws.secrets
+#   secret_id = local.secret_arn
+#
+#   secret_string = jsonencode(local.db_secret)
+# }
 
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
