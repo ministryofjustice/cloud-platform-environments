@@ -210,7 +210,7 @@ module "cla_backend_intermediary" {
   rds_family = "postgres14"
 
   rds_name = "cla-backend-intermediary"
-  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-18-02-53"
+  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-13-02-53"
   # This is test instance to restoring deleted records from production, we do not need a final snapshot
   skip_final_snapshot = "true"
 
