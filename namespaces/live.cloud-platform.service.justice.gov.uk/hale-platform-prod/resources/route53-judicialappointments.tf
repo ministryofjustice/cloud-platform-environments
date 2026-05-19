@@ -40,7 +40,7 @@ resource "aws_route53_record" "judicialappointments_route53_txt_record_main" {
   name    = "judicialappointments.gov.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms55245335", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32  include:spf.protection.outlook.com -all", "miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab", "openai-domain-verification=dv-gXY7MAiAOTilu9e4RVzySI3U"]
+  records = ["MS=ms55245335", "atlassian-domain-verification=eZYa71sfUYC3GKWDAnR6IDBAD7m0PkEaKKOYkM2cjWj8or0XT0PwqvFpqTLtaNby", "v=spf1 ip4:194.33.196.8/32 ip4:194.33.192.8/32  include:spf.protection.outlook.com -all", "miro-verification=9f7733fab8b41c5d9bbbf63c043f10dcfec77dab", "openai-domain-verification=dv-gXY7MAiAOTilu9e4RVzySI3U", "mindmanager-verification=439453783d19f687f96157592702c72a9f49c297b60942675a633c0aa5eead0a"]
 }
 
 resource "aws_route53_record" "judicialappointments_route53_txt_record_asvdns" {
