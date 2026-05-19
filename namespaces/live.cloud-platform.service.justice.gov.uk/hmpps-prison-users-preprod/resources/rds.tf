@@ -27,7 +27,6 @@ module "prison_users_rds" {
 
 }
 
-
 resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "rds-instance-output"
