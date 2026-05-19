@@ -63,8 +63,21 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 
+# test secret on mp - kms encrypted
+data "aws_secretsmanager_secret" "source" {
+  provider = aws.secrets
+  name     = "external/dpr-pr-assessment-view-source-secrets"
+}
+
+resource "aws_secretsmanager_secret_version" "db" {
+  provider  = aws.secrets
+  secret_id = data.aws_secretsmanager_secret.source.arn
+
+  secret_string = jsonencode(local.db_secret)
+}
+
 locals {
-  # test secret on mp - kms encrypted
+
   secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 
   db_secret = {
