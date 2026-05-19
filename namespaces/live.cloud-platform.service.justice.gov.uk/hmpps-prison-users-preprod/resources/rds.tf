@@ -4,6 +4,7 @@ module "prison_users_rds" {
   storage_type         = "gp2"
 
   db_name                   = "hmpps_prison_users_api_preprod"
+  rds_name                  = "hmpps-prison-users-api-preprod"
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
   business_unit             = var.business_unit
@@ -25,6 +26,7 @@ module "prison_users_rds" {
   }
 
 }
+
 
 resource "kubernetes_secret" "dps_rds" {
   metadata {
