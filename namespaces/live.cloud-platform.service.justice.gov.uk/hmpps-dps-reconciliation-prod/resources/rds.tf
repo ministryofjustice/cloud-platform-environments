@@ -4,6 +4,7 @@ module "hmpps_dps_reconciliation_rds" {
   storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "hmpps-dps-reconciliation-db-prod"
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production
