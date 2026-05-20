@@ -21,11 +21,11 @@ module "data_importer_service" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
-  application = "hmpps-accredited-programmes-manage-and-deliver-data-importer"
-  github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"
+  github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
+  application = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
+  github_team = "hmpps-accredited-programmes-manage-and-deliver-live"
   environment = var.environment
-  reviewer_teams                = ["hmpps-accredited-programmes-manage-and-deliver-devs"]
+  reviewer_teams                = ["hmpps-accredited-programmes-manage-and-deliver-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
