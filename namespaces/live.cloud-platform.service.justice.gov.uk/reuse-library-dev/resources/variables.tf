@@ -77,3 +77,8 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "domain" {
+  default = "dev.reuselibrary.service.justice.gov.uk"
+  type    = string
+}
