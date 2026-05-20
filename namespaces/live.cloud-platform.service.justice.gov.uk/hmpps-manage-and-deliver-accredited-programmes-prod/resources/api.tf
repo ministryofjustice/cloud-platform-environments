@@ -23,9 +23,9 @@ module "data_importer_service" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
   application = "hmpps-accredited-programmes-manage-and-deliver-data-importer-service"
-  github_team = "hmpps-accredited-programmes-manage-and-deliver-live"
+  github_team = "hmpps-accredited-programmes-manage-and-deliver-devs"
   environment = var.environment
-  reviewer_teams                = ["hmpps-accredited-programmes-manage-and-deliver-live"]
+  reviewer_teams                = ["hmpps-accredited-programmes-manage-and-deliver-devs"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
