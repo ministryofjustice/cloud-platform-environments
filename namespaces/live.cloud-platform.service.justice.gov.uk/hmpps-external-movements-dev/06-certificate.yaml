@@ -24,16 +24,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - external-movements-dev.hmpps.service.justice.gov.uk
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: hmpps-document-generation-api-dev-cert
-  namespace: hmpps-external-movements-dev
-spec:
-  secretName: hmpps-document-generation-api-cert
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  dnsNames:
-    - document-generation-api-dev.hmpps.service.justice.gov.uk
