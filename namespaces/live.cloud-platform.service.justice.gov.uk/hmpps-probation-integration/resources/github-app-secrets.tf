@@ -18,6 +18,12 @@ locals {
   ]
 }
 
+resource "null_resource" "rotation" {
+  triggers = {
+    rotation = local.github_app_rotated_date
+  }
+}
+
 data "kubernetes_secret" "github_app" {
   metadata {
     name      = "github-app-probation-integration-bot"
@@ -31,7 +37,7 @@ resource "github_actions_secret" "app_id" {
   secret_name     = "BOT_APP_ID"
   plaintext_value = data.kubernetes_secret.github_app.data.APP_ID
   lifecycle {
-    replace_triggered_by = [local.github_app_rotated_date]
+    replace_triggered_by = [null_resource.rotation]
   }
 }
 
@@ -41,7 +47,7 @@ resource "github_actions_secret" "app_private_key" {
   secret_name     = "BOT_APP_PRIVATE_KEY"
   plaintext_value = data.kubernetes_secret.github_app.data.PRIVATE_KEY
   lifecycle {
-    replace_triggered_by = [local.github_app_rotated_date]
+    replace_triggered_by = [null_resource.rotation]
   }
 }
 
@@ -51,7 +57,7 @@ resource "github_dependabot_secret" "app_id" {
   secret_name     = "BOT_APP_ID"
   plaintext_value = data.kubernetes_secret.github_app.data.APP_ID
   lifecycle {
-    replace_triggered_by = [local.github_app_rotated_date]
+    replace_triggered_by = [null_resource.rotation]
   }
 }
 
@@ -61,6 +67,6 @@ resource "github_dependabot_secret" "app_private_key" {
   secret_name     = "BOT_APP_PRIVATE_KEY"
   plaintext_value = data.kubernetes_secret.github_app.data.PRIVATE_KEY
   lifecycle {
-    replace_triggered_by = [local.github_app_rotated_date]
+    replace_triggered_by = [null_resource.rotation]
   }
 }
