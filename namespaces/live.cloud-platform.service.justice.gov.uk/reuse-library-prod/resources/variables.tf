@@ -26,6 +26,12 @@ variable "business_unit" {
   default     = "HQ"
 }
 
+variable "service_area" {
+  description = "Service area"
+  type        = string
+  default     = "Service Improvement"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
