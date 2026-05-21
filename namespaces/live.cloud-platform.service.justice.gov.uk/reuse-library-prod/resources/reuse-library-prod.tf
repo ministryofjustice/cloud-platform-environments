@@ -14,4 +14,5 @@ module "gov-reuse" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = ["reuse-library-gh-admins"] # Required for prod approval gate
 }
