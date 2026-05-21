@@ -196,6 +196,25 @@ module "cla_backend_intermediary" {
   enable_irsa = true
 }
 
+resource "kubernetes_secret" "cla_backend_intermediary" {
+  metadata {
+    name      = "database-intermediary"
+    namespace = var.namespace
+  }
+
+  data = {
+    endpoint         = module.cla_backend_intermediary.rds_instance_endpoint
+    host             = module.cla_backend_intermediary.rds_instance_address
+    port             = module.cla_backend_intermediary.rds_instance_port
+    name             = module.cla_backend_intermediary.database_name
+    user             = module.cla_backend_intermediary.database_username
+    password         = module.cla_backend_intermediary.database_password
+    replica_host     = module.cla_backend_intermediary.rds_instance_address
+    replica_endpoint = module.cla_backend_intermediary.rds_instance_endpoint
+    db_identifier    = module.cla_backend_intermediary.db_identifier
+  }
+}
+
 resource "kubernetes_secret" "cla_backend_snapshot_restore" {
   metadata {
     name      = "database-snapshot-restore"
