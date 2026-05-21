@@ -27,9 +27,9 @@ variable "business_unit" {
 }
 
 variable "service_area" {
-  description = "Service area"
+  description = "Service area responsible for this service"
   type        = string
-  default     = "Service Improvement"
+  default     = "Cross-Gov Reuse Library"
 }
 
 variable "team_name" {
