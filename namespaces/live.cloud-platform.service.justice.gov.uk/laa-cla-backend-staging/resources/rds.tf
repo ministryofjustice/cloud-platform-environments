@@ -58,8 +58,8 @@ module "cla_backend_rds_postgres_14" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   db_allocated_storage   = "10"
-  # increase retention period to 21 days while dealing with a data loss incident
-  db_backup_retention_period   = "21"
+  # increase retention period to 28 days while dealing with a data loss incident
+  db_backup_retention_period   = "28"
 
   snapshot_identifier = "rds:cloud-platform-e485b5986a689b44-2023-12-13-05-29"
 
