@@ -5,8 +5,10 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
-    hmpps_court_data_ingestion_queue             = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
-    hmpps_court_data_ingestion_dead_letter_queue = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_queue                      = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_dead_letter_queue          = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_queue               = module.hmpps_court_data_prisoner_created_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_dead_letter_queue   = module.hmpps_court_data_prisoner_created_dead_letter_queue.irsa_policy_arn,
   } 
   sm_policies = {
     hmpps_court_data_auth_token_secret_manager = aws_iam_policy.secret_ingestion_api_auth_token_irsa_policy.arn
