@@ -111,6 +111,7 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
       "prisoner-offender-search.prisoner.updated",
       "recall.inserted",
       "recall.updated",
+      "restricted-patients.patient.supporting-prison-changed",
     ]
   })
 }
