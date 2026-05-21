@@ -84,7 +84,7 @@ resource "aws_sqs_queue_policy" "hmpps_court_data_ingestion_queue_mp_policy" {
     Statement = [{
       Effect = "Allow"
       Principal = {
-        AWS = "arn:aws:sts::953751538119:assumed-role/authorizer-role-mp/hmac-authorizer"
+        AWS = var.modernisation_platform_autorizer_lambda
       }
       Action = [
         "sqs:SendMessage"
