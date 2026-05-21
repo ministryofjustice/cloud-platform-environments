@@ -5,7 +5,7 @@ module "hmpps_court_data_ingestion_queue" {
   # Queue configuration
   sqs_name                   = "hmpps_court_data_ingestion_queue"
   encrypt_sqs_kms            = "true"
-  kms_external_access        = ["arn:aws:sts::953751538119:assumed-role/authorizer-role-mp/hmac-authorizer"]
+  kms_external_access        = [var.modernisation_platform_autorizer_lambda]
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
