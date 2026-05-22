@@ -35,6 +35,11 @@ module "dlq" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "aws_sqs_queue_policy" "sqs" {
+  queue_url = module.queue.sqs_id
+  policy    = data.aws_iam_policy_document.queue.json
+}
+
 resource "aws_sqs_queue_policy" "dlq" {
   queue_url = module.dlq.sqs_id
   policy    = data.aws_iam_policy_document.dlq.json
