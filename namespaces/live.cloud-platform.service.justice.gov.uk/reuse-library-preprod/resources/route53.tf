@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "preprod_reuselibrary_team_route53_zone" {
-  name = "preprod.reuselibrary.service.justice.gov.uk"
+  name = var.domain
 
   tags = {
     team_name              = var.team_name
@@ -10,17 +10,5 @@ resource "aws_route53_zone" "preprod_reuselibrary_team_route53_zone" {
     owner                  = var.github_owner
     infrastructure_support = var.infrastructure_support
     namespace              = var.namespace
-  }
-}
-
-resource "kubernetes_secret" "route53_zone_sec" {
-  metadata {
-    name      = "route53-zone-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    zone_id     = aws_route53_zone.preprod_reuselibrary_team_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.preprod_reuselibrary_team_route53_zone.name_servers)
   }
 }
