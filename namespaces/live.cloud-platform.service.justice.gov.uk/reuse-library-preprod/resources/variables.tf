@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "reuse-library-preprod"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Service Improvement"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

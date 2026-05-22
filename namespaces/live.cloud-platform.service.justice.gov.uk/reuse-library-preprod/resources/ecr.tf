@@ -18,4 +18,6 @@ module "container_repository" {
 
   # Optional: allow querying ECR via IRSA from the namespace (read-only)
   # enable_irsa = true
+
+  deletion_protection = false
 }
