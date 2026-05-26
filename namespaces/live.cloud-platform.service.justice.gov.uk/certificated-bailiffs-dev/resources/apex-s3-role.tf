@@ -13,8 +13,7 @@ resource "aws_iam_role" "rds_s3_integration" {
   })
 }
 
-
-bucket_policy = jsonencode({
+policy = jsonencode({
   Version = "2012-10-17"
   Statement = [
     {
