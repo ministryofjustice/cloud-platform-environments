@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: modernisation-platform-slackbot-app-admin
-  namespace: modernisation-platform-slackbot-app
+  name: modernisation-platform-slackbot-app--dev-admin
+  namespace: modernisation-platform-slackbot-app-dev
 subjects:
   - kind: Group
     name: "github:modernisation-platform"
