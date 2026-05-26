@@ -17,26 +17,12 @@ module "apex-migration-s3" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
-        Principal = {
-          AWS = [
-            aws_iam_role.rds_s3_integration.arn
-          ]
-        }
-        Action = [
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:ListBucket"
-        ]
-        Resource = [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
-        ]
-      },
-      {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng"
+          AWS = [
+              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
+              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
+          ]
         },
         Action = [
           "s3:GetObject",
@@ -44,10 +30,36 @@ module "apex-migration-s3" {
           "s3:DeleteObject"
         ],
         Resource = [
-          "$${bucket_arn}",
           "$${bucket_arn}/*"
+        ]
+      },
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = [
+              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
+              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
+          ]
+        },
+        Action = [
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "$${bucket_arn}"
         ]
       }
     ]
   })
+}
+
+resource "kubernetes_secret" "s3_bucket" {
+  metadata {
+    name      = "s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn           = module.apex-migration-s3.bucket_arn
+    bucket_name          = module.apex-migration-s3.bucket_name
+  }
 }
