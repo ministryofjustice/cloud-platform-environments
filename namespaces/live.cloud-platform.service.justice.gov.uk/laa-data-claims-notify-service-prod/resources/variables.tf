@@ -74,8 +74,24 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
   default     = "claims-notify-service-production-service-account"
+}
+
+variable "irsa_serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by application pods (IRSA)"
+  default     = "claims-notify-service-prod-irsa-serviceaccount"
+}
+
+variable "producer_namespace" {
+  type        = string
+  description = "Namespace that owns the claims events SNS topic"
+  default     = "laa-data-claims-api-prod"
 }
