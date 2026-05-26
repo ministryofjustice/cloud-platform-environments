@@ -5,7 +5,6 @@
  *
  */
 module "doc_gen_postgres" {
-  count = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
@@ -36,16 +35,16 @@ module "doc_gen_postgres" {
   team_name              = var.team_name
 }
 
-# resource "kubernetes_secret" "doc_gen_rds" {
-#   metadata {
-#     name      = "hmpps-document-generation-api-postgres"
-#     namespace = var.namespace
-#   }
-#
-#   data = {
-#     database_name         = module.doc_gen_postgres.database_name
-#     database_username     = module.doc_gen_postgres.database_username
-#     database_password     = module.doc_gen_postgres.database_password
-#     database_server       = module.doc_gen_postgres.rds_instance_address
-#   }
-# }
+resource "kubernetes_secret" "doc_gen_rds" {
+  metadata {
+    name      = "hmpps-document-generation-api-postgres-migrated"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name         = module.doc_gen_postgres.database_name
+    database_username     = module.doc_gen_postgres.database_username
+    database_password     = module.doc_gen_postgres.database_password
+    database_server       = module.doc_gen_postgres.rds_instance_address
+  }
+}
