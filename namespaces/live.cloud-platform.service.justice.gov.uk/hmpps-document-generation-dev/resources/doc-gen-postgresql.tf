@@ -33,11 +33,13 @@ module "doc_gen_postgres" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa            = true
 }
 
 resource "kubernetes_secret" "doc_gen_rds" {
   metadata {
-    name      = "hmpps-document-generation-api-postgres-migrated"
+    name      = "hmpps-document-generation-api-postgres"
     namespace = var.namespace
   }
 
