@@ -208,7 +208,7 @@ module "cla_backend_intermediary" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres14"
 
-  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-15-02-53"
+  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-26-02-53"
   # This is test instance to restoring deleted records from production, we do not need a final snapshot
   skip_final_snapshot = "true"
 
