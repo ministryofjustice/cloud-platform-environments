@@ -65,6 +65,24 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
       "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*"           #tacticalproducts legacy account
     ]
   }
+
+  # Read-only access to the legacy single-site justice bucket for migration
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64",
+    ]
+  }
+  statement {
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64/*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "s3_cross_bucket_policy" {
@@ -80,7 +98,7 @@ resource "aws_iam_policy" "s3_cross_bucket_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
-  
+
 data "aws_iam_policy_document" "cloudfront_access_policy" {
   statement {
     effect = "Allow"
@@ -113,3 +131,4 @@ resource "aws_iam_policy" "cloudfront_access_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
+
