@@ -12,16 +12,17 @@ module "rds_mssql" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # SQL Server specifics
+  prepare_for_major_upgrade = true
   db_engine            = "sqlserver-ex"
-  db_engine_version    = "15.00.4236.7.v1"
-  rds_family           = "sqlserver-ex-15.0"
+  db_engine_version    = "16.00.4125.3.v1"
+  rds_family           = "sqlserver-ex-16.0"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
 
