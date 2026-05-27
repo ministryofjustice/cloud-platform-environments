@@ -41,7 +41,7 @@ module "arns_assessment_view_rds" {
     {
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
