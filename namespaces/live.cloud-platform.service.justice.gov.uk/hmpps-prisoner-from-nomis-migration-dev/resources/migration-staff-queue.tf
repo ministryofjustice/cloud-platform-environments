@@ -1,15 +1,15 @@
-module "migration_users_queue" {
+module "migration_staff_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "migration_users_queue"
+  sqs_name                   = "migration_staff_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 345600
   visibility_timeout_seconds = 120
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_users_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
+    "deadLetterTargetArn": "${module.migration_staff_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 EOF
 
@@ -23,11 +23,11 @@ EOF
   infrastructure_support = var.infrastructure_support
 }
 
-module "migration_users_dead_letter_queue" {
+module "migration_staff_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "migration_users_dlq"
+  sqs_name        = "migration_staff_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -40,28 +40,28 @@ module "migration_users_dead_letter_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "migration_users_queue" {
+resource "kubernetes_secret" "migration_staff_queue" {
   metadata {
-    name      = "sqs-migration-users-queue"
+    name      = "sqs-migration-staff-queue"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.migration_users_queue.sqs_id
-    sqs_arn  = module.migration_users_queue.sqs_arn
-    sqs_name = module.migration_users_queue.sqs_name
+    sqs_id   = module.migration_staff_queue.sqs_id
+    sqs_arn  = module.migration_staff_queue.sqs_arn
+    sqs_name = module.migration_staff_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "migration_users_dead_letter_queue" {
+resource "kubernetes_secret" "migration_staff_dead_letter_queue" {
   metadata {
-    name      = "sqs-migration-users-dlq"
+    name      = "sqs-migration-staff-dlq"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.migration_users_dead_letter_queue.sqs_id
-    sqs_arn  = module.migration_users_dead_letter_queue.sqs_arn
-    sqs_name = module.migration_users_dead_letter_queue.sqs_name
+    sqs_id   = module.migration_staff_dead_letter_queue.sqs_id
+    sqs_arn  = module.migration_staff_dead_letter_queue.sqs_arn
+    sqs_name = module.migration_staff_dead_letter_queue.sqs_name
   }
 }
