@@ -1,8 +1,8 @@
-module "migration_users_queue" {
+module "migration_staff_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "migration_users_queue"
+  sqs_name                   = "migration_staff_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 345600
   visibility_timeout_seconds = 120
