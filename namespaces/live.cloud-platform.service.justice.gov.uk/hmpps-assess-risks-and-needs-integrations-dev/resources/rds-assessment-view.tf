@@ -102,7 +102,7 @@ locals {
     user               = postgresql_role.digital_prison_reporting_user.name
     password           = random_password.dpr_password.result
     endpoint           = module.arns_assessment_view_rds.rds_instance_endpoint
-    heartbeat_endpoint = "" # should be blank, unless later add a read replica
+    heartbeat_endpoint = "" # should be blank, unless we later add a read replica
     port               = module.arns_assessment_view_rds.rds_instance_port
     db_name            = module.arns_assessment_view_rds.database_name
   }
