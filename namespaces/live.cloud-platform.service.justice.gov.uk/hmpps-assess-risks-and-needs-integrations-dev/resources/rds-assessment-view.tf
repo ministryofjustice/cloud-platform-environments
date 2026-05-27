@@ -97,6 +97,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 locals {
+  # To be removed later
   db_secret = {
     username = random_string.ro_username.result
     password = random_password.ro_password.result
@@ -105,8 +106,13 @@ locals {
     port     = module.arns_assessment_view_rds.rds_instance_port
     dbname   = module.arns_assessment_view_rds.database_name
   }
+
+  dpr_db_secret = {
+
+  }
 }
 
+# To be removed later
 resource "random_string" "ro_username" {
   length  = 8
   special = false
@@ -116,6 +122,7 @@ resource "random_string" "ro_username" {
   }
 }
 
+# To be removed later
 resource "random_password" "ro_password" {
   length  = 16
   special = false
@@ -132,6 +139,7 @@ resource "random_password" "ro_password" {
 #   secret_string = jsonencode(local.db_secret)
 # }
 
+# To be updated
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
     name      = "dpr-db-credentials"
@@ -150,7 +158,7 @@ resource "kubernetes_secret_v1" "db_credentials" {
   }
 }
 
-# Create read-only user for DPR
+# Provider settings for creating the role.
 provider "postgresql" {
   database         = module.arns_assessment_view_rds.database_name
   host             = module.arns_assessment_view_rds.rds_instance_address
@@ -162,7 +170,32 @@ provider "postgresql" {
   superuser        = false
 }
 
-# Read-only login user
+resource "random_password" "dpr_password" {
+  length  = 16
+  special = false
+
+  keepers = {
+    last_changed = "2026-05-27"
+  }
+}
+
+resource "postgresql_role" "digital_prison_reporting_user" {
+  name     = "digital_prison_reporting_user"
+  login    = true
+  password = random_password.dpr_password.result
+}
+
+resource "postgresql_grant_role" "digital_prison_reporting_user_rds_superuser" {
+  role       = postgresql_role.digital_prison_reporting_user.name
+  grant_role = "rds_superuser"
+}
+
+resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication" {
+  role       = postgresql_role.digital_prison_reporting_user.name
+  grant_role = "rds_replication"
+}
+
+# Read-only login user - to be removed
 resource "postgresql_role" "app_readonly" {
   name             = local.db_secret.username
   password         = local.db_secret.password
@@ -175,7 +208,7 @@ resource "postgresql_role" "app_readonly" {
   connection_limit = -1
 }
 
-# Allow connecting to the database
+# Allow connecting to the database - to be removed
 resource "postgresql_grant" "readonly_database" {
   database    = module.arns_assessment_view_rds.database_name
   role        = postgresql_role.app_readonly.name
@@ -183,7 +216,7 @@ resource "postgresql_grant" "readonly_database" {
   privileges  = ["CONNECT"]
 }
 
-# Allow using the schema
+# Allow using the schema - to be removed
 resource "postgresql_grant" "readonly_schema" {
   database    = module.arns_assessment_view_rds.database_name
   role        = postgresql_role.app_readonly.name
@@ -192,7 +225,7 @@ resource "postgresql_grant" "readonly_schema" {
   privileges  = ["USAGE"]
 }
 
-# Read existing tables
+# Read existing tables - to be removed
 resource "postgresql_grant" "readonly_tables" {
   database    = module.arns_assessment_view_rds.database_name
   role        = postgresql_role.app_readonly.name
@@ -201,7 +234,7 @@ resource "postgresql_grant" "readonly_tables" {
   privileges  = ["SELECT"]
 }
 
-# Read existing sequences
+# Read existing sequences -  to be removed
 resource "postgresql_grant" "readonly_sequences" {
   database    = module.arns_assessment_view_rds.database_name
   role        = postgresql_role.app_readonly.name
@@ -210,7 +243,7 @@ resource "postgresql_grant" "readonly_sequences" {
   privileges  = ["USAGE", "SELECT"]
 }
 
-# Future tables created by app_owner stay readable
+# Future tables created by app_owner stay readable - to be removed
 resource "postgresql_default_privileges" "readonly_future_tables" {
   database    = module.arns_assessment_view_rds.database_name
   owner       = module.arns_assessment_view_rds.database_username
@@ -220,7 +253,7 @@ resource "postgresql_default_privileges" "readonly_future_tables" {
   privileges  = ["SELECT"]
 }
 
-# Future sequences created by app_owner stay readable
+# Future sequences created by app_owner stay readable - to be removed
 resource "postgresql_default_privileges" "readonly_future_sequences" {
   database    = module.arns_assessment_view_rds.database_name
   owner       = module.arns_assessment_view_rds.database_username
