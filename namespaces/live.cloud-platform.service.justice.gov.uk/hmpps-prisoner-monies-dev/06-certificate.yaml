@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-prisoner-monies-cert
+  name: hmpps-prisoner-monies-send-money-cert
   namespace: hmpps-prisoner-monies-dev
 spec:
-  secretName: hmpps-prisoner-monies-cert
+  secretName: hmpps-prisoner-monies-send-money-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-monies-dev.hmpps.service.justice.gov.uk
+    - prisoner-monies-send-money-dev.hmpps.service.justice.gov.uk

@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-prisoner-monies-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-prisoner-monies"
+    name: "github:hmpps-prisoner-monies-dev"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group
@@ -37,6 +37,9 @@ metadata:
 subjects:
   - kind: Group
     name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-prisoner-monies-dev"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role

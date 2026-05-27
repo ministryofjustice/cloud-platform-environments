@@ -8,6 +8,8 @@ module "hmpps_prisoner_monies_send_money_ui" {
   github_team = "hmpps-prisoner-monies"
   environment = var.environment 
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"]
+  #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
+  #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-typescript"
