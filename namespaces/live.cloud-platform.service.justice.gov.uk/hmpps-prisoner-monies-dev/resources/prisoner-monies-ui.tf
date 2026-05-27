@@ -5,7 +5,7 @@ module "hmpps_prisoner_monies_send_money_ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-monies-send-money-ui"
   application = "hmpps-prisoner-monies-send-money-ui"
-  github_team = "prisoner-money"
+  github_team = "hmpps-prisoner-monies"
   environment = var.environment 
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"]
   is_production                 = var.is_production
