@@ -13,6 +13,7 @@ module "rds_apex" {
 
   # VPC configuration
   vpc_name = var.vpc_name
+  vpc_security_group_ids = [data.aws_security_group.apex-rds-out.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -106,3 +107,34 @@ resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
   feature_name           = "S3_INTEGRATION"
   role_arn               = aws_iam_role.rds_s3_integration.arn
 }
+
+# Get VPC id
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+# 1. Security Group to allow outbound access to sendgrid tls port only
+resource "aws_security_group" "apex-rds-out" {
+  name        = "rds-security-group"
+  description = "Security group for Oracle Apex RDS"
+  vpc_id      = aws_vpc.selected.id
+
+  tags = {
+    Name = "${var.namespace}-apex-rds-sg"
+  }
+}
+
+# 2. Egress rule
+resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
+  security_group_id = aws_security_group.apex-rds-out.id
+
+  description = "Allow outbound to SendGrid SMTP TLS"
+  from_port   = 587
+  to_port     = 587
+  ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
+}
+
