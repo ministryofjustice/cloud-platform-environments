@@ -25,11 +25,6 @@ module "calculate_release_dates_api_rds" {
 
   db_password_rotated_date = "14-02-2023"
 
-  providers = {
-    aws = aws.london
-  }
-
-
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id, aws_security_group.data_catalogue_access_sg.id]
 
   db_parameter = [
