@@ -96,37 +96,37 @@ data "aws_iam_policy_document" "matching_notifications_queue" {
     ]
   }
 
-  # statement {
-  #   sid     = "AllowReadDelete"
-  #   effect  = "Allow"
-  #
-  #   principals {
-  #     type        = "AWS"
-  #     identifiers = [
-  #       "*"
-  #     ]
-  #   }
-  #
-  #   actions = [
-  #     "sqs:ReceiveMessage",
-  #     "sqs:DeleteMessage",
-  #     "sqs:ChangeMessageVisibility",
-  #     "sqs:GetQueueAttributes",
-  #     "sqs:GetQueueUrl",
-  #   ]
-  #
-  #   resources = [
-  #     module.matching_notifications_queue.sqs_arn,
-  #   ]
-  #
-  #   condition {
-  #     variable = "aws:SourceArn"
-  #     test     = "ArnEquals"
-  #     values   = [
-  #       module.crime_matching_algorithm_irsa.role_arn,
-  #     ]
-  #   }
-  # }
+  statement {
+    sid     = "AllowReadDelete"
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "*"
+      ]
+    }
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [
+      module.matching_notifications_queue.sqs_arn,
+    ]
+
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [
+        module.crime_matching_algorithm_irsa.role_arn,
+      ]
+    }
+  }
 }
 
 resource "aws_sqs_queue_policy" "matching_notifications" {
@@ -134,44 +134,44 @@ resource "aws_sqs_queue_policy" "matching_notifications" {
   policy    = data.aws_iam_policy_document.matching_notifications_queue.json
 }
 
-# data "aws_iam_policy_document" "matching_notifications_dlq" {
-#   statement {
-#     sid     = "AllowReadDelete"
-#     effect  = "Allow"
-#
-#     principals {
-#       type        = "AWS"
-#       identifiers = [
-#         "*"
-#       ]
-#     }
-#
-#     actions = [
-#       "sqs:ReceiveMessage",
-#       "sqs:DeleteMessage",
-#       "sqs:ChangeMessageVisibility",
-#       "sqs:GetQueueAttributes",
-#       "sqs:GetQueueUrl",
-#     ]
-#
-#     resources = [
-#       module.matching_notifications_dlq.sqs_arn,
-#     ]
-#
-#     condition {
-#       variable = "aws:SourceArn"
-#       test     = "ArnEquals"
-#       values   = [
-#         module.crime_matching_algorithm_irsa.role_arn,
-#       ]
-#     }
-#   }
-# }
+data "aws_iam_policy_document" "matching_notifications_dlq" {
+  statement {
+    sid     = "AllowReadDelete"
+    effect  = "Allow"
 
-# resource "aws_sqs_queue_policy" "matching_notifications_dlq" {
-#   queue_url = module.matching_notifications_dlq.sqs_id
-#   policy    = data.aws_iam_policy_document.matching_notifications_dlq.json
-# }
+    principals {
+      type        = "AWS"
+      identifiers = [
+        "*"
+      ]
+    }
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [
+      module.matching_notifications_dlq.sqs_arn,
+    ]
+
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [
+        module.crime_matching_algorithm_irsa.role_arn,
+      ]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "matching_notifications_dlq" {
+  queue_url = module.matching_notifications_dlq.sqs_id
+  policy    = data.aws_iam_policy_document.matching_notifications_dlq.json
+}
 
 resource "aws_sns_topic_subscription" "matching_notifications" {
   topic_arn     = module.matching_notifications_topic.topic_arn
