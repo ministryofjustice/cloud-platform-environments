@@ -1,14 +1,8 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
- locals {
+locals {
   application = "apex certificated bailiffs"
 }
 
-# Get VPC id
+# Get VPC id first
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
@@ -16,18 +10,18 @@ data "aws_vpc" "selected" {
   }
 }
 
-# 1. Security Group to allow outbound access to sendgrid tls port only
+# 1. Security Group
 resource "aws_security_group" "apex-rds-out" {
-  name        = "rds-security-group"
-  description = "Security group for Oracle Apex RDS"
-  vpc_id      = aws_vpc.selected.id
+  name        = "${var.namespace}-apex-rds-sg"
+  description = "Security group for Oracle Apex RDS - Outbound to SendGrid"
+  vpc_id      = data.aws_vpc.selected.id
 
   tags = {
     Name = "${var.namespace}-apex-rds-sg"
   }
 }
 
-# 2. Egress rule
+# 2. Egress rule for SendGrid
 resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
   security_group_id = aws_security_group.apex-rds-out.id
 
@@ -38,35 +32,33 @@ resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
   cidr_ipv4   = "0.0.0.0/0"
 }
 
+# 3. RDS Module (now correctly references the SG)
 module "rds_apex" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name = var.vpc_name
-  vpc_security_group_ids = [data.aws_security_group.apex-rds-out.id]
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.apex-rds-out.id]   # ← This is now valid
 
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   enable_rds_auto_start_stop   = true
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # Oracle specifics
-  db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
-  storage_type             = "gp2"
-  db_allocated_storage     = "100"
-  db_name                  = "APXP"
-  license_model            = "license-included"
-  db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252"
-  option_group_name        = aws_db_option_group.oracle_apex.name
+  db_engine             = "oracle-se2"
+  db_engine_version     = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
+  rds_family            = "oracle-se2-19"
+  db_instance_class     = "db.t3.small"
+  storage_type          = "gp2"
+  db_allocated_storage  = "100"
+  db_name               = "APXP"
+  license_model         = "license-included"
+  db_iops               = 0
+  character_set_name    = "WE8MSWIN1252"
+  option_group_name     = aws_db_option_group.oracle_apex.name
 
-  # Avoid default parameters set my MOJ ( rds.force_ssl)
   db_parameter = []
 
   # Tags
@@ -79,7 +71,7 @@ module "rds_apex" {
   team_name              = var.team_name
 }
 
-
+# Rest of your resources (unchanged)
 resource "kubernetes_secret" "rds_apex" {
   metadata {
     name      = "rds-apex-oracle-instance-output"
@@ -87,11 +79,11 @@ resource "kubernetes_secret" "rds_apex" {
   }
 
   data = {
-    database_name         = module.rds_apex.database_name
-    database_host         = module.rds_apex.rds_instance_address
-    database_port         = module.rds_apex.rds_instance_port
-    database_username     = module.rds_apex.database_username
-    database_password     = module.rds_apex.database_password
+    database_name     = module.rds_apex.database_name
+    database_host     = module.rds_apex.rds_instance_address
+    database_port     = module.rds_apex.rds_instance_port
+    database_username = module.rds_apex.database_username
+    database_password = module.rds_apex.database_password
   }
 }
 
@@ -137,4 +129,3 @@ resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
   feature_name           = "S3_INTEGRATION"
   role_arn               = aws_iam_role.rds_s3_integration.arn
 }
-
