@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "HMPPS Prisoner Monies"
     cloud-platform.justice.gov.uk/owner: "HMPPS Community of Practice: dps-hmpps@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-monies-send-money-ui"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-prisoner-monies"
+    cloud-platform.justice.gov.uk/team-name: "prisoner-money"
