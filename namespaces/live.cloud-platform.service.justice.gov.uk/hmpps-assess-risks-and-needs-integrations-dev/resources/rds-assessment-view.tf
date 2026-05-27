@@ -14,7 +14,7 @@ module "arns_assessment_view_rds" {
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
-  db_allocated_storage = 20
+  db_allocated_storage = 80
   storage_type         = "gp3"
   rds_family           = "postgres18"
   db_engine            = "postgres"
@@ -36,6 +36,39 @@ module "arns_assessment_view_rds" {
   enable_irsa = true
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024" # 1024MB / 1GB
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000" # 40,000MB / 40GB
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london
