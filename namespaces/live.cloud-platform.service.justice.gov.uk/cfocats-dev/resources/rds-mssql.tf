@@ -21,7 +21,7 @@ module "rds_mssql" {
   # SQL Server specifics
   prepare_for_major_upgrade = true
   db_engine            = "sqlserver-ex"
-  db_engine_version    = "16.00.4125.3.v1"
+  db_engine_version    = "16.00.4250.1.v1"
   rds_family           = "sqlserver-ex-16.0"
   db_instance_class    = "db.t3.small"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
