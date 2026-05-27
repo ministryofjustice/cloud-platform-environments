@@ -17,7 +17,7 @@ module "queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name = "hmpps-suicide-risk-form-queue"
+  sqs_name = "hmpps-breach-report-co-sso-queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.dead-letter-queue.sqs_arn
     maxReceiveCount     = 3
@@ -60,7 +60,7 @@ module "dead-letter-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "hmpps-suicide-risk-form-dlq"
+  sqs_name                  = "hmpps-breach-report-co-sso-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
