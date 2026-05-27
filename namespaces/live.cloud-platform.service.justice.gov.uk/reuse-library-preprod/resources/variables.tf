@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "reuse-library-preprod"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Service Improvement"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -70,4 +76,13 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "domain" {
+  default = "preprod.reuselibrary.service.justice.gov.uk"
+  type    = string
 }

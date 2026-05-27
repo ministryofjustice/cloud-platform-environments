@@ -44,9 +44,12 @@ resource "aws_iam_policy" "mp_secrets_read" {
         Action = [
           "secretsmanager:GetSecretValue",
           "secretsmanager:DescribeSecret",
-          "secretsmanager:PutSecretValue"
+          "secretsmanager:PutSecretValue",
+          "secretsmanager:UpdateSecret"
         ]
-        Resource = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-*"
+        Resource = [
+          "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets*"
+        ]
       },
       {
         Sid    = "UseMPKMSKeyForSecret"
