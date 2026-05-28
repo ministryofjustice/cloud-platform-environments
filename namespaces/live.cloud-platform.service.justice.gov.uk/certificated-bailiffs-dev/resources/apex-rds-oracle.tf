@@ -1,41 +1,64 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
- locals {
+locals {
   application = "apex certificated bailiffs"
 }
 
+# Get VPC id first
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+# 1. Security Group
+resource "aws_security_group" "apex-rds-out" {
+  name        = "${var.namespace}-apex-rds-sg"
+  description = "Security group for Oracle Apex RDS - Outbound to SendGrid"
+  vpc_id      = data.aws_vpc.selected.id
+
+  tags = {
+    Name = "${var.namespace}-apex-rds-sg"
+  }
+}
+
+# 2. Egress rule for SendGrid
+resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
+  security_group_id = aws_security_group.apex-rds-out.id
+
+  description = "Allow outbound to SendGrid SMTP TLS"
+  from_port   = 587
+  to_port     = 587
+  ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
+}
+
+# 3. RDS Module (now correctly references the SG)
 module "rds_apex" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name = var.vpc_name
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.apex-rds-out.id]   # ← This is now valid
 
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   enable_rds_auto_start_stop   = true
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # Oracle specifics
-  db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-10.rur-2025-10.r1"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
-  storage_type             = "gp2"
-  db_allocated_storage     = "100"
-  db_name                  = "APXP"
-  license_model            = "license-included"
-  db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252"
-  option_group_name        = aws_db_option_group.oracle_apex.name
+  db_engine             = "oracle-se2"
+  db_engine_version     = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
+  rds_family            = "oracle-se2-19"
+  db_instance_class     = "db.t3.small"
+  storage_type          = "gp2"
+  db_allocated_storage  = "100"
+  db_name               = "APXP"
+  license_model         = "license-included"
+  db_iops               = 0
+  character_set_name    = "WE8MSWIN1252"
+  option_group_name     = aws_db_option_group.oracle_apex.name
 
-  # Avoid default parameters set my MOJ ( rds.force_ssl)
   db_parameter = []
 
   # Tags
@@ -48,7 +71,7 @@ module "rds_apex" {
   team_name              = var.team_name
 }
 
-
+# Rest of your resources (unchanged)
 resource "kubernetes_secret" "rds_apex" {
   metadata {
     name      = "rds-apex-oracle-instance-output"
@@ -56,11 +79,11 @@ resource "kubernetes_secret" "rds_apex" {
   }
 
   data = {
-    database_name         = module.rds_apex.database_name
-    database_host         = module.rds_apex.rds_instance_address
-    database_port         = module.rds_apex.rds_instance_port
-    database_username     = module.rds_apex.database_username
-    database_password     = module.rds_apex.database_password
+    database_name     = module.rds_apex.database_name
+    database_host     = module.rds_apex.rds_instance_address
+    database_port     = module.rds_apex.rds_instance_port
+    database_username = module.rds_apex.database_username
+    database_password = module.rds_apex.database_password
   }
 }
 

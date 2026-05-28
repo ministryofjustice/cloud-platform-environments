@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: reuse-library-preprod-certificate
+  namespace: reuse-library-preprod
+spec:
+  secretName: reuse-library-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - prep.reuselibrary.service.justice.gov.uk

@@ -5,8 +5,10 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
-    hmpps_court_data_ingestion_queue             = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
-    hmpps_court_data_ingestion_dead_letter_queue = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_queue                      = module.hmpps_court_data_ingestion_queue.irsa_policy_arn,
+    hmpps_court_data_ingestion_dead_letter_queue          = module.hmpps_court_data_ingestion_dead_letter_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_queue               = module.hmpps_court_data_prisoner_created_queue.irsa_policy_arn,
+    hmpps_court_data_prisoner_created_dead_letter_queue   = module.hmpps_court_data_prisoner_created_dead_letter_queue.irsa_policy_arn,
   } 
   sm_policies = {
     hmpps_court_data_auth_token_secret_manager = aws_iam_policy.secret_ingestion_api_auth_token_irsa_policy.arn
@@ -36,4 +38,13 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

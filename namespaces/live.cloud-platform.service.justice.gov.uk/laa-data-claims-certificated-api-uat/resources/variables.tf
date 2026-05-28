@@ -74,6 +74,16 @@ variable "github_token" {
   default     = ""
 }
 
+variable "serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
+  default     = "laa-data-claims-certificated-api-uat-service-account"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "repo_name" {
+  default = "laa-data-claims-certificated-api"
 }

@@ -18,11 +18,14 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "prison-offender-events.prisoner.restriction.changed",
       "prison-offender-events.prisoner.contact-approved",
       "prison-offender-events.prisoner.contact-unapproved",
-      "prisoner-offender-search.prisoner.alerts-updated",
       "contacts-api.prisoner-contact-restriction.updated",
       "contacts-api.prisoner-contact-restriction.created",
       "contacts-api.contact-restriction.updated",
       "contacts-api.contact-restriction.created",
+      "person.alert.created",
+      "person.alert.updated",
+      "person.alert.deleted",
+      "person.alert.inactive",
     ]
   })
 }

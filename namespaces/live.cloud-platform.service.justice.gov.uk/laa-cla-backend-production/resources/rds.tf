@@ -157,8 +157,7 @@ module "cla_backend_snapshot_restore" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres14"
 
-  rds_name = "cla-backend-snapshot-restore"
-  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-14-02-53"
+  snapshot_identifier = "cla-backend-before-deletion-2026-05-14"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -209,8 +208,7 @@ module "cla_backend_intermediary" {
   # Pick the one that defines the postgres version the best
   rds_family = "postgres14"
 
-  rds_name = "cla-backend-intermediary"
-  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-15-02-53"
+  snapshot_identifier = "rds:cloud-platform-3523d8064f052e84-2026-05-26-02-53"
   # This is test instance to restoring deleted records from production, we do not need a final snapshot
   skip_final_snapshot = "true"
 

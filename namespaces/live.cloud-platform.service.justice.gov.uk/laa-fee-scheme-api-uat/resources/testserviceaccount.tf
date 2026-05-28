@@ -12,7 +12,7 @@ module "testserviceaccount" {
   github_actions_secret_kube_cluster  = "KUBE_CLUSTER_${var.serviceaccount_suffix}"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE_${var.serviceaccount_suffix}"
 
-  github_repositories = ["bulk-submission-and-fee-scheme-tests-"]
+  github_repositories = ["bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim"]
   github_environments = ["uat"]
   serviceaccount_token_rotated_date = "20-03-2026"
 }
