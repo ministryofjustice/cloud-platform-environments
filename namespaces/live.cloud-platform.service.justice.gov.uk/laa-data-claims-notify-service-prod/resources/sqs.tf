@@ -22,6 +22,7 @@ module "notify_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -41,6 +42,7 @@ module "notify_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
