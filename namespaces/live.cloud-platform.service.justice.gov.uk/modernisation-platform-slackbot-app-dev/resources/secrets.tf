@@ -1,5 +1,5 @@
 module "secrets_manager_multiple_secrets" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=b9ae535006430b1ba776ac94465e2bbc22e9a064" # 3.0.7
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7" # Note - doesn't support using commit hash to pin.
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
