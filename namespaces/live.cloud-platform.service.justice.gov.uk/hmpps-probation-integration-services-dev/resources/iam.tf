@@ -138,7 +138,9 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
     ],
     external = [
       data.aws_sqs_queue.hmpps-tier-events-queue.arn,
-      data.aws_sqs_queue.hmpps-tier-events-dlq.arn
+      data.aws_sqs_queue.hmpps-tier-events-dlq.arn,
+      data.aws_sqs_queue.supervision-packages-api-queue.arn,
+      data.aws_sqs_queue.supervision-packages-api-dlq.arn
     ]
   }
   statement {
