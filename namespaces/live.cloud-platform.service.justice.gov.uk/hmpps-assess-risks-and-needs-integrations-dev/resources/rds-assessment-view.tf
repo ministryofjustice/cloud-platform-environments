@@ -162,7 +162,7 @@ resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication"
 
 data "aws_secretsmanager_secret" "source" {
   provider = aws.secrets
-  name     = "external/dpr-pr-assessment-view-source-secrets"
+  arn      = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 }
 
 resource "aws_secretsmanager_secret_version" "db" {
