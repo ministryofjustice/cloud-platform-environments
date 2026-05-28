@@ -38,6 +38,12 @@ variable "team_name" {
   default     = "laa-data-stewardship-payments-team"
 }
 
+variable "github_team" {
+  description = "GitHub team with access to the SQS queue via the AWS Console"
+  type        = string
+  default     = "laa-amend-a-claim"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
