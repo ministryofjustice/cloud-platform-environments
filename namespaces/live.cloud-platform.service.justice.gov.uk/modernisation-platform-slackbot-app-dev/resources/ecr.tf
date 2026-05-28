@@ -7,6 +7,7 @@ module "container_repository" {
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["modernisation-platform-slackbot"]
+  github_environments = ["development"]
 
   # Tags
   business_unit          = var.business_unit
