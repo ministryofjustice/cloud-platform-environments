@@ -43,4 +43,10 @@ spec:
                       name: slack-token
                       key: token
                       optional: false
+                - name: SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: sentry
+                      key: SENTRY_DSN
+                      optional: false
           restartPolicy: Never

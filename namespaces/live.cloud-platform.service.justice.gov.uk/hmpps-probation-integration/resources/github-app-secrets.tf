@@ -6,6 +6,7 @@ locals {
     "crime-portal-gateway",
     "hmpps-appointment-reminders-ui",
     "hmpps-probation-integration-e2e-tests",
+    "hmpps-probation-integration-e2e-test-reports",
     "hmpps-probation-integration-services",
     "hmpps-supervision",
     "hmpps-tier",
