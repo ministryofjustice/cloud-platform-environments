@@ -102,20 +102,14 @@ locals {
     user               = postgresql_role.digital_prison_reporting_user.name
     password           = random_password.dpr_password.result
     endpoint           = module.arns_assessment_view_rds.rds_instance_endpoint
-    heartbeat_endpoint = "" # should be blank, unless we have a read replica
+    heartbeat_endpoint = "" # should be blank, unless we later add a read replica
     port               = module.arns_assessment_view_rds.rds_instance_port
     db_name            = module.arns_assessment_view_rds.database_name
   }
+
+  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 }
 
-# resource "aws_secretsmanager_secret_version" "db" {
-#   provider  = aws.secrets
-#   secret_id = local.secret_arn
-#
-#   secret_string = jsonencode(local.db_secret)
-# }
-
-# To be updated
 resource "kubernetes_secret_v1" "db_credentials" {
   metadata {
     name      = "dpr-db-credentials"
@@ -142,6 +136,7 @@ provider "postgresql" {
   superuser        = false
 }
 
+# DPR User Data
 resource "random_password" "dpr_password" {
   length  = 16
   special = false
@@ -165,4 +160,11 @@ resource "postgresql_grant_role" "digital_prison_reporting_user_rds_superuser" {
 resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication" {
   role       = postgresql_role.digital_prison_reporting_user.name
   grant_role = "rds_replication"
+}
+
+resource "aws_secretsmanager_secret_version" "db" {
+  provider  = aws.secrets
+  secret_id = local.dpr_secret_arn
+
+  secret_string = jsonencode(local.dpr_db_secret)
 }
