@@ -32,6 +32,12 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Full name of the Service Area in which the team is based"
+  type        = string
+  default     = "Oracle Service Area"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -53,7 +59,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
@@ -93,5 +99,4 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN_PROD"
 }
-
 
