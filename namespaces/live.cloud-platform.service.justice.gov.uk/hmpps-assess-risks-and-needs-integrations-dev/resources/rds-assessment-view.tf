@@ -106,6 +106,8 @@ locals {
     port               = module.arns_assessment_view_rds.rds_instance_port
     db_name            = module.arns_assessment_view_rds.database_name
   }
+
+  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
@@ -160,14 +162,9 @@ resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication"
   grant_role = "rds_replication"
 }
 
-data "aws_secretsmanager_secret" "source" {
-  provider = aws.secrets
-  arn      = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
-}
-
 resource "aws_secretsmanager_secret_version" "db" {
   provider  = aws.secrets
-  secret_id = data.aws_secretsmanager_secret.source.arn
+  secret_id = local.dpr_secret_arn
 
   secret_string = jsonencode(local.dpr_db_secret)
 }
