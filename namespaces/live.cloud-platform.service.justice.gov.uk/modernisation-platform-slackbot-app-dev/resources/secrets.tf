@@ -10,6 +10,11 @@ module "secrets_manager_multiple_secrets" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "api-url" = {
+      description             = "the API base URL used by the Slack bot.",
+      recovery_window_in_days = 0
+      k8s_secret_name         = "api-url" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
     "github-token" = {
       description             = "a GitHub personal access token for an account that can access the environments repository and retrigger checks. Obtain this from GitHub Settings, Developer settings, Personal access tokens.",
       recovery_window_in_days = 0
