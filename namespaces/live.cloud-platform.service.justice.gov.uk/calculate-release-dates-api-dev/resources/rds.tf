@@ -54,9 +54,9 @@ module "calculate_release_dates_api_rds" {
       apply_method = "pending-reboot"
     },
     {
-    name         = "pg_stat_statements.max"
-    value        = "10000"
-    apply_method = "pending-reboot"
+      name         = "pg_stat_statements.max"
+      value        = "10000"
+      apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
@@ -92,11 +92,11 @@ resource "aws_security_group" "data_catalogue_access_sg" {
     create_before_destroy = true
   }
 
-  ingress{
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      cidr_blocks = ["10.201.128.0/17"]
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.201.128.0/17"]
   }
 }
 
