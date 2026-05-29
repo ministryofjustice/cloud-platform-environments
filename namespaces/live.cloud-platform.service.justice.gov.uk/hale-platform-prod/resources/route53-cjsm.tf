@@ -46,4 +46,20 @@ resource "aws_route53_record" "cjsm_route53_cname_record_autodiscover" {
   records = ["autodiscover.outlook.com."]
 }
 
+resource "aws_route53_record" "cjsm_route53_cname_record_salesforce_dkim" {
+  zone_id = aws_route53_zone.cjsm_route53_zone.zone_id
+  name    = "cjsm.justice.gov.uk._domainkey.cjsm.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["cjsm.justice.gov.uk.wdx2rf.custdkim.salesforce.com."]
+}
+
+resource "aws_route53_record" "cjsm_route53_cname_record_salesforce03_dkim" {
+  zone_id = aws_route53_zone.cjsm_route53_zone.zone_id
+  name    = "salesforce03._domainkey.cjsm.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["salesforce03.u763xu.custdkim.salesforce.com."]
+}
+
 
