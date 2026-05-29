@@ -11,6 +11,7 @@ module "rds_mssql" {
   vpc_name = var.vpc_name
 
   # RDS configuration
+  rds_name                     = "hmpps-cfo-cats-db-${var.environment}"
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
