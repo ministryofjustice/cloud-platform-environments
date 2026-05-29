@@ -151,7 +151,7 @@ EOF
    */
   oidc_providers = ["github"]
   github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
-  github_environments = ["dev"]   # If you're using GH Actions environments
+  github_environments = ["staging"]   # If you're using GH Actions environments
 
 
 }
