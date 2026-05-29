@@ -52,6 +52,21 @@ module "calculate_release_dates_api_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "pg_stat_statements.track"
+      value        = "ALL"
+      apply_method = "pending-reboot"
+    },
+    {
+    name         = "pg_stat_statements.max"
+    value        = "10000"
+    apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical,pg_stat_statements"
+      apply_method = "pending-reboot"
     }
   ]
 
