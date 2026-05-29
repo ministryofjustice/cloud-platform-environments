@@ -39,7 +39,7 @@ module "doc_gen_postgres" {
 
 resource "kubernetes_secret" "doc_gen_rds" {
   metadata {
-    name      = "hmpps-document-generation-api-postgres-migrated"
+    name      = "hmpps-document-generation-api-postgres"
     namespace = var.namespace
   }
 
