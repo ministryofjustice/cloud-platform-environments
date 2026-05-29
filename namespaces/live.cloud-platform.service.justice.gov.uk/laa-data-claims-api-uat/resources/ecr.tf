@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
 # REQUIRED: GitHub repositories that push to this container repository
 # E2E repository does have trailing "-" character, this is not a typo.
-  github_repositories = ["laa-data-claims-api", "bulk-submission-and-fee-scheme-tests-"]
+  github_repositories = ["laa-data-claims-api", "bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim"]
   github_actions_prefix = "laa_data_claims_api"
 
   # Lifecycle policy to manage ECR image retention
