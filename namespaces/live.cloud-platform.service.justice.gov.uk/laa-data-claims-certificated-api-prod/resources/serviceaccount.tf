@@ -83,6 +83,23 @@ module "serviceaccount" {
         "create",
         "patch"
       ]
+    },
+    {
+      "api_groups": [
+        "cert-manager.io"
+      ],
+      "resources": [
+        "certificates"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
     }
   ]
   serviceaccount_token_rotated_date = "20-03-2026"
