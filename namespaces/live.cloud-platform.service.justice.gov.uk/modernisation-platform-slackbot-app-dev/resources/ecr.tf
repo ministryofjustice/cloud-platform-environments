@@ -9,6 +9,26 @@ module "container_repository" {
   github_repositories = ["modernisation-platform-slackbot"]
   github_environments = ["development"]
 
+  # Lifecycle Policy
+  lifecycle_policy = <<EOF
+    {
+      "rules": [
+        {
+          "rulePriority": 1,
+          "description": "Only keep latest 12 images",
+          "selection": {
+            "tagStatus": "any",
+            "countType": "imageCountMoreThan",
+            "countNumber": 12
+          },
+          "action": {
+            "type": "expire"
+          }
+        }
+      ]
+    }
+    EOF
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
