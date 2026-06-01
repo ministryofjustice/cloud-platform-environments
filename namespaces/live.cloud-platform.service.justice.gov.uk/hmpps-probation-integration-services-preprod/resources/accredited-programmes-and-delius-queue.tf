@@ -3,7 +3,10 @@ resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-su
   protocol  = "sqs"
   endpoint  = module.accredited-programmes-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["accredited-programmes-community.referral.status-updated"]
+    eventType = [
+      "accredited-programmes-community.referral.status-updated",
+      "accredited-programmes-community.programme.complete",
+    ]
   })
 }
 
