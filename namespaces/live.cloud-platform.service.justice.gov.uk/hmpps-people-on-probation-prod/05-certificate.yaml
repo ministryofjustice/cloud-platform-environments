@@ -1,26 +1,26 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: people-on-probation-dev.hmpps.service.justice.gov.uk
-  namespace: hmpps-people-on-probation-dev
+  name: people-on-probation-prod.hmpps.service.justice.gov.uk
+  namespace: hmpps-people-on-probation-prod
 spec:
   secretName: hmpps-people-on-probation-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - probation-account-dev.hmpps.service.justice.gov.uk
+    - probation-account.hmpps.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: people-on-probation-api-dev.hmpps.service.justice.gov.uk
-  namespace: hmpps-people-on-probation-dev
+  name: people-on-probation-api-prod.hmpps.service.justice.gov.uk
+  namespace: hmpps-people-on-probation-prod
 spec:
   secretName: hmpps-people-on-probation-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - people-on-probation-api-dev.hmpps.service.justice.gov.uk
+    - people-on-probation-api.hmpps.service.justice.gov.uk
