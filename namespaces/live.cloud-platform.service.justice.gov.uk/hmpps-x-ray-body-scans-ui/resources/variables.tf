@@ -1,12 +1,14 @@
 variable "vpc_name" {
 }
 
-variable "kubernetes_cluster" {
-}
-
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
+  default     = "hmpps-x-ray-body-scans-ui"
+}
+
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "namespace" {
@@ -20,21 +22,13 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "connect-dps"
 }
 
-variable "service_area" {
-  description = "Service area responsible for this service"
-  default     = "Live Support"
-}
-
-####################################################################################################################
-### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
-####################################################################################################################
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
@@ -47,12 +41,13 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "hmpps_dev"
+  default     = "connect-dps"
 }
 
 variable "number_cache_clusters" {
   default = "2"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -63,4 +58,18 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
 }
