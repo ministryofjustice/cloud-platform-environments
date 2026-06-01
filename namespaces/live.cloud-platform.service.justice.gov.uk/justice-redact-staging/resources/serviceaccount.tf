@@ -9,4 +9,7 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
+
+  # This allows Staging to pull images from your central Dev ECR
+  github_actions_secret_kube_ecr_credentials_allow_cross_namespace_ids = ["justice-redact-dev"]
 } 
