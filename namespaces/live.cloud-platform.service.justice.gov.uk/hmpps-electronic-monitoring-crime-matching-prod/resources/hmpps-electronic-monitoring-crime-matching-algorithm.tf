@@ -10,7 +10,7 @@ module "hmpps_electronic_monitoring_crime_matching_algorithm" {
   application                   = local.crime_matching_algorithm_repo
   github_team                   = "hmpps-em-probation-devs"
   environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = [] # Optional team that should review deployments to this environment.
+  reviewer_teams                = ["hmpps-em-probation-devs"]
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = var.environment
