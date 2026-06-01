@@ -15,7 +15,7 @@ module "create_and_vary_a_licence_api_rds" {
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "17.5"
+  db_engine_version           = "17.9"
   rds_family                  = "postgres17"
   db_password_rotated_date    = "14-02-2023"
 
