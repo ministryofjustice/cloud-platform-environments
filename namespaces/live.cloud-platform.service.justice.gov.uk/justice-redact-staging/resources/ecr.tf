@@ -8,8 +8,9 @@ module "ecr" {
   deletion_protection = false
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
+  # Commenting so that it stops Terraform from trying to overwrite Dev GitHub variables
+  # oidc_providers      = ["github"]
+  # github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
 
   # Tags
   business_unit          = var.business_unit
