@@ -62,3 +62,4 @@ resource "kubernetes_secret" "rds_mssql" {
     rds_instance_address  = module.rds_mssql.rds_instance_address
   }
 }
+
