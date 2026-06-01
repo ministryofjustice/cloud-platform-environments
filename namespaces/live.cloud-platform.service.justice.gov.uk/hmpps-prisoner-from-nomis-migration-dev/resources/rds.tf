@@ -5,6 +5,7 @@ module "nomis_migration_rds" {
 
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "hmpps-prisoner-from-nomis-migration-db-dev"
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production

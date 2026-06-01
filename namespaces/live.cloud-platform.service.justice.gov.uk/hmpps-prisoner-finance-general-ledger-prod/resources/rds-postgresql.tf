@@ -33,6 +33,14 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  db_parameter = [
+    {
+      name         = "max_connections"
+      value        = "121"
+      apply_method = "pending-reboot"
+    }
+  ]
+
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 

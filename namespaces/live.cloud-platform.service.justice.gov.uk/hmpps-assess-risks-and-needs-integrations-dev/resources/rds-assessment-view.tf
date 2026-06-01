@@ -14,7 +14,7 @@ module "arns_assessment_view_rds" {
   enable_rds_auto_start_stop   = true
 
   # PostgreSQL specifics
-  db_allocated_storage = 20
+  db_allocated_storage = 80
   storage_type         = "gp3"
   rds_family           = "postgres18"
   db_engine            = "postgres"
@@ -36,6 +36,39 @@ module "arns_assessment_view_rds" {
   enable_irsa = true
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024" # 1024MB / 1GB
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000" # 40,000MB / 40GB
+      apply_method = "immediate"
+    }
+  ]
 
   providers = {
     aws = aws.london
@@ -64,42 +97,17 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 locals {
-  # test secret on mp - kms encrypted
-  secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:development/dpr-crossaccount-assessment-view-db-SRFTzm"
-
-  db_secret = {
-    username = random_string.ro_username.result
-    password = random_password.ro_password.result
-    engine   = "postgres"
-    host     = module.arns_assessment_view_rds.rds_instance_endpoint
-    port     = module.arns_assessment_view_rds.rds_instance_port
-    dbname   = module.arns_assessment_view_rds.database_name
+  dpr_db_secret = {
+    username           = postgresql_role.digital_prison_reporting_user.name
+    user               = postgresql_role.digital_prison_reporting_user.name
+    password           = random_password.dpr_password.result
+    endpoint           = module.arns_assessment_view_rds.rds_instance_address
+    heartbeat_endpoint = "" # should be blank, unless we later add a read replica
+    port               = module.arns_assessment_view_rds.rds_instance_port
+    db_name            = module.arns_assessment_view_rds.database_name
   }
-}
 
-resource "random_string" "ro_username" {
-  length  = 8
-  special = false
-
-  keepers = {
-    last_changed = "2026-05-05"
-  }
-}
-
-resource "random_password" "ro_password" {
-  length  = 16
-  special = false
-
-  keepers = {
-    last_changed = "2026-05-05"
-  }
-}
-
-resource "aws_secretsmanager_secret_version" "db" {
-  provider  = aws.secrets
-  secret_id = local.secret_arn
-
-  secret_string = jsonencode(local.db_secret)
+  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
@@ -111,16 +119,12 @@ resource "kubernetes_secret_v1" "db_credentials" {
   type = "Opaque"
 
   data = {
-    username = local.db_secret.username
-    password = local.db_secret.password
-    engine   = local.db_secret.engine
-    host     = local.db_secret.host
-    port     = tostring(local.db_secret.port)
-    dbname   = local.db_secret.dbname
+    for key, value in local.dpr_db_secret :
+    key => tostring(value)
   }
 }
 
-# Create read-only user for DPR
+# Provider settings for creating the role.
 provider "postgresql" {
   database         = module.arns_assessment_view_rds.database_name
   host             = module.arns_assessment_view_rds.rds_instance_address
@@ -132,70 +136,35 @@ provider "postgresql" {
   superuser        = false
 }
 
-# Read-only login user
-resource "postgresql_role" "app_readonly" {
-  name             = local.db_secret.username
-  password         = local.db_secret.password
-  login            = true
-  superuser        = false
-  create_database  = false
-  create_role      = false
-  inherit          = true
-  replication      = false
-  connection_limit = -1
+# DPR User Data
+resource "random_password" "dpr_password" {
+  length  = 16
+  special = false
+
+  keepers = {
+    last_changed = "2026-05-27"
+  }
 }
 
-# Allow connecting to the database
-resource "postgresql_grant" "readonly_database" {
-  database    = module.arns_assessment_view_rds.database_name
-  role        = postgresql_role.app_readonly.name
-  object_type = "database"
-  privileges  = ["CONNECT"]
+resource "postgresql_role" "digital_prison_reporting_user" {
+  name     = "digital_prison_reporting_user"
+  login    = true
+  password = random_password.dpr_password.result
 }
 
-# Allow using the schema
-resource "postgresql_grant" "readonly_schema" {
-  database    = module.arns_assessment_view_rds.database_name
-  role        = postgresql_role.app_readonly.name
-  schema      = "assessment-view"
-  object_type = "schema"
-  privileges  = ["USAGE"]
+resource "postgresql_grant_role" "digital_prison_reporting_user_rds_superuser" {
+  role       = postgresql_role.digital_prison_reporting_user.name
+  grant_role = "rds_superuser"
 }
 
-# Read existing tables
-resource "postgresql_grant" "readonly_tables" {
-  database    = module.arns_assessment_view_rds.database_name
-  role        = postgresql_role.app_readonly.name
-  schema      = "assessment-view"
-  object_type = "table"
-  privileges  = ["SELECT"]
+resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication" {
+  role       = postgresql_role.digital_prison_reporting_user.name
+  grant_role = "rds_replication"
 }
 
-# Read existing sequences
-resource "postgresql_grant" "readonly_sequences" {
-  database    = module.arns_assessment_view_rds.database_name
-  role        = postgresql_role.app_readonly.name
-  schema      = "assessment-view"
-  object_type = "sequence"
-  privileges  = ["USAGE", "SELECT"]
-}
+resource "aws_secretsmanager_secret_version" "db" {
+  provider  = aws.secrets
+  secret_id = local.dpr_secret_arn
 
-# Future tables created by app_owner stay readable
-resource "postgresql_default_privileges" "readonly_future_tables" {
-  database    = module.arns_assessment_view_rds.database_name
-  owner       = module.arns_assessment_view_rds.database_username
-  role        = postgresql_role.app_readonly.name
-  schema      = "assessment-view"
-  object_type = "table"
-  privileges  = ["SELECT"]
-}
-
-# Future sequences created by app_owner stay readable
-resource "postgresql_default_privileges" "readonly_future_sequences" {
-  database    = module.arns_assessment_view_rds.database_name
-  owner       = module.arns_assessment_view_rds.database_username
-  role        = postgresql_role.app_readonly.name
-  schema      = "assessment-view"
-  object_type = "sequence"
-  privileges  = ["USAGE", "SELECT"]
+  secret_string = jsonencode(local.dpr_db_secret)
 }

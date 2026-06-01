@@ -50,10 +50,14 @@ spec:
 
     - alert: CronJobStatusFailed
       expr: |-
-        kube_job_status_failed{namespace="hmpps-manage-and-deliver-accredited-programmes-prod"} > 0
+        max(
+          (kube_job_status_failed{namespace="hmpps-manage-and-deliver-accredited-programmes-prod"} > 0)
+          + on(job_name, namespace)
+          ((time() - kube_job_status_start_time{namespace="hmpps-manage-and-deliver-accredited-programmes-prod"}) < 7200)
+        ) by (job_name, namespace) > 0
       for: 1m
       labels:
         severity: hmpps-accredited-programmes-manage-and-deliver-alerts-prod
       annotations:
-        message: Namespace {{ $labels.namespace }} - CronJob {{ $labels.job_name }} has failed
+        message: Namespace {{ $labels.namespace }} - CronJob {{ $labels.job_name }} has failed (started within the last 2 hours)
 

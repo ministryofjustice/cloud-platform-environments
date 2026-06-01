@@ -5,6 +5,7 @@ module "hmpps_prisoner_search_rds" {
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
+  rds_name                  = "hmpps-prisoner-search-db-preprod"
   business_unit             = var.business_unit
   application               = var.application
   is_production             = var.is_production

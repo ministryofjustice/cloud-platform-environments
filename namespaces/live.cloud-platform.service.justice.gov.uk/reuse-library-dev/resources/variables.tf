@@ -73,3 +73,12 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "domain" {
+  default = "dev.reuselibrary.service.justice.gov.uk"
+  type    = string
+}

@@ -22,6 +22,7 @@ module "notify_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -41,6 +42,7 @@ module "notify_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  github_team            = var.github_team
 
   providers = {
     aws = aws.london
@@ -71,10 +73,11 @@ resource "aws_sqs_queue_policy" "notify_queue" {
 }
 
 resource "aws_sns_topic_subscription" "notify" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.claims_sns_topic_arn.value
-  protocol  = "sqs"
-  endpoint  = module.notify_queue.sqs_arn
+  provider             = aws.london
+  topic_arn            = data.aws_ssm_parameter.claims_sns_topic_arn.value
+  protocol             = "sqs"
+  endpoint             = module.notify_queue.sqs_arn
+  raw_message_delivery = true
 
   filter_policy = jsonencode({
     SubmissionEventType = ["SUBMISSION_VALIDATION_SUCCEEDED"]

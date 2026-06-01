@@ -24,3 +24,21 @@ resource "kubernetes_secret" "route53_zone_sec" {
     nameservers = join("\n", aws_route53_zone.prod_reuselibrary_team_route53_zone.name_servers)
   }
 }
+
+resource "aws_route53_record" "delegate_dev" {
+  zone_id = aws_route53_zone.prod_reuselibrary_team_route53_zone.zone_id
+  name    = "dev.reuselibrary.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = 300
+
+  records = ["reuse-library-dev.apps.live.cloud-platform.service.justice.gov.uk"]
+}
+
+resource "aws_route53_record" "delegate_preprod" {
+  zone_id = aws_route53_zone.prod_reuselibrary_team_route53_zone.zone_id
+  name    = "preprod.reuselibrary.service.justice.gov.uk"
+  type    = "CNAME"
+  ttl     = 300
+
+  records = ["reuse-library-preprod.apps.live.cloud-platform.service.justice.gov.uk"]
+}

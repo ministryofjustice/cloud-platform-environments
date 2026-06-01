@@ -26,6 +26,12 @@ variable "business_unit" {
   default     = "HQ"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Cross-Gov Reuse Library"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -47,7 +53,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
@@ -68,4 +74,16 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
+variable "domain" {
+  default = "reuselibrary.service.justice.gov.uk"
+  type    = string
+}
 
