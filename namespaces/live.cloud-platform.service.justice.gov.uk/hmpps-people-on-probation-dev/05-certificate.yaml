@@ -9,7 +9,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - people-on-probation-dev.hmpps.service.justice.gov.uk
+    - probation-account-dev.hmpps.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
