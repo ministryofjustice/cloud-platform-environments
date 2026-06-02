@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: help-with-child-arrangements-production
+  namespace: moj-components-uat
 spec:
   hard:
     pods: "50"

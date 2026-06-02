@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-person-communication-needs-api-prod-check" {
   url                      = "/https/${var.domain}"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-person-communication-needs-api,component_healthcheck,isproduction_true,environment_prod"
+  tags                     = "businessunit_HMPPS,application_hmpps-person-communication-needs-api,component_healthcheck,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [132509] #connect-dps-prod-alerts
 }

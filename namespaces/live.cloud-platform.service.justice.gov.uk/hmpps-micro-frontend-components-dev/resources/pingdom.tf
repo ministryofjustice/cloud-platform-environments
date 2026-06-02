@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-micro-frontend-components-dev-check" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-micro-frontend-components,component_healthcheck,isproduction_false,environment_dev"
+  tags                     = "businessunit_HMPPS,application_hmpps-micro-frontend-components,component_healthcheck,isproduction_false,environment_dev,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [132508] #connect-dps-non-prod-alerts
 }
