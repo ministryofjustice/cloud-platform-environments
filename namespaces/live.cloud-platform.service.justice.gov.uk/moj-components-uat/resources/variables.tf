@@ -11,49 +11,55 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Help with child arrangements"
+  default     = "MoJ Components"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "help-with-child-arrangements-production"
+  default     = "moj-components-uat"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "LAA Digital"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "central-digital-product-team"
+  default     = "laa-apply-for-legal-aid"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "central-digital-product-team@digital.justice.gov.uk"
+  default     = "apply-for-civil-legal-aid@justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cdpt-child-arrangements-information-tool"
+  default     = "apply-dev"
 }
 
 variable "github_owner" {

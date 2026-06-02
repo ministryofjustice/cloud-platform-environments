@@ -1,8 +1,9 @@
+---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: help-with-child-arrangements-production
+  namespace: hmpps-electronic-monitoring-data-api-dev
 spec:
   hard:
     pods: "50"

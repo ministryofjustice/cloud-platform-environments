@@ -9,5 +9,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - electronic-monitoring-crime-matching-ui.hmpps.service.justice.gov.uk
+    - electronic-monitoring-crime-matching.hmpps.service.justice.gov.uk
     - electronic-monitoring-crime-matching-api.hmpps.service.justice.gov.uk
