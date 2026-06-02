@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-digital-prison-services-preprod-check" {
   url                      = "/https/dps-preprod.prison.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-digital-prison-services,component_healthcheck,isproduction_false,environment_preprod"
+  tags                     = "businessunit_HMPPS,application_hmpps-digital-prison-services,component_healthcheck,isproduction_false,environment_preprod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [132508] #connect-dps-non-prod-alerts
 }

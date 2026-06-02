@@ -13,7 +13,7 @@ resource "pingdom_check" "hmpps-approved-premises-ui" {
   url                      = "/https/approved-premises.hmpps.service.justice.gov.uk/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_approved-premises,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev"
+  tags                     = "businessunit_hmpps,application_approved-premises,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev,cloudplatform-managed"
   probefilters             = "region:EU"
 }
 
@@ -29,7 +29,7 @@ resource "pingdom_check" "hmpps-community-accommodation-tier-2-ui" {
   url                      = "/https/short-term-accommodation-cas-2.hmpps.service.justice.gov.uk/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_short-term-accommodation-cas-2,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev"
+  tags                     = "businessunit_hmpps,application_short-term-accommodation-cas-2,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev,cloudplatform-managed"
   probefilters             = "region:EU"
 }
 
@@ -45,7 +45,7 @@ resource "pingdom_check" "hmpps-temporary-accommodation-ui" {
   url                      = "/https/transitional-accommodation.hmpps.service.justice.gov.uk/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_temporary-accommodation,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev"
+  tags                     = "businessunit_hmpps,application_temporary-accommodation,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev,cloudplatform-managed"
   probefilters             = "region:EU"
 }
 
@@ -61,6 +61,6 @@ resource "pingdom_check" "hmpps-approved-premises-api" {
   url                      = "/https/approved-premises-api.hmpps.service.justice.gov.uk/health"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_approved-premises-api,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev"
+  tags                     = "businessunit_hmpps,application_approved-premises-api,component_healthcheck,isproduction_true,environment_production,infrastructuresupport_cas-dev,cloudplatform-managed"
   probefilters             = "region:EU"
 }

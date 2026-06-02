@@ -15,7 +15,7 @@ resource "pingdom_check" "hmpps-get-ready-for-work-production-check" {
   url                      = "/https/get-ready-for-work.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_get-ready-for-work,component_front-end,isproduction_true,environment_prod"
+  tags                     = "businessunit_hmpps,application_get-ready-for-work,component_front-end,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [130487]
 }
@@ -31,7 +31,7 @@ resource "pingdom_check" "hmpps-education-employment-api-check" {
   url                      = "/https/education-employment-api.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_hmpps,application_education-employment-api,component_api,isproduction_true,environment_prod"
+  tags                     = "businessunit_hmpps,application_education-employment-api,component_api,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [130487]
 }
