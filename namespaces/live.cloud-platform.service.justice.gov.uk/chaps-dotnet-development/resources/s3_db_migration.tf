@@ -13,6 +13,8 @@ locals {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_kms_key" "db_migration" {
   description             = "CHAPS ${var.environment} database migration s3 bucket"
   deletion_window_in_days = 30
@@ -26,7 +28,7 @@ resource "aws_kms_key" "db_migration" {
 
 resource "aws_kms_alias" "db_migration" {
   name          = "alias/${var.namespace}-db-migration"
-  target_key_id = aws_kms_key.db_migration_key_id
+  target_key_id = aws_kms_key.db_migration.key_id
 }
 
 resource "aws_s3_bucket" "db_migration" {
