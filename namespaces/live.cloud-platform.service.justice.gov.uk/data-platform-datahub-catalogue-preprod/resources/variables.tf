@@ -69,7 +69,7 @@ variable "github_owner" {
 }
 
 variable "owner" {
-  description = "Email address of the team responsible this service"
+  description = "Email address of the team responsible for this service"
   type        = string
   default     = "FMD: findmojdata@justice.gov.uk"
 }
