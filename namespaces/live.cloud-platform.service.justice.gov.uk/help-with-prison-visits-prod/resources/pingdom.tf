@@ -23,12 +23,12 @@ resource "pingdom_check" "help-with-prison-visits-external" {
 resource "pingdom_check" "help-with-prison-visits-internal" {
   type                     = "http"
   name                     = "${var.application}-internal"
-  host                     = "caseworker.help-with-prison-visits.service.gov.uk"
+  host                     = "health-kick.prison.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/ping"
+  url                      = "/https/caseworker.help-with-prison-visits.service.gov.uk/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.application}-internal,isproduction_${var.is_production},owner_prison-visits-booking,cloudplatform-managed"
