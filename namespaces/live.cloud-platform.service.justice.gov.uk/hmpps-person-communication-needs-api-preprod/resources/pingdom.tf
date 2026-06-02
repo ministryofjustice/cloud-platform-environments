@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-person-communication-needs-api-preprod-check" {
   url                      = "/https/${var.domain}"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-person-communication-needs-api,component_healthcheck,isproduction_false,environment_preprod"
+  tags                     = "businessunit_HMPPS,application_hmpps-person-communication-needs-api,component_healthcheck,isproduction_false,environment_preprod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [132508] #connect-dps-non-prod-alerts
 }

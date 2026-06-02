@@ -12,7 +12,7 @@ resource "pingdom_check" "hmpps-community-payback-ui" {
   url                      = "/https/community-payback.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_hmpps-community-payback-ui,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel}"
+  tags                     = "businessunit_${var.business_unit},application_hmpps-community-payback-ui,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel},cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [147808]
 }
@@ -28,7 +28,7 @@ resource "pingdom_check" "hmpps-community-payback-supervisors-ui" {
   url                      = "/https/community-payback-supervisors.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_community-payback-supervisors-ui,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel}"
+  tags                     = "businessunit_${var.business_unit},application_community-payback-supervisors-ui,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel},cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [147808]
 }
@@ -44,7 +44,7 @@ resource "pingdom_check" "hmpps-community-payback-api" {
   url                      = "/https/community-payback-api.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_hmpps-community-payback-api,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel}"
+  tags                     = "businessunit_${var.business_unit},application_hmpps-community-payback-api,component_healthcheck,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.slack_channel},cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [147808]
 }

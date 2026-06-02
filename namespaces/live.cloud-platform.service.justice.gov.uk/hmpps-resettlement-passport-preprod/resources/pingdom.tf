@@ -12,6 +12,6 @@ resource "pingdom_check" "resettlement-passport-preprod" {
   url                      = "/"
   encryption               = true
   port                     = 443
-  tags                     = "HMPPS,resettlementpassport,component_healthcheck,isproduction_false,environment_preprod"
+  tags                     = "HMPPS,resettlementpassport,component_healthcheck,isproduction_false,environment_preprod,cloudplatform-managed"
   probefilters             = "region:EU"
 }

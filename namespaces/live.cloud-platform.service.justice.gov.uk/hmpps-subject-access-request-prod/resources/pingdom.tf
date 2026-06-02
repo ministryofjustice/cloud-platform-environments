@@ -12,7 +12,7 @@ resource "pingdom_check" "subject-access-request-ui-prod-check" {
   url                      = "/https/subject-access-request.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod"
+  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [146296] #subject-access-request-alerts-prod
 }
@@ -28,7 +28,7 @@ resource "pingdom_check" "subject-access-request-api-prod-check" {
   url                      = "/https/subject-access-request-api.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod"
+  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [146296] #subject-access-request-alerts-prod
 }
@@ -44,7 +44,7 @@ resource "pingdom_check" "subject-access-request-worker-prod-check" {
   url                      = "/https/subject-access-request-worker.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod"
+  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [146296] #subject-access-request-alerts-prod
 }
@@ -60,7 +60,7 @@ resource "pingdom_check" "subject-access-request-html-renderer-prod-check" {
   url                      = "/https/subject-access-request-html-renderer.hmpps.service.justice.gov.uk"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod"
+  tags                     = "businessunit_HMPPS,application_hmpps-subject-access-request,component_healthcheck,isproduction_true,environment_prod,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [146296] #subject-access-request-alerts-prod
 }

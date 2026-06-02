@@ -15,7 +15,7 @@ resource "pingdom_check" "help-with-prison-visits-external" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application}-external,isproduction_${var.is_production},owner_prison-visits-booking"
+  tags                     = "businessunit_${var.business_unit},application_${var.application}-external,isproduction_${var.is_production},owner_prison-visits-booking,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [116039]
 }
@@ -31,7 +31,7 @@ resource "pingdom_check" "help-with-prison-visits-internal" {
   url                      = "/ping"
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application}-internal,isproduction_${var.is_production},owner_prison-visits-booking"
+  tags                     = "businessunit_${var.business_unit},application_${var.application}-internal,isproduction_${var.is_production},owner_prison-visits-booking,cloudplatform-managed"
   probefilters             = "region:EU"
   integrationids           = [116039]
 }
