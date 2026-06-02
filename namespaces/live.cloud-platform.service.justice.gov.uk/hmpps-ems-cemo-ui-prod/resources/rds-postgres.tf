@@ -14,7 +14,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "15"
   rds_family        = "postgres15"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.large"
 
   # Tags
   application            = var.application
