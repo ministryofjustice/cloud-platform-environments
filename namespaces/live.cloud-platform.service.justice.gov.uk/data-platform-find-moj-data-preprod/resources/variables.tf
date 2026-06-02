@@ -21,7 +21,7 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  description = "Area of the MOJ responsible for this service"
+  description = "Area of the MOJ responsible for the service"
   type        = string
   default     = "OCTO"
 }
