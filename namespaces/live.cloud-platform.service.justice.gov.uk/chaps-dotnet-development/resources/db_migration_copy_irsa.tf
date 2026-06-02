@@ -13,9 +13,16 @@ module "db_migration_copy_irsa" {
   namespace            = var.namespace
   service_account_name = "chaps-db-migration-copy"
 
-  role_policy_arns = [
-    aws_iam_policy.db_migration_copy.arn
-  ]
+  role_policy_arns = {
+    db_migration_copy = aws_iam_policy.db_migration_copy.arn
+  }
+
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  team_name              = var.team_name
 }
 
 
@@ -128,17 +135,17 @@ resource "aws_iam_policy" "db_migration_copy" {
   tags = local.db_migration_tags
 }
 
-output "db_migration_copy_service_account_name" {
-  value       = "chaps-db-migration-copy"
-  description = "Kubernetes service account used to copy CHAPS DB backups from MP S3 to CP S3"
-}
-
-output "db_migration_copy_policy_arn" {
-  value       = aws_iam_policy.db_migration_copy.arn
-  description = "IAM policy ARN for CHAPS DB migration copy role"
-}
-
 output "db_migration_copy_irsa_role_arn" {
-  value       = module.db_migration_copy_irsa.aws_iam_role_arn
+  value       = module.db_migration_copy_irsa.role_arn
   description = "IRSA role ARN that MP must allow to read/decrypt the migration backup"
+}
+
+output "db_migration_copy_irsa_role_name" {
+  value       = module.db_migration_copy_irsa.role_name
+  description = "IRSA role name used by the CHAPS DB migration copy service account"
+}
+
+output "db_migration_copy_service_account_name" {
+  value       = module.db_migration_copy_irsa.service_account.name
+  description = "Kubernetes service account used to copy CHAPS DB backups from MP S3 to CP S3"
 }
