@@ -44,7 +44,9 @@ data "aws_iam_policy_document" "db_migration_copy" {
       variable = "s3:prefix"
       values   = [
         local.db_migration_prefix,
+        "${local.db_migration_prefix}/",
         "${local.db_migration_prefix}/*"
+
       ]
     }
   }
@@ -92,7 +94,9 @@ data "aws_iam_policy_document" "db_migration_copy" {
       variable  = "s3:prefix"
       values    = [
         local.db_migration_prefix,
+        "${local.db_migration_prefix}/",
         "${local.db_migration_prefix}/*"
+
       ]
     }
   }
