@@ -404,6 +404,16 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
   }
 
   queue {
+    id        = "unify-metadata-upload-event"
+    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    events = [
+      "s3:ObjectCreated:*"
+    ]
+    filter_prefix = "unify_metadata/"
+    filter_suffix = ".json"
+  }
+
+  queue {
     id        = "transcript-creation-event-json"
     queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
     events = [
