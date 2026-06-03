@@ -16,6 +16,26 @@ module "hmpps_probation_mi_domain_events_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
+# Policy to allow SNS -> SQS
+data "aws_iam_policy_document" "sqs_queue_policy_document" {
+  statement {
+    sid     = "DomainEventsToQueue"
+    effect  = "Allow"
+    actions = ["sqs:SendMessage"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      variable = "aws:SourceArn"
+      test     = "ArnEquals"
+      values   = [data.aws_sns_topic.hmpps-domain-events.arn]
+    }
+    resources = ["*"]
+  }
+}
+
+
 resource "aws_sqs_queue_policy" "hmpps_probation_mi_domain_events_queue_policy" {
   queue_url = module.hmpps_probation_mi_domain_events_queue.sqs_id
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
