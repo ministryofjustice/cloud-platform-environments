@@ -142,7 +142,7 @@ resource "random_password" "dpr_password" {
   special = false
 
   keepers = {
-    last_changed = "2026-05-27"
+    last_changed = "2026-06-03"
   }
 }
 
