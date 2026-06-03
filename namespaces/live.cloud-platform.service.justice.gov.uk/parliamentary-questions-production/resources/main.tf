@@ -21,7 +21,7 @@ provider "aws" {
   alias  = "london"
   default_tags {
     tags = {
-      business-unit 4= var.business_unit
+      business-unit = var.business_unit
       application = var.application
       is-production = var.is_production
       owner = var.team_name
