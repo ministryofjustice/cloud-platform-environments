@@ -25,3 +25,31 @@ resource "kubernetes_secret" "route53_zone" {
     name_servers = join(", ", aws_route53_zone.route53_zone_hwpv.name_servers)
   }
 }
+
+resource "aws_route53_zone" "route53_zone_hwpv_justice" {
+  name = "caseworker.hwpv.service.justice.gov.uk"
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment-name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+  }
+}
+
+resource "kubernetes_secret" "route53_zone_justice" {
+  metadata {
+    name      = "route53-dns-zone-nameservers"
+    namespace = var.namespace
+    labels = {
+      "app.kubernetes.io/managed-by" = "terraform"
+    }
+  }
+
+  data = {
+    zone_id      = aws_route53_zone.route53_zone_hwpv_justice.zone_id
+    name_servers = join(", ", aws_route53_zone.route53_zone_hwpv_justice.name_servers)
+  }
+}
