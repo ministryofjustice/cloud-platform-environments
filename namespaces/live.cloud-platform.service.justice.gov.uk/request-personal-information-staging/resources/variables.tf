@@ -60,7 +60,7 @@ variable "repo_name" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Central Digital"
+  default     = "Central Victims and Vulnerability"
 }
 
 variable "slack_channel" {
