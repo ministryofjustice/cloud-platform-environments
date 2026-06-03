@@ -65,3 +65,21 @@ spec:
         severity: hale-platform-alerts
       annotations:
         message: "Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled."
+    - alert: ElastiCacheCPUUtilizationHigh
+      expr: aws_elasticache_cpuutilization_average{cache_cluster_id=~"cp-b21c20f5093c5a67-00[12]"} > 70
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+      annotations:
+        message: ElastiCache instance {{ $labels.cache_cluster_id }} CPU utilization is above 70%.
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?var-cacheclusterId={{ $labels.cache_cluster_id }}
+    - alert: ElastiCacheFreeableMemoryLow
+      expr: aws_elasticache_freeable_memory_average{cache_cluster_id=~"cp-b21c20f5093c5a67-00[12]"} < 200000000
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+      annotations:
+        message: ElastiCache instance {{ $labels.cache_cluster_id }} freeable memory is below 200MB.
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?var-cacheclusterId={{ $labels.cache_cluster_id }}
