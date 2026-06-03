@@ -4,6 +4,9 @@ module "secret" {
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
+  # Secrets configuration
+  secrets = {}
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
