@@ -80,4 +80,3 @@ resource "aws_iam_role_policy_attachment" "mp_secrets_read" {
   role       = aws_iam_role.mp_secrets_access.name
   policy_arn = aws_iam_policy.mp_secrets_read.arn
 }
-
