@@ -27,7 +27,7 @@ resource "kubernetes_secret" "route53_zone" {
 }
 
 resource "aws_route53_zone" "route53_zone_hwpv_justice" {
-  name = "caseworker.hwpv.service.justice.gov.uk"
+  name = "caseworker.hwpv.hmpps.service.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit

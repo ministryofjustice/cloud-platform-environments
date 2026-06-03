@@ -50,4 +50,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - caseworker.help-with-prison-visits.service.gov.uk
-    - caseworker.hwpv.service.justice.gov.uk
+    - caseworker.hwpv.hmpps.service.justice.gov.uk
