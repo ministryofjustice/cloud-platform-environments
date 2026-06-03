@@ -8,9 +8,9 @@ module "ecr" {
   deletion_protection = false
 
   # OpenID Connect configuration
-  # Commented out to completely stop the 409 GitHub Variable collisions
-  # oidc_providers      = ["github"]
-  # github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
+  
+  oidc_providers      = ["github"]
+  github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
 
   # Tags
   business_unit          = var.business_unit
