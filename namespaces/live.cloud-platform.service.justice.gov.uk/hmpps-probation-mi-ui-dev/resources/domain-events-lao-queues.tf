@@ -1,7 +1,7 @@
 module "hmpps_probation_mi_domain_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name = "hmpps_probation_mi_domain_events_queue"
+  sqs_name = "domain_events_queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_probation_mi_domain_events_dlq.sqs_arn
     maxReceiveCount     = 3
