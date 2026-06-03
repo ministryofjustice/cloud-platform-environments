@@ -80,7 +80,7 @@ resource "kubernetes_secret" "hmpps_person_on_probation_audit_dead_letter_queue_
 
 resource "kubernetes_secret" "approved_person_on_probation_audit_client_arns" {
   metadata {
-    name = "approved-person_on_probation-audit-client-arns"
+    name = "approved-person-on-probation-audit-client-arns"
     namespace = var.namespace
   }
 }
