@@ -122,6 +122,7 @@ data "aws_iam_policy_document" "db_migration_copy" {
 
     actions = [
       "kms:Encrypt",
+      "kms:Decrypt",
       "kms:GenerateDataKey",
       "kms:DescribeKey"
     ]
