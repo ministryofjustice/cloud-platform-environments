@@ -20,6 +20,9 @@ module "hmpps_court_data_prisoner_created_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  
+  # Delay recieving messages for other services to process event first.
+  delay_seconds          = 600
 
   providers = {
     aws = aws.london
@@ -108,7 +111,8 @@ resource "aws_sns_topic_subscription" "hmpps_court_data_prisoner_created_subscri
   endpoint  = module.hmpps_court_data_prisoner_created_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prisoner-offender-search.prisoner.created"
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.updated"
     ]
   })
 }
