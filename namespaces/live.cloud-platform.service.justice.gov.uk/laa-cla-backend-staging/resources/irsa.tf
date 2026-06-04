@@ -17,8 +17,6 @@ module "irsa" {
     s3_cla_backend_deleted_objects_bucket = module.cla_backend_deleted_objects_bucket.irsa_policy_arn
     s3_cla_backend_static_files_bucket    = module.cla_backend_static_files_bucket.irsa_policy_arn
     sqs_laa_cla_backend_staging_sqs       = module.laa_cla_backend_staging_sqs.irsa_policy_arn
-    rds_cla_backend_snapshot_restore      = module.cla_backend_snapshot_restore.irsa_policy_arn
-    rds_cla_backend_intermediary          = module.cla_backend_intermediary.irsa_policy_arn
   }
 
   # Tags
