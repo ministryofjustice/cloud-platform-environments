@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: https://reuselibrary.service.justice.gov.uk/$1
+    external-dns.alpha.kubernetes.io/set-identifier: reuse-library-dev-redirect-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  labels:
+    app: reuse-library-dev
+  name: reuse-library-dev-redirect
+  namespace: reuse-library-dev
+spec:
+  ingressClassName: default
+  rules:
+  - host: dev.reuselibrary.service.justice.gov.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: reuse-library-dev
+            port:
+              name: http
+        path: /(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - dev.reuselibrary.service.justice.gov.uk
+    secretName: reuse-library-cert
