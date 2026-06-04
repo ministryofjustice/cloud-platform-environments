@@ -63,6 +63,11 @@ variable "approved_prisoner_audit_clients" {
   default = ["hmpps-launchpad-dev", "prisoner-content-hub-development"]
 }
 
+variable "approved_person_on_probation_audit_clients" {
+  type    = list(string)
+  default = []
+}
+
 
 variable "kubernetes_cluster" {}
 
