@@ -76,111 +76,111 @@ resource "kubernetes_secret" "hmpps_person_on_probation_audit_dead_letter_queue_
   }
 }
 
-#
-# # queue permissions for other services
-#
-# resource "kubernetes_secret" "approved_person_on_probation_audit_client_arns" {
-#   metadata {
-#     name = "approved-person-on-probation-audit-client-arns"
-#     namespace = var.namespace
-#   }
-# }
-#
-# data "kubernetes_secret" "approved_person_on_probation_audit_client_arns" {
-#   metadata {
-#     name      = kubernetes_secret.approved_person_on_probation_audit_client_arns.metadata[0].name
-#     namespace = var.namespace
-#   }
-# }
-#
-# locals {
-#   person_on_probation_audit_client_arns = [for approved_client in var.approved_person_on_probation_audit_clients : data.kubernetes_secret.approved_person_on_probation_audit_client_arns.data[approved_client]]
-#
-#   person_on_probation_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
-#
-#   person_on_probation_audit_arns_with_send_access = concat(local.person_on_probation_audit_client_arns, local.person_on_probation_audit_arns_with_manage_access)
-# }
-#
-# data "aws_iam_policy_document" "hmpps_person_on_probation_audit_queue_policy" {
-#   version   = "2012-10-17"
-#   policy_id = "${module.hmpps_person_on_probation_audit_queue.sqs_arn}/SQSDefaultPolicy"
-#
-#   # Deny manage actions to everyone except the listed principals
-#   statement {
-#     sid    = "DenyPersonOnProbationAuditQueueManage"
-#     effect = "Deny"
-#
-#     actions = [
-#       "sqs:ReceiveMessage",
-#       "sqs:DeleteMessage",
-#       "sqs:PurgeQueue",
-#       "sqs:ChangeMessageVisibility",
-#     ]
-#
-#     resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
-#
-#     principals {
-#       type        = "*"
-#       identifiers = ["*"]
-#     }
-#
-#     condition {
-#       test     = "ArnNotEquals"
-#       variable = "aws:PrincipalArn"
-#       values   = local.person_on_probation_audit_arns_with_manage_access
-#     }
-#   }
-#
-#   # Deny send to everyone except the listed principals
-#   statement {
-#     sid    = "DenyPersonOnProbationAuditQueueSend"
-#     effect = "Deny"
-#
-#     actions   = ["sqs:SendMessage"]
-#     resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
-#
-#     principals {
-#       type        = "*"
-#       identifiers = ["*"]
-#     }
-#
-#     condition {
-#       test     = "ArnNotEquals"
-#       variable = "aws:PrincipalArn"
-#       values   = local.person_on_probation_audit_arns_with_send_access
-#     }
-#   }
-#
-#   # Allow send to the permitted principals
-#   statement {
-#     sid    = "AllowPersonOnProbationAuditQueueSend"
-#     effect = "Allow"
-#
-#     actions   = ["sqs:SendMessage"]
-#     resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
-#
-#     principals {
-#       type        = "AWS"
-#       identifiers = local.person_on_probation_audit_arns_with_send_access
-#     }
-#   }
-#
-#   # Allow full manage to the permitted principals
-#   statement {
-#     sid    = "Allowperson_on_probationAuditQueueManage"
-#     effect = "Allow"
-#
-#     actions   = ["sqs:*"]
-#     resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
-#
-#     principals {
-#       type        = "AWS"
-#       identifiers = local.person_on_probation_audit_arns_with_manage_access
-#     }
-#   }
-# }
-#
-# resource "aws_sqs_queue_policy" "hmpps_person_on_probation_audit_queue_policy" {
-#   queue_url = module.hmpps_person_on_probation_audit_queue.sqs_id
-#   policy    = data.aws_iam_policy_document.hmpps_person_on_probation_audit_queue_policy.json
-# }
+
+# queue permissions for other services
+
+resource "kubernetes_secret" "approved_person_on_probation_audit_client_arns" {
+  metadata {
+    name = "approved-person-on-probation-audit-client-arns"
+    namespace = var.namespace
+  }
+}
+
+data "kubernetes_secret" "approved_person_on_probation_audit_client_arns" {
+  metadata {
+    name      = kubernetes_secret.approved_person_on_probation_audit_client_arns.metadata[0].name
+    namespace = var.namespace
+  }
+}
+
+locals {
+  person_on_probation_audit_client_arns = [for approved_client in var.approved_person_on_probation_audit_clients : data.kubernetes_secret.approved_person_on_probation_audit_client_arns.data[approved_client]]
+
+  person_on_probation_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
+
+  person_on_probation_audit_arns_with_send_access = concat(local.person_on_probation_audit_client_arns, local.person_on_probation_audit_arns_with_manage_access)
+}
+
+data "aws_iam_policy_document" "hmpps_person_on_probation_audit_queue_policy" {
+  version   = "2012-10-17"
+  policy_id = "${module.hmpps_person_on_probation_audit_queue.sqs_arn}/SQSDefaultPolicy"
+
+  # Deny manage actions to everyone except the listed principals
+  statement {
+    sid    = "DenyPersonOnProbationAuditQueueManage"
+    effect = "Deny"
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:PurgeQueue",
+      "sqs:ChangeMessageVisibility",
+    ]
+
+    resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnNotEquals"
+      variable = "aws:PrincipalArn"
+      values   = local.person_on_probation_audit_arns_with_manage_access
+    }
+  }
+
+  # Deny send to everyone except the listed principals
+  statement {
+    sid    = "DenyPersonOnProbationAuditQueueSend"
+    effect = "Deny"
+
+    actions   = ["sqs:SendMessage"]
+    resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnNotEquals"
+      variable = "aws:PrincipalArn"
+      values   = local.person_on_probation_audit_arns_with_send_access
+    }
+  }
+
+  # Allow send to the permitted principals
+  statement {
+    sid    = "AllowPersonOnProbationAuditQueueSend"
+    effect = "Allow"
+
+    actions   = ["sqs:SendMessage"]
+    resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
+
+    principals {
+      type        = "AWS"
+      identifiers = local.person_on_probation_audit_arns_with_send_access
+    }
+  }
+
+  # Allow full manage to the permitted principals
+  statement {
+    sid    = "Allowperson_on_probationAuditQueueManage"
+    effect = "Allow"
+
+    actions   = ["sqs:*"]
+    resources = [module.hmpps_person_on_probation_audit_queue.sqs_arn]
+
+    principals {
+      type        = "AWS"
+      identifiers = local.person_on_probation_audit_arns_with_manage_access
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "hmpps_person_on_probation_audit_queue_policy" {
+  queue_url = module.hmpps_person_on_probation_audit_queue.sqs_id
+  policy    = data.aws_iam_policy_document.hmpps_person_on_probation_audit_queue_policy.json
+}
