@@ -17,9 +17,7 @@ module "dps_rds" {
   db_engine                   = "postgres"
   rds_family                  = "postgres18"
   db_password_rotated_date    = "15-02-2023"
-  prepare_for_major_upgrade   = true
-
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  prepare_for_major_upgrade   = false
 
   db_parameter = [
     {
@@ -87,4 +85,50 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
 
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
+}
+
+module "read_replica" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name               = var.vpc_name
+  allow_minor_version_upgrade  = true
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # PostgreSQL specifics
+  db_engine             = "postgres"
+  db_engine_version     = "18"
+  rds_family            = "postgres18"
+  db_instance_class     = "db.t4g.medium"
+
+  # It is mandatory to set the below values to create read replica instance
+  # Set the db_identifier of the source db
+  replicate_source_db = module.dps_rds.db_identifier
+
+  # No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+}
+
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_address  = module.read_replica.rds_instance_address
+    database_name         = module.read_replica.database_name
+    database_username     = module.read_replica.database_username
+    database_password     = module.read_replica.database_password
+  }
 }
