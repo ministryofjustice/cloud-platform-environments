@@ -11,13 +11,13 @@ module "prisons_rds" {
 
   enable_rds_auto_start_stop  = true
 
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_instance_class           = "db.t4g.micro"
-  rds_family                  = "postgres16"
+  rds_family                  = "postgres18"
   db_engine                   = "postgres"
-  db_engine_version           = "16.13"
+  db_engine_version           = "18.3"
   deletion_protection         = true
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
 
   db_max_allocated_storage    = "500"
 
