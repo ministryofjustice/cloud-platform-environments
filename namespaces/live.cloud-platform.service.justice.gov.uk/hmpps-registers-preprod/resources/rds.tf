@@ -9,7 +9,7 @@ module "prisons_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop  = false
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
