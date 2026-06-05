@@ -1,7 +1,7 @@
 locals {
   db_migration_environment_short_name = "dev"
   db_migration_prefix = "native-backups/${local.db_migration_environment_short_name}"
-  db_migration_bucket_name = "${var.namespace}-db-migration-${data.aws_caller_identity.current.account_id}"
+  db_migration_bucket_name = "chaps-${local.db_migration_environment_short_name}-db-migration-${data.aws_caller_identity.current.account_id}"
 
 
   db_migration_tags = {
