@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "ssm_policy" {
       "ssm:PutParameter"
     ]
     resources = [
-      "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_general_role_arn", 
+      "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/emd_validation_db_read_data_prod",
     ]
   }
 }
