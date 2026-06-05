@@ -119,30 +119,32 @@ module "s3_bucket" {
    */
 
   /*
-   * Allow a user (foobar) from another account (012345678901) to get objects from
-   * this bucket.
-   *
-
-   bucket_policy = <<EOF
+   * Full access bucket policy for a specific principal.
+   * NOTE: Replace the Principal ARN below with the real role/user before applying.
+   * Do NOT use "*" as the Principal - that exposes the bucket publicly.
+   */
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "FullAccessForSpecificPrincipal",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::012345678901:user/foobar"
+        "AWS": [
+          "arn:aws:sts::754256621582:assumed-role/access-via-github/chedburgh",
+          "arn:aws:sts::754256621582:assumed-role/access-via-github/eunanhardy131"
+        ]
       },
-      "Action": [
-        "s3:GetObject"
-      ],
+      "Action": "s3:*",
       "Resource": [
+        "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
     }
   ]
 }
 EOF
-*/
 
   /*
    * OIDC for GitHub Actions
