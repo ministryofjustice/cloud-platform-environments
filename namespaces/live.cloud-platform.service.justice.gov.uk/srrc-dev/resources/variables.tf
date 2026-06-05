@@ -35,7 +35,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "central-digital-product-team"
+  default     = "SRRC-Dev-Team"
 }
 
 variable "environment" {
@@ -47,7 +47,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "central-digital-product-team@digital.justice.gov.uk"
+  default     = "0bd4a7e8.JusticeUK.onmicrosoft.com@uk.teams.ms"
 }
 
 variable "is_production" {
