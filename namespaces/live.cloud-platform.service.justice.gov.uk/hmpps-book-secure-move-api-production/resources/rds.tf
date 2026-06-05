@@ -14,6 +14,9 @@ module "rds-instance" {
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
 
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
   performance_insights_enabled = true
 
   db_allocated_storage = 200
@@ -53,6 +56,11 @@ module "rds-instance" {
     {
       name         = "wal_sender_timeout"
       value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
       apply_method = "immediate"
     }
   ]
