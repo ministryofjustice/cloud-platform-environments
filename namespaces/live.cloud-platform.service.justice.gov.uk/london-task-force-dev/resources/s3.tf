@@ -132,8 +132,8 @@ module "s3_bucket" {
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam::754256621582:user/access-via-github/chedburgh",
-          "arn:aws:iam::754256621582:user/access-via-github/eunanhardy131"
+          "arn:aws:sts::754256621582:assumed-role/access-via-github/chedburgh",
+          "arn:aws:sts::754256621582:assumed-role/access-via-github/eunanhardy131"
         ]
       },
       "Action": "s3:*",
