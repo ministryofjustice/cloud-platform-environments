@@ -14,12 +14,14 @@ module "prisons_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
+  prepare_for_major_upgrade = true
   db_instance_class         = "db.t4g.small"
-  rds_family                = "postgres16"
-  db_engine_version         = "16.8"
+  rds_family                = "postgres18"
+  db_engine_version         = "18.3"
   deletion_protection       = true
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
+  enable_irsa = true
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -33,7 +35,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
@@ -86,8 +88,8 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.8"
-  rds_family        = "postgres16"
+  db_engine_version = "18.3"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.small"
 
   # It is mandatory to set the below values to create read replica instance
@@ -107,7 +109,7 @@ module "dps_rds_replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
