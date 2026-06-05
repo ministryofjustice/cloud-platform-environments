@@ -101,3 +101,21 @@ spec:
       for: 3m
       labels:
         severity: hale-platform-alerts
+    - alert: ElastiCacheCPUUtilizationHigh
+      expr: aws_elasticache_cpuutilization_average{cache_cluster_id=~"cp-446afdc7bffd793f-00[12]"} > 70
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+      annotations:
+        message: ElastiCache instance {{ $labels.cache_cluster_id }} CPU utilization is above 70%.
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?var-cacheclusterId={{ $labels.cache_cluster_id }}
+    - alert: ElastiCacheFreeableMemoryLow
+      expr: aws_elasticache_freeable_memory_average{cache_cluster_id=~"cp-446afdc7bffd793f-00[12]"} < 500000000
+      for: 0m
+      labels:
+        severity: hale-platform-alerts
+      annotations:
+        message: ElastiCache instance {{ $labels.cache_cluster_id }} freeable memory is below 500MB.
+        dashboard_url: >-
+          https://grafana.live.cloud-platform.service.justice.gov.uk/d/nK7rpiQZk/aws-elasticache-redis?var-cacheclusterId={{ $labels.cache_cluster_id }}

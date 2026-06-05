@@ -13,9 +13,9 @@ module "prisons_rds" {
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
-  rds_family                  = "postgres16"
+  rds_family                  = "postgres18"
   db_engine                   = "postgres"
-  db_engine_version           = "16.8"
+  db_engine_version           = "18.3"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
 
@@ -32,7 +32,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {

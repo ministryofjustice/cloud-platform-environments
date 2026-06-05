@@ -1,3 +1,7 @@
+variable "eks_cluster_name" {
+  description = "The name of the cluster (eg.: cloud-platform-live-0)"
+}
+
 variable "vpc_name" {
   description = "VPC name to create security groups in for the ElastiCache and RDS modules"
   type        = string
