@@ -16,4 +16,5 @@ module "james_kotlin_test" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  vpc_name                      = var.vpc_name               
 }
