@@ -19,7 +19,7 @@ resource "kubernetes_secret" "application-insights" {
     namespace = var.namespace
   }
   data = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = data.aws_ssm_parameter.application_insights_key.value
-    APPLICATIONINSIGHTS_CONNECTION_STRING = format("%s%s","InstrumentationKey=",data.aws_ssm_parameter.application_insights_key.value)
+    APPINSIGHTS_INSTRUMENTATIONKEY        = data.aws_ssm_parameter.application_insights_key.value
+    APPLICATIONINSIGHTS_CONNECTION_STRING = format("%s%s", "InstrumentationKey=", data.aws_ssm_parameter.application_insights_key.value)
   }
 }
