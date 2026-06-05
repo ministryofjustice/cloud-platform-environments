@@ -73,3 +73,13 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "basic-auth-username" {
+  description = "Basic auth. username of the deployed prototype website"
+  default     = "london-task-force"
+}
+
+variable "basic-auth-password" {
+  description = "Basic auth. password of the deployed prototype website"
+  default     = "MyCat8ADog"
+}
