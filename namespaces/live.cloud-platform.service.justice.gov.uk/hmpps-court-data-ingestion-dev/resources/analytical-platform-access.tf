@@ -112,7 +112,7 @@ resource "kubernetes_secret" "ap_irsa" {
 
 # set up the service pod
 module "ap_service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # use the latest release
 
   # Configuration
   namespace            = var.namespace
