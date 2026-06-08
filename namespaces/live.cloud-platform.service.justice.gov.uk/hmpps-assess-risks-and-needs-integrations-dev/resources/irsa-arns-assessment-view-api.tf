@@ -3,9 +3,11 @@ module "irsa_arns_assessment_view_api" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-assess-risks-and-needs-coordinator-api"
+  service_account_name = "hmpps-assess-risks-and-needs-assessment-view-api"
 
-  role_policy_arns = local.arns_coordinator_api_sqs_policies
+  role_policy_arns = {
+    arns_coordinator_queue = module.arns_coordinator_queue.irsa_policy_arn
+  }
 
   business_unit          = var.business_unit
   application            = var.application

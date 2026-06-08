@@ -27,7 +27,7 @@ module "arns_coordinator_dead_letter_queue" {
 
   # Queue configuration
   sqs_name        = "arns_coordinator_dlq"
-  encrypt_sqs_kms = "true"
+  encrypt_sqs_kms = true
 
   # Tags
   business_unit          = var.business_unit
@@ -46,9 +46,9 @@ resource "kubernetes_secret" "arns_coordinator_queue" {
   }
 
   data = {
-    sqs_id   = module.arns_coordinator_queue.sqs_id
-    sqs_arn  = module.arns_coordinator_queue.sqs_arn
-    sqs_name = module.arns_coordinator_queue.sqs_name
+    sqs_queue_url  = module.arns_coordinator_queue.sqs_id
+    sqs_queue_arn  = module.arns_coordinator_queue.sqs_arn
+    sqs_queue_name = module.arns_coordinator_queue.sqs_name
   }
 }
 
@@ -59,8 +59,8 @@ resource "kubernetes_secret" "arns_coordinator_dead_letter_queue" {
   }
 
   data = {
-    sqs_id   = module.arns_coordinator_dead_letter_queue.sqs_id
-    sqs_arn  = module.arns_coordinator_dead_letter_queue.sqs_arn
-    sqs_name = module.arns_coordinator_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.arns_coordinator_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.arns_coordinator_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.arns_coordinator_dead_letter_queue.sqs_name
   }
 }
