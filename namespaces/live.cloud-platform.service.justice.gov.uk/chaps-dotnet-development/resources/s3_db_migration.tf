@@ -1,7 +1,7 @@
 locals {
   db_migration_environment_short_name = "dev"
-  db_migration_prefix = "native-backups/${local.db_migration_environment_short_name}"
-  db_migration_bucket_name = "${var.namespace}-db-migration-${data.aws_caller_identity.current.account_id}"
+  db_migration_prefix                 = "native-backups/${local.db_migration_environment_short_name}"
+  db_migration_bucket_name            = "chaps-${local.db_migration_environment_short_name}-db-migration-${data.aws_caller_identity.current.account_id}"
 
 
   db_migration_tags = {
@@ -34,7 +34,7 @@ resource "aws_kms_alias" "db_migration" {
 }
 
 resource "aws_s3_bucket" "db_migration" {
-  bucket     = local.db_migration_bucket_name
+  bucket = local.db_migration_bucket_name
 
   tags = merge(local.db_migration_tags, {
     Name     = local.db_migration_bucket_name

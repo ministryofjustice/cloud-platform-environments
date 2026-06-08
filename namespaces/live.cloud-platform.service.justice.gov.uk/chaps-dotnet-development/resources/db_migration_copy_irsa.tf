@@ -118,7 +118,7 @@ data "aws_iam_policy_document" "db_migration_copy" {
   }
 
   statement {
-    sid = "EncryptCpMigrationBackupObjects"
+    sid = "UseCpMigrationBackupKmsKey"
 
     actions = [
       "kms:Encrypt",

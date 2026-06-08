@@ -128,7 +128,9 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
           StringLike    = { 
             "s3:prefix" = [
               local.db_migration_prefix,
+              "${local.db_migration_prefix}/",
               "${local.db_migration_prefix}/*"
+
             ]
           }
         }
