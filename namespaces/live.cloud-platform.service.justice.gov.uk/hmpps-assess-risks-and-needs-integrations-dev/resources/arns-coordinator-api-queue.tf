@@ -39,7 +39,7 @@ module "arns_coordinator_dead_letter_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "bulk_comparison_queue" {
+resource "kubernetes_secret" "arns_coordinator_queue" {
   metadata {
     name      = "sqs-arns-coordinator-queue"
     namespace = var.namespace
@@ -52,7 +52,7 @@ resource "kubernetes_secret" "bulk_comparison_queue" {
   }
 }
 
-resource "kubernetes_secret" "bulk_comparison_dead_letter_queue" {
+resource "kubernetes_secret" "arns_coordinator_dead_letter_queue" {
   metadata {
     name      = "sqs-arns-coordinator-dlq"
     namespace = var.namespace

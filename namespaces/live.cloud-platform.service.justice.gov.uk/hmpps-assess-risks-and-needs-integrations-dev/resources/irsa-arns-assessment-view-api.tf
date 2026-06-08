@@ -9,7 +9,7 @@ locals {
   }
 }
 
-module "irsa_arns_coordinator_api" {
+module "irsa_arns_assessment_view_api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
