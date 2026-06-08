@@ -13,7 +13,7 @@ resource "aws_route53_zone" "pfl_cs_route53_zone" {
   }
 }
 
-# add a txt record to the zone to verify ownership of the domain with Entra ID
+# add a txt record to the zone to verify ownership of the domain with Microsoft Entra ID
 resource "aws_route53_record" "entra_id_verification" {
   zone_id = aws_route53_zone.pfl_cs_route53_zone.zone_id
   name    = var.domain
