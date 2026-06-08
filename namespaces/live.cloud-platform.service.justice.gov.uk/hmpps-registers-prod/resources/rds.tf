@@ -21,7 +21,7 @@ module "prisons_rds" {
   deletion_protection       = true
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
-  enable_irsa = true
+  enable_irsa = false
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -35,7 +35,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
@@ -69,7 +69,7 @@ module "prisons_rds" {
 
 module "dps_rds_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -163,7 +163,7 @@ resource "kubernetes_secret" "prisons_rds" {
 
 resource "kubernetes_secret" "dps_rds_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "dps-rds-read-replica-output"
@@ -173,8 +173,8 @@ resource "kubernetes_secret" "dps_rds_replica" {
   # The database_username, database_password, database_name values are same as the source RDS instance.
   # Uncomment if count > 0
 
-  data = {
-    rds_instance_endpoint = module.dps_rds_replica[0].rds_instance_endpoint
-    rds_instance_address  = module.dps_rds_replica[0].rds_instance_address
-  }
+  #data = {
+  #  rds_instance_endpoint = module.dps_rds_replica[0].rds_instance_endpoint
+  #  rds_instance_address  = module.dps_rds_replica[0].rds_instance_address
+  #}
 }
