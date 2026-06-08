@@ -73,3 +73,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "GitHub Actions service account name for srrc-dev namespace"
+  default     = "srrc-dev"
+}
