@@ -21,6 +21,8 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
+    { rds = module.prisons_rds.irsa_policy_arn },
+    { redis = module.hmpps_registers_elasticache_redis.irsa_policy_arn },
   )
   # Tags
   business_unit          = var.business_unit
