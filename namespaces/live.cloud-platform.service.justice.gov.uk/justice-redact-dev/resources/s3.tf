@@ -143,6 +143,7 @@ module "s3_bucket" {
 }
 EOF
 */
+  versioning             = true
 
   /*
    * OIDC for GitHub Actions
