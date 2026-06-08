@@ -3,7 +3,7 @@ module "arns_coordinator_queue" {
 
   # Queue configuration
   sqs_name                   = "arns_coordinator_queue"
-  encrypt_sqs_kms            = "true"
+  encrypt_sqs_kms            = true
   message_retention_seconds  = 345600
   visibility_timeout_seconds = 120
 
