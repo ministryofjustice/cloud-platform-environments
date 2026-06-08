@@ -165,7 +165,7 @@ resource "kubernetes_secret" "prisons_rds" {
 
 resource "kubernetes_secret" "dps_rds_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "dps-rds-read-replica-output"
