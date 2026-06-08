@@ -21,7 +21,7 @@ module "prisons_rds" {
   deletion_protection       = true
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
-  enable_irsa = true
+  enable_irsa = false
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -35,7 +35,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
