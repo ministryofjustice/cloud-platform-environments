@@ -63,7 +63,7 @@ resource "kubernetes_secret" "hmpps_person_on_probation_audit_queue_secret" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_prisoner_audit_dead_letter_queue_secret" {
+resource "kubernetes_secret" "hmpps_person_on_probation_audit_dead_letter_queue_secret" {
   metadata {
     name      = "sqs-person-on-probation-audit-queue-dl-secret"
     namespace = var.namespace
@@ -75,7 +75,6 @@ resource "kubernetes_secret" "hmpps_prisoner_audit_dead_letter_queue_secret" {
     sqs_queue_name = module.hmpps_person_on_probation_audit_dead_letter_queue.sqs_name
   }
 }
-
 
 # queue permissions for other services
 
