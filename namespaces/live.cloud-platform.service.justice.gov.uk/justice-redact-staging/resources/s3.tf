@@ -144,6 +144,8 @@ module "s3_bucket" {
 EOF
 */
 
+  versioning             = true
+  
   /*
    * OIDC for GitHub Actions
    * This allows GitHub Actions to access the S3 bucket using OIDC.

@@ -77,3 +77,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "ap_account_id" {
+  description = "AWS account ID of the MoJ Analytical Platform"
+  type        = string
+  default     = "593291632749"
+}
