@@ -84,17 +84,9 @@ resource "aws_db_option_group" "sqlserver_backup_restore" {
   }
 }
 
-variable "backup_bucket" { 
-  type = string 
-  default = "tp-dbbackups"
-  description = "S3 bucket that stores SQL Server .bak files" 
-}        
-
-variable "backup_prefix" { 
-  type = string 
-  default = "chaps-dev/"
-  description = "Key prefix within the backup bucket" 
-} 
+locals {
+  db_migration_objects_prefix_arn = "${aws_s3_bucket.db_migration.arn}/${local.db_migration_prefix}/*"
+}
 
 
 resource "aws_iam_role" "rds_s3_backup_restore" {
@@ -110,12 +102,6 @@ resource "aws_iam_role" "rds_s3_backup_restore" {
 }
 
 
-locals {
-  bucket_arn         = format("arn:aws:s3:::%s", var.backup_bucket)
-  objects_prefix_arn = format("arn:aws:s3:::%s/%s*", var.backup_bucket, var.backup_prefix)
-}
-
-
 # Least-privilege inline policy: list bucket + R/W objects in the prefix
 resource "aws_iam_role_policy" "rds_s3_backup_restore" {
   name = "${var.namespace}-rds-s3-backup-restore"
@@ -128,28 +114,48 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Sid      = "BucketLocation"
         Effect   = "Allow"
         Action   = ["s3:GetBucketLocation"]
-        Resource = local.bucket_arn
+        Resource = aws_s3_bucket.db_migration.arn
       },
       {
         Sid             = "ListBucket"
         Effect          = "Allow"
         Action          = ["s3:ListBucket"]
-        Resource        = local.bucket_arn
+        Resource        = aws_s3_bucket.db_migration.arn
         Condition       = {
           StringLike    = { 
             "s3:prefix" = [
-              format("%s*", var.backup_prefix), 
-              var.backup_prefix
+              local.db_migration_prefix,
+              "${local.db_migration_prefix}/",
+              "${local.db_migration_prefix}/*"
+
             ]
           }
         }
       },
       {
-        Sid      = "RWPrefix",
-        Effect   = "Allow",
-        Action   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
-        Resource = local.objects_prefix_arn
+        Sid     = "ReadWriteBackupObjects"
+        Effect  = "Allow"
+        Action  = [
+          "s3:GetObject",
+          "s3:GetObjectAttributes",
+          "s3:ListMultipartUploadParts",
+          "s3:PutObject",
+          "s3:AbortMultipartUpload"
+        ]
+        Resource = local.db_migration_objects_prefix_arn
+      },
+      {
+        Sid     = "UseCpBackupKmsKey"
+        Effect  = "Allow"
+        Action  = [
+          "kms:Decrypt",
+          "kms:Encrypt",
+          "kms:DescribeKey",
+          "kms:GenerateDataKey"
+        ]
+        Resource = aws_kms_key.db_migration.arn
       }
     ]
   })
 }
+
