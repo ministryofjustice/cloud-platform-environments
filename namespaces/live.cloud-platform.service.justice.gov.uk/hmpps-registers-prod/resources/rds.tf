@@ -141,6 +141,8 @@ module "dps_rds_replica" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prisons_rds" {
