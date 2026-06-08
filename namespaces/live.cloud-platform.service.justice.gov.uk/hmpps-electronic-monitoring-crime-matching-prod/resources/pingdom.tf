@@ -1,0 +1,17 @@
+provider "pingdom" {
+}
+
+resource "pingdom_check" "hmpps_electronic_monitoring_crime_matching_ui_prod" {
+  type                     = "http"
+  name                     = "Electronic Monitoring Crime Matching UI - prod - ping"
+  host                     = "electronic-monitoring-crime-matching-ui.hmpps.service.justice.gov.uk"
+  resolution               = 1
+  notifywhenbackup         = true
+  sendnotificationwhendown = 6
+  notifyagainevery         = 0
+  url                      = "/ping"
+  encryption               = true
+  port                     = 443
+  tags                     = "businessunit_${var.business_unit},application_${var.namespace},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
+  probefilters             = "region:EU"
+}
