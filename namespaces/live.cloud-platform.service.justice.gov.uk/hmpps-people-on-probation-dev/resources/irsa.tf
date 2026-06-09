@@ -1,14 +1,8 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-${var.environment}-hmpps_person_on_probation_audit_queue" = "hmpps-audit-${var.environment}",
+    "Digital-Prison-Services-dev-hmpps_person_on_probation_audit_queue" = "hmpps-audit-dev",
   }
-
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-  for_each = local.sqs_queues
-  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 module "people-on-probation-ui-service-account" {
@@ -22,6 +16,11 @@ module "people-on-probation-ui-service-account" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  service_account_name = "hmpps-people-on-probation-ui"
+  service_account_name   = "hmpps-people-on-probation-ui"
   role_policy_arns       = local.sqs_policies
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
