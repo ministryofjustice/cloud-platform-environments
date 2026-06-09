@@ -8,7 +8,7 @@ module "update_cell_certificate_queue" {
   visibility_timeout_seconds = 120   # 2 minutes
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.update_update_cell_certificate_dlq.sqs_arn
+    deadLetterTargetArn = module.update_cell_certificate_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
@@ -28,11 +28,11 @@ module "update_cell_certificate_queue" {
 
 # Dead letter queue
 
-module "update_update_cell_certificate_dlq" {
+module "update_cell_certificate_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "update_update_cell_certificate_dlq"
+  sqs_name                   = "update_cell_certificate_dlq"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 604800 # 7 days
   visibility_timeout_seconds = 120    # 2 minutes
@@ -56,7 +56,7 @@ module "update_update_cell_certificate_dlq" {
 resource "kubernetes_secret" "update_cell_certificate_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-update-update-cell-certificate-queue-secret"
+    name = "sqs-update-cell-certificate-queue-secret"
     ## Name space where the listening service is found
     namespace = "hmpps-locations-inside-prison-dev"
   }
@@ -68,17 +68,17 @@ resource "kubernetes_secret" "update_cell_certificate_queue" {
   }
 }
 
-resource "kubernetes_secret" "hmpps_update_update_cell_certificate_dlq" {
+resource "kubernetes_secret" "hmpps_update_cell_certificate_dlq" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-update-update-cell-certificate-dlq-secret"
+    name = "sqs-update-cell-certificate-dlq-secret"
     ## Name space where the listening service is found
     namespace = "hmpps-locations-inside-prison-dev"
   }
 
   data = {
-    sqs_queue_url  = module.update_update_cell_certificate_dlq.sqs_id
-    sqs_queue_arn  = module.update_update_cell_certificate_dlq.sqs_arn
-    sqs_queue_name = module.update_update_cell_certificate_dlq.sqs_name
+    sqs_queue_url  = module.update_cell_certificate_dlq.sqs_id
+    sqs_queue_arn  = module.update_cell_certificate_dlq.sqs_arn
+    sqs_queue_name = module.update_cell_certificate_dlq.sqs_name
   }
 }
