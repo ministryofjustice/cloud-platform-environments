@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: chaps-production-cert
-  namespace: chaps-production
+  name: chaps-dotnet-production-cert
+  namespace: chaps-dotnet-production
 spec:
-  secretName: chaps-production-cert-secret
+  secretName: chaps-dotnet-production-cert-secret
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
