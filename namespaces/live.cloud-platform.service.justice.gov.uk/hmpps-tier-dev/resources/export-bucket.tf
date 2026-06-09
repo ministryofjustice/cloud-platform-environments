@@ -1,5 +1,5 @@
 module "bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -63,6 +63,13 @@ resource "aws_cloudfront_distribution" "export_bucket" {
     domain_name              = module.bucket.bucket_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.export_bucket.id
     origin_id                = local.export_bucket_cloudfront_target_origin_id
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+      locations = []
+    }
   }
 
   viewer_certificate {
