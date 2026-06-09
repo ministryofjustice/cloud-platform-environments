@@ -30,6 +30,7 @@ module "elasticache_redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
   number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
   node_type            = "cache.t4g.small"
