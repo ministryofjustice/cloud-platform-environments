@@ -24,4 +24,7 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   deletion_protection    = false
+
+  # Added for ecr service pod access
+  enable_irsa = true
 }
