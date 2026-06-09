@@ -1,37 +1,23 @@
-data "aws_iam_policy_document" "query_logs_write_only" {
+data "aws_iam_policy_document" "query_logs" {
   statement {
-    actions = ["s3:PutObject"]
-    resources = [
-      "${module.address_matcher_query_logs_s3.bucket_arn}/*"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
     ]
-  }
-}
-
-resource "aws_iam_policy" "query_logs_put_only" {
-  name   = "address-matcher-query-logs-put-only"
-  policy = data.aws_iam_policy_document.query_logs_put_only.json
-}
-
-
-data "aws_iam_policy_document" "query_logs_read_only" {
-  statement {
-    actions = ["s3:GetObject"]
     resources = [
       "${module.address_matcher_query_logs_s3.bucket_arn}/*"
     ]
   }
 
   statement {
-    actions = ["s3:ListBucket"]
-    resources = [
-      module.address_matcher_query_logs_s3.bucket_arn
-    ]
+    actions   = ["s3:ListBucket"]
+    resources = [module.address_matcher_query_logs_s3.bucket_arn]
   }
 }
 
-resource "aws_iam_policy" "query_logs_read_only" {
-  name   = "address-matcher-query-logs-read-only"
-  policy = data.aws_iam_policy_document.query_logs_read_only.json
+resource "aws_iam_policy" "query_logs" {
+  name   = "address-matcher-query-logs"
+  policy = data.aws_iam_policy_document.query_logs.json
 }
 
 module "irsa" {
@@ -42,10 +28,8 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    models           = module.address_matcher_models_s3.irsa_policy_arn
-    lookup_data      = module.address_matcher_lookup_data_s3.irsa_policy_arn
-    query_logs_write = aws_iam_policy.query_logs_write_only.arn
-    query_logs_read  = aws_iam_policy.query_logs_read_only.arn
+    lookup_data = module.address_matcher_lookup_data_s3.irsa_policy_arn
+    query_logs  = aws_iam_policy.query_logs.arn
   }
 
   business_unit          = var.business_unit
