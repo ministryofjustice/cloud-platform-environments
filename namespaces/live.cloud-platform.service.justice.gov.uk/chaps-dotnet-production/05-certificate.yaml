@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: chaps-production-cert
+  namespace: chaps-production
+spec:
+  secretName: chaps-production-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - correspondence-handling-and-processing.service.justice.gov.uk
