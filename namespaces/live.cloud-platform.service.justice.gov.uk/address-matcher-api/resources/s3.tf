@@ -45,12 +45,10 @@ module "address_matcher_query_logs_s3" {
 
   lifecycle_rule = [
     {
-      enabled = true
-      id      = "expire-after-1-year"
-      prefix  = "logs/"
-      expiration = {
-        days = 365
-      }
+      enabled    = true
+      id         = "expire-after-1-year"
+      prefix     = "logs/"
+      expiration = [{ days = 365 }]
     }
   ]
 }
