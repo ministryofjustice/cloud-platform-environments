@@ -4,6 +4,9 @@
  * releases page of this repository.
  *
  */
+
+# No functional change: this comment is added to trigger the Cloud Platform apply pipeline after moving the GitHub repository.
+
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
