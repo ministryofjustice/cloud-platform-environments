@@ -19,7 +19,7 @@ module "apply-for-legal-aid-rds" {
   # Database configuration
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "18.1"
+  db_engine_version           = "18.3"
   rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
   db_name                     = "apply_for_legal_aid_production"
