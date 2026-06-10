@@ -5,7 +5,13 @@ module "secret" {
   eks_cluster_name = var.eks_cluster_name
 
   # Secrets configuration
-  secrets = {}
+  secrets = {
+    "rate-limit-slack-webhook" = {
+      description             = "Rate limit slack webhook" # required
+      recovery_window_in_days = 7                # required
+      k8s_secret_name         = "rate-limit-slack-webhook" # the name of the secret in k8s
+    },
+  }
 
   # Tags
   business_unit          = var.business_unit
