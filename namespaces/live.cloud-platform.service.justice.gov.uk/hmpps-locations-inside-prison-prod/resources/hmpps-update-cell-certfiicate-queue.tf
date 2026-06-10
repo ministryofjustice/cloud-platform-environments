@@ -56,7 +56,7 @@ module "update_cell_certificate_dlq" {
 resource "kubernetes_secret" "update_cell_certificate_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-update-update-cell-certificate-queue-secret"
+    name = "sqs-update-cell-certificate-queue-secret"
     ## Name space where the listening service is found
     namespace = "hmpps-locations-inside-prison-prod"
   }
