@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "hmpps_electronic_monitoring_crime_matching_ui_prod" {
   type                     = "http"
   name                     = "${var.application} ${var.environment} - ping"
-  host                     = "electronic-monitoring-crime-matching-ui.hmpps.service.justice.gov.uk"
+  host                     = "electronic-monitoring-crime-matching.hmpps.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 6
