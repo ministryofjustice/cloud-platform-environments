@@ -5,7 +5,7 @@ module "update_cell_certificate_queue" {
   sqs_name                   = "update_cell_certificate_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 # 12 hours
-  visibility_timeout_seconds = 120   # 2 minutes
+  visibility_timeout_seconds = 1800  # 30 minutes - large prison uploads can take several minutes; must exceed processing time so the message is not redelivered mid-processing
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.update_cell_certificate_dlq.sqs_arn
