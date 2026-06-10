@@ -312,7 +312,11 @@ resource "aws_iam_role_policy" "unify_s3_upload_role_policy" {
         Action = [
           "s3:PutObject"
         ],
-        Resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        Resource = [
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_metadata/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_recordings/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_transcripts/*",
+        ]      
       }
     ]
   })
