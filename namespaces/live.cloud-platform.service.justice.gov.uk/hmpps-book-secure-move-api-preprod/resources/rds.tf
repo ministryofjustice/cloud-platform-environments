@@ -14,6 +14,10 @@ module "rds-instance" {
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
 
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+
   # this isn't possible with a read replica
   enable_rds_auto_start_stop = false
 
@@ -35,9 +39,6 @@ module "rds-instance" {
   providers = {
     aws = aws.london
   }
-
-  # Add security groups for DPR
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -143,6 +144,38 @@ module "rds-read-replica" {
     aws = aws.london
   }
 
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
