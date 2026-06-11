@@ -12,8 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers        = ["github"]
-  github_repositories   = ["laa-civil-manage-api", "laa-civil-manage-e2e"]
-  github_actions_prefix = "api"
+  github_repositories   = ["laa-civil-manage-api"]
 
   # Tags
   business_unit          = var.business_unit
