@@ -60,6 +60,8 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
       module.cpr_delius_merge_events_dead_letter_queue.sqs_arn,
       module.cpr_delius_delete_events_queue.sqs_arn,
       module.cpr_delius_delete_events_dead_letter_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_dead_letter_queue.sqs_arn
     ]
   }
 }
