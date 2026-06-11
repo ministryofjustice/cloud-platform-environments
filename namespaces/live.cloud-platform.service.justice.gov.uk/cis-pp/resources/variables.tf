@@ -73,3 +73,102 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+# =============================================================================
+# Frontend Module Variables
+# =============================================================================
+
+variable "environment" {
+  description = "Environment name (e.g., cis-pp, cis-prod)"
+  type        = string
+}
+
+variable "s3_bucket_name" {
+  description = "Name of the S3 bucket for frontend hosting"
+  type        = string
+}
+
+variable "waf_allowed_ips" {
+  description = "List of allowed IP addresses in CIDR notation for WAF IP set"
+  type        = list(string)
+  default     = []
+}
+
+variable "cloudfront_price_class" {
+  description = "CloudFront distribution price class"
+  type        = string
+  default     = "PriceClass_100"
+}
+
+variable "acm_certificate_arn" {
+  description = "ARN of ACM certificate for custom domain (leave empty for CloudFront default) - DEPRECATED: use use_custom_certificate instead"
+  type        = string
+  default     = ""
+}
+
+variable "use_custom_certificate" {
+  description = "Enable custom certificate lookup for CloudFront (looks up cert by Name tag: {environment}-frontend-certificate)"
+  type        = bool
+  default     = false
+}
+
+variable "cloudfront_aliases" {
+  description = "List of custom domain aliases for CloudFront distribution"
+  type        = list(string)
+  default     = []
+}
+
+variable "geo_restriction_type" {
+  description = "Type of geo restriction (none, whitelist, blacklist)"
+  type        = string
+  default     = "none"
+}
+
+variable "geo_restriction_locations" {
+  description = "List of country codes for geo restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "tags" {
+  description = "Tags to apply to all resources"
+  type        = map(string)
+  default     = {}
+}
+
+# -----------------------------------------------------------------------------
+# Common Tag Variables
+# -----------------------------------------------------------------------------
+variable "application_tag" {
+  description = "Application name tag"
+  type        = string
+}
+
+variable "project_tag" {
+  description = "Project name tag"
+  type        = string
+}
+
+variable "version_tag" {
+  description = "Version tag"
+  type        = string
+}
+
+variable "technical_owner_tag" {
+  description = "Technical owner tag"
+  type        = string
+}
+
+variable "business_owner_tag" {
+  description = "Business owner tag"
+  type        = string
+}
+
+# -----------------------------------------------------------------------------
+# CloudFront Logging Variables
+# -----------------------------------------------------------------------------
+variable "cloudfront_log_retention_days" {
+  description = "Number of days to retain CloudFront access logs"
+  type        = number
+  default     = 30
+}
