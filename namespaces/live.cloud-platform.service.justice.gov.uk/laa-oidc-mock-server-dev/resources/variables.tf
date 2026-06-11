@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Submit a Bulk Claim"
+  default     = "LAA Java Developers"
 }
 
 variable "business_unit" {
@@ -35,7 +35,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-submit-a-bulk-claim"
+  default     = "laa-java-developers"
 }
 
 variable "environment" {
@@ -59,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "bulk-claims-tech-collab"
+  default     = "laa-developers"
 }
 
 variable "github_owner" {
