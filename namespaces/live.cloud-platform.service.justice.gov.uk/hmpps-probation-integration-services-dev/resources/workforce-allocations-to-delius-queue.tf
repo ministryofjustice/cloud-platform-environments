@@ -8,6 +8,7 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
       "person.community.manager.allocated",
       "event.manager.allocated",
       "requirement.manager.allocated",
+      "licence-condition.manager.allocated",
     ]
   })
 }
