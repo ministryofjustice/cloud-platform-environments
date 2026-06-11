@@ -18,6 +18,8 @@ module "redis" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
 }
 
 resource "kubernetes_secret" "redis_secrets" {
