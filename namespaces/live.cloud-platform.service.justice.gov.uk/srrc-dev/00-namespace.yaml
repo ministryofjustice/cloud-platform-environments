@@ -12,8 +12,8 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Safer reception and release from custody"
     cloud-platform.justice.gov.uk/owner: "0bd4a7e8.JusticeUK.onmicrosoft.com@uk.teams.ms"
     cloud-platform.justice.gov.uk/source-code:  >-
-      https://github.com/ministryofjustice/srrc-poc-sample-application.git,
-      https://github.com/ministryofjustice/srrc-verify-biometric-scans-api.git,
-      "https://github.com/ministryofjustice/srrc"
+      https://github.com/ministryofjustice/srrc-poc-sample-application,
+      https://github.com/ministryofjustice/srrc-verify-biometric-scans-api,
+      https://github.com/ministryofjustice/srrc
     cloud-platform.justice.gov.uk/team-name: "srrc-tech"
     cloud-platform.justice.gov.uk/review-after: "2026-09-03"
