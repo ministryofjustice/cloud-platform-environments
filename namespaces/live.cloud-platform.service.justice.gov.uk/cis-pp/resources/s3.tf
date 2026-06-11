@@ -119,8 +119,71 @@ resource "aws_s3_bucket_ownership_controls" "cloudfront_logs" {
   }
 }
 
+resource "aws_s3_bucket_acl" "cloudfront_logs" {
+  bucket = aws_s3_bucket.cloudfront_logs.id
+  acl    = "log-delivery-write"
+
+  depends_on = [
+    aws_s3_bucket_ownership_controls.cloudfront_logs,
+    aws_s3_bucket_public_access_block.cloudfront_logs,
+  ]
+}
+
+resource "aws_s3_bucket_policy" "cloudfront_logs" {
+  bucket = aws_s3_bucket.cloudfront_logs.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowCloudFrontLogDelivery"
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action   = "s3:PutObject"
+        Resource = "${aws_s3_bucket.cloudfront_logs.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.frontend.arn
+          }
+        }
+      },
+      {
+        Sid    = "AllowCloudFrontLogDeliveryAclCheck"
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action   = "s3:GetBucketAcl"
+        Resource = aws_s3_bucket.cloudfront_logs.arn
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.frontend.arn
+          }
+        }
+      },
+    ]
+  })
+
+  depends_on = [aws_s3_bucket_public_access_block.cloudfront_logs]
+}
+
+resource "kubernetes_secret" "s3_bucket_output" {
+  metadata {
+    name      = "s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = aws_s3_bucket.frontend.arn
+    bucket_name = aws_s3_bucket.frontend.id
+  }
+}
+
 # Lifecycle policy to expire old logs (30 days by default)
 resource "aws_s3_bucket_lifecycle_configuration" "cloudfront_logs" {
+  #checkov:skip=CKV_AWS_300:CloudFront log delivery does not use multipart uploads
   bucket = aws_s3_bucket.cloudfront_logs.id
 
   rule {

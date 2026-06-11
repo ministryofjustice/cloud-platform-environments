@@ -8,6 +8,11 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve OIDC information for IRSA"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -74,24 +79,68 @@ variable "github_token" {
   default     = ""
 }
 
+variable "github_repository" {
+  description = "GitHub repository name for frontend CI/CD deploy credentials"
+  type        = string
+  default     = "cis-modernisation"
+}
+
+variable "github_environment" {
+  description = "GitHub environment name for deploy secrets"
+  type        = string
+  default     = "preproduction"
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  type        = string
+  default     = "KUBE_CLUSTER"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  type        = string
+  default     = "KUBE_NAMESPACE"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  type        = string
+  default     = "KUBE_CERT"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  type        = string
+  default     = "KUBE_TOKEN"
+}
+
 # =============================================================================
 # Frontend Module Variables
 # =============================================================================
 
-variable "environment" {
-  description = "Environment name (e.g., cis-pp, cis-prod)"
-  type        = string
-}
-
 variable "s3_bucket_name" {
   description = "Name of the S3 bucket for frontend hosting"
   type        = string
+  default     = "moj-laa-cis-pp-frontend"
 }
 
 variable "waf_allowed_ips" {
-  description = "List of allowed IP addresses in CIDR notation for WAF IP set"
+  description = "List of allowed IP addresses in CIDR notation for WAF IP set. Leave empty for public access with managed WAF rules only."
   type        = list(string)
-  default     = []
+  default = [
+    "35.176.93.186/32",
+    "18.169.147.172/32",
+    "18.130.148.126/32", # Gateway IP for Global Protect alpha VPN firewall
+    "35.176.148.126/32",
+    "128.77.75.64/26",   # Prisma egress
+    "51.149.249.0/29",   # MOJ public egress
+    "194.33.249.0/29",
+    "51.149.249.32/29",
+    "194.33.248.0/29",
+    "128.77.75.128/26",
+    "128.77.75.0/26",
+  ]
 }
 
 variable "cloudfront_price_class" {
@@ -107,15 +156,15 @@ variable "acm_certificate_arn" {
 }
 
 variable "use_custom_certificate" {
-  description = "Enable custom certificate lookup for CloudFront (looks up cert by Name tag: {environment}-frontend-certificate)"
+  description = "Enable ACM certificate and custom domain for CloudFront"
   type        = bool
-  default     = false
+  default     = true
 }
 
-variable "cloudfront_aliases" {
-  description = "List of custom domain aliases for CloudFront distribution"
-  type        = list(string)
-  default     = []
+variable "cloudfront_alias" {
+  description = "Primary custom domain for the CloudFront distribution"
+  type        = string
+  default     = "cis-pp.service.justice.gov.uk"
 }
 
 variable "geo_restriction_type" {
@@ -134,34 +183,6 @@ variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
   default     = {}
-}
-
-# -----------------------------------------------------------------------------
-# Common Tag Variables
-# -----------------------------------------------------------------------------
-variable "application_tag" {
-  description = "Application name tag"
-  type        = string
-}
-
-variable "project_tag" {
-  description = "Project name tag"
-  type        = string
-}
-
-variable "version_tag" {
-  description = "Version tag"
-  type        = string
-}
-
-variable "technical_owner_tag" {
-  description = "Technical owner tag"
-  type        = string
-}
-
-variable "business_owner_tag" {
-  description = "Business owner tag"
-  type        = string
 }
 
 # -----------------------------------------------------------------------------

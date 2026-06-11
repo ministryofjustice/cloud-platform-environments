@@ -2,7 +2,7 @@
 # CloudFront Origin Access Control (us-east-1)
 # -----------------------------------------------------------------------------
 resource "aws_cloudfront_origin_access_control" "frontend" {
-  provider = aws.us_east_1
+  provider = aws.virginia
 
   name                              = "${var.environment}-frontend-oac"
   description                       = "Origin Access Control for ${var.environment} frontend S3 bucket"
@@ -18,7 +18,9 @@ resource "aws_cloudfront_origin_access_control" "frontend" {
 # checkov:skip=CKV2_AWS_32:Response headers policy not required - security headers handled via WAF
 # checkov:skip=CKV2_AWS_47:WAF Log4j AMR configuration not required - WAF rules managed separately
 resource "aws_cloudfront_distribution" "frontend" {
-  provider = aws.us_east_1
+  #checkov:skip=CKV_AWS_310:Single S3 origin static frontend - origin failover not required
+  #checkov:skip=CKV_AWS_374:Geo restriction not required - access controlled via WAF IP allowlist
+  provider = aws.virginia
 
   enabled             = true
   comment             = "${var.environment} Frontend Distribution"
@@ -27,7 +29,7 @@ resource "aws_cloudfront_distribution" "frontend" {
   web_acl_id          = aws_wafv2_web_acl.frontend.arn
 
   # Custom domain aliases - required for CloudFront to respond to custom domain
-  aliases = var.use_custom_certificate ? var.cloudfront_aliases : []
+  aliases = var.use_custom_certificate ? [var.cloudfront_alias] : []
 
   # Access logging configuration (S3)
   # Logs include geo-location blocks and all request details
@@ -107,11 +109,9 @@ resource "aws_cloudfront_distribution" "frontend" {
     }
   }
 
-  # Custom certificate lookup takes precedence over explicit ARN
-  # Certificate is looked up by Name tag: ${var.environment}-frontend-certificate
   viewer_certificate {
     cloudfront_default_certificate = var.use_custom_certificate ? false : (var.acm_certificate_arn == "" ? true : false)
-    acm_certificate_arn            = var.use_custom_certificate ? data.aws_acm_certificate.frontend[0].arn : (var.acm_certificate_arn != "" ? var.acm_certificate_arn : null)
+    acm_certificate_arn            = var.use_custom_certificate ? aws_acm_certificate.frontend[0].arn : (var.acm_certificate_arn != "" ? var.acm_certificate_arn : null)
     ssl_support_method             = var.use_custom_certificate || var.acm_certificate_arn != "" ? "sni-only" : null
     minimum_protocol_version       = var.use_custom_certificate || var.acm_certificate_arn != "" ? "TLSv1.2_2021" : null
   }
@@ -119,4 +119,19 @@ resource "aws_cloudfront_distribution" "frontend" {
   tags = merge(var.tags, {
     Name = "${var.environment}-frontend-distribution"
   })
+
+  depends_on = [aws_acm_certificate_validation.frontend]
+}
+
+resource "kubernetes_secret" "cloudfront_output" {
+  metadata {
+    name      = "cloudfront-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    cloudfront_alias           = var.cloudfront_alias
+    cloudfront_url            = aws_cloudfront_distribution.frontend.domain_name
+    cloudfront_distribution_id = aws_cloudfront_distribution.frontend.id
+  }
 }
