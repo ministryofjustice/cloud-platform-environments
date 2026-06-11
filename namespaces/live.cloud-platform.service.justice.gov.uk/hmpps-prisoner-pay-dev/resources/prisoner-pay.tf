@@ -52,6 +52,15 @@ module "hmpps_prisoner_pay_ui" {
   kubernetes_cluster            = var.kubernetes_cluster
 }
 
+module "hmpps_egress_controls" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.2"
+
+  enable_envoy_setup     = true
+  enable_egress_controls = true
+  namespace              = var.namespace
+  vpc_name               = var.vpc_name
+}
+
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
