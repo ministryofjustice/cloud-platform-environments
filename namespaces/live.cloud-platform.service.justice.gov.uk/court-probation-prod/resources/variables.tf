@@ -4,6 +4,13 @@
  *
  */
 variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}
+
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "prepare-case-domain" {
@@ -15,25 +22,39 @@ variable "crime-portal-mirror-gateway-domain" {
 }
 
 variable "application" {
-  default = "court-case-service"
+  description = "Name of the application you are deploying"
+  type        = string
+  default     = "court-case-service"
 }
 
 variable "namespace" {
-  default = "court-probation-prod"
+  description = "Name of the namespace these resources are part of"
+  type        = string
+  default     = "court-probation-prod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Probation In Court"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
+  type        = string
   default     = "HMPPS"
 }
 
 variable "team_name" {
-  description = "The name of your development team"
+  description = "Name of the development team responsible for this service"
+  type        = string
   default     = "probation-in-court"
 }
 
 variable "environment" {
-  default = "prod"
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "prod"
 }
 
 variable "environment-name" {
@@ -42,12 +63,15 @@ variable "environment-name" {
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "Prepare a Case for Sentence: prepareacaseforsentence@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "Prepare a Case for Sentence: prepareacaseforsentence-gg@justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "true"
+  description = "Whether this environment type is production or not"
+  type        = string
+  default     = "true"
 }
 
 variable "rds-family" {
@@ -78,9 +102,6 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
-}
-
-variable "kubernetes_cluster" {
 }
 
 variable "slack_channel" {
