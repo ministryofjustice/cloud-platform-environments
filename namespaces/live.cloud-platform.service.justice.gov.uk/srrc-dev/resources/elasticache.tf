@@ -14,7 +14,8 @@ module "srrc_elasticache_redis" {
   team_name              = var.team_name
   namespace              = var.namespace
   business_unit          = var.business_unit
-
+  # Test: specify AZs to skip eu-west-2b (which has capacity issues)
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   number_cache_clusters   = "2"
