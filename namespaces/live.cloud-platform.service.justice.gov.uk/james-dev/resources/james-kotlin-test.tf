@@ -17,13 +17,3 @@ module "james_kotlin_test" {
   kubernetes_cluster            = var.kubernetes_cluster
   vpc_name                      = var.vpc_name
 }
-
-
-module "hmpps_egress_controls" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.2"
-
-  enable_envoy_setup     = true
-  enable_egress_controls = true
-  namespace              = "my-namespace"
-  vpc_name               = "live-1"
-}
