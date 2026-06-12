@@ -26,17 +26,28 @@ module "irsa" {
 }
 
 data "aws_iam_policy_document" "ccr_claims_policy" {
-  # Provide list of permissions and target AWS account resources to allow access to
+  # Inbound queues: CCR polls for claims and deletes after processing
   statement {
-    sid  = "CCRPolicySQSStaging"
+    sid  = "CCRPolicySQSStagingReceive"
     effect = "Allow"
     actions = [
-      "sqs:*",
-      "sts:*"
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
     ]
     resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-cccd-claims-for-ccr",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-cccd-claims-submitted-ccr-dlq",
+    ]
+  }
+
+  # Outbound queues: CCR sends success/failure responses back to CCCD
+  statement {
+    sid  = "CCRPolicySQSStagingSend"
+    effect = "Allow"
+    actions = [
+      "sqs:SendMessage",
+    ]
+    resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-responses-for-cccd",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-staging-reponses-for-cccd-dlq",
     ]
