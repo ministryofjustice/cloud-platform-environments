@@ -26,17 +26,28 @@ module "irsa" {
 }
 
 data "aws_iam_policy_document" "cclf_claims_policy" {
-  # Provide list of permissions and target AWS account resources to allow access to
+  # Inbound queues: CCLF polls for claims and deletes after processing
   statement {
-    sid  = "CCLFPolicySQSUAT"
+    sid  = "CCLFPolicySQSUATReceive"
     effect = "Allow"
     actions = [
-      "sqs:*",
-      "sts:*"
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
     ]
     resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-cccd-claims-for-cclf",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-cccd-claims-submitted-cclf-dlq",
+    ]
+  }
+
+  # Outbound queues: CCLF sends success/failure responses back to CCCD
+  statement {
+    sid  = "CCLFPolicySQSUATSend"
+    effect = "Allow"
+    actions = [
+      "sqs:SendMessage",
+    ]
+    resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-responses-for-cccd",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-dev-lgfs-reponses-for-cccd-dlq",
     ]
