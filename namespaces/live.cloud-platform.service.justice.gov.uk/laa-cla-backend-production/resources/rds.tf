@@ -23,6 +23,8 @@ module "cla_backend_rds_postgres_14" {
   db_allocated_storage         = "30"
   db_max_allocated_storage     = "1000"
   performance_insights_enabled = true
+  # increase retention period to 21 days while dealing with a data loss incident
+  db_backup_retention_period   = "21"
 
   # change the postgres version as you see fit.
   db_engine_version      = "14"
