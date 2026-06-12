@@ -19,7 +19,7 @@ jobs:
 
       - id: compare-namespace
         name: Check Cross Namespace Deployments
-        uses: ministryofjustice/cloud-platform-environments/cmd/compare-namespace@4513a31c0b0016a3b774f48d476bb0bc16fcdf6e #main
+        uses: ministryofjustice/cloud-platform-environments/cmd/compare-namespace@0ea48f0b3289e57b8a2931a5b666de60617549f4 #main
 
       - name: Comment Mismatch to Pull Request
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
