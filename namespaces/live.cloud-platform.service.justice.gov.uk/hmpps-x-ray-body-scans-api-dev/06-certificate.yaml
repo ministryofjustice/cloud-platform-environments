@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - x-ray-body-scans-api-dev.prison.service.justice.gov.uk
+    - x-ray-body-scans-api-dev.hmpps.service.justice.gov.uk
