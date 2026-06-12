@@ -1,5 +1,5 @@
 module "james_kotlin_test" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=egress-rules"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                = "james-kotlin-test"
@@ -12,9 +12,18 @@ module "james_kotlin_test" {
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
-  enable_egress_controls        = true
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   vpc_name                      = var.vpc_name
+}
+
+
+module "hmpps_egress_controls" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.2"
+
+  enable_envoy_setup     = true
+  enable_egress_controls = true
+  namespace              = "my-namespace"
+  vpc_name               = "live-1"
 }
