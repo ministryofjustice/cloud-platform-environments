@@ -3,7 +3,7 @@ module "opensearch_alert" {
 
     secret_name                    = "live-laa-cla-backend-production-534b062abc2393c7"
     secret_key                     = "url"
-    environment_name               = var.environment
+    environment_name               = var.environment-name
     slack_channel_name             = "cala-alerts"
     slack_channel_name_description = "cala-alerts"
     opensearch_alert_name          = "Cla Backend rate limit alerts"
