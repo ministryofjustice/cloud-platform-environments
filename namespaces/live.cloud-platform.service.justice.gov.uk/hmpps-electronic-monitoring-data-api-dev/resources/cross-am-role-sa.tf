@@ -4,11 +4,11 @@ module "irsa" {
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
-#   IRSA configuration
+  # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment}"
   role_policy_arns = {
-    ssm = aws_iam_policy.ssm_access.arn
-    # cross_account_access = aws_iam_policy.cross_account_access.arn
+    ssm                  = aws_iam_policy.ssm_access.arn
+    cross_account_access = aws_iam_policy.cross_account_access.arn
   }
 
   # Tags
