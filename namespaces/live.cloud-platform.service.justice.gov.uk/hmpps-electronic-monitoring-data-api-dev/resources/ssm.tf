@@ -1,7 +1,7 @@
-# data "aws_ssm_parameter" "data_store_general_role_arn" {
-#   name = "/${var.namespace}/data_store_general_role_arn"
-#   with_decryption = true
-# }
+data "aws_ssm_parameter" "data_store_general_role_arn" {
+  name            = "/${var.namespace}/data_store_general_role_arn"
+  with_decryption = true
+}
 
 moved {
   from = aws_ssm_parameter.emd_validation_db_read_data_prod
