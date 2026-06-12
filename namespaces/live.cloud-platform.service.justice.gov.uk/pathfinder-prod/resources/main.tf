@@ -8,7 +8,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "secure-estate-digital-team"
+      GithubTeam = "hmpps-security-intelligence-live"
     }
   }
 }
@@ -20,7 +20,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "secure-estate-digital-team"
+      GithubTeam = "hmpps-security-intelligence-live"
     }
   }
 }

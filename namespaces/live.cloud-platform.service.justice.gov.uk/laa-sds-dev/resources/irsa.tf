@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 
@@ -7,9 +7,9 @@ module "irsa" {
 
   role_policy_arns = merge(
     {
-      dynamodb         = aws_iam_policy.auditdb_policy.arn,
-      s3 = module.s3_bucket.irsa_policy_arn,
-      s3_versioning     = aws_iam_policy.s3_versioning_policy.arn
+      dynamodb-event-audit = aws_iam_policy.event_auditdb_write_only_policy.arn,
+      s3                   = module.s3_bucket.irsa_policy_arn,
+      s3_versioning        = aws_iam_policy.s3_versioning_policy.arn
     },
     { for name, module in module.s3_buckets : name => module.irsa_policy_arn }
   )
@@ -24,7 +24,7 @@ module "irsa" {
 }
 
 module "cross-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   eks_cluster_name = var.eks_cluster_name
 
@@ -50,9 +50,9 @@ data "aws_iam_policy_document" "s3_versioning_policy" {
     ]
   }
 
-  # Required to delete specific object versions
+  # Required to get/hard delete specific object versions
   statement {
-    actions = ["s3:DeleteObjectVersion"]
+    actions = ["s3:GetObjectVersion", "s3:DeleteObjectVersion"]
     resources = [
       for name in var.bucket_names :
       "arn:aws:s3:::${name}-${var.environment}/*"
@@ -120,7 +120,7 @@ resource "aws_iam_policy" "s3_migrate_policy" {
     infrastructure-support = var.infrastructure_support
   }
 }
- 
+
 # store irsa rolearn in k8s secret for retrieving to provide within source bucket policy
 resource "kubernetes_secret" "cross_irsa" {
   metadata {

@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-move-and-improve"
+  default     = "hmpps-prison-visits-booking-live"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preproduction"
+  default     = "preprod"
 }
 
 variable "eks_cluster_name" {
@@ -57,7 +57,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "public_move-and-improve"
+  default     = "ask-visits"
 }
 
 variable "github_owner" {

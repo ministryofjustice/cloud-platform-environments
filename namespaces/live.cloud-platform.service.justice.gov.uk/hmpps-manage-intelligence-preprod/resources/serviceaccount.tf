@@ -60,6 +60,24 @@ locals {
         "*",
       ]
     },
+    {
+      api_groups = [
+        "autoscaling",
+      ]
+      resources = [
+        "hpa",
+        "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
   ]
 }
 
@@ -72,6 +90,7 @@ module "circleci-sa" {
   namespace            = var.namespace
   kubernetes_cluster   = var.kubernetes_cluster
   serviceaccount_rules = local.sa_rules
+  serviceaccount_token_rotated_date    = "20-03-2026"
 }
 
 # Service account used by github actions
@@ -82,12 +101,12 @@ module "service_account" {
   serviceaccount_name                  = "manage-intelligence-ga"
   github_environments                  = [var.environment]
   github_repositories                  = local.github_repos
-  github_actions_secret_kube_cert      = "${upper(var.environment)}_KUBE_CERT"
-  github_actions_secret_kube_token     = "${upper(var.environment)}_KUBE_TOKEN"
-  github_actions_secret_kube_cluster   = "${upper(var.environment)}_KUBE_CLUSTER"
-  github_actions_secret_kube_namespace = "${upper(var.environment)}_KUBE_NAMESPACE"
+  github_actions_secret_kube_cert      = "KUBE_CERT"
+  github_actions_secret_kube_token     = "KUBE_TOKEN"
+  github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
+  github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   depends_on                           = [github_repository_environment.env]
 }
 

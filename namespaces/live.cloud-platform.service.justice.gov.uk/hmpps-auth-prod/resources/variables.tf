@@ -23,6 +23,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "HMPPS Auth Audit Registers Team"
@@ -31,6 +36,11 @@ variable "team_name" {
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "production"
+}
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -53,5 +63,7 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+}
 
 variable "kubernetes_cluster" {}

@@ -12,4 +12,5 @@ module "serviceaccount" {
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
 
   serviceaccount_rules = var.serviceaccount_rules
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

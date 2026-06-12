@@ -26,6 +26,10 @@ variable "team_name" {
   default     = "jotw-content-devs"
 }
 
+variable "service_area" {
+  default = "Central Digital"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "demo"

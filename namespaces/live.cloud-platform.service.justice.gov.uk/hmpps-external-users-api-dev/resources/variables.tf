@@ -17,6 +17,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "haar"
@@ -24,7 +29,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {

@@ -1,5 +1,5 @@
 module "ecr-repo-prison-visits-staff" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name           = "prison-visits-staff"
   oidc_providers      = ["circleci"]
@@ -13,6 +13,7 @@ module "ecr-repo-prison-visits-staff" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 }
 
 resource "kubernetes_secret" "ecr-repo-prison-visits-staff" {

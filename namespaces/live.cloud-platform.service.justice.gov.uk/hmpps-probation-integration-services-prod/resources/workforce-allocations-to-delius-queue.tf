@@ -7,6 +7,7 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
       "person.community.manager.allocated",
       "event.manager.allocated",
       "requirement.manager.allocated",
+      "licence-condition.manager.allocated",
     ]
   })
 }
@@ -69,7 +70,7 @@ resource "kubernetes_secret" "workforce-allocations-to-delius-queue-secret" {
 }
 
 module "workforce-allocations-to-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

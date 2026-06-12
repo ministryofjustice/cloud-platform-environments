@@ -3,7 +3,7 @@
 ################################################################################
 
 module "hmpps_registers_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   business_unit          = var.business_unit
   application            = var.hmpps-registers-application
@@ -16,6 +16,8 @@ module "hmpps_registers_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+
+  enable_irsa = true
 
   providers = {
     aws = aws.london

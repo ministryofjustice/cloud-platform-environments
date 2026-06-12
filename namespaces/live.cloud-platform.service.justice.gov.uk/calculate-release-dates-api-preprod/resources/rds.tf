@@ -6,7 +6,7 @@ data "aws_vpc" "this" {
 }
 
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   db_instance_class      = "db.t3.small"
   team_name              = var.team_name
@@ -39,7 +39,7 @@ module "calculate_release_dates_api_rds" {
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pglogical,pg_stat_statements"
       apply_method = "pending-reboot"
     },
     {
@@ -51,8 +51,30 @@ module "calculate_release_dates_api_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "track_activity_query_size"
+      value        = "2048"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "pg_stat_statements.track"
+      value        = "ALL"
+      apply_method = "pending-reboot"
+    },
+    {
+    name         = "pg_stat_statements.max"
+    value        = "10000"
+    apply_method = "pending-reboot"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "calculate_release_dates_api_rds" {
@@ -106,7 +128,7 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds_refresh_creds" {
 
 
 module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   allow_minor_version_upgrade  = true
@@ -145,7 +167,7 @@ module "read_replica" {
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pglogical,pg_stat_statements"
       apply_method = "pending-reboot"
     },
     {
@@ -157,8 +179,35 @@ module "read_replica" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
+      name         = "track_activity_query_size"
+      value        = "2048"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "pg_stat_statements.track"
+      value        = "ALL"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "pg_stat_statements.max"
+      value        = "10000"
+      apply_method = "pending-reboot"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "read_replica" {

@@ -75,3 +75,9 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "service_area" {
+  type        = string
+  description = "service area"
+  default     = "Manage Custody"
+}

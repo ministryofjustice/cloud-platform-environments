@@ -47,6 +47,12 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_personalrelationships_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_organisations_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_organisations_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_officialvisits_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_officialvisits_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_courtmovements_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_courtmovements_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -60,7 +66,7 @@ resource "aws_iam_policy" "combined_local_sqs" {
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

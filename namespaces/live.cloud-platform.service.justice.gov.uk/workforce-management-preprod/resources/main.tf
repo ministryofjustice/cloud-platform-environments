@@ -7,7 +7,7 @@ provider "aws" {
   region = "eu-west-2"
   default_tags {
     tags = {
-      GithubTeam = "manage-a-workforce"
+      GithubTeam = "hmpps-manage-a-workforce-devs"
     }
   }
 }
@@ -17,7 +17,7 @@ provider "aws" {
   region = "eu-west-2"
   default_tags {
     tags = {
-      GithubTeam = "manage-a-workforce"
+      GithubTeam = "hmpps-manage-a-workforce-devs"
     }
   }
 }
@@ -27,7 +27,7 @@ provider "aws" {
   region = "eu-west-1"
   default_tags {
     tags = {
-      GithubTeam = "manage-a-workforce"
+      GithubTeam = "hmpps-manage-a-workforce-devs"
     }
   }
 }

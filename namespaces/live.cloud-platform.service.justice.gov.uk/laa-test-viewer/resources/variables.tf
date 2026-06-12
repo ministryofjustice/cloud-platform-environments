@@ -32,6 +32,11 @@ variable "environment" {
   default     = "test"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "laa-crime-apps@digital.justice.gov.uk"

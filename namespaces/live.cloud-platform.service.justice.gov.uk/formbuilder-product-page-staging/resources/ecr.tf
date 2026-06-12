@@ -1,5 +1,5 @@
 module "formbuilder_product_page_staging_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
   repo_name = "formbuilder-product-page-staging"
 
   oidc_providers      = ["circleci"]

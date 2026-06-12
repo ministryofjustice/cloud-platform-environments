@@ -7,5 +7,12 @@ locals {
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = var.team_name
   }
+
+  # API Gateway clients
+  api_clients = [
+    "nutrition-app-dev",
+    "app-2-dev",
+    "app-3-dev",]
 }

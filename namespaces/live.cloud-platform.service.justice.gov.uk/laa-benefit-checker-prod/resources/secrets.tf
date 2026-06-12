@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -14,6 +14,16 @@ module "secrets_manager" {
       description             = "laa-benefit-checker-prod aws-secrets",
       recovery_window_in_days = 7,
       k8s_secret_name         = "aws-secrets"
+    },
+    "benefit_checker_alert_webhook_prod" = {
+      description             = "Benefit Checker Slack Webhook for prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "benefit-checker-alert-webhook-prod"
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for Benefit Checker prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
     },
   }
 }

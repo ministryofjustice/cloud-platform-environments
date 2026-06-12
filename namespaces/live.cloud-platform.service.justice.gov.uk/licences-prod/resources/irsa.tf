@@ -11,7 +11,7 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name       = var.eks_cluster_name
   namespace              = var.namespace
@@ -22,7 +22,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = "production"
   infrastructure_support = var.infrastructure_support
 }
 

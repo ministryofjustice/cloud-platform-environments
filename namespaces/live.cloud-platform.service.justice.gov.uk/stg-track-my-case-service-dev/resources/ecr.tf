@@ -4,8 +4,9 @@
  * releases page of this repository.
  *
  */
+ # Adding comment to trigger pipeline build.
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace

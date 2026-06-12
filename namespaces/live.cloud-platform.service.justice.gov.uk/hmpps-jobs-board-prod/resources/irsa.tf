@@ -4,13 +4,13 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "education-skills-work-employment-prod-hmpps_jobs_board_integration_queue" = "hmpps-jobs-board-integration-prod"
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -19,7 +19,10 @@ module "irsa" {
   service_account_name = "${var.team_name}-${var.environment}"
 
   role_policy_arns = merge(
-    local.sqs_policies
+    local.sqs_policies,
+    {
+      rds = module.rds.irsa_policy_arn
+    }
   )
 
   # Tags

@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "preproduction"
+  default     = "preprod"
 }
 
 variable "eks_cluster_name" {

@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 }
 
 variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+  description = "The name of the EKS cluster to retrieve the OIDC information"
 }
 
 variable "domain" {
@@ -82,4 +82,14 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
 }

@@ -1,5 +1,5 @@
 module "hmpps_person_record_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -12,12 +12,16 @@ module "hmpps_person_record_rds" {
   db_instance_class      = "db.r6g.xlarge"
   db_engine              = "postgres"
   db_engine_version      = "17.4"
+  db_allocated_storage   = "30"
   prepare_for_major_upgrade = false
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop   = true
+  db_password_rotated_date    = "09-01-2026"
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_person_record_rds" {
@@ -33,5 +37,19 @@ resource "kubernetes_secret" "hmpps_person_record_rds" {
     database_password     = module.hmpps_person_record_rds.database_password
     rds_instance_address  = module.hmpps_person_record_rds.rds_instance_address
     url                   = "postgres://${module.hmpps_person_record_rds.database_username}:${module.hmpps_person_record_rds.database_password}@${module.hmpps_person_record_rds.rds_instance_endpoint}/${module.hmpps_person_record_rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "hmpps_person_record_preprod_rds_refresh_creds" {
+  metadata {
+    name      = "hmpps-person-record-preprod-rds-instance-output"
+    namespace = "hmpps-person-record-prod"
+  }
+
+  data = {
+    database_name         = module.hmpps_person_record_rds.database_name
+    database_username     = module.hmpps_person_record_rds.database_username
+    database_password     = module.hmpps_person_record_rds.database_password
+    rds_instance_address  = module.hmpps_person_record_rds.rds_instance_address
   }
 }

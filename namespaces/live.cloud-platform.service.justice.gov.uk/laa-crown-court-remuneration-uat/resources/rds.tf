@@ -1,5 +1,5 @@
 module "rds-instance-migrated" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -14,7 +14,7 @@ module "rds-instance-migrated" {
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-04.rur-2025-04.r1"
+  db_engine_version        = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
   storage_type             = "gp2"
@@ -25,6 +25,7 @@ module "rds-instance-migrated" {
   db_iops                  = 0
   character_set_name       = "WE8MSWIN1252"
   skip_final_snapshot      = true
+  option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
   # the database is being migrated from another hosting platform
   is_migration = true
@@ -78,58 +79,91 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rule1" {
-  cidr_blocks       = ["10.206.0.0/20"]
+resource "aws_security_group_rule" "mp_tst_vpc" {
+  cidr_blocks       = ["10.26.96.0/21"]
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform TST VPC to connect CCR DB"
 }
 
-resource "aws_security_group_rule" "rule2" {
-  cidr_blocks       = ["10.206.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
+#RDS role to access HUB 2.0 S3 Bucket
+resource "aws_iam_role" "rds_s3_access" {
+  name = "ccr-rds-hub20-uat-s3-access"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "rds.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
 
-resource "aws_security_group_rule" "rule3" {
-  cidr_blocks       = ["10.200.16.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
+resource "aws_iam_policy" "rds_s3_access_policy" {
+  name        = "ccr-rds-hub20-uat-s3-bucket-policy"
+  description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket in MP TST"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:GetObjectVersion",
+          "s3:ListBucket",
+          "s3:ListBucketVersions"
+        ],
+        Resource = [
+          "arn:aws:s3:::hub20-test-cwa-extract-data",
+          "arn:aws:s3:::hub20-test-cwa-extract-data/*"  
+        ]
+      }
+    ]
+  })
 }
 
-resource "aws_security_group_rule" "rule4" {
-  cidr_blocks       = ["10.200.16.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
+resource "aws_db_option_group" "rds_s3_option_group" {
+  name                     = "${var.namespace}-option-group"
+  option_group_description = "Option group with S3 integration"
+  engine_name              = "oracle-se2"
+  major_engine_version     = "19"
+
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
+  tags = {
+    name                   = "${var.namespace}-option-group"
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+    service_area           = var.service_area
+  }
 }
 
-resource "aws_security_group_rule" "rule5" {
-  cidr_blocks       = ["10.205.0.0/20"]
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
+resource "aws_iam_role_policy_attachment" "rds_s3_access_policy_attachment" {
+  role       = aws_iam_role.rds_s3_access.name
+  policy_arn = aws_iam_policy.rds_s3_access_policy.arn
 }
 
-resource "aws_security_group_rule" "rule6" {
-  cidr_blocks       = ["10.205.0.0/20"]
-  type              = "egress"
-  protocol          = "tcp"
-  from_port         = 1521
-  to_port           = 1521
-  security_group_id = aws_security_group.rds.id
+resource "aws_db_instance_role_association" "rds_s3_role_association" {
+  db_instance_identifier = module.rds-instance-migrated.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_access.arn
 }
 
 resource "kubernetes_secret" "rds-instance" {

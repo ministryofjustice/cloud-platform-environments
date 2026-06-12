@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0" # use the latest release
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
@@ -13,11 +13,11 @@ module "opensearch" {
   cluster_config = {
     # Nodes
     instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "t3.small.search"
+    instance_type  = "m7g.2xlarge.search"
 
     # Dedicated primary nodes
-    dedicated_master_enabled = false
-    dedicated_master_count   = 0 # can only either be 3 or 5
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3 # can only either be 3 or 5
     dedicated_master_type    = "m7g.large.search"
 
     # Ultrawarm nodes (omit if you aren't going to use this)
@@ -26,7 +26,6 @@ module "opensearch" {
     warm_type    = "ultrawarm1.medium.search"
   }
 
-
   advanced_options = {
     # increase the maxClauseCount to 4096
     "indices.query.bool.max_clause_count" = "4096"
@@ -34,7 +33,7 @@ module "opensearch" {
 
   ebs_options = {
     volume_type = "gp3"
-    volume_size = 100 # Storage (GBs per node)
+    volume_size = 512 # Storage (GBs per node)
     throughput  = 250
     iops        = 7000
   }
@@ -77,6 +76,39 @@ module "s3_opensearch_snapshots_bucket" {
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowBucketAccess"
+        Effect = "Allow"
+
+        Principal = {
+          AWS = [
+            module.irsa.role_arn,
+            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"],
+            module.opensearch.snapshot_role_arn
+          ]
+        }
+
+        Action = [
+          "s3:ListBucket",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:GetObjectVersion",
+          "s3:DeleteObject",
+          "s3:ListMultipartUploadParts",
+          "s3:AbortMultipartUpload",
+          "s3:ListBucketMultipartUploads"
+        ]
+
+        Resource = [
+          "$${bucket_arn}/*",
+          "$${bucket_arn}"
+        ]
+      }
+    ]
+  })
 }
 
 resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
@@ -93,6 +125,19 @@ resource "kubernetes_secret" "s3_opensearch_snapshots_bucket" {
   }
 }
 
+resource "kubernetes_secret" "s3_opensearch_snapshots_bucket_refresh" {
+  metadata {
+    name      = "s3-opensearch-snapshots-bucket-output-prod"
+    namespace = "hmpps-delius-alfresco-preprod"
+  }
+
+  data = {
+    BUCKET_ARN      = module.s3_opensearch_snapshots_bucket.bucket_arn
+    BUCKET_NAME     = module.s3_opensearch_snapshots_bucket.bucket_name
+    IRSA_POLICY_ARN = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
+  }
+}
+
 resource "aws_iam_user" "opensearch_snapshots" {
   name = "${var.namespace}-opensearch_snapshots_user"
   path = "/system/${var.namespace}-opensearch_snapshots_user/"
@@ -105,4 +150,21 @@ resource "aws_iam_access_key" "opensearch_snapshots" {
 resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
+}
+
+# Enable preprod SA access to prod bucket
+resource "aws_ssm_parameter" "s3_bucket_name" {
+  type        = "String"
+  name        = "/${var.namespace}/opensearch-snapshot-s3bucket"
+  value       = module.s3_opensearch_snapshots_bucket.bucket_arn
+  description = "ARN of opensearch snapshot s3 bucket"
+  tags = {
+      business-unit          = var.business_unit
+      application            = var.application
+      is-production          = var.is_production
+      owner                  = var.team_name
+      environment-name       = var.environment_name
+      infrastructure-support = var.infrastructure_support
+      namespace              = var.namespace
+  }
 }

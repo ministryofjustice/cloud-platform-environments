@@ -16,21 +16,21 @@ data "aws_ssm_parameter" "key_prod" {
 
 data "aws_iam_policy_document" "ssm_for_insights" {
   version = "2012-10-17"
-      
-      statement {
-        sid     = "AllowSecretsManagerGetPutValue"
-        effect  = "Allow"
-        actions = [
-          "ssm:GetParameter",
-          "ssm:PutParameter"
-        ]
-      resources = [
-        data.aws_ssm_parameter.key_preprod.arn,
-        data.aws_ssm_parameter.key_dev.arn,
-        data.aws_ssm_parameter.key_prod.arn 
-        ]
-      }
-    }
+
+  statement {
+    sid    = "AllowSecretsManagerGetPutValue"
+    effect = "Allow"
+    actions = [
+      "ssm:GetParameter",
+      "ssm:PutParameter"
+    ]
+    resources = [
+      data.aws_ssm_parameter.key_preprod.arn,
+      data.aws_ssm_parameter.key_dev.arn,
+      data.aws_ssm_parameter.key_prod.arn
+    ]
+  }
+}
 
 resource "aws_iam_policy" "policy" {
   name        = "app_insights_ssm_policy"
@@ -43,7 +43,7 @@ resource "aws_iam_policy" "policy" {
 
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -53,9 +53,9 @@ module "irsa" {
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-   ssm = aws_iam_policy.policy.arn
+    ssm = aws_iam_policy.policy.arn
   }
-  
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

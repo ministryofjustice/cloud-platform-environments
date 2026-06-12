@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -12,6 +12,9 @@ module "rds" {
 
   # enable performance insights
   performance_insights_enabled = true
+
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
 
   # change the postgres version as you see fit.
   db_engine         = "postgres"
@@ -31,6 +34,8 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  deletion_protection = true
 }
 
 resource "kubernetes_secret" "rds" {

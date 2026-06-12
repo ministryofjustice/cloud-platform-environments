@@ -1,5 +1,5 @@
 module "delete_oldsnapshots" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0" # use the latest release
 
   # Repository configuration
   repo_name = "delete-oldsnapshots"

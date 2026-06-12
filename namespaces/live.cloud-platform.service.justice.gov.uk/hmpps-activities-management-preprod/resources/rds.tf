@@ -4,7 +4,7 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "activities_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -57,6 +57,8 @@ module "activities_rds" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "activities_rds" {
@@ -91,7 +93,7 @@ resource "kubernetes_secret" "rds_refresh_creds" {
 }
 
 module "activities_rds_read_replica" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -140,12 +142,19 @@ module "activities_rds_read_replica" {
       name         = "max_slot_wal_keep_size"
       value        = "5000"
       apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
     }
   ]
 
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "activities_rds_read_replica" {

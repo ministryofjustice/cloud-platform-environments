@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = "${var.namespace}-ecr"
@@ -16,4 +16,5 @@ module "ecr-repo" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = false
 }

@@ -1,5 +1,5 @@
 module "hmpps_person_match_irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -18,4 +18,12 @@ module "hmpps_person_match_irsa" {
   namespace              = var.namespace # this is also used to attach your service account to your namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+module "hmpps_person_match_service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.hmpps_person_match_irsa.service_account.name # this uses the service account name from the irsa module
 }

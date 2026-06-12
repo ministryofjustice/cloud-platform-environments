@@ -10,7 +10,7 @@ module "hmpps_prisoner_to_nomis_visitbalance_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_visitbalance_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -110,8 +110,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_visitbalance_subs
   filter_policy = jsonencode({
     eventType = [
       "prison-visit-allocation.adjustment.created",
-      "prison-offender-events.prisoner.booking.moved",
-      "prisoner-offender-search.prisoner.received"
+      "prison-visit-allocation.balance.reset",
+      "prison-offender-events.prisoner.booking.moved"
     ]
   })
 }

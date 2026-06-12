@@ -1,5 +1,5 @@
 module "secrets" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -20,6 +20,11 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "staging-ccms-connection"
     },
+    "uat-ccms-connection" = {
+      description             = "Allow connection to CCMS UAT/Test from a Civil Apply UAT branch",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "uat-ccms-connection"
+    },
     "dev-ccms-connection" = {
       description             = "Allow connection to CCMS Dev from a Civil Apply UAT branch",
       recovery_window_in_days = 7
@@ -34,6 +39,11 @@ module "secrets" {
       description             = "Allow connection to a Legal Framework API UAT branch from a Civil Apply UAT branch",
       recovery_window_in_days = 7
       k8s_secret_name         = "uat-lfa-connection"
+    },
+    "mock-user-array" = {
+      description             = "Store an array of passwords for temporary uat access; e.g. testuser@example.com:password1,pentester@business.co.uk,password2",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "uat-mock-user-array"
     },
   }
 }

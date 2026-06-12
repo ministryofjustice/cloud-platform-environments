@@ -9,7 +9,7 @@ module "hmpps_prisoner_to_nomis_court_sentencing_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 6
+    maxReceiveCount     = 20
   })
 
   # Tags
@@ -109,6 +109,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
   filter_policy = jsonencode({
     eventType = [
       "court-case.inserted",
+      "court-case.updated",
       "court-case.deleted",
       "legacy.court-case-references.updated",
       "court-appearance.inserted",

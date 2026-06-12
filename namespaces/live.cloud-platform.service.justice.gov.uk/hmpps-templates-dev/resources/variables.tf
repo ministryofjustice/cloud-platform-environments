@@ -23,6 +23,11 @@ variable "team_name" {
   default     = "hmpps-developers"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {

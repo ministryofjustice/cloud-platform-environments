@@ -85,3 +85,7 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}

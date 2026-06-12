@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "genai-data-eng-assistant-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "dmet-corporate"
+    cloud-platform.justice.gov.uk/application: "genai-data-eng-assistant"
+    cloud-platform.justice.gov.uk/owner: "data-engineering"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/genai_data_engineering_assistant.git"
+    cloud-platform.justice.gov.uk/team-name: "data-engineering"
+    cloud-platform.justice.gov.uk/infrastructure-support: "dataengineering-gg@justice.gov.uk"
+    cloud-platform.justice.gov.uk/review-after: "2026-06-06"

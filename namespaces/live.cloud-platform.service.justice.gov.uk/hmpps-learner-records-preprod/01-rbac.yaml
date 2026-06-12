@@ -9,9 +9,6 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-lrs-devs"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:education-skills-and-work-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:

@@ -26,6 +26,11 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -70,4 +75,37 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "maat-scheduled-tasks-prod-userpool"
+}
+
+variable "cognito_user_pool_client_name_billing" {
+  description = "Cognito user pool client - Billing"
+  default     = "billing-prod"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "maat-scheduled-tasks-prod"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "maat-scheduled-tasks-prod-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "maat-scheduled-tasks-prod"
 }

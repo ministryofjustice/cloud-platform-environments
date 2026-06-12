@@ -1,5 +1,5 @@
 module "hmpps_dpr_fake_dps_service_ui_ec_cluster" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -17,6 +17,8 @@ module "hmpps_dpr_fake_dps_service_ui_ec_cluster" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_dpr_fake_dps_service_ui_ec_cluster" {

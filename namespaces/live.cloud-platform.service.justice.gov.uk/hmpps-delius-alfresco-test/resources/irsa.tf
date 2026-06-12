@@ -3,7 +3,7 @@ data "aws_iam_policy" "poc_env_bucket_policy" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -15,6 +15,7 @@ module "irsa" {
     s3             = module.s3_bucket.irsa_policy_arn
     s3_refresh_poc = data.aws_iam_policy.poc_env_bucket_policy.arn
     migration      = aws_iam_policy.migration_policy.arn
+    rds            = module.rds_alfresco.irsa_policy_arn
   }
 
   # Tags

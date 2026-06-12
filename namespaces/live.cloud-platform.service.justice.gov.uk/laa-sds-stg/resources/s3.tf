@@ -15,6 +15,7 @@ module "laa_sds_equiniti" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   bucket_name            = "laa-sds-equiniti-${var.environment}"
+  versioning             = true
 }
 
 module "s3_buckets" {
@@ -29,6 +30,7 @@ module "s3_buckets" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   bucket_name            = "${each.value}-${var.environment}"
+  versioning             = true
 }
 
 

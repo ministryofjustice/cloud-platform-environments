@@ -1,5 +1,5 @@
 module "prisons_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -9,17 +9,19 @@ module "prisons_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  enable_rds_auto_start_stop  = true
+  enable_rds_auto_start_stop  = false
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
-  rds_family                  = "postgres16"
+  rds_family                  = "postgres18"
   db_engine                   = "postgres"
-  db_engine_version           = "16.4"
+  db_engine_version           = "18.3"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
 
   db_max_allocated_storage    = "500"
+
+  enable_irsa = true
 
   providers = {
     aws = aws.london
@@ -30,7 +32,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {

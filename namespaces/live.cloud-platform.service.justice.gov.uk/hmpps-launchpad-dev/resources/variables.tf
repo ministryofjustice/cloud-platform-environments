@@ -35,7 +35,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -86,6 +86,13 @@ variable "cloud_platform_launchpad_auth_api_url" {
   default     = "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
 }
 
+variable "api_gateway_ingress_hostname" {
+  description = "Hostname for API Gateway to route traffic via NLB (must match default NLB TLS cert CN pattern)"
+  type        = string
+  default     = "hmpps-launchpad-auth-dev.apps.live.cloud-platform.service.justice.gov.uk"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
+

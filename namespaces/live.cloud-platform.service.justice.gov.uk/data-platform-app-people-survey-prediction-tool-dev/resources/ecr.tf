@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name      = "${var.namespace}-ecr"
   oidc_providers = ["github"]
@@ -13,6 +13,9 @@ module "ecr_credentials" {
   # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-secrets
   github_environments   = ["dev"]
   github_actions_prefix = "dev"
+
+  deletion_protection = false
+
 
   /*
   # Lifecycle_policy provides a way to automate the cleaning up of your container images by expiring images based on age or count.

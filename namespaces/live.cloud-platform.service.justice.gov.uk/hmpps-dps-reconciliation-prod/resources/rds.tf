@@ -1,9 +1,10 @@
 module "hmpps_dps_reconciliation_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage       = 20
   storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "hmpps-dps-reconciliation-db-prod"
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production
@@ -12,12 +13,14 @@ module "hmpps_dps_reconciliation_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
-  db_engine_version          = "17"
-  rds_family                 = "postgres17"
+  db_engine_version          = "18"
+  rds_family                 = "postgres18"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = false
   db_max_allocated_storage   = "500"
+  backup_window              = "02:30-03:00"
+  db_password_rotated_date   = "2026-05-14"
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
@@ -31,6 +34,7 @@ resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {
     database_name         = module.hmpps_dps_reconciliation_rds.database_name
     database_username     = module.hmpps_dps_reconciliation_rds.database_username
     database_password     = module.hmpps_dps_reconciliation_rds.database_password
+    rds_instance          = module.hmpps_dps_reconciliation_rds.db_identifier
     rds_instance_address  = module.hmpps_dps_reconciliation_rds.rds_instance_address
     url                   = "postgres://${module.hmpps_dps_reconciliation_rds.database_username}:${module.hmpps_dps_reconciliation_rds.database_password}@${module.hmpps_dps_reconciliation_rds.rds_instance_endpoint}/${module.hmpps_dps_reconciliation_rds.database_name}"
   }

@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -25,9 +25,9 @@ module "rds" {
 
   # Database configuration
   prepare_for_major_upgrade   = false
-  db_engine_version           = "17.4"
+  db_engine_version           = "18.1"
   db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres17"
+  rds_family                  = "postgres18"
   allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
@@ -36,6 +36,11 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = false
 }
 
 resource "kubernetes_secret" "rds" {

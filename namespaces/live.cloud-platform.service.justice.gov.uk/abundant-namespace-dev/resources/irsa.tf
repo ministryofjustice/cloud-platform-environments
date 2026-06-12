@@ -1,6 +1,6 @@
 module "irsa" {
   #always replace with latest version from Github
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -14,6 +14,7 @@ module "irsa" {
     rds    = module.rds.irsa_policy_arn
     sns    = module.abundant_namespace_dev_sns.irsa_policy_arn
     sqs    = module.abundant_namespace_sqs.irsa_policy_arn
+    s3     = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags

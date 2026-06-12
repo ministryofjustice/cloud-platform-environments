@@ -5,4 +5,5 @@ module "github_actions_service_account" {
   kubernetes_cluster  = var.kubernetes_cluster
   github_repositories = ["hmpps-breach-notice-ui", "hmpps-breach-notice-api"]
   github_environments = [var.environment_name]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

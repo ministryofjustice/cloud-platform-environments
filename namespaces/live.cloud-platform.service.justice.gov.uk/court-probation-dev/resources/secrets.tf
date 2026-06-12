@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
 
   team_name              = var.team_name
   application            = var.application
@@ -30,6 +30,16 @@ module "secrets_manager" {
       description             = "Contains the application insights connection string for dev",
       recovery_window_in_days = 7,
       k8s_secret_name         = "applicationinsights-connection-string"
+    },
+    "github-test-runner-app-id" = {
+      description             = "Contains the application ID for the github app to trigger automated tests in dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "github-test-runner-app-id"
+    },
+    "github-test-runner-secret-key" = {
+      description             = "Contains the secret key for the github app to trigger automated tests in dev",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "github-test-runner-secret-key"
     }
   }
 }

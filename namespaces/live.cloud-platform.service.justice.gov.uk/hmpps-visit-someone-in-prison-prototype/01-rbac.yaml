@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-visit-someone-in-prison-prototype
 subjects:
   - kind: Group
-    name: "github:hmpps-prison-visits-booking"
+    name: "github:hmpps-prison-visits-booking-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

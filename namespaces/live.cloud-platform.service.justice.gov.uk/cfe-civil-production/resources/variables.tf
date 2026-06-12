@@ -53,3 +53,12 @@ variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
 }
+
+variable "eks_cluster_name" {
+  description = "EKS cluster name"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
+}

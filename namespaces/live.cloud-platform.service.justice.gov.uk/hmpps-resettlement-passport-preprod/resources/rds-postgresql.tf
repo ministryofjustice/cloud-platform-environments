@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -21,9 +21,10 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
+  prepare_for_major_upgrade = false
   db_engine         = "postgres"
-  db_engine_version = "14.13"
-  rds_family        = "postgres14"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
   # Tags
@@ -34,6 +35,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 
@@ -44,11 +47,14 @@ module "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
   vpc_name = var.vpc_name
+
+  db_engine_version = "16"
+  rds_family        = "postgres16"
 
   # Tags
   application            = var.application
@@ -113,6 +119,24 @@ resource "kubernetes_secret" "rds" {
      *
      */
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-resettlement-passport-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
 
 
 resource "kubernetes_secret" "read_replica" {

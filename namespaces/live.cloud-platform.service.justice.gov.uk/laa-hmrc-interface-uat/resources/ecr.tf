@@ -1,8 +1,8 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name           = "${var.namespace}-ecr"
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci","github"]
   github_repositories = [var.repo_name]
 
   /*

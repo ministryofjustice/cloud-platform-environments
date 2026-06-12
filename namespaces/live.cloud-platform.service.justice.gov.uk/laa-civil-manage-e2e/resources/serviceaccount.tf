@@ -1,0 +1,21 @@
+resource "github_repository_environment" "dev" {
+  repository  = "laa-civil-manage-e2e"
+  environment = "dev"
+}
+
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+
+  namespace = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+
+  serviceaccount_token_rotated_date = "20-03-2026"
+
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ca.crt and token for use in github actions CI/CD pipelines
+  github_repositories = ["laa-civil-manage-e2e"]
+  github_environments = ["dev"]
+
+  depends_on = [github_repository_environment.dev]
+}
+

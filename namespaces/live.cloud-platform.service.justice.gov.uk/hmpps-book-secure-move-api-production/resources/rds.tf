@@ -1,5 +1,5 @@
 module "rds-instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
 
@@ -13,6 +13,9 @@ module "rds-instance" {
 
   backup_window      = var.backup_window
   maintenance_window = var.maintenance_window
+
+  # Add security groups for DPR
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   performance_insights_enabled = true
 
@@ -34,7 +37,6 @@ module "rds-instance" {
       "name" : "log_min_duration_statement",
       "value" : "2000"
     },
-
     {
       name         = "rds.logical_replication"
       value        = "1"
@@ -54,8 +56,15 @@ module "rds-instance" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
     }
   ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds-instance" {
@@ -70,7 +79,7 @@ resource "kubernetes_secret" "rds-instance" {
 }
 
 module "rds-read-replica" {
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type = "gp2"
 
   vpc_name = var.vpc_name
@@ -100,9 +109,43 @@ module "rds-read-replica" {
     aws = aws.london
   }
 
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  enable_irsa = true
 }
 
 # Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS

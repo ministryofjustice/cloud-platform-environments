@@ -1,10 +1,10 @@
 module "lcdui_ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name = var.repo_name
 
   oidc_providers      = ["circleci"]
-  github_repositories = ["laa-court-data-ui"]
+  github_repositories = ["laa-court-data-ui", "laa-court-data-adaptor", "hmcts-common-platform-mock-api", "laa-court-data-ui-e2e-tests"]
 
   # Tags
   business_unit = var.business_unit

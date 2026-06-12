@@ -1,5 +1,5 @@
 module "secret" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
@@ -19,7 +19,22 @@ module "secret" {
       description             = "PLP event filter list",
       recovery_window_in_days = 7,
       k8s_secret_name         = "plp-filter-list"
-    }
+    },
+    "integration-api-event-pnd-filter-list" = {
+      description             = "PND event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "pnd-filter-list"
+    },
+    "integration-api-event-cats-filter-list" = {
+      description             = "CATS event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cats-filter-list"
+    },
+    "integration-api-event-ctrlo-filter-list" = {
+      description             = "Ctrl O event filter list",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ctrlo-filter-list"
+    },
   }
 
   # Tags

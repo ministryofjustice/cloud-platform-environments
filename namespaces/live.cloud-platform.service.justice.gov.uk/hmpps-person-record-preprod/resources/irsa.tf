@@ -4,9 +4,28 @@ locals {
   }
   # *** Placeholder for incoming SNS topics ***
   sns_topics = {
+      "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
+# PiC Events SQS Policies
+data "aws_iam_policy_document" "pic_link_unlink_sqs" {
+  statement {
+    sid       = "hmppsPiCPolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.pic_link_unlink_queue.sqs_arn,
+      module.pic_link_unlink_dead_letter_queue.sqs_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "pic_link_unlink_sqs" {
+  policy = data.aws_iam_policy_document.pic_link_unlink_sqs.json
+  tags   = local.default_tags
 }
 
 # Court Case Events SQS Policies
@@ -69,6 +88,23 @@ resource "aws_iam_policy" "combined_nomis_sqs" {
   tags   = local.default_tags
 }
 
+data "aws_iam_policy_document" "combined_sas_sqs" {
+  statement {
+    sid     = "hmppsSasQueuePolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.cpr_sas_events_queue.sqs_arn,
+      module.cpr_sas_events_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sas_sqs" {
+  policy = data.aws_iam_policy_document.combined_sas_sqs.json
+  tags   = local.default_tags
+}
+
 resource "aws_iam_policy" "cross_namespace_s3_policy" {
   name   = "${var.namespace}-cross-namespace-s3-policy"
   policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
@@ -81,12 +117,12 @@ data "aws_iam_policy_document" "cross_namespace_s3_access" {
     actions = [
       "s3:GetObject",
     ]
-    resources = ["${data.aws_ssm_parameter.large-court-cases-s3-bucket-arn.value}/*", ]
+    resources = ["${data.aws_ssm_parameter.prod-large-court-cases-s3-bucket-arn.value}/*", ]
   }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -107,6 +143,8 @@ module "irsa" {
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
+    { combined_sas_sqs = aws_iam_policy.combined_sas_sqs.arn },
+    { pic_link_unlink_sqs = aws_iam_policy.pic_link_unlink_sqs.arn },
     { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )
 
@@ -129,7 +167,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
 
   # Configuration
   namespace            = var.namespace

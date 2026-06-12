@@ -1,0 +1,50 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-x-ray-body-scans-api-dev-admin
+  namespace: hmpps-x-ray-body-scans-api-dev
+subjects:
+  - kind: Group
+    name: "github:connect-dps-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:connect-dps-collaborators-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ephemeral-container-access
+  namespace: hmpps-x-ray-body-scans-api-dev
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["get", "patch", "update", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ephemeral-container-access-binding
+  namespace: hmpps-x-ray-body-scans-api-dev
+subjects:
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:connect-dps-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:connect-dps-collaborators-devs"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ephemeral-container-access
+  apiGroup: rbac.authorization.k8s.io

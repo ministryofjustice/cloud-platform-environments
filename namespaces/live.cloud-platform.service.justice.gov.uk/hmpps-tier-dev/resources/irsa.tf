@@ -6,16 +6,19 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = var.application
   namespace            = var.namespace
   role_policy_arns = merge(
     local.sns_policies,
-    { domain_sqs = module.hmpps-tier-events-queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps-tier-events-dlq.irsa_policy_arn },
-    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
+    {
+      domain_sqs = module.hmpps-tier-events-queue.irsa_policy_arn
+      domain_dlq = module.hmpps-tier-events-dlq.irsa_policy_arn
+      audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
+      export_s3 = module.bucket.irsa_policy_arn
+    }
   )
 
   # Tags

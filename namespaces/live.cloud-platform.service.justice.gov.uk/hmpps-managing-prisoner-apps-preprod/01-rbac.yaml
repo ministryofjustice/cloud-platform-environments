@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-managing-prisoner-apps-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-launchpad"
+    name: "github:hmpps-launchpad-live"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group

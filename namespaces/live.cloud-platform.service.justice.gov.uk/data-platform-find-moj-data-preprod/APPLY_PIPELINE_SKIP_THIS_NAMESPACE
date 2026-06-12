@@ -1,7 +1,0 @@
-  # pingdom_check.find-moj-data-preprod will be updated in-place
-  ~ resource "pingdom_check" "find-moj-data-preprod" {
-        id                       = "13410222"
-        name                     = "find-moj-data - preprod - cloud-platform"
-      ~ tags                     = "application_find_moj_data,businessunit_platforms,component_ping,environment_preprod,infrastructuresupport_platforms,isproduction_false" -> "application_find_moj_data,businessunit_Platforms,component_ping,environment_preprod,infrastructuresupport_Platforms,isproduction_false"
-        # (19 unchanged attributes hidden)
-    }

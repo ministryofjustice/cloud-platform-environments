@@ -83,3 +83,18 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can deploy to this environment with GitHub Actions."
+  default     = "connect-dps-live"
+}

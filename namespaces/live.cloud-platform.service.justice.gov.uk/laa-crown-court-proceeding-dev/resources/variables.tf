@@ -21,6 +21,11 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "laa-crime-apps-team"

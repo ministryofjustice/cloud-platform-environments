@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = var.db_allocated_storage
   storage_type         = var.storage_type
 
@@ -22,7 +22,8 @@ module "rds" {
   maintenance_window = var.maintenance_window
   backup_window = var.backup_window
   db_parameter = var.db_parameter
-
+  deletion_protection = var.deletion_protection
+  
   # PostgreSQL specifics
   db_engine         = var.db_engine
   db_engine_version = var.db_engine_version
@@ -37,6 +38,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {

@@ -1,0 +1,43 @@
+/*
+ * Make sure that you use the latest version of the module by changing the
+ * `ref=` value in the `source` attribute to the latest version listed on the
+ * releases page of this repository.
+ *
+ */
+module "cla-frontend-redis-elasticache" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
+  
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+  engine_version         = "7.0"
+  parameter_group_name   = "default.redis7"
+  namespace              = var.namespace
+  node_type              = "cache.t4g.micro"
+  number_cache_clusters   = "2"
+
+  auth_token_rotated_date = "2026-03-18"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "cla-frontend-redis-elasticache" {
+  metadata {
+    name      = "cla-frontend-redis-elasticache-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    primary_endpoint_address = module.cla-frontend-redis-elasticache.primary_endpoint_address
+    member_clusters          = jsonencode(module.cla-frontend-redis-elasticache.member_clusters)
+    auth_token               = module.cla-frontend-redis-elasticache.auth_token
+    url                      = "rediss://dummyuser:${module.cla-frontend-redis-elasticache.auth_token}@${module.cla-frontend-redis-elasticache.primary_endpoint_address}:6379"
+  }
+}

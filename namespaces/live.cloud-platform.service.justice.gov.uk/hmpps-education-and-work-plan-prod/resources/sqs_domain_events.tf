@@ -14,6 +14,8 @@ module "hmpps_eawp_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  delay_seconds             = 5
+  receive_wait_time_seconds = 20
 }
 
 resource "aws_sqs_queue_policy" "hmpps_eawp_domain_events_queue_policy" {

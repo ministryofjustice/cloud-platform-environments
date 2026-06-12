@@ -8,4 +8,5 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   # using default service account name
   github_repositories = ["laa-crimeapps-maat-functional-tests"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

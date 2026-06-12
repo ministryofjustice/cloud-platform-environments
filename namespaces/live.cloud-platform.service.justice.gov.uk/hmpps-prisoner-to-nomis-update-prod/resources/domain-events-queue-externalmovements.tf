@@ -1,0 +1,144 @@
+module "hmpps_prisoner_to_nomis_externalmovements_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  # Queue configuration
+  sqs_name                   = "hmpps_prisoner_to_nomis_externalmovements_queue"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 1209600
+  visibility_timeout_seconds = 120
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_arn
+    maxReceiveCount     = 7
+  })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "aws_sqs_queue_policy" "hmpps_prisoner_to_nomis_externalmovements_queue_policy" {
+  queue_url = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn}",
+          "Action": "SQS:SendMessage",
+          "Condition":
+            {
+              "ArnEquals":
+              {
+                "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+              }
+            }
+        }
+      ]
+  }
+EOF
+}
+
+module "hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  # Queue configuration
+  sqs_name        = "hmpps_prisoner_to_nomis_externalmovements_dlq"
+  encrypt_sqs_kms = "true"
+
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name # also used for naming the queue
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "hmpps_prisoner_to_nomis_externalmovements_queue" {
+  metadata {
+    name      = "domain-events-sqs-nomis-update-externalmovements"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue" {
+  metadata {
+    name      = "domain-events-sqs-nomis-update-externalmovements-dlq"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_name
+  }
+}
+
+resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_externalmovements_subscription" {
+  provider            = aws.london
+  topic_arn           = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol            = "sqs"
+  endpoint            = module.hmpps_prisoner_to_nomis_externalmovements_queue.sqs_arn
+  filter_policy_scope = "MessageBody"
+  filter_policy = jsonencode({
+    eventType = [
+      "person.temporary-absence-authorisation.pending",
+      "person.temporary-absence-authorisation.approved",
+      "person.temporary-absence-authorisation.denied",
+      "person.temporary-absence-authorisation.cancelled",
+      "person.temporary-absence-authorisation.expired",
+      "person.temporary-absence-authorisation.recategorised",
+      "person.temporary-absence-authorisation.date-range-changed",
+      "person.temporary-absence-authorisation.accompaniment-changed",
+      "person.temporary-absence-authorisation.comments-changed",
+      "person.temporary-absence-authorisation.transport-changed",
+      "person.temporary-absence-authorisation.deferred",
+      "person.temporary-absence-authorisation.relocated",
+      "person.temporary-absence-authorisation.paused",
+      "person.temporary-absence-authorisation.resumed",
+      "person.temporary-absence.scheduled",
+      "person.temporary-absence.denied",
+      "person.temporary-absence.cancelled",
+      "person.temporary-absence.started",
+      "person.temporary-absence.completed",
+      "person.temporary-absence.overdue",
+      "person.temporary-absence.expired",
+      "person.temporary-absence.recategorised",
+      "person.temporary-absence.rescheduled",
+      "person.temporary-absence.relocated",
+      "person.temporary-absence.accompaniment-changed",
+      "person.temporary-absence.transport-changed",
+      "person.temporary-absence.comments-changed",
+      "person.temporary-absence.unscheduled",
+      "person.temporary-absence.paused",
+      "person.temporary-absence.resumed"
+    ]
+  })
+}

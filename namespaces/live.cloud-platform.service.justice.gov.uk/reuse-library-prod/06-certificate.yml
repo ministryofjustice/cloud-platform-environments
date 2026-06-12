@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: reuse-library-prod-certificate
+  namespace: reuse-library-prod
+spec:
+  secretName: reuse-library-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - reuselibrary.service.justice.gov.uk

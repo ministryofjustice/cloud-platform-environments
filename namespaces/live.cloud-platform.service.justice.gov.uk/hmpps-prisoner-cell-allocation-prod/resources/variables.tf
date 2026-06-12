@@ -23,9 +23,30 @@ variable "team_name" {
   default     = "dps_shared"
 }
 
+variable "github_deployment_team" {
+  default = "map-developers-live"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "prod"
 }
 
 variable "infrastructure_support" {
@@ -40,6 +61,10 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "dps_shared"
+}
+
+variable "review_team_name" {
+  default = "move-a-prisoner"
 }
 
 variable "number_cache_clusters" {

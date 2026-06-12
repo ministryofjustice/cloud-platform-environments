@@ -1,5 +1,5 @@
 module "mbpr_prod_irsa" {
-  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name      = var.eks_cluster_name
   namespace             = var.namespace
   service_account_name  = "mbpr-prod-cp-data-access"
@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "mbpr_prod" {
       "sts:AssumeRole"
     ]
     resources = [
-      "arn:aws:iam::992382429243:role/mbpr-dev-ap-data-access"
+      "arn:aws:iam::593291632749:role/alpha_app_mbpr-test"
     ]
   }
 }

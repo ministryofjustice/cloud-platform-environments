@@ -24,6 +24,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Platform and Reporting"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "syscon-devs"
@@ -42,6 +47,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string

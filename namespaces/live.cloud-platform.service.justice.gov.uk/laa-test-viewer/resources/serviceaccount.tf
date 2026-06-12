@@ -10,4 +10,5 @@ module "serviceaccount" {
   # using default service account name
   github_repositories = ["laa-test-viewer"]
   serviceaccount_name = "cd-serviceaccount"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

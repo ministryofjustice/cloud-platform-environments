@@ -10,7 +10,7 @@ module "hmpps_prisoner_to_nomis_personalrelationships_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_personalrelationships_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -144,7 +144,10 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_personalrelations
       "personal-relationships-api.domestic-status.deleted",
       "personal-relationships-api.number-of-children.created",
       "personal-relationships-api.number-of-children.deleted",
-      "prisoner-offender-search.prisoner.received"
+      "prisoner-offender-search.prisoner.received",
+      "personal-relationships-api.prisoner-restriction.created",
+      "personal-relationships-api.prisoner-restriction.updated",
+      "personal-relationships-api.prisoner-restriction.deleted",
     ]
   })
 }

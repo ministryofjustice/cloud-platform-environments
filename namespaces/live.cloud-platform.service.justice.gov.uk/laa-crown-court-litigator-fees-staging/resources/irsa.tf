@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     sqs_cclf_claims = aws_iam_policy.cclf_stg_policy.arn
-    rds = module.rds-instance-migrated.irsa_policy_arn
+    rds = module.rds-instance-staging-migrated.irsa_policy_arn
   }
 
   # Tags

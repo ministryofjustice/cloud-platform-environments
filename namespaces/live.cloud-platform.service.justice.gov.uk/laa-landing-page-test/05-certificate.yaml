@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-landing-page-homepage-cert
+  namespace: laa-landing-page-test
+spec:
+  secretName: laa-landing-page-homepage-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - test.your-legal-aid-services.service.justice.gov.uk

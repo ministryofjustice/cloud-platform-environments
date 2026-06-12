@@ -1,8 +1,10 @@
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-electronic-monitoring-data-insights-ui"
   application = "hmpps-electronic-monitoring-data-insights-ui"
-  github_team = "hmpps-em-probation"
+  github_team = "hmpps-em-probation-devs"
   environment = var.environment 
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production

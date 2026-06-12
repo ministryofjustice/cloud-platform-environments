@@ -21,6 +21,12 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Education Skills and Work"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "education-skills-and-work-live"
@@ -31,13 +37,19 @@ variable "environment" {
   default     = "preprod"
 }
 
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "preprod"
+}
+
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "managing.eswe@digital.justice.gov.uk"
+  default     = "getreadyforwork@justice.gov.uk"
 }
 
 variable "is_production" {

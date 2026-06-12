@@ -5,14 +5,15 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["circleci"]
-  github_repositories = ["laa-assess-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-submit-crime-forms"]
+  oidc_providers        = ["circleci", "github"]
+  github_repositories   = ["laa-assess-crime-forms", "nsm-e2e-test", "laa-crime-application-store", "laa-submit-crime-forms"]
+  github_actions_prefix = "assess_dev"
 
   # Tags
   business_unit          = var.business_unit
@@ -46,4 +47,16 @@ module "ecr" {
       ]
   }
   EOF
+}
+
+resource "kubernetes_secret" "ecr" {
+    metadata {
+    name      = "ecr-repo-${var.namespace}"
+    namespace = var.namespace
+    }
+
+    data = {
+    repo_arn = module.ecr.repo_arn
+    repo_url = module.ecr.repo_url
+    }
 }

@@ -1,5 +1,5 @@
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
-  
+
   name = "/hmpps-domain-events-dev/topic-arn"
 }
 
@@ -87,7 +87,23 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "probation-case.address.updated",
       "probation-case.address.deleted",
       "probation-case.risk-scores.ogrs.manual-calculation",
-      "probation.staff.updated",
+      "probation-case.mappa-information.created",
+      "probation-case.mappa-information.updated",
+      "probation-case.mappa-information.deleted",
+      "probation-case.mappa-export.created",
+      "probation-case.mappa-export.terminated",
+      "probation-case.assessment-summary.created",
+      "probation-case.supervision-appointment.created",
+      "probation-case.supervision.created",
+      "probation-case.cas3-booking.created",
+      "probation-case.exclusion.updated",
+      "probation-case.restriction.updated",
+      "probation-case.sentence.created",
+      "probation-case.sentence.amended",
+      "probation-case.sentence.terminated",
+      "probation-case.sentence.unterminated",
+      "probation-case.sentence.deleted",
+      "probation-case.sentence.moved",
       "plp.induction-schedule.updated",
       "plp.review-schedule.updated",
       "san.plan-creation-schedule.updated",
@@ -117,6 +133,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "prison-offender-events.prisoner.person-restriction.deleted",
       "prison-offender-events.prisoner.non-association-detail.changed",
       "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.merged",
       "calculate-release-dates.prisoner.changed",
       "risk-assessment.scores.ogrs.determined",
       "risk-assessment.scores.rsr.determined",

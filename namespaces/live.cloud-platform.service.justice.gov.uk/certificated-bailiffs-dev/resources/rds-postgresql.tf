@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -22,7 +22,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.17"
+  db_engine_version = "14"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
 
@@ -34,6 +34,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 
@@ -44,7 +46,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count                = 0
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
@@ -62,7 +64,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.10"
+  db_engine_version = "14"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance

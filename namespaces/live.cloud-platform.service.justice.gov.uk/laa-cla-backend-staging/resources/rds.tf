@@ -8,7 +8,7 @@
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 module "cla_backend_rds_postgres_14_replica" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage   = 10
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
@@ -32,7 +32,7 @@ module "cla_backend_rds_postgres_14_replica" {
   # Pick the one that defines the postgres version the best
   rds_family        = "postgres14"
   db_engine_version = "14"
-  db_instance_class = "db.t4g.small"
+  db_instance_class = "db.t4g.medium"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -42,7 +42,7 @@ module "cla_backend_rds_postgres_14_replica" {
 }
 
 module "cla_backend_rds_postgres_14" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
@@ -58,6 +58,8 @@ module "cla_backend_rds_postgres_14" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
   db_allocated_storage   = "10"
+  # increase retention period to 28 days while dealing with a data loss incident
+  db_backup_retention_period   = "28"
 
   snapshot_identifier = "rds:cloud-platform-e485b5986a689b44-2023-12-13-05-29"
 
@@ -86,6 +88,8 @@ module "cla_backend_rds_postgres_14" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_14" {

@@ -70,3 +70,11 @@ variable "mp_dps_sg_name" {
   description = "Required for MP DPR Traffic ingress into CP DPS"
   default     = "cloudplatform-mp-dps-sg"
 }
+
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
+
+variable "service_area" {
+  default = "Manage Custody"
+}

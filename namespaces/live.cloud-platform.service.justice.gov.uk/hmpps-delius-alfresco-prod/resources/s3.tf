@@ -11,6 +11,7 @@ module "s3_bucket" {
 
   lifecycle_rule = [
     {
+      id      = "${var.environment_name}-lifecycle-rule"
       enabled = true
 
       noncurrent_version_transition = [
@@ -23,11 +24,41 @@ module "s3_bucket" {
           storage_class = "GLACIER"
         },
       ]
+    },
+    {
+      id      = "Expire current objects"
+      enabled = false
 
+      expiration = [
+        {
+          days = 1
+        }
+      ]
+
+      # expire previous versions
       noncurrent_version_expiration = [
         {
-          days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
-        },
+          days = 1
+        }
+      ]
+    },
+    {
+      id      = "Clean up delete markers"
+      enabled = false
+
+      expiration = [
+        {
+          expired_object_delete_marker = true
+        }
+      ]
+    },
+    {
+      id      = "Abort incomplete uploads automatically"
+      enabled = false
+      abort_incomplete_multipart_upload = [
+        {
+          days_after_initiation = 1
+        }
       ]
     }
   ]

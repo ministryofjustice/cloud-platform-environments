@@ -11,6 +11,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Digital-Prison-Services"
@@ -45,6 +50,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "approved_prisoner_audit_clients" {
+  type    = list(string)
+  default = ["hmpps-launchpad-preprod"]
+}
+
+variable "approved_person_on_probation_audit_clients" {
+  type    = list(string)
+  default = []
 }
 
 variable "kubernetes_cluster" {}

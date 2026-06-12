@@ -10,7 +10,7 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-em-probation"
+    name: "github:hmpps-em-probation-live"
     apiGroup: rbac.authorization.k8s.io
 # hmpps-sre group is required for support functions
 ###################################################

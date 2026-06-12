@@ -11,6 +11,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Digital-Prison-Services"
@@ -46,6 +51,23 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "github_team" {
+  description = "The slug of the GitHub team associated with the "
+  type        = string
+  default     = "haha-audit-dev"
+}
+
+variable "approved_prisoner_audit_clients" {
+  type    = list(string)
+  default = ["hmpps-launchpad-dev", "prisoner-content-hub-development"]
+}
+
+variable "approved_person_on_probation_audit_clients" {
+  type    = list(string)
+  default = ["hmpps-people-on-probation-dev"]
+}
+
 
 variable "kubernetes_cluster" {}
 

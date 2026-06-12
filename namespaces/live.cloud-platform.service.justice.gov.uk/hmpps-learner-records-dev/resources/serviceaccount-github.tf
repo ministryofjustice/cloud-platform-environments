@@ -81,7 +81,7 @@ module "service_account" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.github-actions-sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   role_name                            = "serviceaccount-github"
   rolebinding_name                     = "serviceaccount-github-rolebinding"
   depends_on                           = [github_repository_environment.env]
@@ -95,28 +95,12 @@ resource "time_rotating" "weekly" {
 ### Copy these three lines and change accordingly for your github team ###
 ### then add the variable name to the teams list below                 ###
 
-data "github_team" "hmpps-sre" {
-slug = "hmpps-sre"
-}
-
-data "github_team" "hmpps-lrs-devs" {
-slug = "hmpps-lrs-devs"
-} 
-
 ##########################################################################
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
   repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
-# prevent_self_review = true
-  reviewers {
-    teams = [ 
-      tonumber(data.github_team.hmpps-sre.id),
-      tonumber(data.github_team.hmpps-lrs-devs.id)
-    ]
-  }
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false

@@ -35,6 +35,11 @@ variable "team_name" {
   default     = "central-digital-product-team"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Central Victims and Vulnerability"
+}
+
 variable "repo_name" {
   default = "request-personal-information"
 }

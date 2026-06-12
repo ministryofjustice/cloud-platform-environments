@@ -12,16 +12,13 @@ subjects:
     name: "github:hmpps-interventions"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:manage-a-workforce"
+    name: "github:hmpps-manage-a-workforce-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:probation-integration"
+    name: "github:probation-integration-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:education-skills-work-employment"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:farsight-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

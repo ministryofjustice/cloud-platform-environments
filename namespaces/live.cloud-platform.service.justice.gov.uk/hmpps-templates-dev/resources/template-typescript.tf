@@ -1,5 +1,11 @@
+# For Cloud Platform deployed projects based on the hmpps-template-typescript template:
+# Make a copy of this file in your namespace, then modify according to the instructions here:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
+
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-template-typescript"
   application = "hmpps-template-typescript"
   github_team = "hmpps-sre"
@@ -18,7 +24,7 @@ module "hmpps_template_typescript" {
 
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

@@ -13,6 +13,16 @@ variable "namespace" {
   default = "hmpps-electronic-monitoring-data-insights-preprod"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "namespace-short" {
+  description = "Short-form version of namespace name to get around string-length issues"
+  type = string
+  default = "hmpps-em-data-insights-preprod"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -20,7 +30,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-em-probation"
+  default     = "hmpps-em-probation-live"
 }
 
 ####################################################################################################################

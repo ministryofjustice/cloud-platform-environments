@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
@@ -41,7 +41,9 @@ module "serviceaccount" {
         "batch",
         "networking.k8s.io",
         "rbac.authorization.k8s.io",
+        "external-secrets.io",
         "policy",
+        "autoscaling",
       ]
       resources = [
         "deployments",
@@ -55,6 +57,9 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "poddisruptionbudgets",
+        "externalsecrets",
+        "hpa",
+        "horizontalpodautoscalers",
       ]
       verbs = [
         "get",
@@ -72,6 +77,7 @@ module "serviceaccount" {
       ]
       resources = [
         "prometheusrules",
+        "servicemonitors",
       ]
       verbs = [
         "*",

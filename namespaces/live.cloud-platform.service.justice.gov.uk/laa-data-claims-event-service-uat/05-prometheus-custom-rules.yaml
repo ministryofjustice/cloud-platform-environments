@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: laa-data-claims-event-service-uat
+  labels:
+    prometheus: cloud-platform
+    role: alert-rules
+  name: prometheus-custom-rules-laa-data-claims-event-service-uat
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: NamespaceDown
+      expr: absent(up{namespace="laa-data-claims-event-service-uat"}) == 1
+      for: 1m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: Namespace laa-data-claims-event-service-uat is down.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
+
+    - alert: KubeLowPodCount
+      expr: sum (kube_pod_status_phase{namespace="laa-data-claims-event-service-uat", phase="Running"}) < 1
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: Namespace laa-data-claims-event-service-uat has fewer than expected number of running pods.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
+
+    - alert: KubeQuotaExceeded
+      expr: 100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-data-claims-event-service-uat"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-data-claims-event-service-uat"} > 0) > 90
+      for: 1m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: Namespace laa-data-claims-event-service-uat is using more than 90% of its allocated resources.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
+
+    - alert: SubmissionErrorDetected
+      expr: |-
+        sum(increase(claims_event_service_submissions_with_errors_total{namespace="laa-data-claims-event-service-uat"}[5m])) > 50
+      for: 1m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: More than 50 submission errors in the last 5 minutes in laa-data-claims-event-service-uat. Check the logs for details.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat

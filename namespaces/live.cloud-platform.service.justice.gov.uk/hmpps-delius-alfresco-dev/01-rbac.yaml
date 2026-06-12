@@ -8,13 +8,10 @@ subjects:
     name: "github:hmpps-migration"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:zaizi-devs"
+    name: "github:hmpps-alfresco-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hosting-migrations"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:hmpps-dba"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

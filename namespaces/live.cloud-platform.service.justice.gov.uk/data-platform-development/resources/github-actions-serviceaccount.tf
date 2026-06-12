@@ -4,4 +4,5 @@ module "github_actions_serviceaccount" {
   kubernetes_cluster  = var.kubernetes_cluster
   namespace           = var.namespace
   serviceaccount_name = "github-actions"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

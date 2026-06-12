@@ -26,10 +26,16 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Education Skills and Work"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "resettlement-passport"
+  default     = "education-skills-and-work-live"
 }
 
 variable "environment" {

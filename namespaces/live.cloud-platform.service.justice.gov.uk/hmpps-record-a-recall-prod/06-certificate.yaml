@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: record-a-recall-prod-cert
+  namespace: hmpps-record-a-recall-prod
+spec:
+  secretName: record-a-recall-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - record-a-recall.hmpps.service.justice.gov.uk

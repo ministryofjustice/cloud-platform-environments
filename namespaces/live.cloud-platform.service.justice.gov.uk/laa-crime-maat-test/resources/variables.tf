@@ -78,3 +78,8 @@ variable "github_actions_secret_kube_namespace" {
   default     = "KUBE_NAMESPACE"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+

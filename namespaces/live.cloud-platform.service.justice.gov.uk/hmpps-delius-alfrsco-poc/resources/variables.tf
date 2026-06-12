@@ -26,6 +26,12 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "HMPPS Delius"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -145,6 +151,7 @@ variable "serviceaccount_rules" {
         "networkpolicies",
         "daemonsets",
         "statefulsets",
+        "statefulsets/scale",
       ]
       verbs = [
         "get",

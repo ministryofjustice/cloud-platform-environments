@@ -8,6 +8,11 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
       # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
       GithubTeam = var.team_name
     }
@@ -20,6 +25,11 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
       # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
       GithubTeam = var.team_name
     }
@@ -32,6 +42,11 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
       # see https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html
       GithubTeam = var.team_name
     }

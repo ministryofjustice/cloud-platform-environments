@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-maat-scheduled-tasks-test"
   labels:
+    cloud-platform.justice.gov.uk/namespace: "laa-maat-scheduled-tasks-test"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "Test"
     pod-security.kubernetes.io/enforce: restricted

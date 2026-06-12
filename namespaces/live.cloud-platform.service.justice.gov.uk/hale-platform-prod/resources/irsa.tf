@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -17,6 +17,7 @@ module "irsa" {
     ecr                    = module.ecr_credentials.irsa_policy_arn,
     ecr2                   = module.ecr_feed_parser.irsa_policy_arn,
     rds                    = module.rds.irsa_policy_arn,
+    cloudfront             = aws_iam_policy.cloudfront_access_policy.arn,
   }
 
   # Tags
@@ -30,21 +31,15 @@ module "irsa" {
 
 data "aws_iam_policy_document" "s3_cross_bucket_policy" {
   # Provide list of permissions and target AWS account resources to allow access to
+  # staging, dev, demo
   statement {
     actions = [
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf", # staging
-      "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f", # dev
-      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119", # demo
-      "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q",               #tacticalproducts legacy account
-      "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm",           #tacticalproducts legacy account
-      "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir",                #tacticalproducts legacy account
-      "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk",                  #tacticalproducts legacy account
-      "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd",          #tacticalproducts legacy account
-      "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw",                  #tacticalproducts legacy account
-      "arn:aws:s3:::imbmembers-prod-storage-k98pxkemaqp0"             #tacticalproducts legacy account
+      "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf",
+      "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f",
+      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119"
     ]
   }
   statement {
@@ -57,16 +52,27 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
       "s3:GetObjectTagging"
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*", # staging
-      "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*", # dev
-      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*", # demo
-      "arn:aws:s3:::lawcom-prod-storage-11jsxou24uy7q/*",               #tacticalproducts legacy account
-      "arn:aws:s3:::justicejobs-prod-storage-u1mo8w50uvqm/*",           #tacticalproducts legacy account
-      "arn:aws:s3:::sifocc-prod-storage-7f6qtyoj7wir/*",                #tacticalproducts legacy account
-      "arn:aws:s3:::npm-prod-storage-19n0nag2nk8xk/*",                  #tacticalproducts legacy account
-      "arn:aws:s3:::layobservers-prod-storage-nu2yj19yczbd/*",          #tacticalproducts legacy account
-      "arn:aws:s3:::ppo-prod-storage-1g9rkhjhkjmgw/*",                  #tacticalproducts legacy account
-      "arn:aws:s3:::imbmembers-prod-storage-k98pxkemaqp0/*"             #tacticalproducts legacy account
+      "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*",
+      "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*",
+      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*"
+    ]
+  }
+
+  # Read-only access to the legacy single-site justice bucket for migration
+  statement {
+    actions = [
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64",
+    ]
+  }
+  statement {
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64/*",
     ]
   }
 }
@@ -85,3 +91,37 @@ resource "aws_iam_policy" "s3_cross_bucket_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
+
+data "aws_iam_policy_document" "cloudfront_access_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudfront:GetDistribution",
+      "cloudfront:ListDistributions",
+      "cloudfront:CreateInvalidation",
+      "cloudfront:GetInvalidation",
+      "cloudfront:ListInvalidations",
+      "cloudfront:GetCachePolicy"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
+
+resource "aws_iam_policy" "cloudfront_access_policy" {
+  name   = "hale-platform-prod-cloudfront-access-policy"
+  policy = data.aws_iam_policy_document.cloudfront_access_policy.json
+
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+

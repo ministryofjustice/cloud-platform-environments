@@ -16,7 +16,7 @@ locals {
 
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -34,4 +34,13 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+# set up the service pod
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

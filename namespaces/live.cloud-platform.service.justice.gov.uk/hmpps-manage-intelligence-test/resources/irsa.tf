@@ -1,0 +1,107 @@
+data "aws_iam_policy_document" "sqs_full" {
+  version = "2012-10-17"
+  statement {
+    sid     = "hmppsManageIntelligenceSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.ims_index_batch_queue.sqs_arn,
+      module.ims_index_batch_dead_letter_queue.sqs_arn,
+      module.ims_index_update_queue.sqs_arn,
+      module.ims_index_update_dead_letter_queue.sqs_arn,
+      module.ims_transformer_queue.sqs_arn,
+      module.ims_transformer_dead_letter_queue.sqs_arn,
+      module.ims_reprocess_queue.sqs_arn,
+      module.ims_reprocess_dead_letter_queue.sqs_arn,
+      module.ims_csv_queue.sqs_arn,
+      module.ims_csv_dead_letter_queue.sqs_arn,
+      module.attachment_metadata_transformer_queue.sqs_arn,
+      module.attachment_metadata_transformer_dead_letter_queue.sqs_arn,
+      module.metadata_status_queue.sqs_arn,
+      module.metadata_status_dead_letter_queue.sqs_arn,
+      module.ims_pdf_queue.sqs_arn,
+      module.ims_pdf_dead_letter_queue.sqs_arn,
+      module.ims_prisoner_details_queue.sqs_arn,
+      module.ims_prisoner_details_dlq.sqs_arn,
+      module.domain_events_queue.sqs_arn,
+      module.domain_events_dlq.sqs_arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sqs" {
+  policy = data.aws_iam_policy_document.sqs_full.json
+  # Tags
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
+# Add the names of the SNS topics which the app needs permissions to access.
+# The value of each item should be the namespace where the queue or topic was created.
+# This information is used to collect the IAM policies which are used by the IRSA module.
+locals {
+  # The names of the SNS topics used and the namespace which created them
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+  }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
+module "irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  # EKS configuration
+  eks_cluster_name = var.eks_cluster_name
+
+  # IRSA configuration
+  service_account_name = "${var.application}-${var.environment}"
+  namespace            = var.namespace # this is also used as a tag
+
+  # Attach the approprate policies using a key => value map
+  # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
+  # provide an output called `irsa_policy_arn` that can be used.
+  role_policy_arns = merge(local.sns_policies, {
+    policy           = aws_iam_policy.combined_sqs.arn
+    s3_ims           = module.manage_intelligence_storage_bucket.irsa_policy_arn
+    s3_rds           = module.manage_intelligence_rds_to_s3_bucket.irsa_policy_arn
+    s3_transformer   = module.manage_intelligence_transformer_bucket.irsa_policy_arn
+    s3_csv           = module.manage_intelligence_csv_bucket.irsa_policy_arn
+    s3_images        = module.ims_images_storage_bucket.irsa_policy_arn
+    s3_attachments   = module.ims_attachments_storage_bucket.irsa_policy_arn
+    s3_dissemination = module.ims_dissemination_storage_bucket.irsa_policy_arn
+    rds              = module.rds_aurora.irsa_policy_arn
+    s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
+    s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
+  })
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}

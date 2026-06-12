@@ -1,10 +1,11 @@
 module "nomis_migration_rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
 
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "hmpps-prisoner-from-nomis-migration-db-dev"
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production
@@ -13,8 +14,8 @@ module "nomis_migration_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.small"
   db_engine                  = "postgres"
-  db_engine_version          = "17"
-  rds_family                 = "postgres17"
+  db_engine_version          = "18"
+  rds_family                 = "postgres18"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true
   prepare_for_major_upgrade  = false

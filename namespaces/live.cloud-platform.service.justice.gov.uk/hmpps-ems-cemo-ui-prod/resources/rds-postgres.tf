@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -14,7 +14,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "15"
   rds_family        = "postgres15"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.large"
 
   # Tags
   application            = var.application
@@ -44,7 +44,7 @@ resource "kubernetes_secret" "rds" {
 module "read_replica" {
   # default off
   count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name

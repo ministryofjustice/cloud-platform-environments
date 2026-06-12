@@ -20,6 +20,11 @@ variable "team_name" {
   default     = "hmpps-move-and-improve"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "prod"
@@ -65,3 +70,9 @@ variable "maintenance_window" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

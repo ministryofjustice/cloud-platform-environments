@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-lrs-devs"
+  default     = "education-skills-and-work-devs"
 }
 
 ####################################################################################################################
@@ -33,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dataengineering@digital.justice.gov.uk"
+  default     = "getreadyforwork@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -42,7 +42,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "lrs-microservice-team"
+  default     = "education-skills-work-employment-dev"
 }
 
 variable "number_cache_clusters" {

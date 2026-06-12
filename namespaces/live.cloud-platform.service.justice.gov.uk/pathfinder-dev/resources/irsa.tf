@@ -12,14 +12,18 @@ locals {
   }
   sqs_policies_api = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs_api : item.name => item.value }
   irsa_policies_api = merge(local.sqs_policies_api, {
-    pathfinder_api_queue_for_domain_events                   = module.pathfinder_api_queue_for_domain_events.irsa_policy_arn
-    pathfinder_api_queue_for_domain_events_dead_letter_queue = module.pathfinder_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    pathfinder_api_queue_for_domain_events                      = module.pathfinder_api_queue_for_domain_events.irsa_policy_arn
+    pathfinder_api_queue_for_domain_events_dead_letter_queue    = module.pathfinder_api_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    pathfinder_api_queue_for_offender_events                    = module.pathfinder_api_offender_queue.irsa_policy_arn
+    pathfinder_api_queue_for_offender_events_dead_letter_queue  = module.pathfinder_api_offender_dlq.irsa_policy_arn
+    pathfinder_api_queue_for_probation_events                   = module.pathfinder_api_queue_for_probation_events.irsa_policy_arn
+    pathfinder_api_queue_for_probation_events_dead_letter_queue = module.pathfinder_api_queue_for_probation_events_dead_letter_queue.irsa_policy_arn
   })
 }
 
 # IRSA for pathfinder deployment
 module "irsa_pathfinder" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace            = var.namespace
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "pathfinder"
@@ -39,7 +43,7 @@ module "irsa_pathfinder" {
 
 # IRSA for pathfinder-api deployment
 module "irsa_hmpps_pathfinder_api" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   namespace              = var.namespace
   eks_cluster_name       = var.eks_cluster_name
   service_account_name   = "pathfinder-api"

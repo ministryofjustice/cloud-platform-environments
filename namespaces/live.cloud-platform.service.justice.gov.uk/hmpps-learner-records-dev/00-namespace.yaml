@@ -9,9 +9,9 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "lrs-microservice-team"
-    cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-learner-records-notifications-nonprod"
+    cloud-platform.justice.gov.uk/slack-channel: "prison-education"
+    cloud-platform.justice.gov.uk/slack-alert-channel: "prison-education-alerts-non-prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Learner Records"
-    cloud-platform.justice.gov.uk/owner: "Data Modelling and Engineering Team: dataengineering@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "Education Skills and Work: getreadyforwork@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-learner-records-api"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-lrs-devs"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-education-skills-and-work"

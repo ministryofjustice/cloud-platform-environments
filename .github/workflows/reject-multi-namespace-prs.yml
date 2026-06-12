@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: ministryofjustice/cloud-platform-multiple-namespace-github-action@9eee2fb0b28f28edf930f0def2c038719c3a6266 # main
+      - uses: ministryofjustice/cloud-platform-multiple-namespace-github-action@20261dc0e118ed124aa5624e7cac3fe511635d74 # main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

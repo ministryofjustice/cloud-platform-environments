@@ -124,6 +124,8 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
   request_parameters = {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
+    "integration.request.header.cert-serial-number"         = "context.identity.clientCert.serialNumber"
+    "integration.request.header.cert-expiry-date"           = "context.identity.clientCert.validity.notAfter"
   }
 }
 
@@ -167,6 +169,16 @@ resource "aws_api_gateway_usage_plan" "default" {
     stage  = aws_api_gateway_stage.main.stage_name
   }
 
+  throttle_settings {
+    burst_limit = 20
+    rate_limit  = 10
+  }
+
+  quota_settings {
+    limit  = 3000000
+    period = "MONTH"
+  }
+
   tags = local.default_tags
 }
 
@@ -201,7 +213,12 @@ resource "aws_api_gateway_client_certificate" "api_gateway_client_two" {
 }
 
 resource "aws_api_gateway_client_certificate" "api_gateway_client_three" {
-  description = "Client certificate presented to the backend API expires 04/07/2025"
+  description = "Client certificate presented to the backend API expires 04/07/2026"
+  tags        = local.default_tags
+}
+
+resource "aws_api_gateway_client_certificate" "api_gateway_client_four" {
+  description = "Client certificate presented to the backend API expires 10/06/2027"
   tags        = local.default_tags
 }
 
@@ -210,7 +227,7 @@ resource "aws_api_gateway_stage" "main" {
   deployment_id         = aws_api_gateway_deployment.main.id
   rest_api_id           = aws_api_gateway_rest_api.api_gateway.id
   stage_name            = var.namespace
-  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_three.id
+  client_certificate_id = aws_api_gateway_client_certificate.api_gateway_client_four.id
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn

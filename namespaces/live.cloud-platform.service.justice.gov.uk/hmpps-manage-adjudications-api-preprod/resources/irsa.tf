@@ -13,7 +13,7 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -22,7 +22,9 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
-    { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn }
+    { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn },
+    { s3 = module.analytical_platform_s3_bucket.irsa_policy_arn },
+    { rds = module.ma_rds.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit

@@ -4,7 +4,9 @@ resource "aws_sns_topic_subscription" "create-and-vary-a-licence-and-delius-queu
   endpoint  = module.create-and-vary-a-licence-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "create-and-vary-a-licence.licence.activated"
+      "create-and-vary-a-licence.licence.activated",
+      "create-and-vary-a-licence.prrd-licence.activated",
+      "create-and-vary-a-licence.time-served-licence.activated",
     ]
   })
 }
@@ -67,7 +69,7 @@ resource "kubernetes_secret" "create-and-vary-a-licence-and-delius-queue-secret"
 }
 
 module "create-and-vary-a-licence-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

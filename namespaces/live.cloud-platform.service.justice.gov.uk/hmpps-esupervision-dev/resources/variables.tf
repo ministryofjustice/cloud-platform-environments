@@ -81,3 +81,9 @@ variable "postgres_instance_class" {
   description = "Class of the postgres instance"
   default = "db.t4g.micro"
 }
+
+variable "rekognition_role_arn" {
+  type = string
+  description = "ARN of the role to assume for Rekognition operations"
+  default = "arn:aws:iam::514115671816:role/rekognition-role"
+}

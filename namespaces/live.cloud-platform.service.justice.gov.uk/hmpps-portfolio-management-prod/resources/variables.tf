@@ -35,6 +35,11 @@ variable "team_name" {
   default     = "hmpps-sre"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

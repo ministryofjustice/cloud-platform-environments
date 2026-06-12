@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace
@@ -26,10 +26,12 @@ module "ecr" {
 
   # For ECR creation to differentiate between environments
   github_actions_prefix = "prod"
+
+  enable_irsa = true
 }
 
 module "data_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.data_ecr
@@ -50,6 +52,8 @@ module "data_ecr" {
 
   # For ECR creation to differentiate between environments
   github_actions_prefix = "prod_data"
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

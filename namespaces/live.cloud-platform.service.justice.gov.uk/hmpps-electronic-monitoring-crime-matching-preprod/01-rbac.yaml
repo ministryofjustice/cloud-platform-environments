@@ -1,0 +1,17 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-electronic-monitoring-crime-matching-preprod-admin
+  namespace: hmpps-electronic-monitoring-crime-matching-preprod
+subjects:
+  - kind: Group
+    name: "github:hmpps-em-probation-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

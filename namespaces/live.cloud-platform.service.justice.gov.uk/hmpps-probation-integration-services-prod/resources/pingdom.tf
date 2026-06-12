@@ -22,7 +22,6 @@ resource "pingdom_check" "pingdom" {
     "sentence-plan-and-delius",
     "pathfinder-and-delius",
     "soc-and-delius",
-    "sentence-plan-and-oasys",
     "domain-events-and-delius",
     "external-api-and-delius",
     "manage-offences-and-delius",
@@ -42,7 +41,6 @@ resource "pingdom_check" "pingdom" {
     "accredited-programmes-and-oasys",
     "manage-supervision-and-oasys",
     "oasys-and-delius",
-    "feature-flags",
     "probation-search-and-delius",
     "core-person-record-and-delius",
     "subject-access-requests-and-delius",
@@ -57,6 +55,14 @@ resource "pingdom_check" "pingdom" {
     "accredited-programmes-and-delius",
     "hmpps-libra-event-receiver",
     "hmpps-common-platform-event-receiver",
+    "suicide-risk-form-and-delius",
+    "esupervision-and-delius",
+    "community-payback-and-delius",
+    "cosso-and-delius",
+    "manage-people-on-probation-and-delius",
+    "manage-my-community-sentence-and-delius",
+    "single-accommodation-and-delius",
+    "probation-access-control",
     # ^ add new projects here
   ])
   type                     = "http"

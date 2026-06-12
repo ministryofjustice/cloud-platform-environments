@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name        = "${var.namespace}-ecr"
   lifecycle_policy = <<EOF
@@ -7,11 +7,11 @@ module "ecr_credentials" {
     "rules": [
       {
         "rulePriority": 1,
-        "description": "Keep the newest 14 images and mark the rest for expiration",
+        "description": "Keep the newest 200 images and mark the rest for expiration",
         "selection": {
           "tagStatus": "any",
           "countType": "imageCountMoreThan",
-          "countNumber": 14
+          "countNumber": 200
         },
         "action": {
           "type": "expire"

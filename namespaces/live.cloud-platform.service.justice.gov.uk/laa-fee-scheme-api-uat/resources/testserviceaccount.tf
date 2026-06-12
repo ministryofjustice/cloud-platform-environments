@@ -1,0 +1,18 @@
+module "testserviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+
+  namespace = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+  serviceaccount_name = var.serviceaccount_name_e2e_tests
+
+  role_name = "${var.serviceaccount_name_e2e_tests}-role"
+  rolebinding_name = "${var.serviceaccount_name_e2e_tests}-rolebinding"
+  github_actions_secret_kube_cert     = "KUBE_CERT_${var.serviceaccount_suffix}"
+  github_actions_secret_kube_token    = "KUBE_TOKEN_${var.serviceaccount_suffix}"
+  github_actions_secret_kube_cluster  = "KUBE_CLUSTER_${var.serviceaccount_suffix}"
+  github_actions_secret_kube_namespace = "KUBE_NAMESPACE_${var.serviceaccount_suffix}"
+
+  github_repositories = ["bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim"]
+  github_environments = ["uat"]
+  serviceaccount_token_rotated_date = "20-03-2026"
+}

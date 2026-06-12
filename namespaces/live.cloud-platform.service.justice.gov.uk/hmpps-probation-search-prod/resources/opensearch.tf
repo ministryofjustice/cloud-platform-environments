@@ -1,5 +1,5 @@
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.7.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -11,17 +11,23 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version      = "OpenSearch_2.19"
+  engine_version               = "OpenSearch_3.1"
+  auto_software_update_enabled = true
+
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "im4gn.xlarge.search"
+    instance_type            = "m7g.xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "m7g.large.search"
   }
   proxy_count = 3
-  ebs_enabled = false
+  ebs_options = {
+    volume_size = 600 # we can reduce this to 300GB after removing keyword search
+    iops        = 3000
+    throughput  = 250
+  }
 }
 
 module "opensearch_snapshot_bucket" {

@@ -23,7 +23,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-activity-management-prototype-admin-team"
 }
 
 variable "environment" {

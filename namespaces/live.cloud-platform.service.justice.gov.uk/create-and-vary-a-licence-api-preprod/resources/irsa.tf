@@ -6,11 +6,13 @@ locals {
   sqs_policies = {
     cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
     cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
+    cvl_prison_events_queue             = module.cvl_prison_events_queue.irsa_policy_arn,
+    cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
   }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

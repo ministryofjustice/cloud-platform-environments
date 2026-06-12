@@ -30,7 +30,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-em-probation"
+  default     = "hmpps-em-probation-devs"
 }
 
 ####################################################################################################################
@@ -58,6 +58,7 @@ variable "slack_channel" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -68,4 +69,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "domain" {
+  default = "crime-matching-dev.electronic-monitoring.service.justice.gov.uk"
+}
+
+variable "email_bucket_name" {
+  default = "police-emails"
+}
+
+variable "email_rule_set_name" {
+  default = "email-receiving-rules"
 }

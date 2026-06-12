@@ -1,5 +1,11 @@
+# For Cloud Platform deployed projects based on the hmpps-template-typescript template:
+# Make a copy of this file in your namespace, then modify according to the instructions here:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
+
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-template-kotlin"
   application = "hmpps-template-kotlin"
   github_team = "hmpps-sre"

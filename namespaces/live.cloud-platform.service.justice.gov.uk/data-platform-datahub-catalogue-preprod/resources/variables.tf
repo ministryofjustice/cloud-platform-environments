@@ -23,7 +23,13 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "OCTO"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Data Platform"
 }
 
 variable "team_name" {
@@ -62,6 +68,12 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+variable "owner" {
+  description = "Email address of the team responsible for this service"
+  type        = string
+  default     = "FMD: findmojdata@justice.gov.uk"
+}
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
@@ -74,7 +86,7 @@ variable "eks_cluster_name" {
 variable "enable_rds_auto_start_stop" {
   description = "Whether to enable RDS auto start/stop"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "backup_window" {
@@ -134,12 +146,12 @@ variable db_engine {
 variable db_engine_version {
   description = "The database engine version to use for the RDS instance"
   type        = string
-  default     = "15.12"
+  default     = "17.7"
 }
 variable rds_family {
   description = "The RDS family to use for the RDS instance"
   type        = string
-  default     = "postgres15"
+  default     = "postgres17"
 }
 variable db_instance_class {
   description = "The instance class to use for the RDS instance"
@@ -162,4 +174,29 @@ variable db_parameter {
       value = "10080"
     }
   ]
+}
+
+variable "opensearch_engine_version" {
+  description = "The OpenSearch engine version to use"
+  type        = string
+  default     = "OpenSearch_2.19"
+}
+
+variable "opensearch_instance_type" {
+  description = "The instance type to use for the OpenSearch cluster"
+  type        = string
+  default     = "t3.medium.search"
+}
+
+variable "opensearch_instance_count" {
+  description = "The number of instances to use for the OpenSearch cluster"
+  type        = number
+  default     = 3
+}
+
+variable "opensearch_ebs_volume_size" {
+  description = "The EBS volume size to use for the OpenSearch cluster"
+  type        = number
+  default     = 50
+  
 }

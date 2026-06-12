@@ -1,8 +1,20 @@
+# Enable Prod SA role to Access Preprod S3 bucket for file Sync
+data "aws_ssm_parameter" "s3_bucket_arn" {
+  name = "/hmpps-delius-alfresco-preprod/s3-bucket-arn"
+}
+
 data "aws_iam_policy_document" "migration_policy" {
   statement {
     actions = [
+      # Bucket level permissions
       "s3:GetBucketLocation",
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+
+      # object level permissions to read from source
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionTagging",
     ]
 
     effect = "Allow"
@@ -10,6 +22,7 @@ data "aws_iam_policy_document" "migration_policy" {
     resources = [
       module.s3_bucket.bucket_arn,
       "arn:aws:s3:::tf-eu-west-2-hmpps-delius-prod-alfresco-storage-s3bucket",
+      data.aws_ssm_parameter.s3_bucket_arn.value
     ]
   }
   statement {
@@ -22,6 +35,7 @@ data "aws_iam_policy_document" "migration_policy" {
     resources = [
       "${module.s3_bucket.bucket_arn}/*",
       "arn:aws:s3:::tf-eu-west-2-hmpps-delius-prod-alfresco-storage-s3bucket/*",
+      "${data.aws_ssm_parameter.s3_bucket_arn.value}/*"
     ]
   }
   statement {

@@ -14,4 +14,4 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Help with Prison Visits"
     cloud-platform.justice.gov.uk/owner: "Prison Visits Booking: prisonvisitsbooking@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/help-with-prison-visits-asynchronous-worker,https://github.com/ministryofjustice/help-with-prison-visits-external,https://github.com/ministryofjustice/help-with-prison-visits-internal"
-    cloud-platform.justice.gov.uk/team-name: "hmpps-help-with-prison-visits"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-help-with-prison-visits-devs"

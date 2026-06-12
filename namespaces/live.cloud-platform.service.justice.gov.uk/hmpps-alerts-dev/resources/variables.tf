@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "connect-dps"
+  default     = "connect-dps-devs"
 }
 
 variable "environment" {
@@ -80,4 +80,14 @@ variable "mp_dps_sg_name" {
   type        = string
   description = "Required for MP DPR Traffic ingress into CP DPS"
   default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Foundations"
+}
+
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "connect-dps-devs"
 }

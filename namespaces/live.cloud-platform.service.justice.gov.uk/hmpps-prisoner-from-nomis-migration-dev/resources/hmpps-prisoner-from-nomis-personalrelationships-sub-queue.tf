@@ -10,7 +10,7 @@ module "prisoner_from_nomis_personalrelationships_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prisoner_from_nomis_personalrelationships_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -139,7 +139,8 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_personalrelationships
       "PERSON_IDENTIFIERS-DELETED",
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "RESTRICTION-UPSERTED",
-      "RESTRICTION-DELETED"
+      "RESTRICTION-DELETED",
+      "BOOKING-DELETED"
     ]
   })
 }

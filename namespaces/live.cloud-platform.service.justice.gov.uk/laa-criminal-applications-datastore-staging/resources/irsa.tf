@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -15,7 +15,8 @@ module "irsa" {
     rds = module.rds.irsa_policy_arn
     s3  = module.s3_bucket.irsa_policy_arn
     sns = module.application-events-sns-topic.irsa_policy_arn
-    sqs = module.application-events-dlq.irsa_policy_arn
+    sqs = module.application-events-queue.irsa_policy_arn
+    sqs_dlq = module.application-events-dlq.irsa_policy_arn
   }
 
   # Tags
@@ -25,4 +26,16 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+# Store the SQS policy ARN as a secret in Review staging which polls for messages from SQS
+resource "kubernetes_secret" "datastore-staging-sqs-policy-arn-cross-namespace" {
+  metadata {
+    name      = "application-events-queue-policy-arn"
+    namespace = "laa-review-criminal-legal-aid-staging"
+  }
+
+  data = {
+    sqs_irsa_policy_arn = module.application-events-queue.irsa_policy_arn
+  }
 }

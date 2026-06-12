@@ -1,5 +1,5 @@
 module "opa_hub_db" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=8.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -9,12 +9,14 @@ module "opa_hub_db" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true
+  enable_rds_auto_start_stop   = false
+
+  prepare_for_major_upgrade = true
 
   # MySQL specifics
   db_engine         = "mysql"
-  db_engine_version = "8.0.40"
-  rds_family        = "mysql8.0"
+  db_engine_version = "8.4.8"
+  rds_family        = "mysql8.4"
   db_instance_class = "db.t4g.micro"
   db_parameter      = []
 

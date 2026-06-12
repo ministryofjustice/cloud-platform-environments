@@ -6,4 +6,5 @@ module "serviceaccount" {
 
   github_repositories = [var.repo_name]
   github_environments = ["staging"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

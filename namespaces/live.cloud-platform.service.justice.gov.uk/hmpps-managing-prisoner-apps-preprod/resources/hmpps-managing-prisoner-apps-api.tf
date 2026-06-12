@@ -1,5 +1,7 @@
 module "hmpps_managing_prisoner_apps_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-managing-prisoner-apps-api"
   application = "hmpps-managing-prisoner-apps-api"
   github_team = "hmpps-launchpad"

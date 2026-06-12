@@ -8,4 +8,5 @@ module "serviceaccount" {
 
   github_repositories = [var.namespace]
 
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

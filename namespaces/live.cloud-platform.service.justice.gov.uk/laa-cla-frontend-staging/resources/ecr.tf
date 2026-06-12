@@ -1,5 +1,5 @@
 module "cla_frontend_app_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   team_name = var.team_name
   repo_name = var.repo_name
@@ -8,10 +8,12 @@ module "cla_frontend_app_credentials" {
     aws = aws.london
   }
   # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "cla_public", "fala"]
+  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "fala"]
+  # String prefix for GitHub Actions variable and secrets key
+  github_actions_prefix="CLA_FRONTEND"
 
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI
@@ -37,7 +39,7 @@ resource "kubernetes_secret" "cla_frontend_app_credentials" {
 }
 
 module "cla_frontend_socket_server_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   team_name = var.team_name
   repo_name = "cla_frontend_socket_server"
@@ -46,11 +48,12 @@ module "cla_frontend_socket_server_credentials" {
     aws = aws.london
   }
 
-  # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
+  # enable the oidc implementation for CircleCI and Github (circleci config to be deleted once migrated)
+  oidc_providers = ["circleci", "github"]
+  github_actions_prefix = "SOCKET_SERVER"
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "cla_public", "fala"]
+  github_repositories = [var.repo_name, "cla-end-to-end-tests", "cla_backend", "fala"]
 
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI

@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # REQUIRED: Repository configuration
   team_name = var.team_name
@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-ccms-caab", "laa-ccms-data-api", "laa-ccms-soa-gateway-api", "laa-ccms-caab-saml-mock", "laa-ccms-caab-api", "laa-ccms-caab-helm-charts", "laa-ccms-caab-assessment-api", "laa-ccms-testing-framework"]
+  github_repositories = ["laa-ccms-caab", "laa-ccms-data-api", "laa-ccms-soa-gateway-api", "laa-ccms-caab-saml-mock", "laa-ccms-caab-api", "laa-ccms-caab-helm-charts", "laa-ccms-caab-assessment-api", "laa-ccms-testing-framework", "laa-ccms-api-gateway"]
 
   # Lifecycle policies
   lifecycle_policy = <<EOF
@@ -117,4 +117,6 @@ module "ecr" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  enable_irsa = true
 }

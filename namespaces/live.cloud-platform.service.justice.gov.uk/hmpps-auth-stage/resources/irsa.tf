@@ -8,12 +8,12 @@ locals {
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
-module "irsa-authorization" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+module "irsa-auth" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-authorization"
+  service_account_name = "hmpps-auth"
   role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
@@ -25,7 +25,7 @@ module "irsa-authorization" {
 }
 
 module "irsa-manage-users" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -41,7 +41,7 @@ module "irsa-manage-users" {
 }
 
 module "irsa-external-users" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

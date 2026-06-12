@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-user-preferences-cert
+  namespace: hmpps-user-preferences-qa
+spec:
+  secretName: hmpps-user-preferences-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-user-preferences-qa.hmpps.service.justice.gov.uk

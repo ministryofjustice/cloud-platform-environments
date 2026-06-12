@@ -1,0 +1,134 @@
+apiVersion:  monitoring.coreos.com/v1
+kind:         PrometheusRule
+metadata:
+  namespace: laa-crime-assessment-service-prod
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-laa-crime-assessment-service
+spec:
+  groups:
+  - name:  application-rules
+    rules:
+    - alert:  Client Response Errors
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        There has been an increase in client error responses in the Crime Assessment Service running on production in the past 10 minutes. This may indicate a problem with clients calling the application - including intrusion attempts.
+      expr:             sum(increase(http_server_requests_seconds_count{outcome="CLIENT_ERROR", namespace="laa-crime-assessment-service-prod"}[10m])) > 1
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Server Response Error
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        There has been an increase in server error responses from the Crime Assessment Service running on production in the past 10 minutes. This may indicate a problem with the server processing client requests - likely a bug.
+      expr:             sum(increase(http_server_requests_seconds_count{outcome="SERVER_ERROR", namespace="laa-crime-assessment-service-prod"}[10m])) > 1
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        JVM CPU Usage
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        The crime-assessment-service running on a production pod has been using over 95% of the CPU for a minute. This may indicate the pods running this application require more CPU resources.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             (process_cpu_usage{namespace="laa-crime-assessment-service-prod"} * 100) > 95
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        System CPU Usage
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        A pod that runs the crime-assessment-service on production has been using over 95% of the pod's CPU for a minute. This may indicate there is some underlying process other than our application on the pod that is using up all the CPU resources and warrants further investigation.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             (system_cpu_usage{namespace="laa-crime-assessment-service-prod"} * 100) > 95
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Object Heap Memory Usage - Tenured Gen
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        Over 95% of the "Tenured Gen" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             ((jvm_memory_used_bytes{area="heap", id="Tenured Gen", namespace="laa-crime-assessment-service-prod"}/jvm_memory_max_bytes{area="heap", id="Tenured Gen", namespace="laa-crime-assessment-service-prod"})*100) > 95
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Object Heap Memory Usage - Survivor Space
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        Over 95% of the "Survivor Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             ((jvm_memory_used_bytes{area="heap", id="Survivor Space", namespace="laa-crime-assessment-service-prod"}/jvm_memory_max_bytes{area="heap", id="Survivor Space", namespace="laa-crime-assessment-service-prod"})*100) > 95
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Object Heap Memory Usage - Eden Space
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        Over 95% of the "Eden Space" object heap memory on a production pod had been used. This may indicate our application needs more object heap memory or we have a memory resource leak in our application.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             ((jvm_memory_used_bytes{area="heap", id="Eden Space", namespace="laa-crime-assessment-service-prod"}/jvm_memory_max_bytes{area="heap", id="Eden Space", namespace="laa-crime-assessment-service-prod"})*100) > 95
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Response Time Excessive
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        The response time for successful responses on production is taking on average over five seconds. This indicates responses to our clients is taking too long.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             (sum(http_server_requests_seconds_sum{outcome="SUCCESS", namespace="laa-crime-assessment-service-prod"})/sum(http_server_requests_seconds_count{outcome="SUCCESS", namespace="laa-crime-assessment-service-prod"})) > 5
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Logging Error
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        There had been an error in the logs of the crime-assessment-service in the past 10 minutes. This indicates that there may be a bug with the application.
+        runbook_url:    https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+      expr:             sum(increase(logback_events_total{level="error", namespace="$namespace"}[10m])) > 1
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Instance-Down
+      annotations:
+        message:  The production instance of the crime-assessment-service has been down for >1m.
+      expr:       absent(up{namespace="laa-crime-assessment-service-prod"}) == 1
+      for:        1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Quota-Exceeded
+      annotations:
+        message:      Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
+        runbook_url:  https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+      expr:           100 * kube_resourcequota{job="kube-state-metrics",type="used",namespace="laa-crime-assessment-service-prod"} / ignoring(instance, job, type) (kube_resourcequota{job="kube-state-metrics",type="hard",namespace="laa-crime-assessment-service-prod"} > 0) > 90
+      for:            1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        KubePodCrashLooping
+      annotations:
+        message:      Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting excessively
+        runbook_url:  https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+      expr:           round(rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="laa-crime-assessment-service-prod"}[10m]) * 60 * 10) > 1
+      for:            5m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod
+    - alert:        Increase in 403 Blocked Requests
+      annotations:
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/a9f3c7e2b1d84f6a9c3e7b5d2f8a6c1e/laa-crime-assessment-service?var-namespace=laa-crime-assessment-service-prod
+        message:        The rate of requests blocked by the internal ingress has been increasing over the past 5 minutes.
+      expr:             sum(increase(nginx_ingress_controller_requests{exported_namespace="laa-crime-assessment-service-prod", ingress="crime-assessment-service", status="403"}[5m])) > 1
+      for:              1m
+      labels:
+        namespace:  laa-crime-assessment-service-prod
+        severity:   laa-crime-assessment-alerts-prod

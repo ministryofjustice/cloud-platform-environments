@@ -3,7 +3,6 @@ provider "pingdom" {
 
 locals {
   websites = {
-    brook-house-inquiry                = { host = "brookhouseinquiry.org.uk", url = "/" }
     cjji                               = { host = "cjji.justiceinspectorates.gov.uk", url = "/" }
     criminal-cases-review-commission   = { host = "ccrc.gov.uk", url = "/" }
     hmcpsi                             = { host = "hmcpsi.justiceinspectorates.gov.uk", url = "/" }
@@ -24,13 +23,14 @@ locals {
     prisons-and-probation-ombudsman    = { host = "ppo.gov.uk", url = "/" }
     public-defender-service            = { host = "publicdefenderservice.org.uk", url = "/" }
     recriwtio-ynadon                   = { host = "magistrates.judiciary.uk", url = "/cymraeg" }
-    showcase                           = { host = "showcase.websitebuilder.service.justice.gov.uk", url = "/" }
+    showcase-site                      = { host = "showcase.websitebuilder.service.justice.gov.uk", url = "/" }
     sifocc                             = { host = "sifocc.org", url = "/" }
     victim-and-witness-information     = { host = "victimandwitnessinformation.org.uk", url = "/" }
     victim-and-witness-information-cym = { host = "cym.victimandwitnessinformation.org.uk", url = "/" }
     victims-commissioner               = { host = "victimscommissioner.org.uk", url = "/" }
     Website-Builder-Prod-Platform-Page = { host = "websitebuilder.service.justice.gov.uk", url = "/" }
     Website-Builder-Staging-Test-Site  = { host = "staging.websitebuilder.service.justice.gov.uk", url = "/" }
+    Ministy-of-Justice-Main-Site       = { host = "www.justice.gov.uk", url = "/" }
   }
 }
 
@@ -46,7 +46,7 @@ resource "pingdom_check" "hale-platform-websites" {
   url                      = each.value.url
   encryption               = true
   port                     = 443
-  tags                     = "businessunit_${var.business_unit},application_${var.application},component_ping,isproduction_${var.is_production},infrastructuresupport_${var.application}"
+  tags                     = "businessunit_${lower(var.business_unit)},application_${var.application},component_ping,isproduction_${var.is_production},infrastructuresupport_${var.application}"
   probefilters             = "region:EU"
   integrationids           = [133317]
 }

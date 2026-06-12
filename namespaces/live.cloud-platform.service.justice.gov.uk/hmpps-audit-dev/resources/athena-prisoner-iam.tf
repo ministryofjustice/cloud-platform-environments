@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "athena-prisoner" {
     ]
 
     resources = [
-      aws_athena_workgroup.queries.arn,
+      aws_athena_workgroup.prisoner_audit_queries.arn,
       "arn:aws:athena:eu-west-2:*:queryexecution/*",
       "arn:aws:glue:eu-west-2:*:catalog",
       aws_glue_catalog_database.prisoner_audit_glue_catalog_database.arn,

@@ -1,5 +1,5 @@
 module "secrets_manager_multiple_secrets" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -44,6 +44,12 @@ module "secrets_manager_multiple_secrets" {
       description             = "Notification submission template",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-submission-template"
+    },
+
+    "notify-success-template" = {
+      description             = "Notification success template",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "notify-success-template"
     },
 
     "notify-verification-template" = {

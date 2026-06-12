@@ -20,6 +20,11 @@ variable "namespace" {
   default     = "laa-crime-application-tracking-service-prod"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

@@ -11,13 +11,17 @@ variable "namespace" {
   default = "hmpps-restricted-patients-prod"
 }
 
-
 variable "vpc_name" {
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Manage Custody"
 }
 
 variable "team_name" {
@@ -36,12 +40,16 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "dps_adjudications"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "number_cache_clusters" {
@@ -58,6 +66,5 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
 
 variable "kubernetes_cluster" {}

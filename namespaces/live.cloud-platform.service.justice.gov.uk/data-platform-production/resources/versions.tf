@@ -7,7 +7,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "~> 5.39.0"
+      version = "~> 6.6.0"
     }
     /* Commenting out to satisfy tflint, but is part of Cloud Platform's template, and we might use it again in the future
     kubernetes = {

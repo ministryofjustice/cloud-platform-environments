@@ -108,6 +108,9 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "person.community.manager.allocated",
+      "prisoner-offender-search.prisoner.updated",
+      "recall.inserted",
+      "recall.updated",
     ]
   })
 }

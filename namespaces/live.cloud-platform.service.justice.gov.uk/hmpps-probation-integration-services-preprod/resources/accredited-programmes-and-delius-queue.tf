@@ -1,11 +1,14 @@
-# resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-subscription" {
-#   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
-#   protocol  = "sqs"
-#   endpoint  = module.accredited-programmes-and-delius-queue.sqs_arn
-#   filter_policy = jsonencode({
-#     eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
-#   })
-# }
+resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-subscription" {
+  topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
+  protocol  = "sqs"
+  endpoint  = module.accredited-programmes-and-delius-queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "accredited-programmes-community.referral.status-updated",
+      "accredited-programmes-community.programme.complete",
+    ]
+  })
+}
 
 module "accredited-programmes-and-delius-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
@@ -65,7 +68,7 @@ resource "kubernetes_secret" "accredited-programmes-and-delius-queue-secret" {
 }
 
 module "accredited-programmes-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

@@ -7,18 +7,22 @@ variable "namespace" {
 }
 
 variable "service_area" {
+  description = "Service area responsible for this service"
   default = "Enabling Technologies"
 }
 
 variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
   default = "HMPPS"
 }
 
 variable "team_name" {
+  description = "The name of your development team"
   default = "hmpps-person-record"
 }
 
 variable "environment" {
+  description = "The type of environment you're deploying to."
   default = "preprod"
 }
 

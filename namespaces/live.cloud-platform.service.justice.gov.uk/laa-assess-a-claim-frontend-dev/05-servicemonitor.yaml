@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-assess-a-claim-frontend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: laa-assess-a-claim-frontend
+  endpoints:
+    - port: http
+      interval: 15s
