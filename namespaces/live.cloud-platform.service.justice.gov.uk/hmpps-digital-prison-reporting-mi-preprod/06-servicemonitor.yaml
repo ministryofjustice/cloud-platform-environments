@@ -17,7 +17,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: hmpps-digital-prison-reporting-mi
+  name: hmpps-digital-prison-reporting-mi-ui
   namespace: hmpps-digital-prison-reporting-mi-preprod
 spec:
   selector:
