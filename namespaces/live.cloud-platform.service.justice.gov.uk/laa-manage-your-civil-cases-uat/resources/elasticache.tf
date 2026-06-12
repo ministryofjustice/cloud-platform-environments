@@ -10,7 +10,7 @@ module "elasticache_redis" {
   business_unit          = var.business_unit
   node_type              = "cache.t4g.micro"
   engine_version         = "9.0"
-  parameter_group_name   = "default.redis9"
+  parameter_group_name   = "default.valkey9.cluster.on"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-02-14"
