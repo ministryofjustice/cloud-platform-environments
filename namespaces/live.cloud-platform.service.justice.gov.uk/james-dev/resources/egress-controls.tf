@@ -3,6 +3,6 @@ module "hmpps_egress_controls" {
 
   enable_envoy_setup     = true
   enable_egress_controls = true
-  namespace              = "my-namespace"
-  vpc_name               = "live-1"
+  namespace              = var.namespace
+  vpc_name               = var.vpc_name
 }
