@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "main" {
   name           = var.user_pool_name
+  user_pool_tier = "ESSENTIALS"
 
   # Account recovery
   account_recovery_setting {
@@ -105,7 +106,7 @@ resource "aws_cognito_user_pool" "main" {
 
   # User pool add-ons
   user_pool_add_ons {
-    advanced_security_mode = "ENFORCED"
+    advanced_security_mode = "OFF"
   }
 }
 
