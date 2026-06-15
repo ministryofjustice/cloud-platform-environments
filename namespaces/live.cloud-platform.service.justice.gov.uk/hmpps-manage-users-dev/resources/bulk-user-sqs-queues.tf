@@ -18,7 +18,7 @@ EOF
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = replace(var.team_name, " ", "-") # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
@@ -39,7 +39,7 @@ module "manage_users_bulk_user_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = replace(var.team_name, " ", "-") # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
@@ -95,7 +95,7 @@ EOF
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = replace(var.team_name, " ", "-") # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
@@ -116,7 +116,7 @@ module "manage_users_bulk_user_item_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = replace(var.team_name, " ", "-") # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
