@@ -1,0 +1,56 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: dpr-latency-recording-rules
+  namespace: hmpps-dpr-observability
+  labels:
+    role: alert-rules
+spec:
+  groups:
+    - name: dpr_latency_recording
+      interval: 30s
+      rules:
+        # ============================================================
+        # Pre-compute latency quantiles so Thanos can serve them
+        # for time ranges beyond Prometheus retention (~14 days).
+        #
+        # histogram_quantile cannot be computed from Thanos-downsampled
+        # data. Recording these as plain gauge metrics solves that.
+        # ============================================================
+
+        # p50 latency by namespace
+        - record: dpr:http_server_requests_seconds:p50
+          expr: >
+            histogram_quantile(0.50,
+              sum(rate(http_server_requests_seconds_bucket{
+                namespace=~"hmpps-digital-prison-reporting-mi-.*"
+              }[5m])) by (le, namespace)
+            )
+
+        # p95 latency by namespace
+        - record: dpr:http_server_requests_seconds:p95
+          expr: >
+            histogram_quantile(0.95,
+              sum(rate(http_server_requests_seconds_bucket{
+                namespace=~"hmpps-digital-prison-reporting-mi-.*"
+              }[5m])) by (le, namespace)
+            )
+
+        # p99 latency by namespace
+        - record: dpr:http_server_requests_seconds:p99
+          expr: >
+            histogram_quantile(0.99,
+              sum(rate(http_server_requests_seconds_bucket{
+                namespace=~"hmpps-digital-prison-reporting-mi-.*"
+              }[5m])) by (le, namespace)
+            )
+
+        # p95 latency broken down by path (for "Latency by Path" panel)
+        - record: dpr:http_server_requests_seconds:p95_by_path
+          expr: >
+            histogram_quantile(0.95,
+              sum(rate(http_server_requests_seconds_bucket{
+                namespace=~"hmpps-digital-prison-reporting-mi-.*"
+              }[5m])) by (le, path, namespace)
+            )
