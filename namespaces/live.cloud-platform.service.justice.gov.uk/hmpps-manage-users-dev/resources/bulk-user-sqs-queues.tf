@@ -151,3 +151,4 @@ resource "kubernetes_secret" "manage_users_bulk_user_item_dead_letter_queue_secr
     sqs_queue_name = module.manage_users_bulk_user_item_dead_letter_queue.sqs_name
   }
 }
+
