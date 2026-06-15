@@ -133,8 +133,8 @@ variable "waf_allowed_ips" {
     "18.169.147.172/32",
     "18.130.148.126/32", # Gateway IP for Global Protect alpha VPN firewall
     "35.176.148.126/32",
-    "128.77.75.64/26",   # Prisma egress
-    "51.149.249.0/29",   # MOJ public egress
+    "128.77.75.64/26", # Prisma egress
+    "51.149.249.0/29", # MOJ public egress
     "194.33.249.0/29",
     "51.149.249.32/29",
     "194.33.248.0/29",
