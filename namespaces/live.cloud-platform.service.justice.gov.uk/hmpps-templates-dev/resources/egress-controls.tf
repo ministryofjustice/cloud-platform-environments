@@ -5,15 +5,17 @@
 module "hmpps_egress_controls" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.3"
 
-  # Stage 1: Deploy proxy without enforcement (no Calico network policies yet)
-  # This allows applications to be configured to use the proxy before enforcement is enabled
   enable_envoy_setup     = true
-  enable_egress_controls = false
+  
+  # Add known external endpoint/suffixes your apps in this namespace 
+  # need to connect to (egress only) and then set this to true to secure
+  # your namespace from unexpected egress 
+  enable_egress_controls = false 
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
 
-  # Optional: Add additional allowed hosts/suffixes as needed
+  # Optional: Add additional allowed hosts/suffixes used by apps in this namespace
   # envoy_extra_allowed_hosts_exact = [
   #   "api.example.com",
   # ]
