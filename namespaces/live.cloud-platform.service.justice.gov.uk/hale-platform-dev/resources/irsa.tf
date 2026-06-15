@@ -78,6 +78,7 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
   statement {
     actions = [
       "s3:GetObject",
+      "s3:GetObjectTagging"
     ]
     resources = [
       "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64/*",
