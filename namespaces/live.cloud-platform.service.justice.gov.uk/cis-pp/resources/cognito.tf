@@ -6,7 +6,8 @@
 # Cognito User Pool
 # -----------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "main" {
-  name = var.user_pool_name
+  name           = var.user_pool_name
+  user_pool_tier = "PLUS"
 
   # Account recovery
   account_recovery_setting {
