@@ -257,12 +257,6 @@ variable "allow_admin_create_user_only" {
   default     = true
 }
 
-variable "advanced_security_mode" {
-  description = "Advanced security mode (OFF, AUDIT, ENFORCED)"
-  type        = string
-  default     = "ENFORCED"
-}
-
 variable "allowed_auth_factors" {
   description = "Allowed first authentication factors for passwordless sign-in. Options: PASSWORD, EMAIL_OTP, WEB_AUTHN"
   type        = list(string)
