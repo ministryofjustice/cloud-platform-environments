@@ -107,10 +107,6 @@ resource "aws_cognito_user_pool" "main" {
   user_pool_add_ons {
     advanced_security_mode = var.advanced_security_mode
   }
-
-  tags = merge({
-    Name = "${var.environment}-${var.aws_region}-user-pool"
-  }, local.common_tags)
 }
 
 # -----------------------------------------------------------------------------
