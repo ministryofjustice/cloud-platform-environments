@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-transfer-scheduler-prod-cert
+  namespace: hmpps-transfer-scheduler-prod
+spec:
+  secretName: hmpps-transfer-scheduler-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - transfer-scheduler-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-transfer-scheduler-ui-prod-cert
+  namespace: hmpps-transfer-scheduler-prod
+spec:
+  secretName: hmpps-transfer-scheduler-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - transfer-scheduler.hmpps.service.justice.gov.uk
