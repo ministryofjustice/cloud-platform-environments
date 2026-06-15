@@ -7,9 +7,8 @@ module "hmpps_egress_controls" {
 
   enable_envoy_setup     = true
   
-  # Add known external endpoint/suffixes your apps in this namespace 
-  # need to connect to (egress only) and then set this to true to secure
-  # your namespace from unexpected egress 
+  # Follow the guidance in the link above to configure your app to use the proxy
+  # then set this to true when ready to apply egress denial 
   enable_egress_controls = false 
 
   namespace = var.namespace
