@@ -1,7 +1,7 @@
 module "opensearch_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
-    var.index                      = ["live_kubernetes_ingress-*"]
+    index                      = ["live_kubernetes_ingress-*"]
     secret_name                    = "live-laa-cla-backend-production-534b062abc2393c7"
     secret_key                     = "url"
     environment_name               = var.environment-name
