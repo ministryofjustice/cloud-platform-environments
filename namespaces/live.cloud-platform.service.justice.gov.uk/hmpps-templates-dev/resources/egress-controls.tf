@@ -14,11 +14,4 @@ module "hmpps_egress_controls" {
   namespace = var.namespace
   vpc_name  = var.vpc_name
 
-  # Optional: Add additional allowed hosts/suffixes used by apps in this namespace
-  # envoy_extra_allowed_hosts_exact = [
-  #   "api.example.com",
-  # ]
-  # envoy_extra_allowed_hosts_suffixes = [
-  #   ".example.com",
-  # ]
 }
