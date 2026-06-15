@@ -64,3 +64,19 @@ resource "aws_iam_policy" "cross_account_athena" {
     namespace     = var.namespace
   }
 }
+
+# Expose the IRSA role and service account details as a kubernetes_secret so the
+# role ARN can be retrieved (e.g. to hand to the target AWS account for its
+# resource/trust policy) and the service account name referenced by the app.
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    role_name      = module.irsa.role_name
+    role_arn       = module.irsa.role_arn
+    serviceaccount = module.irsa.service_account.name
+  }
+}
