@@ -37,9 +37,9 @@ resource "aws_cognito_user_pool" "main" {
 
   # Email configuration — SES DEVELOPER mode removes the 50 emails/day limit
   email_configuration {
-    email_sending_account = "DEVELOPER"
-    source_arn            = aws_sesv2_email_identity.main.arn
-    from_email_address    = "noreply@${var.ses_domain}"
+    email_sending_account = "COGNITO_DEFAULT"
+    #source_arn            = aws_sesv2_email_identity.main.arn
+    #from_email_address    = "noreply@${var.ses_domain}"
   }
 
   # Schema attributes
