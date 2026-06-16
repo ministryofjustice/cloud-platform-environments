@@ -1,7 +1,7 @@
 module "hmpps_probation_mi_domain_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name = "domain_events_queue"
+  sqs_name = "lao_domain_events"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_probation_mi_domain_events_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -14,6 +14,7 @@ module "hmpps_probation_mi_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  fifo_queue             = true
 }
 
 # Policy to allow SNS -> SQS
@@ -44,7 +45,7 @@ resource "aws_sqs_queue_policy" "hmpps_probation_mi_domain_events_queue_policy" 
 module "hmpps_probation_mi_domain_events_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name                  = "hmpps_probation_mi_domain_events_dlq"
+  sqs_name                  = "lao_domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit
@@ -54,6 +55,7 @@ module "hmpps_probation_mi_domain_events_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  fifo_queue             = true
 }
 
 resource "aws_sns_topic_subscription" "hmpps_probation_mi_domain_events_subscription" {
