@@ -13,7 +13,7 @@ module "hmpps_egress_controls" {
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
     "www.gov.uk",
-    "283af212ca8bb8bf0d6aac43a6b83046@o345774.ingest.sentry.io"
+    "o345774.ingest.sentry.io"
   ]
 
 }
