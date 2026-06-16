@@ -15,7 +15,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
       "probation-case.alias.deleted"
     ],
     eventSource = [
-      { "eventSource": [{"exists": false},{"anything-but": ["core-person-record"]}]}
+      { "exists" = false },
+      { "anything-but" =  ["core-person-record"] }
     ]
   })
 }
