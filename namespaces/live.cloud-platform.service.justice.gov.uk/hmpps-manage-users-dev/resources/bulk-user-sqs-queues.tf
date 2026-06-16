@@ -64,7 +64,7 @@ resource "kubernetes_secret" "manage_users_bulk_user_queue_secret" {
 
 resource "kubernetes_secret" "manage_users_bulk_user_dead_letter_queue_secret" {
   metadata {
-    name      = "sqs-audit-queue-dl-secret"
+    name      = "sqs-manage-users-bulk-user-job-dlq-secret"
     namespace = var.namespace
   }
 
@@ -141,7 +141,7 @@ resource "kubernetes_secret" "manage_users_bulk_user_item_queue_secret" {
 
 resource "kubernetes_secret" "manage_users_bulk_user_item_dead_letter_queue_secret" {
   metadata {
-    name      = "sqs-audit-queue-dl-secret"
+    name      = "sqs-manage-users-bulk-user-item-job-dlq-secret"
     namespace = var.namespace
   }
 
