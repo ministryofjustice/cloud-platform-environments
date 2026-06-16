@@ -33,7 +33,7 @@ module "activities_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17"
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
   deletion_protection         = true
