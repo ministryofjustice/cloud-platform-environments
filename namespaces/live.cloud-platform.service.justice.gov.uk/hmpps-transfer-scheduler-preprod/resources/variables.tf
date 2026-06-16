@@ -3,10 +3,6 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -15,13 +11,13 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Court Data Ingestion"
+  default     = "HMPPS Schedule a transfer for a prisoner"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-court-data-ingestion-prod"
+  default     = "hmpps-transfer-scheduler-preprod"
 }
 
 variable "business_unit" {
@@ -33,31 +29,35 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "calculate-release-dates-team"
+  default     = "hmpps-move-and-improve"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prod"
+  default     = "preprod"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "calculatereleasedatesdevelopers@justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "true"
+  default     = "false"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "calculate_release_dates_public_channel"
+  default     = "public_move-and-improve"
 }
 
 variable "github_owner" {
@@ -76,14 +76,14 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "service_area" {
+variable "mp_dps_sg_name" {
   type        = string
-  description = "service area"
-  default     = "Manage Custody"
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }
 
-variable "modernisation_platform_autorizer_lambda" {
-  type = string
-  description = "The ARN of the role used by modernisation platform authorizer lambda"
-  default = "arn:aws:iam::295863580285:role/authorizer-role-mp"
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Custody"
 }

@@ -8,51 +8,44 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-  type        = string
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "london-task-force"
+  default     = "HMPPS Schedule a transfer for a prisoner"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "london-task-force-dev"
-}
-
-variable "service_area" {
-  description = "Service area responsible for this service"
-  type        = string
-  default     = "Hosting"
+  default     = "hmpps-transfer-scheduler-dev"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "ltf-dev-team"
+  default     = "hmpps-move-and-improve"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "eunan.hardy@justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -64,7 +57,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "ltf-dev-team"
+  default     = "public_move-and-improve"
 }
 
 variable "github_owner" {
@@ -79,12 +72,18 @@ variable "github_token" {
   default     = ""
 }
 
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "london-task-force"
+variable "number_cache_clusters" {
+  default = "2"
 }
 
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "MyCat8ADog"
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Custody"
 }

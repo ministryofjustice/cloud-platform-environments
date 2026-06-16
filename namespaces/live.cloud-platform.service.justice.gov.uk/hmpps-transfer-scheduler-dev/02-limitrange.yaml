@@ -2,7 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: london-task-force-dev
+  namespace: hmpps-transfer-scheduler-dev
 spec:
   limits:
   - default:
