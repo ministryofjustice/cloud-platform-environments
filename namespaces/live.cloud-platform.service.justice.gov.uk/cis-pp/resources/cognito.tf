@@ -7,7 +7,11 @@
 # -----------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "main" {
   name           = var.user_pool_name
-  user_pool_tier = "ESSENTIALS"
+  user_pool_tier = "PLUS"
+  # User pool add-ons
+  user_pool_add_ons {
+    advanced_security_mode = "ENFORCED"
+  }
 
   # Account recovery
   account_recovery_setting {
@@ -102,11 +106,6 @@ resource "aws_cognito_user_pool" "main" {
       email_message = "Your username is {username} and temporary password is {####}."
       sms_message   = "Your username is {username} and temporary password is {####}."
     }
-  }
-
-  # User pool add-ons
-  user_pool_add_ons {
-    advanced_security_mode = "OFF"
   }
 }
 
