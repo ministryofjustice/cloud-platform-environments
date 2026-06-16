@@ -1,4 +1,4 @@
-module "secrets_manager" {
+module "ccq_secrets_manager" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
