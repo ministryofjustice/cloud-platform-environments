@@ -20,10 +20,46 @@ module "manage_offences_rds" {
 
   db_password_rotated_date = "13-02-2023"
 
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+
   providers = {
     aws = aws.london
   }
 
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
 
 resource "kubernetes_secret" "manage_offences_rds" {
