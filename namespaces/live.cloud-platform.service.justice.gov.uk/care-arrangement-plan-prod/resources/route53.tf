@@ -15,7 +15,7 @@ resource "aws_route53_zone" "cap_route53_zone" {
 
 # add a txt record to the zone to verify ownership of the domain with Microsoft Entra ID
 resource "aws_route53_record" "entra_id_verification" {
-  zone_id = aws_route53_zone.cap_route53_zone.zone_id
+  zone_id = aws_route53_zone.pcap_zone.zone_id
   name    = "propose-child-arrangements-plan.service.gov.uk"
   type    = "TXT"
   ttl     = 300
