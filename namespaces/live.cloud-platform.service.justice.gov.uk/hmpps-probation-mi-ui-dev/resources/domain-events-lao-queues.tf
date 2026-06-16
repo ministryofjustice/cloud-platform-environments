@@ -14,6 +14,7 @@ module "hmpps_probation_mi_domain_events_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  fifo_queue             = true
 }
 
 # Policy to allow SNS -> SQS
@@ -54,6 +55,7 @@ module "hmpps_probation_mi_domain_events_dlq" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  fifo_queue             = true
 }
 
 resource "aws_sns_topic_subscription" "hmpps_probation_mi_domain_events_subscription" {
