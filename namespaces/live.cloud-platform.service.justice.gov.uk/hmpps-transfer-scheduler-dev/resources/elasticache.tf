@@ -15,11 +15,9 @@ module "elasticache_redis" {
 
   number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
-  node_type            = "cache.t4g.micro"
+  node_type            = "cache.t3.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
-
-  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
 }
 
 resource "kubernetes_secret" "elasticache_redis" {
