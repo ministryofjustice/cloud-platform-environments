@@ -1,18 +1,44 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
  locals {
   application = "apex certificated bailiffs"
 }
 
+# Get VPC id first
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+# 1. Security Group
+resource "aws_security_group" "apex-rds-out" {
+  name        = "${var.namespace}-apex-rds-sg"
+  description = "Security group for Oracle Apex RDS - Outbound to SendGrid"
+  vpc_id      = data.aws_vpc.selected.id
+
+  tags = {
+    Name = "${var.namespace}-apex-rds-sg"
+  }
+}
+
+# 2. Egress rule for SendGrid
+resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
+  security_group_id = aws_security_group.apex-rds-out.id
+
+  description = "Allow outbound to SendGrid SMTP TLS"
+  from_port   = 587
+  to_port     = 587
+  ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
+}
+
+# 3. RDS Module (now correctly references the SG)
 module "rds_apex" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.apex-rds-out.id]   # ← This is now valid
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -23,7 +49,7 @@ module "rds_apex" {
 
   # Oracle specifics
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2025-10.rur-2025-10.r1"
+  db_engine_version        = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   storage_type             = "gp2"
@@ -98,4 +124,10 @@ resource "aws_db_option_group" "oracle_apex" {
     namespace              = var.namespace
     team_name              = var.team_name
   }
+}
+
+resource "aws_db_instance_role_association" "rds_s3_role_assoc" {
+  db_instance_identifier = module.rds_apex.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_integration.arn
 }
