@@ -13,17 +13,6 @@ resource "aws_route53_zone" "cap_route53_zone" {
   }
 }
 
-# add a txt record to the zone to verify ownership of the domain with Microsoft Entra ID
-resource "aws_route53_record" "entra_id_verification" {
-  zone_id = aws_route53_zone.pcap_zone.zone_id
-  name    = "propose-child-arrangements-plan.service.gov.uk"
-  type    = "TXT"
-  ttl     = 300
-  records = [
-    "MS=ms47915806"
-  ]
-}
-
 resource "kubernetes_secret" "cap_route53_zone_sec" {
   metadata {
     name      = "cap-route53-zone-output"
@@ -48,6 +37,17 @@ resource "aws_route53_zone" "pcap_zone" {
     environment_name       = var.environment
     infrastructure_support = var.infrastructure_support
   }
+}
+
+# add a txt record to the zone to verify ownership of the domain with Microsoft Entra ID
+resource "aws_route53_record" "entra_id_verification" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "propose-child-arrangements-plan.service.gov.uk"
+  type    = "TXT"
+  ttl     = 300
+  records = [
+    "MS=ms47915806"
+  ]
 }
 
 resource "kubernetes_secret" "pcap_zone_sec" {
