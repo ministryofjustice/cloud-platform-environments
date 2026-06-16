@@ -1,5 +1,5 @@
 module "ecr_repo_frontend" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
   repo_name             = "onboarding-optimisation-frontend"
   github_actions_prefix = "frontend"
@@ -18,7 +18,7 @@ module "ecr_repo_frontend" {
 }
 
 module "ecr_repo_backend" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
   repo_name             = "onboarding-optimisation-backend"
   github_actions_prefix = "backend"
