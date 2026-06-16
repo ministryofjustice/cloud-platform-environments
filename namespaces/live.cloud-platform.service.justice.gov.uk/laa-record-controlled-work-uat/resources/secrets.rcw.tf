@@ -10,7 +10,7 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "env-secrets" = {
+    "rcw-env-secrets" = {
       description             = "Environmental secrets for the laa-record-controlled-work EKS namespace, stored in AWS Secrets Manager.",
       recovery_window_in_days = 7,
       k8s_secret_name         = "rcw-env-secrets"
