@@ -76,6 +76,12 @@ module "irsa" {
     {
       secrets = aws_iam_policy.cross_iam_policy_mp.arn
     },
+    {
+      sqs = module.hmpps_probation_mi_domain_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_probation_mi_domain_events_dlq.irsa_policy_arn
+    },
     local.sns_policies
   )
 
