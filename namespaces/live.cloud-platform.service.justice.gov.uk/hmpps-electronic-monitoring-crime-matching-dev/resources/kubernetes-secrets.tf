@@ -27,7 +27,7 @@ resource "kubernetes_secret" "athena_roles" {
   }
   type = "Opaque"
   data = {
-    general_role_arn = data.aws_ssm_parameter.athena_general_role_arn.value
+    general_role_arn = var.datastore_role
   }
 }
 

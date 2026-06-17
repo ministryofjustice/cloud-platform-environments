@@ -9,6 +9,15 @@ data "aws_iam_policy_document" "ssm_policy" {
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_general_role_arn",
     ]
   }
+
+  statement {
+    actions = [
+      "iam:ListAccountAliases"
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "ssm_access" {

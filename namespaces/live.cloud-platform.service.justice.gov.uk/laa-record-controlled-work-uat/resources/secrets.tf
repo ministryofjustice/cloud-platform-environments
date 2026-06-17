@@ -1,4 +1,4 @@
-module "ccq_secrets_manager" {
+module "secrets_manager" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
@@ -14,6 +14,11 @@ module "ccq_secrets_manager" {
       description             = "Environmental secrets for the laa-record-controlled-work EKS namespace, stored in AWS Secrets Manager.",
       recovery_window_in_days = 7,
       k8s_secret_name         = "ccq-env-secrets"
+    },
+    "rcw-env-secrets" = {
+      description             = "Environmental secrets for the laa-record-controlled-work EKS namespace, stored in AWS Secrets Manager.",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "rcw-env-secrets"
     },
   }
 }

@@ -7,6 +7,10 @@ variable "namespace" {
   default     = "vscode-marketplace"
 }
 
+variable "kubernetes_cluster" {
+  description = "The name of the EKS cluster (auto-supplied by the cloud-platform-environments pipeline)"
+}
+
 variable "github_owner" {
   description = "GitHub organisation"
   default     = "ministryofjustice"
@@ -17,11 +21,17 @@ variable "github_repository" {
   default     = "vscode-marketplace"
 }
 
+variable "github_token" {
+  description = "Required by the GitHub Terraform provider (supplied by the cloud-platform-environments pipeline)"
+  type        = string
+  default     = ""
+}
+
 # --- Standard Cloud Platform resource tags
 
 variable "business_unit" {
   description = "Area of the MoJ responsible for the service"
-  default     = "Justice Digital"
+  default     = "Platforms"
 }
 
 variable "application" {
@@ -46,5 +56,5 @@ variable "environment_name" {
 
 variable "infrastructure_support" {
   description = "Team contact for infrastructure support (team-name (team-email))"
-  default     = "Dean Longstaff (dean.longstaff@justice.gov.uk)"
+  default     = "Dean Longstaff: dean.longstaff@justice.gov.uk"
 }
