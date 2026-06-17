@@ -31,6 +31,7 @@ module "s3_bucket" {
         "s3:GetObject"
       ],
       "Resource": [
+        "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
     }
