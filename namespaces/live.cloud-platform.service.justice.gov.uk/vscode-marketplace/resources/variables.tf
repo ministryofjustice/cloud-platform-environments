@@ -7,6 +7,10 @@ variable "namespace" {
   default     = "vscode-marketplace"
 }
 
+variable "kubernetes_cluster" {
+  description = "The name of the EKS cluster (auto-supplied by the cloud-platform-environments pipeline)"
+}
+
 variable "github_owner" {
   description = "GitHub organisation"
   default     = "ministryofjustice"

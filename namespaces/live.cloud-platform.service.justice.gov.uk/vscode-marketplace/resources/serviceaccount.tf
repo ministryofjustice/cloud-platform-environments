@@ -9,7 +9,7 @@ module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace          = var.namespace
-  kubernetes_cluster = var.eks_cluster_name
+  kubernetes_cluster = var.kubernetes_cluster
 
   # Populate GitHub Actions secrets in this repository automatically
   github_repositories = [var.github_repository]
