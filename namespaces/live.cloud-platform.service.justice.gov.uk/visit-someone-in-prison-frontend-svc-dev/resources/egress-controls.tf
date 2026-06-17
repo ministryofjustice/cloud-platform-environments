@@ -10,4 +10,13 @@ module "hmpps_egress_controls" {
   namespace = var.namespace
   vpc_name  = var.vpc_name
 
+  # Add your service's external dependencies
+  envoy_extra_allowed_hosts_exact = [
+    "oidc.integration.account.gov.uk",
+    "home.integration.account.gov.uk"
+  ]
+
+  envoy_extra_allowed_hosts_suffixes = [
+  ]
+
 }
