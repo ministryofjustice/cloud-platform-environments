@@ -10,40 +10,25 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "gov-notify-api-key" = {
-      description             = "GovNotify API key for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-api-key-uat"
-    },
-    "gov-notify-application-submit-template-id" = {
-      description             = "GovNotify application submit template ID for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-application-submit-template-id-uat"
-    },
-    "gov-notify-callback-bearer-token" = {
-      description             = "GovNotify callback bearer token for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-callback-bearer-token-uat"
-    },
     "sds-tenant-id" = {
       description             = "Entra tenant that SDS lives in",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-tenant-id-uat"
+      k8s_secret_name         = "sds-tenant-id-staging"
     },
     "sds-client-app-id" = {
       description             = "Entra application registration client id for authenticating to SDS",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-app-id-uat"
+      k8s_secret_name         = "sds-client-app-id-staging"
     },
     "sds-client-secret" = {
       description             = "Entra application registration client secret for authenticating to SDS",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-secret-uat"
+      k8s_secret_name         = "sds-client-secret-staging"
     },
     "sds-scope" = {
       description             = "Entra scope for authenticating to an SDS service",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-scope-uat"
+      k8s_secret_name         = "sds-scope-staging"
     }
   }
 }
