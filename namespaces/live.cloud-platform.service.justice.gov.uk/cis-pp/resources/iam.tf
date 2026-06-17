@@ -50,3 +50,39 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
     ]
   })
 }
+
+module "github_oidc_iam_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.9.2"
+
+  name_prefix = "${var.namespace}-github-oidc"
+  path        = "/cloud-platform/"
+
+  subjects = ["ministryofjustice/${var.github_repository}:*"]
+
+  policies = {
+    s3         = aws_iam_policy.frontend_s3_deploy.arn
+    cloudfront = aws_iam_policy.frontend_cloudfront_invalidate.arn
+  }
+
+  tags = {
+    business_unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    namespace              = var.namespace
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+  }
+}
+
+resource "kubernetes_secret" "github_oidc_iam_role" {
+  metadata {
+    name      = "github-oidc-iam-role"
+    namespace = var.namespace
+  }
+
+  data = {
+    role_arn = module.github_oidc_iam_role.arn
+  }
+}
