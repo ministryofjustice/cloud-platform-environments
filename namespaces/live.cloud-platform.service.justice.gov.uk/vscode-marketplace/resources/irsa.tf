@@ -36,10 +36,9 @@ data "aws_iam_policy_document" "curator_s3" {
 }
 
 resource "aws_iam_policy" "curator_s3" {
-  provider = aws.london
-  name     = "${var.namespace}-curator-s3"
-  policy   = data.aws_iam_policy_document.curator_s3.json
-  tags     = local.policy_tags
+  name   = "${var.namespace}-curator-s3"
+  policy = data.aws_iam_policy_document.curator_s3.json
+  tags   = local.policy_tags
 }
 
 module "curator_irsa" {
@@ -57,10 +56,6 @@ module "curator_irsa" {
   team_name              = var.team_name
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 # --- Marketplace: read-only ---------------------------------------------------
@@ -79,10 +74,9 @@ data "aws_iam_policy_document" "marketplace_s3" {
 }
 
 resource "aws_iam_policy" "marketplace_s3" {
-  provider = aws.london
-  name     = "${var.namespace}-marketplace-s3"
-  policy   = data.aws_iam_policy_document.marketplace_s3.json
-  tags     = local.policy_tags
+  name   = "${var.namespace}-marketplace-s3"
+  policy = data.aws_iam_policy_document.marketplace_s3.json
+  tags   = local.policy_tags
 }
 
 module "marketplace_irsa" {
@@ -100,8 +94,4 @@ module "marketplace_irsa" {
   team_name              = var.team_name
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }

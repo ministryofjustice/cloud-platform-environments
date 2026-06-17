@@ -36,8 +36,4 @@ module "ecr" {
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
-
-  providers = {
-    aws = aws.london
-  }
 }

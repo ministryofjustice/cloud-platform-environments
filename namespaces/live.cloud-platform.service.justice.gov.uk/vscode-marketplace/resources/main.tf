@@ -4,7 +4,6 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
-  alias  = "london"
 
   default_tags {
     tags = {
