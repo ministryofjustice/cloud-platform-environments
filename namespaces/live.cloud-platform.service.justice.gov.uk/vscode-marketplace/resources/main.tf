@@ -13,6 +13,11 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}
+
 data "aws_eks_cluster" "cluster" {
   name = var.eks_cluster_name
 }
