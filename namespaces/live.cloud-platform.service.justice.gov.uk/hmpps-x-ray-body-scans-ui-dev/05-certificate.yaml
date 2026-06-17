@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -9,5 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - template-typescript-dev.hmpps.service.justice.gov.uk
-    - '*.template-typescript-dev.hmpps.service.justice.gov.uk'
+    - x-ray-body-scans-ui-dev.hmpps.service.justice.gov.uk
+    - x-ray-body-scans-dev.hmpps.service.justice.gov.uk
