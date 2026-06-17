@@ -928,3 +928,18 @@ spec:
   dnsNames:
     - c8c4c763-dev.hmpps.service.justice.gov.uk
     - probation-access-control-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: warrant-risk-assessment-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: warrant-risk-assessment-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f9fa4953-dev.hmpps.service.justice.gov.uk
+    - warrant-risk-assessment-and-delius-dev.hmpps.service.justice.gov.uk
