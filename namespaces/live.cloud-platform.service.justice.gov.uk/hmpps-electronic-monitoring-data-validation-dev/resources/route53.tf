@@ -16,7 +16,7 @@ resource "aws_route53_zone" "data_validation_route53_zone" {
 resource "aws_security_group" "aws_dns_resolver" {
   name        = "dns-resolver"
   description = "Security Group for DNS resolver request"
-  vpc_id      = data.aws_vpc.shared.id
+  vpc_id      = data.aws_vpc.this.id
 
   tags = local.tags
 }
@@ -29,7 +29,7 @@ resource "aws_security_group_rule" "ingress_dns_endpoint_traffic" {
   security_group_id = aws_security_group.aws_dns_resolver.id
   to_port           = each.value.to_port
   type              = "ingress"
-  cidr_blocks       = [data.aws_vpc.shared.cidr_block]
+  cidr_blocks       = [data.aws_vpc.this.cidr_block]
 }
 
 resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
