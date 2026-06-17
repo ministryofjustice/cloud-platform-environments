@@ -13,43 +13,6 @@ module "apex-migration-s3" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  bucket_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          AWS = [
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
-          ]
-        },
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:DeleteObject"
-        ],
-        Resource = [
-          "$${bucket_arn}/*"
-        ]
-      },
-      {
-        Effect = "Allow",
-        Principal = {
-          AWS = [
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
-          ]
-        },
-        Action = [
-          "s3:ListBucket"
-        ],
-        Resource = [
-          "$${bucket_arn}"
-        ]
-      }
-    ]
-  })
 }
 
 resource "kubernetes_secret" "s3_bucket" {
