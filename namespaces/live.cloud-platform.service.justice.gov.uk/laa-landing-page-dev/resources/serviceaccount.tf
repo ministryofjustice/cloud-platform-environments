@@ -33,6 +33,7 @@ module "serviceaccount" {
         "watch",
       ]
     },
+    {
       api_groups = [
         "extensions",
         "apps",
