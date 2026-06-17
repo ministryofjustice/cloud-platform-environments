@@ -58,3 +58,19 @@ resource "aws_route53_resolver_endpoint" "outbound_api" {
 
   tags = local.tags
 }
+
+resource "aws_route53_resolver_rule" "em_api_gateway" {
+  name                 = "em-api-gateway"
+  domain_name          = jsondecode(data.aws_secretsmanager_secret_version.dns_resolver.secret_string)["dns_resolver_domain"]
+  rule_type            = "FORWARD"
+  resolver_endpoint_id = aws_route53_resolver_endpoint.outbound_api.id
+
+  dynamic "target_ip" {
+    for_each = jsondecode(data.aws_secretsmanager_secret_version.dns_resolver.secret_string)["dns_resolver_ips"]
+    content {
+      ip   = target_ip.value
+      port = 53
+    }
+  }
+
+}
