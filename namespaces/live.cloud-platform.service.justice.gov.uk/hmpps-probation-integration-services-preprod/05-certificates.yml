@@ -928,3 +928,18 @@ spec:
   dnsNames:
     - c8c4c763-preprod.hmpps.service.justice.gov.uk
     - probation-access-control-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: test-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - a94a8fe5-preprod.hmpps.service.justice.gov.uk
+    - test-preprod.hmpps.service.justice.gov.uk
