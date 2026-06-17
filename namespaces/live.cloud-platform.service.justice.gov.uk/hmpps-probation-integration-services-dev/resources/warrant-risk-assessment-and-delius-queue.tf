@@ -3,7 +3,10 @@ resource "aws_sns_topic_subscription" "warrant-risk-assessment-and-delius-queue-
   protocol  = "sqs"
   endpoint  = module.warrant-risk-assessment-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = [] # TODO add event type filter e.g ["prison.case-note.published"]
+    eventType = [
+      "probation-case.warrant-risk-assessment.created",
+      "probation-case.warrant-risk-assessment.deleted"
+    ] 
   })
 }
 
