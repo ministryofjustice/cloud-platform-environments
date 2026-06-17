@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
   security_group_id = aws_security_group.aws_dns_resolver.id
   to_port           = each.value.to_port
   type              = "egress"
-  cidr_blocks       = [data.aws_vpc.shared.cidr_block]
+  cidr_blocks       = [data.aws_vpc.this.cidr_block]
 }
 
 resource "aws_route53_resolver_endpoint" "outbound_api" {
