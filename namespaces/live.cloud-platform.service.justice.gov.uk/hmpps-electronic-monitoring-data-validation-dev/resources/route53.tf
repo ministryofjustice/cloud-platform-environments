@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
   cidr_blocks       = [data.aws_vpc.shared.cidr_block]
 }
 
-resource "aws_route53_resolver_endpoint" "inbound_api" {
+resource "aws_route53_resolver_endpoint" "outbound_api" {
   name      = "outbound-resolve-mod-plat"
   direction = "OUTBOUND"
 
