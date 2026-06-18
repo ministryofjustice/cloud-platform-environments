@@ -20,4 +20,5 @@ locals {
       "protocol" : "UDP"
     }
   }
+  ips = ["ip1", "ip2", "ip3"]
 }

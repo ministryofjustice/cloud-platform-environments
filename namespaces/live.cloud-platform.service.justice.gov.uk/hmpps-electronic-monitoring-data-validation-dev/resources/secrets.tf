@@ -32,3 +32,19 @@ module "secrets_manager_multiple_secrets" {
     },
   }
 }
+
+data "aws_secretsmanager_secret" "dns_resolver_domain" {
+  name = module.secrets_manager_multiple_secrets.secret_names["dns_resolver_domain"]
+}
+
+data "aws_secretsmanager_secret_version" "dns_resolver_domain" {
+  secret_id = data.aws_secretsmanager_secret.dns_resolver_domain.id
+}
+
+data "aws_secretsmanager_secret" "dns_resolver_ip" {
+  name = module.secrets_manager_multiple_secrets.secret_names["dns_resolver_ip"]
+}
+
+data "aws_secretsmanager_secret_version" "dns_resolver_ip" {
+  secret_id = data.aws_secretsmanager_secret.dns_resolver_ip.id
+}
