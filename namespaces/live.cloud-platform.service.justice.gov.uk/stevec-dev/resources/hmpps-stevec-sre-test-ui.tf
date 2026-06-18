@@ -35,8 +35,11 @@ module "elasticache_redis" {
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"] #Pinned due to availability issues on 18/6/26
+
+
   # sized for micro in dev, preprod, suggest small for production
-  node_type            = "cache.t4g.micro"
+  node_type            = "cache.t3.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 
