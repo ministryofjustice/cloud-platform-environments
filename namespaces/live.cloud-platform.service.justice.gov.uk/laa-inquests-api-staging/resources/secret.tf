@@ -10,6 +10,21 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "gov-notify-api-key" = {
+      description             = "GovNotify API key for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "gov-notify-api-key-staging"
+    },
+    "gov-notify-application-submit-template-id" = {
+      description             = "GovNotify application submit template Id for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "gov-notify-application-submit-template-id-staging"
+    },
+    "gov-notify-callback-bearer-token" = {
+      description             = "GovNotify callback bearer token for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "gov-notify-callback-bearer-token-staging"
+    },
     "sds-tenant-id" = {
       description             = "Entra tenant that SDS lives in",
       recovery_window_in_days = 7,
