@@ -8,11 +8,6 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-  type        = string
-}
-
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -23,6 +18,12 @@ variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
   default     = "data-platform-monitoring-development"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Justice Data Platform"
 }
 
 variable "business_unit" {
@@ -46,7 +47,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "JusticeDataPlatform@justice.gov.uk"
+  default     = "justicedataplatform@justice.gov.uk"
 }
 
 variable "is_production" {
