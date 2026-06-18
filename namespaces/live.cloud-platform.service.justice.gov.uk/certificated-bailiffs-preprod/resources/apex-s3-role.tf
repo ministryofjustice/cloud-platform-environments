@@ -1,5 +1,5 @@
 resource "aws_iam_role" "rds_s3_integration" {
-  name = "apex-rds-s3-integration-role"
+  name = "apex-rds-s3-integration-role-${var.environment}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
