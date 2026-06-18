@@ -12,7 +12,6 @@ provider "aws" {
       application   = var.application
       is-production = var.is_production
       owner         = var.team_name
-      GithubTeam    = var.team_name
       namespace     = var.namespace
       service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
@@ -31,7 +30,6 @@ provider "aws" {
       application   = var.application
       is-production = var.is_production
       owner         = var.team_name
-      GithubTeam    = var.team_name
       namespace     = var.namespace
       service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
@@ -50,7 +48,6 @@ provider "aws" {
       application   = var.application
       is-production = var.is_production
       owner         = var.team_name
-      GithubTeam    = var.team_name
       namespace     = var.namespace
       service-area  = var.service_area
       source-code   = "github.com/ministryofjustice/cloud-platform-environments"
