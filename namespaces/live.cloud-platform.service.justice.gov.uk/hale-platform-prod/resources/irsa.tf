@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
     resources = [
       "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf",
       "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f",
-      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119",
+      "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119"
     ]
   }
   statement {
