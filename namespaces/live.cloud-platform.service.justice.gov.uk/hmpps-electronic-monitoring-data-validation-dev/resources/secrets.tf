@@ -33,31 +33,18 @@ module "secrets_manager_multiple_secrets" {
   }
 }
 
-resource "aws_secretsmanager_secret" "dns_resolver" {
-  name = "dns-resolver"
-  description = "DNS Resolver Secret"
-  recovery_window_in_days = 0
-
-  tags = {
-    team_name              = var.team_name
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    environment-name       = var.environment
-    owner                  = var.github_owner
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
-  }
+data "aws_secretsmanager_secret" "dns_resolver_domain" {
+  name = module.secrets_manager_multiple_secrets.secret_names["dns_resolver_domain"]
 }
 
-data "aws_secretsmanager_secret_version" "dns_resolver" {
-  secret_id = data.aws_secretsmanager_secret.dns_resolver.id
+data "aws_secretsmanager_secret_version" "dns_resolver_domain" {
+  secret_id = data.aws_secretsmanager_secret.dns_resolver_domain.id
 }
 
-data "aws_secretsmanager_secret" "dns_resolver" {
-  name = aws_secretsmanager_secret.dns_resolver.name
+data "aws_secretsmanager_secret" "dns_resolver_ip" {
+  name = module.secrets_manager_multiple_secrets.secret_names["dns_resolver_ip"]
+}
 
-  depends_on = [
-    aws_secretsmanager_secret.dns_resolver
-  ]
+data "aws_secretsmanager_secret_version" "dns_resolver_ip" {
+  secret_id = data.aws_secretsmanager_secret.dns_resolver_ip.id
 }
