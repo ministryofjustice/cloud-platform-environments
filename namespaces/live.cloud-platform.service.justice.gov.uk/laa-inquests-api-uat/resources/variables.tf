@@ -38,6 +38,11 @@ variable "team_name" {
   default     = "laa-inquests"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to use, a secret prefix"
+  type        = string
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

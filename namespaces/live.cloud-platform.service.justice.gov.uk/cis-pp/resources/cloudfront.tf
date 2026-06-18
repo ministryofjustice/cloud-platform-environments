@@ -131,7 +131,7 @@ resource "kubernetes_secret" "cloudfront_output" {
 
   data = {
     cloudfront_alias           = var.cloudfront_alias
-    cloudfront_url            = aws_cloudfront_distribution.frontend.domain_name
+    cloudfront_url             = aws_cloudfront_distribution.frontend.domain_name
     cloudfront_distribution_id = aws_cloudfront_distribution.frontend.id
   }
 }

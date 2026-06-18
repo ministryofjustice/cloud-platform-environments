@@ -20,6 +20,16 @@ module "secrets_manager_multiple_secrets" {
       recovery_window_in_days = 0
       k8s_secret_name         = "secret-key"
     },
+    "dns_resolver_domain" = {
+      description             = "DNS Resolver Domain",
+      recovery_window_in_days = 0
+      k8s_secret_name         = "dns-resolver-domain"
+    },
+    "dns_resolver_ip" = {
+      description             = "DNS Resolver IP",
+      recovery_window_in_days = 0
+      k8s_secret_name         = "dns-resolver-ip"
+    },
   }
 }
 

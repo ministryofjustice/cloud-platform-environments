@@ -51,7 +51,8 @@ resource "aws_sns_topic_subscription" "hmpps_manage_and_deliver_domain_events_su
   endpoint  = module.mandd_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "interventions.community-referral.created"
+      "interventions.community-referral.created",
+      "interventions.community-referral.imported"
     ]
   })
 }

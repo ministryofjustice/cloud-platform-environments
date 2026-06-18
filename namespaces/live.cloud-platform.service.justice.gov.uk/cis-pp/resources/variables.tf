@@ -133,8 +133,8 @@ variable "waf_allowed_ips" {
     "18.169.147.172/32",
     "18.130.148.126/32", # Gateway IP for Global Protect alpha VPN firewall
     "35.176.148.126/32",
-    "128.77.75.64/26",   # Prisma egress
-    "51.149.249.0/29",   # MOJ public egress
+    "128.77.75.64/26", # Prisma egress
+    "51.149.249.0/29", # MOJ public egress
     "194.33.249.0/29",
     "51.149.249.32/29",
     "194.33.248.0/29",
@@ -190,6 +190,105 @@ variable "tags" {
 # -----------------------------------------------------------------------------
 variable "cloudfront_log_retention_days" {
   description = "Number of days to retain CloudFront access logs"
+  type        = number
+  default     = 30
+}
+
+# -----------------------------------------------------------------------------
+# Cognito User Pool Variables
+# -----------------------------------------------------------------------------
+variable "user_pool_name" {
+  description = "Name of the Cognito User Pool"
+  type        = string
+  default     = "cis-pp-user-pool"
+}
+
+variable "cognito_domain" {
+  description = "Domain prefix for the Cognito hosted UI"
+  type        = string
+  default     = "cis-pp-auth"
+}
+
+variable "password_minimum_length" {
+  description = "Minimum password length"
+  type        = number
+  default     = 12
+}
+
+variable "password_require_lowercase" {
+  description = "Require lowercase characters in password"
+  type        = bool
+  default     = true
+}
+
+variable "password_require_uppercase" {
+  description = "Require uppercase characters in password"
+  type        = bool
+  default     = true
+}
+
+variable "password_require_numbers" {
+  description = "Require numbers in password"
+  type        = bool
+  default     = true
+}
+
+variable "password_require_symbols" {
+  description = "Require symbols in password"
+  type        = bool
+  default     = true
+}
+
+variable "temporary_password_validity_days" {
+  description = "Number of days temporary password is valid"
+  type        = number
+  default     = 7
+}
+
+variable "mfa_configuration" {
+  description = "MFA configuration (OFF, ON, OPTIONAL)"
+  type        = string
+  default     = "OFF"
+}
+
+variable "allow_admin_create_user_only" {
+  description = "Only allow admins to create users"
+  type        = bool
+  default     = true
+}
+
+variable "allowed_auth_factors" {
+  description = "Allowed first authentication factors for passwordless sign-in. Options: PASSWORD, EMAIL_OTP, WEB_AUTHN"
+  type        = list(string)
+  default     = ["PASSWORD", "EMAIL_OTP"]
+}
+
+variable "callback_urls" {
+  description = "List of allowed callback URLs for the app client"
+  type        = list(string)
+  default     = ["http://localhost:3000/", "https://cis-pp.service.justice.gov.uk/callback/index.html"]
+}
+
+variable "logout_urls" {
+  description = "List of allowed logout URLs for the app client"
+  type        = list(string)
+  default     = ["http://localhost:3000/", "https://cis-pp.service.justice.gov.uk/"]
+}
+
+variable "access_token_validity" {
+  description = "Access token validity in hours"
+  type        = number
+  default     = 1
+}
+
+variable "id_token_validity" {
+  description = "ID token validity in hours"
+  type        = number
+  default     = 1
+}
+
+variable "refresh_token_validity" {
+  description = "Refresh token validity in days"
   type        = number
   default     = 30
 }
