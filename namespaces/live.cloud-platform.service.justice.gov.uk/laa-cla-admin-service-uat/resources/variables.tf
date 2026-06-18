@@ -11,43 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "People on probation"
+  default     = "CLA Admin Service"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-people-on-probation-prod"
+  default     = "laa-cla-admin-service-uat"
 }
 
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Manage my community sentence"
+  default     = "Information&Advice"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HMPPS"
+  default     = "LAA"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-people-on-probation-platform-devs"
+  default     = "laa-get-access"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "prod"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "TechforCOM@justice.gov.uk"
+  default     = "cla@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -59,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hmpps_people_on_probation"
+  default     = "laa-cla-devs"
 }
 
 variable "github_owner" {
@@ -72,12 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "number_cache_clusters" {
-  default = "2"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }
