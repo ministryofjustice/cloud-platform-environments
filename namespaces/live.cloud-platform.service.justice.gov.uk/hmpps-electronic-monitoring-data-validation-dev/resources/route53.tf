@@ -66,9 +66,10 @@ resource "aws_route53_resolver_rule" "em_api_gateway" {
   resolver_endpoint_id = aws_route53_resolver_endpoint.outbound_api.id
 
   dynamic "target_ip" {
-    for_each = jsondecode(data.aws_secretsmanager_secret_version.dns_resolver_ip.secret_string)["ips"]
+    for_each = toset(local.ips)
+    
     content {
-      ip   = target_ip.value
+      ip   = jsondecode(data.aws_secretsmanager_secret_version.dns_resolver_ip.secret_string)[target_ip.value]
       port = 53
     }
   }
