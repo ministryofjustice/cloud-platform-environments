@@ -18,6 +18,16 @@ data "aws_iam_policy_document" "ssm_policy" {
       "*"
     ]
   }
+
+  statement {
+    actions = [
+      "s3:ListAllMyBuckets",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "ssm_access" {
