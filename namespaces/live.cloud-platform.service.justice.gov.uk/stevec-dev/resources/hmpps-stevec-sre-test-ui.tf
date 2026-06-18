@@ -35,7 +35,7 @@ module "elasticache_redis" {
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
-  preferred_cache_cluster_azs = ["eu-west-2c"] #Pinned due to availability issues on 18/6/26
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"] #Pinned due to availability issues on 18/6/26
 
 
   # sized for micro in dev, preprod, suggest small for production
