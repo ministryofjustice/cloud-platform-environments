@@ -3,6 +3,16 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "vpc_name" {
+  description = "VPC name to create security groups in for the RDS module"
+  type        = string
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve the OIDC information for IRSA"
+  type        = string
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
