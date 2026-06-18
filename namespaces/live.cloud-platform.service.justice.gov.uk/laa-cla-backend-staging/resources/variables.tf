@@ -58,3 +58,34 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "db_identifier" {
+  description = "Identifier for the restored RDS instance"
+  type        = string
+}
+
+variable "db_subnet_group_name" {
+  description = "RDS subnet group name"
+  type        = string
+}
+
+variable "instance_class" {
+  description = "RDS instance class"
+  type        = string
+  default     = "db.t4g.small"
+}
+
+variable "engine" {
+  description = "Database engine"
+  type        = string
+  default     = "postgres"
+}
+
+variable "source_db_instance_identifier" {
+  description = "Source RDS instance to restore from"
+  type        = string
+  default = "laa-cla-backend-staging-pitr"
+}
+
+
+
