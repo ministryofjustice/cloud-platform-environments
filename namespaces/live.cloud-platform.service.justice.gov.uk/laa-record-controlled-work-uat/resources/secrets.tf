@@ -11,12 +11,12 @@ module "secrets_manager" {
 
   secrets = {
     "ccq-env-secrets" = {
-      description             = "Environmental secrets for the laa-record-controlled-work EKS namespace, stored in AWS Secrets Manager.",
+      description             = "ccq-env-secrets",
       recovery_window_in_days = 7,
       k8s_secret_name         = "ccq-env-secrets"
     },
     "rcw-env-secrets" = {
-      description             = "Environmental secrets for the laa-record-controlled-work EKS namespace, stored in AWS Secrets Manager.",
+      description             = "rcw-env-secrets",
       recovery_window_in_days = 7,
       k8s_secret_name         = "rcw-env-secrets"
     },
