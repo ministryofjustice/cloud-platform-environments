@@ -15,4 +15,6 @@ module "hmpps_egress_controls" {
     "o345774.ingest.sentry.io"
   ]
 
+  envoy_extra_allowed_hosts_suffixes = []
+
 }
