@@ -170,13 +170,13 @@ variable "cloudfront_alias" {
 variable "geo_restriction_type" {
   description = "Type of geo restriction (none, whitelist, blacklist)"
   type        = string
-  default     = "none"
+  default     = "whitelist"
 }
 
 variable "geo_restriction_locations" {
   description = "List of country codes for geo restriction"
   type        = list(string)
-  default     = []
+  default     = ["GB"]
 }
 
 variable "tags" {
