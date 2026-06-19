@@ -81,4 +81,8 @@ resource "aws_wafv2_web_acl" "frontend" {
   }
 
   tags = var.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
