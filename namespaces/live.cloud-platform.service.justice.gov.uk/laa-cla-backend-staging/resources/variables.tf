@@ -58,11 +58,3 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
-
-variable "db_identifier" {
-  description = "Identifier for the restored RDS instance"
-  type        = string
-}
-
-
-
