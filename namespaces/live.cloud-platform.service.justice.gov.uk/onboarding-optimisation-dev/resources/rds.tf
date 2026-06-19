@@ -5,7 +5,7 @@ module "rds" {
   db_engine_version    = "16"
   rds_family           = "postgres16"
   db_instance_class        = "db.t3.micro"
-  db_allocated_storage     = 10
+  db_allocated_storage     = 20
   db_max_allocated_storage = 100
   storage_type             = "gp3"
 
