@@ -44,7 +44,7 @@ resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
 }
 
 resource "aws_route53_resolver_endpoint" "outbound_api" {
-  name      = "outbound-resolve-mod-plat"
+  name      = "outbound-resolve-mod-platform"
   direction = "OUTBOUND"
 
   security_group_ids = [aws_security_group.aws_dns_resolver.id]
