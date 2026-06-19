@@ -56,7 +56,6 @@ data "aws_iam_policy_document" "sns_topic_policy" {
       "sns:Subscribe",
       "sns:ListSubscriptionsByTopic",
       "sns:Publish",
-      "sns:Receive",
     ]
     principals {
       type        = "AWS"
@@ -73,13 +72,9 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     sid    = "CrossAccountOASysReadAccess"
     effect = "Allow"
     actions = [
-      "sns:ListSubscriptions",
       "sns:ListSubscriptionsByTopic",
-      "sns:GetSubscriptionAttributes",
       "sns:GetTopicAttributes",
-      "sns:SetSubscriptionAttributes",
       "sns:Subscribe",
-      "sns:Unsubscribe",
     ]
     principals {
       type        = "AWS"
