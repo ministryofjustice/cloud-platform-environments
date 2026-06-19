@@ -21,4 +21,5 @@ locals {
     }
   }
   ips = ["ip1", "ip2", "ip3"]
+  subnets = ["subneta", "subnetb", "subnetc"]
 }

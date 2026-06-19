@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
   security_group_id = aws_security_group.aws_dns_resolver.id
   to_port           = each.value.to_port
   type              = "egress"
-  cidr_blocks       = [for ip_key in local.ips : "${jsondecode(data.aws_secretsmanager_secret_version.dns_resolver_ip.secret_string)[ip_key]}/32"]
+  cidr_blocks       = [for subnet_key in local.subnets : "${jsondecode(data.aws_secretsmanager_secret_version.dns_resolver_ip.secret_string)[subnet_key]}"]
 }
 
 resource "aws_route53_resolver_endpoint" "outbound_api" {
