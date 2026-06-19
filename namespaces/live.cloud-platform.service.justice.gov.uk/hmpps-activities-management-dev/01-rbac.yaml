@@ -22,8 +22,8 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-prisoner-pay-dev-calico-np-access
-  namespace: hmpps-prisoner-pay-dev
+  name: hmpps-activities-management-dev-calico-np-access
+  namespace: hmpps-activities-management-dev
 subjects:
   - kind: Group
     name: "github:activities-and-appointments"
