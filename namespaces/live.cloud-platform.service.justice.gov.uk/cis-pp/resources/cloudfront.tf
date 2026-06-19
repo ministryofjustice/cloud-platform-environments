@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "frontend" {
   comment             = "${var.environment} Frontend Distribution"
   default_root_object = "index.html"
   price_class         = var.cloudfront_price_class
-  web_acl_id          = aws_wafv2_web_acl.frontend.arn
+  # web_acl_id          = aws_wafv2_web_acl.frontend.arn
 
   # Custom domain aliases - required for CloudFront to respond to custom domain
   aliases = var.use_custom_certificate ? [var.cloudfront_alias] : []
