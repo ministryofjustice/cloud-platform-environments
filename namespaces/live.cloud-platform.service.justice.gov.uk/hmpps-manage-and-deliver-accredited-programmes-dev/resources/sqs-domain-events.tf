@@ -3,6 +3,7 @@ module "hmpps_mandd_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name = "hmpps_mandd_events_queue"
+  visibility_timeout_seconds  = 120
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_mandd_events_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -31,6 +32,7 @@ module "hmpps_mandd_events_dlq" {
 
   sqs_name = "hmpps_mandd_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
+  visibility_timeout_seconds  = 120
 
   business_unit          = var.business_unit
   application            = var.application
