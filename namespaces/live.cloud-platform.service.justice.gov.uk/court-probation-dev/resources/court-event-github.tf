@@ -43,7 +43,7 @@ module "pre-sentence-service" {
   github_team                   = "hmpps-probation-in-court"
   environment                   = var.environment
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "develop"]
   application_insights_instance = var.environment
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
