@@ -25,6 +25,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-callback-bearer-token-prod"
     },
+    "sds-base-url" = {
+      description             = "SDS API URL",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sds-base-url-prod"
+    },
     "sds-tenant-id" = {
       description             = "Entra tenant that SDS lives in",
       recovery_window_in_days = 7,
