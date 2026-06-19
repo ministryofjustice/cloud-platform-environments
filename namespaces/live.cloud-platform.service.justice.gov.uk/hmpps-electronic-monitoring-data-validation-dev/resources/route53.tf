@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "egress_dns_endpoint_traffic" {
   security_group_id = aws_security_group.aws_dns_resolver.id
   to_port           = each.value.to_port
   type              = "egress"
-  cidr_blocks       = [data.aws_vpc.this.cidr_block]
+  cidr_blocks       = [for subnet_key in local.subnets : "${jsondecode(data.aws_secretsmanager_secret_version.dns_resolver_ip.secret_string)[subnet_key]}/24"]
 }
 
 resource "aws_route53_resolver_endpoint" "outbound_api" {
@@ -73,4 +73,10 @@ resource "aws_route53_resolver_rule" "em_api_gateway" {
       port = 53
     }
   }
+}
+
+resource "aws_route53_resolver_rule_association" "forward_to_vpc" {
+  name             = "em-core-vpc-private-api-domain"
+  resolver_rule_id = aws_route53_resolver_rule.em_api_gateway.id
+  vpc_id           = data.aws_vpc.this.id
 }
