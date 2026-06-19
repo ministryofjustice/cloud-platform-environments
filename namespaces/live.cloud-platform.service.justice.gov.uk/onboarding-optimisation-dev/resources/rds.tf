@@ -4,10 +4,10 @@ module "rds" {
   vpc_name             = var.vpc_name
   db_engine_version    = "16"
   rds_family           = "postgres16"
-  db_instance_class    = "db.t4g.micro"
-  db_allocated_storage = 10
+  db_instance_class        = "db.t3.micro"
+  db_allocated_storage     = 10
   db_max_allocated_storage = 100
-  storage_type         = "gp2"
+  storage_type             = "gp3"
 
   prepare_for_major_upgrade = "false"
   enable_irsa               = true
