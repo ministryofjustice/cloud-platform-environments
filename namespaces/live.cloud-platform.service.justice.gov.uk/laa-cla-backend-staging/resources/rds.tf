@@ -111,7 +111,7 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   }
 }
 
-module "cla_backend_rds_postgres_14" {
+module "cla_backend_rds_postgres_14_pitr" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   storage_type  = "gp2"
   vpc_name      = var.vpc_name
@@ -144,7 +144,7 @@ module "cla_backend_rds_postgres_14" {
   ]
 
   restore_to_point_in_time {
-    source_db_instance_identifier = "cloud-platform-e485b5986a689b44"
+    source_db_instance_identifier = module.cla_backend_rds_postgres_14.db_identifier
     use_latest_restorable_time    = true
   }
 
