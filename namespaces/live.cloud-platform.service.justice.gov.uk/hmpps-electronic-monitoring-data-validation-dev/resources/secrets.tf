@@ -30,6 +30,11 @@ module "secrets_manager_multiple_secrets" {
       recovery_window_in_days = 0
       k8s_secret_name         = "dns-resolver-ip"
     },
+    "dns_resolver_cidr" = {
+      description             = "DNS Resolver CIDR",
+      recovery_window_in_days = 0
+      k8s_secret_name         = "dns-resolver-cidr"
+    },
   }
 }
 
@@ -47,4 +52,12 @@ data "aws_secretsmanager_secret" "dns_resolver_ip" {
 
 data "aws_secretsmanager_secret_version" "dns_resolver_ip" {
   secret_id = data.aws_secretsmanager_secret.dns_resolver_ip.id
+}
+
+data "aws_secretsmanager_secret" "dns_resolver_cidr" {
+  name = module.secrets_manager_multiple_secrets.secret_names["dns_resolver_cidr"]
+}
+
+data "aws_secretsmanager_secret_version" "dns_resolver_cidr" {
+  secret_id = data.aws_secretsmanager_secret.dns_resolver_cidr.id
 }
