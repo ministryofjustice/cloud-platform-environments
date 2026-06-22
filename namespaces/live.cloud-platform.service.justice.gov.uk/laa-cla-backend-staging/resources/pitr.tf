@@ -4,7 +4,7 @@ resource "aws_db_instance" "restored" {
   engine_version = var.db_engine_version
 
   restore_to_point_in_time {
-    source_db_instance_identifier = [data.aws_db_instance.existing.db_instance_identifier]
+    source_db_instance_identifier = [data.aws_db_instance.cla_backend_rds_postgres_14.db_identifier]
     use_latest_restorable_time    = true
   }
 
