@@ -167,7 +167,7 @@ resource "kubernetes_config_map" "rds" {
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
     name      = "dps-rds-instance-output-preprod"
-    namespace = "hmpps-nomis-mapping-service-prod"
+    namespace = "hmpps-prisoner-finance-general-ledger-prod"
   }
 
   data = {
