@@ -1,7 +1,6 @@
 resource "aws_db_instance" "restored" {
   identifier             = var.db_identifier
   instance_class         = var.db_instance_class
-  engine                 = var.engine
   engine_version         = var.db_engine_version
 
   db_subnet_group_name   = var.db_subnet_group_name
