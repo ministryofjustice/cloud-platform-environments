@@ -20,11 +20,6 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-template-ids-staging"
     },
-    "gov-notify-application-submit-template-id" = {
-      description             = "GovNotify application submit template Id for Staging",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-application-submit-template-id-staging"
-    },
     "gov-notify-callback-bearer-token" = {
       description             = "GovNotify callback bearer token for Staging",
       recovery_window_in_days = 7,
