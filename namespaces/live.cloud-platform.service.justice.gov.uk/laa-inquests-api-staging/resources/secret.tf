@@ -15,6 +15,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-staging"
     },
+    "gov-notify-template-ids" = {
+      description             = "GovNotify email template IDs for staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "gov-notify-template-ids-staging"
+    },
     "gov-notify-application-submit-template-id" = {
       description             = "GovNotify application submit template Id for Staging",
       recovery_window_in_days = 7,
