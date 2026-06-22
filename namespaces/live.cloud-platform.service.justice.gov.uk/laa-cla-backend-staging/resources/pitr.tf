@@ -5,7 +5,7 @@ resource "aws_db_instance" "restored" {
 
 
   restore_to_point_in_time {
-    source_db_instance_identifier = module.cla_backend_rds_postgres_14.db_identifier
+    source_db_instance_identifier = module.cla_backend_rds_postgres_14
     use_latest_restorable_time    = true
   }
 
