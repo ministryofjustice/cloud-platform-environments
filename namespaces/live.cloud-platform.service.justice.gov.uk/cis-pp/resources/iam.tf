@@ -58,7 +58,10 @@ module "github_oidc_iam_role" {
   name_prefix = "${var.namespace}-github-oidc"
   path        = "/cloud-platform/"
 
-  subjects = ["ministryofjustice/${var.github_repository}:*"]
+  # References:
+  # https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-with-reusable-workflows
+  # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif
+  subjects = ["ministryofjustice/${var.github_repository}:job_workflow_ref:ministryofjustice/${var.github_repository}/.github/workflows/application.yml@refs/heads/main"]
 
   policies = {
     s3         = aws_iam_policy.frontend_s3_deploy.arn
