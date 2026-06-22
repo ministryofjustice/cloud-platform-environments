@@ -19,11 +19,6 @@ module "secrets_manager" {
       description             = "GovNotify email template IDs for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-template-ids-uat"
-    }
-    "gov-notify-application-submit-template-id" = {
-      description             = "GovNotify application submit template ID for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-application-submit-template-id-uat"
     },
     "gov-notify-callback-bearer-token" = {
       description             = "GovNotify callback bearer token for UAT",
