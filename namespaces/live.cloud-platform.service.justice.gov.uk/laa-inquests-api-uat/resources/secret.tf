@@ -15,15 +15,20 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-uat"
     },
-    "gov-notify-application-submit-template-id" = {
-      description             = "GovNotify application submit template ID for UAT",
+    "gov-notify-template-ids" = {
+      description             = "GovNotify email template IDs for UAT",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-application-submit-template-id-uat"
+      k8s_secret_name         = "gov-notify-template-ids-uat"
     },
     "gov-notify-callback-bearer-token" = {
       description             = "GovNotify callback bearer token for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-callback-bearer-token-uat"
+    },
+    "sds-base-url" = {
+      description             = "SDS API URL",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sds-base-url-uat"
     },
     "sds-tenant-id" = {
       description             = "Entra tenant that SDS lives in",

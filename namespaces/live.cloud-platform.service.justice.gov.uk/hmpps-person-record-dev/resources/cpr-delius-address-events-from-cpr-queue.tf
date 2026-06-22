@@ -5,7 +5,6 @@ resource "aws_sns_topic_subscription" "cpr_delius_address_events_from_cpr_subscr
   filter_policy = jsonencode({
     eventType = [
       "probation-case.address.created",
-      "probation-case.address.updated",
     ],
     eventSource = [
       "core-person-record"
