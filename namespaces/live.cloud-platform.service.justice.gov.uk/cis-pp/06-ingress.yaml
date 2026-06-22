@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cis-pp-ingress
+  namespace: cis-pp
+  labels:
+    application: cis-pp
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/set-identifier: cis-pp-ingress
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: default
+  tls:
+  - hosts:
+    - api.cis-pp.service.justice.gov.uk
+    secretName: cis-pp-api-cert
+  rules:
+  - host: api.cis-pp.service.justice.gov.uk
+    http:
+      paths:
+      - path: /health
+        pathType: Exact
+        backend:
+          service:
+            name: health-check
+            port:
+              name: http

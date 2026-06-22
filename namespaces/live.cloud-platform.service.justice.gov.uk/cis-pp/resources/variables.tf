@@ -167,6 +167,16 @@ variable "cloudfront_alias" {
   default     = "cis-pp.service.justice.gov.uk"
 }
 
+# =============================================================================
+# API Ingress Variables
+# =============================================================================
+
+variable "api_hostname" {
+  description = "Custom domain for the CIS API ingress"
+  type        = string
+  default     = "api.cis-pp.service.justice.gov.uk"
+}
+
 variable "geo_restriction_type" {
   description = "Type of geo restriction (none, whitelist, blacklist)"
   type        = string
