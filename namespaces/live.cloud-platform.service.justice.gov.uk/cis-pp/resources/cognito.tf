@@ -157,3 +157,14 @@ resource "aws_cognito_user_pool_client" "main" {
     refresh_token = "days"
   }
 }
+
+resource "kubernetes_secret" "cognito_user_pool_client" {
+  metadata {
+    name      = "${var.namespace}-cognito-user-pool-client"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.main.id
+    client_secret = aws_cognito_user_pool_client.main.client_secret
+  }
+}
