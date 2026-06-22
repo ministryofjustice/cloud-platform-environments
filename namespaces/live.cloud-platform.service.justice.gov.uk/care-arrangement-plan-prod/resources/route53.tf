@@ -65,7 +65,7 @@ resource "aws_route53_record" "pcap_route53_mx_record_outlook" {
   name    = "propose-child-arrangements-plan"
   type    = "MX"
   ttl     = "3600"
-  records = ["proposechildarrangementsplan-service-gov-uk01i1c2e.mail.protection.outlook.com"]
+  records = ["0 proposechildarrangementsplan-service-gov-uk01i1c2e.mail.protection.outlook.com"]
 }
 
 resource "aws_route53_record" "entra_id_verification" {
