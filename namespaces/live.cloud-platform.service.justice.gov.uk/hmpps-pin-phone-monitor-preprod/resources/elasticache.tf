@@ -1,17 +1,18 @@
 module "pcms_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
-  vpc_name               = var.vpc_name
-  application            = var.application
-  environment_name       = var.environment-name
-  is_production          = var.is_production
-  infrastructure_support = var.infrastructure_support
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  number_cache_clusters  = var.number_cache_clusters
-  node_type              = "cache.t4g.small"
-  engine_version         = "7.0"
-  parameter_group_name   = "default.redis7"
-  namespace              = var.namespace
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
+  vpc_name                    = var.vpc_name
+  application                 = var.application
+  environment_name            = var.environment-name
+  is_production               = var.is_production
+  infrastructure_support      = var.infrastructure_support
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  number_cache_clusters       = var.number_cache_clusters
+  node_type                   = "cache.t4g.small"
+  engine_version              = "7.0"
+  parameter_group_name        = "default.redis7"
+  namespace                   = var.namespace
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
 
   providers = {
     aws = aws.london
