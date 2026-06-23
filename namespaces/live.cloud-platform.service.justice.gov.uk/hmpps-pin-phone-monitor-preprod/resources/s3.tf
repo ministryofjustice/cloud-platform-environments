@@ -301,7 +301,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_preprod"
+  sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue"
   encrypt_sqs_kms           = "false"
   message_retention_seconds = 1209600
 
@@ -329,7 +329,7 @@ module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq_preprod"
+  sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq"
   encrypt_sqs_kms = "true"
 
   # Tags
