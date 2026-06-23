@@ -12,7 +12,7 @@ module "pre_sentence_service_rds" {
   is_production               = var.is_production
   rds_family                  = "postgres14"
   db_instance_class           = "db.t3.small"
-  db_engine_version           = "14.17"
+  db_engine_version           = "14.22"
   prepare_for_major_upgrade   = false
   # To upgrade major DB see Cloud Platform user guide
   allow_major_version_upgrade = false # Setting to true can break teraform build.
