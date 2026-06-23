@@ -1,3 +1,8 @@
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = "cloudplatform-mp-dps-sg"
+}
+
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
