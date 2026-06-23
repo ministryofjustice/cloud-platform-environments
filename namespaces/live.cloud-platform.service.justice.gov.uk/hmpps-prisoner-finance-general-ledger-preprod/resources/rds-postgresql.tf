@@ -166,7 +166,7 @@ resource "kubernetes_config_map" "rds" {
 # this can then be used by a kubernetes job which will refresh the preprod data.
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
-    name      = "dps-rds-instance-output-preprod"
+    name      = "rds-postgresql-instance-output-preprod"
     namespace = "hmpps-prisoner-finance-general-ledger-prod"
   }
 
