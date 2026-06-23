@@ -23,8 +23,6 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  github_actions_prefix = "PROD"
-
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
   # uncomment below:
 
