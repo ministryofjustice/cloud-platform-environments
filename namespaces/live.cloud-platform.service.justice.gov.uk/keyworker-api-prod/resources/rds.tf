@@ -54,6 +54,8 @@ module "dps_rds" {
     }
   ]
 
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
   enable_irsa = true
 }
 
