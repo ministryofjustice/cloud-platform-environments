@@ -14,7 +14,7 @@ locals {
     "hmpps-community-payback-dev",
     "hmpps-community-payback-test",
     "hmpps-contacts-dev",
-    "hmpps-court-cases-release-dates-dev", 
+    "hmpps-court-cases-release-dates-dev",
     "hmpps-court-register-dev",
     "hmpps-digital-prison-services-dev",
     "hmpps-document-management-dev",
