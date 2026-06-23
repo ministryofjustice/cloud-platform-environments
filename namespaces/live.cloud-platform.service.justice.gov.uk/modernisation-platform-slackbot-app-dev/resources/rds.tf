@@ -1,7 +1,37 @@
-# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
-data "aws_security_group" "mp_dps_sg" {
-  name = "cloudplatform-mp-dps-sg"
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
 }
+
+resource "aws_security_group" "rds" {
+  name        = "${var.namespace}-rds-${var.environment}"
+  description = "Security group for MP Connectivity Testing RDS instance"
+  vpc_id      = data.aws_vpc.selected.id
+
+  ingress {
+    description = "RDS Ingress"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.26.16.0/21"]
+  }
+
+  egress {
+    description = "RDS Egress"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.26.16.0/21"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+
 
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
@@ -35,8 +65,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # Add DPR security group.
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids     = [aws_security_group.rds.id]
 
   db_parameter = [
     {
