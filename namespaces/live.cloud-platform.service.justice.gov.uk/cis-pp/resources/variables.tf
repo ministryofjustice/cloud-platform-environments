@@ -292,3 +292,42 @@ variable "refresh_token_validity" {
   type        = number
   default     = 30
 }
+
+# -----------------------------------------------------------------------------
+# GitHub OIDC Role Variables
+# -----------------------------------------------------------------------------
+variable "oidc_role_path" {
+  description = "Path of IAM role"
+  type        = string
+  default     = "/cloud-platform/"
+}
+
+variable "oidc_role_force_detach_policies" {
+  description = "Whether policies should be detached from this role when destroying"
+  type        = bool
+  default     = true
+}
+
+variable "oidc_role_audience" {
+  description = "Audience to use for OIDC role."
+  type        = string
+  default     = "sts.amazonaws.com"
+}
+
+variable "oidc_role_provider_url" {
+  description = "The URL of the identity provider. Corresponds to the iss claim. This is the URL of the OIDC provider for GitHub Actions, and omits the https:// prefix."
+  type        = string
+  default     = "token.actions.githubusercontent.com"
+}
+
+variable "oidc_role_workflow_file" {
+  description = "The name of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = ".github/workflows/application.yml"
+}
+
+variable "oidc_role_workflow_branch" {
+  description = "The branch of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = "main"
+}

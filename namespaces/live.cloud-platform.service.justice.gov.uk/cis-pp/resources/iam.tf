@@ -51,32 +51,86 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
   })
 }
 
-module "github_oidc_iam_role" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
-  version = "5.9.2"
+# -----------------------------------------------------------------------------
+# GitHub OIDC Role
+#
+# Allows GitHub Actions to assume an IAM role via OIDC to deploy the frontend application.
+#
+# Modified from the terraform-aws-modules/iam/aws//modules/iam-github-oidc-role module to allow for more flexible
+# configuration of the trust policy, as the module does not currently support the `job_workflow_ref` condition
+# key which is used to restrict access to specific workflow(s) on specific branch(es)
+#
+# References:
+# https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-with-reusable-workflows
+# https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif
+# https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/5.9.2/submodules/iam-github-oidc-role 
+# -----------------------------------------------------------------------------
+data "aws_partition" "current" {}
+data "aws_caller_identity" "current" {}
 
+locals {
+  # Just extra safety incase someone passes in a url with `https://`
+  provider_url = replace(var.oidc_role_provider_url, "https://", "")
+  account_id   = data.aws_caller_identity.current.account_id
+  partition    = data.aws_partition.current.partition
+}
+
+data "aws_iam_policy_document" "github_oidc_policy" {
+  statement {
+    sid    = "GithubOidcAuth"
+    effect = "Allow"
+    actions = [
+      "sts:TagSession",
+      "sts:AssumeRoleWithWebIdentity"
+    ]
+
+    principals {
+      type        = "Federated"
+      identifiers = ["arn:${local.partition}:iam::${local.account_id}:oidc-provider/${local.provider_url}"]
+    }
+
+    condition {
+      test     = "ForAllValues:StringEquals"
+      variable = "${local.provider_url}:iss"
+      values   = ["https://${local.provider_url}"]
+    }
+
+    condition {
+      test     = "ForAllValues:StringEquals"
+      variable = "${local.provider_url}:aud"
+      values   = [var.oidc_role_audience]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "${local.provider_url}:sub"
+      values   = ["repo:ministryofjustice/${var.github_repository}:environment:${var.environment}"]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "${local.provider_url}:job_workflow_ref"
+      values   = ["ministryofjustice/${var.github_repository}/${var.oidc_role_workflow_file}@refs/heads/${var.oidc_role_workflow_branch}"]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_oidc_iam_role" {
   name_prefix = "${var.namespace}-github-oidc"
-  path        = "/cloud-platform/"
+  path        = var.oidc_role_path
 
-  # References:
-  # https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-with-reusable-workflows
-  # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif
-  subjects = ["ministryofjustice/${var.github_repository}:job_workflow_ref:ministryofjustice/${var.github_repository}/.github/workflows/application.yml@refs/heads/main"]
+  assume_role_policy    = data.aws_iam_policy_document.github_oidc_policy.json
+  force_detach_policies = var.oidc_role_force_detach_policies
+}
 
-  policies = {
-    s3         = aws_iam_policy.frontend_s3_deploy.arn
-    cloudfront = aws_iam_policy.frontend_cloudfront_invalidate.arn
-  }
+resource "aws_iam_role_policy_attachment" "github_oidc_policy_attach_s3" {
+  role       = aws_iam_role.github_oidc_iam_role.name
+  policy_arn = aws_iam_policy.frontend_s3_deploy.arn
+}
 
-  tags = {
-    business_unit          = var.business_unit
-    application            = var.application
-    is_production          = var.is_production
-    team_name              = var.team_name
-    namespace              = var.namespace
-    environment_name       = var.environment
-    infrastructure_support = var.infrastructure_support
-  }
+resource "aws_iam_role_policy_attachment" "github_oidc_policy_attach_cloudfront" {
+  role       = aws_iam_role.github_oidc_iam_role.name
+  policy_arn = aws_iam_policy.frontend_cloudfront_invalidate.arn
 }
 
 resource "kubernetes_secret" "github_oidc_iam_role" {
@@ -86,6 +140,6 @@ resource "kubernetes_secret" "github_oidc_iam_role" {
   }
 
   data = {
-    role_arn = module.github_oidc_iam_role.arn
+    role_arn = aws_iam_role.github_oidc_iam_role.arn
   }
 }
