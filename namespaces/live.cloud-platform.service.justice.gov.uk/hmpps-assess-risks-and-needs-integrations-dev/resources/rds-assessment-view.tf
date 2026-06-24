@@ -107,7 +107,7 @@ locals {
     db_name            = module.arns_assessment_view_rds.database_name
   }
 
-  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assessment-view-source-secrets-C1EDVj"
+  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:771283872747:secret:external/dpr-pr-assess-view-source-secrets-60gnIi"
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
