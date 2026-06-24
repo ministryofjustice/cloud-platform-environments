@@ -92,6 +92,20 @@ data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document"
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid    = "AllowCloudWatch"
+    effect = "Allow"
+    actions = [
+      "logs:GetLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups",
+      "logs:FilterLogEvents"
+    ]
+    resources = [
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:copilot_credits_dev_crawler",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "copilot_credits_dev_athena_irsa_policy" {
