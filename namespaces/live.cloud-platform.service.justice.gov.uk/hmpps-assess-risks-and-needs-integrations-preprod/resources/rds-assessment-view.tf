@@ -162,9 +162,9 @@ resource "postgresql_grant_role" "digital_prison_reporting_user_rds_replication"
   grant_role = "rds_replication"
 }
 
-resource "aws_secretsmanager_secret_version" "db" {
-  provider  = aws.secrets
-  secret_id = local.dpr_secret_arn
-
-  secret_string = jsonencode(local.dpr_db_secret)
-}
+# resource "aws_secretsmanager_secret_version" "db" {
+#   provider  = aws.secrets
+#   secret_id = local.dpr_secret_arn
+#
+#   secret_string = jsonencode(local.dpr_db_secret)
+# }
