@@ -20,10 +20,26 @@ module "s3_bucket" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "S3DataSyncAccess",
+      "Sid": "S3DataSyncAccessMPDev",
       "Effect": "Allow",
       "Principal": {
         "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "S3DataSyncAccessAPAirflowDev",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::381491960855:role/github-actions-ministryofjustice-analytical-platform-airflow"
       },
       "Action": [
         "s3:PutObject",
@@ -54,8 +70,8 @@ module "s3_bucket" {
         "s3:AbortMultipartUpload"
       ],
       "Resource": [
-        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*",
-        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
       ],
       "Condition": {
         "StringEquals": {
@@ -76,8 +92,8 @@ module "s3_bucket" {
         "s3:GetBucketLocation"
       ],
       "Resource": [
-        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*",
-        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
       ]
     }
   ]
