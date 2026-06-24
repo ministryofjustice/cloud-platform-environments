@@ -70,7 +70,9 @@ data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document"
       "athena:StartQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
-      "athena:StopQueryExecution"
+      "athena:StopQueryExecution",
+      "athena:ListWorkGroups",
+      "athena:GetWorkGroup"
     ]
     resources = ["*"]
   }
