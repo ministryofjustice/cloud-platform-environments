@@ -1,0 +1,18 @@
+module "hmpps_prisoner_apps_ui" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
+  github_repo = "hmpps-prisoner-apps-ui"
+  application = "hmpps-prisoner-apps-ui"
+  github_team = "hmpps-launchpad-devs"
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-launchpad-devs"] # Optional team that should review deployments to this environment.
+  selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
+  is_production                 = var.is_production
+  application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "hmpps-template-typescript"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+}
