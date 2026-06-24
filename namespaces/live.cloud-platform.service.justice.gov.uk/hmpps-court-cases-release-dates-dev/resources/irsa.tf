@@ -11,6 +11,10 @@ locals {
     hmpps_ccrd_cache_eviction_queue                   = module.hmpps_ccrd_cache_eviction_queue.irsa_policy_arn,
     hmpps_ccrd_cache_eviction_dead_letter_queue       = module.hmpps_ccrd_cache_eviction_dead_letter_queue.irsa_policy_arn,
   }
+  audit_sqs_queues = {
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
+  }
+  audit_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 
@@ -21,7 +25,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-court-cases-release-dates-service-account"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, local.audit_sqs_policies)
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -34,6 +38,12 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.audit_sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 
