@@ -97,7 +97,7 @@ data "aws_vpc" "selected" {
   }
 }
 
-resource "aws_security_group" "rds" {
+resource "aws_security_group" "read_replica_sg" {
   name        = "${var.namespace}-rds-${var.environment}"
   description = "Security group for DPR connectivity"
   vpc_id      = data.aws_vpc.selected.id
@@ -151,7 +151,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [aws_security_group.rds.id]
+  vpc_security_group_ids     = [aws_security_group.read_replica_sg.id]
 
   db_parameter = [
     {
