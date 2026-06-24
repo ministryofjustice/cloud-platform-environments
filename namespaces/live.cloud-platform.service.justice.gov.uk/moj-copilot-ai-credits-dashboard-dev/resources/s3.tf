@@ -34,6 +34,51 @@ module "s3_bucket" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "AthenaAccess",
+      "Effect": "Allow",
+      "Principal": {
+          "Service": [
+            "glue.amazonaws.com",
+            "athena.amazonaws.com"
+          ]
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListMultipartUploadParts",
+        "s3:ListBucketMultipartUploads",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:GetBucketLocation",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*",
+        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
+      ],
+      "Condition": {
+        "StringEquals": {
+            "aws:SourceAccount": "${data.aws_caller_identity.current.account_id}"
+        }
+      }
+    },
+    {
+      "Sid": "IRSARoleAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cloud-platform-irsa-df7faf623217f7f2-live"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*",
+        "arn:aws:s3:::cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
+      ]
     }
   ]
 }
