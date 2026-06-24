@@ -20,7 +20,7 @@ module "s3_bucket" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "S3DataSyncAccess",
+      "Sid": "S3DataSyncAccessMPDev",
       "Effect": "Allow",
       "Principal": {
         "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
@@ -29,6 +29,67 @@ module "s3_bucket" {
         "s3:PutObject",
         "s3:ListBucket",
         "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "S3DataSyncAccessAPAirflowDev",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::381491960855:role/github-actions-ministryofjustice-analytical-platform-airflow"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ]
+    },
+    {
+      "Sid": "AthenaAccess",
+      "Effect": "Allow",
+      "Principal": {
+          "Service": [
+            "glue.amazonaws.com",
+            "athena.amazonaws.com"
+          ]
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListMultipartUploadParts",
+        "s3:ListBucketMultipartUploads",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:GetBucketLocation",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+            "aws:SourceAccount": "${data.aws_caller_identity.current.account_id}"
+        }
+      }
+    },
+    {
+      "Sid": "IRSARoleAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cloud-platform-irsa-df7faf623217f7f2-live"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:GetBucketLocation"
       ],
       "Resource": [
         "$${bucket_arn}",
