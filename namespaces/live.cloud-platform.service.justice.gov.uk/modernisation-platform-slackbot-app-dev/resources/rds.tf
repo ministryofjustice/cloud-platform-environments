@@ -118,8 +118,10 @@ resource "kubernetes_secret" "rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name                     = var.vpc_name
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
 
   # Tags
   application            = var.application
