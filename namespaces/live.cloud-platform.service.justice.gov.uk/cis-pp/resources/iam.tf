@@ -69,10 +69,10 @@ data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 
 locals {
- # Just extra safety incase someone passes in a url with `https://`
-  provider_url = replace(var.oidc_role_provider_url, "https://", "") 
-  account_id = data.aws_caller_identity.current.account_id
-  partition  = data.aws_partition.current.partition
+  # Just extra safety incase someone passes in a url with `https://`
+  provider_url = replace(var.oidc_role_provider_url, "https://", "")
+  account_id   = data.aws_caller_identity.current.account_id
+  partition    = data.aws_partition.current.partition
 }
 
 data "aws_iam_policy_document" "github_oidc_policy" {
@@ -98,7 +98,7 @@ data "aws_iam_policy_document" "github_oidc_policy" {
     condition {
       test     = "ForAllValues:StringEquals"
       variable = "${local.provider_url}:aud"
-      values   = ["${var.oidc_role_audience}"]
+      values   = [var.oidc_role_audience]
     }
 
     condition {
