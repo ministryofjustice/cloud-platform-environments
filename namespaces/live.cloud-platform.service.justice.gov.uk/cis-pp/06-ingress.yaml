@@ -7,7 +7,7 @@ metadata:
     application: cis-pp
   annotations:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    external-dns.alpha.kubernetes.io/set-identifier: cis-pp-ingress
+    external-dns.alpha.kubernetes.io/set-identifier: cis-pp-ingress-cis-pp-green
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: default
