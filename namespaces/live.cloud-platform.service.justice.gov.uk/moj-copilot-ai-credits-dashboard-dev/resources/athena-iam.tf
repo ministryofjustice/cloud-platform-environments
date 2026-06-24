@@ -84,7 +84,9 @@ data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document"
       "glue:GetTable",
       "glue:GetTables",
       "glue:GetPartition",
-      "glue:GetPartitions"
+      "glue:GetPartitions",
+      "glue:GetCrawler",
+      "glue:GetCrawlerMetrics"
     ]
     resources = ["*"]
   }
