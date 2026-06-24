@@ -58,3 +58,39 @@ resource "aws_iam_role_policy_attachment" "copilot_credits_dev_glue_service_role
   role       = aws_iam_role.copilot_credits_dev_glue_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
+
+# Athena IRSA policy
+
+data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document" {
+  version = "2012-10-17"
+  statement {
+    sid    = "AllowAthenaQueries"
+    effect = "Allow"
+    actions = [
+      "athena:StartQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:StopQueryExecution"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowGlueCatalogRead"
+    effect = "Allow"
+    actions = [
+      "glue:GetDatabase",
+      "glue:GetDatabases",
+      "glue:GetTable",
+      "glue:GetTables",
+      "glue:GetPartition",
+      "glue:GetPartitions"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "copilot_credits_dev_athena_irsa_policy" {
+  name   = "copilot_credits_dev_athena_irsa_policy"
+  policy = data.aws_iam_policy_document.copilot_credits_dev_athena_irsa_policy_document.json
+}
