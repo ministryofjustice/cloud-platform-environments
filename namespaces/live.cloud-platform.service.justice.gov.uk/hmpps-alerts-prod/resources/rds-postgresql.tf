@@ -107,7 +107,7 @@ resource "aws_security_group" "read_replica_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["10.26.16.0/21"]
+    cidr_blocks = ["10.27.8.0/21"]
   }
 
   egress {
@@ -115,7 +115,7 @@ resource "aws_security_group" "read_replica_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["10.26.16.0/21"]
+    cidr_blocks = ["10.27.8.0/21"]
   }
 
   lifecycle {
