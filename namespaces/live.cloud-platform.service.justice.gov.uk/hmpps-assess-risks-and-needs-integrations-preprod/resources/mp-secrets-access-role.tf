@@ -48,7 +48,7 @@ resource "aws_iam_policy" "mp_secrets_read" {
           "secretsmanager:UpdateSecret"
         ]
         Resource = [
-          "arn:aws:secretsmanager:eu-west-2:972272129531:secret:external/dpr-pr-assessment-view-source-secrets-*"
+          "arn:aws:secretsmanager:eu-west-2:972272129531:secret:external/dpr-pr-assess-view-source-secrets-*"
         ]
       },
       {
