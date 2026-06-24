@@ -90,6 +90,40 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.vpc_name == "live" ? "live-1" : var.vpc_name]
+  }
+}
+
+resource "aws_security_group" "rds" {
+  name        = "${var.namespace}-rds-${var.environment}"
+  description = "Security group for DPR connectivity"
+  vpc_id      = data.aws_vpc.selected.id
+
+  ingress {
+    description = "RDS Ingress"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.26.16.0/21"]
+  }
+
+  egress {
+    description = "RDS Egress"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.26.16.0/21"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -117,7 +151,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids     = [aws_security_group.rds.id]
 
   db_parameter = [
     {
