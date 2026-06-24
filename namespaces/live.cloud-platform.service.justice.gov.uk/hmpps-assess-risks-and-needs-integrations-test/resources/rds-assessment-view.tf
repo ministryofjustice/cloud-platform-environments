@@ -150,10 +150,6 @@ resource "postgresql_role" "digital_prison_reporting_user" {
   name     = "digital_prison_reporting_user"
   login    = true
   password = random_password.dpr_password.result
-
-  lifecycle {
-    ignore_changes = [roles]
-  }
 }
 
 resource "postgresql_grant_role" "digital_prison_reporting_user_rds_superuser" {
