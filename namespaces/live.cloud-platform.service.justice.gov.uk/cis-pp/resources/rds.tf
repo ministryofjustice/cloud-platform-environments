@@ -13,6 +13,8 @@ module "rds_instance" {
   db_name                  = "cis-rds"
   license_model            = "license-included"
   
+  # Avoid default parameters set by MOJ
+  db_parameter = []
 
   # Tags
   business_unit          = var.business_unit
