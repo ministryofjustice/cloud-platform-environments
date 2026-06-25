@@ -12,8 +12,8 @@ module "hmpps_interventions_postgres14" {
 
   rds_family                   = "postgres14"
   db_engine_version = "14.17"
-  db_instance_class            = "db.m5.large"
-  db_allocated_storage         = 20
+  db_instance_class            = "db.m6g.2xlarge"
+  db_allocated_storage         = "50"
   allow_major_version_upgrade  = "false"
   performance_insights_enabled = true
 
@@ -71,8 +71,8 @@ module "hmpps_interventions_postgres14_replica" {
 
   rds_family                  = "postgres14"
   db_engine_version = "14.17"
-  db_instance_class           = "db.m5.large"
-  db_allocated_storage        = 20
+  db_instance_class           = "db.m6g.2xlarge"
+  db_allocated_storage        = "50"
   allow_major_version_upgrade = "false"
 
   replicate_source_db = module.hmpps_interventions_postgres14.db_identifier

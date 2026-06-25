@@ -12,6 +12,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      GithubTeam = "laa-get-access"
     }
   }
   region = "eu-west-2"
@@ -26,6 +27,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      GithubTeam = "laa-get-access"
     }
   }
   alias  = "london"
@@ -41,6 +43,7 @@ provider "aws" {
       owner = var.team_name
       namespace = var.namespace
       service-area = var.service_area
+      GithubTeam = "laa-get-access"
     }
   }
   alias  = "ireland"
