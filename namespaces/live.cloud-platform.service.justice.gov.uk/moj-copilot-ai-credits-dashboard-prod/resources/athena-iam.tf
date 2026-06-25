@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
   }
 
   statement {
-    sid    = "AllowGlueCatalogRead"
+    sid    = "AllowGlueCatalog"
     effect = "Allow"
     actions = [
       "glue:GetDatabase",
@@ -86,7 +86,10 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "glue:GetTable",
       "glue:GetTables",
       "glue:GetPartition",
-      "glue:GetPartitions"
+      "glue:GetPartitions",
+      "glue:StartCrawler",
+      "glue:GetCrawler",
+      "glue:GetCrawlerMetrics"
     ]
     resources = [
       "arn:aws:athena:eu-west-2:${data.aws_caller_identity.current.account_id}:datacatalog/${data.aws_caller_identity.current.account_id}",
