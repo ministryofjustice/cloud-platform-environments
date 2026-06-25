@@ -69,10 +69,7 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
     actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryExecution",
-      "athena:GetQueryResults",
-      "athena:StopQueryExecution",
-      "athena:ListWorkGroups",
-      "athena:GetWorkGroup"
+      "athena:GetQueryResults"
     ]
     resources = ["*"]
   }
@@ -86,10 +83,7 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "glue:GetTable",
       "glue:GetTables",
       "glue:GetPartition",
-      "glue:GetPartitions",
-      "glue:StartCrawler",
-      "glue:GetCrawler",
-      "glue:GetCrawlerMetrics"
+      "glue:GetPartitions"
     ]
     resources = ["*"]
   }
