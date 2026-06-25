@@ -13,6 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3  = module.s3_bucket.irsa_policy_arn
+    athena = aws_iam_policy.copilot_credits_prod_athena_irsa_policy.arn
   }
 
   # Tags
