@@ -104,9 +104,9 @@ variable "db_max_allocated_storage" {
   default     = "100"
 }
 variable "db_allocated_storage" {
-  description = "The allocated storage for the RDS instance"
+  description = "The allocated storage for the RDS instance used by DataHub."
   type        = number
-  default     = 20
+  default     = 40
 }
 
 variable storage_type {
