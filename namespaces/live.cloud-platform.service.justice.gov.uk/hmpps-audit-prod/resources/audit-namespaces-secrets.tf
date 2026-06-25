@@ -10,6 +10,7 @@ locals {
     "hmpps-community-accommodation-prod",
     "hmpps-community-payback-prod",
     "hmpps-contacts-prod",
+    "hmpps-court-cases-release-dates-prod",
     "hmpps-digital-prison-services-prod",
     "hmpps-education-and-work-plan-prod",
     "hmpps-education-employment-prod",
