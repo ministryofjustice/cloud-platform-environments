@@ -4,7 +4,7 @@ resource "aws_sns_topic_subscription" "cas-common-domain-events-listener-queue-s
   endpoint  = module.cas-common-domain-events-listener-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "tier.calculation.complete"
+      "tier.calculation.changed"
     ]
   })
 }
