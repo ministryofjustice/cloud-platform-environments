@@ -32,6 +32,8 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+
   db_parameter = [
     {
       name         = "rds.logical_replication"
