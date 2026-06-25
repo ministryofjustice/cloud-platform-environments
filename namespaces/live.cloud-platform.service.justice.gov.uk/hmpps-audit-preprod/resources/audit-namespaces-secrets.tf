@@ -25,6 +25,7 @@ locals {
     "hmpps-manage-users-preprod",
     "hmpps-managing-prisoner-apps-preprod",
     "hmpps-non-associations-preprod",
+    "hmpps-people-on-probation-preprod",
     "hmpps-prisoner-from-nomis-migration-preprod",
     "hmpps-prisoner-profile-preprod",
     "hmpps-registers-preprod",
