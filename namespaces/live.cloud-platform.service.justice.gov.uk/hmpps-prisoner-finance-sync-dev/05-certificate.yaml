@@ -23,4 +23,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-finance-sync-dev.hmpps.service.justice.gov.uk    
+    - prisoner-finance-sync-dev.hmpps.service.justice.gov.uk
+    - pf-sync-dev.hmpps.service.justice.gov.uk
