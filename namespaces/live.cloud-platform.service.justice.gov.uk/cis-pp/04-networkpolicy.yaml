@@ -1,27 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default
+  name: deny-pod-ingress
   namespace: cis-pp
 spec:
   podSelector: {}
   policyTypes:
   - Ingress
-  ingress:
-  - from:
-    - podSelector: {}
+  ingress: []
 ---
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
   name: allow-ingress-controllers
   namespace: cis-pp
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
+    - Ingress
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          component: ingress-controllers
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: ingress-controllers
