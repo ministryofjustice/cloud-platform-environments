@@ -1,3 +1,7 @@
+locals {
+  table_name = "reports"
+}
+
 resource "aws_glue_catalog_database" "copilot_credits_prod_database" {
   name = "copilot_credits_prod_database"
 }
@@ -10,7 +14,7 @@ resource "aws_glue_crawler" "copilot_credits_prod_crawler" {
   role          = aws_iam_role.copilot_credits_prod_glue_role.arn
 
   s3_target {
-    path = "s3://${module.s3_bucket.bucket_name}/reports/"
+    path = "s3://${module.s3_bucket.bucket_name}/${local.table_name}/"
   }
 
   configuration = jsonencode({
