@@ -17,9 +17,9 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              component: ingress-controllers
+  - from:
+      - namespaceSelector:
+          matchLabels:
+            component: ingress-controllers
