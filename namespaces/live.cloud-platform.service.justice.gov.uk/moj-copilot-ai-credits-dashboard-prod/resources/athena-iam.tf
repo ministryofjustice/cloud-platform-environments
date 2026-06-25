@@ -48,7 +48,10 @@ resource "aws_iam_role_policy" "copilot_credits_prod_glue_s3_policy" {
           "athena:StartQueryExecution",
           "athena:StopQueryExecution"
         ],
-        Resource = ["*"]
+        Resource = [
+          aws_athena_workgroup.copilot_credits_prod_workgroup.arn,
+          "arn:aws:athena:eu-west-2:${data.aws_caller_identity.current.account_id}:datacatalog/${data.aws_caller_identity.current.account_id}"
+        ]
       },
     ]
   })
@@ -71,7 +74,7 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "athena:GetQueryExecution",
       "athena:GetQueryResults"
     ]
-    resources = ["*"]
+    resources = [aws_athena_workgroup.copilot_credits_prod_workgroup.arn]
   }
 
   statement {
@@ -85,7 +88,11 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "glue:GetPartition",
       "glue:GetPartitions"
     ]
-    resources = ["*"]
+    resources = [
+      "arn:aws:athena:eu-west-2:${data.aws_caller_identity.current.account_id}:datacatalog/${data.aws_caller_identity.current.account_id}",
+      aws_glue_catalog_database.copilot_credits_prod_database.arn,
+      "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/reports"
+    ]
   }
 
   statement {
