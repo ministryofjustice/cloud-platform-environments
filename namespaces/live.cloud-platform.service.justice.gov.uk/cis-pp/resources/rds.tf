@@ -1,3 +1,4 @@
+/*
 module "rds_instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -25,3 +26,4 @@ module "rds_instance" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+*/
