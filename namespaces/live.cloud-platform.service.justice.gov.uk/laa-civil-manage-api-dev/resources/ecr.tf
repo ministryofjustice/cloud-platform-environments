@@ -33,8 +33,7 @@ module "ecr" {
             "selection": {
                 "tagStatus": "tagged",
                 "tagPrefixList": ["main"],
-                "countType": "imageSincePublished",
-                "countUnit": "days",
+                "countType": "imageCountMoreThan",
                 "countNumber": 9999
             },
             "action": {
