@@ -168,3 +168,19 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
     client_secret = aws_cognito_user_pool_client.main.client_secret
   }
 }
+
+# -----------------------------------------------------------------------------
+# Cognito Test User
+# -----------------------------------------------------------------------------
+resource "aws_cognito_user" "test" {
+  user_pool_id = aws_cognito_user_pool.main.id
+  username     = "stefan.hristov1@justice.gov.uk"
+
+  attributes = {
+    email          = "stefan.hristov1@justice.gov.uk"
+    email_verified = "true"
+  }
+
+  temporary_password = "Password123!Test"
+  message_action     = "SUPPRESS"
+}
