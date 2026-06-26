@@ -21,6 +21,7 @@ locals {
     "hmpps-education-and-work-plan-dev",
     "hmpps-education-employment-dev",
     "hmpps-electronic-monitoring-datastore-dev",
+    "hmpps-esupervision-dev",
     "hmpps-external-users-api-dev",
     "hmpps-incentives-dev",
     "hmpps-integration-api-dev",
