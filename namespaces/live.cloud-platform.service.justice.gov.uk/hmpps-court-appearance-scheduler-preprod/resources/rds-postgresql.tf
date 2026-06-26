@@ -81,6 +81,22 @@ resource "kubernetes_secret" "postgres" {
   }
 }
 
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "refresh_postgres" {
+  metadata {
+    name      = "refresh-preprod-postgres"
+    namespace = "hmpps-court-appearance-scheduler-prod"
+  }
+
+  data = {
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    database_server       = module.rds.rds_instance_address
+  }
+}
+
 data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
