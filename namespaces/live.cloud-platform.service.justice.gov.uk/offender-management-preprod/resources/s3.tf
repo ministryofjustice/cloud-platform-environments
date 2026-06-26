@@ -23,7 +23,7 @@ module "s3_bucket" {
     "Statement": [
       {
         "Sid": "Set-permissions-for-objects",
-        "Effect": "Deny",
+        "Effect": "Allow",
         "Principal": {
           "AWS": "arn:aws:iam::172753231260:role/service-role/iam_role_s3_bucket_moj_report_source_uat"
         },
@@ -35,7 +35,7 @@ module "s3_bucket" {
       },
       {
         "Sid": "Set-permissions-on-bucket",
-        "Effect": "Deny",
+        "Effect": "Allow",
         "Principal": {
           "AWS": "arn:aws:iam::172753231260:role/service-role/iam_role_s3_bucket_moj_report_source_uat"
         },
