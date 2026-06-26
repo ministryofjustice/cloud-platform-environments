@@ -18,12 +18,28 @@ resource "aws_security_group" "rds" {
     cidr_blocks = ["10.26.16.0/21"]
   }
 
+  ingress {
+    description = "RDS Ingress HMPPS"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.27.8.0/21"]
+  }
+
   egress {
     description = "RDS Egress"
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
     cidr_blocks = ["10.26.16.0/21"]
+  }
+
+  egress {
+    description = "RDS Egress HMPPS"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.27.8.0/21"]
   }
 
   lifecycle {
