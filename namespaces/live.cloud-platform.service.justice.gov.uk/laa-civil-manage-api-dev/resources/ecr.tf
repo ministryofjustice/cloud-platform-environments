@@ -32,7 +32,7 @@ module "ecr" {
             "description": "Protect images tagged with main-",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["main-"],
+                "tagPrefixList": ["main"],
                 "countType": "imageSincePublished",
                 "countUnit": "days",
                 "countNumber": 9999
