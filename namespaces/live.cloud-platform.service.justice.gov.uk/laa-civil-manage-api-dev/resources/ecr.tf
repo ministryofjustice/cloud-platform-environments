@@ -23,4 +23,38 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Protect images tagged with main-",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["main"],
+                "countType": "imageSincePublished",
+                "countUnit": "days",
+                "countNumber": 9999
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep newest 20 images, delete the rest",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 20
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+
 }
