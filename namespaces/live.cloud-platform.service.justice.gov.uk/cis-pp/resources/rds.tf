@@ -10,7 +10,7 @@ module "rds_instance" {
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "100"
-  db_name                  = "cis-rds"
+  db_name                  = "cisrds"
   license_model            = "license-included"
   
   # Avoid default parameters set by MOJ
