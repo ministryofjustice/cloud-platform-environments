@@ -20,7 +20,7 @@ module "hmpps-prisoner-property-ui" {
 
 # Redis (Elasticache) for the frontend's session store
 module "prisoner_property_ui_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
