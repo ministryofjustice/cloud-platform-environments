@@ -28,7 +28,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "LAA Common Services & Enterprise"
+  default     = "LAA Common Services and Enterprise"
 }
 
 variable "business_unit" {
