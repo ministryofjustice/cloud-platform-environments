@@ -31,7 +31,7 @@ module "irsa-temp-db" {
         {
           Effect = "Allow"
           Action = "rds-db:connect"
-          Resource = "arn:aws:rds-db:eu-west-2:${data.aws_caller_identity.current.account_id}:dbuser:${data.rds_temp.id}/${var.db_user_irsa}"
+          Resource = "arn:aws:rds-db:eu-west-2:${data.aws_caller_identity.current.account_id}:dbuser:${data.aws_db_instance.rds_temp.id}/${var.db_user_irsa}"
         }
       ]
     })
