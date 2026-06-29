@@ -28,6 +28,7 @@ locals {
     "hmpps-jobs-board-dev",
     "hmpps-locations-inside-prison-dev",
     "hmpps-manage-adjudications-api-dev",
+    "hmpps-manage-and-deliver-accredited-programmes-dev",
     "hmpps-manage-users-dev",
     "hmpps-managing-prisoner-apps-dev",
     "hmpps-managing-prisoner-apps-staging",
