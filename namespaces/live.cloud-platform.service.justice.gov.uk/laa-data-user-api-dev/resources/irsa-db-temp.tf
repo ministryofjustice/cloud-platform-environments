@@ -17,7 +17,7 @@ module "irsa-temp-db" {
 
   data "aws_caller_identity" "current" {}
 
-  data "aws_rds_instance" "rds_temp" {
+  data "aws_db_instance" "rds_temp" {
     db_instance_identifier = "cloud-platform-3c2ab46b2dfd8d43"
   }
 
