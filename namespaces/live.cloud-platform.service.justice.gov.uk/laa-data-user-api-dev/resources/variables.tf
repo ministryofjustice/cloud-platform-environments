@@ -73,3 +73,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "db_user_irsa" {
+  type        = string
+  description = "DB user for IRSA RDS connect"
+  default     = "irsa_ro_user"
+}
