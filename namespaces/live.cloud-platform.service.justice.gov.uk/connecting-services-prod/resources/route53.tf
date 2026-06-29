@@ -50,3 +50,20 @@ resource "aws_route53_record" "entra_id_verification" {
   ttl     = "3600"
   records = ["MS=ms72370887", "v=spf1 include:spf.protection.outlook.com -all"]
 }
+
+
+resource "aws_route53_record" "entra_id_verification_dkim1" {
+  zone_id = aws_route53_zone.pfl_cs_route53_zone.zone_id
+  name    = "selector1._domainkey"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["selector1-findchildarrangementoption-service-gov-uk01be2e._domainkey.JusticeUK.w-v1.dkim.mail.microsoft"]
+}
+
+resource "aws_route53_record" "entra_id_verification_dkim2" {
+  zone_id = aws_route53_zone.pfl_cs_route53_zone.zone_id
+  name    = "selector2._domainkey"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["selector2-findchildarrangementoption-service-gov-uk01be2e._domainkey.JusticeUK.w-v1.dkim.mail.microsoft"]
+}
