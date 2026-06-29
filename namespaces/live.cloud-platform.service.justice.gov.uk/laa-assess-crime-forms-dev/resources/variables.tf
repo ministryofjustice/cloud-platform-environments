@@ -77,11 +77,6 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
-variable "vpc_name" {
-  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
-  type        = string
-}
-
 variable "domain" {
   default = "assess-crime-forms.service.justice.gov.uk"
   type    = string
