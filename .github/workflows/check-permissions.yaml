@@ -31,7 +31,7 @@ jobs:
       # correct GitHub team.
       - name: Check the PR owner is in the correct rbac group
         id: review_pr
-        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@b43be43ec5562d8884fa18c6949d9ee6b8d022fd #main
+        uses: ministryofjustice/cloud-platform-environments/cmd/rbac-permissions-check@0ea48f0b3289e57b8a2931a5b666de60617549f4 #main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
