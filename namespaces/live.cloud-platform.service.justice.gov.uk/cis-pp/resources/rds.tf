@@ -10,7 +10,8 @@ module "rds_instance" {
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "100"
-  db_name                  = "cisrds"
+  rds_name                 = "cis-rds"
+  db_name                  = "cis"
   license_model            = "license-included"
   
   # Avoid default parameters set by MOJ
@@ -24,4 +25,20 @@ module "rds_instance" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "rds" {
+  metadata {
+    name      = "cis-rds-details"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
+    database_name         = module.rds_instance.database_name
+    database_username     = module.rds_instance.database_username
+    database_password     = module.rds_instance.database_password
+    database_address      = module.rds_instance.rds_instance_address
+    database_port         = module.rds_instance.rds_instance_port
+  }
 }
