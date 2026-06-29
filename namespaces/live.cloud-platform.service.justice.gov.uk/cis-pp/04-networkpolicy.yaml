@@ -6,10 +6,8 @@ metadata:
 spec:
   podSelector: {}
   policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector: {}
+    - Ingress
+  ingress: []
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -25,3 +23,4 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+
