@@ -64,6 +64,16 @@ module "secrets_manager" {
       description             = "[laa-amend-a-claim-alert-webhook-production] Slack webhook"
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-alert-webhook-production"
+    },
+    "laa-amend-a-claim-fsp-api-url" = {
+      description             = "FSP Api Url",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-url"
+    },
+    "laa-amend-a-claim-fsp-api-token" = {
+      description             = "FSP Api Token",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-token"
     }
   }
 }
