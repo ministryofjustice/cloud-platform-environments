@@ -22,7 +22,7 @@ module "irsa-temp-db" {
   }
 
   resource "aws_iam_policy" "irsa_rds_connect" {
-    name        = "irsa-${var.application}-${var.environment}-rds-db-connect"
+    name        = "irsa-${var.environment}-rds-db-connect"
     description = "Allow rds-db:connect to specific RDS instance for the application"
 
     policy = jsonencode({
