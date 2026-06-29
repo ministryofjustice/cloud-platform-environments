@@ -11,7 +11,7 @@ module "rds_instance" {
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "100"
   rds_name                 = "cis-rds"
-  db_name                  = "cis"
+  db_name                  = "CIS"
   license_model            = "license-included"
   
   # Avoid default parameters set by MOJ
