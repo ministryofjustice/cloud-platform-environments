@@ -13,6 +13,8 @@ module "rds_instance" {
   rds_name                 = "cis-rds"
   db_name                  = "cis"
   license_model            = "license-included"
+
+  skip_final_snapshot        = "true"
   
   # Avoid default parameters set by MOJ
   db_parameter = []
