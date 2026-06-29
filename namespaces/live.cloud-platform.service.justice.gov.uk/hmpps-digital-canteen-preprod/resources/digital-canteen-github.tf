@@ -43,7 +43,7 @@ module "hmpps-digital-canteen-ui" {
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = "preprod"
-  source_template_repo          = "none"
+  source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
