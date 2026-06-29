@@ -3,6 +3,11 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  type        = string
+  description = "eks_cluster_name"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -72,4 +77,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "db_user_irsa" {
+  type        = string
+  description = "DB user for IRSA RDS connect"
+  default     = "irsa_ro_user"
 }
