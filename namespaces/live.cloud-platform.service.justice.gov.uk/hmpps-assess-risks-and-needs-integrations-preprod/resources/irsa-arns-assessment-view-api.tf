@@ -7,6 +7,7 @@ module "irsa_arns_assessment_view_api" {
 
   role_policy_arns = {
     arns_coordinator_queue = module.arns_coordinator_queue.irsa_policy_arn
+    arns_coordinator_dlq   = module.arns_coordinator_dead_letter_queue.irsa_policy_arn
   }
 
   business_unit          = var.business_unit
