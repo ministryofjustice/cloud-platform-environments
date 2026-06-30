@@ -117,6 +117,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
+  # Add DPR security group.
   vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [

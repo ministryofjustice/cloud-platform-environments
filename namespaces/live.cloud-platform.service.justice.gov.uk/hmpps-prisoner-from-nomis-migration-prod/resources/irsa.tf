@@ -87,6 +87,8 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_prisonerrestrictions_domain_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_queue.sqs_arn,
       module.prisoner_from_nomis_organisations_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_staff_queue.sqs_arn,
+      module.prisoner_from_nomis_staff_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_visitbalance_queue.sqs_arn,
       module.prisoner_from_nomis_visitbalance_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_externalmovements_queue.sqs_arn,

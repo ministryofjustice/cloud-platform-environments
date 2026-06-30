@@ -7,7 +7,11 @@
 # -----------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "main" {
   name           = var.user_pool_name
-  user_pool_tier = "ESSENTIALS"
+  user_pool_tier = "PLUS"
+  # User pool add-ons
+  user_pool_add_ons {
+    advanced_security_mode = "ENFORCED"
+  }
 
   # Account recovery
   account_recovery_setting {
@@ -103,11 +107,6 @@ resource "aws_cognito_user_pool" "main" {
       sms_message   = "Your username is {username} and temporary password is {####}."
     }
   }
-
-  # User pool add-ons
-  user_pool_add_ons {
-    advanced_security_mode = "OFF"
-  }
 }
 
 # -----------------------------------------------------------------------------
@@ -157,4 +156,36 @@ resource "aws_cognito_user_pool_client" "main" {
     id_token      = "hours"
     refresh_token = "days"
   }
+}
+
+resource "kubernetes_secret" "cognito_user_pool_client" {
+  metadata {
+    name      = "${var.namespace}-cognito-user-pool-client"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.main.id
+    client_secret = aws_cognito_user_pool_client.main.client_secret
+  }
+}
+
+data "aws_secretsmanager_secret" "cognito_test_user" {
+  name = module.cis_pp_cognito_test_user_secret.secret_names["cis-pp-cognito-test-user-secret"]
+}
+
+data "aws_secretsmanager_secret_version" "cognito_test_user" {
+  secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
+}
+
+resource "aws_cognito_user" "test" {
+  user_pool_id = aws_cognito_user_pool.main.id
+  username     = "stefan.hristov1@justice.gov.uk"
+
+  attributes = {
+    email          = "stefan.hristov1@justice.gov.uk"
+    email_verified = "true"
+  }
+
+  temporary_password = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
+  message_action     = "SUPPRESS"
 }

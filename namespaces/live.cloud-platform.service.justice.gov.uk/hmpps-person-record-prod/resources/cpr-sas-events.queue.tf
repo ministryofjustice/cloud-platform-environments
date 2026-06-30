@@ -8,6 +8,7 @@ resource "aws_sns_topic_subscription" "cpr_sas_domain_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "sas.accommodation.updated",
+      "sas.accommodation.deleted",
       "sas.accommodation.person.arrived"
     ]
   })

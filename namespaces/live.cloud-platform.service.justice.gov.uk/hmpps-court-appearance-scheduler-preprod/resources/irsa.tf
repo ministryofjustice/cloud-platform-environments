@@ -28,6 +28,12 @@ module "irsa" {
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
     },
+    {
+      offender_sqs = module.offender_events_queue.irsa_policy_arn
+    },
+    {
+      offender_sqs_dlq = module.offender_events_dlq.irsa_policy_arn
+    },
     local.sns_policies
   )
 

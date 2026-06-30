@@ -7,6 +7,7 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances" {
   encrypt_sqs_kms                 = "true"
   fifo_queue                      = true
   delay_seconds                   = 0
+  visibility_timeout_seconds      = 600
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prisoner_finance_general_ledger_queue_for_calculated_balances_dead_letter_queue.sqs_arn
@@ -53,9 +54,10 @@ module "prisoner_finance_general_ledger_queue_for_calculated_balances_dead_lette
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "gl-queue-for-calculated-balances-dlq"
-  encrypt_sqs_kms = "true"
-  fifo_queue      = true
+  sqs_name                        = "gl-queue-for-calculated-balances-dlq"
+  encrypt_sqs_kms                 = "true"
+  fifo_queue                      = true
+  visibility_timeout_seconds      = 600
 
   # Tags
   business_unit          = var.business_unit

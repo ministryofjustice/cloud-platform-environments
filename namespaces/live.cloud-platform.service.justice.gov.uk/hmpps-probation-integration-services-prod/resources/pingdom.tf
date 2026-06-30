@@ -63,6 +63,7 @@ resource "pingdom_check" "pingdom" {
     "manage-my-community-sentence-and-delius",
     "single-accommodation-and-delius",
     "probation-access-control",
+    "warrant-risk-assessment-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

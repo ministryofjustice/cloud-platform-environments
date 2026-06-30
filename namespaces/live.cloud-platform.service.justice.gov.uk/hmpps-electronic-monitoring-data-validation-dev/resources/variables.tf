@@ -30,7 +30,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-electronic-monitoring-data-store"
+  default     = "hmpps-electronic-monitoring-data-dashboard"
 }
 
 ####################################################################################################################

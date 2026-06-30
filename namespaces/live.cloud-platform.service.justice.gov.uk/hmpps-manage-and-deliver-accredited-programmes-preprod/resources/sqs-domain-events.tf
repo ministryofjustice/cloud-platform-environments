@@ -3,6 +3,7 @@ module "mandd_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name = "mandd_queue"
+  visibility_timeout_seconds  = 120
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.mandd_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -31,6 +32,7 @@ module "mandd_dlq" {
 
   sqs_name = "mandd_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
+  visibility_timeout_seconds  = 120
 
   business_unit          = var.business_unit
   application            = var.application
@@ -51,7 +53,8 @@ resource "aws_sns_topic_subscription" "hmpps_manage_and_deliver_domain_events_su
   endpoint  = module.mandd_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "interventions.community-referral.created"
+      "interventions.community-referral.created",
+      "interventions.community-referral.imported"
     ]
   })
 }
