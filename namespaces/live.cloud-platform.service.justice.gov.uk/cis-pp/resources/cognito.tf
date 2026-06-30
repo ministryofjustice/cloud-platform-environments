@@ -182,6 +182,7 @@ resource "aws_cognito_user" "test" {
   username     = "stefan.hristov1@justice.gov.uk"
 
   attributes = {
+    cis-role       = "Reader"
     email          = "stefan.hristov1@justice.gov.uk"
     email_verified = "true"
   }
