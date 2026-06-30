@@ -32,11 +32,11 @@ module "ecr" {
         },
         {
             "rulePriority": 2,
-            "description": "Keep newest 20 images, delete the rest",
+            "description": "Keep newest 100 images, delete the rest",
             "selection": {
                 "tagStatus": "any",
                 "countType": "imageCountMoreThan",
-                "countNumber": 20
+                "countNumber": 100
             },
             "action": {
                 "type": "expire"
