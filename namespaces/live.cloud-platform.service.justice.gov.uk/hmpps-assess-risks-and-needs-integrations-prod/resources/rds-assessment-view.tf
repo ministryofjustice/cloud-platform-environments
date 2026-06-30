@@ -106,7 +106,7 @@ locals {
     db_name            = module.arns_assessment_view_rds.database_name
   }
 
-  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:004723187462:secret:external/dpr-pr-assessment-view-source-secrets-GQirh5"
+  dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:004723187462:secret:external/dpr-pr-assess-view-source-secrets-3hm1aM"
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
@@ -149,6 +149,10 @@ resource "postgresql_role" "digital_prison_reporting_user" {
   name     = "digital_prison_reporting_user"
   login    = true
   password = random_password.dpr_password.result
+
+  lifecycle {
+    ignore_changes = [roles]
+  }
 }
 
 resource "postgresql_grant_role" "digital_prison_reporting_user_rds_superuser" {
