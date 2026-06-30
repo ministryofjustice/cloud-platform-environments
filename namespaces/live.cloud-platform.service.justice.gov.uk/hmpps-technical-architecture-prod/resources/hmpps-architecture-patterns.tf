@@ -1,14 +1,13 @@
-module "hmpps_person_match_score" {
+module "hmpps_architecture_patterns" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo                   = "hmpps-person-match-score"
-  application                   = "hmpps-person-match-score"
-  github_team                   = var.team_name
+  github_repo                   = "hmpps-architecture-patterns"
+  application                   = "hmpps-architecture-patterns"
+  github_team                   = "hmpps-technical-architects"
   environment                   = var.environment
+  reviewer_teams                = ["hmpps-technical-architects"]
+  protected_branches_only       = true
   is_production                 = var.is_production
-  reviewer_teams                = [var.team_name]
-  application_insights_instance = var.environment
+  application_insights_instance = "prod"
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace

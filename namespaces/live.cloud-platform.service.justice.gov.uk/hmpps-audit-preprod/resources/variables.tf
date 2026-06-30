@@ -59,7 +59,7 @@ variable "approved_prisoner_audit_clients" {
 
 variable "approved_person_on_probation_audit_clients" {
   type    = list(string)
-  default = ["hmpps-people-on-probation-preprod"]
+  default = ["hmpps-people-on-probation-preprod-1"]
 }
 
 variable "kubernetes_cluster" {}

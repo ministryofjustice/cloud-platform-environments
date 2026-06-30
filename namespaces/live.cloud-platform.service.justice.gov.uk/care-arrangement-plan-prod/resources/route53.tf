@@ -62,7 +62,7 @@ resource "aws_route53_record" "pcap_route53_cname_record_autodiscover" {
 
 resource "aws_route53_record" "pcap_route53_mx_record_outlook" {
   zone_id = aws_route53_zone.pcap_zone.zone_id
-  name    = var.alias
+  name    = "propose-child-arrangements-plan.service.gov.uk"
   type    = "MX"
   ttl     = "3600"
   records = ["0 proposechildarrangementsplan-service-gov-uk01i1c2e.mail.protection.outlook.com"]
@@ -70,8 +70,24 @@ resource "aws_route53_record" "pcap_route53_mx_record_outlook" {
 
 resource "aws_route53_record" "entra_id_verification" {
   zone_id = aws_route53_zone.pcap_zone.zone_id
-  name    = var.alias
+  name    = "propose-child-arrangements-plan.service.gov.uk"
   type    = "TXT"
-  ttl     = 3600
+  ttl     = "3600"
   records = ["MS=ms47915806", "v=spf1 include:spf.protection.outlook.com -all"]
+}
+
+resource "aws_route53_record" "entra_id_verification_dkim1" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "selector1._domainkey"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["selector1-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
+}
+
+resource "aws_route53_record" "entra_id_verification_dkim2" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "selector2._domainkey"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["selector2-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
 }

@@ -23,6 +23,9 @@ module "irsa" {
       rds = module.rds.irsa_policy_arn
     },
     {
+      s3 = module.s3-db-restore.irsa_policy_arn
+    },
+    {
       sqs = module.domain_events_queue.irsa_policy_arn
     },
     {

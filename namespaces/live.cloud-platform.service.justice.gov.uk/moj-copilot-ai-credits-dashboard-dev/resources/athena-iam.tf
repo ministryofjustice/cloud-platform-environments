@@ -70,7 +70,9 @@ data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document"
       "athena:StartQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
-      "athena:StopQueryExecution"
+      "athena:StopQueryExecution",
+      "athena:ListWorkGroups",
+      "athena:GetWorkGroup"
     ]
     resources = ["*"]
   }
@@ -84,9 +86,26 @@ data "aws_iam_policy_document" "copilot_credits_dev_athena_irsa_policy_document"
       "glue:GetTable",
       "glue:GetTables",
       "glue:GetPartition",
-      "glue:GetPartitions"
+      "glue:GetPartitions",
+      "glue:StartCrawler",
+      "glue:GetCrawler",
+      "glue:GetCrawlerMetrics"
     ]
     resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowCloudWatch"
+    effect = "Allow"
+    actions = [
+      "logs:GetLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups",
+      "logs:FilterLogEvents"
+    ]
+    resources = [
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:copilot_credits_dev_crawler",
+    ]
   }
 }
 
