@@ -39,8 +39,10 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved",
+      "court-appearance.deleted",
     ]
   })
 }

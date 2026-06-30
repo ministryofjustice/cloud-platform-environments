@@ -44,8 +44,8 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
   endpoint  = module.sas_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "accommodation.cas3.person.arrived",
-      "approved-premises.person.arrived",
+      "tier.calculation.changed",
+      "person.community.manager.allocated",
     ]
   })
 }

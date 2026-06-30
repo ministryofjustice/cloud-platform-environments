@@ -20,6 +20,7 @@ locals {
     "smartinbox",
     "prisonerfacing",
     "community-campus",
+    "daso"
   ]
 
   client_queues = {
@@ -27,5 +28,6 @@ locals {
     pnd       = module.event_pnd_queue.sqs_name
     cats      = module.event_cats_queue.sqs_name
     ctrlo     = module.event_ctrlo_queue.sqs_name
+    daso      = module.event_daso_queue.sqs_name
   }
 }

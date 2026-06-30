@@ -14,6 +14,38 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-civil-manage", "laa-civil-manage-e2e"]
 
+    lifecycle_policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Protect images tagged with main",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["main"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 9999
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep newest 20 images, delete the rest",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 20
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

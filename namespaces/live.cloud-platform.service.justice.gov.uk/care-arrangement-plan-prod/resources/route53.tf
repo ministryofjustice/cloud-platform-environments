@@ -13,17 +13,6 @@ resource "aws_route53_zone" "cap_route53_zone" {
   }
 }
 
-# add a txt record to the zone to verify ownership of the domain with Microsoft Entra ID
-resource "aws_route53_record" "entra_id_verification" {
-  zone_id = aws_route53_zone.cap_route53_zone.zone_id
-  name    = "propose-child-arrangements-plan.service.gov.uk"
-  type    = "TXT"
-  ttl     = 300
-  records = [
-    "MS=ms47915806"
-  ]
-}
-
 resource "kubernetes_secret" "cap_route53_zone_sec" {
   metadata {
     name      = "cap-route53-zone-output"
@@ -60,4 +49,29 @@ resource "kubernetes_secret" "pcap_zone_sec" {
     zone_id = aws_route53_zone.pcap_zone.zone_id
     nameservers = join("\n", aws_route53_zone.pcap_zone.name_servers)
   }
+}
+
+# Microsoft Entra/Outlook related
+resource "aws_route53_record" "pcap_route53_cname_record_autodiscover" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "autodiscover"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["autodiscover.outlook.com"]
+}
+
+resource "aws_route53_record" "pcap_route53_mx_record_outlook" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "propose-child-arrangements-plan.service.gov.uk"
+  type    = "MX"
+  ttl     = "3600"
+  records = ["0 proposechildarrangementsplan-service-gov-uk01i1c2e.mail.protection.outlook.com"]
+}
+
+resource "aws_route53_record" "entra_id_verification" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "propose-child-arrangements-plan.service.gov.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["MS=ms47915806", "v=spf1 include:spf.protection.outlook.com -all"]
 }
