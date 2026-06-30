@@ -19,7 +19,7 @@ resource "aws_glue_crawler" "copilot_credits_dev_crawler" {
   dynamic "s3_target" {
     for_each = toset(local.s3_target_paths)
     content {
-      path = "s3://${module.s3_bucket.bucket_name}/${each.value}"
+      path = "s3://${module.s3_bucket.bucket_name}/${s3_target.value}"
     }
   }
 
