@@ -86,3 +86,41 @@ resource "aws_wafv2_web_acl" "frontend" {
     create_before_destroy = true
   }
 }
+
+# -----------------------------------------------------------------------------
+# WAF CloudWatch Logging
+# Log group names must start with aws-waf-logs-
+# -----------------------------------------------------------------------------
+resource "aws_cloudwatch_log_group" "waf" {
+  provider = aws.virginia
+
+  name              = "aws-waf-logs-${var.namespace}-frontend"
+  retention_in_days = var.waf_log_retention_days
+
+  tags = merge(var.tags, {
+    Name = "${var.namespace}-frontend-waf-logs"
+  })
+}
+
+resource "aws_wafv2_web_acl_logging_configuration" "frontend" {
+  provider = aws.virginia
+
+  log_destination_configs = [aws_cloudwatch_log_group.waf.arn]
+  resource_arn            = aws_wafv2_web_acl.frontend.arn
+
+  logging_filter {
+    default_behavior = "KEEP"
+
+    filter {
+      behavior = "KEEP"
+
+      condition {
+        action_condition {
+          action = "BLOCK"
+        }
+      }
+
+      requirement = "MEETS_ANY"
+    }
+  }
+}

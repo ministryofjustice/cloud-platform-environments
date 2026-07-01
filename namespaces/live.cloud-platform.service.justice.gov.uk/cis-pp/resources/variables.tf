@@ -194,6 +194,12 @@ variable "cloudfront_log_retention_days" {
   default     = 30
 }
 
+variable "waf_log_retention_days" {
+  description = "Number of days to retain WAF CloudWatch logs"
+  type        = number
+  default     = 30
+}
+
 # -----------------------------------------------------------------------------
 # Cognito User Pool Variables
 # -----------------------------------------------------------------------------
