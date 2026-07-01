@@ -58,3 +58,19 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "db_identifier" {
+  description = "Identifier for the PITR restored database"
+  type        = string
+  default     = "cla_backend_staging_pitr"
+}
+
+variable "db_engine_version" {
+  type    = string
+  default = "14"
+}
+
+variable "db_instance_class" {
+  type    = string
+  default = "db.t4g.medium"
+}
