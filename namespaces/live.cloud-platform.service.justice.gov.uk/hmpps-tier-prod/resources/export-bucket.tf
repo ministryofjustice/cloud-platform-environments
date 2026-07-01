@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "export_bucket" {
     min_ttl                    = 0
     target_origin_id           = local.export_bucket_cloudfront_target_origin_id
     viewer_protocol_policy     = "redirect-to-https"
-    cache_policy_id            = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    cache_policy_id            = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
     response_headers_policy_id = "67f7725c-6f97-4210-82d7-5512b31e9d03"
     function_association {
       event_type   = "viewer-request"
