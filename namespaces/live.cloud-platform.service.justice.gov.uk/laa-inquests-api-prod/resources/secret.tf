@@ -49,6 +49,11 @@ module "secrets_manager" {
       description             = "Entra scope for authenticating to an SDS service",
       recovery_window_in_days = 7,
       k8s_secret_name         = "sds-scope-prod"
+    },
+    "entra-config" = {
+      description = "API application details from Entra"
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "entra-api-config-prod"
     }
   }
 }
