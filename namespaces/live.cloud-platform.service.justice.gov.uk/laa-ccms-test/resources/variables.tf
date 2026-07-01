@@ -100,4 +100,3 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN_TEST"
 }
 
-

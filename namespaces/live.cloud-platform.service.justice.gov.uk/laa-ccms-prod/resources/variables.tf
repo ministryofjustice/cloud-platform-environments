@@ -59,7 +59,7 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
@@ -99,5 +99,4 @@ variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
   default     = "KUBE_TOKEN_PROD"
 }
-
 
