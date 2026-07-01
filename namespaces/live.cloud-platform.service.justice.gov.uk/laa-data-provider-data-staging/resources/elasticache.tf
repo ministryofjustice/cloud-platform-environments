@@ -47,30 +47,3 @@ resource "kubernetes_secret" "app-redis" {
     APP_REDIS_PORT     = "6379"
   }
 }
-
-resource "kubernetes_secret" "ec-cluster-output-secondary" {
-  metadata {
-    name      = "ec-cluster-output-secondary"
-    namespace = var.namespace
-  }
-
-  data = {
-    primary_endpoint_address = module.redis_secondary.primary_endpoint_address
-    member_clusters          = jsonencode(module.redis_secondary.member_clusters)
-    auth_token               = module.redis_secondary.auth_token
-    replication_group_id     = module.redis_secondary.replication_group_id
-  }
-}
-
-resource "kubernetes_secret" "app-redis-secondary" {
-  metadata {
-    name      = "app-redis-secondary"
-    namespace = var.namespace
-  }
-
-  data = {
-    APP_REDIS_ENDPOINT = module.redis_secondary.primary_endpoint_address
-    APP_REDIS_PASSWORD = module.redis_secondary.auth_token
-    APP_REDIS_PORT     = "6379"
-  }
-}
