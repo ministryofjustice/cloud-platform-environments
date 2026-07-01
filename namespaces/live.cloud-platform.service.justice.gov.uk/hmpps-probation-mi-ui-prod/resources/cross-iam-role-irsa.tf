@@ -14,6 +14,17 @@ locals {
     preprod     = "preproduction",
     prod        = "production"
   }
+
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "prod"
+  }
+
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 data "aws_eks_cluster" "eks_cluster" {
@@ -51,8 +62,8 @@ resource "aws_iam_policy" "cross_iam_dpr_oidc" {
     team-name              = var.team_name
     environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
-    owner = var.owner
-    service-area = var.service_area
+    owner                  = var.owner
+    service-area           = var.service_area
   }
 }
 
@@ -61,9 +72,18 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns = {
-    secrets = aws_iam_policy.cross_iam_policy_mp.arn
-  }
+  role_policy_arns = merge(
+    {
+      secrets = aws_iam_policy.cross_iam_policy_mp.arn
+    },
+    {
+      sqs = module.hmpps_probation_mi_domain_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_probation_mi_domain_events_dlq.irsa_policy_arn
+    },
+    local.sns_policies
+  )
 
   business_unit          = var.business_unit
   application            = var.application
@@ -111,8 +131,8 @@ resource "aws_iam_policy" "cross_iam_policy_mp" {
     team-name              = var.team_name
     environment-name       = var.environment
     infrastructure-support = var.infrastructure_support
-    owner = var.owner
-    service-area = var.service_area
+    owner                  = var.owner
+    service-area           = var.service_area
   }
 }
 
