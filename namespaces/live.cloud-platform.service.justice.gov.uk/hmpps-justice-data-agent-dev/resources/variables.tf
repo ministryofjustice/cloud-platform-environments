@@ -1,53 +1,67 @@
 variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
 }
 
 variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
 variable "application" {
-  description = "Name of Application you are deploying"
-  default     = "HMPPS Managing Prisoner Applications"
+  description = "Name of the application you are deploying"
+  type        = string
+  default     = "Justice data agent application"
 }
 
 variable "namespace" {
-  default = "hmpps-justice-data-agent-dev"
+  description = "Name of the namespace these resources are part of"
+  type        = string
+  default     = "hmpps-justice-data-agent-dev"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Data Foundations"
 }
 
 variable "business_unit" {
-  description = "Area of the MOJ responsible for the service."
+  description = "Area of the MOJ responsible for this service"
+  type        = string
   default     = "HMPPS"
 }
 
 variable "team_name" {
-  description = "The name of your development team"
+  description = "Name of the development team responsible for this service"
+  type        = string
   default     = "hmpps-justice-data-agent-devs"
 }
 
-####################################################################################################################
-### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
-  description = "The type of environment you're deploying to."
-  default     = "dev"
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "development"
 }
-####################################################################################################################
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "thehub@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "justice-data-agent@justice.gov.uk"
 }
 
 variable "is_production" {
-  default = "false"
+  description = "Whether this environment type is production or not"
+  type        = string
+  default     = "false"
 }
 
 variable "slack_channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "public-justice-data-agent" # need to create slack channel which  should be public and someone can post question if they need to ask
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "public-justice-data-agent"
 }
 
-variable "number_cache_clusters" {
-  default = "2"
-}
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -58,8 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
 }
