@@ -50,5 +50,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sds-scope-uat"
     }
+    "entra-config" = {
+      description = "API application details from Entra"
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "entra-api-config-uat"
+    }
   }
 }
