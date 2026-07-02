@@ -10,4 +10,5 @@ module "serviceaccount" {
   # GitHub environment in which to create github actions secrets
   github_environments = ["staging"]
   role_name = "serviceaccount-role-github"
+  rolebinding_name = "serviceaccount-rolebinding-github"
 }
