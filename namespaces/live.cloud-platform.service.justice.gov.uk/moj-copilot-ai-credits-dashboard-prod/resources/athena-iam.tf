@@ -51,7 +51,10 @@ resource "aws_iam_role_policy" "copilot_credits_prod_glue_s3_policy" {
         Resource = [
           "arn:aws:athena:eu-west-2:*:queryexecution/*",
           "arn:aws:glue:eu-west-2:*:catalog",
-          aws_athena_workgroup.copilot_credits_prod_workgroup.arn
+          aws_athena_workgroup.copilot_credits_prod_workgroup.arn,
+          aws_glue_catalog_database.copilot_credits_prod_database.arn,
+          "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_model",
+          "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_user"
         ]
       },
     ]
