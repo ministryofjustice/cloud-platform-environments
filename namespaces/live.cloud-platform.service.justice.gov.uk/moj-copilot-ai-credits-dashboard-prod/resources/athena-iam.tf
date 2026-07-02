@@ -97,7 +97,8 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
     resources = [
       "arn:aws:glue:eu-west-2:*:catalog",
       aws_glue_catalog_database.copilot_credits_prod_database.arn,
-      "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/${local.table_name}",
+      "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_model",
+      "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_user",
       aws_glue_crawler.copilot_credits_prod_crawler.arn
     ]
   }
