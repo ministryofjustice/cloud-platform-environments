@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prisoner-monies-send-money-dev.hmpps.service.justice.gov.uk
+    - prisoner-monies-email-service-api-dev.hmpps.service.justice.gov.uk
