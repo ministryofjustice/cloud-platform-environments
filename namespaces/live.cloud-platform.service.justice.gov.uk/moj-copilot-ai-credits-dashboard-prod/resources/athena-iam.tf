@@ -116,7 +116,7 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "logs:FilterLogEvents"
     ]
     resources = [
-      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:log-stream:${aws_glue_crawler.copilot_credits_prod_crawler.name}",
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:log-stream:*",
       "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers"
     ]
   }
