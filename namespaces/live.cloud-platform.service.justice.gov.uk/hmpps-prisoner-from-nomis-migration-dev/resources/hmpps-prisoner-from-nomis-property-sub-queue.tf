@@ -1,14 +1,14 @@
-module "prisoner_from_nomis_csra_queue" {
+module "prisoner_from_nomis_property_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                   = "prisoner_from_nomis_csra_queue"
+  sqs_name                   = "prisoner_from_nomis_property_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.prisoner_from_nomis_csra_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.prisoner_from_nomis_property_dead_letter_queue.sqs_arn
     maxReceiveCount     = 5
   })
 
@@ -26,19 +26,19 @@ module "prisoner_from_nomis_csra_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "prisoner_from_nomis_csra_queue_policy" {
-  queue_url = module.prisoner_from_nomis_csra_queue.sqs_id
+resource "aws_sqs_queue_policy" "prisoner_from_nomis_property_queue_policy" {
+  queue_url = module.prisoner_from_nomis_property_queue.sqs_id
 
   policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Id": "${module.prisoner_from_nomis_csra_queue.sqs_arn}/SQSDefaultPolicy",
+    "Id": "${module.prisoner_from_nomis_property_queue.sqs_arn}/SQSDefaultPolicy",
     "Statement":
       [
         {
           "Effect": "Allow",
           "Principal": {"AWS": "*"},
-          "Resource": "${module.prisoner_from_nomis_csra_queue.sqs_arn}",
+          "Resource": "${module.prisoner_from_nomis_property_queue.sqs_arn}",
           "Action": "SQS:SendMessage",
           "Condition":
             {
@@ -55,11 +55,11 @@ EOF
 
 }
 
-module "prisoner_from_nomis_csra_dead_letter_queue" {
+module "prisoner_from_nomis_property_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "prisoner_from_nomis_csra_dl_queue"
+  sqs_name        = "prisoner_from_nomis_property_dl_queue"
   encrypt_sqs_kms = "true"
 
   # Tags
@@ -76,42 +76,42 @@ module "prisoner_from_nomis_csra_dead_letter_queue" {
   }
 }
 
-resource "kubernetes_secret" "prisoner_from_nomis_csra_queue" {
+resource "kubernetes_secret" "prisoner_from_nomis_property_queue" {
   metadata {
-    name      = "prisoner-from-nomis-csra-queue"
+    name      = "prisoner-from-nomis-property-queue"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.prisoner_from_nomis_csra_queue.sqs_id
-    sqs_arn  = module.prisoner_from_nomis_csra_queue.sqs_arn
-    sqs_name = module.prisoner_from_nomis_csra_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_property_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_property_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_property_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "prisoner_from_nomis_csra_dead_letter_queue" {
+resource "kubernetes_secret" "prisoner_from_nomis_property_dead_letter_queue" {
   metadata {
-    name      = "prisoner-from-nomis-csra-dl-queue"
+    name      = "prisoner-from-nomis-property-dl-queue"
     namespace = var.namespace
   }
 
   data = {
-    sqs_id   = module.prisoner_from_nomis_csra_dead_letter_queue.sqs_id
-    sqs_arn  = module.prisoner_from_nomis_csra_dead_letter_queue.sqs_arn
-    sqs_name = module.prisoner_from_nomis_csra_dead_letter_queue.sqs_name
+    sqs_id   = module.prisoner_from_nomis_property_dead_letter_queue.sqs_id
+    sqs_arn  = module.prisoner_from_nomis_property_dead_letter_queue.sqs_arn
+    sqs_name = module.prisoner_from_nomis_property_dead_letter_queue.sqs_name
   }
 }
 
-resource "aws_sns_topic_subscription" "prisoner_from_nomis_csra_subscription" {
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_property_subscription" {
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.prisoner_from_nomis_csra_queue.sqs_arn
+  endpoint  = module.prisoner_from_nomis_property_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "ASSESSMENT-INSERTED",
-      "ASSESSMENT-UPDATED",
-      "ASSESSMENT-DELETED"
+      "PRISONER_PROPERTY-INSERTED",
+      "PRISONER_PROPERTY-UPDATED",
+      "PRISONER_PROPERTY-DELETED"
     ]
   })
 }
