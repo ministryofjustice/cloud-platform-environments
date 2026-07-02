@@ -40,6 +40,13 @@ module "rds" {
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
+  db_parameter = [
+      {
+    name         = "max_connections"
+    value        = "121"
+    apply_method = "pending-reboot"
+    }
+  ]
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -48,7 +55,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
@@ -70,8 +77,6 @@ module "read_replica" {
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
-
-  db_max_allocated_storage     = "550"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
