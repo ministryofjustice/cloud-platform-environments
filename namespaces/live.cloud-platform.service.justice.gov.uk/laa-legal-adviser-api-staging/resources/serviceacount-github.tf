@@ -9,5 +9,5 @@ module "serviceaccount" {
   github_repositories = ["laa-legal-adviser-api"]
   # GitHub environment in which to create github actions secrets
   github_environments = ["staging"]
-  serviceaccount-role = "serviceaccount-role-github"
+  role_name = "serviceaccount-role-github"
 }
