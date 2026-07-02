@@ -42,6 +42,8 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
       "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.merged",
       "prison-offender-events.prisoner.booking.moved",
+      "court-appearance.inserted",
+      "court-appearance.updated",
       "court-appearance.deleted",
     ]
   })
