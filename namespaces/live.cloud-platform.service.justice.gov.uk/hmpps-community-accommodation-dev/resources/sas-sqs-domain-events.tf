@@ -46,6 +46,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
     eventType = [
       "tier.calculation.changed",
       "person.community.manager.allocated",
+      "core-person-record.probation.address.deleted",
     ]
   })
 }
