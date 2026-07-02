@@ -34,6 +34,17 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 3,
+        "description": "Keep newest 20 images that are tagged with *-dev-*",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPatternList": ["*-dev-*"],
+          "countType": "imageCountMoreThan",
+          "countNumber": 20
+        },
+        "action": { "type": "expire" }
+      },
+      {
+        "rulePriority": 4,
         "description": "Keep the newest 100 images (that don't match the above rules)",
         "selection": {
           "tagStatus": "any",
