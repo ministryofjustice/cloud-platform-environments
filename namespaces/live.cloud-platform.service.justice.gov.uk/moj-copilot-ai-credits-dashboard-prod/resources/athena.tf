@@ -1,5 +1,8 @@
 locals {
-  table_name = "reports"
+  s3_target_paths = [
+    "reports-live-consolidated/credits_by_model/", 
+    "reports-live-consolidated/credits_by_user/"
+  ]
 }
 
 resource "aws_glue_catalog_database" "copilot_credits_prod_database" {
@@ -13,8 +16,11 @@ resource "aws_glue_crawler" "copilot_credits_prod_crawler" {
   database_name = aws_glue_catalog_database.copilot_credits_prod_database.name
   role          = aws_iam_role.copilot_credits_prod_glue_role.arn
 
-  s3_target {
-    path = "s3://${module.s3_bucket.bucket_name}/${local.table_name}/"
+  dynamic "s3_target" {
+    for_each = toset(local.s3_target_paths)
+    content {
+      path = "s3://${module.s3_bucket.bucket_name}/${s3_target.value}"
+    }
   }
 
   configuration = jsonencode({
