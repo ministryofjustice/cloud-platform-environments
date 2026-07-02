@@ -51,7 +51,10 @@ resource "aws_iam_role_policy" "copilot_credits_prod_glue_s3_policy" {
         Resource = [
           "arn:aws:athena:eu-west-2:*:queryexecution/*",
           "arn:aws:glue:eu-west-2:*:catalog",
-          aws_athena_workgroup.copilot_credits_prod_workgroup.arn
+          aws_athena_workgroup.copilot_credits_prod_workgroup.arn,
+          aws_glue_catalog_database.copilot_credits_prod_database.arn,
+          "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_model",
+          "${aws_glue_catalog_database.copilot_credits_prod_database.arn}/credits_by_user"
         ]
       },
     ]
@@ -113,7 +116,8 @@ data "aws_iam_policy_document" "copilot_credits_prod_athena_irsa_policy_document
       "logs:FilterLogEvents"
     ]
     resources = [
-      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:${aws_glue_crawler.copilot_credits_prod_crawler.name}",
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers:log-stream:${aws_glue_crawler.copilot_credits_prod_crawler.name}",
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/crawlers"
     ]
   }
 }
