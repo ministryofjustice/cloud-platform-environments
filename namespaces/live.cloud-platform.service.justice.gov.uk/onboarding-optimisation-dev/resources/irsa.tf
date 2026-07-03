@@ -3,7 +3,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = var.application
+  service_account_name = "${var.application}-${var.environment}-sa"
 
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
