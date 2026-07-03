@@ -16,8 +16,8 @@ module "rds" {
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
   storage_type                 = "gp3"
-  db_max_allocated_storage     = "200"
-  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "500"
+  db_allocated_storage         = "200"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
