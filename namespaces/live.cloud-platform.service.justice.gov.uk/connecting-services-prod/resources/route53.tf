@@ -71,7 +71,7 @@ resource "aws_route53_record" "entra_id_verification_dkim2" {
 # CNAME based DKIM records
 resource "aws_route53_record" "entra_id_verification_dkim1_cname" {
   zone_id = aws_route53_zone.pfl_cs_route53_zone.zone_id
-  name    = "selector1._domainkey.find-child-arrangement-option"
+  name    = "selector1._domainkey"
   type    = "CNAME"
   ttl     = "3600"
   records = ["selector1-findchildarrangementoption-service-gov-uk01be2e._domainkey.JusticeUK.w-v1.dkim.mail.microsoft"]
@@ -79,7 +79,7 @@ resource "aws_route53_record" "entra_id_verification_dkim1_cname" {
 
 resource "aws_route53_record" "entra_id_verification_dkim2_cname" {
   zone_id = aws_route53_zone.pfl_cs_route53_zone.zone_id
-  name    = "selector2._domainkey.find-child-arrangement-option"
+  name    = "selector2._domainkey"
   type    = "CNAME"
   ttl     = "3600"
   records = ["selector2-findchildarrangementoption-service-gov-uk01be2e._domainkey.JusticeUK.w-v1.dkim.mail.microsoft"]
