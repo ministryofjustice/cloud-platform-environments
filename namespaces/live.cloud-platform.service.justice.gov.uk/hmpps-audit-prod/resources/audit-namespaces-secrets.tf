@@ -22,6 +22,7 @@ locals {
     "hmpps-integration-api-prod",
     "hmpps-jobs-board-prod",
     "hmpps-locations-inside-prison-prod",
+    "hmpps-manage-and-deliver-accredited-programmes-prod",
     "hmpps-manage-adjudications-api-prod",
     "hmpps-manage-users-prod",
     "hmpps-managing-prisoner-apps-prod",
