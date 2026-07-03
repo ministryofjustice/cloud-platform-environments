@@ -109,9 +109,11 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_staff_subscription" {
   endpoint  = module.prisoner_from_nomis_staff_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "STAFF-INSERTED",
-      "STAFF-UPDATED",
-      "STAFF-DELETED",
+      "STAFF_MEMBERS-INSERTED",
+      "STAFF_MEMBERS-UPDATED",
+      "STAFF_MEMBERS-DELETED",
+      "USER_ACCESSIBLE_CASELOADS-INSERTED",
+      "USER_ACCESSIBLE_CASELOADS-DELETED"
     ]
   })
 }
