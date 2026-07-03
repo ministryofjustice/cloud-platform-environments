@@ -76,23 +76,6 @@ resource "aws_route53_record" "entra_id_verification" {
   records = ["MS=ms47915806", "v=spf1 include:spf.protection.outlook.com -all"]
 }
 
-# TXT based DKIM records
-resource "aws_route53_record" "entra_id_verification_dkim1" {
-  zone_id = aws_route53_zone.pcap_zone.zone_id
-  name    = "selector1._domainkey.propose-child-arrangements-plan.service.gov.uk"
-  type    = "TXT"
-  ttl     = "3600"
-  records = ["selector1-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
-}
-
-resource "aws_route53_record" "entra_id_verification_dkim2" {
-  zone_id = aws_route53_zone.pcap_zone.zone_id
-  name    = "selector2._domainkey.propose-child-arrangements-plan.service.gov.uk"
-  type    = "TXT"
-  ttl     = "3600"
-  records = ["selector2-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
-}
-
 # CNAME based DKIM records
 resource "aws_route53_record" "entra_id_verification_dkim1_cname" {
   zone_id = aws_route53_zone.pcap_zone.zone_id
