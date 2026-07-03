@@ -23,6 +23,7 @@ locals {
     "hmpps-jobs-board-preprod",
     "hmpps-locations-inside-prison-preprod",
     "hmpps-manage-adjudications-api-preprod",
+    "hmpps-manage-and-deliver-accredited-programmes-preprod",
     "hmpps-manage-users-preprod",
     "hmpps-managing-prisoner-apps-preprod",
     "hmpps-non-associations-preprod",
