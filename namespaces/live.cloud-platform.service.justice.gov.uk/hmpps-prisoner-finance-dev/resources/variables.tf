@@ -29,9 +29,9 @@ variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
-####################################################################################################################
+#############################infrastructure_support#######################################################################################
 
-variable "infrastructure_support" {
+variable "" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
 }
@@ -59,4 +59,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
