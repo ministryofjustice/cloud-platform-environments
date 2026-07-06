@@ -22,6 +22,18 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "github-api-token"
     },
 
+    "github-app-id" = {
+      description             = "GitHub App ID for cronjob",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "github-app-id"
+    },
+
+    "moj-frontend-github-app-private-key" = {
+      description             = "GitHub App private key for cronjob",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "moj-frontend-github-app-private-key"
+    },
+
     "github-repo-owner" = {
       description             = "GitHub repository owner",
       recovery_window_in_days = 7,
@@ -80,13 +92,13 @@ module "secrets_manager_multiple_secrets" {
       description             = "Notification max retries",
       recovery_window_in_days = 7,
       k8s_secret_name         = "notify-email-max-retries"
-    }
+    },
 
     "sentry-dsn" = {
       description             = "Sentry dsn",
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
-    }
+    },
 
     "sentry-csp-uri" = {
       description             = "Sentry CSP report endpoint",
