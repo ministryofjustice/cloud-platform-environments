@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["srrc-poc-sample-application","srrc-verify-biometric-scans-api","srrc-capture-finger-prints"]
+  github_repositories = ["srrc-poc-sample-application","srrc-verify-biometric-scans-api","srrc-capture-biometric-prints"]
 
   # Tags
   business_unit          = var.business_unit
