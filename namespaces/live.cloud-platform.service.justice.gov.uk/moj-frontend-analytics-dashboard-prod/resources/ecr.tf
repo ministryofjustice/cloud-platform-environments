@@ -4,7 +4,7 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
-  github_repositories = [var.namespace]
+  github_repositories = ["moj-frontend-analytics-dashboard"]
 
   # Tags
   business_unit          = var.business_unit
