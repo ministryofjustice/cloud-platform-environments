@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: moj-frontend-scheduled-task
+spec:
+  # Cron schedule — see https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
+  schedule: "0 8 * * *" # eventually 0 8 1,15 * * every 2 weeks but left on everyday while we test it.
+  timeZone: "Europe/London"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: scheduled-task
+              image: ghcr.io/ministryofjustice/moj-platforms-admin-cronjob:2026-07-02.13.eef7298
+              imagePullPolicy: Always
+              env:
+                - name: APP_ID
+                  value: 3340632
+                - name: PRIVATE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: moj-frontend-github-app-private-key
+                      key: PRIVATE_KEY
+                - name: TOKEN_ENV_VAR_NAME
+                  value: SEMANTIC_RELEASE_TOKEN
+                - name: GITHUB_REPOSITORY_OWNER
+                  value: ministryofjustice
+                - name: GITHUB_REPOSITORY_NAME
+                  value: moj-frontend
+                - name: LOG_LEVEL
+                  value: info
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 100Mi
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
