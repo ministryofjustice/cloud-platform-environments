@@ -27,7 +27,7 @@ spec:
               imagePullPolicy: Always
               env:
                 - name: APP_ID
-                  value: 3340632
+                  value: "3340632"
                 - name: PRIVATE_KEY
                   valueFrom:
                     secretKeyRef:
