@@ -4,7 +4,7 @@ metadata:
   name: moj-frontend-scheduled-task
 spec:
   # Cron schedule — see https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
-  schedule: "0 8 * * *" # eventually 0 8 1,15 * * every 2 weeks but left on everyday while we test it
+  schedule: "0 8 * * *" # eventually 0 8 1,15 * * every 2 weeks but left on everyday while we test it.
   timeZone: "Europe/London"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
