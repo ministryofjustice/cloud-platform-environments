@@ -14,7 +14,7 @@ module "secrets_manager" {
     "govuk-notify-callbacks-bearer-token" = {
       description             = "The API token used by the Legacy MTP project",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "govuk_notify_callbacks_bearer_token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      k8s_secret_name         = "govuk-notify-callbacks-bearer-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },    
   }
 }
