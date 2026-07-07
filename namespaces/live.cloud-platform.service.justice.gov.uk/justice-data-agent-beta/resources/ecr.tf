@@ -8,7 +8,7 @@ module "ecr-repo" {
   oidc_providers      = ["github"]
   github_repositories = [var.namespace]
   github_environments = ["prod"]
-  github_actions_prefix = "prod
+  github_actions_prefix = "prod"
 
   # Tags
   business_unit          = var.business_unit
