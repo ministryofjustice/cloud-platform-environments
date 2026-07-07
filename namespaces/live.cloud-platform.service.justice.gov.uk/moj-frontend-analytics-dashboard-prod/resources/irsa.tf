@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "cd-serviceaccount"
+  service_account_name = "${var.team_name}-analysis-${var.environment}"
   role_policy_arns = {
     s3 = aws_iam_policy.bucket_policy.arn
   }
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "bucket_policy" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-19527b8c818c82f4811617abcd769efd",
+      "arn:aws:s3:::cloud-platform-9b2b2a17ca77e276171459c7b49aa285",
     ]
   }
   statement {
@@ -41,14 +41,14 @@ data "aws_iam_policy_document" "bucket_policy" {
       "s3:GetObjectTagging"
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-19527b8c818c82f4811617abcd769efd/*",
+      "arn:aws:s3:::cloud-platform-9b2b2a17ca77e276171459c7b49aa285/*",
 
     ]
   }
 }
 
 resource "aws_iam_policy" "bucket_policy" {
-  name   = "website-builder-auditor-bucket-policy"
+  name   = "moj-frontend-analytics-dashboard-bucket-policy"
   policy = data.aws_iam_policy_document.bucket_policy.json
 
   tags = {
