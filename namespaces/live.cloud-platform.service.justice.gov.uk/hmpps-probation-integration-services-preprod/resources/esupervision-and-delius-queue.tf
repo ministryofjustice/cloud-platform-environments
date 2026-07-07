@@ -10,7 +10,6 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
       "esupervision.check-in.updated",
       "esupervision.setup.completed",
       "esupervision.setup.removed",
-      "probation-case.sentence.terminated",
     ]
   })
 }
