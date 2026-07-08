@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cfocats-dev-admin
-  namespace: cfocats-dev
+  name: hmpps-cfo-cats-dev-admin
+  namespace: hmpps-cfo-cats-dev
 subjects:
   - kind: Group
     name: "github:hmpps-creating-future-opportunities-devs"

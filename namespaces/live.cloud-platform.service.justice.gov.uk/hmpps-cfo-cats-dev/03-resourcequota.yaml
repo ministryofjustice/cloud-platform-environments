@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: cfocats-dev
+  namespace: hmpps-cfo-cats-dev
 spec:
   hard:
     pods: "50"
