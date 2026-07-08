@@ -25,12 +25,17 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "manage-a-workforce"
+  default     = "hmpps-manage-a-workforce-devs"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preproduction"
+}
+
+variable "environment_name" {
+  description = "The type of environment you're deploying to."
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -59,4 +64,8 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "dms_engine_version" {
+    default = "3.5.4"
 }

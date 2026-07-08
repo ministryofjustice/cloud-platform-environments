@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "education-skills-work-employment"
+  default     = "hmpps-education-skills-and-work"
 }
 
 variable "environment" {
@@ -77,5 +77,5 @@ variable "basic-auth-username" {
 
 variable "basic-auth-password" {
   description = "Basic auth. password of the deployed prototype website"
-  default     = "prototype"
+  default     = "gotowork"
 }

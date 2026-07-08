@@ -13,10 +13,15 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "Help With Prison Visits"
+  default     = "hmpps-help-with-prison-visits-devs"
 }
 
 variable "environment-name" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
+}
+
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }

@@ -5,11 +5,20 @@ metadata:
   namespace: hmpps-probation-integration-services-dev
 subjects:
   - kind: Group
-    name: "github:probation-integration"
+    name: "github:probation-integration-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech" # for auth client credential rotation
+    name: "github:unilink"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre" # for auth client credential rotation
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: cd-serviceaccount
+    namespace: hmpps-probation-integration
+  - kind: ServiceAccount
+    name: default
+    namespace: hmpps-github-actions-runners # Allow access from GitHub Actions runer, to enable end-to-end tests to invoke jobs
 roleRef:
   kind: ClusterRole
   name: admin

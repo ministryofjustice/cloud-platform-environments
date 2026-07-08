@@ -1,5 +1,6 @@
 module "manage_soc_cases_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "manage_soc_cases_offender_events_queue"
@@ -27,7 +28,7 @@ module "manage_soc_cases_offender_events_queue" {
 }
 
 module "manage_soc_cases_probation_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "manage_soc_cases_probation_offender_events_queue"
@@ -109,7 +110,7 @@ resource "aws_sqs_queue_policy" "manage_soc_cases_probation_offender_events_queu
 }
 
 module "manage_soc_cases_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "manage_soc_cases_offender_events_queue_dl"
@@ -130,7 +131,7 @@ module "manage_soc_cases_offender_events_dead_letter_queue" {
 }
 
 module "manage_soc_cases_probation_offender_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "manage_soc_cases_probation_offender_events_dlq"

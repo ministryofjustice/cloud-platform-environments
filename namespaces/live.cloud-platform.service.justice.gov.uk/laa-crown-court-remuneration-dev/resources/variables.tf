@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "legal-aid-agency"
+  default     = "LAA"
 }
 
 variable "team_name" {
@@ -125,4 +125,42 @@ variable "serviceaccount_rules" {
       ]
     },
   ]
+}
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "ccr-dev-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "maat-dev"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "ccr-dev"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "ccr-dev-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "ccr-dev"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
 }

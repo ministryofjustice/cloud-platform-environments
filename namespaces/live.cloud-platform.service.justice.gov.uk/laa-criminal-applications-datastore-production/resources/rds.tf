@@ -1,5 +1,5 @@
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   application            = var.application
   business_unit          = var.business_unit
@@ -22,14 +22,22 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "15"
-  rds_family        = "postgres15"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
+
+  # use "prepare_for_major_upgrade" when upgrading the major version of an engine
+  prepare_for_major_upgrade = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = true
 }
 
 resource "kubernetes_secret" "rds" {

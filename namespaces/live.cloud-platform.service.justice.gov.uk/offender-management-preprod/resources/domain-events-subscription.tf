@@ -8,11 +8,11 @@ resource "aws_sns_topic_subscription" "domain_events" {
     eventType = [
       "offender-management.noop",
       "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.released",
       "probation-case.registration.added",
       "probation-case.registration.deleted",
-      "probation-case.registration.deregistered",
       "probation-case.registration.updated",
-      "tier.calculation.complete"
+      "tier.calculation.changed"
     ]
   })
 }
@@ -33,7 +33,7 @@ resource "aws_sns_topic_subscription" "probation_events" {
 }
 
 module "domain_events_sqs_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "domain-events"
@@ -91,7 +91,7 @@ EOF
 }
 
 module "domain_events_sqs_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "domain-events-dlq"

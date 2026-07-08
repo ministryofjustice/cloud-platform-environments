@@ -11,13 +11,16 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_notification_alerts_s
     eventType = [
       "prison-visit.booked",
       "prison-visit.changed",
-      "prison-visit.cancelled"
+      "prison-visit.cancelled",
+      "prison-visit-request.approved",
+      "prison-visit-booker.visitor-approved",
+      "prison-visit-booker.visitor-rejected"
     ]
   })
 }
 
 module "hmpps_prison_visits_notification_alerts_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_notification_alerts_queue"
@@ -34,7 +37,7 @@ module "hmpps_prison_visits_notification_alerts_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -74,7 +77,7 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_notification_alerts_dlq"
@@ -84,7 +87,7 @@ module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

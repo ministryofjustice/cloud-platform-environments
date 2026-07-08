@@ -4,7 +4,9 @@
 #################################################################################
 
 module "track_a_query_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -15,7 +17,7 @@ module "track_a_query_rds" {
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.3"
+  db_engine_version          = "16.13"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_development"
   environment_name           = var.environment
@@ -26,6 +28,7 @@ module "track_a_query_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "track_a_query_rds" {

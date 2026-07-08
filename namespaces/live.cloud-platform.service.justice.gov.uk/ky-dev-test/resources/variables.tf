@@ -70,3 +70,18 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
 }
+
+variable "default_host_name" {
+  description = "default ingress host name for pingdom"
+  default = "pingdom-default-ingress.apps.cp-0210-1117.cloud-platform.service.justice.gov.uk"
+}
+
+variable "modsec_host_name" {
+  description = "modsec ingress host name for pingdom"
+  default = "pingdom-modsec-ingress.apps.cp-0210-1117.cloud-platform.service.justice.gov.uk"
+}
+
+variable "helloworld_host_name" {
+  description = "helloworld ingress host name for pingdom"
+  default = "helloworld-app-starter-pack-0.apps.cp-0210-1117.cloud-platform.service.justice.gov.uk"
+}

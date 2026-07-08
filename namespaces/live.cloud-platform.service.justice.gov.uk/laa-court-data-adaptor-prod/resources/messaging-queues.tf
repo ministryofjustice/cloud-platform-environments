@@ -1,5 +1,5 @@
 module "create_link_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "create-link-queue"
@@ -17,7 +17,8 @@ module "create_link_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch repo
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -55,7 +56,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_policy" {
 
 
 module "create_link_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "create-link-queue-dl"
@@ -65,7 +66,8 @@ module "create_link_queue_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -76,7 +78,7 @@ module "create_link_queue_dead_letter_queue" {
 }
 
 module "unlink_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "unlink-queue"
@@ -94,7 +96,8 @@ module "unlink_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -130,7 +133,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_policy" {
 }
 
 module "unlink_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "unlink-queue-dl"
@@ -140,7 +143,8 @@ module "unlink_queue_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -151,7 +155,7 @@ module "unlink_queue_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hearing-resulted-queue"
@@ -169,7 +173,8 @@ module "hearing_resulted_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -205,7 +210,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hearing-resulted-queue-dl"
@@ -215,7 +220,8 @@ module "hearing_resulted_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -226,7 +232,7 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "prosecution-concluded-queue"
@@ -244,7 +250,8 @@ module "prosecution_concluded_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -255,7 +262,7 @@ module "prosecution_concluded_queue" {
 }
 
 module "prosecution_concluded_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "prosecution-concluded-queue-dl"
@@ -265,7 +272,8 @@ module "prosecution_concluded_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -343,5 +351,7 @@ resource "kubernetes_secret" "sqs_queue_irsa_policy_arn" {
   data = {
     hearing_resulted_queue_irsa_policy_arn      = module.hearing_resulted_queue.irsa_policy_arn
     prosecution_concluded_queue_irsa_policy_arn = module.prosecution_concluded_queue.irsa_policy_arn
+    create_link_queue_irsa_policy_arn           = module.create_link_queue.irsa_policy_arn
+    unlink_queue_irsa_policy_arn                = module.unlink_queue.irsa_policy_arn
   }
 }

@@ -1,5 +1,5 @@
 module "hmpps_prisoner_search_publish_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_search_publish_queue"
@@ -26,7 +26,7 @@ module "hmpps_prisoner_search_publish_queue" {
 }
 
 module "hmpps_prisoner_search_publish_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_search_publish_queue_dl"

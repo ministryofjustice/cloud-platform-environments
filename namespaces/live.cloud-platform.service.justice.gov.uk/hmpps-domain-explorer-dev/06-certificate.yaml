@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-domain-explorer-api-cert
+  namespace: hmpps-domain-explorer-dev
+spec:
+  secretName: hmpps-domain-explorer-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - domain-explorer-api-dev.hmpps.service.justice.gov.uk
+    - '*.domain-explorer-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-domain-explorer-ui-cert
+  namespace: hmpps-domain-explorer-dev
+spec:
+  secretName: hmpps-domain-explorer-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - domain-explorer-ui-dev.hmpps.service.justice.gov.uk
+    - '*.domain-explorer-ui-dev.hmpps.service.justice.gov.uk'

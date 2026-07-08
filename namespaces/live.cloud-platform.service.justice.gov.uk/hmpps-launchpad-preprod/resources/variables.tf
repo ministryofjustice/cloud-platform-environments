@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "prisoner-content-hub-developers"
+  default     = "hmpps-launchpad"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -70,4 +70,17 @@ variable "github_token" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+########
+# IRSA #
+########
+variable "enable_irsa" {
+  type        = bool
+  default     = true
+  description = "Enable creation of IRSA resources for database snapshot creation (for service pod maintenance etc). Defaults to false"
 }

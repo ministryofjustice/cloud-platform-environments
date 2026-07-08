@@ -1,7 +1,41 @@
 
 locals {
   namespaces = toset([
+    "hmpps-activities-management-preprod",
+    "hmpps-arns-assessment-platform-preprod",
+    "hmpps-assess-risks-and-needs-integrations-preprod",
+    "hmpps-assess-risks-and-needs-preprod",
+    "hmpps-assessments-preprod",
+    "hmpps-book-a-video-link-preprod",
+    "hmpps-community-accommodation-preprod",
+    "hmpps-community-payback-preprod",
+    "hmpps-contacts-preprod",
+    "hmpps-court-cases-release-dates-preprod",
+    "hmpps-digital-prison-services-preprod",
+    "hmpps-education-and-work-plan-preprod",
+    "hmpps-education-employment-preprod",
+    "hmpps-electronic-monitoring-datastore-preprod",
+    "hmpps-esupervision-preprod",
     "hmpps-external-users-api-preprod",
+    "hmpps-auth-preprod",
+    "hmpps-incentives-preprod",
+    "hmpps-integration-api-preprod",
+    "hmpps-jobs-board-preprod",
+    "hmpps-locations-inside-prison-preprod",
+    "hmpps-manage-adjudications-api-preprod",
+    "hmpps-manage-and-deliver-accredited-programmes-preprod",
+    "hmpps-manage-users-preprod",
+    "hmpps-managing-prisoner-apps-preprod",
+    "hmpps-non-associations-preprod",
+    "hmpps-prisoner-from-nomis-migration-preprod",
+    "hmpps-prisoner-profile-preprod",
+    "hmpps-prisoner-finance-preprod",
+    "hmpps-registers-preprod",
+    "hmpps-subject-access-request-preprod",
+    "hmpps-support-additional-needs-preprod",
+    "hmpps-workload-preprod",
+    "make-recall-decision-preprod",
+    "visit-someone-in-prison-frontend-svc-preprod"
   ])
 }
 

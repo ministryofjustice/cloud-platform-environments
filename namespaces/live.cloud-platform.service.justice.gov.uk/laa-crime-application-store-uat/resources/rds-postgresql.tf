@@ -5,7 +5,7 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -16,14 +16,16 @@ module "rds" {
   prepare_for_major_upgrade    = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "10000"
+  db_allocated_storage         = "20"
   deletion_protection          = true
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  db_password_rotated_date     = "07-10-2024"
+  opt_in_xsiam_logging = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.4"
-  rds_family        = "postgres16"
+  db_engine_version = "17.5"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
   # Tags
@@ -34,6 +36,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -43,7 +47,7 @@ module "rds" {
 module "read_replica" {
   # default off
   count  = 1
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -59,11 +63,11 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.4"
-  rds_family        = "postgres16"
+  db_engine_version = "17.9"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   db_max_allocated_storage     = "1000"
-  
+
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db

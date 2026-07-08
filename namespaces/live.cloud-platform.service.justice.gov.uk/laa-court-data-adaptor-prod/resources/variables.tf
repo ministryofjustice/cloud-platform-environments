@@ -18,7 +18,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "crime-apps"
+  default     = "laa-access-court-data"
 }
 
 variable "environment_name" {
@@ -28,7 +28,7 @@ variable "environment_name" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "access-court-data-team@digital.justice.gov.uk"
 }
 
 variable "namespace" {
@@ -76,10 +76,15 @@ variable "eks_cluster_name" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-crimeapps-core"
+  default     = "laa-access-court-data"
 }
 
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
 }

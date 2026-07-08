@@ -1,16 +1,20 @@
 
 module "remand-and-sentencing-api-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
   prepare_for_major_upgrade = false
+  allow_minor_version_upgrade = true
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.small"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.medium"
+  db_allocated_storage="100"
+  db_max_allocated_storage = "500"
+  storage_type = "gp3"
 
   # Tags
   application            = var.application
@@ -20,6 +24,8 @@ module "remand-and-sentencing-api-rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
@@ -42,4 +48,22 @@ resource "kubernetes_secret" "rds" {
      * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
      *
      */
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-remand-and-sentencing-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.remand-and-sentencing-api-rds.rds_instance_endpoint
+    database_name         = module.remand-and-sentencing-api-rds.database_name
+    db_identifier         = module.remand-and-sentencing-api-rds.db_identifier
+    database_username     = module.remand-and-sentencing-api-rds.database_username
+    database_password     = module.remand-and-sentencing-api-rds.database_password
+    rds_instance_address  = module.remand-and-sentencing-api-rds.rds_instance_address
+  }
 }

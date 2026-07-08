@@ -3,7 +3,7 @@ data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
 }
 
 module "integration_api_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "integration_api_domain_events_queue"
@@ -27,7 +27,7 @@ module "integration_api_domain_events_queue" {
 }
 
 module "integration_api_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "integration_api_domain_events_queue_dl"
@@ -78,10 +78,77 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
     eventType = [
       "probation-case.registration.added",
       "probation-case.registration.updated",
-      "risk-assessment.scores.determined",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered",
+      "probation-case.engagement.created",
+      "probation-case.prison-identifier.added",
+      "probation-case.address.created",
+      "probation-case.address.updated",
+      "probation-case.address.deleted",
       "probation-case.risk-scores.ogrs.manual-calculation",
-      "RISK-ASSESSMENT_SCORES_RSR_DETERMINED_RECEIVED",
-      "RISK-ASSESSMENT_SCORES_OGRS_DETERMINED_RECEIVED"
+      "probation-case.exclusion.updated",
+      "probation-case.sentence.created",
+      "probation-case.sentence.amended",
+      "probation-case.sentence.terminated",
+      "probation-case.sentence.unterminated",
+      "probation-case.sentence.deleted",
+      "probation-case.sentence.moved",
+      "probation-case.restriction.updated",
+      "plp.induction-schedule.updated",
+      "plp.review-schedule.updated",
+      "san.plan-creation-schedule.updated",
+      "san.review-schedule.updated",
+      "create-and-vary-a-licence.licence.activated",
+      "create-and-vary-a-licence.licence.inactivated",
+      "person.alert.created",
+      "person.alert.changed",
+      "person.alert.updated",
+      "person.alert.deleted",
+      "person.community.manager.allocated",
+      "person.community.manager.transferred",
+      "person.case-note.created",
+      "person.case-note.updated",
+      "person.case-note.deleted",
+      "prisoner-offender-search.prisoner.created",
+      "prisoner-offender-search.prisoner.received",
+      "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.released",
+      "prison-offender-events.prisoner.released",
+      "prison-offender-events.prisoner.contact-added",
+      "prison-offender-events.prisoner.contact-approved",
+      "prison-offender-events.prisoner.contact-unapproved",
+      "prison-offender-events.prisoner.contact-removed",
+      "prison-offender-events.prisoner.restriction.changed",
+      "prison-offender-events.prisoner.person-restriction.upserted",
+      "prison-offender-events.prisoner.person-restriction.deleted",
+      "prison-offender-events.prisoner.non-association-detail.changed",
+      "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.merged",
+      "calculate-release-dates.prisoner.changed",
+      "risk-assessment.scores.ogrs.determined",
+      "risk-assessment.scores.rsr.determined",
+      "assessment.summary.produced",
+      "incentives.iep-review.inserted",
+      "incentives.iep-review.updated",
+      "incentives.iep-review.deleted",
+      "prison-visit.booked",
+      "prison-visit.changed",
+      "prison-visit.cancelled",
+      "adjudication.hearing.created",
+      "adjudication.hearingCompleted.created",
+      "adjudication.hearing.deleted",
+      "adjudication.punishments.created",
+      "adjudication.report.created",
+      "non-associations.created",
+      "non-associations.amended",
+      "non-associations.closed",
+      "non-associations.deleted",
+      "location.inside.prison.created",
+      "location.inside.prison.amended",
+      "location.inside.prison.deleted",
+      "location.inside.prison.deactivated",
+      "location.inside.prison.reactivated",
+      "location.inside.prison.signed-op-cap.amended"
     ]
   })
 }

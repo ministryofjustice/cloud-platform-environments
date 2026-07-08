@@ -21,12 +21,17 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Platform and Reporting"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "syscon-devs"
 }
 
-variable "environment_name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
 }

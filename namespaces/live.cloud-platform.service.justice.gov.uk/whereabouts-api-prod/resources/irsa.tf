@@ -5,14 +5,12 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-whereabouts_api_queue"                  = "offender-events-prod",
     "Digital-Prison-Services-prod-whereabouts_api_queue_dl"               = "offender-events-prod"
-    "Digital-Prison-Services-prod-whereabouts_api_domain_events_queue"    = "hmpps-domain-events-prod"
-    "Digital-Prison-Services-prod-whereabouts_api_domain_events_queue_dl" = "hmpps-domain-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

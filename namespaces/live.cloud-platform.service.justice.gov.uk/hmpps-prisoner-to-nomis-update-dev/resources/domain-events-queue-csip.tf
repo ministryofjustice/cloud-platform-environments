@@ -1,5 +1,6 @@
 module "hmpps_prisoner_to_nomis_csip_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_to_nomis_csip_queue"
@@ -9,7 +10,7 @@ module "hmpps_prisoner_to_nomis_csip_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_csip_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -54,7 +55,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_csip_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_csip_dead_letter_queue"

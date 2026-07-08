@@ -4,7 +4,9 @@
 #################################################################################
 
 module "contact-moj_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -21,6 +23,7 @@ module "contact-moj_rds" {
   db_backup_retention_period = "7"
   db_name                    = "contact_moj_staging"
   enable_rds_auto_start_stop = true
+  backup_window              = "06:00-08:00"
 
   allow_major_version_upgrade = true
   prepare_for_major_upgrade   = false
@@ -28,6 +31,7 @@ module "contact-moj_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "contact-moj_rds" {

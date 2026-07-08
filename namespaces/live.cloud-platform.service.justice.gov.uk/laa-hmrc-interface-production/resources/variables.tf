@@ -33,7 +33,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  default     = "apply-for-civil-legal-aid@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -57,4 +57,9 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
 }

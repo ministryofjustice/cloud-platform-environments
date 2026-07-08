@@ -6,15 +6,23 @@ variable "namespace" {
   default = "hmpps-person-record-preprod"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Enabling Technologies"
+}
+
 variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
   default = "HMPPS"
 }
 
 variable "team_name" {
+  description = "The name of your development team"
   default = "hmpps-person-record"
 }
 
 variable "environment" {
+  description = "The type of environment you're deploying to."
   default = "preprod"
 }
 
@@ -42,7 +50,15 @@ variable "github_token" {
   default     = ""
 }
 
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
+}
+
 variable "eks_cluster_name" {
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 
 variable "slack_channel" {

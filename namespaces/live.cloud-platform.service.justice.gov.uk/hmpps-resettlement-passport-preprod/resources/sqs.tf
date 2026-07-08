@@ -15,7 +15,7 @@ resource "aws_sns_topic_subscription" "offender_event_queue_subscription" {
 }
 
 module "offender-event-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "offender-event-queue"
@@ -71,7 +71,7 @@ EOF
 }
 
 module "offender-event-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "offender-event-dlq"

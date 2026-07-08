@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-community-accommodation"
+  default     = "hmpps-community-accommodation-live"
 }
 
 variable "environment" {

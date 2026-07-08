@@ -6,5 +6,5 @@ module "serviceaccount" {
 
   serviceaccount_name = "circleci-formbuilder-monitoring"
 
-  serviceaccount_token_rotated_date = "14-12-2023"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

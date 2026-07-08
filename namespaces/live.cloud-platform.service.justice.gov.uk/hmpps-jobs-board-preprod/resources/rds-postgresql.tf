@@ -5,7 +5,12 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+
+  # Add security group id
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -14,13 +19,14 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "550"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  enable_irsa                  = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -32,55 +38,36 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-}
 
-# To create a read replica, use the below code and update the values to specify the RDS instance
-# from which you are replicating. In this example, we're assuming that rds is the
-# source RDS instance and read-replica is the replica we are creating.
+  # add parameter group
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
 
-module "read_replica" {
-  # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
-
-  vpc_name               = var.vpc_name
-
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  # If any other inputs of the RDS is passed in the source db which are different from defaults,
-  # add them to the replica
-
-  # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16.2"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
-  # It is mandatory to set the below values to create read replica instance
-
-  # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
-
-  # Set to true. No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
-
-  # If db_parameter is specified in source rds instance, use the same values.
-  # If not specified you dont need to add any. It will use the default values.
-
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "rds" {
@@ -98,32 +85,24 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
-
-resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
-
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
   metadata {
-    name      = "rds-postgresql-read-replica-output"
-    namespace = var.namespace
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-jobs-board-prod"
   }
 
-  # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-
-  /*
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
-  */
 }
 
-
 # Configmap to store non-sensitive data related to the RDS instance
-
 resource "kubernetes_config_map" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
@@ -135,3 +114,107 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
+module "read_replica" {
+  count                = 1
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type         = "gp2"
+
+  # Add security group id
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  db_max_allocated_storage = "550"
+
+  vpc_name               = var.vpc_name
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  is_production          = var.is_production
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # If any other inputs of the RDS is passed in the source db which are different from defaults,
+  # add them to the replica
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.micro"
+  # It is mandatory to set the below values to create read replica instance
+
+  # Set the database_name of the source db
+  db_name = null # "db_name": conflicts with replicate_source_db
+
+  # Set the db_identifier of the source db
+  replicate_source_db = module.rds.db_identifier
+
+  # Set to true. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  # If db_parameter is specified in source rds instance, use the same values.
+  # If not specified you dont need to add any. It will use the default values.
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
+
+  enable_irsa = true
+}
+
+resource "kubernetes_secret" "read_replica" {
+  count = 1
+
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  # The database_username, database_password, database_name values are same as the source RDS instance.
+  # Uncomment if count > 0
+
+  data = {
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_address  = module.read_replica[0].rds_instance_address
+  }
+}
+

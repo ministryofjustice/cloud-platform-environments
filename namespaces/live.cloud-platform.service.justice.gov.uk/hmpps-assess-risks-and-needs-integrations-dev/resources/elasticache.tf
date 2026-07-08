@@ -1,13 +1,13 @@
 module "hmpps_assess_risks_and_needs_integrations_dev_elasticache_redis" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
-  engine_version          = "7.1"
-  parameter_group_name    = "default.redis7"
+  node_type            = "cache.t4g.micro"
+  engine_version       = "7.1"
+  parameter_group_name = "default.redis7"
 
   # Tags
   business_unit          = var.business_unit

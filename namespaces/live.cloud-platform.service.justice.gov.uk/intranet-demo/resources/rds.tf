@@ -1,5 +1,6 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type  = "gp2"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -12,7 +13,7 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version           = "10.11.6"
+  db_engine_version           = "10.11.13"
   rds_family                  = "mariadb10.11"
   db_instance_class           = "db.t4g.small"
   environment_name            = var.environment
@@ -30,6 +31,7 @@ module "rds" {
       value        = "utf8mb4"
       apply_method = "immediate"
     },
+
     {
       name         = "character_set_server"
       value        = "utf8mb4"
@@ -68,3 +70,4 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+ 

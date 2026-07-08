@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "tier-to-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.tier-to-delius-queue.sqs_arn
@@ -8,7 +9,7 @@ resource "aws_sns_topic_subscription" "tier-to-delius-queue-subscription" {
 }
 
 module "tier-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "tier-to-delius-queue"
@@ -33,7 +34,7 @@ resource "aws_sqs_queue_policy" "tier-to-delius-queue-policy" {
 }
 
 module "tier-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "tier-to-delius-dlq"
@@ -65,7 +66,7 @@ resource "kubernetes_secret" "tier-to-delius-queue-secret" {
 }
 
 module "tier-to-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

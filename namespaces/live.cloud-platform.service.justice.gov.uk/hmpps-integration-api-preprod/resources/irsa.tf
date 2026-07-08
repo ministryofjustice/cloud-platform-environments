@@ -2,29 +2,40 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  # The names of the queues used and the namespace which created them
+  # The names of the queues used and the namespace which created them.
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod"
-
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"                             = "hmpps-audit-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"            = "visit-someone-in-prison-backend-svc-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"              = "visit-someone-in-prison-backend-svc-preprod",
+    "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"          = "hmpps-education-and-work-plan-preprod",
+    "locations-inside-prison-preprod-update_from_external_system_events_queue"      = "hmpps-locations-inside-prison-preprod",
+    "activities-and-appointments-preprod-update_from_external_system_events_queue"  = "hmpps-activities-management-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-api"
   role_policy_arns = merge(
     local.sqs_policies,
-    local.sns_policies
+    local.sns_policies,
+    {
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      event_topic = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues = aws_iam_policy.integration_events_sqs.arn,
+    }
   )
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -35,7 +46,7 @@ module "irsa" {
 }
 
 module "hmpps-integration-event-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -48,9 +59,11 @@ module "hmpps-integration-event-irsa" {
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
-      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues                                    = aws_iam_policy.integration_events_sqs.arn
     }
   )
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

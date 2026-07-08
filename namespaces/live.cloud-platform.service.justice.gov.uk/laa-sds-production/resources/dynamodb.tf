@@ -1,5 +1,5 @@
 module "audit_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.1.0"
 
   team_name              = var.team_name
   application            = var.application

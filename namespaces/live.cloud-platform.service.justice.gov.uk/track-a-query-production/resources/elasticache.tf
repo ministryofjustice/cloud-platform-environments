@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -14,7 +14,7 @@ module "track_a_query_elasticache_redis" {
   infrastructure_support = var.infrastructure_support
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
-  node_type              = "cache.t4g.small"
+  node_type              = "cache.t4g.medium"
   namespace              = var.namespace
 
   auth_token_rotated_date = "2023-04-18"

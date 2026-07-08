@@ -8,7 +8,7 @@ module "opensearch" {
   # Cluster configuration
   engine_version      = "OpenSearch_1.3"
   snapshot_bucket_arn = module.s3_opensearch_snapshots_bucket.bucket_arn
-
+  proxy_count         = 2
   # Production cluster configuration
   cluster_config = {
     # Nodes
@@ -25,7 +25,6 @@ module "opensearch" {
     warm_count   = 3
     warm_type    = "ultrawarm1.medium.search"
   }
-
 
   advanced_options = {
     # increase the maxClauseCount to 4096
@@ -45,7 +44,7 @@ module "opensearch" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -67,7 +66,7 @@ resource "kubernetes_secret" "opensearch" {
 #######################################
 
 module "s3_opensearch_snapshots_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # Tags
   business_unit          = var.business_unit
@@ -75,7 +74,7 @@ module "s3_opensearch_snapshots_bucket" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 

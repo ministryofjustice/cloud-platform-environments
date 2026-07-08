@@ -158,3 +158,12 @@ spec:
         message: More than 10 modsec interventions detected in the last hour in laa-crime-application-store-prod
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
         dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover
+
+    - alert: RDSIopsWriteAvg
+      expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-2adb0f1b1829ab4b"} > 1000
+      for: 10m
+      labels:
+        severity: laa-crime-forms-team-prod
+      annotations:
+        message: "RDS read IOPS is > than 1000 for the last 10 mins"
+        dashboard_url:

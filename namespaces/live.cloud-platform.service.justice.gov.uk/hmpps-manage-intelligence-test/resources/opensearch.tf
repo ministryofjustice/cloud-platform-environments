@@ -1,5 +1,5 @@
 module "s3" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   # Tags
   business_unit          = var.business_unit
@@ -12,23 +12,26 @@ module "s3" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.0"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.7"
+  engine_version      = "OpenSearch_2.17"
   snapshot_bucket_arn = module.s3.bucket_arn
 
   cluster_config = {
-    instance_count = 2
-    instance_type  = "t3.medium.search"
+    instance_count           = 3
+    instance_type            = "r6g.large.search"
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_type    = "m6g.large.search"
   }
 
   ebs_options = {
-    volume_size = 10
+    volume_size = 100
   }
 
   # Tags

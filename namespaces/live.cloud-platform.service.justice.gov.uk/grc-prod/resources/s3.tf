@@ -6,7 +6,7 @@
  */
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -14,6 +14,46 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+
+  bucket_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid = "AllowGetRequestsFromSpecificIPsAndReferers",
+        Effect = "Allow",
+        Principal = "*",
+        Action = "s3:GetObject",
+        Resource = "$${bucket_arn}/*",
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = true
+          },
+          IpAddress = {
+            "aws:SourceIp" = [
+              "20.26.11.71/32",
+              "20.26.11.108/32",
+              "20.49.214.199/32",
+              "20.49.214.228/32",
+              "51.149.249.0/29",
+              "51.149.249.32/29",
+              "51.149.250.0/24",
+              "128.77.75.64/26",
+              "194.33.200.0/21",
+              "194.33.216.0/23",
+              "194.33.218.0/24",
+              "194.33.248.0/29",
+              "194.33.249.0/29"
+            ]
+          },
+          StringLike = {
+            "aws:Referer" = [
+              "https://glimr.apps.hmcts.net/",
+            ]
+          }
+        }
+      }
+    ]
+  })
 
   /*
 

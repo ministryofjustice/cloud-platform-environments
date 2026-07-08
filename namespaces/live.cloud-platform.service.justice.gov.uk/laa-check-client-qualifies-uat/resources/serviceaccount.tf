@@ -4,7 +4,7 @@ module "serviceaccount" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "17-10-2023"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {
@@ -22,6 +22,7 @@ module "serviceaccount" {
         "pods",
         "configmaps",
         "persistentvolumeclaims",
+        "serviceaccounts"
       ]
       verbs = [
         "patch",
@@ -39,6 +40,7 @@ module "serviceaccount" {
         "apps",
         "batch",
         "networking.k8s.io",
+        "policy"
       ]
       resources = [
         "deployments",
@@ -46,6 +48,8 @@ module "serviceaccount" {
         "cronjobs",
         "jobs",
         "statefulsets",
+        "poddisruptionbudgets",
+        "networkpolicies",
         "replicasets"
       ]
       verbs = [

@@ -9,11 +9,42 @@ metadata:
 data:
   datasource-rds-dashboard.json: |
     {
+      "__inputs": [],
+      "__elements": {},
+      "__requires": [
+        {
+          "type": "datasource",
+          "id": "cloudwatch",
+          "name": "CloudWatch",
+          "version": "1.0.0"
+        },
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "10.1.5"
+        },
+        {
+          "type": "panel",
+          "id": "text",
+          "name": "Text",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "timeseries",
+          "name": "Time series",
+          "version": ""
+        }
+      ],
       "annotations": {
         "list": [
           {
             "builtIn": 1,
-            "datasource": "-- Grafana --",
+            "datasource": {
+              "type": "datasource",
+              "uid": "grafana"
+            },
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,21 +54,98 @@ data:
         ]
       },
       "description": "Visualize AWS RDS metrics",
-      "editable": true,
+      "editable": false,
       "gnetId": 707,
       "graphTooltip": 0,
-      "id": 25,
-      "iteration": 1581610923156,
+      "id": null,
       "links": [],
+      "liveNow": false,
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "FailedSQLServerAgentJobsCount"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#E0B400",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -49,7 +157,6 @@ data:
           },
           "hiddenSeries": false,
           "id": 16,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -67,7 +174,21 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
@@ -75,7 +196,7 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "VolumeIdleTime_Average",
+              "alias": "FailedSQLServerAgentJobsCount_Average",
               "yaxis": 2
             }
           ],
@@ -88,9 +209,13 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -98,10 +223,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
               "metricName": "CPUUtilization",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -110,18 +240,20 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -129,10 +261,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
-              "metricName": "ReplicaLag",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "FailedSQLServerAgentJobsCount",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -141,51 +278,40 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
-          "title": "CPUUtilization/ReplicaLag",
+          "title": "CPUUtilization/FailedSQLServerAgentJobsCount",
           "tooltip": {
             "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "percent",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
-              "format": "s",
-              "label": null,
+              "format": "cpm",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -193,9 +319,85 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "DiskQueueDepth"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -207,7 +409,6 @@ data:
           },
           "hiddenSeries": false,
           "id": 18,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -225,18 +426,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -246,9 +456,13 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -256,10 +470,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
               "metricName": "DatabaseConnections",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -268,18 +487,20 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Maximum"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -287,10 +508,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
               "metricName": "DiskQueueDepth",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -299,15 +525,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "DatabaseConnections/DiskQueueDepth",
           "tooltip": {
             "msResolution": false,
@@ -315,35 +537,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -351,9 +565,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bits"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "FreeStorageSpace"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -365,7 +656,6 @@ data:
           },
           "hiddenSeries": false,
           "id": 17,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -383,18 +673,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -404,6 +703,9 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
@@ -417,7 +719,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "FreeableMemory",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -426,14 +731,15 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
@@ -448,7 +754,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "FreeStorageSpace",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -457,15 +766,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "FreeableMemory/FreeStorageSpace",
           "tooltip": {
             "msResolution": false,
@@ -473,35 +778,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -509,21 +806,101 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "iops"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "BurstBalance"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "blue",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  },
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
           "gridPos": {
-            "h": 7,
+            "h": 8,
             "w": 24,
             "x": 0,
             "y": 21
           },
           "hiddenSeries": false,
           "id": 19,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -541,7 +918,21 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
@@ -549,7 +940,7 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "VolumeIdleTime_Average",
+              "alias": "BurstBalance_Average",
               "yaxis": 2
             }
           ],
@@ -562,9 +953,13 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -572,10 +967,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
               "metricName": "ReadIOPS",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -584,18 +984,20 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -603,10 +1005,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
               "metricName": "WriteIOPS",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -615,51 +1022,78 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "BurstBalance",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "C",
+              "region": "$region",
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
-          "title": "ReadIOPS/WriteIOPS",
+          "title": "ReadIOPS/WriteIOPS/BurstBalance",
           "tooltip": {
             "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
-              "format": "none",
-              "label": null,
+              "format": "iops",
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
-              "format": "none",
-              "label": null,
+              "format": "percent",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -667,9 +1101,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "WriteLatency"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -677,11 +1188,10 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 29
           },
           "hiddenSeries": false,
           "id": 20,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -699,18 +1209,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -720,6 +1239,9 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
@@ -733,7 +1255,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "ReadLatency",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -742,14 +1267,15 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
@@ -764,7 +1290,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "WriteLatency",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -773,15 +1302,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "ReadLatency/WriteLatency",
           "tooltip": {
             "msResolution": false,
@@ -789,35 +1314,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "s",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -825,9 +1342,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "binBps"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "WriteThroughput"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -835,11 +1429,10 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 35
+            "y": 36
           },
           "hiddenSeries": false,
           "id": 21,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -857,18 +1450,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -878,6 +1480,9 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
@@ -891,7 +1496,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "ReadThroughput",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -900,14 +1508,15 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
@@ -922,7 +1531,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "WriteThroughput",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -931,15 +1543,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "ReadThroughput/WriteThroughput",
           "tooltip": {
             "msResolution": false,
@@ -947,35 +1555,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -983,9 +1583,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "binBps"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NetworkTransmitThroughput"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -993,11 +1670,10 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 42
+            "y": 43
           },
           "hiddenSeries": false,
           "id": 22,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -1015,18 +1691,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -1036,6 +1721,9 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
@@ -1049,7 +1737,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "NetworkReceiveThroughput",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1058,14 +1749,15 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
@@ -1080,7 +1772,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "NetworkTransmitThroughput",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1089,15 +1784,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "NetworkReceiveThroughput/NetworkTransmitThroughput",
           "tooltip": {
             "msResolution": false,
@@ -1105,35 +1796,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -1141,9 +1824,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "BinLogDiskUsage"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -1151,11 +1911,10 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 49
+            "y": 50
           },
           "hiddenSeries": false,
           "id": 23,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -1173,18 +1932,27 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "VolumeIdleTime_Average",
-              "yaxis": 2
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
@@ -1194,6 +1962,9 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
@@ -1207,7 +1978,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "SwapUsage",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1216,14 +1990,15 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
@@ -1238,7 +2013,10 @@ data:
               "item": {
                 "filter": ""
               },
+              "label": "",
+              "metricEditorMode": 0,
               "metricName": "BinLogDiskUsage",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1247,15 +2025,11 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "SwapUsage/BinLogDiskUsage",
           "tooltip": {
             "msResolution": false,
@@ -1263,35 +2037,27 @@ data:
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
               "format": "bytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
@@ -1299,9 +2065,86 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${datasource}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPUCreditBalance"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -1309,11 +2152,10 @@ data:
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 56
+            "y": 57
           },
           "hiddenSeries": false,
           "id": 24,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -1331,7 +2173,262 @@ data:
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "metricEditorMode": 0,
+              "metricName": "CPUCreditUsage",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "metricEditorMode": 0,
+              "metricName": "CPUCreditBalance",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistic": "Average"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "CPUCreditUsage/CPUCreditBalance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "timeseries",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "ReplicaLag"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 64
+          },
+          "hiddenSeries": false,
+          "id": 25,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "percentage": false,
           "pointradius": 5,
@@ -1339,7 +2436,7 @@ data:
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "VolumeIdleTime_Average",
+              "alias": "ReplicaLag_Average",
               "yaxis": 2
             }
           ],
@@ -1352,9 +2449,13 @@ data:
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -1362,10 +2463,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
-              "metricName": "CPUCreditUsage",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "OldestReplicationSlotLag",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1374,18 +2480,20 @@ data:
               "period": "",
               "refId": "A",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             },
             {
               "alias": "",
               "application": {
                 "filter": ""
               },
+              "datasource": {
+                "uid": "$datasource"
+              },
               "dimensions": {
                 "DBInstanceIdentifier": "$dbinstanceidentifier"
               },
+              "expression": "",
               "functions": [],
               "group": {
                 "filter": ""
@@ -1393,10 +2501,15 @@ data:
               "host": {
                 "filter": ""
               },
+              "id": "",
               "item": {
                 "filter": ""
               },
-              "metricName": "CPUCreditBalance",
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ReplicaLag",
+              "metricQueryType": 0,
               "mode": 0,
               "namespace": "AWS/RDS",
               "options": {
@@ -1405,75 +2518,581 @@ data:
               "period": "",
               "refId": "B",
               "region": "$region",
-              "statistics": [
-                "Average"
-              ]
+              "statistic": "Average"
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
-          "title": "CPUCreditUsage/CPUCreditBalance",
+          "title": "OldestReplicationSlotLag/ReplicaLag",
           "tooltip": {
             "msResolution": false,
             "shared": true,
             "sort": 0,
             "value_type": "cumulative"
           },
-          "type": "graph",
+          "type": "timeseries",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "s",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TransactionLogsDiskUsage"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 71
+          },
+          "hiddenSeries": false,
+          "id": 26,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "ReplicaLag_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ReplicationSlotDiskUsage",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "TransactionLogsDiskUsage",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistic": "Average"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "ReplicationSlotDiskUsage/TransactionLogsDiskUsage",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "timeseries",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "s",
+              "logBase": 1,
+              "min": "0",
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TransactionLogsGeneration"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "semi-dark-yellow",
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.axisPlacement",
+                    "value": "right"
+                  }
+                ]
+              }
+            ]
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 78
+          },
+          "hiddenSeries": false,
+          "id": 27,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": [],
+            "legend": {
+              "calcs": [
+                "min",
+                "max",
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "MaximumUsedTransactionIDs",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistic": "Average"
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "expression": "",
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "id": "",
+              "item": {
+                "filter": ""
+              },
+              "label": "",
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "TransactionLogsGeneration",
+              "metricQueryType": 0,
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistic": "Average"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "MaximumUsedTransactionIDs/TransactionLogsGeneration",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "timeseries",
+          "xaxis": {
+            "mode": "time",
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "none",
-              "label": null,
               "logBase": 1,
-              "max": null,
               "min": 0,
               "show": true
             },
             {
-              "format": "none",
-              "label": null,
+              "format": "Bps",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         },
         {
-          "content": "<a style=\"float: right\" href=\"http://www.monitoringartist.com\" target=\"_blank\" title=\"Dashboard maintained by Monitoring Artist - DevOps / Docker / Kubernetes / AWS ECS / Google GCP / Zabbix / Zenoss / Terraform / Monitoring\"><img src=\"https://monitoringartist.github.io/monitoring-artist-logo-grafana.png\" height=\"30px\" /></a>\n<a style=\"float: left\"  target=\"_blank\" href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/rds-metricscollected.html\">AWS Cloudwatch RDS documentation</a><br/>\n<a style=\"float: left\"  target=\"_blank\" href=\"https://grafana.com/dashboards/707\">Installed from Grafana.com dashboards</a>\n<div style=\"clear:both; width:100%;height:0;font-size:0;\"></div>",
-          "datasource": null,
+          "datasource": {
+            "uid": "$datasource"
+          },
           "editable": true,
           "error": false,
           "gridPos": {
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 63
+            "y": 85
           },
           "id": 2,
-          "isNew": true,
           "links": [],
-          "mode": "html",
-          "options": {},
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<a href=\"http://www.monitoringartist.com\" target=\"_blank\" title=\"Dashboard maintained by Monitoring Artist - DevOps / Docker / Kubernetes / AWS ECS / Google GCP / Zabbix / Zenoss / Terraform / Monitoring\"><img src=\"https://monitoringartist.github.io/monitoring-artist-logo-grafana.png\" height=\"30px\" /></a> | \n<a target=\"_blank\" href=\"https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MonitoringOverview.html#monitoring-cloudwatch\">AWS CloudWatch RDS documentation</a> | \n<a target=\"_blank\" href=\"https://grafana.com/grafana/dashboards/707-aws-rds/\">Installed from Grafana.com dashboards</a>",
+            "mode": "html"
+          },
+          "pluginVersion": "10.1.5",
+          "targets": [
+            {
+              "datasource": {
+                "uid": "$datasource"
+              },
+              "refId": "A"
+            }
+          ],
           "title": "Documentation",
           "type": "text"
         }
       ],
-      "refresh": false,
-      "schemaVersion": 21,
+      "refresh": "",
+      "schemaVersion": 38,
       "style": "dark",
       "tags": [
         "monitoringartist",
@@ -1482,10 +3101,7 @@ data:
       "templating": {
         "list": [
           {
-            "current": {
-              "text": "Cloudwatch-Datasource",
-              "value": "Cloudwatch-Datasource"
-            },
+            "current": {},
             "hide": 0,
             "includeAll": false,
             "label": "Datasource",
@@ -1493,18 +3109,17 @@ data:
             "name": "datasource",
             "options": [],
             "query": "cloudwatch",
+            "queryValue": "ad",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
             "type": "datasource"
           },
           {
-            "allValue": null,
-            "current": {
-              "text": "default",
-              "value": "default"
+            "current": {},
+            "datasource": {
+              "uid": "$datasource"
             },
-            "datasource": "${datasource}",
             "definition": "",
             "hide": 0,
             "includeAll": false,
@@ -1518,19 +3133,15 @@ data:
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
-            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
           },
           {
-            "allValue": null,
-            "current": {
-              "tags": [],
-              "text": "cloud-platform-0fe5d72ea3e106e5",
-              "value": "cloud-platform-0fe5d72ea3e106e5"
+            "current": {},
+            "datasource": {
+              "uid": "$datasource"
             },
-            "datasource": "${datasource}",
             "definition": "",
             "hide": 0,
             "includeAll": false,
@@ -1544,7 +3155,6 @@ data:
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
-            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
@@ -1552,7 +3162,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-7d",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {
@@ -1583,5 +3193,6 @@ data:
       "timezone": "browser",
       "title": "AWS RDS",
       "uid": "VR46pmwWk",
-      "version": 1
+      "version": 2,
+      "weekStart": ""
     }

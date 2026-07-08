@@ -1,5 +1,5 @@
 module "crime-portal-gateway-s3-bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -16,16 +16,16 @@ module "crime-portal-gateway-s3-bucket" {
   lifecycle_rule = [
     {
       enabled                                = true
-      id                                     = "expire-1d"
-      abort_incomplete_multipart_upload_days = 1
+      id                                     = "expire-crime-portal-gateway-bucket"
+      abort_incomplete_multipart_upload_days = 90
       expiration = [
         {
-          days = 1
+          days = 90
         },
       ]
       noncurrent_version_expiration = [
         {
-          days = 1
+          days = 90
         },
       ]
     },

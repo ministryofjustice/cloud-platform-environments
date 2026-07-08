@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-accredited-programmes-prod
 subjects:
   - kind: Group
-    name: "github:accredited-programmes-team"
+    name: "github:hmpps-accredited-programmes-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

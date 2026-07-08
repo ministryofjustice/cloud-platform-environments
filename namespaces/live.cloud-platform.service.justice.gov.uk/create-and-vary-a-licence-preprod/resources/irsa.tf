@@ -6,8 +6,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-preprod-cvl_domain_events_queue"       = "hmpps-domain-events-preprod",
     "Digital-Prison-Services-preprod-cvl_domain_events_queue_dl"    = "hmpps-domain-events-preprod",
-    "Digital-Prison-Services-preprod-cvl_probation_events_queue"    = "offender-events-preprod",
-    "Digital-Prison-Services-preprod-cvl_probation_events_queue_dl" = "offender-events-preprod",
     "Digital-Prison-Services-preprod-cvl_prison_events_queue"       = "offender-events-preprod",
     "Digital-Prison-Services-preprod-cvl_prison_events_queue_dl"    = "offender-events-preprod"
   }
@@ -15,7 +13,7 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace

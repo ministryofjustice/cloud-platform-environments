@@ -1,5 +1,6 @@
 module "hmpps_reductions_completed_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_reductions_completed_event_queue"
@@ -27,7 +28,7 @@ module "hmpps_reductions_completed_queue" {
 }
 
 module "hmpps_reductions_completed_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_reductions_completed_event_dlq"

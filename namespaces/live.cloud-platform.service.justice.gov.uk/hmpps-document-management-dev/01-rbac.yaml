@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-document-management-dev
 subjects:
   - kind: Group
-    name: "github:farsight-devs"
+    name: "github:hmpps-calculate-release-dates-team-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

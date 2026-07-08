@@ -3,7 +3,7 @@
 ################################################################################
 
 module "oc_elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment_name
@@ -16,6 +16,8 @@ module "oc_elasticache_redis" {
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
+
+  auth_token_rotated_date= "2025-05-28"
 }
 
 resource "kubernetes_secret" "oc_elasticache_redis" {

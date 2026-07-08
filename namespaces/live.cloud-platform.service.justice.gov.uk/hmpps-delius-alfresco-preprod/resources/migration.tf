@@ -1,8 +1,15 @@
 data "aws_iam_policy_document" "migration_policy" {
   statement {
     actions = [
+      # Bucket level permissions
       "s3:GetBucketLocation",
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+
+      # object level permissions to read from source
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionTagging",
     ]
 
     effect = "Allow"

@@ -5,12 +5,12 @@
  *
  */
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name = "cfe-civil-ecr"
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci","github"]
 
   # REQUIRED: GitHub repositories, whose CI will be provided with short-term credentials to access this container repository
   github_repositories = ["cfe-civil", "laa-check-client-qualifies"]
@@ -106,6 +106,8 @@ EOF
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  enable_irsa = true
 }
 
 

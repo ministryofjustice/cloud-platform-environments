@@ -28,9 +28,30 @@ variable "team_name" {
   default     = "Digital Prison Services/New Nomis"
 }
 
+variable "deployment_team_name" {
+  default = "map-developers-live"
+}
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "prod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "prod"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "infrastructure_support" {
@@ -46,6 +67,11 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
 }
+
+variable "review_team_name" {
+  default = "map-developers-devs"
+}
+
 
 variable "number_cache_clusters" {
   default = "3"
@@ -68,3 +94,9 @@ variable "github_token" {
 
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

@@ -33,9 +33,8 @@ variable "team_name" {
 }
 
 variable "environment" {
-  description = "Name of the environment type for this service"
-  type        = string
-  default     = "development"
+  description = "The type of environment you're deploying to."
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -45,9 +44,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  description = "Whether this environment type is production or not"
-  type        = string
-  default     = "false"
+  default = "false"
 }
 
 variable "slack_channel" {
@@ -66,4 +63,14 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

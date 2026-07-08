@@ -50,6 +50,7 @@ module "serviceaccount" {
         "monitoring.coreos.com",
         "rbac.authorization.k8s.io",
         "autoscaling",
+        "policy",
       ]
       resources = [
         "deployments",
@@ -64,6 +65,7 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "horizontalpodautoscalers",
+        "poddisruptionbudgets",
       ]
       verbs = [
         "get",
@@ -76,4 +78,5 @@ module "serviceaccount" {
       ]
     },
   ]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

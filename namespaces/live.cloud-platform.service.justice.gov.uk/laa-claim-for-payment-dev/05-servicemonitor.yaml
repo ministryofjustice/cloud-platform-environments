@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-claim-for-payment
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: laa-claim-for-payment
+  endpoints:
+    - port: http
+      interval: 15s
+      path: /actuator/prometheus

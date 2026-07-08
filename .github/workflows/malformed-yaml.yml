@@ -6,8 +6,8 @@ jobs:
   reject-malformed-yaml:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ministryofjustice/github-actions/malformed-yaml@v18.1.1
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ministryofjustice/github-actions/malformed-yaml@72fe7d2b80a33b5e3f23dffa31236bd45027450b # v18.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}

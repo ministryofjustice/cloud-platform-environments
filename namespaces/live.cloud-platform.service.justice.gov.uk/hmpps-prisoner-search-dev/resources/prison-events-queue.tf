@@ -6,12 +6,11 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
   filter_policy = jsonencode({
     eventType = [
       "AGENCY_INTERNAL_LOCATIONS-UPDATED",
-      "ALERT-INSERTED",
-      "ALERT-UPDATED",
       "ASSESSMENT-CHANGED",
       "ASSESSMENT-UPDATED",
       "BED_ASSIGNMENT_HISTORY-INSERTED",
       "BOOKING_NUMBER-CHANGED",
+      "BOOKING-DELETED",
       "CONFIRMED_RELEASE_DATE-CHANGED",
       "EXTERNAL_MOVEMENT-CHANGED",
       "EXTERNAL_MOVEMENT_RECORD-INSERTED",
@@ -21,9 +20,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER-DELETED",
       "OFFENDER-INSERTED",
       "OFFENDER-UPDATED",
-      "OFFENDER_ADDRESS-DELETED",
-      "OFFENDER_ADDRESS-INSERTED",
-      "OFFENDER_ADDRESS-UPDATED",
+      "ADDRESSES_OFFENDER-DELETED",
+      "ADDRESSES_OFFENDER-INSERTED",
+      "ADDRESSES_OFFENDER-UPDATED",
       "OFFENDER_ADDRESS_PHONE-INSERTED",
       "OFFENDER_ADDRESS_PHONE-UPDATED",
       "OFFENDER_ADDRESS_PHONE-DELETED",
@@ -39,6 +38,13 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_EMAIL-DELETED",
       "OFFENDER_IDENTIFIER-UPDATED",
       "OFFENDER_IDENTIFYING_MARKS-CHANGED",
+      "OFFENDER_IDENTIFYING_MARKS-DELETED",
+      "OFFENDER_IMAGE-CREATED",
+      "OFFENDER_IMAGE-UPDATED",
+      "OFFENDER_IMAGE-DELETED",
+      "OFFENDER_LANGUAGES-INSERTED",
+      "OFFENDER_LANGUAGES-UPDATED",
+      "OFFENDER_LANGUAGES-DELETED",
       "OFFENDER_PHONE-INSERTED",
       "OFFENDER_PHONE-UPDATED",
       "OFFENDER_PHONE-DELETED",
@@ -46,6 +52,12 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
       "OFFENDER_PHYSICAL_DETAILS-CHANGED",
       "OFFENDER_PROFILE_DETAILS-INSERTED",
       "OFFENDER_PROFILE_DETAILS-UPDATED",
+      "OFF_HEALTH_PROBLEMS-INSERTED",
+      "OFF_HEALTH_PROBLEMS-UPDATED",
+      "OFF_HEALTH_PROBLEMS-DELETED",
+      "OFF_MILITARY_REC-INSERTED",
+      "OFF_MILITARY_REC-UPDATED",
+      "OFF_MILITARY_REC-DELETED",
       "SENTENCE_ADJUSTMENT_DELETED",
       "SENTENCE_ADJUSTMENT_UPSERTED",
       "SENTENCE_DATES-CHANGED",
@@ -55,7 +67,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_offender_subscripti
 }
 
 module "hmpps_prisoner_search_offender_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_search_offender_queue"
@@ -64,7 +76,7 @@ module "hmpps_prisoner_search_offender_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_search_offender_dlq.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -111,7 +123,7 @@ EOF
 }
 
 module "hmpps_prisoner_search_offender_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_search_offender_dlq"
@@ -158,5 +170,5 @@ resource "kubernetes_secret" "hmpps_prisoner_search_offender_dlq" {
 }
 
 data "aws_ssm_parameter" "offender-events-topic-arn" {
-  name = "/offender-events-dev/topic-arn"
+  name = "/offender-events-${var.environment}/topic-arn"
 }

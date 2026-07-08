@@ -1,5 +1,5 @@
 module "secrets" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -30,6 +30,11 @@ module "secrets" {
       description             = "analytics-user-config"
       recovery_window_in_days = 7
       k8s_secret_name         = "analytics-user-config"
+    },
+    "provider-client-secret" = {
+      description             = "provider-client-secret"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "provider-client-secret"
     },
   }
 

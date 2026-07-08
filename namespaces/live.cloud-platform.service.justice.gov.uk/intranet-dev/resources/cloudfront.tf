@@ -19,10 +19,7 @@ locals {
 }
 
 module "cloudfront" {
-  # !IMPORTANT! It's important that this value points to a repo/module where the trusted_public_keys property is handled.
-  # If it is set to the current main branch, all of our files will be public.
-  # See pending PR https://github.com/ministryofjustice/cloud-platform-terraform-cloudfront/pull/14
-  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront-edits?ref=cloudfront-functions-draft"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.3.1"
 
   # Configuration
   bucket_id            = module.s3_bucket.bucket_name
@@ -43,6 +40,38 @@ module "cloudfront" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+
+  # Custom error pages for every 4xx error code
+  # 400, 403, 404, 405, 414
+  custom_error_response = [
+    {
+      error_code            = 400
+      response_code         = 400
+      response_page_path    = "/error_pages/400.html"
+    },
+    {
+      error_code            = 403
+      response_code         = 403
+      response_page_path    = "/error_pages/403.html"
+      error_caching_min_ttl = 0
+    },
+    {
+      error_code            = 404
+      response_code         = 404
+      response_page_path    = "/error_pages/404.html"
+      error_caching_min_ttl = 60
+    },
+    {
+      error_code            = 405
+      response_code         = 405
+      response_page_path    = "/error_pages/405.html"
+    },
+    {
+      error_code            = 414
+      response_code         = 414
+      response_page_path    = "/error_pages/414.html"
+    }
+  ]
 
   depends_on = [aws_acm_certificate.cloudfront_alias_cert]
 }

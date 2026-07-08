@@ -65,3 +65,16 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
+
+variable "service_area" {
+  default = "Manage Custody"
+}

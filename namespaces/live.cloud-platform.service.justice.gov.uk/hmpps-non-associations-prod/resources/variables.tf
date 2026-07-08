@@ -25,9 +25,21 @@ variable "team_name" {
   default     = "hmpps-non-associations"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "prod"
 }
 
 variable "infrastructure_support" {
@@ -62,4 +74,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

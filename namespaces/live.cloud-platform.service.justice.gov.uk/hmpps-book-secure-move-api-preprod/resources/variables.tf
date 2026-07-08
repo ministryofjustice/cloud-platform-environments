@@ -6,6 +6,28 @@ variable "environment-name" {
   default = "preprod"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "github_deployment_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-live"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
+variable "slack_channel" {
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "move-a-prisoner-digital"
+}
+
 variable "is_production" {
   default = "false"
 }
@@ -58,5 +80,10 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
 
 variable "kubernetes_cluster" {}

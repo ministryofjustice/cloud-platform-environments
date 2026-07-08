@@ -30,6 +30,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_workload_prisoner_dead_letter_queue.sqs_arn,
       module.hmpps_workload_staff_queue.sqs_arn,
       module.hmpps_workload_staff_dead_letter_queue.sqs_arn,
+      module.hmpps_workload_notification_queue.sqs_arn,
+      module.hmpps_workload_notification_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -40,7 +42,7 @@ resource "aws_iam_policy" "combined_local_sqs" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   #
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "hmpps-workload"

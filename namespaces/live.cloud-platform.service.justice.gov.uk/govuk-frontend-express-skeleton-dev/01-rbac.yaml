@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: govuk-frontend-express-skeleton-dev-admin
+  namespace: govuk-frontend-express-skeleton-dev
+subjects:
+  - kind: Group
+    name: "github:moj-express-team"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

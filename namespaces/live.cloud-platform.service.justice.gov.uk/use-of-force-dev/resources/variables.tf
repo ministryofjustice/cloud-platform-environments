@@ -24,6 +24,22 @@ variable "team_name" {
   default     = "Digital Prison Services"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "dev"
@@ -41,6 +57,12 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
 }
 
 variable "number_cache_clusters" {
@@ -63,3 +85,9 @@ variable "github_token" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

@@ -1,0 +1,16 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-manage-your-civil-cases-production-admin
+  namespace: laa-manage-your-civil-cases-production
+subjects:
+  - kind: Group
+    name: "github:manage-your-civil-cases"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-sre-admins"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

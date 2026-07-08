@@ -11,12 +11,17 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = "hmpps-subject-access-request-api"
-  role_policy_arns     = local.sqs_policies
+  service_account_name = "hmpps-subject-access-request"
+  role_policy_arns     = merge(
+    local.sqs_policies,
+    {
+      s3 = module.hmpps-subject-access-request_s3_bucket.irsa_policy_arn
+    }
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application

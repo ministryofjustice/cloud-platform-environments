@@ -5,15 +5,15 @@
  *
  */
 module "cica_ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
-  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+
   # Repository configuration
   repo_name = "cica-repo-dev"
   team_name = "cica"
 
 
   # OpenID Connect configuration
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci", "github"]
   github_repositories = var.repo_name
 
   # Tags
@@ -36,8 +36,8 @@ resource "kubernetes_secret" "ecr_repo" {
   }
 
   data = {
-    repo_arn          = module.cica_ecr_credentials.repo_arn
-    repo_url          = module.cica_ecr_credentials.repo_url
+    repo_arn = module.cica_ecr_credentials.repo_arn
+    repo_url = module.cica_ecr_credentials.repo_url
   }
 }
 

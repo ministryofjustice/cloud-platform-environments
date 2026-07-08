@@ -10,7 +10,7 @@ module "hmpps_prisoner_search_opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version = "OpenSearch_2.9"
+  engine_version = "OpenSearch_3.3"
 
   cluster_config = {
     instance_count = 2
@@ -24,7 +24,7 @@ module "hmpps_prisoner_search_opensearch" {
 }
 
 module "os_snapshots_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false

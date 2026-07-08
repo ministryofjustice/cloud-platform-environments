@@ -37,7 +37,7 @@ resource "kubernetes_secret" "client_certificate_auth" {
   }
 
   data = {
-    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client_two.pem_encoded_certificate
+    "ca.crt" = aws_api_gateway_client_certificate.api_gateway_client_four.pem_encoded_certificate
   }
 }
 
@@ -48,9 +48,9 @@ resource "kubernetes_secret" "consumer_api_keys" {
   }
 
   data = {
-    for client in local.clients : client => aws_api_gateway_api_key.clients[client].value
+    for client in local.clients :
+    client => aws_api_gateway_api_key.clients[client].value
   }
 }
-
 
 

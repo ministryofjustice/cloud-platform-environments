@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-crown-court-litigator-fees-app
+  namespace: laa-crown-court-litigator-fees-production
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-crown-court-litigator-fees-production
+      app.kubernetes.io/name: laa-crown-court-litigator-fees-app
+  endpoints:
+    - port: http
+      path: /cclf/metrics
+      interval: 30s

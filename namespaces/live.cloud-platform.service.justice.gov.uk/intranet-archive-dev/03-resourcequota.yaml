@@ -5,4 +5,4 @@ metadata:
   namespace: intranet-archive-dev
 spec:
   hard:
-    pods: "50"
+    pods: "20"

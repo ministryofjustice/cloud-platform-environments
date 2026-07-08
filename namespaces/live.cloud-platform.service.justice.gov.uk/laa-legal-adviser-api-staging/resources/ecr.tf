@@ -1,5 +1,5 @@
 module "ecr-repo-api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   team_name = var.team_name
   repo_name = var.repo_name
@@ -8,7 +8,7 @@ module "ecr-repo-api" {
     aws = aws.london
   }
   # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name]

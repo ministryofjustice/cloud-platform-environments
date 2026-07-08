@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-contacts-ui-cert
+  namespace: hmpps-contacts-preprod
+spec:
+  secretName: hmpps-contacts-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - contacts-preprod.hmpps.service.justice.gov.uk

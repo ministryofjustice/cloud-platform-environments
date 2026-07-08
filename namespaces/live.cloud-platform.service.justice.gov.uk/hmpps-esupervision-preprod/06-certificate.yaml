@@ -1,0 +1,51 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-esupervision-api-cert
+  namespace: hmpps-esupervision-preprod
+spec:
+  secretName: hmpps-esupervision-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - esupervision-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-esupervision-ui-cert
+  namespace: hmpps-esupervision-preprod
+spec:
+  secretName: hmpps-esupervision-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - esupervision-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-probation-check-in-ui-cert
+  namespace: hmpps-esupervision-preprod
+spec:
+  secretName: hmpps-probation-check-in-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - probation-check-in-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-online-check-ins-ui-cert
+  namespace: hmpps-esupervision-preprod
+spec:
+  secretName: hmpps-manage-online-check-ins-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-online-check-ins-ui-preprod.hmpps.service.justice.gov.uk

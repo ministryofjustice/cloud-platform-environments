@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-dps-reconciliation-cert
+  namespace: hmpps-dps-reconciliation-preprod
+spec:
+  secretName: hmpps-dps-reconciliation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dps-reconciliation-preprod.hmpps.service.justice.gov.uk

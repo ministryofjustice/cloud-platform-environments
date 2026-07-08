@@ -4,7 +4,7 @@ module "serviceaccount_circleci" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_name = "circleci-migrated"
 
@@ -12,4 +12,3 @@ module "serviceaccount_circleci" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   # github_repositories = ["my-repo"]
 }
-

@@ -5,10 +5,10 @@ metadata:
   namespace: hmpps-staff-prod
 subjects:
   - kind: Group
-    name: "github:manage-a-workforce"
+    name: "github:hmpps-manage-a-workforce-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

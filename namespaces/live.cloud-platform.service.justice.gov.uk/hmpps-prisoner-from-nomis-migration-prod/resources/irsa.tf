@@ -17,30 +17,34 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
     resources = [
       module.migration_appointments_queue.sqs_arn,
       module.migration_appointments_dead_letter_queue.sqs_arn,
-      module.migration_sentencing_queue.sqs_arn,
-      module.migration_sentencing_dead_letter_queue.sqs_arn,
       module.migration_visits_queue.sqs_arn,
       module.migration_visits_dead_letter_queue.sqs_arn,
-      module.migration_adjudications_queue.sqs_arn,
-      module.migration_adjudications_dead_letter_queue.sqs_arn,
-      module.migration_incidents_queue.sqs_arn,
-      module.migration_incidents_dead_letter_queue.sqs_arn,
-      module.migration_locations_queue.sqs_arn,
-      module.migration_locations_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
       module.migration_allocations_dead_letter_queue.sqs_arn,
-      module.migration_alerts_queue.sqs_arn,
-      module.migration_alerts_dead_letter_queue.sqs_arn,
-      module.migration_casenotes_queue.sqs_arn,
-      module.migration_casenotes_dead_letter_queue.sqs_arn,
-      module.migration_csip_queue.sqs_arn,
-      module.migration_csip_dead_letter_queue.sqs_arn,
-      module.migration_prisonperson_queue.sqs_arn,
-      module.migration_prisonperson_dead_letter_queue.sqs_arn,
+      module.migration_courtmovements_queue.sqs_arn,
+      module.migration_courtmovements_dead_letter_queue.sqs_arn,
       module.migration_courtsentencing_queue.sqs_arn,
       module.migration_courtsentencing_dead_letter_queue.sqs_arn,
+      module.migration_coreperson_queue.sqs_arn,
+      module.migration_coreperson_dead_letter_queue.sqs_arn,
+      module.migration_csra_queue.sqs_arn,
+      module.migration_csra_dead_letter_queue.sqs_arn,
+      module.migration_externalmovements_queue.sqs_arn,
+      module.migration_externalmovements_dead_letter_queue.sqs_arn,
+      module.migration_prisonbalance_queue.sqs_arn,
+      module.migration_prisonbalance_dead_letter_queue.sqs_arn,
+      module.migration_prisonerbalance_queue.sqs_arn,
+      module.migration_prisonerbalance_dead_letter_queue.sqs_arn,
+      module.migration_property_queue.sqs_arn,
+      module.migration_property_dead_letter_queue.sqs_arn,
+      module.migration_officialvisits_queue.sqs_arn,
+      module.migration_officialvisits_dead_letter_queue.sqs_arn,
+      module.migration_staff_queue.sqs_arn,
+      module.migration_staff_dead_letter_queue.sqs_arn,
+      module.migration_visitslots_queue.sqs_arn,
+      module.migration_visitslots_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -57,10 +61,6 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
     effect    = "Allow"
     actions   = ["sqs:*"]
     resources = [
-      module.prisoner_from_nomis_incidents_queue.sqs_arn,
-      module.prisoner_from_nomis_incidents_dead_letter_queue.sqs_arn,
-      module.prisoner_from_nomis_csip_queue.sqs_arn,
-      module.prisoner_from_nomis_csip_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_locations_queue.sqs_arn,
       module.prisoner_from_nomis_locations_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_sentencing_queue.sqs_arn,
@@ -71,12 +71,36 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_alerts_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_casenotes_queue.sqs_arn,
       module.prisoner_from_nomis_casenotes_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_coreperson_queue.sqs_arn,
+      module.prisoner_from_nomis_coreperson_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_csra_queue.sqs_arn,
+      module.prisoner_from_nomis_csra_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_finance_queue.sqs_arn,
+      module.prisoner_from_nomis_finance_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_queue.sqs_arn,
       module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
-      module.prisoner_from_nomis_prisonperson_queue.sqs_arn,
-      module.prisoner_from_nomis_prisonperson_dead_letter_queue.sqs_arn,
-      module.prisoner_from_nomis_courtsentencing_queue.sqs_arn,
-      module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personalrelationships_domain_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_personcontacts_domain_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_prisonerrestrictions_domain_queue.sqs_arn,
+      module.prisoner_from_nomis_prisonerrestrictions_domain_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_property_queue.sqs_arn,
+      module.prisoner_from_nomis_property_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_organisations_queue.sqs_arn,
+      module.prisoner_from_nomis_organisations_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_staff_queue.sqs_arn,
+      module.prisoner_from_nomis_staff_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_visitbalance_queue.sqs_arn,
+      module.prisoner_from_nomis_visitbalance_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_externalmovements_queue.sqs_arn,
+      module.prisoner_from_nomis_externalmovements_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_courtmovements_queue.sqs_arn,
+      module.prisoner_from_nomis_courtmovements_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_officialvisits_queue.sqs_arn,
+      module.prisoner_from_nomis_officialvisits_dead_letter_queue.sqs_arn,
     ]
   }
 }
@@ -87,7 +111,7 @@ resource "aws_iam_policy" "combined_local_sqs_events" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -102,7 +126,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 

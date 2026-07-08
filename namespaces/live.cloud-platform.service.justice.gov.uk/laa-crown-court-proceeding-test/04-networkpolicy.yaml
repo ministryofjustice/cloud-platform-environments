@@ -40,4 +40,3 @@ spec:
         - namespaceSelector:
             matchLabels:
               component: laa-maat-orchestration-test
-

@@ -6,12 +6,29 @@
 variable "vpc_name" {
 }
 
+variable "application" {
+  default = "prison-visits-booking-production"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "environment-name" {
   default = "production"
 }
 
+variable "environment" {
+  default = "prod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Activities and Visits"
+}
+
 variable "team_name" {
-  default = "book-a-prison-visit"
+  default = "hmpps-prison-visits-booking-live"
 }
 
 variable "is_production" {
@@ -24,6 +41,11 @@ variable "namespace" {
 
 variable "infrastructure_support" {
   default = "prisonvisitsbooking@digital.justice.gov.uk"
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "visits-dev"
 }
 
 variable "business_unit" {

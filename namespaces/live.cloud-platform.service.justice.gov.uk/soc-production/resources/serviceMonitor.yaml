@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: dotnet6app-service-monitor
+  namespace: soc-production
+spec:
+  selector:
+    matchLabels:
+      app: dotnet6app-service 
+  endpoints:
+    - port: http-metrics
+      interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: entry-dotnet6app-service-monitor
+  namespace: soc-production
+spec:
+  selector:
+    matchLabels:
+      app: entry-dotnet6app-service 
+  endpoints:
+    - port: http-metrics
+      interval: 15s

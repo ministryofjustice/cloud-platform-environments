@@ -1,5 +1,6 @@
 module "cvl_domain_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "cvl_domain_events_queue"
@@ -27,7 +28,7 @@ module "cvl_domain_events_queue" {
 }
 
 module "cvl_domain_events_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cvl_domain_events_queue_dl"
@@ -81,10 +82,7 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
   endpoint  = module.cvl_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
-      "prisoner-offender-search.prisoner.updated",
-      "prisoner-offender-search.prisoner.received",
       "prisoner-offender-search.prisoner.released"
     ]
   })

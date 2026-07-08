@@ -380,6 +380,80 @@ resource "kubernetes_role_binding" "emails" {
   }
 }
 
+# Service account for the deploy repo's approval-gated "Deploy to prod" GitHub Actions workflow.
+# It promotes app versions in the prod namespace: `manage.py app deploy/promote prod ...` patches
+# the `app-versions` ConfigMap and the app deployments/cronjobs. Its token is exported (via
+# `manage.py app ci-settings deploy`) as a KUBE_CONFIG_DATA secret scoped to the protected `prod`
+# GitHub Environment, so prod-write access is only available to approved prod-deploy runs.
+module "service-account-github-actions-deploy" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+
+  namespace          = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+
+  serviceaccount_name = "github-actions-deploy"
+  role_name           = "github-actions-deploy"
+  rolebinding_name    = "github-actions-deploy"
+
+  serviceaccount_token_rotated_date = "05-07-2026"
+
+  serviceaccount_rules = [
+    {
+      # `manage.py app deploy` reads then `kubectl replace`s (update) the app-versions
+      # ConfigMap, and `create`s it on a namespace that has none yet
+      api_groups = [""]
+      resources  = ["configmaps"]
+      verbs      = ["get", "create", "update"]
+    },
+    {
+      api_groups = ["extensions", "apps"]
+      resources  = ["deployments"]
+      verbs      = ["get", "patch"]
+    },
+    {
+      api_groups = ["batch"]
+      resources  = ["cronjobs"]
+      verbs      = ["get", "patch"]
+    },
+  ]
+}
+
+# Scoped read of just the in-cluster `ecr` secret (kept separate so it can use resource_names,
+# which the shared service-account module rules do not). `manage.py app deploy` reads this to
+# build the image reference before patching.
+resource "kubernetes_role" "github-actions-deploy-ecr" {
+  metadata {
+    namespace = var.namespace
+    name      = "github-actions-deploy-ecr"
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    verbs          = ["get"]
+    resource_names = ["ecr"]
+  }
+}
+
+resource "kubernetes_role_binding" "github-actions-deploy-ecr" {
+  metadata {
+    namespace = var.namespace
+    name      = "github-actions-deploy-ecr"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.github-actions-deploy-ecr.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    namespace = var.namespace
+    name      = module.service-account-github-actions-deploy.service_account.name
+  }
+}
+
 resource "kubernetes_role" "github-actions" {
   metadata {
     namespace = var.namespace

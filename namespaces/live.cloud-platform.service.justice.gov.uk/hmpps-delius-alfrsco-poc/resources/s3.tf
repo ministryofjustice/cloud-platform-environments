@@ -1,10 +1,10 @@
 module "s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = var.versioning
@@ -95,12 +95,12 @@ resource "kubernetes_secret" "s3_bucket_data_refresh" {
 ############
 
 module "s3_backups_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = var.versioning
@@ -147,12 +147,12 @@ resource "kubernetes_secret" "s3_backups_bucket" {
 #######################################
 
 module "s3_logging_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = var.versioning
@@ -170,4 +170,3 @@ resource "kubernetes_secret" "s3_logging_bucket" {
     BUCKET_NAME = module.s3_logging_bucket.bucket_name
   }
 }
-

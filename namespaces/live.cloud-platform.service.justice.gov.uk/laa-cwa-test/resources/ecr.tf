@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # REQUIRED: Repository configuration
   team_name = var.team_name
@@ -16,7 +16,7 @@ module "ecr" {
   oidc_providers = ["github", "circleci"]
 
   # REQUIRED: GitHub repositories that push to this container repository
-  github_repositories = ["laa-cwa-feature-tests", "laa-cwa"]
+  github_repositories = ["laa-cwa"]
 
   # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
   # github_environments = ["production"]

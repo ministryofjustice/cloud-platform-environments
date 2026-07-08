@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -11,6 +11,7 @@ module "irsa" {
   # Attach the appropriate policies using a key => value map. If you're using Cloud Platform provided modules (e.g. SNS,
   # S3), these provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
+    s3                    = module.s3_bucket.irsa_policy_arn
     domain_events_sqs     = module.domain_events_sqs_queue.irsa_policy_arn
     domain_events_sqs_dlq = module.domain_events_sqs_dlq.irsa_policy_arn
     domain_events_sns     = data.aws_ssm_parameter.irsa_policy_arn_sns_domain_events.value

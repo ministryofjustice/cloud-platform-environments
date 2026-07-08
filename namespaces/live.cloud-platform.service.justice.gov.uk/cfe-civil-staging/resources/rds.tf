@@ -6,7 +6,7 @@
  */
 
 module "rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -23,15 +23,16 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
-  # change the postgres version as you see fit.
-  db_engine_version = "14.12"
-
-  # change the instance class as you see fit.
-  db_instance_class = "db.t4g.small"
-
-  # rds_family should be one of: postgres10, postgres11, postgres12, postgres13, postgres14
-  # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  # Database configuration
+  prepare_for_major_upgrade   = false
+  db_engine                   = "postgres"
+  db_engine_version           = "18.1"
+  rds_family                  = "postgres18"
+  db_instance_class           = "db.t4g.micro"
+  allow_minor_version_upgrade = "true"
+  allow_major_version_upgrade = "false"
+  enable_rds_auto_start_stop  = true
+  db_max_allocated_storage    = "500"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -43,16 +44,12 @@ module "rds" {
   #   }
   # ]
 
-  # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = "false"
-
-  # Enable auto start and stop of the RDS instances during 10:00 PM - 6:00 AM for cost saving, recommended for non-prod instances
-  # enable_rds_auto_start_stop  = true
-
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -61,8 +58,10 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 0
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  count                = 0
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -94,6 +93,7 @@ module "read_replica" {
     aws = aws.london
   }
 
+
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
 
@@ -118,7 +118,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
+    jdbc_url              = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}?user=${module.rds.database_username}&password=${module.rds.database_password}"
 
   }
   /* You can replace all of the above with the following, if you prefer to

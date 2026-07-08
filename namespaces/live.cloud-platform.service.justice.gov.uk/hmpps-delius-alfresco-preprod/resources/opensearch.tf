@@ -13,7 +13,7 @@ module "opensearch" {
   cluster_config = {
     # Nodes
     instance_count = 3 # should always a multiple of 3, to split nodes evenly across three availability zones
-    instance_type  = "m7g.xlarge.search"
+    instance_type  = "m7g.2xlarge.search"
 
     # Dedicated primary nodes
     dedicated_master_enabled = true
@@ -34,9 +34,9 @@ module "opensearch" {
 
   ebs_options = {
     volume_type = "gp3"
-    volume_size = 256 # Storage (GBs per node)
+    volume_size = 512 # Storage (GBs per node)
     throughput  = 250
-    iops        = 8000
+    iops        = 7000
   }
 
   # Tags
@@ -45,7 +45,7 @@ module "opensearch" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "opensearch" {
 #######################################
 
 module "s3_opensearch_snapshots_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # Tags
   business_unit          = var.business_unit
@@ -75,7 +75,7 @@ module "s3_opensearch_snapshots_bucket" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 
@@ -105,4 +105,49 @@ resource "aws_iam_access_key" "opensearch_snapshots" {
 resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
   policy_arn = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
   user       = aws_iam_user.opensearch_snapshots.name
+}
+
+# Enable preprod snapshot role to access prod snapshot S3 bucket
+data "aws_ssm_parameter" "s3_bucket_arn" {
+  name = "/hmpps-delius-alfresco-prod/opensearch-snapshot-s3bucket"
+}
+
+resource "aws_iam_policy" "opensearch_s3_listbucket" {
+  name        = "opensearch-s3-listbucket"
+  description = "Allow OpenSearch snapshot role to pull S3 bucket snapshots"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ]
+        Resource = data.aws_ssm_parameter.s3_bucket_arn.value
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${data.aws_ssm_parameter.s3_bucket_arn.value}/*"
+      }
+    ]
+  })
+}
+
+locals {
+  snapshot_role_name = element(
+    split("/", module.opensearch.snapshot_role_arn),
+    1
+  )
+}
+
+resource "aws_iam_role_policy_attachment" "attach_snapshot_listbucket" {
+  role       = local.snapshot_role_name
+  policy_arn = aws_iam_policy.opensearch_s3_listbucket.arn
 }

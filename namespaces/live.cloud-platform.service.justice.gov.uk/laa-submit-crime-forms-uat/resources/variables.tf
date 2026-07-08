@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "CRM457@digital.justice.gov.uk"
+  default     = "NSCC: nscc@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -70,6 +70,12 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "repo_name" {
+  description = "Name of github repository"
+  default = "laa-submit-crime-forms"
+  type = string
 }
 
 variable "serviceaccount_rules" {
@@ -136,4 +142,9 @@ variable "serviceaccount_rules" {
       ]
     }
   ]
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
 }

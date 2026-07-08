@@ -1,12 +1,13 @@
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-access-civil-legal-aid"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-access-civil-legal-aid"]
+  github_actions_prefix = "ACCESS"
 
   # Tags
   business_unit          = var.business_unit

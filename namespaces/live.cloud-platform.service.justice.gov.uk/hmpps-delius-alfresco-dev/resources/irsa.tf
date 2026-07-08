@@ -3,18 +3,19 @@ data "aws_iam_policy" "poc_env_bucket_policy" {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment}"
+  service_account_name = "${var.team_name}-${var.environment_name}"
   role_policy_arns = {
     s3                             = module.s3_bucket.irsa_policy_arn
     s3_refresh_poc                 = data.aws_iam_policy.poc_env_bucket_policy.arn
     rds                            = module.rds_alfresco.irsa_policy_arn
     s3_opensearch_snapshots_bucket = module.s3_opensearch_snapshots_bucket.irsa_policy_arn
+    amq                            = aws_iam_policy.amq.arn
   }
 
   # Tags
@@ -23,7 +24,7 @@ module "irsa" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace # this is also used to attach your service account to your namespace
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 }
 

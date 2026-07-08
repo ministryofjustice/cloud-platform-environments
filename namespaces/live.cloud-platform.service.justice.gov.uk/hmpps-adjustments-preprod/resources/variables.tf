@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-devs"
 }
 
 variable "environment_name" {
@@ -38,7 +38,7 @@ variable "is_production" {
 }
 
 variable "rds_family" {
-  default = "postgres14"
+  default = "postgres17"
 }
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
@@ -52,5 +52,16 @@ variable "github_token" {
   default     = ""
 }
 
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
+}
 
-variable "kubernetes_cluster" {}
+variable "github_actions_team" {
+   default = "hmpps-calculate-release-dates-team-live"
+}
+
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}

@@ -70,4 +70,23 @@ variable "slack_channel" {
   default     = "cica-digital"
 }
 
+variable "repo_name" {
+  description = "List of repos"
+  type        = list
+  default     = [ "cica-apply-application-service", "cica-apply-maintenance-page", "cica-apply-data-capture-service", "cica-apply-web",
+  "cica-apply-notify-gateway", "cica-apply-letter-service"]
+}
+
 variable "kubernetes_cluster" {}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Apply Service"
+}
+
+variable "dcs_project_id" {
+  type        = string
+  description = "The circle project ID for data-capture-service"
+  default     = "88b365db-1d83-4bf0-8313-eb3299ec4be8"
+}

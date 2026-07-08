@@ -1,5 +1,5 @@
 module "hmpps_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
   vpc_name               = var.vpc_name
   application            = var.application
   environment_name       = var.environment-name
@@ -9,7 +9,7 @@ module "hmpps_redis" {
   business_unit          = var.business_unit
   number_cache_clusters  = var.number_cache_clusters
   node_type              = var.node-type
-  engine_version         = "7.0"
+  engine_version         = "7.1"
   parameter_group_name   = "default.redis7"
   namespace              = var.namespace
 

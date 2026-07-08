@@ -7,8 +7,9 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "HMCTS"
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
     cloud-platform.justice.gov.uk/application: "HMCTS Mock API"
-    cloud-platform.justice.gov.uk/owner: "Crime Apps: laa@digital.justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "LAA Access Court Data team: access-court-data-team@digital.justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmcts-common-platform-mock-api"
-    cloud-platform.justice.gov.uk/slack-channel: "laa-crime-apps"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-access-court-data"
+    cloud-platform.justice.gov.uk/team-name: "laa-access-court-data"

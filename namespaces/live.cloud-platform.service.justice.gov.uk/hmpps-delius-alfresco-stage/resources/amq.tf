@@ -56,8 +56,12 @@ resource "random_string" "amq_password" {
   special = false
 }
 
+resource "random_id" "config_id" {
+  byte_length = 8
+}
+
 locals {
-  identifier         = "cloud-platform-${random_id.amq_id.hex}"
+  identifier         = "cloud-platform-${var.environment_name}-${random_id.amq_id.hex}"
   mq_admin_user      = "cp${random_string.amq_username.result}"
   mq_admin_password  = random_string.amq_password.result
   subnets            = data.aws_subnets.this.ids
@@ -97,7 +101,7 @@ resource "aws_mq_broker" "this" {
   engine_type         = local.amq_engine_type
   engine_version      = local.amq_engine_version
   deployment_mode     = "SINGLE_INSTANCE"
-  host_instance_type  = "mq.m5.xlarge"
+  host_instance_type  = "mq.m5.2xlarge"
   publicly_accessible = false
   subnet_ids          = [local.subnets[0]]
   security_groups     = [aws_security_group.broker_sg.id]
@@ -109,7 +113,7 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
-  apply_immediately = false
+  apply_immediately = true
 
   storage_type = "ebs"
 
@@ -119,7 +123,6 @@ resource "aws_mq_broker" "this" {
     groups         = ["admin"]
     console_access = true
   }
-
 
   logs {
     general = true
@@ -136,27 +139,44 @@ resource "aws_mq_broker" "this" {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment
+    environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = var.team_name
   }
 
- lifecycle {
-   ignore_changes = [
-    engine_version,
-    configuration
-    ]
- }
+  # lifecycle {
+  #   ignore_changes = [
+  #     configuration,
+  #     engine_version
+  #   ]
+  # }
 }
 
 resource "aws_mq_configuration" "this" {
   description    = "Alfresco Amazon MQ configuration"
-  name           = "alfresco-amq-configuration"
+  name           = "alfresco-amq-${var.environment_name}-${random_id.config_id.hex}-configuration"
   engine_type    = local.amq_engine_type
   engine_version = local.amq_engine_version
 
   data = file("${path.module}/files/amq_config.xml")
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [data]
+  }
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment_name
+    owner                  = var.team_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+    GithubTeam             = var.team_name
+  }
 }
 
 resource "kubernetes_secret" "amazon_mq" {
@@ -167,7 +187,7 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000"
+    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})?timeout=3000"
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
@@ -194,16 +214,16 @@ data "aws_iam_policy_document" "amq" {
       "mq:UpdateConfiguration",
       "mq:UpdateUser"
     ]
-    resources = [aws_mq_broker.this.arn, "arn:aws:mq:eu-west-2:*:configuration:*"]
+    resources = [aws_mq_broker.this.arn]
   }
 }
 
-data "aws_cloudwatch_log_group" "mq_broker_logs" {
-  for_each = {
-    general = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
-    audit   = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
-  }
-  name = each.value
+data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
+}
+
+data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
 }
 
 data "aws_iam_policy_document" "amq_cw_logs" {
@@ -217,12 +237,12 @@ data "aws_iam_policy_document" "amq_cw_logs" {
       "logs:TestMetricFilter",
       "logs:FilterLogEvents",
     ]
-    resources = [for lg in data.aws_cloudwatch_log_group.mq_broker_logs : lg.arn]
+    resources = [data.aws_cloudwatch_log_group.mq_broker_logs_general.arn, data.aws_cloudwatch_log_group.mq_broker_logs_audit.arn]
   }
 }
 
 resource "aws_iam_policy" "amq" {
-  name        = "cloud-platform-mq-${random_id.amq_id.hex}"
+  name        = "cloud-platform-mq-${var.environment_name}-${random_id.amq_id.hex}"
   description = "IAM policy for Amazon MQ"
   policy      = data.aws_iam_policy_document.amq.json
 }

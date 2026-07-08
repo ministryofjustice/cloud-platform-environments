@@ -1,5 +1,5 @@
 module "evidencelibrary_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   acl                    = "private"
   versioning             = true
   team_name              = var.team_name

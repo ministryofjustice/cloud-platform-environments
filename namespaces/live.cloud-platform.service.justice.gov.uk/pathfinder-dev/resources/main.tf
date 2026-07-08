@@ -8,7 +8,19 @@ provider "aws" {
 
   default_tags {
     tags = {
-      GithubTeam = "secure-estate-digital-team"
+      GithubTeam = "hmpps-security-intelligence"
+    }
+  }
+}
+
+# To be use in case the resources need to be created in London
+provider "aws" {
+  alias  = "london"
+  region = "eu-west-2"
+
+  default_tags {
+    tags = {
+      GithubTeam = "hmpps-security-intelligence"
     }
   }
 }

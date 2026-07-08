@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-access-civil-legal-aid-dnstest-cert
+  namespace: laa-access-civil-legal-aid-dnstest
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - dnstest.checklegalaid.service.gov.uk

@@ -1,5 +1,5 @@
 module "risk_profiler_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = false
@@ -20,7 +20,7 @@ module "risk_profiler_s3_bucket" {
             "Principal": {
                 "AWS":
                   [
-                    "arn:aws:iam::593291632749:role/airflow_prod_sdt_viper_to_external"
+                    "arn:aws:iam::593291632749:role/airflow-production-prison-safety-dsai-sdt-viper-to-external"
                   ]
             },
             "Action": [

@@ -16,8 +16,14 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  description = "The name of your development team"
-  default     = "dps-core"
+  description = "Name of the development team responsible for this service"
+  type        = string
+  default     = "hmpps-move-and-improve"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
 }
 
 variable "environment" {
@@ -26,8 +32,9 @@ variable "environment" {
 }
 
 variable "infrastructure_support" {
-  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "HMPPSLiveServicesMaintenanceTeam@JusticeUK.onmicrosoft.com"
 }
 
 variable "is_production" {
@@ -35,8 +42,9 @@ variable "is_production" {
 }
 
 variable "slack_channel" {
-  description = "Team slack channel to use if we need to contact your team"
-  default     = "dps_adjudications"
+  description = "Slack channel name for your team, if we need to contact you about this service"
+  type        = string
+  default     = "ask-live-services-maintenance-team"
 }
 
 variable "eks_cluster_name" {
@@ -54,5 +62,10 @@ variable "github_token" {
   default     = ""
 }
 
-
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

@@ -18,6 +18,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "check-my-diary"
@@ -25,7 +30,7 @@ variable "team_name" {
 
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -45,6 +50,7 @@ variable "slack_channel" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string

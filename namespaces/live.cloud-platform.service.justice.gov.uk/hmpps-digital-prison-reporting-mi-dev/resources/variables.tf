@@ -70,3 +70,10 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+# Pushgateway configuration
+variable "service_monitor" {
+  description = "If true, prometheus will automatically scrape the pushgateway"
+  type        = bool
+  default     = true
+}

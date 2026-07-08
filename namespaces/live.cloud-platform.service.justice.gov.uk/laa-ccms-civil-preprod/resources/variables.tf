@@ -17,7 +17,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Civil applications and billing"
+  default     = "Modernised PUI"
 }
 
 variable "namespace" {
@@ -30,6 +30,12 @@ variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
   default     = "LAA"
+}
+
+variable "service_area" {
+  description = "Full name of the Service Area in which the team is based"
+  type        = string
+  default     = "Oracle Service Area"
 }
 
 variable "team_name" {
@@ -47,7 +53,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-civil-applications@digital.justice.gov.uk"
+  default     = "laaccmspuimodernisation@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -59,7 +65,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ccms-civil-preprod"
+  default     = "laa-ccms-pui-support"
 }
 
 variable "github_owner" {

@@ -1,4 +1,5 @@
 ######################################## Prison visits notification alerts for visit someone in prison
+  
 ######## This will also the notification service to respond to visit events such as BOOKING and CANCELLATION or CHANGED
 ######## Main queue
 
@@ -11,19 +12,22 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_notification_alerts_s
     eventType = [
       "prison-visit.booked",
       "prison-visit.changed",
-      "prison-visit.cancelled"
+      "prison-visit.cancelled",
+      "prison-visit-request.approved",
+      "prison-visit-booker.visitor-approved",
+      "prison-visit-booker.visitor-rejected"
     ]
   })
 }
 
 module "hmpps_prison_visits_notification_alerts_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_notification_alerts_queue"
   encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
+  message_retention_seconds  = 43200 # 12 hours
+  visibility_timeout_seconds = 120 # 2 minutes
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
@@ -34,7 +38,7 @@ module "hmpps_prison_visits_notification_alerts_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -74,17 +78,19 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_notification_alerts_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_notification_alerts_dlq"
   encrypt_sqs_kms = "true"
+  message_retention_seconds  = 21600 # 6 hours
+  visibility_timeout_seconds = 120 # 2 minutes
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

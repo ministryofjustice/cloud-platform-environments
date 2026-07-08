@@ -5,7 +5,7 @@
  *
  */
 module "s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -119,7 +119,7 @@ data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.upload_user_prod.arn , "arn:aws:iam::754256621582:role/cloud-platform-irsa-eebd741d5bddcdd2-live"]
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-eebd741d5bddcdd2-live"]
     }
     actions = [
       "s3:GetBucketLocation",

@@ -1,5 +1,5 @@
 module "rds-instance-migrated" {
-  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=migration"
+  source   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -10,26 +10,27 @@ module "rds-instance-migrated" {
   team_name              = var.team_name
   business_unit          = var.business_unit
 
-  enable_rds_auto_start_stop = true
-
+  enable_rds_auto_start_stop = false
 
   # Database configuration
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2024-07.rur-2024-07.r1"
+  db_engine_version        = "19.0.0.0.ru-2026-01.rur-2026-01.r3"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.medium"
+  storage_type             = "gp2"
   db_allocated_storage     = "300"
   db_max_allocated_storage = "500"
   db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" # problem  
+  character_set_name       = "WE8MSWIN1252"
+  option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cclf-dev-cp-migration-23092024-manual-copy"
 
@@ -53,6 +54,8 @@ module "rds-instance-migrated" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   is_migration = true
 
+
+  enable_irsa = true
 }
 
 
@@ -109,6 +112,117 @@ resource "aws_security_group_rule" "rule4" {
   from_port         = 1521
   to_port           = 1521
   security_group_id = aws_security_group.rds.id
+}
+
+# Allow the Hub 2.0 Lambda move provider details into the CCLF database
+# Allow MojFin to extract data fromt he CCLF database for reporting
+resource "aws_security_group_rule" "mp_dev_subnet_data_2a" {
+  cidr_blocks       = ["10.26.60.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform dev data subnet 2a to connect CCLF DB"
+}
+
+# Allow MojFin to extract data fromt he CCLF database for reporting
+resource "aws_security_group_rule" "mp_dev_subnet_data_2b" {
+  cidr_blocks       = ["10.26.61.0/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform dev data subnet 2b to connect CCLF DB"
+}
+
+# Allow MojFin to extract data fromt he CCLF database for reporting
+resource "aws_security_group_rule" "mp_dev_subnet_data_2c" {
+  cidr_blocks       = ["10.26.61.128/25"]
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 1521
+  to_port           = 1521
+  security_group_id = aws_security_group.rds.id
+  description       = "Modernisation Platform dev data subnet 2c to connect CCLF DB"
+}
+
+#RDS role to access HUB 2.0 S3 Bucket
+resource "aws_iam_role" "rds_s3_access" {
+  name = "rds-hub20-s3-access"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "rds.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "rds_s3_access_policy" {
+  name        = "rds-hub20-s3-bucket-policy"
+  description = "Allow Oracle RDS instance to read objects from HUB 2.0 S3 bucket"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:GetObjectVersion",
+          "s3:ListBucket",
+          "s3:ListBucketVersions"
+        ],
+        Resource = [
+          "arn:aws:s3:::hub20-development-cwa-extract-data",
+          "arn:aws:s3:::hub20-development-cwa-extract-data/*"  
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_db_option_group" "rds_s3_option_group" {
+  name                     = "${var.namespace}-option-group"
+  option_group_description = "Option group with S3 integration"
+  engine_name              = "oracle-se2"
+  major_engine_version     = "19"
+
+  option {
+    option_name = "S3_INTEGRATION"
+  }
+
+  tags = {
+    name                   = "${var.namespace}-option-group"
+    application            = var.application
+    business_unit          = var.business_unit
+    environment_name       = var.environment
+    infrastructure_support = var.infrastructure_support
+    is_production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+    service_area           = var.service_area
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "rds_s3_access_policy_attachment" {
+  role       = aws_iam_role.rds_s3_access.name
+  policy_arn = aws_iam_policy.rds_s3_access_policy.arn
+}
+
+resource "aws_db_instance_role_association" "rds_s3_role_association" {
+  db_instance_identifier = module.rds-instance-migrated.db_identifier
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = aws_iam_role.rds_s3_access.arn
 }
 
 resource "kubernetes_secret" "rds-instance-migrated" {

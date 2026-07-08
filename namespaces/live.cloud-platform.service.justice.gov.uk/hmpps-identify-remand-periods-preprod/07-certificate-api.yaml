@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - identify-remand-periods-api-preprod.hmpps.service.justice.gov.uk
+    - identify-remand-periods-api-alt-preprod.hmpps.service.justice.gov.uk

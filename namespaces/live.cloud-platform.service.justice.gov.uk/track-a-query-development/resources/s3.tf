@@ -4,7 +4,7 @@
 #################################################################################
 
 module "track_a_query_s3" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -16,7 +16,7 @@ module "track_a_query_s3" {
   cors_rule = [
     {
       allowed_headers = ["*"]
-      allowed_methods = ["GET", "POST", "PUT"]
+      allowed_methods = ["GET", "POST", "PUT", "DELETE"]
       allowed_origins = [
         "https://development.track-a-query.service.justice.gov.uk",
         "http://localhost:3000"

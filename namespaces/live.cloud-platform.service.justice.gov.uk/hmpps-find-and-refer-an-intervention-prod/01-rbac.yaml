@@ -1,0 +1,17 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-find-and-refer-an-intervention-prod-admin
+  namespace: hmpps-find-and-refer-an-intervention-prod
+subjects:
+  - kind: Group
+    name: "github:hmpps-find-and-refer-an-intervention"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+    # hmpps-sre group is required for support functions
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

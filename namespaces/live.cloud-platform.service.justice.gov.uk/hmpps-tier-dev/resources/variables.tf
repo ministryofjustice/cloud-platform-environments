@@ -19,14 +19,19 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
-variable "team_name" {
-  description = "The name of your development team"
-  default     = "manage-a-workforce" # actually probation-integration, but changing this would recreate the queue and DB
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Probation Integration"
 }
 
-variable "environment-name" {
+variable "team_name" {
+  description = "The name of your development team"
+  default     = "probation-integration"
+}
+
+variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -36,6 +41,11 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "false"
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "probation-integration-team"
 }
 
 variable "github_owner" {

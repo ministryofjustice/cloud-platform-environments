@@ -1,5 +1,7 @@
 module "identify_remand_periods_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage        = 10
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -12,11 +14,13 @@ module "identify_remand_periods_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000" # maximum storage for autoscaling
-  db_engine_version           = "15"
+  db_engine_version           = "17.4"
+  prepare_for_major_upgrade = false
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "identify_remand_periods_rds" {

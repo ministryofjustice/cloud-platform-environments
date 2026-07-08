@@ -5,7 +5,8 @@
  *
 */
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -33,6 +34,7 @@ module "rds_mssql" {
       value        = "1"
       apply_method = "pending-reboot"
     }
+
   ]
 
   # Tags
@@ -43,6 +45,8 @@ module "rds_mssql" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds_mssql" {
@@ -52,8 +56,8 @@ resource "kubernetes_secret" "rds_mssql" {
   }
 
   data = {
-    database_username     = module.rds_mssql.database_username
-    database_password     = module.rds_mssql.database_password
+    database_username = module.rds_mssql.database_username
+    database_password = module.rds_mssql.database_password
   }
 }
 
@@ -70,7 +74,7 @@ resource "kubernetes_config_map" "rds_mssql" {
 }
 
 # module "rds_mssql_read_replica" {
-#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
 #   # VPC configuration
 #   vpc_name = var.vpc_name
@@ -88,6 +92,7 @@ resource "kubernetes_config_map" "rds_mssql" {
 #       value        = "1"
 #       apply_method = "pending-reboot"
 #     }
+
 #   ]
 
 #   # Tags

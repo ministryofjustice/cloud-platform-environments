@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-custody-mailbox-register-api-cert
+  namespace: hmpps-manage-custody-mailbox-register-dev
+spec:
+  secretName: hmpps-manage-custody-mailbox-register-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-custody-mailbox-register-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-manage-custody-mailbox-register-cert
+  namespace: hmpps-manage-custody-mailbox-register-dev
+spec:
+  secretName: hmpps-manage-custody-mailbox-register-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-custody-mailbox-register-dev.hmpps.service.justice.gov.uk

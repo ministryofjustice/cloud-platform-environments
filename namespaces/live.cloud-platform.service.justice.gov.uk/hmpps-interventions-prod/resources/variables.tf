@@ -23,12 +23,19 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-interventions"
+  default     = "hmpps-interventions-dev"
 }
 
 variable "environment" {
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "prod"
+}
+
+variable "environment_name" {
   description = "The type of environment you're deploying to."
-  default     = "production"
+  type        = string
+  default     = "prod"
 }
 
 variable "infrastructure_support" {

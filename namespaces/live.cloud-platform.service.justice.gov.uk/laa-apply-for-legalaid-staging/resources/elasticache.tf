@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-elasticache" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=7.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
 
   vpc_name               = var.vpc_name
   team_name              = "apply-for-legal-aid"
@@ -13,7 +13,7 @@ module "apply-for-legal-aid-elasticache" {
   application            = "laa-apply-for-legal-aid"
   is_production          = "false"
   environment_name       = "staging"
-  infrastructure_support = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  infrastructure_support = "apply-for-civil-legal-aid@justice.gov.uk"
   node_type              = "cache.t4g.small"
   engine_version         = "7.0"
   parameter_group_name   = "default.redis7"
@@ -22,6 +22,8 @@ module "apply-for-legal-aid-elasticache" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-elasticache" {

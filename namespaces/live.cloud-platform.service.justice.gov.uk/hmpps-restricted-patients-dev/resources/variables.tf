@@ -20,19 +20,19 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Manage Custody"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "dps-core"
 }
 
-variable "environment-name" {
-  description = "The type of environment you're deploying to."
-  default     = "dev"
-}
-
 variable "environment" {
   description = "The type of environment you're deploying to."
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -51,6 +51,10 @@ variable "slack_channel" {
 
 variable "number_cache_clusters" {
   default = "2"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "github_owner" {

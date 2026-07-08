@@ -1,5 +1,5 @@
 module "truststore_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -45,7 +45,7 @@ resource "aws_s3_object" "truststore" {
 }
 
 module "certificate_backup" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -69,6 +69,7 @@ module "certificate_backup" {
       "Action": [
         "s3:GetObject",
         "s3:PutObject",
+        "s3:DeleteObject",
         "s3:GetObjectVersion"
       ],
       "Resource": [
@@ -93,7 +94,7 @@ resource "kubernetes_secret" "certificate_backup_secret" {
   }
   data = {
     bucket_name                        = module.certificate_backup.bucket_name
-    event_service_certificate_path     = "event-service/client-debug.p12"
+    event_service_certificate_path     = "event-service/client.p12"
     event_service_certificate_password = random_password.event_service_certificate_password.result
   }
 }

@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Crown Court Litigator Fees"
+  default     = "crown-court-litigator-fees"
 }
 
 variable "namespace" {
@@ -125,4 +125,42 @@ variable "serviceaccount_rules" {
       ]
     },
   ]
+}
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "cclf-production-userpool"
+}
+
+variable "cognito_user_pool_client_name" {
+  description = "Cognito user pool client name"
+  default     = "maat-production"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "cclf-production"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "cclf-production-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "cclf-production"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
 }

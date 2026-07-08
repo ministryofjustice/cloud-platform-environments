@@ -11,13 +11,15 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_search_domain_subscription
       "incentives.prisoner.next-review-date-changed",
       "restricted-patients.patient.added",
       "restricted-patients.patient.removed",
-      "restricted-patients.patient.supporting-prison-changed"
+      "restricted-patients.patient.supporting-prison-changed",
+      "person.alerts.changed",
+      "complexity-of-need.level.changed"
     ]
   })
 }
 
 module "hmpps_prisoner_search_domain_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_prisoner_search_domain_queue"
@@ -26,7 +28,7 @@ module "hmpps_prisoner_search_domain_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_search_domain_dlq.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 5
   })
 
   # Tags
@@ -73,7 +75,7 @@ EOF
 }
 
 module "hmpps_prisoner_search_domain_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_search_domain_dlq"

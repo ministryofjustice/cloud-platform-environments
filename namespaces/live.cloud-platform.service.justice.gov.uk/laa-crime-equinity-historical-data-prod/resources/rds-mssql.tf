@@ -5,7 +5,8 @@
  *
 */
 module "rds_mssql" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -34,6 +35,7 @@ module "rds_mssql" {
       value        = "1"
       apply_method = "pending-reboot"
     }
+
   ]
 
   # Tags
@@ -64,6 +66,16 @@ resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   option_group_description = "Enable SQL Server Backup/Restore"
   engine_name              = "sqlserver-web"
   major_engine_version     = "15.00"
+
+  tags = {
+    application            = var.application
+    business-unit          = var.business_unit
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    is-production          = var.is_production
+    namespace              = var.namespace
+    team_name              = var.team_name
+  }
 
   option {
     option_name = "SQLSERVER_BACKUP_RESTORE"

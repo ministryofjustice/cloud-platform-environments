@@ -1,5 +1,6 @@
 module "create_link_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "create-link-queue-m"
@@ -17,7 +18,8 @@ module "create_link_queue_m" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -42,8 +44,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
-            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
               ]
           },
           "Resource": "${module.create_link_queue_m.sqs_arn}",
@@ -55,7 +56,7 @@ resource "aws_sqs_queue_policy" "create_link_queue_m_policy" {
 }
 
 module "create_link_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "create-link-queue-dl-m"
@@ -65,7 +66,8 @@ module "create_link_queue_m_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -76,7 +78,7 @@ module "create_link_queue_m_dead_letter_queue" {
 }
 
 module "unlink_queue_m" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "unlink-queue-m"
@@ -94,7 +96,8 @@ module "unlink_queue_m" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -118,8 +121,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_m_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
-            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
               ]
           },
           "Resource": "${module.unlink_queue_m.sqs_arn}",
@@ -131,7 +133,7 @@ resource "aws_sqs_queue_policy" "unlink_queue_m_policy" {
 }
 
 module "unlink_queue_m_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "unlink-queue-dl-m"
@@ -141,7 +143,8 @@ module "unlink_queue_m_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -152,7 +155,7 @@ module "unlink_queue_m_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hearing-resulted-queue"
@@ -170,7 +173,8 @@ module "hearing_resulted_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -194,8 +198,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
-            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
               ]
           },
           "Resource": "${module.hearing_resulted_queue.sqs_arn}",
@@ -207,7 +210,7 @@ resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hearing-resulted-queue-dl"
@@ -217,7 +220,8 @@ module "hearing_resulted_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -228,7 +232,7 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "prosecution-concluded-queue"
@@ -246,7 +250,8 @@ module "prosecution_concluded_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -257,7 +262,7 @@ module "prosecution_concluded_queue" {
 }
 
 module "prosecution_concluded_dl_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "prosecution-concluded-queue-dl"
@@ -267,7 +272,8 @@ module "prosecution_concluded_dl_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  # TODO: Switch this to var.team_name when we are ready to switch the queue
+  team_name = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -291,8 +297,7 @@ resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0",
-            "arn:aws:iam::580202064026:role/maat-api-task-execution-role"
+            "arn:aws:iam::411213865113:role/LAA-maat-cd-api-development-ECSTaskExecutionRole-14XJSFYJHCVF0"
               ]
           },
           "Resource": "${module.prosecution_concluded_queue.sqs_arn}",

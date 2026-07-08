@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -8,11 +8,12 @@ module "irsa" {
   service_account_name = "prisoner-content-hub"
   namespace            = var.namespace # this is also used as a tag
 
-  # Attach the approprate policies using a key => value map
+  # Attach the appropriate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3 = module.drupal_content_storage_2.irsa_policy_arn
+    s3  = module.drupal_content_storage_2.irsa_policy_arn
+    rds = module.drupal_rds.irsa_policy_arn
   }
 
   # Tags

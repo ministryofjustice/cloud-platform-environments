@@ -26,7 +26,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-probation-integration"
+  default     = "probation-integration"
 }
 
 variable "environment" {
@@ -56,4 +56,8 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "analytical_platform_compute_account_id" {
+  default = "381491960855"
 }

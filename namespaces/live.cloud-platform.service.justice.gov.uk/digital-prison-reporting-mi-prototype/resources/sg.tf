@@ -17,9 +17,18 @@ resource "aws_security_group" "rds" {
   }
 }
 
-resource "aws_security_group_rule" "rule" {
+resource "aws_security_group_rule" "ingress_rule" {
   cidr_blocks       = ["10.26.24.0/21", "10.26.8.0/21", "10.27.0.0/21", "10.27.8.0/21"]
   type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 5432
+  to_port           = 5432
+  security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_security_group_rule" "egress_rule" {
+  cidr_blocks       = ["10.26.24.0/21", "10.26.8.0/21", "10.27.0.0/21", "10.27.8.0/21"]
+  type              = "egress"
   protocol          = "tcp"
   from_port         = 5432
   to_port           = 5432

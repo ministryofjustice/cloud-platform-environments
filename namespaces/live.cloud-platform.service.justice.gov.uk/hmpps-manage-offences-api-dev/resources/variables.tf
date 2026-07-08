@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-devs"
 }
 
 variable "environment" {
@@ -42,7 +42,11 @@ variable "slack_channel" {
 }
 
 variable "rds_family" {
-  default = "postgres14"
+  default = "postgres18"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 
 variable "eks_cluster_name" {
@@ -60,5 +64,15 @@ variable "github_token" {
   default     = ""
 }
 
+variable "service_area" {
+  description = "The full name of the Service Area in which your team is based"
+  default     = "Manage Custody"
+}
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

@@ -21,15 +21,21 @@ variable "namespace" {
 }
 
 variable "business_unit" {
-  description = "Area of the MOJ responsible for this service"
+  description = "Area of the MOJ responsible for the service"
   type        = string
-  default     = "Platforms"
+  default     = "OCTO"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "data-platform-labs"
+  default     = "findmojdata"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Data Platform"
 }
 
 variable "environment" {
@@ -69,4 +75,86 @@ variable "github_token" {
 }
 
 variable "eks_cluster_name" {
+}
+
+variable "backup_window" {
+  type = string
+  default = "22:00-23:59"
+}
+
+variable "maintenance_window" {
+  default = "Sun:12:00-Sun:21:00"
+}
+
+variable "enable_rds_auto_start_stop" {
+  description = "Whether to enable RDS auto start/stop"
+  type        = bool
+  default     = true
+}
+
+variable "db_max_allocated_storage" {
+  description = "The maximum allocated storage for the RDS instance"
+  type        = string
+  default     = "100"
+}
+variable "db_allocated_storage" {
+  description = "The allocated storage for the RDS instance"
+  type        = number
+  default     = 10
+}
+
+variable storage_type {
+  description = "The storage type for the RDS instance"
+  type        = string
+  default     = "gp2"
+}
+
+variable allow_minor_version_upgrade {
+  description = "Whether to allow minor version upgrades for the RDS instance"
+  type        = bool
+  default     = true
+}
+variable allow_major_version_upgrade {
+  description = "Whether to allow major version upgrades for the RDS instance"
+  type        = bool
+  default     = false
+}
+variable prepare_for_major_upgrade {
+  description = "Whether to prepare for major upgrades for the RDS instance"
+  type        = bool
+  default     = false
+}
+
+variable "deletion_protection" {
+  description = "Whether to enable deletion protection for the RDS instance"
+  type        = bool
+  default     = false
+}
+
+variable "performance_insights_enabled" {
+  description = "Whether to enable performance insights for the RDS instance"
+  type        = bool
+  default     = false
+  
+}
+variable db_engine {
+  description = "The database engine to use for the RDS instance"
+  type        = string
+  default     = "postgres"
+}
+
+variable db_engine_version {
+  description = "The database engine version to use for the RDS instance"
+  type        = string
+  default     = "17.7"
+}
+variable rds_family {
+  description = "The RDS family to use for the RDS instance"
+  type        = string
+  default     = "postgres17"
+}
+variable db_instance_class {
+  description = "The instance class to use for the RDS instance"
+  type        = string
+  default     = "db.t4g.micro"
 }

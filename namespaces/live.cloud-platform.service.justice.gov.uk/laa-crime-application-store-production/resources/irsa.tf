@@ -1,5 +1,12 @@
+data "kubernetes_secret" "s3_bucket_arns" {
+  metadata {
+    name      = "s3-bucket-output"
+    namespace = var.namespace
+  }
+}
+
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -13,6 +20,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
+    s3 = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
   }
 
   # Tags

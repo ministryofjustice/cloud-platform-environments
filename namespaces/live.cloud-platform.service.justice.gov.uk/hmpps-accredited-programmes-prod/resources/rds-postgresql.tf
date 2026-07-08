@@ -5,24 +5,26 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-#  enable_rds_auto_start_stop   = true # Commenting - we want the service to be running 24/7 which is why we are commenting this line.
+  # enable_rds_auto_start_stop   = true # Commenting - we want the service to be running 24/7 which is why we are commenting this line.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
+  prepare_for_major_upgrade = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.12"
-  rds_family        = "postgres14"
-  db_instance_class = "db.t4g.micro"
+  db_engine_version = "16.8"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -32,6 +34,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
@@ -61,4 +65,10 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }

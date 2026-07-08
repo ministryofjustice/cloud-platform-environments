@@ -69,6 +69,20 @@ module "drupal_content_storage_2" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Sid": "AllowCloudFrontServicePrincipalReadOnly",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::cloud-platform-ee432bcfffe38a157f08669a6d4b7740/*",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceArn": "arn:aws:cloudfront::754256621582:distribution/E354P1FJK4AS3I"
+        }
+      }
     }
   ]
 }

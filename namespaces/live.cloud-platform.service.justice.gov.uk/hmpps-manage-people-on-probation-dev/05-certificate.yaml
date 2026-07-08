@@ -1,0 +1,68 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-people-on-probation-dev.hmpps.service.justice.gov.uk
+  namespace: hmpps-manage-people-on-probation-dev
+spec:
+  secretName: hmpps-manage-people-on-probation-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - manage-people-on-probation-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: feature-flags-manage-people-on-probation-cert
+  namespace: hmpps-manage-people-on-probation-dev
+spec:
+  secretName: feature-flags-manage-people-on-probation-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - feature-flags-manage-people-on-probation-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: probation-supervision-appointments-api-cert
+  namespace: hmpps-manage-people-on-probation-dev
+spec:
+  secretName: probation-supervision-appointments-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - probation-supervision-appointments-api-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: probation-supervision-reminders-ui-cert
+  namespace: hmpps-manage-people-on-probation-dev
+spec:
+  secretName: probation-supervision-reminders-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - probation-supervision-reminders-ui-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-probation-supervision-contacts-ui-cert
+  namespace: hmpps-manage-people-on-probation-dev
+spec:
+  secretName: hmpps-probation-supervision-contacts-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - probation-supervision-contacts-ui-dev.hmpps.service.justice.gov.uk

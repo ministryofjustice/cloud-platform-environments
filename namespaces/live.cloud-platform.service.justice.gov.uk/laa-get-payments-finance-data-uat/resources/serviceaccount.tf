@@ -4,11 +4,11 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["payforlegalaid"]
+  github_repositories = ["payforlegalaid", "payforlegalaid-ui", "payforlegalaid-data"]
   github_environments = ["uat"]
 
 

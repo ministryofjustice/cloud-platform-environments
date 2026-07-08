@@ -1,5 +1,6 @@
 module "prisoner_from_nomis_courtsentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "prisoner_from_nomis_courtsentencing_queue"
@@ -9,7 +10,7 @@ module "prisoner_from_nomis_courtsentencing_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 20
   })
 
   # Tags
@@ -18,7 +19,7 @@ module "prisoner_from_nomis_courtsentencing_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -44,7 +45,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_courtsentencing_queue_polic
                       {
                         "ArnEquals":
                           {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                            "aws:SourceArn": [
+                              "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                              "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                            ]
                           }
                         }
         }
@@ -56,7 +60,7 @@ EOF
 }
 
 module "prisoner_from_nomis_courtsentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "prisoner_from_nomis_courtsentencing_dl_queue"
@@ -68,7 +72,7 @@ module "prisoner_from_nomis_courtsentencing_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
   providers = {
@@ -110,8 +114,42 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_courtsentencing_subsc
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_CASES-INSERTED",
+      "OFFENDER_CASES-UPDATED",
+      "OFFENDER_CASES-DELETED",
+      "OFFENDER_CASES-LINKED",
+      "OFFENDER_CASES-UNLINKED",
       "COURT_EVENTS-INSERTED",
+      "COURT_EVENTS-DELETED",
+      "COURT_EVENTS-UPDATED",
       "COURT_EVENT_CHARGES-INSERTED",
+      "COURT_EVENT_CHARGES-DELETED",
+      "COURT_EVENT_CHARGES-UPDATED",
+      "COURT_EVENT_CHARGES-LINKED",
+      "OFFENDER_CHARGES-UPDATED",
+      "OFFENDER_CASE_IDENTIFIERS-DELETED",
+      "OFFENDER_CASE_IDENTIFIERS-INSERTED",
+      "OFFENDER_CASE_IDENTIFIERS-UPDATED",
+      "OFFENDER_SENTENCES-INSERTED",
+      "OFFENDER_SENTENCES-DELETED",
+      "OFFENDER_SENTENCES-UPDATED",
+      "OFFENDER_SENTENCE_TERMS-INSERTED",
+      "OFFENDER_SENTENCE_TERMS-DELETED",
+      "OFFENDER_SENTENCE_TERMS-UPDATED",
+      "OFFENDER_SENTENCE_CHARGES-DELETED",
+      "OFFENDER_SENTENCE_CHARGES-INSERTED",
+      "OFFENDER_FIXED_TERM_RECALLS-UPDATED",
+    ]
+  })
+}
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_domain_courtsentencing_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_courtsentencing_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }

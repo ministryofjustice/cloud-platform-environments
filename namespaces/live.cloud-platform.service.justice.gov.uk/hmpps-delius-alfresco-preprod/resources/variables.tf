@@ -26,13 +26,19 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "HMPPS Delius"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
   default     = "hmpps-migration"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "preprod"
@@ -102,9 +108,11 @@ variable "serviceaccount_rules" {
       resources = [
         "pods/exec",
         "pods/portforward",
+        "pods/log",
         "deployment",
         "secrets",
         "services",
+        "serviceaccounts",
         "configmaps",
         "pods",
         "replicationcontrollers",
@@ -180,4 +188,16 @@ variable "serviceaccount_rules" {
       ]
     },
   ]
+}
+
+variable "inventory_prefix" {
+  description = "Prefix inside the inventory destination bucket where S3 Inventory files are written"
+  type        = string
+  default     = "s3-inventory"
+}
+
+variable "expected_keys_location" {
+  description = "S3 URI prefix holding expected_keys.csv exported from RDS (override to use a different bucket/prefix)"
+  type        = string
+  default     = null
 }

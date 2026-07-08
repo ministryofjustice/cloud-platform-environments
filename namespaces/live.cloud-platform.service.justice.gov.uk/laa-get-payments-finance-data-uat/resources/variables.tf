@@ -20,6 +20,12 @@ variable "namespace" {
   default     = "laa-get-payments-finance-data-uat"
 }
 
+variable "data_ecr" {
+  description = "ECR Name of the namespace these resources are part of"
+  type        = string
+  default     = "laa-get-payments-finance-data-uat-data"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -29,7 +35,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "pay-for-legal-aid"
+  default     = "payforlegalaid"
 }
 
 variable "environment" {
@@ -97,4 +103,22 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN_UAT"
   type        = string
   sensitive   = true
+}
+
+variable "file_store_bucket_name" {
+  description = "The name of the S3 bucket used for storing templates"
+  default     = "laa-get-payments-finance-data-uat-file-store"
+  type        = string
+}
+
+variable "report_store_bucket_name" {
+  description = "The name of the S3 bucket used for storing complete reports"
+  default     = "laa-get-payments-finance-data-uat-report-store"
+  type        = string
+}
+
+variable "s3_bucket_report_store_logging" {
+  description = "The name of the S3 bucket used for logging the report store bucket"
+  default     = "laa-get-payments-finance-data-uat-report-store-logging"
+  type        = string
 }

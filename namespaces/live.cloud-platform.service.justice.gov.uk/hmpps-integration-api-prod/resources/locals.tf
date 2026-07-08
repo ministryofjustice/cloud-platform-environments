@@ -9,5 +9,25 @@ locals {
     namespace              = var.namespace
   }
 
-  clients = ["ctrlo", "heartbeat"]
+  clients = [
+    "ctrlo",
+    "heartbeat",
+    "event-service",
+    "moj-pes",
+    "meganexus",
+    "pnd",
+    "smoke-test",
+    "smartinbox",
+    "prisonerfacing",
+    "community-campus",
+    "daso"
+  ]
+
+  client_queues = {
+    meganexus = module.event_plp_queue.sqs_name
+    pnd       = module.event_pnd_queue.sqs_name
+    cats      = module.event_cats_queue.sqs_name
+    ctrlo     = module.event_ctrlo_queue.sqs_name
+    daso      = module.event_daso_queue.sqs_name
+  }
 }

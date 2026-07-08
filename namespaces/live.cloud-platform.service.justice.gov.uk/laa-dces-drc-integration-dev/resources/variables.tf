@@ -26,10 +26,15 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-dces-team"
+  default     = "laa-crime-apps-team"
 }
 
 variable "environment" {
@@ -41,7 +46,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dces@digital.justice.gov.uk"
+  default     = "laa-crime-apps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +58,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-dces"
+  default     = "laa-crimeapps"
 }
 
 variable "github_owner" {
@@ -77,9 +82,14 @@ variable "user_pool_name" {
   default     = "dces-drc-api-dev-userpool"
 }
 
-variable "cognito_user_pool_client_name" {
-  description = "Cognito user pool client name"
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
   default     = "dces-drc-api-dev"
+}
+
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-dev"
 }
 
 variable "resource_server_identifier" {
@@ -103,6 +113,12 @@ variable "resource_server_scope_description" {
 
 variable "cognito_user_pool_domain_name" {
   default = "dces-drc-api-dev"
+}
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_dev_db"
 }
 
 variable "serviceaccount_rules" {

@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "manage-offences-and-delius-queue-subscrip
 }
 
 module "manage-offences-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "manage-offences-and-delius-queue"
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "manage-offences-and-delius-queue-policy" {
 }
 
 module "manage-offences-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "manage-offences-and-delius-dlq"
@@ -65,7 +65,7 @@ resource "kubernetes_secret" "manage-offences-and-delius-queue-secret" {
 }
 
 module "service_account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

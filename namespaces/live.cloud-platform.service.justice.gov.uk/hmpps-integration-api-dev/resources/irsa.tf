@@ -2,20 +2,25 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  # The names of the queues used and the namespace which created them
+  # The names of the queues used and the namespace which created them.
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                                 = "hmpps-audit-dev",
+    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"                = "visit-someone-in-prison-backend-svc-dev",
+    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"                  = "visit-someone-in-prison-backend-svc-dev",
+    "locations-inside-prison-development-update_from_external_system_events_queue"  = "hmpps-locations-inside-prison-dev"
+    "hmpps-farsight-reduce-re-offend-development-eawp_assessment_events_queue"      = "hmpps-education-and-work-plan-dev",
+    "activities-and-appointments-dev-update_from_external_system_events_queue"      = "hmpps-activities-management-dev",
+    "hmpps-community-payback-devs-dev-course_completion_events_queue"               = "hmpps-community-payback-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
-
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -23,6 +28,12 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
+    {
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      event_topic = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues = aws_iam_policy.integration_events_sqs.arn,
+    }
   )
   # Tags
   business_unit          = var.business_unit
@@ -34,26 +45,22 @@ module "irsa" {
 }
 
 module "hmpps-integration-event-irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-integration-event"
   role_policy_arns = merge(
-    local.sqs_policies,
     {
       integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      hmpps-integration-events                        = module.integration_api_domain_events_queue.irsa_policy_arn,
       s3                                              = module.certificate_backup.irsa_policy_arn,
       truststore                                      = module.truststore_s3_bucket.irsa_policy_arn,
       secrets                                         = aws_iam_policy.secrets_manager_access.arn,
       event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
-      mapps_queue                                     = module.event_mapps_queue.irsa_policy_arn,
-      pnd_queue                                       = module.event_pnd_queue.irsa_policy_arn,
-      test_client_queue                               = module.event_test_client_queue.irsa_policy_arn
+      event_queues                                    = aws_iam_policy.integration_events_sqs.arn
+      subscription_management                         = aws_iam_policy.subscription_management.arn
     }
-
   )
   # Tags
   business_unit          = var.business_unit
@@ -73,7 +80,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
-
 
 resource "kubernetes_secret" "irsa" {
   metadata {

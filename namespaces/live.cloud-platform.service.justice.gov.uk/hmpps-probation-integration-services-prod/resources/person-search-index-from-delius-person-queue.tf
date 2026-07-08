@@ -16,10 +16,11 @@ resource "aws_sns_topic_subscription" "person-search-index-from-delius-person-qu
 }
 
 module "person-search-index-from-delius-person-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name = "person-search-index-from-delius-person-queue"
+  sqs_name      = "person-search-index-from-delius-person-queue"
+  delay_seconds = 5
 
   # Tags
   application            = "person-search-index-from-delius"

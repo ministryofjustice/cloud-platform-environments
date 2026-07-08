@@ -10,10 +10,14 @@ variable "namespace" {
 variable "vpc_name" {
 }
 
-
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
 }
 
 variable "team_name" {

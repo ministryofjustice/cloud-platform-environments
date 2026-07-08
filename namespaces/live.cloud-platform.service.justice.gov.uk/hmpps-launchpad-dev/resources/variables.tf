@@ -29,13 +29,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "prisoner-content-hub-developers"
+  default     = "hmpps-launchpad"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -71,3 +71,28 @@ variable "github_token" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "base_domain" {
+  default = "hmpps.service.justice.gov.uk"
+}
+
+variable "hostname" {
+  description = "Host part of the api gateway"
+  default     = "launchpad-sso-dev"
+}
+
+variable "cloud_platform_launchpad_auth_api_url" {
+  description = "Pre-defined domain for the namespace provided by Cloud Platform"
+  default     = "https://launchpad-auth-dev.hmpps.service.justice.gov.uk"
+}
+
+variable "api_gateway_ingress_hostname" {
+  description = "Hostname for API Gateway to route traffic via NLB (must match default NLB TLS cert CN pattern)"
+  type        = string
+  default     = "hmpps-launchpad-auth-dev.apps.live.cloud-platform.service.justice.gov.uk"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+

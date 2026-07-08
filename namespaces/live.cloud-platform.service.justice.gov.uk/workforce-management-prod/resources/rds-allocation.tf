@@ -1,5 +1,5 @@
 module "rds-allocation" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name      = var.vpc_name
   team_name     = var.team_name
   business_unit = var.business_unit
@@ -14,10 +14,12 @@ module "rds-allocation" {
   performance_insights_enabled = true
   # instance class
   db_instance_class = "db.t4g.small"
+  db_iops = "12000"
+  db_allocated_storage   = "750"
 
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = false
-  db_engine_version      = "15.5"
+  db_engine_version = "15.12"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
@@ -31,6 +33,8 @@ module "rds-allocation" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds-allocation" {

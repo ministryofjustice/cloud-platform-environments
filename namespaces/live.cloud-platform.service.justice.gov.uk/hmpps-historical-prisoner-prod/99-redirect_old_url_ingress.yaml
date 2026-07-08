@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/custom-http-errors: "418"
+    nginx.ingress.kubernetes.io/rewrite-target: https://historical-prisoner.prison.service.justice.gov.uk/$1
+    external-dns.alpha.kubernetes.io/set-identifier: hmpps-hpa-redirect-old-url-prod-hmpps-historical-prisoner-prod-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  labels:
+    app: hmpps-historical-prisoner-prod
+  name: hmpps-hpa-redirect-old-url-prod
+  namespace: hmpps-historical-prisoner-prod
+spec:
+  ingressClassName: default
+  rules:
+  - host: hpa.prison.service.justice.gov.uk
+    http:
+      paths:
+      - backend:
+          service:
+            name: hmpps-historical-prisoner-prod
+            port: 
+              name: http
+        path: /(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - hpa.prison.service.justice.gov.uk
+    secretName: hmpps-hpa-cert

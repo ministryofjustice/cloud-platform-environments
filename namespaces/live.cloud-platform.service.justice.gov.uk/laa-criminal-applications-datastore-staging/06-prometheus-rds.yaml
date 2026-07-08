@@ -1,0 +1,68 @@
+# Prometheus Alerts
+#
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html
+#
+# Note: we are using a regex in the namespace to filter and trigger alerts
+# in both, staging and production environments.
+#
+# To see the current alerts in this namespace:
+#   kubectl describe prometheusrule -n laa-criminal-applications-datastore-staging
+#
+# Alerts will be sent to the slack channel: #laa-crime-apply-alerts
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rules-rds
+  namespace: laa-criminal-applications-datastore-staging
+  labels:
+    role: alert-rules
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: rds-rules
+    rules:
+    - alert: Datastore-Staging-RDS-HighCPUUtilization
+      expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-0ecc2d561773d8b7"} > 25
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Datastore staging - RDS CPU usage > 25%.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-0ecc2d561773d8b7
+
+    - alert: Datastore-Staging-RDS-LowStorage
+      expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-0ecc2d561773d8b7"} < 1024*1024*1024
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Datastore staging - RDS storage capacity < 1GB.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-0ecc2d561773d8b7
+
+    - alert: Datastore-Staging-RDS-HighReadLatency
+      expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-0ecc2d561773d8b7"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Datastore staging - RDS read latency > 500ms.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-0ecc2d561773d8b7
+
+    - alert: Datastore-Staging-RDS-HighWriteLatency
+      expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-0ecc2d561773d8b7"} > 0.5
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Datastore staging - RDS write latency > 500ms.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-0ecc2d561773d8b7
+
+    - alert: Datastore-Staging-RDS-HighDatabaseConnections
+      expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-0ecc2d561773d8b7"} > 20
+      for: 1m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Datastore staging - RDS number of database connections > 20.
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/VR46pmwWk/aws-rds?orgId=1&var-datasource=P896B4444D3F0DAB8&var-region=default&var-dbinstanceidentifier=cloud-platform-0ecc2d561773d8b7

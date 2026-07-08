@@ -20,7 +20,23 @@ variable "team_name" {
   default = "locations-inside-prison"
 }
 
+variable "review_team_name" {
+  default = "move-a-prisoner"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "environment" {
+  default = "preprod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
   default = "preprod"
 }
 
@@ -44,4 +60,10 @@ variable "github_owner" {
 variable "github_token" {
   type    = string
   default = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

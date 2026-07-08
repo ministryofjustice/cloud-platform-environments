@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -18,8 +18,6 @@ module "irsa" {
     s3_reporting = module.book_a_secure_move_reporting_s3_bucket.irsa_policy_arn
     rds          = module.rds-instance.irsa_policy_arn
     read_replica = module.rds-read-replica.irsa_policy_arn
-
-
   }
 
   # Tags

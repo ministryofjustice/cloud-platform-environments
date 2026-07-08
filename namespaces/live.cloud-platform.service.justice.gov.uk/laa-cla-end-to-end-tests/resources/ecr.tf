@@ -5,7 +5,7 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
   team_name = var.team_name
   repo_name = "${var.namespace}-ecr"
 
@@ -13,7 +13,7 @@ module "ecr_credentials" {
   oidc_providers = ["circleci"]
 
   # specify which GitHub repository your CircleCI job runs from
-  github_repositories = [var.repo_name, "cla_public", "cla_backend", "cla_frontend", "fala"]
+  github_repositories = [var.repo_name, "cla_backend", "cla_frontend", "fala"]
 
   # set your namespace name to create a ConfigMap
   # of credentials you need in CircleCI

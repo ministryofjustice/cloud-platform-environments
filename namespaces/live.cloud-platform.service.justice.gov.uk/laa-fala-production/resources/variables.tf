@@ -56,3 +56,13 @@ variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
 }
+
+variable "repo_name" {
+  default = "fala"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Information and Advice"
+}

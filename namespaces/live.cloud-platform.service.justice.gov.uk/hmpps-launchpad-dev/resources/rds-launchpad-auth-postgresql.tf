@@ -5,23 +5,25 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  prepare_for_major_upgrade  = false
   performance_insights_enabled = true
   # db_max_allocated_storage     = "500"
-  enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  enable_rds_auto_start_stop = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16.2"
-  rds_family        = "postgres16"
+  db_engine_version = "17.4"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
   # Tags
@@ -33,6 +35,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 }
+
 
 resource "kubernetes_secret" "rds" {
   metadata {

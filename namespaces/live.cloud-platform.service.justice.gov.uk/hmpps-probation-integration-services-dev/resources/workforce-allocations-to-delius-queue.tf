@@ -1,4 +1,5 @@
 resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-subscription" {
+  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.workforce-allocations-to-delius-queue.sqs_arn
@@ -7,12 +8,13 @@ resource "aws_sns_topic_subscription" "workforce-allocations-to-delius-queue-sub
       "person.community.manager.allocated",
       "event.manager.allocated",
       "requirement.manager.allocated",
+      "licence-condition.manager.allocated",
     ]
   })
 }
 
 module "workforce-allocations-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "workforce-allocations-to-delius-queue"
@@ -37,7 +39,7 @@ resource "aws_sqs_queue_policy" "workforce-allocations-to-delius-queue-policy" {
 }
 
 module "workforce-allocations-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "workforce-allocations-to-delius-dlq"
@@ -69,7 +71,7 @@ resource "kubernetes_secret" "workforce-allocations-to-delius-queue-secret" {
 }
 
 module "workforce-allocations-to-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

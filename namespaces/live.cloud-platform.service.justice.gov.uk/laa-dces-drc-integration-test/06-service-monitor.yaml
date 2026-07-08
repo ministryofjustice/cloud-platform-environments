@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-dces-drc-integration
+  namespace: laa-dces-drc-integration-test
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-dces-drc-integration
+  namespaceSelector:
+    matchNames:
+      - laa-dces-drc-integration
+  endpoints:
+    - port: actuator
+      interval: 15s

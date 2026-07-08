@@ -24,7 +24,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "accredited-programmes-team"
+  default     = "hmpps-accredited-programmes-live"
 }
 
 variable "environment" {
@@ -68,6 +68,12 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }
 
 variable "kubernetes_cluster" {}

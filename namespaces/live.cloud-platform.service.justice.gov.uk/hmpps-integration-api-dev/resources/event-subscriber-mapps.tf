@@ -1,5 +1,6 @@
 module "event_mapps_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "events_mapps_queue"
@@ -23,7 +24,7 @@ module "event_mapps_queue" {
 }
 
 module "event_mapps_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "event_mapps_queue_dl"
@@ -79,12 +80,16 @@ data "aws_secretsmanager_secret_version" "mapps_filter_list" {
   secret_id = data.aws_secretsmanager_secret.mapps_filter_list.id
 }
 
+data "github_repository_file" "mapps_subscription_filter_policy" {
+  repository          = "${var.github_owner}/${var.github_repo_name}"
+  file                = "src/main/resources/event-filter-policies/${var.environment}/mapps-subscription-filter.json"
+}
 
 resource "aws_sns_topic_subscription" "event_mapps_subscription" {
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.event_mapps_queue.sqs_arn
-  filter_policy = data.aws_secretsmanager_secret_version.mapps_filter_list.secret_string
+  filter_policy = coalesce(data.github_repository_file.mapps_subscription_filter_policy.content, var.default_subscription_filter_policy)
   depends_on = [
     module.hmpps-integration-events
   ]

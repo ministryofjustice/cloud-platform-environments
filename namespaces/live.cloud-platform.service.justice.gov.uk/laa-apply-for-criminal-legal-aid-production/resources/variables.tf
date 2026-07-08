@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Apply for Criminal Legal Aid"
+  default     = "apply-for-criminal-legal-aid"
 }
 
 variable "namespace" {
@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "laa-crime-apply-gg@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -56,6 +56,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Access to Legal Aid"
+}
+
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
   default     = "KUBE_PRODUCTION_NAMESPACE"
@@ -71,4 +77,8 @@ variable "github_actions_secret_kube_token" {
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the serviceaccount cluster"
   default     = "KUBE_PRODUCTION_CLUSTER"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
 }

@@ -1,0 +1,39 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-user-management-cert
+  namespace: hmpps-delius-core-stage
+spec:
+  secretName: delius-user-management-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-user-management-stage.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-merge-api-cert
+  namespace: hmpps-delius-core-stage
+spec:
+  secretName: delius-merge-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-merge-api-stage.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-merge-ui-cert
+  namespace: hmpps-delius-core-stage
+spec:
+  secretName: delius-merge-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-merge-ui-stage.hmpps.service.justice.gov.uk

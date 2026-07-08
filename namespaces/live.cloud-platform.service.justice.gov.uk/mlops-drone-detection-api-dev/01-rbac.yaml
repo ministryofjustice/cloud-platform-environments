@@ -1,0 +1,16 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: mlops-drone-detection-api-dev-admin
+  namespace: mlops-drone-detection-api-dev
+subjects:
+  - kind: Group
+    name: "github:mlops"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:analytics-hq"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

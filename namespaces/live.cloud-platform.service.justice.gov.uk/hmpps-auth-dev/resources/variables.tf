@@ -23,6 +23,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "HMPPS Auth Audit Registers Team"
@@ -41,6 +46,11 @@ variable "infrastructure_support" {
 variable "is_production" {
   default = "false"
 }
+
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -53,5 +63,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  default = "live"
+}
 
 variable "kubernetes_cluster" {}

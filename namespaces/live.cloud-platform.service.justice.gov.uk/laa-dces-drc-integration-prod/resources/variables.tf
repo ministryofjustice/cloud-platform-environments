@@ -26,10 +26,15 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-dces-team"
+  default     = "laa-crime-apps-team"
 }
 
 variable "environment" {
@@ -41,7 +46,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "laa-dces@digital.justice.gov.uk"
+  default     = "laa-crime-apps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +58,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-dces"
+  default     = "laa-crimeapps"
 }
 
 variable "github_owner" {
@@ -81,4 +86,142 @@ variable "owner" {
 variable "domain" {
   default = "laa-debt-collection.service.justice.gov.uk"
   type    = string
+}
+
+variable "user_pool_name" {
+  description = "Cognito user pool name"
+  default     = "dces-drc-api-prod-userpool"
+}
+
+variable "default_app_client_name" {
+  description = "Cognito app client name for internal testing client"
+  default     = "dces-drc-api-prod"
+}
+
+variable "advantis_app_client_name" {
+  description = "Cognito app client name for Advantis Credit (DRC) client"
+  default     = "advantis-prod"
+}
+
+variable "resource_server_identifier" {
+  description = "Cognito resource server identifier"
+  default     = "dces-drc-api-prod"
+}
+
+variable "resource_server_name" {
+  description = "Cognito resource server name"
+  default     = "dces-drc-api-prod-resource-server"
+}
+
+variable "resource_server_scope_name" {
+  description = "Resource server scope name"
+  default     = "standard"
+}
+
+variable "resource_server_scope_description" {
+  default = "Standard scope"
+}
+
+variable "cognito_user_pool_domain_name" {
+  default = "dces-drc-api-prod"
+}
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+  default     = "laa_dces_drc_integration_prod_db"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are usually sufficient for a CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources  = ["pods/exec"]
+      verbs      = ["create"]
+    },
+    {
+      "api_groups": [""],
+      "resources": [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "configmaps",
+        "pods"
+      ],
+      "verbs": [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "policy"
+      ],
+      "resources": [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "poddisruptionbudgets",
+        "networkpolicies"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch"
+      ]
+    },
+    {
+      "api_groups": [
+        "monitoring.coreos.com"
+      ],
+      "resources": [
+        "prometheusrules",
+        "servicemonitors"
+      ],
+      "verbs": [
+        "*"
+      ]
+    },
+    {
+      "api_groups": [
+        "autoscaling"
+      ],
+      "resources": [
+        "hpa",
+        "horizontalpodautoscalers"
+      ],
+      "verbs": [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch"
+      ]
+    }
+  ]
 }

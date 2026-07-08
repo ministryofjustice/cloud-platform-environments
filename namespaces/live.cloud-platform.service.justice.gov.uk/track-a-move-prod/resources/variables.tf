@@ -18,6 +18,12 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "team_name" {
   description = "The name of your development team"
   default     = "Move a Prisoner"
@@ -26,6 +32,11 @@ variable "team_name" {
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "production"
+}
+
+variable "github_review_team" {
+  description = "The name of your development team"
+  default     = "map-developers-live"
 }
 
 variable "environment_name" {

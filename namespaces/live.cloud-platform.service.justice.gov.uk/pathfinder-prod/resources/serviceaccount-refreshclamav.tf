@@ -26,4 +26,5 @@ module "refresh_clamav_serviceaccount" {
   role_name            = "refreshclamav"
   rolebinding_name     = "refreshclamav"
   serviceaccount_rules = local.refresh_clamav_sa_rules
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -25,3 +25,4 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+

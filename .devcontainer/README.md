@@ -1,14 +1,18 @@
 # Dev Container
 
+> [!NOTE]
 > This is a community supported feature
 
-To assist in the development of `cloud-platform-environments`, the community have built a [dev container](https://containers.dev/) with the required tooling
+To assist with working on this repository, the community has configured a [dev container](https://containers.dev/) with the required tooling.
 
-## Prerequisites
+You can run this locally, or with [GitHub Codespaces](https://docs.github.com/en/codespaces/overview).
 
-- GitHub Codespaces
+## Locally
 
-or
+> [!WARNING]  
+> This has only been tested on macOS
+
+### Prerequisites
 
 - Docker
 
@@ -16,21 +20,18 @@ or
 
   - Dev Containers Extention
 
-## Running
+To launch locally, ensure the prerequisites are met, and then click the button below
 
-### GitHub Codespaces
+[![Open in Dev Container](https://raw.githubusercontent.com/ministryofjustice/.devcontainer/refs/heads/main/contrib/badge.svg)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/ministryofjustice/cloud-platform-environments)
 
-Launch from GitHub
+## GitHub Codespaces
 
-### Locally
+> [!IMPORTANT]  
+> GitHub Codespaces are not currently paid for by the Ministry of Justice and are subject to the quotas [here](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-codespaces/about-billing-for-github-codespaces#monthly-included-storage-and-core-hours-for-personal-accounts)
 
-1. Ensure prerequisites are met
+To launch a GitHub Codespace, click the button below
 
-1. Clone repository
-
-1. Open repository in Visual Studio Code
-
-1. Reopen in container
+[![Open in Codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/ministryofjustice/cloud-platform-environments)
 
 ## Tools
 

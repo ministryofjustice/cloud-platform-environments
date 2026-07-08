@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: mip-hmcts-dynatrace-to-xsiam-production
+spec:
+  hard:
+    pods: "50"

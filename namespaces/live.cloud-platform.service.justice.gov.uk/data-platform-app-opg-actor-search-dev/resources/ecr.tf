@@ -6,15 +6,15 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["opg-actor-search"]
-  github_environments = ["dev"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["opg-actor-search"]
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   # Tags
@@ -25,4 +25,5 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection = false
 }

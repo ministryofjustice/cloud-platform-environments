@@ -1,12 +1,6 @@
-/*
- * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
- * releases page of this repository.
- *
- */
 module "s3_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -14,8 +8,6 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
-
-  versioning             = true
 
   /*
 
@@ -53,10 +45,7 @@ module "s3_bucket" {
 
 */
 
-  providers = {
-    # Can be either "aws.london" or "aws.ireland"
-    aws = aws.london
-    /*
+  /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *
@@ -117,16 +106,16 @@ module "s3_bucket" {
 
   */
 
-    /*
-   * The following are exampls of bucket and user policies. They are treated as
+  /*
+   * The following are examples of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
    *
    */
 
-    /*
- * Allow a user (foobar) from another account (012345678901) to get objects from
- * this bucket.
- *
+  /*
+   * Allow a user (foobar) from another account (012345678901) to get objects from
+   * this bucket.
+   *
 
    bucket_policy = <<EOF
 {
@@ -147,40 +136,20 @@ module "s3_bucket" {
   ]
 }
 EOF
-
 */
 
-    /*
- * Override the default policy for the generated machine user of this bucket.
- *
-
-user_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetBucketLocation"
-    ],
-    "Resource": "$${bucket_arn}"
-  },
-  {
-    "Sid": "",
-    "Effect": "Allow",
-    "Action": [
-      "s3:GetObject"
-    ],
-    "Resource": "$${bucket_arn}/*"
-  }
-]
-}
-EOF
+  /*
+   * OIDC for GitHub Actions
+   * This allows GitHub Actions to access the S3 bucket using OIDC.
+   *
+   *
+  oidc_providers = ["github"]
+  github_repositories = ["my-moj-repo"]
+  github_environments = ["dev"]   # If you're using GH Actions environments
 
 */
-  }
 }
+
 
 
 resource "kubernetes_secret" "s3_bucket" {

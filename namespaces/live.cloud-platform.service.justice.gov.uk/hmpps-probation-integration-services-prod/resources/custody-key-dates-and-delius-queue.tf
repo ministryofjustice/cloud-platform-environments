@@ -36,7 +36,7 @@ resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-probat
 }
 
 module "custody-key-dates-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "custody-key-dates-and-delius-queue"
@@ -61,7 +61,7 @@ resource "aws_sqs_queue_policy" "custody-key-dates-and-delius-queue-policy" {
 }
 
 module "custody-key-dates-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "custody-key-dates-and-delius-dlq"
@@ -93,7 +93,7 @@ resource "kubernetes_secret" "custody-key-dates-and-delius-queue-secret" {
 }
 
 module "custody-key-dates-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

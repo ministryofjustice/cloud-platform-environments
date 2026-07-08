@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -10,25 +10,45 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
+    "client-ca" = {
+      description             = "[client-ca] Client CA certificate file for mTLS client certificate validation"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "client-ca"
+    }
+    "config-variables" = {
+      description             = "[config-variables] Overridden configuration env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "config-variables"
+    }
+    "datasource" = {
+      description             = "[datasource] Database connection env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "datasource"
+    }
     "dces-drc-integration-service-alert-webhook-dev" = {
-      description             = "DCES Report Service Slack Webhook"
+      description             = "[dces-drc-integration-service-alert-webhook-dev] Slack webhook"
       recovery_window_in_days = 7
       k8s_secret_name         = "dces-drc-integration-service-alert-webhook-dev"
-    },
-    "drc-client-auth-tls" = {
-      description             = "Client authentication credentials for mTLS to DRC in Dev"
+    }
+    "drc-client" = {
+      description             = "[drc-client] Debt recovery company client credential files and env-vars"
       recovery_window_in_days = 7
-      k8s_secret_name         = "drc-client-auth-tls"
-    },
-    "maat_api_oauth_client_id" = {
-      description             = "MAAT API oauth client ID for DRC Integration Dev"
+      k8s_secret_name         = "drc-client"
+    }
+    "feature-flags" = {
+      description             = "[feature-flags] Feature flag env-vars"
       recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-oauth-client-id"
-    },
-    "maat_api_oauth_client_secret" = {
-      description             = "MAAT API oauth client secret for DRC Integration Dev"
+      k8s_secret_name         = "feature-flags"
+    }
+    "helm-values" = {
+      description             = "[helm-values] Deployment-time secret values for Helm"
       recovery_window_in_days = 7
-      k8s_secret_name         = "maat-api-oauth-client-secret"
+      k8s_secret_name         = "helm-values"
+    }
+    "maat-cd-api" = {
+      description             = "[maat-cd-api] MAAT court data API client credential env-vars"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "maat-cd-api"
     }
   }
 }

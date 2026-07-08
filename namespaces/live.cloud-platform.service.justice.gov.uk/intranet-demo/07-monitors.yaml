@@ -10,7 +10,12 @@ spec:
   podMetricsEndpoints:
   - port: http
     path: "/metrics/fpm"
-    interval: 15s
+    interval: 600s
+    # Scrape pods in the Running phase
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_pod_phase]
+      action: keep
+      regex: Running
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -23,5 +28,5 @@ spec:
       app: intranet-demo
   endpoints:
   - port: http
-    interval: 15s
+    interval: 30s
     path: /metrics/service

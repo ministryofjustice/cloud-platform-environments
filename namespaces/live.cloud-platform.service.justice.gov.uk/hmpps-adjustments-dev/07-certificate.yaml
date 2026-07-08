@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - adjust-release-dates-dev.hmpps.service.justice.gov.uk
+    - adjustments-dev.hmpps.service.justice.gov.uk

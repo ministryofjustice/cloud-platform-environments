@@ -1,0 +1,54 @@
+# Prometheus Alerts
+#
+# https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html
+#
+# Note: we are using a regex in the namespace to filter and trigger alerts
+# in both, staging and production environments.
+#
+# To see the current alerts in this namespace:
+#   kubectl describe prometheusrule -n laa-review-criminal-legal-aid-production
+#
+# Alerts will be sent to the slack channel: #laa-crime-apply-alerts
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rules-sidekiq
+  namespace: laa-review-criminal-legal-aid-production
+  labels:
+    role: alert-rules
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: sidekiq-rules
+    rules:
+    - alert: CrimeReview-Production-Sidekiq-DeadJobsDetected
+      expr: max(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"}) > 0
+      for: 5m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - {{ $value }} jobs detected in the Sidekiq dead set.
+
+    - alert: CrimeReview-Production-Sidekiq-DeadJobsIncreased
+      expr: max(delta(ruby_sidekiq_stats_dead_size{namespace="laa-review-criminal-legal-aid-production"}[10m])) > 0
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - size of the Sidekiq dead set increased in the last 10m.
+
+    - alert: CrimeReview-Production-Sidekiq-HighRetries
+      expr: max(ruby_sidekiq_stats_retry_size{namespace="laa-review-criminal-legal-aid-production"}) > 50
+      for: 10m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - size of the Sidekiq retry has been more than 50 for at least 10m.
+
+    - alert: CrimeReview-Production-Sidekiq-HighQueueBacklog
+      expr: max by (queue) (ruby_sidekiq_queue_backlog{namespace="laa-review-criminal-legal-aid-production"}) > 50
+      for: 5m
+      labels:
+        severity: laa-crime-apply-alerts
+      annotations:
+        message: Crime Review production - Sidekiq queue {{ $labels.queue }} has had a backlog of {{ $value }} jobs for 5 min.

@@ -12,12 +12,15 @@ locals {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
 
+  connect_dps_distingishing_marks_s3 = "arn:aws:s3:::cloud-platform-43f9c0552bd867b0ac307686f139b6a1"
+
+
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -25,8 +28,9 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "hmpps-document-management-api"
   role_policy_arns = merge(local.sqs_policies, local.sns_policies, {
-    s3 = module.s3.irsa_policy_arn
+    s3       = module.s3.irsa_policy_arn
     s3images = module.s3-images.irsa_policy_arn
+    cross_namespace_s3 = aws_iam_policy.cross_namespace_s3_policy.arn
   })
 
   # Tags
@@ -48,3 +52,81 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
+
+resource "aws_iam_policy" "cross_namespace_s3_policy" {
+  name   = "${var.namespace}-cross-namespace-s3-policy"
+  policy = data.aws_iam_policy_document.cross_namespace_s3_access.json
+}
+
+# IAM policy to allow access to specific S3 buckets in other namespaces.
+data "aws_iam_policy_document" "cross_namespace_s3_access" {
+  statement {
+    sid       = "AllowListAccessToCrossNamespaceS3Buckets"
+    actions   = ["s3:ListBucket"]
+    resources = [local.connect_dps_distingishing_marks_s3]
+  }
+
+  statement {
+    sid = "AllowReadWriteAccessToCrossNamespaceS3Buckets"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+    ]
+    resources = ["${local.connect_dps_distingishing_marks_s3}/*", ]
+  }
+}
+
+data "aws_iam_policy_document" "allow_preprod_irsa_read" {
+  statement {
+    sid    = "AllowSourceBucketAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-c94f9bbe4f28e0e3-live"]
+    }
+
+    resources = [
+      module.s3.bucket_arn,
+      "${module.s3.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_preprod_irsa_read" {
+  bucket = module.s3.bucket_name
+  policy = data.aws_iam_policy_document.allow_preprod_irsa_read.json
+}
+
+data "aws_iam_policy_document" "s3_images_policy" {
+  statement {
+    sid    = "AllowS3ImagesAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::754256621582:role/cloud-platform-irsa-c94f9bbe4f28e0e3-live"]
+    }
+
+    resources = [
+      module.s3-images.bucket_arn,
+      "${module.s3-images.bucket_arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "allow_preprod_irsa_s3_images" {
+  bucket = module.s3-images.bucket_name
+  policy = data.aws_iam_policy_document.s3_images_policy.json
+}
+

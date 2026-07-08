@@ -1,5 +1,5 @@
 module "rds_alfresco" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -10,26 +10,31 @@ module "rds_alfresco" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = 1500
-  db_allocated_storage         = 200
+  db_max_allocated_storage     = "1500"
+  db_allocated_storage         = "200"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.12"
+  db_engine_version         = "14.17"
   rds_family                = "postgres14"
-  db_instance_class         = "db.m7g.xlarge"
+  db_instance_class         = "db.m8g.large"
 
-  # Tagst
+  db_backup_retention_period = "28"
+  backup_window              = "02:00-04:00"
+
+  # Tags
   application            = var.application
   business_unit          = var.business_unit
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
 
 resource "kubernetes_secret" "rds" {

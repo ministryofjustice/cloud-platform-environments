@@ -1,5 +1,6 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
   versioning             = true
@@ -100,42 +101,81 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "SourceIP"
-        Effect    = "Deny"
-        Principal = "*"
-        Action = [
-          "s3:GetObject*",
-          "s3:PutObject*",
-          "s3:List*",
-          "s3:DeleteObject*",
-        ]
-        Resource = [
+        "Sid": "DenyBucketLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": ["s3:List*"],
+        "Resource": [
           module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
-        ]
-        Condition = {
-          "NotIpAddress" = {
-            # Live-1 IP and MoJ VPN addresses
-            "aws:SourceIp" = [
+        ],
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
               "35.177.252.54",
               "81.134.202.29/32",
               "51.149.250.0/24",
               "51.149.251.0/24",
-              "35.176.93.186/32"
+              "35.176.93.186/32",
             ]
           },
-          "Bool" = { "aws:ViaAWSService" : "false" },
-          "StringNotEquals" = {
-            "aws:PrincipalArn" = [
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
+          },
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
             ]
-          }
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
         }
       },
+      {
+        "Sid": "DenyObjectLevelUnlessVpceOrAllowedIPs",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject*",
+          "s3:PutObject*",
+          "s3:DeleteObject*"
+        ],
+        "Resource": [
+          module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+        ],
+        "Condition": {
+          "NotIpAddress": {
+            "aws:SourceIp": [
+              # Live-1 IP and MoJ VPN addresses
+              "35.178.209.113",
+              "3.8.51.207",
+              "35.177.252.54",
+              "81.134.202.29/32",
+              "51.149.250.0/24",
+              "51.149.251.0/24",
+              "35.176.93.186/32",
+            ]
+          },
+          "StringNotEqualsIfExists": {
+            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
+          },
+          "StringNotEquals": {
+            "aws:PrincipalArn": [
+              aws_iam_role.translate_s3_data_role.arn,
+              aws_iam_role.transcribe_s3_data_role.arn,
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
+            ]
+          },
+          "Bool": { "aws:ViaAWSService": "false" }
+        }
+      }
     ]
   })
 }
@@ -143,6 +183,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
 resource "aws_iam_role" "translate_s3_data_role" {
   name = "pcms-dev-translate-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -193,6 +234,7 @@ resource "aws_iam_role_policy" "translate_s3_data_role_policy" {
 resource "aws_iam_role" "transcribe_s3_data_role" {
   name = "pcms-dev-transcribe-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -240,8 +282,48 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
   })
 }
 
+resource "aws_iam_role" "unify_s3_upload_role" {
+  name = "pcms-dev-unify-s3-upload-role"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::668236265794:user/unify-s3-upload-user"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "unify_s3_upload_role_policy" {
+  name = "pcms-dev-unify-s3-upload-role-policy"
+  role = aws_iam_role.unify_s3_upload_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = [
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_metadata/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_recordings/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_transcripts/*",
+        ]      
+      }
+    ]
+  })
+}
+
 module "hmpps_pin_phone_monitor_s3_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "hmpps_pin_phone_monitor_s3_event_queue_dev"
@@ -269,7 +351,7 @@ module "hmpps_pin_phone_monitor_s3_event_queue" {
 }
 
 module "hmpps_pin_phone_monitor_s3_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_pin_phone_monitor_s3_event_dlq_dev"
@@ -322,6 +404,16 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     events = [
     "s3:ObjectCreated:*"]
     filter_prefix = "metadata/"
+    filter_suffix = ".json"
+  }
+
+  queue {
+    id        = "unify-metadata-upload-event"
+    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    events = [
+      "s3:ObjectCreated:*"
+    ]
+    filter_prefix = "unify_metadata/"
     filter_suffix = ".json"
   }
 

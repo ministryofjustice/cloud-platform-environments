@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "opd-and-delius-queue-subscription" {
 }
 
 module "opd-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "opd-and-delius-queue"
@@ -33,10 +33,11 @@ resource "aws_sqs_queue_policy" "opd-and-delius-queue-policy" {
 }
 
 module "opd-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name = "opd-and-delius-dlq"
+  sqs_name                  = "opd-and-delius-dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
   application            = "opd-and-delius"
@@ -64,7 +65,7 @@ resource "kubernetes_secret" "opd-and-delius-queue-secret" {
 }
 
 module "opd-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

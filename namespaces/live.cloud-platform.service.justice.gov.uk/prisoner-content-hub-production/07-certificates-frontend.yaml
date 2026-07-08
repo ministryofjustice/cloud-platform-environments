@@ -9,7 +9,9 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
+  - bedford.content-hub.prisoner.service.justice.gov.uk
   - berwyn.content-hub.prisoner.service.justice.gov.uk
+  - bristol.content-hub.prisoner.service.justice.gov.uk
   - bullingdon.content-hub.prisoner.service.justice.gov.uk
   - cardiff.content-hub.prisoner.service.justice.gov.uk
   - chelmsford.content-hub.prisoner.service.justice.gov.uk

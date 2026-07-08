@@ -1,4 +1,5 @@
 ######################################## Prison visits event for visit someone in prison
+  
 ######## hmpps-manage-prison-visits-orchestration service should listen to the configured queue (hmpps_prison_visits_event_queue)
 ######## Main queue
 
@@ -16,26 +17,36 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
       "non-associations.deleted",
       "non-associations.closed",
       "non-associations.amended",
-      "prison-offender-events.visitor.restriction.upserted",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
       "prison-offender-events.prisoner.restriction.changed",
-      "prisoner-offender-search.prisoner.alerts-updated",
-      "prison-offender-events.prisoner.person-restriction.upserted",
       "prison-offender-events.prisoner.contact-approved",
       "prison-offender-events.prisoner.contact-unapproved",
+      "appointments.appointment-instance.created",
+      "appointments.appointment-instance.updated",
+      "appointments.appointment-instance.cancelled",
+      "appointments.appointment-instance.deleted",
+      "contacts-api.prisoner-contact-restriction.updated",
+      "contacts-api.prisoner-contact-restriction.created",
+      "contacts-api.contact-restriction.updated",
+      "contacts-api.contact-restriction.created",
+      "person.alert.created",
+      "person.alert.updated",
+      "person.alert.deleted",
+      "person.alert.inactive",
+      "prison-offender-events.prisoner.merged",
     ]
   })
 }
 
 module "hmpps_prison_visits_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_event_queue"
   encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
-  visibility_timeout_seconds = 120
+  message_retention_seconds  = 43200 # 12 hours
+  visibility_timeout_seconds = 120 # 2 minutes
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_event_dead_letter_queue.sqs_arn
@@ -46,7 +57,7 @@ module "hmpps_prison_visits_event_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -86,17 +97,19 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_event_dlq"
   encrypt_sqs_kms = "true"
+  message_retention_seconds  = 21600 # 6 hours
+  visibility_timeout_seconds = 120 # 2 minutes
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

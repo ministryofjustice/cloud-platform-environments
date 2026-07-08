@@ -18,7 +18,7 @@ resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
 }
 
 module "cas3-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "cas3-and-delius-queue"
@@ -43,7 +43,7 @@ resource "aws_sqs_queue_policy" "cas3-and-delius-queue-policy" {
 }
 
 module "cas3-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
   # Queue configuration
   sqs_name                  = "cas3-and-delius-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "cas3-and-delius-queue-secret" {
 }
 
 module "cas3-and-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name
@@ -85,5 +85,8 @@ module "cas3-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "cas3-and-delius"
-  role_policy_arns     = { sqs = module.cas3-and-delius-queue.irsa_policy_arn }
+  role_policy_arns     = {
+    sqs = module.cas3-and-delius-queue.irsa_policy_arn
+    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+  }
 }

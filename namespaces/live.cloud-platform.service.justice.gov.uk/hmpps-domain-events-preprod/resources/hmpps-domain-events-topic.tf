@@ -1,5 +1,5 @@
 module "hmpps-domain-events" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration
   topic_display_name = "hmpps-domain-events"
@@ -33,4 +33,58 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
   }
+}
+
+data "aws_caller_identity" "cloud_platform" {}
+data "kubernetes_secret" "modernisation_platform" {
+  metadata {
+    name      = "modernisation-platform"
+    namespace = var.namespace
+  }
+}
+
+data "aws_iam_policy_document" "sns_topic_policy" {
+  statement {
+    sid     = "__default_statement_ID"
+    effect  = "Allow"
+    actions = [
+      "sns:GetTopicAttributes",
+      "sns:SetTopicAttributes",
+      "sns:AddPermission",
+      "sns:RemovePermission",
+      "sns:DeleteTopic",
+      "sns:Subscribe",
+      "sns:ListSubscriptionsByTopic",
+      "sns:Publish",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    resources = [module.hmpps-domain-events.topic_arn]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceOwner"
+      values   = [data.aws_caller_identity.cloud_platform.account_id]
+    }
+  }
+  statement {
+    sid    = "CrossAccountOASysReadAccess"
+    effect = "Allow"
+    actions = [
+      "sns:ListSubscriptionsByTopic",
+      "sns:GetTopicAttributes",
+      "sns:Subscribe",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.kubernetes_secret.modernisation_platform.data.oasys_account_id}:root"]
+    }
+    resources = [module.hmpps-domain-events.topic_arn]
+  }
+}
+
+resource "aws_sns_topic_policy" "topic_policy" {
+  arn    = module.hmpps-domain-events.topic_arn
+  policy = data.aws_iam_policy_document.sns_topic_policy.json
 }

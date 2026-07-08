@@ -20,8 +20,20 @@ variable "team_name" {
   default = "hmpps-incident-reporting"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "environment" {
   default = "development"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "dev"
 }
 
 variable "infrastructure_support" {
@@ -44,4 +56,10 @@ variable "github_owner" {
 variable "github_token" {
   type    = string
   default = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

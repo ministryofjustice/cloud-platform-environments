@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-base-location-preprod-cert
+  namespace: hmpps-prisoner-base-location-preprod
+spec:
+  secretName: hmpps-prisoner-base-location-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-base-location-api-preprod.hmpps.service.justice.gov.uk

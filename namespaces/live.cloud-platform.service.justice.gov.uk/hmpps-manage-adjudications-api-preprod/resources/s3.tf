@@ -16,7 +16,7 @@ resource "aws_iam_policy" "analytical-platform" {
 }
 
 module "analytical-platform" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
@@ -33,6 +33,22 @@ module "analytical-platform" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "analytical_platform_s3_bucket" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  team_name              = var.team_name
+  acl                    = "private"
+  versioning             = false
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
 
 data "aws_iam_policy_document" "analytical-platform" {
   statement {

@@ -23,6 +23,11 @@ variable "team_name" {
   default     = "move-a-prisoner"
 }
 
+variable "review_team_name" {
+  description = "The name of your development team"
+  default     = "map-developers-devs"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
@@ -31,6 +36,12 @@ variable "environment" {
 variable "environment-name" {
   description = "The environment name identifier."
   default     = "dev"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "infrastructure_support" {

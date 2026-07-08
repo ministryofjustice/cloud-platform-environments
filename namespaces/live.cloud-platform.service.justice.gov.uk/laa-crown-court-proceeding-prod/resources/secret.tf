@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.6"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -44,6 +44,21 @@ module "secrets_manager" {
       description             = "Crown Court Proceeding Slack Webhook",
       recovery_window_in_days = 7,
       k8s_secret_name         = "crown-court-proceeding-alert-webhook-prod"
-    }
+    },
+    "sentry_dsn" = {
+      description             = "Sentry Data Source Name (DSN) for CCP Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sentry-dsn"
+    },
+    "prosecution_concluded_db_username" = {
+      description             = "Prosecution Concluded DB Username for CCP Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "sqs-prosecution-concluded-db-username"
+    },
+    "email_client_notify_key" = {
+      description             = "Email notification client key CCP Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "email-client-notify-key"
+    },
   }
 }

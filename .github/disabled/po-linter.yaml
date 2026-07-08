@@ -1,0 +1,33 @@
+name: Prometheus Operator Linter
+
+on:
+  pull_request:
+    paths:
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yaml
+    - namespaces/live-2.cloud-platform.service.justice.gov.uk/*/*prometheus*.yml
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  po-lint:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Prometheus Operator Linter
+        uses: prymitive/pint-action@15a55d1427222c36fbdfbc0919f52295b12ce2d7 # v1.84.0
+        with:
+          token: ${{ github.token }}
+          requireOwner: 'true'

@@ -7,7 +7,7 @@ module "serviceaccount_circleci" {
   role_name = "circleci-legal-framework-production-sa-migrated"
   rolebinding_name = "circleci-legal-framework-production-sa-migrated"
 
-  serviceaccount_token_rotated_date = "13-02-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
   serviceaccount_name = "circleci-migrated"
   serviceaccount_rules = [
     {

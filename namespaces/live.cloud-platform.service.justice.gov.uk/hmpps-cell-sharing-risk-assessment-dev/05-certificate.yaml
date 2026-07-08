@@ -1,0 +1,27 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cell-sharing-risk-assessment-api-dev-cert
+  namespace: hmpps-cell-sharing-risk-assessment-dev
+spec:
+  secretName: cell-sharing-risk-assessment-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cell-sharing-risk-assessment-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cell-sharing-risk-assessment-dev-cert
+  namespace: hmpps-cell-sharing-risk-assessment-dev
+spec:
+  secretName: cell-sharing-risk-assessment-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cell-sharing-risk-assessment-dev.hmpps.service.justice.gov.uk
+

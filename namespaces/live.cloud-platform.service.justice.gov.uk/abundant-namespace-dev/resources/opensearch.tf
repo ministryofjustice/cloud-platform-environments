@@ -1,5 +1,5 @@
 module "opensearch_snapshot_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   # Tags
   business_unit          = var.business_unit
@@ -12,7 +12,7 @@ module "opensearch_snapshot_bucket" {
 }
 
 module "opensearch" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.6.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
   # VPC/EKS configuration
   vpc_name         = var.vpc_name

@@ -1,5 +1,5 @@
 module "ecr_credentials" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -30,9 +30,23 @@ module "ecr_credentials" {
       },
       {
           "rulePriority": 2,
-          "description": "Expire images older than 30 days",
+          "description": "Expire sha build images older than 90 days",
           "selection": {
-              "tagStatus": "any",
+              "tagStatus": "tagged",
+              "tagPrefixList": ["sha-"],
+              "countType": "sinceImagePushed",
+              "countUnit": "days",
+              "countNumber": 365
+          },
+          "action": {
+              "type": "expire"
+          }
+      },
+      {
+          "rulePriority": 3,
+          "description": "Expire untagged images older than 90 days",
+          "selection": {
+              "tagStatus": "untagged",
               "countType": "sinceImagePushed",
               "countUnit": "days",
               "countNumber": 90

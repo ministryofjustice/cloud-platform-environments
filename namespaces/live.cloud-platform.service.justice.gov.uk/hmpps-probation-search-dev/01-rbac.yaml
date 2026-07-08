@@ -5,10 +5,7 @@ metadata:
   namespace: hmpps-probation-search-dev
 subjects:
   - kind: Group
-    name: "github:probation-integration"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:delius-ds-contact-search-team" # for investigation into semantic search capabiltities by data science team
+    name: "github:probation-integration-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

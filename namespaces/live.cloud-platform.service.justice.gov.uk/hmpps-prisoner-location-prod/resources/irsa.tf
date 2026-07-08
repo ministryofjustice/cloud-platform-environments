@@ -11,7 +11,7 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 }
 
 module "location_api_irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name

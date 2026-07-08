@@ -1,5 +1,5 @@
 module "cccd_claims_submitted" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.0.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configuration
   topic_display_name = "cccd-claims-submitted"
@@ -19,7 +19,7 @@ module "cccd_claims_submitted" {
 }
 
 module "claims_for_ccr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cccd-claims-for-ccr"
@@ -30,6 +30,8 @@ module "claims_for_ccr" {
     "deadLetterTargetArn": "${module.ccr_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
 EOF
+
+  message_retention_seconds = 1209600
 
   # Tags
   business_unit          = var.business_unit
@@ -59,7 +61,6 @@ resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD",
             "arn:aws:iam::754256621582:role/cloud-platform-irsa-f825723bcfd1125d-live"
               ]
           },
@@ -88,7 +89,7 @@ EOF
 }
 
 module "claims_for_cclf" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cccd-claims-for-cclf"
@@ -99,6 +100,8 @@ module "claims_for_cclf" {
     "deadLetterTargetArn": "${module.cclf_dead_letter_queue.sqs_arn}","maxReceiveCount": 1
   }
 EOF
+
+  message_retention_seconds = 1209600
 
   # Tags
   business_unit          = var.business_unit
@@ -128,7 +131,6 @@ resource "aws_sqs_queue_policy" "claims_for_cclf_policy" {
           "Effect": "Allow",
           "Principal": {
           "AWS": [
-            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT",
             "arn:aws:iam::754256621582:role/cloud-platform-irsa-1ecd6d0bd409fe23-live"
               ]
           },
@@ -157,7 +159,7 @@ EOF
 }
 
 module "responses_for_cccd" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "responses-for-cccd"
@@ -183,36 +185,8 @@ EOF
   }
 }
 
-resource "aws_sqs_queue_policy" "responses_for_cccd" {
-  queue_url = module.responses_for_cccd.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.responses_for_cccd.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "LandingZonePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::842522700642:role/LAA-CCLF-production-AppInfrastructureTe-AppEc2Role-6CJZ29BBMKIT",
-            "arn:aws:iam::842522700642:role/LAA-CCR-production-AppInfrastructureTem-AppEc2Role-UJMXOZWB9CDD"
-              ]
-          },
-          "Resource": "${module.responses_for_cccd.sqs_arn}",
-          "Action": "sqs:SendMessage"
-        }
-      ]
-  }
-
-EOF
-
-}
-
 module "ccr_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cccd-claims-submitted-ccr-dlq"
@@ -233,7 +207,7 @@ module "ccr_dead_letter_queue" {
 }
 
 module "cclf_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "cccd-claims-submitted-cclf-dlq"
@@ -254,7 +228,7 @@ module "cclf_dead_letter_queue" {
 }
 
 module "cccd_response_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "reponses-for-cccd-dlq"

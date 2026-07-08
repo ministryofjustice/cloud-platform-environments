@@ -6,6 +6,10 @@ variable "team_name" {
   default = "offender-management"
 }
 
+variable "service_area" {
+  default = "Manage Custody"
+}
+
 variable "application" {
   default = "offender-management-allocation-manager"
 }
@@ -15,7 +19,7 @@ variable "business_unit" {
 }
 
 variable "is_production" {
-  default = "true"
+  default = "false"
 }
 
 variable "namespace" {
@@ -52,4 +56,10 @@ variable "eks_cluster_name" {
 
 variable "kubernetes_cluster" {
   type = string
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

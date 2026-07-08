@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
       - certificatedbailiffs.justice.gov.uk
+      - apex.certificatedbailiffs.justice.gov.uk

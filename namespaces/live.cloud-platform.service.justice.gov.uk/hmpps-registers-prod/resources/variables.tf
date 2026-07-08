@@ -14,6 +14,10 @@ variable "court-application" {
   default = "court-register"
 }
 
+variable "application" {
+  default = "HMPPS Registers Service"
+}
+
 variable "prison-application" {
   default = "prison-register"
 }
@@ -46,6 +50,21 @@ variable "environment-name" {
   default     = "prod"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
+variable "slack_channel" {
+  default     = "move-a-prisoner-digital"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
@@ -75,3 +94,17 @@ variable "eks_cluster_name" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "rds_backup_window" {
+  default = "22:00-23:59"
+}
+
+variable "rds_maintenance_window" {
+  default = "sun:00:00-sun:03:00"
+}

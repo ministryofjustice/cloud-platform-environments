@@ -56,11 +56,17 @@ resource "random_string" "amq_password" {
   special = false
 }
 
+resource "random_id" "config_id" {
+  byte_length = 8
+}
+
 locals {
-  identifier        = "cloud-platform-${random_id.amq_id.hex}"
-  mq_admin_user     = "cp${random_string.amq_username.result}"
-  mq_admin_password = random_string.amq_password.result
-  subnets           = data.aws_subnets.this.ids
+  identifier         = "cloud-platform-${var.environment_name}-${random_id.amq_id.hex}"
+  mq_admin_user      = "cp${random_string.amq_username.result}"
+  mq_admin_password  = random_string.amq_password.result
+  subnets            = data.aws_subnets.this.ids
+  amq_engine_version = "5.18"
+  amq_engine_type    = "ActiveMQ"
 }
 
 resource "aws_security_group" "broker_sg" {
@@ -69,9 +75,9 @@ resource "aws_security_group" "broker_sg" {
   vpc_id      = data.aws_vpc.this.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -79,9 +85,9 @@ resource "aws_security_group" "broker_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
     cidr_blocks = concat(
       [for s in data.aws_subnet.this : s.cidr_block],
       [for s in data.aws_subnet.eks_private : s.cidr_block]
@@ -102,19 +108,21 @@ resource "aws_mq_broker" "this" {
 
   auto_minor_version_upgrade = true
 
+  apply_immediately = false
+
   storage_type = "ebs"
 
   user {
     username       = local.mq_admin_user
     password       = local.mq_admin_password
     groups         = ["admin"]
-    console_access = false
+    console_access = true
   }
 
 
   logs {
     general = true
-    audit   = false
+    audit   = true
   }
 
   maintenance_window_start_time {
@@ -127,10 +135,17 @@ resource "aws_mq_broker" "this" {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment
+    environment-name       = var.environment_name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure_support
     namespace              = var.namespace
+    GithubTeam             = var.team_name
+  }
+
+  lifecycle {
+    ignore_changes = [
+      engine_version
+    ]
   }
 }
 
@@ -142,8 +157,62 @@ resource "kubernetes_secret" "amazon_mq" {
 
   data = {
     BROKER_CONSOLE_URL = aws_mq_broker.this.instances[0].console_url
-    BROKER_URL         = aws_mq_broker.this.instances[0].endpoints[0]
+    BROKER_URL         = "failover:(nio+${aws_mq_broker.this.instances[0].endpoints[0]})?initialReconnectDelay=1000&maxReconnectAttempts=-1&useExponentialBackOff=true&maxReconnectDelay=30000?reconnectSupported=true"
     BROKER_USERNAME    = local.mq_admin_user
     BROKER_PASSWORD    = local.mq_admin_password
   }
+}
+
+data "aws_iam_policy_document" "amq" {
+  statement {
+    actions = [
+      "mq:CreateConfiguration",
+      "mq:CreateUser",
+      "mq:DeleteUser",
+      "mq:DescribeBroker",
+      "mq:DescribeBrokerEngineTypes",
+      "mq:DescribeBrokerInstanceOptions",
+      "mq:DescribeConfiguration",
+      "mq:DescribeConfigurationRevision",
+      "mq:DescribeUser",
+      "mq:ListBrokers",
+      "mq:ListConfigurationRevisions",
+      "mq:ListConfigurations",
+      "mq:ListUsers",
+      "mq:RebootBroker",
+      "mq:UpdateBroker",
+      "mq:UpdateConfiguration",
+      "mq:UpdateUser"
+    ]
+    resources = [aws_mq_broker.this.arn]
+  }
+}
+
+data "aws_cloudwatch_log_group" "mq_broker_logs_general" {
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/general"
+}
+
+data "aws_cloudwatch_log_group" "mq_broker_logs_audit" {
+  name = "/aws/amazonmq/broker/${aws_mq_broker.this.id}/audit"
+}
+
+data "aws_iam_policy_document" "amq_cw_logs" {
+  statement {
+    actions = [
+      "logs:Describe*",
+      "logs:Get*",
+      "logs:List*",
+      "logs:*Query*",
+      "logs:*LiveTail*",
+      "logs:TestMetricFilter",
+      "logs:FilterLogEvents",
+    ]
+    resources = [data.aws_cloudwatch_log_group.mq_broker_logs_general.arn, data.aws_cloudwatch_log_group.mq_broker_logs_audit.arn]
+  }
+}
+
+resource "aws_iam_policy" "amq" {
+  name        = "cloud-platform-mq-${random_id.amq_id.hex}"
+  description = "IAM policy for Amazon MQ"
+  policy      = data.aws_iam_policy_document.amq.json
 }

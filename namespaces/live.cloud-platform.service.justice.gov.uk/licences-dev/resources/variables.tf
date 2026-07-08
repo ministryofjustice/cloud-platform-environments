@@ -21,7 +21,7 @@ variable "team_name" {
   default     = "create-and-vary-a-licence-devs"
 }
 
-variable "environment-name" {
+variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }

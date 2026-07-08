@@ -1,15 +1,12 @@
-
-
 variable "vpc_name" {
 }
-
 
 variable "kubernetes_cluster" {
 }
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Intranet Archive"
+  default     = "intranet-archive"
 }
 
 variable "namespace" {
@@ -23,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "central-digital-product-team"
+  default     = "jotw-content-devs"
 }
 
 variable "environment" {
@@ -31,9 +28,18 @@ variable "environment" {
   default     = "development"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Central Digital"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "central-digital-product-team@digital.justice.gov.uk"
+  default     = "wordpress@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -42,7 +48,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "cdpt-intranet"
+  default     = "website-builder-devs"
 }
 
 variable "github_owner" {
@@ -53,4 +59,10 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "cloudfront_alias" {
+  description = "Aliases for the CloudFront distribution."
+  type        = string
+  default     = "archive.dev.intranet.justice.gov.uk"
 }

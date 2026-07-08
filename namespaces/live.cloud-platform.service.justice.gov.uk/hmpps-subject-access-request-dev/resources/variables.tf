@@ -26,6 +26,11 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Foundations"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
@@ -33,9 +38,8 @@ variable "team_name" {
 }
 
 variable "environment" {
-  description = "Name of the environment type for this service"
-  type        = string
-  default     = "development"
+  description = "The type of environment you're deploying to."
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -72,8 +76,10 @@ variable "number_cache_clusters" {
   default = "2"
 }
 
-variable "rds_family" {
-  default = "postgres15"
-}
-
 variable "eks_cluster_name" {}
+
+variable "environment_name" {
+  description = "The name of environment you're deploying to."
+  type = string
+  default = "dev"
+}

@@ -1,5 +1,6 @@
 module "hmpps_prisoner_to_nomis_court_sentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prisoner_to_nomis_court_sentencing_queue"
@@ -9,7 +10,7 @@ module "hmpps_prisoner_to_nomis_court_sentencing_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 3
+    maxReceiveCount     = 20
   })
 
   # Tags
@@ -54,7 +55,7 @@ EOF
 }
 
 module "hmpps_prisoner_to_nomis_court_sentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prisoner_to_nomis_court_sentencing_dlq"
@@ -108,7 +109,26 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_court_sentencing_
   endpoint  = module.hmpps_prisoner_to_nomis_court_sentencing_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "court-case.inserted"
+      "court-case.inserted",
+      "court-case.updated",
+      "court-case.deleted",
+      "legacy.court-case-references.updated",
+      "court-appearance.inserted",
+      "court-appearance.updated",
+      "court-appearance.deleted",
+      "charge.inserted",
+      "charge.updated",
+      "charge.deleted",
+      "sentence.inserted",
+      "sentence.fix-single-charge.inserted",
+      "sentence.updated",
+      "sentence.deleted",
+      "sentence.period-length.inserted",
+      "sentence.period-length.updated",
+      "sentence.period-length.deleted",
+      "recall.inserted",
+      "recall.updated",
+      "recall.deleted",
     ]
   })
 }

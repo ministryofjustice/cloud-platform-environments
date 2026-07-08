@@ -1,5 +1,6 @@
 module "rds_alfresco" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp3"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -20,17 +21,21 @@ module "rds_alfresco" {
   prepare_for_major_upgrade = false
   db_engine_version         = "14"
   rds_family                = "postgres14"
-  db_instance_class         = "db.m7g.2xlarge"
+  db_instance_class         = "db.m8g.large"
+  db_iops                   = "12000"
 
   # Tagst
   application            = var.application
   business_unit          = var.business_unit
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
+
 
 resource "kubernetes_secret" "rds" {
   metadata {

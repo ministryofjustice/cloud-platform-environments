@@ -1,0 +1,40 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: srrc-api-dev-cert
+  namespace: srrc-dev
+spec:
+  secretName: srrc-api-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - srrc-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: srrc-dev-cert
+  namespace: srrc-dev
+spec:
+  secretName: srrc-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - srrc-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: srrc-stub-ws-dev-cert
+  namespace: srrc-dev
+spec:
+  secretName: srrc-stub-ws-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - srrc-stub-ws-dev.hmpps.service.justice.gov.uk
+---

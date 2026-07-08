@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:central-digital-product-team"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hale-platform"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

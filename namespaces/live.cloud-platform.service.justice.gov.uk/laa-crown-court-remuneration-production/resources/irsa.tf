@@ -1,5 +1,5 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
@@ -25,17 +25,28 @@ module "irsa" {
 }
 
 data "aws_iam_policy_document" "ccr_claims_policy_prod" {
-  # Provide list of permissions and target AWS account resources to allow access to
+  # Inbound queues: CCR polls for claims and deletes after processing
   statement {
-    sid  = "CCRPolicySQSPROD"
+    sid  = "CCRPolicySQSProdReceive"
     effect = "Allow"
     actions = [
-      "sqs:*",
-      "sts:*"
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
     ]
     resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-production-cccd-claims-for-ccr",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-production-cccd-claims-submitted-ccr-dlq",
+    ]
+  }
+
+  # Outbound queues: CCR sends success/failure responses back to CCCD
+  statement {
+    sid  = "CCRPolicySQSProdSend"
+    effect = "Allow"
+    actions = [
+      "sqs:SendMessage",
+    ]
+    resources = [
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-production-responses-for-cccd",
       "arn:aws:sqs:eu-west-2:754256621582:laa-get-paid-production-reponses-for-cccd-dlq",
     ]

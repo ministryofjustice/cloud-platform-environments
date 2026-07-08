@@ -1,16 +1,17 @@
 module "s3_bucket" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
   versioning             = var.versioning
 
   lifecycle_rule = [
     {
+      id      = "${var.environment_name}-lifecycle-rule"
       enabled = true
 
       noncurrent_version_transition = [
@@ -21,12 +22,6 @@ module "s3_bucket" {
         {
           days          = var.s3_lifecycle_config["noncurrent_version_transition_glacier_days"]
           storage_class = "GLACIER"
-        },
-      ]
-
-      noncurrent_version_expiration = [
-        {
-          days = var.s3_lifecycle_config["noncurrent_version_expiration_days"]
         },
       ]
     }

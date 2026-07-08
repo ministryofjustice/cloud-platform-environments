@@ -7,16 +7,21 @@ locals {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  sqs_policies = {
+  static_sqs_policies = {
     hmpps_unused_deductions_queue                   = module.hmpps_unused_deductions_queue.irsa_policy_arn,
     hmpps_unused_deductions_dead_letter_queue       = module.hmpps_unused_deductions_dead_letter_queue.irsa_policy_arn,
     hmpps_adjustments_prisoner_queue                = module.hmpps_adjustments_prisoner_queue.irsa_policy_arn,
     hmpps_adjustments_prisoner_dead_letter_queue    = module.hmpps_adjustments_prisoner_dead_letter_queue.irsa_policy_arn,
   }
+  dynamic_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sqs_policies = merge(local.static_sqs_policies, local.dynamic_sqs_policies)
+  sqs_queues = {
+    "Digital-Prison-Services-${var.environment_name}-hmpps_audit_queue" = "hmpps-audit-${var.environment_name}"
+  }
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
@@ -34,4 +39,9 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }

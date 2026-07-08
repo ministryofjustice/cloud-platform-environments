@@ -26,10 +26,15 @@ variable "business_unit" {
   default     = "LAA"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-aws-infrastructure"
+  default     = "laa-crime-apps-team"
 }
 
 variable "environment" {
@@ -41,7 +46,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "bob@bob"
+  default     = "laa-crime-apps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +58,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ops-team"
+  default     = "laa-crimeapps"
 }
 
 variable "github_owner" {

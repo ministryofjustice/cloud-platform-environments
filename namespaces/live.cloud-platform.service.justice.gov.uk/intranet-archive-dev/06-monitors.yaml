@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: intranet-archive-metrics
+  namespace: intranet-archive-dev
+spec:
+  selector:
+    matchLabels:
+      app: intranet-archive
+  endpoints:
+  - port: http
+    interval: 120s
+    path: /metrics

@@ -5,7 +5,7 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "circleci-migrated"
-  serviceaccount_token_rotated_date = "27-09-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {

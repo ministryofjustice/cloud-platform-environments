@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "farsight-devs"
+  default     = "hmpps-farsight-sentence-offence"
 }
 
 variable "environment" {
@@ -70,4 +70,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "service_area" {
+  type        = string
+  description = "service area"
+  default     = "Manage Custody"
 }

@@ -2,7 +2,7 @@
  Based on https://github.com/ministryofjustice/cloud-platform-terraform-s3-bucket/tree/master/example
  */
 module "book_a_secure_move_documents_s3_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   team_name              = var.team_name
   business_unit          = "Digital and Technology"

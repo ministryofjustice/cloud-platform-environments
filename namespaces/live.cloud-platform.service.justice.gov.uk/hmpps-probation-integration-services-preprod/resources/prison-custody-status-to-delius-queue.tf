@@ -13,7 +13,7 @@ resource "aws_sns_topic_subscription" "prison-custody-status-to-delius-queue-sub
 }
 
 module "prison-custody-status-to-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name = "prison-custody-status-to-delius-queue"
@@ -38,7 +38,7 @@ resource "aws_sqs_queue_policy" "prison-custody-status-to-delius-queue-policy" {
 }
 
 module "prison-custody-status-to-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                  = "prison-custody-status-to-delius-dlq"
@@ -70,7 +70,7 @@ resource "kubernetes_secret" "prison-custody-status-to-delius-queue-secret" {
 }
 
 module "prison-custody-status-to-delius-service-account" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   application            = var.application
   business_unit          = var.business_unit
   eks_cluster_name       = var.eks_cluster_name

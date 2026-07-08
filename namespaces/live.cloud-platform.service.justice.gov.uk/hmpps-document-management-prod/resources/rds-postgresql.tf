@@ -1,5 +1,7 @@
 module "rds_postgres" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -10,7 +12,7 @@ module "rds_postgres" {
   rds_family                 = "postgres16"
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "500"
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
   prepare_for_major_upgrade  = false
 
   # Tags
@@ -22,6 +24,7 @@ module "rds_postgres" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
 
 resource "kubernetes_secret" "rds_postgres" {
   metadata {

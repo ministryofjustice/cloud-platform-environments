@@ -1,0 +1,56 @@
+/*
+ * Make sure that you use the latest version of the module by changing the
+ * `ref=` value in the `source` attribute to the latest version listed on the
+ * releases page of this repository.
+ *
+ */
+module "ecr" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+
+  # REQUIRED: Repository configuration
+  team_name = var.team_name
+  repo_name = "${var.namespace}-ecr"
+  namespace = var.namespace
+
+  # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
+  oidc_providers = ["github"]
+
+  # REQUIRED: GitHub repositories that push to this container repository
+  github_repositories = ["bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim", "laa-oidc-mock-server"]
+  github_actions_prefix = "laa_oidc_mock_server"
+
+  # Lifecycle policies
+  lifecycle_policy = <<EOF
+    {
+      "rules": [
+        {
+          "rulePriority": 1,
+          "description": "Keep the newest 15 images",
+          "selection": {
+            "tagStatus": "any",
+            "countType": "imageCountMoreThan",
+            "countNumber": 15
+          },
+          "action": {
+            "type": "expire"
+          }
+        }
+      ]
+    }
+    EOF
+
+
+  # OPTIONAL: Add deletion_protection = false parameter if you are planning on either deleting your environment namespace or ECR resource.
+  # IMPORTANT: It is the PR owners responsibility to ensure that no other environments are sharing this ECR registry.
+  # This flag will allow a non-empty ECR to be deleted.
+  # Defaults to true
+
+  # deletion_protection = false
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}

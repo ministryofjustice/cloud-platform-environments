@@ -5,10 +5,10 @@ metadata:
   namespace: prisoner-content-hub-development
 subjects:
   - kind: Group
-    name: "github:prisoner-content-hub-developers"
+    name: "github:hmpps-launchpad"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:dps-tech"
+    name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

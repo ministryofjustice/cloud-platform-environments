@@ -1,8 +1,11 @@
 module "checkmydiary_rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
 
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "check-my-diary-db-preprod"
   business_unit              = "HMPPS"
   application                = var.application
   is_production              = var.is_production
@@ -12,8 +15,8 @@ module "checkmydiary_rds" {
   db_max_allocated_storage   = "500"
   db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
-  db_engine_version          = "16"
-  rds_family                 = "postgres16"
+  db_engine_version          = "18"
+  rds_family                 = "postgres18"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
@@ -22,6 +25,7 @@ module "checkmydiary_rds" {
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "checkmydiary_rds_secrets" {

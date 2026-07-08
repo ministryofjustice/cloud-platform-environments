@@ -22,12 +22,17 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "manage-a-workforce"
+  default     = "hmpps-manage-a-workforce-devs"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "development"
+}
+
+variable "environment_name" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
 }
 
 variable "infrastructure_support" {

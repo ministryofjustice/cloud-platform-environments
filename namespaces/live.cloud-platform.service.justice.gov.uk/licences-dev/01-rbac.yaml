@@ -6,12 +6,6 @@ metadata:
   namespace: licences-dev
 subjects:
   - kind: Group
-    name: "github:dps-shared"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:dps-tech"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:create-and-vary-a-licence-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

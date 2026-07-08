@@ -11,13 +11,14 @@ locals {
 }
 
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
     { domain_sns = module.hmpps_allocation_domain_events_queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps_allocation_domain_events_dead_letter_queue.irsa_policy_arn }
+    { domain_dlq = module.hmpps_allocation_domain_events_dead_letter_queue.irsa_policy_arn },
+    { rds = module.rds-allocation.irsa_policy_arn }
   )
 
   # Tags

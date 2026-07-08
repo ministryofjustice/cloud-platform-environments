@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=7.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
   # REQUIRED: Repository configuration
   repo_name = var.namespace
@@ -51,8 +51,8 @@ module "ecr" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the container repository
-  namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
+  team_name              = "laa-aws-infrastructure" # also used for naming the container repository; this is temp set to LAA Ops so ECR won't be recreated
+  namespace              = var.namespace            # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }

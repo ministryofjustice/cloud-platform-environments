@@ -5,7 +5,7 @@
  *
  */
 module "apply-for-legal-aid-rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name                 = var.vpc_name
   team_name                = "apply-for-legal-aid"
@@ -14,12 +14,14 @@ module "apply-for-legal-aid-rds" {
   is_production            = "false"
   namespace                = var.namespace
   environment_name         = "staging"
-  infrastructure_support   = "apply-for-civil-legal-aid@digital.justice.gov.uk"
+  infrastructure_support   = "apply-for-civil-legal-aid@justice.gov.uk"
 
   # Database configuration
-  db_engine_version           = "14.13"
+  prepare_for_major_upgrade   = false
+  db_engine                   = "postgres"
+  db_engine_version           = "18.1"
+  rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres14"
   db_name                     = "apply_for_legal_aid_staging"
   allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "true"
@@ -31,6 +33,11 @@ module "apply-for-legal-aid-rds" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
+
+  # Enables Cloudwatch logging for this RDS instance and sends them to Cortex XSIAM
+  opt_in_xsiam_logging = false
 }
 
 resource "kubernetes_secret" "apply-for-legal-aid-rds" {

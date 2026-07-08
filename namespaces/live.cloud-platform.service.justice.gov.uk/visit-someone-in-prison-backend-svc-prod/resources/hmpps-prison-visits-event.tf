@@ -9,14 +9,29 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_event_subscription" {
   endpoint  = module.hmpps_prison_visits_event_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "non-associations.created",
+      "non-associations.deleted",
+      "non-associations.closed",
+      "non-associations.amended",
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.restriction.changed",
+      "prison-offender-events.prisoner.contact-approved",
+      "prison-offender-events.prisoner.contact-unapproved",
+      "contacts-api.prisoner-contact-restriction.updated",
+      "contacts-api.prisoner-contact-restriction.created",
+      "contacts-api.contact-restriction.updated",
+      "contacts-api.contact-restriction.created",
+      "person.alert.created",
+      "person.alert.updated",
+      "person.alert.deleted",
+      "person.alert.inactive",
     ]
   })
 }
 
 module "hmpps_prison_visits_event_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "hmpps_prison_visits_event_queue"
@@ -33,7 +48,7 @@ module "hmpps_prison_visits_event_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -73,7 +88,7 @@ EOF
 ######## Dead letter queue
 
 module "hmpps_prison_visits_event_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "hmpps_prison_visits_event_dlq"
@@ -83,7 +98,7 @@ module "hmpps_prison_visits_event_dead_letter_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name # also used for naming the queue
+  team_name              = "book-a-prison-visit" # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

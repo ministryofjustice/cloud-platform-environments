@@ -4,7 +4,9 @@
 #################################################################################
 
 module "peoplefinder_rds" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage       = 10
+  storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
   business_unit              = var.business_unit
@@ -20,15 +22,17 @@ module "peoplefinder_rds" {
   rds_family                 = "postgres16"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_staging"
+  backup_window              = "06:00-08:00"
   enable_rds_auto_start_stop = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade = "false"
+  prepare_for_major_upgrade   = "false"
 
   providers = {
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "peoplefinder_rds" {

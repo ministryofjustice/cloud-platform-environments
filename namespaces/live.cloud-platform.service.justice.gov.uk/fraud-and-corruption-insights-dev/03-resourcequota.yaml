@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: fraud-and-corruption-insights-dev
+spec:
+  hard:
+    pods: "50"

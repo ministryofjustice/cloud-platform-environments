@@ -38,6 +38,11 @@ variable "environment" {
   default     = "production"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Criminal Applications"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
@@ -83,6 +88,11 @@ variable "user_pool_name_hardship" {
   default     = "laa-crime-auth-userpool-hardship"
 }
 
+variable "user_pool_name_mst" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-mst"
+}
+
 variable "user_pool_name_cma" {
   description = "Cognito user pool name"
   default     = "laa-crime-auth-userpool-cma"
@@ -96,6 +106,11 @@ variable "user_pool_name_ccp" {
 variable "user_pool_name_ccc" {
   description = "Cognito user pool name"
   default     = "laa-crime-auth-userpool-ccc"
+}
+
+variable "user_pool_name_cas" {
+  description = "Cognito user pool name"
+  default     = "laa-crime-auth-userpool-cas"
 }
 
 variable "user_pool_name_orchestration" {
@@ -170,6 +185,26 @@ variable "cognito_user_pool_ccc_client_name_uat" {
 
 variable "cognito_user_pool_ccc_client_name_prd" {
   description = "Cognito user pool CCC client name"
+  default     = "crown-court-contribution-client-prd"
+}
+
+variable "cognito_user_pool_cas_client_name_dev" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-dev"
+}
+
+variable "cognito_user_pool_cas_client_name_tst" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-tst"
+}
+
+variable "cognito_user_pool_cas_client_name_uat" {
+  description = "Cognito user pool Crime Assessment Service client name"
+  default     = "crown-court-contribution-client-uat"
+}
+
+variable "cognito_user_pool_cas_client_name_prd" {
+  description = "Cognito user pool Crime Assessment Service client name"
   default     = "crown-court-contribution-client-prd"
 }
 
@@ -278,6 +313,26 @@ variable "cognito_user_pool_hardship_client_name_prd" {
   default     = "hardship-client-prd"
 }
 
+variable "cognito_user_pool_chb_client_name_dev" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-dev"
+}
+
+variable "cognito_user_pool_chb_client_name_tst" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-tst"
+}
+
+variable "cognito_user_pool_chb_client_name_uat" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-uat"
+}
+
+variable "cognito_user_pool_chb_client_name_prd" {
+  description = "Cognito user pool Crime Higher Billing client name"
+  default     = "chb-client-prd"
+}
+
 variable "cognito_user_pool_functional_tests_name" {
   description = "Cognito user pool functional tests client name"
   default     = "functional-tests-client"
@@ -354,6 +409,25 @@ variable "hardship_scope_description" {
   default = "Standard scope for the Crime Hardship service"
 }
 
+variable "mst_resource_server_identifier" {
+  default     = "mst"
+  description = "Cognito resource server identifier for MAAT Scheduled Tasks service"
+}
+
+variable "mst_resource_server_name" {
+  default     = "mst-resource-server"
+  description = "Cognito resource server name for MAAT Scheduled Tasks service"
+}
+
+variable "mst_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "mst_scope_description" {
+  default = "Standard scope for the MAAT Scheduled Tasks service"
+}
+
 variable "cma_resource_server_identifier" {
   default     = "cma"
   description = "Cognito resource server identifier for Crime Means Assessment service"
@@ -411,6 +485,25 @@ variable "ccc_scope_description" {
   default = "Standard scope for the Crown Court Contribution service"
 }
 
+variable "cas_resource_server_identifier" {
+  default     = "cas"
+  description = "Cognito resource server identifier for Crime Assessment Service"
+}
+
+variable "cas_resource_server_name" {
+  default     = "cas-resource-server"
+  description = "Cognito resource server name for Crime Assessment Service"
+}
+
+variable "cas_scope_name" {
+  default     = "standard"
+  description = "Resource server scope name"
+}
+
+variable "cas_scope_description" {
+  default = "Standard scope for the Crime Assessment Service"
+}
+
 variable "orchestration_resource_server_identifier" {
   default     = "orchestration"
   description = "Cognito resource server identifier for MAAT Orchestration service"
@@ -461,6 +554,10 @@ variable "cognito_user_pool_domain_name_hardship" {
   default = "laa-crime-auth-hardship"
 }
 
+variable "cognito_user_pool_domain_name_mst" {
+  default = "laa-crime-auth-mst"
+}
+
 variable "cognito_user_pool_domain_name_cma" {
   default = "laa-crime-auth-cma"
 }
@@ -471,6 +568,10 @@ variable "cognito_user_pool_domain_name_ccp" {
 
 variable "cognito_user_pool_domain_name_ccc" {
   default = "laa-crime-auth-ccc"
+}
+
+variable "cognito_user_pool_domain_name_cas" {
+  default = "laa-crime-auth-cas"
 }
 
 variable "cognito_user_pool_domain_name_orchestration" {

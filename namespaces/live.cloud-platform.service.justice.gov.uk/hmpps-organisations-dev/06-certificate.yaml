@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-organisations-api-cert
+  namespace: hmpps-organisations-dev
+spec:
+  secretName: hmpps-organisations-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - organisations-api-dev.hmpps.service.justice.gov.uk

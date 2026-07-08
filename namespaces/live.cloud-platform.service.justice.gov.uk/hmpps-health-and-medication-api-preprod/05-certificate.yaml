@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-health-and-medication-api-cert
+  namespace: hmpps-health-and-medication-api-preprod
+spec:
+  secretName: hmpps-health-and-medication-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - health-and-medication-api-preprod.hmpps.service.justice.gov.uk

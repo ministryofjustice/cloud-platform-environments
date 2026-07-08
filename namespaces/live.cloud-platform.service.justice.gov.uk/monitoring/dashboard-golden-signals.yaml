@@ -41,23 +41,37 @@ data:
             },
             "dimensions": {},
             "enable": true,
-            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\"} * 1000",
+            "expr": "kube_pod_created{namespace=\"$namespace\", pod=~\"$service-.*\", pod!~\"$service(-api|-ui).*\"} * 1000",
             "expression": "",
             "hide": false,
             "iconColor": "#3274D9",
             "id": "",
             "matchExact": true,
             "metricName": "",
-            "name": "service pod creation",
+            "name": "Annotate pod creation events for this app",
             "namespace": "",
             "period": "",
             "prefixMatching": false,
             "region": "default",
             "showIn": 0,
             "statistic": "Average",
-            "textFormat": "",
+            "textFormat": "{{ pod }}",
             "titleFormat": "{{ pod }}",
             "useValueForTime": true
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_THANOS}"
+            },
+            "enable": false,
+            "expr": "kube_pod_created{namespace=\"$namespace\"} * 1000",
+            "hide": false,
+            "iconColor": "red",
+            "name": "Annotate all namespace pod creation events",
+            "textFormat": "{{ pod }}",
+            "titleFormat": "{{ pod }}",
+            "useValueForTime": "on"
           }
         ]
       },
@@ -65,10 +79,171 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 43,
+      "id": 119,
       "links": [],
-      "liveNow": false,
       "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_THANOS}"
+          },
+          "description": "Uses the \"kube_pod_container_info\" to get the container image, and pull out the app version.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "fillOpacity": 80,
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineWidth": 0,
+                "spanNulls": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 20,
+            "x": 0,
+            "y": 0
+          },
+          "id": 35,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Dev portal",
+              "url": "https://developer-portal.hmpps.service.justice.gov.uk/components/$service"
+            }
+          ],
+          "maxPerRow": 2,
+          "options": {
+            "alignValue": "left",
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "mergeValues": true,
+            "rowHeight": 0.5,
+            "showValue": "never",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.3.0",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_THANOS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (image) (kube_pod_container_info{namespace=\"$namespace\", container=\"$service\"})",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "App version history",
+          "transformations": [
+            {
+              "id": "renameByRegex",
+              "options": {
+                "regex": ".*:(.*)",
+                "renamePattern": "$1"
+              }
+            }
+          ],
+          "type": "state-timeline"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_THANOS}"
+          },
+          "description": "The total number of requests served in the selected time period.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 20,
+            "y": 0
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.3.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_THANOS}"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s]))",
+              "interval": "",
+              "legendFormat": "",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Requests Served",
+          "type": "stat"
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -81,11 +256,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Number of requests",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -94,6 +271,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "stepAfter",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -131,10 +309,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 9,
             "w": 20,
             "x": 0,
-            "y": 0
+            "y": 5
           },
           "id": 15,
           "options": {
@@ -151,7 +329,7 @@ data:
               "sort": "desc"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -160,7 +338,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n) by (status) != 0",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval])\n) by (status) != 0",
               "interval": "1m",
               "legendFormat": "{{status}}",
               "range": true,
@@ -169,73 +347,6 @@ data:
           ],
           "title": "Requests",
           "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_THANOS}"
-          },
-          "description": "The total number of requests served in the selected time period.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 4,
-            "x": 20,
-            "y": 0
-          },
-          "id": 34,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "auto"
-          },
-          "pluginVersion": "9.2.4",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_THANOS}"
-              },
-              "editorMode": "code",
-              "exemplar": true,
-              "expr": "sum(increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[${__range_s}s]))",
-              "interval": "",
-              "legendFormat": "",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Requests Served",
-          "type": "stat"
         },
         {
           "datasource": {
@@ -266,7 +377,7 @@ data:
             "h": 3,
             "w": 4,
             "x": 20,
-            "y": 3
+            "y": 5
           },
           "id": 28,
           "options": {
@@ -274,6 +385,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -281,10 +393,12 @@ data:
               "fields": "",
               "values": false
             },
+            "showPercentChange": false,
             "text": {},
-            "textMode": "auto"
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -293,7 +407,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "range": true,
@@ -329,10 +443,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 2,
+            "h": 3,
             "w": 4,
             "x": 20,
-            "y": 6
+            "y": 8
           },
           "id": 29,
           "options": {
@@ -340,6 +454,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -347,10 +462,12 @@ data:
               "fields": "",
               "values": false
             },
+            "showPercentChange": false,
             "text": {},
-            "textMode": "auto"
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -359,7 +476,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "range": true,
@@ -395,10 +512,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 2,
+            "h": 3,
             "w": 4,
             "x": 20,
-            "y": 8
+            "y": 11
           },
           "id": 33,
           "options": {
@@ -406,6 +523,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "auto",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -413,10 +531,12 @@ data:
               "fields": "",
               "values": false
             },
+            "showPercentChange": false,
             "text": {},
-            "textMode": "auto"
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -425,7 +545,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
+              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[${__range_s}s])\n  ) by (le)\n) > 0",
               "interval": "",
               "legendFormat": "",
               "range": true,
@@ -447,11 +567,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Percentage",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -460,6 +582,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -502,7 +625,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 10
+            "y": 14
           },
           "id": 16,
           "options": {
@@ -517,7 +640,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -526,7 +649,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status!~\"5.*|499\"}[$__rate_interval]))\n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status!~\"5.*|499\"}[$__rate_interval]))\n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "Request Success Rate",
               "range": true,
@@ -548,11 +671,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Seconds",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -561,6 +686,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -601,7 +727,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 10
+            "y": 14
           },
           "id": 17,
           "options": {
@@ -616,7 +742,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -625,7 +751,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  0.5,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p50",
               "range": true,
@@ -638,7 +764,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  0.95,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p95",
               "range": true,
@@ -651,7 +777,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
+              "expr": "histogram_quantile(\n  1,\n  max(\n    irate(nginx_ingress_controller_request_duration_seconds_bucket{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval])\n  ) by (le)\n)",
               "interval": "",
               "legendFormat": "p100",
               "range": true,
@@ -673,11 +799,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Percentage",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -686,6 +814,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -728,7 +857,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 10
+            "y": 14
           },
           "id": 18,
           "options": {
@@ -743,7 +872,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -752,7 +881,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"500\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"500\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "500",
               "range": true,
@@ -765,7 +894,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"501\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"501\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "501",
               "range": true,
@@ -778,7 +907,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"502\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"502\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "502",
               "range": true,
@@ -791,7 +920,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"503\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"503\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "503",
               "range": true,
@@ -804,7 +933,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"504\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
+              "expr": "sum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"504\"}[$__rate_interval])) \n/ \nsum(irate(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\"}[$__rate_interval]))\n* 100",
               "interval": "",
               "legendFormat": "504",
               "range": true,
@@ -826,11 +955,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Count",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -839,6 +970,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -879,7 +1011,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 18
+            "y": 22
           },
           "id": 26,
           "options": {
@@ -894,7 +1026,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -903,7 +1035,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"429\"}[$__rate_interval])\n)\nor\nvector(0)",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"429\"}[$__rate_interval])\n)\nor\nvector(0)",
               "interval": "1m",
               "legendFormat": "Rate Limited Reqs",
               "range": true,
@@ -916,7 +1048,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service|$service-.+\", exported_namespace=\"$namespace\", status=\"406\"}[$__rate_interval])\n)\nor\nvector(0)",
+              "expr": "sum(\n  increase(nginx_ingress_controller_requests{ingress=~\"$service(-v1-2)\", exported_namespace=\"$namespace\", status=\"406\"}[$__rate_interval])\n)\nor\nvector(0)",
               "hide": false,
               "interval": "1m",
               "legendFormat": "Mod Security Blocked Reqs",
@@ -939,11 +1071,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Percentage",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -952,6 +1086,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -993,7 +1128,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 18
+            "y": 22
           },
           "id": 19,
           "options": {
@@ -1008,18 +1143,20 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "avg(irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$service-.+\", namespace=\"$namespace\"}) by (container)",
+              "expr": "avg(irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"cpu\", pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\",namespace=\"$namespace\"}) by (container)",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1038,11 +1175,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -1051,6 +1190,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -1090,7 +1230,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 18
+            "y": 22
           },
           "id": 22,
           "options": {
@@ -1105,18 +1245,20 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "avg(\n  irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
+              "expr": "avg(\n  irate(container_cpu_usage_seconds_total{pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\", container=~\".+\"}[1m])\n) by (container)",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1135,11 +1277,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -1148,6 +1292,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -1200,7 +1345,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 26
+            "y": 30
           },
           "id": 24,
           "options": {
@@ -1215,17 +1360,19 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"$namespace\", pod=~\"$service-.+\"}[2m]))",
+              "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"$namespace\", pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\"}[2m]))",
               "interval": "",
               "legendFormat": "Receive",
+              "range": true,
               "refId": "A"
             },
             {
@@ -1233,10 +1380,12 @@ data:
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "sum(irate(container_network_transmit_bytes_total{namespace=\"$namespace\", pod=~\"$service-.+\"}[2m]))",
+              "expr": "sum(irate(container_network_transmit_bytes_total{namespace=\"$namespace\", pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\"}[2m]))",
               "interval": "",
               "legendFormat": "Transmit",
+              "range": true,
               "refId": "C"
             }
           ],
@@ -1255,11 +1404,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Percentage",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -1268,6 +1419,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -1309,7 +1461,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 26
+            "y": 30
           },
           "id": 20,
           "options": {
@@ -1324,18 +1476,20 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.+\", namespace=\"$namespace\"}) by (container)\n* 100",
+              "expr": "avg(irate(container_memory_usage_bytes{pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\", container=~\".+\"}[1m])) by (container)\n/ \navg(kube_pod_container_resource_requests{resource=\"memory\", pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\"}) by (container)\n* 100",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1354,11 +1508,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -1367,6 +1523,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -1406,7 +1563,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 26
+            "y": 30
           },
           "id": 23,
           "options": {
@@ -1421,18 +1578,20 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "avg(\n  irate(container_memory_usage_bytes{pod=~\"$service-.+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
+              "expr": "avg(\n  irate(container_memory_usage_bytes{pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\", container!=\"POD\", container=~\".+\"}[1m])\n) by (container)",
               "hide": false,
               "interval": "",
               "legendFormat": "{{container}}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1451,11 +1610,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Count",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -1464,6 +1625,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 2,
                 "pointSize": 5,
@@ -1504,7 +1666,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 34
+            "y": 38
           },
           "id": 21,
           "options": {
@@ -1519,17 +1681,19 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "count(\n  label_replace(kube_pod_info{pod=~\"$service-.+\", namespace=\"$namespace\"}, \"pod\", \"$1\", \"created_by_name\", \"(.*)-\\\\w+\")\n) by (pod)",
+              "expr": "count(\n  label_replace(kube_pod_info{pod=~\"$service-.+\", pod!~\"$service(-api|-ui).+\", namespace=\"$namespace\"}, \"pod\", \"$1\", \"created_by_name\", \"(.*)-\\\\w+\")\n) by (pod)",
               "interval": "",
               "legendFormat": "{{ created_by_name }}",
+              "range": true,
               "refId": "B"
             }
           ],
@@ -1548,11 +1712,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Count",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -1561,6 +1727,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1601,7 +1768,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 34
+            "y": 38
           },
           "id": 31,
           "options": {
@@ -1616,7 +1783,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
@@ -1625,7 +1792,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "sum by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=~\"$service-.*\"}[10m])) > 0",
+              "expr": "sum by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=~\"$service-.*\", pod!~\"$service(-api|-ui).+\"}[10m])) > 0",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ pod }}",
@@ -1648,11 +1815,13 @@ data:
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "Count",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "bars",
                 "fillOpacity": 100,
                 "gradientMode": "none",
@@ -1661,6 +1830,7 @@ data:
                   "tooltip": false,
                   "viz": false
                 },
+                "insertNulls": false,
                 "lineInterpolation": "linear",
                 "lineWidth": 1,
                 "pointSize": 5,
@@ -1701,7 +1871,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 34
+            "y": 38
           },
           "id": 32,
           "options": {
@@ -1716,18 +1886,20 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "9.2.4",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "${DS_THANOS}"
               },
+              "editorMode": "code",
               "exemplar": true,
-              "expr": "sum by (pod) (\n  kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$service-.*\", phase=~\"Pending|Unknown\"}\n) > 0",
+              "expr": "sum by (pod) (\n  kube_pod_status_phase{namespace=\"$namespace\", pod=~\"$service-.*\", pod!~\"$service(-api|-ui).+\", phase=~\"Pending|Unknown\"}\n) > 0",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ pod }}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -1735,9 +1907,9 @@ data:
           "type": "timeseries"
         }
       ],
-      "refresh": false,
-      "schemaVersion": 37,
-      "style": "dark",
+      "preload": false,
+      "refresh": "",
+      "schemaVersion": 40,
       "tags": [
         "kubernetes",
         "nginx-ingress"
@@ -1745,15 +1917,12 @@ data:
       "templating": {
         "list": [
           {
-            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{}, exported_namespace)",
-            "hide": 0,
             "includeAll": false,
-            "multi": false,
             "name": "namespace",
             "options": [],
             "query": {
@@ -1762,23 +1931,16 @@ data:
             },
             "refresh": 1,
             "regex": "",
-            "skipUrlSync": false,
             "sort": 1,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "type": "query"
           },
           {
-            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
             },
             "definition": "label_values(nginx_ingress_controller_requests{exported_namespace=\"$namespace\"}, exported_service)",
-            "hide": 0,
             "includeAll": false,
-            "multi": false,
             "name": "service",
             "options": [],
             "query": {
@@ -1787,51 +1949,41 @@ data:
             },
             "refresh": 1,
             "regex": "",
-            "skipUrlSync": false,
             "sort": 1,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "type": "query"
           },
           {
             "current": {
-              "selected": false,
               "text": "Prometheus",
-              "value": "Prometheus"
+              "value": "prometheus"
             },
             "hide": 2,
             "includeAll": false,
-            "multi": false,
             "name": "DS_PROMETHEUS",
             "options": [],
             "query": "prometheus",
             "refresh": 1,
             "regex": "Prometheus",
-            "skipUrlSync": false,
             "type": "datasource"
           },
           {
             "current": {
-              "selected": false,
               "text": "Thanos",
-              "value": "Thanos"
+              "value": "P5DCFC7561CCDE821"
             },
             "hide": 2,
             "includeAll": false,
-            "multi": false,
             "name": "DS_THANOS",
             "options": [],
             "query": "prometheus",
             "refresh": 1,
             "regex": "Thanos",
-            "skipUrlSync": false,
             "type": "datasource"
           }
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-3h",
         "to": "now"
       },
       "timepicker": {
@@ -1845,17 +1997,6 @@ data:
           "1h",
           "2h",
           "1d"
-        ],
-        "time_options": [
-          "5m",
-          "15m",
-          "1h",
-          "6h",
-          "12h",
-          "24h",
-          "2d",
-          "7d",
-          "30d"
         ]
       },
       "timezone": "browser",

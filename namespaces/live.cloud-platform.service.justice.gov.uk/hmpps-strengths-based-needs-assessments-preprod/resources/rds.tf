@@ -1,6 +1,8 @@
 
 module "hmpps_strengths_based_needs_assessments_preprod_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,11 +17,13 @@ module "hmpps_strengths_based_needs_assessments_preprod_rds" {
   db_engine_version      = "16"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_preprod_rds_secret" {
@@ -37,3 +41,21 @@ resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_preprod_rd
     url                   = "postgres://${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username}:${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password}@${module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint}/${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name}"
   }
 }
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-instance"
+    namespace = "hmpps-strengths-based-needs-assessments-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint
+    database_name         = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name
+    database_username     = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username
+    database_password     = module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password
+    rds_instance_address  = module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_address
+    url                   = "postgres://${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_username}:${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_password}@${module.hmpps_strengths_based_needs_assessments_preprod_rds.rds_instance_endpoint}/${module.hmpps_strengths_based_needs_assessments_preprod_rds.database_name}"
+  }
+}
+

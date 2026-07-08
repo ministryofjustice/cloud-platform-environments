@@ -1,5 +1,6 @@
 module "rds_alfresco" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp3"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -18,19 +19,22 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.12"
+  db_engine_version         = "14.17"
   rds_family                = "postgres14"
-  db_instance_class         = "db.t3.micro"
+  db_instance_class         = "db.t4g.micro"
 
-  # Tagst
+  # Tags
   application            = var.application
   business_unit          = var.business_unit
-  environment_name       = var.environment
+  environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
+
 
 resource "kubernetes_secret" "rds" {
   metadata {
@@ -39,12 +43,12 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    RDS_INSTANCE_ENDPOINT = module.rds_alfresco.rds_instance_endpoint
-    DATABASE_NAME         = module.rds_alfresco.database_name
-    DATABASE_USERNAME     = module.rds_alfresco.database_username
-    DATABASE_PASSWORD     = module.rds_alfresco.database_password
-    RDS_INSTANCE_ADDRESS  = module.rds_alfresco.rds_instance_address
-    RDS_JDBC_URL          = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
+    RDS_INSTANCE_ENDPOINT   = module.rds_alfresco.rds_instance_endpoint
+    RDS_INSTANCE_IDENTIFIER = module.rds_alfresco.db_identifier
+    DATABASE_NAME           = module.rds_alfresco.database_name
+    DATABASE_USERNAME       = module.rds_alfresco.database_username
+    DATABASE_PASSWORD       = module.rds_alfresco.database_password
+    RDS_INSTANCE_ADDRESS    = module.rds_alfresco.rds_instance_address
+    RDS_JDBC_URL            = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
   }
 }
-

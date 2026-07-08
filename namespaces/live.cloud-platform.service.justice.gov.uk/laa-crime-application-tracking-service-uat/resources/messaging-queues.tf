@@ -1,5 +1,5 @@
 module "process_email_notifications_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "process-email-notifications-queue"
@@ -55,7 +55,7 @@ resource "aws_sqs_queue_policy" "process_email_notifications_queue_policy" {
 }
 
 module "process_email_notifications_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "process-email-notifications-queue-dl"

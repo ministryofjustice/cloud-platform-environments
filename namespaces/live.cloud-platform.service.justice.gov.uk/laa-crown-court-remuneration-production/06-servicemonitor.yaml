@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-crown-court-remuneration-app
+  namespace: laa-crown-court-remuneration-production
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-crown-court-remuneration-production
+      app.kubernetes.io/name: laa-crown-court-remuneration-app
+  endpoints:
+  - port: http
+    path: /ccr/metrics 
+    interval: 30s

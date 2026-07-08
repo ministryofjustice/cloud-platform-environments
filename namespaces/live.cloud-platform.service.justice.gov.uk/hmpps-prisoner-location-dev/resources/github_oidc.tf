@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "github" {
     condition {
       test     = "StringLike"
       variable = "${local.oidc_provider}:sub"
-      values   = ["repo:ministryofjustice/ansible-monorepo:*"]
+      values   = ["repo:ministryofjustice/dso-modernisation-platform-automation:*"]
     }
 
     condition {
@@ -48,13 +48,13 @@ resource "aws_iam_role_policy_attachment" "s3_access_policy_attachment" {
 }
 
 resource "github_actions_secret" "role_arn" {
-  repository = "ansible-monorepo"
+  repository = "dso-modernisation-platform-automation"
   secret_name = "OFFLOC_TRANSFER_GHA_ROLE_ARN_${var.environment}"
   plaintext_value = aws_iam_role.github.arn
 }
 
 resource "github_actions_secret" "s3_bucket" {
-  repository = "ansible-monorepo"
+  repository = "dso-modernisation-platform-automation"
   secret_name = "OFFLOC_TRANSFER_S3_BUCKET_NAME_${var.environment}"
   plaintext_value = module.hmpps-prisoner-location_s3_bucket.bucket_name
 }

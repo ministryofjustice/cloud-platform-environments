@@ -1,5 +1,6 @@
 module "migration_courtsentencing_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name                   = "migration_courtsentencing_queue"
@@ -9,7 +10,7 @@ module "migration_courtsentencing_queue" {
 
   redrive_policy = <<EOF
   {
-    "deadLetterTargetArn": "${module.migration_courtsentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 3
+    "deadLetterTargetArn": "${module.migration_courtsentencing_dead_letter_queue.sqs_arn}","maxReceiveCount": 5
   }
 
 EOF
@@ -20,12 +21,12 @@ EOF
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 
 module "migration_courtsentencing_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
   sqs_name        = "migration_courtsentencing_dlq"
@@ -37,7 +38,7 @@ module "migration_courtsentencing_dead_letter_queue" {
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
-  environment_name       = var.environment_name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
 

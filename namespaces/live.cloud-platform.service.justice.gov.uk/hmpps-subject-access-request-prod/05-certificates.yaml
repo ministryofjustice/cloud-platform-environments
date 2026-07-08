@@ -40,3 +40,18 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - subject-access-request-worker.hmpps.service.justice.gov.uk
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: subject-access-request-html-renderer.hmpps.service.justice.gov.uk
+  namespace: hmpps-subject-access-request-prod
+spec:
+  secretName: hmpps-subject-access-request-html-renderer-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - subject-access-request-html-renderer.hmpps.service.justice.gov.uk

@@ -1,33 +1,37 @@
 module "rds" {
-  source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=7.2.0"
-  vpc_name      = var.vpc_name
-  team_name     = var.team_name
-  business_unit = var.business_unit
-  application   = "Complexity of Need microservice"
-  is_production = var.is_production
-  namespace     = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+  vpc_name             = var.vpc_name
+  team_name            = var.team_name
+  business_unit        = var.business_unit
+  application          = "Complexity of Need microservice"
+  is_production        = var.is_production
+  namespace            = var.namespace
 
   # enable performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # change the postgres version as you see fit.
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
-  environment_name         = var.environment
+  environment_name         = var.environment_name
   infrastructure_support   = var.infrastructure_support
 
-  db_engine_version           = "15.6"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
 
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = true # 22:00–06:00 UTC
+  maintenance_window         = "sun:19:00-sun:21:00"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
 }
 
 resource "kubernetes_secret" "rds" {

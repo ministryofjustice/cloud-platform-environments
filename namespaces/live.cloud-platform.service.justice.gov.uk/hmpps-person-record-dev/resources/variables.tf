@@ -5,20 +5,32 @@ variable "application" {
   default = "HMPPS Person Record Service"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Enabling Technologies"
+}
+
 variable "namespace" {
   default = "hmpps-person-record-dev"
 }
 
 variable "business_unit" {
-  default = "HMPPS"
+  description = "Area of the MOJ responsible for the service."
+  default     = "HMPPS"
+}
+
+variable "owner" {
+  default = "hmpps-person-record@digital.justice.gov.uk"
 }
 
 variable "team_name" {
-  default = "hmpps-person-record"
+  description = "The name of your development team"
+  default     = "hmpps-person-record"
 }
 
 variable "environment" {
-  default = "development"
+  description = "The type of environment you're deploying to."
+  default     = "development"
 }
 
 variable "infrastructure_support" {
@@ -48,6 +60,10 @@ variable "eks_cluster_name" {
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "core-person-record-dev"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
 
 variable "kubernetes_cluster" {}

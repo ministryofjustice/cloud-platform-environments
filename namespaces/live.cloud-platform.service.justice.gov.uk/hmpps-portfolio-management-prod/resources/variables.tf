@@ -8,10 +8,13 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "hmpps-health-ping"
+  default     = "SRE applications"
 }
 
 variable "namespace" {
@@ -29,13 +32,18 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "dps-tech"
+  default     = "hmpps-sre"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "production"
+  default     = "prod"
 }
 
 variable "infrastructure_support" {
@@ -53,7 +61,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hmpps_dev"
+  default     = "ask-prisons-digital-sre"
 }
 
 variable "github_owner" {
@@ -67,7 +75,6 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
 variable "number_cache_clusters" {
   default = "2"
 }

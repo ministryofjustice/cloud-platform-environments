@@ -1,0 +1,22 @@
+name: 'Stale and close PRs'
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 # v9.1.0
+        with:
+          stale-pr-message: 'This PR has been labelled stale because it has been open 30 days with no activity. It will be closed in 7 days unless there is activity.'
+          close-pr-message: 'This PR has been closed due to no response in 7 days. Feel free to re-open and submit to #ask-cloud-platform.'
+          exempt-pr-labels: dependencies
+          days-before-stale: 30
+          days-before-close: 7

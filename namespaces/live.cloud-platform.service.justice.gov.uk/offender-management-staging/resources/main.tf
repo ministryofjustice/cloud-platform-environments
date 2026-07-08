@@ -3,32 +3,41 @@ terraform {
   }
 }
 
+locals {
+  default_tags = {
+    business-unit = var.business_unit
+    application   = var.application
+    is-production = var.is_production
+    owner         = var.team_name
+    namespace     = var.namespace
+    service-area  = var.service_area
+    GithubTeam    = var.team_name
+  }
+}
+
 provider "aws" {
   region = "eu-west-2"
+
   default_tags {
-    tags = {
-      GithubTeam = var.team_name
-    }
+    tags = local.default_tags
   }
 }
 
 provider "aws" {
   alias  = "london"
   region = "eu-west-2"
+
   default_tags {
-    tags = {
-      GithubTeam = var.team_name
-    }
+    tags = local.default_tags
   }
 }
 
 provider "aws" {
   alias  = "ireland"
   region = "eu-west-1"
+
   default_tags {
-    tags = {
-      GithubTeam = var.team_name
-    }
+    tags = local.default_tags
   }
 }
 
@@ -36,4 +45,3 @@ provider "github" {
   token = var.github_token
   owner = var.github_owner
 }
-

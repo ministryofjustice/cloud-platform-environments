@@ -25,9 +25,21 @@ variable "team_name" {
   default     = "hmpps-incentives"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
+}
+
+variable "deployment_environment" {
+  type = string
+  description = "Environment code used when deploying, e.g. dev, preprod or prod"
+  default = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -43,6 +55,7 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "incentives-dev"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -55,3 +68,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

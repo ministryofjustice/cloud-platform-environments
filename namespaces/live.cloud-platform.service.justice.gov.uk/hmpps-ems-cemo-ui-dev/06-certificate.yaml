@@ -12,4 +12,5 @@ spec:
   dnsNames:
     - hmpps-electronic-monitoring-create-an-order-dev.hmpps.service.justice.gov.uk
     - hmpps-electronic-monitoring-create-an-order-api-dev.hmpps.service.justice.gov.uk
+    - hmpps-electronic-monitoring-create-an-order-prototype.hmpps.service.justice.gov.uk
 

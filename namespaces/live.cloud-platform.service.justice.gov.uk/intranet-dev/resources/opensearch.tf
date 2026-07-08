@@ -1,5 +1,5 @@
 module "s3_snapshot_bucket" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.1.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0" # use the latest release
 
   # Tags
   business_unit          = var.business_unit
@@ -46,7 +46,7 @@ module "opensearch" {
 # Output the proxy URL
 resource "kubernetes_secret" "opensearch" {
   metadata {
-    name      = "${var.team_name}-opensearch-proxy-url"
+    name      = "opensearch-output"
     namespace = var.namespace
   }
 
