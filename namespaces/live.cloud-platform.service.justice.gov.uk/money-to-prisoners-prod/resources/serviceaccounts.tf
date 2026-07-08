@@ -399,9 +399,11 @@ module "service-account-github-actions-deploy" {
 
   serviceaccount_rules = [
     {
+      # `manage.py app deploy` reads then `kubectl replace`s (update) the app-versions
+      # ConfigMap, and `create`s it on a namespace that has none yet
       api_groups = [""]
       resources  = ["configmaps"]
-      verbs      = ["get", "patch"]
+      verbs      = ["get", "create", "update"]
     },
     {
       api_groups = ["extensions", "apps"]
