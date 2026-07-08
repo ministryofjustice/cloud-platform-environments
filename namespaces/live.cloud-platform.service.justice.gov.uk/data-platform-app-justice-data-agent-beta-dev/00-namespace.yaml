@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/application: "Justice data agent prototype"
     cloud-platform.justice.gov.uk/owner: "Justice Data Agent: justice-data-agent@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/justice-data-agent-beta"
-    cloud-platform.justice.gov.uk/team-name: "prisons-data-science"
+    cloud-platform.justice.gov.uk/team-name: "prison-data-science"
     cloud-platform.justice.gov.uk/review-after: ""
