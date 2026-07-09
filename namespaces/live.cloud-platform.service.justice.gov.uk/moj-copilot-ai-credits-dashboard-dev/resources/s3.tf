@@ -39,7 +39,7 @@ module "s3_bucket" {
       "Sid": "S3DataSyncAccessAPAirflowDev",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::381491960855:role/github-actions-ministryofjustice-analytical-platform-airflow"
+        "AWS": "arn:aws:iam::593291632749:role/airflow-development-coat-get-copilot-data"
       },
       "Action": [
         "s3:PutObject",
