@@ -29,7 +29,7 @@ module "s3_bucket" {
         "s3:PutObject",
         "s3:ListBucket",
         "s3:GetObject",
-        s3:DeleteObject
+        "s3:DeleteObject"
       ],
       "Resource": [
         "$${bucket_arn}",
