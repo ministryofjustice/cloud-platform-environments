@@ -43,7 +43,7 @@ module "rds" {
   db_parameter = [
       {
     name         = "max_connections"
-    value        = "121"
+    value        = "171"
     apply_method = "pending-reboot"
     }
   ]
