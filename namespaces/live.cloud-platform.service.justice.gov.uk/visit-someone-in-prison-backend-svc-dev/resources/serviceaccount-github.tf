@@ -91,9 +91,9 @@ resource "time_rotating" "weekly" {
 
 ##########################################################################
 
-data "github_team" "hmpps-prison-visits-booking" {
-slug = "hmpps-prison-visits-booking"
-}   
+data "github_team" "hmpps-prison-visits-booking-devs" {
+slug = "hmpps-prison-visits-booking-devs"
+}
 
 ##########################################################################
 
@@ -105,7 +105,7 @@ resource "github_repository_environment" "env" {
   # prevent_self_review = true
   reviewers {
     teams = [ 
-      tonumber(data.github_team.hmpps-prison-visits-booking.id)
+      tonumber(data.github_team.hmpps-prison-visits-booking-devs.id)
     ]
   }
   deployment_branch_policy {
