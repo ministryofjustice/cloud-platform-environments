@@ -77,6 +77,15 @@ module "cfo_probation_dead_letter_queue" {
   }
 }
 
+resource "aws_iam_user" "user" {
+  name = "cfo-queue-user-prod"
+  path = "/system/cfo-queue-user/"
+}
+
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
+
 resource "aws_iam_user_policy_attachment" "probation_policy" {
   policy_arn = module.cfo_probation_queue.irsa_policy_arn
   user       = aws_iam_user.user.name
@@ -94,6 +103,8 @@ resource "kubernetes_secret" "cfo_probation_queue" {
   }
 
   data = {
+    access_key_id     = aws_iam_access_key.user.id
+    secret_access_key = aws_iam_access_key.user.secret
     sqs_cfo_url  = module.cfo_probation_queue.sqs_id
     sqs_cfo_arn  = module.cfo_probation_queue.sqs_arn
     sqs_cfo_name = module.cfo_probation_queue.sqs_name
