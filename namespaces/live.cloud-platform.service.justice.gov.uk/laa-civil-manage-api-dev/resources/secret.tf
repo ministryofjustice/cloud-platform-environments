@@ -20,6 +20,12 @@ module "secrets_manager" {
       description             = "Slack webhook URL for non-production environment",
       recovery_window_in_days = 7,
       k8s_secret_name         = "slack-webhook-url-alerts-non-prod"
+    },
+    
+    "azure-entra-api-client-secret" = {
+      description             = "Client secret for Civil Manage API Entra ID OBO authentication",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "azure-entra-api-client-secret"
     }
   }
 }
