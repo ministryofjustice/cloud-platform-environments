@@ -5,7 +5,7 @@ metadata:
   namespace: data-platform-app-justice-data-agent-beta-dev
 subjects:
   - kind: Group
-    name: "github:prisons-data-science"
+    name: "github:prison-data-science"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:analytics-hq"
