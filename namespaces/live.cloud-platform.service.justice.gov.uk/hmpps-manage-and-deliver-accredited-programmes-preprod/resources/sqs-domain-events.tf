@@ -56,7 +56,8 @@ resource "aws_sns_topic_subscription" "hmpps_manage_and_deliver_domain_events_su
       "interventions.community-referral.created",
       "interventions.community-referral.imported",
       "probation-case.merge.completed",
-      "probation-case.unmerge.completed"
+      "probation-case.unmerge.completed",
+      "accredited-programmes-manage-and-deliver.referral.details-updated"
     ]
   })
 }
