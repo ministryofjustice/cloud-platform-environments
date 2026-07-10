@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
   repo_name = "${var.namespace}-ecr"
 
@@ -17,7 +17,7 @@ module "ecr-repo" {
 }
 
 module "ecr-repo-moj-frontend-token-fetcher" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
   repo_name = "${var.namespace}-token-ecr"
 
