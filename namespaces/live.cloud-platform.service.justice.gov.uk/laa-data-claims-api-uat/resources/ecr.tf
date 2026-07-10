@@ -56,6 +56,7 @@ module "ecr" {
         "selection": {
           "tagStatus": "tagged",
           "tagPrefixList": ["data-claims-api-"],
+          "storageClass": "archive",
           "countType": "sinceImageTransitioned",
           "countUnit": "days",
           "countNumber": 90
