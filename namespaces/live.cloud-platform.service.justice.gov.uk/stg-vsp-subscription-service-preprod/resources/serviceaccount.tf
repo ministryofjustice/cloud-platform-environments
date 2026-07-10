@@ -1,0 +1,87 @@
+module "serviceaccount" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+
+  namespace = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+
+
+  serviceaccount_token_rotated_date = "20-03-2026"
+
+  # Uncomment and provide repository names to create github actions secrets
+  # containing the ca.crt and token for use in github actions CI/CD pipelines
+  github_repositories = ["stg-vsp-subscription-service"]
+  github_environments = ["preprod"]
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "serviceaccounts",
+        "configmaps",
+        "persistentvolumeclaims",
+      ]
+      verbs = [
+        "update",
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "rbac.authorization.k8s.io",
+        "policy",
+        "external-secrets.io",
+        "autoscaling",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "roles",
+        "rolebindings",
+        "poddisruptionbudgets",
+        "externalsecrets",
+        "hpa",
+        "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+        "servicemonitors",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+  ]
+}
