@@ -9,7 +9,6 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_booker_events" {
     eventType = [
       "contacts-api.prisoner-contact.created",
       "contacts-api.contact.updated",
-      "prison-offender-events.prisoner.merged",
     ]
   })
 }
