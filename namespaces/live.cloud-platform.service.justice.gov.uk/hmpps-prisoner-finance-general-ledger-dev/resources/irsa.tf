@@ -5,7 +5,7 @@ locals {
   irsa_policies ={
     gl_calculcated_balance_queue             = module.prisoner_finance_general_ledger_queue_for_calculated_balances.irsa_policy_arn
     gl_calculcated_balance_queue_dlq         = module.prisoner_finance_general_ledger_queue_for_calculated_balances_dead_letter_queue.irsa_policy_arn
-
+    rds                                      = module.rds.irsa_policy_arn
   }
 }
 
