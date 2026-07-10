@@ -6,10 +6,7 @@ metadata:
   namespace: annual-leave-apprenticeship-project
 subjects:
   - kind: Group
-    name: "github:annual-leave-apprenticeship-project-api"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:annual-leave-apprenticeship-project-ui"
+    name: "github:hmpps-techtrack-apprentices"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group
