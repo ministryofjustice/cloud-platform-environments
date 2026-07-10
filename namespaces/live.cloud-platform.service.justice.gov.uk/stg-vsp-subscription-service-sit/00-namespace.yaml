@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "stg-vsp-subscription-service-sit"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "sit"
+    pod-security.kubernetes.io/enforce: restricted
+    component: stg-vsp-subscription-service-sit
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HQ"
+    cloud-platform.justice.gov.uk/slack-channel: "stg-vsp-subscription"
+    cloud-platform.justice.gov.uk/application: "stg-vsp-subscription-service"
+    cloud-platform.justice.gov.uk/owner: "stg-victims-pathfinder: victimspathfinder@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/stg-vsp-subscription-service.git"
+    cloud-platform.justice.gov.uk/team-name: "stg-victims-pathfinder"
+    cloud-platform.justice.gov.uk/review-after: ""
