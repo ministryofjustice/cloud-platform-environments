@@ -6,11 +6,11 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Template Apps"
+  default     = "Annual Leave App"
 }
 
 variable "namespace" {
-  default = "hmpps-templates-dev"
+  default = "annual-leave-apprenticeship-project"
 }
 
 variable "business_unit" {
@@ -20,12 +20,12 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-developers"
+  default     = "hmpps-techtrack-apprentices"
 }
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Live Support"
+  default     = "Not Applicable"
 }
 
 ####################################################################################################################
@@ -38,7 +38,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "dps-hmpps@digital.justice.gov.uk"
+  default     = "Iana.Bezrodnykh@justice.gov.uk"
 }
 
 variable "is_production" {

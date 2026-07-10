@@ -2,13 +2,13 @@
 # Make a copy of this file in your namespace, then modify according to the instructions here:
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
-module "hmpps_template_typescript" {
+module "annual-leave-apprenticeship-project-ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-template-typescript"
-  application = "hmpps-template-typescript"
-  github_team = "hmpps-sre"
+  github_repo = "annual-leave-apprenticeship-project-ui"
+  application = "annual-leave-apprenticeship-project-ui"
+  github_team = "hmpps-techtrack-apprentices"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
@@ -28,7 +28,7 @@ module "elasticache_redis" {
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps_template_typescript.application
+  application            = module.annual-leave-apprenticeship-project-ui.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
@@ -47,7 +47,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "${module.hmpps_template_typescript.application}-elasticache-redis"
+    name      = "${module.annual-leave-apprenticeship-project-ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
