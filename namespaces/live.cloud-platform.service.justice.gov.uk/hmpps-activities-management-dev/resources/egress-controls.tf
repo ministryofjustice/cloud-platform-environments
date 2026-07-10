@@ -1,4 +1,4 @@
-# Deploys Envoy HTTPS forward proxy and creates proxy environment secret
+# Deploys Envoy HTTPS forward proxy and creates proxy environment secret.
 # For guidance see: https://tech-docs.hmpps.service.justice.gov.uk/how-to-guides/retrofitting-egress-controls-with-envoy-proxy
 
 module "hmpps_egress_controls" {
@@ -16,7 +16,6 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    
   ]
 
 }
