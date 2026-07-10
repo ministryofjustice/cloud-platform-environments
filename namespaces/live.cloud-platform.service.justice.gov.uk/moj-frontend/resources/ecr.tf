@@ -4,7 +4,7 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   oidc_providers      = ["github"]
-  github_repositories = [var.namespace, ministryofjustice / moj-frontend-token-fetcher]
+  github_repositories = ["moj-frontend", "moj-frontend-token-fetcher"]
 
   # Tags
   business_unit          = var.business_unit
