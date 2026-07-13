@@ -168,3 +168,15 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
+
+resource "kubernetes_secret" "copilot_credits_auth0_tf_state_dev_s3_bucket" {
+  metadata {
+    name      = "copilot-credits-auth0-tf-state-dev-s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.copilot_credits_auth0_tf_state_dev_s3_bucket.bucket_arn
+    bucket_name = module.copilot_credits_auth0_tf_state_dev_s3_bucket.bucket_name
+  }
+}
