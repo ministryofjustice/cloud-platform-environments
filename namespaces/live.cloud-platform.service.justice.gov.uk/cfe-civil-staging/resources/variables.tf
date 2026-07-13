@@ -128,6 +128,7 @@ variable "serviceaccount_rules" {
       resources = [
         "deployments",
         "ingresses",
+        "cronjobs",
         "replicasets",
         "statefulsets",
         "poddisruptionbudgets",
