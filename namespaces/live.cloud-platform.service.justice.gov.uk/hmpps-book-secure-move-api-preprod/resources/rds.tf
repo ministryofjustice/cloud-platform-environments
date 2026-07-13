@@ -1,6 +1,5 @@
 module "rds-instance" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-
   vpc_name = var.vpc_name
 
   application            = var.application
@@ -145,6 +144,11 @@ module "rds-read-replica" {
   }
 
   db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    },
     {
       name         = "rds.logical_replication"
       value        = "1"
