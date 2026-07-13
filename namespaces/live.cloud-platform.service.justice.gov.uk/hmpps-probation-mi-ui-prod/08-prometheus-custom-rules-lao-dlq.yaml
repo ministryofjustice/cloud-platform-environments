@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-custom-rules-lao-dlq
+  namespace: hmpps-probation-mi-ui-prod
+  labels:
+    role: alert-rules
+spec:
+  groups:
+    - name: lao-domain-events-dlq-rules
+      rules:
+        - alert: LaoDomainEventsDlqHasMessages
+          expr: |
+            aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="lao_domain_events_dlq"} > 0
+          for: 15m
+          labels:
+            severity: probation-frontend-alerts-prod
+          annotations:
+            message: >
+              Messages have been sitting in the lao_domain_events_dlq (prod) for more than 15 minutes.
+              Oldest message age: {{ $value }}s. Please investigate.
+            runbook_url: "https://github.com/ministryofjustice/hmpps-digital-prison-reporting-mi-ui"
