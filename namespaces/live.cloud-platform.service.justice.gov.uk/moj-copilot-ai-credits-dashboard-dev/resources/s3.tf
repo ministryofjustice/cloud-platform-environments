@@ -167,15 +167,3 @@ resource "kubernetes_secret" "s3_bucket" {
     bucket_name = module.s3_bucket.bucket_name
   }
 }
-
-resource "kubernetes_secret" "auth0_tf_state_s3_bucket" {
-  metadata {
-    name      = "auth0-tf-state-s3-bucket-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
-  }
-}
