@@ -60,3 +60,89 @@ variable "service_area" {
   description = "Service area responsible for this service"
   default     = "LAA Civil Apply"
 }
+
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "cfe-civil"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_STAGING_NAMESPACE"
+}
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_STAGING_CERT"
+}
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_STAGING_TOKEN"
+}
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the serviceaccount cluster"
+  default     = "KUBE_STAGING_CLUSTER"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are default plus custom to allow for deletion of UAT branches via CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "configmaps",
+        "persistentvolumeclaims",
+        "serviceaccounts",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "replicasets",
+        "statefulsets",
+        "poddisruptionbudgets",
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
+}
