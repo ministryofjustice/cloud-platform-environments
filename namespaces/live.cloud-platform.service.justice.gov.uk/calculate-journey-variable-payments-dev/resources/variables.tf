@@ -53,12 +53,6 @@ variable "is_production" {
   default = "false"
 }
 
-variable "deployment_environment" {
-  type = string
-  description = "Environment code used when deploying, e.g. dev, preprod or prod"
-  default = "dev"
-}
-
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
