@@ -89,6 +89,8 @@ module "serviceaccount" {
         "delete",
         "create",
         "patch",
+        "list",
+        "watch",
       ]
     },
   ]
