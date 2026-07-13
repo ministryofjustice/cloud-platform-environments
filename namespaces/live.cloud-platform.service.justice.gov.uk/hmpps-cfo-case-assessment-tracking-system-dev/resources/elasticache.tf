@@ -10,6 +10,9 @@ module "elasticache_redis" {
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2026-07-13"
 
+  # Specify AZs to skip eu-west-2b (which has capacity issues causing create-failed)
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
