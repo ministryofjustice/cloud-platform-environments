@@ -134,6 +134,7 @@ EOF
 
   oidc_providers = ["github"]
   github_repositories = ["moj-copilot-ai-credits-dashboard"]
+  github_actions_prefix = "DEV"
 
   lifecycle_rule = [
     {
