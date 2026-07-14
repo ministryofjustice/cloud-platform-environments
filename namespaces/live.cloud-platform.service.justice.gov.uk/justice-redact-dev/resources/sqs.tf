@@ -112,13 +112,16 @@ resource "aws_iam_policy" "redact_task_queue_access" {
 # (ApproximateNumberOfMessagesVisible), and for the app's own config.
 # ---------------------------------------------------------------------
 output "redact_task_queue_url" {
-  value = module.redact_task_queue.sqs_id
+  description = "URL of the SQS queue used to schedule document-redaction tasks to the ML worker pods"
+  value       = module.redact_task_queue.sqs_id
 }
 
 output "redact_task_queue_arn" {
-  value = module.redact_task_queue.sqs_arn
+  description = "ARN of the SQS queue used to schedule document-redaction tasks to the ML worker pods"
+  value       = module.redact_task_queue.sqs_arn
 }
 
 output "redact_task_queue_dlq_arn" {
-  value = module.redact_task_queue_dlq.sqs_arn
+  description = "ARN of the dead-letter queue for failed document-redaction tasks"
+  value       = module.redact_task_queue_dlq.sqs_arn
 }
