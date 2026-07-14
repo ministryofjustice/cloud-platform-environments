@@ -24,7 +24,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: scheduled-task
-              image: mojds-maintainers/moj-frontend-token-ecr:bb11e1fed25b9cab330ebf28a165f6139964c090
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/mojds-maintainers/moj-frontend-token-ecr:bb11e1fed25b9cab330ebf28a165f6139964c090
               imagePullPolicy: Always
               env:
                 - name: APP_ID
