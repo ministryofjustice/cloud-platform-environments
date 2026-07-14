@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-sre-observability-prod-cert
+  namespace: hmpps-sre-observability-prod
+spec:
+  secretName: hmpps-sre-observability-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - health-kick.hmpps.service.justice.gov.uk
+    - '*.health-kick.hmpps.service.justice.gov.uk'
