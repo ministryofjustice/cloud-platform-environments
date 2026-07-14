@@ -16,9 +16,10 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_exact = [
-    "api.notifications.service.gov.uk", # GOV.UK Notify
-    "api.os.uk",                       # Ordnance Survey Places API
-    "o345774.ingest.sentry.io",        # Sentry (CATS project DSN)
+    "api.notifications.service.gov.uk",  # GOV.UK Notify
+    "api.os.uk",                         # Ordnance Survey Places API
+    "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
+    module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
   ]
 
 }
