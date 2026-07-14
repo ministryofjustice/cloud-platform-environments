@@ -68,6 +68,7 @@ variable "domains" {
     "www.imb.org.uk"                                  = "imb-www"
     "www.independentpublicadvocate.org.uk"            = "ipa-www"
     "www.judicialappointments.gov.uk"                 = "judicialappointments-www"
+    "www.justice.gov.uk"                              = "justice-www"
     "www.justiceinspectorates.gov.uk"                 = "justiceinspectorates-www"
     "www.lawcom.gov.uk"                               = "lawcom-www"
     "www.layobservers.org"                            = "layobservers-www"
