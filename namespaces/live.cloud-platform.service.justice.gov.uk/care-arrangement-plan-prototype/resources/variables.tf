@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "cap-prototype-ur"
+  default     = "cap-service-prototype"
 }
