@@ -7,6 +7,9 @@
 #
 # Module docs: https://github.com/ministryofjustice/cloud-platform-terraform-sqs
 #
+# Pinned to ref=5.1.2. Check
+# https://github.com/ministryofjustice/cloud-platform-terraform-sqs/releases
+# periodically for newer releases and bump deliberately.
 ########################################################################
 
 # ---------------------------------------------------------------------
@@ -69,40 +72,34 @@ module "redact_task_queue_dlq" {
 # ---------------------------------------------------------------------
 # IAM access for the redaction pods
 #
-# Both the FastAPI backend (producer) and the ML worker pods (consumer)
-# run under the same IRSA role (see irsa.tf: service_account_name =
-# "${var.team_name}-${var.environment}"), so this is a single
-# identity-based policy covering both send and receive/delete, rather
-# than a resource-based queue policy. No aws_sqs_queue_policy needed -
-# same-account access is governed entirely by this IAM policy once it's
-# attached to the IRSA role below.
+# The module itself already creates a scoped IAM policy (sqs:* limited
+# to this queue's ARN) and exposes it as irsa_policy_arn - no need to
+# hand-roll our own. This gets attached to the shared IRSA role in
+# irsa.tf (role_policy_arns), same pattern as module.s3_bucket.irsa_policy_arn.
 # ---------------------------------------------------------------------
-data "aws_iam_policy_document" "redact_task_queue_access" {
-  statement {
-    sid    = "RedactTaskQueueAccess"
-    effect = "Allow"
-    actions = [
-      "sqs:SendMessage",       # FastAPI backend enqueues redaction tasks
-      "sqs:ReceiveMessage",    # ML worker pods poll for tasks
-      "sqs:DeleteMessage",     # ML worker pods ack completed tasks
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl",
-    ]
-    resources = [module.redact_task_queue.sqs_arn]
+
+# ---------------------------------------------------------------------
+# Expose queue details to the FastAPI backend + ML worker pods
+#
+# The SQS module doesn't create a k8s secret itself (unlike the RDS/S3/
+# OpenSearch modules), so we create one here, following the same
+# pattern as the existing justice-redact-irsa secret, so the app can
+# read the queue URL/ARNs via secretKeyRef instead of hardcoding them.
+# ---------------------------------------------------------------------
+resource "kubernetes_secret" "redact_task_queue_output" {
+  metadata {
+    name      = "justice-redact-sqs"
+    namespace = var.namespace
+    annotations = {
+      description = "SQS task queue details for document-redaction jobs (queue_url, queue_arn, queue_name, dlq_arn). Managed by sqs.tf."
+    }
   }
-}
 
-resource "aws_iam_policy" "redact_task_queue_access" {
-  name   = "${var.namespace}-redact-task-queue-access"
-  policy = data.aws_iam_policy_document.redact_task_queue_access.json
-
-  tags = {
-    business-unit          = var.business_unit
-    application             = var.application
-    is-production           = var.is_production
-    environment-name        = var.environment
-    owner                   = var.team_name
-    infrastructure-support  = var.infrastructure_support
+  data = {
+    queue_url  = module.redact_task_queue.sqs_id
+    queue_arn  = module.redact_task_queue.sqs_arn
+    queue_name = module.redact_task_queue.sqs_name
+    dlq_arn    = module.redact_task_queue_dlq.sqs_arn
   }
 }
 
