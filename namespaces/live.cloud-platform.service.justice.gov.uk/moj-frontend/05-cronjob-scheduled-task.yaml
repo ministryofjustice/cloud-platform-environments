@@ -4,7 +4,8 @@ metadata:
   name: moj-frontend-scheduled-task
 spec:
   # Cron schedule — see https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
-  schedule: "0 8 * * *" # eventually 0 8 1,15 * * every 2 weeks but left on everyday while we test it.
+  schedule: "0 9-16 * * *" # only for debug tomorrow
+  # eventually 0 8 1,15 * * every 2 weeks but left on everyday while we test it.
   timeZone: "Europe/London"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
@@ -23,7 +24,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: scheduled-task
-              image: ghcr.io/ministryofjustice/moj-platforms-admin-cronjob:2026-07-02.13.eef7298
+              image: mojds-maintainers/moj-frontend-token-ecr:bb11e1fed25b9cab330ebf28a165f6139964c090
               imagePullPolicy: Always
               env:
                 - name: APP_ID
