@@ -1620,21 +1620,21 @@ data:
         "list": [
           {
             "current": {
-              "text": "Prometheus",
-              "value": "prometheus"
+              "text": "Thanos",
+              "value": "P5DCFC7561CCDE821"
             },
             "includeAll": false,
             "label": "Source",
             "name": "datasource",
             "options": [],
-            "query": "",
+            "query": "prometheus",
             "refresh": 1,
             "type": "datasource"
           },
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "${datasource}"
             },
             "definition": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)",
             "includeAll": true,
@@ -1654,7 +1654,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-2d",
         "to": "now"
       },
       "timepicker": {},
