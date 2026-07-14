@@ -14,6 +14,7 @@ module "irsa" {
     # ADDED: grants this pod the right to assume the Comprehend role
     # that the Analytical Platform team will create in their AWS account.
     comprehend = aws_iam_policy.comprehend_assume.arn
+    sqs        = aws_iam_policy.redact_task_queue_access.arn
   }
 
   # Tags
