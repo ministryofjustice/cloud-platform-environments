@@ -14,7 +14,7 @@ module "irsa" {
     # ADDED: grants this pod the right to assume the Comprehend role
     # that the Analytical Platform team will create in their AWS account.
     comprehend = aws_iam_policy.comprehend_assume.arn
-    sqs        = aws_iam_policy.redact_task_queue_access.arn
+    sqs        = module.redact_task_queue.irsa_policy_arn
   }
 
   # Tags
@@ -54,14 +54,6 @@ resource "aws_iam_policy" "comprehend_assume" {
   }
 }
 
-# ---------------------------------------------------------------------------
-# UNCOMMENTED AND FIXED: exposes the IRSA role name and service account name
-# as a Kubernetes secret.
-#
-# Original had wrong attribute references:
-#   role_name        -> aws_iam_role_name  (correct output from module v2.x)
-#   service_account.name -> service_account_name (correct output from module v2.x)
-# ---------------------------------------------------------------------------
 resource "kubernetes_secret" "irsa" {
   metadata {
     name      = "${var.team_name}-irsa"
