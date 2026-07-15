@@ -107,6 +107,14 @@ locals {
     db_name            = module.arns_assessment_view_rds.database_name
   }
 
+  onr_db_secret = {
+    username           = postgresql_role.oasys_national_reporting_user.name
+    password           = random_password.onr_password.result
+    endpoint           = module.arns_assessment_view_rds.rds_instance_address
+    port               = module.arns_assessment_view_rds.rds_instance_port
+    db_name            = module.arns_assessment_view_rds.database_name
+  }
+
   dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:203591025782:secret:external/dpr-pr-assess-view-source-secrets-kqNoeu"
 }
 
@@ -171,4 +179,71 @@ resource "aws_secretsmanager_secret_version" "db" {
   secret_id = local.dpr_secret_arn
 
   secret_string = jsonencode(local.dpr_db_secret)
+}
+
+# ONR User Data
+resource "random_password" "onr_password" {
+  length  = 16
+  special = false
+
+  keepers = {
+    last_changed = "2026-07-15"
+  }
+}
+
+resource "postgresql_role" "oasys_national_reporting_user" {
+  name     = "oasys_national_reporting_user"
+  login    = true
+  password = random_password.onr_password.result
+
+  lifecycle {
+    ignore_changes = [roles]
+  }
+}
+
+resource "postgresql_grant" "onr_database_connect" {
+  database    = module.arns_assessment_view_rds.database_name
+  role        = postgresql_role.oasys_national_reporting_user.name
+  object_type = "database"
+  privileges  = ["CONNECT"]
+}
+
+resource "postgresql_grant" "onr_schema_usage" {
+  database    = module.arns_assessment_view_rds.database_name
+  schema      = "assessment-view"
+  role        = postgresql_role.oasys_national_reporting_user.name
+  object_type = "schema"
+  privileges  = ["USAGE"]
+}
+
+resource "postgresql_grant" "onr_tables_and_views" {
+  database    = module.arns_assessment_view_rds.database_name
+  schema      = "assessment-view"
+  role        = postgresql_role.oasys_national_reporting_user.name
+  object_type = "table"
+  privileges  = ["SELECT"]
+}
+
+# Covers future tables/views created by the specified owner.
+resource "postgresql_default_privileges" "onr_future_tables" {
+  database    = module.arns_assessment_view_rds.database_name
+  schema      = "assessment-view"
+  owner       = module.arns_assessment_view_rds.database_username
+  role        = postgresql_role.oasys_national_reporting_user.name
+  object_type = "table"
+  privileges  = ["SELECT"]
+}
+
+resource "kubernetes_secret_v1" "onr_db_credentials" {
+  metadata {
+    name      = "onr-db-credentials"
+    namespace = var.namespace
+  }
+
+  type = "Opaque"
+
+  data = {
+    for key, value in local.onr_db_secret :
+    key => tostring(value)
+  }
 }
