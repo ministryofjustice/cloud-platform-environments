@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: cap-service-prototype-admin
-  namespace: cap-service-prototype
+  name: care-arrangement-plan-per-child-prototype-admin
+  namespace: care-arrangement-plan-per-child-prototype
 subjects:
   - kind: Group
     name: "github:central-digital-product-team"

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: cap-service-prototype
+  namespace: care-arrangement-plan-per-child-prototype
 spec:
   hard:
     pods: "10"

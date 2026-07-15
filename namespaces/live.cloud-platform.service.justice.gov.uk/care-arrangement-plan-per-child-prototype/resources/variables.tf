@@ -11,13 +11,13 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of Application you are deploying"
   type        = string
-  default     = "CAP Service Prototype"
+  default     = "Care Arrangement Plan Per Child Prototype"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "cap-service-prototype"
+  default     = "care-arrangement-plan-per-child-prototype"
 }
 
 variable "business_unit" {
@@ -77,5 +77,5 @@ variable "oidc_name" {
 variable "app_repo" {
   description = "Name of application repository"
   type        = string
-  default     = "cap-service-prototype"
+  default     = "care-arrangement-plan-per-child-prototype"
 }
