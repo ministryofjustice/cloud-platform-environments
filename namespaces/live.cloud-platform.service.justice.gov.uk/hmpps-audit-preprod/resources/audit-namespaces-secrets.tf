@@ -30,6 +30,7 @@ locals {
     "hmpps-prisoner-from-nomis-migration-preprod",
     "hmpps-prisoner-profile-preprod",
     "hmpps-prisoner-finance-preprod",
+    "hmpps-prisoner-finance-sync-preprod",
     "hmpps-registers-preprod",
     "hmpps-subject-access-request-preprod",
     "hmpps-support-additional-needs-preprod",
