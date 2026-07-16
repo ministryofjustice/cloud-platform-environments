@@ -144,6 +144,9 @@ module "s3_bucket" {
 EOF
 */
   versioning             = true
+  logging_enabled        = true
+  log_target_bucket      = "justice-redact-logs"
+  log_path               = "s3-access-logs"
 
   /*
    * OIDC for GitHub Actions
