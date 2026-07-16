@@ -7,7 +7,7 @@ module "rds_alfresco" {
   db_name = "alfresco"
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
+  allow_minor_version_upgrade  = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
