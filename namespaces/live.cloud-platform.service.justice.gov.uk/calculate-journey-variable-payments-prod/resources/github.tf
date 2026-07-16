@@ -14,5 +14,5 @@
 #   kubernetes_cluster            = var.kubernetes_cluster
 #   is_production                 = var.is_production
 #   source_template_repo          = "hmpps-template-kotlin"
-#   reviewer_teams                = [var.review_team_name]
+#   reviewer_teams                = [var.github_review_team]
 # }
