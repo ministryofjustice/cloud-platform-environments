@@ -1627,14 +1627,14 @@ data:
             "label": "Source",
             "name": "datasource",
             "options": [],
-            "query": "prometheus",
+            "query": "",
             "refresh": 1,
             "type": "datasource"
           },
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${datasource}"
+              "uid": "prometheus"
             },
             "definition": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)",
             "includeAll": true,
