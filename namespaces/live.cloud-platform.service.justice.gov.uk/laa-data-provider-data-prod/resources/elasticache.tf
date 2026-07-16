@@ -46,3 +46,16 @@ resource "kubernetes_secret" "app_redis" {
     APP_REDIS_PORT     = "6379"
   }
 }
+
+resource "kubernetes_secret" "pda-r1-redis-details" {
+  metadata {
+    name      = "pda-r1-redis-details"
+    namespace = var.namespace
+  }
+
+  data = {
+    APP_REDIS_ENDPOINT = module.redis.primary_endpoint_address
+    APP_REDIS_PASSWORD = module.redis.auth_token
+    APP_REDIS_PORT     = "6379"
+  }
+}
