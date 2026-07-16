@@ -103,7 +103,7 @@ resource "aws_mq_broker" "this" {
   deployment_mode     = "SINGLE_INSTANCE"
   host_instance_type  = "mq.m5.large"
   publicly_accessible = false
-  subnet_ids          = [amq_subnet_id]
+  subnet_ids          = [local.amq_subnet_id]
   security_groups     = [aws_security_group.broker_sg.id]
 
   configuration {
