@@ -17,7 +17,8 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
       "probation-case.alias.updated",
       "probation-case.alias.deleted",
       "probation-case.additional-identifier.created",
-      "probation-case.additional-identifier.deleted"
+      "probation-case.additional-identifier.deleted",
+      "probation-case.additional-identifier.recovered"
     ],
     eventSource = [
       { "exists" = false },
