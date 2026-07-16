@@ -9,6 +9,12 @@ module "secrets" {
         description             = "${var.namespace}: HMPPS CFO CATS Application Configuration"
         recovery_window_in_days = 7
         k8s_secret_name         = "config"
+    },
+    # https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html
+    "cats-slack-webhook-url": {
+        description             = "${var.namespace}: Slack webhook URL for CATS AlertManager alerts (#hmpps-cfo-alerts-nonprod)"
+        recovery_window_in_days = 7
+        k8s_secret_name         = "cats-slack-webhook"
     }
   }
 
