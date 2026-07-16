@@ -111,6 +111,7 @@ resource "aws_sns_topic_subscription" "hmpps_unused_deductions_subscription" {
       "prisoner-offender-search.prisoner.updated",
       "recall.inserted",
       "recall.updated",
+      "prison-offender-events.prisoner.merged",
     ]
   })
 }
