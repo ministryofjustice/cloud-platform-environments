@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: money-to-prisoners-
+  namespace: money-to-prisoners-parity
 spec:
   hard:
     pods: "50"
