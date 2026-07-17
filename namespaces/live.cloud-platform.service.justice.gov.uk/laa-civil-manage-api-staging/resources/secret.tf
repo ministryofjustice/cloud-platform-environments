@@ -9,17 +9,17 @@ module "secrets_manager" {
   infrastructure_support = var.infrastructure_support
   eks_cluster_name       = var.eks_cluster_name
 
-  secrets = {
-    "gov-notify-api-key" = {
-      description             = "API key for GOV Notify",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "gov-notify-api-key-uat"
-    },
-
+  secrets = {    
     "slack-webhook-url" = {
       description             = "Slack webhook URL for non-production environment",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "slack-webhook-url-alerts-non-prod"
+      k8s_secret_name         = "slack-webhook-url-alerts-non-prod"      
+    },
+    
+    "azure-entra-api-client-secret" = {
+      description             = "Client secret for Civil Manage API Entra ID OBO authentication",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "azure-entra-api-client-secret"
     }
   }
 }
