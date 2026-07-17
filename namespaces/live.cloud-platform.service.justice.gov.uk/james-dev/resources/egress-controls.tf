@@ -9,6 +9,7 @@ module "hmpps_egress_controls" {
     ".in.applicationinsights.azure.com",
     ".livediagnostics.monitor.azure.com",
     ".service.justice.gov.uk",
-    ".github.com"
+    ".github.com",
+    ".githubusercontent.com"
   ]
 }
