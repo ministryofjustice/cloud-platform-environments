@@ -19,7 +19,7 @@ module "s3_logging_bucket" {
   namespace              = var.namespace
 
   # CRITICAL: This allows AWS S3 to write access logs into this bucket
-  acl = "log-delivery-write"
+  # acl = "log-delivery-write"   # commented out per Cloud Platform team — re-add once this bucket exists (see PR #2)
 }
 
 # 2. PRIMARY S3 BUCKET
@@ -151,7 +151,7 @@ module "s3_bucket" {
   ]
 }
 EOF
-*/
+  */
 
   versioning = true
 
