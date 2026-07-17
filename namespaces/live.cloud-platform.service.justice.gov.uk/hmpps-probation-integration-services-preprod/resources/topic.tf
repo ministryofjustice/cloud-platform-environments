@@ -14,14 +14,6 @@ data "aws_ssm_parameter" "probation-offender-events-policy-arn" {
   name = "/offender-events-${var.environment_name}/sns/${data.aws_sns_topic.probation-offender-events.name}/irsa-policy-arn"
 }
 
-data "aws_sns_topic" "probation-offender-events-preprod" {
-  name = "cloud-platform-Digital-Prison-Services-dbe10e8d9c1f4d100f0c723d5d9b754e"
-}
-
-data "aws_ssm_parameter" "probation-offender-events-preprod-policy-arn" {
-  name = "/offender-events-preprod/sns/${data.aws_sns_topic.probation-offender-events-preprod.name}/irsa-policy-arn"
-}
-
 data "aws_sns_topic" "prison-offender-events" {
   name = "cloud-platform-Digital-Prison-Services-d448bb61bb0b69b82fb19a3fa574e7f9"
 }
