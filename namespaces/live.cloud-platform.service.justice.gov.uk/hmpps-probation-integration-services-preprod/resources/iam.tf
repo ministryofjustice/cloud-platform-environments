@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events-prod.arn]
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }
