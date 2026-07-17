@@ -4,6 +4,25 @@
  * releases page of this repository.
  *
  */
+
+# 1. NEW LOGGING TARGET BUCKET
+# This block creates the actual bucket where your access logs will be sent.
+module "s3_logging_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  # CRITICAL: This allows AWS S3 to write access logs into this bucket
+  acl = "log-delivery-write"
+}
+
+# 2. PRIMARY S3 BUCKET
 module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
@@ -16,7 +35,6 @@ module "s3_bucket" {
   namespace              = var.namespace
 
   /*
-
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.
                     By default buckets are private, however to create a 'public' bucket add the following two variables when calling the module:
 
@@ -34,29 +52,21 @@ module "s3_bucket" {
   * Versioning: By default this is set to false. When set to true multiple versions of an object can be stored
                 For more details on versioning please visit: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html
 
-  versioning             = true
-
   * Logging: By default set to false. When you enable logging, Amazon S3 delivers access logs for a source bucket to a target bucket that you choose.
              The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration.
-             For more details on logging please vist: https://docs.aws.amazon.com/AmazonS3/latest/user-guide/server-access-logging.html
+             For more details on logging please visit: https://docs.aws.amazon.com/AmazonS3/latest/user-guide/server-access-logging.html
 
-  logging_enabled        = true
-  log_target_bucket      = "<TARGET_BUCKET_NAME>"
-
-  # NOTE: Important note that the target bucket for logging must have it's 'acl' property set to 'log-delivery-write'.
-          To apply this to an existing target bucket simply add the followng variable to its terraform module
+  # NOTE: Important note that the target bucket for logging must have its 'acl' property set to 'log-delivery-write'.
+          To apply this to an existing target bucket simply add the following variable to its terraform module:
           acl = "log-delivery-write"
-
-  log_path               = "<LOG_PATH>" e.g log/
-
-*/
+  */
 
   /*
    * The following example can be used if you need to define CORS rules for your s3 bucket.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-cors"
    *
 
-  cors_rule =[
+  cors_rule = [
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET"]
@@ -72,13 +82,14 @@ module "s3_bucket" {
       max_age_seconds = 3000
     },
   ]
-
+  */
 
   /*
    * The following example can be used if you need to set a lifecycle for your s3.
    *  Follow the guidance here "https://www.terraform.io/docs/providers/aws/r/s3_bucket.html#using-object-lifecycle"
    *  "https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html"
    *
+
   lifecycle_rule = [
     {
       enabled = true
@@ -109,13 +120,11 @@ module "s3_bucket" {
       ]
     },
   ]
-
   */
 
   /*
    * The following are examples of bucket and user policies. They are treated as
    * templates. Currently, the only available variable is `$${bucket_arn}`.
-   *
    */
 
   /*
@@ -123,7 +132,7 @@ module "s3_bucket" {
    * this bucket.
    *
 
-   bucket_policy = <<EOF
+  bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -143,25 +152,24 @@ module "s3_bucket" {
 }
 EOF
 */
-  versioning             = true
-  logging_enabled        = true
-  log_target_bucket      = "justice-redact-logs"
-  log_path               = "s3-access-logs"
+
+  versioning = true
+
+  # --- Enabled Logging with Dynamic Target Linking ---
+  logging_enabled   = true
+  log_target_bucket = module.s3_logging_bucket.bucket_name
+  log_path          = "s3-access-logs/"
 
   /*
    * OIDC for GitHub Actions
    * This allows GitHub Actions to access the S3 bucket using OIDC.
-   *
    */
-  oidc_providers = ["github"]
+  oidc_providers      = ["github"]
   github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
-  github_environments = ["dev"]   # If you're using GH Actions environments
-
-
+  github_environments  = ["dev"] # If you're using GH Actions environments
 }
 
-
-
+# 3. KUBERNETES OUTPUT SECRET
 resource "kubernetes_secret" "s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
