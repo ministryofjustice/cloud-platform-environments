@@ -8,7 +8,7 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "hmpps-prisoner-monies"
+  default = "prisoner-money"
 }
 
 variable "infrastructure_support" {
