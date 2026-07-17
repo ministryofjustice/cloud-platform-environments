@@ -12,7 +12,8 @@ module "hmpps_egress_controls" {
 
   envoy_extra_allowed_hosts_exact = [
     "www.gov.uk", # required for fetching bank-holidays.json file
-    "o345774.ingest.sentry.io"
+    "o345774.ingest.sentry.io",
+    "moj-reg-preprod.s3.eu-west-2.amazonaws.com" # the purposeful activity report job exports here
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
