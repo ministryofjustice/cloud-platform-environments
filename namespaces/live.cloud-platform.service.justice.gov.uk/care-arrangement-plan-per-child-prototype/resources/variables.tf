@@ -11,7 +11,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of Application you are deploying"
   type        = string
-  default     = "Care Arrangement Plan Prototype"
+  default     = "Care Arrangement Plan Per Child Prototype"
 }
 
 variable "namespace" {
