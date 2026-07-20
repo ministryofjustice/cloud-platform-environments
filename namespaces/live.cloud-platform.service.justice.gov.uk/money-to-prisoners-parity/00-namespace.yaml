@@ -23,5 +23,5 @@ metadata:
       https://github.com/ministryofjustice/money-to-prisoners-transaction-uploader,
       https://github.com/ministryofjustice/money-to-prisoners-send-money,
       https://github.com/ministryofjustice/money-to-prisoners-start-page,
-      https://github.com/ministryofjustice/money-to-prisoners-emails
+      https://github.com/ministryofjustice/money-to-prisoners-emails,
     cloud-platform.justice.gov.uk/team-name: "prisoner-money"
