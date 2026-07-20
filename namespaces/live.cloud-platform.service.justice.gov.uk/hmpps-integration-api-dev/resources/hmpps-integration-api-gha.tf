@@ -47,7 +47,7 @@ module "hmpps_external_api_config" {
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
-  source_template_repo          = "template-repository"
+  source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
