@@ -24,7 +24,7 @@ module "s3_bucket" {
 
 # This allows GitHub Actions to access the S3 bucket using OIDC.
   oidc_providers = ["github"]
-  github_repositories = ["payforlegalaid", "payforlegalaid-tests"]
+  github_repositories = ["payforlegalaid"]
   github_environments = ["development", "acceptance-tests"]
   github_actions_prefix = "FILE_STORE_DEV"
 

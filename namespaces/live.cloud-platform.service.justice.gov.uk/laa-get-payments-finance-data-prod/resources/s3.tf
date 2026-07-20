@@ -113,7 +113,7 @@ module "s3_bucket_report_store_logging" {
       Statement = [
         {
           Sid    = "S3ServerAccessLogsPolicy",
-          Effect = "Allow",
+          Effect = "Allowz",
           Principal = {
             Service = "logging.s3.amazonaws.com"
           },
