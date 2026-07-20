@@ -7,7 +7,7 @@ module "rds2" {
   is_production = var.is_production
   namespace     = var.namespace
 
-  snapshot_identifier = "cloud-platform-bbc8706925e8d35e-2026-07-17-00-36"
+  snapshot_identifier = "rds:cloud-platform-bbc8706925e8d35e-2026-07-17-00-36"
   # turn off performance insights
   performance_insights_enabled = false
 
