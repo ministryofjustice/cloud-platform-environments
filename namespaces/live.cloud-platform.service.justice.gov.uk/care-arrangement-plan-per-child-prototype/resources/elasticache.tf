@@ -9,6 +9,7 @@ module "elasticache_redis" {
   engine_version          = "7.1"
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2025-03-24"
+  preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
 
   # Tags
   business_unit          = var.business_unit
