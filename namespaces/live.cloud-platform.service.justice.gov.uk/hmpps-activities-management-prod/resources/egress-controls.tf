@@ -6,6 +6,7 @@ module "hmpps_egress_controls" {
 
   enable_envoy_setup     = true
   enable_egress_controls = false 
+  envoy_proxy_replicas = 4
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
