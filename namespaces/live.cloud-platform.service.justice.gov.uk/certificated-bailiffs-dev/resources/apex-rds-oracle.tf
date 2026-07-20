@@ -32,6 +32,19 @@ resource "aws_vpc_security_group_egress_rule" "rds_to_sendgrid" {
   cidr_ipv4   = "0.0.0.0/0"
 }
 
+# 2. Egress rule to allow call to Apex Office Print
+resource "aws_vpc_security_group_egress_rule" "rds_to_aop" {
+  security_group_id = aws_security_group.apex-rds-out.id
+
+  description = "Allow outbound to Apex Office Print over 443"
+  from_port   = 443
+  to_port     = 443
+  ip_protocol = "tcp"
+  cidr_ipv4   = "0.0.0.0/0"
+}
+
+
+
 # 3. RDS Module (now correctly references the SG)
 module "rds_apex" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"

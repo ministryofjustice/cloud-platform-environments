@@ -29,6 +29,8 @@ locals {
     "hmpps-non-associations-prod",
     "hmpps-prisoner-from-nomis-migration-prod",
     "hmpps-prisoner-profile-prod",
+    "hmpps-prisoner-finance-prod",
+    "hmpps-prisoner-finance-sync-prod",
     "hmpps-registers-prod",
     "hmpps-subject-access-request-prod",
     "hmpps-support-additional-needs-prod",

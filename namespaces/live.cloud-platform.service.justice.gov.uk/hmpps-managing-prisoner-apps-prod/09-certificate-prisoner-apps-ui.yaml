@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - prisoner-apps-prod.hmpps.service.justice.gov.uk
+    - prisoner-apps.hmpps.service.justice.gov.uk

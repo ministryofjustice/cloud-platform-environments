@@ -32,7 +32,7 @@ resource "aws_glue_crawler" "copilot_credits_prod_crawler" {
     }
   })
 
-  schedule = "cron(0 7 * * ? *)"
+  schedule = "cron(20 10 * * ? *)"
 }
 
 resource "aws_athena_workgroup" "copilot_credits_prod_workgroup" {

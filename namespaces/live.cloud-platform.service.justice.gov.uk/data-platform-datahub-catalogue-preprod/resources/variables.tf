@@ -146,7 +146,7 @@ variable db_engine {
 variable db_engine_version {
   description = "The database engine version to use for the RDS instance"
   type        = string
-  default     = "17.7"
+  default     = "17.9"
 }
 variable rds_family {
   description = "The RDS family to use for the RDS instance"

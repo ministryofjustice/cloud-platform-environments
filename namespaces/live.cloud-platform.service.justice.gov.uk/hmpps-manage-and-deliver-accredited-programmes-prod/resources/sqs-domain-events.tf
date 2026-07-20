@@ -3,7 +3,7 @@ module "mandd_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name = "mandd_queue"
-  visibility_timeout_seconds  = 120
+  visibility_timeout_seconds  = 600
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.mandd_dlq.sqs_arn
     maxReceiveCount     = 3
@@ -56,7 +56,8 @@ resource "aws_sns_topic_subscription" "hmpps_manage_and_deliver_domain_events_su
       "interventions.community-referral.created",
       "interventions.community-referral.imported",
       "probation-case.merge.completed",
-      "probation-case.unmerge.completed"
+      "probation-case.unmerge.completed",
+      "accredited-programmes-manage-and-deliver.referral.details-updated"
     ]
   })
 }

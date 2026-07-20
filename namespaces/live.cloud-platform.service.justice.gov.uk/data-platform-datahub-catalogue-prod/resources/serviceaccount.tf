@@ -48,6 +48,8 @@ module "serviceaccount" {
       ]
       resources = [
         "deployments",
+        "deployments/scale",
+        "deployments/status",
         "ingresses",
         "cronjobs",
         "jobs",
@@ -59,6 +61,23 @@ module "serviceaccount" {
         "roles",
         "rolebindings",
         "horizontalpodautoscalers",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "keda.sh",
+      ]
+      resources = [
+        "scaledobjects",
       ]
       verbs = [
         "get",

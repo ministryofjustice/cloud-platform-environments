@@ -20,10 +20,18 @@ module "manage_offences_rds" {
 
   db_password_rotated_date = "13-02-2023"
 
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
   providers = {
     aws = aws.london
   }
 
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }
 
 resource "kubernetes_secret" "manage_offences_rds" {

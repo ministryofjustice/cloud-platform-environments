@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: annual-leave-apprenticeship-project-api-cert
+  namespace: annual-leave-apprenticeship-project
+spec:
+  secretName: annual-leave-apprenticeship-project-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - annual-leave-apprenticeship-project-api-dev.hmpps.service.justice.gov.uk
+    - '*.annual-leave-apprenticeship-project-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: annual-leave-apprenticeship-project-ui-cert
+  namespace: annual-leave-apprenticeship-project
+spec:
+  secretName: annual-leave-apprenticeship-project-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - annual-leave-apprenticeship-project-ui-dev.hmpps.service.justice.gov.uk
+    - '*.annual-leave-apprenticeship-project-ui-dev.hmpps.service.justice.gov.uk'

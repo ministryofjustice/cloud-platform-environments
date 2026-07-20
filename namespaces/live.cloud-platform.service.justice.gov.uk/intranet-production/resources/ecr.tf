@@ -21,10 +21,10 @@ module "ecr_credentials" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep newest 20 images that are tagged with *-qa-*",
+        "description": "Keep newest 20 images that are tagged with *-demo-*",
         "selection": {
           "tagStatus": "tagged",
-          "tagPatternList": ["*-qa-*"],
+          "tagPatternList": ["*-demo-*"],
           "countType": "imageCountMoreThan",
           "countNumber": 20
         },

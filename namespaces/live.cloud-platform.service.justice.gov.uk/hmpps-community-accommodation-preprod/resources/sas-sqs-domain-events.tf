@@ -44,7 +44,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
   endpoint  = module.sas_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "ignore.all.preprod",
+      "core-person-record.probation.address.deleted",
     ]
   })
 }

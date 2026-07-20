@@ -5,7 +5,7 @@ module "rds" {
 
   # Engine
   db_engine         = "postgres"
-  db_engine_version = "18.1"
+  db_engine_version = "18.3"
   rds_family        = "postgres18"
 
   # Instance sizing
