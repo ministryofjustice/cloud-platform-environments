@@ -14,5 +14,10 @@ terraform {
       source  = "hashicorp/random"
       version = ">= 3.0"
     }
+    # Add the github provider constraint here
+    github = {
+      source  = "integrations/github"
+      version = ">= 5.0"
+    }
   }
 }
