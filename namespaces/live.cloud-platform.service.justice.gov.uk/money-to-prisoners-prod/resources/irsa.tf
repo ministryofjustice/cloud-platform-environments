@@ -13,7 +13,6 @@ module "irsa-deploy" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "deploy"
   role_policy_arns = {
-    ecr    = module.ecr.irsa_policy_arn,
     rds    = module.rds.irsa_policy_arn,
     s3     = module.s3.irsa_policy_arn,
     policy = aws_iam_policy.deploy.arn,
@@ -39,7 +38,6 @@ resource "aws_iam_policy" "deploy" {
 
 data "aws_iam_policy_document" "deploy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.ecr-cleanup.json,
     data.aws_iam_policy_document.s3-read.json,
     data.aws_iam_policy_document.s3-write.json,
   ]
