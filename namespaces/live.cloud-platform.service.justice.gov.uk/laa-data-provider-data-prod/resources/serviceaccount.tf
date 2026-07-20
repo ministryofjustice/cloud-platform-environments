@@ -56,7 +56,7 @@ module "e2etester_serviceaccount" {
   serviceaccount_rules = var.e2etester_serviceaccount_rules
 
   github_repositories = var.github_repository_names
-  github_environments = [var.github_environment_name]
+  github_environments = [var.github_environment_name, "prod_auto_without_approval"]
 
   github_actions_secret_kube_cert      = "KUBE_CERT"
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
