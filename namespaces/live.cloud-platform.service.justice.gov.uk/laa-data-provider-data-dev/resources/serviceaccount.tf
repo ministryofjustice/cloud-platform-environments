@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -21,7 +21,7 @@ module "serviceaccount" {
 }
 
 module "deployer_serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -43,7 +43,7 @@ module "deployer_serviceaccount" {
 }
 
 module "e2etester_serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
