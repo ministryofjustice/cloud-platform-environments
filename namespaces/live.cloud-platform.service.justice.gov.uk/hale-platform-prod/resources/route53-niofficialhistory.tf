@@ -71,3 +71,10 @@ resource "aws_route53_record" "niofficialhistory_route53_txt_record_smtp" {
   records = ["v=TLSRPTv1;rua=mailto:tls-rua@mailcheck.service.ncsc.gov.uk"]
 }
 
+resource "aws_route53_record" "niofficialhistory_route53_txt_record_asvdns" {
+  zone_id = aws_route53_zone.niofficialhistory_route53_zone.zone_id
+  name    = "_asvdns-b8e60480-2998-4d55-9d68-f46933fc9e69.niofficialhistory.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["asvdns_4754cadf-2f56-47bb-b5c1-b81196d9140b"]
+}
