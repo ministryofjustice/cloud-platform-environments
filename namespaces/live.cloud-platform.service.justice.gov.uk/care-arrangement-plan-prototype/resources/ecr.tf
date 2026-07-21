@@ -33,6 +33,7 @@ module "ecr_credentials" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection = false
 }
 
 resource "kubernetes_secret" "ecr_credentials" {
