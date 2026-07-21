@@ -33,7 +33,10 @@ module "s3_bucket" {
       "Sid": "S3DataSyncAccessAPAirflowDev",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::593291632749:role/airflow-development-coat-get-copilot-data"
+        "AWS": [
+          "arn:aws:iam::593291632749:role/airflow-development-coat-get-copilot-data",
+          "arn:aws:iam::593291632749:role/airflow-development-coat-backfill-copilot-data"
+        ]
       },
       "Action": [
         "s3:PutObject",
