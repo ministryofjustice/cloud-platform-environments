@@ -1,5 +1,5 @@
 module "hmpps-justice-data-agent-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1"" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1" # use the latest release
   github_repo                   = "hmpps-justice-data-agent-worker"
   application                   = "hmpps-justice-data-agent-worker"
   github_team                   = var.team_name
@@ -15,7 +15,7 @@ module "hmpps-justice-data-agent-worker" {
 }
 
 module "hmpps-justice-data-agent-client-api" {
-source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1"" # use the latest release
+source = "github.com/ministryofjustice/cloud-platform-terraform-template?ref=1.2.1" # use the latest release
 github_repo                   = "hmpps-justice-data-agent-client-api"
 application                   = "hmpps-justice-data-agent-client-api"
 github_team                   = var.team_name
