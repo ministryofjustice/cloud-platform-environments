@@ -62,3 +62,18 @@ resource "kubernetes_secret" "rds" {
      *
      */
 }
+
+
+# Configmap to store non-sensitive data related to the RDS instance
+
+resource "kubernetes_config_map" "rds" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.rds.database_name
+    db_identifier = module.rds.db_identifier
+  }
+}
