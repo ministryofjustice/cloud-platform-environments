@@ -33,7 +33,7 @@ module "secrets_manager" {
     "api-entra-auth-config" = {
       description             = "API Entra Configuration for UAT",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-client-id-uat"
+      k8s_secret_name         = "api-entra-auth-config-uat"
     },
   }
 }
