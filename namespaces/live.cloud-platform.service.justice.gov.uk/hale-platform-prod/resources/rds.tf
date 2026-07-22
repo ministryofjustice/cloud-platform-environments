@@ -15,6 +15,7 @@ module "rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   deletion_protection    = "true"
+  backup_window          = "00:31-01:01"
 
   # using mysql
   db_engine         = "mariadb"
