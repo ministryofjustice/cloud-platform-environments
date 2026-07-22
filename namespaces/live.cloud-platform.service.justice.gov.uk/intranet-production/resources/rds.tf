@@ -21,7 +21,7 @@ module "rds" {
   db_iops                     = "12000"
   allow_major_version_upgrade = "false"
   deletion_protection         = "true"
-  backup_window               = "00:00-02:00"
+  backup_window               = "00:50-01:20"
 
   # Window for minor version upgrades in UTC.
   # (upgrades and associated backups may cause resource spikes)
