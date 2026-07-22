@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "gov-notify-api-key" = {
-      description             = "API key for GOV Notify",
+      description             = "API key for GOV Notify for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-staging"
     },
