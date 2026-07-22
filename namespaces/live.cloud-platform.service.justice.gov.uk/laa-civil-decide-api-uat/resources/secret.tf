@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "gov-notify-api-key" = {
-      description             = "API key for GOV Notify for UAT",
+      description             = "API key for GOV Notify",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-uat"
     },
@@ -36,7 +36,7 @@ module "secrets_manager" {
       k8s_secret_name         = "api-entra-auth-config-uat"
     },
     "grant_email_template_id" = {
-      description             = "Template ID for sending grant emails for UAT",
+      description             = "Template ID for sending grant emails",
       recovery_window_in_days = 7,
       k8s_secret_name         = "grant-email-template-id-uat"
     },
