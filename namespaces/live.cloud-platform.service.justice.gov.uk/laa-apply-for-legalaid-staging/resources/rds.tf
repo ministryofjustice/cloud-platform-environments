@@ -27,6 +27,7 @@ module "apply-for-legal-aid-rds" {
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   db_max_allocated_storage    = "500"
+  db_password_rotated_date    = "22-07-2026"
 
   snapshot_identifier = "rds:cloud-platform-464651662c253592-2022-03-03-05-40"
 
