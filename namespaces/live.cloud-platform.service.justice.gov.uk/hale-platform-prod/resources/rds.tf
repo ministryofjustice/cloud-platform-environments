@@ -14,13 +14,18 @@ module "rds" {
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  deletion_protection    = "true"
 
   # using mysql
   db_engine         = "mariadb"
   db_engine_version = "10.11"
   rds_family        = "mariadb10.11"
 
+  # Upgrades
   prepare_for_major_upgrade = false
+  # Window for minor version upgrades in UTC.
+  # (upgrades and associated backups may cause resource spikes)
+  maintenance_window        = "Sun:03:00-Sun:04:00"
 
   # overwrite db_parameters
   db_parameter = [
