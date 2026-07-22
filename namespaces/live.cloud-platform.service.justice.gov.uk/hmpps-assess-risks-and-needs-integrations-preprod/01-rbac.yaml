@@ -5,10 +5,7 @@ metadata:
   namespace: hmpps-assess-risks-and-needs-integrations-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-assessments"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:hmpps-sentence-planning"
+    name: "github:hmpps-assessments-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre" # for credentials rotation
