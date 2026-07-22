@@ -35,5 +35,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "api-entra-auth-config-uat"
     },
+    "grant_email_template_id" = {
+      description             = "Template ID for sending grant emails",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "grant-email-template-id-uat"
+    },
   }
 }
