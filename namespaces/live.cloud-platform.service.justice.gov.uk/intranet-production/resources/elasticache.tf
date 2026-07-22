@@ -15,8 +15,8 @@ module "elasticache" {
   number_cache_clusters  = "2"
   node_type              = "cache.t4g.medium"
 
-  snapshot_window        = "05:00-07:00"
-  maintenance_window     = "Mon:03:00-Mon:04:00"
+  snapshot_window        = "03:30-04:30"
+  maintenance_window     = "sat:00:00-sat:01:00"
 }
 
 resource "kubernetes_secret" "elasticache" {
