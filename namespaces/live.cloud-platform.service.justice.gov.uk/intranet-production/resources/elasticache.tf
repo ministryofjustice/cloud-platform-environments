@@ -14,9 +14,6 @@ module "elasticache" {
   parameter_group_name   = "default.redis7"
   number_cache_clusters  = "2"
   node_type              = "cache.t4g.medium"
-
-  snapshot_window        = "05:00-07:00"
-  maintenance_window     = "Mon:03:00-Mon:04:00"
 }
 
 resource "kubernetes_secret" "elasticache" {
