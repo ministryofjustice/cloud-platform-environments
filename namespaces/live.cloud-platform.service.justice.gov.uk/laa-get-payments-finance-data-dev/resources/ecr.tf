@@ -49,6 +49,9 @@ module "testing_ecr" {
   github_actions_prefix = "dev_test"
 
   enable_irsa = true
+
+  # prepare to remove unused ECR
+  deletion_protection = false
 }
 
 module "data_ecr" {
