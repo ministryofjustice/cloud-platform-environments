@@ -46,6 +46,7 @@ locals {
     "enhanced-reception-checks",
     "synalogik",
     "jaiu-onboarding-optimisation",
+    "serco-up3",
   ]
 
   client_queues = {
