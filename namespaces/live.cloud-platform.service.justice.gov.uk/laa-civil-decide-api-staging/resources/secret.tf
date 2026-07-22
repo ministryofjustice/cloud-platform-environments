@@ -30,8 +30,13 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "allow-auto-grant-staging"
     },
+    "api-entra-auth-config" = {
+      description             = "API Entra Configuration for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "api-entra-auth-config-staging"
+    },
     "grant_email_template_id" = {
-      description             = "Template ID for sending grant emails",
+      description             = "Template ID for sending grant emails for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "grant-email-template-id-staging"
     },
