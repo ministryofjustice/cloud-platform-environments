@@ -12,7 +12,7 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version           = "10.11.15"
+  db_engine_version           = "10.11"
   rds_family                  = "mariadb10.11"
   db_instance_class           = "db.t4g.xlarge"
   environment_name            = var.environment
@@ -20,6 +20,11 @@ module "rds" {
   db_allocated_storage        = "400"
   db_iops                     = "12000"
   allow_major_version_upgrade = "false"
+  deletion_protection         = "true"
+
+  # Window for minor version upgrades in UTC.
+  # (upgrades and associated backups may cause resource spikes)
+  maintenance_window          = "Sun:03:00-Sun:04:00"
 
   # overwrite db_parameters
   db_parameter = [
