@@ -10,5 +10,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - dpr-tools-api.probation.service.justice.gov.uk
-    - dpr-tools.probation.service.justice.gov.uk
+    - dpr-tools-api-probation.hmpps.service.justice.gov.uk
+    - dpr-tools-probation.hmpps.service.justice.gov.uk

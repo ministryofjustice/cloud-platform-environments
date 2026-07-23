@@ -11,7 +11,7 @@ spec:
       rules:
         - alert: LaoDomainEventsDlqHasMessages
           expr: |
-            aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="lao_domain_events_dlq"} > 0
+            aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="hmpps-digital-prison-reporting-prod-lao_domain_events_dlq"} > 900
           for: 15m
           labels:
             severity: probation-frontend-alerts-prod
