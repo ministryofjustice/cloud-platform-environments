@@ -139,6 +139,7 @@ module "irsa" {
   role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
+    { s3_database_backup = module.s3_database_backup.irsa_policy_arn },
     { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },
     { large_cases_s3 = module.large-court-cases-s3-bucket.irsa_policy_arn },
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
