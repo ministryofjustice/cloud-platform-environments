@@ -30,30 +30,6 @@ module "ecr" {
   enable_irsa = true
 }
 
-module "testing_ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-
-  repo_name = var.testing_ecr
-
-  oidc_providers      = ["github"]
-  github_repositories = ["payforlegalaid"]
-  github_environments = ["development"]
-
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  namespace              = var.namespace
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  github_actions_prefix = "dev_test"
-
-  enable_irsa = true
-
-  # prepare to remove unused ECR
-  deletion_protection = false
-}
-
 module "data_ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
 
@@ -84,8 +60,6 @@ resource "kubernetes_secret" "ecr_credentials" {
   data = {
     repo_arn = module.ecr.repo_arn
     repo_url = module.ecr.repo_url
-    tests_repo_arn = module.testing_ecr.repo_arn
-    tests_repo_url = module.testing_ecr.repo_url
     data_repo_arn = module.data_ecr.repo_arn
     data_repo_url = module.data_ecr.repo_url
   }
