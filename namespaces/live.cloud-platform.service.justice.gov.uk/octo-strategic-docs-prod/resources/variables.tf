@@ -94,26 +94,3 @@ variable "github_actions_secret_kube_token" {
   default     = "KUBE_TOKEN"
 }
 
-variable "github_actions_secret_ecr_name" {
-  description = "The name of the github actions secret containing the ECR name"
-  type        = string
-  default     = "ECR_NAME"
-}
-
-variable "github_actions_secret_ecr_url" {
-  description = "The name of the github actions secret containing the ECR URL"
-  type        = string
-  default     = "ECR_URL"
-}
-
-variable "github_actions_secret_ecr_access_key" {
-  description = "The name of the github actions secret containing the ECR AWS access key"
-  type        = string
-  default     = "ECR_AWS_ACCESS_KEY_ID"
-}
-
-variable "github_actions_secret_ecr_secret_key" {
-  description = "The name of the github actions secret containing the ECR AWS secret key"
-  type        = string
-  default     = "ECR_AWS_SECRET_ACCESS_KEY"
-}

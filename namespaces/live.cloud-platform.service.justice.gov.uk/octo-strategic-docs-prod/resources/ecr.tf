@@ -1,30 +1,20 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=5.1.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
-  team_name    = var.team_name
-  repo_name    = "${var.namespace}-ecr"
-  scan_on_push = "true"
+  repo_name = "${var.namespace}-ecr"
 
-  # Creates github actions secrets containing the ECR name, AWS access key,
-  # and AWS secret key, for use in the octo-strategic-docs publish workflow.
+  # OpenID Connect configuration - creates ECR_ROLE_TO_ASSUME/ECR_REGISTRY_URL
+  # secrets and ECR_REGION/ECR_REPOSITORY variables in the octo-strategic-docs
+  # repo for use in the publish workflow. No static AWS keys are created.
+  oidc_providers      = ["github"]
   github_repositories = [var.app_repo]
 
-  github_actions_secret_ecr_name       = var.github_actions_secret_ecr_name
-  github_actions_secret_ecr_url        = var.github_actions_secret_ecr_url
-  github_actions_secret_ecr_access_key = var.github_actions_secret_ecr_access_key
-  github_actions_secret_ecr_secret_key = var.github_actions_secret_ecr_secret_key
-}
-
-resource "kubernetes_secret" "ecr-repo" {
-  metadata {
-    name      = "ecr-repo-${var.namespace}"
-    namespace = var.namespace
-  }
-
-  data = {
-    repo_url          = module.ecr-repo.repo_url
-    access_key_id     = module.ecr-repo.access_key_id
-    secret_access_key = module.ecr-repo.secret_access_key
-    repo_arn          = module.ecr-repo.repo_arn
-  }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
