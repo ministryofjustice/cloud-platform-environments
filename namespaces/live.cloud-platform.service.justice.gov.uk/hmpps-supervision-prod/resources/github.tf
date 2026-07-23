@@ -3,6 +3,7 @@ module "hmpps-supervision" {
   github_repo                   = "hmpps-supervision"
   selected_branch_patterns      = ["main"]
   source_template_repo          = "none"
+  reviewer_teams                = [var.team_name]
   application                   = var.application
   github_owner                  = var.github_owner
   github_team                   = var.team_name
