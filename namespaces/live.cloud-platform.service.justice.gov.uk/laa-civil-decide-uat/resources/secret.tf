@@ -39,5 +39,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "data-store-auth-scope-uat"
     },
+
+    "decide_api_auth_scope" = {
+      description             = "Auth scope for integration with Civil Decide API",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "decide-api-auth-scope-uat"
+    },
   }
 }
