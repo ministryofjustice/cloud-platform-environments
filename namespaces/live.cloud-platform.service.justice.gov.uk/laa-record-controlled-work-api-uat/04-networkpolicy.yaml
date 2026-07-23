@@ -11,6 +11,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
+          # Ingress restricted to Alpha VPN ranges in Helm.
           component: ingress-controllers
     - namespaceSelector:
         matchLabels:
