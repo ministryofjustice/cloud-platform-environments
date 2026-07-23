@@ -1,16 +1,3 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default
-  namespace: laa-record-controlled-work-api-uat
-spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector: {}
----
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -28,3 +15,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-record-controlled-work-uat
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: rcw
+    ports:
+    - protocol: TCP
+      port: 8081
