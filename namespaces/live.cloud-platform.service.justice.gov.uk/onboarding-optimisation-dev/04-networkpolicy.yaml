@@ -55,20 +55,39 @@ spec:
         matchLabels:
           app: onboarding-optimisation-frontend
 ---
-# Allow egress to required destinations only.
-# Note: 172.20.0.0/16 is the Cloud Platform VPC CIDR. It covers:
-#   - kube-dns at 172.20.0.10
-#   - RDS private IP (same VPC subnet)
-#   - VPC endpoints for S3, STS, and Athena if configured on this cluster
-#     (confirm with Cloud Platform team; if not, the S3 public CIDRs below are the fallback)
+# Frontend egress: only what the Next.js pod needs.
+# - 172.20.0.0/16: kube-dns and the backend internal service
+# - Azure AD: server-side token exchange at login (callback/route.ts)
 kind: NetworkPolicy
 apiVersion: projectcalico.org/v3
 metadata:
-  name: allow-egress-ip
+  name: allow-egress-frontend
   namespace: onboarding-optimisation-dev
 spec:
   order: 49.0
-  selector: all()
+  selector: "app == 'onboarding-optimisation-frontend'"
+  egress:
+    - action: Allow
+      destination:
+        nets:
+          - 172.20.0.0/16
+          # Azure AD — token exchange at login.microsoftonline.com/oauth2/v2.0/token
+          - 20.190.128.0/18
+          - 40.126.0.0/18
+  types:
+    - Egress
+---
+# Backend egress: all external dependencies.
+# Note: 172.20.0.0/16 covers kube-dns, RDS private IP, and AWS VPC endpoints
+# if configured on this cluster (confirm with Cloud Platform team).
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-backend
+  namespace: onboarding-optimisation-dev
+spec:
+  order: 49.0
+  selector: "app == 'onboarding-optimisation-backend'"
   egress:
     - action: Allow
       destination:
