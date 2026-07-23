@@ -1,9 +1,8 @@
----
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-github-actions-runners-security
+  namespace: opg-make-lpa-prototype
 spec:
   hard:
     pods: "50"

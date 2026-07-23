@@ -1,12 +1,11 @@
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-github-actions-runners-security-admin
-  namespace: hmpps-github-actions-runners-security
+  name: mandatory-drug-testing-dev-admin
+  namespace: mandatory-drug-testing-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-sre"
+    name: "github:hmpps-mandatory-drug-testing"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

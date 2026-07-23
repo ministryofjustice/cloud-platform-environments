@@ -1,15 +1,14 @@
----
 apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hmpps-github-actions-runners-security
+  namespace: care-arrangement-plan-prototype-kit-dev
 spec:
   limits:
     - default:
-        cpu: 200m
-        memory: 3Gi
+        cpu: 1000m
+        memory: 1000Mi
       defaultRequest:
-        cpu: 200m
-        memory: 3Gi
+        cpu: 10m
+        memory: 100Mi
       type: Container

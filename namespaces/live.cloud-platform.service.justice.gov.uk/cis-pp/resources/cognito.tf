@@ -132,7 +132,7 @@ resource "aws_cognito_user_pool_client" "main" {
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
 
-  supported_identity_providers = ["COGNITO"]
+  supported_identity_providers = ["COGNITO", "EntraID"]
 
   callback_urls = var.callback_urls
   logout_urls   = var.logout_urls
@@ -156,6 +156,8 @@ resource "aws_cognito_user_pool_client" "main" {
     id_token      = "hours"
     refresh_token = "days"
   }
+
+  depends_on = [aws_cognito_identity_provider.entra]
 }
 
 resource "kubernetes_secret" "cognito_user_pool_client" {
@@ -189,4 +191,50 @@ resource "aws_cognito_user" "test" {
 
   temporary_password = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
   message_action     = "SUPPRESS"
+}
+
+# -----------------------------------------------------------------------------
+# Entra ID (OIDC) Identity Provider
+# -----------------------------------------------------------------------------
+data "aws_secretsmanager_secret" "entra_nle_client_id" {
+  name = module.cis_pp_entra_nle_client_id.secret_names["cis-pp-entra-nle-client-id"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_nle_client_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_nle_client_id.id
+}
+
+data "aws_secretsmanager_secret" "entra_nle_client_secret" {
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-client-secret"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_nle_client_secret" {
+  secret_id = data.aws_secretsmanager_secret.entra_nle_client_secret.id
+}
+
+data "aws_secretsmanager_secret" "entra_nle_tenant_id" {
+  name = module.cis_pp_entra_nle_tenant_id.secret_names["cis-pp-entra-nle-tenant-id"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_nle_tenant_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_nle_tenant_id.id
+}
+
+resource "aws_cognito_identity_provider" "entra" {
+  user_pool_id  = aws_cognito_user_pool.main.id
+  provider_name = "EntraID"
+  provider_type = "OIDC"
+
+  provider_details = {
+    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_nle_client_id.secret_string)["CIS_PP_ENTRA_NLE_CLIENT_ID"]
+    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_nle_client_secret.secret_string)["CIS_PP_ENTRA_CLIENT_SECRET"]
+    authorize_scopes          = "openid email profile"
+    attributes_request_method = "GET"
+    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_nle_tenant_id.secret_string)["CIS_PP_ENTRA_NLE_TENANT_ID"]}/v2.0"
+  }
+
+  attribute_mapping = {
+    email    = "email"
+    cis-role = "cis-role"
+  }
 }
