@@ -11,6 +11,9 @@ module "hmpps_egress_controls" {
     ".service.justice.gov.uk",
     ".github.com",
     ".githubusercontent.com",
-    "justiceuk.sharepoint.com"
+    "justiceuk.sharepoint.com",
+    ".cache.amazonaws.com",
+    "circleci.com",
+    ".veracode.com"
   ]
 }
