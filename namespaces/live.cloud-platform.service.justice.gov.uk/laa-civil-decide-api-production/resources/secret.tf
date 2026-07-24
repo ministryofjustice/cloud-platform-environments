@@ -49,6 +49,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "api-entra-auth-config-prod"
     },
+    "ads-auth-config" = {
+      description             = "ADS Auth Configuration for Production",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ads-auth-config-prod"
+    },
     "grant_email_template_id" = {
       description             = "Template ID for sending grant emails for Production",
       recovery_window_in_days = 7,
