@@ -6,16 +6,13 @@ module "hmpps_egress_controls" {
 
   namespace              = var.namespace
   vpc_name               = var.vpc_name
-  
+
   envoy_extra_allowed_hosts_exact = [
     "justiceuk.sharepoint.com",
     "circleci.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    ".in.applicationinsights.azure.com",
-    ".livediagnostics.monitor.azure.com",
-    ".service.justice.gov.uk",
     ".github.com",
     ".githubusercontent.com",
     ".cache.amazonaws.com",
