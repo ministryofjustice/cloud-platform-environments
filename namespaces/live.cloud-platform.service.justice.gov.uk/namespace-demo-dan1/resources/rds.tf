@@ -80,7 +80,7 @@ module "red" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "17.9" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   rds_name          = "demo-dan1-red"
@@ -122,7 +122,7 @@ module "green" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "17.9" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   rds_name          = "demo-dan1-green"
@@ -164,7 +164,7 @@ module "blue" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "17.9" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   rds_name          = "demo-dan1-blue"
