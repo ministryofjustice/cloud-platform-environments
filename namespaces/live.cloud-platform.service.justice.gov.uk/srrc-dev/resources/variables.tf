@@ -79,3 +79,18 @@ variable "serviceaccount_name" {
   description = "GitHub Actions service account name for srrc-dev namespace"
   default     = "srrc-dev"
 }
+
+variable "owner" {
+  default = "srrc-tech"
+  type    = string
+}
+
+variable "environment_name" {
+  default = "dev"
+  type    = string
+}
+
+variable "domain" {
+  default = "biometric.service.justice.gov.uk"
+  type    = string
+}
