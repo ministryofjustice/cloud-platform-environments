@@ -14,7 +14,7 @@ metadata:
     cloud-platform.justice.gov.uk/source-code:  >-
       https://github.com/ministryofjustice/srrc-poc-sample-application,
       https://github.com/ministryofjustice/srrc-verify-biometric-scans-api,
-      https://github.com/ministryofjustice/srrc-capture-finger-prints,
+      https://github.com/ministryofjustice/srrc-capture-biometric-prints,
       https://github.com/ministryofjustice/srrc-soap-ws-stub-endpoint,
       https://github.com/ministryofjustice/srrc
     cloud-platform.justice.gov.uk/team-name: "srrc-tech"

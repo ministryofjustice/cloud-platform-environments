@@ -9,5 +9,5 @@ module "serviceaccount" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["srrc-poc-sample-application","srrc-verify-biometric-scans-api","srrc-capture-finger-prints","srrc-soap-ws-stub-endpoint"]
+  github_repositories = ["srrc-poc-sample-application","srrc-verify-biometric-scans-api","srrc-capture-biometric-prints","srrc-soap-ws-stub-endpoint"]
 }
