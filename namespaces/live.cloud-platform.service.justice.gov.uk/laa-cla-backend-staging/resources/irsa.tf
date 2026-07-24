@@ -1,3 +1,20 @@
+resource "aws_iam_policy" "rds_pitr_restore" {
+  name = "${var.namespace}-rds-pitr-restore"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "rds:RestoreDBInstanceToPointInTime"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
@@ -12,6 +29,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
+    rds_pitr_restore = aws_iam_policy.rds_pitr_restore.arn
     rds_cla_backend_rds_postgres_14       = module.cla_backend_rds_postgres_14.irsa_policy_arn
     s3_cla_backend_private_reports_bucket = module.cla_backend_private_reports_bucket.irsa_policy_arn
     s3_cla_backend_deleted_objects_bucket = module.cla_backend_deleted_objects_bucket.irsa_policy_arn
