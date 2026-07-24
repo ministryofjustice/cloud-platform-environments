@@ -59,3 +59,30 @@ variable "service_area" {
   description = "Service area responsible for this service"
   default = "Payments and Billing"
 }
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  default     = "KUBE_CLUSTER_DEV"
+  type        = string
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  default     = "KUBE_NAMESPACE_DEV"
+  type        = string
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  default     = "KUBE_CERT_DEV"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  default     = "KUBE_TOKEN_DEV"
+  type        = string
+  sensitive   = true
+}
+
