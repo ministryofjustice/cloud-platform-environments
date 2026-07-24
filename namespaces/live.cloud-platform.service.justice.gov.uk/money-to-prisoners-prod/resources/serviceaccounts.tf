@@ -77,7 +77,6 @@ resource "kubernetes_role" "deploy" {
       "route53-send-money",
       "route53-start-page",
       "route53-start-page-alias",
-      "ecr",
       "irsa-deploy",
       "irsa-api",
       "irsa-cashbook",
@@ -418,42 +417,6 @@ module "service-account-github-actions-deploy" {
   ]
 }
 
-# Scoped read of just the in-cluster `ecr` secret (kept separate so it can use resource_names,
-# which the shared service-account module rules do not). `manage.py app deploy` reads this to
-# build the image reference before patching.
-resource "kubernetes_role" "github-actions-deploy-ecr" {
-  metadata {
-    namespace = var.namespace
-    name      = "github-actions-deploy-ecr"
-  }
-
-  rule {
-    api_groups     = [""]
-    resources      = ["secrets"]
-    verbs          = ["get"]
-    resource_names = ["ecr"]
-  }
-}
-
-resource "kubernetes_role_binding" "github-actions-deploy-ecr" {
-  metadata {
-    namespace = var.namespace
-    name      = "github-actions-deploy-ecr"
-  }
-
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "Role"
-    name      = kubernetes_role.github-actions-deploy-ecr.metadata[0].name
-  }
-
-  subject {
-    kind      = "ServiceAccount"
-    namespace = var.namespace
-    name      = module.service-account-github-actions-deploy.service_account.name
-  }
-}
-
 resource "kubernetes_role" "github-actions" {
   metadata {
     namespace = var.namespace
@@ -464,12 +427,6 @@ resource "kubernetes_role" "github-actions" {
     api_groups = [""]
     resources  = ["configmaps"]
     verbs      = ["get"]
-  }
-  rule {
-    api_groups     = [""]
-    resources      = ["secrets"]
-    resource_names = ["ecr"]
-    verbs          = ["get"]
   }
 
   rule {
