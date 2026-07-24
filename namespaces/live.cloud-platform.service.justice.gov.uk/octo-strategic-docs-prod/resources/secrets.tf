@@ -12,6 +12,13 @@
 module "secrets_manager_multiple_secrets" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
 
+  # Use the aliased "london" provider so the created secrets inherit the
+  # GithubTeam default tag, which is required for our team to be able to
+  # view/set the secret values via the AWS console.
+  providers = {
+    aws = aws.london
+  }
+
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
