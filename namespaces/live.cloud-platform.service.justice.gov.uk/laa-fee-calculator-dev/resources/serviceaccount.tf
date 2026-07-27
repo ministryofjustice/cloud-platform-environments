@@ -3,6 +3,8 @@ module "serviceaccount" {
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
+
+  # adding a role_name
   role_name = "serviceaccount_role_gh"
 
   # default value
