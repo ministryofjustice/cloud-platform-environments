@@ -25,30 +25,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-callback-bearer-token-prod"
     },
-    "sds-base-url" = {
-      description             = "SDS API URL",
+    "sds-config" = {
+      description             = "Secrets related to Secure Document Storage",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-base-url-prod"
-    },
-    "sds-tenant-id" = {
-      description             = "Entra tenant that SDS lives in",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-tenant-id-prod"
-    },
-    "sds-client-app-id" = {
-      description             = "Entra application registration client id for authenticating to SDS",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-app-id-prod"
-    },
-    "sds-client-secret" = {
-      description             = "Entra application registration client secret for authenticating to SDS",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-secret-prod"
-    },
-    "sds-scope" = {
-      description             = "Entra scope for authenticating to an SDS service",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-scope-prod"
+      k8s_secret_name         = "sds-config-prod"
     },
     "entra-config" = {
       description = "API application details from Entra"
