@@ -65,3 +65,8 @@ variable "service_area" {
   description = "Service area responsible for this service"
   default = "Payments and Billing"
 }
+
+variable "domain" {
+  default = "check-my-copilot-ai-credits-usage.service.justice.gov.uk"
+  type    = string
+}
