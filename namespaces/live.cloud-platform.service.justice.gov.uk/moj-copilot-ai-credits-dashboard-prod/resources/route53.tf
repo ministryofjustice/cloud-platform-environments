@@ -6,8 +6,8 @@ resource "aws_route53_zone" "checkmycopilotaicreditusage_team_route53_zone" {
     business-unit          = var.business_unit
     application            = var.application
     is-production          = var.is_production
-    environment-name       = var.environment_name
-    owner                  = var.owner
+    environment-name       = var.environment
+    owner                  = var.team_name
     infrastructure_support = var.infrastructure_support
     namespace              = var.namespace
   }
