@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "reporting_hub" {
     ]
   }
 
-  # S3 read/write pemissions
+  # S3 read/write permissions
   statement {
     effect = "Allow"
     actions = [
