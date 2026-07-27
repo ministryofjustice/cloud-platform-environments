@@ -44,8 +44,7 @@ data "aws_iam_policy_document" "reporting_hub" {
       "s3:ListBucket"
     ]
     resources = [
-      module.s3_bucket.bucket_arn,
-      "${module.s3_bucket.bucket_arn}/*"
+      "arn:aws:s3:::cloud-platform-6293a7f130b18a3f7ac96f73e039da13"
     ]
   }
 }
