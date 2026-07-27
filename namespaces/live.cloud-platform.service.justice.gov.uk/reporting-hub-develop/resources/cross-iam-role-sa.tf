@@ -21,6 +21,8 @@ module "reporting_hub_irsa" {
 }
 
 data "aws_iam_policy_document" "reporting_hub" {
+
+  # Assume role permissions to pull data off AP
   statement {
     effect = "Allow"
     actions = [
@@ -28,6 +30,21 @@ data "aws_iam_policy_document" "reporting_hub" {
     ]
     resources = [
       "arn:aws:iam::593291632749:role/alpha_app_mbpr-test"
+    ]
+  }
+
+  # S3 read/write permissions
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::cloud-platform-6293a7f130b18a3f7ac96f73e039da13"
     ]
   }
 }
