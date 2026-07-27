@@ -381,6 +381,7 @@ data "aws_iam_policy_document" "mock_datastore_policy" {
 
     actions = [
       "s3:DeleteObject",
+      "s3:GetBucketLocation",
       "s3:GetObject",
       "s3:ListBucket",
       "s3:PutObject",
