@@ -439,3 +439,14 @@ resource "aws_iam_role_policy" "mock_datastore_policy" {
 
   policy = data.aws_iam_policy_document.mock_datastore_policy.json
 }
+
+resource "kubernetes_secret" "mock_datastore_role" {
+  metadata {
+    name      = "mock-datastore-roles"
+    namespace = var.namespace
+  }
+  type = "Opaque"
+  data = {
+    general_role_arn = aws_iam_role.mock_datastore_role.arn
+  }
+}
