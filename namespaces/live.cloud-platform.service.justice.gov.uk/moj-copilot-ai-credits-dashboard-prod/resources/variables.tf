@@ -38,7 +38,7 @@ variable "team_name" {
   default     = "cloud-optimisation-and-accountability"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "production"
