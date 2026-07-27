@@ -234,7 +234,6 @@ resource "aws_cognito_identity_provider" "entra" {
   }
 
   attribute_mapping = {
-    email    = "email"
-    cis-role = "cis-role"
+    email    = "USER_EMAIL"
   }
 }
