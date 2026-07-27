@@ -53,6 +53,10 @@ resource "aws_glue_catalog_table" "caseload" {
 
   table_type = "EXTERNAL_TABLE"
 
+  parameters = {
+    "skip.header.line.count" = "1"
+  }
+
   storage_descriptor {
     columns {
       name = "grouped_date"
@@ -181,7 +185,6 @@ resource "aws_glue_catalog_table" "caseload" {
       parameters = {
         "field.delim"            = ","
         "serialization.format"   = ","
-        "skip.header.line.count" = "1"
       }
     }
   }
@@ -192,6 +195,10 @@ resource "aws_glue_catalog_table" "device_activations" {
   name          = "device_activations"
 
   table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    "skip.header.line.count" = "1"
+  }
 
   storage_descriptor {
     columns {
@@ -231,7 +238,6 @@ resource "aws_glue_catalog_table" "device_activations" {
       parameters = {
         "field.delim"            = ","
         "serialization.format"   = ","
-        "skip.header.line.count" = "1"
       }
     }
   }
@@ -242,6 +248,10 @@ resource "aws_glue_catalog_table" "position" {
   name          = "position"
 
   table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    "skip.header.line.count" = "1"
+  }
 
   storage_descriptor {
     columns {
@@ -346,7 +356,6 @@ resource "aws_glue_catalog_table" "position" {
       parameters = {
         "field.delim"            = ","
         "serialization.format"   = ","
-        "skip.header.line.count" = "1"
       }
     }
   }
