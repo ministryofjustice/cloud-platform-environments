@@ -52,7 +52,7 @@ resource "aws_cognito_user_pool" "main" {
     name                = "email"
     attribute_data_type = "String"
     required            = true
-    mutable             = false
+    mutable             = true
 
     string_attribute_constraints {
       min_length = 1
@@ -132,7 +132,7 @@ resource "aws_cognito_user_pool_client" "main" {
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
 
-  supported_identity_providers = ["COGNITO", "EntraID"]
+  supported_identity_providers = ["EntraID"]
 
   callback_urls = var.callback_urls
   logout_urls   = var.logout_urls
