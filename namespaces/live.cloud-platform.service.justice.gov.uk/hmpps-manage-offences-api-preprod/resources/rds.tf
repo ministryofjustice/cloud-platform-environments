@@ -95,6 +95,8 @@ module "read_replica" {
   db_engine_version        = "18"
   rds_family               = var.rds_family
   db_instance_class        = "db.t4g.small"
+  db_allocated_storage     = 10
+  storage_type             = "gp2"
   db_max_allocated_storage = "10000"
 
   db_name             = null
