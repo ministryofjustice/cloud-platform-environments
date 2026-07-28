@@ -175,7 +175,7 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
 # Entra ID (OIDC) Identity Provider
 # -----------------------------------------------------------------------------
 data "aws_secretsmanager_secret" "entra_nle_client_id" {
-  name = module.cis_pp_entra_nle_client_id.secret_names["cis-pp-entra-nle-client-id"]
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-client-id"]
 }
 
 data "aws_secretsmanager_secret_version" "entra_nle_client_id" {
@@ -191,7 +191,7 @@ data "aws_secretsmanager_secret_version" "entra_nle_client_secret" {
 }
 
 data "aws_secretsmanager_secret" "entra_nle_tenant_id" {
-  name = module.cis_pp_entra_nle_tenant_id.secret_names["cis-pp-entra-nle-tenant-id"]
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-tenant-id"]
 }
 
 data "aws_secretsmanager_secret_version" "entra_nle_tenant_id" {
