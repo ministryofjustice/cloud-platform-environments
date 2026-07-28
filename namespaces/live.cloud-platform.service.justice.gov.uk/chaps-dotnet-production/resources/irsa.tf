@@ -29,7 +29,10 @@ module "irsa_service_pod" {
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
-  namespace        = var.namespace # this is also used as a tag
+
+  # IRSA configuration
+  service_account_name = "${var.namespace}-service-account"
+  namespace            = var.namespace # this is also used as a tag
 
   # Policies for AWS resources accessed via the service pod
   role_policy_arns = {
