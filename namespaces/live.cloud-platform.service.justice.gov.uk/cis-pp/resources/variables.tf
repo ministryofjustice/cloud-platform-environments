@@ -329,7 +329,7 @@ variable "oidc_role_provider_url" {
 variable "oidc_role_workflow_file" {
   description = "The name of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
   type        = string
-  default     = ".github/workflows/application.yml"
+  default     = ".github/workflows/deploy_preprod.yml"
 }
 
 variable "oidc_role_workflow_branch" {
