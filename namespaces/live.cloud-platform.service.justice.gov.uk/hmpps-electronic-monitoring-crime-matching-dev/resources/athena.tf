@@ -368,6 +368,7 @@ data "aws_iam_policy_document" "mock_datastore_policy" {
       "athena:StartQueryExecution",
       "athena:GetQueryResults",
       "athena:GetQueryExecution",
+      "athena:GetWorkGroup",
     ]
 
     resources = [
