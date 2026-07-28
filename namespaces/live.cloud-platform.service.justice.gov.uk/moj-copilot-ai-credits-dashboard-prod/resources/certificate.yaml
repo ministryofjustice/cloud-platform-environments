@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cmcaicu-prod-cert
+  namespace: moj-copilot-ai-credits-dashboard-prod
+spec:
+  secretName: cmcaicu-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - check-my-copilot-ai-credits-usage.service.justice.gov.uk
