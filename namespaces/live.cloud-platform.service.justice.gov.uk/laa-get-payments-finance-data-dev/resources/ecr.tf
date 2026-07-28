@@ -24,9 +24,6 @@ module "ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  # For ECR creation to differentiate between environments
-  github_actions_prefix = "dev"
-
   enable_irsa = true
 }
 
@@ -46,7 +43,7 @@ module "data_ecr" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  github_actions_prefix = "dev_data"
+  github_actions_prefix = "data"
 
   enable_irsa = true
 }
