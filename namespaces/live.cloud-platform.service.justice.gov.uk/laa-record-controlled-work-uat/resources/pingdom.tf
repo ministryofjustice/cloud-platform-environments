@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-record-controlled-work-rcw-uat" {
   type             = "http"
   name             = "Record controlled work (RCW) - UAT"
-  host             = "record-controlled-work.cloud-platform.service.justice.gov.uk"
+  host             = "laa-record-controlled-work.cloud-platform.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
   notifyagainevery = 0
@@ -19,7 +19,7 @@ resource "pingdom_check" "laa-record-controlled-work-rcw-uat" {
 resource "pingdom_check" "laa-record-controlled-work-ccq-uat" {
   type             = "http"
   name             = "Record controlled work (CCQ) - UAT"
-  host             = "record-controlled-work.cloud-platform.service.justice.gov.uk"
+  host             = "laa-record-controlled-work.cloud-platform.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
   notifyagainevery = 0
