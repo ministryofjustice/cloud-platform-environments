@@ -52,8 +52,12 @@ spec:
           - 52.95.150.0/24
           - 52.95.191.0/24
           - 52.219.219.0/24
+          # AWS STS eu-west-2 (IRSA credential exchange)
+          # Source: AMAZON service tag, region=eu-west-2, covering sts.eu-west-2.amazonaws.com
+          - 13.43.48.0/23
           # AWS STS eu-west-1 (role assumption for Analytical Platform access)
           # Source: AMAZON service tag, region=eu-west-1, covering sts.eu-west-1.amazonaws.com
+          - 3.253.220.0/22
           - 3.253.224.0/22
           # AWS S3 eu-west-1 (Analytical Platform data buckets: alpha-*, mojap-*)
           # Source: https://ip-ranges.amazonaws.com/ip-ranges.json (service=S3, region=eu-west-1)
