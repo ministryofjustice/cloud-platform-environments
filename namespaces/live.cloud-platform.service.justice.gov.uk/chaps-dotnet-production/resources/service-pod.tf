@@ -30,6 +30,6 @@ module "service_pod" {
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa_service_pod.service_account_name # this uses the service account name from the irsa module
+  service_account_name = module.irsa_service_pod.service_account_name.name # this uses the service account name from the irsa module
 }
 
