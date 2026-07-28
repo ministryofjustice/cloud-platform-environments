@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "supervision-packages-api-queue-subscripti
       "probation-case.sentence.moved",
       "probation-case.sentence.terminated",
       "probation-case.sentence.unterminated",
-      "person.community.manager.allocated",
+      "person.community.manager.transferred",
       "probation-case.non-statutory-intervention.created",
       "probation-case.non-statutory-intervention.deleted",
       "probation-case.non-statutory-intervention.unterminated",
@@ -25,6 +25,8 @@ resource "aws_sns_topic_subscription" "supervision-packages-api-queue-subscripti
       "probation-case.registration.updated",
       "probation-case.registration.deregistered",
       "probation-case.registration.deleted",
+      "probation-case.merge.completed",
+      "probation-case.unmerge.completed",
     ]
   })
 }
