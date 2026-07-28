@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-inquests-api-uat
+  namespace: psatproto
 spec:
   hard:
     pods: "50"
