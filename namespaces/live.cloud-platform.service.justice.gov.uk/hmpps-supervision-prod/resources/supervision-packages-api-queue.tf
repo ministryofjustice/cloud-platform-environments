@@ -25,6 +25,9 @@ resource "aws_sns_topic_subscription" "supervision-packages-api-queue-subscripti
       "probation-case.registration.updated",
       "probation-case.registration.deregistered",
       "probation-case.registration.deleted",
+      "probation-case.personal-circumstance.created",
+      "probation-case.personal-circumstance.updated",
+      "probation-case.personal-circumstance.deleted",
       "probation-case.merge.completed",
       "probation-case.unmerge.completed",
     ]
