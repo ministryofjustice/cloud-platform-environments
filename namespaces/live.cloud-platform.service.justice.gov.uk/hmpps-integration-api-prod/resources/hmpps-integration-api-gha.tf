@@ -44,6 +44,7 @@ module "hmpps_external_api_config" {
   application = "hmpps-external-api-config"
   github_team = "hmpps-integration-api"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-integration-api"]
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "none"
