@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "domain" {
   description = "The domain name to use for the Route53 zone."
-  default = "correspondence-handling-and-processing.service.justice.gov.uk"
+  default     = "correspondence-handling-and-processing.service.justice.gov.uk"
 }
 
 variable "infrastructure_support" {
