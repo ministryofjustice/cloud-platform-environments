@@ -53,56 +53,38 @@ data "aws_iam_policy_document" "dlq" {
 
 # Resource-based policy on the main queue
 data "aws_iam_policy_document" "queue" {
+  # Only the SNS topic can send messages
   statement {
-    sid    = "AllowSend"
+    sid    = "AllowSNSSend"
     effect = "Allow"
-
     principals {
       type        = "Service"
       identifiers = ["sns.amazonaws.com"]
     }
-
-    actions = [
-      "sqs:SendMessage"
-    ]
-
+    actions   = ["sqs:SendMessage"]
     resources = [module.queue.sqs_arn]
-
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values = [
-        var.sns_topic_arn
-      ]
+      values   = [var.sns_topic_arn]
     }
   }
 
+  # Only IRSA roles tagged with an allowed namespace can consume
   statement {
-    sid    = "AllowReadDelete"
+    sid    = "AllowIRSAConsume"
     effect = "Allow"
-
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [for role in local.sqs_roles_with_namespace_tag : role.arn]
     }
-
     actions = [
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
       "sqs:ChangeMessageVisibility",
       "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl"
+      "sqs:GetQueueUrl",
     ]
-
     resources = [module.queue.sqs_arn]
-
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
-      
-      values = [
-        for role in local.sqs_roles_with_namespace_tag : role.arn
-      ]
-    }
   }
 }
