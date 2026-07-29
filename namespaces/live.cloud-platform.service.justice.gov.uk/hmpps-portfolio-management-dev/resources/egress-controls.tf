@@ -10,7 +10,10 @@ module "hmpps_egress_controls" {
   envoy_extra_allowed_hosts_exact = [
     "justiceuk.sharepoint.com",
     "circleci.com",
-    "monitoring-alerts-service.cloud-platform-monitoring-alerts"
+    "monitoring-alerts-service.cloud-platform-monitoring-alerts",
+    "login.microsoftonline.com",
+    "graph.microsoft.com",
+    "slack.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
