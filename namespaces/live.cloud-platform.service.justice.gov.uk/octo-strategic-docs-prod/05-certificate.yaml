@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: octo-strategic-docs.service.justice.gov.uk
+  name: octo.service.justice.gov.uk
   namespace: octo-strategic-docs-prod
 spec:
   secretName: octo-strategic-docs-custom-domain-cert
@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - octo-strategic-docs.service.justice.gov.uk
+    - octo.service.justice.gov.uk
