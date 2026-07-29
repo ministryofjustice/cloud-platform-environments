@@ -31,7 +31,7 @@ variable "team_name" {
 variable "domain" {
   description = "Custom domain for the Route53 hosted zone"
   type        = string
-  default     = "octo-documenation.justice.gov.uk"
+  default     = "octo-documentation.justice.gov.uk"
 }
 
 variable "owner" {
