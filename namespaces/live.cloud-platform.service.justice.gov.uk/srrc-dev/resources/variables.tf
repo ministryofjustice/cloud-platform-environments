@@ -91,6 +91,6 @@ variable "environment_name" {
 }
 
 variable "domain" {
-  default = "biometric.service.justice.gov.uk"
+  default = "biometrics.service.justice.gov.uk"
   type    = string
 }
