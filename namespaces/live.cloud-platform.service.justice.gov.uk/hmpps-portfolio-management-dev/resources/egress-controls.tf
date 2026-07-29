@@ -13,11 +13,11 @@ module "hmpps_egress_controls" {
     "monitoring-alerts-service.cloud-platform-monitoring-alerts",
     "login.microsoftonline.com",
     "graph.microsoft.com",
-    "slack.com"
+    "slack.com",
+    "github.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    ".github.com",
     ".githubusercontent.com",
     ".cache.amazonaws.com",
     ".veracode.com"
