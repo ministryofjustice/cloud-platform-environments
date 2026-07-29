@@ -31,5 +31,5 @@ resource "aws_route53_record" "delegate_dev" {
   type    = "CNAME"
   ttl     = 300
 
-#  records = ["reuselibrary.service.justice.gov.uk"]
+  records = ["reuselibrary.service.justice.gov.uk"]
 }
