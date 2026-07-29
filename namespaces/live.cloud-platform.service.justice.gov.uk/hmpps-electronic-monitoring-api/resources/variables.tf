@@ -14,6 +14,12 @@ variable "application" {
   default     = "Electronic Monitoring API"
 }
 
+variable "application_repository" {
+  description = "Name of the GitHub repository for this application"
+  type        = string
+  default     = "hmpps-electronic-monitoring-api"
+}
+
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
