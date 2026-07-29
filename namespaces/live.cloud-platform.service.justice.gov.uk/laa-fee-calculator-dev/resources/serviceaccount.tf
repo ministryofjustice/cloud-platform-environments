@@ -6,6 +6,9 @@ module "serviceaccount" {
 
   # adding a role_name
   role_name = "serviceaccount_role_gh"
+  rolebinding_name = "github-action-rolebinding"
+  serviceaccount_rules = var.serviceaccount_rules
+
 
   # default value
   serviceaccount_token_rotated_date = "01-01-2000"
@@ -13,7 +16,7 @@ module "serviceaccount" {
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-fee-calculator"]
-  
+
   # commenting next line out to see if its needed
   # github_environments = ["dev"] 
 
