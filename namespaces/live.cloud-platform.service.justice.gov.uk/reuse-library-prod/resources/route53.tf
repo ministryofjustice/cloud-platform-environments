@@ -25,4 +25,11 @@ resource "kubernetes_secret" "route53_zone_sec" {
   }
 }
 
-# Todo: add an A record for dev.reuselibrary.service.justice.gov.uk
+resource "aws_route53_record" "delegate_dev" {
+  name    = "dev.reuselibrary.service.justice.gov.uk"
+  zone_id = aws_route53_zone.prod_reuselibrary_team_route53_zone.zone_id
+  type    = "CNAME"
+  ttl     = 300
+
+#  records = ["reuselibrary.service.justice.gov.uk"]
+}
