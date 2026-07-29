@@ -6,14 +6,14 @@ module "rds_aurora_legacy_test_gen" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "17.5"
+  engine_version = "17.7"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
     min_capacity = 0.5
     max_capacity = 4
   }
-  replica_count = 1
+  replica_count               = 1
   db_parameter_group_name     = resource.aws_db_parameter_group.default_test_gen.name
   allow_major_version_upgrade = true
 
