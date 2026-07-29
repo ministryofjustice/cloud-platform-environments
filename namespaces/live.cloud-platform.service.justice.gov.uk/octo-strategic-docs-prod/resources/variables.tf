@@ -28,6 +28,18 @@ variable "team_name" {
   default     = "octo-data-architecture"
 }
 
+variable "domain" {
+  description = "Custom domain for the Route53 hosted zone"
+  type        = string
+  default     = "octo-documentation.justice.gov.uk"
+}
+
+variable "owner" {
+  description = "The owner of the domain, used for tagging"
+  type        = string
+  default     = "octo-data-architecture"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   type        = string
