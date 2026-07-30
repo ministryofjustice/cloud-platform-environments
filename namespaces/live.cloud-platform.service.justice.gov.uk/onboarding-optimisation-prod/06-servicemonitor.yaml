@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: onboarding-optimisation-backend
+  namespace: onboarding-optimisation-prod
+spec:
+  selector:
+    matchLabels:
+      app: onboarding-optimisation-backend
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s

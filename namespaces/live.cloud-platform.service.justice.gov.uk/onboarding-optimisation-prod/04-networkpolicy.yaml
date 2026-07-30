@@ -1,0 +1,81 @@
+# Default: allow pod-to-pod ingress for all pods EXCEPT the backend.
+# The backend is excluded so it can only be reached via allow-frontend-to-backend below.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default
+  namespace: onboarding-optimisation-prod
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: NotIn
+        values:
+          - onboarding-optimisation-backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector: {}
+---
+# Allow the ingress controller to reach the frontend pod only.
+# The backend has no public Ingress resource; it is reached only via the internal service.
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-ingress-controllers
+  namespace: onboarding-optimisation-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: onboarding-optimisation-frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          component: ingress-controllers
+---
+# Allow the frontend pod to call the backend via the internal Kubernetes service.
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-frontend-to-backend
+  namespace: onboarding-optimisation-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: onboarding-optimisation-backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: onboarding-optimisation-frontend
+    ports:
+      - protocol: TCP
+        port: 8000
+---
+# Prometheus is the only caller allowed to reach the dedicated metrics port.
+# Application traffic remains unavailable to the monitoring namespace.
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-to-backend-metrics
+  namespace: onboarding-optimisation-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: onboarding-optimisation-backend
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
+      ports:
+        - protocol: TCP
+          port: 9090
