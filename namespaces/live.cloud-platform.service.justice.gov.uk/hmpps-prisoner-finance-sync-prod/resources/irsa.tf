@@ -7,14 +7,14 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  irsa_policies = merge(local.sns_policies,local.sqs_policies,{
-    prisoner_finance_sync_queue_for_domain_events = module.prisoner_finance_sync_queue_for_domain_events.irsa_policy_arn
+  irsa_policies = merge(local.sns_policies, local.sqs_policies, {
+    prisoner_finance_sync_queue_for_domain_events                   = module.prisoner_finance_sync_queue_for_domain_events.irsa_policy_arn
     prisoner_finance_sync_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_sync_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
-
+    s3                                                              = module.s3.irsa_policy_arn
   })
-   sqs_queues = {
+  sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
-   }
+  }
 }
 
 module "hmpps_prisoner_finance_sync_irsa" {
@@ -39,6 +39,6 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-    for_each = local.sqs_queues
-    name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
