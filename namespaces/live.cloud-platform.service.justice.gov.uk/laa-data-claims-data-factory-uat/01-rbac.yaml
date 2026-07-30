@@ -7,6 +7,9 @@ subjects:
   - kind: Group
     name: "github:laa-data-claims-data-factory"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-data-factory-engineering"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
