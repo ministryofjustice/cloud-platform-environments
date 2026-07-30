@@ -6,7 +6,7 @@ module "irsa" {
   service_account_name = "${var.application}-${var.environment}-sa"
 
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
+    document_storage = aws_iam_policy.document_storage.arn
   }
 
   business_unit          = var.business_unit
@@ -15,6 +15,39 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+data "aws_iam_policy_document" "document_storage" {
+  provider = aws.london
+
+  statement {
+    sid    = "DocumentStorageObjects"
+    effect = "Allow"
+    actions = [
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:PutObject",
+    ]
+    resources = ["${module.s3_bucket.bucket_arn}/documents/*"]
+  }
+}
+
+resource "aws_iam_policy" "document_storage" {
+  provider = aws.london
+
+  name_prefix = "${var.application}-${var.environment}-documents-"
+  description = "Least-privilege document storage access for ${var.namespace}"
+  policy      = data.aws_iam_policy_document.document_storage.json
+
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    environment-name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+    owner                  = var.team_name
+  }
 }
 
 resource "github_actions_environment_variable" "app_role_arn" {
