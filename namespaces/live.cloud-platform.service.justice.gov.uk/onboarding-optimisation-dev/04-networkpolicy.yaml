@@ -54,3 +54,28 @@ spec:
     - podSelector:
         matchLabels:
           app: onboarding-optimisation-frontend
+    ports:
+      - protocol: TCP
+        port: 8000
+---
+# Prometheus is the only caller allowed to reach the dedicated metrics port.
+# Application traffic remains unavailable to the monitoring namespace.
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-prometheus-to-backend-metrics
+  namespace: onboarding-optimisation-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: onboarding-optimisation-backend
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: monitoring
+      ports:
+        - protocol: TCP
+          port: 9090
