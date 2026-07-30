@@ -30,31 +30,6 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "sds-config-dev"
     },
-    "sds-base-url" = {
-      description             = "SDS API URL",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-base-url-dev"
-    },
-    "sds-tenant-id" = {
-      description             = "Entra tenant that SDS lives in",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-tenant-id-dev"
-    },
-    "sds-client-app-id" = {
-      description             = "Entra application registration client id for authenticating to SDS",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-app-id-dev"
-    },
-    "sds-client-secret" = {
-      description             = "Entra application registration client secret for authenticating to SDS",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-client-secret-dev"
-    },
-    "sds-scope" = {
-      description             = "Entra scope for authenticating to an SDS service",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "sds-scope-dev"
-    },
     "entra-config" = {
       description = "API application details from Entra"
       recovery_window_in_days = 7,

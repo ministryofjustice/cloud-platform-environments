@@ -2,7 +2,11 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
   }
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+  }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 module "irsa" {
@@ -14,7 +18,8 @@ module "irsa" {
     {
       rds = module.rds.irsa_policy_arn
     },
-    local.sqs_policies
+    local.sqs_policies,
+    local.sns_policies
   )
   business_unit          = var.business_unit
   application            = var.application
@@ -27,6 +32,11 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 resource "kubernetes_secret" "irsa" {

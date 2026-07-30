@@ -35,15 +35,21 @@ module "secrets_manager" {
     },
 
     "data_store_auth_scope" = {
-      description             = "Auth scope for integration with Data Store",
+      description             = "Auth scope for integration with Data Store for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "data-store-auth-scope-uat"
     },
 
     "decide_api_auth_scope" = {
-      description             = "Auth scope for integration with Civil Decide API",
+      description             = "Auth scope for integration with Civil Decide API for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "decide-api-auth-scope-uat"
+    },
+
+    "refuse_email_template_id" = {
+      description             = "Refuse Decision Template ID for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "refuse-email-template-id-uat"
     },
   }
 }

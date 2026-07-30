@@ -52,7 +52,7 @@ resource "aws_cognito_user_pool" "main" {
     name                = "email"
     attribute_data_type = "String"
     required            = true
-    mutable             = false
+    mutable             = true
 
     string_attribute_constraints {
       min_length = 1
@@ -132,7 +132,7 @@ resource "aws_cognito_user_pool_client" "main" {
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
 
-  supported_identity_providers = ["COGNITO", "EntraID"]
+  supported_identity_providers = ["EntraID"]
 
   callback_urls = var.callback_urls
   logout_urls   = var.logout_urls
@@ -171,33 +171,11 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
   }
 }
 
-data "aws_secretsmanager_secret" "cognito_test_user" {
-  name = module.cis_pp_cognito_test_user_secret.secret_names["cis-pp-cognito-test-user-secret"]
-}
-
-data "aws_secretsmanager_secret_version" "cognito_test_user" {
-  secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
-}
-
-resource "aws_cognito_user" "test" {
-  user_pool_id = aws_cognito_user_pool.main.id
-  username     = "stefan.hristov1@justice.gov.uk"
-
-  attributes = {
-    cis-role       = "viewer"
-    email          = "stefan.hristov1@justice.gov.uk"
-    email_verified = "true"
-  }
-
-  temporary_password = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
-  message_action     = "SUPPRESS"
-}
-
 # -----------------------------------------------------------------------------
 # Entra ID (OIDC) Identity Provider
 # -----------------------------------------------------------------------------
 data "aws_secretsmanager_secret" "entra_nle_client_id" {
-  name = module.cis_pp_entra_nle_client_id.secret_names["cis-pp-entra-nle-client-id"]
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-client-id"]
 }
 
 data "aws_secretsmanager_secret_version" "entra_nle_client_id" {
@@ -213,7 +191,7 @@ data "aws_secretsmanager_secret_version" "entra_nle_client_secret" {
 }
 
 data "aws_secretsmanager_secret" "entra_nle_tenant_id" {
-  name = module.cis_pp_entra_nle_tenant_id.secret_names["cis-pp-entra-nle-tenant-id"]
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-tenant-id"]
 }
 
 data "aws_secretsmanager_secret_version" "entra_nle_tenant_id" {
@@ -234,7 +212,7 @@ resource "aws_cognito_identity_provider" "entra" {
   }
 
   attribute_mapping = {
-    email    = "email"
-    cis-role = "cis-role"
+    email             = "USER_EMAIL"
+    "custom:cis-role" = "LAA_APP_ROLES"
   }
 }

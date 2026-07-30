@@ -5,9 +5,10 @@ module "hmpps_person_match_irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "hmpps-person-match-${var.environment}"
+  service_account_name = "person-match-service"
   role_policy_arns = {
-      rds = module.hmpps_person_match_rds.irsa_policy_arn
+    rds = module.hmpps_person_match_rds.irsa_policy_arn
+    person_match_database_backup_s3 = module.person_match_database_backup_s3.irsa_policy_arn
   }
 
   # Tags
