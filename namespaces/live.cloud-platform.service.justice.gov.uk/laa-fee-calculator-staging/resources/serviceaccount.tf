@@ -5,13 +5,18 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
   role_name = "serviceaccount_role_gh"
 
+  rolebinding_name = "github-action-rolebinding"
+  serviceaccount_rules = var.serviceaccount_rules
+
   # default value
   serviceaccount_token_rotated_date = "01-01-2000"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-fee-calculator"]
-  github_environments = ["staging"]
+
+  # commenting out as not sure its needed at this level
+  # github_environments = ["staging"]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
