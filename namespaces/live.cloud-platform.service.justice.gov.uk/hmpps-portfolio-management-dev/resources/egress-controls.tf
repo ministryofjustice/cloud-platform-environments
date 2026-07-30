@@ -21,7 +21,8 @@ module "hmpps_egress_controls" {
     ".githubusercontent.com",
     ".cache.amazonaws.com",
     ".veracode.com",
-    ".github.com"
+    ".github.com",
+    ".github.io"
   ]
 }
 
