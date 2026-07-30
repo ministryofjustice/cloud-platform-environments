@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: onboarding-optimisation-dev
+  namespace: onboarding-optimisation-prod
 spec:
   podSelector:
     matchExpressions:
@@ -24,7 +24,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: onboarding-optimisation-dev
+  namespace: onboarding-optimisation-prod
 spec:
   podSelector:
     matchLabels:
@@ -42,7 +42,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-frontend-to-backend
-  namespace: onboarding-optimisation-dev
+  namespace: onboarding-optimisation-prod
 spec:
   podSelector:
     matchLabels:
@@ -64,7 +64,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-prometheus-to-backend-metrics
-  namespace: onboarding-optimisation-dev
+  namespace: onboarding-optimisation-prod
 spec:
   podSelector:
     matchLabels:

@@ -52,7 +52,7 @@ resource "aws_iam_policy" "document_storage" {
 
 resource "github_actions_environment_variable" "app_role_arn" {
   repository    = "onboarding-optimisation"
-  environment   = "dev"
+  environment   = "prod"
   variable_name = "APP_ROLE_ARN"
   value         = module.irsa.role_arn
 }
