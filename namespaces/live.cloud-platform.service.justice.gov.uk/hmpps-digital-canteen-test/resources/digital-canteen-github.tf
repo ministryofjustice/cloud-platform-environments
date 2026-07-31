@@ -8,7 +8,7 @@ module "hmpps-digital-canteen-api" {
   environment = var.environment
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
-  application_insights_instance = "test"
+  application_insights_instance = "dev"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
@@ -25,7 +25,7 @@ module "hmpps-digital-canteen-medusa-service" {
   environment = var.environment
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
-  application_insights_instance = "test"
+  application_insights_instance = "dev"
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
@@ -42,7 +42,7 @@ module "hmpps-digital-canteen-ui" {
   environment = var.environment
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
-  application_insights_instance = "test"
+  application_insights_instance = "dev"
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
