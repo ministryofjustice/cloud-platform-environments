@@ -14,7 +14,8 @@ module "hmpps_egress_controls" {
     "login.microsoftonline.com",
     "graph.microsoft.com",
     "slack.com",
-    "github.com"
+    "github.com",
+    "api.applicationinsights.io"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
