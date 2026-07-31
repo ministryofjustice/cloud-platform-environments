@@ -15,6 +15,11 @@ module "secrets" {
         description             = "${var.namespace}: Slack webhook URL for CATS AlertManager alerts (#hmpps-cfo-alerts-nonprod)"
         recovery_window_in_days = 7
         k8s_secret_name         = "cats-slack-webhook"
+    },
+    "hmpps-external-api-credentials" = {
+      description             = "${var.namespace}: mTLS client certificate and API key for the HMPPS External API"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "hmpps-external-api-credentials"
     }
   }
 
