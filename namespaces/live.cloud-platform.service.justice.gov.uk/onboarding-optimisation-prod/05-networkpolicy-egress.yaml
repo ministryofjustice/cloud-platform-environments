@@ -1,6 +1,4 @@
-# Frontend egress: only what the Next.js pod needs.
-# - 172.20.0.0/16: kube-dns and the backend internal service
-# - Azure AD: server-side token exchange at login (callback/route.ts)
+# Frontend egress: DNS, the internal backend, and Entra token exchange only.
 kind: NetworkPolicy
 apiVersion: projectcalico.org/v3
 metadata:
@@ -11,18 +9,38 @@ spec:
   selector: "app == 'onboarding-optimisation-frontend'"
   egress:
     - action: Allow
+      protocol: UDP
       destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        selector: app == "onboarding-optimisation-backend"
+        ports:
+          - 8000
+    - action: Allow
+      protocol: TCP
+      destination:
+        # Azure AD — token exchange at login.microsoftonline.com/oauth2/v2.0/token
         nets:
-          - 172.20.0.0/16
-          # Azure AD — token exchange at login.microsoftonline.com/oauth2/v2.0/token
           - 20.190.128.0/18
           - 40.126.0.0/18
+        ports:
+          - 443
   types:
     - Egress
 ---
-# Backend egress: all external dependencies.
-# Note: 172.20.0.0/16 covers kube-dns, RDS private IP, and AWS VPC endpoints
-# if configured on this cluster (confirm with Cloud Platform team).
+# Backend egress: DNS, RDS/VPC endpoints, and HTTPS external dependencies.
 kind: NetworkPolicy
 apiVersion: projectcalico.org/v3
 metadata:
@@ -33,10 +51,32 @@ spec:
   selector: "app == 'onboarding-optimisation-backend'"
   egress:
     - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        # Cloud Platform VPC: PostgreSQL and AWS VPC endpoints only.
+        nets:
+          - 172.20.0.0/16
+        ports:
+          - 443
+          - 5432
+    - action: Allow
+      protocol: TCP
       destination:
         nets:
-          # Cloud Platform VPC: kube-dns, RDS, AWS VPC endpoints
-          - 172.20.0.0/16
           # AWS S3 eu-west-2 public endpoints (document storage bucket)
           # Source: https://ip-ranges.amazonaws.com/ip-ranges.json (service=S3, region=eu-west-2)
           - 1.178.94.0/24
@@ -55,32 +95,6 @@ spec:
           # AWS STS eu-west-2 (IRSA credential exchange)
           # Source: AMAZON service tag, region=eu-west-2, covering sts.eu-west-2.amazonaws.com
           - 13.43.48.0/23
-          # AWS STS eu-west-1 (role assumption for Analytical Platform access)
-          # Source: AMAZON service tag, region=eu-west-1, covering sts.eu-west-1.amazonaws.com
-          - 3.253.220.0/22
-          - 3.253.224.0/22
-          # AWS S3 eu-west-1 (Analytical Platform data buckets: alpha-*, mojap-*)
-          # Source: https://ip-ranges.amazonaws.com/ip-ranges.json (service=S3, region=eu-west-1)
-          - 1.178.7.0/24
-          - 3.2.79.0/24
-          - 3.5.64.0/21
-          - 3.5.72.0/23
-          - 3.5.74.0/23
-          - 3.5.94.0/23
-          - 3.5.96.0/23
-          - 3.5.98.0/23
-          - 3.251.110.208/28
-          - 3.251.110.224/28
-          - 52.92.0.0/17
-          - 52.218.0.0/17
-          # AWS Athena eu-west-1 (Analytical Platform queries)
-          # Source: AMAZON service tag, region=eu-west-1, covering athena.eu-west-1.amazonaws.com
-          - 34.248.0.0/13
-          - 52.48.0.0/14
-          - 52.208.0.0/13
-          - 54.76.0.0/15
-          - 54.228.0.0/16
-          - 54.229.0.0/16
           # Azure AD — login.microsoftonline.com (JWKS fetch for JWT verification)
           # These two /18 blocks cover the currently-resolved IPs of login.microsoftonline.com.
           # The full AzureActiveDirectory service tag has 310 CIDRs; expand this list if auth
@@ -167,6 +181,8 @@ spec:
           - 191.238.78.0/28
           # HMPPS Integration API egress is intentionally not enabled until
           # the production endpoint, IP range, and credentials are approved.
+        ports:
+          - 443
   types:
     - Egress
 ---
