@@ -171,6 +171,14 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
   }
 }
 
+data "aws_secretsmanager_secret" "cognito_test_user" {
+  name = module.cis_pp_cognito_test_user_secret.secret_names["cis-pp-cognito-test-user-secret"]
+}
+
+data "aws_secretsmanager_secret_version" "cognito_test_user" {
+  secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
+}
+
 resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.main.id
   username     = "ollie.evans1@justice.gov.uk"
