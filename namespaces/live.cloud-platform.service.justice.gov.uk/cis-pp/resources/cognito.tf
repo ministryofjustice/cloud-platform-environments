@@ -172,7 +172,7 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
 }
 
 data "aws_secretsmanager_secret" "cognito_test_user" {
-  name = module.cis_pp_cognito_test_user_secret.secret_names["cis-pp-cognito-test-user-secret"]
+  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-cognito-test-user-secret"]
 }
 
 data "aws_secretsmanager_secret_version" "cognito_test_user" {
