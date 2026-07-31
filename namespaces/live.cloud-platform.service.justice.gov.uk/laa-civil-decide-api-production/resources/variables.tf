@@ -32,6 +32,12 @@ variable "team_name" {
   default     = "laa-decide"
 }
 
+variable "github_team" {
+  description = "GitHub team with access to the SQS queues through the AWS Console"
+  type        = string
+  default     = "laa-decide"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
@@ -71,4 +77,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "irsa_serviceaccount_name" {
+  type        = string
+  description = "Name of the service account used by application pods"
+  default     = "laa-civil-decide-production-irsa"
+}
+
+variable "producer_namespace" {
+  type        = string
+  description = "Namespace that owns the Data Access events SNS topic"
+  default     = "laa-data-access-api-prod"
 }
