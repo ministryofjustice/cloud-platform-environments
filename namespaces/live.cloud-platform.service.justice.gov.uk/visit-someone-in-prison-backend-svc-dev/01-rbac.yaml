@@ -31,6 +31,12 @@ subjects:
   - kind: Group
     name: "github:hmpps-prison-visits-booking-devs"
     apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-prison-visits-booking-live"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: calico-network-policy-access
