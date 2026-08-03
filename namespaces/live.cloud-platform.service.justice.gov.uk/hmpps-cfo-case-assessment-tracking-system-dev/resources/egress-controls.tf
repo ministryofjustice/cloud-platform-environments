@@ -2,7 +2,7 @@
 # For guidance see: https://tech-docs.hmpps.service.justice.gov.uk/how-to-guides/retrofitting-egress-controls-with-envoy-proxy
 
 module "hmpps_egress_controls" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.6"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
 
   enable_envoy_setup     = true
   enable_egress_controls = false
@@ -20,6 +20,7 @@ module "hmpps_egress_controls" {
     "api.os.uk",                         # Ordnance Survey Places API
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
+    "dev-dms-api.co-financing.org"       # CFO Data Management System (DMS)
   ]
 
 }
