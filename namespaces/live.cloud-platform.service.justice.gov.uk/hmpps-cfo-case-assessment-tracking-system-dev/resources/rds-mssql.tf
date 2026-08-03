@@ -21,11 +21,11 @@ module "rds_mssql" {
 
   # SQL Server specifics
   prepare_for_major_upgrade = true
-  db_engine            = "sqlserver-ex"
-  db_engine_version    = "16.00.4250.1.v1"
-  rds_family           = "sqlserver-ex-16.0"
-  db_instance_class    = "db.t3.small"
-  db_allocated_storage = 32 # minimum of 20GiB for SQL Server
+  db_engine                 = "sqlserver-web"
+  db_engine_version         = "16.00.4255.1.v1"
+  rds_family                = "sqlserver-web-16.0"
+  db_instance_class         = "db.t3.small"
+  db_allocated_storage      = 32 # minimum of 20GiB for SQL Server
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
