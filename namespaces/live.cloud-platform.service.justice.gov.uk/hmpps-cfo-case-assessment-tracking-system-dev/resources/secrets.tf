@@ -20,6 +20,11 @@ module "secrets" {
       description             = "${var.namespace}: mTLS client certificate and API key for the HMPPS External API"
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-external-api-credentials"
+    },
+    "dms-credentials" = {
+      description             = "${var.namespace}: mTLS client certificate and API key for DMS"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "dms-credentials"
     }
   }
 
