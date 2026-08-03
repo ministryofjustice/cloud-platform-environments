@@ -26,22 +26,3 @@ spec:
       - namespaceSelector:
           matchLabels:
             component: ingress-controllers
----
-apiVersion: projectcalico.org/v3
-kind: NetworkPolicy
-metadata:
-  name: allow-kube-api-egress-all-pods
-  namespace: visit-someone-in-prison-backend-svc-dev
-spec:
-  order: 22.0
-  selector: all()
-  egress:
-  - action: Allow
-    protocol: TCP
-    destination:
-      nets:
-      - 10.100.0.1/32
-      ports:
-      - 443
-  types:
-  - Egress
