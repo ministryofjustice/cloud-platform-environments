@@ -2,7 +2,7 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: visit-someone-in-prison-backend-svc-dev-admin
+  name: visit-someone-in-prison-backend-svc-staging-admin
   namespace: visit-someone-in-prison-backend-svc-staging
 subjects:
   - kind: Group
@@ -18,3 +18,4 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+https://github.com/ministryofjustice/cloud-platform-environments/pull/44541
