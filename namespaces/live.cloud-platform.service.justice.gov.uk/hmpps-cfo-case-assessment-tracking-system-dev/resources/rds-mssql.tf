@@ -20,7 +20,7 @@ module "rds_mssql" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # SQL Server specifics
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine                 = "sqlserver-web"
   db_engine_version         = "16.00.4255.1.v1"
   rds_family                = "sqlserver-web-16.0"
