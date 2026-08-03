@@ -19,8 +19,8 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: visit-someone-in-prison-backend-svc-prod-calico-np-access
-  namespace: visit-someone-in-prison-backend-svc-prod
+  name: visit-someone-in-prison-frontend-svc-prod-calico-np-access
+  namespace: visit-someone-in-prison-frontend-svc-prod
 subjects:
   - kind: Group
     name: "github:hmpps-prison-visits-booking-live"
