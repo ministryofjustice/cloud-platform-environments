@@ -19,4 +19,3 @@ resource "kubernetes_secret" "athena_roles" {
     general_role_arn = "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev"
   }
 }
-
