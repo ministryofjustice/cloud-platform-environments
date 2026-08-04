@@ -16,6 +16,11 @@ module "ecr" {
 
   repo_name = var.application
 
+  # the images have all moved to GHCR, so this ECR is being retired. the module protects a
+  # non-empty registry from deletion by default, which the ecr-deletion-check workflow
+  # enforces on the PR that removes this file: it has to be disabled and applied first.
+  deletion_protection = false
+
   github_repositories = [
     "money-to-prisoners-deploy",
     "money-to-prisoners-common",
