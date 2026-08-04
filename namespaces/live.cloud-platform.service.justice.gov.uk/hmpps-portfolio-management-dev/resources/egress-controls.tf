@@ -1,8 +1,8 @@
 module "hmpps_egress_controls" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.7"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
 
   enable_envoy_setup     = true
-  enable_egress_controls = true
+  enable_egress_controls = false
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
