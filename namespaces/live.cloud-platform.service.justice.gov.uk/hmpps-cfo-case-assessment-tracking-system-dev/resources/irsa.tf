@@ -3,15 +3,16 @@ module "irsa" {
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
-  
+
   # IRSA configuration
   service_account_name = var.namespace
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
-    rds_mssql = module.rds_mssql.irsa_policy_arn
-    elasticache = module.elasticache_redis.irsa_policy_arn
+    s3                  = module.s3_bucket.irsa_policy_arn
+    sqlserver_backup_s3 = module.sqlserver_backup_s3_bucket.irsa_policy_arn
+    rds_mssql           = module.rds_mssql.irsa_policy_arn
+    elasticache         = module.elasticache_redis.irsa_policy_arn
   }
 
   # Tags
