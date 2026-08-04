@@ -84,5 +84,6 @@ resource "kubernetes_secret" "sqlserver_backup_s3_bucket" {
   data = {
     bucket_arn  = module.sqlserver_backup_s3_bucket.bucket_arn
     bucket_name = module.sqlserver_backup_s3_bucket.bucket_name
+    kms_key_arn = aws_kms_key.sqlserver_backup.arn
   }
 }
