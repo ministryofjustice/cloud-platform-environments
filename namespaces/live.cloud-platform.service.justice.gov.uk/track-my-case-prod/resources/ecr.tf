@@ -15,6 +15,7 @@ module "ecr" {
   github_repositories = ["track-my-case"]
   github_environments = ["prod"]
   github_actions_prefix = "prod"
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
