@@ -133,7 +133,7 @@ module "s3_bucket_report_store_logging" {
           Effect = "Allow"
           Principal = {
             AWS = [
-              module.irsa.role_arn
+              module.irsa_service_pod.role_arn
             ]
           }
           Action = [
