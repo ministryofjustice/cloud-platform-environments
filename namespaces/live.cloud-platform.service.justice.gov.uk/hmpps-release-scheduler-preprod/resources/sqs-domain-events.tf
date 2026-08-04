@@ -37,7 +37,11 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
   protocol  = "sqs"
   endpoint  = module.domain_events_queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = []
+    eventType = [
+      "prisoner-offender-search.prisoner.updated",
+      "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
+    ]
   })
 }
 
