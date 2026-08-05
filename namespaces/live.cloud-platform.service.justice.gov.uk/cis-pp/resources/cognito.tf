@@ -181,7 +181,7 @@ data "aws_secretsmanager_secret_version" "cognito_test_user" {
 
 resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.main.id
-  username     = "testuser@justice.gov.uk"
+  username     = "ollie.evanstest@justice.gov.uk"
 
   attributes = {
     cis-role       = "viewer"
