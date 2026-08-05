@@ -2,7 +2,7 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  irsa_policies = {
+  irsa_policies ={
     rds                              = module.rds.irsa_policy_arn
   }
 }
@@ -22,4 +22,3 @@ module "hmpps_prisoner_finance_holds_irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
