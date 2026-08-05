@@ -13,7 +13,7 @@ module "irsa" {
 
   eks_cluster_name     = var.eks_cluster_name
 
-  service_account_name = "hmpps-template-typescript-github-actions-sa"
+  service_account_name = "hmpps-template-typescript"
   role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
