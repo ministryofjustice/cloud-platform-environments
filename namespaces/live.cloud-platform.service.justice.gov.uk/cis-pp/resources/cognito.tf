@@ -185,11 +185,11 @@ resource "aws_cognito_user" "test" {
 
   attributes = {
     cis-role       = "viewer"
-    email          = "ollie.evans1@justice.gov.uk"
+    email          = "ollie.evanstest@justice.gov.uk"
     email_verified = "true"
   }
 
-  temporary_password = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
+  password           = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
   message_action     = "SUPPRESS"
 }
 
