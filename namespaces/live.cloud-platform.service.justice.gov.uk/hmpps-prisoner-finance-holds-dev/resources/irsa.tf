@@ -7,7 +7,7 @@ locals {
   }
 }
 
-module "hmpps_prisoner_finance_gl_irsa" {
+module "hmpps_prisoner_finance_holds_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
