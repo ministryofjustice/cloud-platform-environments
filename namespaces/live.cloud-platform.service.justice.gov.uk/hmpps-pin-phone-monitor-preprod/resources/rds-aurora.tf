@@ -44,3 +44,19 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
     database_password           = module.rds_aurora.database_password
   }
 }
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "dps-rds-instance-output-preprod"
+    namespace = "hmpps-pin=phone-monitor-prod"
+  }
+
+  data = {
+    database_name         = module.rds_aurora.database_name
+    database_username     = module.rds_aurora.database_username
+    database_password     = module.rds_aurora.database_password
+    rds_instance_address  = module.rds_aurora.rds_cluster_reader_endpoint
+  }
+}
