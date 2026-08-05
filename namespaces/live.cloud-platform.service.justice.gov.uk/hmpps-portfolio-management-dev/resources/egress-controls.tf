@@ -23,6 +23,7 @@ module "hmpps_egress_controls" {
     ".cache.amazonaws.com",
     ".veracode.com",
     ".github.com",
+    ".github.io",
     ".slack.com"
   ]
 }
