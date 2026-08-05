@@ -50,7 +50,7 @@ resource "kubernetes_secret" "pcms_rds_aurora" {
 resource "kubernetes_secret" "dps_rds_refresh_creds" {
   metadata {
     name      = "dps-rds-instance-output-preprod"
-    namespace = "hmpps-pin=phone-monitor-prod"
+    namespace = "hmpps-pin-phone-monitor-prod"
   }
 
   data = {
