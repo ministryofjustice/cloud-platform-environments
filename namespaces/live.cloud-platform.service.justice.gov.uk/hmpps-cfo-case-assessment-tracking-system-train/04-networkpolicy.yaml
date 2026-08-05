@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hmpps-cfo-case-assessment-tracking-system-dev
+  namespace: hmpps-cfo-case-assessment-tracking-system-train
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hmpps-cfo-case-assessment-tracking-system-dev
+  namespace: hmpps-cfo-case-assessment-tracking-system-train
 spec:
   podSelector: {}
   policyTypes:
