@@ -38,6 +38,12 @@ variable "environment" {
   default     = "training"
 }
 
+variable "github_environment_name" {
+  description = "Name of the GitHub Actions / helm-values environment this namespace serves"
+  type        = string
+  default     = "train"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
