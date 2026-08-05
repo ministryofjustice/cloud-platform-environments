@@ -11,8 +11,11 @@ resource "github_repository_environment" "env" {
   repository  = local.github_repo
 
   # Require review from the responsible team before deploys to this environment can proceed.
-  reviewers {
-    teams = [data.github_team.reviewers.id]
+  dynamic "reviewers" {
+    for_each = var.require_deployment_reviewers ? [data.github_team.reviewers.id] : []
+    content {
+      teams = [reviewers.value]
+    }
   }
 }
 
