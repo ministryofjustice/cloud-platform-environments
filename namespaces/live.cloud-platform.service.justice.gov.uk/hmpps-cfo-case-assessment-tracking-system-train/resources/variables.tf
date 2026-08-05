@@ -44,6 +44,12 @@ variable "github_environment_name" {
   default     = "train"
 }
 
+variable "require_deployment_reviewers" {
+  description = "Whether deployments to this GitHub Actions environment require approval from team_name reviewers"
+  type        = bool
+  default     = true
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
