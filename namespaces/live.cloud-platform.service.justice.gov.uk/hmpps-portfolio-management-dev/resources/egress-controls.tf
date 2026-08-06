@@ -16,7 +16,8 @@ module "hmpps_egress_controls" {
     "slack.com",
     "github.com",
     "api.applicationinsights.io", 
-    "ghcr.io"
+    "ghcr.io",
+    "api.snyk.io"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
