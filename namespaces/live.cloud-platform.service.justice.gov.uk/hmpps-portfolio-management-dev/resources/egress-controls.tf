@@ -32,29 +32,3 @@ module "hmpps_egress_controls" {
     ".justice.gov.uk"
   ]
 }
-
-resource "kubernetes_manifest" "allow_alertmanager_http_egress" {
-  manifest = {
-    apiVersion = "projectcalico.org/v3"
-    kind       = "NetworkPolicy"
-    metadata = {
-      name      = "hmpps-allow-alertmanager-http-egress"
-      namespace = var.namespace
-    }
-    spec = {
-      order    = 34.5
-      selector = "all()"
-      egress = [
-        {
-          action   = "Allow"
-          protocol = "TCP"
-          destination = {
-            namespaceSelector = "kubernetes.io/metadata.name == \"cloud-platform-monitoring-alerts\""
-            ports             = [8080]
-          }
-        }
-      ]
-      types = ["Egress"]
-    }
-  }
-}
