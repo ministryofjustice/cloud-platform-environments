@@ -9,10 +9,10 @@ locals {
   }
 
   environments_map = {
-    development = "development",
-    test        = "test",
-    preprod     = "preproduction",
-    prod        = "production"
+    dev     = "development",
+    test    = "test",
+    preprod = "preproduction",
+    prod    = "production"
   }
 }
 
