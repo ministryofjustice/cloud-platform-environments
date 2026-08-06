@@ -15,6 +15,7 @@ module "ecr" {
   github_repositories = ["stg-track-my-case-service"]
   github_environments = ["preprod"]
   github_actions_prefix = "preprod"
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
