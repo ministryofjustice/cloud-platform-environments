@@ -27,7 +27,8 @@ module "hmpps_egress_controls" {
     ".veracode.com",
     ".github.com",
     ".github.io",
-    ".slack.com"
+    ".slack.com",
+    ".service.gov.uk"
   ]
 }
 
