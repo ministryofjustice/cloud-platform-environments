@@ -12,7 +12,7 @@ module "secrets_manager_multiple_secrets" {
   secrets = {
     "stg-track-my-case-service-test-secrets" = {
       description             = "Secrets to hold for track my case backend service",
-      recovery_window_in_days = 7
+      recovery_window_in_days = 0
       k8s_secret_name         = "stg-track-my-case-service-test-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
   }
