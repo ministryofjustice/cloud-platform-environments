@@ -2,10 +2,10 @@ locals {
   dpr_data_api_role = "dpr-data-api-cross-account-role"
 
   accounts_map = {
-    development = "771283872747",
-    test        = "203591025782",
-    preprod     = "972272129531",
-    prod        = "004723187462"
+    dev     = "771283872747",
+    test    = "203591025782",
+    preprod = "972272129531",
+    prod    = "004723187462"
   }
 
   environments_map = {
