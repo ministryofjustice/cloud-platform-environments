@@ -12,7 +12,7 @@ module "secrets_manager_multiple_secrets" {
   secrets = {
     "stg-vsp-subscription-service-dev-secrets" = {
       description             = "Secrets to hold for vsp subscription backend service",
-      recovery_window_in_days = 7
+      recovery_window_in_days = 0
       k8s_secret_name         = "stg-vsp-subscription-service-dev-secrets" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     }
   }

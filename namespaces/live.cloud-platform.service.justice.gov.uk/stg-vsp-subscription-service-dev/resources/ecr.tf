@@ -15,6 +15,8 @@ module "ecr" {
   github_repositories = ["stg-vsp-subscription-service"]
   github_environments = ["dev"]
   github_actions_prefix = "dev"
+  deletion_protection = false
+
 
   # Tags
   business_unit          = var.business_unit
