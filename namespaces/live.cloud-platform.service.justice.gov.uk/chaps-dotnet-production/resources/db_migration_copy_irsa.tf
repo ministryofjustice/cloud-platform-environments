@@ -1,9 +1,9 @@
 #This role is for a temporary Kubernetes pod/job that copies ModPlatform S3/KMS → CloudPlatform S3/KMS
 
 locals {
-  mp_db_migration_bucket_name     = "cdpt-chaps-prod-db-migration-653875321404"
-  mp_db_migration_bucket_arn      = "arn:aws:s3:::cdpt-chaps-prod-db-migration-653875321404"
-  mp_db_migration_kms_key_arn     = "arn:aws:kms:eu-west-2:653875321404:key/4edd8792-e61e-4a98-9386-b570c3970f98"
+  mp_db_migration_bucket_name = "cdpt-chaps-prod-db-migration-653875321404"
+  mp_db_migration_bucket_arn  = "arn:aws:s3:::cdpt-chaps-prod-db-migration-653875321404"
+  mp_db_migration_kms_key_arn = "arn:aws:kms:eu-west-2:653875321404:key/4edd8792-e61e-4a98-9386-b570c3970f98"
 }
 
 module "db_migration_copy_irsa" {
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "db_migration_copy" {
     condition {
       test     = "StringLike"
       variable = "s3:prefix"
-      values   = [
+      values = [
         local.db_migration_prefix,
         "${local.db_migration_prefix}/",
         "${local.db_migration_prefix}/*"
@@ -89,9 +89,9 @@ data "aws_iam_policy_document" "db_migration_copy" {
     ]
 
     condition {
-      test      = "StringLike"
-      variable  = "s3:prefix"
-      values    = [
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values = [
         local.db_migration_prefix,
         "${local.db_migration_prefix}/",
         "${local.db_migration_prefix}/*"
