@@ -102,3 +102,62 @@ spec:
             message: Container {{ $labels.container }} has restarted repeatedly in production.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
             dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+
+        - alert: OnboardingOptimisationEntraRefreshFailures
+          expr: |
+            (
+              sum(rate(poirot_auth_events_total{
+                namespace="onboarding-optimisation-prod",
+                event="token_refresh",
+                outcome="failure"
+              }[15m]))
+              /
+              clamp_min(
+                sum(rate(poirot_auth_events_total{
+                  namespace="onboarding-optimisation-prod",
+                  event="token_refresh"
+                }[15m])),
+                0.0001
+              )
+            ) > 0.10
+            and
+            sum(increase(poirot_auth_events_total{
+              namespace="onboarding-optimisation-prod",
+              event="token_refresh"
+            }[15m])) >= 5
+          for: 10m
+          labels:
+            severity: onboarding-optimisation
+          annotations:
+            message: More than 10% of production Entra token refresh attempts are failing.
+            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+
+        - alert: OnboardingOptimisationDpsAuthenticationRejected
+          expr: |
+            sum(increase(poirot_hmpps_requests_total{
+              namespace="onboarding-optimisation-prod",
+              result=~"unauthorized|forbidden"
+            }[10m])) >= 5
+          for: 5m
+          labels:
+            severity: onboarding-optimisation
+          annotations:
+            message: DPS/HMPPS rejected at least five production requests with 401 or 403 responses in ten minutes.
+            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+
+        - alert: OnboardingOptimisationPkceFailures
+          expr: |
+            sum(increase(poirot_auth_events_total{
+              namespace="onboarding-optimisation-prod",
+              event="pkce",
+              outcome="failure"
+            }[15m])) >= 3
+          for: 5m
+          labels:
+            severity: onboarding-optimisation
+          annotations:
+            message: At least three production sign-in PKCE flows failed in fifteen minutes.
+            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
