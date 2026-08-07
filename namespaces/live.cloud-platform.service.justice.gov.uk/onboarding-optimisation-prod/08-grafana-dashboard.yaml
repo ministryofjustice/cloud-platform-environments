@@ -438,6 +438,162 @@ data:
           ],
           "title": "Container restarts in the last hour",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 20
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull"],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (outcome, reason) (rate(poirot_auth_events_total{namespace=\"$namespace\", event=\"token_refresh\"}[5m]))",
+              "legendFormat": "{{outcome}} — {{reason}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Entra token refresh outcomes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 20
+          },
+          "id": 11,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull"],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (result) (rate(poirot_hmpps_requests_total{namespace=\"$namespace\"}[5m]))",
+              "legendFormat": "{{result}}",
+              "refId": "A"
+            }
+          ],
+          "title": "DPS/HMPPS request outcomes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 28
+          },
+          "id": 12,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull"],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (reason) (increase(poirot_auth_events_total{namespace=\"$namespace\", event=\"session\", outcome=\"failure\"}[15m]))",
+              "legendFormat": "{{reason}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Session endings per 15 minutes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 28
+          },
+          "id": 13,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull"],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (outcome, reason) (increase(poirot_auth_events_total{namespace=\"$namespace\", event=\"pkce\"}[15m]))",
+              "legendFormat": "{{outcome}} — {{reason}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Sign-in and PKCE outcomes per 15 minutes",
+          "type": "timeseries"
         }
       ],
       "refresh": "30s",
@@ -483,5 +639,5 @@ data:
       "timezone": "browser",
       "title": "Onboarding Optimisation",
       "uid": "onboarding-optimisation",
-      "version": 1
+      "version": 2
     }
