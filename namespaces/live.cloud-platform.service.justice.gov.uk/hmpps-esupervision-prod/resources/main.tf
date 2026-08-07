@@ -1,12 +1,6 @@
 terraform {
   backend "s3" {
   }
-  required_providers {
-    pingdom = {
-      source  = "DrFaust92/pingdom"
-      version = "~> 1.3.1"
-    }
-  }
 }
 
 provider "aws" {
