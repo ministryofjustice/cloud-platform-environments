@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: mandatory-drug-testing-dev-admin
-  namespace: mandatory-drug-testing-dev
+  name: mandatory-drug-testing-preprod-admin
+  namespace: mandatory-drug-testing-preprod
 subjects:
   - kind: Group
     name: "github:hmpps-mandatory-drug-testing-devs"
