@@ -67,3 +67,15 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "owner" {
+  description = "Team or individual that owns this service"
+  type        = string
+  default     = "webops"
+}
+
+variable "domain" {
+  description = "The domain name for the Route 53 hosted zone"
+  type        = string
+  default     = "cp-custom-tls-test.service.justice.gov.uk"
+}
