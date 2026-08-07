@@ -15,7 +15,6 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-fee-calculator"]
 
-  # commenting next line out to see if its needed
   github_environments = ["production"]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
