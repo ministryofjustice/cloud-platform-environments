@@ -3,7 +3,34 @@ resource "aws_sns_topic_subscription" "supervision-packages-api-queue-subscripti
   protocol  = "sqs"
   endpoint  = module.supervision-packages-api-queue.sqs_arn
   filter_policy = jsonencode({
-    eventType = ["TBC"] # TODO add event types for triggering supervision package assignment
+    eventType = [
+      "tier.calculation.changed",
+      "probation-case.sentence.created",
+      "probation-case.sentence.amended",
+      "probation-case.sentence.deleted",
+      "probation-case.sentence.moved",
+      "probation-case.sentence.terminated",
+      "probation-case.sentence.unterminated",
+      "person.community.manager.transferred",
+      "probation-case.non-statutory-intervention.created",
+      "probation-case.non-statutory-intervention.deleted",
+      "probation-case.non-statutory-intervention.unterminated",
+      "probation-case.non-statutory-intervention.terminated",
+      "probation-case.non-statutory-intervention.moved",
+      "probation-case.requirement.created",
+      "probation-case.requirement.terminated",
+      "probation-case.requirement.unterminated",
+      "probation-case.requirement.deleted",
+      "probation-case.registration.added",
+      "probation-case.registration.updated",
+      "probation-case.registration.deregistered",
+      "probation-case.registration.deleted",
+      "probation-case.personal-circumstance.created",
+      "probation-case.personal-circumstance.updated",
+      "probation-case.personal-circumstance.deleted",
+      "probation-case.merge.completed",
+      "probation-case.unmerge.completed",
+    ]
   })
 }
 
