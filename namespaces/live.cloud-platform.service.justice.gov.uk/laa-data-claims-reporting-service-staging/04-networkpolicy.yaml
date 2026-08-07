@@ -25,3 +25,13 @@ spec:
     - namespaceSelector:
         matchLabels:
           component: ingress-controllers
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: laa-data-claims-reporting-service-staging
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
