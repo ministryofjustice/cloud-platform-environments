@@ -1,9 +1,9 @@
-module "srrc-capture-finger-prints" {
+module "srrc-capture-biometric-prints" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo                   = "srrc-capture-finger-prints"
-  application                   = "srrc-capture-finger-prints"
+  github_repo                   = "srrc-capture-biometric-prints"
+  application                   = "srrc-capture-biometric-prints"
   github_team                   = "srrc-tech"
   environment                   = var.environment
   is_production                 = var.is_production

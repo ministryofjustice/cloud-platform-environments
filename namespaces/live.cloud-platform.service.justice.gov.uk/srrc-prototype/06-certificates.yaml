@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: srrc-prototype-cert
+  namespace: srrc-prototype
+spec:
+  secretName: srrc-prototype-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - srrc-prototype.main.apps.live.cloud-platform.service.justice.gov.uk
+---
