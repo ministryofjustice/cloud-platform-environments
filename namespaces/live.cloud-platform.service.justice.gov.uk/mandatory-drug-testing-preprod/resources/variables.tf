@@ -11,37 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "folarin test resource upgrade"
+  default     = "Mandatory Drug Testing"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "folarin-dev"
+  default     = "mandatory-drug-testing-preprod"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Move and Improve"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "webops"
+  default     = "hmpps-mandatory-drug-testing"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "moveandimprove@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "cloud-platform"
+  default     = "mdt-non-prod-notifications"
 }
 
 variable "github_owner" {
@@ -66,16 +72,4 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
-}
-
-variable "owner" {
-  description = "Team or individual that owns this service"
-  type        = string
-  default     = "webops"
-}
-
-variable "domain" {
-  description = "The domain name for the Route 53 hosted zone"
-  type        = string
-  default     = "cp-custom-tls-test.service.justice.gov.uk"
 }

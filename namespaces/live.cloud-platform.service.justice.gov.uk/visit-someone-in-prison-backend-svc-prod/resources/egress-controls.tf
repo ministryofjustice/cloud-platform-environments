@@ -12,6 +12,8 @@ module "hmpps_egress_controls" {
 
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
+    "api.notifications.service.gov.uk",
+    "www.gov.uk", # required for fetching bank-holidays.json file
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
