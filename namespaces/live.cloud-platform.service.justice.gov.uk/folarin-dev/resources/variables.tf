@@ -77,5 +77,5 @@ variable "owner" {
 variable "domain" {
   description = "The domain name for the Route 53 hosted zone"
   type        = string
-  default     = "cp-custom-tls-test.service.justice.gov.uk"
+  default     = "container-platform-custom-domain-test.service.justice.gov.uk"
 }
