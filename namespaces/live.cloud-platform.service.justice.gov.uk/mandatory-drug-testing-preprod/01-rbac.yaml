@@ -13,6 +13,9 @@ subjects:
     apiGroup: rbac.authorization.k8s.io
 # hmpps-sre group is required for support functions
 ###################################################
+  - kind: Group
+    name: "github:hmpps-haar-client-admin"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin
