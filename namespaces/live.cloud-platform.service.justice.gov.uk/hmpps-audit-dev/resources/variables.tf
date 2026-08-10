@@ -68,6 +68,11 @@ variable "approved_person_on_probation_audit_clients" {
   default = ["hmpps-people-on-probation-dev-1"]
 }
 
+variable "approved_staff_audit_clients" {
+  type    = list(string)
+  default = []
+}
+
 
 variable "kubernetes_cluster" {}
 
