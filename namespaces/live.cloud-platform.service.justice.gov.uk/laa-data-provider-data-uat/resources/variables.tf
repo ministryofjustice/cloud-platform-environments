@@ -167,3 +167,31 @@ variable "e2etester_serviceaccount_rules" {
     verbs      = ["create"]
   }]
 }
+
+variable "maintainer_serviceaccount_rules" {
+  description = "Least-privilege rules for the maintainer service account (out-of-hours pause/resume)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+    api_groups = ["networking.k8s.io"]
+    resources  = ["ingresses"]
+    verbs      = ["get", "patch"]
+  }, {
+    api_groups = ["apps"]
+    resources  = ["deployments"]
+    verbs      = ["get"]
+  }, {
+    api_groups = ["apps"]
+    resources  = ["deployments/scale"]
+    verbs      = ["get", "update", "patch"]
+  }]
+}
+
+variable "pacttester_serviceaccount_rules" {
+  description = "Least-privilege rules for the pacttester service account (read app-secrets only)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+    api_groups = [""]
+    resources  = ["secrets"]
+    verbs      = ["get"]
+  }]
+}
