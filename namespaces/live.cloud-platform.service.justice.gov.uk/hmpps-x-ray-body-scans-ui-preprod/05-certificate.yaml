@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-x-ray-body-scans-ui-cert
+  namespace: hmpps-x-ray-body-scans-ui-preprod
+spec:
+  secretName: hmpps-x-ray-body-scans-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - x-ray-body-scans-ui-preprod.hmpps.service.justice.gov.uk
+    - x-ray-body-scans-preprod.hmpps.service.justice.gov.uk
