@@ -25,8 +25,8 @@ module "opensearch" {
   proxy_count = 3
   ebs_options = {
     volume_size = 600 # we can reduce this to 300GB after removing keyword search
-    iops        = 3000
-    throughput  = 250
+    iops        = 10000 # TODO reduce to 3000/250 after incident is resolved
+    throughput  = 1000
   }
 }
 
