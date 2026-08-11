@@ -21,11 +21,11 @@ module "rds_mssql" {
 
   # SQL Server specifics
   prepare_for_major_upgrade = false
-  db_engine                 = "sqlserver-web"
+  db_engine                 = "sqlserver-se"
   db_engine_version         = "16.00.4255.1.v1"
-  rds_family                = "sqlserver-web-16.0"
-  db_instance_class         = "db.t3.small"
-  db_allocated_storage      = 32 # minimum of 20GiB for SQL Server
+  rds_family                = "sqlserver-se-16.0"
+  db_instance_class         = "db.m7i.xlarge"
+  db_allocated_storage      = 128 # minimum of 20GiB for SQL Server
   option_group_name         = aws_db_option_group.sqlserver_backup_rds_option_group.name
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "rds_mssql" {
 resource "aws_db_option_group" "sqlserver_backup_rds_option_group" {
   name                     = "${var.namespace}-mssql-backup"
   option_group_description = "Enable SQL Server Backup/Restore"
-  engine_name              = "sqlserver-web"
+  engine_name              = "sqlserver-se"
   major_engine_version     = "16.00"
 
   option {
