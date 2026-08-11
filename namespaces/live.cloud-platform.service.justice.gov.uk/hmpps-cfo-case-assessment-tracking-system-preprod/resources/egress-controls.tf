@@ -20,7 +20,7 @@ module "hmpps_egress_controls" {
     "api.os.uk",                         # Ordnance Survey Places API
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
-    "dev-dms-api.co-financing.org"       # CFO Data Management System (DMS)
+    "preprod-dms-api.co-financing.org"       # CFO Data Management System (DMS)
   ]
 
 }
