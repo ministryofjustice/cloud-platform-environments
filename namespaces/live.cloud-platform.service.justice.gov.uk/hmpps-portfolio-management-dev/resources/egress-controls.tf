@@ -17,8 +17,7 @@ module "hmpps_egress_controls" {
     "github.com",
     "api.applicationinsights.io", 
     "ghcr.io",
-    "api.snyk.io",
-    "quay.io"
+    "api.snyk.io"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
@@ -29,7 +28,8 @@ module "hmpps_egress_controls" {
     ".github.io",
     ".slack.com",
     ".service.gov.uk",
-    ".justice.gov.uk"
+    ".justice.gov.uk",
+    ".quay.io"
   ]
 }
 
