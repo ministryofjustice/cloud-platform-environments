@@ -26,18 +26,18 @@ resource "kubernetes_secret" "laa_benefit_checker_prod_route53_zone_sec" {
 }
 
 resource "aws_route53_record" "bc_prod" {
-  name    = "_dnsauth.laa-benefit-checker.service.justice.gov.uk"
+  name    = "_5DE015C66839F32AC7484A967CC26F17.laa-benefit-checker.service.justice.gov.uk"
   zone_id = aws_route53_zone.laa_benefit_checker_prod_route53_zone.zone_id
   type    = "CNAME"
-  records = ["_9jzmxkabdupt6yv49as50pnh21ufry1.dcv.digicert.com"]
+  records = ["0A195FF681362628EE5A34DF3DB86CCA.E0B045860ED8DB4643CF8C808E4274EF.fa1e9c2270037406b9e1.sectigo.com"]
   ttl     = "300"
 }
 
 resource "aws_route53_record" "bc_prod_ext" {
-  name    = "_dnsauth.www.laa-benefit-checker.service.justice.gov.uk"
+  name    = "_5DE015C66839F32AC7484A967CC26F17.laa-benefit-checker.service.justice.gov.uk"
   zone_id = aws_route53_zone.laa_benefit_checker_prod_route53_zone.zone_id
   type    = "CNAME"
-  records = ["_9jzmxkabdupt6yv49as50pnh21ufry1.dcv.digicert.com"]
+  records = ["0A195FF681362628EE5A34DF3DB86CCA.E0B045860ED8DB4643CF8C808E4274EF.fa1e9c2270037406b9e1.sectigo.com"]
   ttl     = "300"
 }
 
