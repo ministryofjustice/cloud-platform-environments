@@ -101,6 +101,7 @@ module "read_replica" {
   db_engine_version = "18.3"
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.micro"
+  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
   # It is mandatory to set the below values to create read replica instance
 
