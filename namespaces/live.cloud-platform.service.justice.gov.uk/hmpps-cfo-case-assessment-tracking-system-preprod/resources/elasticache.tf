@@ -5,7 +5,7 @@ module "elasticache_redis" {
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
+  node_type               = "cache.t4g.small"
   engine_version          = "7.1"
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2026-07-13"
