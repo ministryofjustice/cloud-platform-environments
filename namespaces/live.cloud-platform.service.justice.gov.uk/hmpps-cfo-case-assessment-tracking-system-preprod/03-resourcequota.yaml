@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-cfo-case-assessment-tracking-system-train
+  namespace: hmpps-cfo-case-assessment-tracking-system-preprod
 spec:
   hard:
     pods: "50"

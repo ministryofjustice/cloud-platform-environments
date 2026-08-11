@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "cats_train" {
+resource "aws_route53_zone" "cats_preprod" {
   name = "preprod.manage-external-funded-offender-provision.service.justice.gov.uk"
 
   tags = {
@@ -12,14 +12,14 @@ resource "aws_route53_zone" "cats_train" {
   }
 }
 
-resource "kubernetes_secret" "cats_train_route53_zone" {
+resource "kubernetes_secret" "cats_preprod_route53_zone" {
   metadata {
-    name      = "cats-train-route53-zone-output"
+    name      = "cats-preprod-route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id     = aws_route53_zone.cats_train.zone_id
-    nameservers = join("\n", aws_route53_zone.cats_train.name_servers)
+    zone_id     = aws_route53_zone.cats_preprod.zone_id
+    nameservers = join("\n", aws_route53_zone.cats_preprod.name_servers)
   }
 }
