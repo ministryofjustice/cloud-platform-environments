@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "hmpps-cfo-case-assessment-tracking-system-train"
+  name: "hmpps-cfo-case-assessment-tracking-system-prod"
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "production"

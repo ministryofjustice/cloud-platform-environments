@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-cfo-case-assessment-tracking-system-train"
+  default     = "hmpps-cfo-case-assessment-tracking-system-prod"
 }
 
 variable "business_unit" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "github_environment_name" {
   description = "Name of the GitHub Actions / helm-values environment this namespace serves"
   type        = string
-  default     = "train"
+  default     = "prod"
 }
 
 variable "require_deployment_reviewers" {
