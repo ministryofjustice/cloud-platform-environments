@@ -71,6 +71,41 @@ module "rds" {
   enable_irsa            = true
 }
 
+module "read_replica" {
+  # default off
+  count  = 0
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name               = var.vpc_name
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # If any other inputs of the RDS is passed in the source db which are different from defaults,
+  # add them to the replica
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  db_engine_version = "18.3"
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.micro"
+
+  # It is mandatory to set the below values to create read replica instance
+
+  # Set the db_identifier of the source db
+  replicate_source_db = module.rds.db_identifier
+
+  # Set to true. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+}
+
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
@@ -83,6 +118,16 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "read_replica" {
+  # default off
+  count = 0
+
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
   }
 }
 
