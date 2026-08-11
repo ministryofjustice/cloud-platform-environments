@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "cats_train" {
-  name = "training.manage-external-funded-offender-provision.service.justice.gov.uk"
+  name = "preprod.manage-external-funded-offender-provision.service.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit
