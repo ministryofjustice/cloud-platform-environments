@@ -98,8 +98,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18.3"
-  rds_family        = "postgres18"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
