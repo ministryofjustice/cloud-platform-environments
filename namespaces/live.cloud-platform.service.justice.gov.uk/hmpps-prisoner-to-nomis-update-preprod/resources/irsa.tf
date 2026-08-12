@@ -21,6 +21,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_coreperson_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_csip_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_csip_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csra_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csra_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_incidents_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_incidents_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_queue.sqs_arn,
