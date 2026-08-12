@@ -57,20 +57,6 @@ EOF
   ]
 }
 
-
-
-resource "kubernetes_secret" "s3_bucket" {
-  metadata {
-    name      = "s3-bucket-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    bucket_arn  = module.s3_bucket.bucket_arn
-    bucket_name = module.s3_bucket.bucket_name
-  }
-}
-
 resource "kubernetes_secret" "coat_chatbot_auth0_tf_state_dev_s3_bucket" {
   metadata {
     name      = "coat-chatbot-auth0-tf-state-dev-s3-bucket-output"
