@@ -11,9 +11,8 @@ module "mandatory-drug-testing-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "release/*", "feature/*", "bug/*", "**"]
   reviewer_teams                = ["hmpps-move-and-improve"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "release/*", "feature/*", "bug/*", "**"] # Optional but required if protected_branches_only is false
   protected_branches_only       = false          # Optional, defaults to true unless selected_branch_patterns is set
 }
 
@@ -30,8 +29,7 @@ module "mandatory-drug-testing-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns      = ["main", "release/*", "feature/*", "bug/*", "**"]
   reviewer_teams                = ["hmpps-move-and-improve"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "release/*", "feature/*", "bug/*", "**"] # Optional but required if protected_branches_only is false
   protected_branches_only       = false     # Optional, defaults to true unless selected_branch_patterns is set
 }
