@@ -22,6 +22,12 @@ module "secrets_manager" {
       k8s_secret_name         = "auth-client-secret-staging"
     },
 
+    "session-secret" = {
+      description             = "Session secret for staging environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "session-secret-staging"
+    },
+
     "auth-directory-url" = {
       description             = "Auth directory URL from Entra for staging environment",
       recovery_window_in_days = 7,
