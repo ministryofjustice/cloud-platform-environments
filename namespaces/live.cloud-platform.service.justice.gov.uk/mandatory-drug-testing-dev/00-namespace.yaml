@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "mdt-non-prod-notifications"
     cloud-platform.justice.gov.uk/application: "Mandatory Drug Testing"
     cloud-platform.justice.gov.uk/owner: "move and improve: moveandimprove@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-mandatory-drug-testing"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-mandatory-drug-testing-api,https://github.com/ministryofjustice/hmpps-mandatory-drug-testing-ui"
     cloud-platform.justice.gov.uk/team-name: "hmpps-move-and-improve"
     cloud-platform.justice.gov.uk/review-after: ""
