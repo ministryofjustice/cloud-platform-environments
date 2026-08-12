@@ -25,7 +25,7 @@ data "aws_arn" "opensearch_cluster_irsa_role" {
   arn = module.opensearch_cluster.irsa_role_arn
 }
 
-resource "aws_iam_role_policy" "opensearch_connector_irsa_policy" {
+resource "aws_iam_role_policy" "opensearch_cluster_connector_irsa_policy" {
   role = trimprefix(data.aws_arn.opensearch_cluster_irsa_role.resource, "role/")
   policy = jsonencode({
     Version = "2012-10-17"
