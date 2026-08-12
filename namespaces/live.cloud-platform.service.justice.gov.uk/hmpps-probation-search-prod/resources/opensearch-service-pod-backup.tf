@@ -1,9 +1,9 @@
-resource "kubernetes_deployment" "opensearch_old_test_proxy" {
+resource "kubernetes_deployment" "opensearch_cluster_test_proxy" {
   metadata {
-    name      = "opensearch-old-test-proxy"
+    name      = "opensearch-backup-test-proxy"
     namespace = var.namespace
     labels = {
-      app       = "opensearch-old-test-proxy"
+      app       = "opensearch-backup-test-proxy"
       namespace = var.namespace
     }
   }
@@ -11,23 +11,23 @@ resource "kubernetes_deployment" "opensearch_old_test_proxy" {
     replicas = 1
     selector {
       match_labels = {
-        app       = "opensearch-old-test-proxy"
+        app       = "opensearch-backup-test-proxy"
         namespace = var.namespace
       }
     }
     template {
       metadata {
         labels = {
-          app       = "opensearch-old-test-proxy"
+          app       = "opensearch-backup-test-proxy"
           namespace = var.namespace
         }
       }
       spec {
-        service_account_name = module.opensearch.service_account_name
+        service_account_name = module.opensearch_cluster.service_account_name
         container {
-          name  = "opensearch-old-test-proxy"
+          name  = "opensearch-backup-test-proxy"
           image = "public.ecr.aws/aws-observability/aws-sigv4-proxy:1.10"
-          args  = ["--log-failed-requests", "--name", "es", "--region", data.aws_region.current.name, "--host", module.opensearch.endpoint]
+          args  = ["--log-failed-requests", "--name", "es", "--region", data.aws_region.current.name, "--host", module.opensearch_cluster.endpoint]
           security_context {
             allow_privilege_escalation = false
             run_as_non_root            = true
@@ -39,14 +39,14 @@ resource "kubernetes_deployment" "opensearch_old_test_proxy" {
   }
 }
 
-resource "kubernetes_service" "opensearch_old_test_proxy" {
+resource "kubernetes_service" "opensearch_backup_test_proxy" {
   metadata {
-    name      = "opensearch-old-test-proxy"
+    name      = "opensearch-backup-test-proxy"
     namespace = var.namespace
   }
   spec {
     selector = {
-      app = "opensearch-old-test-proxy"
+      app = "opensearch-backup-test-proxy"
     }
     port {
       port        = 8080

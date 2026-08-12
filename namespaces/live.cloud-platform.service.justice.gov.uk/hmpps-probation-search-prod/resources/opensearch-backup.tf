@@ -1,4 +1,4 @@
-module "opensearch" {
+module "opensearch_cluster" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch?ref=1.8.1"
 
   application            = var.application
@@ -14,7 +14,7 @@ module "opensearch" {
   engine_version               = "OpenSearch_3.1"
   auto_software_update_enabled = true
 
-  snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
+  snapshot_bucket_arn = module.opensearch_cluster_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
     instance_type            = "m7g.xlarge.search"
@@ -30,7 +30,7 @@ module "opensearch" {
   }
 }
 
-module "opensearch_snapshot_bucket" {
+module "opensearch_cluster_snapshot_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
   application            = var.application
