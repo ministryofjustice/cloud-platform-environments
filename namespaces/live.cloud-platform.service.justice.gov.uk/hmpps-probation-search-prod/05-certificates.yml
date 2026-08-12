@@ -27,12 +27,12 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: probation-offender-search-keyword-prod
+  name: probation-offender-search-old-prod
   namespace: hmpps-probation-search-prod
 spec:
-  secretName: probation-offender-search-keyword-cert
+  secretName: probation-offender-search-old-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - probation-offender-search-keyword.hmpps.service.justice.gov.uk
+    - probation-offender-search-old.hmpps.service.justice.gov.uk
