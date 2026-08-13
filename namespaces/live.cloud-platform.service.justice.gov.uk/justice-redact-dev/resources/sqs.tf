@@ -37,7 +37,7 @@ module "redact_task_queue" {
   redrive_policy = <<EOF
 {
   "deadLetterTargetArn": "${module.redact_task_queue_dlq.sqs_arn}",
-  "maxReceiveCount": 2
+  "maxReceiveCount": 3
 }
 EOF
 
