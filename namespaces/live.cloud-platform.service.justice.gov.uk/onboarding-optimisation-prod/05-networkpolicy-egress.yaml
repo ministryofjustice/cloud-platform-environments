@@ -207,6 +207,8 @@ spec:
           - 191.238.78.0/28
           # HMPPS Integration API — integration-api.hmpps.service.justice.gov.uk
           # DNS checked against Cloudflare and Google public resolvers on 2026-08-13.
+          - 18.130.140.79/32
+          - 18.133.17.203/32
           - 18.134.27.120/32
         ports:
           - 443
