@@ -205,8 +205,9 @@ spec:
           - 172.198.99.16/28
           - 172.204.167.96/28
           - 191.238.78.0/28
-          # HMPPS Integration API egress is intentionally not enabled until
-          # the production endpoint, IP range, and credentials are approved.
+          # HMPPS Integration API — integration-api.hmpps.service.justice.gov.uk
+          # DNS checked against Cloudflare and Google public resolvers on 2026-08-13.
+          - 18.134.27.120/32
         ports:
           - 443
   types:

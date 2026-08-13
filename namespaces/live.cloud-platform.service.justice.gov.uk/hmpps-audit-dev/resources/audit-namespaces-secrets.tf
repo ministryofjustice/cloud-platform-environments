@@ -41,6 +41,7 @@ locals {
     "hmpps-registers-dev",
     "hmpps-subject-access-request-dev",
     "hmpps-support-additional-needs-dev",
+    "hmpps-templates-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
     "prisoner-content-hub-development",

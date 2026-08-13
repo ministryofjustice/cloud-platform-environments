@@ -16,7 +16,7 @@ module "serviceaccount" {
   github_repositories = ["laa-fee-calculator"]
 
   # commenting out as not sure its needed at this level
-  # github_environments = ["staging"]
+  github_environments = ["staging"]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token

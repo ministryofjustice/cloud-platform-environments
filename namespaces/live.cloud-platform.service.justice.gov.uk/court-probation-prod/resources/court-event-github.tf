@@ -51,7 +51,7 @@ module "pre-sentence-service" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["probation-integration"]
+  reviewer_teams                = ["probation-in-court-live", "probation-in-court-devs", "probation-integration"]
 }
 
 module "prepare-a-case" {

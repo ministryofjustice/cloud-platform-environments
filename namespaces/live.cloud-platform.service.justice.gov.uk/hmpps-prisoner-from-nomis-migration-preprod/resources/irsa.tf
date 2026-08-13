@@ -21,6 +21,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_visits_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
+      module.migration_agencyregisters_queue.sqs_arn,
+      module.migration_agencyregisters_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
       module.migration_allocations_dead_letter_queue.sqs_arn,
       module.migration_courtmovements_queue.sqs_arn,
@@ -99,6 +101,8 @@ data "aws_iam_policy_document" "combined_local_sqs_events" {
       module.prisoner_from_nomis_externalmovements_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_courtmovements_queue.sqs_arn,
       module.prisoner_from_nomis_courtmovements_dead_letter_queue.sqs_arn,
+      module.prisoner_from_nomis_transfermovements_queue.sqs_arn,
+      module.prisoner_from_nomis_transfermovements_dead_letter_queue.sqs_arn,
       module.prisoner_from_nomis_officialvisits_queue.sqs_arn,
       module.prisoner_from_nomis_officialvisits_dead_letter_queue.sqs_arn,
     ]
