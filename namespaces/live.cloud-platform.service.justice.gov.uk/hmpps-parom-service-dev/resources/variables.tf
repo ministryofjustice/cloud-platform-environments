@@ -66,3 +66,7 @@ variable "github_token" {
 variable "maintenance_window" {
   default = "sun:00:00-sun:03:00"
 }
+
+variable "domain_events_topic_name" {
+  default = "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"
+}
