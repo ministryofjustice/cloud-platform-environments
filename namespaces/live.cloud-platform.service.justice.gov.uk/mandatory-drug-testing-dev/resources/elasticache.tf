@@ -18,7 +18,7 @@ module "elasticache" {
 
 resource "kubernetes_secret" "elasticache" {
   metadata {
-    name      = "elasticache-output"
+    name      = "hmpps-mandatory-drug-testing-ui-elasticache-redis"
     namespace = var.namespace
   }
 
