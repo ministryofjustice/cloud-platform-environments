@@ -123,19 +123,11 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
-  }
-
-  data = {
-    database_name         = module.read_replica[0].database_name
-    database_username     = module.read_replica[0].database_username
-    database_password     = module.read_replica[0].database_password
-    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
-    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
 }
 
