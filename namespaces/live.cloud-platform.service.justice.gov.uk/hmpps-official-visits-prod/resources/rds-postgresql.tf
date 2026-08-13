@@ -92,8 +92,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18.3"
-  rds_family        = "postgres18"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
@@ -123,11 +123,19 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
     namespace = var.namespace
+  }
+
+  data = {
+    database_name         = module.read_replica.database_name
+    database_username     = module.read_replica.database_username
+    database_password     = module.read_replica.database_password
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
 
