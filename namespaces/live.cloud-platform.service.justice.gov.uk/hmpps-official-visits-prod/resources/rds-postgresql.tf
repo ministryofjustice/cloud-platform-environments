@@ -131,11 +131,11 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   data = {
-    database_name         = module.read_replica.database_name
-    database_username     = module.read_replica.database_username
-    database_password     = module.read_replica.database_password
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
+    database_name         = module.read_replica[0].database_name
+    database_username     = module.read_replica[0].database_username
+    database_password     = module.read_replica[0].database_password
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
 }
 
