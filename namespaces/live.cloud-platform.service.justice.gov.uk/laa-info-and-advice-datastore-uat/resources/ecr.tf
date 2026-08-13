@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-info-and-advice-datastore"]
+  github_repositories = ["laa-info-and-advice-datastore", "laa-record-controlled-work"]
   github_environments = ["uat"]
 
   # Tags
