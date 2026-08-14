@@ -2,7 +2,7 @@
 # existing egress policies. Workloads can be migrated to the proxy separately
 # before the module-managed egress controls are enabled.
 module "hmpps_egress_controls" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.10"
 
   enable_envoy_setup     = true
   enable_egress_controls = false
