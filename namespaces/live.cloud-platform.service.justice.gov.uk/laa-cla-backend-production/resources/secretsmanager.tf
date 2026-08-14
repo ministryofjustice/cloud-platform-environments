@@ -11,6 +11,11 @@ module "secret" {
       recovery_window_in_days = 7                # required
       k8s_secret_name         = "rate-limit-slack-webhook" # the name of the secret in k8s
     },
+    "diversity-mcc-passphrase" = {
+      description             = "CLA Backend production MCC diversity private key passphrase"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "diversity-mcc-passphrase"
+    }
   }
 
   # Tags
