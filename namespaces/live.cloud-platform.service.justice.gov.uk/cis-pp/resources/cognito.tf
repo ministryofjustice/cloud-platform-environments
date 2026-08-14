@@ -181,16 +181,16 @@ data "aws_secretsmanager_secret_version" "cognito_test_user" {
 
 resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.main.id
-  username     = "ollie.evans1@justice.gov.uk"
+  username     = "ollie.evanstest@justice.gov.uk"
 
   attributes = {
-    cis-role       = "viewer"
-    email          = "ollie.evans1@justice.gov.uk"
+    cis-role       = "CIS - Viewer"
+    email          = "ollie.evanstest@justice.gov.uk"
     email_verified = "true"
   }
 
-  temporary_password = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
-  message_action     = "SUPPRESS"
+  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
+  message_action = "SUPPRESS"
 }
 
 # -----------------------------------------------------------------------------
