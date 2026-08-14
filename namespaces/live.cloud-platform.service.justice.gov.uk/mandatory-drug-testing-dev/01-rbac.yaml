@@ -5,8 +5,17 @@ metadata:
   namespace: mandatory-drug-testing-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-mandatory-drug-testing"
+    name: "github:hmpps-move-and-improve"
     apiGroup: rbac.authorization.k8s.io
+############## COPY - DO NOT REPLACE ##############
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+# hmpps-sre group is required for support functions
+  - kind: Group
+    name: "github:hmpps-haar-client-admin"
+    apiGroup: rbac.authorization.k8s.io
+###################################################
 roleRef:
   kind: ClusterRole
   name: admin
