@@ -68,5 +68,5 @@ variable "maintenance_window" {
 }
 
 variable "domain_events_topic_name" {
-  default = "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd"
+  default = "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08"
 }
