@@ -12,8 +12,8 @@ module "hmpps_egress_controls" {
 
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
-    "oidc.integration.account.gov.uk",
-    "home.integration.account.gov.uk"
+    "oidc.account.gov.uk",
+    "home.account.gov.uk"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
