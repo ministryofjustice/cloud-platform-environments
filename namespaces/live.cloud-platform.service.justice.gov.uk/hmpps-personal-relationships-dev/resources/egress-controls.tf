@@ -12,6 +12,10 @@ module "hmpps_egress_controls" {
 
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
+    "o345774.ingest.sentry.io",
+    "o345774.ingest.us.sentry.io",
+    "dc.services.visualstudio.com",
+    "rt.services.visualstudio.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [

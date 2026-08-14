@@ -5,13 +5,15 @@ module "hmpps_egress_controls" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
 
   enable_envoy_setup     = true
-  enable_egress_controls = false 
+  enable_egress_controls = true 
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
 
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
+    "o345774.ingest.sentry.io",
+    "o345774.ingest.us.sentry.io"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
