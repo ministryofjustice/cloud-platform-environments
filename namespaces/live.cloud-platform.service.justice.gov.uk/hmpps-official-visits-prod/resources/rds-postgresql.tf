@@ -161,8 +161,8 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   data = {
-    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
-    rds_instance_address  = module.read_replica[0].rds_instance_address
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
 
