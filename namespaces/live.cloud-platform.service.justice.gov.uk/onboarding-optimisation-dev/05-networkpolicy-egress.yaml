@@ -116,41 +116,6 @@ spec:
   types:
     - Egress
 ---
-# Allow the Envoy proxy to resolve approved hostnames and connect to their
-# HTTPS upstreams. Envoy's RBAC allowlist restricts which hosts are reachable.
-kind: NetworkPolicy
-apiVersion: projectcalico.org/v3
-metadata:
-  name: allow-envoy-https-proxy-upstream-egress
-  namespace: onboarding-optimisation-dev
-spec:
-  order: 49.0
-  selector: "app == 'hmpps-envoy-https-proxy'"
-  egress:
-    - action: Allow
-      protocol: UDP
-      destination:
-        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
-        selector: k8s-app in {"kube-dns", "coredns"}
-        ports:
-          - 53
-    - action: Allow
-      protocol: TCP
-      destination:
-        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
-        selector: k8s-app in {"kube-dns", "coredns"}
-        ports:
-          - 53
-    - action: Allow
-      protocol: TCP
-      destination:
-        nets:
-          - 0.0.0.0/0
-        ports:
-          - 443
-  types:
-    - Egress
----
 # Deny all other egress. Must have a higher order number than the allow policies above.
 kind: NetworkPolicy
 apiVersion: projectcalico.org/v3
