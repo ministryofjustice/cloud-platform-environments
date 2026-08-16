@@ -30,6 +30,38 @@ module "prisoner_property_rds" {
     aws = aws.london
   }
 
+  # Datahub ingestion (MAPB-763). rds.logical_replication and shared_preload_libraries are
+  # pending-reboot, so the instance must be rebooted after this applies before `show wal_level;`
+  # reports `logical` and the pglogical extension will install.
+  # https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/4461494352
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
 
