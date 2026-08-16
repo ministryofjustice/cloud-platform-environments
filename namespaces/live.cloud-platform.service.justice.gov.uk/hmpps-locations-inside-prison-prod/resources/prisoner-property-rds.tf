@@ -29,6 +29,114 @@ module "prisoner_property_rds" {
     aws = aws.london
   }
 
+  # Datahub ingestion (MAPB-763). rds.logical_replication and shared_preload_libraries are
+  # pending-reboot, so the instance must be rebooted after this applies before `show wal_level;`
+  # reports `logical` and the pglogical extension will install.
+  # https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/4461494352
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+}
+
+# Read replica for Datahub ingestion (MAPB-763). Datahub's CDC capture reads from here rather than
+# the primary, so its reads cannot affect the operational database. Modelled on the dps_rds_replica
+# in this folder's rds.tf.
+#
+# hot_standby_feedback is required on a replica: without it the replica invalidates the replication
+# slot the DMS process consumes from.
+module "prisoner_property_rds_replica" {
+  count  = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # Must match the source instance
+  db_engine         = "postgres"
+  db_engine_version = "18"
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.large"
+
+  # Conflicts with replicate_source_db, so must be null on a replica
+  db_name = null
+
+  replicate_source_db = module.prisoner_property_rds.db_identifier
+
+  # No backups or snapshots are taken of a read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
+
+  providers = {
+    aws = aws.london
+  }
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
 
@@ -47,5 +155,21 @@ resource "kubernetes_secret" "prisoner_property_rds" {
     database_password     = module.prisoner_property_rds.database_password
     rds_instance_address  = module.prisoner_property_rds.rds_instance_address
     url                   = "postgres://${module.prisoner_property_rds.database_username}:${module.prisoner_property_rds.database_password}@${module.prisoner_property_rds.rds_instance_endpoint}/${module.prisoner_property_rds.database_name}"
+  }
+}
+
+# The replica's credentials and database name are the same as the primary, so only the endpoint is
+# published here. Datahub's DMS source endpoint points at this address.
+resource "kubernetes_secret" "prisoner_property_rds_replica" {
+  count = 1
+
+  metadata {
+    name      = "prisoner-property-rds-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.prisoner_property_rds_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.prisoner_property_rds_replica[0].rds_instance_address
   }
 }
