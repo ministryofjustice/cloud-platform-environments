@@ -36,6 +36,13 @@ module "prisoner_property_rds" {
   # https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/4461494352
   db_parameter = [
     {
+      # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
+      # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
