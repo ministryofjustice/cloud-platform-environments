@@ -1,6 +1,6 @@
 module "cla_frontend_static_files_bucket" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
-  acl                           = "public-read"
+  acl                           = "private"
   enable_allow_block_pub_access = false
   team_name                     = var.team_name
   business_unit                 = var.business_unit
