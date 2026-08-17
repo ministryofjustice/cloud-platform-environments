@@ -103,6 +103,66 @@ resource "kubernetes_secret" "redact_task_queue_output" {
   }
 }
 
+resource "aws_cloudwatch_metric_alarm" "redact_task_queue_age" {
+  alarm_name = "${module.redact_task_queue.sqs_name}-oldest-message-age"
+
+  alarm_description = "Justice Redact document processing messages have been waiting for more than 10 minutes; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateAgeOfOldestMessage"
+
+  dimensions = {
+    QueueName = module.redact_task_queue.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 2
+  threshold           = 600
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
+resource "aws_cloudwatch_metric_alarm" "redact_task_queue_depth" {
+  alarm_name = "${module.redact_task_queue.sqs_name}-visible-messages"
+
+  alarm_description = "Justice Redact document processing queue has more than 5 waiting messages; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateNumberOfMessagesVisible"
+
+  dimensions = {
+    QueueName = module.redact_task_queue.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 2
+  threshold           = 5
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
+resource "aws_cloudwatch_metric_alarm" "redact_task_queue_dlq_depth" {
+  alarm_name = "${module.redact_task_queue_dlq.sqs_name}-visible-messages"
+
+  alarm_description = "Justice Redact document processing DLQ contains messages requiring investigation; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateNumberOfMessagesVisible"
+
+  dimensions = {
+    QueueName = module.redact_task_queue_dlq.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 1
+  threshold           = 0
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
 # ---------------------------------------------------------------------
 # Outputs - handy for wiring up a KEDA ScaledObject / TriggerAuthentication
 # if the ML worker pods are autoscaled off queue depth
