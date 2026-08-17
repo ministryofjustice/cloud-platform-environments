@@ -8,7 +8,7 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:hmpps-move-and-improve"
+    name: "github:hmpps-move-and-improve-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:syscon-devs"
@@ -19,4 +19,19 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-contacts-prod-calico-np-access
+  namespace: hmpps-contacts-prod
+subjects:
+  - kind: Group
+    name: "github:hmpps-prison-visits-booking-live"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
   apiGroup: rbac.authorization.k8s.io

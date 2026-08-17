@@ -1,5 +1,5 @@
 module "sas_domain_events_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name = "sas_domain_events_queue"
@@ -46,6 +46,9 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
     eventType = [
       "tier.calculation.changed",
       "person.community.manager.allocated",
+      "core-person-record.probation.address.created",
+      "core-person-record.probation.address.updated",
+      "core-person-record.probation.address.deleted",
     ]
   })
 }

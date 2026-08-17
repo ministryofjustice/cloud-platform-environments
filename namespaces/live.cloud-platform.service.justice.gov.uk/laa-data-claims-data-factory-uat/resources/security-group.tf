@@ -15,3 +15,13 @@ resource "aws_security_group" "rds" {
     create_before_destroy = true
   }
 }
+
+# Modernisation Platform: data-factory-laa-test
+resource "aws_security_group_rule" "rds_inbound" {
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+  security_group_id = aws_security_group.rds.id
+  cidr_blocks       = ["10.26.96.0/21"]
+}

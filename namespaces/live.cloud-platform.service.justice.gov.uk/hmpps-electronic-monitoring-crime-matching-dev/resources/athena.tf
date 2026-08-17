@@ -361,6 +361,269 @@ resource "aws_glue_catalog_table" "position" {
   }
 }
 
+resource "aws_glue_catalog_table" "orders_activations_positions" {
+  database_name = aws_glue_catalog_database.mock_datastore_database.name
+  name          = "orders_activations_positions"
+
+  table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    "skip.header.line.count" = "1"
+  }
+
+  storage_descriptor {
+    columns {
+      name = "grouped_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "unique_device_wearer_id"
+      type = "string"
+    }
+
+    columns {
+      name = "first_name"
+      type = "string"
+    }
+
+    columns {
+      name = "last_name"
+      type = "string"
+    }
+
+    columns {
+      name = "date_of_birth"
+      type = "date"
+    }
+
+    columns {
+      name = "house_number_and_street_name"
+      type = "string"
+    }
+
+    columns {
+      name = "city_or_town"
+      type = "string"
+    }
+
+    columns {
+      name = "county"
+      type = "string"
+    }
+
+    columns {
+      name = "country"
+      type = "string"
+    }
+
+    columns {
+      name = "postcode"
+      type = "string"
+    }
+
+    columns {
+      name = "nomis_id"
+      type = "string"
+    }
+
+    columns {
+      name = "pnc_id"
+      type = "string"
+    }
+
+    columns {
+      name = "mdss_person_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "order_id"
+      type = "string"
+    }
+
+    columns {
+      name = "order_start_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "order_commencement_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "order_end_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "order_type"
+      type = "string"
+    }
+
+    columns {
+      name = "order_type_description"
+      type = "string"
+    }
+
+    columns {
+      name = "order_type_detail"
+      type = "string"
+    }
+
+    columns {
+      name = "responsible_organisation"
+      type = "string"
+    }
+
+    columns {
+      name = "responsible_officer_name"
+      type = "string"
+    }
+
+    columns {
+      name = "is_monitored"
+      type = "boolean"
+    }
+
+    columns {
+      name = "caseload__datetime_added"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "device_activation_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "device_activation_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "device_deactivation_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "person_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "device_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "device_serial_number"
+      type = "string"
+    }
+
+    columns {
+      name = "device_activations__datetime_added"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "client_id"
+      type = "bigint"
+    }
+
+  columns {
+      name = "location_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_circulation_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_direction"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_geometry"
+      type = "string"
+    }
+
+    columns {
+      name = "position_gps_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_hdop"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_latitude"
+      type = "double"
+    }
+
+    columns {
+      name = "position_lbs"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_longitude"
+      type = "double"
+    }
+
+    columns {
+      name = "position_precision"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_recorded_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_satellite"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_speed"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_uploaded_date"
+      type = "timestamp"
+    }
+
+    location      = "s3://${module.data_bucket.bucket_name}/orders_activations_positions/"
+    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
+    output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+    compressed    = false
+    
+    ser_de_info {
+      name                  = "orders_activations_positions-csv-serde"
+      serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+
+      parameters = {
+        "field.delim"            = ","
+        "serialization.format"   = ","
+      }
+    }
+  }
+}
+
 ## Policy for application / service pod to query Athena & manage test data in S3
 data "aws_iam_policy_document" "mock_datastore_policy" {
   statement {
@@ -407,6 +670,7 @@ data "aws_iam_policy_document" "mock_datastore_policy" {
       aws_glue_catalog_table.caseload.arn,
       aws_glue_catalog_table.device_activations.arn,
       aws_glue_catalog_table.position.arn,
+      aws_glue_catalog_table.orders_activations_positions.arn,
     ]
   }
 }

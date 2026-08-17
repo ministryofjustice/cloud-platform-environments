@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-person-location-api-dev-cert
+  namespace: hmpps-person-location-dev
+spec:
+  secretName: hmpps-person-location-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - person-location-api-dev.hmpps.service.justice.gov.uk
+

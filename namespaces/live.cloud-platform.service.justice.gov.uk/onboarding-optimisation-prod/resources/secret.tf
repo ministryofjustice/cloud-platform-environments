@@ -20,5 +20,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-api-credentials"
     }
+    "poirot_observability_slack_webhook" = {
+      description             = "Slack webhook for Poirot production observability alerts"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "poirot-observability-alerts-slack-webhook"
+    }
   }
 }
