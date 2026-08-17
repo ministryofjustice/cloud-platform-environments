@@ -44,7 +44,10 @@ resource "aws_sqs_queue_policy" "prisoner_from_nomis_coreperson_queue_policy" {
             {
               "ArnEquals":
                 {
-                  "aws:SourceArn": "${data.aws_ssm_parameter.offender-events-topic-arn.value}"
+                  "aws:SourceArn": [
+                    "${data.aws_ssm_parameter.offender-events-topic-arn.value}",
+                    "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+                  ]
                 }
             }
         }
