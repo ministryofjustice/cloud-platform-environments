@@ -64,26 +64,26 @@ variable "service_area" {
 
 variable "github_actions_secret_kube_cluster" {
   description = "The name of the github actions secret containing the kubernetes cluster name"
-  default     = "KUBE_CLUSTER_STAGING"
+  default     = "KUBE_CLUSTER_API_SANDBOX"
   type        = string
 }
 
 variable "github_actions_secret_kube_namespace" {
   description = "The name of the github actions secret containing the kubernetes namespace name"
-  default     = "KUBE_NAMESPACE_STAGING"
+  default     = "KUBE_NAMESPACE_API_SANDBOX"
   type        = string
 }
 
 variable "github_actions_secret_kube_cert" {
   description = "The name of the github actions secret containing the serviceaccount ca.crt"
-  default     = "KUBE_CERT_STAGING"
+  default     = "KUBE_CERT_API_SANDBOX"
   type        = string
   sensitive   = true
 }
 
 variable "github_actions_secret_kube_token" {
   description = "The name of the github actions secret containing the serviceaccount token"
-  default     = "KUBE_TOKEN_STAGING"
+  default     = "KUBE_TOKEN_API_SANDBOX"
   type        = string
   sensitive   = true
 }
