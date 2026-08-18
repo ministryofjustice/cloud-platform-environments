@@ -5,9 +5,10 @@
  *
  */
 module "ecr_credentials" {
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-  team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  team_name           = var.team_name
+  repo_name           = "${var.namespace}-ecr"
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
