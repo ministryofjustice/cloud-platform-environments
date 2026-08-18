@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Electronic Monitoring Data API"
+  default     = "HMPPS Electronic Monitoring Person Match"
 }
 
 variable "eks_cluster_name" {
@@ -14,13 +14,13 @@ variable "eks_cluster_name" {
 }
 
 variable "namespace" {
-  default = "hmpps-electronic-monitoring-data-api-dev"
+  default = "hmpps-electronic-monitoring-person-match-dev"
 }
 
 variable "namespace-short" {
   description = "Short-form version of namespace name to get around string-length issues"
   type = string
-  default = "hmpps-em-data-api-dev"
+  default = "hmpps-em-person-match-dev"
 }
 
 variable "business_unit" {
@@ -70,5 +70,5 @@ variable "github_token" {
 }
 
 variable "domain" {
-  default = "data-api-dev.electronic-monitoring.service.justice.gov.uk"
+  default = "person-match-dev.electronic-monitoring.service.justice.gov.uk"
 }
