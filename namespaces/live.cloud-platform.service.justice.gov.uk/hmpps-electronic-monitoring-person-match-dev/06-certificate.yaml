@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-electronic-monitoring-data-person-match-ui-cert
-  namespace: hmpps-electronic-monitoring-data-person-match-dev
+  namespace: hmpps-electronic-monitoring-person-match-dev
 spec:
   secretName: hmpps-electronic-monitoring-data-person-match-cert
   issuerRef:

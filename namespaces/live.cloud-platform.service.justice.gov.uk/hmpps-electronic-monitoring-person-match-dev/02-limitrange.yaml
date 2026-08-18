@@ -3,7 +3,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: limitrange
-  namespace: hmpps-electronic-monitoring-data-person-match-dev
+  namespace: hmpps-electronic-monitoring-person-match-dev
 spec:
   limits:
     - default:
