@@ -1,8 +1,9 @@
+---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: data-platform-development
+  namespace: hmpps-electronic-monitoring-person-match-dev
 spec:
   hard:
     pods: "50"

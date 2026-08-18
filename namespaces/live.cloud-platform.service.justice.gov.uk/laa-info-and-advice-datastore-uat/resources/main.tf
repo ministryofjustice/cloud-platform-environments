@@ -62,3 +62,13 @@ provider "github" {
 }
 
 provider "kubernetes" {}
+
+provider "postgresql" {
+  host      = module.rds.rds_instance_address
+  port      = module.rds.rds_instance_port
+  database  = module.rds.database_name
+  username  = module.rds.database_username
+  password  = module.rds.database_password
+  sslmode   = "require"
+  superuser = false
+}

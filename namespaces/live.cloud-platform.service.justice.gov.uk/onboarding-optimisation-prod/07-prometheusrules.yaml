@@ -13,7 +13,7 @@ spec:
           expr: absent(poirot_application_info{namespace="onboarding-optimisation-prod"}) == 1
           for: 5m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: The production backend metrics target has been missing for at least five minutes.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
@@ -32,7 +32,7 @@ spec:
             }
           for: 10m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: Deployment {{ $labels.deployment }} has not had its expected number of available replicas for ten minutes.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
@@ -59,7 +59,7 @@ spec:
             }[10m])) >= 20
           for: 10m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: More than 20% of production backend requests have returned 5xx responses for ten minutes.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
@@ -81,7 +81,7 @@ spec:
             }[10m])) >= 20
           for: 10m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: Production backend p95 request latency has exceeded five seconds for ten minutes.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
@@ -97,7 +97,7 @@ spec:
             ) > 2
           for: 5m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: Container {{ $labels.container }} has restarted repeatedly in production.
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
@@ -127,7 +127,7 @@ spec:
             }[15m])) >= 5
           for: 10m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: More than 10% of production Entra token refresh attempts are failing.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
@@ -141,7 +141,7 @@ spec:
             }[10m])) >= 5
           for: 5m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: DPS/HMPPS rejected at least five production requests with 401 or 403 responses in ten minutes.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
@@ -156,7 +156,7 @@ spec:
             }[15m])) >= 3
           for: 5m
           labels:
-            severity: onboarding-optimisation
+            severity: poirot-alerts
           annotations:
             message: At least three production sign-in PKCE flows failed in fifteen minutes.
             runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
