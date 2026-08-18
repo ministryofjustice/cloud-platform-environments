@@ -172,7 +172,7 @@ resource "kubernetes_secret" "cognito_user_pool_client" {
 }
 
 data "aws_secretsmanager_secret" "cognito_test_user" {
-  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-cognito-test-user-secret"]
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-cognito-test-user-secret"]
 }
 
 data "aws_secretsmanager_secret_version" "cognito_test_user" {
@@ -196,28 +196,28 @@ resource "aws_cognito_user" "test" {
 # -----------------------------------------------------------------------------
 # Entra ID (OIDC) Identity Provider
 # -----------------------------------------------------------------------------
-data "aws_secretsmanager_secret" "entra_nle_client_id" {
-  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-client-id"]
+data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-client-id"]
 }
 
-data "aws_secretsmanager_secret_version" "entra_nle_client_id" {
-  secret_id = data.aws_secretsmanager_secret.entra_nle_client_id.id
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
 }
 
-data "aws_secretsmanager_secret" "entra_nle_client_secret" {
-  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-client-secret"]
+data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-client-secret"]
 }
 
-data "aws_secretsmanager_secret_version" "entra_nle_client_secret" {
-  secret_id = data.aws_secretsmanager_secret.entra_nle_client_secret.id
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
 }
 
-data "aws_secretsmanager_secret" "entra_nle_tenant_id" {
-  name = module.cis_pp_entra_nle_client_secret.secret_names["cis-pp-entra-nle-tenant-id"]
+data "aws_secretsmanager_secret" "entra_prod_external_tenant_id" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-tenant-id"]
 }
 
-data "aws_secretsmanager_secret_version" "entra_nle_tenant_id" {
-  secret_id = data.aws_secretsmanager_secret.entra_nle_tenant_id.id
+data "aws_secretsmanager_secret_version" "entra_prod_external_tenant_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_tenant_id.id
 }
 
 resource "aws_cognito_identity_provider" "entra" {
@@ -226,11 +226,11 @@ resource "aws_cognito_identity_provider" "entra" {
   provider_type = "OIDC"
 
   provider_details = {
-    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_nle_client_id.secret_string)["CIS_PP_ENTRA_NLE_CLIENT_ID"]
-    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_nle_client_secret.secret_string)["CIS_PP_ENTRA_CLIENT_SECRET"]
+    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
+    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
     authorize_scopes          = "openid email profile"
     attributes_request_method = "GET"
-    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_nle_tenant_id.secret_string)["CIS_PP_ENTRA_NLE_TENANT_ID"]}/v2.0"
+    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
   }
 
   attribute_mapping = {
