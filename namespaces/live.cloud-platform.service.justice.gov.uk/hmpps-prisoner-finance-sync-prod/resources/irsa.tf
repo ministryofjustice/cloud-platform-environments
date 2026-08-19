@@ -2,16 +2,9 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sns_topics = {
-    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
-  }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  irsa_policies = merge(local.sns_policies, local.sqs_policies, {
-    prisoner_finance_sync_queue_for_domain_events                   = module.prisoner_finance_sync_queue_for_domain_events.irsa_policy_arn
-    prisoner_finance_sync_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_sync_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
-    s3                                                              = module.s3.irsa_policy_arn
-  })
+  irsa_policies = merge(local.sns_policies, local.sqs_policies,)
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
