@@ -1,3 +1,8 @@
+data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn" {
+  name = "/${var.namespace}/data_store_cpr_ingestion_role_arn"
+  with_decryption = true
+}
+
 resource "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn" {
   name        = "/${var.namespace}/data_store_cpr_ingestion_role_arn"
   type        = "SecureString"
