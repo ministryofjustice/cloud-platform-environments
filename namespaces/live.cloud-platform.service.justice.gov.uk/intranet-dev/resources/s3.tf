@@ -95,14 +95,6 @@ data "aws_iam_policy_document" "github_s3" {
   provider = aws.london
   version  = "2012-10-17"
 
-  # GetBucketLocation takes no prefix, so it cannot carry the condition below.
-  statement {
-    sid       = "BucketMetadata"
-    effect    = "Allow"
-    actions   = ["s3:GetBucketLocation"]
-    resources = [module.s3_bucket.bucket_arn]
-  }
-
   statement {
     sid       = "ListBuildObjects"
     effect    = "Allow"
