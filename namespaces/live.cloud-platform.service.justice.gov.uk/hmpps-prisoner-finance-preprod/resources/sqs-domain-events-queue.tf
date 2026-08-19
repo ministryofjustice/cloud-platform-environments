@@ -107,7 +107,8 @@ resource "aws_sns_topic_subscription" "prisoner_finance_queue_for_domain_events_
   endpoint  = module.prisoner_finance_queue_for_domain_events.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "core-person-record.prison.record.created"      
+      "core-person-record.prison.record.created",
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }
