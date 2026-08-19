@@ -11,8 +11,12 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-ccms-user-details-api"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-ccms-user-details-api"]
+  github_actions_prefix = "feasibility"
+
+  # OPTIONAL: GitHub environments, to create variables as actions variables in your environments
+  github_environments = ["feasibility"]
 
   # Tags
   business_unit          = var.business_unit
