@@ -77,8 +77,8 @@ locals {
 
 data "aws_iam_policy_document" "github_oidc_policy" {
   statement {
-    sid    = "GithubOidcAuth"
-    effect = "Allow"
+    sid     = "GithubOidcAuth"
+    effect  = "Allow"
     actions = [
       "sts:TagSession",
       "sts:AssumeRoleWithWebIdentity"
