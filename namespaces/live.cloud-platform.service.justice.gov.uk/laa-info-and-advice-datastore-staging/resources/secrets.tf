@@ -19,3 +19,20 @@ module "secrets_manager" {
   namespace              = var.namespace
   team_name              = var.team_name
 }
+
+resource "aws_secretsmanager_secret" "rds" {
+  name                    = "laa-info-and-advice-datastore-rds-staging"
+  description             = "RDS credentials for laa-info-and-advice-datastore staging"
+  recovery_window_in_days = 7
+}
+
+resource "aws_secretsmanager_secret_version" "rds" {
+  secret_id     = aws_secretsmanager_secret.rds.id
+  secret_string = jsonencode({
+    username = module.rds.database_username
+    password = module.rds.database_password
+    host     = module.rds.rds_instance_address
+    port     = module.rds.rds_instance_port
+    dbname   = module.rds.database_name
+  })
+}
