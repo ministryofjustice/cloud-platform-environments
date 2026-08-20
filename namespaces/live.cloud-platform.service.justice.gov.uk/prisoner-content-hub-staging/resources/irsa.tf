@@ -57,3 +57,22 @@ resource "kubernetes_secret" "irsa" {
     role = module.irsa.role_arn
   }
 }
+
+
+# Below is the IRSA config for hmpps-content-hub-ui
+
+module "hmpps-content-hub-ui-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-content-hub-ui"
+  role_policy_arns     = local.sqs_policies
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
