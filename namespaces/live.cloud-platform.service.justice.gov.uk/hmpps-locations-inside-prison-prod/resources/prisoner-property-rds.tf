@@ -47,8 +47,12 @@ module "prisoner_property_rds" {
       apply_method = "pending-reboot"
     },
     {
+      # As with rds.force_ssl above, this list replaces the engine default rather than merging
+      # with it. Listing only pglogical silently dropped pg_tle and pg_stat_statements, which
+      # Performance Insights needs for query-level detail.
+      # RDS re-adds rdsutils and rds_casts itself, so they do not need listing.
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -121,8 +125,12 @@ module "prisoner_property_rds_replica" {
       apply_method = "pending-reboot"
     },
     {
+      # As with rds.force_ssl above, this list replaces the engine default rather than merging
+      # with it. Listing only pglogical silently dropped pg_tle and pg_stat_statements, which
+      # Performance Insights needs for query-level detail.
+      # RDS re-adds rdsutils and rds_casts itself, so they do not need listing.
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
