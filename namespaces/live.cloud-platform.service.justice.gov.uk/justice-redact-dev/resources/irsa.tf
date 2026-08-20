@@ -11,13 +11,12 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = {
     s3 = module.s3_bucket.irsa_policy_arn
-
     # ADDED: grants this pod the right to assume the Comprehend role
     # that the Analytical Platform team will create in their AWS account.
     comprehend = aws_iam_policy.comprehend_assume.arn
-
     sqs           = module.redact_task_queue.irsa_policy_arn
     redaction_sqs = module.apply_redactions_queue.irsa_policy_arn
+    ecr        = module.ecr.irsa_policy_arn
   }
 
   # Tags
@@ -66,4 +65,16 @@ resource "kubernetes_secret" "irsa" {
     role           = module.irsa.role_arn
     serviceaccount = module.irsa.service_account.name
   }
+}
+
+# ---------------------------------------------------------------------------
+# ADDED: service pod for running AWS CLI commands (e.g. aws ecr
+# describe-image-scan-findings) against resources this namespace's IRSA
+# role has access to.
+# ---------------------------------------------------------------------------
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # check for latest release
+
+  namespace             = var.namespace
+  service_account_name  = module.irsa.service_account.name
 }
