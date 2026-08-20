@@ -48,8 +48,12 @@ module "prisoner_property_rds" {
       apply_method = "pending-reboot"
     },
     {
+      # This list replaces the engine default rather than merging with it - the same trap that
+      # dropped rds.force_ssl in prod (MAPB-763). Listing only pglogical silently dropped pg_tle
+      # and pg_stat_statements, which Performance Insights needs for query-level detail.
+      # RDS re-adds rdsutils and rds_casts itself, so they do not need listing.
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
