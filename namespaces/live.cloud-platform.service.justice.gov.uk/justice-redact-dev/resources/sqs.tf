@@ -182,3 +182,160 @@ output "redact_task_queue_dlq_arn" {
   description = "ARN of the dead-letter queue for failed document-redaction tasks"
   value       = module.redact_task_queue_dlq.sqs_arn
 }
+
+# ---------------------------------------------------------------------
+# Apply Redactions queue
+# ---------------------------------------------------------------------
+
+module "apply_redactions_queue" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  sqs_name         = "apply-redactions-queue"
+  encrypt_sqs_kms  = "true"
+
+  visibility_timeout_seconds = 900
+  receive_wait_time_seconds   = 20
+
+  redrive_policy = <<EOF
+{
+  "deadLetterTargetArn": "${module.apply_redactions_queue_dlq.sqs_arn}",
+  "maxReceiveCount": 3
+}
+EOF
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+
+# ---------------------------------------------------------------------
+# Apply Redactions dead letter queue
+# ---------------------------------------------------------------------
+
+module "apply_redactions_queue_dlq" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  sqs_name        = "apply-redactions-queue-dlq"
+  encrypt_sqs_kms = "true"
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+
+# ---------------------------------------------------------------------
+# Expose Apply Redactions queue details to Kubernetes
+# ---------------------------------------------------------------------
+
+resource "kubernetes_secret" "apply_redactions_queue_output" {
+  metadata {
+    name      = "justice-redact-redaction-sqs"
+    namespace = var.namespace
+
+    annotations = {
+      description = "SQS queue details for Apply Redactions processing. Managed by sqs.tf."
+    }
+  }
+
+  data = {
+    queue_url  = module.apply_redactions_queue.sqs_id
+    queue_arn  = module.apply_redactions_queue.sqs_arn
+    queue_name = module.apply_redactions_queue.sqs_name
+    dlq_arn    = module.apply_redactions_queue_dlq.sqs_arn
+  }
+}
+
+
+# ---------------------------------------------------------------------
+# Apply Redactions queue monitoring
+# ---------------------------------------------------------------------
+
+resource "aws_cloudwatch_metric_alarm" "apply_redactions_queue_age" {
+  alarm_name = "${module.apply_redactions_queue.sqs_name}-oldest-message-age"
+
+  alarm_description = "Justice Redact Apply Redactions messages have been waiting for more than 10 minutes; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateAgeOfOldestMessage"
+
+  dimensions = {
+    QueueName = module.apply_redactions_queue.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 2
+  threshold           = 600
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
+resource "aws_cloudwatch_metric_alarm" "apply_redactions_queue_depth" {
+  alarm_name = "${module.apply_redactions_queue.sqs_name}-visible-messages"
+
+  alarm_description = "Justice Redact Apply Redactions queue has more than 5 waiting messages; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateNumberOfMessagesVisible"
+
+  dimensions = {
+    QueueName = module.apply_redactions_queue.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 2
+  threshold           = 5
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
+resource "aws_cloudwatch_metric_alarm" "apply_redactions_queue_dlq_depth" {
+  alarm_name = "${module.apply_redactions_queue_dlq.sqs_name}-visible-messages"
+
+  alarm_description = "Justice Redact Apply Redactions DLQ contains messages requiring investigation; owned by ${var.team_name}"
+
+  namespace   = "AWS/SQS"
+  metric_name = "ApproximateNumberOfMessagesVisible"
+
+  dimensions = {
+    QueueName = module.apply_redactions_queue_dlq.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 300
+  evaluation_periods  = 1
+  threshold           = 0
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}
+
+
+# ---------------------------------------------------------------------
+# Apply Redactions queue outputs
+# ---------------------------------------------------------------------
+
+output "apply_redactions_queue_url" {
+  description = "URL of the SQS queue used to schedule Apply Redactions processing"
+  value       = module.apply_redactions_queue.sqs_id
+}
+
+output "apply_redactions_queue_arn" {
+  description = "ARN of the SQS queue used to schedule Apply Redactions processing"
+  value       = module.apply_redactions_queue.sqs_arn
+}
+
+output "apply_redactions_queue_dlq_arn" {
+  description = "ARN of the dead-letter queue for failed Apply Redactions processing"
+  value       = module.apply_redactions_queue_dlq.sqs_arn
+}
