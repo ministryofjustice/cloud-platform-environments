@@ -70,6 +70,7 @@ module "cla_backend_static_files_bucket" {
   providers = {
     aws = aws.london
   }
+  cors_rule = []
 }
 
 
