@@ -15,7 +15,7 @@ module "pact_broker_rds_postgres14" {
   rds_family                  = "postgres15"
   db_engine_version           = "15"
   db_instance_class           = "db.t4g.small"
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = true
   allow_minor_version_upgrade = true
 
   providers = {
