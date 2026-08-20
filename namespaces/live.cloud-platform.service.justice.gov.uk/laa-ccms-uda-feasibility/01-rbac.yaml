@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: laa-ccms-uda-feasibility-admin
+  namespace: laa-ccms-uda-feasibility
+subjects:
+  - kind: Group
+    name: "github:laa-ccms-feasibility"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
