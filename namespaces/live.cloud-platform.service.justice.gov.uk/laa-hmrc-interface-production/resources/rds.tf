@@ -17,7 +17,7 @@ module "rds" {
   # Database configuration
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "18.1"
+  db_engine_version           = "18.3"
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres18"
   allow_minor_version_upgrade = "true"
