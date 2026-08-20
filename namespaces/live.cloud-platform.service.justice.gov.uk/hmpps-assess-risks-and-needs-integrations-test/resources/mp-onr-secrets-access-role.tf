@@ -48,7 +48,7 @@ resource "aws_iam_policy" "mp_onr_secrets_read" {
           "secretsmanager:UpdateSecret"
         ]
         Resource = [
-          "arn:aws:secretsmanager:eu-west-2:546088120047:secret:postgres/database/hmpps-arns-assessment-view-db-test/cloud-platform-config-*"
+          "arn:aws:secretsmanager:eu-west-2:546088120047:secret:/postgres/database/hmpps-arns-assessment-view-db-test/cloud-platform-config-*"
         ]
       },
       {
