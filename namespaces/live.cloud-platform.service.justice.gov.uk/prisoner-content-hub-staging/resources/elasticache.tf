@@ -73,7 +73,7 @@ resource "kubernetes_secret" "frontend_redis" {
 # Below is the redis config for hmpps-content-hub-ui
 
 module "hmpps-content-hub-ui-redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
