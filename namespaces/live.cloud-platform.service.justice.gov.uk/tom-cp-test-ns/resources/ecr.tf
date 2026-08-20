@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=fix-oidc-immutable-subject-claims"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=v8.0.2"
 
   # Repository configuration
   repo_name = var.namespace
