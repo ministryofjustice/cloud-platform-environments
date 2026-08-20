@@ -247,3 +247,10 @@ resource "kubernetes_secret_v1" "onr_db_credentials" {
     key => tostring(value)
   }
 }
+
+# resource "aws_secretsmanager_secret_version" "onr_db" {
+#   provider  = aws.secrets
+#   secret_id = local.onr_secret_arn
+#
+#   secret_string = jsonencode(local.onr_db_secret)
+# }
