@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - electronic-monitoring-data-person-match-api-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-data-person-match-api-dev.internal-non-prod.cloud-platform.service.justice.gov.uk
