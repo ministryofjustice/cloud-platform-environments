@@ -1,5 +1,5 @@
 module "s3_test_oidc" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=fix-s3-oidc-immutable-subject-claims"
 
   # S3 configuration
   versioning = true
