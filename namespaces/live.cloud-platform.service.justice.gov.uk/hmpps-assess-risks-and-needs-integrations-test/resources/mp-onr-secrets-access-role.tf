@@ -47,7 +47,9 @@ resource "aws_iam_policy" "mp_onr_secrets_read" {
           "secretsmanager:PutSecretValue",
           "secretsmanager:UpdateSecret"
         ]
-        Resource = [ /* wildcard for a secret arn goes here */ ]
+        Resource = [
+          "arn:aws:secretsmanager:eu-west-2:546088120047:secret:postgres/database/hmpps-arns-assessment-view-db-test/cloud-platform-config-*"
+        ]
       },
       {
         Sid    = "UseMPKMSKeyForSecret"
@@ -58,7 +60,7 @@ resource "aws_iam_policy" "mp_onr_secrets_read" {
           "kms:DescribeKey",
           "kms:GenerateDataKey"
         ]
-        Resource = [ /* account number needed to add kms */ ]
+        Resource = "arn:aws:kms:eu-west-2:546088120047:key/*"
       }
     ]
   })
