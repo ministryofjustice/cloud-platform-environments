@@ -160,16 +160,16 @@ resource "aws_cognito_user_pool_domain" "main" {
 #   depends_on = [aws_cognito_identity_provider.entra]
 # }
 
-resource "kubernetes_secret" "cognito_user_pool_client" {
-  metadata {
-    name      = "${var.namespace}-cognito-user-pool-client"
-    namespace = var.namespace
-  }
-  data = {
-    client_id     = aws_cognito_user_pool_client.main.id
-    client_secret = aws_cognito_user_pool_client.main.client_secret
-  }
-}
+# resource "kubernetes_secret" "cognito_user_pool_client" {
+#   metadata {
+#     name      = "${var.namespace}-cognito-user-pool-client"
+#     namespace = var.namespace
+#   }
+#   data = {
+#     client_id     = aws_cognito_user_pool_client.main.id
+#     client_secret = aws_cognito_user_pool_client.main.client_secret
+#   }
+# }
 
 data "aws_secretsmanager_secret" "cognito_test_user" {
   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-cognito-test-user-secret"]
@@ -179,19 +179,19 @@ data "aws_secretsmanager_secret_version" "cognito_test_user" {
   secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
 }
 
-resource "aws_cognito_user" "test" {
-  user_pool_id = aws_cognito_user_pool.main.id
-  username     = "ollie.evanstest@justice.gov.uk"
+# resource "aws_cognito_user" "test" {
+#   user_pool_id = aws_cognito_user_pool.main.id
+#   username     = "ollie.evanstest@justice.gov.uk"
 
-  attributes = {
-    cis-role       = "CIS - Viewer"
-    email          = "ollie.evanstest@justice.gov.uk"
-    email_verified = "true"
-  }
+#   attributes = {
+#     cis-role       = "CIS - Viewer"
+#     email          = "ollie.evanstest@justice.gov.uk"
+#     email_verified = "true"
+#   }
 
-  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PRD_COGNITO_TEST_USER_PASS"]
-  message_action = "SUPPRESS"
-}
+#   password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PRD_COGNITO_TEST_USER_PASS"]
+#   message_action = "SUPPRESS"
+# }
 
 # -----------------------------------------------------------------------------
 # Entra ID (OIDC) Identity Provider
