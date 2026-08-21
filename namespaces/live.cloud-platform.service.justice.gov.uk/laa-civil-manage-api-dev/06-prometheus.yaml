@@ -25,3 +25,19 @@ spec:
         severity: laa-civil-manage-dev
       annotations:
         message: "Warning: a pod in namespace {{ $labels.namespace }} has been in CrashLoopBackOff for over 10 minutes."
+    
+    - alert: Auth401Unauthorized
+      expr: sum(increase(http_server_requests_seconds_count{status="401", namespace="laa-civil-manage-api-dev"}[5m])) > 20
+      for: 1m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "401 Unauthorized spike ({{ printf \"%.0f\" $value }}/5m). Check for expired secrets or invalid Entra ID tokens."
+
+    - alert: Auth403Forbidden
+      expr: sum(increase(http_server_requests_seconds_count{status="403", namespace="laa-civil-manage-api-dev"}[5m])) > 20
+      for: 1m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "403 Forbidden spike ({{ printf \"%.0f\" $value }}/5m). Missing scopes/roles. Check Azure app registration permissions."
