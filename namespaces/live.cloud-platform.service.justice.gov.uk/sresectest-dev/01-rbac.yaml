@@ -1,17 +1,3 @@
-# kind: RoleBinding
-# apiVersion: rbac.authorization.k8s.io/v1
-# metadata:
-#   name: sresectest-dev-admin
-#  namespace: sresectest-dev
-# subjects:
-#   - kind: Group
-#     name: "github:hmpps-sre"
-#  apiGroup: rbac.authorization.k8s.io
-# roleRef:
-#  kind: ClusterRole
-#   name: admin
-#   apiGroup: rbac.authorization.k8s.io
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -19,7 +5,8 @@ metadata:
   namespace: sresectest-dev
 rules:
   # Core resources
-  - apiGroups: [""]
+  - apiGroups:
+      - ""
     resources:
       - pods
       - services
@@ -32,8 +19,17 @@ rules:
       - list
       - watch
 
+  # Full Secret access
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - "*"
+
   # Pod logs
-  - apiGroups: [""]
+  - apiGroups:
+      - ""
     resources:
       - pods/log
     verbs:
@@ -41,7 +37,8 @@ rules:
       - list
 
   # Deployments and workloads
-  - apiGroups: ["apps"]
+  - apiGroups:
+      - apps
     resources:
       - deployments
       - replicasets
@@ -53,7 +50,8 @@ rules:
       - watch
 
   # Jobs and CronJobs
-  - apiGroups: ["batch"]
+  - apiGroups:
+      - batch
     resources:
       - jobs
       - cronjobs
@@ -63,7 +61,8 @@ rules:
       - watch
 
   # Networking resources
-  - apiGroups: ["networking.k8s.io"]
+  - apiGroups:
+      - networking.k8s.io
     resources:
       - ingresses
       - networkpolicies
@@ -73,18 +72,21 @@ rules:
       - watch
 
   # Exec into containers
-  - apiGroups: [""]
+  - apiGroups:
+      - ""
     resources:
       - pods/exec
     verbs:
       - create
 
   # Port-forward sessions
-  - apiGroups: [""]
+  - apiGroups:
+      - ""
     resources:
       - pods/portforward
     verbs:
       - create
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
