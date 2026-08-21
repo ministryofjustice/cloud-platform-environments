@@ -196,21 +196,24 @@ resource "aws_cognito_user" "test" {
 # -----------------------------------------------------------------------------
 # Entra ID (OIDC) Identity Provider
 # -----------------------------------------------------------------------------
-data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
-  name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-id"]
-}
 
-data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
-  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
-}
+# Temporarily commenting out the Entra ID Identity Provider configuration due to issues with the secrets. This will be re-enabled once the secrets are correctly configured and available.
 
-data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
-  name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-secret"]
-}
+# data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
+#   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-id"]
+# }
 
-data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
-  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
-}
+# data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
+#   secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
+# }
+
+# data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
+#   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-secret"]
+# }
+
+# data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
+#   secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
+# }
 
 data "aws_secretsmanager_secret" "entra_prod_external_tenant_id" {
   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-tenant-id"]
@@ -220,21 +223,21 @@ data "aws_secretsmanager_secret_version" "entra_prod_external_tenant_id" {
   secret_id = data.aws_secretsmanager_secret.entra_prod_external_tenant_id.id
 }
 
-resource "aws_cognito_identity_provider" "entra" {
-  user_pool_id  = aws_cognito_user_pool.main.id
-  provider_name = "EntraID"
-  provider_type = "OIDC"
+# resource "aws_cognito_identity_provider" "entra" {
+#   user_pool_id  = aws_cognito_user_pool.main.id
+#   provider_name = "EntraID"
+#   provider_type = "OIDC"
 
-  provider_details = {
-    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
-    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
-    authorize_scopes          = "openid email profile"
-    attributes_request_method = "GET"
-    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
-  }
+#   provider_details = {
+#     client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
+#     client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
+#     authorize_scopes          = "openid email profile"
+#     attributes_request_method = "GET"
+#     oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
+#   }
 
-  attribute_mapping = {
-    email             = "USER_EMAIL"
-    "custom:cis-role" = "LAA_APP_ROLES"
-  }
-}
+#   attribute_mapping = {
+#     email             = "USER_EMAIL"
+#     "custom:cis-role" = "LAA_APP_ROLES"
+#   }
+# }
