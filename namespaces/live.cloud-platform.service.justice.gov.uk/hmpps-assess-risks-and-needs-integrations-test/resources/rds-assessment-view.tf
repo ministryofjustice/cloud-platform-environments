@@ -116,6 +116,7 @@ locals {
   }
 
   dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:203591025782:secret:external/dpr-pr-assess-view-source-secrets-kqNoeu"
+  onr_secret_arn = "arn:aws:secretsmanager:eu-west-2:546088120047:secret:/postgres/database/hmpps-arns-assessment-view-db-test/cloud-platform-config-XxJIP8"
 }
 
 resource "kubernetes_secret_v1" "db_credentials" {
@@ -248,9 +249,9 @@ resource "kubernetes_secret_v1" "onr_db_credentials" {
   }
 }
 
-# resource "aws_secretsmanager_secret_version" "onr_db" {
-#   provider  = aws.onr-secrets
-#   secret_id = local.onr_secret_arn
-#
-#   secret_string = jsonencode(local.onr_db_secret)
-# }
+resource "aws_secretsmanager_secret_version" "onr_db" {
+  provider  = aws.onr-secrets
+  secret_id = local.onr_secret_arn
+
+  secret_string = jsonencode(local.onr_db_secret)
+}
