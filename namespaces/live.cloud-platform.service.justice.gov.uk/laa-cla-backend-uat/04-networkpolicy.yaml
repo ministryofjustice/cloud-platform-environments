@@ -55,4 +55,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-manage-your-civil-cases-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-cla-operator-app-uat
           
