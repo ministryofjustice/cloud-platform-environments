@@ -36,8 +36,8 @@ resource "aws_s3_bucket" "db_migration" {
   bucket = local.db_migration_bucket_name
 
   tags = merge(local.db_migration_tags, {
-    Name     = local.db_migration_bucket_name
-    Purpose  = "CHAPS database migration restore"
+    Name    = local.db_migration_bucket_name
+    Purpose = "CHAPS database migration restore"
   })
 }
 
