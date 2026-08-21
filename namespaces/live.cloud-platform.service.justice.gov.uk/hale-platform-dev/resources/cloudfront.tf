@@ -18,6 +18,14 @@ module "cloudfront_with_ordered" {
   infrastructure_support = var.infrastructure_support
   service_area           = var.service_area
 
+  # Managed-SimpleCORS: adds "Access-Control-Allow-Origin: *".
+  default_cache_behavior = {
+    allowed_methods = ["GET", "HEAD", "OPTIONS"]
+    cached_methods  = ["GET", "HEAD"]
+
+    response_headers_policy_id = "e61eb60c-9c35-4d20-a928-2b84e02af89c"
+  }
+
   enable_ordered_cache_behavior = true # default is false
 
   ordered_cache_behavior = {
