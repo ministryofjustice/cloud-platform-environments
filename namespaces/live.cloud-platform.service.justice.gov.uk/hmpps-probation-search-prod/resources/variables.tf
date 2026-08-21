@@ -43,6 +43,11 @@ variable "is_production" {
   default = "true"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Probation Integration"
+}
+
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "probation-integration-team"
