@@ -120,45 +120,45 @@ resource "aws_cognito_user_pool_domain" "main" {
 # -----------------------------------------------------------------------------
 # Cognito User Pool Client
 # -----------------------------------------------------------------------------
-resource "aws_cognito_user_pool_client" "main" {
-  name         = "${var.environment}-app-client"
-  user_pool_id = aws_cognito_user_pool.main.id
+# resource "aws_cognito_user_pool_client" "main" {
+#   name         = "${var.environment}-app-client"
+#   user_pool_id = aws_cognito_user_pool.main.id
 
-  generate_secret = false
+#   generate_secret = false
 
-  explicit_auth_flows = [
-    "ALLOW_USER_AUTH", # Required for passwordless (email OTP, passkeys)
-    "ALLOW_USER_SRP_AUTH",
-    "ALLOW_REFRESH_TOKEN_AUTH"
-  ]
+#   explicit_auth_flows = [
+#     "ALLOW_USER_AUTH", # Required for passwordless (email OTP, passkeys)
+#     "ALLOW_USER_SRP_AUTH",
+#     "ALLOW_REFRESH_TOKEN_AUTH"
+#   ]
 
-  supported_identity_providers = ["EntraID"]
+#   supported_identity_providers = ["EntraID"]
 
-  callback_urls = var.callback_urls
-  logout_urls   = var.logout_urls
+#   callback_urls = var.callback_urls
+#   logout_urls   = var.logout_urls
 
-  allowed_oauth_flows                  = ["code", "implicit"]
-  allowed_oauth_scopes                 = ["email", "openid", "profile"]
-  allowed_oauth_flows_user_pool_client = true
+#   allowed_oauth_flows                  = ["code", "implicit"]
+#   allowed_oauth_scopes                 = ["email", "openid", "profile"]
+#   allowed_oauth_flows_user_pool_client = true
 
-  prevent_user_existence_errors = "ENABLED"
+#   prevent_user_existence_errors = "ENABLED"
 
-  # Attribute permissions - allow read/write of custom attributes
-  read_attributes  = ["email", "name", "custom:cis-role"]
-  write_attributes = ["email", "name", "custom:cis-role"]
+#   # Attribute permissions - allow read/write of custom attributes
+#   read_attributes  = ["email", "name", "custom:cis-role"]
+#   write_attributes = ["email", "name", "custom:cis-role"]
 
-  access_token_validity  = var.access_token_validity
-  id_token_validity      = var.id_token_validity
-  refresh_token_validity = var.refresh_token_validity
+#   access_token_validity  = var.access_token_validity
+#   id_token_validity      = var.id_token_validity
+#   refresh_token_validity = var.refresh_token_validity
 
-  token_validity_units {
-    access_token  = "hours"
-    id_token      = "hours"
-    refresh_token = "days"
-  }
+#   token_validity_units {
+#     access_token  = "hours"
+#     id_token      = "hours"
+#     refresh_token = "days"
+#   }
 
-  depends_on = [aws_cognito_identity_provider.entra]
-}
+#   depends_on = [aws_cognito_identity_provider.entra]
+# }
 
 resource "kubernetes_secret" "cognito_user_pool_client" {
   metadata {
