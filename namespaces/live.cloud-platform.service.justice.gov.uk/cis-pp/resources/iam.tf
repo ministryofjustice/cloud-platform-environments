@@ -63,7 +63,7 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
 # References:
 # https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-with-reusable-workflows
 # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif
-# https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/5.9.2/submodules/iam-github-oidc-role 
+# https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/5.9.2/submodules/iam-github-oidc-role
 # -----------------------------------------------------------------------------
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -111,6 +111,12 @@ data "aws_iam_policy_document" "github_oidc_policy" {
       test     = "StringLike"
       variable = "${local.provider_url}:job_workflow_ref"
       values   = ["ministryofjustice/${var.github_repository}/${var.oidc_role_workflow_file}@refs/heads/${var.oidc_role_workflow_branch}"]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "${local.provider_url}:job_workflow_ref"
+      values   = ["ministryofjustice/${var.github_repository}/${var.oidc_role_frontend_deploy_workflow_file}@refs/heads/*"]
     }
   }
 }
