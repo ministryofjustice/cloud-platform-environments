@@ -17,6 +17,7 @@ module "irsa" {
     sqs           = module.redact_task_queue.irsa_policy_arn
     redaction_sqs = module.apply_redactions_queue.irsa_policy_arn
     ecr        = module.ecr.irsa_policy_arn
+    inspector     = aws_iam_policy.inspector_scan_policy.arn   # added to allow the pod to read Inspector scan findings for ECR
   }
 
   # Tags
