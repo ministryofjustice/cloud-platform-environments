@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "irsa-sqs-${var.namespace}"
+  service_account_name = "irsa-sqs-laa-ccms-user-management-api-feasibility"
   namespace            = var.namespace
 
   role_policy_arns = {
