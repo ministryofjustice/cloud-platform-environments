@@ -9,6 +9,7 @@ locals {
   irsa_policies = merge(local.sns_policies, local.sqs_policies, {
     prisoner_finance_queue_for_domain_events                   = module.prisoner_finance_queue_for_domain_events.irsa_policy_arn
     prisoner_finance_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+
   })
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
@@ -21,7 +22,10 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-finance"
-  role_policy_arns     = local.irsa_policies
+  role_policy_arns = merge(local.irsa_policies,
+    {
+      prisoner_finance_dlq_redrive_policy = aws_sqs_queue_policy.prisoner_finance_queue_for_domain_events_queue_dlq_policy
+  })
   # Tags
   business_unit          = var.business_unit
   application            = var.application
