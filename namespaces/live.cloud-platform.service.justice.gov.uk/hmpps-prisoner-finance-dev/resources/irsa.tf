@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "combined_sqs" {
 }
 
 resource "aws_iam_policy" "combined_sqs" {
-  name        = "${var.namespace}-${var.application}-combined-sqs"
+  name        = "${var.namespace}-hmpps-prisoner-finance-combined-sqs"
   description = "Combined SQS access policy for ${var.application}"
   policy      = data.aws_iam_policy_document.combined_sqs.json
 }
