@@ -38,8 +38,8 @@ data "aws_iam_policy_document" "combined_sqs" {
     ]
 
     resources = [
-      module.prisoner_finance_queue_for_domain_events,
-      module.prisoner_finance_queue_for_domain_events_dead_letter_queue
+      module.prisoner_finance_queue_for_domain_events.arn,
+      module.prisoner_finance_queue_for_domain_events_dead_letter_queue.arn
     ]
   }
 }
