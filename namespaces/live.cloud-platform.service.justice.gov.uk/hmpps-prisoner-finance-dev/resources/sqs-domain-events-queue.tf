@@ -51,7 +51,7 @@ resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_
    EOF
 }
 
-resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_policy" {
+resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_dlq_policy" {
 
 
   queue_url = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_id
