@@ -49,6 +49,6 @@ resource "aws_iam_policy" "inspector_scan_policy" {
 
 # Attach policy to the IRSA role created by the ECR module
 resource "aws_iam_role_policy_attachment" "inspector_scan_attachment" {
-  role       = module.ecr.irsa_role_name
+  role       = module.ecr.role_name
   policy_arn = aws_iam_policy.inspector_scan_policy.arn
 }
