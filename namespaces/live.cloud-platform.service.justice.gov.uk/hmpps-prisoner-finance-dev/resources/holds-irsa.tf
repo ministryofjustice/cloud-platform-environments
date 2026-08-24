@@ -1,6 +1,6 @@
 locals {
   rds_irsa_policies = {
-    rds                              = module.holds_rds.irsa_policy_arn
+    rds = module.holds_rds.irsa_policy_arn
   }
 }
 
