@@ -47,7 +47,15 @@ resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_
                             "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
                           }
                         }
-        }
+        },
+        {
+              "Effect": "Allow",
+              "Principal": {"AWS": "*"},
+              "Resource": "${module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_arn}",
+              "Action": [
+                "sqs:StartMessageMoveTask",
+              ]
+            }
       ]
   }
    EOF
