@@ -47,7 +47,11 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     origin_id                = local.cloudfront_origin_id
   }
 
-  # Managed-SimpleCORS response headers policy: adds "Access-Control-Allow-Origin: *".
+  # Serves everything that does not match an ordered_cache_behavior below -
+  # principally /uploads/*. Deliberately NO CORS: nothing loads uploads
+  # cross-origin, and wp-document-revisions stores access-controlled documents
+  # under uploads/sites/ (see opt/php/wpdr-document-upload-dir.php in
+  # hale-platform). CORS is scoped to /assets/* instead.
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD"]
@@ -58,9 +62,28 @@ resource "aws_cloudfront_distribution" "cloudfront" {
     target_origin_id           = local.cloudfront_origin_id
     viewer_protocol_policy     = "redirect-to-https"                    # Enforce redirecting HTTP to HTTPS
     cache_policy_id            = "658327ea-f89d-4fab-a63d-7e88639e58f6" # Managed-CachingOptimized
-    response_headers_policy_id = "e61eb60c-9c35-4d20-a928-2b84e02af89c" # Managed-SimpleCORS
+    response_headers_policy_id = "67f7725c-6f97-4210-82d7-5512b31e9d03" # Managed-SecurityHeadersPolicy
   }
 
+  # Compiled theme assets, published per release by the hale-platform build.
+  #
+  # CORS is needed HERE AND ONLY HERE: @font-face and ES module scripts (the
+  # Hale theme adds type="module" to govuk-frontend) are always fetched in
+  # CORS mode, so without Access-Control-Allow-Origin the browser discards
+  # them even though S3 returns 200.
+  ordered_cache_behavior {
+    path_pattern               = "/assets/*"
+    allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+    cached_methods             = ["GET", "HEAD"]
+    compress                   = true
+    target_origin_id           = local.cloudfront_origin_id
+    viewer_protocol_policy     = "redirect-to-https"
+    cache_policy_id            = "658327ea-f89d-4fab-a63d-7e88639e58f6" # Managed-CachingOptimized
+    response_headers_policy_id = "e61eb60c-9c35-4d20-a928-2b84e02af89c" # Managed-CORS-and-SecurityHeadersPolicy
+  }
+
+  # Per-site colour CSS is regenerated in place when an editor changes a
+  # site's colours, so it must never be cached.
   ordered_cache_behavior {
     path_pattern               = "/uploads/sites/*/*colours*.css"
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
