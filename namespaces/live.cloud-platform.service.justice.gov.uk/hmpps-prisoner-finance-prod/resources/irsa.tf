@@ -9,10 +9,44 @@ locals {
   irsa_policies = merge(local.sns_policies, local.sqs_policies, {
     prisoner_finance_queue_for_domain_events                   = module.prisoner_finance_queue_for_domain_events.irsa_policy_arn
     prisoner_finance_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    combined_sqs                                               = aws_iam_policy.combined_sqs.arn
   })
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
+}
+
+data "aws_iam_policy_document" "combined_sqs" {
+  statement {
+    sid    = "AllowSqsAccess"
+    effect = "Allow"
+
+    actions = [
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListDeadLetterSourceQueues",
+      "sqs:ListMessageMoveTasks",
+      "sqs:ListQueueTags",
+      "sqs:CancelMessageMoveTask",
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:PurgeQueue",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+      "sqs:StartMessageMoveTask",
+    ]
+
+    resources = [
+      module.prisoner_finance_queue_for_domain_events.sqs_arn,
+      module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sqs" {
+  name        = "${var.namespace}-hmpps-prisoner-finance-combined-sqs"
+  description = "Combined SQS access policy for ${var.application}"
+  policy      = data.aws_iam_policy_document.combined_sqs.json
 }
 
 module "irsa" {
