@@ -19,7 +19,7 @@ module "redact_task_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "${var.team_name}-${var.environment}-redact-task-queue" # -> <team_name>-<environment_name>-redact-task-queue
+  sqs_name        = "redact-task-queue" # -> <team_name>-<environment_name>-redact-task-queue
   encrypt_sqs_kms = "true"
 
   # Long enough that an in-flight ML job isn't picked up by a second pod
@@ -56,7 +56,7 @@ module "redact_task_queue" {
 module "redact_task_queue_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name        = "${var.team_name}-${var.environment}-redact-task-queue-dlq"
+  sqs_name        = "redact-task-queue-dlq"
   encrypt_sqs_kms = "true"
 
   business_unit           = var.business_unit
@@ -189,7 +189,7 @@ output "redact_task_queue_dlq_arn" {
 module "apply_redactions_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name         = "${var.team_name}-${var.environment}-apply-redactions-queue"
+  sqs_name         = "apply-redactions-queue"
   encrypt_sqs_kms  = "true"
 
   visibility_timeout_seconds = 900
@@ -217,7 +217,7 @@ module "apply_redactions_queue" {
 module "apply_redactions_queue_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name        = "${var.team_name}-${var.environment}-apply-redactions-queue-dlq"
+  sqs_name        = "apply-redactions-queue-dlq"
   encrypt_sqs_kms = "true"
 
   business_unit          = var.business_unit
