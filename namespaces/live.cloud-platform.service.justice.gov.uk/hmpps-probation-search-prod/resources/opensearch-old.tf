@@ -11,22 +11,22 @@ module "opensearch" {
   team_name              = var.team_name
   vpc_name               = var.vpc_name
 
-  engine_version               = "OpenSearch_3.1"
+  engine_version               = "OpenSearch_3.7"
   auto_software_update_enabled = true
 
   snapshot_bucket_arn = module.opensearch_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "m7g.xlarge.search"
+    instance_type            = "r8g.2xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "m7g.large.search"
+    dedicated_master_type    = "m8g.large.search"
   }
   proxy_count = 3
   ebs_options = {
     volume_size = 600 # we can reduce this to 300GB after removing keyword search
-    iops        = 10000 # TODO reduce to 3000/250 after incident is resolved
-    throughput  = 1000
+    iops        = 10000
+    throughput  = 500
   }
 }
 
