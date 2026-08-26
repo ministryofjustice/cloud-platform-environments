@@ -56,7 +56,7 @@ module "irsa_rds_backup_check"{
   namespace            = var.namespace
   
   role_policy_arns = {
-    rds_backup_check = data.aws_ssm_parameter.rds_backup_check_policy_arn.value
+    rds_backup_check = data.aws_iam_policy_document.rds_backup_check_assume_role_policy.json
   }
   business_unit          = var.business_unit
   application            = var.application
