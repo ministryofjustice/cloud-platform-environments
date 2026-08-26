@@ -81,6 +81,7 @@ resource "kubernetes_secret" "irsa" {
 # describe-image-scan-findings) against resources this namespace's IRSA
 # role has access to.
 # ---------------------------------------------------------------------------
+
 module "service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # check for latest release
 
