@@ -48,8 +48,7 @@ resource "kubernetes_secret" "probation_search_url" {
     namespace = var.namespace
   }
   data = {
-    url = module.opensearch_cluster.proxy_url
-    old_url = module.opensearch.proxy_url
+    url = module.opensearch.proxy_url
   }
 }
 
