@@ -4,6 +4,7 @@ module "service_pod_100" {
   # Configuration
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  override_deployment_name = "sp-alpine"
 }
 
 module "service_pod_121" {
@@ -12,6 +13,7 @@ module "service_pod_121" {
   # Configuration
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  override_deployment_name = "sp-debian12"
 }
 
 module "service_pod_debian13" {
@@ -20,5 +22,5 @@ module "service_pod_debian13" {
   # Configuration
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  override_deployment_name = "sp-debian13"
 }
-
