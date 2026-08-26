@@ -5,4 +5,4 @@ metadata:
   namespace: hmpps-security-assurance-toolkit
 spec:
   hard:
-    pods: "10"
+    pods: "50"
