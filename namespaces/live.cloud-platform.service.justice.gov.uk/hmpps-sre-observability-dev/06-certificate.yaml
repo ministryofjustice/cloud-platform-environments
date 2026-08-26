@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-sre-observability-dev-cert
+  name: hmpps-health-kick-dev-cert
   namespace: hmpps-sre-observability-dev
 spec:
   secretName: hmpps-sre-observability-dev-cert
@@ -11,3 +11,18 @@ spec:
   dnsNames:
     - health-kick-dev.hmpps.service.justice.gov.uk
     - '*.health-kick-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-dependencytrack-dev-cert
+  namespace: hmpps-sre-observability-dev
+spec:
+  secretName: hmpps-dependencytrack-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dependencytrack-dev.hmpps.service.justice.gov.uk
+    - '*.dependencytrack-dev.hmpps.service.justice.gov.uk'
