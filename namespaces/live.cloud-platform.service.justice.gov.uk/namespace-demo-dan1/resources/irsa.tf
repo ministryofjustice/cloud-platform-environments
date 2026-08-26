@@ -2,9 +2,15 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
+
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = {}
+
+  role_policy_arns     = {
+    rds = module.pg17.irsa_policy_arn
+    s3  = module.s3_bucket.irsa_policy_arn
+  }
+  
   # Tags
   business_unit          = var.business_unit
   application            = var.application
