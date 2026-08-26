@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "rds_backup_check_assume_role_policy" {
     sid       = "DescribeDBSnapshots"
     effect    = "Allow"
     actions   = ["rds:DescribeDBSnapshots"]
-    resources = ["arn:aws:rds:*:*:snapshot:*"]
+    resources = ["arn:aws:rds:::snapshot:*"]
   }
 }
 
