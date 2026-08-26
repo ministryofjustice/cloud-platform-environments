@@ -34,12 +34,11 @@ module "redact_task_queue" {
   # Redrive policy - send failed/poison messages to the DLQ below.
   # Kept low since retrying an expensive ML task repeatedly wastes
   # compute if the underlying document is the problem.
-  redrive_policy = <<EOF
-{
-  "deadLetterTargetArn": "${module.redact_task_queue_dlq.sqs_arn}",
-  "maxReceiveCount": 3
-}
-EOF
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.redact_task_queue_dlq.sqs_arn
+    maxReceiveCount     = 3
+  })
+
 
   # Tags (standard Cloud Platform tagging variables, defined in resources/variables.tf)
   business_unit           = var.business_unit
@@ -88,7 +87,7 @@ module "redact_task_queue_dlq" {
 # ---------------------------------------------------------------------
 resource "kubernetes_secret" "redact_task_queue_output" {
   metadata {
-    name      = "justice-redact-sqs"
+    name      = "${var.team_name}-${var.environment}-sqs"
     namespace = var.namespace
     annotations = {
       description = "SQS task queue details for document-redaction jobs (queue_url, queue_arn, queue_name, dlq_arn). Managed by sqs.tf."
@@ -196,12 +195,10 @@ module "apply_redactions_queue" {
   visibility_timeout_seconds = 900
   receive_wait_time_seconds   = 20
 
-  redrive_policy = <<EOF
-{
-  "deadLetterTargetArn": "${module.apply_redactions_queue_dlq.sqs_arn}",
-  "maxReceiveCount": 3
-}
-EOF
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.apply_redactions_queue_dlq.sqs_arn
+    maxReceiveCount     = 3
+  })
 
   business_unit          = var.business_unit
   application            = var.application
@@ -239,7 +236,7 @@ module "apply_redactions_queue_dlq" {
 
 resource "kubernetes_secret" "apply_redactions_queue_output" {
   metadata {
-    name      = "justice-redact-redaction-sqs"
+    name      = "${var.team_name}-${var.environment}-redaction-sqs"
     namespace = var.namespace
 
     annotations = {

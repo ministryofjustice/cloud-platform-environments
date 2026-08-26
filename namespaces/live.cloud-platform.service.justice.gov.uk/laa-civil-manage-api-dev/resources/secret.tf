@@ -20,6 +20,12 @@ module "secrets_manager" {
       description             = "Client secret for Civil Manage API Entra ID OBO authentication",
       recovery_window_in_days = 7,
       k8s_secret_name         = "azure-entra-api-client-secret"
+    },
+
+    "gov-uk-notify-api-key" = {
+      description             = "API key for GOV.UK Notify service",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "gov-uk-notify-api-key"
     }
   }
 }
