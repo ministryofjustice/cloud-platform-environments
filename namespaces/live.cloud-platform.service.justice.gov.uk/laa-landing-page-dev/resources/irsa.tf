@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "rds_backup_check_assume_role_policy" {
     sid       = "DescribeRDSnapshots"
     effect    = "Allow"
     actions   = ["rds:DescribeDBSnapshots"]
-    resources = ["*"]
+    resources = ["arn:aws:rds:::snapshot:*"]
   }
 }
 
@@ -56,7 +56,7 @@ module "irsa_rds_backup_check"{
   namespace            = var.namespace
   
   role_policy_arns = {
-    rds_backup_check = data.aws_iam_policy_document.rds_backup_check_assume_role_policy.json
+    rds_backup_check = data.aws_iam_policy_document.rds_backup_check_assume_role_policy.arn
   }
   business_unit          = var.business_unit
   application            = var.application
