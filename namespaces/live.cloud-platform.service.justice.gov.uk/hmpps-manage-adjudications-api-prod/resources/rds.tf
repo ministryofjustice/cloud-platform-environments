@@ -11,7 +11,7 @@ module "ma_rds" {
 
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres17"
-  db_engine_version           = "17"
+  db_engine_version           = "17.9"
   deletion_protection         = true
   db_password_rotated_date    = "15-02-2023"
   allow_major_version_upgrade = "false"
