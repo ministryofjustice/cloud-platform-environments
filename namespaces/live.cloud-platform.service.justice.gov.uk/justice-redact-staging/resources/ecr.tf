@@ -9,7 +9,7 @@ module "ecr" {
   github_repositories = ["justice-redact-frontend", "justice-redact-backend"]
 
   # Scope ECR secrets and variables to the 'staging' GitHub environment
-  # This prevents conflicts with dev ECR terraform writing the same repo-level secrets
+  # This prevents conflicts with dev/prod ECR terraform writing the same repo-level secrets
   github_environments = ["staging"]
 
   # Tags
@@ -22,4 +22,27 @@ module "ecr" {
   infrastructure_support = var.infrastructure_support
 
   enable_irsa = true
+}
+
+# Policy allowing Inspector & ECR scan findings read access
+resource "aws_iam_policy" "inspector_scan_policy" {
+  name        = "${var.namespace}-inspector-scan-policy"
+  description = "Allow service pod to read Inspector scan findings for ECR"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowInspectorScanRead"
+        Effect = "Allow"
+        Action = [
+          "ecr:DescribeImageScanFindings",
+          "inspector2:ListCoverage",
+          "inspector2:ListFindings",
+          "inspector2:GetFindingsReportStatus"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
 }
