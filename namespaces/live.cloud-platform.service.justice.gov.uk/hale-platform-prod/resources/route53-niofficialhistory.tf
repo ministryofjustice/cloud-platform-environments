@@ -55,6 +55,7 @@ resource "aws_route53_record" "niofficialhistory_route53_txt_record_google_domai
   records = ["v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgCJ3gt3Pb2tqfcO+rMIRb7XcwoFrhpXHFSqHCxES+VOEZNc1h64sn9T+kmA9aO+5WXtgwn572U2ewLfeFJMLdBt/HW6PM/yWcCHr8jyzDE8cNhCDgmiANZ0+rEv+zuZVcxNsaoYTjijqcg1d\"\"MrO1k/I8kCrKZ/MCEY/x+0cy2G7XJ3btHxI81DCBhUvZjzATDvq2x/424dG7hzBCnDBclG14CzPEx75liRizwG+KXgkUpXlfDVXN2EVscDSWaMujvTu4M\"\"vask3USs3eOAuhF3Udy4stj5H5HPuxVcVZZprCxiDzRE90/aIpFLj/iLQroORpT0Xhq0IPl3xiCNoNxVQIDAQAB"]
 }
 
+
 resource "aws_route53_record" "niofficialhistory_route53_txt_record_dmarc" {
   zone_id = aws_route53_zone.niofficialhistory_route53_zone.zone_id
   name    = "_dmarc.niofficialhistory.org.uk"
