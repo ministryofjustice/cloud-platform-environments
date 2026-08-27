@@ -1,7 +1,7 @@
 module "hmpps_security_assurance_toolkit_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage        = 20
-  storage_type                = "gp3"
+  storage_type                = "gp2"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -63,7 +63,7 @@ resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds-dev" {
 locals {
 
   rds_databases = {
-    "rdsAlertsDatabases.${module.hmpps_security_assurance_toolkit_rds.db_identifier}" = "hmpps-service-catalogue-db"
+    "rdsAlertsDatabases.${module.hmpps_security_assurance_toolkit_rds.db_identifier}" = "hmpps-security-assurance-toolkit-db"
 
   }
 
