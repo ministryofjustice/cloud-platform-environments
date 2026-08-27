@@ -228,7 +228,7 @@ resource "aws_glue_catalog_table" "device_activations" {
 
     columns {
       name = "device_serial_number"
-      type = "varchar"
+      type = "string"
     }
 
     location      = "s3://${module.data_bucket.bucket_name}/device_activations/"
