@@ -109,7 +109,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_agencyregisters_subsc
   endpoint  = module.prisoner_from_nomis_agencyregisters_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "PLACEHOLDER",
+      "ADDRESSES_AGENCY-INSERTED",
+      "ADDRESSES_AGENCY-UPDATED",
+      "ADDRESSES_AGENCY-DELETED"
     ]
   })
 }
