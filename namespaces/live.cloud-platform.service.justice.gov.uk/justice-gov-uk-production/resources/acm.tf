@@ -23,25 +23,3 @@ resource "aws_acm_certificate" "cloudfront_alias_cert" {
     create_before_destroy = true
   }
 }
-
-# aws_acm_certificate_validation for the CloudFront alias.
-# This is part of the validation workflow and not a a real-world entity in AWS.
-# The resource is used together with aws_route53_record and aws_acm_certificate
-# to request a DNS validated certificate, deploy the required validation records 
-# and wait for validation to complete.
-
-resource "aws_acm_certificate_validation" "cloudfront_alias_cert_validation" {
-  certificate_arn         = aws_acm_certificate.cloudfront_alias_cert.arn
-  validation_record_fqdns = aws_route53_record.cert_validations[*].fqdn 
-
-  provider = aws.virginia
-
-  timeouts {
-    create = "10m"
-  }
-
-  depends_on = [
-    aws_acm_certificate.cloudfront_alias_cert,
-    aws_route53_record.cert_validations
-  ]
-}
