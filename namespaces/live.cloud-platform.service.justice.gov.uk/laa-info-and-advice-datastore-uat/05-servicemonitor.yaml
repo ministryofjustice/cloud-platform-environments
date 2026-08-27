@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-info-and-advice-datastore-monitor
+spec:
+  selector:
+    matchLabels:
+      app: laa-info-and-advice-datastore
+  endpoints:
+    - port: http
+      interval: 15s
