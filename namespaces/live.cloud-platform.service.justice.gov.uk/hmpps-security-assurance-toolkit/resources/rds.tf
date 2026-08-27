@@ -21,7 +21,6 @@ module "hmpps_security_assurance_toolkit_rds" {
   }
 
 }
-
 resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds" {
   metadata {
     name      = "rds-instance-output"
