@@ -16,7 +16,7 @@ module "service_pod_121" {
 }
 
 module "service_pod_debian13" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=debian13"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=main"
 
   # Configuration
   namespace            = var.namespace
