@@ -1,5 +1,5 @@
 module "prisoner_finance_queue_for_domain_events" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -40,18 +40,44 @@ resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_
           "Principal": {"AWS": "*"},
           "Resource": "${module.prisoner_finance_queue_for_domain_events.sqs_arn}",
           "Action": "SQS:SendMessage",
-          "Condition":
-                      {
-                        "ArnEquals":
-                          {
-                            "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
-                          }
-                        }
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
+            }
+          }
         }
       ]
   }
    EOF
 }
+
+resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_dlq_policy" {
+
+
+  queue_url = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_id
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {"AWS": "${module.irsa.role_arn}"},
+        "Resource": "${module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_arn}",
+        "Action": [
+          "sqs:StartMessageMoveTask",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+      }
+    ]
+  }
+  EOF
+}
+
+
 
 module "prisoner_finance_queue_for_domain_events_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
