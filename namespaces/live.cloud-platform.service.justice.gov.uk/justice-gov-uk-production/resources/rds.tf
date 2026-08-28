@@ -19,7 +19,7 @@ module "rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
-  deletion_protection         = true
+  deletion_protection         = false
 
   # overwrite db_parameters
   db_parameter = [
