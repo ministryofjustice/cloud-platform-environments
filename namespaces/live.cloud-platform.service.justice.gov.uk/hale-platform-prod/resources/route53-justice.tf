@@ -80,9 +80,9 @@ resource "aws_route53_record" "github_pages_cname" {
   records = ["ministryofjustice.github.io"]
 }
 
-resource "kubernetes_secret" "route53_zone_sec" {
+resource "kubernetes_secret" "www_justice_gov_uk_route53_zone" {
   metadata {
-    name      = "route53-zone-output"
+    name      = "justice-route53-zone-output"
     namespace = var.namespace
   }
 
