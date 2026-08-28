@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: allow-laa-ccms-file-upload-api-feasibility
+              cloud-platform.justice.gov.uk/namespace: laa-ccms-file-upload-api-feasibility
