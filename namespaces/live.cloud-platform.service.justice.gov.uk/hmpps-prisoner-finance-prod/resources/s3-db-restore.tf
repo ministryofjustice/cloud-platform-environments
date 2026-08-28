@@ -20,7 +20,7 @@ resource "kubernetes_secret" "s3-db-restore" {
   }
 
   data = {
-    bucket_arn  = module.s3.bucket_arn
-    bucket_name = module.s3.bucket_name
+    bucket_arn  = module.holds-restore-s3-bucket.bucket_arn
+    bucket_name = module.holds-restore-s3-bucket.bucket_name
   }
 }
