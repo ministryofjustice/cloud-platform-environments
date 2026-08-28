@@ -122,3 +122,82 @@ resource "kubernetes_secret" "rds_temp" {
     rds_instance_address  = module.rds_temp.rds_instance_address
   }
 }
+
+# ---------------------------------------------------------------------------
+# Read-only user for the main RDS instance (module.rds)
+# ---------------------------------------------------------------------------
+
+provider "postgresql" {
+  host             = module.rds.rds_instance_address
+  port             = module.rds.rds_instance_port
+  database         = module.rds.database_name
+  username         = module.rds.database_username
+  password         = module.rds.database_password
+  expected_version = "16"
+  sslmode          = "require"
+  superuser        = false
+  connect_timeout  = 15
+}
+
+resource "random_password" "readonly_password" {
+  length  = 16
+  special = false
+
+  keepers = {
+    last_changed = "2026-08-28"
+  }
+}
+
+resource "postgresql_role" "readonly" {
+  name     = "laa_landing_page_readonly"
+  login    = true
+  password = random_password.readonly_password.result
+
+  lifecycle {
+    ignore_changes = [roles]
+  }
+}
+
+# Read every current and future table/schema in the database.
+resource "postgresql_grant_role" "readonly_pg_read_all_data" {
+  role       = postgresql_role.readonly.name
+  grant_role = "pg_read_all_data"
+}
+
+# Ensure the role can connect to the database.
+resource "postgresql_grant" "readonly_connect" {
+  database    = module.rds.database_name
+  role        = postgresql_role.readonly.name
+  object_type = "database"
+  privileges  = ["CONNECT"]
+}
+
+resource "kubernetes_secret" "rds_readonly" {
+  metadata {
+    name      = "rds-postgresql-instance-readonly-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = postgresql_role.readonly.name
+    database_password     = random_password.readonly_password.result
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "rds_readonly_api" {
+  metadata {
+    name      = "rds-postgresql-instance-readonly-output"
+    namespace = var.namespace-api
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = postgresql_role.readonly.name
+    database_password     = random_password.readonly_password.result
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
