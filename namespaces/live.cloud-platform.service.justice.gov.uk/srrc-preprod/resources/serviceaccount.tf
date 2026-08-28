@@ -6,9 +6,10 @@ module "serviceaccount" {
 
   serviceaccount_token_rotated_date = "20-03-2026"
 
+  deletion_protection = false
+
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
 
   github_repositories = ["srrc-verify-biometric-scans-api"]
-  github_environments = ["preprod"]
 }
