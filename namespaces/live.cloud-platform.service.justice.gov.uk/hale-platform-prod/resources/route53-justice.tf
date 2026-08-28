@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "www_justice_gov_uk_route53_zone" {
+resource "aws_route53_zone" "justice_route53_zone" {
   name = "www.justice.gov.uk"
 
   tags = {
@@ -12,8 +12,8 @@ resource "aws_route53_zone" "www_justice_gov_uk_route53_zone" {
   }
 }
 
-resource "aws_route53_record" "mx" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_mx" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "www.justice.gov.uk."
   type    = "MX"
   ttl     = 1800
@@ -22,8 +22,8 @@ resource "aws_route53_record" "mx" {
   ]
 }
 
-resource "aws_route53_record" "spf" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_spf" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "www.justice.gov.uk."
   type    = "TXT"
   ttl     = 300
@@ -32,8 +32,8 @@ resource "aws_route53_record" "spf" {
   ]
 }
 
-resource "aws_route53_record" "dmarc" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_dmarc" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "_dmarc.www.justice.gov.uk."
   type    = "TXT"
   ttl     = 300
@@ -42,8 +42,8 @@ resource "aws_route53_record" "dmarc" {
   ]
 }
 
-resource "aws_route53_record" "domain_key" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_domain_key" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "*._domainkey.www.justice.gov.uk."
   type    = "TXT"
   ttl     = 300
@@ -52,8 +52,8 @@ resource "aws_route53_record" "domain_key" {
   ]
 }
 
-resource "aws_route53_record" "github_challenge_moj" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_github_challenge_moj" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "_github-challenge-ministryofjustice.www.justice.gov.uk."
   type    = "TXT"
   ttl     = 300
@@ -62,8 +62,8 @@ resource "aws_route53_record" "github_challenge_moj" {
   ]
 }
 
-resource "aws_route53_record" "github_challenge_moj_as" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_github_challenge_moj_as" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "_github-challenge-moj-analytical-services.www.justice.gov.uk."
   type    = "TXT"
   ttl     = 300
@@ -72,22 +72,22 @@ resource "aws_route53_record" "github_challenge_moj_as" {
   ]
 }
 
-resource "aws_route53_record" "github_pages_cname" {
-  zone_id = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
+resource "aws_route53_record" "justice_github_pages_cname" {
+  zone_id = aws_route53_zone.justice_route53_zone.zone_id
   name    = "howto-admin.www.justice.gov.uk."
   type    = "CNAME"
   ttl     = "300"
   records = ["ministryofjustice.github.io"]
 }
 
-resource "kubernetes_secret" "www_justice_gov_uk_route53_zone" {
+resource "kubernetes_secret" "justice_route53_zone" {
   metadata {
     name      = "justice-route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id      = aws_route53_zone.www_justice_gov_uk_route53_zone.zone_id
-    name_servers = join("\n", aws_route53_zone.www_justice_gov_uk_route53_zone.name_servers)
+    zone_id      = aws_route53_zone.justice_route53_zone.zone_id
+    name_servers = join("\n", aws_route53_zone.justice_route53_zone.name_servers)
   }
 }
