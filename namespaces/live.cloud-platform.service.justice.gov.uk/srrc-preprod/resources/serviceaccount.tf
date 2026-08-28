@@ -10,4 +10,5 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
 
   github_repositories = ["srrc-verify-biometric-scans-api"]
+  github_environments = ["preprod"]
 }
