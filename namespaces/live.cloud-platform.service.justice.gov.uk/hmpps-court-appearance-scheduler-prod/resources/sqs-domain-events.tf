@@ -45,6 +45,7 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
       "court-appearance.inserted",
       "court-appearance.updated",
       "court-appearance.deleted",
+      "nomis-sync.court-appearance.cloned",
     ]
   })
 }
