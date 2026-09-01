@@ -14,8 +14,6 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["srrc-poc-sample-application","srrc-verify-biometric-scans-api","srrc-capture-finger-prints","srrc-soap-ws-stub-endpoint"]
 
-  github_environments = ["development"]
-
   # Tags
   business_unit          = var.business_unit
   application            = var.application
