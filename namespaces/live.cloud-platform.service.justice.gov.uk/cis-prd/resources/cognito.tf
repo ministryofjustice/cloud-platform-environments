@@ -120,56 +120,56 @@ resource "aws_cognito_user_pool_domain" "main" {
 # -----------------------------------------------------------------------------
 # Cognito User Pool Client
 # -----------------------------------------------------------------------------
-# resource "aws_cognito_user_pool_client" "main" {
-#   name         = "${var.environment}-app-client"
-#   user_pool_id = aws_cognito_user_pool.main.id
+resource "aws_cognito_user_pool_client" "main" {
+  name         = "${var.environment}-app-client"
+  user_pool_id = aws_cognito_user_pool.main.id
 
-#   generate_secret = false
+  generate_secret = false
 
-#   explicit_auth_flows = [
-#     "ALLOW_USER_AUTH", # Required for passwordless (email OTP, passkeys)
-#     "ALLOW_USER_SRP_AUTH",
-#     "ALLOW_REFRESH_TOKEN_AUTH"
-#   ]
+  explicit_auth_flows = [
+    "ALLOW_USER_AUTH", # Required for passwordless (email OTP, passkeys)
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH"
+  ]
 
-#   supported_identity_providers = ["EntraID"]
+  supported_identity_providers = ["EntraID"]
 
-#   callback_urls = var.callback_urls
-#   logout_urls   = var.logout_urls
+  callback_urls = var.callback_urls
+  logout_urls   = var.logout_urls
 
-#   allowed_oauth_flows                  = ["code", "implicit"]
-#   allowed_oauth_scopes                 = ["email", "openid", "profile"]
-#   allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                  = ["code", "implicit"]
+  allowed_oauth_scopes                 = ["email", "openid", "profile"]
+  allowed_oauth_flows_user_pool_client = true
 
-#   prevent_user_existence_errors = "ENABLED"
+  prevent_user_existence_errors = "ENABLED"
 
-#   # Attribute permissions - allow read/write of custom attributes
-#   read_attributes  = ["email", "name", "custom:cis-role"]
-#   write_attributes = ["email", "name", "custom:cis-role"]
+  # Attribute permissions - allow read/write of custom attributes
+  read_attributes  = ["email", "name", "custom:cis-role"]
+  write_attributes = ["email", "name", "custom:cis-role"]
 
-#   access_token_validity  = var.access_token_validity
-#   id_token_validity      = var.id_token_validity
-#   refresh_token_validity = var.refresh_token_validity
+  access_token_validity  = var.access_token_validity
+  id_token_validity      = var.id_token_validity
+  refresh_token_validity = var.refresh_token_validity
 
-#   token_validity_units {
-#     access_token  = "hours"
-#     id_token      = "hours"
-#     refresh_token = "days"
-#   }
+  token_validity_units {
+    access_token  = "hours"
+    id_token      = "hours"
+    refresh_token = "days"
+  }
 
-#   depends_on = [aws_cognito_identity_provider.entra]
-# }
+  depends_on = [aws_cognito_identity_provider.entra]
+}
 
-# resource "kubernetes_secret" "cognito_user_pool_client" {
-#   metadata {
-#     name      = "${var.namespace}-cognito-user-pool-client"
-#     namespace = var.namespace
-#   }
-#   data = {
-#     client_id     = aws_cognito_user_pool_client.main.id
-#     client_secret = aws_cognito_user_pool_client.main.client_secret
-#   }
-# }
+resource "kubernetes_secret" "cognito_user_pool_client" {
+  metadata {
+    name      = "${var.namespace}-cognito-user-pool-client"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.main.id
+    client_secret = aws_cognito_user_pool_client.main.client_secret
+  }
+}
 
 data "aws_secretsmanager_secret" "cognito_test_user" {
   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-cognito-test-user-secret"]
@@ -197,23 +197,21 @@ data "aws_secretsmanager_secret_version" "cognito_test_user" {
 # Entra ID (OIDC) Identity Provider
 # -----------------------------------------------------------------------------
 
-# Temporarily commenting out the Entra ID Identity Provider configuration due to issues with the secrets. This will be re-enabled once the secrets are correctly configured and available.
+data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
+  name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-id"]
+}
 
-# data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
-#   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-id"]
-# }
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
+}
 
-# data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
-#   secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
-# }
+data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
+  name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-secret"]
+}
 
-# data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
-#   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-client-secret"]
-# }
-
-# data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
-#   secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
-# }
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
+}
 
 data "aws_secretsmanager_secret" "entra_prod_external_tenant_id" {
   name = module.cis_prd_entra_prod_external_client_secret.secret_names["cis-prd-entra-prod-external-tenant-id"]
@@ -223,21 +221,21 @@ data "aws_secretsmanager_secret_version" "entra_prod_external_tenant_id" {
   secret_id = data.aws_secretsmanager_secret.entra_prod_external_tenant_id.id
 }
 
-# resource "aws_cognito_identity_provider" "entra" {
-#   user_pool_id  = aws_cognito_user_pool.main.id
-#   provider_name = "EntraID"
-#   provider_type = "OIDC"
+resource "aws_cognito_identity_provider" "entra" {
+  user_pool_id  = aws_cognito_user_pool.main.id
+  provider_name = "EntraID"
+  provider_type = "OIDC"
 
-#   provider_details = {
-#     client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
-#     client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
-#     authorize_scopes          = "openid email profile"
-#     attributes_request_method = "GET"
-#     oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
-#   }
+  provider_details = {
+    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
+    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
+    authorize_scopes          = "openid email profile"
+    attributes_request_method = "GET"
+    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PRD_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
+  }
 
-#   attribute_mapping = {
-#     email             = "USER_EMAIL"
-#     "custom:cis-role" = "LAA_APP_ROLES"
-#   }
-# }
+  attribute_mapping = {
+    email             = "USER_EMAIL"
+    "custom:cis-role" = "LAA_APP_ROLES"
+  }
+}
