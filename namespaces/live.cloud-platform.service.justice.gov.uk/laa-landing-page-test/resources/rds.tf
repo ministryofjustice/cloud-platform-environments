@@ -88,7 +88,7 @@ resource "random_password" "readonly_password" {
   special = false
 
   keepers = {
-    last_changed = "2026-08-28"
+    last_changed = "2026-09-02"
   }
 }
 
