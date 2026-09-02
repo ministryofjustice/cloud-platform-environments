@@ -63,4 +63,19 @@ provider "github" {
   owner = var.github_owner
 }
 
+# Kept temporarily (not reverted) so Terraform can destroy the
+# postgresql_grant_role.rds_iam resource that is being removed as part of
+# the IRSA revert (MEM-1138). Remove this provider block in a follow-up PR
+# once the destroy has been applied and the resource is confirmed gone
+# from state.
+provider "postgresql" {
+  host      = module.rds.rds_instance_address
+  port      = module.rds.rds_instance_port
+  database  = module.rds.database_name
+  username  = module.rds.database_username
+  password  = module.rds.database_password
+  sslmode   = "require"
+  superuser = false
+}
+
 provider "kubernetes" {}
