@@ -60,7 +60,10 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
       "probation-case.registration.added",
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
-      "probation-case.registration.updated"
+      "probation-case.registration.updated",
+      "accommodation.cas3.booking.confirmed",
+      "accommodation.cas3.booking.cancelled",
+      "accommodation.cas3.booking.cancelled.updated"
     ]
   })
 }
