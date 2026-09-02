@@ -28,7 +28,7 @@ variable "namespace" {
 variable "namespace-api" {
   description = "Name of the api namespace for exporting secrets"
   type        = string
-  default     = "laa-data-user-api-test"
+  default     = "laa-data-user-api-prd"
 }
 
 variable "business_unit" {
