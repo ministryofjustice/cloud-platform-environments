@@ -59,6 +59,11 @@ module "dps_rds" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Allows the service pod to reboot this instance so that the pending-reboot
+  # parameters above (rds.logical_replication, shared_preload_libraries) take
+  # effect. See IR-1899.
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
