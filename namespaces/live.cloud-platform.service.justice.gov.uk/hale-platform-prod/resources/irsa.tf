@@ -8,7 +8,7 @@ module "irsa" {
   service_account_name = "hale-platform-prod-service"
   namespace            = var.namespace # this is also used as a tag
 
-  # Attach the approprate policies using a key => value map
+  # Attach the appropriate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
@@ -55,25 +55,6 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
       "arn:aws:s3:::cloud-platform-62f8d0a2889981191680c9ad82b1f8cf/*",
       "arn:aws:s3:::cloud-platform-e8ef9051087439cca56bf9caa26d0a3f/*",
       "arn:aws:s3:::cloud-platform-f90b68639e12a88881c27434d72d6119/*"
-    ]
-  }
-
-  # Read-only access to the legacy single-site justice bucket for migration
-  statement {
-    actions = [
-      "s3:ListBucket",
-    ]
-    resources = [
-      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64",
-    ]
-  }
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectTagging"
-    ]
-    resources = [
-      "arn:aws:s3:::cloud-platform-f5c06609f4885d0d5fb9e974c850af64/*",
     ]
   }
 }
