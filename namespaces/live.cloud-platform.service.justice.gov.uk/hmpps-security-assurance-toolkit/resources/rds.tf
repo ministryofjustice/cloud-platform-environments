@@ -21,34 +21,16 @@ module "hmpps_security_assurance_toolkit_rds" {
   }
 
 }
+
+
 resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds" {
   metadata {
     name      = "rds-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint
-    database_name         = module.hmpps_security_assurance_toolkit_rds.database_name
-    database_username     = module.hmpps_security_assurance_toolkit_rds.database_username
-    database_password     = module.hmpps_security_assurance_toolkit_rds.database_password
-    rds_instance_address  = module.hmpps_security_assurance_toolkit_rds.rds_instance_address
-  }
-}
-
-resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds-dev" {
-  metadata {
-    name      = "rds-instance-output-dev"
     namespace = "hmpps-security-assurance-toolkit"
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint
-    database_name         = module.hmpps_security_assurance_toolkit_rds.database_name
-    database_username     = module.hmpps_security_assurance_toolkit_rds.database_username
-    database_password     = module.hmpps_security_assurance_toolkit_rds.database_password
-    database_url          = "postgresql://${module.hmpps_security_assurance_toolkit_rds.database_username}:${module.hmpps_security_assurance_toolkit_rds.database_password}@${module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint}:5432/${module.hmpps_security_assurance_toolkit_rds.database_name}"
-    rds_instance_address  = module.hmpps_security_assurance_toolkit_rds.rds_instance_address
+    DATABASE_URL = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
@@ -76,5 +58,16 @@ locals {
 
   database_details = {
     for m in local.database_list : (m.identifier) => m
+  }
+}
+resource "kubernetes_config_map" "rds" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    database_name = module.rds.database_name
+    db_identifier = module.rds.db_identifier
   }
 }
