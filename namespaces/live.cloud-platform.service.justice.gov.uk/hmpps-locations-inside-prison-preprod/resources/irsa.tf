@@ -23,7 +23,8 @@ module "irsa" {
     { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
     { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn },
     { (module.update_cell_certificate_queue.sqs_name) = module.update_cell_certificate_queue.irsa_policy_arn },
-    { (module.update_cell_certificate_dlq.sqs_name) = module.update_cell_certificate_dlq.irsa_policy_arn }
+    { (module.update_cell_certificate_dlq.sqs_name) = module.update_cell_certificate_dlq.irsa_policy_arn },
+    { prisoner_property_rds_policy = module.prisoner_property_rds.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
