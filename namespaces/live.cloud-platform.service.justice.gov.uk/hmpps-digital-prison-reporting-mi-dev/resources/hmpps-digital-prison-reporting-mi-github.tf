@@ -7,7 +7,10 @@ module "hmpps_digital_prison_reporting_mi_github" {
   environment                   = "dev"
   is_production                 = var.is_production
   application_insights_instance = "dev" # "dev", "preprod" or "prod"
-  selected_branch_patterns      = ["main"]
+  selected_branch_patterns = [
+  "main",
+  "DHS-705",
+]
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
