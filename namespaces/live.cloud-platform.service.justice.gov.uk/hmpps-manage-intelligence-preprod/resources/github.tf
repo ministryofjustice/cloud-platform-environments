@@ -14,7 +14,7 @@ module "manage-intelligence-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-intelligence-management"]
 }
 
 module "manage-intelligence-ui" {
@@ -33,7 +33,7 @@ module "manage-intelligence-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-intelligence-management"]
 }
 
 module "hmpps-submit-ims-report" {
@@ -52,7 +52,7 @@ module "hmpps-submit-ims-report" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-intelligence-management"]
 }
 
 module "hmpps-ims-ai-api" {
@@ -71,5 +71,5 @@ module "hmpps-ims-ai-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-intelligence-management"]
 }
