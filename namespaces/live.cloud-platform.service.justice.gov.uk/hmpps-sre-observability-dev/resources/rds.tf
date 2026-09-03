@@ -38,21 +38,4 @@ resource "kubernetes_secret" "hmpps_dependencytrack_postgresql_rds-dev" {
   }
 }
 
-locals {
 
-  rds_databases = {
-    "rdsAlertsDatabases.${module.hmpps_dependencytrack_postgresql_rds.db_identifier}" = "hmpps-dependencytrack-db"
-
-  }
-
-  database_list = flatten([
-    for identifier, desc in local.rds_databases : {
-      identifier = identifier
-      desc       = desc
-    }
-  ])
-
-  database_details = {
-    for m in local.database_list : (m.identifier) => m
-  }
-}
