@@ -3,6 +3,9 @@ module "ecr_credentials" {
 
   repo_name = "${var.namespace}-ecr"
 
+  # Prepare for namespace deletion (all environments use production's ECR)
+  deletion_protection = false
+
   lifecycle_policy = <<EOF
   {
     "rules": [

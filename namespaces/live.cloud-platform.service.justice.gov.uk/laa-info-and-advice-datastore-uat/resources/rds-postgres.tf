@@ -19,9 +19,6 @@ module "rds" {
   # Cost optimisation (not for prod)
   enable_rds_auto_start_stop = var.is_production ? false : true
 
-  # IAM authentication
-  enable_irsa = true
-
   # Observability
   performance_insights_enabled = false
 
@@ -48,9 +45,4 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
-}
-
-resource "postgresql_grant_role" "rds_iam" {
-  role       = module.rds.database_username
-  grant_role = "rds_iam"
 }

@@ -226,6 +226,11 @@ resource "aws_glue_catalog_table" "device_activations" {
       type = "bigint"
     }
 
+    columns {
+      name = "device_serial_number"
+      type = "string"
+    }
+
     location      = "s3://${module.data_bucket.bucket_name}/device_activations/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"

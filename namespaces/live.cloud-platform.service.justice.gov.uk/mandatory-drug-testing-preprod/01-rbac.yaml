@@ -5,7 +5,7 @@ metadata:
   namespace: mandatory-drug-testing-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-mandatory-drug-testing-devs"
+    name: "github:hmpps-move-and-improve-live"
     apiGroup: rbac.authorization.k8s.io
 ############## COPY - DO NOT REPLACE ##############
   - kind: Group

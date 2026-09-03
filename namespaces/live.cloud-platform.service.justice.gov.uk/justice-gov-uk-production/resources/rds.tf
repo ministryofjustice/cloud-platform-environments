@@ -12,14 +12,14 @@ module "rds" {
 
   # general options
   db_engine                   = "mariadb"
-  db_engine_version           = "10.11.13"
+  db_engine_version           = "10.11.16"
   rds_family                  = "mariadb10.11"
   db_instance_class           = "db.t4g.large"
   db_allocated_storage        = "100"
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
-  deletion_protection         = true
+  deletion_protection         = false
 
   # overwrite db_parameters
   db_parameter = [

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cwa-schedule-uploader-ui-cert
+  namespace: laa-cwa-schedule-uploader-dev
+spec:
+  secretName: cwa-schedule-uploader-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cwa-schedule-uploader-ui.apps.dev.cloud-platform.service.justice.gov.uk
