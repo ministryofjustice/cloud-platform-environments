@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-health-kick-dev-cert
+  name: hmpps-sre-observability-dev-cert
   namespace: hmpps-sre-observability-dev
 spec:
   secretName: hmpps-sre-observability-dev-cert
