@@ -61,6 +61,8 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_courtmovements_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_agencyregisters_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_agencyregisters_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_transfermovements_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_transfermovements_dead_letter_queue.sqs_arn,
     ]
   }
 }
