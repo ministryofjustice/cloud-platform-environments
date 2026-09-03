@@ -4,6 +4,12 @@
  * releases page of this repository.
  *
  */
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS. Required so the Data Hub DMS process can
+# reach this instance on 5432. MAPA-344.
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
+}
+
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -19,10 +25,10 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres18"
-  db_instance_class = "db.t4g.large"
+  db_engine                 = "postgres"
+  db_engine_version         = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family                = "postgres18"
+  db_instance_class         = "db.t4g.large"
   prepare_for_major_upgrade = false
 
   # Tags
@@ -34,13 +40,152 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
-  # uncomment below:
+  # Datahub ingestion (MAPA-344). rds.logical_replication and shared_preload_libraries are
+  # pending-reboot, so the instance must be rebooted after this applies before `show wal_level;`
+  # reports `logical` and the pglogical extension will install.
+  # https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/4461494352
+  db_parameter = [
+    {
+      # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
+      # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
+      # This instance currently relies on that default, so omitting it would be a live change.
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      # This list replaces the engine default rather than merging with it. Listing only pglogical
+      # would silently drop pg_tle and pg_stat_statements. RDS re-adds rdsutils and rds_casts itself,
+      # so they do not need listing.
+      name         = "shared_preload_libraries"
+      value        = "pg_tle,pg_stat_statements,pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
 
-  # enable_irsa = true
+  # Add security group for DPR. This is additive - the module concats it with the instance's own
+  # security group - so application connectivity is unaffected.
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace service
+  # pod can apply the pending-reboot parameters above. Cloud Platform do not perform RDS reboots on
+  # request - teams do them from a service pod. Defaults to false.
+  enable_irsa = true
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
+}
+
+# Read replica for Data Hub ingestion (MAPA-344). Data Hub's CDC capture reads from here rather
+# than the primary, so its reads cannot affect the operational database. Data Hub confirmed
+# (03/09/2026) that they use test_decoding when ingesting from a replica, so no pglogical
+# extension is needed on this instance.
+#
+# hot_standby_feedback is required on a replica: without it the replica invalidates the
+# replication slot the DMS process consumes from.
+#
+# Note this is created alongside the primary rather than after it. A replica built from a primary
+# still at wal_level = replica comes up at replica itself, so BOTH instances need rebooting once
+# this applies - the primary first, then the replica. Neither service is live yet, so the two
+# short outages are acceptable.
+module "rds_replica" {
+  count  = 1
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # Must match the source instance
+  db_engine                    = "postgres"
+  db_engine_version            = "18"
+  rds_family                   = "postgres18"
+  db_instance_class            = "db.t4g.large"
+  db_max_allocated_storage     = "500"
+  performance_insights_enabled = false
+
+  # Conflicts with replicate_source_db, so must be null on a replica
+  db_name = null
+
+  replicate_source_db = module.rds.db_identifier
+
+  # No backups or snapshots are taken of a read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  db_parameter = [
+    {
+      # As on the primary, this list replaces the module default rather than merging with it, so
+      # rds.force_ssl must be restated or TLS stops being enforced.
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pg_tle,pg_stat_statements,pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
+
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # The policy the module emits is scoped to its own instance ARN, so the replica needs its own
+  # enable_irsa - the primary's policy does not cover it. Without this the replica cannot be
+  # rebooted, and the replica is the instance Data Hub reads from.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
@@ -50,6 +195,8 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
+    db_identifier         = module.rds.db_identifier
+    resource_id           = module.rds.resource_id
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
     database_username     = module.rds.database_username
@@ -75,5 +222,21 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+# The replica's credentials and database name are the same as the primary, so only the endpoint is
+# published here. Data Hub's DMS source endpoint points at this address.
+resource "kubernetes_secret" "rds_replica" {
+  count = 1
+
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.rds_replica[0].rds_instance_address
   }
 }
