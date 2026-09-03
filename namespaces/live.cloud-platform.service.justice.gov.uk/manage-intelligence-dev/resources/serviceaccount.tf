@@ -1,5 +1,5 @@
 locals {
-  github_repos = ["manage-intelligence", "manage-intelligence-api", "hmpps-submit-information-report", "hmpps-manage-intelligence-legacy-data-monorepo","hmpps-ims-ai-api"]
+  github_repos = ["hmpps-submit-information-report", "hmpps-manage-intelligence-legacy-data-monorepo"]
   sa_rules = [
     {
       api_groups = [""]
