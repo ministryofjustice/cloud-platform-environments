@@ -70,9 +70,9 @@ variable "service_area" {
 }
 
 variable "deployment_environment" {
-  type = string
+  type        = string
   description = "Environment code used when deploying, e.g. dev, preprod or prod"
-  default = "dev"
+  default     = "dev"
 }
 
 variable "github_owner" {
@@ -85,4 +85,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

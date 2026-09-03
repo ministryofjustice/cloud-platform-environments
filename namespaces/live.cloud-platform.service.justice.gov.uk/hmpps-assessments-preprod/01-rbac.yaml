@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-assessments-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-assessments"
+    name: "github:hmpps-assessments-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

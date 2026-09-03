@@ -74,6 +74,11 @@ module "prisoner_property_rds" {
   ]
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply the pending-reboot parameters above. Cloud Platform do not perform
+  # RDS reboots on request - teams do them from a service pod. Defaults to false. See MAPB-763.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prisoner_property_rds" {
