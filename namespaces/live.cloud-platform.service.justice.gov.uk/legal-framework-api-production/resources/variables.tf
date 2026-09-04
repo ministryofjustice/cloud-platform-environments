@@ -1,16 +1,21 @@
+variable "namespace" {
+  default = "legal-framework-api-production"
+}
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "legal-framework-api"
+}
 
 variable "vpc_name" {
 }
 
+variable "kubernetes_cluster" {
+}
 
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "legal-framework-api"
-}
-
-variable "namespace" {
-  default = "legal-framework-api-production"
 }
 
 variable "business_unit" {
@@ -39,7 +44,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "applyprivatebeta"
+  default     = "apply-dev"
 }
 
 variable "github_owner" {
@@ -52,8 +57,6 @@ variable "github_token" {
   default     = ""
 }
 
-variable "kubernetes_cluster" {}
-
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
@@ -61,4 +64,59 @@ variable "eks_cluster_name" {
 variable "service_area" {
   description = "Service area responsible for this service"
   default     = "LAA Civil Apply"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "statefulsets",
+        "replicasets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
