@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default
+  namespace: justice-gov-uk-production
+spec:
+  podSelector: { }
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: { }
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-ingress-controllers
+  namespace: justice-gov-uk-production
+spec:
+  podSelector: { }
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              component: ingress-controllers
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-justice-archiver
+  namespace: justice-gov-uk-production
+spec:
+  podSelector:
+    matchLabels:
+      app: justice-gov-uk-production
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: "justice-archiver-dev"
