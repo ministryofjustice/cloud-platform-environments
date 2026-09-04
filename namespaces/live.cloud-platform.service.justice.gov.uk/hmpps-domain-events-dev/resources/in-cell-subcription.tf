@@ -85,17 +85,17 @@ resource "aws_iam_user" "in-cell-queue-user" {
 }
 
 resource "aws_iam_access_key" "in-cell-queue-access" {
-  user = aws_iam_user.user.name
+  user = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "aws_iam_user_policy_attachment" "in-cell-queue-policy" {
   policy_arn = module.in_cell_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy" {
   policy_arn = module.in_cell_dead_letter_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "kubernetes_secret" "in_cell_queue" {
