@@ -8,7 +8,7 @@ module "rds" {
   namespace     = var.namespace
 
   # turn off performance insights
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   # general options
   db_instance_class      = "db.t4g.small"
