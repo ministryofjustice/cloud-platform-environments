@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mandatory-drug-testing-api-cert
+  name: hmpps-mandatory-drug-testing-api-cert
   namespace: mandatory-drug-testing-dev
 spec:
-  secretName: mandatory-drug-testing-api-cert
+  secretName: hmpps-mandatory-drug-testing-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -15,10 +15,10 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mandatory-drug-testing-ui-cert
+  name: hmpps-mandatory-drug-testing-ui-cert
   namespace: mandatory-drug-testing-dev
 spec:
-  secretName: mandatory-drug-testing-ui-cert
+  secretName: hmpps-mandatory-drug-testing-ui-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
