@@ -123,6 +123,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_transfermovements
       "person.transfer.reprioritised",
       "person.transfer.planning-comments-changed",
       "person.transfer.schedule-comments-changed",
+      "person.transfer.planning-requested-changed",
       "person.transfer.deleted"
     ]
   })
