@@ -84,8 +84,12 @@ resource "aws_iam_user" "in-cell-queue-user" {
   path = "/system/in-cell-queue-user/"
 }
 
-resource "aws_iam_access_key" "in-cell-queue-access" {
+resource "aws_iam_access_key" "in-cell-queue-access-2026-09" {
   user = aws_iam_user.in-cell-queue-user.name
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_user_policy_attachment" "in-cell-queue-policy" {
@@ -105,8 +109,8 @@ resource "kubernetes_secret" "in_cell_queue" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.in-cell-queue-access.id
-    secret_access_key = aws_iam_access_key.in-cell-queue-access.secret
+    access_key_id     = aws_iam_access_key.in-cell-queue-access-2026-09.id
+    secret_access_key = aws_iam_access_key.in-cell-queue-access-2026-09.secret
     sqs_queue_url     = module.in_cell_queue.sqs_id
     sqs_queue_arn     = module.in_cell_queue.sqs_arn
     sqs_queue_name    = module.in_cell_queue.sqs_name
@@ -120,8 +124,8 @@ resource "kubernetes_secret" "in_cell_dlq" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.in-cell-queue-access.id
-    secret_access_key = aws_iam_access_key.in-cell-queue-access.secret
+    access_key_id     = aws_iam_access_key.in-cell-queue-access-2026-09.id
+    secret_access_key = aws_iam_access_key.in-cell-queue-access-2026-09.secret
     sqs_queue_url     = module.in_cell_dead_letter_queue.sqs_id
     sqs_queue_arn     = module.in_cell_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.in_cell_dead_letter_queue.sqs_name
