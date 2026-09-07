@@ -179,19 +179,19 @@ data "aws_secretsmanager_secret_version" "cognito_test_user" {
   secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
 }
 
-# resource "aws_cognito_user" "test" {
-#   user_pool_id = aws_cognito_user_pool.main.id
-#   username     = "ollie.evanstest@justice.gov.uk"
+resource "aws_cognito_user" "test" {
+  user_pool_id = aws_cognito_user_pool.main.id
+  username     = "ollie.evanstest@justice.gov.uk"
 
-#   attributes = {
-#     cis-role       = "CIS - Viewer"
-#     email          = "ollie.evanstest@justice.gov.uk"
-#     email_verified = "true"
-#   }
+  attributes = {
+    # cis-role       = "CIS - Viewer"
+    email          = "ollie.evanstest@justice.gov.uk"
+    email_verified = "true"
+  }
 
-#   password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PRD_COGNITO_TEST_USER_PASS"]
-#   message_action = "SUPPRESS"
-# }
+  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PRD_COGNITO_TEST_USER_PASS"]
+  message_action = "SUPPRESS"
+}
 
 # -----------------------------------------------------------------------------
 # Entra ID (OIDC) Identity Provider
