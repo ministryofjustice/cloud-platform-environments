@@ -19,3 +19,14 @@ resource "kubernetes_secret" "crime_matching_algorithm_irsa" {
     serviceaccount = module.crime_matching_algorithm_irsa.service_account.name
   }
 }
+
+resource "kubernetes_secret" "athena_roles" {
+  metadata {
+    name      = "athena-roles"
+    namespace = var.namespace
+  }
+  type = "Opaque"
+  data = {
+    general_role_arn = var.datastore_role
+  }
+}

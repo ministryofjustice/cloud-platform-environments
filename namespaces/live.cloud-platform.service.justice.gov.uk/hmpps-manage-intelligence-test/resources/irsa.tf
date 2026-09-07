@@ -25,6 +25,10 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_prisoner_details_dlq.sqs_arn,
       module.domain_events_queue.sqs_arn,
       module.domain_events_dlq.sqs_arn,
+      module.ims_ai_request_queue.sqs_arn,
+      module.ims_ai_request_dlq.sqs_arn,
+      module.ims_ai_response_queue.sqs_arn,
+      module.ims_ai_response_dlq.sqs_arn,
     ]
   }
 }
@@ -78,6 +82,7 @@ module "irsa" {
     rds              = module.rds_aurora.irsa_policy_arn
     s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
     s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
+    s3_ai            = module.ims_ai_bucket.irsa_policy_arn
   })
 
   # Tags

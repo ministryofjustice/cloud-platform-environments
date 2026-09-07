@@ -14,6 +14,16 @@ module "secrets_manager" {
       description             = "hmpps person record servicenow client info",
       recovery_window_in_days = 7
       k8s_secret_name         = "hmpps-person-record-servicenow-client"
+    },
+    "hmpps-person-record-gatling-client-id" = {
+        description             = "hmpps person record gatling client id",
+        recovery_window_in_days = 7
+        k8s_secret_name         = "hmpps-person-record-gatling-client-id"
+    },
+    "hmpps-person-record-gatling-client-secret" = {
+      description             = "hmpps person record gatling client secret",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "hmpps-person-record-gatling-client-secret"
     }
   }
 }

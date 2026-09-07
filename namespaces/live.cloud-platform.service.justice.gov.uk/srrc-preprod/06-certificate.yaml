@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fingerprint-search-api-staging-cert
+  namespace: srrc-preprod
+spec:
+  secretName: fingerprint-search-api-staging-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - fingerprint-search-api-staging.internal-non-prod.cloud-platform.service.justice.gov.uk

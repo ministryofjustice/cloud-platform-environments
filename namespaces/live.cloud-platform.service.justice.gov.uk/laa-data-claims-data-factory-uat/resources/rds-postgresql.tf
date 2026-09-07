@@ -8,7 +8,8 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name = var.vpc_name
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true

@@ -116,7 +116,10 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_transfermovements_sub
       "EXTERNAL_MOVEMENT-CHANGED",
       "SCHEDULED_EXT_MOVE-INSERTED",
       "SCHEDULED_EXT_MOVE-UPDATED",
-      "SCHEDULED_EXT_MOVE-DELETED"
+      "SCHEDULED_EXT_MOVE-DELETED",
+      "TRANSFER_WAITLIST-INSERTED",
+      "TRANSFER_WAITLIST-UPDATED",
+      "TRANSFER_WAITLIST-DELETED"
     ]
   })
 }

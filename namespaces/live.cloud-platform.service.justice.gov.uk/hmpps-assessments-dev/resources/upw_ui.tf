@@ -4,7 +4,7 @@ module "hmpps_risk_assessment_ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-risk-assessment-ui"
   application                   = "hmpps-risk-assessment-ui"
-  github_team                   = "hmpps-assessments"
+  github_team                   = "hmpps-assessments-devs"
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "dev"

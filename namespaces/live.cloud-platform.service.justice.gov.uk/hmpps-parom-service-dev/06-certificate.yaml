@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-parom-service-api-cert
+  namespace: hmpps-parom-service-dev
+spec:
+  secretName: hmpps-parom-service-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - parom-service-api-dev.hmpps.service.justice.gov.uk
+    - '*.parom-service-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-parom-service-ui-cert
+  namespace: hmpps-parom-service-dev
+spec:
+  secretName: hmpps-parom-service-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - parom-service-ui-dev.hmpps.service.justice.gov.uk
+    - '*.parom-service-ui-dev.hmpps.service.justice.gov.uk'

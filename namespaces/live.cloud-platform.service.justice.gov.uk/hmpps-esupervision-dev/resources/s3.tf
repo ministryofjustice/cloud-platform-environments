@@ -20,6 +20,7 @@ module "s3_data_bucket" {
       "https://esupervision-dev.hmpps.service.justice.gov.uk",
       "https://esupervision-test.hmpps.service.justice.gov.uk",
       "https://manage-people-on-probation-dev.hmpps.service.justice.gov.uk",
+      "https://manage-online-check-ins-ui-dev.hmpps.service.justice.gov.uk",
       "https://probation-check-in-dev.hmpps.service.justice.gov.uk",
       "https://probation-check-in-test.hmpps.service.justice.gov.uk",
       "http://localhost:3000"

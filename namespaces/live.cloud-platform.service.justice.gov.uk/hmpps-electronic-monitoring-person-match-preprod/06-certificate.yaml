@@ -1,0 +1,14 @@
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-electronic-monitoring-data-person-match-ui-cert
+  namespace: hmpps-electronic-monitoring-person-match-preprod
+spec:
+  secretName: hmpps-electronic-monitoring-data-person-match-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - electronic-monitoring-data-person-match-api-preprod.hmpps.service.justice.gov.uk
+    - electronic-monitoring-data-person-match-api-preprod.internal-non-prod.cloud-platform.service.justice.gov.uk

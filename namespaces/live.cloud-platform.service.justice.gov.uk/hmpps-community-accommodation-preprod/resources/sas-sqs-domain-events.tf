@@ -44,9 +44,23 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
   endpoint  = module.sas_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
+      "tier.calculation.changed",
+      "person.community.manager.allocated",
       "core-person-record.probation.address.created",
       "core-person-record.probation.address.updated",
       "core-person-record.probation.address.deleted",
+      "core-person-record.probation.record.updated",
+      "prisoner-offender-search.prisoner.updated",
+      "prisoner-offender-search.prisoner.received",
+      "prisoner-offender-search.prisoner.released",
+      "approved-premises.booking.cancelled",
+      "approved-premises.booking.changed",
+      "approved-premises.booking.not-arrived",
+      "approved-premises.booking.made",
+      "accommodation.cas3.booking.confirmed",
+      "accommodation.cas3.booking.cancelled",
+      "accommodation.cas3.booking.cancelled.updated",
+      "probation-user.username.changed"
     ]
   })
 }

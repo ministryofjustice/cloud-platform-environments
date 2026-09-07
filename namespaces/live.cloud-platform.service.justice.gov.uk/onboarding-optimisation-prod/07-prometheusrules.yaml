@@ -14,7 +14,7 @@ spec:
         == 1
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -28,7 +28,7 @@ spec:
         deployment=~"onboarding-optimisation-(backend|frontend)"} == 0
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -51,7 +51,7 @@ spec:
         }
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -81,7 +81,7 @@ spec:
         }[10m])) >= 20
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -107,7 +107,7 @@ spec:
         }[10m])) >= 20
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -127,7 +127,7 @@ spec:
         ) > 2
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -159,7 +159,7 @@ spec:
         }[15m])) >= 5
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -175,7 +175,7 @@ spec:
         }[10m])) >= 5
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -193,7 +193,7 @@ spec:
         }[15m])) >= 3
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -206,7 +206,7 @@ spec:
         container=~"backend|frontend", reason="OOMKilled"}) > 0
       for: 1m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -224,7 +224,7 @@ spec:
         dependency=~"hmpps|athena"}[15m])) >= 10
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -239,7 +239,7 @@ spec:
         outcome=~"database_error|internal_error"}[15m])) >= 3
       for: 5m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
@@ -255,7 +255,7 @@ spec:
         state="capacity"}), 1) > 0.80
       for: 10m
       labels:
-        severity: onboarding-optimisation
+        severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation

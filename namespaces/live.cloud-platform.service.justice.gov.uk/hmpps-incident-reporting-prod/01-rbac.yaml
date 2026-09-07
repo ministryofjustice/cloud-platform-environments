@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-incident-reporting-prod
 subjects:
   - kind: Group
-    name: "github:hmpps-incident-reporting"
+    name: "github:manage-safety-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

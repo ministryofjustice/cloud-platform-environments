@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "justice-redact-team"
     cloud-platform.justice.gov.uk/application: "Justice Redact"
     cloud-platform.justice.gov.uk/owner: "Justice Redact team: justiceredactteam@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/orgs/ministryofjustice/teams/justice-redact/repositories"
     cloud-platform.justice.gov.uk/team-name: "justice-redact"
-    cloud-platform.justice.gov.uk/review-after: ""
+    cloud-platform.justice.gov.uk/review-after: "2026-07-30"

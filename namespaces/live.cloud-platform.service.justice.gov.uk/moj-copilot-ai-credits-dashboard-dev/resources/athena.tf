@@ -1,7 +1,9 @@
 locals {
   s3_target_paths = [
     "reports-live-consolidated/credits_by_model/", 
-    "reports-live-consolidated/credits_by_user/"
+    "reports-live-consolidated/credits_by_user/",
+    "reports-live-consolidated/telemetry_by_user/",
+    "reports-live-consolidated/telemetry_by_user_activity/"
   ]
 }
 
