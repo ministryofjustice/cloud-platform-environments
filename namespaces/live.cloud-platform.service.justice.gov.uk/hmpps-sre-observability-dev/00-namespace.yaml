@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-sre-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "HMPPS SRE Observability Apps"
     cloud-platform.justice.gov.uk/owner: "HMPPS SRE: HMPPSSRE@JusticeUK.onmicrosoft.com"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/health-kick/"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/health-kick/;https://github.com/ministryofjustice/hmpps-dependencytrack"
     cloud-platform.justice.gov.uk/team-name: "hmpps-sre"
