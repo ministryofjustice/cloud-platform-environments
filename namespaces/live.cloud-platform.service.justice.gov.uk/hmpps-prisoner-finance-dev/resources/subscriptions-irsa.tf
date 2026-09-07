@@ -1,5 +1,5 @@
 locals {
-  rds_irsa_policies = {
+  subscriptions_irsa_policies = {
     rds = module.subscriptions_rds.irsa_policy_arn
   }
 }
@@ -10,7 +10,7 @@ module "hmpps_prisoner_finance_subscriptions_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.service_account_name
-  role_policy_arns     = local.rds_irsa_policies
+  role_policy_arns     = local.subscriptions_irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
