@@ -189,7 +189,7 @@ resource "aws_cognito_user" "test" {
     email_verified = "true"
   }
 
-  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PRD_COGNITO_TEST_USER_PASS"]
+  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
   message_action = "SUPPRESS"
 }
 
