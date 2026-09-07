@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     ]
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = ["arn:aws:iam::754256621582:user/cloud-platform/manager-concourse"]
     }
     resources = [module.hmpps-domain-events.topic_arn]
     condition {
@@ -88,3 +88,4 @@ resource "aws_sns_topic_policy" "topic_policy" {
   arn    = module.hmpps-domain-events.topic_arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
 }
+
