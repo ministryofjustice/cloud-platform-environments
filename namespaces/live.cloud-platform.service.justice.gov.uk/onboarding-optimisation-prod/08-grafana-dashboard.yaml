@@ -9,77 +9,27 @@ data:
   onboarding-optimisation-dashboard.json: |
     {
       "annotations": {
-        "list": []
+        "list": [
+
+        ]
       },
       "editable": false,
       "graphTooltip": 1,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "color": "red",
-                      "text": "Missing"
-                    },
-                    "1": {
-                      "color": "green",
-                      "text": "Available"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
+          "collapsed": false,
           "gridPos": {
-            "h": 4,
-            "w": 6,
+            "h": 1,
+            "w": 24,
             "x": 0,
             "y": 0
           },
-          "id": 1,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "none",
-            "justifyMode": "center",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "targets": [
-            {
-              "expr": "max(poirot_application_info{namespace=\"$namespace\"})",
-              "refId": "A"
-            }
+          "id": 100,
+          "panels": [
+
           ],
-          "title": "Metrics target",
-          "type": "stat"
+          "title": "1. Service overview",
+          "type": "row"
         },
         {
           "datasource": {
@@ -88,7 +38,8 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "decimals": 0,
+              "decimals": 2,
+              "unit": "short",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -103,15 +54,17 @@ data:
                 ]
               }
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 4,
             "w": 6,
-            "x": 6,
-            "y": 0
+            "x": 0,
+            "y": 1
           },
-          "id": 2,
+          "id": 1,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -127,12 +80,61 @@ data:
           },
           "targets": [
             {
-              "expr": "sum(kube_deployment_status_replicas_available{namespace=\"$namespace\", deployment=~\"onboarding-optimisation-(backend|frontend)\"})",
+              "expr": "max(poirot_application_info{namespace=\"$namespace\"}) or vector(0)",
               "refId": "A"
             }
           ],
-          "title": "Available replicas",
+          "title": "Backend metrics target",
           "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 6,
+            "y": 1
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (deployment) (kube_deployment_spec_replicas{namespace=\"$namespace\", deployment=~\"onboarding-optimisation-(backend|frontend)\"})",
+              "legendFormat": "{{deployment}} desired",
+              "refId": "A"
+            },
+            {
+              "expr": "sum by (deployment) (kube_deployment_status_replicas_available{namespace=\"$namespace\", deployment=~\"onboarding-optimisation-(backend|frontend)\"})",
+              "legendFormat": "{{deployment}} available",
+              "refId": "B"
+            }
+          ],
+          "title": "Desired and available replicas",
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -144,13 +146,15 @@ data:
               "decimals": 2,
               "unit": "reqps"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 12,
-            "y": 0
+            "y": 1
           },
           "id": 3,
           "options": {
@@ -183,6 +187,7 @@ data:
           "fieldConfig": {
             "defaults": {
               "decimals": 2,
+              "unit": "percentunit",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -199,16 +204,17 @@ data:
                     "value": 0.2
                   }
                 ]
-              },
-              "unit": "percentunit"
+              }
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 18,
-            "y": 0
+            "y": 1
           },
           "id": 4,
           "options": {
@@ -234,27 +240,88 @@ data:
           "type": "stat"
         },
         {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 5
+          },
+          "id": 101,
+          "panels": [
+
+          ],
+          "title": "2. HTTP/API performance",
+          "type": "row"
+        },
+        {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
-              "unit": "reqps"
+              "decimals": 2,
+              "unit": "short"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 12,
+            "h": 4,
+            "w": 6,
             "x": 0,
-            "y": 4
+            "y": 6
           },
-          "id": 5,
+          "id": 14,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "expr": "sum(poirot_http_requests_in_progress{namespace=\"$namespace\"})",
+              "refId": "A"
+            }
+          ],
+          "title": "Requests in progress",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 18,
+            "x": 6,
+            "y": 6
+          },
+          "id": 15,
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "lastNotNull",
+                "max"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -266,12 +333,110 @@ data:
           },
           "targets": [
             {
-              "expr": "sum by (route, status_code) (rate(poirot_http_requests_total{namespace=\"$namespace\"}[5m]))",
-              "legendFormat": "{{route}} {{status_code}}",
+              "expr": "histogram_quantile(0.50, sum by (le) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p50",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum by (le) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p95",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum by (le) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p99",
+              "refId": "C"
+            }
+          ],
+          "title": "Backend latency percentiles",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 10
+          },
+          "id": 5,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (method, route, status_code) (rate(poirot_http_requests_total{namespace=\"$namespace\"}[5m]))",
+              "legendFormat": "{{method}} {{route}} {{status_code}}",
               "refId": "A"
             }
           ],
-          "title": "Request rate by registered route and status",
+          "title": "Request rate by registered route, method and status",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 10
+          },
+          "id": 16,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (method, route) (rate(poirot_http_requests_total{namespace=\"$namespace\", status_code=~\"5..\"}[5m])) / clamp_min(sum by (method, route) (rate(poirot_http_requests_total{namespace=\"$namespace\"}[5m])), 0.001)",
+              "legendFormat": "{{method}} {{route}}",
+              "refId": "A"
+            }
+          ],
+          "title": "5xx ratio by registered route and method",
           "type": "timeseries"
         },
         {
@@ -283,19 +448,22 @@ data:
             "defaults": {
               "unit": "s"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 4
+            "w": 24,
+            "x": 0,
+            "y": 18
           },
           "id": 6,
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "lastNotNull",
+                "max"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -307,12 +475,81 @@ data:
           },
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum by (le, route) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
-              "legendFormat": "{{route}}",
+              "expr": "histogram_quantile(0.50, sum by (le, method, route) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p50 {{method}} {{route}}",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum by (le, method, route) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p95 {{method}} {{route}}",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum by (le, method, route) (rate(poirot_http_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "p99 {{method}} {{route}}",
+              "refId": "C"
+            }
+          ],
+          "title": "Latency by registered route and method",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 26
+          },
+          "id": 102,
+          "panels": [
+
+          ],
+          "title": "3. Key workflow performance",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 27
+          },
+          "id": 21,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (format, outcome) (rate(poirot_screening_imports_total{namespace=\"$namespace\"}[15m]))",
+              "legendFormat": "{{format}} {{outcome}}",
               "refId": "A"
             }
           ],
-          "title": "Backend p95 latency by registered route",
+          "title": "Screening import rate and outcome",
           "type": "timeseries"
         },
         {
@@ -322,21 +559,24 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "unit": "cores"
+              "unit": "s"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 12
+            "w": 12,
+            "x": 12,
+            "y": 27
           },
-          "id": 7,
+          "id": 22,
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "lastNotNull",
+                "max"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -348,12 +588,56 @@ data:
           },
           "targets": [
             {
-              "expr": "sum by (container) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container=~\"backend|frontend\", image!=\"\"}[5m]))",
-              "legendFormat": "{{container}}",
+              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_duration_seconds_bucket{namespace=\"$namespace\"}[15m])))",
+              "legendFormat": "{{format}} {{outcome}}",
               "refId": "A"
             }
           ],
-          "title": "Container CPU",
+          "title": "Screening import p95 duration",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 35
+          },
+          "id": 23,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_rows_bucket{namespace=\"$namespace\"}[15m])))",
+              "legendFormat": "{{format}} {{outcome}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Screening import p95 rows",
           "type": "timeseries"
         },
         {
@@ -365,19 +649,22 @@ data:
             "defaults": {
               "unit": "bytes"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 12
+            "w": 12,
+            "x": 12,
+            "y": 35
           },
-          "id": 8,
+          "id": 24,
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "lastNotNull",
+                "max"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -389,12 +676,71 @@ data:
           },
           "targets": [
             {
-              "expr": "sum by (container) (container_memory_working_set_bytes{namespace=\"$namespace\", container=~\"backend|frontend\", image!=\"\"})",
-              "legendFormat": "{{container}}",
+              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_bytes_bucket{namespace=\"$namespace\"}[15m])))",
+              "legendFormat": "{{format}} {{outcome}}",
               "refId": "A"
             }
           ],
-          "title": "Container memory",
+          "title": "Screening import p95 size",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 43
+          },
+          "id": 103,
+          "panels": [
+
+          ],
+          "title": "4. PostgreSQL",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 44
+          },
+          "id": 25,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (state) (poirot_db_pool_connections{namespace=\"$namespace\"})",
+              "legendFormat": "{{state}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Application database pool connections",
           "type": "timeseries"
         },
         {
@@ -404,22 +750,26 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "decimals": 0,
-              "unit": "short"
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 12
+            "w": 12,
+            "x": 12,
+            "y": 44
           },
-          "id": 9,
+          "id": 28,
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "lastNotNull",
+                "max"
               ],
               "displayMode": "table",
               "placement": "bottom"
@@ -431,12 +781,115 @@ data:
           },
           "targets": [
             {
-              "expr": "sum by (container) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", container=~\"backend|frontend\"}[1h]))",
-              "legendFormat": "{{container}}",
+              "expr": "sum(poirot_db_pool_connections{namespace=\"$namespace\", state=\"checked_out\"}) / clamp_min(sum(poirot_db_pool_connections{namespace=\"$namespace\", state=\"capacity\"}), 1)",
+              "legendFormat": "checked out / capacity",
               "refId": "A"
             }
           ],
-          "title": "Container restarts in the last hour",
+          "title": "Database pool saturation",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 52
+          },
+          "id": 104,
+          "panels": [
+
+          ],
+          "title": "5. External dependencies and authentication",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 53
+          },
+          "id": 26,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (dependency, operation, outcome) (rate(poirot_dependency_requests_total{namespace=\"$namespace\"}[5m]))",
+              "legendFormat": "{{dependency}} {{operation}} {{outcome}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Dependency request outcomes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 53
+          },
+          "id": 27,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.95, sum by (le, dependency, operation) (rate(poirot_dependency_request_duration_seconds_bucket{namespace=\"$namespace\"}[5m])))",
+              "legendFormat": "{{dependency}} {{operation}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Dependency p95 latency",
           "type": "timeseries"
         },
         {
@@ -448,18 +901,22 @@ data:
             "defaults": {
               "unit": "reqps"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 61
           },
           "id": 10,
           "options": {
             "legend": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
@@ -487,18 +944,22 @@ data:
             "defaults": {
               "unit": "reqps"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 61
           },
           "id": 11,
           "options": {
             "legend": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
@@ -526,18 +987,22 @@ data:
             "defaults": {
               "unit": "short"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 28
+            "y": 69
           },
           "id": 12,
           "options": {
             "legend": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
@@ -565,18 +1030,22 @@ data:
             "defaults": {
               "unit": "short"
             },
-            "overrides": []
+            "overrides": [
+
+            ]
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 28
+            "y": 69
           },
           "id": 13,
           "options": {
             "legend": {
-              "calcs": ["lastNotNull"],
+              "calcs": [
+                "lastNotNull"
+              ],
               "displayMode": "table",
               "placement": "bottom"
             },
@@ -594,6 +1063,227 @@ data:
           ],
           "title": "Sign-in and PKCE outcomes per 15 minutes",
           "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 77
+          },
+          "id": 105,
+          "panels": [
+
+          ],
+          "title": "6. Kubernetes resources",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 78
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (container) (rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", container=~\"backend|frontend\", image!=\"\"}[5m])) / clamp_min(sum by (container) (kube_pod_container_resource_limits{namespace=\"$namespace\", container=~\"backend|frontend\", resource=\"cpu\", unit=\"core\"}), 0.001)",
+              "legendFormat": "{{container}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Container CPU usage against limit",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 78
+          },
+          "id": 8,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (container) (container_memory_working_set_bytes{namespace=\"$namespace\", container=~\"backend|frontend\", image!=\"\"}) / clamp_min(sum by (container) (kube_pod_container_resource_limits{namespace=\"$namespace\", container=~\"backend|frontend\", resource=\"memory\", unit=\"byte\"}), 1)",
+              "legendFormat": "{{container}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Container memory usage against limit",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 86
+          },
+          "id": 9,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (container) (increase(kube_pod_container_status_restarts_total{namespace=\"$namespace\", container=~\"backend|frontend\"}[1h]))",
+              "legendFormat": "{{container}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Container restarts in the last hour",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short"
+            },
+            "overrides": [
+
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 86
+          },
+          "id": 19,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (container) (kube_pod_container_status_last_terminated_reason{namespace=\"$namespace\", container=~\"backend|frontend\", reason=\"OOMKilled\"})",
+              "legendFormat": "{{container}}",
+              "refId": "A"
+            }
+          ],
+          "title": "OOM-killed containers",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 94
+          },
+          "id": 106,
+          "panels": [
+
+          ],
+          "title": "7. Diagnostics",
+          "type": "row"
+        },
+        {
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 95
+          },
+          "id": 20,
+          "options": {
+            "content": "Use the dashboard time range and namespace when opening Cloud Platform logs and the AWS/RDS dashboard. Trace links are intentionally omitted because no tracing backend is configured.",
+            "mode": "markdown"
+          },
+          "title": "Investigation links",
+          "type": "text"
         }
       ],
       "refresh": "30s",
@@ -619,7 +1309,9 @@ data:
             "includeAll": false,
             "label": "Environment namespace",
             "name": "namespace",
-            "options": [],
+            "options": [
+
+            ],
             "query": {
               "query": "label_values(poirot_application_info{namespace=~\"onboarding-optimisation-(dev|prod)\"}, namespace)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
@@ -633,11 +1325,11 @@ data:
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-3h",
         "to": "now"
       },
       "timezone": "browser",
       "title": "Onboarding Optimisation",
       "uid": "onboarding-optimisation",
-      "version": 2
+      "version": 3
     }
