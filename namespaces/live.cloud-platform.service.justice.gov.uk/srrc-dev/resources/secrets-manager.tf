@@ -7,7 +7,7 @@ module "secrets_manager" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  kubernetes_cluster     = var.kubernetes_cluster
+  eks_cluster_name       = var.eks_cluster_name
 
 
   secrets = {
