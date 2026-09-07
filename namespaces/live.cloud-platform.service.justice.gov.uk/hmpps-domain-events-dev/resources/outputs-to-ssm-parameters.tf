@@ -2,20 +2,20 @@
 
 locals {
   sqs_queue_arns = {
-    (module.cvl_domain_events_queue.sqs_name)                   = module.cvl_domain_events_queue.sqs_arn,
-    (module.cvl_domain_events_dead_letter_queue.sqs_name)       = module.cvl_domain_events_dead_letter_queue.sqs_arn,
-    (module.cvl_test1_domain_events_queue.sqs_name)             = module.cvl_test1_domain_events_queue.sqs_arn,
-    (module.cvl_test1_domain_events_dead_letter_queue.sqs_name) = module.cvl_test1_domain_events_dead_letter_queue.sqs_arn,
-    (module.cvl_test2_domain_events_queue.sqs_name)             = module.cvl_test2_domain_events_queue.sqs_arn,
-    (module.cvl_test2_domain_events_dead_letter_queue.sqs_name) = module.cvl_test2_domain_events_dead_letter_queue.sqs_arn,
-    (module.curious_queue.sqs_name)                             = module.curious_queue.sqs_arn,
-    (module.curious_dead_letter_queue.sqs_name)                 = module.curious_dead_letter_queue.sqs_arn,
-    (module.activities_domain_events_queue.sqs_name)            = module.activities_domain_events_queue.sqs_arn,
-    (module.activities_domain_events_dead_letter_queue.sqs_name)= module.activities_domain_events_dead_letter_queue.sqs_arn,
-    (module.hdc_domain_events_queue.sqs_name)                   = module.hdc_domain_events_queue.sqs_arn,
-    (module.hdc_domain_events_dead_letter_queue.sqs_name)       = module.hdc_domain_events_dead_letter_queue.sqs_arn,
-    (module.in_cell_queue.sqs_name)                             = module.in_cell_queue.sqs_arn,
-    (module.in_cell_dead_letter_queue.sqs_name)                 = module.in_cell_dead_letter_queue.sqs_arn
+    (module.cvl_domain_events_queue.sqs_name)                    = module.cvl_domain_events_queue.sqs_arn,
+    (module.cvl_domain_events_dead_letter_queue.sqs_name)        = module.cvl_domain_events_dead_letter_queue.sqs_arn,
+    (module.cvl_test1_domain_events_queue.sqs_name)              = module.cvl_test1_domain_events_queue.sqs_arn,
+    (module.cvl_test1_domain_events_dead_letter_queue.sqs_name)  = module.cvl_test1_domain_events_dead_letter_queue.sqs_arn,
+    (module.cvl_test2_domain_events_queue.sqs_name)              = module.cvl_test2_domain_events_queue.sqs_arn,
+    (module.cvl_test2_domain_events_dead_letter_queue.sqs_name)  = module.cvl_test2_domain_events_dead_letter_queue.sqs_arn,
+    (module.curious_queue.sqs_name)                              = module.curious_queue.sqs_arn,
+    (module.curious_dead_letter_queue.sqs_name)                  = module.curious_dead_letter_queue.sqs_arn,
+    (module.activities_domain_events_queue.sqs_name)             = module.activities_domain_events_queue.sqs_arn,
+    (module.activities_domain_events_dead_letter_queue.sqs_name) = module.activities_domain_events_dead_letter_queue.sqs_arn,
+    (module.hdc_domain_events_queue.sqs_name)                    = module.hdc_domain_events_queue.sqs_arn,
+    (module.hdc_domain_events_dead_letter_queue.sqs_name)        = module.hdc_domain_events_dead_letter_queue.sqs_arn,
+    (module.in_cell_queue.sqs_name)                              = module.in_cell_queue.sqs_arn,
+    (module.in_cell_dead_letter_queue.sqs_name)                  = module.in_cell_dead_letter_queue.sqs_arn
   }
 
   sns_publish_irsa_policy_arn = aws_iam_policy.sns_topic_irsa_publish.arn
@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "sqs_irsa_policy" {
   for_each = local.sqs_queue_arns
 
   statement {
-    sid    = "AllowQueueReadWrite${replace(each.key, "-", "_")}"
+    sid    = "AllowQueueReadWrite${replace(each.key, "/[^a-zA-Z0-9]/", "")}"
     effect = "Allow"
     actions = [
       "sqs:GetQueueUrl",
@@ -66,16 +66,16 @@ data "aws_iam_policy_document" "sns_topic_irsa_publish" {
 resource "aws_iam_policy" "sqs_irsa_policy" {
   for_each = local.sqs_queue_arns
 
-  name = "${var.namespace}-${replace(each.key, "/[^a-zA-Z0-9-]/", "-")}-queue"
-  path = "/cloud-platform/sqs/"
+  name   = "${var.namespace}-${replace(each.key, "/[^a-zA-Z0-9-]/", "-")}-queue"
+  path   = "/cloud-platform/sqs/"
   policy = data.aws_iam_policy_document.sqs_irsa_policy[each.key].json
 
   tags = local.tags
 }
 
 resource "aws_iam_policy" "sns_topic_irsa_publish" {
-  name = "${var.namespace}-publish-hmpps-domain-events-topic"
-  path = "/cloud-platform/sns/"
+  name   = "${var.namespace}-publish-hmpps-domain-events-topic"
+  path   = "/cloud-platform/sns/"
   policy = data.aws_iam_policy_document.sns_topic_irsa_publish.json
 
   tags = local.tags
