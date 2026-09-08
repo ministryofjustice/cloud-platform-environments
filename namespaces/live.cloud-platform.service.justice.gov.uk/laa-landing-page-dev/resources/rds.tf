@@ -295,3 +295,53 @@ resource "kubernetes_secret" "rds_app" {
     rds_instance_address  = module.rds.rds_instance_address
   }
 }
+
+# ---------------------------------------------------------------------------
+# Dedicated RDS instance for Unleash (open-source feature flag server).
+# Kept intentionally small as feature flag data is minimal.
+# ---------------------------------------------------------------------------
+
+module "unleash_rds" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage = 10
+  storage_type         = "gp2"
+
+  vpc_name = var.vpc_name
+
+  enable_rds_auto_start_stop = true
+
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  performance_insights_enabled = false
+  db_max_allocated_storage     = "20"
+  db_backup_retention_period   = "7"
+  deletion_protection          = false
+
+  db_engine         = "postgres"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
+  db_instance_class = "db.t4g.micro"
+
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+}
+
+resource "kubernetes_secret" "unleash_rds" {
+  metadata {
+    name      = "unleash-rds-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.unleash_rds.rds_instance_endpoint
+    database_name         = module.unleash_rds.database_name
+    database_username     = module.unleash_rds.database_username
+    database_password     = module.unleash_rds.database_password
+    rds_instance_address  = module.unleash_rds.rds_instance_address
+  }
+}
