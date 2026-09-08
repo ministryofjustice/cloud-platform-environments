@@ -1,4 +1,4 @@
-module "static_assets" {
+module "cloudfront_static_assets" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-cloudfront?ref=1.6.0" # use the latest release
 
   # Configuration
@@ -17,13 +17,13 @@ module "static_assets" {
 }
 
 
-resource "kubernetes_secret" "k8_secrets" {
+resource "kubernetes_secret" "cloudfront_k8_secrets" {
   metadata {
     name      = "cloudfront-static-assets"
     namespace = var.namespace
   }
 
   data = {
-    cloudfront_url          = module.static_assets.cloudfront_url
+    cloudfront_url          = module.cloudfront_static_assets.cloudfront_url
   }
 }

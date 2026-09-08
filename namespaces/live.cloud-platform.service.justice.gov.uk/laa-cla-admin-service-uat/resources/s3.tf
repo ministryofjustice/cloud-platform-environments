@@ -15,7 +15,7 @@ module "static_files_bucket" {
   }
 }
 
-resource "kubernetes_secret" "k8_secrets" {
+resource "kubernetes_secret" "s3_k8_secrets" {
   metadata {
     name      = "s3"
     namespace = var.namespace
