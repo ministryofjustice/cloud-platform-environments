@@ -60,7 +60,11 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
       "accommodation.cas3.booking.confirmed",
       "accommodation.cas3.booking.cancelled",
       "accommodation.cas3.booking.cancelled.updated",
-      "probation-user.username.changed"
+      "probation-user.username.changed",
+      "probation-case.registration.added",
+      "probation-case.registration.deleted",
+      "probation-case.registration.deregistered",
+      "probation-case.registration.updated",
     ]
   })
 }
