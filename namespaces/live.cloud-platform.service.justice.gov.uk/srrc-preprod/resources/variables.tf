@@ -79,3 +79,8 @@ variable "serviceaccount_name" {
   description = "GitHub Actions service account name for srrc-preprod namespace"
   default     = "srrc-preprod"
 }
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve OIDC information for IRSA"
+  type        = string
+}

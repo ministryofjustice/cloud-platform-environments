@@ -106,3 +106,21 @@ module "prepare-a-case" {
   github_owner                  = var.github_owner
   reviewer_teams                = ["probation-integration"]
 }
+
+module "court-case-matcher" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
+  github_repo = "court-case-matcher"
+  application = "court-case-matcher"
+  github_team = "hmpps-probation-in-court"
+  environment = var.environment
+  selected_branch_patterns      = ["main"]
+  is_production                 = var.is_production
+  application_insights_instance = var.environment
+  source_template_repo          = "none"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  reviewer_teams                = ["probation-integration"]
+}
