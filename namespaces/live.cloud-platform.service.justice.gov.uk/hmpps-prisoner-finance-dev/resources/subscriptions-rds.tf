@@ -50,7 +50,7 @@ module "subscriptions_rds" {
   ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "subscriptions_rds" {
   metadata {
     name      = "subscriptions-rds-postgresql-instance-output"
     namespace = var.namespace
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "rds" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "subscriptions_rds" {
   metadata {
     name      = "subscriptions-rds-postgresql-instance-output"
     namespace = var.namespace
