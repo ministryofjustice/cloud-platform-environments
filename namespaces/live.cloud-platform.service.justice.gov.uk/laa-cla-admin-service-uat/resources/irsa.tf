@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.namespace}-irsa-sevice-account"
+  service_account_name = "${var.namespace}-irsa-service-account"
   namespace            = var.namespace
 
   # Attach the approprate policies using a key => value map
