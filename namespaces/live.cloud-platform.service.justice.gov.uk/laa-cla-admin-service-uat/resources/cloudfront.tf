@@ -11,7 +11,7 @@ module "cloudfront_static_assets" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace
-  environment_name       = var.environment-name
+  environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   service_area           = var.service_area
 }
