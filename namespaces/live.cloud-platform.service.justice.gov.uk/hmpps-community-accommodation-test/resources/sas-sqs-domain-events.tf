@@ -65,6 +65,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
       "probation-case.registration.deleted",
       "probation-case.registration.deregistered",
       "probation-case.registration.updated",
+      "offender-management.allocation.changed",
     ]
   })
 }
