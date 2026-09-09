@@ -86,6 +86,7 @@ resource "kubernetes_config_map" "advances_rds" {
   }
 }
 
+/*
 resource "kubernetes_secret" "dps_rds_refresh_creds_advances" {
   metadata {
     name      = "advances-rds-postgresql-instance-output-preprod"
@@ -99,3 +100,4 @@ resource "kubernetes_secret" "dps_rds_refresh_creds_advances" {
     rds_instance_address = module.advances_rds.rds_instance_address
   }
 }
+*/
