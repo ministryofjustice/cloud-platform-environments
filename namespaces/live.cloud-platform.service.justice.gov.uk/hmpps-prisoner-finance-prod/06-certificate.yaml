@@ -42,7 +42,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-prisoner-finance-advances-api-cert
-  namespace: hmpps-prisoner-finance-preprod
+  namespace: hmpps-prisoner-finance-prod
 spec:
   secretName: hmpps-prisoner-finance-advances-api-cert
   issuerRef:
@@ -55,7 +55,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-prisoner-finance-subscriptions-api-cert
-  namespace: hmpps-prisoner-finance-preprod
+  namespace: hmpps-prisoner-finance-prod
 spec:
   secretName: hmpps-prisoner-finance-subscriptions-api-cert
   issuerRef:
