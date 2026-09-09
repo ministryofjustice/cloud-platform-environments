@@ -5,11 +5,11 @@ variable "kubernetes_cluster" {
 }
 
 variable "application" {
-  default = "HMPPS github actions runners"
+  default = "HMPPS Github Actions Runners"
 }
 
 variable "namespace" {
-  default = "hmpps-github-actions-runners"
+  default = "hmpps-github-actions-runners-prod"
 }
 
 variable "business_unit" {
@@ -21,7 +21,7 @@ variable "team_name" {
 }
 
 variable "environment" {
-  default = "production"
+  default = "prod"
 }
 
 variable "infrastructure_support" {
@@ -33,7 +33,7 @@ variable "is_production" {
 }
 
 variable "slack_channel" {
-  default = "ask-prison-digital-sre"
+  default = "ask-hmpps-digital-sre"
 }
 
 variable "github_owner" {
