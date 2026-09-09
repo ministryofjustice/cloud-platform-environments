@@ -1,4 +1,4 @@
-module "service_pod_holds" {
+module "service_pod_pf_api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.3.0" # use the latest release
 
   # Configuration
