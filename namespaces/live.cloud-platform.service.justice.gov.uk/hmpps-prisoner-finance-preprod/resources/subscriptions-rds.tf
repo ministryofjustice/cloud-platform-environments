@@ -85,3 +85,18 @@ resource "kubernetes_config_map" "subscriptions_rds" {
     db_identifier = module.subscriptions_rds.db_identifier
   }
 }
+
+
+resource "kubernetes_secret" "dps_rds_refresh_creds_subscriptions" {
+  metadata {
+    name      = "subscriptions-rds-postgresql-instance-output-preprod"
+    namespace = "subscriptions-prisoner-finance-prod"
+  }
+
+  data = {
+    database_name        = module.subscriptions_rds.database_name
+    database_username    = module.subscriptions_rds.database_username
+    database_password    = module.subscriptions_rds.database_password
+    rds_instance_address = module.subscriptions_rds.rds_instance_address
+  }
+}
