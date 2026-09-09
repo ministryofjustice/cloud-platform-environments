@@ -45,8 +45,8 @@ data "kubernetes_secret" "modernisation_platform" {
 
 data "aws_iam_policy_document" "sns_topic_policy" {
   statement {
-    sid     = "__default_statement_ID"
-    effect  = "Allow"
+    sid    = "__default_statement_ID"
+    effect = "Allow"
     actions = [
       "sns:GetTopicAttributes",
       "sns:SetTopicAttributes",
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     ]
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = ["arn:aws:iam::754256621582:user/cloud-platform/manager-concourse"]
     }
     resources = [module.hmpps-domain-events.topic_arn]
     condition {
