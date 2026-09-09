@@ -44,6 +44,12 @@ variable "environment" {
   default     = "production"
 }
 
+variable "domain" {
+  description = "Custom domain for the Route 53 hosted zone"
+  type        = string
+  default     = "find-a-digital-service.justice.gov.uk"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
