@@ -89,7 +89,7 @@ resource "kubernetes_config_map" "subscriptions_rds" {
 resource "kubernetes_secret" "dps_rds_refresh_creds_subscriptions" {
   metadata {
     name      = "subscriptions-rds-postgresql-instance-output-preprod"
-    namespace = "subscriptions-prisoner-finance-prod"
+    namespace = "hmpps-prisoner-finance-prod"
   }
 
   data = {

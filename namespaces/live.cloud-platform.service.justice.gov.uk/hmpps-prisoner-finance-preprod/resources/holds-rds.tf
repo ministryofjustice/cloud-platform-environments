@@ -89,7 +89,7 @@ resource "kubernetes_config_map" "holds_rds" {
 resource "kubernetes_secret" "dps_rds_refresh_creds_holds" {
   metadata {
     name      = "holds-rds-postgresql-instance-output-preprod"
-    namespace = "holds-prisoner-finance-prod"
+    namespace = "hmpps-prisoner-finance-prod"
   }
 
   data = {
