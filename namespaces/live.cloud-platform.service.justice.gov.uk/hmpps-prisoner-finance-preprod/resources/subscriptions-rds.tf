@@ -86,7 +86,7 @@ resource "kubernetes_config_map" "subscriptions_rds" {
   }
 }
 
-
+/*
 resource "kubernetes_secret" "dps_rds_refresh_creds_subscriptions" {
   metadata {
     name      = "subscriptions-rds-postgresql-instance-output-preprod"
@@ -100,3 +100,4 @@ resource "kubernetes_secret" "dps_rds_refresh_creds_subscriptions" {
     rds_instance_address = module.subscriptions_rds.rds_instance_address
   }
 }
+*/
