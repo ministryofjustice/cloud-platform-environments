@@ -1,5 +1,5 @@
 module "hmpps-security-assurance-toolkit" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.2.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-security-assurance-toolkit"
