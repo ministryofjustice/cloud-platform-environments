@@ -5,7 +5,8 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.namespace}-irsa-service-account"
+  # laa-cla-admin-service-production-irsa-service-account-service-pod is more than 63 characters, service truncated to svc
+  service_account_name = "${var.namespace}-irsa-svc-account"
   namespace            = var.namespace
 
   # Attach the approprate policies using a key => value map
