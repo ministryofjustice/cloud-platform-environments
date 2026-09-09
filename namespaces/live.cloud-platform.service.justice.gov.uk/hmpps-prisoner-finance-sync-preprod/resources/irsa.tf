@@ -5,6 +5,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
   }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "hmpps_prisoner_finance_sync_irsa" {
@@ -12,7 +13,7 @@ module "hmpps_prisoner_finance_sync_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = local.sqs_queues
+  role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
