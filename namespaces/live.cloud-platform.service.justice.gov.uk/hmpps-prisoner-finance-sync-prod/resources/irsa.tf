@@ -2,9 +2,7 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
-  irsa_policies = merge(local.sns_policies, local.sqs_policies,)
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
@@ -16,7 +14,7 @@ module "hmpps_prisoner_finance_sync_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = local.irsa_policies
+  role_policy_arns     = sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -24,11 +22,6 @@ module "hmpps_prisoner_finance_sync_irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-}
-
-data "aws_ssm_parameter" "irsa_policy_arns_sns" {
-  for_each = local.sns_topics
-  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
