@@ -9,6 +9,7 @@ data "aws_iam_policy_document" "ssm_policy" {
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_general_role_arn",
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_ear_sar_role_arn",
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_update_p1_role_arn",
+      "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_test_tags_arn",
     ]
   }
 }
@@ -28,6 +29,7 @@ data "aws_iam_policy_document" "cross_account_policy" {
       data.aws_ssm_parameter.data_store_general_role_arn.value,
       data.aws_ssm_parameter.data_store_ear_sar_role_arn.value,
       data.aws_ssm_parameter.data_store_update_p1_role_arn.value,
+      # data.aws_ssm_parameter.data_store_test_tags_arn.value,
     ]
   }
 }
