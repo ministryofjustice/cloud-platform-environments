@@ -141,7 +141,7 @@ EOF
 
   lifecycle_rule = [
     {
-      enabled                                = false
+      enabled                                = true
       id                                     = "expire-copilot-credits-auth0-tf-state-dev"
       abort_incomplete_multipart_upload_days = 90
       expiration = [
