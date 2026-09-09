@@ -25,6 +25,11 @@ module "cis_pp_entra_prod_external_client_secret" {
       description             = "CIS PP Cognito Test User Secret" # required
       recovery_window_in_days = 7                                 # required
       k8s_secret_name         = "cis-pp-cognito-test-user-secret" # the name of the secret in k8s
+    },
+    "slack-webhook-url" = {
+      description             = "Slack webhook URL for CIS PreProd AlertManager alerts (#laa-cis-pp-alerts)"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "cis-pp-slack-webhook"
     }
   }
 
