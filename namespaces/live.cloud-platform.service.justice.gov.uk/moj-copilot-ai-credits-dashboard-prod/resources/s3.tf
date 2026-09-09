@@ -145,24 +145,6 @@ EOF
   oidc_providers = ["github"]
   github_repositories = ["moj-copilot-ai-credits-dashboard"]
   github_actions_prefix = "PROD"
-
-  lifecycle_rule = [
-    {
-      enabled                                = true
-      id                                     = "expire-copilot-credits-auth0-tf-state-prod"
-      abort_incomplete_multipart_upload_days = 90
-      expiration = [
-        {
-          days = 30
-        },
-      ]
-      noncurrent_version_expiration = [
-        {
-          days = 30
-        },
-      ]
-    },
-  ]
 }
 
 resource "kubernetes_secret" "s3_bucket" {
