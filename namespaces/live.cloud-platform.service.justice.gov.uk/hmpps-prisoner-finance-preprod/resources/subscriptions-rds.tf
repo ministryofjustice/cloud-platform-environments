@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "holds_rds" {
+module "subscriptions_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
@@ -50,18 +50,18 @@ module "holds_rds" {
   ]
 }
 
-resource "kubernetes_secret" "holds_rds" {
+resource "kubernetes_secret" "subscriptions_rds" {
   metadata {
-    name      = "holds-rds-postgresql-instance-output"
+    name      = "subscriptions-rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.holds_rds.rds_instance_endpoint
-    database_name         = module.holds_rds.database_name
-    database_username     = module.holds_rds.database_username
-    database_password     = module.holds_rds.database_password
-    rds_instance_address  = module.holds_rds.rds_instance_address
+    rds_instance_endpoint = module.subscriptions_rds.rds_instance_endpoint
+    database_name         = module.subscriptions_rds.database_name
+    database_username     = module.subscriptions_rds.database_username
+    database_password     = module.subscriptions_rds.database_password
+    rds_instance_address  = module.subscriptions_rds.rds_instance_address
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -74,14 +74,14 @@ resource "kubernetes_secret" "holds_rds" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "holds_rds" {
+resource "kubernetes_config_map" "subscriptions_rds" {
   metadata {
-    name      = "holds-rds-postgresql-instance-output"
+    name      = "subscriptions-rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.holds_rds.database_name
-    db_identifier = module.holds_rds.db_identifier
+    database_name = module.subscriptions_rds.database_name
+    db_identifier = module.subscriptions_rds.db_identifier
   }
 }

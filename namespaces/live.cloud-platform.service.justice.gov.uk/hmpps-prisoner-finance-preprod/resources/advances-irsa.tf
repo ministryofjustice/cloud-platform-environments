@@ -1,16 +1,16 @@
 locals {
-  holds_irsa_policies = {
-    rds                              = module.holds_rds.irsa_policy_arn
+  advances_irsa_policies = {
+    rds = module.advances_rds.irsa_policy_arn
   }
 }
 
-module "hmpps_prisoner_finance_holds_irsa" {
+module "hmpps_prisoner_finance_advances_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
-  service_account_name = var.service_account_name_holds
-  role_policy_arns     = local.holds_irsa_policies
+  service_account_name = var.service_account_name_advances
+  role_policy_arns     = local.advances_irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
