@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "cross_account_policy" {
       data.aws_ssm_parameter.data_store_general_role_arn.value,
       data.aws_ssm_parameter.data_store_ear_sar_role_arn.value,
       data.aws_ssm_parameter.data_store_update_p1_role_arn.value,
-      # data.aws_ssm_parameter.data_store_test_tags_arn.value,
+      data.aws_ssm_parameter.data_store_test_tags_arn.value,
     ]
   }
 }
