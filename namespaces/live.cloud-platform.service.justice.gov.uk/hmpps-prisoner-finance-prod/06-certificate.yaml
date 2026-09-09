@@ -37,3 +37,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prisoner-finance-holds-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-finance-advances-api-cert
+  namespace: hmpps-prisoner-finance-preprod
+spec:
+  secretName: hmpps-prisoner-finance-advances-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-finance-advances-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-finance-subscriptions-api-cert
+  namespace: hmpps-prisoner-finance-preprod
+spec:
+  secretName: hmpps-prisoner-finance-subscriptions-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-finance-subscriptions-api.hmpps.service.justice.gov.uk
