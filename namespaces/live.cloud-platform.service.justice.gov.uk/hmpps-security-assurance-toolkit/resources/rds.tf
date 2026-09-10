@@ -30,7 +30,7 @@ resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds" {
   }
 
   data = {
-    DATABASE_URL = "postgres://${module.hmpps_security_assurance_toolkit_rds.database_username}:${module.hmpps_security_assurance_toolkit_rds.database_password}@${module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint}/${module.hmpps_security_assurance_toolkit_rds.database_name}"
+    DATABASE_URL = "postgres://${module.hmpps_security_assurance_toolkit_rds.database_username}:${module.hmpps_security_assurance_toolkit_rds.database_password}@${module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint}/${module.hmpps_security_assurance_toolkit_rds.database_name}?uselibpqcompat=true&sslmode=require"
   }
 }
 
