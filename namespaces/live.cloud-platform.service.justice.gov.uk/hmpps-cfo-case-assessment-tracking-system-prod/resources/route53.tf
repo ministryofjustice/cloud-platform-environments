@@ -18,11 +18,41 @@ resource "kubernetes_secret" "cats_prod_route53_zone" {
     namespace = var.namespace
   }
 
+  # Step 2. Domains team
+  # When you're happy that all the records below are identical to what's live in the legacy
+  # AWS account, extract this secret with kubectl and share the nameservers with domains-gg
+  # to delegate the whole apex zone to us.
+  #   kubectl -n hmpps-cfo-case-assessment-tracking-system-prod get secret \
+  #     cats-prod-route53-zone-output -o jsonpath='{.data.nameservers}' | base64 -d
+  #
+  # Step 3. Traffic will still be served from the legacy AWS account (records below are
+  # identical copies of what's already live) - delegation alone changes nothing functionally.
+  #
+  # Step 4. Create certificates (e.g. 05-certificate.yaml) ahead of time once CP manages the
+  # DNS. TLS secrets can only be issued once CP is authoritative for the zone.
+  # Useful commands: kubectl get certificates / kubectl get certificaterequests
+  #
+  # Step 5. Cutover, done in two batches - non-prod (dev/training/preprod) together first,
+  # then prod separately later. For each batch:
+  #   5.1 delete the relevant host record(s) below (dev/training/preprod records for batch 1,
+  #       apex record for batch 2) - NOT the *_acm_validation records, those stay for now
+  #   5.2 immediately merge/deploy the matching CATS ingress PR - external-dns will then create
+  #       the replacement weighted record(s). The old simple-routing record must be gone first,
+  #       since Route53 won't allow it alongside external-dns's weighted record for the same host
+  #   5.3 verify each hostname resolves to CP and serves correctly
+  #   5.4 decommission the legacy CloudFront distribution(s) for that batch's hosts
+  #   5.5 once decommissioned, remove that batch's *_acm_validation record(s) below too (they
+  #       only validate the legacy ACM cert, unrelated to our cert-manager cert - see note
+  #       above on why this isn't forced/immediate)
   data = {
     zone_id     = aws_route53_zone.cats_prod.zone_id
     nameservers = join("\n", aws_route53_zone.cats_prod.name_servers)
   }
 }
+
+# ---------------------------------------------------------------------------
+# Step 1. Replicated records - exact copies of what's currently live in the legacy AWS account
+# ---------------------------------------------------------------------------
 
 # --- apex/production start ---
 # NOTE: the domains team suggested converting our ALIAS records to CNAME for consistency
