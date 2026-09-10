@@ -23,7 +23,7 @@ module "hmpps_egress_controls" {
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
     module.sqlserver_backup_s3_bucket.bucket_domain_name, # CATS SQL Server backup bucket
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
-    "dev-dms-api.co-financing.org"       # CFO Data Management System (DMS)
+    "api.dev.cfo-data-management-system.service.justice.gov.uk"  # CFO Data Management System (DMS)
   ]
 
 }
