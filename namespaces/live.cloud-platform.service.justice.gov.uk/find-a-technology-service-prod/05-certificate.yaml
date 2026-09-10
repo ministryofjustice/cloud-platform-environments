@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: find-a-digital-service-prod
+  namespace: find-a-technology-service-prod
+spec:
+  secretName: find-a-digital-service-prod-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - find-a-digital-service.justice.gov.uk
