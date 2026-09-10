@@ -217,7 +217,7 @@ spec:
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-dev"
 
     - alert: CCR-secrets-changed
-      expr: increase(secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-remuneration-dev-2ca196d5eda39fe8-zyCvym"}[5m]) > 0
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-remuneration-dev-2ca196d5eda39fe8-zyCvym"} > 0
       labels:
         severity: info-laa_crown_court_renumeration_alerts_dev
         status_icon: information
