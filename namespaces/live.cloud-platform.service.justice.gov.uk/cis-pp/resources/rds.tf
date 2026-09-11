@@ -13,6 +13,7 @@ module "rds_instance" {
   rds_name                 = "cis-rds"
   db_name                  = "CIS"
   license_model            = "license-included"
+  opt_in_xsiam_logging     = true
   
   # Avoid default parameters set by MOJ
   db_parameter = []
