@@ -1,5 +1,5 @@
 module "prisoner_offender_events_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -163,7 +163,7 @@ module "prison-offender-events-irsa" {
     {
       prisoner_offender_events_queue = module.prisoner_offender_events_queue.irsa_policy_arn,
       prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
-      offender_events_topic          = module.offender_events.irsa_policy_arn
+      offender_events_topic          = aws_iam_policy.sns_topic_irsa_publish[module.offender_events.topic_name].arn
   })
 
   # Tags

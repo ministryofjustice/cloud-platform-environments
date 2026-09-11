@@ -23,8 +23,8 @@ locals {
     (module.offender_categorisation_events_dead_letter_queue.sqs_name)             = module.offender_categorisation_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_categorisation_ui_events_queue.sqs_name)                      = module.offender_categorisation_ui_events_queue.irsa_policy_arn,
     (module.offender_categorisation_ui_events_dead_letter_queue.sqs_name)          = module.offender_categorisation_ui_events_dead_letter_queue.irsa_policy_arn,
-    (module.offender_categorisation_api_events_queue.sqs_name)                      = module.offender_categorisation_api_events_queue.irsa_policy_arn,
-    (module.offender_categorisation_api_events_dead_letter_queue.sqs_name)          = module.offender_categorisation_api_events_dead_letter_queue.irsa_policy_arn,
+    (module.offender_categorisation_api_events_queue.sqs_name)                     = module.offender_categorisation_api_events_queue.irsa_policy_arn,
+    (module.offender_categorisation_api_events_dead_letter_queue.sqs_name)         = module.offender_categorisation_api_events_dead_letter_queue.irsa_policy_arn,
     (module.offender_events_ui_queue.sqs_name)                                     = module.offender_events_ui_queue.irsa_policy_arn,
     (module.offender_events_ui_dead_letter_queue.sqs_name)                         = module.offender_events_ui_dead_letter_queue.irsa_policy_arn,
     (module.pathfinder_offender_events_queue.sqs_name)                             = module.pathfinder_offender_events_queue.irsa_policy_arn,
@@ -37,11 +37,39 @@ locals {
     (module.whereabouts_api_dead_letter_queue.sqs_name)                            = module.whereabouts_api_dead_letter_queue.irsa_policy_arn
   }
 
-  sns_irsa_policies = {
-    (module.offender_events.topic_name)             = module.offender_events.irsa_policy_arn,
-    (module.probation_offender_events.topic_name)   = module.probation_offender_events.irsa_policy_arn,
-    (module.offender_assessments_events.topic_name) = module.probation_offender_events.irsa_policy_arn
+  sns_topic_arns = {
+    (module.offender_events.topic_name)             = module.offender_events.topic_arn,
+    (module.probation_offender_events.topic_name)   = module.probation_offender_events.topic_arn,
+    (module.offender_assessments_events.topic_name) = module.offender_assessments_events.topic_arn
   }
+
+  sns_irsa_policies = {
+    for topic_name, topic_arn in local.sns_topic_arns : topic_name => aws_iam_policy.sns_topic_irsa_publish[topic_name].arn
+  }
+}
+
+data "aws_iam_policy_document" "sns_topic_irsa_publish" {
+  for_each = local.sns_topic_arns
+
+  statement {
+    sid    = "AllowPublishToTopic"
+    effect = "Allow"
+    actions = [
+      "sns:Publish",
+      "sns:GetTopicAttributes",
+    ]
+    resources = [each.value]
+  }
+}
+
+resource "aws_iam_policy" "sns_topic_irsa_publish" {
+  for_each = local.sns_topic_arns
+
+  name   = "${var.namespace}-publish-${replace(each.key, "/[^a-zA-Z0-9-]/", "-")}-topic"
+  path   = "/cloud-platform/sns/"
+  policy = data.aws_iam_policy_document.sns_topic_irsa_publish[each.key].json
+
+  tags = local.tags
 }
 
 resource "aws_ssm_parameter" "tf-outputs-sqs-irsa-policies" {
