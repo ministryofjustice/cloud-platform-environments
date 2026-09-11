@@ -29,7 +29,7 @@ resource "aws_iam_access_key" "hmpps_prisoner_events" {
 }
 
 resource "aws_iam_user_policy_attachment" "hmpps_prisoner_events_policy" {
-  policy_arn = module.offender_events.irsa_policy_arn
+  policy_arn = aws_iam_policy.sns_topic_irsa_publish[module.offender_events.topic_name].arn
   user       = aws_iam_user.hmpps_prisoner_events.name
 }
 
