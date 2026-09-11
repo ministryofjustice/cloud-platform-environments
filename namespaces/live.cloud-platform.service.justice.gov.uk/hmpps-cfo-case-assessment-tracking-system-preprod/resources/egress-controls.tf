@@ -5,7 +5,7 @@ module "hmpps_egress_controls" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
 
   enable_envoy_setup     = true
-  enable_egress_controls = false
+  enable_egress_controls = true
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
@@ -20,7 +20,7 @@ module "hmpps_egress_controls" {
     "api.os.uk",                         # Ordnance Survey Places API
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
-    "preprod-dms-api.co-financing.org"       # CFO Data Management System (DMS)
+    "api.preprod.cfo-data-management-system.service.justice.gov.uk" # CFO Data Management System (DMS)
   ]
 
 }
