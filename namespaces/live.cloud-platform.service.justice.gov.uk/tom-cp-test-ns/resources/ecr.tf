@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=fix-oidc-immutable-subject-claims"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
   repo_name = var.namespace
@@ -28,5 +28,5 @@ module "ecr" {
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
   # uncomment below:
 
-  # enable_irsa = true
+  enable_irsa = true
 }
