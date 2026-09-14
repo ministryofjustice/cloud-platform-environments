@@ -37,7 +37,7 @@ module "rds" {
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 
-  #   enable_irsa = true
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
