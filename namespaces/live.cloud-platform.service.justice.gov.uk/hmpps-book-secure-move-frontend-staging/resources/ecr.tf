@@ -41,7 +41,8 @@ module "ecr-repo" {
             "storageClass": "archive",
           },
           "action": {
-            "type": "expire"          }
+            "type": "expire"
+          }
         }
       ]
     }
