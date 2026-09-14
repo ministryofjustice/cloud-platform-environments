@@ -20,6 +20,7 @@ module "ecr-repo" {
           "description": "Expire images 30 days since pulled",
           "selection": {
             "countType": "sinceImagePulled",
+            "tagStatus": "any",
             "countUnit": "days",
             "countNumber": 30
           },
