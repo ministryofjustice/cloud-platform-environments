@@ -7,6 +7,7 @@ module "ecr-repo" {
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
+  enable_irsa = true
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
