@@ -4,6 +4,7 @@
  * releases page of this repository.
  *
  */
+# noinspection MissingModule
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -37,7 +38,7 @@ module "rds" {
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
 
-  #   enable_irsa = true
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
