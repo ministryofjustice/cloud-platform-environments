@@ -4,7 +4,6 @@
  * releases page of this repository.
  *
  */
-# noinspection MissingModule
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
