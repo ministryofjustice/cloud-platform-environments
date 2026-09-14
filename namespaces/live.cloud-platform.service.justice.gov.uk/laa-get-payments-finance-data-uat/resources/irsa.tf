@@ -45,6 +45,7 @@ module "irsa_service_pod" {
     file_store = module.s3_bucket.irsa_policy_arn
     report_store = module.s3_bucket_report_store.irsa_policy_arn
     report_store_logging = module.s3_bucket_report_store_logging.irsa_policy_arn
+    rds = module.rds.irsa_policy_arn
   }
 
   # Tags
