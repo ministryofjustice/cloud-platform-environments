@@ -17,12 +17,28 @@ module "ecr-repo" {
       "rules": [
         {
           "rulePriority": 1,
-          "description": "Expire images 30 days since pulled",
+          "description": "Archive images 7 days since pulled",
           "selection": {
             "countType": "sinceImagePulled",
             "tagStatus": "any",
             "countUnit": "days",
-            "countNumber": 30
+            "countNumber": 7,
+            "storageClass": "standard"
+          },
+          "action": {
+            "type": "transition",
+            "targetStorageClass": "archive"
+          }
+        },
+        {
+          "rulePriority": 2,
+          "description": "Expire images 90 days since archived",
+          "selection": {
+            "countType": "sinceImageTransitioned",
+            "tagStatus": "any",
+            "countUnit": "days",
+            "countNumber": 90,
+            "storageClass": "archive"
           },
           "action": {
             "type": "expire"
