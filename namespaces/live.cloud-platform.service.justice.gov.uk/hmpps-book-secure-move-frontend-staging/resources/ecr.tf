@@ -22,8 +22,8 @@ module "ecr-repo" {
             "countType": "sinceImagePulled",
             "tagStatus": "any",
             "countUnit": "days",
-            "countNumber": 7
-            "storageClass": "standard",
+            "countNumber": 7,
+            "storageClass": "standard"
           },
           "action": {
             "type": "transition",
@@ -37,8 +37,8 @@ module "ecr-repo" {
             "countType": "sinceImageTransitioned",
             "tagStatus": "any",
             "countUnit": "days",
-            "countNumber": 90
-            "storageClass": "archive",
+            "countNumber": 90,
+            "storageClass": "archive"
           },
           "action": {
             "type": "expire"
