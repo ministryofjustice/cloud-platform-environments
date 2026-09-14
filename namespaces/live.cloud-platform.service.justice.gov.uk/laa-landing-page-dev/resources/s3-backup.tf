@@ -1,23 +1,3 @@
-/*
- * DB-2 (docs/backup-and-recovery-strategy.md) — dev's own pg_dump backup bucket,
- * write role, and restore role. Separate from s3-backup-test.tf (disposable GH-2
- * rehearsal scaffolding, a different bucket entirely) — this is permanent.
- *
- * Redesigned 2026-09-14: one bucket per environment (dev, test, prd), each entirely
- * self-contained in its own namespace's Terraform state — no more cross-namespace
- * hardcoded bucket ARN. The only asymmetry: prd's bucket will, in future, also host
- * the GH-2 GitHub mirror backup under a separate github-mirror/ prefix (there's only
- * one GitHub repo, so that doesn't need a copy per environment) — this dev bucket
- * only ever holds pg-dump/.
- *
- * Object Lock: GOVERNANCE mode, not COMPLIANCE — same reasoning as prd (see prd's
- * s3-backup.tf): the dev-test rehearsal never actually exercised a read, so the
- * irrevocable mode is deferred until that's been proven out.
- *
- * Restore role is unattached (see prd's s3-backup.tf for the IRSA pod-assumable
- * caveat) — kept here rather than shared with prd/test because a restore pod runs
- * in whichever namespace holds the RDS instance being restored into.
- */
 
 module "backup" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
@@ -106,10 +86,6 @@ module "irsa_pg_dump_backup" {
   infrastructure_support = var.infrastructure_support
 }
 
-# k8s Secret deploy_dev.yml reads BACKUP_BUCKET_NAME from, mirroring how it already
-# reads RDS_DB_IDENTIFIER from rds-postgresql-instance-output. NOT the same secret
-# as backup-test-output (s3-backup-test.tf) — that one points at the disposable GH-2
-# rehearsal bucket, not this real one.
 resource "kubernetes_secret" "backup_bucket" {
   metadata {
     name      = "backup-bucket-output"
