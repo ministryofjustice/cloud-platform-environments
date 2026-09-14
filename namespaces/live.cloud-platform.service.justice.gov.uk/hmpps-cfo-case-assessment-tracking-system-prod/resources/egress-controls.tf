@@ -16,9 +16,12 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_exact = [
+    "rds.eu-west-2.amazonaws.com",       # Service Pod (i.e. aws rds describe-db-instances ...)
+    "elasticache.eu-west-2.amazonaws.com", # Service Pod (i.e. aws elasticache describe-cache-clusters ...)
     "api.notifications.service.gov.uk",  # GOV.UK Notify
     "api.os.uk",                         # Ordnance Survey Places API
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
+    module.sqlserver_backup_s3_bucket.bucket_domain_name, # CATS SQL Server backup bucket
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
     "api.cfo-data-management-system.service.justice.gov.uk" # CFO Data Management System (DMS)
   ]
