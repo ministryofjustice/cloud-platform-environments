@@ -1,5 +1,5 @@
 module "offender-support-management-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   custom_token_rotation_date = "01-01-2000"
   github_repo                   = "offender-support-management-api"
