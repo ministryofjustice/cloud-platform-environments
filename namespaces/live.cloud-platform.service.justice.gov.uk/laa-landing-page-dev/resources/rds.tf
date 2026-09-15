@@ -318,7 +318,7 @@ module "unleash_rds" {
   deletion_protection          = false
 
   db_engine         = "postgres"
-  db_engine_version = "16"
+  db_engine_version = "16.15"
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
