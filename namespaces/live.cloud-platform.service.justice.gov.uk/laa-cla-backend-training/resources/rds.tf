@@ -18,7 +18,7 @@ module "cla_backend_rds_postgres_14" {
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
-  db_engine_version      = "14"
+  db_engine_version      = "14.24"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
@@ -96,7 +96,7 @@ module "cla_backend_metabase_rds" {
   namespace     = var.namespace
 
   db_name                  = "metabase"
-  db_engine_version        = "15"
+  db_engine_version        = "15.19"
   db_instance_class        = "db.t4g.micro"
   db_allocated_storage     = "5"
   db_max_allocated_storage = "500"
