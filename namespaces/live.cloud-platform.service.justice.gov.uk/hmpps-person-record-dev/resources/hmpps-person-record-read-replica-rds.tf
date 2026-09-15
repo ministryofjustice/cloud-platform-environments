@@ -16,7 +16,7 @@ module "hmpps_person_record_rds_read_replica" {
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "false"
   enable_rds_auto_start_stop  = true
-  replicate_source_db         =  module.hmpps_person_record_rds.db_identifier
+  replicate_source_db         = module.hmpps_person_record_rds.db_identifier
 
   providers = {
     aws = aws.london
