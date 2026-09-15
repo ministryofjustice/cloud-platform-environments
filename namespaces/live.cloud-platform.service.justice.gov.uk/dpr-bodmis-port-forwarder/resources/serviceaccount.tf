@@ -9,4 +9,5 @@ module "serviceaccount" {
   namespace           = "dpr-bodmis-port-forwarder"
   github_repositories = ["dpr-bodmis-port-forwarder"]
   kubernetes_cluster  = var.kubernetes_cluster
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

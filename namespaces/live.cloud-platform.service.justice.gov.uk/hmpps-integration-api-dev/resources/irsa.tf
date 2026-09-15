@@ -5,7 +5,6 @@ locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue"                                 = "hmpps-audit-dev",
-    "education-skills-work-employment-dev-hmpps_jobs_board_integration_queue"       = "hmpps-jobs-board-integration-dev",
     "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"                = "visit-someone-in-prison-backend-svc-dev",
     "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"                  = "visit-someone-in-prison-backend-svc-dev",
     "locations-inside-prison-development-update_from_external_system_events_queue"  = "hmpps-locations-inside-prison-dev"
@@ -29,6 +28,12 @@ module "irsa" {
   role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
+    {
+      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
+      event_topic = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues = aws_iam_policy.integration_events_sqs.arn,
+    }
   )
   # Tags
   business_unit          = var.business_unit

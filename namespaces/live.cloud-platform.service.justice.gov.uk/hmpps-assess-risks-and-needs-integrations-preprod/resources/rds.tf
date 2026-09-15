@@ -17,6 +17,8 @@ module "hmpps_assess_risks_and_needs_integrations_preprod_rds" {
   allow_major_version_upgrade = "true"
   prepare_for_major_upgrade = false
 
+  enable_irsa = true
+
   providers = {
     aws = aws.london
   }
@@ -26,6 +28,23 @@ resource "kubernetes_secret" "hmpps_assess_risks_and_needs_integrations_preprod_
   metadata {
     name      = "hmpps-assess-risks-and-needs-integrations-rds-instance"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_assess_risks_and_needs_integrations_preprod_rds.rds_instance_endpoint
+    database_name         = module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_name
+    database_username     = module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_username
+    database_password     = module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_password
+    rds_instance_address  = module.hmpps_assess_risks_and_needs_integrations_preprod_rds.rds_instance_address
+    url                   = "postgres://${module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_username}:${module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_password}@${module.hmpps_assess_risks_and_needs_integrations_preprod_rds.rds_instance_endpoint}/${module.hmpps_assess_risks_and_needs_integrations_preprod_rds.database_name}"
+  }
+}
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "hmpps_assess_risks_and_needs_integrations_prod_refresh_secret" {
+  metadata {
+    name      = "preprod-rds-instance"
+    namespace = "hmpps-assess-risks-and-needs-integrations-prod"
   }
 
   data = {

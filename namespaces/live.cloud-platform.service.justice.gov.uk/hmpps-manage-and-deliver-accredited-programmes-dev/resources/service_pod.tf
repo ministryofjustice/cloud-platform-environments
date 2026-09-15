@@ -1,4 +1,4 @@
-/*module "s3_service_pod" {
+module "s3_service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
 
   # Configuration
@@ -6,7 +6,7 @@
   service_account_name = module.irsa-cronjob.service_account.name # this uses the service account name from the irsa module
 }
 
-module "sqlserver_rds_service_pod" {
+/*module "sqlserver_rds_service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
 
   # Configuration

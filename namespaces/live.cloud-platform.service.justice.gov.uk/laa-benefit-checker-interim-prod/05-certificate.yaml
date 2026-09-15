@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-benefit-checker-interim-prod-cert
+  namespace: laa-benefit-checker-interim-prod
+spec:
+  secretName: laa-benefit-checker-interim-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - laa-benefitchecker.service.justice.gov.uk

@@ -385,7 +385,7 @@ module "service-account-circleci" {
   role_name           = "circleci"
   rolebinding_name    = "circleci"
 
-  serviceaccount_token_rotated_date = "05-02-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {
@@ -421,7 +421,7 @@ module "service-account-github-actions" {
   role_name           = "github-actions--basic"
   rolebinding_name    = "github-actions--basic"
 
-  serviceaccount_token_rotated_date = "05-02-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = [
     {

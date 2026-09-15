@@ -1,5 +1,7 @@
 module "hmpps_prisoner_pay_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-api"
   application = "hmpps-prisoner-pay-api"
   github_team = "activities-and-appointments"
@@ -15,7 +17,9 @@ module "hmpps_prisoner_pay_api" {
 }
 
 module "hmpps_prisoner_pay_orchestrator_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-orchestrator-api"
   application = "hmpps-prisoner-pay-orchestrator-api"
   github_team = "activities-and-appointments"
@@ -31,7 +35,9 @@ module "hmpps_prisoner_pay_orchestrator_api" {
 }
 
 module "hmpps_prisoner_pay_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-pay-ui"
   application = "hmpps-prisoner-pay-ui"
   github_team = "activities-and-appointments"
@@ -46,6 +52,14 @@ module "hmpps_prisoner_pay_ui" {
   kubernetes_cluster            = var.kubernetes_cluster
 }
 
+module "hmpps_egress_controls" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.5"
+
+  enable_envoy_setup     = true
+  enable_egress_controls = true
+  namespace              = var.namespace
+  vpc_name               = var.vpc_name
+}
 
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {

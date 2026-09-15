@@ -39,11 +39,6 @@ module "calculate_release_dates_api_rds" {
       apply_method = "pending-reboot"
     },
     {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    {
       name         = "max_wal_size"
       value        = "1024"
       apply_method = "immediate"
@@ -52,6 +47,21 @@ module "calculate_release_dates_api_rds" {
       name         = "wal_sender_timeout"
       value        = "0"
       apply_method = "immediate"
+    },
+    {
+      name         = "pg_stat_statements.track"
+      value        = "ALL"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "pg_stat_statements.max"
+      value        = "10000"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical,pg_stat_statements"
+      apply_method = "pending-reboot"
     }
   ]
 
@@ -82,11 +92,11 @@ resource "aws_security_group" "data_catalogue_access_sg" {
     create_before_destroy = true
   }
 
-  ingress{
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      cidr_blocks = ["10.201.128.0/17"]
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.201.128.0/17"]
   }
 }
 

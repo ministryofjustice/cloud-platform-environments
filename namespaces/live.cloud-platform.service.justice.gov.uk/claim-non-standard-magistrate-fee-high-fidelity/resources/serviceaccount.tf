@@ -13,6 +13,7 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
+  serviceaccount_token_rotated_date = "20-03-2026"
 }
 variable "serviceaccount_rules" {
   description = "The capabilities of this serviceaccount"

@@ -1,3 +1,40 @@
+# Use default ingress controller NLB (managed by Cloud Platform)
+data "aws_lb" "ingress_default_non_prod_nlb" {
+  tags = {
+    "kubernetes.io/service-name" = "ingress-controllers/nginx-ingress-default-non-prod-controller"
+    "kubernetes.io/cluster/live" = "owned"
+  }
+}
+
+# Get network interfaces associated with the NLB to extract private IPs
+data "aws_network_interfaces" "nlb_enis" {
+  filter {
+    name   = "description"
+    values = ["ELB ${data.aws_lb.ingress_default_non_prod_nlb.arn_suffix}"]
+  }
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_lb.ingress_default_non_prod_nlb.vpc_id]
+  }
+}
+
+# Get details of each network interface to extract private IP addresses
+data "aws_network_interface" "nlb_eni_details" {
+  for_each = toset(data.aws_network_interfaces.nlb_enis.ids)
+  id       = each.value
+}
+
+# VPC Link for API Gateway
+resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
+  name        = "${var.namespace}-vpc-link"
+  description = "VPC Link for ${var.namespace} API Gateway to NLB"
+  target_arns = [data.aws_lb.ingress_default_non_prod_nlb.arn]
+
+  tags = local.default_tags
+}
+#===============================================================================
+# API Gateway for Launchpad Auth API
+#===============================================================================
 resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   name                          = var.namespace
   disable_execute_api_endpoint  = false
@@ -9,6 +46,7 @@ resource "aws_api_gateway_rest_api" "api_gateway_lp_auth" {
   tags = local.default_tags
 }
 
+# /Handles All Resources
 resource "aws_api_gateway_resource" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   parent_id   = aws_api_gateway_rest_api.api_gateway_lp_auth.root_resource_id
@@ -27,16 +65,25 @@ resource "aws_api_gateway_method" "proxy" {
   }
 }
 
+# Handles any path - HTTPS via VPC Link → default NLB → NGINX → pod
+# URI uses *.apps.live.cloud-platform hostname to match default NLB TLS cert CN
+# Host header must match URI hostname - NGINX uses SNI from TLS for routing
+# apiGatewayIngress in values-dev.yaml must have this same hostname
 resource "aws_api_gateway_integration" "proxy_http_proxy" {
   rest_api_id             = aws_api_gateway_rest_api.api_gateway_lp_auth.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.proxy.http_method
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "${var.cloud_platform_launchpad_auth_api_url}/{proxy}"
+  uri                     = "https://${var.api_gateway_ingress_hostname}/{proxy}"
+
+  connection_type      = "VPC_LINK"
+  connection_id        = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
+  timeout_milliseconds = 29000
 
   request_parameters = {
-    "integration.request.path.proxy" = "method.request.path.proxy"
+    "integration.request.path.proxy"  = "method.request.path.proxy"
+    "integration.request.header.Host" = "'${var.api_gateway_ingress_hostname}'"
   }
 }
 
@@ -98,15 +145,18 @@ resource "aws_api_gateway_stage" "main" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
     format = jsonencode({
-      extendedRequestId = "$context.extendedRequestId"
-      ip                = "$context.identity.sourceIp"
-      requestTime       = "$context.requestTime"
-      httpMethod        = "$context.httpMethod"
-      resourcePath      = "$context.resourcePath"
-      status            = "$context.status"
-      responseLength    = "$context.responseLength"
-      error             = "$context.error.message"
-      apiKeyId          = "$context.identity.apiKeyId"
+      extendedRequestId       = "$context.extendedRequestId"
+      ip                      = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      httpMethod              = "$context.httpMethod"
+      resourcePath            = "$context.resourcePath"
+      status                  = "$context.status"
+      responseLength          = "$context.responseLength"
+      error                   = "$context.error.message"
+      apiKeyId                = "$context.identity.apiKeyId"
+      integrationStatus       = "$context.integration.status"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+      integrationLatency      = "$context.integrationLatency"
     })
   }
 
@@ -143,7 +193,7 @@ resource "aws_api_gateway_method_settings" "all" {
 }
 
 # The block below creates an ACM certificate (DNS validation), Route53 validation records,
-# a regional API Gateway custom domain and an alias record. This enables a custom hostname like
+# a regional API Gateway custom domain and an alias record. Enables
 # ${var.hostname}.${var.base_domain} to point at the API Gateway.
 
 data "aws_route53_zone" "hmpps" {

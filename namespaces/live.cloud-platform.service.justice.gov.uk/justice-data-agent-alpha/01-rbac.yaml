@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: justice-data-agent-alpha-admin
+  namespace: justice-data-agent-alpha
+subjects:
+  - kind: Group
+    name: "github:justice-data-agent"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

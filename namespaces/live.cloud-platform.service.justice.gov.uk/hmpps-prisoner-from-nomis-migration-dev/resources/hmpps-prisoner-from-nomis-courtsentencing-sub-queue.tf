@@ -10,7 +10,7 @@ module "prisoner_from_nomis_courtsentencing_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.prisoner_from_nomis_courtsentencing_dead_letter_queue.sqs_arn
-    maxReceiveCount     = 10
+    maxReceiveCount     = 20
   })
 
   # Tags

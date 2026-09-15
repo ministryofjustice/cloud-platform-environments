@@ -1,5 +1,7 @@
 module "hmpps_health_and_medication_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-health-and-medication-api"
   application                   = "hmpps-health-and-medication-api"
   github_team                   = var.github_review_team

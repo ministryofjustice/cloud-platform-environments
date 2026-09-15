@@ -40,5 +40,10 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "uat-lfa-connection"
     },
+    "mock-user-array" = {
+      description             = "Store an array of passwords for temporary uat access; e.g. testuser@example.com:password1,pentester@business.co.uk,password2",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "uat-mock-user-array"
+    },
   }
 }

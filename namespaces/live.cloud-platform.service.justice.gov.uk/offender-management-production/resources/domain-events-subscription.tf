@@ -9,11 +9,13 @@ resource "aws_sns_topic_subscription" "domain_events" {
       "offender-management.noop",
       "prisoner-offender-search.prisoner.updated",
       "prisoner-offender-search.prisoner.released",
+      "prison-offender-events.prisoner.merged",
+      "probation-case.merge.completed",
+      "probation-case.unmerge.completed",
       "probation-case.registration.added",
       "probation-case.registration.deleted",
-      "probation-case.registration.deregistered",
       "probation-case.registration.updated",
-      "tier.calculation.complete"
+      "tier.calculation.changed"
     ]
   })
 }

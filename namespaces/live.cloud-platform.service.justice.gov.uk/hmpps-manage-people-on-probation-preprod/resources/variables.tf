@@ -48,7 +48,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "probation-integration-team@digital.justice.gov.uk"
+  default     = "MPoP-Digital-Team@justice.gov.uk"
 }
 
 variable "environment-name" {
@@ -72,4 +72,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }

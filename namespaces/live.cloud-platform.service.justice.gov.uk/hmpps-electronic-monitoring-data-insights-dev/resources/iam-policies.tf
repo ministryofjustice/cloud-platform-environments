@@ -2,8 +2,7 @@ data "aws_iam_policy_document" "ssm_policy" {
   statement {
     actions = [
       "ssm:GetParameter",
-      "ssm:GetParameters",
-      "ssm:PutParameter"
+      "ssm:GetParameters"
     ]
     resources = [
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/athena_general_role_arn"
@@ -14,7 +13,7 @@ data "aws_iam_policy_document" "ssm_policy" {
 resource "aws_iam_policy" "ssm_access" {
   name   = "${var.namespace}-ssm-policy"
   policy = data.aws_iam_policy_document.ssm_policy.json
-  tags = local.tags
+  tags   = local.tags
 }
 
 data "aws_iam_policy_document" "athena_policy" {
@@ -23,7 +22,7 @@ data "aws_iam_policy_document" "athena_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      aws_ssm_parameter.athena_general_role_arn.value
+      "arn:aws:iam::800964199911:role/emdi_read_emds_data_dev"
     ]
   }
 }
@@ -31,5 +30,5 @@ data "aws_iam_policy_document" "athena_policy" {
 resource "aws_iam_policy" "athena_access" {
   name   = "${var.namespace}-athena-policy-general"
   policy = data.aws_iam_policy_document.athena_policy.json
-  tags = local.tags
+  tags   = local.tags
 }

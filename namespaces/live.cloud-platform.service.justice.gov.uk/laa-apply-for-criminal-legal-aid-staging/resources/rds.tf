@@ -13,9 +13,12 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
+
   # change the postgres version as you see fit.
   db_engine         = "postgres"
-  db_engine_version = "17"
+  db_engine_version = "17.11"
 
   # change the instance class as you see fit.
   db_instance_class        = "db.t4g.micro"
@@ -31,6 +34,8 @@ module "rds" {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
+
+  deletion_protection = true
 }
 
 resource "kubernetes_secret" "rds" {

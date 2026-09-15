@@ -1,8 +1,10 @@
 module "hmpps_probation_supervision_reminders_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-probation-supervision-reminders-ui"
   application = "hmpps-probation-supervision-reminders-ui"
-  github_team = "probation-integration"
+  github_team = "hmpps-manage-people-on-probation"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
@@ -18,7 +20,7 @@ module "hmpps_probation_supervision_reminders_ui" {
 
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -30,7 +32,7 @@ module "elasticache_redis" {
 
   number_cache_clusters = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
-  node_type            = "cache.t4g.small"
+  node_type            = "cache.t4g.micro"
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 

@@ -6,7 +6,7 @@ metadata:
   namespace: hmpps-prison-roll-count-preprod
 subjects:
   - kind: Group
-    name: "github:map-developers"
+    name: "github:map-developers-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

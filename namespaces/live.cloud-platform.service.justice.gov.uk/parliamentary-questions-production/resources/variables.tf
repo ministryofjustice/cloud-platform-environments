@@ -36,6 +36,10 @@ variable "team_name" {
   default = "pq-team"
 }
 
+variable "service_area" {
+  default = "Central Victims and Vulnerability"
+}
+
 variable "domain" {
   default = "trackparliamentaryquestions.service.gov.uk"
 }

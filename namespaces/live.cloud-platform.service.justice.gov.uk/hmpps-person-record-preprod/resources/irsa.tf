@@ -4,6 +4,7 @@ locals {
   }
   # *** Placeholder for incoming SNS topics ***
   sns_topics = {
+      "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -58,6 +59,8 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
       module.cpr_delius_merge_events_dead_letter_queue.sqs_arn,
       module.cpr_delius_delete_events_queue.sqs_arn,
       module.cpr_delius_delete_events_dead_letter_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_dead_letter_queue.sqs_arn
     ]
   }
 }
@@ -76,14 +79,29 @@ data "aws_iam_policy_document" "combined_nomis_sqs" {
     resources = [
       module.cpr_nomis_events_queue.sqs_arn,
       module.cpr_nomis_events_dead_letter_queue.sqs_arn,
-      module.cpr_nomis_merge_events_queue.sqs_arn,
-      module.cpr_nomis_merge_events_dead_letter_queue.sqs_arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "combined_nomis_sqs" {
   policy = data.aws_iam_policy_document.combined_nomis_sqs.json
+  tags   = local.default_tags
+}
+
+data "aws_iam_policy_document" "combined_sas_sqs" {
+  statement {
+    sid     = "hmppsSasQueuePolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.cpr_sas_events_queue.sqs_arn,
+      module.cpr_sas_events_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sas_sqs" {
+  policy = data.aws_iam_policy_document.combined_sas_sqs.json
   tags   = local.default_tags
 }
 
@@ -125,6 +143,7 @@ module "irsa" {
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
+    { combined_sas_sqs = aws_iam_policy.combined_sas_sqs.arn },
     { pic_link_unlink_sqs = aws_iam_policy.pic_link_unlink_sqs.arn },
     { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )

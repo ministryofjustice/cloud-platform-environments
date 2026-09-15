@@ -6,6 +6,9 @@ variable "vpc_name" {
 variable "kubernetes_cluster" {
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "cloud-platform-go-get-module"

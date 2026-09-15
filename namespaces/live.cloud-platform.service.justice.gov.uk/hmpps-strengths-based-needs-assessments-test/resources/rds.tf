@@ -23,6 +23,7 @@ module "hmpps_strengths_based_needs_assessments_test_rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_strengths_based_needs_assessments_test_rds_secret" {

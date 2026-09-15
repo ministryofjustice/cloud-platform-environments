@@ -44,6 +44,10 @@ variable "infrastructure_support" {
   default     = "central-digital-product-team@justice.gov.uk"
 }
 
+variable "domain" {
+  default = "find-child-arrangement-option.service.gov.uk"
+}
+
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string

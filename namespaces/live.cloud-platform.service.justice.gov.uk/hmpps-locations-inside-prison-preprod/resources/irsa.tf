@@ -21,7 +21,10 @@ module "irsa" {
     { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
     { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn },
     { (module.update_from_external_system_events_queue.sqs_name) = module.update_from_external_system_events_queue.irsa_policy_arn },
-    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn }
+    { (module.update_from_external_system_events_dlq.sqs_name) = module.update_from_external_system_events_dlq.irsa_policy_arn },
+    { (module.update_cell_certificate_queue.sqs_name) = module.update_cell_certificate_queue.irsa_policy_arn },
+    { (module.update_cell_certificate_dlq.sqs_name) = module.update_cell_certificate_dlq.irsa_policy_arn },
+    { prisoner_property_rds_policy = module.prisoner_property_rds.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
@@ -40,4 +43,26 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+# Service account for the prisoner property front end, so it can send page-view events to the
+# HMPPS Audit queue. Deliberately separate from the API service accounts above so the front end
+# does not inherit their RDS and SNS access.
+# The helm chart must set generic-service.serviceAccountName to match the name below.
+module "hmpps-prisoner-property-ui-service-account" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-prisoner-property-ui"
+  role_policy_arns = {
+    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-preprod-hmpps_audit_queue"].value
+  }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }

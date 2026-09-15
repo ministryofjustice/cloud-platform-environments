@@ -27,7 +27,7 @@ resource "aws_route53_record" "ipa_route53_txt_record_main" {
   name    = "independentpublicadvocate.org.uk"
   type    = "TXT"
   ttl     = "3600"
-  records = ["MS=ms14912346", "v=spf1 include:spf.protection.outlook.com -all"]
+  records = ["MS=ms14912346", "v=spf1 include:spf.protection.outlook.com -all", "mindmanager-verification=439453783d19f687f96157592702c72a9f49c297b60942675a633c0aa5eead0a"]
 }
 
 resource "aws_route53_record" "ipa_route53_mx_record" {

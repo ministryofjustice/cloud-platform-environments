@@ -16,8 +16,12 @@ module "irsa" {
   service_account_name = "hmpps-community-accommodation-api-service-account"
   namespace            = var.namespace
   role_policy_arns = merge(
+    { cas-sqs      = module.cas-domain-events-listener-queue.irsa_policy_arn },
+    { cas-sqs-dlq  = module.cas-domain-events-listener-dlq.irsa_policy_arn },
     { cas-2-sqs           = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
     { cas-2-sqs-dlq = module.cas-2-domain-events-listener-dlq.irsa_policy_arn },
+    { sas-sqs    = module.sas_domain_events_queue.irsa_policy_arn },
+    { sas-sqs-dlq    = module.sas_domain_events_dlq.irsa_policy_arn },
     local.sns_policies
   )
   business_unit          = var.business_unit

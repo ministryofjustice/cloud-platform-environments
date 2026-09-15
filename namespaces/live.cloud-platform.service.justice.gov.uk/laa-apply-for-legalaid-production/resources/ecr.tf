@@ -2,7 +2,7 @@ module "ecr_credentials" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=6.1.0"
 
   repo_name           = "${var.namespace}-ecr"
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci","github"]
   github_repositories = [var.repo_name]
 
   lifecycle_policy = <<EOF

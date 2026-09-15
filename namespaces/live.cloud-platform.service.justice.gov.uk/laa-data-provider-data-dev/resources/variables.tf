@@ -75,10 +75,13 @@ variable "eks_cluster_name" {
   type        = string
 }
 
-variable "github_repository_name" {
-  description = "Used to create GitHub secrets into the right GitHub repository"
-  type        = string
-  default     = "laa-data-provider-data"
+variable "github_repository_names" {
+  description = "Used to create GitHub secrets into the right GitHub repositories"
+  type        = list(string)
+  default     = [
+    "laa-data-provider-data",
+    "laa-provider-data-platform"
+  ]
 }
 
 variable "github_environment_name" {
@@ -91,4 +94,104 @@ variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
   default     = "Common Services and Enterprise"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of the legacy cd-serviceaccount"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  ### See https://github.com/ministryofjustice/cloud-platform-terraform-serviceaccount/blob/dabba75ea181b627f17e2844bdd1608fbda824d5/variables.tf#L20-L107
+  default = [{
+      api_groups = [""]
+      resources  = ["pods/portforward", "deployment", "secrets", "services", "configmaps", "pods"]
+      verbs      = ["patch", "get", "create", "update", "delete", "list", "watch"]
+    }, {
+      api_groups = ["extensions", "apps", "batch", "networking.k8s.io", "policy"]
+      resources  = ["deployments", "ingresses", "cronjobs", "jobs", "replicasets", "poddisruptionbudgets", "networkpolicies"]
+      verbs      = ["get", "update", "delete", "create", "patch", "list", "watch"]
+    }, {
+      api_groups = ["monitoring.coreos.com"]
+      resources  = ["prometheusrules", "servicemonitors"]
+      verbs      = ["*"]
+    }, {
+      api_groups = ["autoscaling"]
+      resources  = ["hpa", "horizontalpodautoscalers"]
+      verbs      = ["get", "update", "delete", "create", "patch"]
+    }, {
+      ### Addition to allow the 'cd-serviceaccount' service account to scale deployments
+      api_groups = ["apps"]
+      resources  = ["deployments/scale"]
+      verbs      = ["get", "update", "patch"]
+    }]
+}
+
+variable "deployer_serviceaccount_rules" {
+  description = "Least-privilege rules for the deployer service account (Helm-managed resources)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+      api_groups = [""]
+      resources  = ["configmaps", "services", "secrets"]
+      verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+    }, {
+      api_groups = ["apps"]
+      resources  = ["deployments"]
+      verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+    }, {
+      api_groups = ["networking.k8s.io"]
+      resources  = ["ingresses", "networkpolicies"]
+      verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+    }, {
+      api_groups = ["autoscaling"]
+      resources  = ["horizontalpodautoscalers"]
+      verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+    }, {
+      api_groups = ["monitoring.coreos.com"]
+      resources  = ["prometheusrules", "servicemonitors"]
+      verbs      = ["get", "list", "watch", "create", "update", "patch", "delete"]
+    }]
+}
+
+variable "e2etester_serviceaccount_rules" {
+  description = "Least-privilege rules for the e2etester service account (read-only + port-forward)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+      api_groups = [""]
+      resources  = ["services", "pods"]
+      verbs      = ["get", "list", "watch"]
+    }, {
+      api_groups = ["apps"]
+      resources  = ["deployments"]
+      verbs      = ["get", "list", "watch"]
+    }, {
+      api_groups = [""]
+      resources  = ["pods/portforward"]
+      verbs      = ["create"]
+    }]
+}
+
+variable "maintainer_serviceaccount_rules" {
+  description = "Least-privilege rules for the maintainer service account (out-of-hours pause/resume)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+      api_groups = ["networking.k8s.io"]
+      resources  = ["ingresses"]
+      verbs      = ["get", "patch"]
+    }, {
+      api_groups = ["apps"]
+      resources  = ["deployments"]
+      verbs      = ["get"]
+    }, {
+      api_groups = ["apps"]
+      resources  = ["deployments/scale"]
+      verbs      = ["get", "update", "patch"]
+    }]
+}
+
+variable "pacttester_serviceaccount_rules" {
+  description = "Least-privilege rules for the pacttester service account (read app-secrets only)"
+  type = list(object({api_groups = list(string), resources = list(string), verbs = list(string)}))
+  default = [{
+      api_groups = [""]
+      resources  = ["secrets"]
+      verbs      = ["get"]
+    }]
 }

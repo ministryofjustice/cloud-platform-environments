@@ -18,6 +18,11 @@ variable "namespace" {
   default = "hmpps-manage-adjudications-api-dev"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for the service."
   default     = "HMPPS"
@@ -64,3 +69,8 @@ variable "github_token" {
   default     = ""
 }
 
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

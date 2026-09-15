@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events-prod.arn]
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }
@@ -93,14 +93,12 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 }
 
 # Policies to manage queues e.g. view and redrive messages
-# data "aws_sqs_queue" "queues_from_other_namespaces" {
-#   for_each = toset([])
-#   name = each.value
-# }
-
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.warrant-risk-assessment-and-delius-queue.sqs_arn,
+      module.core-person-record-and-delius-queue.sqs_arn,
+      module.cosso-and-delius-queue.sqs_arn,
       module.community-payback-and-delius-queue.sqs_arn,
       module.esupervision-and-delius-queue.sqs_arn,
       module.suicide-risk-form-and-delius-queue.sqs_arn,
@@ -120,6 +118,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.make-recall-decisions-and-delius-queue.sqs_arn,
       module.manage-offences-and-delius-queue.sqs_arn,
       module.manage-pom-cases-and-delius-queue.sqs_arn,
+      module.manage-supervision-and-delius-queue.sqs_arn,
       module.opd-and-delius-queue.sqs_arn,
       module.person-search-index-from-delius-contact-keyword-queue.sqs_arn,
       module.person-search-index-from-delius-contact-queue.sqs_arn,
@@ -133,8 +132,12 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-queue.sqs_arn,
       module.unpaid-work-and-delius-queue.sqs_arn,
       module.workforce-allocations-to-delius-queue.sqs_arn,
+      module.sentence-plan-and-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.warrant-risk-assessment-and-delius-dlq.sqs_arn,
+      module.core-person-record-and-delius-dlq.sqs_arn,
+      module.cosso-and-delius-dlq.sqs_arn,
       module.community-payback-and-delius-dlq.sqs_arn,
       module.esupervision-and-delius-dlq.sqs_arn,
       module.suicide-risk-form-and-delius-dlq.sqs_arn,
@@ -154,6 +157,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.make-recall-decisions-and-delius-dlq.sqs_arn,
       module.manage-offences-and-delius-dlq.sqs_arn,
       module.manage-pom-cases-and-delius-dlq.sqs_arn,
+      module.manage-supervision-and-delius-dlq.sqs_arn,
       module.opd-and-delius-dlq.sqs_arn,
       module.pre-sentence-reports-to-delius-dlq.sqs_arn,
       module.prison-case-notes-to-probation-dlq.sqs_arn,
@@ -164,12 +168,14 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-dlq.sqs_arn,
       module.unpaid-work-and-delius-dlq.sqs_arn,
       module.workforce-allocations-to-delius-dlq.sqs_arn,
+      module.sentence-plan-and-delius-dlq.sqs_arn,
     ],
     external = [
       data.aws_sqs_queue.hmpps-tier-events-queue.arn,
-      data.aws_sqs_queue.hmpps-tier-events-dlq.arn
+      data.aws_sqs_queue.hmpps-tier-events-dlq.arn,
+      data.aws_sqs_queue.supervision-packages-api-queue.arn,
+      data.aws_sqs_queue.supervision-packages-api-dlq.arn
     ]
-    #others = [for queue in data.aws_sqs_queue.queues_from_other_namespaces : { sqs_arn = queue.arn }]
   }
   statement {
     sid    = "ListAndDecrypt"

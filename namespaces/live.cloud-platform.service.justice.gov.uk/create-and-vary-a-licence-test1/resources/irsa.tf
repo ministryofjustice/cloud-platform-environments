@@ -16,6 +16,8 @@ locals {
   api_sqs_policies = {
     cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
     cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
+    cvl_prison_events_queue             = module.cvl_prison_events_queue.irsa_policy_arn,
+    cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }

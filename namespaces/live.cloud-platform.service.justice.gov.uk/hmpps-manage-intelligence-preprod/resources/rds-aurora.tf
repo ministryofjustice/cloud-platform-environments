@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "17.5"
+  engine_version = "17.7"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   serverlessv2_scaling_configuration = {
@@ -75,5 +75,21 @@ resource "kubernetes_secret" "manage_intelligence_rds_aurora" {
     manage_intelligence_read_password   = random_id.manage_intelligence_read_role_password.b64_url
     url                                 = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_endpoint}/${module.rds_aurora.database_name}"
     reader_url                          = "postgres://${module.rds_aurora.database_username}:${module.rds_aurora.database_password}@${module.rds_aurora.rds_cluster_reader_endpoint}/${module.rds_aurora.database_name}"
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "dps-rds-instance-output-preprod"
+    namespace = "hmpps-manage-intelligence-prod"
+  }
+
+  data = {
+    database_name         = module.rds_aurora.database_name
+    database_username     = module.rds_aurora.database_username
+    database_password     = module.rds_aurora.database_password
+    rds_instance_address  = module.rds_aurora.rds_cluster_endpoint
   }
 }

@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-assess-a-claim-frontend"]
+  github_repositories = ["laa-assess-a-claim-frontend", "claim-assess-regression-tests"]
+  github_actions_prefix = "laa_assess_a_claim_frontend"
 
   # Tags
   business_unit          = var.business_unit

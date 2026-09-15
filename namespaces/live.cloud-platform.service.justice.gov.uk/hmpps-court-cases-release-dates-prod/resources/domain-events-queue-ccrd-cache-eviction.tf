@@ -111,6 +111,7 @@ resource "aws_sns_topic_subscription" "hmpps_ccrd_cache_eviction_subscription" {
       "release-date-adjustments.adjustment.inserted",
       "release-date-adjustments.adjustment.updated",
       "release-date-adjustments.adjustment.deleted",
+      "release-date-adjustments.adjustment.reviewed-previous-ual-periods",
       "prisoner-offender-search.prisoner.updated",
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
@@ -124,6 +125,7 @@ resource "aws_sns_topic_subscription" "hmpps_ccrd_cache_eviction_subscription" {
       "adjudication.punishments.updated",
       "adjudication.punishments.deleted",
       "calculate-release-dates.prisoner.changed",
+      "court-document.file.received",
     ]
   })
 }

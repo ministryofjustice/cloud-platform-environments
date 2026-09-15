@@ -5,4 +5,4 @@ metadata:
   namespace: laa-data-access-api-uat
 spec:
   hard:
-    pods: "50"
+    pods: "100"

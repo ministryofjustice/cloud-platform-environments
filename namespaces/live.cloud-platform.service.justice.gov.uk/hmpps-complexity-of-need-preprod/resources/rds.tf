@@ -15,10 +15,10 @@ module "rds" {
   # change the postgres version as you see fit.
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
-  environment_name         = var.environment
+  environment_name         = var.environment_name
   infrastructure_support   = var.infrastructure_support
 
-  db_engine_version           = "15.7"
+  db_engine_version           = "15.12"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

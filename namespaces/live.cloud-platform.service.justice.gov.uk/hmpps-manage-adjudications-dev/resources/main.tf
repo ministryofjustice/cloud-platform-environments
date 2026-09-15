@@ -8,6 +8,13 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+      slack-channel = var.slack_channel
       GithubTeam = var.team_name
     }
   }
@@ -19,6 +26,13 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+      slack-channel = var.slack_channel
       GithubTeam = var.team_name
     }
   }
@@ -30,6 +44,13 @@ provider "aws" {
 
   default_tags {
     tags = {
+      business-unit = var.business_unit
+      application = var.application
+      is-production = var.is_production
+      owner = var.team_name
+      namespace = var.namespace
+      service-area = var.service_area
+      slack-channel = var.slack_channel
       GithubTeam = var.team_name
     }
   }

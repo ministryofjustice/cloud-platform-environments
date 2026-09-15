@@ -5,7 +5,7 @@ metadata:
   namespace: dpr-bodmis-port-forwarder
 subjects:
   - kind: Group
-    name: "github:dpr-developers"
+    name: "github:hmpps-digital-prison-reporting"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -82,5 +82,11 @@ variable "service_monitor" {
   default     = true
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "CICA Digital Apply Service"
+}
+
 variable "eks_cluster_name" {
 }

@@ -1,0 +1,61 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lao-dlq-redrive
+  namespace: hmpps-probation-mi-ui-dev
+spec:
+  schedule: "0 9 * * *"  
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          serviceAccountName: dpr-reporting-mi-development-cross-iam
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: lao-dlq-redrive
+              image: public.ecr.aws/aws-cli/aws-cli:2.15.15
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                runAsUser: 1000
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                - name: HOME
+                  value: /tmp
+                - name: DLQ_ARN
+                  valueFrom:
+                    secretKeyRef:
+                      name: sqs-domain-events-dlq-secret
+                      key: queue_arn
+                - name: MAIN_QUEUE_ARN
+                  valueFrom:
+                    secretKeyRef:
+                      name: sqs-domain-events-secret
+                      key: queue_arn
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -euo pipefail
+
+                  echo "Starting LAO DLQ redrive at $(date)"
+                  echo "Source DLQ ARN:        $DLQ_ARN"
+                  echo "Destination queue ARN: $MAIN_QUEUE_ARN"
+
+                  aws sqs start-message-move-task \
+                    --source-arn "$DLQ_ARN" \
+                    --destination-arn "$MAIN_QUEUE_ARN"
+
+                  echo "LAO DLQ redrive task started successfully at $(date)"

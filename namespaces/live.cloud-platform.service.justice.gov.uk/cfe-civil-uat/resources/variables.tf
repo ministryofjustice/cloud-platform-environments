@@ -24,7 +24,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-eligibility-platform"
+  default     = "laa-apply-for-legal-aid"
 }
 
 variable "environment" {
@@ -54,4 +54,9 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "LAA Civil Apply"
 }

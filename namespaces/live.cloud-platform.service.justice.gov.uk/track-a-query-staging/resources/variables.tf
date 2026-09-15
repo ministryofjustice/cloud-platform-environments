@@ -42,6 +42,10 @@ variable "business_unit" {
   default = "HQ"
 }
 
+variable "service_area" {
+  default = "Central Victims and Vulnerability"
+}
+
 variable "application" {
   default = "track-a-query"
 }

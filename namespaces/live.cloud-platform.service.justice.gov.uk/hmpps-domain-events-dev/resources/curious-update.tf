@@ -1,5 +1,5 @@
 
-  
+
 module "curious_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
@@ -125,12 +125,12 @@ resource "aws_iam_access_key" "curious_queue_key_2023_september" {
 }
 
 resource "aws_iam_user_policy_attachment" "policy" {
-  policy_arn = module.curious_queue.irsa_policy_arn
+  policy_arn = aws_iam_policy.sqs_irsa_policy[module.curious_queue.sqs_name].arn
   user       = aws_iam_user.user.name
 }
 
 resource "aws_iam_user_policy_attachment" "dlq-policy" {
-  policy_arn = module.curious_dead_letter_queue.irsa_policy_arn
+  policy_arn = aws_iam_policy.sqs_irsa_policy[module.curious_dead_letter_queue.sqs_name].arn
   user       = aws_iam_user.user.name
 }
 

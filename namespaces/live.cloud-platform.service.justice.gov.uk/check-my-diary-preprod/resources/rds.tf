@@ -5,6 +5,7 @@ module "checkmydiary_rds" {
 
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "check-my-diary-db-preprod"
   business_unit              = "HMPPS"
   application                = var.application
   is_production              = var.is_production
@@ -14,7 +15,7 @@ module "checkmydiary_rds" {
   db_max_allocated_storage   = "500"
   db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
-  db_engine_version          = "18"
+  db_engine_version          = "18.6"
   rds_family                 = "postgres18"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true

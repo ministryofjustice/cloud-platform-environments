@@ -12,7 +12,62 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-data-claims-api"]
+# REQUIRED: GitHub repositories that push to this container repository
+# E2E repository does have trailing "-" character, this is not a typo.
+  github_repositories = ["laa-data-claims-api", "bulk-submission-and-fee-scheme-tests-", "laa-submit-a-bulk-claim"]
+  github_actions_prefix = "laa_data_claims_api"
+
+  # Lifecycle policy to manage ECR image retention
+  # Keeps version-tagged releases indefinitely, cleans up preview/commit-SHA images
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Expire untagged images older than 7 days",
+        "selection": {
+          "tagStatus": "untagged",
+          "countType": "sinceImagePushed",
+          "countUnit": "days",
+          "countNumber": 7
+        },
+        "action": {
+          "type": "expire"
+        }
+      },
+      {
+        "rulePriority": 2,
+        "description": "Transition data-claims-api-* images not pulled in 30 days to archive",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["data-claims-api-"],
+          "countType": "sinceImagePulled",
+          "countUnit": "days",
+          "countNumber": 30
+        },
+        "action": {
+          "type": "transition",
+          "targetStorageClass": "archive"
+        }
+      },
+      {
+        "rulePriority": 3,
+        "description": "Expire archived data-claims-api-* images after 90 days in archive",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["data-claims-api-"],
+          "storageClass": "archive",
+          "countType": "sinceImageTransitioned",
+          "countUnit": "days",
+          "countNumber": 90
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
 
   # Tags
   business_unit          = var.business_unit

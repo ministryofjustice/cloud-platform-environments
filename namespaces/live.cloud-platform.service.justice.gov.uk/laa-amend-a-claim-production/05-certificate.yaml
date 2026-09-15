@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-aac-cert
+  namespace: laa-amend-a-claim-production
+spec:
+  secretName: laa-aac-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - amend-a-claim.laa.service.justice.gov.uk

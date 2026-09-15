@@ -34,7 +34,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {
@@ -56,6 +56,18 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "db_name" {
+  description = "The name of the database to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "arnsassessmentplatform"
+  type        = string
+}
+
+variable "rds_name" {
+  description = "The name of the rds to be created on the instance (if empty, it will be the generated random identifier)"
+  default     = "arns-assessment-platform-prod"
+  type        = string
 }
 
 variable "eks_cluster_name" {

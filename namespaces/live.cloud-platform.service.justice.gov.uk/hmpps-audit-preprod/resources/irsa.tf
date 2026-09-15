@@ -5,14 +5,16 @@ module "hmpps-audit-api-irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-audit-api"
   role_policy_arns = {
-    (module.hmpps_audit_queue.sqs_name)                             = module.hmpps_audit_queue.irsa_policy_arn
-    (module.hmpps_audit_dead_letter_queue.sqs_name)                 = module.hmpps_audit_dead_letter_queue.irsa_policy_arn
-    (module.hmpps_prisoner_audit_queue.sqs_name)                    = module.hmpps_prisoner_audit_queue.irsa_policy_arn
-    (module.hmpps_prisoner_audit_dead_letter_queue.sqs_name)        = module.hmpps_prisoner_audit_dead_letter_queue.irsa_policy_arn
-    (module.hmpps_audit_users_queue.sqs_name)                       = module.hmpps_audit_users_queue.irsa_policy_arn
-    (module.hmpps_audit_users_dead_letter_queue.sqs_name)           = module.hmpps_audit_users_dead_letter_queue.irsa_policy_arn
-    s3                                                              = aws_iam_policy.allow-irsa-read-write.arn
-    hmpps_prisoner_audit_s3                                         = aws_iam_policy.prisoner_audit_allow-irsa-read-write.arn
+    (module.hmpps_audit_queue.sqs_name)                                 = module.hmpps_audit_queue.irsa_policy_arn
+    (module.hmpps_audit_dead_letter_queue.sqs_name)                     = module.hmpps_audit_dead_letter_queue.irsa_policy_arn
+    (module.hmpps_prisoner_audit_queue.sqs_name)                        = module.hmpps_prisoner_audit_queue.irsa_policy_arn
+    (module.hmpps_prisoner_audit_dead_letter_queue.sqs_name)            = module.hmpps_prisoner_audit_dead_letter_queue.irsa_policy_arn
+    (module.hmpps_person_on_probation_audit_queue.sqs_name)             = module.hmpps_person_on_probation_audit_queue.irsa_policy_arn
+    (module.hmpps_person_on_probation_audit_dead_letter_queue.sqs_name) = module.hmpps_person_on_probation_audit_dead_letter_queue.irsa_policy_arn
+    (module.hmpps_audit_users_queue.sqs_name)                           = module.hmpps_audit_users_queue.irsa_policy_arn
+    (module.hmpps_audit_users_dead_letter_queue.sqs_name)               = module.hmpps_audit_users_dead_letter_queue.irsa_policy_arn
+    s3                                                                  = aws_iam_policy.allow-irsa-read-write.arn
+    hmpps_prisoner_audit_s3                                             = aws_iam_policy.prisoner_audit_allow-irsa-read-write.arn
   }
   # Tags
   business_unit          = var.business_unit

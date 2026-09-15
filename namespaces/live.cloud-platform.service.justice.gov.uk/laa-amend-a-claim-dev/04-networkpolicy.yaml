@@ -42,4 +42,4 @@ spec:
             component: monitoring
       ports:
         - protocol: TCP
-          port: 8182
+          port: 8282

@@ -23,7 +23,7 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "HMPPS"
 }
 
 variable "team_name" {
@@ -123,6 +123,12 @@ variable "db_storage_type" {
   default     = "gp2"
 }
 
+variable "character_set_name" {
+  description = "The character set name for the RDS instance. Cannot be set with the snapshot identifier. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance"
+  type        = string
+  default     = null
+}
+
 variable "force_ssl_apply_method" {
   description = "The apply method for force SSL"
   type        = string
@@ -133,6 +139,14 @@ variable "force_ssl_value" {
   description = "The value to set for forcing SSL"
   type        = number
   default     = 1
+}
+
+variable "logging_enabled" {
+  default = true
+}
+
+variable "log_path" {
+  default = "logs/"
 }
 
 variable "sqlserver_restore_create_snapshot" {

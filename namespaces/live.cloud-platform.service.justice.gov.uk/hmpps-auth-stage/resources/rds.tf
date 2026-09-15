@@ -13,12 +13,15 @@ module "dps_rds" {
   db_instance_class            = "db.t4g.small"
   db_max_allocated_storage     = "500"
   deletion_protection          = true
-  prepare_for_major_upgrade   =  true
-  allow_major_version_upgrade =  true
+  prepare_for_major_upgrade   =  false
+  allow_major_version_upgrade =  false
   rds_family                   = "postgres18"
   db_engine                    = "postgres"
   db_engine_version            = "18"
   performance_insights_enabled =  true
+
+  # Enable Cloudwatch logging
+  opt_in_xsiam_logging = true
 
   providers = {
     aws = aws.london
@@ -61,6 +64,22 @@ resource "kubernetes_secret" "hmpps_authorization_rds" {
 resource "kubernetes_secret" "dps_rds_external_users_api" {
   metadata {
     name      = "hmpps-auth-rds-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
+    database_name         = module.dps_rds.database_name
+    database_username     = module.dps_rds.database_username
+    database_password     = module.dps_rds.database_password
+    rds_instance_address  = module.dps_rds.rds_instance_address
+    url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+  }
+}
+
+resource "kubernetes_secret" "dps_rds_manage_users_api" {
+  metadata {
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 

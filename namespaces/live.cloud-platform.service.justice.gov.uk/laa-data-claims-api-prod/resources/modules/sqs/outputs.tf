@@ -12,3 +12,13 @@ output "irsa_policy_arn" {
   value       = module.queue.irsa_policy_arn
   description = "IRSA Policy ARN for SQS Queue"
 }
+
+output "sqs_id" {
+  value       = module.queue.sqs_id
+  description = "SQS Queue ID"
+}
+
+output "sqs_name" {
+  value       = module.queue.sqs_name
+  description = "SQS Queue Name"
+}

@@ -40,6 +40,10 @@ variable "team_name" {
   default = "pq-team"
 }
 
+variable "service_area" {
+  default = "Central Victims and Vulnerability"
+}
+
 # The following variable is provided at runtime by the pipeline.
 
 variable "vpc_name" {

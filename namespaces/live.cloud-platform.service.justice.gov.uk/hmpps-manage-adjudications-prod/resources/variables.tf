@@ -25,6 +25,11 @@ variable "team_name" {
   default     = "dps-core"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
+}
+
 variable "environment-name" {
   description = "The type of environment you're deploying to."
   default     = "prod"
@@ -41,7 +46,7 @@ variable "infrastructure_support" {
 }
 
 variable "is_production" {
-  default = "false"
+  default = "true"
 }
 
 variable "slack_channel" {

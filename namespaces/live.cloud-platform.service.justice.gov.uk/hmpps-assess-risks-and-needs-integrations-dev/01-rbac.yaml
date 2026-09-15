@@ -5,13 +5,16 @@ metadata:
   namespace: hmpps-assess-risks-and-needs-integrations-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-assessments"
+    name: "github:hmpps-assessments-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sentence-planning"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre" # for credentials rotation
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:version-1-sit-team" # Version1 team access to support testing
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

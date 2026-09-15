@@ -5,6 +5,7 @@ module "checkmydiary_rds" {
 
   vpc_name                  = var.vpc_name
   team_name                 = var.team_name
+  rds_name                  = "check-my-diary-db-prod"
   business_unit             = "HMPPS"
   application               = var.application
   is_production             = var.is_production

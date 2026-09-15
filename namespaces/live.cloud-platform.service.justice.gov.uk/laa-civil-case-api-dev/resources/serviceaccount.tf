@@ -7,4 +7,5 @@ module "serviceaccount" {
   # Creates Kubernetes' GitHub actions secrets in the repository
   github_repositories = ["laa-civil-case-api"]
   github_environments = ["dev"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

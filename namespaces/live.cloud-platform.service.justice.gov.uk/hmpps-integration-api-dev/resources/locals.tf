@@ -42,6 +42,11 @@ locals {
     "jwylde",
     "community-payback-dev",
     "daso",
+    "community-campus",
+    "enhanced-reception-checks",
+    "synalogik",
+    "jaiu-onboarding-optimisation",
+    "serco-up3",
   ]
 
   client_queues = {
@@ -56,5 +61,7 @@ locals {
     cats      = module.event_cats_queue.sqs_name
     moj-esw   = module.event_moj_esw_queue.sqs_name # testing
     ctrlo     = module.event_ctrlo_queue.sqs_name
+    daso      = module.event_daso_queue.sqs_name
+    unilink   = module.event_unilink_queue.sqs_name
   }
 }

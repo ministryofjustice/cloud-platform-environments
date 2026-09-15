@@ -10,7 +10,7 @@ module "serviceaccount" {
   github_repositories = ["dpr-nomis-port-forwarder"]
   kubernetes_cluster  = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "21-05-2025"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   github_actions_secret_kube_cert      = "KUBE_PROD_CERT"
   github_actions_secret_kube_token     = "KUBE_PROD_TOKEN"

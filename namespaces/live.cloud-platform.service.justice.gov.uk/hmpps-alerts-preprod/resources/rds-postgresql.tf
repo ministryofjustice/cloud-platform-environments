@@ -2,7 +2,6 @@
  * Make sure that you use the latest version of the module by changing the
  * `ref=` value in the `source` attribute to the latest version listed on the
  * releases page of this repository.
- *
  */
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
@@ -32,6 +31,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

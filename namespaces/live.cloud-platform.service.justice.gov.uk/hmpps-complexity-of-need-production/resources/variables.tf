@@ -12,7 +12,11 @@ variable "team_name" {
   default     = "offender-management"
 }
 
-variable "environment" {
+variable "service_area" {
+  default = "Manage Custody"
+}
+
+variable "environment_name" {
   description = "The type of environment you're deploying to."
   default     = "production"
 }

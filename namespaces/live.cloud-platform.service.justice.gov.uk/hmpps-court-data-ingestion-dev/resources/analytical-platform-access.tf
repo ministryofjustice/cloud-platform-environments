@@ -23,7 +23,7 @@ module "ap_irsa" {
 
 # set up the service pod
 module "ap_service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1" # use the latest release
 
   # Configuration
   namespace            = var.namespace
@@ -74,6 +74,6 @@ resource "kubernetes_secret" "ap_irsa" {
     role               = module.ap_irsa.role_name
     serviceaccount     = module.ap_irsa.service_account.name
     rolearn            = module.ap_irsa.role_arn
-    destination_bucket = "s3://moj-reg-dev/landing/hmpps-court-data-ingestion-dev/"
+    destination_bucket = "s3://moj-reg-dev/landing/${var.namespace}/"
   }
 }

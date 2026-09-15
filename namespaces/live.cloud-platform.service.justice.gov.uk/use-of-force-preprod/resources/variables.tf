@@ -25,12 +25,18 @@ variable "team_name" {
 }
 
 variable "deployment_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-live"
 }
 
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "preprod"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "deployment_environment" {
@@ -59,7 +65,7 @@ variable "slack_channel" {
 }
 
 variable "review_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-devs"
 }
 
 variable "number_cache_clusters" {

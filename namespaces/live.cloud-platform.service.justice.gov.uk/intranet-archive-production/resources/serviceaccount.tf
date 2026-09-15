@@ -90,4 +90,5 @@ module "serviceaccount" {
       ]
     }
   ]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

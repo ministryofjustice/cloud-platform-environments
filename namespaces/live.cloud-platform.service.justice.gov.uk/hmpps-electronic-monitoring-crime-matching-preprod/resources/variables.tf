@@ -55,6 +55,10 @@ variable "slack_channel" {
   default     = "public-ac-crime-mapping"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -77,4 +81,10 @@ variable "email_bucket_name" {
 
 variable "email_rule_set_name" {
   default = "email-receiving-rules"
+}
+
+variable "datastore_role" {
+  type = string
+  description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
+  default = "arn:aws:iam::443370694497:role/ac_read_emds_data_preprod"
 }

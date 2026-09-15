@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "Review Criminal Legal Aid Applications"
+  default     = "review-criminal-legal-aid-applications"
 }
 
 variable "namespace" {
@@ -34,7 +34,7 @@ variable "environment" {
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
-  default     = "laa-crime-apps@digital.justice.gov.uk"
+  default     = "laa-crime-apply-gg@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -54,6 +54,12 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the Github Terraform provider"
   default     = ""
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default     = "Access to Legal Aid"
 }
 
 variable "github_actions_secret_kube_namespace" {

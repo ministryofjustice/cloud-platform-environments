@@ -65,4 +65,5 @@ module "serviceaccount" {
   github_actions_secret_kube_token     = "FALA_K8S_TOKEN"
   github_actions_secret_kube_cluster   = "FALA_K8S_CLUSTER_NAME"
   github_actions_secret_kube_namespace = "FALA_K8S_NAMESPACE"
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

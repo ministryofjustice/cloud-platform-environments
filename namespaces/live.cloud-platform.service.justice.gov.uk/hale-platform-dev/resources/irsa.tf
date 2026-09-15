@@ -8,7 +8,7 @@ module "irsa" {
   service_account_name = "hale-platform-dev-service"
   namespace            = var.namespace # this is also used as a tag
 
-  # Attach the approprate policies using a key => value map
+  # Attach the appropriate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
@@ -80,7 +80,7 @@ resource "aws_iam_policy" "s3_cross_bucket_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
-  
+
 data "aws_iam_policy_document" "cloudfront_access_policy" {
   statement {
     effect = "Allow"
@@ -113,3 +113,4 @@ resource "aws_iam_policy" "cloudfront_access_policy" {
     infrastructure_support = var.infrastructure_support
   }
 }
+

@@ -9,7 +9,7 @@ module "official_visits_domain_events_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn: module.official_visits_domain_events_dlq.sqs_arn
-    maxReceiveCount: 3
+    maxReceiveCount: 5
   })
 
   # Tags
@@ -71,6 +71,8 @@ resource "aws_sns_topic_subscription" "official_visits_domain_events_subscriptio
       "prisoner-offender-search.prisoner.released",
       "prisoner-offender-search.prisoner.received",
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.booking.moved",
+      "prison-offender-events.prisoner.booking.deleted",
     ]
   })
 }

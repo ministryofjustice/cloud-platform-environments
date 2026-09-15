@@ -59,3 +59,12 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "service_account_name" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "prisoner-finance-general-ledger"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}

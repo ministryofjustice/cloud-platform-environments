@@ -12,6 +12,9 @@ locals {
   ui_sqs_queues = {
       "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
   }
+  restore_s3_policies = {
+    mapping_s3 = module.mapping_s3.irsa_policy_arn
+  }
 }
 
 module "irsa-api" {
@@ -42,6 +45,23 @@ module "irsa-ui" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+module "irsa-restore" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "remand-and-sentencing-preprod-restore"
+  role_policy_arns = local.restore_s3_policies
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }

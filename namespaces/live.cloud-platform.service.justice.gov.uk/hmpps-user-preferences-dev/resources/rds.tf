@@ -12,7 +12,7 @@ module "hmpps_user_preferences_rds" {
   db_engine_version         = "14.17"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.small"
-  environment_name          = var.environment
+  environment_name          = "dev"
   infrastructure_support    = var.infrastructure_support
   prepare_for_major_upgrade = false
   db_password_rotated_date = "2025-10-17"

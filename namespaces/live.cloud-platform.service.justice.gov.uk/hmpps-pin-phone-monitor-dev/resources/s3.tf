@@ -129,7 +129,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
             ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
@@ -168,7 +169,8 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
             "aws:PrincipalArn": [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
-              aws_iam_user.bt_upload_user.arn
+              aws_iam_user.bt_upload_user.arn,
+              aws_iam_role.unify_s3_upload_role.arn
             ]
           },
           "Bool": { "aws:ViaAWSService": "false" }
@@ -181,6 +183,7 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
 resource "aws_iam_role" "translate_s3_data_role" {
   name = "pcms-dev-translate-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -231,6 +234,7 @@ resource "aws_iam_role_policy" "translate_s3_data_role_policy" {
 resource "aws_iam_role" "transcribe_s3_data_role" {
   name = "pcms-dev-transcribe-s3-data-role"
   path = "/"
+  tags = local.default_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -273,6 +277,46 @@ resource "aws_iam_role_policy" "transcribe_s3_data_role_policy" {
           "s3:PutObject"
         ],
         Resource = "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "unify_s3_upload_role" {
+  name = "pcms-dev-unify-s3-upload-role"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::668236265794:user/unify-s3-upload-user"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "unify_s3_upload_role_policy" {
+  name = "pcms-dev-unify-s3-upload-role-policy"
+  role = aws_iam_role.unify_s3_upload_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = [
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_metadata/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_recordings/*",
+          "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_transcripts/*",
+        ]      
       }
     ]
   })
@@ -360,6 +404,16 @@ resource "aws_s3_bucket_notification" "hmpps_pin_phone_monitor_s3_notification" 
     events = [
     "s3:ObjectCreated:*"]
     filter_prefix = "metadata/"
+    filter_suffix = ".json"
+  }
+
+  queue {
+    id        = "unify-metadata-upload-event"
+    queue_arn = module.hmpps_pin_phone_monitor_s3_event_queue.sqs_arn
+    events = [
+      "s3:ObjectCreated:*"
+    ]
+    filter_prefix = "unify_metadata/"
     filter_suffix = ".json"
   }
 

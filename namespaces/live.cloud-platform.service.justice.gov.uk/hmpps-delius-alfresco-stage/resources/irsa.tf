@@ -10,6 +10,7 @@ module "irsa" {
     s3        = module.s3_bucket.irsa_policy_arn
     migration = aws_iam_policy.migration_policy.arn
     amq       = aws_iam_policy.amq.arn
+    rds       = module.rds_alfresco.irsa_policy_arn
   }
 
   # Tags

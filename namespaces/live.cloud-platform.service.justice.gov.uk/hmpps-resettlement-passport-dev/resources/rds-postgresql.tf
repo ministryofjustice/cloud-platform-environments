@@ -21,9 +21,10 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
+  prepare_for_major_upgrade = false
   db_engine         = "postgres"
-  db_engine_version = "14.17"
-  rds_family        = "postgres14"
+  db_engine_version = "16"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
   # Tags

@@ -14,6 +14,10 @@ variable "namespace" {
   default = "hmpps-registers-dev"
 }
 
+variable "application" {
+  default = "HMPPS Registers Service"
+}
+
 variable "kubernetes_cluster" {}
 
 variable "vpc_name" {}
@@ -38,6 +42,17 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "dps-hmpps@digital.justice.gov.uk"
@@ -45,6 +60,10 @@ variable "infrastructure_support" {
 
 variable "is_production" {
   default = "false"
+}
+
+variable "slack_channel" {
+  default     = "move-a-prisoner-digital"
 }
 
 variable "number-cache-clusters" {

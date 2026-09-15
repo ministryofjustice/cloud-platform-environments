@@ -1,5 +1,5 @@
 module "secrets_manager_multiple_secrets" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4" # use the latest release
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7" # use the latest release
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -29,6 +29,11 @@ module "secrets_manager_multiple_secrets" {
       description             = "dev landing page base url",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-landing-page-base-url-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
+    "laa-landing-page-base-api-url-dev" = {
+      description             = "dev landing page base api url",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-landing-page-base-api-url-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "laa-landing-page-secret-notify-key-dev" = {
       description             = "dev notify key",

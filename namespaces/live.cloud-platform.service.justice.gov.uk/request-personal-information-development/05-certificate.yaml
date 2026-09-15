@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: request-personal-information-development-certificate
+  namespace: request-personal-information-development
+spec:
+  secretName: request-personal-information-development-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - request-personal-information-development.apps.live.cloud-platform.service.justice.gov.uk/

@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -32,6 +32,24 @@ module "secrets_manager" {
       description             = "API Base URL Map for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-uat"
+    },
+
+    "data_store_auth_scope" = {
+      description             = "Auth scope for integration with Data Store for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "data-store-auth-scope-uat"
+    },
+
+    "decide_api_auth_scope" = {
+      description             = "Auth scope for integration with Civil Decide API for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "decide-api-auth-scope-uat"
+    },
+
+    "refuse_email_template_id" = {
+      description             = "Refuse Decision Template ID for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "refuse-email-template-id-uat"
     },
   }
 }

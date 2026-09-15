@@ -37,6 +37,10 @@ variable "environment" {
   default     = "prod"
 }
 
+variable "service_area" {
+  default = "Manage Custody"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string

@@ -84,7 +84,8 @@ resource "aws_sns_topic_subscription" "hdc_domain_events_subscription" {
   endpoint  = module.hdc_domain_events_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "prison-offender-events.prisoner.merged"
+      "prison-offender-events.prisoner.merged",
+      "prisoner-offender-search.prisoner.released"
     ]
   })
 

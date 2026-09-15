@@ -46,7 +46,7 @@ resource "aws_sqs_queue_policy" "pathfinder_api_queue_for_domain_events_queue_po
               {
                 "aws:SourceArn": "${data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value}"
               }
-            }
+          }
         }
       ]
   }
@@ -108,14 +108,8 @@ resource "aws_sns_topic_subscription" "pathfinder_api_queue_for_domain_events_su
   filter_policy = jsonencode({
     eventType = [
       "adjudication.report.created",
-      "prison-offender-events.prisoner.released",
-      "prison-offender-events.prisoner.received",
-      "OFFENDER_BOOKING-REASSIGNED",
-      "OFFENDER_UPDATED",
-      "BOOKING_NUMBER-CHANGED",
-      "BED_ASSIGNMENT_HISTORY-INSERTED",
-      "SENTENCE_DATES-CHANGED",
-      "CONFIRMED_RELEASE_DATE-CHANGED"
+      "prisoner-offender-search.prisoner.received",
+      "prisoner-offender-search.prisoner.released",
     ]
   })
 }

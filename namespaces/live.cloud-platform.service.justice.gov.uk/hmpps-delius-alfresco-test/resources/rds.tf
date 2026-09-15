@@ -8,7 +8,7 @@ module "rds_alfresco" {
   db_name = "alfresco"
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
+  allow_minor_version_upgrade  = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
@@ -19,7 +19,7 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.17"
+  db_engine_version         = "14.22"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.micro"
 
@@ -31,6 +31,8 @@ module "rds_alfresco" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true # new change from CP to allow service pods access rds instance
 }
 
 
@@ -41,11 +43,12 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    RDS_INSTANCE_ENDPOINT = module.rds_alfresco.rds_instance_endpoint
-    DATABASE_NAME         = module.rds_alfresco.database_name
-    DATABASE_USERNAME     = module.rds_alfresco.database_username
-    DATABASE_PASSWORD     = module.rds_alfresco.database_password
-    RDS_INSTANCE_ADDRESS  = module.rds_alfresco.rds_instance_address
-    RDS_JDBC_URL          = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
+    RDS_INSTANCE_ENDPOINT   = module.rds_alfresco.rds_instance_endpoint
+    RDS_INSTANCE_IDENTIFIER = module.rds_alfresco.db_identifier
+    DATABASE_NAME           = module.rds_alfresco.database_name
+    DATABASE_USERNAME       = module.rds_alfresco.database_username
+    DATABASE_PASSWORD       = module.rds_alfresco.database_password
+    RDS_INSTANCE_ADDRESS    = module.rds_alfresco.rds_instance_address
+    RDS_JDBC_URL            = "jdbc:postgresql://${module.rds_alfresco.rds_instance_endpoint}/${module.rds_alfresco.database_name}"
   }
 }

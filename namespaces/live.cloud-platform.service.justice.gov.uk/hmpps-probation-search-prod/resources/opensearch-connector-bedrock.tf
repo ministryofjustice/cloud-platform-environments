@@ -12,7 +12,10 @@ resource "aws_iam_role" "bedrock_role" {
         Condition = {
           StringEquals = {
             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
-            "aws:SourceArn"     = module.opensearch.domain_arn
+            "aws:SourceArn" = [
+              module.opensearch_cluster.domain_arn,
+              module.opensearch.domain_arn,
+            ]
           }
         }
       }

@@ -8,7 +8,7 @@ module "ecr-repo-api" {
     aws = aws.london
   }
   # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci"]
+  oidc_providers = ["circleci", "github"]
 
   # specify which GitHub repository your CircleCI job runs from
   github_repositories = [var.repo_name]

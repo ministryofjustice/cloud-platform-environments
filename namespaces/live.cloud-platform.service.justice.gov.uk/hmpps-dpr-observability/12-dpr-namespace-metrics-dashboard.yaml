@@ -1552,14 +1552,14 @@ data:
               "type": "prometheus",
               "uid": "${datasource}"
             },
-            "definition": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
+            "definition": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)",
             "includeAll": true,
             "label": "Namespace",
             "multi": true,
             "name": "namespace",
             "options": [],
             "query": {
-              "query": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
+              "query": "label_values(kube_pod_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 2,

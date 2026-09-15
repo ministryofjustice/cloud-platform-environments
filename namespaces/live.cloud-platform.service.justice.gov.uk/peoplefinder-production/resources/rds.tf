@@ -17,7 +17,7 @@ module "peoplefinder_rds" {
   db_max_allocated_storage   = "10000"
   db_engine                  = "postgres"
   rds_family                 = "postgres16"
-  db_engine_version          = "16.8"
+  db_engine_version          = "16.13"
   db_backup_retention_period = "7"
   db_name                    = "peoplefinder_production"
   environment_name           = var.environment
@@ -26,37 +26,6 @@ module "peoplefinder_rds" {
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = "false"
-
-  providers = {
-    aws = aws.london
-  }
-
-}
-
-module "peoplefinder_rds_replica" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage = 10
-  storage_type         = "gp2"
-
-  vpc_name = var.vpc_name
-
-  application              = var.application
-  environment_name         = var.environment
-  is_production            = var.is_production
-  infrastructure_support   = var.infrastructure_support
-  team_name                = var.team_name
-  db_instance_class        = "db.t4g.small"
-  db_max_allocated_storage = "10000"
-  rds_family               = "postgres16"
-  db_engine_version        = "16.8"
-  namespace                = var.namespace
-  business_unit            = var.business_unit
-
-  replicate_source_db = module.peoplefinder_rds.db_identifier
-
-  # Set to true for replica database. No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
 
   providers = {
     aws = aws.london
@@ -78,19 +47,5 @@ resource "kubernetes_secret" "peoplefinder_rds" {
     rds_instance_address  = module.peoplefinder_rds.rds_instance_address
 
     url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
-  }
-}
-
-resource "kubernetes_secret" "peoplefinder_rds_replica" {
-  metadata {
-    name      = "peoplefinder-rds-replica-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.peoplefinder_rds_replica.rds_instance_endpoint
-    rds_instance_address  = module.peoplefinder_rds_replica.rds_instance_address
-
-    url = "postgres://${module.peoplefinder_rds.database_username}:${module.peoplefinder_rds.database_password}@${module.peoplefinder_rds_replica.rds_instance_endpoint}/${module.peoplefinder_rds.database_name}"
   }
 }

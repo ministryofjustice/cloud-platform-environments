@@ -9,9 +9,9 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HMPPS"
-    cloud-platform.justice.gov.uk/slack-channel: "probation-integration-team"
+    cloud-platform.justice.gov.uk/slack-channel: "mpop-dev-team"
     cloud-platform.justice.gov.uk/application: "Manage People on Probation"
-    cloud-platform.justice.gov.uk/owner: "Probation Integration: probation-integration-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-manage-people-on-probation-ui"
-    cloud-platform.justice.gov.uk/team-name: "probation-integration"
+    cloud-platform.justice.gov.uk/owner: "Manage People on Probation: MPoP-Digital-Team@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-probation-supervision-appointments-api,https://github.com/ministryofjustice/hmpps-manage-people-on-probation-ui"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-manage-people-on-probation-dev"
     cloud-platform.justice.gov.uk/review-after: ""

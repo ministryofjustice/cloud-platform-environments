@@ -1,9 +1,3 @@
-
-
-variable "vpc_name" {
-}
-
-
 variable "application" {
   description = "Name of Application you are deploying"
   default     = "calculate-journey-variable-payments"
@@ -23,6 +17,11 @@ variable "team_name" {
   default     = "move-a-prisoner"
 }
 
+variable "review_team_name" {
+  description = "The name of your development team"
+  default     = "map-developers-devs"
+}
+
 variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
@@ -31,6 +30,12 @@ variable "environment" {
 variable "environment-name" {
   description = "The environment name identifier."
   default     = "dev"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
 }
 
 variable "infrastructure_support" {
@@ -46,6 +51,7 @@ variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
   default     = "move-a-prisoner-digital"
 }
+
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -58,8 +64,17 @@ variable "github_token" {
   default     = ""
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
+variable "kubernetes_cluster" {
+  description = "Kubernetes cluster name for references to secrets for service accounts"
+  type        = string
 }
 
-variable "kubernetes_cluster" {}
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
+
+variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}

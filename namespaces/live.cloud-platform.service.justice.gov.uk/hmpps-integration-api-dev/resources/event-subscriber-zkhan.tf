@@ -79,18 +79,16 @@ data "aws_secretsmanager_secret_version" "zkhan_filter_list" {
   secret_id = data.aws_secretsmanager_secret.zkhan_filter_list.id
 }
 
+data "github_repository_file" "zkhan_subscription_filter_policy" {
+  repository          = "${var.github_owner}/${var.github_repo_name}"
+  file                = "src/main/resources/event-filter-policies/${var.environment}/zkhan-subscription-filter.json"
+}
 
 resource "aws_sns_topic_subscription" "event_zkhan_subscription" {
   topic_arn     = module.hmpps-integration-events.topic_arn
   protocol      = "sqs"
   endpoint      = module.event_zkhan_queue.sqs_arn
-  filter_policy = jsonencode({
-    eventType = [
-      "PRISONER_BASE_LOCATION_CHANGED",
-      "PERSON_EDUCATION_ASSESSMENTS_CHANGED",
-      "PERSON_STATUS_CHANGED"
-    ]
-  })
+  filter_policy = coalesce(data.github_repository_file.zkhan_subscription_filter_policy.content, var.default_subscription_filter_policy)
   depends_on = [
     module.hmpps-integration-events
   ]

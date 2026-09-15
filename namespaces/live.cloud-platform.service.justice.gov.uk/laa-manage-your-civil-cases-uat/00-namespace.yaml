@@ -9,9 +9,9 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "LAA"
-    cloud-platform.justice.gov.uk/slack-channel: "laa-ccq-team"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-mcc-team"
     cloud-platform.justice.gov.uk/application: "Manage Your Civil Cases"
-    cloud-platform.justice.gov.uk/owner: "CCQ: ccq@justice.gov.uk"
+    cloud-platform.justice.gov.uk/owner: "MCC: MCC.LAADigital@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-manage-your-civil-cases"
-    cloud-platform.justice.gov.uk/team-name: "check-client-qualifies"
+    cloud-platform.justice.gov.uk/team-name: "manage-your-civil-cases"
     cloud-platform.justice.gov.uk/review-after: ""

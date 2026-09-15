@@ -50,3 +50,45 @@ resource "kubernetes_secret" "pcap_zone_sec" {
     nameservers = join("\n", aws_route53_zone.pcap_zone.name_servers)
   }
 }
+
+# Microsoft Entra/Outlook related
+resource "aws_route53_record" "pcap_route53_cname_record_autodiscover" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "autodiscover"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["autodiscover.outlook.com"]
+}
+
+resource "aws_route53_record" "pcap_route53_mx_record_outlook" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "propose-child-arrangements-plan.service.gov.uk"
+  type    = "MX"
+  ttl     = "3600"
+  records = ["0 proposechildarrangementsplan-service-gov-uk01i1c2e.mail.protection.outlook.com"]
+}
+
+resource "aws_route53_record" "entra_id_verification" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "propose-child-arrangements-plan.service.gov.uk"
+  type    = "TXT"
+  ttl     = "3600"
+  records = ["MS=ms47915806", "v=spf1 include:spf.protection.outlook.com -all"]
+}
+
+# CNAME based DKIM records
+resource "aws_route53_record" "entra_id_verification_dkim1_cname" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "selector1._domainkey"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["selector1-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
+}
+
+resource "aws_route53_record" "entra_id_verification_dkim2_cname" {
+  zone_id = aws_route53_zone.pcap_zone.zone_id
+  name    = "selector2._domainkey"
+  type    = "CNAME"
+  ttl     = "3600"
+  records = ["selector2-proposechildarrangementsplan-service-gov-uk01i1c2e._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
+}

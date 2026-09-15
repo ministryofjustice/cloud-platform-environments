@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-warrant-risk-assessment-api-cert
+  namespace: hmpps-warrant-risk-assessment-preprod
+spec:
+  secretName: hmpps-warrant-risk-assessment-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - warrant-risk-assessment-api-preprod.hmpps.service.justice.gov.uk
+    - '*.warrant-risk-assessment-api-preprod.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-warrant-risk-assessment-ui-cert
+  namespace: hmpps-warrant-risk-assessment-preprod
+spec:
+  secretName: hmpps-warrant-risk-assessment-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - warrant-risk-assessment-preprod.hmpps.service.justice.gov.uk
+    - '*.warrant-risk-assessment-preprod.hmpps.service.justice.gov.uk'

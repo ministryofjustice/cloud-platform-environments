@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: data-platform-app-justice-data-agent-beta-dev
+spec:
+  hard:
+    pods: "50"

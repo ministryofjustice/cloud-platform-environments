@@ -17,11 +17,13 @@ variable "business_unit" {
 }
 
 variable "team_name" {
-  default = "locations-inside-prison"
+  default = "map-developers-devs"
 }
 
-variable "deployment_team_name" {
-  default = "move-a-prisoner"
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Manage Safety"
 }
 
 variable "environment" {

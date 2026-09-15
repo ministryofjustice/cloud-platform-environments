@@ -1,5 +1,7 @@
 module "hmpps-prison-offender-events" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-prison-offender-events"
   application                   = "hmpps-prison-offender-events"
   github_team                   = "syscon-devs"
@@ -15,7 +17,9 @@ module "hmpps-prison-offender-events" {
 }
 
 module "hmpps-offender-events-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-offender-events-ui"
   application                   = "hmpps-offender-events-ui"
   github_team                   = "syscon-devs"

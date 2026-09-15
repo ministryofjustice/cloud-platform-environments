@@ -71,3 +71,9 @@ variable "github_token" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
 }
+
+variable "service_area" {
+  description = "Team Service Area"
+  type        = string
+  default     = "DTS Legacy Services"
+}

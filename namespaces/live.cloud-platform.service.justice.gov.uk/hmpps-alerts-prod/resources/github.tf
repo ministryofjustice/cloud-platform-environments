@@ -1,5 +1,7 @@
 module "github-automation-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-alerts-api"
   application                   = "hmpps-alerts-api"
   github_team                   = var.github_review_team
@@ -16,7 +18,9 @@ module "github-automation-api" {
 }
 
 module "github-automation-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-alerts-ui"
   application                   = "hmpps-alerts-ui"
   github_team                   = var.github_review_team

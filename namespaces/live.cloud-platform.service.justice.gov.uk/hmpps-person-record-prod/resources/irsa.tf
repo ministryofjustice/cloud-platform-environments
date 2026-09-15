@@ -4,6 +4,7 @@ locals {
   }
   # *** Placeholder for incoming SNS topics ***
   sns_topics = {
+      "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -58,6 +59,8 @@ data "aws_iam_policy_document" "combined_delius_sqs" {
       module.cpr_delius_merge_events_dead_letter_queue.sqs_arn,
       module.cpr_delius_delete_events_queue.sqs_arn,
       module.cpr_delius_delete_events_dead_letter_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_queue.sqs_arn,
+      module.cpr_delius_address_events_from_cpr_dead_letter_queue.sqs_arn
     ]
   }
 }
@@ -76,14 +79,29 @@ data "aws_iam_policy_document" "combined_nomis_sqs" {
     resources = [
       module.cpr_nomis_events_queue.sqs_arn,
       module.cpr_nomis_events_dead_letter_queue.sqs_arn,
-      module.cpr_nomis_merge_events_queue.sqs_arn,
-      module.cpr_nomis_merge_events_dead_letter_queue.sqs_arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "combined_nomis_sqs" {
   policy = data.aws_iam_policy_document.combined_nomis_sqs.json
+  tags   = local.default_tags
+}
+
+data "aws_iam_policy_document" "combined_sas_sqs" {
+  statement {
+    sid     = "hmppsSasQueuePolicy"
+    effect  = "Allow"
+    actions = ["sqs:*"]
+    resources = [
+      module.cpr_sas_events_queue.sqs_arn,
+      module.cpr_sas_events_dead_letter_queue.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_policy" "combined_sas_sqs" {
+  policy = data.aws_iam_policy_document.combined_sas_sqs.json
   tags   = local.default_tags
 }
 
@@ -120,11 +138,13 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },
+    { person_record_database_backup_s3 = module.person_record_database_backup_s3.irsa_policy_arn },
     { large_cases_s3 = module.large-court-cases-s3-bucket.irsa_policy_arn },
     { rds = module.hmpps_person_record_rds.irsa_policy_arn },
     { combined_court_case_sqs = aws_iam_policy.combined_court_case_sqs.arn },
     { combined_delius_sqs = aws_iam_policy.combined_delius_sqs.arn },
     { combined_nomis_sqs = aws_iam_policy.combined_nomis_sqs.arn },
+    { combined_sas_sqs = aws_iam_policy.combined_sas_sqs.arn },
     { pic_link_unlink_sqs = aws_iam_policy.pic_link_unlink_sqs.arn },
     { court_topic_sns = module.cpr_court_topic.irsa_policy_arn }
   )

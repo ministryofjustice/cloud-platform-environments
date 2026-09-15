@@ -868,3 +868,108 @@ spec:
   dnsNames:
     - 5d9fa5d6-dev.hmpps.service.justice.gov.uk
     - cosso-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-people-on-probation-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: manage-people-on-probation-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 68155d24-dev.hmpps.service.justice.gov.uk
+    - manage-people-on-probation-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: manage-my-community-sentence-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: manage-my-community-sentence-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 615a3c43-dev.hmpps.service.justice.gov.uk
+    - manage-my-community-sentence-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: single-accommodation-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: single-accommodation-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 34fd12b2-dev.hmpps.service.justice.gov.uk
+    - single-accommodation-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: probation-access-control-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: probation-access-control-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - c8c4c763-dev.hmpps.service.justice.gov.uk
+    - probation-access-control-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: warrant-risk-assessment-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: warrant-risk-assessment-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - f9fa4953-dev.hmpps.service.justice.gov.uk
+    - warrant-risk-assessment-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: community-support-interventions-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: community-support-interventions-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 36af1a4c-dev.hmpps.service.justice.gov.uk
+    - community-support-interventions-and-delius-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: emdi-and-delius-cert
+  namespace: hmpps-probation-integration-services-dev
+spec:
+  secretName: emdi-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 8e09a934-dev.hmpps.service.justice.gov.uk
+    - emdi-and-delius-dev.hmpps.service.justice.gov.uk

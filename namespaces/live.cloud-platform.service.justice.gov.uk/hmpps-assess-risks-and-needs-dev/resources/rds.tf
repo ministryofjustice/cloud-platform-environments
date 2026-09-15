@@ -22,7 +22,6 @@ module "hmpps_assess_risks_and_needs_dev_rds" {
     aws = aws.london
   }
 
-
   enable_irsa = true
 }
 

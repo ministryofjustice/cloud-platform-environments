@@ -7,7 +7,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "~> 5.39.0"
+      version = "~> 6.6.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -16,6 +16,14 @@ terraform {
     pingdom = {
       source  = "DrFaust92/pingdom"
       version = "~> 1.3.1"
+    }
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "~> 1.26.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.7.1"
     }
   }
 }

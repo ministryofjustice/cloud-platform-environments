@@ -53,3 +53,7 @@ variable "service_area" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "vpc_name" {
+}
+

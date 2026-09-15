@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-facing-lwp-poc-ui-cert
+  namespace: hmpps-prisoner-facing-lwp-poc-dev
+spec:
+  secretName: hmpps-prisoner-facing-lwp-poc-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - shared.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - kiosk.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - private.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk

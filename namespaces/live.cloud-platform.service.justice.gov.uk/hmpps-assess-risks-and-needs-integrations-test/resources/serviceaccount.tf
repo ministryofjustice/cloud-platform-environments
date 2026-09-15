@@ -3,7 +3,7 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_name = "circleci"
-  serviceaccount_token_rotated_date = "01-01-2000"
+  serviceaccount_token_rotated_date = "20-03-2026"
   github_repositories = [
     "hmpps-assess-risks-and-needs-handover-service",
     "hmpps-assess-risks-and-needs-oastub-ui",

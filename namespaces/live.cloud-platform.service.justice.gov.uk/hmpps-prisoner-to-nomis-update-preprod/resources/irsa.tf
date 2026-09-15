@@ -17,8 +17,12 @@ data "aws_iam_policy_document" "combined_local_sqs" {
     resources = [
       module.hmpps_prisoner_to_nomis_adjudication_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_adjudication_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_coreperson_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_coreperson_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_csip_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_csip_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csra_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_csra_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_incidents_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_incidents_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_nonassociation_queue.sqs_arn,
@@ -51,6 +55,14 @@ data "aws_iam_policy_document" "combined_local_sqs" {
       module.hmpps_prisoner_to_nomis_externalmovements_dead_letter_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_officialvisits_queue.sqs_arn,
       module.hmpps_prisoner_to_nomis_officialvisits_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_property_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_property_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_courtmovements_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_courtmovements_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_agencyregisters_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_agencyregisters_dead_letter_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_transfermovements_queue.sqs_arn,
+      module.hmpps_prisoner_to_nomis_transfermovements_dead_letter_queue.sqs_arn,
     ]
   }
 }

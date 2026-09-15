@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ai-unit-leveson-prod-cert
+  namespace: ai-unit-leveson-prod
+spec:
+  secretName: ai-unit-leveson-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - modernising.justice.gov.uk

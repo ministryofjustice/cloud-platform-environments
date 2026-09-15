@@ -49,3 +49,9 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-cla-backend-uat
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-access-civil-legal-aid-staging
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-record-controlled-work-staging

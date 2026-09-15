@@ -19,7 +19,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "farsight-devs"
+  default     = "hmpps-calculate-release-dates-team-devs"
 }
 
 variable "environment" {
@@ -42,7 +42,7 @@ variable "slack_channel" {
 }
 
 variable "rds_family" {
-  default = "postgres14"
+  default = "postgres18"
 }
 
 variable "number_cache_clusters" {
@@ -70,3 +70,9 @@ variable "service_area" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

@@ -1,5 +1,7 @@
 module "hmpps_authorization" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-authorization"
   application                   = "hmpps-authorization"
   github_team                   = "haha-live"
@@ -16,7 +18,9 @@ module "hmpps_authorization" {
 }
 
 module "hmpps-authorization_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-authorization-api"
   application                   = "hmpps-authorization-api"
   github_team                   = "haha-live"

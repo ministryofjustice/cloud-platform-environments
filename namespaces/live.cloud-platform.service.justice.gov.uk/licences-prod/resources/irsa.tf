@@ -22,7 +22,7 @@ module "irsa" {
   application            = var.application
   is_production          = var.is_production
   team_name              = var.team_name
-  environment_name       = var.environment-name
+  environment_name       = "production"
   infrastructure_support = var.infrastructure_support
 }
 

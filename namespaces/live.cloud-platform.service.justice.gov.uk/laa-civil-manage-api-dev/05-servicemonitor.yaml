@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: laa-civil-manage-api-dev-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: laa-civil-manage-api
+  endpoints:
+    - port: http
+      interval: 15s

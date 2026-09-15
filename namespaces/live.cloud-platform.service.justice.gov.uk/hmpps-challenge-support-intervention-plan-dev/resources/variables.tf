@@ -29,7 +29,12 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-prisons-digital-live-support"
+  default     = "hmpps-csip"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
 }
 
 variable "environment" {

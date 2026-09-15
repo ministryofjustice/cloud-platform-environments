@@ -8,6 +8,25 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = [var.repo_name]
 
+  lifecycle_policy = <<EOF
+  {
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Keep the newest 50 images and mark the rest for expiration",
+        "selection": {
+          "tagStatus": "any",
+          "countType": "imageCountMoreThan",
+          "countNumber": 50
+        },
+        "action": {
+          "type": "expire"
+        }
+      }
+    ]
+  }
+  EOF
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

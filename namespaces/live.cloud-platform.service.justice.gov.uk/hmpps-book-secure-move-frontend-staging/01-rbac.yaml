@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-book-secure-move-frontend-staging
 subjects:
   - kind: Group
-    name: "github:map-developers"
+    name: "github:map-developers-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

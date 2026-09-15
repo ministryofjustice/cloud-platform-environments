@@ -8,6 +8,15 @@ locals {
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
+locals {
+  manage_users_sqs_policies = {
+    manage_users_bulk_user_queue                  = module.manage_users_bulk_user_queue.irsa_policy_arn,
+    manage_users_bulk_user_dead_letter_queue      = module.manage_users_bulk_user_dead_letter_queue.irsa_policy_arn
+    manage_users_bulk_user_item_queue             = module.manage_users_bulk_user_item_queue.irsa_policy_arn,
+    manage_users_bulk_user_item_dead_letter_queue = module.manage_users_bulk_user_item_dead_letter_queue.irsa_policy_arn
+  }
+}
+
 module "irsa-auth" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
@@ -30,7 +39,10 @@ module "irsa-manage-users" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-manage-users"
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns     = merge (
+                          local.sqs_policies,
+                          local.manage_users_sqs_policies
+                        )
   # Tags
   business_unit          = var.business_unit
   application            = var.application

@@ -20,14 +20,14 @@ module "opensearch" {
   eks_cluster_name = var.eks_cluster_name
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.19"
+  engine_version      = "OpenSearch_3.5"
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
   proxy_count         = 2
 
   # Non-production cluster configuration
   cluster_config = {
     instance_count = 2
-    instance_type  = "t3.small.search"
+    instance_type  = "m6g.large.search"
   }
 
   ebs_options = {

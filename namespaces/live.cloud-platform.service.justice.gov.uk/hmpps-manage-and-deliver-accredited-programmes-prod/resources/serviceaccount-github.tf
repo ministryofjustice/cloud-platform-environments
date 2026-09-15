@@ -1,7 +1,11 @@
 
 locals {
 
-  github_repos   = ["hmpps-accredited-programmes-manage-and-deliver-api", "hmpps-accredited-programmes-manage-and-deliver-ui"]
+  github_repos   = [
+    "hmpps-accredited-programmes-manage-and-deliver-api", 
+    "hmpps-accredited-programmes-manage-and-deliver-ui",
+    "hmpps-accredited-programmes-manage-and-deliver-data-importer"
+  ]
 
   github-actions-sa_rules = [
     {
@@ -79,7 +83,7 @@ module "service_account" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.github-actions-sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   role_name                            = "serviceaccount-github"
   rolebinding_name                     = "serviceaccount-github-rolebinding"
   depends_on                           = [github_repository_environment.env]

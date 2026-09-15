@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "crm457@digital.justice.gov.uk"
+  default     = "NSCC: nscc@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -137,4 +137,9 @@ variable "serviceaccount_rules" {
       ]
     },
   ]
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default = "Payments and Billing"
 }

@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.4"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -11,9 +11,39 @@ module "secrets_manager" {
 
   secrets = {
     "gov-notify-api-key" = {
-      description             = "API key for GOV Notify",
+      description             = "API key for GOV Notify for UAT",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-uat"
+    },
+    "pda-authorization-token" = {
+      description             = "API Key for PDA UAT environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "pda-authorization-token-uat"
+    },
+    "base_url_map" = {
+      description             = "API Base URL Map for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "base-url-map-uat"
+    },
+    "allow-auto-grant" = {
+      description             = "Flag for allowing autogrant within the API for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "allow-auto-grant-uat"
+    },
+    "api-entra-auth-config" = {
+      description             = "API Entra Configuration for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "api-entra-auth-config-uat"
+    },
+    "ads-auth-config" = {
+      description             = "ADS Auth Configuration for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ads-auth-config-uat"
+    },
+    "grant_email_template_id" = {
+      description             = "Template ID for sending grant emails for UAT",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "grant-email-template-id-uat"
     },
   }
 }

@@ -1,5 +1,7 @@
 module "migration_link_exchange_api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.0.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "migration-link-exchange-api"
   application                   = "migration-link-exchange-api"
   github_team                   = "data-migration-exchange"

@@ -19,4 +19,5 @@ module "scheduled_downtime_service_account" {
       verbs      = ["get", "update", "patch"]
     }
   ]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -33,6 +33,22 @@ variable "environment-name" {
   default     = "preprod"
 }
 
+variable "github_review_team" {
+  description = "The name of the GitHub team that can review and merge PRs."
+  default     = "map-developers-devs"
+}
+
+variable "deployment_team_name" {
+  description = "The name of the GitHub team that can deploy to the environment."
+  default     = "map-developers-live"
+}
+
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
   default     = "moveaprisoner@digital.justice.gov.uk"

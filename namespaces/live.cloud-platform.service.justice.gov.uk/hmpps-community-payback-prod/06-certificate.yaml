@@ -1,0 +1,41 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-payback-prod-cert
+  namespace: hmpps-community-payback-prod
+spec:
+  secretName: hmpps-community-payback-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-payback.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-payback-api-prod-cert
+  namespace: hmpps-community-payback-prod
+spec:
+  secretName: hmpps-community-payback-api-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-payback-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-community-payback-supervisors-prod-cert
+  namespace: hmpps-community-payback-prod
+spec:
+  secretName:  hmpps-community-payback-supervisors-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - community-payback-supervisors.hmpps.service.justice.gov.uk
+---

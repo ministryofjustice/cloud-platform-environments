@@ -76,3 +76,18 @@ spec:
           - 34.102.210.18/32   # Sentry ingestion API (new new-eu new-us)
   types:
     - Egress
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-amend-a-claim
+  namespace: laa-data-provider-data-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: laa-amend-a-claim-dev

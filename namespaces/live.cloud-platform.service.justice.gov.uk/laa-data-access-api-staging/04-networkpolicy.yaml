@@ -28,3 +28,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           cloud-platform.justice.gov.uk/namespace: laa-apply-for-legalaid-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-civil-decide-uat
+    - namespaceSelector:
+        matchLabels:
+          cloud-platform.justice.gov.uk/namespace: laa-civil-decide-staging

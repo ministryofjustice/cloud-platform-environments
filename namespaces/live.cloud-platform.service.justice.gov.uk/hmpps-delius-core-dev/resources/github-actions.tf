@@ -7,4 +7,5 @@ module "github_actions_service_account" {
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environment will need to be created manually first
   github_environments = [var.environment_name]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

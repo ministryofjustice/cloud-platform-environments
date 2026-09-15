@@ -39,6 +39,11 @@ variable "team_name" {
   default = "peoplefinder"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Central Victims and Vulnerability"
+}
+
 variable "eks_cluster_name" {
 }
 

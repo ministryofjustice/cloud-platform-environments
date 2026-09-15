@@ -20,6 +20,9 @@ module "rds" {
   db_max_allocated_storage     = "10000"
   db_password_rotated_date     = "2023-04-25"
 
+  # assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries
+  enable_irsa = true
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "17"

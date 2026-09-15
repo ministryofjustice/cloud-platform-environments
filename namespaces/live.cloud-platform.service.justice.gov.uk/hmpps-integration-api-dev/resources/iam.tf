@@ -263,6 +263,7 @@ data "aws_iam_policy_document" "integration_events_sqs" {
     ]
     resources = [
       "arn:aws:sqs:${var.region}:${data.aws_caller_identity.current.account_id}:${var.team_name}-${var.environment}-events_*_queue",
+      module.event_test_client_queue.sqs_arn,
     ]
   }
 }

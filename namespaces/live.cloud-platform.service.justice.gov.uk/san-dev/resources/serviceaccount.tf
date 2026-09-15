@@ -77,7 +77,7 @@ module "service_account" {
   github_actions_secret_kube_cluster   = "${upper(var.environment)}_KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "${upper(var.environment)}_KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   depends_on                           = [github_repository_environment.env]
 }
 
@@ -93,7 +93,7 @@ module "service_account_2" {
   github_actions_secret_kube_cluster   = "KUBE_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_NAMESPACE"
   serviceaccount_rules                 = local.sa_rules
-  serviceaccount_token_rotated_date    = time_rotating.weekly.unix
+  serviceaccount_token_rotated_date    = "20-03-2026"
   role_name                            = "serviceaccount-role-2"
   rolebinding_name                     = "serviceaccount-rolebinding-2"
   depends_on                           = [github_repository_environment.env]

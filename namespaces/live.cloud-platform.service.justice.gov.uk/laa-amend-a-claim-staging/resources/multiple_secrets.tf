@@ -54,6 +54,26 @@ module "secrets_manager" {
       description             = "Staging Provider Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-provider-api-token"
+    },
+    "laa-amend-a-claim-cookie-bypass-dev" = {
+      description             = "Maintenance bypass cookie"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-maintenance-bypass-dev"
+      },
+    "laa-amend-a-claim-alert-webhook-staging" = {
+      description             = "[laa-amend-a-claim-alert-webhook-staging] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-alert-webhook-staging"
+    },
+    "laa-amend-a-claim-fsp-api-url" = {
+      description             = "FSP Api Url",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-url"
+    },
+    "laa-amend-a-claim-fsp-api-token" = {
+      description             = "FSP Api Token",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-token"
     }
   }
 }

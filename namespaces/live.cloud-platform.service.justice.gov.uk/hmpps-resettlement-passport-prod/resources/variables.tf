@@ -35,7 +35,7 @@ variable "service_area" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "resettlement-passport"
+  default     = "education-skills-and-work-live"
 }
 
 variable "environment" {

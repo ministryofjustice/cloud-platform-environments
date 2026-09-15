@@ -1,8 +1,10 @@
 module "hmpps-uof-data-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-uof-data-api"
   application                   = "hmpps-uof-data-api"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.review_team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -12,14 +14,16 @@ module "hmpps-uof-data-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.deployment_team_name]
 }
 
 module "use-of-force" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.1.0"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token = true
+  custom_token_rotation_date = "2026-03-20"
   github_repo                   = "use-of-force"
   application                   = "use-of-force"
-  github_team                   = var.deployment_team_name
+  github_team                   = var.review_team_name
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
@@ -29,5 +33,5 @@ module "use-of-force" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = [var.deployment_team_name]
 }

@@ -54,6 +54,26 @@ module "secrets_manager" {
       description             = "UAT Provider Api Token",
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-amend-a-claim-provider-api-token"
+    },
+    "laa-amend-a-claim-cookie-bypass-uat" = {
+      description             = "Maintenance bypass cookie"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-maintenance-bypass-uat"
+      },
+    "laa-amend-a-claim-alert-webhook-uat" = {
+      description             = "[laa-amend-a-claim-alert-webhook-uat] Slack webhook"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-amend-a-claim-alert-webhook-uat"
+    },
+    "laa-amend-a-claim-fsp-api-url" = {
+      description             = "FSP Api Url",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-url"
+    },
+    "laa-amend-a-claim-fsp-api-token" = {
+      description             = "FSP Api Token",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-amend-a-claim-fsp-api-token"
     }
   }
 }

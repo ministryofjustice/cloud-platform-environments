@@ -4,6 +4,7 @@ module "hmpps_dps_reconciliation_rds" {
   storage_type               = "gp3"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
+  rds_name                   = "hmpps-dps-reconciliation-db-dev"
   business_unit              = var.business_unit
   application                = var.application
   is_production              = var.is_production
@@ -12,12 +13,13 @@ module "hmpps_dps_reconciliation_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.micro"
   db_engine                  = "postgres"
-  db_engine_version          = "18"
+  db_engine_version          = "18.6"
   rds_family                 = "postgres18"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
   enable_rds_auto_start_stop = true
   db_max_allocated_storage   = "500"
+  backup_window              = "02:30-03:00"
 }
 
 resource "kubernetes_secret" "hmpps_dps_reconciliation_rds" {

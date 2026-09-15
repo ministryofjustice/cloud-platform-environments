@@ -126,7 +126,7 @@ module "s3_bucket_report_store_logging" {
           Effect = "Allow"
           Principal = {
             AWS = [
-              module.irsa.role_arn
+              module.irsa_service_pod.role_arn
             ]
           }
           Action = [
@@ -139,6 +139,19 @@ module "s3_bucket_report_store_logging" {
         }
       ]
     })
+
+  lifecycle_rule = [
+    {
+      enabled = true
+      id      = "Delete log objects after 2 years"
+      prefix  = "logs/"
+      expiration = [
+        {
+          days = 730
+        }
+      ]
+    }
+  ]
 
 }
 

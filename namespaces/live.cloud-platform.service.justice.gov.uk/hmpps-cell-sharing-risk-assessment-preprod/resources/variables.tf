@@ -35,7 +35,11 @@ variable "team_name" {
 }
 
 variable "review_team_name" {
-  default = "move-a-prisoner"
+  default = "map-developers-devs"
+}
+
+variable "deployment_team_name" {
+  default = "map-developers-live"
 }
 
 variable "environment" {
@@ -62,10 +66,16 @@ variable "slack_channel" {
   default     = "move-a-prisoner-digital"
 }
 
+variable "service_area" {
+  type        = string
+  description = "Service Area"
+  default     = "Manage Safety"
+}
+
 variable "deployment_environment" {
-  type = string
+  type        = string
   description = "Environment code used when deploying, e.g. dev, preprod or prod"
-  default = "preprod"
+  default     = "preprod"
 }
 
 variable "github_owner" {
@@ -78,4 +88,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR Traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }

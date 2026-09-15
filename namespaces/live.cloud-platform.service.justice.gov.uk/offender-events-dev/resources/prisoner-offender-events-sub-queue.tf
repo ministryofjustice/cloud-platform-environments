@@ -1,5 +1,5 @@
 module "prisoner_offender_events_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -118,6 +118,7 @@ resource "aws_sns_topic_subscription" "prisoner_offender_events_subscription" {
       "OFFENDER_CONTACT-DELETED",
       "OFFENDER_BOOKING-REASSIGNED",
       "BOOKING_NUMBER-CHANGED",
+      "BOOKING-DELETED",
       "OFFENDER_CASE_NOTES-DELETED",
       "OFFENDER_CASE_NOTES-INSERTED",
       "OFFENDER_CASE_NOTES-UPDATED",
@@ -161,8 +162,7 @@ module "prison-offender-events-irsa" {
     local.sns_policies,
     {
       prisoner_offender_events_queue = module.prisoner_offender_events_queue.irsa_policy_arn,
-      prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
-      offender_events_topic          = module.offender_events.irsa_policy_arn
+      prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn
   })
 
   # Tags

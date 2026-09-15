@@ -5,4 +5,5 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   github_repositories = ["laa-prototype"]
+  serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -84,7 +84,7 @@ module "serviceaccount_formbuilder-av-test-production" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "07-03-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = local.sa_rules
 
@@ -99,7 +99,7 @@ module "serviceaccount_formbuilder-pdf-generator-test-production" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "07-03-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = local.sa_rules
 
@@ -114,7 +114,7 @@ module "serviceaccount_formbuilder-submitter-workers-test-production" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "07-03-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = local.sa_rules
 
@@ -129,7 +129,7 @@ module "serviceaccount_formbuilder-user-datastore-test-production" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "07-03-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = local.sa_rules
 
@@ -144,7 +144,7 @@ module "serviceaccount_formbuilder-user-filestore-test-production" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_token_rotated_date = "07-03-2024"
+  serviceaccount_token_rotated_date = "20-03-2026"
 
   serviceaccount_rules = local.sa_rules
 

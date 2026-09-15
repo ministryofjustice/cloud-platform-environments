@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-justice-data-agent-worker-cert
+  namespace: hmpps-justice-data-agent-dev
+spec:
+  secretName: hmpps-justice-data-agent-worker-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - justice-data-agent-worker-dev.hmpps.service.justice.gov.uk

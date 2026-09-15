@@ -125,6 +125,7 @@ resource "aws_api_gateway_integration" "proxy_http_proxy" {
     "integration.request.path.proxy"                        = "method.request.path.proxy",
     "integration.request.header.subject-distinguished-name" = "context.identity.clientCert.subjectDN"
     "integration.request.header.cert-serial-number"         = "context.identity.clientCert.serialNumber"
+    "integration.request.header.cert-expiry-date"           = "context.identity.clientCert.validity.notAfter"
   }
 }
 
@@ -166,6 +167,16 @@ resource "aws_api_gateway_usage_plan" "default" {
   api_stages {
     api_id = aws_api_gateway_rest_api.api_gateway.id
     stage  = aws_api_gateway_stage.main.stage_name
+  }
+
+  throttle_settings {
+    burst_limit = 20
+    rate_limit  = 10
+  }
+
+  quota_settings {
+    limit  = 3000000
+    period = "MONTH"
   }
 
   tags = local.default_tags

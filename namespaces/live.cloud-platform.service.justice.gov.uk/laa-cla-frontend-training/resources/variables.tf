@@ -49,3 +49,8 @@ variable "service_area" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "vpc_name" {
+  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
+  type        = string
+}

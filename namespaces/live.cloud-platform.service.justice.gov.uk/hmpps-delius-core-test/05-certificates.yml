@@ -77,3 +77,29 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - delius-merge-ui-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-gdpr-api-cert
+  namespace: hmpps-delius-core-test
+spec:
+  secretName: delius-gdpr-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-gdpr-api-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-gdpr-ui-cert
+  namespace: hmpps-delius-core-test
+spec:
+  secretName: delius-gdpr-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-gdpr-ui-test.hmpps.service.justice.gov.uk

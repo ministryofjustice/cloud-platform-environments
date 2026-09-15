@@ -25,3 +25,16 @@ spec:
   dnsNames:
     - arns-coordinator-api-preprod.hmpps.service.justice.gov.uk
     - assess-risks-and-needs-coordinator-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-arns-assessment-view-api
+  namespace: hmpps-assess-risks-and-needs-integrations-preprod
+spec:
+  secretName: hmpps-arns-assessment-view-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-assessment-view-api-preprod.hmpps.service.justice.gov.uk

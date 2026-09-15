@@ -23,7 +23,13 @@ variable "namespace" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "HQ"
+  default     = "OCTO"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  type        = string
+  default = "Data Platform"
 }
 
 variable "team_name" {
@@ -62,6 +68,12 @@ variable "github_owner" {
   default     = "ministryofjustice"
 }
 
+variable "owner" {
+  description = "Email address of the team responsible this service"
+  type        = string
+  default     = "FMD: findmojdata@justice.gov.uk"
+}
+
 variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
@@ -92,9 +104,9 @@ variable "db_max_allocated_storage" {
   default     = "100"
 }
 variable "db_allocated_storage" {
-  description = "The allocated storage for the RDS instance"
+  description = "The allocated storage for the RDS instance used by DataHub."
   type        = number
-  default     = 20
+  default     = 40
 }
 
 variable storage_type {
@@ -140,7 +152,7 @@ variable db_engine {
 variable db_engine_version {
   description = "The database engine version to use for the RDS instance"
   type        = string
-  default     = "17.7"
+  default     = "17.9"
 }
 variable rds_family {
   description = "The RDS family to use for the RDS instance"

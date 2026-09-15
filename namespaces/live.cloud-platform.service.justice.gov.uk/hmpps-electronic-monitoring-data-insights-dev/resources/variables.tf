@@ -19,8 +19,8 @@ variable "eks_cluster_name" {
 
 variable "namespace-short" {
   description = "Short-form version of namespace name to get around string-length issues"
-  type = string
-  default = "hmpps-em-data-insights-dev"
+  type        = string
+  default     = "hmpps-em-data-insights-dev"
 }
 
 variable "business_unit" {
@@ -69,4 +69,3 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
-
