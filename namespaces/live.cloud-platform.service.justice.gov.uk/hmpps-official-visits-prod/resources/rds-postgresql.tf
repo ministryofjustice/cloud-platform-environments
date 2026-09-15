@@ -87,7 +87,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   db_engine         = "postgres"
-  db_engine_version = "17"
+  db_engine_version = "17.11"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
