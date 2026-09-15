@@ -1,23 +1,3 @@
-/*
- * DB-2 (docs/backup-and-recovery-strategy.md) — test's own pg_dump backup bucket and
- * restore role. No writer yet (only dev's pg_dump CronJob has been built so far).
- *
- * Redesigned 2026-09-14: one bucket per environment (dev, test, prd), each entirely
- * self-contained in its own namespace's Terraform state — no cross-namespace
- * hardcoded bucket ARN. The only asymmetry: prd's bucket will, in future, also host
- * the GH-2 GitHub mirror backup under a separate github-mirror/ prefix (there's only
- * one GitHub repo, so that doesn't need a copy per environment) — this test bucket
- * only ever holds pg-dump/.
- *
- * Object Lock: GOVERNANCE mode, not COMPLIANCE — same reasoning as prd/dev (see
- * prd's s3-backup.tf): the dev-test rehearsal never actually exercised a read, so
- * the irrevocable mode is deferred until that's been proven out.
- *
- * Restore role is unattached (see prd's s3-backup.tf for the IRSA pod-assumable
- * caveat) — kept here rather than shared with prd/dev because a restore pod runs in
- * whichever namespace holds the RDS instance being restored into.
- */
-
 module "backup" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
 
@@ -52,15 +32,12 @@ resource "aws_s3_bucket_object_lock_configuration" "backup" {
 
   rule {
     default_retention {
-      mode = "GOVERNANCE" # See header comment — do not switch to COMPLIANCE yet
+      mode = "GOVERNANCE"
       days = 365
     }
   }
 }
 
-# k8s Secret a future deploy_test.yml / pg_dump writer can read BACKUP_BUCKET_NAME
-# from, mirroring dev's backup-bucket-output (see dev's s3-backup.tf) — not wired
-# into any workflow yet since test has no writer role built.
 resource "kubernetes_secret" "backup_bucket" {
   metadata {
     name      = "backup-bucket-output"
