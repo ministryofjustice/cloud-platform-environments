@@ -81,14 +81,6 @@ resource "aws_route53_record" "apex_acm_validation" {
 
 
 # --- dev start ---
-resource "aws_route53_record" "dev" {
-  zone_id = aws_route53_zone.cats_prod.zone_id
-  name    = "dev.manage-external-funded-offender-provision.service.justice.gov.uk"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["d3gjnixuqv4h4f.cloudfront.net"]
-}
-
 resource "aws_route53_record" "dev_acm_validation" {
   zone_id = aws_route53_zone.cats_prod.zone_id
   name    = "_d8e015eb77621a22d1bb4fe339ec1ebd.dev.manage-external-funded-offender-provision.service.justice.gov.uk"
@@ -99,14 +91,6 @@ resource "aws_route53_record" "dev_acm_validation" {
 # --- dev end ---
 
 # --- training start ---
-resource "aws_route53_record" "training" {
-  zone_id = aws_route53_zone.cats_prod.zone_id
-  name    = "training.manage-external-funded-offender-provision.service.justice.gov.uk"
-  type    = "CNAME"
-  ttl     = 300
-  records = ["d2xa34imt80u6b.cloudfront.net"]
-}
-
 resource "aws_route53_record" "training_acm_validation" {
   zone_id = aws_route53_zone.cats_prod.zone_id
   name    = "_82cde6f94d128501499619acb1b642f4.training.manage-external-funded-offender-provision.service.justice.gov.uk"
