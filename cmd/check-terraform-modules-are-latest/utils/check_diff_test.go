@@ -26,30 +26,81 @@ func generateMockedReturns(diff string, mockedResponse MockedAPIReturn) Args {
 }
 
 func TestCheckModuleVersions(t *testing.T) {
-	validAPIResponse := APIResponse{RepoName: "cloud-platform-terraform-foo", LatestVersion: "0.0.0"}
-	validAPIResponseNoVersion := APIResponse{RepoName: "cloud-platform-terraform-foo", LatestVersion: ""}
+	validSHA := "0123456789abcdef0123456789abcdef01234567"
+	differentSHA := "abcdef0123456789abcdef0123456789abcdef01"
 
-	validMockedResponse := MockedAPIReturn{MockResponse: validAPIResponse, MockError: nil}
-	validMockedResponseNoVersion := MockedAPIReturn{MockResponse: validAPIResponseNoVersion, MockError: nil}
-	invalidMockedResponseNoVersion := MockedAPIReturn{MockResponse: validAPIResponse, MockError: nil}
-	invalidResponse := MockedAPIReturn{MockResponse: validAPIResponse, MockError: errors.New("API is down!")}
+	validAPIResponse := APIResponse{
+		RepoName:      "cloud-platform-terraform-foo",
+		LatestVersion: "0.0.0",
+		LatestSHA:     validSHA,
+	}
+
+	validAPIResponseNoVersion := APIResponse{
+		RepoName:      "cloud-platform-terraform-foo",
+		LatestVersion: "",
+		LatestSHA:     "",
+	}
+
+	validMockedResponse := MockedAPIReturn{
+		MockResponse: validAPIResponse,
+		MockError:    nil,
+	}
+
+	validMockedResponseNoVersion := MockedAPIReturn{
+		MockResponse: validAPIResponseNoVersion,
+		MockError:    nil,
+	}
+
+	invalidMockedResponseWithVersion := MockedAPIReturn{
+		MockResponse: validAPIResponse,
+		MockError:    nil,
+	}
+
+	invalidResponse := MockedAPIReturn{
+		MockResponse: validAPIResponse,
+		MockError:    errors.New("API is down!"),
+	}
 
 	tests := []struct {
 		name    string
 		args    Args
 		wantErr bool
 	}{
-		{"GIVEN no matches in the diff THEN don't fail", generateMockedReturns("no matches here", validMockedResponse), false},
-		{"GIVEN an updated module with the correct version THEN don't fail", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"", validMockedResponse), false},
-		{"GIVEN multiple updated modules with versions AND the api returns versions THEN pass", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"", validMockedResponse), false},
-		{"GIVEN an updated module with no version AND the api returns no version THEN pass", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo\"", validMockedResponseNoVersion), false},
-		{"GIVEN an updated module with no version AND the api returns a version THEN fail", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo\"", invalidMockedResponseNoVersion), true},
-		{"GIVEN an updated module with a version AND the api returns a version BUT it is a different version THEN fail", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1\"", validMockedResponse), true},
-		{"GIVEN an API error THEN fail", generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1\"", invalidResponse), true},
+		{"GIVEN no matches in the diff THEN don't fail",
+			generateMockedReturns("no matches here", validMockedResponse), false},
+
+		{"GIVEN an updated module with the correct version THEN don't fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"", validMockedResponse), false},
+
+		{"GIVEN multiple updated modules with versions AND the api returns versions THEN pass",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0\"", validMockedResponse), false},
+
+		{"GIVEN an updated module with no version AND the api returns no version THEN pass",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo\"", validMockedResponseNoVersion), false},
+
+		{"GIVEN an updated module with no version AND the api returns a version THEN fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo\"", invalidMockedResponseWithVersion), true},
+
+		{"GIVEN an updated module with a version AND the api returns a version BUT it is a different version THEN fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1\"", validMockedResponse), true},
+
+		{"GIVEN an updated module pinned to the latest SHA THEN don't fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref="+validSHA+"\"", validMockedResponse), false},
+
+		{"GIVEN an updated module pinned to an old SHA THEN fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref="+differentSHA+"\"", validMockedResponse), true},
+
+		{"GIVEN an updated module with an invalid ref THEN fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=foobar\"", validMockedResponse), true},
+
+		{"GIVEN an API error THEN fail",
+			generateMockedReturns("+ github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1\"", invalidResponse), true},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			getVersionFn := mockGetLatestModuleVersion(tt.args.mockResponse)
+
 			if err := CheckModuleVersions(tt.args.diff, getVersionFn); (err != nil) != tt.wantErr {
 				t.Errorf("CheckModuleVersions() error = %v, wantErr %v", err, tt.wantErr)
 			}
