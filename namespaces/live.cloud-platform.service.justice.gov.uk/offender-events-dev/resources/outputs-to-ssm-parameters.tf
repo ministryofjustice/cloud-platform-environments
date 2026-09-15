@@ -39,8 +39,7 @@ locals {
 
   sns_topic_arns = {
     (module.offender_events.topic_name)             = module.offender_events.topic_arn,
-    (module.probation_offender_events.topic_name)   = module.probation_offender_events.topic_arn,
-    (module.offender_assessments_events.topic_name) = module.offender_assessments_events.topic_arn
+    (module.probation_offender_events.topic_name)   = module.probation_offender_events.topic_arn
   }
 
   sns_irsa_policies = {
