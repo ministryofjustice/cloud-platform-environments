@@ -45,7 +45,11 @@ module "irsa_service_pod" {
     file_store = module.s3_bucket.irsa_policy_arn
     report_store = module.s3_bucket_report_store.irsa_policy_arn
     report_store_logging = module.s3_bucket_report_store_logging.irsa_policy_arn
+    # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+    # uncomment below:
     rds = module.rds.irsa_policy_arn
+    # Allow the service pod to manage temporary RDS instances used for DR rehearsals.
+    tracking_rds_dr = aws_iam_policy.tracking_rds_dr.arn
   }
 
   # Tags
