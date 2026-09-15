@@ -11,6 +11,8 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "scom-tech"
     cloud-platform.justice.gov.uk/application: "Support Community Offender Management"
     cloud-platform.justice.gov.uk/owner: "scom-tech: support-offender-management@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/offender-support-management-ui"
+    cloud-platform.justice.gov.uk/source-code:  >-
+      https://github.com/ministryofjustice/offender-support-management-api,
+      https://github.com/ministryofjustice/offender-support-management-ui
     cloud-platform.justice.gov.uk/team-name: "scom-tech"
     cloud-platform.justice.gov.uk/review-after: ""
