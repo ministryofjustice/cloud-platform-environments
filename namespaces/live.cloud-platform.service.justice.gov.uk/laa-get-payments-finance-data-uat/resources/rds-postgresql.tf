@@ -40,6 +40,39 @@ module "rds" {
   enable_irsa = true
 }
 
+# Allow the service pod to manage temporary RDS instances used for DR rehearsals.
+data "aws_caller_identity" "current" {}
+
+data "aws_region" "current" {}
+
+data "aws_iam_policy_document" "tracking_rds_dr" {
+  statement {
+    sid    = "ManageTrackingRdsDrInstances"
+    effect = "Allow"
+
+    actions = [
+      "rds:AddTagsToResource",
+      "rds:DeleteDBInstance",
+      "rds:DescribeDBInstances",
+      "rds:ModifyDBInstance",
+      "rds:RebootDBInstance",
+      "rds:RestoreDBInstanceFromDBSnapshot",
+      "rds:StartDBInstance",
+      "rds:StopDBInstance",
+    ]
+
+    resources = [
+      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:db:${module.rds.db_identifier}-dr-*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "tracking_rds_dr" {
+  name   = "${var.namespace}-tracking-rds-dr"
+  policy = data.aws_iam_policy_document.tracking_rds_dr.json
+}
+//////////////////////////////////////////////////////////////
+
 resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
