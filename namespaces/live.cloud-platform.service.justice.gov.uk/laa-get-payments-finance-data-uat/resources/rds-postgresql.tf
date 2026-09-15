@@ -71,7 +71,6 @@ resource "aws_iam_policy" "tracking_rds_dr" {
   name   = "${var.namespace}-tracking-rds-dr"
   policy = data.aws_iam_policy_document.tracking_rds_dr.json
 }
-//////////////////////////////////////////////////////////////
 
 resource "kubernetes_secret" "rds" {
   metadata {
