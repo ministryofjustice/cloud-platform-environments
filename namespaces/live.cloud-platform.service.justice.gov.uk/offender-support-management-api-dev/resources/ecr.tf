@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["offender-support-management-api"]
+  github_repositories = ["offender-support-management-api", "offender-support-management-ui"]
 
   # Tags
   business_unit          = var.business_unit
