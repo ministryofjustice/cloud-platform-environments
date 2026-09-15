@@ -15,8 +15,9 @@ module "rds" {
   db_max_allocated_storage     = "500"
 
   # PostgreSQL specifics
+  # 17.11 is the minimum 17.x fix level for CVE-2026-6471.
   db_engine         = "postgres"
-  db_engine_version = "17.6"
+  db_engine_version = "17.11"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
