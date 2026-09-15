@@ -1,55 +1,3 @@
-/*
- * DB-2 / GH-2 (docs/backup-and-recovery-strategy.md, laa-landing-page repo). Prd's
- * own backup bucket, write-only identities, and restore identities.
- *
- * Redesigned 2026-09-14: one bucket per environment (dev, test, prd), each entirely
- * self-contained in its own namespace's Terraform state — dev/test no longer
- * reference this bucket at all. The one asymmetry: this bucket is the only one that
- * also hosts the GH-2 GitHub mirror backup, since there's only one GitHub repo (no
- * per-environment copies needed) — dev's and test's buckets only ever hold pg-dump/.
- * Supersedes the disposable dev-test bucket (laa-landing-page-dev/resources/
- * s3-backup-test.tf), which should be torn down once dev rehearsal is complete
- * rather than reused for prod.
- *
- * Holds two independent backup streams under separate prefixes, each written by its
- * own write-only identity (per the doc's "one identity per purpose" design):
- *   - pg-dump/         — weekly whole-database pg_dump. Consumed by
- *                        deployments/templates/pg-dump-backup-cron.yml.
- *   - github-mirror/   — GitHub repo + metadata mirror (GH-2). Its write-only
- *                        GitHub-OIDC role is not yet built for prd (only the dev-test
- *                        version exists) — added here when that's productionized.
- *
- * No KMS: the s3-bucket module hardcodes SSE-S3 (AES256), not a customer-managed key
- * — there is no kms:Decrypt to grant on the restore roles.
- *
- * Object Lock: GOVERNANCE mode, not COMPLIANCE. The dev-test rehearsal never actually
- * exercised a read (no role there ever had GetObject), so switching to the
- * irrevocable compliance mode is deferred until a restore role has been used to
- * actually pull a dump back down and confirm the mechanics work.
- *
- * Restore access: two separate, standing-but-unattached IRSA roles/ServiceAccounts —
- * deliberately NOT combined into one "restore" identity, even though both are
- * read-only. Reasoning (agreed with the user 2026-09-14): the pg_dump contains
- * personal data / the user_account_status_audit compliance record, while the GitHub
- * mirror is comparatively low-sensitivity repo metadata — a shared credential would
- * blur CloudTrail's audit signal (which restore is this?) and widen blast radius
- * across two different sensitivity classes for no real operational benefit (a DB
- * restore and a GitHub restore are essentially never needed in the same incident).
- * Dev and test each have their own pg_dump restore role against their own bucket
- * (their own s3-backup.tf) — GH-2 restore stays singular, here only, since there's
- * one repo, not one per environment.
- *
- * IMPORTANT — these restore roles are IRSA (EKS-OIDC-trusted ServiceAccounts), NOT
- * the doc's original "human-only, MFA-gated, attached to no workload" break-glass
- * design. IRSA trust is scoped to namespace + ServiceAccount *name*, not to a
- * specific pod instance — so in practice, any pod created in laa-landing-page-prd
- * with the matching serviceAccountName can assume the role. They are unattached
- * today only because no Deployment/Job currently references that SA name; anyone
- * with permission to create a pod in this namespace (including CI, per
- * serviceaccount.tf's broad RBAC grant) could reference it. Treat "unattached" as a
- * lifecycle property, not an access-control guarantee.
- */
-
 module "backup" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
 
@@ -84,7 +32,7 @@ resource "aws_s3_bucket_object_lock_configuration" "backup" {
 
   rule {
     default_retention {
-      mode = "GOVERNANCE" # See header comment — do not switch to COMPLIANCE yet
+      mode = "GOVERNANCE"
       days = 365
     }
   }
@@ -140,9 +88,6 @@ module "irsa_pg_dump_backup" {
   infrastructure_support = var.infrastructure_support
 }
 
-# k8s Secret deploy_prd.yml can read BACKUP_BUCKET_NAME from, mirroring how
-# deploy_dev.yml already reads it from dev's own backup-bucket-output (see dev's
-# s3-backup.tf) — not wired into deploy_prd.yml yet.
 resource "kubernetes_secret" "backup_bucket" {
   metadata {
     name      = "backup-bucket-output"
@@ -203,8 +148,7 @@ module "irsa_restore_pg_dump" {
 }
 
 # --- Read-only: GitHub mirror restore, unattached until an incident pod needs it -
-# Separate from restore_pg_dump above — see header comment for why these are not
-# combined into one restore identity.
+# Separate from restore_pg_dump above
 
 data "aws_iam_policy_document" "restore_github_mirror" {
   statement {
