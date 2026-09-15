@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "cats_dev" {
-  name = "dev.manage-external-funded-offender-provision.service.justice.gov.uk"
+  name = "manage-external-funded-offender-provision-dev.hmpps.service.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit
