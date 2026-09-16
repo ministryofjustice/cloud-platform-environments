@@ -1,5 +1,5 @@
 module "mandatory-drug-testing-api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   github_repo = "hmpps-mandatory-drug-testing-api"
   application = "hmpps-mandatory-drug-testing-api"
   github_team = var.team_name
@@ -17,7 +17,7 @@ module "mandatory-drug-testing-api" {
 }
 
 module "mandatory-drug-testing-ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   github_repo = "hmpps-mandatory-drug-testing-ui"
   application = "hmpps-mandatory-drug-testing-ui"
   github_team = var.team_name
