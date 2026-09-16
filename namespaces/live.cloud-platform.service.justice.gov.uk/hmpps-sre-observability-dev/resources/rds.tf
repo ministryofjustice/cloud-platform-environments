@@ -21,6 +21,7 @@ module "hmpps_dependencytrack_postgresql_rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_dependencytrack_postgresql_rds-dev" {
