@@ -6,33 +6,38 @@ module "secrets" {
 
   # Secrets configuration
   secrets = {
+    "silas-auth" = {
+      description             = "SiLAS Entra authentication for Assess"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "silas-auth"
+    },
     "sentry-dsn" = {
-      description             = "DSN URL for Sentry Project" 
+      description             = "DSN URL for Sentry Project"
       recovery_window_in_days = 7
       k8s_secret_name         = "sentry-dsn"
     },
     "app-secrets" = {
-      description             = "Rails app secrets" 
+      description             = "Rails app secrets"
       recovery_window_in_days = 7
       k8s_secret_name         = "app-secrets"
     },
     "app-store-auth" = {
-      description             = "App Store Azure Authentication Details" 
+      description             = "App Store Azure Authentication Details"
       recovery_window_in_days = 7
       k8s_secret_name         = "app-store-auth"
     },
     "google-analytics" = {
-      description             = "Google Analytics Secrets" 
+      description             = "Google Analytics Secrets"
       recovery_window_in_days = 7
       k8s_secret_name         = "google-analytics"
     },
     "notify-key" = {
-      description             = "GOV UK Notify Key" 
+      description             = "GOV UK Notify Key"
       recovery_window_in_days = 7
       k8s_secret_name         = "notify-key"
     },
     "sidekiq-auth" = {
-      description             = "Credentials for Sidekiq Page" 
+      description             = "Credentials for Sidekiq Page"
       recovery_window_in_days = 7
       k8s_secret_name         = "sidekiq-auth"
     },

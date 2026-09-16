@@ -38,11 +38,16 @@ resource "aws_s3_bucket_object_lock_configuration" "backup" {
   }
 }
 
+# --- Write-only: weekly pg_dump CronJob (DB-2) -----------------------------
+
 data "aws_iam_policy_document" "pg_dump_backup_write" {
   statement {
-    sid       = "PutPgDumpObjects"
-    effect    = "Allow"
-    actions   = ["s3:PutObject", "s3:AbortMultipartUpload"]
+    sid    = "PutPgDumpObjects"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:AbortMultipartUpload",
+    ]
     resources = ["${module.backup.bucket_arn}/pg-dump/*"]
   }
 
@@ -62,7 +67,7 @@ data "aws_iam_policy_document" "pg_dump_backup_write" {
 
 resource "aws_iam_policy" "pg_dump_backup_write" {
   name        = "${var.namespace}-pg-dump-backup-write-policy"
-  description = "Write-only access for the test namespace's weekly pg_dump CronJob, scoped to this bucket's pg-dump/ prefix. No get/list/delete."
+  description = "Write-only access for the weekly pg_dump CronJob, scoped to this bucket's pg-dump/ prefix (kept separate from github-mirror/, this bucket's other stream). No get/list/delete."
   policy      = data.aws_iam_policy_document.pg_dump_backup_write.json
 }
 
@@ -121,7 +126,7 @@ data "aws_iam_policy_document" "restore_pg_dump" {
 
 resource "aws_iam_policy" "restore_pg_dump" {
   name        = "${var.namespace}-restore-pg-dump-policy"
-  description = "Read-only (list + get) access to this bucket's pg-dump/ prefix, for a pod run during a test-namespace DB restore rehearsal. Not attached to any standing workload. No write/delete."
+  description = "Read-only (list + get) access to the pg-dump/ prefix, for a pod run during a DB restore. Not attached to any standing workload. No write/delete."
   policy      = data.aws_iam_policy_document.restore_pg_dump.json
 }
 
@@ -133,6 +138,54 @@ module "irsa_restore_pg_dump" {
 
   role_policy_arns = {
     restore_pg_dump = aws_iam_policy.restore_pg_dump.arn
+  }
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name               = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+# --- Read-only: GitHub mirror restore, unattached until an incident pod needs it -
+# Separate from restore_pg_dump above
+
+data "aws_iam_policy_document" "restore_github_mirror" {
+  statement {
+    sid       = "ListGithubMirrorPrefix"
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = [module.backup.bucket_arn]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values   = ["github-mirror/*"]
+    }
+  }
+
+  statement {
+    sid       = "GetGithubMirrorObjects"
+    effect    = "Allow"
+    actions   = ["s3:GetObject"]
+    resources = ["${module.backup.bucket_arn}/github-mirror/*"]
+  }
+}
+
+resource "aws_iam_policy" "restore_github_mirror" {
+  name        = "${var.namespace}-restore-github-mirror-policy"
+  description = "Read-only (list + get) access to the github-mirror/ prefix, for a pod run during a GitHub restore. Not attached to any standing workload. No write/delete."
+  policy      = data.aws_iam_policy_document.restore_github_mirror.json
+}
+
+module "irsa_restore_github_mirror" {
+  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name      = var.eks_cluster_name
+  service_account_name  = "irsa-laa-landing-page-${var.environment}-restore-github-mirror"
+  namespace             = var.namespace
+
+  role_policy_arns = {
+    restore_github_mirror = aws_iam_policy.restore_github_mirror.arn
   }
   business_unit          = var.business_unit
   application            = var.application
