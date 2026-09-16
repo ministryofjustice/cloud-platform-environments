@@ -17,7 +17,7 @@ module "dps_rds" {
   allow_major_version_upgrade =  false
   rds_family                   = "postgres18"
   db_engine                    = "postgres"
-  db_engine_version            = "18"
+  db_engine_version            = "18.6"
   performance_insights_enabled =  true
 
   # Enable Cloudwatch logging
