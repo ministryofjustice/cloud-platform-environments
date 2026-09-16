@@ -161,8 +161,7 @@ module "prison-offender-events-irsa" {
     local.sns_policies,
     {
       prisoner_offender_events_queue = module.prisoner_offender_events_queue.irsa_policy_arn,
-      prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn,
-      offender_events_topic          = module.offender_events.irsa_policy_arn
+      prisoner_offender_events_dlq   = module.prisoner_offender_events_dead_letter_queue.irsa_policy_arn
   })
 
   # Tags
