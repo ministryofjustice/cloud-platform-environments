@@ -9,7 +9,7 @@ module "court_data_adaptor_rds" {
   application          = "laa-court-data-adaptor"
   is_production        = "false"
 
-  db_engine_version      = "17.4"
+  db_engine_version      = "17.11"
   environment_name       = "test"
   infrastructure_support = var.infrastructure_support
   rds_family             = "postgres17"
