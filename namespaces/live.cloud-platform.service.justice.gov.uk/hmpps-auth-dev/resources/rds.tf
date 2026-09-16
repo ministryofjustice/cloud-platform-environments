@@ -21,7 +21,7 @@ module "dps_rds" {
   performance_insights_enabled = true
 
   # Enable Cloudwatch logging
-  opt_in_xsiam_logging = false
+  opt_in_xsiam_logging = true
 
   providers = {
     aws = aws.london
