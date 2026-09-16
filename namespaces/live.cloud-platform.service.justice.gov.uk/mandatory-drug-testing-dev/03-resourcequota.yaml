@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: mandatory-drug-testing-dev
+  namespace: hmpps-mandatory-drug-testing-dev
 spec:
   hard:
     pods: "50"
