@@ -7,6 +7,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: laa-claim-for-payment
   endpoints:
-    - port: http
+    - port: management
       interval: 15s
       path: /actuator/prometheus
