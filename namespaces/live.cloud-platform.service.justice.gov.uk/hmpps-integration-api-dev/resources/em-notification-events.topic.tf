@@ -2,7 +2,7 @@ module "sns_topic" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
 
   # Configurations
-  topic_display_name = "integration-api-returns-events-topic"
+  topic_display_name = "integration-api-em-notification-events-topic"
   encrypt_sns_kms    = true
 
   # Tags
