@@ -3,7 +3,7 @@ module "irsa" {
 
   eks_cluster_name = var.eks_cluster_name
 
-  service_account_name = "${var.namespace}-irsa-service-account"
+  service_account_name = "ccq-production-irsa"
   namespace            = var.namespace
 
   role_policy_arns = {
