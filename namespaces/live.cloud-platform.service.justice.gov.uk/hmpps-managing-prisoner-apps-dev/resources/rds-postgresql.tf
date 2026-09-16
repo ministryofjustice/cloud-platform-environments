@@ -12,7 +12,7 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   # db_max_allocated_storage     = "500"
@@ -41,7 +41,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -108,7 +108,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
