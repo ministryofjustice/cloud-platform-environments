@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
 
-  # CURRENTLY ONLY RDS USED IN THIS NAMESPACE.
+  # CURRENTLY ONLY RDS IS USED IN THIS NAMESPACE.
   role_policy_arns = {
     rds   = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
   }
