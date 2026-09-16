@@ -4,7 +4,7 @@ module "hmpps_prisoner_monies_staff_ui" {
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-monies-staff-ui"
-  application = "hmpps-prisoner-monies-staff-ui"
+  application = "hmpps-prisoner-monies-staff"
   github_team = "hmpps-prisoner-monies"
   environment = var.environment 
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"]
