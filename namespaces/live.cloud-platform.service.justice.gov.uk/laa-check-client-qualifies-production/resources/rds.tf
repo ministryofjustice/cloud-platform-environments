@@ -26,7 +26,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine = "postgres"
+  db_engine         = "postgres"
   db_engine_version = "17.4"
 
   # change the instance class as you see fit.
@@ -57,6 +57,7 @@ module "rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
