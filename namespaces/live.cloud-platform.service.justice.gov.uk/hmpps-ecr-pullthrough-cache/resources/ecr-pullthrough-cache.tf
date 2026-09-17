@@ -56,5 +56,6 @@ resource "aws_ecr_repository_creation_template" "ghcr" {
 data "aws_caller_identity" "current" {}
 
 output "ecr_registry" {
-  value = "${data.aws_caller_identity.current.account_id}.dkr.ecr.eu-west-2.amazonaws.com"
+  description = "ECR pull-through cache registry address"
+  value       = "${data.aws_caller_identity.current.account_id}.dkr.ecr.eu-west-2.amazonaws.com"
 }
