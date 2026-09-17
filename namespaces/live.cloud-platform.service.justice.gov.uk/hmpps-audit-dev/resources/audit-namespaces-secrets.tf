@@ -26,6 +26,7 @@ locals {
     "hmpps-incentives-dev",
     "hmpps-integration-api-dev",
     "hmpps-jobs-board-dev",
+    "hmpps-learner-records-dev",
     "hmpps-locations-inside-prison-dev",
     "hmpps-manage-adjudications-api-dev",
     "hmpps-manage-and-deliver-accredited-programmes-dev",
