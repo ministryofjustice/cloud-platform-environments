@@ -20,7 +20,7 @@ module "prisoner_property_rds" {
   db_instance_class           = "db.t4g.large"
   rds_name                    = "hmpps-prisoner-property-api-prod"
   rds_family                  = "postgres18"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
