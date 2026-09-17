@@ -38,6 +38,17 @@ spec:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value}}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubequotaexceeded
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-assess-crime-forms-dev  
+    - alert: AppSecretsSecretsManagerPutSecretValue
+      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-assess-crime-forms-dev-af65b314bd424385-NM4A1G"} > 0
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: |
+          {{ $labels.secret_id }} has had {{ $value }} PutSecretValue operations recently.
+          {{ $labels.user_arn }} has had {{ $value }} PutSecretValue operations recently.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-assess-crime-forms-dev  
 
     # DISABLED on DEV to avoid noise from DEV branch built deployments
     #
