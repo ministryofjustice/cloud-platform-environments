@@ -71,8 +71,8 @@ resource "kubernetes_secret" "aws_cognito_user_pool_client" {
   data = {
     maat_client_id     = aws_cognito_user_pool_client.maat_client_uat.id
     maat_client_secret = aws_cognito_user_pool_client.maat_client_uat.client_secret
-    crime_apply_client_id     = aws_cognito_user_pool_client.crime_apply_client.id
-    crime_apply_client_secret = aws_cognito_user_pool_client.crime_apply_client.client_secret
+    crime_apply_client_id     = aws_cognito_user_pool_client.crime_apply_uat.id
+    crime_apply_client_secret = aws_cognito_user_pool_client.crime_apply_uat.client_secret
     crime_datastore_client_id     = aws_cognito_user_pool_client.crime_datastore_client.id
     crime_datastore_client_secret = aws_cognito_user_pool_client.crime_datastore_client.client_secret
   }
