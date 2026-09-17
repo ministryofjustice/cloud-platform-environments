@@ -1,10 +1,10 @@
 
-module "hmpps_prisoner_monies_send_money_ui" {
+module "hmpps_prisoner_monies_staff_ui" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-prisoner-monies-send-money-ui"
-  application = "hmpps-prisoner-monies-send-money"
+  github_repo = "hmpps-prisoner-monies-staff-ui"
+  application = "hmpps-prisoner-monies-staff"
   github_team = "hmpps-prisoner-monies"
   environment = var.environment 
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"]
@@ -20,12 +20,12 @@ module "hmpps_prisoner_monies_send_money_ui" {
 
 
 # Note, redis is a requirement for hmpps-template-typescript application.
-module "elasticache_redis" {
+module "staff_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
-  application            = module.hmpps_prisoner_monies_send_money_ui.application
+  application            = module.hmpps_prisoner_monies_staff_ui.application
   is_production          = var.is_production
   namespace              = var.namespace
   environment_name       = var.environment
@@ -42,16 +42,17 @@ module "elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "staff_elasticache_redis" {
   metadata {
-    name      = "${module.hmpps_prisoner_monies_send_money_ui.application}-elasticache-redis"
+    name      = "${module.hmpps_prisoner_monies_staff_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.staff_elasticache_redis.primary_endpoint_address
+    auth_token               = module.staff_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.staff_elasticache_redis.member_clusters)
+    replication_group_id     = module.staff_elasticache_redis.replication_group_id
   }
 }
+  

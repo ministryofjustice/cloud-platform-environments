@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps_prisoner_monies_alerts_non_prod"
     cloud-platform.justice.gov.uk/application: "HMPPS Prisoner Monies"
     cloud-platform.justice.gov.uk/owner: "HMPPS Community of Practice: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-monies-send-money-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-prisoner-monies-send-money-ui,https://github.com/ministryofjustice/hmpps-prisoner-monies-staff-ui,https://github.com/ministryofjustice/hmpps-prisoner-monies-public-ui"
     cloud-platform.justice.gov.uk/team-name: "hmpps-prisoner-monies"
