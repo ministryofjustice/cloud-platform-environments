@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small" # upgraded from micro; micro+Multi-AZ+gp3 had no capacity in the live subnet AZs
 
   # Tags
   application            = var.application
