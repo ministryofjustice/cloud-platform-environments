@@ -1,5 +1,5 @@
 module "hmpps_digital_prison_reporting_mi_ui_github" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
 
   github_repo                   = "hmpps-digital-prison-reporting-mi-ui"
   application                   = "hmpps-digital-prison-reporting-mi-ui"
