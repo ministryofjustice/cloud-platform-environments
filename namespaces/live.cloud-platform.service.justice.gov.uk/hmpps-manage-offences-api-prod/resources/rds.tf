@@ -17,6 +17,7 @@ module "manage_offences_rds" {
   db_max_allocated_storage    = "10000"
   db_engine                   = "postgres"
   db_engine_version           = "18"
+  enable_irsa                 = true
 
   db_password_rotated_date = "14-02-2023"
 
