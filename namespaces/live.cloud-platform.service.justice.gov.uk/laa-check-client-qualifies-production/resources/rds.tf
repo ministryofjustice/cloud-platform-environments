@@ -57,6 +57,7 @@ module "rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
