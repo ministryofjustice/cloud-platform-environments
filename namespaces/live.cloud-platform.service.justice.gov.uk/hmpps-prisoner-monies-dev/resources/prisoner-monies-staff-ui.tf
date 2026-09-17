@@ -20,7 +20,7 @@ module "hmpps_prisoner_monies_staff_ui" {
 
 
 # Note, redis is a requirement for hmpps-template-typescript application.
-module "elasticache_redis" {
+module "staff_elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -42,16 +42,17 @@ module "elasticache_redis" {
   }
 }
 
-resource "kubernetes_secret" "elasticache_redis" {
+resource "kubernetes_secret" "staff_elasticache_redis" {
   metadata {
     name      = "${module.hmpps_prisoner_monies_staff_ui.application}-elasticache-redis"
     namespace = var.namespace
   }
 
   data = {
-    primary_endpoint_address = module.elasticache_redis.primary_endpoint_address
-    auth_token               = module.elasticache_redis.auth_token
-    member_clusters          = jsonencode(module.elasticache_redis.member_clusters)
-    replication_group_id     = module.elasticache_redis.replication_group_id
+    primary_endpoint_address = module.staff_elasticache_redis.primary_endpoint_address
+    auth_token               = module.staff_elasticache_redis.auth_token
+    member_clusters          = jsonencode(module.staff_elasticache_redis.member_clusters)
+    replication_group_id     = module.staff_elasticache_redis.replication_group_id
   }
 }
+  
