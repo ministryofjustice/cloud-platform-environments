@@ -22,7 +22,7 @@ resource "aws_cognito_user_pool_client" "maat_client_uat" {
   generate_secret                      = true
 }
 
-resource "aws_cognito_user_pool_client" "crime_apply_client" {
+resource "aws_cognito_user_pool_client" "crime_apply_uat" {
   name                                 = var.cognito_user_pool_crime_apply_client_name
   user_pool_id                         = aws_cognito_user_pool.pool.id
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH"]
