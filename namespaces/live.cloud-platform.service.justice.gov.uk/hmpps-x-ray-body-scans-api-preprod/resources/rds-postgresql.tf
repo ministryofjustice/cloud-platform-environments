@@ -15,7 +15,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18"
+  db_engine_version = "18.6"
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.micro"
 
@@ -132,7 +132,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine                = "postgres"
-  db_engine_version        = "18"
+  db_engine_version        = "18.6"
   rds_family               = "postgres18"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "2000"
