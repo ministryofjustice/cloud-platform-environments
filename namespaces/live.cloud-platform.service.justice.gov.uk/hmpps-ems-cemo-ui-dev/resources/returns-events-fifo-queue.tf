@@ -26,13 +26,6 @@ module "returns_events_fifo_queue" {
   }
 }
 
-resource "aws_sns_topic_subscription" "returns_events_fifo_subscription" {
-  provider  = aws.london
-  topic_arn = data.aws_ssm_parameter.returns-topic-arn.value
-  protocol  = "sqs"
-  endpoint  = module.returns_events_fifo_queue.sqs_arn
-}
-
 resource "aws_sqs_queue_policy" "returns_events_fifo_queue_policy" {
   queue_url = module.returns_events_fifo_queue.sqs_id
 
