@@ -14,7 +14,7 @@ module "laa_laa_rds_postgres_14" {
   db_instance_class      = "db.t4g.small"
   db_allocated_storage   = "20"
   db_name                = "laalaa"
-  db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
+  db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
   rds_family             = "postgres14"
 
   providers = {
