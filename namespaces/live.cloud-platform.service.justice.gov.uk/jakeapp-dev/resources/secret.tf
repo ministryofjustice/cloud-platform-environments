@@ -1,5 +1,5 @@
 module "secret" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=b9ae535006430b1ba776ac94465e2bbc22e9a064"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=bde73a85660953230da4f1960f638037ed27b74b"
 
   # EKS configuration
   eks_cluster_name = var.eks_cluster_name
