@@ -8,7 +8,6 @@ module "court-register-api-rds" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = true
   db_engine         = "postgres"
   db_engine_version = "18.6"
   rds_family        = "postgres18"
