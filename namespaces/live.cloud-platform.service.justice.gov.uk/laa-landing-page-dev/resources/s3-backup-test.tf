@@ -28,10 +28,6 @@ module "backup_test" {
   ]
 }
 
-# Retrofits Object Lock onto the module's bucket (versioning is already on via
-# `versioning = true` above, which the module wires as the prerequisite).
-# GOVERNANCE mode + 1 day so this is genuinely rehearsable and disposable — see
-# header comment. Do NOT change mode to COMPLIANCE in this test file.
 resource "aws_s3_bucket_object_lock_configuration" "backup_test" {
   bucket = module.backup_test.bucket_name
 
@@ -119,9 +115,6 @@ data "aws_iam_policy_document" "backup_test_github_mirror_assume" {
       values   = ["sts.amazonaws.com"]
     }
 
-    # Scoped to the "development" GitHub Environment specifically (not just the
-    # repo, and not "*" for any branch/ref) — only workflow runs deployed against
-    # that Environment can assume this role.
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
@@ -181,9 +174,6 @@ resource "aws_iam_role_policy_attachment" "backup_test_github_mirror_write" {
   policy_arn = aws_iam_policy.backup_test_github_mirror_write.arn
 }
 
-# Published to the repo's existing "development" GitHub Environment (already used
-# by serviceaccount.tf / ecr.tf), so the workflow reads them the same way
-# deploy_dev.yml reads ECR_ROLE_TO_ASSUME.
 resource "github_actions_environment_secret" "backup_test_github_mirror_role" {
   repository      = "laa-landing-page"
   environment     = "development"
@@ -205,14 +195,7 @@ resource "github_actions_environment_variable" "backup_test_region" {
   value         = "eu-west-2"
 }
 
-# --- Temporary cleanup role: delete all objects + all versions, for the ---
-# --- ephemeral pod used to empty the bucket once testing is complete.   ---
-# --- Also temporarily doubles as the verification-read role (GetObject  ---
-# --- added 2026-09-18) so an ephemeral pod can pull down and inspect a  ---
-# --- real tarball before GH-2 is considered proven. Remove the read     ---
-# --- statement again once verification is done, or fold it into the    ---
-# --- eventual prod break-glass repurpose — see the decision to reuse    ---
-# --- this identity rather than create a separate one for either need.  ---
+# --- Temporary cleanup role: delete all objects + all versions
 
 data "aws_iam_policy_document" "backup_test_cleanup" {
   statement {
@@ -238,10 +221,6 @@ data "aws_iam_policy_document" "backup_test_cleanup" {
     actions = [
       "s3:DeleteObject",
       "s3:DeleteObjectVersion",
-      # Required because the bucket has a GOVERNANCE-mode Object Lock default
-      # retention (see aws_s3_bucket_object_lock_configuration.backup_test).
-      # The caller must also send x-amz-bypass-governance-retention:true
-      # (aws s3api delete-object --bypass-governance-retention) on each delete.
       "s3:BypassGovernanceRetention",
     ]
     resources = ["${module.backup_test.bucket_arn}/*"]
