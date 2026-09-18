@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - manage-external-funded-offender-provision-train.hmpps.service.justice.gov.uk
+    
