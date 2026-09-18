@@ -106,7 +106,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   db_engine                 = "postgres"
-  db_engine_version         = "16"
+  db_engine_version         = "16.15"
   rds_family                = "postgres16"
   db_instance_class         = "db.r6g.large"
   db_iops                   = "12000"
