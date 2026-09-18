@@ -8,4 +8,6 @@ module "serviceaccount" {
 
   # GitHub Actions secrets (KUBE_CERT, KUBE_TOKEN) are created in these repos for CI/CD.
   github_repositories = ["justice-person-platform"]
+  # Scope the secrets to the "preprod" GitHub environment so each env has its own KUBE_* values.
+  github_environments = ["preprod"]
 }
