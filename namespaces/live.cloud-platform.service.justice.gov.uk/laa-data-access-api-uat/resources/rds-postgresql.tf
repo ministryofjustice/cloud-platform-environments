@@ -11,7 +11,7 @@ module "rds" {
   # db_password_rotated_date   = "2023-04-17" ### rotate your database password.
 
   db_engine         = "postgres"
-  db_engine_version = "17" ### Track PostgreSQL 17 minor versions because automatic minor upgrades are enabled.
+  db_engine_version = "17.11" ### Track PostgreSQL 17 minor versions because automatic minor upgrades are enabled.
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.micro"
 
