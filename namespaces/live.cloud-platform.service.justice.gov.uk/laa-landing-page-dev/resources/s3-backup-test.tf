@@ -207,6 +207,12 @@ resource "github_actions_environment_variable" "backup_test_region" {
 
 # --- Temporary cleanup role: delete all objects + all versions, for the ---
 # --- ephemeral pod used to empty the bucket once testing is complete.   ---
+# --- Also temporarily doubles as the verification-read role (GetObject  ---
+# --- added 2026-09-18) so an ephemeral pod can pull down and inspect a  ---
+# --- real tarball before GH-2 is considered proven. Remove the read     ---
+# --- statement again once verification is done, or fold it into the    ---
+# --- eventual prod break-glass repurpose — see the decision to reuse    ---
+# --- this identity rather than create a separate one for either need.  ---
 
 data "aws_iam_policy_document" "backup_test_cleanup" {
   statement {
@@ -217,6 +223,13 @@ data "aws_iam_policy_document" "backup_test_cleanup" {
       "s3:ListBucketVersions",
     ]
     resources = [module.backup_test.bucket_arn]
+  }
+
+  statement {
+    sid       = "GetForVerification"
+    effect    = "Allow"
+    actions   = ["s3:GetObject"]
+    resources = ["${module.backup_test.bucket_arn}/*"]
   }
 
   statement {
@@ -237,7 +250,7 @@ data "aws_iam_policy_document" "backup_test_cleanup" {
 
 resource "aws_iam_policy" "backup_test_cleanup" {
   name        = "${var.namespace}-backup-test-cleanup-policy"
-  description = "TEMPORARY: full delete + governance-bypass rights on the backup-test bucket, for the one-off ephemeral cleanup pod. Attach to no other workload; remove after use."
+  description = "TEMPORARY: read + full delete + governance-bypass rights on the backup-test bucket, for the one-off ephemeral verification/cleanup pod. Attach to no other workload; remove after use."
   policy      = data.aws_iam_policy_document.backup_test_cleanup.json
 }
 
