@@ -39,7 +39,7 @@ spec:
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/blob/master/runbook.md#alert-name-kubequotaexceeded
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-assess-crime-forms-dev  
     - alert: AppSecretsSecretsManagerPutSecretValue
-      expr: secretsmanager_put_secret_value_sum{exported_job="secretsmanager", secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-assess-crime-forms-dev-af65b314bd424385-NM4A1G"} > 0
+      expr: aws_secretsmanager_put_secret_value_sum{secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-assess-crime-forms-dev-af65b314bd424385-NM4A1G"} > 0
       for: 1m
       labels:
         severity: laa-crime-forms-team-pre-prod
