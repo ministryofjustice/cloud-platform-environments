@@ -55,30 +55,3 @@ resource "aws_sns_topic_subscription" "returns_events_fifo_subscription" {
   endpoint             = module.returns_events_fifo_queue.sqs_arn
   raw_message_delivery = true
 }
-
-resource "aws_sqs_queue_policy" "returns_events_fifo_queue_policy" {
-  queue_url = module.returns_events_fifo_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.returns_events_fifo_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.returns_events_fifo_queue.sqs_arn}",
-          "Action": "SQS:SendMessage",
-          "Condition":
-            {
-              "ArnEquals":
-              {
-                "aws:SourceArn": "${module.returns_events_sns_topic.topic_arn}"
-              }
-            }
-        }
-      ]
-  }
-EOF
-}
