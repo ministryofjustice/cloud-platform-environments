@@ -194,3 +194,110 @@ module "irsa_restore_github_mirror" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+# --- Write-only: GitHub Actions OIDC role for the mirror-backup workflow ---
+# Not IRSA (Actions has no pod identity). Ref-scoped trust + repo-level
+# secrets/variables since the workflow runs with no `environment:` set.
+
+data "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
+data "aws_iam_policy_document" "github_mirror_write_assume" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [data.aws_iam_openid_connect_provider.github.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    # TEMPORARY: second value lets the pre-merge branch test against prd.
+    # Remove once STB-4704-GH-backup-update merges to main.
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values = [
+        "repo:ministryofjustice/laa-landing-page:ref:refs/heads/main",
+        "repo:ministryofjustice/laa-landing-page:ref:refs/heads/STB-4704-GH-backup-update",
+      ]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_mirror_write" {
+  name               = "${var.namespace}-github-mirror-write"
+  assume_role_policy = data.aws_iam_policy_document.github_mirror_write_assume.json
+
+  tags = {
+    namespace               = var.namespace
+    business-unit           = var.business_unit
+    application             = var.application
+    is-production           = var.is_production
+    environment-name        = var.environment
+    owner                   = var.team_name
+    infrastructure-support  = var.infrastructure_support
+  }
+}
+
+data "aws_iam_policy_document" "github_mirror_write" {
+  statement {
+    sid    = "PutGithubMirrorObjects"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:AbortMultipartUpload",
+    ]
+    resources = ["${module.backup.bucket_arn}/github-mirror/*"]
+  }
+
+  statement {
+    sid       = "ListMultipartUploadsForGithubMirrorPrefix"
+    effect    = "Allow"
+    actions   = ["s3:ListBucketMultipartUploads"]
+    resources = [module.backup.bucket_arn]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values   = ["github-mirror/*"]
+    }
+  }
+}
+
+resource "aws_iam_policy" "github_mirror_write" {
+  name        = "${var.namespace}-github-mirror-write-policy"
+  description = "Write-only access for the GitHub mirror-backup workflow, scoped to this bucket's github-mirror/ prefix (kept separate from pg-dump/, this bucket's other stream). No get/list/delete."
+  policy      = data.aws_iam_policy_document.github_mirror_write.json
+}
+
+resource "aws_iam_role_policy_attachment" "github_mirror_write" {
+  role       = aws_iam_role.github_mirror_write.name
+  policy_arn = aws_iam_policy.github_mirror_write.arn
+}
+
+# Repo-level, not Environment-scoped — no `environment:` on this job.
+resource "github_actions_secret" "github_mirror_role_to_assume" {
+  repository      = "laa-landing-page"
+  secret_name     = "BACKUP_S3_ROLE_TO_ASSUME"
+  plaintext_value = aws_iam_role.github_mirror_write.arn
+}
+
+resource "github_actions_variable" "backup_bucket_name" {
+  repository    = "laa-landing-page"
+  variable_name = "BACKUP_S3_BUCKET_NAME"
+  value         = module.backup.bucket_name
+}
+
+resource "github_actions_variable" "backup_s3_region" {
+  repository    = "laa-landing-page"
+  variable_name = "BACKUP_S3_REGION"
+  value         = "eu-west-2"
+}
