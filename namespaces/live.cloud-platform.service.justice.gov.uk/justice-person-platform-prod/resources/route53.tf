@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "justice-person-platform-prod" {
-  name = "jpp.service.justice.gov.uk"
+  name = "justice-person-platform.service.justice.gov.uk"
 
   tags = {
     business-unit          = var.business_unit
