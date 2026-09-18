@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - jpp-dev.service.justice.gov.uk
+  - dev.justice-person-platform.service.justice.gov.uk
