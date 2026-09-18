@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "rds" {
+module "manage_apps_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
@@ -66,7 +66,7 @@ module "read_replica" {
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.manage_apps_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
@@ -84,18 +84,18 @@ module "read_replica" {
   # ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "manage_apps_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.manage_apps_rds.rds_instance_endpoint
+    database_name         = module.manage_apps_rds.database_name
+    database_username     = module.manage_apps_rds.database_username
+    database_password     = module.manage_apps_rds.database_password
+    rds_instance_address  = module.manage_apps_rds.rds_instance_address
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -137,14 +137,14 @@ resource "kubernetes_secret" "read_replica" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "manage_apps_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.manage_apps_rds.database_name
+    db_identifier = module.manage_apps_rds.db_identifier
   }
 }
