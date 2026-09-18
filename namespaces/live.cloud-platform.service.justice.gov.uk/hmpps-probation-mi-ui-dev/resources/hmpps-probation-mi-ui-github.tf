@@ -1,4 +1,4 @@
-module "hmpps_probation_mi_api_github" {
+module "hmpps_probation_mi_ui_github" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
 
   github_repo                   = "hmpps-digital-prison-reporting-mi-ui"
