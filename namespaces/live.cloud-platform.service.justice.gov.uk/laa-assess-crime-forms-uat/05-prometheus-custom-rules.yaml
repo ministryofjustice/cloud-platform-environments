@@ -159,3 +159,14 @@ spec:
         message: More than 10 modsec interventions detected in the last hour in laa-assess-crime-forms-uat
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4967727222/Modsec
         dashboard_url: https://logs.cloud-platform.service.justice.gov.uk/_dashboards/app/discover
+    - alert: AppSecretsSecretsManagerPutSecretValue
+      expr: aws_secretsmanager_put_secret_value_sum{secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-assess-crime-forms-uat-3780210c85849dc0-6A2V2L"} > 0
+      for: 1m
+      labels:
+        severity: laa-crime-forms-team-pre-prod
+      annotations:
+        message: |
+          {{ $labels.secret_id }} has had {{ $value }} PutSecretValue operations recently.
+          {{ $labels.user_arn }} has had {{ $value }} PutSecretValue operations recently.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CRM457/pages/4634181917/Runbooks
+        dashboard_url:  https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-crime-store-grafana-golden/laa-non-standard-crime-claims-golden-signals?orgId=1&refresh=5m&var-datasource=prometheus&var-namespace=laa-assess-crime-forms-uat
