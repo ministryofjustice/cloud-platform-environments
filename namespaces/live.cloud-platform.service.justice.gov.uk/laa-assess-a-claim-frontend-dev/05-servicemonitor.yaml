@@ -7,5 +7,5 @@ spec:
     matchLabels:
       app.kubernetes.io/name: laa-assess-a-claim-frontend
   endpoints:
-    - port: http
+    - port: management
       interval: 15s
