@@ -93,7 +93,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   db_engine                = "postgres"
-  db_engine_version        = "18"
+  db_engine_version        = "18.6"
   rds_family               = var.rds_family
   db_instance_class        = "db.t4g.small"
   db_allocated_storage     = 10
