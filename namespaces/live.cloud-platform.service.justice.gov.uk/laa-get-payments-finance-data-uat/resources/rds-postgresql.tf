@@ -40,36 +40,27 @@ module "rds" {
   enable_irsa = true
 }
 
-# Allow the service pod to manage temporary RDS instances used for DR rehearsals.
-data "aws_caller_identity" "current" {}
+module "rds_restore" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-data "aws_region" "current" {}
+  rds_name            = "tracking-rds-uat-restore"
+  snapshot_identifier = "tracking-rds-uat-restore-20260921"
 
-data "aws_iam_policy_document" "tracking_rds_dr" {
-  statement {
-    sid    = "ManageTrackingRdsDrInstances"
-    effect = "Allow"
+  vpc_name              = var.vpc_name
+  db_engine             = "postgres"
+  db_engine_version     = "18"
+  rds_family            = "postgres18"
+  db_instance_class     = "db.t4g.micro"
+  db_allocated_storage  = 20
+  deletion_protection   = true
 
-    actions = [
-      "rds:AddTagsToResource",
-      "rds:DeleteDBInstance",
-      "rds:DescribeDBInstances",
-      "rds:ModifyDBInstance",
-      "rds:RebootDBInstance",
-      "rds:RestoreDBInstanceFromDBSnapshot",
-      "rds:StartDBInstance",
-      "rds:StopDBInstance",
-    ]
-
-    resources = [
-      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:db:${module.rds.db_identifier}-dr-*",
-    ]
-  }
-}
-
-resource "aws_iam_policy" "tracking_rds_dr" {
-  name   = "${var.namespace}-tracking-rds-dr"
-  policy = data.aws_iam_policy_document.tracking_rds_dr.json
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
 }
 
 resource "kubernetes_secret" "rds" {
