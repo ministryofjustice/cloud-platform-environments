@@ -14,6 +14,7 @@ locals {
 
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  restore_s3_policies = { contacts_s3 = module.contacts_s3.irsa_policy_arn }
 }
 
 module "irsa" {
@@ -24,13 +25,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-personal-relationships-api"
-  role_policy_arns = merge(
-    local.sqs_policies,
-    local.sns_policies,
-    {
-      contacts_s3 = module.contacts_s3.irsa_policy_arn
-    }
-  )
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
 
   # Tags
   business_unit          = var.business_unit
@@ -38,6 +33,26 @@ module "irsa" {
   is_production          = var.is_production
   team_name              = var.team_name
   namespace              = var.namespace # this is also used to attach your service account to your namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+module "irsa-restore" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
+
+  # EKS configuration
+  eks_cluster_name = var.eks_cluster_name
+
+  # IRSA configuration
+  service_account_name = "personal-relationships-preprod-restore"
+  role_policy_arns     = local.restore_s3_policies
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
