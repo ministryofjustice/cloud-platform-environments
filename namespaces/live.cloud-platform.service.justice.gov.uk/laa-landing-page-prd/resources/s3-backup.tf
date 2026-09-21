@@ -219,15 +219,10 @@ data "aws_iam_policy_document" "github_mirror_write_assume" {
       values   = ["sts.amazonaws.com"]
     }
 
-    # TEMPORARY: second value lets the pre-merge branch test against prd.
-    # Remove once STB-4704-GH-backup-update merges to main.
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:ministryofjustice/laa-landing-page:ref:refs/heads/main",
-        "repo:ministryofjustice/laa-landing-page:ref:refs/heads/STB-4704-GH-backup-update",
-      ]
+      values   = ["repo:ministryofjustice/laa-landing-page:ref:refs/heads/main"]
     }
   }
 }

@@ -11,48 +11,43 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "laa-civil-manage-api"
+  default     = "Dashboard to visualise GitHub CoPilot usage"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-civil-manage-api-dev"
+  default     = "coat-coh-dashboard-dev"
 }
 
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Civil Access"
+  default     = "Hosting"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "LAA"
+  default     = "Platforms"
 }
 
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-civil-manage-an-application"
+  default     = "cloud-optimisation-and-accountability"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
-}
-
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to use, a secret prefix"
-  type        = string
+  default     = "development"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "manageacivilapplication@justiceuk.onmicrosoft.com"
+  default     = "cloudoptimisationandaccountabilityteam@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -64,7 +59,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-manage-civil-application"
+  default     = "cloud-optimisation-and-accountability-team"
 }
 
 variable "github_owner" {
@@ -77,4 +72,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
