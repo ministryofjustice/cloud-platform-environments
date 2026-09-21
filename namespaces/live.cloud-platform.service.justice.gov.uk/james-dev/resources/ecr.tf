@@ -12,7 +12,9 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["james-typescript-test", "james-kotlin-test", "hmpps-james-bootstrap"]
+  github_repositories = ["james-typescript-test", 
+                         "james-kotlin-test",
+                         "hmpps-james-bootstrap"]
 
   # Tags
   business_unit          = var.business_unit
