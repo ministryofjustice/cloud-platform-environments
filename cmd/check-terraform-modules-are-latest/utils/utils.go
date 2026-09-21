@@ -12,6 +12,7 @@ import (
 type APIResponse struct {
 	RepoName      string `json:"repo"`
 	LatestVersion string `json:"currentVersion"`
+	LatestSHA     string `json:"sha"`
 }
 
 func getHttpReq(apiURL, name string) ([]byte, error) {
@@ -60,12 +61,17 @@ func getModuleVersion(moduleSplit string) string {
 	return moduleVersion
 }
 
-func getModuleNameAndVersion(fullModuleRef string) (string, bool, string) {
+func isCommitSHA(ref string) bool {
+	r := regexp.MustCompile(`^[0-9a-fA-F]{40}$`)
+	return r.MatchString(ref)
+}
+
+func getModuleNameAndRef(fullModuleRef string) (string, bool, string) {
 	delimiter := "?ref="
 
-	containsVersion := strings.Contains(fullModuleRef, "?ref=")
+	containsRef := strings.Contains(fullModuleRef, delimiter)
 
-	if !containsVersion {
+	if !containsRef {
 		delimiter = "?"
 	}
 
@@ -73,11 +79,9 @@ func getModuleNameAndVersion(fullModuleRef string) (string, bool, string) {
 
 	moduleName := strings.Split(moduleSplit[0], "github.com/ministryofjustice/")[1]
 
-	if !containsVersion {
-		return moduleName, containsVersion, ""
+	if !containsRef {
+		return moduleName, false, ""
 	}
 
-	moduleVersion := getModuleVersion(moduleSplit[1])
-
-	return moduleName, containsVersion, moduleVersion
+	return moduleName, true, moduleSplit[1]
 }
