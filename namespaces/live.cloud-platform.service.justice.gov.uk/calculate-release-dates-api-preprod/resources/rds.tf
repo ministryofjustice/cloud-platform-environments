@@ -145,7 +145,7 @@ module "read_replica" {
   # PostgreSQL specifics
   db_max_allocated_storage     = "250"
   db_engine         = "postgres"
-  db_engine_version = "16"
+  db_engine_version = "16.15" # may not be actual version due to auto patch
   rds_family        = "postgres16"
   db_instance_class = "db.t3.small"
 
