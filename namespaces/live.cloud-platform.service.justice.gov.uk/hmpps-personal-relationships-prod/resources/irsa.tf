@@ -24,7 +24,13 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-personal-relationships-api"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies)
+  role_policy_arns = merge(
+    local.sqs_policies,
+    local.sns_policies,
+    {
+      contacts_s3 = module.contacts_s3.irsa_policy_arn
+    }
+  )
 
   # Tags
   business_unit          = var.business_unit
@@ -57,4 +63,3 @@ resource "kubernetes_secret" "irsa" {
     rolearn        = module.irsa.role_arn
   }
 }
-
