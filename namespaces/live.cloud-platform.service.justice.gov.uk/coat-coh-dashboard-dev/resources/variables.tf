@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "moj-copilot-ai-credits-dashboard-dev"
+  default     = "coat-coh-dashboard-dev"
 }
 
 variable "service_area" {
