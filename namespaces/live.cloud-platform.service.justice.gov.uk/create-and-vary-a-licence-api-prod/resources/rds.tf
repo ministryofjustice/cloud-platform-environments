@@ -94,7 +94,7 @@ module "create_and_vary_a_licence_api_read_replica" {
 
   # PostgreSQL specifics
   db_engine            = "postgres"
-  db_engine_version    = "17.9"
+  db_engine_version    = "17.11"
   rds_family           = "postgres17"
   db_instance_class    = "db.t4g.small"
   db_allocated_storage = 10
