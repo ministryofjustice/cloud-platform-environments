@@ -71,7 +71,7 @@ module "dps_rds_replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
