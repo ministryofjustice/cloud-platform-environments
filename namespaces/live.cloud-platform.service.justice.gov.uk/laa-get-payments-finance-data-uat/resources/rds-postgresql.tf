@@ -63,7 +63,8 @@ module "rds_restore" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  enable_irsa = true
+  enable_irsa         = true
+  deletion_protection = false
 }
 
 resource "kubernetes_secret" "rds" {
