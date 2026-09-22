@@ -98,3 +98,23 @@ resource "kubernetes_secret" "prisoner_property_rds" {
     url                   = "postgres://${module.prisoner_property_rds.database_username}:${module.prisoner_property_rds.database_password}@${module.prisoner_property_rds.rds_instance_endpoint}/${module.prisoner_property_rds.database_name}"
   }
 }
+
+# Places a secret holding this preprod instance's credentials in the production namespace, so the
+# postgres restore CronJob deployed by hmpps-prisoner-property-api can copy production data into
+# preprod without production credentials ever leaving the production namespace. MAPB-906.
+# Deliberately named separately from dps-rds-instance-output-preprod in rds.tf, which does the same
+# job for the locations inside prison database in this shared namespace.
+resource "kubernetes_secret" "prisoner_property_rds_refresh_creds" {
+  metadata {
+    name      = "prisoner-property-rds-instance-output-preprod"
+    namespace = "hmpps-locations-inside-prison-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.prisoner_property_rds.rds_instance_endpoint
+    database_name         = module.prisoner_property_rds.database_name
+    database_username     = module.prisoner_property_rds.database_username
+    database_password     = module.prisoner_property_rds.database_password
+    rds_instance_address  = module.prisoner_property_rds.rds_instance_address
+  }
+}
