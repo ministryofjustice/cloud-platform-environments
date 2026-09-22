@@ -49,13 +49,14 @@ module "rds_restore" {
   rds_name            = "tracking-rds-uat-restore"
   snapshot_identifier = "tracking-rds-uat-restore-20260921"
 
-  vpc_name              = var.vpc_name
-  db_engine             = "postgres"
-  db_engine_version     = "18"
-  rds_family            = "postgres18"
-  db_instance_class     = "db.t4g.micro"
-  db_allocated_storage  = 20
-  deletion_protection   = true
+  vpc_name                  = var.vpc_name
+  db_engine                 = "postgres"
+  db_engine_version         = "18"
+  rds_family                = "postgres18"
+  db_instance_class         = "db.t4g.micro"
+  db_allocated_storage      = 20
+  db_max_allocated_storage  = "500"
+  deletion_protection       = true
 
   application            = var.application
   business_unit          = var.business_unit
@@ -64,6 +65,8 @@ module "rds_restore" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
