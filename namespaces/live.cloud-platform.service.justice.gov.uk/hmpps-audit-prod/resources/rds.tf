@@ -13,7 +13,7 @@ module "hmpps_audit_rds" {
 
   db_instance_class            = "db.t4g.large"
   db_engine                    = "postgres"
-  db_engine_version            = "18"
+  db_engine_version            = "18.6"
   rds_family                   = "postgres18"
   db_max_allocated_storage     = "10000"
   prepare_for_major_upgrade    = false
