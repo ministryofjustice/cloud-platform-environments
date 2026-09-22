@@ -12,7 +12,10 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["JusticeAIUnit/Docket"]
+
+  # External Github orgs other than ministryofjustice are not currently supported in Cloud Platform.
+  # github_repositories = ["JusticeAIUnit/Docket"]
+  github_repositories = []
 
   # Tags
   business_unit          = var.business_unit
