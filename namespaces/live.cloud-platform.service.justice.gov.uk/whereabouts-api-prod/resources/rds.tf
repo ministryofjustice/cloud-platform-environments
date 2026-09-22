@@ -13,7 +13,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.medium"
   db_allocated_storage        = "20"
-  db_engine_version           = "15"
+  db_engine_version           = "15.19"
   db_engine                   = "postgres"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = "true"
