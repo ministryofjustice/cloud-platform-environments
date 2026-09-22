@@ -16,6 +16,9 @@ subjects:
   - kind: ServiceAccount
     name: default
     namespace: hmpps-github-actions-runners
+  - kind: ServiceAccount
+    name: default
+    namespace: hmpps-github-actions-runners-prod
 roleRef:
   kind: ClusterRole
   name: admin

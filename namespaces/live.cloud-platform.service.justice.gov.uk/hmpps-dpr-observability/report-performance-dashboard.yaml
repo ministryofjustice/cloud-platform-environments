@@ -1,0 +1,839 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datahub-report-performance-dashboard
+  namespace: hmpps-dpr-observability
+  labels:
+    grafana_dashboard: "datahub_report_performance"
+data:
+  datahub-report-performance-dashboard.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "datasource",
+              "uid": "grafana"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "limit": 100,
+            "name": "Annotations & Alerts",
+            "showIn": 0,
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": 435,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 12,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "suffix: s"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 11,
+                "w": 24,
+                "x": 0,
+                "y": 1
+              },
+              "id": 17,
+              "maxPerRow": 4,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "repeat": "report_variant_id",
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum by (unique_output_port_id) (increase(single_query_metric_sum{namespace=\"hmpps-datahub-query-metrics-prod\",unique_output_port_id=\"$report_variant_id\"}[24h])) / sum by (unique_output_port_id) (increase(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\",unique_output_port_id=\"$report_variant_id\"}[24h]))",
+                  "legendFormat": "{{variant_id}}",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "timeFrom": "1d",
+              "title": "Report Performance Trend - $report_variant_id",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Report performance last 24h - variants",
+          "type": "row"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 21,
+          "panels": [],
+          "title": "Report performance per query_engine",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P5DCFC7561CCDE821"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "suffix: s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 24,
+            "x": 0,
+            "y": 2
+          },
+          "id": 22,
+          "maxPerRow": 4,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.6+security-01",
+          "repeat": "query_engine",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P5DCFC7561CCDE821"
+              },
+              "editorMode": "code",
+              "expr": "sum(\n  increase(\n    single_query_metric_sum{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      query_engine=\"$query_engine\"\n    }[24h]\n  )\n)\n/\nsum(\n  increase(\n    single_query_metric_count{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      query_engine=\"$query_engine\"\n    }[24h]\n  )\n)",
+              "legendFormat": "{{variant_id}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Report Performance Trend - $query_engine",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 13
+          },
+          "id": 23,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P5DCFC7561CCDE821"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "suffix: s"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 11,
+                "w": 24,
+                "x": 0,
+                "y": 211
+              },
+              "id": 24,
+              "maxPerRow": 4,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "repeat": "domain_prefix",
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "P5DCFC7561CCDE821"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(\n  increase(\n    single_query_metric_sum{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      unique_output_port_id=~\"${domain_prefix}_.*\"\n    }[24h]\n  )\n)\n/\nsum(\n  increase(\n    single_query_metric_count{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      unique_output_port_id=~\"${domain_prefix}_.*\"\n    }[24h]\n  )\n)",
+                  "legendFormat": "{{variant_id}}",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "timeFrom": "1d",
+              "title": "Report Performance Trend - $domain_prefix",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Report performance per domain",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 14
+          },
+          "id": 19,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P5DCFC7561CCDE821"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "suffix: s"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 11,
+                "w": 24,
+                "x": 0,
+                "y": 222
+              },
+              "id": 20,
+              "maxPerRow": 4,
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "repeat": "report_variant_id",
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "P5DCFC7561CCDE821"
+                  },
+                  "editorMode": "code",
+                  "exemplar": false,
+                  "expr": "avg_over_time(\n  (\n    single_query_metric_sum{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      unique_output_port_id=\"$report_variant_id\"\n    }\n    /\n    single_query_metric_count{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      unique_output_port_id=\"$report_variant_id\"\n    }\n  )[24h:]\n)",
+                  "instant": false,
+                  "legendFormat": "{{variant_id}}",
+                  "range": true,
+                  "refId": "A"
+                }
+              ],
+              "title": "Report Performance Trend - $report_variant_id",
+              "type": "timeseries"
+            }
+          ],
+          "title": "Report performance - variants",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 15,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P5DCFC7561CCDE821"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "links": [
+                    {
+                      "title": "Details",
+                      "url": "/explore"
+                    }
+                  ],
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 1.2
+                      },
+                      {
+                        "color": "orange",
+                        "value": 1.5
+                      },
+                      {
+                        "color": "red",
+                        "value": 2
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 5,
+                "w": 24,
+                "x": 0,
+                "y": 223
+              },
+              "id": 18,
+              "maxPerRow": 6,
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "repeat": "report_variant_id",
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "P5DCFC7561CCDE821"
+                  },
+                  "editorMode": "code",
+                  "exemplar": false,
+                  "expr": "(\n  (\n    sum by (unique_output_port_id) (\n      increase(single_query_metric_sum{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\"\n      }[24h])\n    )\n    /\n    sum by (unique_output_port_id) (\n      increase(single_query_metric_count{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\"\n      }[24h])\n    )\n  )\n  /\n  (\n    sum by (unique_output_port_id) (\n      increase(single_query_metric_sum{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\"\n      }[30d])\n    )\n    /\n    sum by (unique_output_port_id) (\n      increase(single_query_metric_count{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\"\n      }[30d])\n    )\n  )\n)\nand\n(\n  sum by (unique_output_port_id) (\n    increase(single_query_metric_count{\n      namespace=\"hmpps-datahub-query-metrics-prod\",\n      unique_output_port_id=\"$report_variant_id\"\n    }[24h])\n  ) > 0\n)",
+                  "hide": false,
+                  "instant": true,
+                  "range": false,
+                  "refId": "A"
+                }
+              ],
+              "title": "Regression Ratio - $report_variant_id",
+              "type": "stat"
+            }
+          ],
+          "title": "Report regression ratio - variants (24h vs last 30d, >1 = worse)",
+          "type": "row"
+        },
+        {
+          "collapsed": true,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 16
+          },
+          "id": 13,
+          "panels": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "P5DCFC7561CCDE821"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 2,
+                  "displayName": "",
+                  "mappings": [],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 0
+                      },
+                      {
+                        "color": "#EAB839",
+                        "value": 0.95
+                      },
+                      {
+                        "color": "green",
+                        "value": 1
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Time"
+                    },
+                    "properties": [
+                      {
+                        "id": "displayName",
+                        "value": "Time"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "time: YYYY-MM-DD HH:mm:ss"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 224
+              },
+              "id": 6,
+              "maxPerRow": 6,
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "pluginVersion": "11.5.6+security-01",
+              "repeat": "report_variant_id",
+              "repeatDirection": "h",
+              "targets": [
+                {
+                  "datasource": {
+                    "type": "prometheus",
+                    "uid": "P5DCFC7561CCDE821"
+                  },
+                  "disableTextWrap": false,
+                  "editorMode": "code",
+                  "exemplar": false,
+                  "expr": "(\n  sum(\n    increase(\n      single_query_metric_count{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\",\n        state=\"SUCCEEDED\"\n      }[$__range]\n    )\n  )\n  /\n  clamp_min(\n    sum(\n      increase(\n        single_query_metric_count{\n          namespace=\"hmpps-datahub-query-metrics-prod\",\n          unique_output_port_id=\"$report_variant_id\"\n        }[$__range]\n      )\n    ),\n    1\n  )\n)\nand\n(\n  sum(\n    increase(\n      single_query_metric_count{\n        namespace=\"hmpps-datahub-query-metrics-prod\",\n        unique_output_port_id=\"$report_variant_id\"\n      }[$__range]\n    )\n  ) > 0\n)",
+                  "fullMetaSearch": false,
+                  "includeNullMetadata": true,
+                  "instant": true,
+                  "legendFormat": "__auto",
+                  "range": false,
+                  "refId": "A",
+                  "useBackend": false
+                }
+              ],
+              "title": "Panel Title - $report_variant_id",
+              "type": "stat"
+            }
+          ],
+          "title": "Success percentage - variants",
+          "type": "row"
+        }
+      ],
+      "preload": false,
+      "refresh": "",
+      "schemaVersion": 40,
+      "tags": [],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "text": [
+                "dpr_incident-report-pecs"
+              ],
+              "value": [
+                "dpr_incident-report-pecs"
+              ]
+            },
+            "definition": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},report_id)",
+            "includeAll": true,
+            "multi": true,
+            "name": "report_id",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},report_id)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": "incident-report-pecs",
+              "value": "incident-report-pecs"
+            },
+            "definition": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},variant_id)",
+            "label": "Variant",
+            "name": "variant",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},variant_id)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": "All",
+              "value": [
+                "$__all"
+              ]
+            },
+            "definition": "query_result(sum by (unique_output_port_id) (  increase(    single_query_metric_count{      namespace=\"hmpps-datahub-query-metrics-prod\"    }[24h]  )) > 0)",
+            "includeAll": true,
+            "label": "Report-Variant id",
+            "multi": true,
+            "name": "report_variant_id",
+            "options": [],
+            "query": {
+              "qryType": 3,
+              "query": "query_result(sum by (unique_output_port_id) (  increase(    single_query_metric_count{      namespace=\"hmpps-datahub-query-metrics-prod\"    }[24h]  )) > 0)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/unique_output_port_id=\"([^\"]+)\"/",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": [
+                "dpr"
+              ],
+              "value": [
+                "dpr"
+              ]
+            },
+            "definition": "query_result(sum by (unique_output_port_id) (  increase(    single_query_metric_count{      namespace=\"hmpps-datahub-query-metrics-prod\"    }[24h]  )) > 0)",
+            "includeAll": true,
+            "label": "Domain prefix",
+            "multi": true,
+            "name": "domain_prefix",
+            "options": [],
+            "query": {
+              "qryType": 3,
+              "query": "query_result(sum by (unique_output_port_id) (  increase(    single_query_metric_count{      namespace=\"hmpps-datahub-query-metrics-prod\"    }[24h]  )) > 0)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/unique_output_port_id=\"([^_\"]+)_.*\"/",
+            "type": "query"
+          },
+          {
+            "current": {
+              "text": [
+                "All"
+              ],
+              "value": [
+                "$__all"
+              ]
+            },
+            "definition": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},query_engine)",
+            "includeAll": true,
+            "multi": true,
+            "name": "query_engine",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(single_query_metric_count{namespace=\"hmpps-datahub-query-metrics-prod\"},query_engine)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-4d",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "browser",
+      "title": "Datahub report system performance",
+      "uid": "datahub-report-system-performance",
+      "version": 21,
+      "weekStart": ""
+    }

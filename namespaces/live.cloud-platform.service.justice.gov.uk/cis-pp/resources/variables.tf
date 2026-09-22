@@ -170,13 +170,13 @@ variable "cloudfront_alias" {
 variable "geo_restriction_type" {
   description = "Type of geo restriction (none, whitelist, blacklist)"
   type        = string
-  default     = "none"
+  default     = "whitelist"
 }
 
 variable "geo_restriction_locations" {
   description = "List of country codes for geo restriction"
   type        = list(string)
-  default     = []
+  default     = ["GB"]
 }
 
 variable "tags" {
@@ -190,6 +190,12 @@ variable "tags" {
 # -----------------------------------------------------------------------------
 variable "cloudfront_log_retention_days" {
   description = "Number of days to retain CloudFront access logs"
+  type        = number
+  default     = 30
+}
+
+variable "waf_log_retention_days" {
+  description = "Number of days to retain WAF CloudWatch logs"
   type        = number
   default     = 30
 }
@@ -257,12 +263,6 @@ variable "allow_admin_create_user_only" {
   default     = true
 }
 
-variable "advanced_security_mode" {
-  description = "Advanced security mode (OFF, AUDIT, ENFORCED)"
-  type        = string
-  default     = "ENFORCED"
-}
-
 variable "allowed_auth_factors" {
   description = "Allowed first authentication factors for passwordless sign-in. Options: PASSWORD, EMAIL_OTP, WEB_AUTHN"
   type        = list(string)
@@ -297,4 +297,49 @@ variable "refresh_token_validity" {
   description = "Refresh token validity in days"
   type        = number
   default     = 30
+}
+
+# -----------------------------------------------------------------------------
+# GitHub OIDC Role Variables
+# -----------------------------------------------------------------------------
+variable "oidc_role_path" {
+  description = "Path of IAM role"
+  type        = string
+  default     = "/cloud-platform/"
+}
+
+variable "oidc_role_force_detach_policies" {
+  description = "Whether policies should be detached from this role when destroying"
+  type        = bool
+  default     = true
+}
+
+variable "oidc_role_audience" {
+  description = "Audience to use for OIDC role."
+  type        = string
+  default     = "sts.amazonaws.com"
+}
+
+variable "oidc_role_provider_url" {
+  description = "The URL of the identity provider. Corresponds to the iss claim. This is the URL of the OIDC provider for GitHub Actions, and omits the https:// prefix."
+  type        = string
+  default     = "token.actions.githubusercontent.com"
+}
+
+variable "oidc_role_workflow_file" {
+  description = "The name of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = ".github/workflows/deploy_preprod.yml"
+}
+
+variable "oidc_role_workflow_branch" {
+  description = "The branch of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = "main"
+}
+
+variable "oidc_role_frontend_deploy_workflow_file" {
+  description = "The name of the frontend-only deployment workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = ".github/workflows/deploy_frontend_branch_to_preprod.yml"
 }

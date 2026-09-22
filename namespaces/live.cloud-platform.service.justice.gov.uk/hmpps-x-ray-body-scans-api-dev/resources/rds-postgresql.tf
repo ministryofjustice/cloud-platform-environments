@@ -5,12 +5,12 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_allocated_storage      = "100" 
-  db_max_allocated_storage  = "2000"
+  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "2000"
   enable_rds_auto_start_stop   = true # Turns off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2025-01-10" # Uncomment to rotate your database password.
 
@@ -30,7 +30,7 @@ module "rds" {
   team_name              = var.team_name
 
   # Add DPR security group.
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable logical replication
   db_parameter = [
@@ -60,7 +60,7 @@ module "rds" {
       apply_method = "immediate"
     }
   ]
-  
+
   enable_irsa = true
 }
 
@@ -76,7 +76,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 

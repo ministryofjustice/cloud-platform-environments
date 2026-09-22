@@ -25,6 +25,10 @@ data "aws_iam_policy_document" "sqs_full" {
       module.ims_prisoner_details_dlq.sqs_arn,
       module.domain_events_queue.sqs_arn,
       module.domain_events_dlq.sqs_arn,
+      module.ims_ai_request_queue.sqs_arn,
+      module.ims_ai_request_dlq.sqs_arn,
+      module.ims_ai_response_queue.sqs_arn,
+      module.ims_ai_response_dlq.sqs_arn,
     ]
   }
 }
@@ -75,9 +79,11 @@ module "irsa" {
     s3_images        = module.ims_images_storage_bucket.irsa_policy_arn
     s3_attachments   = module.ims_attachments_storage_bucket.irsa_policy_arn
     s3_dissemination = module.ims_dissemination_storage_bucket.irsa_policy_arn
+    s3_audit         = module.ims_audit_files_storage_bucket.irsa_policy_arn
     rds              = module.rds_aurora.irsa_policy_arn
     s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
     s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
+    s3_ai            = module.ims_ai_bucket.irsa_policy_arn
   })
 
   # Tags

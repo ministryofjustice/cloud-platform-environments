@@ -38,6 +38,32 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  alias  = "secrets"
+  region = "eu-west-2"
+
+  assume_role {
+    # Assumes the CP intermediary role (intra-account) which has direct access to the
+    # MP secret via a resource-based policy on the secret. This avoids cross-account
+    # sts:AssumeRole which is blocked by SCPs on the shared manager-concourse user.
+    role_arn     = aws_iam_role.mp_secrets_access.arn
+    session_name = "terraform"
+  }
+}
+
+provider "aws" {
+  alias  = "onr-secrets"
+  region = "eu-west-2"
+
+  assume_role {
+    # Assumes the CP intermediary role (intra-account) which has direct access to the
+    # MP secret via a resource-based policy on the secret. This avoids cross-account
+    # sts:AssumeRole which is blocked by SCPs on the shared manager-concourse user.
+    role_arn     = aws_iam_role.mp_onr_secrets_access.arn
+    session_name = "terraform-onr"
+  }
+}
+
 provider "github" {
   token = var.github_token
   owner = var.github_owner

@@ -11,7 +11,7 @@ module "secrets_manager" {
 
   secrets = {
     "gov-notify-api-key" = {
-      description             = "API key for GOV Notify",
+      description             = "API key for GOV Notify for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-notify-api-key-staging"
     },
@@ -29,6 +29,21 @@ module "secrets_manager" {
       description             = "Flag for allowing autogrant within the API for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "allow-auto-grant-staging"
+    },
+    "api-entra-auth-config" = {
+      description             = "API Entra Configuration for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "api-entra-auth-config-staging"
+    },
+    "ads-auth-config" = {
+      description             = "ADS Auth Configuration for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "ads-auth-config-staging"
+    },
+    "grant_email_template_id" = {
+      description             = "Template ID for sending grant emails for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "grant-email-template-id-staging"
     },
   }
 }

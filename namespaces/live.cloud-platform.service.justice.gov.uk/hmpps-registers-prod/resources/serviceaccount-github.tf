@@ -92,6 +92,10 @@ data "github_team" "move-a-prisoner" {
   slug = "map-developers-live"
 }
 
+data "github_team" "syscon-devs" {
+  slug = "syscon-devs"
+}
+
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment-name
@@ -100,7 +104,8 @@ resource "github_repository_environment" "env" {
   # prevent_self_review = true
   reviewers {
     teams = [
-      tonumber(data.github_team.move-a-prisoner.id)
+      tonumber(data.github_team.move-a-prisoner.id),
+      tonumber(data.github_team.syscon-devs.id)
     ]
   }
   deployment_branch_policy {

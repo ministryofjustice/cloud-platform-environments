@@ -9,7 +9,7 @@ resource "pingdom_check" "laa-landing-page-homepage" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/api/v1/claims/enrich"
+  url                      = "/actuator/health"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.namespace},isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.namespace}"

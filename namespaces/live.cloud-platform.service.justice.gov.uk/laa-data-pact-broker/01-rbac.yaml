@@ -5,6 +5,9 @@ metadata:
   namespace: laa-data-pact-broker
 subjects:
   - kind: Group
+    name: "github:laa-data-pact-broker"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:laa-data-stewardship-cse-team"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

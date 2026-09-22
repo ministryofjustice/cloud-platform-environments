@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -35,11 +35,17 @@ module "rds" {
 
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
   # uncomment below:
-
-  # enable_irsa = true
+  enable_irsa = true
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
+  db_parameter = [
+      {
+    name         = "max_connections"
+    value        = "171"
+    apply_method = "pending-reboot"
+    }
+  ]
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -69,7 +75,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
@@ -153,7 +159,27 @@ resource "kubernetes_config_map" "rds" {
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name         = module.rds.database_name
+    db_identifier         = module.rds.db_identifier
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "dps_rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-prisoner-finance-general-ledger-prod"
+  }
+
+  data = {
+    database_name        = module.rds.database_name
+    database_username    = module.rds.database_username
+    database_password    = module.rds.database_password
+    rds_instance_address = module.rds.rds_instance_address
   }
 }

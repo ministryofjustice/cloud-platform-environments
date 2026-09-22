@@ -6,7 +6,7 @@ metadata:
   namespace: money-to-prisoners-prod
 subjects:
   - kind: Group
-    name: "github:prisoner-money"
+    name: "github:prisoner-money-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

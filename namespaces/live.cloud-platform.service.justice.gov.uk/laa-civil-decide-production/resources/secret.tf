@@ -11,33 +11,45 @@ module "secrets_manager" {
 
   secrets = {
     "auth-client-id" = {
-      description             = "Auth client ID from Entra for production environment",
+      description             = "Auth client ID from Entra for Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-client-id-production"
     },
 
     "auth-client-secret" = {
-      description             = "Auth client secret from Entra for production environment",
+      description             = "Auth client secret from Entra for Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-client-secret-production"
     },
 
     "auth-directory-url" = {
-      description             = "Auth directory URL from Entra for production environment",
+      description             = "Auth directory URL from Entra for Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-production"
     },
 
     "base_url_map" = {
-      description             = "API Base URL Map for production environment",
+      description             = "API Base URL Map for Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-production"
     },
 
     "data_store_auth_scope" = {
-      description             = "Auth scope for integration with Data Store",
+      description             = "Auth scope for integration with Data Store for Prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "data-store-auth-scope-production"
+    },
+
+    "decide_api_auth_scope" = {
+      description             = "Auth scope for integration with Civil Decide API for Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "decide-api-auth-scope-production"
+    },
+
+    "refuse_email_template_id" = {
+      description             = "Refuse Decision Template ID for Prod",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "refuse-email-template-id-production"
     },
   }
 }

@@ -21,6 +21,13 @@ module "sqlserver" {
   vpc_name                   = var.vpc_name
   character_set_name         = var.character_set_name
 
+  # APG-2664: prevents accidental deletion of the instance holding the final NEC
+  # data. If instance deletion is ever legitimately needed, flip to false via a
+  # Terraform PR first. Note: manual snapshot hmpps-acp-preprod-nec-final-20260910110000
+  # exists and is encrypted with a KMS key — do NOT delete that KMS key or the
+  # snapshot becomes unrecoverable.
+  deletion_protection = true
+
 
   enable_irsa = true
 

@@ -5,9 +5,9 @@ module "hmpps_assess_risks_and_needs_integrations_prod_elasticache_redis" {
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
-  engine_version          = "7.1"
-  parameter_group_name    = "default.redis7"
+  node_type            = "cache.t4g.micro"
+  engine_version       = "7.1"
+  parameter_group_name = "default.redis7"
 
   # Tags
   business_unit          = var.business_unit

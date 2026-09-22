@@ -5,7 +5,7 @@ module "redis" {
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
+  node_type               = "cache.t4g.small"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   snapshot_window         = "01:00-02:00"
@@ -38,6 +38,19 @@ resource "kubernetes_secret" "ec-cluster-output" {
 resource "kubernetes_secret" "app-redis" {
   metadata {
     name      = "app-redis"
+    namespace = var.namespace
+  }
+
+  data = {
+    APP_REDIS_ENDPOINT = module.redis.primary_endpoint_address
+    APP_REDIS_PASSWORD = module.redis.auth_token
+    APP_REDIS_PORT     = "6379"
+  }
+}
+
+resource "kubernetes_secret" "pda-r1-redis-details" {
+  metadata {
+    name      = "pda-r1-redis-details"
     namespace = var.namespace
   }
 

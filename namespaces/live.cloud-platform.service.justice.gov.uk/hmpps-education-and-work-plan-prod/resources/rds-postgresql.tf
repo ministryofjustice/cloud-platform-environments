@@ -36,6 +36,8 @@ module "hmpps_education_work_plan_rds" {
   enable_irsa = true
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
+  deletion_protection = true
+
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -107,6 +109,8 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  deletion_protection = true
 
   db_parameter = [
     {

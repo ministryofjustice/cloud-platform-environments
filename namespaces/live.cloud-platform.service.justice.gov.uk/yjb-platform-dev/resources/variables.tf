@@ -73,3 +73,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "github_team" {
+  description = "The name of the GitHub team associated with this namespace"
+  type        = string
+  default     = "yjb-dev-team"
+}

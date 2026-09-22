@@ -8,4 +8,5 @@ module "serviceaccount" {
   serviceaccount_token_rotated_date = "20-03-2026"
 
   github_repositories = ["laa-info-and-advice-datastore"]
+  github_environments = ["uat"]
 }

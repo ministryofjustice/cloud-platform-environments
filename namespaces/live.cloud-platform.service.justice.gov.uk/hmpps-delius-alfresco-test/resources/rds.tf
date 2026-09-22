@@ -8,7 +8,7 @@ module "rds_alfresco" {
   db_name = "alfresco"
 
   # RDS configuration
-  allow_minor_version_upgrade  = true
+  allow_minor_version_upgrade  = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
@@ -19,7 +19,7 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.17"
+  db_engine_version         = "14.22"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.micro"
 

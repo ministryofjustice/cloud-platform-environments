@@ -8,7 +8,7 @@ resource "aws_iam_access_key" "oasys-domain-event-access" {
 }
 
 resource "aws_iam_user_policy_attachment" "oasys-topic-policy" {
-  policy_arn = module.hmpps-domain-events.irsa_policy_arn
+  policy_arn = aws_iam_policy.sns_topic_irsa_publish.arn
   user       = aws_iam_user.oasys-domain-event-topic-user.name
 }
 

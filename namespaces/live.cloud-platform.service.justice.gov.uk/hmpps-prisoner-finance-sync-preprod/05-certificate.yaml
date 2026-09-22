@@ -24,3 +24,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prisoner-finance-sync-preprod.hmpps.service.justice.gov.uk
+    - pf-sync-preprod.hmpps.service.justice.gov.uk

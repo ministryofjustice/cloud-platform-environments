@@ -26,6 +26,12 @@ module "secrets_manager" {
       description             = "Auth directory URL from Entra for prod",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-prod"
+    },
+
+    "api-entra-config" = {
+      description = "Inquests API credentials from Entra",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "api-entra-config-prod"
     }
   }
 }

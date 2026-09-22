@@ -12,6 +12,7 @@ resource "aws_sns_topic_subscription" "prisoner_property_event_queue_subscriptio
     eventType = [
       "prison-offender-events.prisoner.released",
       "prison-offender-events.prisoner.received",
+      "prison-offender-events.prisoner.merged",
     ]
   })
 }

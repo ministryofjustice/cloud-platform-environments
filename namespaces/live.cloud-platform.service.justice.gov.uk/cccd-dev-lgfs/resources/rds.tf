@@ -17,7 +17,7 @@ module "cccd_rds" {
   infrastructure_support      = var.infrastructure_support
   db_allocated_storage        = "50"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "17.6"
+  db_engine_version           = "17.9"
   rds_family                  = "postgres17"
   allow_major_version_upgrade = "false"
   prepare_for_major_upgrade   = "false"

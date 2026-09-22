@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["payforlegalaid", "payforlegalaid-ui"]
+  github_repositories = ["payforlegalaid"]
   github_environments = ["uat"]
 
   # Tags
@@ -23,9 +23,6 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-
-  # For ECR creation to differentiate between environments
-  github_actions_prefix = "uat"
 
   enable_irsa = true
 }
@@ -47,7 +44,7 @@ module "data_ecr" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  github_actions_prefix = "uat_data"
+  github_actions_prefix = "data"
 
   enable_irsa = true
 }

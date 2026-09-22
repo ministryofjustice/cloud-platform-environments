@@ -13,7 +13,7 @@ module "cica_ecr_credentials" {
 
 
   # OpenID Connect configuration
-  oidc_providers      = ["circleci"]
+  oidc_providers      = ["circleci", "github"]
   github_repositories = var.repo_name
 
   # Tags

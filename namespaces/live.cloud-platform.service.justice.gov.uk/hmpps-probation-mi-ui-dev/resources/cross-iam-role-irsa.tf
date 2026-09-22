@@ -76,6 +76,12 @@ module "irsa" {
     {
       secrets = aws_iam_policy.cross_iam_policy_mp.arn
     },
+    {
+      sqs = module.hmpps_probation_mi_domain_events_queue.irsa_policy_arn
+    },
+    {
+      sqs_dlq = module.hmpps_probation_mi_domain_events_dlq.irsa_policy_arn
+    },
     local.sns_policies
   )
 
@@ -85,6 +91,13 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+module "service_pod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.1"
+
+  namespace            = var.namespace
+  service_account_name = module.irsa.service_account.name
 }
 
 data "aws_iam_policy_document" "cross_iam_policy_mp" {

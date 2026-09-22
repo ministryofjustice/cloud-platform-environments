@@ -8,6 +8,10 @@
 resource "aws_cognito_user_pool" "main" {
   name           = var.user_pool_name
   user_pool_tier = "PLUS"
+  # User pool add-ons
+  user_pool_add_ons {
+    advanced_security_mode = "ENFORCED"
+  }
 
   # Account recovery
   account_recovery_setting {
@@ -48,7 +52,7 @@ resource "aws_cognito_user_pool" "main" {
     name                = "email"
     attribute_data_type = "String"
     required            = true
-    mutable             = false
+    mutable             = true
 
     string_attribute_constraints {
       min_length = 1
@@ -103,11 +107,6 @@ resource "aws_cognito_user_pool" "main" {
       sms_message   = "Your username is {username} and temporary password is {####}."
     }
   }
-
-  # User pool add-ons
-  user_pool_add_ons {
-    advanced_security_mode = var.advanced_security_mode
-  }
 }
 
 # -----------------------------------------------------------------------------
@@ -133,7 +132,7 @@ resource "aws_cognito_user_pool_client" "main" {
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
 
-  supported_identity_providers = ["COGNITO"]
+  supported_identity_providers = ["EntraID"]
 
   callback_urls = var.callback_urls
   logout_urls   = var.logout_urls
@@ -156,5 +155,86 @@ resource "aws_cognito_user_pool_client" "main" {
     access_token  = "hours"
     id_token      = "hours"
     refresh_token = "days"
+  }
+
+  depends_on = [aws_cognito_identity_provider.entra]
+}
+
+resource "kubernetes_secret" "cognito_user_pool_client" {
+  metadata {
+    name      = "${var.namespace}-cognito-user-pool-client"
+    namespace = var.namespace
+  }
+  data = {
+    client_id     = aws_cognito_user_pool_client.main.id
+    client_secret = aws_cognito_user_pool_client.main.client_secret
+  }
+}
+
+data "aws_secretsmanager_secret" "cognito_test_user" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-cognito-test-user-secret"]
+}
+
+data "aws_secretsmanager_secret_version" "cognito_test_user" {
+  secret_id = data.aws_secretsmanager_secret.cognito_test_user.id
+}
+
+resource "aws_cognito_user" "test" {
+  user_pool_id = aws_cognito_user_pool.main.id
+  username     = "ollie.evanstest@justice.gov.uk"
+
+  attributes = {
+    cis-role       = "CRA Pre-Prod - Viewer"
+    email          = "ollie.evanstest@justice.gov.uk"
+    email_verified = "true"
+  }
+
+  password       = jsondecode(data.aws_secretsmanager_secret_version.cognito_test_user.secret_string)["CIS_PP_COGNITO_TEST_USER_PASS"]
+  message_action = "SUPPRESS"
+}
+
+# -----------------------------------------------------------------------------
+# Entra ID (OIDC) Identity Provider
+# -----------------------------------------------------------------------------
+data "aws_secretsmanager_secret" "entra_prod_external_client_id" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-client-id"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_id.id
+}
+
+data "aws_secretsmanager_secret" "entra_prod_external_client_secret" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-client-secret"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_prod_external_client_secret" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_client_secret.id
+}
+
+data "aws_secretsmanager_secret" "entra_prod_external_tenant_id" {
+  name = module.cis_pp_entra_prod_external_client_secret.secret_names["cis-pp-entra-prod-external-tenant-id"]
+}
+
+data "aws_secretsmanager_secret_version" "entra_prod_external_tenant_id" {
+  secret_id = data.aws_secretsmanager_secret.entra_prod_external_tenant_id.id
+}
+
+resource "aws_cognito_identity_provider" "entra" {
+  user_pool_id  = aws_cognito_user_pool.main.id
+  provider_name = "EntraID"
+  provider_type = "OIDC"
+
+  provider_details = {
+    client_id                 = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_id.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_CLIENT_ID"]
+    client_secret             = jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_client_secret.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_CLIENT_SECRET"]
+    authorize_scopes          = "openid email profile"
+    attributes_request_method = "GET"
+    oidc_issuer               = "https://login.microsoftonline.com/${jsondecode(data.aws_secretsmanager_secret_version.entra_prod_external_tenant_id.secret_string)["CIS_PP_ENTRA_PROD_EXTERNAL_TENANT_ID"]}/v2.0"
+  }
+
+  attribute_mapping = {
+    email             = "USER_EMAIL"
+    "custom:cis-role" = "LAA_APP_ROLES"
   }
 }

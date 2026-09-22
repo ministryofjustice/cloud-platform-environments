@@ -70,3 +70,9 @@ variable "service_area" {
 }
 
 variable "kubernetes_cluster" {}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required for MP DPR traffic ingress into CP DPS"
+  default     = "cloudplatform-mp-dps-sg"
+}

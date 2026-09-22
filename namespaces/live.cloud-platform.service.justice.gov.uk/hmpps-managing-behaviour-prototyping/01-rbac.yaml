@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-managing-behaviour-prototyping
 subjects:
   - kind: Group
-    name: "github:hmpps-incident-reporting"
+    name: "github:manage-safety-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

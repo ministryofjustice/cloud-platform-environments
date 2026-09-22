@@ -50,3 +50,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prisoner-property-api.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-property-ui-prod-cert
+  namespace: hmpps-locations-inside-prison-prod
+spec:
+  secretName: hmpps-prisoner-property-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-property.hmpps.service.justice.gov.uk

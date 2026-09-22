@@ -26,6 +26,12 @@ variable "namespace" {
   default     = "laa-landing-page-test"
 }
 
+variable "namespace-api" {
+  description = "Name of the api namespace for exporting secrets"
+  type        = string
+  default     = "laa-data-user-api-test"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

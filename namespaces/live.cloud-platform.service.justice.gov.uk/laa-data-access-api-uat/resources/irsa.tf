@@ -10,7 +10,8 @@ module "irsa" {
 
   role_policy_arns = {
     laa_data_access_api_dynamodb = module.laa_data_access_api_dynamodb.irsa_policy_arn
-    s3_bucket = module.s3_bucket.irsa_policy_arn
+    s3_bucket                    = module.s3_bucket.irsa_policy_arn
+    data_access_events_sns       = aws_iam_policy.data_access_events_publisher.arn
   }
 
   # Tags

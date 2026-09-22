@@ -101,3 +101,17 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+
+# Secret to store JDBC connection details for PDA-r2 to use
+resource "kubernetes_secret" "pda-r2-pgsql-details" {
+  metadata {
+    name      = "pda-r2-pgsql-details"
+    namespace = var.namespace
+  }
+
+  data = {
+    SPRING_DATASOURCE_PASSWORD = module.rds.database_password
+    SPRING_DATASOURCE_URL = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    SPRING_DATASOURCE_USERNAME = module.rds.database_username
+  }
+}

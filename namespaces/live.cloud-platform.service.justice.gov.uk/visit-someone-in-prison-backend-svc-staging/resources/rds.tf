@@ -10,9 +10,10 @@ module "visit_scheduler_rds" {
   namespace              = var.namespace
 
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17.9"
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "500"
@@ -55,9 +56,10 @@ module "prison_visit_booker_registry_rds" {
   namespace              = var.namespace
 
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17.9"
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
@@ -103,7 +105,7 @@ module "visit_allocation_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17.9"
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.small"
   enable_rds_auto_start_stop   = true

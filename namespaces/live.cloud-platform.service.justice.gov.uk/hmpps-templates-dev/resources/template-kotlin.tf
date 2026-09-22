@@ -1,4 +1,4 @@
-# For Cloud Platform deployed projects based on the hmpps-template-typescript template:
+# For Cloud Platform deployed projects based on the hmpps-template-kotlin template:
 # Make a copy of this file in your namespace, then modify according to the instructions here:
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 

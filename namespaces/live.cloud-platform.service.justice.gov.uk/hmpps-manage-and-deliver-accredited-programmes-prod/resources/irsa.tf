@@ -40,6 +40,24 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "irsa-ui" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-manage-and-deliver-accredited-programmes-ui"
+
+  role_policy_arns     = local.sqs_policies
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
@@ -67,6 +85,12 @@ module "irsa-sqlserver" {
     {
       # Cross-namespace: read preprod backup bucket for initial data load and Phase 2 copy
       preprod_backup_s3_read = aws_iam_policy.preprod_backup_s3_read.arn
+    },
+    {
+      # APG-2664: write access to the archive bucket so the sqlserver_service_pod
+      # can copy the final .bak into it. Note: the archive bucket's deny policy
+      # blocks DeleteObject* even for this role — the pod can PUT but never delete.
+      archive_s3_bucket_policy = module.archive_s3_bucket.irsa_policy_arn
     }
   )
 

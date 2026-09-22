@@ -19,7 +19,7 @@ module "apply-for-legal-aid-rds" {
   # Database configuration
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "18.1"
+  db_engine_version           = "18.3"
   rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
   db_name                     = "apply_for_legal_aid_staging"
@@ -27,6 +27,7 @@ module "apply-for-legal-aid-rds" {
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   db_max_allocated_storage    = "500"
+  db_password_rotated_date    = "23-07-2026"
 
   snapshot_identifier = "rds:cloud-platform-464651662c253592-2022-03-03-05-40"
 

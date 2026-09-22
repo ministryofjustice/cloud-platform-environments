@@ -26,6 +26,11 @@ variable "service_area" {
   default     = "inquests"
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to use, a secret prefix"
+  type        = string
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string

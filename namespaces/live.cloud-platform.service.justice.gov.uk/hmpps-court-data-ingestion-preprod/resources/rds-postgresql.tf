@@ -48,3 +48,23 @@ resource "kubernetes_secret" "rds" {
      *
      */
 }
+
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = replace(var.namespace, "preprod", "prod")
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps-court-data-ingestion-api-rds.rds_instance_endpoint
+    database_name         = module.hmpps-court-data-ingestion-api-rds.database_name
+    db_identifier         = module.hmpps-court-data-ingestion-api-rds.db_identifier
+    database_username     = module.hmpps-court-data-ingestion-api-rds.database_username
+    database_password     = module.hmpps-court-data-ingestion-api-rds.database_password
+    rds_instance_address  = module.hmpps-court-data-ingestion-api-rds.rds_instance_address
+  }
+}
+

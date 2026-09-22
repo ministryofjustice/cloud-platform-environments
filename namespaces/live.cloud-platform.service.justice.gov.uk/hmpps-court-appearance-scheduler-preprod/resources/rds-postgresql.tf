@@ -16,14 +16,14 @@ module "rds" {
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
   storage_type                 = "gp3"
-  db_max_allocated_storage     = "200"
-  db_allocated_storage         = "50"
+  db_max_allocated_storage     = "500"
+  db_allocated_storage         = "200"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "18"
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.large"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -71,6 +71,22 @@ resource "kubernetes_secret" "postgres" {
   metadata {
     name      = "hmpps-court-appearance-scheduler-postgres"
     namespace = var.namespace
+  }
+
+  data = {
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    database_server       = module.rds.rds_instance_address
+  }
+}
+
+# This places a secret for this preprod RDS instance in the production namespace,
+# this can then be used by a kubernetes job which will refresh the preprod data.
+resource "kubernetes_secret" "refresh_postgres" {
+  metadata {
+    name      = "refresh-preprod-postgres"
+    namespace = "hmpps-court-appearance-scheduler-prod"
   }
 
   data = {

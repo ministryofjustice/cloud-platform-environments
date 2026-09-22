@@ -37,24 +37,29 @@ module "ecr" {
       },
       {
         "rulePriority": 2,
-        "description": "Keep last 50 version-tagged release images (data-claims-api-*)",
+        "description": "Transition data-claims-api-* images not pulled in 30 days to archive",
         "selection": {
           "tagStatus": "tagged",
           "tagPrefixList": ["data-claims-api-"],
-          "countType": "imageCountMoreThan",
-          "countNumber": 50
+          "countType": "sinceImagePulled",
+          "countUnit": "days",
+          "countNumber": 30
         },
         "action": {
-          "type": "expire"
+          "type": "transition",
+          "targetStorageClass": "archive"
         }
       },
       {
         "rulePriority": 3,
-        "description": "Keep last 50 images overall",
+        "description": "Expire archived data-claims-api-* images after 90 days in archive",
         "selection": {
-          "tagStatus": "any",
-          "countType": "imageCountMoreThan",
-          "countNumber": 50
+          "tagStatus": "tagged",
+          "tagPrefixList": ["data-claims-api-"],
+          "storageClass": "archive",
+          "countType": "sinceImageTransitioned",
+          "countUnit": "days",
+          "countNumber": 90
         },
         "action": {
           "type": "expire"

@@ -1620,8 +1620,8 @@ data:
         "list": [
           {
             "current": {
-              "text": "Prometheus",
-              "value": "prometheus"
+              "text": "Thanos",
+              "value": "P5DCFC7561CCDE821"
             },
             "includeAll": false,
             "label": "Source",
@@ -1654,7 +1654,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-2d",
         "to": "now"
       },
       "timepicker": {},

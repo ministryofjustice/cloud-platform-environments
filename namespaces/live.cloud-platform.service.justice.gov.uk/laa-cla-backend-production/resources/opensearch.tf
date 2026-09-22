@@ -1,6 +1,7 @@
 module "opensearch_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2"
 
+    index                      = ["live_kubernetes_ingress-*"]
     secret_name                    = "live-laa-cla-backend-production-534b062abc2393c7"
     secret_key                     = "url"
     environment_name               = var.environment-name
@@ -58,21 +59,19 @@ module "opensearch_alert" {
               "must": [],
               "filter": [
                 {
-                  "multi_match": {
-                    "type": "phrase",
-                    "query": "\"status\": 429",
-                    "lenient": true
-                  }
-                },
-                {
                   "match_phrase": {
                     "log_processed.kubernetes_namespace": "laa-cla-backend-production"
                   }
                 },
                 {
+                  "match_phrase": {
+                    "log_processed.status": "429"
+                  }
+                },
+                {
                   "range": {
                     "@timestamp": {
-                      "gte": "now-60",
+                      "gte": "now-60m",
                       "lte": "now",
                     }
                   }
