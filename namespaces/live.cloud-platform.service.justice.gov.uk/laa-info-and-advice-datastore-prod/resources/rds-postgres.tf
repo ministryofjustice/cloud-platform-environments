@@ -2,6 +2,7 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
+  rds_name = "laa-info-and-advice-datastore-prod"
 
   # Engine
   db_engine         = "postgres"
