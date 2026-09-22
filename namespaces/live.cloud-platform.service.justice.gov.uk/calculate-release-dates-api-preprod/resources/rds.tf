@@ -16,7 +16,7 @@ module "calculate_release_dates_api_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  db_max_allocated_storage     = "250"
+  db_max_allocated_storage     = "500"
   db_engine              = "postgres"
   db_engine_version      = "16.15" # may not be actual version due to auto patch
   rds_family             = "postgres16"
@@ -143,7 +143,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_max_allocated_storage     = "250"
+  db_max_allocated_storage     = "500"
   db_engine         = "postgres"
   db_engine_version = "16.15" # may not be actual version due to auto patch
   rds_family        = "postgres16"
