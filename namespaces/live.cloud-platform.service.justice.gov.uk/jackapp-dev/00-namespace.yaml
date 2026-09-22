@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
     cloud-platform.justice.gov.uk/application: "development-app"
     cloud-platform.justice.gov.uk/owner: "cloud-platform: cloud-platform@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/jackstockley89/golangwebpage"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/jack_development_application"
     cloud-platform.justice.gov.uk/team-name: "cloud-platform"
     cloud-platform.justice.gov.uk/review-after: "2026-12-22"
