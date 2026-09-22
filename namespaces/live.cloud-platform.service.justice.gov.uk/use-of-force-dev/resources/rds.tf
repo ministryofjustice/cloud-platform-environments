@@ -17,7 +17,7 @@ module "dps_rds" {
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "16.8"
+  db_engine_version           = "16.13"
   rds_family                  = "postgres16"
   db_password_rotated_date    = "14-02-2023"
   enable_rds_auto_start_stop = true
