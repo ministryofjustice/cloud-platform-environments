@@ -53,7 +53,7 @@ module "rds_restore" {
   db_instance_class         = "db.t4g.micro"
   db_allocated_storage      = 20
   db_max_allocated_storage  = "500"
-  deletion_protection       = true
+  deletion_protection       = false
 
   application            = var.application
   business_unit          = var.business_unit
@@ -63,8 +63,7 @@ module "rds_restore" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  enable_irsa         = true
-  deletion_protection = false
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "rds" {
