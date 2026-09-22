@@ -132,3 +132,21 @@ resource "kubernetes_config_map" "rds" {
     db_identifier = module.rds.db_identifier
   }
 }
+
+# Places a secret holding this preprod instance's credentials in the production namespace, so the
+# postgres restore CronJob deployed by hmpps-cell-sharing-risk-assessment-api can copy production
+# data into preprod without production credentials ever leaving the production namespace. MAPA-392.
+resource "kubernetes_secret" "rds_refresh_creds" {
+  metadata {
+    name      = "rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-cell-sharing-risk-assessment-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
