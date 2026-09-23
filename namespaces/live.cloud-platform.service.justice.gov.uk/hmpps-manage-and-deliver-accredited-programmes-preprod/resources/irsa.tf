@@ -104,6 +104,12 @@ module "irsa-sqlserver" {
     {
       # db-restore job needs to list the backup bucket to discover the latest .bak file
       sqlserver_backup_s3_bucket_policy = module.sqlserver_backup_s3_bucket.irsa_policy_arn
+    },
+    {
+      # APG-2664: write access to the archive bucket so the sqlserver_service_pod
+      # can copy the final .bak into it. The archive bucket's deny policy blocks
+      # DeleteObject* even for this role — the pod can PUT but never delete.
+      archive_s3_bucket_policy = module.archive_s3_bucket.irsa_policy_arn
     }
   )
 

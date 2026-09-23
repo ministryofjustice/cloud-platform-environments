@@ -14,6 +14,8 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["srrc-verify-biometric-scans-api"]
 
+  github_environments = ["preprod"]
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

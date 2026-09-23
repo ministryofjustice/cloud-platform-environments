@@ -9,7 +9,7 @@ variable "kubernetes_cluster" {
 }
 
 variable "eks_cluster_name" {
-  description = "EKS cluster name, used by the IRSA and Secrets Manager modules to create IAM role trust policies"
+  description = "EKS cluster name, used by the Secrets Manager module to create IAM role trust policies"
   type        = string
 }
 

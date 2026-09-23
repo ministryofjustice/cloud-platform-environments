@@ -16,7 +16,8 @@ module "manage_offences_rds" {
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000"
   db_engine                   = "postgres"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
+  enable_irsa                 = true
 
   db_password_rotated_date = "13-02-2023"
 
@@ -92,7 +93,7 @@ module "read_replica" {
   team_name              = var.team_name
 
   db_engine                = "postgres"
-  db_engine_version        = "18"
+  db_engine_version        = "18.6"
   rds_family               = var.rds_family
   db_instance_class        = "db.t4g.small"
   db_allocated_storage     = 10

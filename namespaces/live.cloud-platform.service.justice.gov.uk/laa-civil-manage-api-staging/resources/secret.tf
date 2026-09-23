@@ -26,6 +26,12 @@ module "secrets_manager" {
       description             = "API key for GOV.UK Notify service",
       recovery_window_in_days = 7,
       k8s_secret_name         = "gov-uk-notify-api-key"
+    },
+
+    "provider-details-api-key" = {
+      description             = "API key for the Provider Details API integration",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "provider-details-api-key"
     }
   }
 }

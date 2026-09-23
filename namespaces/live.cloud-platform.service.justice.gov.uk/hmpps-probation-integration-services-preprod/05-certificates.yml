@@ -958,3 +958,18 @@ spec:
   dnsNames:
     - 36af1a4c-preprod.hmpps.service.justice.gov.uk
     - community-support-interventions-and-delius-preprod.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: emdi-and-delius-cert
+  namespace: hmpps-probation-integration-services-preprod
+spec:
+  secretName: emdi-and-delius-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - 8e09a934-preprod.hmpps.service.justice.gov.uk
+    - emdi-and-delius-preprod.hmpps.service.justice.gov.uk

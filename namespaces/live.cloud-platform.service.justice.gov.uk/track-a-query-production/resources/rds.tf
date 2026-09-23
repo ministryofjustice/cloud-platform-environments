@@ -18,7 +18,7 @@ module "track_a_query_rds" {
   db_instance_class          = "db.r6g.large"
   db_max_allocated_storage   = "1000"
   db_engine                  = "postgres"
-  db_engine_version = "16.13"
+  db_engine_version          = "16.15"
   db_backup_retention_period = "7"
   db_name                    = "track_a_query_production"
   prepare_for_major_upgrade  = false

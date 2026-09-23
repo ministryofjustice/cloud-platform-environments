@@ -1,6 +1,6 @@
 /*
  * Make sure that you use the latest version of the module by changing the
- * `ref=` value in the `source` attribute to the latest version listed on the
+ * `ref=` value in the `source` attribute to the latest version listed on the 
  * releases page of this repository.
  *
  */
@@ -21,7 +21,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.9"
+  db_engine_version = "17.11"
   rds_family        = "postgres17"
   db_instance_class = "db.t4g.medium"
 

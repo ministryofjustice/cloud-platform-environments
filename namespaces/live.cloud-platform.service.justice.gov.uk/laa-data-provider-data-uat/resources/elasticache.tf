@@ -5,7 +5,7 @@ module "redis" {
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.micro"
+  node_type               = "cache.t4g.small"
   engine_version          = "7.0"
   parameter_group_name    = "default.redis7"
   snapshot_window         = "01:00-02:00"

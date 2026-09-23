@@ -41,7 +41,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "staging"
+  default     = "preprod"
 }
 
 variable "infrastructure_support" {
@@ -72,4 +72,15 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_name" {
+  type        = string
+  description = "GitHub Actions service account name for srrc-preprod namespace"
+  default     = "srrc-preprod"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve OIDC information for IRSA"
+  type        = string
 }

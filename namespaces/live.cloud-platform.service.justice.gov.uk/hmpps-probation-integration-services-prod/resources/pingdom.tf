@@ -67,6 +67,7 @@ resource "pingdom_check" "pingdom" {
     "warrant-risk-assessment-and-delius",
     "workforce-allocations-to-delius",
     "community-support-interventions-and-delius",
+    "emdi-and-delius",
     # ^ add new projects here
   ])
   type                     = "http"

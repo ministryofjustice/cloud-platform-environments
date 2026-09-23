@@ -7,157 +7,260 @@ metadata:
     role: alert-rules
 spec:
   groups:
-    - name: onboarding-optimisation-fundamentals
-      rules:
-        - alert: OnboardingOptimisationMetricsTargetMissing
-          expr: absent(poirot_application_info{namespace="onboarding-optimisation-prod"}) == 1
-          for: 5m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: The production backend metrics target has been missing for at least five minutes.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationDeploymentReplicasMismatch
-          expr: |
-            kube_deployment_spec_replicas{
-              namespace="onboarding-optimisation-prod",
-              deployment=~"onboarding-optimisation-(backend|frontend)"
-            }
-              !=
-            kube_deployment_status_replicas_available{
-              namespace="onboarding-optimisation-prod",
-              deployment=~"onboarding-optimisation-(backend|frontend)"
-            }
-          for: 10m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: Deployment {{ $labels.deployment }} has not had its expected number of available replicas for ten minutes.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationBackendHigh5xxRatio
-          expr: |
-            (
-              sum(rate(poirot_http_requests_total{
-                namespace="onboarding-optimisation-prod",
-                status_code=~"5.."
-              }[10m]))
-              /
-              clamp_min(
-                sum(rate(poirot_http_requests_total{
-                  namespace="onboarding-optimisation-prod"
-                }[10m])),
-                0.001
-              )
-            ) > 0.20
-            and
-            sum(increase(poirot_http_requests_total{
+  - name: onboarding-optimisation-fundamentals
+    rules:
+    - alert: OnboardingOptimisationMetricsTargetMissing
+      expr: absent(poirot_application_info{namespace="onboarding-optimisation-prod"})
+        == 1
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: The production backend metrics target has been missing for at least
+          five minutes.
+        priority: notify
+        action: Check the ServiceMonitor target, backend Service endpoints, metrics
+          port and pod logs.
+    - alert: OnboardingOptimisationServiceUnavailable
+      expr: kube_deployment_status_replicas_available{namespace="onboarding-optimisation-prod",
+        deployment=~"onboarding-optimisation-(backend|frontend)"} == 0
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Production deployment {{ $labels.deployment }} has had no available
+          replicas for five minutes.
+        priority: page
+        action: Check deployment events, pod readiness, container logs and the Kubernetes
+          section of the dashboard; roll back the latest deployment if it caused the
+          outage.
+    - alert: OnboardingOptimisationDeploymentReplicasMismatch
+      expr: |
+        kube_deployment_spec_replicas{
+          namespace="onboarding-optimisation-prod",
+          deployment=~"onboarding-optimisation-(backend|frontend)"
+        }
+          !=
+        kube_deployment_status_replicas_available{
+          namespace="onboarding-optimisation-prod",
+          deployment=~"onboarding-optimisation-(backend|frontend)"
+        }
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Deployment {{ $labels.deployment }} has not had its expected number
+          of available replicas for ten minutes.
+        priority: notify
+        action: Inspect rollout status, readiness failures, scheduling events and
+          the desired-versus-available replicas panel.
+    - alert: OnboardingOptimisationBackendHigh5xxRatio
+      expr: |
+        (
+          sum(rate(poirot_http_requests_total{
+            namespace="onboarding-optimisation-prod",
+            status_code=~"5.."
+          }[10m]))
+          /
+          clamp_min(
+            sum(rate(poirot_http_requests_total{
               namespace="onboarding-optimisation-prod"
-            }[10m])) >= 20
-          for: 10m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: More than 20% of production backend requests have returned 5xx responses for ten minutes.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationBackendHighLatency
-          expr: |
-            histogram_quantile(
-              0.95,
-              sum by (le) (
-                rate(poirot_http_request_duration_seconds_bucket{
-                  namespace="onboarding-optimisation-prod"
-                }[10m])
-              )
-            ) > 5
-            and
-            sum(increase(poirot_http_request_duration_seconds_count{
+            }[10m])),
+            0.001
+          )
+        ) > 0.20
+        and
+        sum(increase(poirot_http_requests_total{
+          namespace="onboarding-optimisation-prod"
+        }[10m])) >= 20
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: More than 20% of production backend requests have returned 5xx responses
+          for ten minutes.
+        priority: page
+        action: Use the per-route 5xx panel to identify the failing route, then inspect
+          correlated backend logs and recent deployments. Threshold is provisional
+          pending k6 baselining.
+    - alert: OnboardingOptimisationBackendHighLatency
+      expr: |
+        histogram_quantile(
+          0.95,
+          sum by (le) (
+            rate(poirot_http_request_duration_seconds_bucket{
               namespace="onboarding-optimisation-prod"
-            }[10m])) >= 20
-          for: 10m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: Production backend p95 request latency has exceeded five seconds for ten minutes.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationContainerRestarting
-          expr: |
-            sum by (container) (
-              increase(kube_pod_container_status_restarts_total{
-                namespace="onboarding-optimisation-prod",
-                container=~"backend|frontend"
-              }[15m])
-            ) > 2
-          for: 5m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: Container {{ $labels.container }} has restarted repeatedly in production.
-            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationEntraRefreshFailures
-          expr: |
-            (
-              sum(rate(poirot_auth_events_total{
-                namespace="onboarding-optimisation-prod",
-                event="token_refresh",
-                outcome="failure"
-              }[15m]))
-              /
-              clamp_min(
-                sum(rate(poirot_auth_events_total{
-                  namespace="onboarding-optimisation-prod",
-                  event="token_refresh"
-                }[15m])),
-                0.0001
-              )
-            ) > 0.10
-            and
-            sum(increase(poirot_auth_events_total{
+            }[10m])
+          )
+        ) > 5
+        and
+        sum(increase(poirot_http_request_duration_seconds_count{
+          namespace="onboarding-optimisation-prod"
+        }[10m])) >= 20
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Production backend p95 request latency has exceeded five seconds
+          for ten minutes.
+        priority: notify
+        action: Compare p50/p95/p99 and route-level latency, then check resource saturation
+          and dependency outcomes. The five-second threshold is provisional pending
+          k6 baselining.
+    - alert: OnboardingOptimisationContainerRestarting
+      expr: |
+        sum by (container) (
+          increase(kube_pod_container_status_restarts_total{
+            namespace="onboarding-optimisation-prod",
+            container=~"backend|frontend"
+          }[15m])
+        ) > 2
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Container {{ $labels.container }} has restarted repeatedly in production.
+        priority: notify
+        action: Inspect termination reason, pod events and logs; use the OOM and resource-saturation
+          panels to distinguish memory pressure from application crashes.
+    - alert: OnboardingOptimisationEntraRefreshFailures
+      expr: |
+        (
+          sum(rate(poirot_auth_events_total{
+            namespace="onboarding-optimisation-prod",
+            event="token_refresh",
+            outcome="failure"
+          }[15m]))
+          /
+          clamp_min(
+            sum(rate(poirot_auth_events_total{
               namespace="onboarding-optimisation-prod",
               event="token_refresh"
-            }[15m])) >= 5
-          for: 10m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: More than 10% of production Entra token refresh attempts are failing.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationDpsAuthenticationRejected
-          expr: |
-            sum(increase(poirot_hmpps_requests_total{
-              namespace="onboarding-optimisation-prod",
-              result=~"unauthorized|forbidden"
-            }[10m])) >= 5
-          for: 5m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: DPS/HMPPS rejected at least five production requests with 401 or 403 responses in ten minutes.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-
-        - alert: OnboardingOptimisationPkceFailures
-          expr: |
-            sum(increase(poirot_auth_events_total{
-              namespace="onboarding-optimisation-prod",
-              event="pkce",
-              outcome="failure"
-            }[15m])) >= 3
-          for: 5m
-          labels:
-            severity: poirot-alerts
-          annotations:
-            message: At least three production sign-in PKCE flows failed in fifteen minutes.
-            runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+            }[15m])),
+            0.0001
+          )
+        ) > 0.10
+        and
+        sum(increase(poirot_auth_events_total{
+          namespace="onboarding-optimisation-prod",
+          event="token_refresh"
+        }[15m])) >= 5
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: More than 10% of production Entra token refresh attempts are failing.
+        priority: notify
+        action: Inspect refresh outcome/reason and authentication logs; confirm Entra
+          availability and configuration.
+    - alert: OnboardingOptimisationDpsAuthenticationRejected
+      expr: |
+        sum(increase(poirot_hmpps_requests_total{
+          namespace="onboarding-optimisation-prod",
+          result=~"unauthorized|forbidden"
+        }[10m])) >= 5
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: DPS/HMPPS rejected at least five production requests with 401 or
+          403 responses in ten minutes.
+        priority: notify
+        action: Check HMPPS credential validity, certificate/configuration changes
+          and upstream authentication status.
+    - alert: OnboardingOptimisationPkceFailures
+      expr: |
+        sum(increase(poirot_auth_events_total{
+          namespace="onboarding-optimisation-prod",
+          event="pkce",
+          outcome="failure"
+        }[15m])) >= 3
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: At least three production sign-in PKCE flows failed in fifteen minutes.
+        priority: notify
+        action: Inspect PKCE outcomes and authentication logs, then verify callback
+          and session configuration.
+    - alert: OnboardingOptimisationContainerOOMKilled
+      expr: sum by (container) (kube_pod_container_status_last_terminated_reason{namespace="onboarding-optimisation-prod",
+        container=~"backend|frontend", reason="OOMKilled"}) > 0
+      for: 1m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Production container {{ $labels.container }} was terminated because
+          it exceeded its memory limit.
+        priority: page
+        action: Inspect memory usage against limits and workload volume; identify
+          a leak or oversized import before increasing the limit.
+    - alert: OnboardingOptimisationExternalDependencyFailureRatio
+      expr: (sum by (dependency) (rate(poirot_dependency_requests_total{namespace="onboarding-optimisation-prod",
+        dependency=~"hmpps|athena", outcome=~"timeout|transport_error|server_error"}[15m]))
+        / clamp_min(sum by (dependency) (rate(poirot_dependency_requests_total{namespace="onboarding-optimisation-prod",
+        dependency=~"hmpps|athena"}[15m])), 0.0001)) > 0.20 and sum by (dependency)
+        (increase(poirot_dependency_requests_total{namespace="onboarding-optimisation-prod",
+        dependency=~"hmpps|athena"}[15m])) >= 10
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: More than 20% of production {{ $labels.dependency }} calls are timeouts,
+          transport errors or 5xx responses. This threshold is provisional pending
+          k6 baselining.
+        priority: notify
+        action: Check dependency outcome and latency panels plus application logs,
+          confirm upstream health, and avoid retry amplification.
+    - alert: OnboardingOptimisationScreeningImportFailures
+      expr: sum(increase(poirot_screening_imports_total{namespace="onboarding-optimisation-prod",
+        outcome=~"database_error|internal_error"}[15m])) >= 3
+      for: 5m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: At least three production screening imports failed with database
+          or internal errors in fifteen minutes.
+        priority: notify
+        action: Check import outcome, duration, row-count and size panels; inspect
+          logs for database or processing errors. User-correctable validation errors
+          are excluded.
+    - alert: OnboardingOptimisationDatabasePoolSaturation
+      expr: sum(poirot_db_pool_connections{namespace="onboarding-optimisation-prod",
+        state="checked_out"}) / clamp_min(sum(poirot_db_pool_connections{namespace="onboarding-optimisation-prod",
+        state="capacity"}), 1) > 0.80
+      for: 10m
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: Production database pool usage has exceeded 80% of configured capacity
+          for ten minutes. This threshold is provisional pending k6 baselining.
+        priority: notify
+        action: Check pool state, request latency and RDS metrics; identify slow or
+          leaked transactions before increasing capacity.

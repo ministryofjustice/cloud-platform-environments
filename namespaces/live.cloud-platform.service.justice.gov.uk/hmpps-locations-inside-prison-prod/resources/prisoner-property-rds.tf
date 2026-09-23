@@ -20,7 +20,7 @@ module "prisoner_property_rds" {
   db_instance_class           = "db.t4g.large"
   rds_name                    = "hmpps-prisoner-property-api-prod"
   rds_family                  = "postgres18"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -73,6 +73,11 @@ module "prisoner_property_rds" {
   ]
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply the pending-reboot parameters above. Cloud Platform do not perform
+  # RDS reboots on request - teams do them from a service pod. Defaults to false. See MAPB-763.
+  enable_irsa = true
 }
 
 # Read replica for Datahub ingestion (MAPB-763). Datahub's CDC capture reads from here rather than
@@ -98,7 +103,7 @@ module "prisoner_property_rds_replica" {
 
   # Must match the source instance
   db_engine         = "postgres"
-  db_engine_version = "18"
+  db_engine_version = "18.6"
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.large"
 
@@ -160,6 +165,11 @@ module "prisoner_property_rds_replica" {
   }
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # The policy the module emits is scoped to its own instance ARN, so the replica needs its own
+  # enable_irsa - the primary's policy does not cover it. Without this the replica cannot be
+  # rebooted, and the replica is the instance Datahub reads from. See MAPB-763.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prisoner_property_rds" {

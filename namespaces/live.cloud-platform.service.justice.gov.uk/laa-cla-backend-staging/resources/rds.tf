@@ -31,7 +31,7 @@ module "cla_backend_rds_postgres_14_replica" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11, postgres14
   # Pick the one that defines the postgres version the best
   rds_family        = "postgres14"
-  db_engine_version = "14"
+  db_engine_version = "14.24"
   db_instance_class = "db.t4g.medium"
 
   providers = {
@@ -53,7 +53,7 @@ module "cla_backend_rds_postgres_14" {
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
-  db_engine_version      = "14"
+  db_engine_version      = "14.24"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support

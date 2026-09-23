@@ -67,5 +67,21 @@ variable "eks_cluster_name" {
 
 variable "service_account_name" {
   description = "The name of the service account to retrieve the OIDC information"
-  default     = "prisoner-finance-holds"
+  default     = "hmpps-prisoner-finance"
+}
+
+variable "service_account_name_holds" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-holds"
+}
+
+variable "service_account_name_advances" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-advances"
+}
+
+
+variable "service_account_name_subscriptions" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-subscriptions"
 }

@@ -24,9 +24,9 @@ module "rds" {
   # enable performance insights
   performance_insights_enabled = true
 
-  db_engine_version = "16.8"
+  db_engine_version = "18.6"
 
-  rds_family = "postgres16"
+  rds_family = "postgres18"
   enable_rds_auto_start_stop = true
 
   # instance class

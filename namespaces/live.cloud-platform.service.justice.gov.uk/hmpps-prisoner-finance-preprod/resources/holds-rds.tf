@@ -20,7 +20,7 @@ module "holds_rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16.15" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -50,7 +50,7 @@ module "holds_rds" {
   ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "holds_rds" {
   metadata {
     name      = "holds-rds-postgresql-instance-output"
     namespace = var.namespace
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "rds" {
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "holds_rds" {
   metadata {
     name      = "holds-rds-postgresql-instance-output"
     namespace = var.namespace
@@ -83,5 +83,19 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.holds_rds.database_name
     db_identifier = module.holds_rds.db_identifier
+  }
+}
+
+resource "kubernetes_secret" "dps_rds_refresh_creds_holds" {
+  metadata {
+    name      = "holds-rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-prisoner-finance-prod"
+  }
+
+  data = {
+    database_name        = module.holds_rds.database_name
+    database_username    = module.holds_rds.database_username
+    database_password    = module.holds_rds.database_password
+    rds_instance_address = module.holds_rds.rds_instance_address
   }
 }

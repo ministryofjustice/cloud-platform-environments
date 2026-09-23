@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: gmh26-cica-updates-prototype
+spec:
+  hard:
+    pods: "50"

@@ -21,6 +21,7 @@ locals {
     "hmpps-incentives-prod",
     "hmpps-integration-api-prod",
     "hmpps-jobs-board-prod",
+    "hmpps-learner-records-prod",
     "hmpps-locations-inside-prison-prod",
     "hmpps-manage-and-deliver-accredited-programmes-prod",
     "hmpps-manage-adjudications-api-prod",
@@ -36,6 +37,7 @@ locals {
     "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
+    "prisoner-content-hub-production",
     "visit-someone-in-prison-frontend-svc-prod"
   ])
 }

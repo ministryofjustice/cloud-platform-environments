@@ -47,6 +47,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
       "core-person-record.probation.address.created",
       "core-person-record.probation.address.updated",
       "core-person-record.probation.address.deleted",
+      "probation-user.username.changed"
     ]
   })
 }

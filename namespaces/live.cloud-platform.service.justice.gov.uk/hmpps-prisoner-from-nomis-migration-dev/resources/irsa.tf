@@ -5,7 +5,11 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
   }
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+  }
   sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
+  sns_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 data "aws_iam_policy_document" "combined_local_sqs_migration" {
@@ -21,6 +25,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_visits_dead_letter_queue.sqs_arn,
       module.migration_activities_queue.sqs_arn,
       module.migration_activities_dead_letter_queue.sqs_arn,
+      module.migration_advances_queue.sqs_arn,
+      module.migration_advances_dead_letter_queue.sqs_arn,
       module.migration_agencyregisters_queue.sqs_arn,
       module.migration_agencyregisters_dead_letter_queue.sqs_arn,
       module.migration_allocations_queue.sqs_arn,
@@ -33,6 +39,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_coreperson_dead_letter_queue.sqs_arn,
       module.migration_csra_queue.sqs_arn,
       module.migration_csra_dead_letter_queue.sqs_arn,
+      module.migration_drugtesting_queue.sqs_arn,
+      module.migration_drugtesting_dead_letter_queue.sqs_arn,
       module.migration_externalmovements_queue.sqs_arn,
       module.migration_externalmovements_dead_letter_queue.sqs_arn,
       module.migration_prisonbalance_queue.sqs_arn,
@@ -126,6 +134,7 @@ module "irsa" {
   service_account_name = "hmpps-prisoner-from-nomis-migration"
   role_policy_arns     = merge(
     local.sqs_policies,
+    local.sns_policies,
     { combined_local_sqs_migration = aws_iam_policy.combined_local_sqs_migration.arn },
     { combined_local_sqs_events = aws_iam_policy.combined_local_sqs_events.arn },
   )
@@ -142,3 +151,9 @@ data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+

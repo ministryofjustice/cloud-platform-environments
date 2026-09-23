@@ -24,12 +24,3 @@ resource "kubernetes_secret" "route53_zone_sec" {
     nameservers = join("\n", aws_route53_zone.prod_reuselibrary_team_route53_zone.name_servers)
   }
 }
-
-resource "aws_route53_record" "delegate_dev" {
-  name    = "dev.reuselibrary.service.justice.gov.uk"
-  zone_id = aws_route53_zone.prod_reuselibrary_team_route53_zone.zone_id
-  type    = "CNAME"
-  ttl     = 300
-
-  records = ["reuselibrary.service.justice.gov.uk"]
-}

@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - fingerprint-search-api-dev.internal-non-prod.cloud-platform.service.justice.gov.uk
+    - fingerprint-search-api-dev.biometrics.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

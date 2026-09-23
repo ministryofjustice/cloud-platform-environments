@@ -29,7 +29,8 @@ module "hmpps_egress_controls" {
     ".github.io",
     ".slack.com",
     ".service.gov.uk",
-    ".justice.gov.uk"
+    ".justice.gov.uk",
+    ".quay.io"
   ]
 }
 

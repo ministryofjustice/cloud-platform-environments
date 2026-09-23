@@ -6,7 +6,7 @@ module "rds_instance" {
 
   # Database configuration
   db_engine                = "postgres"
-  db_engine_version        = "17"
+  db_engine_version        = "17.11"
   rds_family               = "postgres17"
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "20"
@@ -19,4 +19,19 @@ module "rds_instance" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "rds" {
+  metadata {
+    name      = "rds-postgresql-devx-app-dev"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
+    database_name         = module.rds_instance.database_name
+    database_username     = module.rds_instance.database_username
+    database_password     = module.rds_instance.database_password
+    rds_instance_address  = module.rds_instance.rds_instance_address
+  }
 }

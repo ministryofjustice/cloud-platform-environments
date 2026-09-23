@@ -2,10 +2,11 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
+  rds_name = "laa-info-and-advice-datastore-uat"
 
   # Engine
   db_engine         = "postgres"
-  db_engine_version = "18.3"
+  db_engine_version = "18.6"
   rds_family        = "postgres18"
 
   # Instance sizing
@@ -18,9 +19,6 @@ module "rds" {
 
   # Cost optimisation (not for prod)
   enable_rds_auto_start_stop = var.is_production ? false : true
-
-  # IAM authentication
-  enable_irsa = true
 
   # Observability
   performance_insights_enabled = false
@@ -48,9 +46,4 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
-}
-
-resource "postgresql_grant_role" "rds_iam" {
-  role       = module.rds.database_username
-  grant_role = "rds_iam"
 }

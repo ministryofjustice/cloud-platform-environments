@@ -9,6 +9,7 @@ resource "aws_sns_topic_subscription" "queue-subscription" {
       "probation-case.unmerge.completed",
       "probation-case.sentence.moved",
       "probation-case.deleted.gdpr",
+      "probation-case.non-statutory-intervention.moved",
       "probation-case.sentence.terminated",
       "probation-case.sentence.unterminated"
     ]

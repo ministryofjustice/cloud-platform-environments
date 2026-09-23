@@ -12,7 +12,8 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["offender-support-management-api"]
+  github_repositories = ["offender-support-management-api", "offender-support-management-ui"]
+  github_environments = ["development"]
 
   # Tags
   business_unit          = var.business_unit
@@ -25,6 +26,5 @@ module "ecr" {
 
   # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
   # uncomment below:
-
   # enable_irsa = true
 }
