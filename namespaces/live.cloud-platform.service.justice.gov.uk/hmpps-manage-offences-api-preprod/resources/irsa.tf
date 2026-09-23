@@ -13,6 +13,7 @@ module "irsa" {
   role_policy_arns = merge(
     { "s3" = aws_iam_policy.hmpps_manage_offences_api_preprod_ap_policy.arn },
     { "rds" = module.manage_offences_rds.irsa_policy_arn },
+    { "rds-replica" = module.read_replica.irsa_policy_arn },
     local.sns_policies
   )
   business_unit          = var.business_unit
