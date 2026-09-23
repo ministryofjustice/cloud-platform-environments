@@ -235,16 +235,6 @@ resource "postgresql_grant" "onr_tables_and_views" {
   privileges  = ["SELECT"]
 }
 
-# Covers future tables/views created by the specified owner.
-resource "postgresql_default_privileges" "onr_future_tables" {
-  database    = module.arns_assessment_view_rds.database_name
-  schema      = "assessment-view"
-  owner       = module.arns_assessment_view_rds.database_username
-  role        = postgresql_role.oasys_national_reporting_user.name
-  object_type = "table"
-  privileges  = ["SELECT"]
-}
-
 resource "kubernetes_secret_v1" "onr_db_credentials" {
   metadata {
     name      = "onr-db-credentials"
