@@ -14,7 +14,7 @@ module "irsa" {
   role_policy_arns = {
     rds   = module.dps_rds.irsa_policy_arn
     redis = module.uof_elasticache_redis.irsa_policy_arn
-    read_replica = module.dps_rds_replica.irsa_policy_arn
+    read_replica = module.dps_rds_replica[0].irsa_policy_arn
   }
 
   # Tags
