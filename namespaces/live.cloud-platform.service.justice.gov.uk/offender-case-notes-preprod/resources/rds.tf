@@ -16,7 +16,7 @@ module "dps_rds" {
   prepare_for_major_upgrade = false
   rds_family                = "postgres16"
   db_engine                 = "postgres"
-  db_engine_version         = "16"
+  db_engine_version         = "16.15"
   performance_insights_enabled = true
   enable_rds_auto_start_stop   = false
 
