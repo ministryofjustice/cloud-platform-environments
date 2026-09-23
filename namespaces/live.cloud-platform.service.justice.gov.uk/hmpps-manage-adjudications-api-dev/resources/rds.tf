@@ -19,7 +19,7 @@ module "ma_rds" {
 
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true
 
   providers = {
