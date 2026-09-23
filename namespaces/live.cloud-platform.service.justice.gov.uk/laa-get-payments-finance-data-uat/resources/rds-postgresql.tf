@@ -43,31 +43,31 @@ module "rds" {
   enable_irsa = true
 }
 
-module "rds_restore" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-
-  rds_name            = "tracking-rds-uat-restore"
-  snapshot_identifier = "tracking-rds-uat-restore-20260921"
-
-  vpc_name                  = var.vpc_name
-  db_engine                 = "postgres"
-  db_engine_version         = "18"
-  rds_family                = "postgres18"
-  db_instance_class         = "db.t4g.micro"
-  db_allocated_storage      = 20
-  db_max_allocated_storage  = "500"
-  deletion_protection       = false
-
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  enable_irsa = true
-}
+# module "rds_restore" {
+#   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+#
+#   rds_name            = "tracking-rds-uat-restore"
+#   snapshot_identifier = "tracking-rds-uat-restore-20260921"
+#
+#   vpc_name                  = var.vpc_name
+#   db_engine                 = "postgres"
+#   db_engine_version         = "18"
+#   rds_family                = "postgres18"
+#   db_instance_class         = "db.t4g.micro"
+#   db_allocated_storage      = 20
+#   db_max_allocated_storage  = "500"
+#   deletion_protection       = false
+#
+#   application            = var.application
+#   business_unit          = var.business_unit
+#   environment_name       = var.environment
+#   infrastructure_support = var.infrastructure_support
+#   is_production          = var.is_production
+#   namespace              = var.namespace
+#   team_name              = var.team_name
+#
+#   enable_irsa = true
+# }
 
 resource "kubernetes_secret" "rds" {
   metadata {
