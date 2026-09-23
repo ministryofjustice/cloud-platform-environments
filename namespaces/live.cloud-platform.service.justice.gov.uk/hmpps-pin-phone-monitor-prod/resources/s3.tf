@@ -47,6 +47,21 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     },
     {
       enabled = true
+      id      = "pin-phone-llm-transcript-expiry"
+      prefix  = "transcript/"
+      expiration = [
+        {
+          days = 90
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
+    {
+      enabled = true
       id      = "pin-phone-translation-expiry"
       prefix  = "translations/"
       expiration = [
@@ -62,7 +77,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     },
     {
       enabled = true
-      id      = "pin-phone-unify-recording-expiry"
+      id      = "unify-recording-expiry"
       prefix  = "unify_recordings/"
       expiration = [
         {
@@ -77,7 +92,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     },
     {
       enabled = true
-      id      = "pin-phone-unify-transcript-expiry"
+      id      = "unify-transcript-expiry"
       prefix  = "unify_transcripts/"
       expiration = [
         {
@@ -107,7 +122,7 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     },
     {
       enabled = true
-      id      = "pin-phone-unify-metadata-expiry"
+      id      = "unify-metadata-expiry"
       prefix  = "unify_metadata/"
       expiration = [
         {
