@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name            = var.environment-name
   infrastructure_support      = var.infrastructure_support
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.small"
   db_engine_version           = "18.6"
@@ -71,7 +71,7 @@ module "dps_rds_replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
