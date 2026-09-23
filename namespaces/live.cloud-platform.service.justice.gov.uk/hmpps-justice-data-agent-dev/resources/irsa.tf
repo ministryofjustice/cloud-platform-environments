@@ -12,10 +12,11 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    jda_request_queue   = module.jda_request_queue.irsa_policy_arn
-    jda_request_dlq     = module.jda_request_dlq.irsa_policy_arn
-    jda_response_queue  = module.jda_response_queue.irsa_policy_arn
-    jda_response_dlq    = module.jda_response_dlq.irsa_policy_arn
+    jda_request_queue  = module.jda_request_queue.irsa_policy_arn
+    jda_request_dlq    = module.jda_request_dlq.irsa_policy_arn
+    jda_response_queue = module.jda_response_queue.irsa_policy_arn
+    jda_response_dlq   = module.jda_response_dlq.irsa_policy_arn
+    rds                = module.rds.irsa_policy_arn
   }
 
   # Tags
