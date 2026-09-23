@@ -68,33 +68,33 @@ module "dps_rds_replica" {
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "0"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
-    }
-  ]
+  # db_parameter = [
+  #   {
+  #     name         = "rds.logical_replication"
+  #     value        = "0"
+  #     apply_method = "pending-reboot"
+  #   },
+  #   {
+  #     name         = "shared_preload_libraries"
+  #     value        = "pglogical"
+  #     apply_method = "pending-reboot"
+  #   },
+  #   {
+  #     name         = "max_wal_size"
+  #     value        = "1024"
+  #     apply_method = "immediate"
+  #   },
+  #   {
+  #     name         = "wal_sender_timeout"
+  #     value        = "0"
+  #     apply_method = "immediate"
+  #   },
+  #   {
+  #     name         = "max_slot_wal_keep_size"
+  #     value        = "40000"
+  #     apply_method = "immediate"
+  #   }
+  # ]
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
