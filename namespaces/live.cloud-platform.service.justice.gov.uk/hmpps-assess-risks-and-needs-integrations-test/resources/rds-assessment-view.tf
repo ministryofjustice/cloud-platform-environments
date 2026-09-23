@@ -222,17 +222,6 @@ resource "postgresql_grant" "onr_tables_and_views" {
   schema      = "assessment-view"
   role        = postgresql_role.oasys_national_reporting_user.name
   object_type = "table"
-  objects = [
-        "flyway_schema_history_vw",
-        "free_text_vw",
-        "goal_related_area_of_need_vw",
-        "goal_vw",
-        "plan_agreement_vw",
-        "sentence_plan_identifier_vw",
-        "sentence_plan_vw",
-        "step_vw",
-        "sync_state_vw",
-      ]
   privileges  = ["SELECT"]
 }
 
