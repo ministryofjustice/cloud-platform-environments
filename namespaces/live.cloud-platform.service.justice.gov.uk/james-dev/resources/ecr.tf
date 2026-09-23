@@ -7,7 +7,7 @@
 
 # One module instantiation for each repo
 
-module "ecr" {
+module "ecr-james-typescript-test" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
@@ -31,7 +31,7 @@ module "ecr" {
   # enable_irsa = true
 }
 
-module "ecr" {
+module "ecr-james-kotlin-test" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
@@ -55,7 +55,7 @@ module "ecr" {
   # enable_irsa = true
 }
 
-module "ecr" {
+module "ecr-hmpps-james-bootstrap" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
