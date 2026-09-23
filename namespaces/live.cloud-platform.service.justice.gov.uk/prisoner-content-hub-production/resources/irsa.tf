@@ -54,6 +54,17 @@ module "hmpps-content-hub-ui-irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
+resource "kubernetes_secret" "hmpps-content-hub-ui-irsa" {
+  metadata {
+    name      = "hmpps-content-hub-ui-irsa"
+    namespace = var.namespace
+  }
+
+  data = {
+    role = module.hmpps-content-hub-ui-irsa.role_arn
+  }
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
