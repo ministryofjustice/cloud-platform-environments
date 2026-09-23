@@ -62,8 +62,53 @@ module "hmpps_pin_phone_monitor_document_s3_bucket" {
     },
     {
       enabled = true
+      id      = "pin-phone-unify-recording-expiry"
+      prefix  = "unify_recordings/"
+      expiration = [
+        {
+          days = 90
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-unify-transcript-expiry"
+      prefix  = "unify_transcripts/"
+      expiration = [
+        {
+          days = 90
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
+    {
+      enabled = true
       id      = "pin-phone-metadata-expiry"
       prefix  = "metadata/"
+      expiration = [
+        {
+          days = 180
+        },
+      ],
+      noncurrent_version_expiration = [
+        {
+          days = 1
+        },
+      ]
+    },
+    {
+      enabled = true
+      id      = "pin-phone-unify-metadata-expiry"
+      prefix  = "unify_metadata/"
       expiration = [
         {
           days = 180
