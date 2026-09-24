@@ -13,7 +13,7 @@ module "rds_postgres" {
   db_instance_class          = "db.t4g.small"
   db_max_allocated_storage   = "500"
   enable_rds_auto_start_stop = false
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   # Tags
   business_unit          = var.business_unit
