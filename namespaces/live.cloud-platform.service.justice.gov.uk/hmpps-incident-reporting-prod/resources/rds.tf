@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
@@ -89,7 +89,7 @@ module "dps_rds_replica" {
   db_engine         = "postgres"
   db_engine_version = "18.6"
   rds_family        = "postgres18"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
