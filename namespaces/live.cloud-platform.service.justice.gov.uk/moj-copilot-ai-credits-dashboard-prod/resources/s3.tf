@@ -15,6 +15,8 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # S3 stores this principal as the role unique ID. Putting the SSO role ARN
+  # back is rejected with MalformedPolicy: Invalid principal.
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -23,7 +25,7 @@ module "s3_bucket" {
       "Sid": "S3DataSyncAccessMPDev",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+        "AWS": "AROARGKDMQBJ453TJ3RRD"
       },
       "Action": [
         "s3:PutObject",
@@ -117,6 +119,8 @@ module "copilot_credits_auth0_tf_state_prod_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # S3 stores this principal as the role unique ID. Putting the SSO role ARN
+  # back is rejected with MalformedPolicy: Invalid principal.
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -125,7 +129,7 @@ module "copilot_credits_auth0_tf_state_prod_s3_bucket" {
       "Sid": "COATMPDevAccess",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+        "AWS": "AROARGKDMQBJ453TJ3RRD"
       },
       "Action": [
         "s3:PutObject",
@@ -146,23 +150,31 @@ EOF
   github_repositories = ["moj-copilot-ai-credits-dashboard"]
   github_actions_prefix = "PROD"
 
-  lifecycle_rule = [
-    {
-      enabled                                = false
-      id                                     = "expire-copilot-credits-auth0-tf-state-prod"
-      abort_incomplete_multipart_upload_days = 90
-      expiration = [
-        {
-          days = 30
-        },
-      ]
-      noncurrent_version_expiration = [
-        {
-          days = 30
-        },
-      ]
-    },
-  ]
+  # Lifecycle is managed below. This module's lifecycle_rule cannot retain a
+  # minimum number of noncurrent versions.
+  versioning = true
+}
+
+# Always keep the current state and the newest previous version.
+# Older noncurrent versions expire after 90 days.
+resource "aws_s3_bucket_lifecycle_configuration" "copilot_credits_auth0_tf_state_prod" {
+  bucket = module.copilot_credits_auth0_tf_state_prod_s3_bucket.bucket_name
+
+  rule {
+    id     = "expire-copilot-credits-auth0-tf-state-prod"
+    status = "Enabled"
+
+    filter {}
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 90
+    }
+
+    noncurrent_version_expiration {
+      newer_noncurrent_versions = 1
+      noncurrent_days           = 90
+    }
+  }
 }
 
 resource "kubernetes_secret" "s3_bucket" {
