@@ -104,7 +104,7 @@ module "prepare-a-case" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["probation-integration"]
+  reviewer_teams                = ["probation-integration", "probation-in-court-live", "probation-in-court-devs"]
 }
 
 module "court-case-matcher" {
@@ -122,7 +122,7 @@ module "court-case-matcher" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = ["probation-integration"]
+  reviewer_teams                = ["probation-integration", "probation-in-court-live", "probation-in-court-devs"]
 }
 
 module "court-case-service" {
@@ -140,5 +140,5 @@ module "court-case-service" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = ["probation-integration"]
+  reviewer_teams                = ["probation-integration", "probation-in-court-live", "probation-in-court-devs"]
 }
