@@ -22,7 +22,7 @@ module "ma_rds" {
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
@@ -90,7 +90,7 @@ module "dps_rds_replica" {
   db_engine         = "postgres"
   db_engine_version = "18.6"
   rds_family        = "postgres18"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class = "db.t4g.large"
 
   # It is mandatory to set the below values to create read replica instance
