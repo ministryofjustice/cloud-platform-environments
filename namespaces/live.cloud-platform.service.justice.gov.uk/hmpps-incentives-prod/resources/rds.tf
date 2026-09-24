@@ -60,6 +60,11 @@ module "dps_rds" {
   ]
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply pending-reboot parameters. Cloud Platform do not reboot RDS on
+  # request - teams do it from a service pod. See IR-1982.
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -141,6 +146,11 @@ module "dps_rds_replica" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply pending-reboot parameters. Cloud Platform do not reboot RDS on
+  # request - teams do it from a service pod. See IR-1982.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
