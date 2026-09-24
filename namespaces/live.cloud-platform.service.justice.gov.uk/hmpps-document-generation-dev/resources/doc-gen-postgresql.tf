@@ -33,6 +33,7 @@ module "doc_gen_postgres" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+  maintenance_window     = var.maintenance_window
 
   enable_irsa            = true
 }

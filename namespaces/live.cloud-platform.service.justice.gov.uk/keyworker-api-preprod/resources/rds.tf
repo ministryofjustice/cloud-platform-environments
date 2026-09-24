@@ -10,6 +10,7 @@ module "dps_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
+  maintenance_window          = var.maintenance_window
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"

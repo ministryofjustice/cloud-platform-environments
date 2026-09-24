@@ -13,8 +13,8 @@ module "ma_rds" {
   enable_rds_auto_start_stop = true
 
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres17"
-  db_engine_version           = "17"
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   db_engine                   = "postgres"
   db_password_rotated_date    = "15-02-2023"

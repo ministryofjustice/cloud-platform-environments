@@ -51,7 +51,7 @@ module "activities_api_rds" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "5000"
+      value        = "15000"
       apply_method = "immediate"
     }
   ]
@@ -126,7 +126,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "5000"
+      value        = "15000"
       apply_method = "immediate"
     },
     {

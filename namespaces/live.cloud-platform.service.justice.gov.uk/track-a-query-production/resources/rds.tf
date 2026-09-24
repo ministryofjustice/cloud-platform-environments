@@ -53,7 +53,7 @@ module "track_a_query_rds_replica" {
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000"
   rds_family               = "postgres16"
-  db_engine_version = "16.13"
+  db_engine_version        = "16.15"
 
   replicate_source_db = module.track_a_query_rds.db_identifier
 

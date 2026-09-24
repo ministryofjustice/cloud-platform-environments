@@ -83,6 +83,7 @@ module "read_replica" {
 
   vpc_name                    = var.vpc_name
   allow_minor_version_upgrade = true
+  enable_irsa                 = true
 
   application            = var.application
   business_unit          = var.business_unit
