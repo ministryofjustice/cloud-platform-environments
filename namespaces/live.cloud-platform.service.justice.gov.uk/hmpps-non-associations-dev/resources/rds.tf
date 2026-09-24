@@ -52,6 +52,11 @@ module "dps_rds" {
         apply_method = "immediate"
       }
     ]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply pending-reboot parameters. Cloud Platform do not reboot RDS on
+  # request - teams do it from a service pod. See IR-1982.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
