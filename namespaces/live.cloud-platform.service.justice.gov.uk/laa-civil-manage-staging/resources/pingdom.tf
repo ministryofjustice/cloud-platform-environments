@@ -3,7 +3,7 @@ provider "pingdom" {
 
 resource "pingdom_check" "laa-civil-manage-staging" {
   type             = "http"
-  name             = "LAA Civil Manage UI - Staging"
+  name             = "LAA Civil Manage - Staging"
   host             = "laa-civil-manage-staging.cloud-platform.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
