@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
@@ -85,7 +85,7 @@ module "dps_rds_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
