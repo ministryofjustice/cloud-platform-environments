@@ -35,7 +35,7 @@ module "data_ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["payforlegalaid", "payforlegalaid-data"]
+  github_repositories = ["payforlegalaid"]
   github_environments = ["prod"]
 
   # Tags
