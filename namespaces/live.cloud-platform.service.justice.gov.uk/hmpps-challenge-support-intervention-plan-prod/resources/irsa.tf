@@ -28,7 +28,8 @@ module "irsa" {
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
     },
-    local.sns_policies
+    local.sns_policies,
+    { rds_replica = module.read_replica.irsa_policy_arn }
   )
 
   # Tags
