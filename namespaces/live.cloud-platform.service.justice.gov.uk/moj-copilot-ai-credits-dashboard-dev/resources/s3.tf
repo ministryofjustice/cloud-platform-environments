@@ -9,6 +9,8 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # S3 stores this principal as the role unique ID. Putting the SSO role ARN
+  # back is rejected with MalformedPolicy: Invalid principal.
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -17,7 +19,7 @@ module "s3_bucket" {
       "Sid": "S3DataSyncAccessMPDev",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+        "AWS": "AROARGKDMQBJ453TJ3RRD"
       },
       "Action": [
         "s3:PutObject",
@@ -110,6 +112,8 @@ module "copilot_credits_auth0_tf_state_dev_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # S3 stores this principal as the role unique ID. Putting the SSO role ARN
+  # back is rejected with MalformedPolicy: Invalid principal.
   bucket_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -118,7 +122,7 @@ module "copilot_credits_auth0_tf_state_dev_s3_bucket" {
       "Sid": "COATMPDevAccess",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+        "AWS": "AROARGKDMQBJ453TJ3RRD"
       },
       "Action": [
         "s3:PutObject",

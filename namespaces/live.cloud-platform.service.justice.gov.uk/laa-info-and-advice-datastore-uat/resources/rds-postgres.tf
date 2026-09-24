@@ -17,6 +17,9 @@ module "rds" {
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
 
+  # Rotate the master password (bump this date whenever rotation is required)
+  db_password_rotated_date = "2026-09-24"
+
   # Cost optimisation (not for prod)
   enable_rds_auto_start_stop = var.is_production ? false : true
 
