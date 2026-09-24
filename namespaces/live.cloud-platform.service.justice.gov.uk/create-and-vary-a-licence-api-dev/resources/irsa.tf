@@ -4,8 +4,6 @@ locals {
     "Digital-Prison-Services-dev-cvl_domain_events_dead_letter_queue" = "hmpps-domain-events-dev",
     "hmpps_hdc_api_queue"                 = "licences-dev",
     "hmpps_hdc_api_dead_letter_queue"     = "licences-dev",
-    "Digital-Prison-Services-dev-cvl_hdc_cvl_events_queue" = "create-and-vary-a-licence-api-dev",
-    "Digital-Prison-Services-dev-cvl_hdc_cvl_events_dead_letter_queue" = "create-and-vary-a-licence-api-dev",
   }
   sqs_policies = {
     cvl_domain_events_queue             = module.cvl_domain_events_queue.irsa_policy_arn,
@@ -14,8 +12,6 @@ locals {
     cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
     hmpps_hdc_api_queue                 = data.aws_ssm_parameter.hmpps_hdc_api_queue_irsa_policy.value,
     hmpps_hdc_api_dead_letter_queue     = data.aws_ssm_parameter.hmpps_hdc_api_dlq_irsa_policy.value,
-    hdc_cvl_events_queue                = module.hdc_cvl_events_queue.irsa_policy_arn,
-    hdc_cvl_events_dead_letter_queue    = module.hdc_cvl_events_dead_letter_queue.irsa_policy_arn,
   }
 
   sns_topics = {
