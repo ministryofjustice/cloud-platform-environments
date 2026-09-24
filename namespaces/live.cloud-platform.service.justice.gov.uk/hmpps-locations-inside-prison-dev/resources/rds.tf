@@ -57,6 +57,8 @@ module "dps_rds" {
   #       apply_method = "immediate"
   #     }
   #   ]
+
+  enable_irsa = true
 }
 
 module "dps_rds_replica" {
