@@ -68,3 +68,7 @@ variable "mp_dps_sg_name" {
   description = "Required for MP DPR Traffic ingress into CP DPS"
   default     = "cloudplatform-mp-dps-sg"
 }
+
+variable "maintenance_window" {
+  default = "sun:07:00-sun:09:00"
+}
