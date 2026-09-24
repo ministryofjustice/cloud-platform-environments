@@ -11,7 +11,7 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
@@ -103,7 +103,7 @@ module "read_replica" {
   db_engine                = "postgres"
   db_engine_version        = "18.6"
   rds_family               = "postgres18"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class        = "db.t4g.medium"
   db_max_allocated_storage = "500"
   db_allocated_storage     = "100"
