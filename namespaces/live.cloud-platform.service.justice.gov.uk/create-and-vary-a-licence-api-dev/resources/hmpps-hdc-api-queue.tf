@@ -1,5 +1,3 @@
-# The hmpps_hdc_api_queue and its dead letter queue are owned by the licences-dev namespace,
-# irsa.tf only imports the irsa policy arns; the app also needs the queue url/arn as a secret.
 data "aws_sqs_queue" "hmpps_hdc_api_queue" {
   name = "create-and-vary-a-licence-devs-dev-hmpps_hdc_api_queue"
 }
