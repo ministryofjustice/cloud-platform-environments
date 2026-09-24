@@ -57,6 +57,8 @@ module "dps_rds" {
   #       apply_method = "immediate"
   #     }
   #   ]
+
+  enable_irsa = true
 }
 
 module "dps_rds_replica" {
@@ -130,6 +132,7 @@ module "dps_rds_replica" {
   #   }
   # ]
 
+  enable_irsa = true
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
