@@ -15,7 +15,7 @@ resource "kubernetes_secret" "hmpps_hdc_api_queue" {
   data = {
     sqs_queue_url  = data.aws_sqs_queue.hmpps_hdc_api_queue.url
     sqs_queue_arn  = data.aws_sqs_queue.hmpps_hdc_api_queue.arn
-    sqs_queue_name = "hmpps_hdc_api_queue"
+    sqs_queue_name = data.aws_sqs_queue.hmpps_hdc_api_queue.name
   }
 }
 
@@ -28,6 +28,6 @@ resource "kubernetes_secret" "hmpps_hdc_api_dead_letter_queue" {
   data = {
     sqs_queue_url  = data.aws_sqs_queue.hmpps_hdc_api_dead_letter_queue.url
     sqs_queue_arn  = data.aws_sqs_queue.hmpps_hdc_api_dead_letter_queue.arn
-    sqs_queue_name = "hmpps_hdc_api_dlq"
+    sqs_queue_name = data.aws_sqs_queue.hmpps_hdc_api_dead_letter_queue.name
   }
 }
