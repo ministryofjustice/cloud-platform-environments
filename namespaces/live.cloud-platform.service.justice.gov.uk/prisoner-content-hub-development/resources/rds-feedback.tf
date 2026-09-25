@@ -13,7 +13,7 @@ module "prisoner_feedback_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17"
+  db_engine_version           = "17.11"
   rds_family                  = "postgres17"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "20"
