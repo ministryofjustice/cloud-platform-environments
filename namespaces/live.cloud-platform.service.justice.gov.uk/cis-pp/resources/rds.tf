@@ -13,6 +13,7 @@ module "rds_instance" {
   rds_name                 = "cis-rds"
   db_name                  = "CIS"
   license_model            = "license-included"
+  snapshot_identifier      = "arn:aws:rds:eu-west-2:185926004630:snapshot:cis-22042026-encrypted-with-new-kms"
   opt_in_xsiam_logging     = true
   
   # Avoid default parameters set by MOJ
