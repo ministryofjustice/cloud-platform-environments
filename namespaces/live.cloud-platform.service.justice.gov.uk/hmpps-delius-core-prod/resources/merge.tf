@@ -18,7 +18,7 @@ module "merge_rds" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "15"
+  db_engine_version         = "15.19"
   rds_family                = "postgres15"
   db_instance_class         = "db.m5.large"
 
