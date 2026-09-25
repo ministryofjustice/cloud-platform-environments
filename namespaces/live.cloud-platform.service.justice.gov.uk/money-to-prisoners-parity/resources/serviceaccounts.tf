@@ -493,4 +493,12 @@ resource "kubernetes_role_binding" "github-actions" {
     namespace = "money-to-prisoners-parity"
     name      = "github-actions"
   }
+
+  # money-to-prisoners-deploy restarts the tools in every environment with the test
+  # namespace's account, as it does in prod
+  subject {
+    kind      = "ServiceAccount"
+    namespace = "money-to-prisoners-test"
+    name      = "github-actions"
+  }
 }
