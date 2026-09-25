@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   performance_insights_enabled = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   enable_rds_auto_start_stop = true
 
@@ -31,33 +31,33 @@ module "dps_rds" {
 
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 
-  # db_parameter = [
-  #     {
-  #       name         = "rds.logical_replication"
-  #       value        = "0"
-  #       apply_method = "pending-reboot"
-  #     },
-  #     {
-  #       name         = "shared_preload_libraries"
-  #       value        = "pglogical"
-  #       apply_method = "pending-reboot"
-  #     },
-  #     {
-  #       name         = "max_wal_size"
-  #       value        = "1024"
-  #       apply_method = "immediate"
-  #     },
-  #     {
-  #       name         = "wal_sender_timeout"
-  #       value        = "0"
-  #       apply_method = "immediate"
-  #     },
-  #     {
-  #       name         = "max_slot_wal_keep_size"
-  #       value        = "40000"
-  #       apply_method = "immediate"
-  #     }
-  #   ]
+  db_parameter = [
+      {
+        name         = "rds.logical_replication"
+        value        = "1"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "shared_preload_libraries"
+        value        = "pglogical"
+        apply_method = "pending-reboot"
+      },
+      {
+        name         = "max_wal_size"
+        value        = "1024"
+        apply_method = "immediate"
+      },
+      {
+        name         = "wal_sender_timeout"
+        value        = "0"
+        apply_method = "immediate"
+      },
+      {
+        name         = "max_slot_wal_keep_size"
+        value        = "40000"
+        apply_method = "immediate"
+      }
+    ]
 
   enable_irsa = true
 }
@@ -78,7 +78,7 @@ module "dps_rds_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
@@ -102,38 +102,38 @@ module "dps_rds_replica" {
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
-  # db_parameter = [
-  #   {
-  #     name         = "rds.logical_replication"
-  #     value        = "0"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "shared_preload_libraries"
-  #     value        = "pglogical"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "max_wal_size"
-  #     value        = "1024"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "wal_sender_timeout"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "max_slot_wal_keep_size"
-  #     value        = "40000"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "hot_standby_feedback"
-  #     value        = "1"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 
   enable_irsa = true
   # Add security groups for DPR
