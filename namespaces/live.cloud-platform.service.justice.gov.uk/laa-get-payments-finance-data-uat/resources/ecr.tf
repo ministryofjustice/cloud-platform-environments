@@ -33,7 +33,7 @@ module "data_ecr" {
   repo_name = var.data_ecr
 
   oidc_providers      = ["github"]
-  github_repositories = ["payforlegalaid", "payforlegalaid-data"]
+  github_repositories = ["payforlegalaid"]
   github_environments = ["uat"]
 
   business_unit          = var.business_unit
