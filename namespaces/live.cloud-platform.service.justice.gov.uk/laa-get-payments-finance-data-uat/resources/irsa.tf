@@ -47,8 +47,7 @@ module "irsa_service_pod" {
     report_store_logging = module.s3_bucket_report_store_logging.irsa_policy_arn
     # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
     # uncomment below:
-    rds = module.rds.irsa_policy_arn
-    rds_restore = module.rds_restore.irsa_policy_arn
+    # rds = module.rds.irsa_policy_arn
   }
 
   # Tags
