@@ -6,7 +6,6 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
   source_db_snapshot_identifier = "arn:aws:rds:eu-west-2:185926004630:snapshot:cis-22042026-encrypted-with-new-kms"
   target_db_snapshot_identifier = "cis-rds-20260925"
   kms_key_id                    = data.aws_kms_alias.rds.target_key_arn
-  copy_tags                     = true
 }
 
 module "rds_instance" {
