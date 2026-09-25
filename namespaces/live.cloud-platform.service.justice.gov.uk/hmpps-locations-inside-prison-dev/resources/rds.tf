@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   performance_insights_enabled = true
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   enable_rds_auto_start_stop = true
 
@@ -78,7 +78,7 @@ module "dps_rds_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
