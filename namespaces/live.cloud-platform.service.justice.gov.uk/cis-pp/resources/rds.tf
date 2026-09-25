@@ -18,8 +18,9 @@ module "rds_instance" {
   db_engine                = "oracle-se2"
   db_engine_version        = "19"
   rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
-  db_allocated_storage     = "100"
+  db_instance_class        = "db.m5.xlarge"
+  db_allocated_storage     = "1000"
+  db_iops                  = 12000
   rds_name                 = "cis-rds"
   db_name                  = "CIS"
   license_model            = "license-included"
