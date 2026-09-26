@@ -48,8 +48,7 @@ resource "kubernetes_secret" "probation_search_url" {
     namespace = var.namespace
   }
   data = {
-    url = module.opensearch_cluster.proxy_url
-    old_url = module.opensearch.proxy_url
+    url = module.opensearch.proxy_url
   }
 }
 
@@ -59,7 +58,7 @@ resource "kubernetes_secret" "indexer_secret" {
     namespace = "hmpps-probation-integration-services-${var.environment}"
   }
   data = {
-    url                                 = module.opensearch_cluster.proxy_url
+    url                                 = module.opensearch.proxy_url
     connector_role_arn                  = aws_iam_role.sagemaker_role.arn
     connector_external_account_role_arn = local.remote_sagemaker_role
   }
