@@ -34,13 +34,20 @@ module "dps_rds" {
 # Add parameters to enable DPR team to configure replication
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
