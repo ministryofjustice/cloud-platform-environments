@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
@@ -31,13 +31,20 @@ module "dps_rds" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -90,7 +97,7 @@ module "dps_rds_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine         = "postgres"
   db_engine_version = "18.6"
   rds_family        = "postgres18"
@@ -111,13 +118,20 @@ module "dps_rds_replica" {
   # If not specified you dont need to add any. It will use the default values.
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
