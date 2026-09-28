@@ -29,7 +29,7 @@ module "rds_instance" {
   skip_final_snapshot      = true
 
   # Avoid default parameters set by MOJ
-  db_parameter = [  {
+  db_parameter = [{
     "apply_method": "immediate",
     "name": "max_string_size",
     "value": "EXTENDED"
