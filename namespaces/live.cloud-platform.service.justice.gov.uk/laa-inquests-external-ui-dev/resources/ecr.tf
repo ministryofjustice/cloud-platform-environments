@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["laa-inquests-external-ui"]
+  github_repositories = ["laa-inquests-external-ui", "laa-inquests-maintenance-page"]
   github_environments = [var.environment]
 
   # Tags
