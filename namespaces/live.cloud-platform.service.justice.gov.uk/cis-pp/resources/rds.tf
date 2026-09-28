@@ -28,7 +28,9 @@ module "rds_instance" {
   opt_in_xsiam_logging     = true
 
   # Avoid default parameters set by MOJ
-  db_parameter = []
+  db_parameter = [{
+    "max_string_size" : "EXTENDED"
+  }]
 
   # Tags
   business_unit          = var.business_unit
