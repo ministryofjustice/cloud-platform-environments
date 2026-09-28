@@ -84,6 +84,7 @@ module "irsa" {
     s3_prisoners     = module.ims_prisoner_details_bucket.irsa_policy_arn
     s3_batch         = module.ims_index_batch_bucket.irsa_policy_arn
     s3_ai            = module.ims_ai_bucket.irsa_policy_arn
+    s3_ai_extra      = aws_iam_policy.irsa_additional_ai_s3_policy.arn
   })
 
   # Tags
