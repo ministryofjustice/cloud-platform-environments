@@ -13,5 +13,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-digital-canteen-nonprod-alerts"
     cloud-platform.justice.gov.uk/application: "PIN Phone"
     cloud-platform.justice.gov.uk/owner: "Digital Prison Services: dps-hmpps@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-digital-canteen-api.git"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-pin-phone-api.git"
     cloud-platform.justice.gov.uk/team-name: "hmpps-digital-canteen-live"
