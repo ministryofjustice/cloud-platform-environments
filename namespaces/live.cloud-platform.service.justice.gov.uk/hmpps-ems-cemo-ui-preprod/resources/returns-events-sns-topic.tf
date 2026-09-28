@@ -54,3 +54,4 @@ resource "aws_sns_topic_subscription" "returns_events_fifo_subscription" {
   protocol             = "sqs"
   endpoint             = module.returns_events_fifo_queue.sqs_arn
   raw_message_delivery = true
+}
