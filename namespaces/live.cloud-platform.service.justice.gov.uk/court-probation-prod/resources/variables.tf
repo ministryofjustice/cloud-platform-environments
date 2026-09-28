@@ -88,3 +88,25 @@ variable "slack_channel" {
   description = "Cloud Platform will contact our team via this slack channel"
   default     = "pic-mafia"
 }
+
+variable "bail_information_analytics_sharepoint_client_id" {
+  type        = string
+  description = "Bail Information Analytics SharePoint app registration client ID"
+  default     = ""
+  sensitive   = true
+}
+
+variable "bail_information_analytics_sharepoint_tenant_id" {
+  type        = string
+  description = "Bail Information Analytics SharePoint app registration tenant ID"
+  default     = ""
+  sensitive   = true
+}
+
+variable "bail_information_analytics_sharepoint_client_secret" {
+  type        = string
+  description = "Bail Information Analytics SharePoint app registration client secret"
+  default     = ""
+  sensitive   = true
+}
+
