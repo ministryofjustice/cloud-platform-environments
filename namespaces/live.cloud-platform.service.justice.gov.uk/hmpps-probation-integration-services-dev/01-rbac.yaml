@@ -18,7 +18,10 @@ subjects:
     namespace: hmpps-probation-integration
   - kind: ServiceAccount
     name: default
-    namespace: hmpps-github-actions-runners # Allow access from GitHub Actions runer, to enable end-to-end tests to invoke jobs
+    namespace: hmpps-github-actions-runners
+  - kind: ServiceAccount
+    name: default
+    namespace: hmpps-github-actions-runners-prod # Allow access from GitHub Actions runer, to enable end-to-end tests to invoke jobs
 roleRef:
   kind: ClusterRole
   name: admin

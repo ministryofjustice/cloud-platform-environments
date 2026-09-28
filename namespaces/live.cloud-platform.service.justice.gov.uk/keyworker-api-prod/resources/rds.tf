@@ -1,6 +1,6 @@
 module "dps_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type                = "gp2"
+  storage_type                = "gp3"
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
@@ -12,7 +12,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
-  db_allocated_storage        = "20"
+  db_allocated_storage        = "30"
   db_engine_version           = "18"
   db_engine                   = "postgres"
   rds_family                  = "postgres18"
@@ -53,6 +53,8 @@ module "dps_rds" {
       apply_method = "immediate"
     }
   ]
+
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   enable_irsa = true
 }
@@ -107,6 +109,39 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "read_replica" {

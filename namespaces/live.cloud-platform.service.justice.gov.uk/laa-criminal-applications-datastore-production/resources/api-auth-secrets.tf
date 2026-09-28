@@ -4,15 +4,15 @@ locals {
   datastore_api_consumers = {
     "crime_apply" = {
       namespace  = "laa-apply-for-criminal-legal-aid-production"
-      rotated_at = "2025-06-10"
+      rotated_at = "2026-09-16"
     }
     "crime_review" = {
       namespace  = "laa-review-criminal-legal-aid-production"
-      rotated_at = "2025-06-10"
+      rotated_at = "2026-09-16"
     }
     "maat_adapter" = {
       namespace  = "laa-crime-applications-adaptor-prod"
-      rotated_at = "2025-06-10"
+      rotated_at = "2026-09-16"
     }
   }
 }

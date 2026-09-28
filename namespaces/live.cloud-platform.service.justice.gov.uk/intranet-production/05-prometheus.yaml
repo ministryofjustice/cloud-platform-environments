@@ -125,7 +125,11 @@ spec:
     - name: rds-rules
       rules:
       - alert: RDSInstanceReadIOPSHigh # ‼️ Critical alert
-        expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-283c8dc3f78ede0f"} > 1000
+        # Suppressed during RDS maintenance window (Sun 03:00-04:00 UTC), which can cause IOPS spikes
+        expr: |
+          aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-283c8dc3f78ede0f"} > 1000
+          unless on()
+          (day_of_week() == 0 and hour() == 3)
         for: 0m
         labels:
           severity: hale-platform-alerts

@@ -60,4 +60,30 @@ spec:
         severity: hmpps-accredited-programmes-manage-and-deliver-alerts-prod
       annotations:
         message: Namespace {{ $labels.namespace }} - CronJob {{ $labels.job_name }} has failed (started within the last 2 hours)
-
+    - alert: SQS-oldest-message-hmpps-accredited-programmes-manage-and-deliver-alerts-prod
+      annotations:
+        message: SQS - {{ $labels.queue_name }} has message older than 15mins, check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
+      expr: |-
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="hmpps-accredited-programmes-manage-and-deliver-devs-prod-mandd_queue"} offset 5m) by (queue_name) > 15 * 60
+      for: 10m
+      labels:
+        severity: hmpps-accredited-programmes-manage-and-deliver-alerts-prod
+    - alert: SQS-number-of-messages-hmpps-accredited-programmes-manage-and-deliver-alerts-prod
+      annotations:
+        message: SQS - {{ $labels.queue_name }} - number of messages={{ $value }} (exceeds 20), check consumers are healthy.  https://grafana.live-1.cloud-platform.service.justice.gov.uk/d/AWSSQS000/aws-sqs?orgId=1&var-datasource=Cloudwatch&var-region=default&var-queue={{ $labels.queue_name }}&from=now-6h&to=now
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="hmpps-accredited-programmes-manage-and-deliver-devs-prod-mandd_queue"} offset 5m) by (queue_name) > 20
+      for: 10m
+      labels:
+        severity: hmpps-accredited-programmes-manage-and-deliver-alerts-prod
+    - alert: SQS-events-dlq-not-empty-hmpps-accredited-programmes-manage-and-deliver-alerts-prod
+      annotations:
+        message: SQS Deadletter queue - {{ $labels.queue_name }} has {{ $value }} messages
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/2680750089/Monitoring+and+Alerting
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="hmpps-accredited-programmes-manage-and-deliver-devs-prod-mandd_dlq"} offset 5m) by (queue_name) > 0
+      for: 10m
+      labels:
+        severity: hmpps-accredited-programmes-manage-and-deliver-alerts-prod

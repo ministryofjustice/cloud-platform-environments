@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: ims-assisted-sanitisation-monitoring-dev
+spec:
+  hard:
+    pods: "50"

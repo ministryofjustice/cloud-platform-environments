@@ -21,6 +21,11 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "sidekiq-auth"
     },
+    "analytics-user-config" = {
+      description             = "analytics-user-config"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "analytics-user-config"
+    },
     "app-secrets" = {
       description             = "app-secrets"
       recovery_window_in_days = 7

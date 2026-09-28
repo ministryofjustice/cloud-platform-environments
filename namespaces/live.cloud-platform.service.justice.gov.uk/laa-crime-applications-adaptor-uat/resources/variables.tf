@@ -114,6 +114,11 @@ variable "cognito_user_pool_crime_apply_client_name" {
   default     = "crime-apply"
 }
 
+variable "cognito_user_pool_crime_datastore_client_name" {
+  description = "Cognito user pool Crime Datastore client name"
+  default     = "crime-datastore"
+}
+
 variable "resource_server_identifier" {
   description = "Cognito resource server identifier"
   default     = "caa-api-uat"

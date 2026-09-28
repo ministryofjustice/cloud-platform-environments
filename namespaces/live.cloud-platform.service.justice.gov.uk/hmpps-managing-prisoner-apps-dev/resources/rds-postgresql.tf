@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
-module "rds" {
+module "manage_apps_rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
@@ -12,6 +12,7 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
+  prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   # db_max_allocated_storage     = "500"
@@ -20,8 +21,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
+  db_engine_version = "17.11"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
 
   # Tags
@@ -40,7 +41,7 @@ module "rds" {
 
 module "read_replica" {
   # default off
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -59,13 +60,13 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres16"
+  db_engine_version = "17.11"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres17"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
-  replicate_source_db = module.rds.db_identifier
+  replicate_source_db = module.manage_apps_rds.db_identifier
 
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
@@ -83,18 +84,18 @@ module "read_replica" {
   # ]
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "manage_apps_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    rds_instance_endpoint = module.manage_apps_rds.rds_instance_endpoint
+    database_name         = module.manage_apps_rds.database_name
+    database_username     = module.manage_apps_rds.database_username
+    database_password     = module.manage_apps_rds.database_password
+    rds_instance_address  = module.manage_apps_rds.rds_instance_address
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:
@@ -107,7 +108,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "read_replica" {
   # default off
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -130,20 +131,19 @@ resource "kubernetes_secret" "read_replica" {
     # access_key_id         = module.read_replica[0].access_key_id
     # secret_access_key     = module.read_replica[0].secret_access_key
   }
-
 }
 
 
 # Configmap to store non-sensitive data related to the RDS instance
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "manage_apps_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.manage_apps_rds.database_name
+    db_identifier = module.manage_apps_rds.db_identifier
   }
 }

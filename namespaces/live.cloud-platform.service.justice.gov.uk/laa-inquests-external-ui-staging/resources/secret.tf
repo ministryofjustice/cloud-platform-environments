@@ -27,5 +27,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-staging"
     },
+
+    "api-entra-config" = {
+      description = "Inquests API credentials from Entra",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "api-entra-config-staging"
+    }
   }
 }

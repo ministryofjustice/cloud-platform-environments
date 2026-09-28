@@ -82,3 +82,9 @@ variable "email_bucket_name" {
 variable "email_rule_set_name" {
   default = "email-receiving-rules"
 }
+
+variable "datastore_role" {
+  type = string
+  description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
+  default = "arn:aws:iam::396913731313:role/ac_read_emds_data_test"
+}

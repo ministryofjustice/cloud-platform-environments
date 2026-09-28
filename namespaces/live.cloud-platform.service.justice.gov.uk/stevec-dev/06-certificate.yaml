@@ -1,0 +1,29 @@
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: hmpps-template-kotlin-cert
+#   namespace: hmpps-templates-dev
+# spec:
+#   secretName: hmpps-template-kotlin-cert
+#   issuerRef:
+#     name: letsencrypt-production
+#     kind: ClusterIssuer
+#   dnsNames:
+#     - template-kotlin-dev.hmpps.service.justice.gov.uk
+#     - '*.template-kotlin-dev.hmpps.service.justice.gov.uk'
+
+# ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-stevec-sre-test-ui-cert
+  namespace: stevec-dev
+spec:
+  secretName: hmpps-stevec-sre-test-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - stevec-sre-test-ui-dev.hmpps.service.justice.gov.uk
+    - '*.stevec-sre-test-ui-dev.hmpps.service.justice.gov.uk'

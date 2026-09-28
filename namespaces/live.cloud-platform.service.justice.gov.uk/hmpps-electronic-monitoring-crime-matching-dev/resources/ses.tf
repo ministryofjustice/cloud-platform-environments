@@ -36,7 +36,7 @@ resource "aws_ses_active_receipt_rule_set" "main" {
 }
 
 resource "aws_ses_receipt_rule" "store_email" {
-  name          = "store-in-s3"
+  name          = "hmpps-electronic-monitoring-crime-matching-${var.environment}"
   rule_set_name = aws_ses_receipt_rule_set.main.rule_set_name
   recipients    = ["crime-csv@${var.domain}"]
   enabled       = true

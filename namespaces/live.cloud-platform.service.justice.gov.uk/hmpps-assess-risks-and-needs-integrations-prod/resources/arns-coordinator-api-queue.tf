@@ -4,7 +4,7 @@ module "arns_coordinator_queue" {
   # Queue configuration
   sqs_name                   = "arns_coordinator_queue"
   encrypt_sqs_kms            = true
-  message_retention_seconds  = 345600
+  message_retention_seconds  = 1209600 # 14 Days
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({

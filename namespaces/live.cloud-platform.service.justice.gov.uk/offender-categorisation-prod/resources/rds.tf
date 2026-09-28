@@ -9,8 +9,8 @@ module "dps_rds" {
   environment_name            = var.environment_name
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
-  db_instance_class           = "db.t3.medium"
-  db_engine_version           = "14"
+  db_instance_class           = "db.t4g.medium"
+  db_engine_version           = "14.24"
   allow_major_version_upgrade = "false"
   performance_insights_enabled = "true"
 

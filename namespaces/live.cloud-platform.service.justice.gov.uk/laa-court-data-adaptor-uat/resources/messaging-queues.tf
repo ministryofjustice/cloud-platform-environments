@@ -28,33 +28,6 @@ module "create_link_queue" {
   }
 }
 
-
-resource "aws_sqs_queue_policy" "create_link_queue_policy" {
-  queue_url = module.create_link_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.create_link_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
-              ]
-          },
-          "Resource": "${module.create_link_queue.sqs_arn}",
-          "Action": "sqs:*"
-        }
-      ]
-  }
-   EOF
-}
-
-
 module "create_link_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
@@ -107,31 +80,6 @@ module "unlink_queue" {
   }
 }
 
-resource "aws_sqs_queue_policy" "unlink_queue_policy" {
-  queue_url = module.unlink_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.unlink_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
-              ]
-          },
-          "Resource": "${module.unlink_queue.sqs_arn}",
-          "Action": "sqs:*"
-        }
-      ]
-  }
-   EOF
-}
-
 module "unlink_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
@@ -182,31 +130,6 @@ module "hearing_resulted_queue" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "hearing_resulted_queue_policy" {
-  queue_url = module.hearing_resulted_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.hearing_resulted_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
-              ]
-          },
-          "Resource": "${module.hearing_resulted_queue.sqs_arn}",
-          "Action": "sqs:*"
-        }
-      ]
-  }
-   EOF
 }
 
 module "hearing_resulted_dead_letter_queue" {
@@ -282,31 +205,6 @@ module "prosecution_concluded_dead_letter_queue" {
   providers = {
     aws = aws.london
   }
-}
-
-resource "aws_sqs_queue_policy" "prosecution_concluded_queue_policy" {
-  queue_url = module.prosecution_concluded_queue.sqs_id
-
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.prosecution_concluded_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Sid": "ConsumePolicy",
-          "Effect": "Allow",
-          "Principal": {
-          "AWS": [
-            "arn:aws:iam::140455166311:role/LAA-maat-cd-api-uat-ECSTaskExecutionRole-ZHBTYCN9P1LK"
-              ]
-          },
-          "Resource": "${module.prosecution_concluded_queue.sqs_arn}",
-          "Action": "sqs:*"
-        }
-      ]
-  }
-   EOF
 }
 
 resource "kubernetes_secret" "create_link_queue" {

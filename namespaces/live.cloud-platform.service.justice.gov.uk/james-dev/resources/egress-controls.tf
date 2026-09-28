@@ -5,4 +5,11 @@ module "hmpps_egress_controls" {
   enable_egress_controls = true
   namespace              = var.namespace
   vpc_name               = var.vpc_name
+  envoy_default_allowed_hosts_suffixes = [
+    ".in.applicationinsights.azure.com",
+    ".livediagnostics.monitor.azure.com",
+    ".service.justice.gov.uk",
+    ".github.com",
+    ".githubusercontent.com"
+  ]
 }

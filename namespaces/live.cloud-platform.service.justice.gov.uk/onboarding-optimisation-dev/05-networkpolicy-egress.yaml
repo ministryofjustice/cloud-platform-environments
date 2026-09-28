@@ -1,0 +1,131 @@
+# Frontend egress: DNS, the internal backend, and Entra token exchange only.
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-frontend
+  namespace: onboarding-optimisation-dev
+spec:
+  order: 49.0
+  selector: "app == 'onboarding-optimisation-frontend'"
+  egress:
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        selector: app == "onboarding-optimisation-backend"
+        ports:
+          - 8000
+    - action: Allow
+      protocol: TCP
+      destination:
+        # Azure AD — token exchange at login.microsoftonline.com/oauth2/v2.0/token
+        nets:
+          - 20.190.128.0/18
+          - 40.126.0.0/18
+        ports:
+          - 443
+  types:
+    - Egress
+---
+# Backend egress: DNS, RDS/VPC endpoints, and HTTPS external dependencies.
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-egress-backend
+  namespace: onboarding-optimisation-dev
+spec:
+  order: 49.0
+  selector: "app == 'onboarding-optimisation-backend'"
+  egress:
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        selector: app == "hmpps-envoy-https-proxy"
+        ports:
+          - 3128
+    - action: Allow
+      protocol: TCP
+      destination:
+        # Cloud Platform VPC: PostgreSQL only.
+        nets:
+          - 172.20.0.0/16
+        ports:
+          - 5432
+  types:
+    - Egress
+---
+# Allow the Envoy proxy to resolve approved hostnames and connect to their
+# HTTPS upstreams. Envoy's RBAC allowlist restricts which hosts are reachable.
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: allow-envoy-https-proxy-upstream-egress
+  namespace: onboarding-optimisation-dev
+spec:
+  order: 49.0
+  selector: "app == 'hmpps-envoy-https-proxy'"
+  egress:
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: kubernetes.io/metadata.name == "kube-system"
+        selector: k8s-app in {"kube-dns", "coredns"}
+        ports:
+          - 53
+    - action: Allow
+      protocol: TCP
+      destination:
+        nets:
+          - 0.0.0.0/0
+        ports:
+          - 443
+  types:
+    - Egress
+---
+# Deny all other egress. Must have a higher order number than the allow policies above.
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: block-egress
+  namespace: onboarding-optimisation-dev
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+    - action: Deny
+  types:
+    - Egress

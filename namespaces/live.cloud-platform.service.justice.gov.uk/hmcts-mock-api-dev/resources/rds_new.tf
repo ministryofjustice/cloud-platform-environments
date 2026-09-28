@@ -4,12 +4,12 @@ module "hmcts_mock_api_rds_instance" {
   storage_type         = "gp2"
 
   vpc_name               = var.vpc_name
-  team_name              = "laa-crime-apps-team"
-  business_unit          = "Crime Apps"
+  team_name              = "laa-connect-public"
+  business_unit          = "LAA Connect"
   application            = "hmcts-common-platform-mock-api"
   is_production          = "false"
   namespace              = var.namespace
-  db_engine_version      = "17.4"
+  db_engine_version      = "17.11"
   environment_name       = "development"
   infrastructure_support = "laa@digital.justice.gov.uk"
   rds_family             = "postgres17"

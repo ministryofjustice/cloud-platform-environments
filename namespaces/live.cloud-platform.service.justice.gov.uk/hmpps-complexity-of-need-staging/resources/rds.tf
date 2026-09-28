@@ -24,7 +24,7 @@ module "complexity-of-need-rds" {
   enable_rds_auto_start_stop = true # 22:00–06:00 UTC
   maintenance_window         = "sun:19:00-sun:21:00"
 
-  db_engine_version           = "15.12"
+  db_engine_version           = "15.19"
   rds_family                  = "postgres15"
   allow_minor_version_upgrade = true
   allow_major_version_upgrade = false

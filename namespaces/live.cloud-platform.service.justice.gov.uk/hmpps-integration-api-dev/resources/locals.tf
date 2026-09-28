@@ -46,6 +46,7 @@ locals {
     "enhanced-reception-checks",
     "synalogik",
     "jaiu-onboarding-optimisation",
+    "serco-up3",
   ]
 
   client_queues = {
@@ -61,5 +62,6 @@ locals {
     moj-esw   = module.event_moj_esw_queue.sqs_name # testing
     ctrlo     = module.event_ctrlo_queue.sqs_name
     daso      = module.event_daso_queue.sqs_name
+    unilink   = module.event_unilink_queue.sqs_name
   }
 }

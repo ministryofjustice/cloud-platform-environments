@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-datahub-query-metrics-cert
+  namespace: hmpps-datahub-query-metrics-test
+spec:
+  secretName: hmpps-datahub-query-metrics-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - datahub-query-metrics-test.hmpps.service.justice.gov.uk
+    - '*.datahub-query-metrics-test.hmpps.service.justice.gov.uk'

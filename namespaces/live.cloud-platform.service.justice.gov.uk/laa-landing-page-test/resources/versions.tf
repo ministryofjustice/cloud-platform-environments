@@ -17,5 +17,13 @@ terraform {
       source  = "DrFaust92/pingdom"
       version = "~> 1.3.1"
     }
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "~> 1.26.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.7.1"
+    }
   }
 }

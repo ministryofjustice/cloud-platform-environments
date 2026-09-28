@@ -10,7 +10,7 @@ module "rds" {
   namespace                    = var.namespace
   rds_name                     = "hmpps-tier-${var.environment_name}"
   rds_family                   = "postgres17"
-  db_engine_version            = "17"
+  db_engine_version            = "17.11"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false

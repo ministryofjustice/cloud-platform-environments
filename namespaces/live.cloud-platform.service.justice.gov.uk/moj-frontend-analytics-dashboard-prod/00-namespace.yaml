@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "moj-frontend-analytics-dashboard-prod"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/slack-channel: "moj-design-system-support"
+    cloud-platform.justice.gov.uk/application: "MoJ Frontend Analytics Dashboard"
+    cloud-platform.justice.gov.uk/owner: "Design System: design-system@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/moj-frontend-analytics-dashboard"
+    cloud-platform.justice.gov.uk/team-name: "mojds-maintainers"
+    cloud-platform.justice.gov.uk/review-after: ""

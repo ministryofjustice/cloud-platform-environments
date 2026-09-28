@@ -11,6 +11,7 @@ spec:
   dnsNames:
   - bedford-staging.content-hub.prisoner.service.justice.gov.uk
   - berwyn-staging.content-hub.prisoner.service.justice.gov.uk
+  - bristol-staging.content-hub.prisoner.service.justice.gov.uk
   - bullingdon-staging.content-hub.prisoner.service.justice.gov.uk
   - cardiff-staging.content-hub.prisoner.service.justice.gov.uk
   - chelmsford-staging.content-hub.prisoner.service.justice.gov.uk
@@ -30,5 +31,6 @@ spec:
   - wayland-staging.content-hub.prisoner.service.justice.gov.uk
   - werrington-staging.content-hub.prisoner.service.justice.gov.uk
   - wetherby-staging.content-hub.prisoner.service.justice.gov.uk
+  - winchester-staging.content-hub.prisoner.service.justice.gov.uk
   - woodhill-staging.content-hub.prisoner.service.justice.gov.uk
   - staging.content-hub.prisoner.service.justice.gov.uk

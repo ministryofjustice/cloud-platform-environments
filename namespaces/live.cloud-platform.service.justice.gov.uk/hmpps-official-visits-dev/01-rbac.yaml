@@ -5,6 +5,9 @@ metadata:
   namespace: hmpps-official-visits-dev
 subjects:
   - kind: Group
+    name: "github:hmpps-prison-visits-booking-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hmpps-move-and-improve"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group

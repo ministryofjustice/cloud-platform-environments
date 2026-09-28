@@ -1,5 +1,5 @@
 module "ecr-repo" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   repo_name = var.repo_name
 
@@ -7,10 +7,47 @@ module "ecr-repo" {
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["github"]
+  enable_irsa = true
 
   # set this if you use one GitHub repository to push to multiple container repositories
   # this ensures the variable key used in the workflow is unique
   github_actions_prefix = "staging"
+
+  lifecycle_policy = <<EOF
+    {
+      "rules": [
+        {
+          "rulePriority": 1,
+          "description": "Archive images 7 days since pulled",
+          "selection": {
+            "countType": "sinceImagePulled",
+            "tagStatus": "any",
+            "countUnit": "days",
+            "countNumber": 7,
+            "storageClass": "standard"
+          },
+          "action": {
+            "type": "transition",
+            "targetStorageClass": "archive"
+          }
+        },
+        {
+          "rulePriority": 2,
+          "description": "Expire images 90 days since archived",
+          "selection": {
+            "countType": "sinceImageTransitioned",
+            "tagStatus": "any",
+            "countUnit": "days",
+            "countNumber": 90,
+            "storageClass": "archive"
+          },
+          "action": {
+            "type": "expire"
+          }
+        }
+      ]
+    }
+    EOF
 
   # Tags
   business_unit          = var.business_unit

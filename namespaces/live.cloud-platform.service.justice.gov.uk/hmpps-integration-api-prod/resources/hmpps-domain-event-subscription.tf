@@ -127,6 +127,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "calculate-release-dates.prisoner.changed",
       "risk-assessment.scores.ogrs.determined",
       "risk-assessment.scores.rsr.determined",
+      "risk-assessment.scores.determined",
       "assessment.summary.produced",
       "incentives.iep-review.inserted",
       "incentives.iep-review.updated",

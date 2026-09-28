@@ -73,3 +73,13 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "domain" {
+  default = "container-platform-custom-test-domain.service.justice.gov.uk"
+  type = string
+}
+
+variable "owner" {
+  default = "jagbai"
+  type = string
+}

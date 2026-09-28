@@ -51,3 +51,55 @@ spec:
   dnsNames:
     - nt-pdfgen-preprod.hmpps.service.justice.gov.uk
     - ndelius-new-tech-pdf-generator-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-merge-api-cert
+  namespace: hmpps-delius-core-preprod
+spec:
+  secretName: delius-merge-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-merge-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-merge-ui-cert
+  namespace: hmpps-delius-core-preprod
+spec:
+  secretName: delius-merge-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-merge-ui-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-gdpr-api-cert
+  namespace: hmpps-delius-core-preprod
+spec:
+  secretName: delius-gdpr-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-gdpr-api-preprod.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: delius-gdpr-ui-cert
+  namespace: hmpps-delius-core-preprod
+spec:
+  secretName: delius-gdpr-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - delius-gdpr-ui-preprod.hmpps.service.justice.gov.uk

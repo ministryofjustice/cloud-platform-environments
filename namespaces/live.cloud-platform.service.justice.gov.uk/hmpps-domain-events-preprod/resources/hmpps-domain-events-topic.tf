@@ -34,3 +34,33 @@ resource "aws_ssm_parameter" "param-store-topic-arn" {
     namespace              = var.namespace
   }
 }
+
+data "aws_caller_identity" "cloud_platform" {}
+data "kubernetes_secret" "modernisation_platform" {
+  metadata {
+    name      = "modernisation-platform"
+    namespace = var.namespace
+  }
+}
+
+data "aws_iam_policy_document" "sns_topic_policy" {
+  statement {
+    sid    = "CrossAccountOASysReadAccess"
+    effect = "Allow"
+    actions = [
+      "sns:ListSubscriptionsByTopic",
+      "sns:GetTopicAttributes",
+      "sns:Subscribe",
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.kubernetes_secret.modernisation_platform.data.oasys_account_id}:root"]
+    }
+    resources = [module.hmpps-domain-events.topic_arn]
+  }
+}
+
+resource "aws_sns_topic_policy" "topic_policy" {
+  arn    = module.hmpps-domain-events.topic_arn
+  policy = data.aws_iam_policy_document.sns_topic_policy.json
+}

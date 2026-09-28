@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - reuselibrary.service.justice.gov.uk
+  - dev.reuselibrary.service.justice.gov.uk

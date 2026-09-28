@@ -2,10 +2,19 @@
 # The value of each item should be the namespace where the SQS was created.
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
-  sqs_queues = {
+  audit_sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+  audit_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+}
+
+locals {
+  manage_users_sqs_policies = {
+    manage_users_bulk_user_queue                  = module.manage_users_bulk_user_queue.irsa_policy_arn,
+    manage_users_bulk_user_dead_letter_queue      = module.manage_users_bulk_user_dead_letter_queue.irsa_policy_arn
+    manage_users_bulk_user_item_queue             = module.manage_users_bulk_user_item_queue.irsa_policy_arn,
+    manage_users_bulk_user_item_dead_letter_queue = module.manage_users_bulk_user_item_dead_letter_queue.irsa_policy_arn
+  }
 }
 
 module "irsa" {
@@ -14,7 +23,10 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-manage-users"
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns     = merge (
+                          local.audit_sqs_policies,
+                          local.manage_users_sqs_policies
+                        )
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -25,7 +37,7 @@ module "irsa" {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-  for_each = local.sqs_queues
+  for_each = local.audit_sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 

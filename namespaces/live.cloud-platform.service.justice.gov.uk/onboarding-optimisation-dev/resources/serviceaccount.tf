@@ -14,6 +14,7 @@ module "serviceaccount" {
       api_groups = [""]
       resources = [
         "pods/portforward",
+        "pods/log",
         "deployment",
         "secrets",
         "services",

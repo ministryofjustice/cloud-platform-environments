@@ -350,7 +350,7 @@ data:
       "templating": {
         "list": [
           {
-            "current": {"text": "Prometheus", "value": "prometheus"},
+            "current": {"text": "Thanos", "value": "P5DCFC7561CCDE821"},
             "includeAll": false,
             "label": "Source",
             "name": "datasource",
@@ -361,13 +361,13 @@ data:
           },
           {
             "datasource": {"type": "prometheus", "uid": "${datasource}"},
-            "definition": "label_values(nodejs_version_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)",
+            "definition": "label_values(nodejs_version_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)",
             "includeAll": true,
             "label": "Namespace",
             "multi": true,
             "name": "namespace",
             "options": [],
-            "query": {"query": "label_values(nodejs_version_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*|.*probation-mi.*\"}, namespace)", "refId": "StandardVariableQuery"},
+            "query": {"query": "label_values(nodejs_version_info{namespace=~\".*dpr.*|.*digital-prison-reporting.*\"}, namespace)", "refId": "StandardVariableQuery"},
             "refresh": 2,
             "regex": "",
             "sort": 1,
@@ -375,7 +375,7 @@ data:
           }
         ]
       },
-      "time": {"from": "now-6h", "to": "now"},
+      "time": {"from": "now-2d", "to": "now"},
       "timepicker": {},
       "timezone": "browser",
       "title": "digital-prison-reporting / DPR Golden Signals (Node.js)",

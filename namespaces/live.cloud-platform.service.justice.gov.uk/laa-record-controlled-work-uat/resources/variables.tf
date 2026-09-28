@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Record controlled work"
+  default     = "ui"
 }
 
 variable "namespace" {
@@ -41,7 +41,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "uat"
 }
 
 variable "infrastructure_support" {
@@ -84,6 +84,10 @@ variable "app_repo" {
   description = "Name of application repository"
   type        = string
   default     = "laa-record-controlled-work"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
 variable "number_cache_clusters" {

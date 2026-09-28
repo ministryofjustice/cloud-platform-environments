@@ -1,0 +1,47 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: annual-leave-apprenticeship-project-admin
+  namespace: annual-leave-apprenticeship-project
+subjects:
+  - kind: Group
+    name: "github:hmpps-techtrack-apprentices"
+    apiGroup: rbac.authorization.k8s.io
+############## COPY - DO NOT REPLACE ##############
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+# hmpps-sre group is required for support functions
+###################################################
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ephemeral-container-access
+  namespace: annual-leave-apprenticeship-project
+rules:
+- apiGroups: [""]
+  resources: ["pods/ephemeralcontainers"]
+  verbs: ["get", "patch", "update", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ephemeral-container-access-binding
+  namespace: annual-leave-apprenticeship-project
+subjects:
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-techtrack-apprentices"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ephemeral-container-access
+  apiGroup: rbac.authorization.k8s.io

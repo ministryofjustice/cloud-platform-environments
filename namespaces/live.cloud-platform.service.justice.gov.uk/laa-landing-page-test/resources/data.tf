@@ -5,3 +5,7 @@ data "aws_ssm_parameter" "sqs_queue_arn" {
 data "aws_ssm_parameter" "sqs_policy_arn" {
   name = "/laa-ccms-user-management-api-test/sqs-policy-arn"
 }
+
+data "aws_ssm_parameter" "sqs_policy_arn_preprod" {
+  name = "/laa-ccms-user-management-api-preprod/sqs-policy-arn"
+}

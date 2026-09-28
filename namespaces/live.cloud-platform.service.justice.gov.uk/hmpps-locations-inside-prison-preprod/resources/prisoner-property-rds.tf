@@ -21,7 +21,7 @@ module "prisoner_property_rds" {
   db_instance_class           = "db.t4g.small"
   rds_name                    = "hmpps-prisoner-property-api-preprod"
   rds_family                  = "postgres18"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -30,7 +30,55 @@ module "prisoner_property_rds" {
     aws = aws.london
   }
 
+  # Datahub ingestion (MAPB-763). rds.logical_replication and shared_preload_libraries are
+  # pending-reboot, so the instance must be rebooted after this applies before `show wal_level;`
+  # reports `logical` and the pglogical extension will install.
+  # https://dsdmoj.atlassian.net/wiki/spaces/DPR/pages/4461494352
+  db_parameter = [
+    {
+      # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
+      # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      # This list replaces the engine default rather than merging with it - the same trap that
+      # dropped rds.force_ssl in prod (MAPB-763). Listing only pglogical silently dropped pg_tle
+      # and pg_stat_statements, which Performance Insights needs for query-level detail.
+      # RDS re-adds rdsutils and rds_casts itself, so they do not need listing.
+      name         = "shared_preload_libraries"
+      value        = "pg_tle,pg_stat_statements,pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply the pending-reboot parameters above. Cloud Platform do not perform
+  # RDS reboots on request - teams do them from a service pod. Defaults to false. See MAPB-763.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prisoner_property_rds" {
@@ -48,5 +96,25 @@ resource "kubernetes_secret" "prisoner_property_rds" {
     database_password     = module.prisoner_property_rds.database_password
     rds_instance_address  = module.prisoner_property_rds.rds_instance_address
     url                   = "postgres://${module.prisoner_property_rds.database_username}:${module.prisoner_property_rds.database_password}@${module.prisoner_property_rds.rds_instance_endpoint}/${module.prisoner_property_rds.database_name}"
+  }
+}
+
+# Places a secret holding this preprod instance's credentials in the production namespace, so the
+# postgres restore CronJob deployed by hmpps-prisoner-property-api can copy production data into
+# preprod without production credentials ever leaving the production namespace. MAPB-906.
+# Deliberately named separately from dps-rds-instance-output-preprod in rds.tf, which does the same
+# job for the locations inside prison database in this shared namespace.
+resource "kubernetes_secret" "prisoner_property_rds_refresh_creds" {
+  metadata {
+    name      = "prisoner-property-rds-instance-output-preprod"
+    namespace = "hmpps-locations-inside-prison-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.prisoner_property_rds.rds_instance_endpoint
+    database_name         = module.prisoner_property_rds.database_name
+    database_username     = module.prisoner_property_rds.database_username
+    database_password     = module.prisoner_property_rds.database_password
+    rds_instance_address  = module.prisoner_property_rds.rds_instance_address
   }
 }

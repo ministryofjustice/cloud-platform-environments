@@ -25,7 +25,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "18"
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.xlarge"
+  db_instance_class = "db.t4g.medium"
 
   # Tags
   application            = var.application
@@ -35,6 +35,7 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+  maintenance_window     = var.maintenance_window
 
   vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
 

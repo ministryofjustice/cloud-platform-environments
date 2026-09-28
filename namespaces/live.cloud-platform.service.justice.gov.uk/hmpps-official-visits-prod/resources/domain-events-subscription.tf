@@ -9,7 +9,7 @@ module "official_visits_domain_events_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn: module.official_visits_domain_events_dlq.sqs_arn
-    maxReceiveCount: 3
+    maxReceiveCount: 5
   })
 
   # Tags

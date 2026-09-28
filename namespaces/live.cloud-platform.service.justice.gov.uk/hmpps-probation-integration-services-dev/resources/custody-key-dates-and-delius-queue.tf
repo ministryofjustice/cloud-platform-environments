@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "custody-key-dates-and-delius-queue-subscription" {
-  
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.custody-key-dates-and-delius-queue.sqs_arn
@@ -105,5 +104,8 @@ module "custody-key-dates-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "custody-key-dates-and-delius"
-  role_policy_arns     = { sqs = module.custody-key-dates-and-delius-queue.irsa_policy_arn }
+  role_policy_arns     = {
+    sqs = module.custody-key-dates-and-delius-queue.irsa_policy_arn
+    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+  }
 }

@@ -87,3 +87,7 @@ variable "service_area" {
   description = "Service Area"
   default     = "Manage Custody"
 }
+
+variable "maintenance_window" {
+  default = "sun:00:00-sun:03:00"
+}

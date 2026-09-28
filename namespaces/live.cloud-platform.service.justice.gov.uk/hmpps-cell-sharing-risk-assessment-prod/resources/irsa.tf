@@ -19,7 +19,9 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     { prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn },
-    { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn }
+    { prisoner-event-dlq = module.prisoner-event-dlq.irsa_policy_arn },
+    { rds_policy = module.rds.irsa_policy_arn },
+    { rds_replica_policy = module.rds_replica[0].irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit

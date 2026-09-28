@@ -13,9 +13,12 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = merge(
     local.sns_policies,
-    { domain_sqs = module.hmpps-tier-events-queue.irsa_policy_arn },
-    { domain_dlq = module.hmpps-tier-events-dlq.irsa_policy_arn },
-    { audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn },
+    {
+      domain_sqs = module.hmpps-tier-events-queue.irsa_policy_arn
+      domain_dlq = module.hmpps-tier-events-dlq.irsa_policy_arn
+      audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
+      export_s3 = module.bucket.irsa_policy_arn
+    }
   )
 
   # Tags

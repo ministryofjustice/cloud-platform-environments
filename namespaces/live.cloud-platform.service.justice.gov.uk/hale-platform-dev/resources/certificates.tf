@@ -1,7 +1,8 @@
 variable "domains" {
   type = map(string)
   default = {
-    "dev.websitebuilder.service.justice.gov.uk" = "websitebuilder-dev"
+    "dev.websitebuilder.service.justice.gov.uk"     = "websitebuilder-dev"
+    "migrate.websitebuilder.service.justice.gov.uk" = "websitebuilder-migrate"
   }
 }
 

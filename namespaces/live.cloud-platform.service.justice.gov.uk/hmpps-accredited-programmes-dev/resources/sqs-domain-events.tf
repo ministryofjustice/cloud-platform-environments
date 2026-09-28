@@ -89,7 +89,8 @@ resource "aws_sns_topic_subscription" "hmpps_acp_domain_events_subscription" {
     eventType = [
       "prisoner-offender-search.prisoner.updated",
       "offender-management.allocation.changed",
-      "probation-case.requirement.created"
+      "probation-case.requirement.created",
+      "prison-offender-events.prisoner.merged"
     ]
   })
 }

@@ -16,6 +16,6 @@ docker run -it \
   /bin/sh -c '\
     mkdir -p "${TF_PLUGIN_CACHE_DIR}" \
     && aws s3 cp s3://cloud-platform-concourse-build-environments/kubeconfig /tmp/kubeconfig \
-    && ./bin/apply \
+    && ./bin/plan \
     && sh'
 ```

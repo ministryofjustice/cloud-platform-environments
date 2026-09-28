@@ -20,7 +20,7 @@ module "prisons_rds" {
   
   rds_family                 = "postgres18"
   db_engine                  = "postgres"
-  db_engine_version          = "18.3"
+  db_engine_version          = "18.6"
   enable_irsa = true
   
 

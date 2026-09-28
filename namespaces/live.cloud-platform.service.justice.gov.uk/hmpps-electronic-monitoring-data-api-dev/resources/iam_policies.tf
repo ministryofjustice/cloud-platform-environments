@@ -9,6 +9,25 @@ data "aws_iam_policy_document" "ssm_policy" {
       "arn:aws:ssm:eu-west-2:754256621582:parameter/${var.namespace}/data_store_general_role_arn",
     ]
   }
+
+  statement {
+    actions = [
+      "iam:ListAccountAliases"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:ListAllMyBuckets",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "ssm_access" {
@@ -23,7 +42,7 @@ data "aws_iam_policy_document" "cross_account_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      data.aws_ssm_parameter.data_store_general_role_arn.value,
+      local.data_store_general_role_arn,
     ]
   }
 }

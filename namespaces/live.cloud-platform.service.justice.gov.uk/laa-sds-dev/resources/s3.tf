@@ -14,6 +14,8 @@ module "s3_bucket" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
+  bucket_name            = "laa-sds-auto-expire-${var.environment}"
+  versioning             = true
 }
 
 module "s3_buckets" {
@@ -44,3 +46,17 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 }
 
+
+resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_config" {
+  bucket = module.s3_bucket.bucket_name
+
+  rule {
+    id = "expire-old-files"
+
+    expiration {
+      days = 1
+    }
+
+    status = "Enabled"
+  }
+}

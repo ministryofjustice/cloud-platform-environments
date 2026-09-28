@@ -14,12 +14,12 @@ module "nomis_migration_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.small"
   db_engine                  = "postgres"
-  db_engine_version          = "18"
+  db_engine_version          = "18.6"
   rds_family                 = "postgres18"
   db_password_rotated_date   = "2023-02-21"
   deletion_protection        = true
   prepare_for_major_upgrade  = false
-  enable_rds_auto_start_stop = true
+  enable_rds_auto_start_stop = false
 }
 
 

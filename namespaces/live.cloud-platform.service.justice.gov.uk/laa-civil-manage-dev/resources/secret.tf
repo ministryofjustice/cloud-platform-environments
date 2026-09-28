@@ -22,6 +22,12 @@ module "secrets_manager" {
       k8s_secret_name         = "auth-client-secret-dev"
     },
 
+    "session-secret" = {
+      description             = "Session secret for dev environment",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "session-secret-dev"
+    },
+
     "auth-directory-url" = {
       description             = "Auth directory URL from Entra for dev environment",
       recovery_window_in_days = 7,
@@ -32,12 +38,6 @@ module "secrets_manager" {
       description             = "API Base URL Map for dev environment",
       recovery_window_in_days = 7,
       k8s_secret_name         = "base-url-map-dev"
-    },
-
-    "e2e-github-token" = {
-      description             = "GitHub token for E2E tests in dev environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "e2e-github-token"
     },
 
     "slack-webhook-url" = {

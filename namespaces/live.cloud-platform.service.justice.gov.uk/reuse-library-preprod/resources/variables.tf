@@ -83,6 +83,6 @@ variable "number_cache_clusters" {
 }
 
 variable "domain" {
-  default = "preprod.reuselibrary.service.justice.gov.uk"
+  default = "reuse-library-preprod.apps.live.cloud-platform.service.justice.gov.uk"
   type    = string
 }

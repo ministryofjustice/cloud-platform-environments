@@ -4,7 +4,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.team_name}-${var.environment}"
+  service_account_name = var.namespace
   role_policy_arns = {
     ssm = aws_iam_policy.ssm_access.arn
     cross_account_access = aws_iam_policy.cross_account_access.arn

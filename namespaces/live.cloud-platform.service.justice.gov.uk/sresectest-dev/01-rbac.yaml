@@ -1,0 +1,101 @@
+# kind: RoleBinding
+# apiVersion: rbac.authorization.k8s.io/v1
+# metadata:
+#   name: sresectest-dev-admin
+#  namespace: sresectest-dev
+# subjects:
+#   - kind: Group
+#     name: "github:hmpps-sre"
+#  apiGroup: rbac.authorization.k8s.io
+# roleRef:
+#  kind: ClusterRole
+#   name: admin
+#   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-developer
+  namespace: sresectest-dev
+rules:
+  # Core resources
+  - apiGroups: [""]
+    resources:
+      - pods
+      - services
+      - configmaps
+      - endpoints
+      - persistentvolumeclaims
+      - events
+    verbs:
+      - get
+      - list
+      - watch
+
+  # Pod logs
+  - apiGroups: [""]
+    resources:
+      - pods/log
+    verbs:
+      - get
+      - list
+
+  # Deployments and workloads
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+
+  # Jobs and CronJobs
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+
+  # Networking resources
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+      - networkpolicies
+    verbs:
+      - get
+      - list
+      - watch
+
+  # Exec into containers
+  - apiGroups: [""]
+    resources:
+      - pods/exec
+    verbs:
+      - create
+
+  # Port-forward sessions
+  - apiGroups: [""]
+    resources:
+      - pods/portforward
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-developer-binding
+  namespace: sresectest-dev
+subjects:
+  - kind: Group
+    name: "github:hmpps-permstest"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: namespace-developer
+  apiGroup: rbac.authorization.k8s.io

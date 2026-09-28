@@ -1,6 +1,6 @@
 module "hmpps_audit_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage   = 10
+  db_allocated_storage   = 40
   storage_type           = "gp2"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
@@ -15,7 +15,7 @@ module "hmpps_audit_rds" {
   db_max_allocated_storage     = "500"
   db_engine                    = "postgres"
   rds_family                   = "postgres18"
-  db_engine_version            = "18"
+  db_engine_version            = "18.6"
   deletion_protection          = true
   enable_rds_auto_start_stop   = true
   prepare_for_major_upgrade    = false

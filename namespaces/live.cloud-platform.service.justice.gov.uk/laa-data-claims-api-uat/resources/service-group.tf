@@ -16,7 +16,7 @@ data "aws_security_group" "reporting_service_rds" {
 }
 
 resource "aws_security_group" "rds" {
-  name = "${var.namespace}-rds-sg"
+  name        = "${var.namespace}-rds-sg"
   description = "RDS VPC Security Group to allow Reporting Service Ingress Traffic"
   vpc_id      = data.aws_vpc.selected.id
 
@@ -32,4 +32,22 @@ resource "aws_security_group_rule" "allow_ingress_from_reporting_service" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.rds.id
   source_security_group_id = data.aws_security_group.reporting_service_rds.id
+}
+
+#Get data factory's RDS security group
+data "aws_security_group" "data_factory_rds" {
+  filter {
+    name   = "group-name"
+    values = ["laa-data-claims-data-factory-uat-rds-sg"]
+  }
+  vpc_id = data.aws_vpc.selected.id
+}
+
+resource "aws_security_group_rule" "allow_ingress_from_data_factory" {
+  type                     = "ingress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.rds.id
+  source_security_group_id = data.aws_security_group.data_factory_rds.id
 }

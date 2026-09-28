@@ -10,13 +10,13 @@ module "rds" {
   namespace                    = var.namespace
   rds_name                     = "hmpps-tier-${var.environment_name}"
   rds_family                   = "postgres17"
-  db_engine_version            = "17"
+  db_engine_version            = "17.11"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = true
   performance_insights_enabled = true
-  enable_rds_auto_start_stop   = true
+  enable_rds_auto_start_stop   = false
   maintenance_window           = var.maintenance_window
   db_password_rotated_date     = "20-02-2023"
 }

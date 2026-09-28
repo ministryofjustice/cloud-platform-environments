@@ -55,7 +55,7 @@ variable "rds-family" {
 }
 
 variable "db_engine_version" {
-  default = "14.17"
+  default = "14.22"
 }
 
 variable "number_cache_clusters" {

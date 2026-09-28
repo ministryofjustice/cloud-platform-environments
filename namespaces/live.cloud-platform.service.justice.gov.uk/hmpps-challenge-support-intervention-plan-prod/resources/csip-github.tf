@@ -14,7 +14,7 @@ module "csip-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name, "hmpps-move-and-improve"]
+  reviewer_teams                = ["manage-safety-live", "hmpps-move-and-improve"]
 }
 
 module "csip-ui" {
@@ -33,5 +33,5 @@ module "csip-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name, "hmpps-move-and-improve"]
+  reviewer_teams                = ["manage-safety-live", "hmpps-move-and-improve"]
 }
