@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "cloud-platform"
     cloud-platform.justice.gov.uk/application: "David B Sandbox"
     cloud-platform.justice.gov.uk/owner: "webops: platforms@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cloud-platform-helloworld-ruby-app"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/davidb-sandbox-test-app"
     cloud-platform.justice.gov.uk/team-name: "cloud-platform"
     cloud-platform.justice.gov.uk/review-after: "2026-12-28"
