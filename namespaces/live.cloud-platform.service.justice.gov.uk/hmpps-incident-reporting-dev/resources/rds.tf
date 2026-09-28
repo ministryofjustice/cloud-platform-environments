@@ -3,6 +3,8 @@ data "aws_security_group" "mp_dps_sg" {
   name = var.mp_dps_sg_name
 }
 
+# No read replica in dev: the API no longer uses one and DPR loads from the primary here (IR-1999).
+# Only prod has a replica, for DPR.
 module "dps_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   vpc_name               = var.vpc_name
