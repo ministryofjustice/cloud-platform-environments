@@ -11,7 +11,7 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade    = true
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
@@ -40,13 +40,20 @@ module "rds" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -103,7 +110,7 @@ module "read_replica" {
   db_engine                = "postgres"
   db_engine_version        = "18.6"
   rds_family               = "postgres18"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_instance_class        = "db.t4g.medium"
   db_max_allocated_storage = "500"
   db_allocated_storage     = "100"
@@ -120,13 +127,20 @@ module "read_replica" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
