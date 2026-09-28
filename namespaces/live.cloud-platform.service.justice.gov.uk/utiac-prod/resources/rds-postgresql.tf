@@ -11,10 +11,11 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  maintenance_window           = "Sun:03:00-Sun:04:00"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14"
+  db_engine_version = "14.24"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.medium"
 
@@ -56,7 +57,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14"
+  db_engine_version = "14.24"
   rds_family        = "postgres14"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
