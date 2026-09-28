@@ -185,21 +185,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "windows_bastion_ami_id" {
-  description = "AMI ID for the Windows image prepared and registered through Fleet Manager"
-  type        = string
-}
-
-variable "windows_bastion_subnet_id" {
-  description = "Private subnet ID in which to place the Windows bastion"
-  type        = string
-}
-
-variable "windows_bastion_instance_type" {
-  description = "EC2 instance type for the Windows bastion"
-  type        = string
-  default     = "t3.large"
-}
 
 # -----------------------------------------------------------------------------
 # CloudFront Logging Variables
