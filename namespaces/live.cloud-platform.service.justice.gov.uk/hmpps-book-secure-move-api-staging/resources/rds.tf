@@ -22,7 +22,7 @@ module "rds-instance" {
 
   rds_family = "postgres18"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
 
@@ -36,33 +36,33 @@ module "rds-instance" {
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "rds.logical_replication"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   },
-  #    {
-  #     name         = "shared_preload_libraries"
-  #     value        = "pglogical"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "max_wal_size"
-  #     value        = "1024"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "wal_sender_timeout"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 
   enable_irsa = true
 }
@@ -89,7 +89,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine_version         = "18.6"
   rds_family                = "postgres18"
 
@@ -98,38 +98,38 @@ module "rds-read-replica" {
     aws = aws.london
   }
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.logical_replication"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "shared_preload_libraries"
-  #     value        = "pglogical"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "max_wal_size"
-  #     value        = "1024"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "wal_sender_timeout"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "max_slot_wal_keep_size"
-  #     value        = "40000"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "hot_standby_feedback"
-  #     value        = "1"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
