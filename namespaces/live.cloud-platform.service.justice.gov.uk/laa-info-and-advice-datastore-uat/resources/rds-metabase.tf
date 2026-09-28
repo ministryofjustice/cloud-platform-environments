@@ -24,10 +24,11 @@ module "rds_metabase" {
   db_engine_version = "18.6"
   rds_family        = "postgres18"
 
-  # Instance sizing - small/fixed, Metabase's own metadata store is tiny
+  # Instance sizing - small/fixed, Metabase's own metadata store is tiny.
+  # gp3 (module default storage_type) requires a minimum of 20 GiB allocated.
   db_instance_class        = "db.t4g.micro"
-  db_allocated_storage     = "5"
-  db_max_allocated_storage = "20"
+  db_allocated_storage     = "20"
+  db_max_allocated_storage = "100"
 
   # Upgrades
   allow_minor_version_upgrade = true
