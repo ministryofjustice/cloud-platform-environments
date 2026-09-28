@@ -2,7 +2,7 @@
 # kind: NetworkPolicy
 # metadata:
 #   name: default
-#   namespace: laa-record-controlled-work-staging
+#   namespace: laa-record-controlled-work-production
 # spec:
 #   podSelector: {}
 #   policyTypes:
