@@ -26,9 +26,14 @@ module "rds_instance" {
   license_model            = "license-included"
   snapshot_identifier      = aws_db_snapshot_copy.cis_rds_shared_snapshot_copy.id
   opt_in_xsiam_logging     = true
+  skip_final_snapshot      = true
 
   # Avoid default parameters set by MOJ
-  db_parameter = []
+  db_parameter = [{
+    "apply_method": "immediate",
+    "name": "max_string_size",
+    "value": "EXTENDED"
+  }]
 
   # Tags
   business_unit          = var.business_unit
