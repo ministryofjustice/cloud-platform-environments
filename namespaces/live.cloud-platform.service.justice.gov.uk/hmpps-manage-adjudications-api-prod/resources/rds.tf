@@ -18,7 +18,7 @@ module "ma_rds" {
   allow_minor_version_upgrade = "true"
   enable_irsa                 = true
 
-  storage_type                = "gp2"
+  storage_type                = "gp3"
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
