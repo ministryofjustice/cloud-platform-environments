@@ -1,6 +1,7 @@
 module "ma_rds" {
   source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type                = "gp2"
+  storage_type                = "gp3"
+  db_iops                     = 12000 # gp3 baseline at 400 GB or more (no extra cost); the module requires it to be set
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
