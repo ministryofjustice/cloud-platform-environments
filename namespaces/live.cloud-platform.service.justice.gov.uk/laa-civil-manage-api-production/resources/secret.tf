@@ -13,7 +13,7 @@ module "secrets_manager" {
     "slack-webhook-url" = {
       description             = "Slack webhook URL for production environment",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "slack-webhook-url-alerts-prod"      
+      k8s_secret_name         = "slack-webhook-url-alerts"      
     },
     
     "azure-entra-api-client-secret" = {
