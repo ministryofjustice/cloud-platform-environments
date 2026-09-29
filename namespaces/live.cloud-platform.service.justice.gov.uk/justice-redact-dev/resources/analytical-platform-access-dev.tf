@@ -1,13 +1,11 @@
 # Getting the justice-redact RDS database onto the Analytical Platform.
-# Pattern: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/getting-your-data-onto-the-analytical-platform.html
+# Pattern: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/getting-your-data-onto-the-analytical-platform.html[cite: 1]
 #
-# This is step 1 of 3: create the IAM user the Data Extractor cronjob (running
-# inside this namespace) will use to write the daily DB dump to the
+# This is step 1 of 3: create the IAM user the Data Extractor cronjob (running # inside this namespace) will use to write the daily DB dump to the[cite: 1]
 # Register My Data "landing" bucket. Steps 2 (deploy the extractor) and 3
 # (register the ETL pipeline) happen outside this file — see notes below.
 #
-# Bucket path convention: moj-reg-<env>/landing/<service>-<env>/*
-# service = justice-redact, env = dev
+# Bucket path: moj-reg-dev-curated/justice-redact-dev/*
 
 resource "random_id" "ap_rds_export_id" {
   byte_length = 16
@@ -49,8 +47,8 @@ data "aws_iam_policy_document" "ap_rds_export_access" {
       "s3:DeleteObject*"
     ]
     resources = [
-      "arn:aws:s3:::moj-reg-dev/landing/justice-redact-dev/*",
-      "arn:aws:s3:::moj-reg-dev/landing/justice-redact-dev/"
+      "arn:aws:s3:::moj-reg-dev-curated/justice-redact-dev/*",
+      "arn:aws:s3:::moj-reg-dev-curated/justice-redact-dev/"
     ]
   }
 }
@@ -62,7 +60,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-dev/landing/justice-redact-dev/"
+    destination_bucket = "s3://moj-reg-dev-curated/justice-redact-dev/"
     user_arn            = aws_iam_user.ap_rds_export_user.arn
     access_key_id       = aws_iam_access_key.ap_rds_export_user.id
     secret_access_key   = aws_iam_access_key.ap_rds_export_user.secret
