@@ -17,6 +17,9 @@ module "ecr" {
   # github_repositories = ["JusticeAIUnit/Docket"]
   github_repositories = []
 
+  # TODO: DELETE ECR IN A SUBSEQUENT PR
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
