@@ -12,6 +12,7 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   maintenance_window           = "Sun:03:00-Sun:04:00"
+  backup_window                = "01:00-02:00"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
