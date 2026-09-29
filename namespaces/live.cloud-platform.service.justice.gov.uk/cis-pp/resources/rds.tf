@@ -54,7 +54,7 @@ resource "kubernetes_secret" "rds" {
   data = {
     rds_instance_endpoint = module.rds_instance.rds_instance_endpoint
     database_name         = module.rds_instance.database_name
-    database_username     = module.rds_instance.database_username
+    database_username     = "CRA_SYSTEM_USER" # The username for the system user - created post-snapshot restoration - must be re-created if restored again.
     database_password     = module.rds_instance.database_password
     database_address      = module.rds_instance.rds_instance_address
     database_port         = module.rds_instance.rds_instance_port
