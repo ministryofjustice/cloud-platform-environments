@@ -11,42 +11,42 @@ module "secrets_manager" {
 
   secrets = {
     "laa-infox-db-credentials" = {
-      description             = "InfoX Soap database credentials (URL, username, password)",
+      description             = "[laa-infox-db-credentials] InfoX database credentials (URL, username, password)",
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-infox-db-credentials"
     },
-    "laa-infox-mtls-certs" = {
-      description             = "InfoX MTLS Certificates (base64-encoded). These certificates are used to secure the Libra endpoint.",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "app-libra-mtls-certs"
-    },
     "laa-infox-keystore-password" = {
-      description             = "InfoX Keystore password [test].",
+      description             = "[laa-infox-keystore-password-test] InfoX Keystore password",
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-infox-keystore-password-test"
     },
     "laa-infox-private-key-password" = {
-      description             = "InfoX private key password [test].",
+      description             = "[laa-infox-private-key-password-test] InfoX private key password",
       recovery_window_in_days = 7,
       k8s_secret_name         = "laa-infox-private-key-password-test"
     },
     "infox-mlra-client-secret" = {
-      description             = "Client Secret used by MLRA",
+      description             = "[infox-mlra-client-secret] Client Secret used by MLRA",
       recovery_window_in_days = 7,
       k8s_secret_name         = "infox-mlra-client-secret"
     },
     "infox-nolasa-client-secret" = {
-      description             = "Client Secret used by NoLASA",
+      description             = "[infox-nolasa-client-secret] Client Secret used by NoLASA",
       recovery_window_in_days = 7,
       k8s_secret_name         = "infox-nolasa-client-secret"
     },
     "infox-libra-client-secret" = {
-      description             = "Client Secret used by LIBRA",
+      description             = "[infox-libra-client-secret] Client Secret used by LIBRA",
       recovery_window_in_days = 7,
       k8s_secret_name         = "infox-libra-client-secret"
     },
+    "laa-infox-keystore" = {
+      description             = "[laa-infox-keystore-test] JKS Keystore",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-infox-keystore-test"
+    },
     "sentry_dsn" = {
-      description             = "Sentry Data Source Name (DSN) for InfoX Test",
+      description             = "[sentry_dsn] Sentry Data Source Name (DSN) for InfoX Test",
       recovery_window_in_days = 7,
       k8s_secret_name         = "sentry-dsn"
     },
