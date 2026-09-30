@@ -109,7 +109,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_coreperson_subscr
   endpoint  = module.hmpps_prisoner_to_nomis_coreperson_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "core-person-record.prison.record.merged"
+      "core-person-record.prison.record.merged",
+      "core-person-record.prison.religion.created",
     ]
   })
 }
