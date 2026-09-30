@@ -9,10 +9,10 @@ module "laa_fee_caclulator_team_ecr_credentials" {
 
   repo_name = var.repo_name
 
-  # enable the oidc implementation for CircleCI
-  oidc_providers = ["circleci","github"]
+  # enable the oidc implementation for GitHub Actions
+  oidc_providers = ["github"]
 
-  # specify which GitHub repository your CircleCI or Github Actions job runs from
+  # specify which GitHub repository your Github Actions job runs from
   github_repositories = ["laa-fee-calculator"]
 
   # Tags

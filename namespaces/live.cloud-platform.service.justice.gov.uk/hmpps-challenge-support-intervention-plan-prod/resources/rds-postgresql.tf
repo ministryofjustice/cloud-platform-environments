@@ -23,8 +23,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17"
-  rds_family        = "postgres17"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.medium"
 
   # Tags
@@ -40,13 +40,20 @@ module "rds" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -101,8 +108,9 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine                = "postgres"
-  db_engine_version        = "17"
-  rds_family               = "postgres17"
+  db_engine_version        = "18.6"
+  rds_family               = "postgres18"
+  prepare_for_major_upgrade = false
   db_instance_class        = "db.t4g.medium"
   db_max_allocated_storage = "500"
   db_allocated_storage     = "100"
@@ -119,13 +127,20 @@ module "read_replica" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -149,6 +164,11 @@ module "read_replica" {
       apply_method = "immediate"
     }
   ]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply pending-reboot parameters. Cloud Platform do not reboot RDS on
+  # request - teams do it from a service pod. See IR-1982.
+  enable_irsa = true
 }
 
 data "aws_security_group" "mp_dps_sg" {

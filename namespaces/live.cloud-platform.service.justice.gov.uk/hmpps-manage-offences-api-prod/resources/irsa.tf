@@ -12,6 +12,7 @@ module "irsa" {
   service_account_name = "hmpps-manage-offences-api-prod"
   role_policy_arns = merge(
     { "s3" = aws_iam_policy.hmpps_manage_offences_api_prod_ap_policy.arn },
+    { "rds" = module.manage_offences_rds.irsa_policy_arn },
     local.sns_policies
   )
   business_unit          = var.business_unit

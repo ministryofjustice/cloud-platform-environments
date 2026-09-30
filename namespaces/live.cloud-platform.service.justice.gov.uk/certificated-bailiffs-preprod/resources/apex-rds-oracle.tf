@@ -61,7 +61,7 @@ module "rds_apex" {
 
   # Oracle specifics
   db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2026-04.rur-2026-04.r1"
+  db_engine_version        = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
   rds_family               = "oracle-se2-19"
   db_instance_class        = "db.t3.small"
   storage_type             = "gp2"

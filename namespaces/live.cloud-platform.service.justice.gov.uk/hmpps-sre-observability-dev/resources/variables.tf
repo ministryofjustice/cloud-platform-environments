@@ -64,3 +64,14 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "rds_maintenance_window" {
+  type        = string
+  description = "When to schedule maintenance for RDS DBs (e.g. minor version upgrades)"
+  default     = "Tue:02:20-Tue:03:30"
+}
+
+variable "eks_cluster_name" {
+  type        = string
+  description = "The name of the eks cluster to be used with IRSA"
+}

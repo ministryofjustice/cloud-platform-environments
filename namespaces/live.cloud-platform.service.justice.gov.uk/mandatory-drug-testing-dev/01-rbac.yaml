@@ -16,6 +16,10 @@ subjects:
     name: "github:hmpps-haar-client-admin"
     apiGroup: rbac.authorization.k8s.io
 ###################################################
+# syscon-devs required for testing of migration
+  - kind: Group
+    name: "github:syscon-devs"
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

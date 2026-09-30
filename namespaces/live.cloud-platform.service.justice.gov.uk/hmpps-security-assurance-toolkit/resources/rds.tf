@@ -13,7 +13,7 @@ module "hmpps_security_assurance_toolkit_rds" {
   allow_major_version_upgrade = "false"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
-  db_engine_version           = "17"
+  db_engine_version           = "17.11"
   rds_family                  = "postgres17"
 
   providers = {
@@ -30,7 +30,7 @@ resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds" {
   }
 
   data = {
-    DATABASE_URL = "postgres://${module.hmpps_security_assurance_toolkit_rds.database_username}:${module.hmpps_security_assurance_toolkit_rds.database_password}@${module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint}/${module.hmpps_security_assurance_toolkit_rds.database_name}"
+    DATABASE_URL = "postgres://${module.hmpps_security_assurance_toolkit_rds.database_username}:${module.hmpps_security_assurance_toolkit_rds.database_password}@${module.hmpps_security_assurance_toolkit_rds.rds_instance_endpoint}/${module.hmpps_security_assurance_toolkit_rds.database_name}?uselibpqcompat=true&sslmode=require"
   }
 }
 

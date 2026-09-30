@@ -17,7 +17,7 @@ module "opensearch_cluster" {
   snapshot_bucket_arn = module.opensearch_cluster_snapshot_bucket.bucket_arn
   cluster_config = {
     instance_count           = 6
-    instance_type            = "m7g.xlarge.search"
+    instance_type            = "m7g.2xlarge.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "m7g.large.search"

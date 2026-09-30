@@ -19,7 +19,7 @@ module "activities_api_rds" {
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
   db_max_allocated_storage    = "200"
-  db_engine_version           = "17.9"
+  db_engine_version           = "17.11"
   db_engine                   = "postgres"
   performance_insights_enabled = true
   deletion_protection         = true
@@ -51,7 +51,7 @@ module "activities_api_rds" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "5000"
+      value        = "15000"
       apply_method = "immediate"
     }
   ]
@@ -92,7 +92,7 @@ module "activities_rds_read_replica" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.medium"
-  db_engine_version           = "17.9"
+  db_engine_version           = "17.11"
   storage_type                = "gp3"
   db_max_allocated_storage    = "200"
   db_engine                   = "postgres"
@@ -126,7 +126,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_slot_wal_keep_size"
-      value        = "5000"
+      value        = "15000"
       apply_method = "immediate"
     },
     {

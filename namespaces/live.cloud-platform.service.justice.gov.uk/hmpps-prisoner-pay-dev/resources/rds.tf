@@ -18,7 +18,7 @@ module "prisoner_pay_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.micro"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
   storage_type                = "gp3"
   db_max_allocated_storage    = "50"
 

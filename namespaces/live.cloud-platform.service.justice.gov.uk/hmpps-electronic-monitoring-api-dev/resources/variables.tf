@@ -8,6 +8,23 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
+
+variable "namespace-short" {
+  description = "Short-form version of namespace name to get around string-length issues"
+  type        = string
+  default     = "hmpps-em-api-dev"
+}
+
+variable "athena_general_role_arn" {
+  description = "Modernisation Platform IAM role assumed by the Electronic Monitoring API for Athena access"
+  type        = string
+  default     = "arn:aws:iam::800964199911:role/em_read_emds_data_dev"
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string

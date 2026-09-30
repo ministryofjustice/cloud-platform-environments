@@ -8,14 +8,22 @@ module "rds_instance" {
   db_engine                = "oracle-se2"
   db_engine_version        = "19"
   rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.t3.small"
-  db_allocated_storage     = "100"
+  db_instance_class        = "db.m5.xlarge"
+  db_allocated_storage     = "1000"
+  db_iops                  = 12000
   rds_name                 = "cis-rds-prd"
   db_name                  = "CIS"
   license_model            = "license-included"
+  snapshot_identifier      = "cis-rds-20260925"
+  opt_in_xsiam_logging     = true
+  skip_final_snapshot      = true
   
   # Avoid default parameters set by MOJ
-  db_parameter = []
+  db_parameter = [{
+    "apply_method": "immediate",
+    "name": "max_string_size",
+    "value": "EXTENDED"
+  }]
 
   # Tags
   business_unit          = var.business_unit

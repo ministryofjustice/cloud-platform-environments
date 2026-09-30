@@ -18,7 +18,7 @@ module "calculate_release_dates_api_rds" {
   infrastructure_support = var.infrastructure_support
   db_max_allocated_storage     = "250"
   db_engine              = "postgres"
-  db_engine_version      = "16.8"
+  db_engine_version      = "16.15" # may not be actual version due to auto patch
   rds_family             = "postgres16"
   prepare_for_major_upgrade = false
   allow_minor_version_upgrade = true
@@ -34,12 +34,12 @@ module "calculate_release_dates_api_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical,pg_stat_statements"
+      value        = "pg_stat_statements"
       apply_method = "pending-reboot"
     },
     {
@@ -123,105 +123,6 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds_refresh_creds" {
     database_username     = module.calculate_release_dates_api_rds.database_username
     database_password     = module.calculate_release_dates_api_rds.database_password
     rds_instance_address  = module.calculate_release_dates_api_rds.rds_instance_address
-  }
-}
-
-
-module "read_replica" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
-
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  # PostgreSQL specifics
-  db_max_allocated_storage     = "250"
-  db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t3.small"
-
-  # It is mandatory to set the below values to create read replica instance
-  # Set the db_identifier of the source db
-  replicate_source_db = module.calculate_release_dates_api_rds.db_identifier
-
-  # No backups or snapshots are created for read replica
-  skip_final_snapshot        = "true"
-  db_backup_retention_period = 0
-
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
-  
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical,pg_stat_statements"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
-    },
-    {
-      name         = "hot_standby_feedback"
-      value        = "1"
-      apply_method = "immediate"
-    },
-    {
-      name         = "track_activity_query_size"
-      value        = "2048"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "pg_stat_statements.track"
-      value        = "ALL"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "pg_stat_statements.max"
-      value        = "10000"
-      apply_method = "pending-reboot"
-    }
-  ]
-
-  enable_irsa = true
-}
-
-resource "kubernetes_secret" "read_replica" {
-  metadata {
-    name      = "rds-read-replica-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    database_name         = module.read_replica.database_name
-    database_username     = module.read_replica.database_username
-    database_password     = module.read_replica.database_password
-    rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
 

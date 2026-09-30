@@ -36,6 +36,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+  backup_window          = var.backup_window
+  maintenance_window     = var.maintenance_window
 
   db_parameter = [
     {

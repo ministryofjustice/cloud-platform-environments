@@ -14,10 +14,10 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "16.13"
+  db_engine_version = "18.6"
   db_instance_class = "db.t4g.small"
 
-  rds_family = "postgres16"
+  rds_family = "postgres18"
 
   prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine

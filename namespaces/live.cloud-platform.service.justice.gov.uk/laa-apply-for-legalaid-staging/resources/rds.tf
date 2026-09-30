@@ -8,18 +8,18 @@ module "apply-for-legal-aid-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name                 = var.vpc_name
-  team_name                = "apply-for-legal-aid"
-  business_unit            = "laa"
-  application              = "laa-apply-for-legal-aid"
-  is_production            = "false"
+  team_name                = var.team_name
+  business_unit            = var.business_unit
+  application              = var.application
+  is_production            = var.is_production
   namespace                = var.namespace
-  environment_name         = "staging"
-  infrastructure_support   = "apply-for-civil-legal-aid@justice.gov.uk"
+  environment_name         = var.environment
+  infrastructure_support   = var.infrastructure_support
 
   # Database configuration
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "18.3"
+  db_engine_version           = "18.6"
   rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
   db_name                     = "apply_for_legal_aid_staging"

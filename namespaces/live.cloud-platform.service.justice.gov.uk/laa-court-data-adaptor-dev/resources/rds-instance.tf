@@ -13,7 +13,7 @@ module "court_data_adaptor_rds" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres17"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17.11"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
   allow_major_version_upgrade = "true"

@@ -5,7 +5,7 @@ module "hmpps_egress_controls" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.9"
 
   enable_envoy_setup     = true
-  enable_egress_controls = false
+  enable_egress_controls = true
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
@@ -16,11 +16,14 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_exact = [
+    "rds.eu-west-2.amazonaws.com",       # Service Pod (i.e. aws rds describe-db-instances ...)
+    "elasticache.eu-west-2.amazonaws.com", # Service Pod (i.e. aws elasticache describe-cache-clusters ...)
     "api.notifications.service.gov.uk",  # GOV.UK Notify
     "api.os.uk",                         # Ordnance Survey Places API
     "o345774.ingest.sentry.io",          # Sentry (CATS project DSN)
+    module.sqlserver_backup_s3_bucket.bucket_domain_name, # CATS SQL Server backup bucket
     module.s3_bucket.bucket_domain_name, # CATS document upload/download bucket
-    "preprod-dms-api.co-financing.org"       # CFO Data Management System (DMS)
+    "api.preprod.cfo-data-management-system.service.justice.gov.uk" # CFO Data Management System (DMS)
   ]
 
 }

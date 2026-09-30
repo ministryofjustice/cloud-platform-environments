@@ -12,7 +12,7 @@ module "rds" {
   infrastructure_support = var.email
 
   db_engine                    = "postgres"
-  db_engine_version            = "14.22"
+  db_engine_version            = "18.6"
   db_instance_class            = "db.t4g.small"
   db_allocated_storage         = "5"
   db_max_allocated_storage     = "500"
@@ -21,13 +21,13 @@ module "rds" {
   deletion_protection          = true
   performance_insights_enabled = true
 
-  # rds_family should be: postgres14
+  # rds_family should be: postgres18
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres18"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_minor_version_upgrade = "true"
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

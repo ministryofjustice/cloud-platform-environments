@@ -85,6 +85,12 @@ module "irsa-sqlserver" {
     {
       # Cross-namespace: read preprod backup bucket for initial data load and Phase 2 copy
       preprod_backup_s3_read = aws_iam_policy.preprod_backup_s3_read.arn
+    },
+    {
+      # APG-2664: write access to the archive bucket so the sqlserver_service_pod
+      # can copy the final .bak into it. Note: the archive bucket's deny policy
+      # blocks DeleteObject* even for this role — the pod can PUT but never delete.
+      archive_s3_bucket_policy = module.archive_s3_bucket.irsa_policy_arn
     }
   )
 

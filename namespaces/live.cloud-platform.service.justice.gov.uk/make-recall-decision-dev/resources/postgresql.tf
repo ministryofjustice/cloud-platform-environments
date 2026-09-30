@@ -19,7 +19,7 @@ module "make_recall_decision_api_rds" {
   rds_name          = "make-recall-decision-${var.environment}"
   rds_family        = "postgres17"
   db_engine         = "postgres"
-  db_engine_version = "17.6"
+  db_engine_version = "17.11"
   db_instance_class = "db.t3.small"
   db_name           = "make_recall_decision"
 

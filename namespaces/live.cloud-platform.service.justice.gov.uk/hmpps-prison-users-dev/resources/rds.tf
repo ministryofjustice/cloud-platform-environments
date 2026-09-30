@@ -15,7 +15,7 @@ module "prison_users_rds" {
   infrastructure_support     = var.infrastructure_support
   db_instance_class          = "db.t4g.small"
   db_engine                  = "postgres"
-  db_engine_version          = "18"
+  db_engine_version          = "18.6"
   rds_family                 = "postgres18"
   db_password_rotated_date   = "15-02-2023"
   deletion_protection        = true

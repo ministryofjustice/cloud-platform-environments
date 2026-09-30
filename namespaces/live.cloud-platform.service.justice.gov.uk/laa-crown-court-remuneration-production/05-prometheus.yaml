@@ -151,6 +151,62 @@ spec:
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
 
+    - alert: CCR-Unexpected-Pod-Count
+      expr: count(kube_pod_info{namespace="laa-crown-court-remuneration-production"}) > 2
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-production
+      annotations:
+        message: "CCR Production - {{ $value }} pods detected in namespace, expected 2 or fewer."
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
+
+    - alert: CCR-Specific-Pod-Exists
+      expr: |
+        absent(
+          kube_pod_info{
+            namespace="laa-crown-court-remuneration-production",
+            pod=~"laa-crown-court-remuneration-app-.*"
+          }
+        )
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-production
+      annotations:
+        message: "CCR Production - No laa-crown-court-remuneration-app pod exists in namespace laa-crown-court-remuneration-production."
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
+
+    - alert: CCR-App-Pod-Missing
+      expr: count(
+        kube_pod_status_ready{
+        namespace="laa-crown-court-remuneration-production",
+        condition="true",
+        pod=~"laa-crown-court-remuneration-app-.*"
+        }
+        ) == 0
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-production
+      annotations:
+        message: "CCR Production - No ready laa-crown-court-remuneration-app pods exist in namespace laa-crown-court-remuneration-production."
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
+
+    - alert: CCR-High-Pod-Restarts
+      expr: increase(
+        kube_pod_container_status_restarts_total{
+        namespace="laa-crown-court-remuneration-production"
+        }[30m]
+        ) > 5
+      for: 5m
+      labels:
+        severity: laa-crown-court-remuneration-production
+      annotations:
+        message: "CCR Production - Pod restart count exceeded 5 within the last 30 minutes."
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
+
     - alert: CCR-Payment-Get-Errors
       expr: increase(payment_get_errors_total{namespace="laa-crown-court-remuneration-production"}[5m]) > 0
       labels:
@@ -213,5 +269,16 @@ spec:
         severity: laa-crown-court-remuneration-production
       annotations:
         message: CCR PRODUCTION - {{ printf "%0.0f" $value }} new error in the retrieval and insertion of suppliers the last 5 minutes.
+        runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"
+    
+    - alert: CCR-secrets-changed
+      expr: aws_secretsmanager_put_secret_value_sum{secret_id="arn:aws:secretsmanager:eu-west-2:754256621582:secret:live-laa-crown-court-remuneration-production-b9b04ef54b579f67-EtUe0Z"} > 0
+      for: 1m
+      labels:
+        severity: laa-crown-court-remuneration-production
+        status_icon: information
+      annotations:
+        message: CCR Production secrets have been modified.
         runbook_url: "https://dsdmoj.atlassian.net/wiki/spaces/AAC/pages/3160014895/Crown+Court+Remuneration+CCR+Runbook#Monitoring-and-Alerting"
         dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/application-alerts/application-alerts?orgId=1&var-namespace=laa-crown-court-remuneration-production"

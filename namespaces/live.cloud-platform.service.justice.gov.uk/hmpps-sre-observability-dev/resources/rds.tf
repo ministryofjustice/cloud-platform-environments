@@ -11,6 +11,8 @@ module "hmpps_dependencytrack_postgresql_rds" {
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
+  maintenance_window          = var.rds_maintenance_window
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine                   = "postgres"
@@ -21,6 +23,7 @@ module "hmpps_dependencytrack_postgresql_rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_dependencytrack_postgresql_rds-dev" {

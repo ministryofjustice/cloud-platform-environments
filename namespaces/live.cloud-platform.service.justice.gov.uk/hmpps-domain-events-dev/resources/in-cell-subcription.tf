@@ -1,5 +1,5 @@
 module "in_cell_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -85,17 +85,17 @@ resource "aws_iam_user" "in-cell-queue-user" {
 }
 
 resource "aws_iam_access_key" "in-cell-queue-access" {
-  user = aws_iam_user.user.name
+  user = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "aws_iam_user_policy_attachment" "in-cell-queue-policy" {
-  policy_arn = module.in_cell_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  policy_arn = aws_iam_policy.sqs_irsa_policy[module.in_cell_queue.sqs_name].arn
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy" {
-  policy_arn = module.in_cell_dead_letter_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  policy_arn = aws_iam_policy.sqs_irsa_policy[module.in_cell_dead_letter_queue.sqs_name].arn
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "kubernetes_secret" "in_cell_queue" {

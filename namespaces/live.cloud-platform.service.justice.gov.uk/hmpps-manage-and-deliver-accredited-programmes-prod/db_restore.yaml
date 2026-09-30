@@ -1,9 +1,23 @@
+# =============================================================================
+# APG-2664 — NEC pipeline decommissioned 2026-09-10
+# This CronJob is intentionally suspended. The NEC ingest pipeline is being
+# retired: the final .bak was received Thu 10 Sep 2026 and both preprod and
+# prod RDS instances have been manually snapshotted (see APG-2664 ticket for
+# snapshot ARNs + KMS key ARNs).
+# Both SQLSERVER_BACKUP_S3_BUCKET_NAME env vars below have been invalidated
+# to "APG-2664-DECOMMISSIONED" so any accidental unsuspend fails fast without
+# touching the DB — the find-backup-file init container will get AccessDenied
+# from S3 and the job will fail before the destructive db-restore step runs.
+# DO NOT unsuspend without first reviewing APG-2664.
+# =============================================================================
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: db-restore-cronjob
   namespace: hmpps-manage-and-deliver-accredited-programmes-prod
 spec:
+  # APG-2664: suspended — pipeline decommissioned. See banner above.
+  suspend: true
   # Run daily at 06:30 UTC — after preprod's restore completes (05:45 + ~8min).
   # Uses the same .bak file from preprod's backup bucket.
   schedule: "30 6 * * *"
@@ -111,8 +125,10 @@ spec:
                 - name: HOME
                   value: /tmp
                 # Reads from preprod backup bucket — prod has cross-namespace read access
+                # APG-2664: invalidated. Any accidental unsuspend fails at find-backup-file
+                # step with S3 AccessDenied before the destructive db-restore container runs.
                 - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
-                  value: "cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
+                  value: "APG-2664-DECOMMISSIONED"
               command:
                 - /bin/bash
                 - -c
@@ -217,8 +233,9 @@ spec:
                       name: rds-sqlserver-instance-output
                       key: database_password
                 # Reads from preprod backup bucket — prod has cross-namespace read access
+                # APG-2664: invalidated. See banner at top of file.
                 - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
-                  value: "cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
+                  value: "APG-2664-DECOMMISSIONED"
               command:
                 - /bin/bash
                 - -c

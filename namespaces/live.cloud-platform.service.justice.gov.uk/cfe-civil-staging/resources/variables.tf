@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "laa-eligibility-platform"
+  default     = "laa-apply-for-legal-aid"
 }
 
 variable "environment" {

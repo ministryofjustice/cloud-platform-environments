@@ -16,8 +16,8 @@ module "dps_rds" {
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres17"
-  db_engine_version           = "17.9"
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -31,13 +31,20 @@ module "dps_rds" {
 
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -92,8 +99,8 @@ module "dps_rds_replica" {
   # PostgreSQL specifics
   prepare_for_major_upgrade   = false
   db_engine         = "postgres"
-  db_engine_version = "17.9"
-  rds_family        = "postgres17"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
@@ -111,13 +118,20 @@ module "dps_rds_replica" {
   # If not specified you dont need to add any. It will use the default values.
   db_parameter = [
     {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "immediate"
+    },
+    {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
     {
       name         = "shared_preload_libraries"
-      value        = "pglogical"
+      value        = "pg_tle,pg_stat_statements,pglogical"
       apply_method = "pending-reboot"
     },
     {
@@ -144,6 +158,11 @@ module "dps_rds_replica" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  # Creates the IAM policy granting rds:RebootDBInstance on this instance, so the namespace
+  # service pod can apply pending-reboot parameters. Cloud Platform do not reboot RDS on
+  # request - teams do it from a service pod. See IR-1982.
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
