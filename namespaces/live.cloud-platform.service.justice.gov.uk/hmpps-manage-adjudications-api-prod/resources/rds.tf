@@ -18,7 +18,8 @@ module "ma_rds" {
   allow_minor_version_upgrade = "true"
   enable_irsa                 = true
 
-  storage_type                = "gp2"
+  storage_type                = "gp3"
+  db_iops                     = 12000 # gp3 baseline at 400 GB or more (no extra cost); the module requires it to be set
   db_allocated_storage        = "1500"
 
   db_engine                   = "postgres"
