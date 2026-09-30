@@ -6,6 +6,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
+
 }
 
 module "hmpps_prisoner_finance_sync_irsa" {
