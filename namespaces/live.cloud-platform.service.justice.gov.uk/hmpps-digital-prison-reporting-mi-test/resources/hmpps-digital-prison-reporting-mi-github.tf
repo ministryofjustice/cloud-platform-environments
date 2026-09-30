@@ -6,7 +6,7 @@ module "hmpps_digital_prison_reporting_mi_github" {
   github_team                   = var.team_name
   environment                   = "test"
   is_production                 = var.is_production
-  application_insights_instance = "test" # "dev", "preprod" or "prod"
+  application_insights_instance = "dev" # "dev", "preprod" or "prod"
   selected_branch_patterns = [
   "main",
   "DHS-705",
