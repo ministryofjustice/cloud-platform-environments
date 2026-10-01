@@ -133,3 +133,4 @@ resource "aws_sns_topic_subscription" "in_cell_subscription" {
   endpoint      = module.in_cell_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
 }
+
