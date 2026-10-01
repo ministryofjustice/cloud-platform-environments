@@ -44,6 +44,11 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
   })
 }
 
+resource "aws_sqs_queue_policy" "domain_events_queue_policy" {
+  queue_url = module.domain_events_queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
+
 resource "kubernetes_secret" "domain_events_queue_secret" {
   metadata {
     name      = "domain-events-queue-secret"
