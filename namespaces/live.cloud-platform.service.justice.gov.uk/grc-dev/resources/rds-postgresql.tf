@@ -54,6 +54,10 @@ module "rds" {
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
 
+  # If you do not want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
+  # comment below:
+  enable_irsa = true
+
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
