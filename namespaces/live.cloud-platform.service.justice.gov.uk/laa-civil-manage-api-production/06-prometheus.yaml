@@ -19,12 +19,15 @@ spec:
         message: "CRITICAL: laa-civil-manage-api has zero ready pods in the laa-civil-manage-api-production namespace."
 
     - alert: PodCrashLooping
-      expr: kube_pod_container_status_waiting_reason{namespace="laa-civil-manage-api-production", reason="CrashLoopBackOff"} > 0
-      for: 10m
+      expr: |
+        max by (namespace, pod, container) (increase(kube_pod_container_status_restarts_total{namespace="laa-civil-manage-api-production"}[15m])) > 2
+        or
+        max by (namespace, pod, container) (max_over_time(kube_pod_container_status_waiting_reason{namespace="laa-civil-manage-api-production", reason="CrashLoopBackOff"}[5m])) >= 1
+      for: 5m
       labels:
         severity: laa-civil-manage-alerts-prod
       annotations:
-        message: "Warning: a pod in namespace {{ $labels.namespace }} has been in CrashLoopBackOff for over 10 minutes."
+        message: "Warning: container {{ $labels.container }} in pod {{ $labels.pod }} ({{ $labels.namespace }}) is crash looping or restarting repeatedly."
 
     - alert: PodNotReady
       expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-civil-manage-api-production", phase=~"Pending|Unknown"}) > 0
