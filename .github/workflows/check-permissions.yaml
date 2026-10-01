@@ -45,7 +45,7 @@ jobs:
             github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: github.event.pull_request.number,
+              issue_number: context.payload.pull_request.number,
               body: "The owner of this PR isn't a member of the relevant rbac teams.."
             })
 
