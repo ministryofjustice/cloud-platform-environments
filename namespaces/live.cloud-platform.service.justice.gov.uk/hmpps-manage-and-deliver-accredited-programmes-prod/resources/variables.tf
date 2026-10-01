@@ -153,12 +153,6 @@ variable "db_backup_retention_period" {
   default     = "7"
 }
 
-variable "preprod_backup_bucket_arn" {
-  description = "ARN of the preprod SQL Server backup S3 bucket (cross-namespace read access for Phase 2 copy)"
-  type        = string
-  default     = "arn:aws:s3:::cloud-platform-421f9ae70e6559d242c61fe413ef46a4"
-}
-
 variable "logging_enabled" {
   default = true
 }
