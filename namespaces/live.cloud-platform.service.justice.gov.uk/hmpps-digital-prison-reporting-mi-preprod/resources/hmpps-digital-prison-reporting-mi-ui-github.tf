@@ -9,6 +9,7 @@ module "hmpps_digital_prison_reporting_mi_ui_github" {
   application_insights_instance = "preprod"
   selected_branch_patterns = [
   "main",
+  "DHS-704",
 ]
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
