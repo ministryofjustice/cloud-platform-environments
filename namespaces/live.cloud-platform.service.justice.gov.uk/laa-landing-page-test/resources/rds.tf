@@ -239,3 +239,18 @@ resource "kubernetes_secret" "rds_app" {
     rds_instance_address  = module.rds.rds_instance_address
   }
 }
+
+resource "kubernetes_secret" "rds_app_api" {
+  metadata {
+    name      = "rds-postgresql-instance-app-output"
+    namespace = var.namespace-api
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = postgresql_role.app.name
+    database_password     = random_password.app_password.result
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
