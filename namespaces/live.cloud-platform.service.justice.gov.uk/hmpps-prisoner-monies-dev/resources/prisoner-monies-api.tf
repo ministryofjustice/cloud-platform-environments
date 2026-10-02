@@ -1,4 +1,4 @@
-module "hmpps_template_kotlin" {
+module "hmpps_prisoner_monies_api" {
   source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
