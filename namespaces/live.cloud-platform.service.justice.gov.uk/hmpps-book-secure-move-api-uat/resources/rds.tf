@@ -16,10 +16,10 @@ module "rds-instance" {
 
   db_instance_class = "db.t4g.small"
   db_engine         = "postgres"
-  db_engine_version = "16.13"
-  rds_family        = "postgres16"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "true"
