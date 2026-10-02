@@ -45,30 +45,3 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
 
-# Service account for the incentives front end. It needs two things:
-# - read access to the mojap-incentives S3 bucket for the analytics pages (the same
-#   policy as the analytical-platform service account in ap-data.tf, which the front
-#   end uses today)
-# - permission to send page-view events to the HMPPS Audit queue
-# A pod can only use one service account, so both policies go on this one. It is
-# deliberately separate from the API service account above so the front end does not
-# inherit the API's RDS, SQS and SNS access.
-# The helm chart must set generic-service.serviceAccountName to match the name below.
-module "hmpps-incentives-ui-service-account" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-
-  eks_cluster_name     = var.eks_cluster_name
-  namespace            = var.namespace
-  service_account_name = "hmpps-incentives-ui"
-  role_policy_arns = {
-    analytical_platform = aws_iam_policy.analytical-platform.arn
-    audit_sqs           = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-prod-hmpps_audit_queue"].value
-  }
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-}
