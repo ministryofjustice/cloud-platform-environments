@@ -26,7 +26,6 @@ module "rds" {
   allow_major_version_upgrade = false
   allow_minor_version_upgrade = false
   deletion_protection         = true
-  prepare_for_major_upgrade   = true
 
   enable_irsa = true
 }
