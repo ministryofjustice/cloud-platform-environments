@@ -40,7 +40,7 @@ spec:
       expr: kube_deployment_status_replicas_available{namespace="laa-civil-manage-api-dev", deployment="laa-civil-manage-api"} < kube_deployment_spec_replicas{namespace="laa-civil-manage-api-dev", deployment="laa-civil-manage-api"}
       for: 15m
       labels:
-        severity: laa-civil-manage-alerts-prod
+        severity: laa-civil-manage-dev
       annotations:
         message: "laa-civil-manage-api has fewer ready pods than desired for 15m (running with reduced capacity)."
 
@@ -56,7 +56,7 @@ spec:
       expr: sum by (namespace) (increase(http_server_requests_seconds_count{status="403", namespace="laa-civil-manage-api-dev"}[5m])) > 20
       for: 1m
       labels:
-        severity: laa-civil-manage-alerts-prod
+        severity: laa-civil-manage-dev
       annotations:
         message: "403 Forbidden spike ({{ printf \"%.0f\" $value }}/5m). Missing scopes/roles. Check Azure app registration permissions."
 
