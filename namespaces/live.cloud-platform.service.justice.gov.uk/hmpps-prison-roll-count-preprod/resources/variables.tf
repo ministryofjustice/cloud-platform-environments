@@ -5,8 +5,7 @@ variable "kubernetes_cluster" {
 }
 
 variable "application" {
-  description = "HMPPS Prison Roll Count Service"
-  default     = "hmpps-prison-roll-count"
+  default = "HMPPS Prison Roll Count Service"
 }
 
 variable "namespace" {
