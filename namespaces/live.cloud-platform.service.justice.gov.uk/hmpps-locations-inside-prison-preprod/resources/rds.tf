@@ -8,7 +8,7 @@ module "dps_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   enable_rds_auto_start_stop = true
 
