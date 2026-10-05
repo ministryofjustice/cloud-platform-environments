@@ -9,7 +9,8 @@ variable "eks_cluster_name" {
 }
 
 variable "application" {
-  default = "HMPPS Prison Roll Count Service"
+  description = "HMPPS Prison Roll Count Service"
+  default     = "hmpps-prison-roll-count"
 }
 
 variable "namespace" {
