@@ -51,6 +51,8 @@ module "dps_rds" {
         apply_method = "immediate"
       }
     ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
