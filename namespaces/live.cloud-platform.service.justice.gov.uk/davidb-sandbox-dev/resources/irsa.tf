@@ -11,7 +11,7 @@ module "irsa" {
 
   role_policy_arns = {
     # Here you must provide the policy arn(s) for the AWS resources you want to access via the service pod
-    rds = module.rds.irsa_policy_arn
+    # rds = module.rds.irsa_policy_arn
   }
 
   # Tags
