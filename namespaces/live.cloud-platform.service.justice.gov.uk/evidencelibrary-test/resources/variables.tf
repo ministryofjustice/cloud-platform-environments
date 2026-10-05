@@ -60,7 +60,7 @@ variable "rds-family" {
 }
 
 variable "db_engine_version" {
-  default = "17.7"
+  default = "17.9"
 }
 
 variable "db_instance_class" {
