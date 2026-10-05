@@ -1,6 +1,8 @@
 locals {
   holds_irsa_policies = {
-    rds                              = module.holds_rds.irsa_policy_arn
+    rds = module.holds_rds.irsa_policy_arn
+    s3  = module.holds-restore-s3-bucket.irsa_policy_arn
+
   }
 }
 

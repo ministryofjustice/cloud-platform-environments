@@ -19,10 +19,11 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family        = "postgres18"
-  db_instance_class = "db.t4g.small"
+  db_engine                  = "postgres"
+  db_engine_version          = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_backup_retention_period = "14"
+  rds_family                 = "postgres18"
+  db_instance_class          = "db.t4g.small"
 
   # Tags
   application            = var.application

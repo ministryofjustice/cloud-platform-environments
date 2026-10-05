@@ -24,6 +24,8 @@ module "dps_rds" {
 
   rds_family = "postgres14"
 
+  enable_irsa = true
+
   providers = {
     aws = aws.london
   }

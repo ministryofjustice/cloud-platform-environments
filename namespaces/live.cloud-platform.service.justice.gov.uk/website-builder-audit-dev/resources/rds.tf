@@ -6,7 +6,7 @@ module "rds_instance" {
 
   # Database configuration
   db_engine                = "postgres"
-  db_engine_version        = "15"
+  db_engine_version        = "15.19"
   rds_family               = "postgres15"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"

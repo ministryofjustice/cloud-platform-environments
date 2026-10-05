@@ -53,21 +53,6 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
-resource "kubernetes_secret" "rds-api" {
-  metadata {
-    name      = "rds-postgresql-instance-output"
-    namespace = var.namespace-api
-  }
-
-  data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-  }
-}
-
 module "rds_temp" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
@@ -285,6 +270,21 @@ resource "kubernetes_secret" "rds_app" {
   metadata {
     name      = "rds-postgresql-instance-app-output"
     namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = postgresql_role.app.name
+    database_password     = random_password.app_password.result
+    rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "rds_app_api" {
+  metadata {
+    name      = "rds-postgresql-instance-app-output"
+    namespace = var.namespace-api
   }
 
   data = {

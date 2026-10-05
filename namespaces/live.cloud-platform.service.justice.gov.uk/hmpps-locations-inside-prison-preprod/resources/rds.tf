@@ -8,12 +8,13 @@ module "dps_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+  prepare_for_major_upgrade  = false
 
   enable_rds_auto_start_stop = true
 
   db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres16"
-  db_engine_version           = "16"
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -27,7 +28,7 @@ module "dps_rds" {
   db_parameter = [
       {
         name         = "rds.logical_replication"
-        value        = "1"
+        value        = "0"
         apply_method = "pending-reboot"
       },
       {
@@ -51,6 +52,8 @@ module "dps_rds" {
         apply_method = "immediate"
       }
     ]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {
