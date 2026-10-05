@@ -6,8 +6,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-cvl_test2_domain_events_queue"       = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-cvl_test2_domain_events_queue_dl"    = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_test2_events_queue"       = "offender-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_test2_events_queue_dl"    = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
