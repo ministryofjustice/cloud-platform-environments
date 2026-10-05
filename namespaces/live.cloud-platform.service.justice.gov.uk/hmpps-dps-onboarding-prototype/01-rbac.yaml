@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-dps-onboarding-prototype
 subjects:
   - kind: Group
-    name: "github:hmpps-designers"
+    name: "github:hmpps-dps-onboarding"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
