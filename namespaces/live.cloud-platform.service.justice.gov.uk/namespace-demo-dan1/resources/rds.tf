@@ -3,6 +3,7 @@ module "pg17" {
 
   # VPC configuration
   vpc_name = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true

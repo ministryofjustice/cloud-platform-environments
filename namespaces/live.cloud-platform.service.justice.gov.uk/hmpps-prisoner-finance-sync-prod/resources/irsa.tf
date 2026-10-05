@@ -6,6 +6,12 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
+  irsa_policies = merge(
+    local.sqs_policies,
+    {
+      s3 = module.s3.irsa_policy_arn
+    }
+  )
 }
 
 module "hmpps_prisoner_finance_sync_irsa" {
@@ -14,7 +20,8 @@ module "hmpps_prisoner_finance_sync_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns     = local.irsa_policies
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

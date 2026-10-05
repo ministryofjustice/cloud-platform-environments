@@ -15,6 +15,18 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  # The docket frontend uploads audio and PDFs straight to the bucket with presigned
+  # URLs minted by the API, so the browser origin must be allowed to PUT and GET.
+  cors_rule = [
+    {
+      allowed_headers = ["*"]
+      allowed_methods = ["GET", "PUT", "HEAD", "POST", "DELETE"]
+      allowed_origins = ["https://jaiu-docket-dev.apps.live.cloud-platform.service.justice.gov.uk"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    },
+  ]
+
   /*
 
   * Public Buckets: It is strongly advised to keep buckets 'private' and only make public where necessary.

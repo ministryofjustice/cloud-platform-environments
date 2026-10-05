@@ -11,25 +11,68 @@ spec:
     rules:
     
     - alert: NoPodsRunning
-      expr: sum(kube_pod_status_phase{namespace="laa-civil-manage-dev", phase="Running"}) == 0 or absent(kube_pod_status_phase{namespace="laa-civil-manage-dev", phase="Running"})
+      expr: sum by (namespace) (kube_deployment_status_replicas_available{namespace="laa-civil-manage-dev", deployment="laa-civil-manage"}) == 0 or absent(kube_deployment_status_replicas_available{namespace="laa-civil-manage-dev", deployment="laa-civil-manage"})
       for: 5m
       labels:
         severity: laa-civil-manage-dev
       annotations:
-        message: "CRITICAL: There are zero running pods in the laa-civil-manage-dev namespace."
+        message: "CRITICAL: laa-civil-manage has zero ready pods in the laa-civil-manage-dev namespace."
 
     - alert: PodCrashLooping
-      expr: kube_pod_container_status_waiting_reason{namespace="laa-civil-manage-dev", reason="CrashLoopBackOff"} > 0
+      expr: |
+        max by (namespace, pod, container) (increase(kube_pod_container_status_restarts_total{namespace="laa-civil-manage-dev"}[15m])) > 2
+        or
+        max by (namespace, pod, container) (max_over_time(kube_pod_container_status_waiting_reason{namespace="laa-civil-manage-dev", reason="CrashLoopBackOff"}[5m])) >= 1
+      for: 5m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "Warning: container {{ $labels.container }} in pod {{ $labels.pod }} ({{ $labels.namespace }}) is crash looping or restarting repeatedly."
+
+    - alert: PodNotReady
+      expr: sum by (namespace, pod) (kube_pod_status_phase{namespace="laa-civil-manage-dev", phase=~"Pending|Unknown"}) > 0
+      for: 15m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "Pod {{ $labels.pod }} in {{ $labels.namespace }} has been Pending/Unknown for over 15 minutes (stuck deploy: image pull, quota or scheduling). Dev may still be on the old version."
+
+    - alert: DeploymentReplicasMismatch
+      expr: kube_deployment_status_replicas_available{namespace="laa-civil-manage-dev", deployment="laa-civil-manage"} < kube_deployment_spec_replicas{namespace="laa-civil-manage-dev", deployment="laa-civil-manage"}
+      for: 15m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "laa-civil-manage has fewer ready pods than desired for 15m (running with reduced capacity)."
+
+    - alert: Auth401Unauthorized
+      expr: sum by (namespace) (increase(http_request_duration_seconds_count{status_code="401", namespace="laa-civil-manage-dev"}[5m])) > 20
+      for: 1m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "401 Unauthorized spike ({{ printf \"%.0f\" $value }}/5m). Check for invalid/expired Entra ID session tokens."
+
+    - alert: Auth403Forbidden
+      expr: sum by (namespace) (increase(http_request_duration_seconds_count{status_code="403", namespace="laa-civil-manage-dev"}[5m])) > 20
+      for: 1m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "403 Forbidden spike ({{ printf \"%.0f\" $value }}/5m). Check application role assignments."
+
+    - alert: ServerErrors
+      expr: sum by (namespace) (increase(http_request_duration_seconds_count{namespace="laa-civil-manage-dev", status_code=~"5.."}[5m])) > 5
+      for: 5m
+      labels:
+        severity: laa-civil-manage-dev
+      annotations:
+        message: "{{ printf \"%.0f\" $value }} 5xx errors in 5m on frontend UI."
+
+    - alert: MetricsScrapeDown
+      expr: sum by (namespace) (up{namespace="laa-civil-manage-dev", service="laa-civil-manage"}) == 0 or absent(up{namespace="laa-civil-manage-dev", service="laa-civil-manage"})
       for: 10m
       labels:
         severity: laa-civil-manage-dev
       annotations:
-        message: "Warning: a pod in namespace {{ $labels.namespace }} has been in CrashLoopBackOff for over 10 minutes."
-
-    - alert: HighHttp5xxErrorRate
-      expr: sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev", status_code=~"5.."}[5m])) / sum(rate(http_request_duration_seconds_count{namespace="laa-civil-manage-dev"}[5m])) > 0.05
-      for: 5m
-      labels:
-        severity: laa-civil-manage-dev
-      annotations:
-        message: "CRITICAL: The 5xx error rate in {{ $labels.namespace }} has exceeded 5% for the last 5 minutes."
+        message: "Prometheus cannot scrape /metrics for laa-civil-manage-dev, so error and auth alerts are not working."

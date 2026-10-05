@@ -10,12 +10,6 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "auth-client-id" = {
-      description             = "Auth client ID from Entra for staging environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-client-id-staging"
-    },
-
     "auth-client-secret" = {
       description             = "Auth client secret from Entra for staging environment",
       recovery_window_in_days = 7,
@@ -27,19 +21,6 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "session-secret-staging"
     },    
-
-    "auth-directory-url" = {
-      description             = "Auth directory URL from Entra for staging environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-directory-url-staging"
-    },
-
-    "base_url_map" = {
-      description             = "API Base URL Map for staging environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "base-url-map-staging"
-    },
-
     "slack-webhook-url" = {
       description             = "Slack webhook URL for non-production environment",
       recovery_window_in_days = 7,

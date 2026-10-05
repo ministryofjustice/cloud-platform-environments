@@ -17,10 +17,10 @@ module "rds-instance" {
   enable_rds_auto_start_stop = true
 
   db_engine         = "postgres"
-  db_engine_version = "16.13"
+  db_engine_version = "18.6"
   db_instance_class = "db.t4g.small"
 
-  rds_family = "postgres16"
+  rds_family = "postgres18"
 
   prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
@@ -36,33 +36,33 @@ module "rds-instance" {
   # Add security groups for DPR
   vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.force_ssl"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "rds.logical_replication"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   },
-  #    {
-  #     name         = "shared_preload_libraries"
-  #     value        = "pglogical"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "max_wal_size"
-  #     value        = "1024"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "wal_sender_timeout"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.force_ssl"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+     {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    }
+  ]
 
   enable_irsa = true
 }
@@ -90,46 +90,46 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   prepare_for_major_upgrade = false
-  db_engine_version         = "16.15"
-  rds_family                = "postgres16"
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
     aws = aws.london
   }
 
-  # db_parameter = [
-  #   {
-  #     name         = "rds.logical_replication"
-  #     value        = "1"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "shared_preload_libraries"
-  #     value        = "pglogical"
-  #     apply_method = "pending-reboot"
-  #   },
-  #   {
-  #     name         = "max_wal_size"
-  #     value        = "1024"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "wal_sender_timeout"
-  #     value        = "0"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "max_slot_wal_keep_size"
-  #     value        = "40000"
-  #     apply_method = "immediate"
-  #   },
-  #   {
-  #     name         = "hot_standby_feedback"
-  #     value        = "1"
-  #     apply_method = "immediate"
-  #   }
-  # ]
+  db_parameter = [
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    },
+    {
+      name         = "hot_standby_feedback"
+      value        = "1"
+      apply_method = "immediate"
+    }
+  ]
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]

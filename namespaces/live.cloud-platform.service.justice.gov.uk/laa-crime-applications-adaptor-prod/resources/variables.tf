@@ -112,11 +112,6 @@ variable "cognito_user_pool_client_name" {
   default     = "maat-application"
 }
 
-variable "cognito_user_pool_crime_apply_client_name" {
-  description = "Cognito user pool Crime Apply client name"
-  default     = "crime-apply"
-}
-
 variable "cognito_user_pool_crime_apply_v2_client_name" {
   description = "Cognito user pool Crime Apply V2 client name"
   default     = "crime-apply-v2"

@@ -6,8 +6,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-cvl_test2_domain_events_queue"       = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-cvl_test2_domain_events_queue_dl"    = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_test2_events_queue"       = "offender-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_test2_events_queue_dl"    = "offender-events-dev"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
@@ -18,6 +16,8 @@ locals {
     cvl_domain_events_dead_letter_queue = module.cvl_domain_events_dead_letter_queue.irsa_policy_arn,
     cvl_prison_events_queue             = module.cvl_prison_events_queue.irsa_policy_arn,
     cvl_prison_events_dead_letter_queue = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
+    hmpps_hdc_api_queue                 = data.aws_ssm_parameter.hmpps_hdc_api_queue_irsa_policy.value,
+    hmpps_hdc_api_dead_letter_queue     = data.aws_ssm_parameter.hmpps_hdc_api_dlq_irsa_policy.value,
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
@@ -46,4 +46,12 @@ data "aws_ssm_parameter" "irsa_policy_arns" {
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "hmpps_hdc_api_queue_irsa_policy" {
+  name = "/licences-dev/sqs/create-and-vary-a-licence-devs-dev-hmpps_hdc_api_queue/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "hmpps_hdc_api_dlq_irsa_policy" {
+  name = "/licences-dev/sqs/create-and-vary-a-licence-devs-dev-hmpps_hdc_api_dlq/irsa-policy-arn"
 }

@@ -12,7 +12,7 @@ spec:
   - from:
     - podSelector: {}
 ---
-# Allow ingress to the prisoner pay UI on port 3000 from the ingress-default ingress controllers
+# Allow ingress to the prisoner pay UI on port 3000 from the ingress-modsec ingress controllers
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -31,13 +31,13 @@ spec:
           component: ingress-controllers
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: ingress-default
+          app.kubernetes.io/name: ingress-modsec
           app.kubernetes.io/component: controller
     ports:
     - protocol: TCP
       port: 3000
 ---
-# Allow ingress to the prisoner pay API and Orchestrator on port 8080 from the ingress-default ingress controllers
+# Allow ingress to the prisoner pay API and Orchestrator on port 8080 from the ingress-modsec ingress controllers
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -60,7 +60,7 @@ spec:
           component: ingress-controllers
       podSelector:
         matchLabels:
-          app.kubernetes.io/name: ingress-default
+          app.kubernetes.io/name: ingress-modsec
           app.kubernetes.io/component: controller
     ports:
     - protocol: TCP
