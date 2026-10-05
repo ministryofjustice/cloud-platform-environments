@@ -3,7 +3,7 @@
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps-pds-platform-prototype-dev" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-pds-platform-prototype-api"
