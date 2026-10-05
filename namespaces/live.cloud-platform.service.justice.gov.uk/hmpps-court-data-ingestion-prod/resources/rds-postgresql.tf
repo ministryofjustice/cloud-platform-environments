@@ -9,7 +9,7 @@ module "hmpps-court-data-ingestion-api-rds" {
   db_max_allocated_storage     = "500"
   db_engine                    = "postgres"
   rds_family                   = "postgres18"
-  db_engine_version            = "18"
+  db_engine_version            = "18.6"
   prepare_for_major_upgrade    = false
   enable_rds_auto_start_stop   = false
   storage_type                 = "gp3"
