@@ -1,6 +1,6 @@
 # Used by the aap-api-rollout-restart cronjob, which restarts the API after the weekly prod-to-preprod DB refresh
 module "restart_deployment_service_account" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
