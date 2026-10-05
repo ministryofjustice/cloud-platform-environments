@@ -16,9 +16,9 @@ module "rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  rds_family           = "postgres16"
+  rds_family           = "postgres18"
   db_engine            = "postgres"
-  db_engine_version    = "16"
+  db_engine_version    = "18.6"
   db_instance_class    = "db.t4g.small"
   db_allocated_storage = 20
   db_name              = "mtp_api"
@@ -26,6 +26,7 @@ module "rds" {
   allow_major_version_upgrade = false
   allow_minor_version_upgrade = false
   deletion_protection         = true
+  prepare_for_major_upgrade   = true
 
   enable_irsa = true
 }
