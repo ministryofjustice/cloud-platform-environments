@@ -74,6 +74,12 @@ spec:
           - 34.120.62.213/32   # Sentry ingestion API (old-eu)
           - 34.160.81.0/32     # Sentry ingestion API (new new-eu new-us)
           - 34.102.210.18/32   # Sentry ingestion API (new new-eu new-us)
+          - # Microsoft Entra ID (login.microsoftonline.com) - OpenID discovery + JWKS for JWT validation
+          - # Source: https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges (ID 56)
+          - 20.20.32.0/19
+          - 20.190.128.0/18
+          - 20.231.128.0/19
+          - 40.126.0.0/18
   types:
     - Egress
 
