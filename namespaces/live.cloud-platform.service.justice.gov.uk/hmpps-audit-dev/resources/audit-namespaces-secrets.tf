@@ -37,6 +37,7 @@ locals {
     "hmpps-managing-prisoner-apps-dev",
     "hmpps-managing-prisoner-apps-staging",
     "hmpps-non-associations-dev",
+    "hmpps-prison-roll-count-dev",
     "hmpps-prisoner-pay-dev",
     "hmpps-prisoner-finance-dev",
     "hmpps-prisoner-finance-sync-dev",
