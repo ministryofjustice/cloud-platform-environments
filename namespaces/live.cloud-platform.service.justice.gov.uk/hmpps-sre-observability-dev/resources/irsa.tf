@@ -12,9 +12,10 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
 
-  # CURRENTLY ONLY RDS IS USED IN THIS NAMESPACE.
+  # RDS and ECR are used in this namespace.
   role_policy_arns = {
-    rds   = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
+    rds = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
+    ecr = module.ecr-dependencytrack.irsa_policy_arn
   }
 
   # Tags

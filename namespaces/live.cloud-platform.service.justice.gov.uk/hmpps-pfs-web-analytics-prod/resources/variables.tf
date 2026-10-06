@@ -73,3 +73,12 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "additional_topic_clients" {
+  description = "Store the PFS Web Analytics SNS topic ARNs in a secret named 'hmpps-pfs-web-analytics-sns' in each of the below namespaces."
+  default = [
+    "hmpps-launchpad-prod",
+    "hmpps-managing-prisoner-apps-prod",
+    "prisoner-content-hub-production"
+  ]
+}

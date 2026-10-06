@@ -33,10 +33,8 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
-  # uncomment below:
-
-  # enable_irsa = true
+  # Required for the service pod to query RDS via AWS CLI
+  enable_irsa = true
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
@@ -47,8 +45,7 @@ module "rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
-  # default off
-  count  = 0
+  count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
@@ -122,8 +119,7 @@ resource "kubernetes_secret" "rds" {
 
 
 resource "kubernetes_secret" "read_replica" {
-  # default off
-  count = 0
+  count = 1
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -131,16 +127,10 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   # The database_username, database_password, database_name values are same as the source RDS instance.
-  # Uncomment if count > 0
-
-  /*
   data = {
-    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
-    rds_instance_address  = module.read_replica.rds_instance_address
-    access_key_id         = module.read_replica.access_key_id
-    secret_access_key     = module.read_replica.secret_access_key
+    rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
+    rds_instance_address  = module.read_replica[0].rds_instance_address
   }
-  */
 }
 
 
