@@ -1,5 +1,4 @@
 module "prisoner_from_nomis_casenotes_queue" {
-  
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -116,6 +115,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_casenotes_subscriptio
       "OFFENDER_CASE_NOTES-INSERTED",
       "OFFENDER_CASE_NOTES-UPDATED",
       "OFFENDER_CASE_NOTES-DELETED",
+      "BOOKING-DELETED",
     ]
   })
 }
