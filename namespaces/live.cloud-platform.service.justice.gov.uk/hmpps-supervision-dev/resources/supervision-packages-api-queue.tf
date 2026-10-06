@@ -33,6 +33,7 @@ resource "aws_sns_topic_subscription" "supervision-packages-api-queue-subscripti
       "probation-case.personal-circumstance.deleted",
       "probation-case.merge.completed",
       "probation-case.unmerge.completed",
+      "risk-assessment.scores.determined",
     ]
   })
 }
