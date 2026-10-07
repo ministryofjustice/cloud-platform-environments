@@ -54,3 +54,10 @@ module "ecr_dependencytrack_frontend" {
   # Just this one can have the irsa
   enable_irsa = true
 }
+
+// We need to add a variable which contains the registry as we can't pass secrets through to the helm additional args:
+resource "github_actions_variable" "dependencytrack_ecr_registry" {
+  repository    = "hmpps-dependencytrack"
+  variable_name = "CLOUD_PLATFORM_ECR_REGISTRY_URL"
+  value         = split("/", module.ecr_dependencytrack_apiserver.repo_url)[0]
+}
