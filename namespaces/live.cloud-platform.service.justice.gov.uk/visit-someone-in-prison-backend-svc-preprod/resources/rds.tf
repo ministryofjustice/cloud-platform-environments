@@ -11,7 +11,7 @@ module "visit_scheduler_pg_rds" {
 
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "18.6"
   rds_family                  = "postgres18"
@@ -104,7 +104,7 @@ module "prison_visit_booker_reg_rds" {
 
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "18.6"
   rds_family                  = "postgres18"
@@ -135,7 +135,7 @@ module "visit_allocation_rds" {
 
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "18.6"
   rds_family                  = "postgres18"
