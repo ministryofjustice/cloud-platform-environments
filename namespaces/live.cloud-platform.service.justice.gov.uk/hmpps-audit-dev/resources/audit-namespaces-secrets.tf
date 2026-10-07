@@ -16,6 +16,8 @@ locals {
     "hmpps-contacts-dev",
     "hmpps-court-cases-release-dates-dev",
     "hmpps-court-register-dev",
+    "hmpps-digital-prison-reporting-mi-dev",
+    "hmpps-probation-mi-ui-dev",
     "hmpps-digital-prison-services-dev",
     "hmpps-document-management-dev",
     "hmpps-education-and-work-plan-dev",
