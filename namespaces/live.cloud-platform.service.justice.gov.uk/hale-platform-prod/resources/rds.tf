@@ -8,10 +8,10 @@ module "rds" {
   namespace     = var.namespace
 
   # turn off performance insights
-  performance_insights_enabled = false
+  performance_insights_enabled = true
 
   # general options
-  db_instance_class      = "db.t4g.large"
+  db_instance_class      = "db.t4g.2xlarge"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   deletion_protection    = "true"

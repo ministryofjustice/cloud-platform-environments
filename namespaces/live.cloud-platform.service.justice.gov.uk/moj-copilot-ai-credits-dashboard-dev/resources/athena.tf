@@ -34,7 +34,8 @@ resource "aws_glue_crawler" "copilot_credits_dev_crawler" {
     }
   })
 
-  schedule = "cron(20 10 * * ? *)"
+  # 10:20 and 16:20 UTC, about 80 minutes after each get-copilot-data run (09:00 and 15:00).
+  schedule = "cron(20 10,16 * * ? *)"
 }
 
 resource "aws_athena_workgroup" "copilot_credits_dev_workgroup" {

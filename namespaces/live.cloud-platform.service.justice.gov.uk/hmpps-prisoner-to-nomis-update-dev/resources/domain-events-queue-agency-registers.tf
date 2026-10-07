@@ -110,7 +110,7 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_agencyregisters_s
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     eventType = [
-      "tbc"
+      "register.court.email.inserted"
     ]
   })
 }

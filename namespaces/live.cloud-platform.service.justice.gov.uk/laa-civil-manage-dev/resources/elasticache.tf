@@ -9,6 +9,10 @@ module "elasticache" {
   engine_version          = "7.1"
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2025-10-27"
+  snapshot_window    = "03:00-04:00"
+  maintenance_window = "sun:04:00-sun:05:00"
+  number_cache_clusters = "3"
+  enable_irsa        = true
 
   # Tags
   business_unit           = var.business_unit

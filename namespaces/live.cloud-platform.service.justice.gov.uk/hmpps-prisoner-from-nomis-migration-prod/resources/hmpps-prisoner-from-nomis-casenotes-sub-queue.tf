@@ -115,6 +115,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_casenotes_subscriptio
       "OFFENDER_CASE_NOTES-INSERTED",
       "OFFENDER_CASE_NOTES-UPDATED",
       "OFFENDER_CASE_NOTES-DELETED",
+      "BOOKING-DELETED",
     ]
   })
 }

@@ -1,5 +1,4 @@
 # Allows a pod on a CP3 (Container Platform) cluster to reach this RDS instance.
-# https://github.com/ministryofjustice/cloud-platform/issues/8371
 
 data "aws_vpc" "selected" {
   filter {
@@ -10,7 +9,7 @@ data "aws_vpc" "selected" {
 
 resource "aws_security_group" "rds" {
   name        = "${var.namespace}-rds-sg"
-  description = "Allow Container Platform (CP3) access to the connectivity test database"
+  description = "Allow Container Platform (CP3) access to the test app demo database"
   vpc_id      = data.aws_vpc.selected.id
 
   lifecycle {

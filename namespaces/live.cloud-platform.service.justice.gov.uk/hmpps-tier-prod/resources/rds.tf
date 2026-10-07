@@ -11,7 +11,7 @@ module "rds" {
   rds_name                     = "hmpps-tier-${var.environment_name}"
   rds_family                   = "postgres17"
   db_engine_version            = "17.11"
-  db_instance_class            = "db.t4g.small"
+  db_instance_class            = "db.t4g.large"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = true

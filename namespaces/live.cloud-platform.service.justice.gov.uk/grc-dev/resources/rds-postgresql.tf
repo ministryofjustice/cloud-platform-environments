@@ -26,7 +26,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # change the postgres version as you see fit.
-  db_engine_version = "14"
+  db_engine_version = "14.24"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -53,6 +53,10 @@ module "rds" {
 
   # This will rotate the db password. Update the value to the current date.
   # db_password_rotated_date  = "dd-mm-yyyy"
+
+  # If you do not want to assign AWS permissions to a k8s pod in your namespace - ie service pod for read only queries,
+  # comment below:
+  enable_irsa = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

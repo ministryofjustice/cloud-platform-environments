@@ -116,8 +116,7 @@ variable "serviceaccount_rules" {
         "secrets",
         "services",
         "configmaps",
-        "pods",
-        "cronjobs"
+        "pods"
       ]
       verbs = [
         "patch",
@@ -134,13 +133,15 @@ variable "serviceaccount_rules" {
         "extensions",
         "apps",
         "networking.k8s.io",
-        "monitoring.coreos.com"
+        "monitoring.coreos.com",
+        "batch"
       ]
       resources = [
         "deployments",
         "ingresses",
         "replicasets",
-        "prometheusrules"
+        "prometheusrules",
+        "cronjobs"
       ]
       verbs = [
         "get",

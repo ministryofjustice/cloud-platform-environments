@@ -2,8 +2,6 @@
 
 locals {
   sqs_irsa_policies = {
-    (module.cvl_prison_events_queue.sqs_name)                                      = module.cvl_prison_events_queue.irsa_policy_arn,
-    (module.cvl_prison_events_dead_letter_queue.sqs_name)                          = module.cvl_prison_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_allocations_offender_events_queue.sqs_name)                      = module.hmpps_allocations_offender_events_queue.irsa_policy_arn,
     (module.hmpps_allocations_offender_events_dead_letter_queue.sqs_name)          = module.hmpps_allocations_offender_events_dead_letter_queue.irsa_policy_arn,
     (module.hmpps_workload_offender_events_queue.sqs_name)                         = module.hmpps_workload_offender_events_queue.irsa_policy_arn,

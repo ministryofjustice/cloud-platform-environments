@@ -1,6 +1,5 @@
-# Target database for CP3 -> CP2 connectivity testing.
-# https://github.com/ministryofjustice/cloud-platform/issues/8371
-
+# Demo database for the CP3 test app, showing how a tenant connects a CP3
+# workload to a CP2 RDS instance. Throwaway, not a production pattern.
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
