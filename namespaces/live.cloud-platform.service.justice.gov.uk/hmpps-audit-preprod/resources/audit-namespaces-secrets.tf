@@ -32,6 +32,7 @@ locals {
     "hmpps-managing-prisoner-apps-preprod",
     "hmpps-non-associations-preprod",
     "hmpps-prison-roll-count-preprod",
+    "hmpps-prisoner-cell-allocation-preprod",
     "hmpps-prisoner-from-nomis-migration-preprod",
     "hmpps-prisoner-profile-preprod",
     "hmpps-prisoner-finance-preprod",
