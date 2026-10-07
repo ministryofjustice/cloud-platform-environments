@@ -1,5 +1,5 @@
 variable "domain" {
-  default = "manage-restricted-patients-preprod.hmpps.service.justice.gov.uk"
+  default = "manage-restricted-patients-preprod.prison.service.justice.gov.uk"
 }
 
 variable "application" {
