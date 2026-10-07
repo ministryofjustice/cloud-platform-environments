@@ -38,9 +38,11 @@ module "dps_rds" {
     {
       # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
       # module default. (The postgres18 family already defaults it to 1.)
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (IR-2033).
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"
