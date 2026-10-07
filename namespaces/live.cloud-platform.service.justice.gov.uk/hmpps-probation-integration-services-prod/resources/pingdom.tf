@@ -9,7 +9,6 @@ resource "pingdom_check" "pingdom" {
     "approved-premises-and-oasys",
     "arns-and-delius",
     "arns-and-oasys",
-    "assess-for-early-release-and-delius",
     "assessment-summary-and-delius",
     "breach-notice-and-delius",
     "cas2-and-delius",
