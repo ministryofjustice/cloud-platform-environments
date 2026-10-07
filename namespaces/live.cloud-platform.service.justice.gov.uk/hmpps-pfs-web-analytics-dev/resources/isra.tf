@@ -1,4 +1,4 @@
-module "hmpps-pfs-web-analytics-irsa" {
+module "hmpps_pfs_web_analytics_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name

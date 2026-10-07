@@ -130,7 +130,7 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = module.hmpps-pfs-web-analytics-irsa.role_arn
+      identifiers = module.hmpps_pfs_web_analytics_irsa.role_arn
     }
   }
 }
