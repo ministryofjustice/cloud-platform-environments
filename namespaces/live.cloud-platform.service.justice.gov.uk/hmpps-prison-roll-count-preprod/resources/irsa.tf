@@ -15,7 +15,7 @@ module "irsa" {
   eks_cluster_name       = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name   = "${var.team_name}-${var.environment}"
+  service_account_name   = "hmpps-audit-sa"
   role_policy_arns       = local.sqs_policies
 
   # Tags
