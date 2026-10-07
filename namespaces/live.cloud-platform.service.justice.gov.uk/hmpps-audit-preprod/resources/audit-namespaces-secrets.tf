@@ -11,6 +11,8 @@ locals {
     "hmpps-community-payback-preprod",
     "hmpps-contacts-preprod",
     "hmpps-court-cases-release-dates-preprod",
+    "hmpps-digital-prison-reporting-mi-preprod",
+    "hmpps-probation-mi-ui-preprod",
     "hmpps-digital-prison-services-preprod",
     "hmpps-education-and-work-plan-preprod",
     "hmpps-education-employment-preprod",
