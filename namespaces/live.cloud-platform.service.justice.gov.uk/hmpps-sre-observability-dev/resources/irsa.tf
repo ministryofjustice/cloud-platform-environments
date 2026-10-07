@@ -15,7 +15,8 @@ module "irsa" {
   # RDS and ECR are used in this namespace.
   role_policy_arns = {
     rds = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
-    ecr = module.ecr-dependencytrack.irsa_policy_arn
+    ecr = module.ecr_dependencytrack_apiserver.irsa_policy_arn
+    ecr = module.ecr_dependencytrack_frontend.irsa_policy_arn
   }
 
   # Tags

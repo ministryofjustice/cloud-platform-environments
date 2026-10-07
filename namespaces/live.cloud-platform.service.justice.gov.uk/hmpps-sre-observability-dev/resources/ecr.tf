@@ -7,7 +7,7 @@
 
 # One module instantiation for each repo
 
-module "ecr-dependencytrack-apiserver" {
+module "ecr_dependencytrack_apiserver" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
@@ -31,7 +31,7 @@ module "ecr-dependencytrack-apiserver" {
   enable_irsa = true
 }
 
-module "ecr-dependencytrack-frontend" {
+module "ecr_dependencytrack_frontend" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
