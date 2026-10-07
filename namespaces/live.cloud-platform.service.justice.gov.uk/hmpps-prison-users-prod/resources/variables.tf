@@ -7,7 +7,7 @@ variable "vpc_name" {
 }
 
 variable "domain" {
-  default = "prison-users-api.hmpps.service.justice.gov.uk"
+  default = "prison-users-api.prison.service.justice.gov.uk"
 }
 
 variable "application" {
