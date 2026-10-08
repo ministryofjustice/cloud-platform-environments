@@ -28,6 +28,12 @@ module "irsa" {
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
     },
+    {
+      internal_sqs = module.internal_events_queue.irsa_policy_arn
+    },
+    {
+      internal_sqs_dlq = module.internal_events_dlq.irsa_policy_arn
+    },
     local.sns_policies
   )
 
