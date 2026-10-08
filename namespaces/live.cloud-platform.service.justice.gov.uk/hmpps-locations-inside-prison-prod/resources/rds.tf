@@ -21,7 +21,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -33,7 +33,7 @@ module "dps_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
@@ -103,14 +103,14 @@ module "dps_rds_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  prepare_for_major_upgrade  = true
+  prepare_for_major_upgrade  = false
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
