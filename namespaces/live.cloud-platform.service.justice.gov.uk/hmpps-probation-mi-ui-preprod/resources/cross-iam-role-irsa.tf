@@ -93,7 +93,8 @@ module "irsa" {
     {
       sqs_dlq = module.hmpps_probation_mi_domain_events_dlq.irsa_policy_arn
     },
-    local.sns_policies
+    local.sns_policies,
+    local.sqs_policies
   )
 
   business_unit          = var.business_unit
