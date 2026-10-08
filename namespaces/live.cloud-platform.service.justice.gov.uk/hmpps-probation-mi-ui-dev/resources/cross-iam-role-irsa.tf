@@ -27,6 +27,11 @@ locals {
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
