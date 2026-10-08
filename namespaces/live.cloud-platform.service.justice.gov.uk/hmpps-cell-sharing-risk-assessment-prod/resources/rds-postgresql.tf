@@ -49,9 +49,11 @@ module "rds" {
       # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
       # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
       # This instance currently relies on that default, so omitting it would be a live change.
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (MAPB-891).
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"
@@ -144,9 +146,11 @@ module "rds_replica" {
     {
       # As on the primary, this list replaces the module default rather than merging with it, so
       # rds.force_ssl must be restated or TLS stops being enforced.
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (MAPB-891).
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"
