@@ -14,7 +14,7 @@ module "evidencelibrary_rds" {
   performance_insights_enabled = true
   
   # Upgrading Postgres to 17.9
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # change the postgres version as you see fit.
   db_engine_version      = var.db_engine_version
