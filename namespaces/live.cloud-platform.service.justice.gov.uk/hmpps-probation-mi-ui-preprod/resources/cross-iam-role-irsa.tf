@@ -20,6 +20,17 @@ locals {
   }
 
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+
+  sqs_queues = {
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+  }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+}
+
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
