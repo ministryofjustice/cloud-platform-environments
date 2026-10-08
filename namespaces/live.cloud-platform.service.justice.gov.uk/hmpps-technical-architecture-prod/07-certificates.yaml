@@ -11,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - architecture-patterns.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-architecture-guidebook-cert
+  namespace: hmpps-technical-architecture-prod
+spec:
+  secretName: hmpps-architecture-guidebook-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - architecture-guidebook.hmpps.service.justice.gov.uk
