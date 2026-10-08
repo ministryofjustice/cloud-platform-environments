@@ -1,7 +1,7 @@
-module "hmpps_architecture_patterns" {
+module "hmpps_architecture_guidebook" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
-  github_repo                   = "hmpps-architecture-patterns"
-  application                   = "hmpps-architecture-patterns"
+  github_repo                   = "hmpps-architecture-docs"
+  application                   = "hmpps-architecture-guidebook"
   github_team                   = "hmpps-technical-architects"
   environment                   = var.environment
   reviewer_teams                = ["hmpps-technical-architects"]
