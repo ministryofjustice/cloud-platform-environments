@@ -6,6 +6,7 @@ module "hmpps_pfs_web_analytics_irsa" {
   service_account_name = "hmpps-pfs-web-analytics"
   role_policy_arns = {
     (module.hmpps_pfs_web_analytics_queue.sqs_name) = module.hmpps_pfs_web_analytics_queue.irsa_policy_arn
+    rds                                             = module.rds.irsa_policy_arn
   }
   # Tags
   business_unit          = var.business_unit
