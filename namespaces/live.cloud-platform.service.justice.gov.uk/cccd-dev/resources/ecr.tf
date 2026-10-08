@@ -3,7 +3,7 @@ module "cccd_ecr_credentials" {
 
   repo_name = "cccd"
 
-  oidc_providers = ["circleci","github"]
+  oidc_providers = ["github"]
   github_repositories = ["Claim-for-Crown-Court-Defence"]
 
   lifecycle_policy = <<EOF

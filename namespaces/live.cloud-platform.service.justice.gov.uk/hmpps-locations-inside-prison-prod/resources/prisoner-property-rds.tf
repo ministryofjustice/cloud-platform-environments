@@ -37,9 +37,11 @@ module "prisoner_property_rds" {
     {
       # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
       # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (MAPB-891).
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"
@@ -120,9 +122,11 @@ module "prisoner_property_rds_replica" {
     {
       # The module's db_parameter default is a single rds.force_ssl entry, and supplying our own list
       # replaces it rather than merging - so this must be restated here or TLS stops being enforced.
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (MAPB-891).
       name         = "rds.force_ssl"
       value        = "1"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"

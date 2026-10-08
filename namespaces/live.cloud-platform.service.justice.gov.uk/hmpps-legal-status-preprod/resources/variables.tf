@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-move-and-improve"
+  default     = "hmpps-move-and-improve-squad-4-live"
 }
 
 variable "service_area" {
