@@ -1,6 +1,5 @@
 module "slmtp_api_rds" {
   source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage       = 10
   storage_type               = "gp2"
   vpc_name                   = var.vpc_name
   team_name                  = var.team_name
@@ -10,21 +9,24 @@ module "slmtp_api_rds" {
   namespace                  = var.namespace
   environment_name           = var.environment
   infrastructure_support     = var.infrastructure_support
-  enable_rds_auto_start_stop = false
 
   allow_major_version_upgrade = "false"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_instance_class           = "db.t4g.micro"
+  db_allocated_storage       = 10
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
   rds_family                  = "postgres15"
   db_engine_version           = "15.17"
   db_password_rotated_date    = "2023-03-22"
 
+  enable_rds_auto_start_stop = false
+
   providers = {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "slmtp_api_rds" {
