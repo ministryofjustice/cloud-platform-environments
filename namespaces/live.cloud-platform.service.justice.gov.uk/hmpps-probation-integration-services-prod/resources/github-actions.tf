@@ -32,3 +32,17 @@ resource "github_actions_environment_secret" "github_secrets" {
   secret_name     = each.key
   plaintext_value = each.value
 }
+
+# Add Kubernetes credentials to the azure-prod GitHub environment, to allow message replay from Azure Application Insights.
+resource "github_actions_environment_secret" "github_secrets_for_azure_environment" {
+  for_each = {
+    ("PROD_${var.github_actions_secret_kube_cluster}")   = var.kubernetes_cluster
+    ("PROD_${var.github_actions_secret_kube_namespace}") = var.namespace
+    ("PROD_${var.github_actions_secret_kube_cert}")      = sensitive(lookup(data.kubernetes_secret_v1.service_account_secret.data, "ca.crt"))
+    ("PROD_${var.github_actions_secret_kube_token}")     = sensitive(lookup(data.kubernetes_secret_v1.service_account_secret.data, "token"))
+  }
+  repository      = "hmpps-probation-integration-services"
+  environment     = "azure-prod"
+  secret_name     = each.key
+  plaintext_value = each.value
+}
