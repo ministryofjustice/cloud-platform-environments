@@ -101,15 +101,20 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
 
   # Allow Web Analytics SNS and Common SNS to send messages
   statement {
-    sid    = "AllowWebAnalyticsQueueSend"
-    effect = "Allow"
-
+    sid       = "AllowWebAnalyticsQueueSend"
+    effect    = "Allow"
     actions   = ["sqs:SendMessage"]
     resources = [module.hmpps_pfs_web_analytics_queue.sqs_arn]
 
     principals {
       type        = "AWS"
-      identifiers = [
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [
         module.hmpps-pfs-common.topic_arn,
         module.hmpps-pfs-analytics.topic_arn
       ]
@@ -118,9 +123,8 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
 
   # Allow service account to manage queue
   statement {
-    sid    = "AllowWebAnalyticsQueueManage"
-    effect = "Allow"
-
+    sid       = "AllowWebAnalyticsQueueManage"
+    effect    = "Allow"
     actions   = [
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
@@ -130,7 +134,13 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [module.hmpps_pfs_web_analytics_irsa.role_arn]
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = [module.hmpps_pfs_web_analytics_irsa.role_arn]
     }
   }
 }
