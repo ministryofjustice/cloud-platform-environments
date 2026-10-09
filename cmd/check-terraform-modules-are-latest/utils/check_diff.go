@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"regexp"
@@ -39,56 +40,68 @@ func CheckModuleVersions(diff string, getVersionFn func(string) (APIResponse, er
 		return nil
 	}
 
+	var errs []error
+
 	for _, module := range matches {
-		moduleName, containsRef, moduleRef := getModuleNameAndRef(module)
-
-		response, responseErr := getVersionFn(moduleName)
-
-		if responseErr != nil {
-			return responseErr
+		if err := checkModule(module, getVersionFn); err != nil {
+			errs = append(errs, err)
 		}
+	}
 
-		if !containsRef {
-			if response.LatestVersion != "" {
-				return fmt.Errorf(
-					"Fail: you have not specified a module version for %v -- the latest version is %v ❌",
-					module,
-					response.LatestVersion,
-				)
-			}
-
-			log.Println("Pass: there is no release for this module ✅")
-			continue
-		}
-
-		moduleRef = strings.TrimSpace(moduleRef)
-		moduleRef = strings.Trim(moduleRef, "\"'")
-
-		moduleVersion := getModuleVersion(moduleRef)
-
-		if moduleVersion != "" {
-			if response.LatestVersion != moduleVersion {
-				return fmt.Errorf(
-					"Fail: reference to %v module is not using the latest version -- %v is not the latest %v ❌",
-					moduleName,
-					moduleVersion,
-					response.LatestVersion,
-				)
-			}
-
-			continue
-		}
-
-		if isCommitSHA(moduleRef) && moduleRef == response.LatestSHA {
-			continue
-		}
-
-		return fmt.Errorf(
-			"Fail: reference to %v module is not using the latest version or commit SHA ❌",
-			moduleName,
-		)
+	if len(errs) > 0 {
+		return errors.Join(errs...)
 	}
 
 	log.Println("Pass: you are using the latest 'cloud-platform-terraform-*' module release(s) ✅")
 	return nil
+}
+
+func checkModule(module string, getVersionFn func(string) (APIResponse, error)) error {
+	moduleName, containsRef, moduleRef := getModuleNameAndRef(module)
+
+	response, responseErr := getVersionFn(moduleName)
+
+	if responseErr != nil {
+		return fmt.Errorf("Fail: could not look up latest version for %v -- %w ❌", moduleName, responseErr)
+	}
+
+	if !containsRef {
+		if response.LatestVersion != "" {
+			return fmt.Errorf(
+				"Fail: you have not specified a module version for %v -- the latest version is %v ❌",
+				module,
+				response.LatestVersion,
+			)
+		}
+
+		log.Println("Pass: there is no release for this module ✅")
+		return nil
+	}
+
+	moduleRef = strings.TrimSpace(moduleRef)
+	moduleRef = strings.Trim(moduleRef, "\"'")
+
+	moduleVersion := getModuleVersion(moduleRef)
+
+	if moduleVersion != "" {
+		if response.LatestVersion != moduleVersion {
+			return fmt.Errorf(
+				"Fail: reference to %v module is not using the latest version -- %v is not the latest %v ❌",
+				moduleName,
+				moduleVersion,
+				response.LatestVersion,
+			)
+		}
+
+		return nil
+	}
+
+	if isCommitSHA(moduleRef) && moduleRef == response.LatestSHA {
+		return nil
+	}
+
+	return fmt.Errorf(
+		"Fail: reference to %v module is not using the latest version or commit SHA ❌",
+		moduleName,
+	)
 }
