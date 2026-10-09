@@ -93,3 +93,9 @@ variable "eks_cluster_name" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "domain" {
+  description = "Domain name for the public Route 53 zone"
+  type        = string
+  default     = "record-controlled-work.service.justice.gov.uk"
+}
