@@ -5,7 +5,7 @@ module "hmpps-official-visits-api" {
   github_repo                   = "hmpps-official-visits-api"
   application                   = "hmpps-official-visits-api"
   github_team                   = "hmpps-prison-visits-booking-devs"
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match env name used in helm values e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-prison-visits-booking-devs","hmpps-move-and-improve"]
   selected_branch_patterns      = ["main", "**/**", "**"]
   is_production                 = var.is_production
