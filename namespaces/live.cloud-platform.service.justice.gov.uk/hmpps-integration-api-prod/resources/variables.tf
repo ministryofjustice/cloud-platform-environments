@@ -93,3 +93,8 @@ variable "eks_cluster_name" {}
 variable "region" {
   default = "eu-west-2"
 }
+
+variable "domain" {
+  default = "hmpps-external-api.service.justice.gov.uk"
+  type    = string
+}
