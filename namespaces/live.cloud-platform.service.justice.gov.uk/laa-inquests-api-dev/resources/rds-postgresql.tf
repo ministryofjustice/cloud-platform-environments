@@ -43,7 +43,7 @@ module "rds" {
 
   deletion_protection = false
 
-  snapshot_identifier = "rds:cloud-platform-c6e6cd762a0cf64f-2026-10-09-04-23"
+  snapshot_identifier = "cloud-platform-c6e6cd762a0cf64f-laa-inquests-restoration-practice-09-10-2026"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
