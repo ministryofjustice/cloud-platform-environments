@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-ems-cemo-ui-prod
 subjects:
   - kind: Group
-    name: "github:hmpps-electronic-monitoring"
+    name: "github:hmpps-electronic-monitoring-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"
