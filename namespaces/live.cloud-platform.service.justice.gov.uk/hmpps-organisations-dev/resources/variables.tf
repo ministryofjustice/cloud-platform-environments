@@ -32,6 +32,11 @@ variable "team_name" {
   default     = "hmpps-move-and-improve"
 }
 
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Manage organistions"
+}
+
 ####################################################################################################################
 ### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
 variable "environment" {
@@ -80,4 +85,8 @@ variable "mp_dps_sg_name" {
   type        = string
   description = "Required for MP DPR Traffic ingress into CP DPS"
   default     = "cloudplatform-mp-dps-sg"
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }
