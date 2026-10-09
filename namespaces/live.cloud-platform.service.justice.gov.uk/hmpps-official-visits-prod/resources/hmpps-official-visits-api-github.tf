@@ -6,7 +6,7 @@ module "hmpps-official-visits-api" {
   application                   = "hmpps-official-visits-api"
   github_team                   = "hmpps-prison-visits-booking-live"
   environment                   = var.environment # Should match env name in helm values file e.g. values-prod.yaml
-  reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-move-and-improve-live"]
+  reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-move-and-improve-squad-2-live"]
   selected_branch_patterns      = ["main", "**/**", "**"]
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
