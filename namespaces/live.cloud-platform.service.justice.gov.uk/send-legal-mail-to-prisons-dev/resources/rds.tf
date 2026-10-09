@@ -16,8 +16,8 @@ module "slmtp_api_rds" {
   db_allocated_storage       = 10
   db_max_allocated_storage    = "500"
   db_engine                   = "postgres"
-  rds_family                  = "postgres15"
-  db_engine_version           = "15.17"
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
   db_password_rotated_date    = "2023-03-22"
 
   enable_rds_auto_start_stop = false
