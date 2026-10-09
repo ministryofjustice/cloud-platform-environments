@@ -43,6 +43,8 @@ data "aws_iam_policy_document" "combined_local_sqs_migration" {
       module.migration_drugtesting_dead_letter_queue.sqs_arn,
       module.migration_externalmovements_queue.sqs_arn,
       module.migration_externalmovements_dead_letter_queue.sqs_arn,
+      module.migration_personlocations_queue.sqs_arn,
+      module.migration_personlocations_dead_letter_queue.sqs_arn,
       module.migration_prisonbalance_queue.sqs_arn,
       module.migration_prisonbalance_dead_letter_queue.sqs_arn,
       module.migration_prisonerbalance_queue.sqs_arn,
