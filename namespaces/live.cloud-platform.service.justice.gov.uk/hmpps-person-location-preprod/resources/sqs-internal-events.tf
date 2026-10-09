@@ -11,7 +11,7 @@ module "internal_events_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = "hmpps-transfer-scheduler" # team name is used in queue name so setting to hard coded value
+  team_name              = "hmpps-person-location" # team name is used in queue name so setting to hard coded value
   environment_name       = var.environment
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
@@ -26,7 +26,7 @@ module "internal_events_dlq" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = "hmpps-transfer-scheduler" # team name is used in queue name so setting to hard coded value
+  team_name              = "hmpps-person-location" # team name is used in queue name so setting to hard coded value
   environment_name       = var.environment
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
