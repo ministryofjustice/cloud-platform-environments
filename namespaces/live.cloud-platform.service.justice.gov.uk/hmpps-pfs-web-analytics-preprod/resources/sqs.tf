@@ -120,30 +120,8 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
       ]
     }
   }
-
-  # Allow service account to manage queue
-  statement {
-    sid       = "AllowWebAnalyticsQueueManage"
-    effect    = "Allow"
-    actions   = [
-      "sqs:ReceiveMessage",
-      "sqs:DeleteMessage",
-      "sqs:PurgeQueue",
-    ]
-    resources = [module.hmpps_pfs_web_analytics_queue.sqs_arn]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
-      values   = [module.hmpps_pfs_web_analytics_irsa.role_arn]
-    }
-  }
 }
+
 resource "aws_sqs_queue_policy" "hmpps_pfs_web_analytics_queue_policy" {
   queue_url = module.hmpps_pfs_web_analytics_queue.sqs_id
   policy    = data.aws_iam_policy_document.hmpps_pfs_web_analytics_queue_policy.json
