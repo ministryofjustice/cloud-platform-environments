@@ -114,7 +114,13 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_coreperson_subscripti
     eventType = [
       "OFFENDER_BELIEFS-INSERTED",
       "OFFENDER_BELIEFS-UPDATED",
-      "OFFENDER_BELIEFS-DELETED"
+      "OFFENDER_BELIEFS-DELETED",
+      "OFFENDER_PHONE-INSERTED",
+      "OFFENDER_PHONE-UPDATED",
+      "OFFENDER_PHONE-DELETED",
+      "OFFENDER_EMAIL-INSERTED",
+      "OFFENDER_EMAIL-UPDATED",
+      "OFFENDER_EMAIL-DELETED",
     ]
   })
 }
