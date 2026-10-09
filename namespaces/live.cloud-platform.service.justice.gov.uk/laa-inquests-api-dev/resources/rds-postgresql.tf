@@ -42,6 +42,8 @@ module "rds" {
   # opt_in_xsiam_logging = true
 
   deletion_protection = false
+
+  snapshot_identifier = "rds:cloud-platform-c6e6cd762a0cf64f-2026-10-09-04-23"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
