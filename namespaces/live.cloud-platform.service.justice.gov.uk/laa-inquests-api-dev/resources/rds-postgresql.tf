@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -43,7 +43,7 @@ module "rds" {
 
   deletion_protection = false
 
-  snapshot_identifier = "rds:cloud-platform-c6e6cd762a0cf64f-2026-10-09-04-23"
+  snapshot_identifier = "cloud-platform-c6e6cd762a0cf64f-laa-inquests-restoration-practice-09-10-2026"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -73,7 +73,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db
