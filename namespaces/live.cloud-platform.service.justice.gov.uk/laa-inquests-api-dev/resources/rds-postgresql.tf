@@ -41,9 +41,8 @@ module "rds" {
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
 
-  deletion_protection = false
+  deletion_protection = true
 
-  snapshot_identifier = "cloud-platform-c6e6cd762a0cf64f-laa-inquests-restoration-practice-09-10-2026"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
