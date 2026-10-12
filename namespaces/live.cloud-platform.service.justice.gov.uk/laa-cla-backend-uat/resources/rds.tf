@@ -129,20 +129,20 @@ module "cla_backend_metabase_rds" {
   enable_irsa = true
 }
 
-resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
+resource "kubernetes_secret" "cla_backend_rds_postgres_18" {
   metadata {
     name      = "database-14"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_rds_postgres_14.rds_instance_endpoint
-    host          = module.cla_backend_rds_postgres_14.rds_instance_address
-    port          = module.cla_backend_rds_postgres_14.rds_instance_port
-    name          = module.cla_backend_rds_postgres_14.database_name
-    user          = module.cla_backend_rds_postgres_14.database_username
-    password      = module.cla_backend_rds_postgres_14.database_password
-    db_identifier = module.cla_backend_rds_postgres_14.db_identifier
+    endpoint      = module.cla_backend_rds_postgres_18.rds_instance_endpoint
+    host          = module.cla_backend_rds_postgres_18.rds_instance_address
+    port          = module.cla_backend_rds_postgres_18.rds_instance_port
+    name          = module.cla_backend_rds_postgres_18.database_name
+    user          = module.cla_backend_rds_postgres_18.database_username
+    password      = module.cla_backend_rds_postgres_18.database_password
+    db_identifier = module.cla_backend_rds_postgres_18.db_identifier
   }
 }
 resource "kubernetes_secret" "cla_backend_metabase_rds" {
