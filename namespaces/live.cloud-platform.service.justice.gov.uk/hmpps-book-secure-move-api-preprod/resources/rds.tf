@@ -24,10 +24,10 @@ module "rds-instance" {
   db_allocated_storage = 20
   db_instance_class    = "db.t4g.medium"
   db_engine            = "postgres"
-  db_engine_version    = "16.8"
-  rds_family           = "postgres16"
+  db_engine_version    = "18.6"
+  rds_family           = "postgres18"
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_minor_version_upgrade = "true"
   allow_major_version_upgrade = "false"
@@ -135,9 +135,9 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  prepare_for_major_upgrade = false
-  db_engine_version         = "16.13"
-  rds_family                = "postgres16"
+  prepare_for_major_upgrade = true
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
