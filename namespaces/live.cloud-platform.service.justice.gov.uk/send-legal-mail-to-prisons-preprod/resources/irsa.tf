@@ -11,9 +11,10 @@ module "irsa" {
   # Attach the approprate policies using a key => value map
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
-  role_policy_arns = {
-    s3 = module.send_legal_mail_s3_bucket.irsa_policy_arn
-  }
+  role_policy_arns = merge(
+    { rds = module.slmtp_api_rds.irsa_policy_arn },
+    { s3 = module.send_legal_mail_s3_bucket.irsa_policy_arn }
+  )
 
   # Tags
   business_unit          = var.business_unit
