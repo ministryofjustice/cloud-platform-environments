@@ -25,10 +25,7 @@ module "web_analytics_rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
-  # uncomment below:
-
-  # enable_irsa = true
+  enable_irsa = true
 }
 
 module "web_analytics_read_replica" {
