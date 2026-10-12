@@ -942,4 +942,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - 8e09a934-prod.hmpps.service.justice.gov.uk
-    - emdi-and-delius-prod.hmpps.service.justice.gov.uk
+    - emdi-and-delius.hmpps.service.justice.gov.uk
