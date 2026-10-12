@@ -8,7 +8,7 @@
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
-module "cla_backend_rds_postgres_14" {
+module "cla_backend_rds_postgres_18" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -21,14 +21,14 @@ module "cla_backend_rds_postgres_14" {
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
-  db_engine_version      = "14.24"
+  db_engine_version      = "18.6"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres18"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -54,7 +54,7 @@ module "cla_backend_rds_postgres_14" {
   enable_irsa = true
 }
 
-module "cla_backend_cfe_integration_rds_postgres_14" {
+module "cla_backend_cfe_integration_rds_postgres_18" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -67,14 +67,14 @@ module "cla_backend_cfe_integration_rds_postgres_14" {
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
-  db_engine_version      = "14.24"
+  db_engine_version      = "18.6"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres18"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
