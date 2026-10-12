@@ -59,4 +59,8 @@ resource "kubernetes_secret" "rds" {
     database_address      = module.rds_instance.rds_instance_address
     database_port         = module.rds_instance.rds_instance_port
   }
+
+  lifecycle {
+    ignore_changes = [data["database_username"]]
+  }
 }
