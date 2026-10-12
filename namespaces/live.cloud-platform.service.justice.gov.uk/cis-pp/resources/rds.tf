@@ -9,7 +9,7 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
 }
 
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=9.2.0-cis.1"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance"
 
   # VPC configuration
   vpc_name = var.vpc_name
