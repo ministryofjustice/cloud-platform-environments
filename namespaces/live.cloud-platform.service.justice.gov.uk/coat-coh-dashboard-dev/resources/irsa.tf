@@ -39,6 +39,7 @@ module "showback_irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     s3  = module.coh_export_daily_csv_bucket.irsa_policy_arn
+    athena = aws_iam_policy.athena_assume_role.arn
   }
 
   # Tags
