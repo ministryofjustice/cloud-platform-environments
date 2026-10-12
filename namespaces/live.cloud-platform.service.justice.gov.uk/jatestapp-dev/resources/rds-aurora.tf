@@ -20,3 +20,19 @@ module "rds_aurora" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+resource "kubernetes_secret" "aurora_db" {
+  metadata {
+    name      = "ja-testapp-aurora-secret"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_cluster_endpoint        = module.rds_aurora.rds_cluster_endpoint
+    rds_cluster_reader_endpoint = module.rds_aurora.rds_cluster_reader_endpoint
+    db_cluster_identifier       = module.rds_aurora.db_cluster_identifier
+    database_name               = module.rds_aurora.database_name
+    database_username           = module.rds_aurora.database_username
+    database_password           = module.rds_aurora.database_password
+  }
+}
