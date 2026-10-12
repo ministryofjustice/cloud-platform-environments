@@ -84,3 +84,13 @@ resource "kubernetes_secret" "supervision-appointments-sms-status-check-queue-se
     QUEUE_NAME = module.supervision-appointments-sms-status-check-queue.sqs_name
   }
 }
+
+resource "kubernetes_secret" "supervision-appointments-sms-status-check-dlq-secret" {
+  metadata {
+    name      = "supervision-appointments-sms-status-check-dlq"
+    namespace = var.namespace
+  }
+  data = {
+    QUEUE_NAME = module.supervision-appointments-sms-status-check-dlq.sqs_name
+  }
+}
