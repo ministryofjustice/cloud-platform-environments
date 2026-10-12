@@ -9,7 +9,7 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
 }
 
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=main"
 
   # VPC configuration
   vpc_name = var.vpc_name
@@ -58,9 +58,5 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds_instance.database_password
     database_address      = module.rds_instance.rds_instance_address
     database_port         = module.rds_instance.rds_instance_port
-  }
-
-  lifecycle {
-    ignore_changes = [data["database_username"]]
   }
 }
