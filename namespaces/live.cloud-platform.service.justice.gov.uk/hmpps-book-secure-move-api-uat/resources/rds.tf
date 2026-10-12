@@ -38,7 +38,7 @@ module "rds-instance" {
     {
       name         = "rds.force_ssl"
       value        = "0"
-      apply_method = "immediate"
+      apply_method = "pending-reboot"
     },
     {
       name         = "rds.logical_replication"
