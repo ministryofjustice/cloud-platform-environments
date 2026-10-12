@@ -13,7 +13,7 @@ module "supervision-appointments-sms-status-check-queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name = "supervision-appointments-sms-status-check-queue"
+  sqs_name = "supervision-appts-sms-status-check"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.supervision-appointments-sms-status-check-dlq.sqs_arn
     maxReceiveCount     = 3
@@ -57,7 +57,7 @@ module "supervision-appointments-sms-status-check-dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "supervision-appointments-sms-status-check-dlq"
+  sqs_name                  = "supervision-appts-sms-status-check-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   # Tags
