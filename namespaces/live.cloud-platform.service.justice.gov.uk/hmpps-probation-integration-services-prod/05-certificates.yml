@@ -956,5 +956,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - 05f71b6a-prod.hmpps.service.justice.gov.uk
-    - test-project-prod.hmpps.service.justice.gov.uk
+    - 05f71b6a.hmpps.service.justice.gov.uk
+    - test-project.hmpps.service.justice.gov.uk
