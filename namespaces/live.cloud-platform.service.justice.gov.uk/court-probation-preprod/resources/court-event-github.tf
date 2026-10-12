@@ -70,6 +70,22 @@ module "hmpps-court-case-service-api" {
   github_owner                  = var.github_owner
 }
 
+module "hmpps-court-case-enrichment-worker" {
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
+  github_repo                   = "hmpps-court-case-enrichment-worker"
+  application                   = "hmpps-court-case-enrichment-worker"
+  github_team                   = "hmpps-probation-in-court"
+  environment                   = var.environment
+  is_production                 = var.is_production
+  selected_branch_patterns      = ["main"]
+  application_insights_instance = var.environment
+  source_template_repo          = "hmpps-template-kotlin"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  github_owner                  = var.github_owner
+}
+
 module "hmpps-court-case-data-migration-service" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
   force_rotate_token = true

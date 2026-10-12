@@ -47,6 +47,7 @@ locals {
     "synalogik",
     "jaiu-onboarding-optimisation",
     "serco-up3",
+    "phonehub",
   ]
 
   client_queues = {
@@ -63,5 +64,6 @@ locals {
     ctrlo     = module.event_ctrlo_queue.sqs_name
     daso      = module.event_daso_queue.sqs_name
     unilink   = module.event_unilink_queue.sqs_name
+    phonehub  = module.event_phonehub_queue.sqs_name
   }
 }

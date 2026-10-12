@@ -4,15 +4,15 @@ module "hmpps-official-visits-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-official-visits-ui"
   application                   = "hmpps-official-visits-ui"
-  github_team                   = "hmpps-move-and-improve"
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-preprod.yaml
+  github_team                   = "hmpps-prison-visits-booking-live"
+  environment                   = var.environment # Should match env name used in helm values e.g. values-preprod.yaml
+  reviewer_teams                = ["hmpps-prison-visits-booking-live","hmpps-move-and-improve-squad-2-live"]
+  selected_branch_patterns      = ["main", "**/**", "**"]
   is_production                 = var.is_production
-  selected_branch_patterns      = ["main"]
   application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
 }
