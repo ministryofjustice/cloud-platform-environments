@@ -911,8 +911,8 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - f9fa4953-prod.hmpps.service.justice.gov.uk
-    - warrant-risk-assessment-and-delius-prod.hmpps.service.justice.gov.uk
+    - f9fa4953.hmpps.service.justice.gov.uk
+    - warrant-risk-assessment-and-delius.hmpps.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
@@ -926,8 +926,8 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - 36af1a4c-prod.hmpps.service.justice.gov.uk
-    - community-support-interventions-and-delius-prod.hmpps.service.justice.gov.uk
+    - 36af1a4c.hmpps.service.justice.gov.uk
+    - community-support-interventions-and-delius.hmpps.service.justice.gov.uk
 
 ---
 apiVersion: cert-manager.io/v1
@@ -941,5 +941,5 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - 8e09a934-prod.hmpps.service.justice.gov.uk
+    - 8e09a934.hmpps.service.justice.gov.uk
     - emdi-and-delius.hmpps.service.justice.gov.uk
