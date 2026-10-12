@@ -24,7 +24,7 @@ module "irsa" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "irsa" {
+module "showback_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
