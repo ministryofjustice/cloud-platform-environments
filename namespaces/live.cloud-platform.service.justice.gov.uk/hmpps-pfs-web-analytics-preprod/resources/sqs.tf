@@ -83,14 +83,14 @@ resource "kubernetes_secret" "hmpps_pfs_web_analytics_dlq_secret" {
 
 resource "aws_sns_topic_subscription" "common_analytics_subscription" {
   provider      = aws.london
-  topic_arn     = module.hmpps-pfs-common.topic_arn
+  topic_arn     = module.hmpps_pfs_common.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
 }
 
 resource "aws_sns_topic_subscription" "analytics_only_subscription" {
   provider      = aws.london
-  topic_arn     = module.hmpps-pfs-analytics.topic_arn
+  topic_arn     = module.hmpps_pfs_analytics.topic_arn
   protocol      = "sqs"
   endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
 }
@@ -115,8 +115,8 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
       values   = [
-        module.hmpps-pfs-common.topic_arn,
-        module.hmpps-pfs-analytics.topic_arn
+        module.hmpps_pfs_common.topic_arn,
+        module.hmpps_pfs_analytics.topic_arn
       ]
     }
   }
