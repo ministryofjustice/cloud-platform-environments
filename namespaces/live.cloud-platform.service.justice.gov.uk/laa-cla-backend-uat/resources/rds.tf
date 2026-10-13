@@ -8,7 +8,7 @@
 # IMP NOTE: Updating to module version 5.3, existing database password will be rotated.
 # Make sure you restart your pods which use this RDS secret to avoid any down time.
 
-module "cla_backend_rds_postgres_18" {
+module "cla_backend_rds_postgres_14" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -57,7 +57,7 @@ module "cla_backend_rds_postgres_18" {
   enable_irsa = true
 }
 
-module "cla_backend_cfe_integration_rds_postgres_18" {
+module "cla_backend_cfe_integration_rds_postgres_14" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -139,20 +139,20 @@ module "cla_backend_metabase_rds" {
   enable_irsa = true
 }
 
-resource "kubernetes_secret" "cla_backend_rds_postgres_18" {
+resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   metadata {
     name      = "database-18"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_rds_postgres_18.rds_instance_endpoint
-    host          = module.cla_backend_rds_postgres_18.rds_instance_address
-    port          = module.cla_backend_rds_postgres_18.rds_instance_port
-    name          = module.cla_backend_rds_postgres_18.database_name
-    user          = module.cla_backend_rds_postgres_18.database_username
-    password      = module.cla_backend_rds_postgres_18.database_password
-    db_identifier = module.cla_backend_rds_postgres_18.db_identifier
+    endpoint      = module.cla_backend_rds_postgres_14.rds_instance_endpoint
+    host          = module.cla_backend_rds_postgres_14.rds_instance_address
+    port          = module.cla_backend_rds_postgres_14.rds_instance_port
+    name          = module.cla_backend_rds_postgres_14.database_name
+    user          = module.cla_backend_rds_postgres_14.database_username
+    password      = module.cla_backend_rds_postgres_14.database_password
+    db_identifier = module.cla_backend_rds_postgres_14.db_identifier
   }
 }
 resource "kubernetes_secret" "cla_backend_metabase_rds" {
@@ -178,7 +178,7 @@ resource "kubernetes_secret" "cla_backend_metabase_rds" {
   }
 }
 
-module "cla_backend_mcc_rds_postgres_18" {
+module "cla_backend_mcc_rds_postgres_14" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -225,38 +225,38 @@ module "cla_backend_mcc_rds_postgres_18" {
   }
 }
 
-resource "kubernetes_secret" "cla_backend_cfe_integration_rds_postgres_18" {
+resource "kubernetes_secret" "cla_backend_cfe_integration_rds_postgres_14" {
   metadata {
-    name      = "eligibility-integration-database-18"
+    name      = "eligibility-integration-database-14"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_endpoint
-    host          = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_address
-    port          = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_port
-    name          = module.cla_backend_cfe_integration_rds_postgres_18.database_name
-    user          = module.cla_backend_cfe_integration_rds_postgres_18.database_username
-    password      = module.cla_backend_cfe_integration_rds_postgres_18.database_password
-    db_identifier = module.cla_backend_cfe_integration_rds_postgres_18.db_identifier
+    endpoint      = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_endpoint
+    host          = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_address
+    port          = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_port
+    name          = module.cla_backend_cfe_integration_rds_postgres_14.database_name
+    user          = module.cla_backend_cfe_integration_rds_postgres_14.database_username
+    password      = module.cla_backend_cfe_integration_rds_postgres_14.database_password
+    db_identifier = module.cla_backend_cfe_integration_rds_postgres_14.db_identifier
   }
 
 }
 
-resource "kubernetes_secret" "cla_backend_mcc_integration_rds_postgres_18" {
+resource "kubernetes_secret" "cla_backend_mcc_integration_rds_postgres_14" {
   metadata {
-    name      = "mcc-integration-database-18"
+    name      = "mcc-integration-database-14"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_mcc_rds_postgres_18.rds_instance_endpoint
-    host          = module.cla_backend_mcc_rds_postgres_18.rds_instance_address
-    port          = module.cla_backend_mcc_rds_postgres_18.rds_instance_port
-    name          = module.cla_backend_mcc_rds_postgres_18.database_name
-    user          = module.cla_backend_mcc_rds_postgres_18.database_username
-    password      = module.cla_backend_mcc_rds_postgres_18.database_password
-    db_identifier = module.cla_backend_mcc_rds_postgres_18.db_identifier
+    endpoint      = module.cla_backend_mcc_rds_postgres_14.rds_instance_endpoint
+    host          = module.cla_backend_mcc_rds_postgres_14.rds_instance_address
+    port          = module.cla_backend_mcc_rds_postgres_14.rds_instance_port
+    name          = module.cla_backend_mcc_rds_postgres_14.database_name
+    user          = module.cla_backend_mcc_rds_postgres_14.database_username
+    password      = module.cla_backend_mcc_rds_postgres_14.database_password
+    db_identifier = module.cla_backend_mcc_rds_postgres_14.db_identifier
   }
 
 }
