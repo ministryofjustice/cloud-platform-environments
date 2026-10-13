@@ -84,3 +84,18 @@ variable "service_account_name_subscriptions" {
   description = "The name of the service account to retrieve the OIDC information"
   default     = "hmpps-prisoner-finance-subscriptions"
 }
+
+variable "holds_application_name" {
+  description = "The name of the holds application"
+  default = "hmpps-prisoner-finance-holds-api"
+}
+
+variable "advances_application_name" {
+  description = "The name of the advances application"
+  default = "hmpps-prisoner-finance-advances-api"
+}
+
+variable "subscriptions_application_name" {
+  description = "The name of the subscriptions application"
+  default = "hmpps-prisoner-finance-subscriptions-api"
+}
