@@ -1,5 +1,5 @@
 module "hmpps-organisation-ui" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   github_repo                   = "hmpps-organisations-ui"
   application                   = "hmpps-organisations-ui"
