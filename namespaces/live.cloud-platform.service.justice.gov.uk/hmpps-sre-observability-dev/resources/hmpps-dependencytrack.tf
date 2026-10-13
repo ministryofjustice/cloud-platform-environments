@@ -1,5 +1,5 @@
 module "hmpps_dependencytrack" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=HEAT-1565"
   force_rotate_token = true
   custom_token_rotation_date = "2026-12-20"
   github_repo = "hmpps-dependencytrack"
@@ -15,5 +15,6 @@ module "hmpps_dependencytrack" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  enable_ecr                    = true
 }
 
