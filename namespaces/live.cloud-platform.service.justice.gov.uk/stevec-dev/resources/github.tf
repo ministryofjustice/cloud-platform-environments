@@ -7,7 +7,6 @@ module "hmpps-stevec-sre-github-repo" {
   reviewer_teams                = ["hmpps-sre-nondevs"]
   selected_branch_patterns      = ["main", "**/**", "**"]
   is_production                 = var.is_production
-  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace
