@@ -27,3 +27,4 @@ spec:
   dnsNames:
     - pds-platform-prototype-ui-dev.hmpps.service.justice.gov.uk
     - '*.pds-platform-prototype-ui-dev.hmpps.service.justice.gov.uk'
+    
