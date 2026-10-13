@@ -109,7 +109,7 @@ module "cla_backend_metabase_rds" {
   namespace     = var.namespace
 
   db_name                  = "metabase"
-  db_engine_version        = "15.19"
+  db_engine_version        = "18.6"
   db_instance_class        = "db.t4g.micro"
   db_allocated_storage     = "5"
   db_max_allocated_storage = "500"
@@ -131,7 +131,7 @@ module "cla_backend_metabase_rds" {
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_18" {
   metadata {
-    name      = "database-14"
+    name      = "database-18"
     namespace = var.namespace
   }
 
@@ -168,7 +168,7 @@ resource "kubernetes_secret" "cla_backend_metabase_rds" {
   }
 }
 
-module "cla_backend_mcc_rds_postgres_14" {
+module "cla_backend_mcc_rds_postgres_18" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -181,14 +181,14 @@ module "cla_backend_mcc_rds_postgres_14" {
 
   db_name = "cla_backend_mcc_integration"
   # change the postgres version as you see fit.
-  db_engine_version      = "14.24"
+  db_engine_version      = "18.6"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres18"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -212,38 +212,38 @@ module "cla_backend_mcc_rds_postgres_14" {
   }
 }
 
-resource "kubernetes_secret" "cla_backend_cfe_integration_rds_postgres_14" {
+resource "kubernetes_secret" "cla_backend_cfe_integration_rds_postgres_18" {
   metadata {
-    name      = "eligibility-integration-database-14"
+    name      = "eligibility-integration-database-18"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_endpoint
-    host          = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_address
-    port          = module.cla_backend_cfe_integration_rds_postgres_14.rds_instance_port
-    name          = module.cla_backend_cfe_integration_rds_postgres_14.database_name
-    user          = module.cla_backend_cfe_integration_rds_postgres_14.database_username
-    password      = module.cla_backend_cfe_integration_rds_postgres_14.database_password
-    db_identifier = module.cla_backend_cfe_integration_rds_postgres_14.db_identifier
+    endpoint      = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_endpoint
+    host          = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_address
+    port          = module.cla_backend_cfe_integration_rds_postgres_18.rds_instance_port
+    name          = module.cla_backend_cfe_integration_rds_postgres_18.database_name
+    user          = module.cla_backend_cfe_integration_rds_postgres_18.database_username
+    password      = module.cla_backend_cfe_integration_rds_postgres_18.database_password
+    db_identifier = module.cla_backend_cfe_integration_rds_postgres_18.db_identifier
   }
 
 }
 
-resource "kubernetes_secret" "cla_backend_mcc_integration_rds_postgres_14" {
+resource "kubernetes_secret" "cla_backend_mcc_integration_rds_postgres_18" {
   metadata {
-    name      = "mcc-integration-database-14"
+    name      = "mcc-integration-database-18"
     namespace = var.namespace
   }
 
   data = {
-    endpoint      = module.cla_backend_mcc_rds_postgres_14.rds_instance_endpoint
-    host          = module.cla_backend_mcc_rds_postgres_14.rds_instance_address
-    port          = module.cla_backend_mcc_rds_postgres_14.rds_instance_port
-    name          = module.cla_backend_mcc_rds_postgres_14.database_name
-    user          = module.cla_backend_mcc_rds_postgres_14.database_username
-    password      = module.cla_backend_mcc_rds_postgres_14.database_password
-    db_identifier = module.cla_backend_mcc_rds_postgres_14.db_identifier
+    endpoint      = module.cla_backend_mcc_rds_postgres_18.rds_instance_endpoint
+    host          = module.cla_backend_mcc_rds_postgres_18.rds_instance_address
+    port          = module.cla_backend_mcc_rds_postgres_18.rds_instance_port
+    name          = module.cla_backend_mcc_rds_postgres_18.database_name
+    user          = module.cla_backend_mcc_rds_postgres_18.database_username
+    password      = module.cla_backend_mcc_rds_postgres_18.database_password
+    db_identifier = module.cla_backend_mcc_rds_postgres_18.db_identifier
   }
 
 }
