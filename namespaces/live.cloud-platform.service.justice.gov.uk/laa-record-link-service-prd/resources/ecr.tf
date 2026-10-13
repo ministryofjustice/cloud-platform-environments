@@ -15,6 +15,8 @@ module "ecr" {
   github_repositories = ["laa-record-link-service"]
   github_environments = ["production"]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
