@@ -4,7 +4,7 @@ module "hmpps-stevec-sre-github-repo" {
   application                   = "hmpps-stevec-sre-test-ui"
   github_team                   = "hmpps-sre"
   environment                   = var.environment # Should match env used in helm values e.g. values-preprod.yaml
-  reviewer_teams                = ["hmpps-sre-nondevs"]
+  reviewer_teams                = ["hmpps-sre-nondevs"] #Used for testing against HEAT-1615
   selected_branch_patterns      = ["main", "**/**", "**"]
   is_production                 = var.is_production
   source_template_repo          = "hmpps-template-typescript"
