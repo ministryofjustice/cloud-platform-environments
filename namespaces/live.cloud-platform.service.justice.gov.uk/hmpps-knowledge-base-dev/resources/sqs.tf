@@ -22,7 +22,7 @@ module "equip_migration_queue" {
 
 resource "kubernetes_secret" "equip_migration_queue" {
   metadata {
-    name      = "sqs-equip_migration_queue-secret"
+    name      = "sqs-equip-migration-queue-secret"
     namespace = var.namespace
   }
 
