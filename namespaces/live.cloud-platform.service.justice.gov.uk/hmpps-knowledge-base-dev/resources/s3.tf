@@ -1,5 +1,5 @@
 module "hmpps_knowledge_base_s3_input" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -75,7 +75,7 @@ resource "aws_s3_bucket_notification" "hmpps_knowledge_base_s3_input_to_equip_mi
 }
 
 module "hmpps_knowledge_base_s3_data_store" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
@@ -102,7 +102,7 @@ resource "kubernetes_secret" "hmpps_knowledge_base_s3_data_store_secret" {
 }
 
 module "hmpps_knowledge_base_s3_archive" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
