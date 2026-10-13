@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "hmpps_knowledge_base_s3_input_to_equip_migration
     ]
 
     resources = [
-      module.equip_migration_queue.arn
+      module.equip_migration_queue.sqs_arn
     ]
 
     condition {
