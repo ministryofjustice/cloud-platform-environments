@@ -28,13 +28,13 @@ module "visit_scheduler_pg_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade    = false
   db_engine                    = "postgres"
-  db_engine_version            = "17.9"
-  rds_family                   = "postgres17"
+  db_engine_version            = "18.6"
+  rds_family                   = "postgres18"
   db_instance_class            = "db.t4g.small"
   db_max_allocated_storage     = "200"
   db_allocated_storage         = "50"
   storage_type                 = "gp3"
-  performance_insights_enabled = true
+  performance_insights_enabled = false
   deletion_protection          = true
 
   providers = {
@@ -74,13 +74,13 @@ module "prison_visit_booker_reg_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade    = false
   db_engine                    = "postgres"
-  db_engine_version            = "17.9"
-  rds_family                   = "postgres17"
+  db_engine_version            = "18.6"
+  rds_family                   = "postgres18"
   db_instance_class            = "db.t4g.small"
-  db_max_allocated_storage     = "50"
+  db_max_allocated_storage     = "200"
   db_allocated_storage         = "20"
   storage_type                 = "gp3"
-  performance_insights_enabled = true
+  performance_insights_enabled = false
   deletion_protection          = true
 
   providers = {
@@ -105,12 +105,12 @@ module "visit_allocation_rds" {
   allow_minor_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version           = "17.9"
-  rds_family                  = "postgres17"
+  db_engine_version           = "18.6"
+  rds_family                  = "postgres18"
   db_instance_class           = "db.t4g.small"
-  db_max_allocated_storage    = "50"
+  db_max_allocated_storage    = "200"
   storage_type                = "gp3"
-  performance_insights_enabled = true
+  performance_insights_enabled = false
 
   providers = {
     aws = aws.london

@@ -33,7 +33,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-electronic-monitoring"
+  default     = "hmpps-electronic-monitoring-live"
 }
 
 variable "environment" {
