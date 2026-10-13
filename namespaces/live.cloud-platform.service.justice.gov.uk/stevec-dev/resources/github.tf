@@ -1,6 +1,5 @@
 module "hmpps-stevec-sre-github-repo" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token            = true
   github_repo                   = "hmpps-stevec-sre-test-ui"
   application                   = "hmpps-stevec-sre-test-ui"
   github_team                   = "hmpps-sre"
