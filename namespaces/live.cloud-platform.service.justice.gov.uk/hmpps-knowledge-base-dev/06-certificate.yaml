@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-knowledge-base-api-cert
+  namespace: hmpps-knowledge-base-dev
+spec:
+  secretName: hmpps-knowledge-base-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - knowledge-base-api-dev.hmpps.service.justice.gov.uk
+    - '*.knowledge-base-api-dev.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-knowledge-base-ui-cert
+  namespace: hmpps-knowledge-base-dev
+spec:
+  secretName: hmpps-knowledge-base-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - knowledge-base-dev.hmpps.service.justice.gov.uk
+    - '*.knowledge-base-dev.hmpps.service.justice.gov.uk'
