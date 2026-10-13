@@ -54,3 +54,9 @@ module "ecr_dependencytrack_frontend" {
   # Just this one can have the irsa
   enable_irsa = true
 }
+
+resource "github_actions_variable" "dependencytrack_ecr_registry" {
+  repository    = "hmpps-dependencytrack"
+  variable_name = "CLOUD_PLATFORM_ECR_REGISTRY_URL"
+  value         = split("/", module.ecr_dependencytrack_apiserver.repo_url)[0]
+}
