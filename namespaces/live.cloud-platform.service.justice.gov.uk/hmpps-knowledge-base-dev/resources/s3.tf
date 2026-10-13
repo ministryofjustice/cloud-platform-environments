@@ -60,7 +60,7 @@ resource "aws_sqs_queue_policy" "hmpps_knowledge_base_s3_input_to_equip_migratio
 }
 
 resource "aws_s3_bucket_notification" "hmpps_knowledge_base_s3_input_to_equip_migration_queue_notification" {
-  bucket = module.hmpps_knowledge_base_s3_input.id
+  bucket = module.hmpps_knowledge_base_s3_input.bucket_name
 
   queue {
     queue_arn = module.equip_migration_queue.sqs_arn
