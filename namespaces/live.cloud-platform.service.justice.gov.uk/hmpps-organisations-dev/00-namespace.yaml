@@ -12,6 +12,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "move-and-improve-alerts-non-prod"
     cloud-platform.justice.gov.uk/application: "HMPPS organisations"
     cloud-platform.justice.gov.uk/owner: "Move and Improve: move-and-improve@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-organisations-api,https://github.com/ministryofjustice/hmpps-official-visits-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-organisations-api,https://github.com/ministryofjustice/hmpps-organisations-ui"
     cloud-platform.justice.gov.uk/team-name: "move-and-improve"
     cloud-platform.justice.gov.uk/review-after: ""
