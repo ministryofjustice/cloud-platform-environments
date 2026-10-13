@@ -26,6 +26,9 @@ module "cla_backend_rds_postgres_18" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
+  # set for major Updating   
+  prepare_for_major_upgrade = true
+
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres18"
@@ -72,6 +75,10 @@ module "cla_backend_cfe_integration_rds_postgres_18" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
+    
+  # set for major Updating   
+  prepare_for_major_upgrade = true
+
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family = "postgres18"
@@ -116,7 +123,10 @@ module "cla_backend_metabase_rds" {
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family = "postgres15"
+    # set for major Updating   
+  prepare_for_major_upgrade = true
+
+  rds_family = "postgres18"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -185,6 +195,9 @@ module "cla_backend_mcc_rds_postgres_18" {
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+
+    # set for major Updating   
+  prepare_for_major_upgrade = true
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
