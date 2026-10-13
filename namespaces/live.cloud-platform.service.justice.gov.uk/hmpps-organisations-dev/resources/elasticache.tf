@@ -20,7 +20,7 @@ module "elasticache_redis" {
 
 resource "kubernetes_secret" "elasticache_redis" {
   metadata {
-    name      = "hmpps-organisation-ui-elasticache-redis"
+    name      = "hmpps-organisations-ui-elasticache-redis"
     namespace = var.namespace
   }
 

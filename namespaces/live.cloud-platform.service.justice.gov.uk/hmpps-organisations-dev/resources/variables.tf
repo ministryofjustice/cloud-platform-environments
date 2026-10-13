@@ -34,7 +34,7 @@ variable "team_name" {
 
 variable "service_area" {
   description = "Service area responsible for this service"
-  default     = "Manage organistions"
+  default     = "Manage organisations"
 }
 
 ####################################################################################################################
