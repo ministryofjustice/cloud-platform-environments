@@ -141,7 +141,7 @@ module "cla_backend_metabase_rds" {
 
 resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
   metadata {
-    name      = "database-18"
+    name      = "database-14"
     namespace = var.namespace
   }
 
