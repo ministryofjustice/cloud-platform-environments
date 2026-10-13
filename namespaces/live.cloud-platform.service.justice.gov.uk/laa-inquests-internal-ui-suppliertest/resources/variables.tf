@@ -22,7 +22,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-inquests-internal-ui-dev"
+  default     = "laa-inquests-internal-ui-suppliertest"
 }
 
 variable "service_area" {
@@ -46,7 +46,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "dev"
+  default     = "suppliertest"
 }
 
 variable "infrastructure_support" {
