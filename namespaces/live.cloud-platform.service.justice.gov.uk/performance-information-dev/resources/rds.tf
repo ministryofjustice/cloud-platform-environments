@@ -1,3 +1,9 @@
+/*
+ * Make sure that you use the latest version of the module by changing the
+ * `ref=` value in the `source` attribute to the latest version listed on the
+ * releases page of this repository.
+ *
+ */
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
@@ -9,12 +15,13 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  deletion_protection = true
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16.15" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
 
@@ -27,9 +34,14 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  enable_irsa = true
-}
+  # If you want to assign AWS permissions to a k8s pod in your namespace - ie service pod for CLI queries,
+  # uncomment below:
 
+  enable_irsa = true
+
+  # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
+  opt_in_xsiam_logging = true
+}
 
 resource "kubernetes_secret" "rds" {
   metadata {
@@ -44,7 +56,15 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
   }
+  /* You can replace all of the above with the following, if you prefer to
+     * use a single database URL value in your application code:
+     *
+     * url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+     *
+     */
 }
+
+
 
 
 # Configmap to store non-sensitive data related to the RDS instance

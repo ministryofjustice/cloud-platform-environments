@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Client Access To Legal Aid (CALA)"
+  default     = "Client Access To Legal Aid"
 }
 
 variable "business_unit" {
@@ -72,4 +72,8 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "number_cache_clusters" {
+  default = "2"
 }

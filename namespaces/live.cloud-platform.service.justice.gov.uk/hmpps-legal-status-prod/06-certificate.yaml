@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-legal-status-api-cert
+  namespace: hmpps-legal-status-prod
+spec:
+  secretName: hmpps-legal-status-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - legal-status-api.hmpps.service.justice.gov.uk

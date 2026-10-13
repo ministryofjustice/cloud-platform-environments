@@ -14,7 +14,7 @@ module "rds" {
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "10000"
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -22,7 +22,7 @@ module "rds" {
   db_engine         = "postgres"
   db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -42,6 +42,7 @@ module "rds" {
   # opt_in_xsiam_logging = true
 
   deletion_protection = true
+
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -71,7 +72,7 @@ module "read_replica" {
   db_engine         = "postgres"
   db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db

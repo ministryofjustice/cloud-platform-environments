@@ -6,12 +6,10 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "15.13"
+  engine_version = "18.6"
   engine_mode    = "provisioned"
   instance_type  = "db.t4g.medium"
   replica_count  = 1
-  allow_major_version_upgrade  = true
-
 
   # Tags
   business_unit          = var.business_unit
@@ -25,7 +23,7 @@ module "rds_aurora" {
 
 resource "kubernetes_secret" "aurora_db" {
   metadata {
-    name      = "example-team-rds-cluster-output"
+    name      = "ja-testapp-aurora-secret"
     namespace = var.namespace
   }
 

@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - legal-status-preprod.hmpps.service.justice.gov.uk
+    - legal-status-api-preprod.hmpps.service.justice.gov.uk

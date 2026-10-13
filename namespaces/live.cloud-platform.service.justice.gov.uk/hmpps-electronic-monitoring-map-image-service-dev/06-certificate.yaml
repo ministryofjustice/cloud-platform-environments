@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-electronic-monitoring-map-image-service-cert
+  namespace: hmpps-electronic-monitoring-map-image-service-dev
+spec:
+  secretName: hmpps-electronic-monitoring-map-image-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - hmpps-em-map-image-service-dev.hmpps.service.justice.gov.uk
+    - '*.hmpps-em-map-image-service-dev.hmpps.service.justice.gov.uk'
