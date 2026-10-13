@@ -1,5 +1,5 @@
 module "hmpps_dependencytrack" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=HEAT-1565"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=fef76f5b004ac10e339a170b1070b479f19018ab"
   force_rotate_token = true
   custom_token_rotation_date = "2026-12-20"
   github_repo = "hmpps-dependencytrack"
