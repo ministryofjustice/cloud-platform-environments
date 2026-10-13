@@ -27,7 +27,7 @@ module "redis" {
 
 resource "kubernetes_secret" "redis_secrets" {
   metadata {
-    name      = "inquests-internal-ui-dev-redis-ec-cluster"
+    name      = "inquests-internal-ui-suppliertest-redis-ec-cluster"
     namespace = var.namespace
   }
 
