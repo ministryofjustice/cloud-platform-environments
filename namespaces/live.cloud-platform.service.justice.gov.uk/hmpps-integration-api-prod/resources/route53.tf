@@ -32,3 +32,12 @@ resource "aws_route53_record" "documentation" {
   records = ["ministryofjustice.github.io"]
   ttl     = "300"
 }
+
+
+resource "aws_route53_record" "documentation_txt" {
+  zone_id = aws_route53_zone.docs_hmpps_external_api_prod_zone.zone_id
+  name    = "_gh-ministryofjustice-o.docs.hmpps-external-api.service.justice.gov.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["88cd42ec2e"]
+}
