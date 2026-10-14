@@ -18,9 +18,6 @@ module "rds" {
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  snapshot_identifier = "cloud-platform-f0efefbb1f0a7cf7-finalsnapshot"
-  skip_final_snapshot = true
-
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
