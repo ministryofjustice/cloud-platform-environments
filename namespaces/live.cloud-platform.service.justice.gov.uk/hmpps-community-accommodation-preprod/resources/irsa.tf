@@ -91,6 +91,20 @@ module "irsa_ta" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "irsa_sas" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-single-accommodation-service-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
