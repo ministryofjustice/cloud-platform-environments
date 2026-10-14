@@ -100,3 +100,8 @@ variable "subscriptions_application_name" {
   description = "The name of the subscriptions application"
   default = "hmpps-prisoner-finance-subscriptions-api"
 }
+
+variable "prisoner_finance_application_name" {
+  description = "The name of the Prisoner Finance API application"
+  default = "hmpps-prisoner-finance-api"
+}
