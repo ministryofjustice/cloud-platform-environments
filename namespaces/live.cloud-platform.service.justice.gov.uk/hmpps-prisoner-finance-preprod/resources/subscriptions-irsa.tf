@@ -13,7 +13,7 @@ module "hmpps_prisoner_finance_subscriptions_irsa" {
   role_policy_arns     = local.subscriptions_irsa_policies
   # Tags
   business_unit          = var.business_unit
-  application            = var.application
+  application            = var.subscriptions_application_name
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment
