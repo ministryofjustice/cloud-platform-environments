@@ -10,7 +10,7 @@ module "prison-visits-rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
   db_engine_version           = "15.12"
