@@ -1,7 +1,7 @@
 module "hmpps_template_kotlin" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  custom_token_rotation_date = "20-03-2026"
   github_repo                   = "hmpps-organisations-api"
   application                   = "hmpps-organisations-api"
   github_team                   = "hmpps-prison-visits-booking-devs" #todo when should this change? See JHD
