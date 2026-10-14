@@ -46,4 +46,26 @@ resource "aws_route53_record" "ipa_route53_cname_record_autodiscover" {
   records = ["autodiscover.outlook.com."]
 }
 
+resource "aws_route53_record" "ipa_route53_cname_record_selector1" {
+  zone_id = aws_route53_zone.ipa_route53_zone.zone_id
+  name    = "selector1._domainkey.independentpublicadvocate.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["selector1-independentpublicadvocate-org-uk._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
+}
 
+resource "aws_route53_record" "ipa_route53_cname_record_selector2" {
+  zone_id = aws_route53_zone.ipa_route53_zone.zone_id
+  name    = "selector2._domainkey.independentpublicadvocate.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["selector2-independentpublicadvocate-org-uk._domainkey.JusticeUK.n-v1.dkim.mail.microsoft"]
+}
+
+resource "aws_route53_record" "ipa_route53_txt_record_dmarc" {
+  zone_id = aws_route53_zone.ipa_route53_zone.zone_id
+  name    = "_dmarc.independentpublicadvocate.org.uk"
+  type    = "TXT"
+  ttl     = "300"
+  records = ["v=DMARC1;p=reject;sp=reject;rua=mailto:dmarc-rua@dmarc.service.gov.uk"]
+}
