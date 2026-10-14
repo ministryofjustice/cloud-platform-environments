@@ -19,6 +19,7 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   snapshot_identifier = "cloud-platform-f0efefbb1f0a7cf7-finalsnapshot"
+  skip_final_snapshot = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
