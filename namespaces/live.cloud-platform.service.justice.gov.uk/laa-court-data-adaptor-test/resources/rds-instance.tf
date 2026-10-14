@@ -45,6 +45,8 @@ module "court_data_adaptor_rds_read_replica" {
   infrastructure_support = var.infrastructure_support
   rds_family             = "postgres17"
 
+  db_instance_class      = "db.t4g.micro"
+
   replicate_source_db        = module.court_data_adaptor_rds.db_identifier
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
