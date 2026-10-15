@@ -15,7 +15,7 @@ module "court_data_adaptor_rds" {
   rds_family                  = "postgres17"
   db_engine_version           = "17.11"
   db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "550"
+  db_max_allocated_storage    = "605"
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   maintenance_window          = "Mon:21:00-Mon:22:00"
@@ -50,6 +50,7 @@ module "court_data_adaptor_rds_read_replica" {
   replicate_source_db        = module.court_data_adaptor_rds.db_identifier
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+  db_max_allocated_storage   = "605"
 
   providers = {
     aws = aws.london
