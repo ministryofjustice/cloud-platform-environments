@@ -38,10 +38,16 @@ variable "team_name" {
   default     = "central-digital-product-team"
 }
 
-variable "environment" {
+variable "environment_name" {
   description = "Name of the environment type for this service"
   type        = string
   default     = "development"
+}
+
+variable "repo_name" {
+  description = "Name of the application's GitHub repository"
+  type        = string
+  default     = "service-assessment-guidance"
 }
 
 variable "infrastructure_support" {
