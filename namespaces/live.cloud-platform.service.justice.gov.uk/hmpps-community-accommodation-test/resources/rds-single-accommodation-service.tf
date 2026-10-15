@@ -13,7 +13,7 @@ module "single_accommodation_service_rds" {
   allow_major_version_upgrade = "true"
   allow_minor_version_upgrade = "true"
   db_instance_class           = "db.t4g.small"
-  db_engine_version           = "18"
+  db_engine_version           = "18.6"
   db_engine                   = "postgres"
   rds_family                  = "postgres18"
   # db_password_rotated_date    = "08-01-2026"
