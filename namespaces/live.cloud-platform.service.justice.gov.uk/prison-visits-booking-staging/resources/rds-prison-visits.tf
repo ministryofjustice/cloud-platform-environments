@@ -10,10 +10,10 @@ module "prison-visits-rds" {
   infrastructure_support = "pvb-technical-support@digital.justice.gov.uk"
   namespace              = var.namespace
 
-  allow_major_version_upgrade = "false"
+  allow_major_version_upgrade = "true"
   prepare_for_major_upgrade   = false
   db_engine                   = "postgres"
-  db_engine_version = "15.12"
+  db_engine_version = "15.17"
   rds_family                  = "postgres15"
   db_instance_class           = "db.t4g.small"
   db_allocated_storage        = "50"
