@@ -49,3 +49,35 @@ spec:
         message: More than 50 submission errors in the last 5 minutes in laa-data-claims-event-service-uat. Check the logs for details.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/main-perf-ms-api-uat-a-claims-api/1b2d237?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=main&var-helmInstallClaimEventService=uat&var-helmInstallClaimUI=uat
+  - name: sqs-rules
+    rules:
+    - alert: SQS-oldest-message-age
+      expr: |-
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="laa-data-claims-api-uat-sqs-queue"}) by (queue_name) > 600
+      for: 10m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: SQS - {{ $labels.queue_name }} has a message older than 600 seconds (provisional threshold) for 10 minutes, check claims api is healthy.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
+    - alert: SQS-backlog
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="laa-data-claims-api-uat-sqs-queue"}) by (queue_name) > 25
+      for: 15m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: SQS - {{ $labels.queue_name }} has {{ $value }} visible messages (provisional threshold 25) for 15 minutes, check the claims api is healthy.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
+    - alert: SQS-dlq-not-empty
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="laa-data-claims-api-uat-sqs-queue-dlq"}) by (queue_name) > 0
+      for: 10m
+      labels:
+        severity: laa-data-claims-event-service-uat
+      annotations:
+        message: SQS - dead letter queue {{ $labels.queue_name }} has {{ $value }} message(s) for 10 minutes, investigate failed messages.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
