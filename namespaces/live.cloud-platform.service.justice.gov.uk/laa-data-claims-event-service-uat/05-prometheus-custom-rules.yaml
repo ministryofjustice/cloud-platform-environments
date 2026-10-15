@@ -58,7 +58,7 @@ spec:
       labels:
         severity: laa-data-claims-event-service-uat
       annotations:
-        message: SQS - {{ $labels.queue_name }} has a message older than 600 seconds (provisional threshold) for 10 minutes, check claims api is healthy.
+        message: SQS - {{ $labels.queue_name }} has a message older than 600 seconds (provisional threshold) for 10 minutes, check the event service consumer is healthy.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
     - alert: SQS-backlog
@@ -68,7 +68,7 @@ spec:
       labels:
         severity: laa-data-claims-event-service-uat
       annotations:
-        message: SQS - {{ $labels.queue_name }} has {{ $value }} visible messages (provisional threshold 25) for 15 minutes, check the claims api is healthy.
+        message: SQS - {{ $labels.queue_name }} has {{ $value }} visible messages (provisional threshold 25) for 15 minutes, check the event service consumer is healthy.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
     - alert: SQS-dlq-not-empty
