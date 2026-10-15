@@ -1,5 +1,5 @@
 module "hmpps_james_bootstrap" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.0"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=fef76f5b004ac10e339a170b1070b479f19018ab"
   github_repo = "hmpps-james-bootstrap"
   application = "hmpps-james-bootstrap"
   github_team = "hmpps-sre"
@@ -13,4 +13,5 @@ module "hmpps_james_bootstrap" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  enable_ecr                    = true
 }
