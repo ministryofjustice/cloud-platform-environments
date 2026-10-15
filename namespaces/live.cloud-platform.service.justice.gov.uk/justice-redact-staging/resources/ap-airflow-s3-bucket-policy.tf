@@ -15,7 +15,7 @@ variable "ap_airflow_role_arn" {
 }
 
 resource "aws_s3_bucket_policy" "ap_airflow_access" {
-  bucket = module.s3_bucket.bucket_name
+  bucket = "cloud-platform-92bb1800eb01aa9300d2febcc49b929a"
   policy = data.aws_iam_policy_document.ap_airflow_bucket_policy.json
 }
 

@@ -1,5 +1,5 @@
 module "james_typescript_test" {
-  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=fef76f5b004ac10e339a170b1070b479f19018ab"
   force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                = "james-typescript-test"
@@ -15,6 +15,7 @@ module "james_typescript_test" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  enable_ecr                    = true
 }
 
 
