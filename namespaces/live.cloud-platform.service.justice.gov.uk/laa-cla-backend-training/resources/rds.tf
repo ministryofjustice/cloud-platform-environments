@@ -96,14 +96,14 @@ module "cla_backend_metabase_rds" {
   namespace     = var.namespace
 
   db_name                  = "metabase"
-  db_engine_version        = "14.24"
+  db_engine_version        = "15.19"
   db_instance_class        = "db.t4g.micro"
   db_allocated_storage     = "5"
   db_max_allocated_storage = "500"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family = "postgres14"
+  rds_family = "postgres15"
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
