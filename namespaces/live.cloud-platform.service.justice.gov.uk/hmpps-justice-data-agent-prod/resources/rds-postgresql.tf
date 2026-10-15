@@ -18,9 +18,6 @@ module "rds" {
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
-  skip_final_snapshot = true
-  snapshot_identifier = "cloud-platform-f0efefbb1f0a7cf7-original-prod"
-
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
@@ -48,7 +45,7 @@ module "rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
