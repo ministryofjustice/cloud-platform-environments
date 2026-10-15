@@ -78,8 +78,11 @@ module "cla_backend_rds_postgres_14_replica" {
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
   rds_family        = "postgres18"
-  db_engine_version = "18.6""
+  db_engine_version = "18.6"
   db_instance_class = "db.t4g.small"
+
+  # set for major Updating   
+  prepare_for_major_upgrade = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -108,7 +111,7 @@ module "cla_backend_metabase_rds" {
 
   rds_family = "postgres18"
 
-      # set for major Updating   
+  # set for major Updating   
   prepare_for_major_upgrade = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
