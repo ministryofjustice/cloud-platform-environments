@@ -10,7 +10,7 @@ module "hmpps_template_typescript" {
   application = "hmpps-stevec-sre-test-ui"
   github_team = "hmpps-sre"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-sre-nondevs"] #Used for testing against HEAT-1615
+  reviewer_teams                = ["hmpps-prison-visits-booking-live","hmpps-move-and-improve-squad-2-live"] #Used for testing against HEAT-1615
   selected_branch_patterns      = ["main", "**/**", "**"]           # Optional
   #protected_branches_only      = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
