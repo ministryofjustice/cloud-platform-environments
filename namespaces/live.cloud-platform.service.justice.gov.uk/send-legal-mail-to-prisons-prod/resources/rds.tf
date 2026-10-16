@@ -24,6 +24,7 @@ module "slmtp_api_rds" {
     aws = aws.london
   }
 
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "slmtp_api_rds" {
