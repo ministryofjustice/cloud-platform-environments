@@ -121,7 +121,6 @@ module "cla_backend_metabase_rds" {
     aws = aws.london
   }
 
-
   enable_irsa = true
 }
 
