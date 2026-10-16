@@ -50,6 +50,7 @@ resource "aws_sns_topic_subscription" "sas_domain_events_subscription" {
       "core-person-record.probation.address.updated",
       "core-person-record.probation.address.deleted",
       "core-person-record.probation.record.updated",
+      "core-person-record.probation.record.merged",
       "prisoner-offender-search.prisoner.updated",
       "prisoner-offender-search.prisoner.received",
       "prisoner-offender-search.prisoner.released",
