@@ -54,6 +54,42 @@ module "cla_backend_rds_postgres_14" {
   enable_irsa = true
 }
 
+module "cla_backend_rds_postgres_14_replica" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage   = 10
+  storage_type           = "gp2"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+
+
+  # Set the db_identifier of the source db
+  replicate_source_db = module.cla_backend_rds_postgres_14.db_identifier
+
+  # Set to true. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
+  # Pick the one that defines the postgres version the best
+  rds_family        = "postgres15"
+  db_engine_version = "15.19"
+  db_instance_class = "db.t4g.small"
+
+  # set for major Updating   
+  prepare_for_major_upgrade = true
+
+  providers = {
+    # Can be either "aws.london" or "aws.ireland"
+    aws = aws.london
+  }
+
+}
 
 module "cla_backend_metabase_rds" {
   source        = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
