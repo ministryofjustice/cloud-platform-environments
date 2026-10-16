@@ -1,5 +1,5 @@
 module "hmpps_james_bootstrap" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=fef76f5b004ac10e339a170b1070b479f19018ab"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=v1.3.0"
   github_repo = "hmpps-james-bootstrap"
   application = "hmpps-james-bootstrap"
   github_team = "hmpps-sre"
