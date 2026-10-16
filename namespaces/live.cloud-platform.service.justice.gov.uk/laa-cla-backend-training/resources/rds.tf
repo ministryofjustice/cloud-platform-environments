@@ -102,8 +102,6 @@ resource "kubernetes_secret" "cla_backend_rds_postgres_14" {
     user             = module.cla_backend_rds_postgres_14.database_username
     password         = module.cla_backend_rds_postgres_14.database_password
     db_identifier    = module.cla_backend_rds_postgres_14.db_identifier
-    replica_host     = module.cla_backend_rds_postgres_14_replica.rds_instance_address
-    replica_endpoint = module.cla_backend_rds_postgres_14_replica.rds_instance_endpoint
   }
 }
 
