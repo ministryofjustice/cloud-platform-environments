@@ -73,3 +73,39 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+
+variable "app_repo" {
+  description = "Name of the application's GitHub repository"
+  type        = string
+  default     = "cica-digital-and-data"
+}
+
+variable "github_actions_secret_kube_cluster" {
+  description = "The name of the github actions secret containing the kubernetes cluster name"
+  type        = string
+  default     = "KUBE_CLUSTER"
+}
+
+variable "github_actions_secret_kube_namespace" {
+  description = "The name of the github actions secret containing the kubernetes namespace name"
+  type        = string
+  default     = "KUBE_NAMESPACE"
+}
+
+variable "github_actions_secret_kube_cert" {
+  description = "The name of the github actions secret containing the serviceaccount ca.crt"
+  type        = string
+  default     = "KUBE_CERT"
+}
+
+variable "github_actions_secret_kube_token" {
+  description = "The name of the github actions secret containing the serviceaccount token"
+  type        = string
+  default     = "KUBE_TOKEN"
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+  type        = string
+}
