@@ -39,6 +39,12 @@ variable "team_name" {
   default     = "manage-people-on-probation"
 }
 
+variable "github_team_name" {
+  description = "Name of the development team responsible for this service"
+  type        = string
+  default     = "hmpps-manage-people-on-probation"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
