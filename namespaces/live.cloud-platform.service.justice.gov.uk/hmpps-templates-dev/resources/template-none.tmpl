@@ -18,6 +18,8 @@ module "hmpps_template_none" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  # enable_ecr is only required ONCE per Github repository. Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
+  # enable_ecr is required only ONCE per Github repository. 
+  # Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
+  #                 `enable_ecr = false` (or comment it out) on others
   enable_ecr                    = true
 }
