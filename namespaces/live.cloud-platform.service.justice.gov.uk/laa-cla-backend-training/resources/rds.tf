@@ -81,8 +81,6 @@ module "cla_backend_rds_postgres_14_replica" {
   db_engine_version = "18.6"
   db_instance_class = "db.t4g.small"
 
-  # set for major Updating   
-  prepare_for_major_upgrade = true
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
