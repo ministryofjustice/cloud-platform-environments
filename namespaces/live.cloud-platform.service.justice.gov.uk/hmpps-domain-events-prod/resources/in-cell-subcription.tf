@@ -96,21 +96,6 @@ resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy-new" {
   user       = aws_iam_user.in-cell-queue-user.name
 }
 
-# For deletion once the above key is being used:
-resource "aws_iam_access_key" "in-cell-queue-access" {
-  user = aws_iam_user.user.name
-}
-# For deletion once the above key is being used:
-resource "aws_iam_user_policy_attachment" "in-cell-queue-policy" {
-  policy_arn = module.in_cell_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
-}
-# For deletion once the above key is being used:
-resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy" {
-  policy_arn = module.in_cell_dead_letter_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
-}
-
 resource "kubernetes_secret" "in_cell_queue" {
   metadata {
     name      = "sqs-hmpps-domain-events"
