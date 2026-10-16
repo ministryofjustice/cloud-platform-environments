@@ -112,6 +112,8 @@ resource "aws_sns_topic_subscription" "cvl_domain_events_subscription" {
       "recall.inserted",
       "recall.updated",
       "prison-offender-events.prisoner.merged",
+      "prison-offender-events.prisoner.received",
+      "prisoner-offender-search.prisoner.released",
     ]
   })
 }

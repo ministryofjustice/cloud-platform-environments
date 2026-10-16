@@ -45,7 +45,7 @@ module "rds" {
 # source RDS instance and read-replica is the replica we are creating.
 
 module "read_replica" {
-  count  = 1
+  count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name = var.vpc_name
@@ -119,7 +119,7 @@ resource "kubernetes_secret" "rds" {
 
 
 resource "kubernetes_secret" "read_replica" {
-  count = 1
+  count = 0
 
   metadata {
     name      = "rds-postgresql-read-replica-output"
@@ -127,10 +127,13 @@ resource "kubernetes_secret" "read_replica" {
   }
 
   # The database_username, database_password, database_name values are same as the source RDS instance.
+  # Uncomment and set count = 1 when the replica module is enabled.
+  /*
   data = {
     rds_instance_endpoint = module.read_replica[0].rds_instance_endpoint
     rds_instance_address  = module.read_replica[0].rds_instance_address
   }
+  */
 }
 
 

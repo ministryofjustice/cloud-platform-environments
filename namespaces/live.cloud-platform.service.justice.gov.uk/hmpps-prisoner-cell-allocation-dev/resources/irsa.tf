@@ -58,3 +58,25 @@ module "hmpps-change-someones-cell-service-account-audit" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+# Service account for hmpps-change-someones-cell-api, so it can read prisoner merge and booking
+# moved events from its queue (sqs.tf). MAPA-438.
+module "hmpps-change-someones-cell-api-irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-change-someones-cell-api"
+  role_policy_arns = {
+    prisoner-event-queue = module.prisoner-event-queue.irsa_policy_arn
+    prisoner-event-dlq   = module.prisoner-event-dlq.irsa_policy_arn
+  }
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}

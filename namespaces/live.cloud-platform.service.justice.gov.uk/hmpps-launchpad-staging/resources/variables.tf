@@ -8,6 +8,10 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
@@ -29,7 +33,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-launchpad"
+  default     = "hmpps-launchpad-devs"
 }
 
 variable "environment" {
@@ -53,7 +57,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hub_dev"
+  default     = "ask_prisoner_facing_services"
 }
 
 variable "github_owner" {
