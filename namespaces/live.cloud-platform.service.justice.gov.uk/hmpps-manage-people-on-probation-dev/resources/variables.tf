@@ -40,7 +40,7 @@ variable "team_name" {
 }
 
 variable "github_team_name" {
-  description = "Name of the development team responsible for this service"
+  description = "GitHub team slug used for the GithubTeam access tag"
   type        = string
   default     = "hmpps-manage-people-on-probation"
 }
