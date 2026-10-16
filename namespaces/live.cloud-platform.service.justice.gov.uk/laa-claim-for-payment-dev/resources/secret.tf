@@ -15,5 +15,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "auth-secret-dev" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+     "laa-claim-for-payment-sentry-dsn-staging" = {
+      description             = "Staging Sentry DSN",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "laa-claim-for-payment-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
   }
 }
