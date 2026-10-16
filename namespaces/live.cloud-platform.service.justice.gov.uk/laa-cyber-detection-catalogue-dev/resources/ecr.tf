@@ -10,6 +10,8 @@ module "ecr" {
   # Repository configuration
   repo_name = var.namespace
 
+  github_actions_prefix = "dev"
+
   # OpenID Connect configuration
   oidc_providers      = ["github"]
   github_repositories = ["laa-cyber-detection-catalogue"]
