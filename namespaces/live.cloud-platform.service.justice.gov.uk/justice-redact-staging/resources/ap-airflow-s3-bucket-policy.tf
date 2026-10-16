@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "ap_airflow_bucket_policy" {
     ]
 
     resources = [
-      module.s3_bucket.bucket_arn
+      "arn:aws:s3:::cloud-platform-92bb1800eb01aa9300d2febcc49b929a"
     ]
   }
 
@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "ap_airflow_bucket_policy" {
     ]
 
     resources = [
-      "${module.s3_bucket.bucket_arn}/*"
+      "arn:aws:s3:::cloud-platform-92bb1800eb01aa9300d2febcc49b929a/*"
     ]
   }
 }
