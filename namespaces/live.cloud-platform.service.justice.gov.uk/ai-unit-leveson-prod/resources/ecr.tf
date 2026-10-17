@@ -25,6 +25,10 @@ module "ecr_credentials" {
   oidc_providers = ["github"]
   github_repositories = [var.app_repo]
 
+  # Allows the repository to be destroyed while it still contains images,
+  # as part of decommissioning this namespace.
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application
