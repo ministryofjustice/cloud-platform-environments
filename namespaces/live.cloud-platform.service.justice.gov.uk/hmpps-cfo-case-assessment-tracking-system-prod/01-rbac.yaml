@@ -5,9 +5,6 @@ metadata:
   namespace: hmpps-cfo-case-assessment-tracking-system-prod
 subjects:
   - kind: Group
-    name: "github:hmpps-creating-future-opportunities-devs"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:hmpps-creating-future-opportunities-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
@@ -22,7 +19,7 @@ metadata:
   namespace: hmpps-cfo-case-assessment-tracking-system-prod
 subjects:
   - kind: Group
-    name: "github:hmpps-creating-future-opportunities-devs"
+    name: "github:hmpps-creating-future-opportunities-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
