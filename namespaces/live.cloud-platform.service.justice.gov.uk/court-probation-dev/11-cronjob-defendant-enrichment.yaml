@@ -6,7 +6,7 @@ metadata:
 spec:
   schedule: "0 3 * * *"
   timeZone: "Europe/London"
-  suspend: true # Enable only after the enrichment workflow is implemented
+  suspend: true
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 300
   successfulJobsHistoryLimit: 1
@@ -33,36 +33,14 @@ spec:
               env:
                 - name: ENRICHMENT_URL
                   value: "http://hmpps-court-case-enrichment-worker:8080/jobs/enrich-defendants"
-                - name: TOKEN_URL
-                  value: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth/oauth/token"
-                - name: CLIENT_ID
-                  valueFrom:
-                    secretKeyRef:
-                      name: defendant-enrichment-cronjob-oauth
-                      key: client-id
-                - name: CLIENT_SECRET
-                  valueFrom:
-                    secretKeyRef:
-                      name: defendant-enrichment-cronjob-oauth
-                      key: client-secret
               command: ["/bin/sh", "-c"]
               args:
                 - |
                   set -eu
 
-                  TOKEN_RESPONSE=$(curl --silent --show-error --fail \
-                    --connect-timeout 10 --max-time 30 --retry 0 \
-                    --user "$CLIENT_ID:$CLIENT_SECRET" \
-                    --data-urlencode "grant_type=client_credentials" \
-                    "$TOKEN_URL")
-
-                  TOKEN=$(printf '%s' "$TOKEN_RESPONSE" |
-                    jq -er '.access_token | select(type == "string" and length > 0)')
-
                   curl --silent --show-error --fail \
                     --connect-timeout 10 --max-time 3200 --retry 0 \
                     --request POST \
-                    --header "Authorization: Bearer $TOKEN" \
                     --output /dev/null \
                     "$ENRICHMENT_URL"
 
