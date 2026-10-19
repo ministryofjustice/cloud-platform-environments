@@ -1,0 +1,53 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rds-fb-user-datastore
+  namespace: formbuilder-platform-live-dev
+  labels:
+    prometheus: cloud-platform
+spec:
+  groups:
+    - name: formbuilder-platform-live-dev-rules
+      rules:
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-HighCPUUtilization
+          expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} > 85
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS CPU usage > 85%.
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-HighDatabaseConnections
+          expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} > 840 # max: 840
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS number of database connections > 150.
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-LowStorage
+          expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} < 1024*1024*1024
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS storage capacity < 1GB.
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-Freeable-Memory
+          expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} < 500*1024*1024
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS freeable memory is less than 500MB
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-HighReadLatency
+          expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} > 0.5
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS read latency > 500ms.
+        - alert: FormBuilder-User-Datastore-Live-Dev-RDS-HighWriteLatency
+          expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-6ffb69db9ea51793"} > 0.5
+          for: 1m
+          labels:
+            severity: form-builder-alerts-low-severity
+          annotations:
+            message: FormBuilder User Datastore Live Dev - RDS write latency > 500ms.
