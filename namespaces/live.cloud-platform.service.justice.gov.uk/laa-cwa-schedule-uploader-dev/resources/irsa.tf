@@ -1,7 +1,7 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name = var.eks_cluster_name
-  service_account_name = "${var.namespace}-irsa"
+  service_account_name = "laa-cwa-schedule-uploader-api-runtime"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
@@ -15,4 +15,16 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "${var.namespace}-irsa"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
 }
