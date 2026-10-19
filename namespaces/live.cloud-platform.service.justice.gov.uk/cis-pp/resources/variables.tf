@@ -187,6 +187,15 @@ variable "tags" {
 
 
 # -----------------------------------------------------------------------------
+# DynamoDB Variables
+# -----------------------------------------------------------------------------
+variable "dynamodb_transactions_audit_table_name" {
+  description = "Name of the DynamoDB table for transactions audit"
+  type        = string
+  default     = "preproduction-transactions-audit"
+}
+
+# -----------------------------------------------------------------------------
 # CloudFront Logging Variables
 # -----------------------------------------------------------------------------
 variable "cloudfront_log_retention_days" {

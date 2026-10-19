@@ -51,7 +51,11 @@ module "manage-people-on-probation-api-service-account" {
   service_account_name = "manage-people-on-probation-api"
   role_policy_arns = merge(
     { elasticache = module.elasticache.irsa_policy_arn },
-    local.sns_policies
+    local.sns_policies,
+    {
+      sqs = module.supervision-appointments-sms-status-check-queue.irsa_policy_arn
+      sqs_dlq = module.supervision-appointments-sms-status-check-dlq.irsa_policy_arn
+    }
   )
 }
 

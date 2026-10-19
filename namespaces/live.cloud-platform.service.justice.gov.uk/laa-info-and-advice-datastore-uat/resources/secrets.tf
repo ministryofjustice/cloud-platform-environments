@@ -9,6 +9,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-info-and-advice-datastore-entra"
     }
+    "laa-info-and-advice-datastore-claims-api-uat" = {
+      description             = "Claims API key for laa-info-and-advice-datastore UAT"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-info-and-advice-datastore-claims-api"
+    }
   }
 
   application            = var.application

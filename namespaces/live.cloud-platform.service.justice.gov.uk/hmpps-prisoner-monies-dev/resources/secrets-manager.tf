@@ -11,10 +11,5 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "emails-notify-auth-token" = {
-      description             = "The API token used by the Legacy MTP project",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "hmpps-prisoner-monies-email-service-notify-auth-token" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
-    },    
   }
 }
