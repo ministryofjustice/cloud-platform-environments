@@ -1,0 +1,53 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rds-fb-editor
+  namespace: formbuilder-saas-live
+  labels:
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: formbuilder-saas-live-rules
+    rules:
+      - alert: FormBuilder-Editor-Live-RDS-HighCPUUtilization
+        expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} > 85
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS CPU usage > 85%.
+      - alert: FormBuilder-Editor-Live-RDS-HighDatabaseConnections
+        expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} > 150 # max: 190
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS number of database connections > 150.
+      - alert: FormBuilder-Editor-Live-RDS-LowStorage
+        expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} < 1024*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS storage capacity < 1GB.
+      - alert: FormBuilder-Editor-Live-RDS-Freeable-Memory
+        expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} < 500*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS freeable memory is less than 500MB
+      - alert: FormBuilder-Editor-Live-RDS-HighReadLatency
+        expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS read latency > 500ms.
+      - alert: FormBuilder-Editor-Live-RDS-HighWriteLatency
+        expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-82ad2a679533ec45"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts
+        annotations:
+          message: FormBuilder Editor Live - RDS write latency > 500ms.
