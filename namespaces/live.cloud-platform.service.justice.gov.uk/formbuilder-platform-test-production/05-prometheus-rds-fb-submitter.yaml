@@ -1,0 +1,53 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rds-fb-submitter
+  namespace: formbuilder-platform-test-production
+  labels:
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: formbuilder-platform-test-production-rules
+    rules:
+      - alert: FormBuilder-Submitter-Test-Production-RDS-HighCPUUtilization
+        expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} > 85
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS CPU usage > 85%.
+      - alert: FormBuilder-Submitter-Test-Production-RDS-HighDatabaseConnections
+        expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} > 840 # max: 840
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS number of database connections > 150.
+      - alert: FormBuilder-Submitter-Test-Production-RDS-LowStorage
+        expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} < 1024*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS storage capacity < 1GB.
+      - alert: FormBuilder-Submitter-Test-Production-RDS-Freeable-Memory
+        expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} < 500*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS freeable memory is less than 500MB
+      - alert: FormBuilder-Submitter-Test-Production-RDS-HighReadLatency
+        expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS read latency > 500ms.
+      - alert: FormBuilder-Submitter-Test-Production-RDS-HighWriteLatency
+        expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-1c3e4ae3f1352cfb"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Submitter Test Production - RDS write latency > 500ms.
