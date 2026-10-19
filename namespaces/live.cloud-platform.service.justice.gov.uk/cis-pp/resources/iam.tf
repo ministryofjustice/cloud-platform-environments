@@ -51,6 +51,46 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
   })
 }
 
+resource "aws_iam_policy" "transactions_audit_dynamodb" {
+  name        = "${var.namespace}-transactions-audit-dynamodb"
+  description = "Allow read/write access to the ${var.namespace} transactions audit DynamoDB table and its indexes"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ManageTransactionsAuditTable"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:DescribeTable",
+        ]
+        Resource = [
+          aws_dynamodb_table.transactions_audit.arn,
+          "${aws_dynamodb_table.transactions_audit.arn}/index/*",
+        ]
+      },
+      {
+        Sid    = "UseTransactionsAuditTableKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # GitHub OIDC Role
 #

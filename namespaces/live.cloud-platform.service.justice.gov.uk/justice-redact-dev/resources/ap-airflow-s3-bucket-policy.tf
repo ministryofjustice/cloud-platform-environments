@@ -6,7 +6,7 @@
 variable "ap_airflow_role_arn" {
   description = "IAM role ARN that Analytical Platform Airflow assumes for this pipeline (environment=development, project=justice-redact, workflow=s3-sync)."
   type        = string
-  default     = "arn:aws:iam::593291632749:role/airflow-test-justice-redact-s3-sync"
+  default     = "arn:aws:iam::593291632749:role/airflow-test-justice-redact-s3-sync-dev"
 }
 
 resource "aws_s3_bucket_policy" "ap_airflow_access" {

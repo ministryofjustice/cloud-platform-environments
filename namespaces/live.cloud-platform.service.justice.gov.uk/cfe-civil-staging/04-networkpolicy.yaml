@@ -55,3 +55,12 @@ spec:
         - namespaceSelector:
             matchLabels:
               cloud-platform.justice.gov.uk/namespace: laa-record-controlled-work-staging
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-operator-app-uat
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-operator-app-staging
+        - namespaceSelector:
+            matchLabels:
+              cloud-platform.justice.gov.uk/namespace: laa-cla-operator-app-training

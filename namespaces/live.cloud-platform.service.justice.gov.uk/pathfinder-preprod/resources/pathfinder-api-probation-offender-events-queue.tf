@@ -1,5 +1,5 @@
 data "aws_sns_topic" "probation-offender-events" {
-  name = "cloud-platform-Digital-Prison-Services-453cac1179377186788c5fcd12525870"
+  name = "cloud-platform-Digital-Prison-Services-dbe10e8d9c1f4d100f0c723d5d9b754e"
 }
 
 module "pathfinder_api_queue_for_probation_events" {

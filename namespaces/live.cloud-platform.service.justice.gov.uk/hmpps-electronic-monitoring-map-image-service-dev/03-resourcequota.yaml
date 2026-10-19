@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: hmpps-electronic-monitoring-map-image-service-dev
+spec:
+  hard:
+    pods: "50"

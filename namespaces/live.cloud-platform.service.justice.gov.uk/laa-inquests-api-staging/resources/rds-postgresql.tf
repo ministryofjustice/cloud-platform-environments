@@ -20,9 +20,9 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
@@ -40,6 +40,8 @@ module "rds" {
 
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
+
+  snapshot_identifier = "cloud-platform-93443e5cfe01004f-restore-test-161026"
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -67,7 +69,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance

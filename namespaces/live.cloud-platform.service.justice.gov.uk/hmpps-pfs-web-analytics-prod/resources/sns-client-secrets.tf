@@ -5,8 +5,8 @@ resource "kubernetes_secret" "sns_secrets" {
     namespace = each.value
   }
   data = {
-    common_arn = module.hmpps-pfs-common.topic_arn,
-    audit_arn = module.hmpps-pfs-audit.topic_arn,
-    analytics_arn = module.hmpps-pfs-analytics.topic_arn
+    common_arn = module.hmpps_pfs_common.topic_arn,
+    audit_arn = module.hmpps_pfs_audit.topic_arn,
+    analytics_arn = module.hmpps_pfs_analytics.topic_arn
   }
 }
