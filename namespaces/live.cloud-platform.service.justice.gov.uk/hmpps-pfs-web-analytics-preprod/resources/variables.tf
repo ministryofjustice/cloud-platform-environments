@@ -80,9 +80,11 @@ variable "github_token" {
 }
 
 variable "additional_topic_clients" {
-  description = "Store the PFS Web Analytics SNS topic ARNs in a secret named 'hmpps-pfs-web-analytics-sns' in each of the below namespaces."
-  default = [
-    "hmpps-launchpad-preprod",
-    "hmpps-managing-prisoner-apps-preprod",
-  ]
+  type        = list(string)
+  description = <<EOT
+A list of namespaces that require the ability to publish to PFS Web Analytics 3 SNS topics.
+Fetches an SSM parameter with name "/<namespace>/irsa/irsa-arn" from each of the below namespaces
+Additionally creates kubernetes secret 'hmpps-pfs-web-analytics-sns' in each of the below namespaces.
+EOT
+  default     = ["hmpps-launchpad-preprod"]
 }

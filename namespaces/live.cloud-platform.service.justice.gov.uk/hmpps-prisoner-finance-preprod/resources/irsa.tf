@@ -24,7 +24,7 @@ module "irsa" {
   role_policy_arns     = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
-  application            = var.application
+  application            = var.prisoner_finance_application_name
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment

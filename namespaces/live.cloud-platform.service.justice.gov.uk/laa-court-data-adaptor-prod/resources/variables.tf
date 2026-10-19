@@ -76,7 +76,7 @@ variable "eks_cluster_name" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-access-court-data"
+  default     = "laa-connect-public"
 }
 
 variable "kubernetes_cluster" {

@@ -7,7 +7,7 @@ module "irsa" {
   service_account_name = var.application
 
   role_policy_arns     = {
-    rds = module.pg17.irsa_policy_arn
+#    rds = module.pg17.irsa_policy_arn
     s3  = module.s3_bucket.irsa_policy_arn
   }
   
