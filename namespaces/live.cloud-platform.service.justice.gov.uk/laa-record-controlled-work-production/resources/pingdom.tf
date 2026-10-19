@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-record-controlled-work-rcw-production" {
   type             = "http"
   name             = "Record controlled work (RCW) - PRODUCTION"
-  host             = "laa-record-controlled-work-production.cloud-platform.service.justice.gov.uk"
+  host             = "record-controlled-work.service.justice.gov.uk"
   resolution       = 1
   notifywhenbackup = true
   notifyagainevery = 0

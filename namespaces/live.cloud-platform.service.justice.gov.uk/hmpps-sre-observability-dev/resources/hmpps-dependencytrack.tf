@@ -1,5 +1,5 @@
 module "hmpps_dependencytrack" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-12-20"
   github_repo = "hmpps-dependencytrack"
@@ -11,9 +11,11 @@ module "hmpps_dependencytrack" {
   protected_branches_only       = false                   # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  reviewer_teams                = ["hmpps-sre", "hmpps-sre-nondevs"]
   source_template_repo          = "none"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  enable_ecr                    = true
 }
 

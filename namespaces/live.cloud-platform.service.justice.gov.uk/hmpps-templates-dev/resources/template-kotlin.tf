@@ -3,7 +3,7 @@
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-template-kotlin"
@@ -19,4 +19,8 @@ module "hmpps_template_kotlin" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  # enable_ecr is required only ONCE per Github repository. 
+  # Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
+  #                 `enable_ecr = false` (or comment it out) on others
+  enable_ecr                    = true
 }
