@@ -91,6 +91,46 @@ resource "aws_iam_policy" "transactions_audit_dynamodb" {
   })
 }
 
+resource "aws_iam_policy" "bps_metadata_dynamodb" {
+  name        = "${var.namespace}-bps-metadata-dynamodb"
+  description = "Allow read/write access to the ${var.namespace} BPS metadata DynamoDB table and its indexes"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ManageBpsMetadataTable"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:DescribeTable",
+        ]
+        Resource = [
+          aws_dynamodb_table.bps_metadata.arn,
+          "${aws_dynamodb_table.bps_metadata.arn}/index/*",
+        ]
+      },
+      {
+        Sid    = "UseBpsMetadataTableKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # GitHub OIDC Role
 #

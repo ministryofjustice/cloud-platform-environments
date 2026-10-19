@@ -195,6 +195,12 @@ variable "dynamodb_transactions_audit_table_name" {
   default     = "preproduction-transactions-audit"
 }
 
+variable "dynamodb_bps_metadata_table_name" {
+  description = "Name of the DynamoDB table for BPS payment job metadata"
+  type        = string
+  default     = "bps_metadata_cis_preprod"
+}
+
 # -----------------------------------------------------------------------------
 # CloudFront Logging Variables
 # -----------------------------------------------------------------------------
