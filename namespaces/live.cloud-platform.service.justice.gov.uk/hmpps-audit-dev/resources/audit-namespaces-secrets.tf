@@ -1,6 +1,7 @@
 
 locals {
   namespaces = toset([
+    "create-and-vary-a-licence-dev",
     "hmpps-activities-management-dev",
     "hmpps-arns-assessment-platform-dev",
     "hmpps-assess-risks-and-needs-dev",
@@ -56,8 +57,7 @@ locals {
     "make-recall-decision-dev",
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
-    "visit-someone-in-prison-frontend-svc-staging",
-    "create-and-vary-a-licence-dev"
+    "visit-someone-in-prison-frontend-svc-staging"
   ])
 }
 
