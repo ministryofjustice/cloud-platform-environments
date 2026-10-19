@@ -26,17 +26,10 @@ variable "business_unit" {
   default     = "HMPPS"
 }
 
-# NB: connect-dps now look after hmpps-alerts but `team_name` may affect existing infrastructure
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-move-and-improve"
-}
-# `team_name_replacement` can be changed without affecting infrastructure
-variable "team_name_replacement" {
-  description = "Name of the actual development team responsible for this service"
-  type        = string
-  default     = "connect-dps"
+  default     = "connect-dps-live"
 }
 
 variable "environment" {
