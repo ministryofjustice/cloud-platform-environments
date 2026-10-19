@@ -7,9 +7,10 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    s3         = aws_iam_policy.frontend_s3_deploy.arn
-    cloudfront = aws_iam_policy.frontend_cloudfront_invalidate.arn
-    dynamodb   = aws_iam_policy.transactions_audit_dynamodb.arn
+    s3                    = aws_iam_policy.frontend_s3_deploy.arn
+    cloudfront            = aws_iam_policy.frontend_cloudfront_invalidate.arn
+    dynamodb              = aws_iam_policy.transactions_audit_dynamodb.arn
+    bps_metadata_dynamodb = aws_iam_policy.bps_metadata_dynamodb.arn
   }
 
   business_unit          = var.business_unit
