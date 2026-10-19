@@ -1,0 +1,53 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-rds-fb-metadata-api
+  namespace: formbuilder-saas-test
+  labels:
+    prometheus: cloud-platform
+spec:
+  groups:
+  - name: formbuilder-saas-test-rules
+    rules:
+      - alert: FormBuilder-Metadata-Api-Test-RDS-HighCPUUtilization
+        expr: aws_rds_cpuutilization_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} > 85
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS CPU usage > 85%.
+      - alert: FormBuilder-Metadata-Api-Test-RDS-HighDatabaseConnections
+        expr: aws_rds_database_connections_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} > 150 # max: 190
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS number of database connections > 150.
+      - alert: FormBuilder-Metadata-Api-Test-RDS-LowStorage
+        expr: aws_rds_free_storage_space_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} < 1024*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS storage capacity < 1GB.
+      - alert: FormBuilder-Metadata-Api-Test-RDS-Freeable-Memory
+        expr: aws_rds_freeable_memory_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} < 500*1024*1024
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS freeable memory is less than 500MB
+      - alert: FormBuilder-Metadata-Api-Test-RDS-HighReadLatency
+        expr: aws_rds_read_latency_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS read latency > 500ms.
+      - alert: FormBuilder-Metadata-Api-Test-RDS-HighWriteLatency
+        expr: aws_rds_write_latency_average{dbinstance_identifier="cloud-platform-0f2486b54a8e2c97"} > 0.5
+        for: 1m
+        labels:
+          severity: form-builder-alerts-low-severity
+        annotations:
+          message: FormBuilder Metadata-Api Test - RDS write latency > 500ms.
