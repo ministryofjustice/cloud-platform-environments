@@ -21,7 +21,7 @@ module "hmpps_james_typescript_ecr_ui" {
 
 # Note, redis is a requirement for hmpps-james-typescript-ecr-ui application.
 module "james_typescript_ecr_ui_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
