@@ -19,7 +19,7 @@ module "irsa" {
 
 resource "kubernetes_secret" "irsa" {
   metadata {
-    name      = "${var.namespace}-irsa"
+    name      = "laa-cwa-schedule-uploader-api-runtime"
     namespace = var.namespace
   }
   data = {
