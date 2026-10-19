@@ -56,7 +56,8 @@ locals {
     "make-recall-decision-dev",
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
-    "visit-someone-in-prison-frontend-svc-staging"
+    "visit-someone-in-prison-frontend-svc-staging",
+    "create-and-vary-a-licence-dev"
   ])
 }
 
