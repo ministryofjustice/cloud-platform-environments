@@ -45,7 +45,7 @@ variable "team_name" {
 variable "secondary_team" {
   description = "Name of the secondary development team responsible for this service"
   type        = string
-  default     = "connect-dps"
+  default     = "connect-dps-devs"
 }
 
 variable "environment" {
