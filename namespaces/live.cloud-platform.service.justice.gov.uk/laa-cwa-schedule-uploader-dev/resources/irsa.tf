@@ -1,7 +1,7 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name = var.eks_cluster_name
-  service_account_name = "cwa-schedule-uploader-api"
+  service_account_name = "${var.namespace}-irsa"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
