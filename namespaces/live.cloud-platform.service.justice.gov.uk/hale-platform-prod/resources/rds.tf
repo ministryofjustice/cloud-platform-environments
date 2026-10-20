@@ -11,7 +11,7 @@ module "rds" {
   performance_insights_enabled = true
 
   # general options
-  db_instance_class      = "db.t4g.2xlarge"
+  db_instance_class      = "db.t4g.large"
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
   deletion_protection    = "true"
