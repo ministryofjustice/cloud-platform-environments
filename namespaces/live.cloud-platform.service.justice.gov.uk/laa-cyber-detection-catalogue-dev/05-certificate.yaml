@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: laa-cyber-detection-catalogue-dev-cert
+  namespace: laa-cyber-detection-catalogue-dev
+spec:
+  secretName: laa-cyber-detection-catalogue-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - laa-cyber-detection-catalogue-dev.apps.live.cloud-platform.service.justice.gov.uk
