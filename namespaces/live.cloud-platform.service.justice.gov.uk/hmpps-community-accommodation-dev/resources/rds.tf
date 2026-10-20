@@ -42,6 +42,7 @@ module "read_replica" {
   db_name                = null # "db_name": conflicts with replicate_source_db
   replicate_source_db    = module.rds.db_identifier
 
+
   skip_final_snapshot          = "true"
   db_backup_retention_period   = 0
   allow_major_version_upgrade  = "true"
