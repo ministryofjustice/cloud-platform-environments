@@ -25,7 +25,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "connect-dps"
+  default     = "connect-dps-devs"
 }
 
 variable "environment-name" {
