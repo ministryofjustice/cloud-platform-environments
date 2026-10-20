@@ -16,7 +16,7 @@ module "hmpps_james_typescript_ecr_ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   enable_ecr                    = true
-  deletion_protection           = false
+  ecr_deletion_protection       = false
 }
 
 
