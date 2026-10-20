@@ -8,7 +8,7 @@ module "serviceaccount_circleci" {
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["laa-maat-orchestration"]
+  github_repositories = ["laa-crime-means-assessment"]
   github_environments = ["development"]
 }
 
