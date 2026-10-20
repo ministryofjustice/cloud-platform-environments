@@ -12,11 +12,9 @@ module "hmpps_egress_controls" {
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
     "internaltest.ppud.justice.gov.uk",
-    "github.com",
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    ".githubusercontent.com",
   ]
 
 }
