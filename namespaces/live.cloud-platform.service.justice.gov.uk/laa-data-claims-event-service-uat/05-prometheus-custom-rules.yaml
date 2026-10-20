@@ -21,11 +21,12 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
 
     - alert: KubeLowPodCount
-      expr: sum (kube_pod_status_phase{namespace="laa-data-claims-event-service-uat", phase="Running"}) < 1
+      expr: sum (kube_pod_status_phase{namespace="laa-data-claims-event-service-uat", phase="Running"}) < 2
+      for: 5m
       labels:
         severity: laa-data-claims-event-service-uat
       annotations:
-        message: Namespace laa-data-claims-event-service-uat has fewer than expected number of running pods.
+        message: Namespace laa-data-claims-event-service-uat has fewer than expected number of running pods (minimum baseline is 2 replicas).
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/uat-ervice-uat-laims-events/4285d4b?orgId=1&from=now-15m&to=now&timezone=browser&var-container=uat-data-claims-events
 
