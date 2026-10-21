@@ -1,22 +1,22 @@
-# data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_dev" {
-#   name = "/${var.namespace}/data_store_cpr_ingestion_role_arn_dev"
-#   with_decryption = true
-# }
+data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_dev" {
+  name = "/${var.namespace}/data_store_cpr_ingestion_role_arn_dev"
+  with_decryption = true
+}
 
-# data  "aws_ssm_parameter" "data_store_cemo_ingestion_role_arn_dev" {
-#   name = "/${var.namespace}/data_store_cemo_ingestion_role_arn_dev"
-#   with_decryption = true
-# }
+data  "aws_ssm_parameter" "data_store_cemo_ingestion_role_arn_dev" {
+  name = "/${var.namespace}/data_store_cemo_ingestion_role_arn_dev"
+  with_decryption = true
+}
 
-# data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_test" {
-#   name = "/${var.namespace}/data_store_cpr_ingestion_role_arn_test"
-#   with_decryption = true
-# }
+data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_test" {
+  name = "/${var.namespace}/data_store_cpr_ingestion_role_arn_test"
+  with_decryption = true
+}
 
-# data  "aws_ssm_parameter" "data_store_cemo_ingestion_role_arn_test" {
-#   name = "/${var.namespace}/data_store_cemo_ingestion_role_arn_test"
-#   with_decryption = true
-# }
+data  "aws_ssm_parameter" "data_store_cemo_ingestion_role_arn_test" {
+  name = "/${var.namespace}/data_store_cemo_ingestion_role_arn_test"
+  with_decryption = true
+}
 
 resource "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_dev" {
   name        = "/${var.namespace}/data_store_cpr_ingestion_role_arn_dev"
