@@ -253,7 +253,7 @@ locals {
 
   prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
 
-  prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
+  prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access, local.prisoner_audit_sns_topics)
 }
 
 data "aws_iam_policy_document" "hmpps_prisoner_audit_queue_policy" {

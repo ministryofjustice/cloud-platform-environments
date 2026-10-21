@@ -76,6 +76,30 @@ module "coh_export_daily_csv_bucket" {
         "$${bucket_arn}",
         "$${bucket_arn}/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "bcm-data-exports.amazonaws.com"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketAcl"
+      ],
+      "Resource": [
+        "$${bucket_arn}",
+        "$${bucket_arn}/coh-reports-auto/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceAccount": "082282578003"
+        },
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:bcm-data-exports:*:082282578003:export/*"
+        }
+      }
     }
   ]
 }

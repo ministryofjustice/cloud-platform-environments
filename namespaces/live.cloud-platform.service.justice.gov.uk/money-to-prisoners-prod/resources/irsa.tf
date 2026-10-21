@@ -13,9 +13,10 @@ module "irsa-deploy" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "deploy"
   role_policy_arns = {
-    rds    = module.rds.irsa_policy_arn,
-    s3     = module.s3.irsa_policy_arn,
-    policy = aws_iam_policy.deploy.arn,
+    rds         = module.rds.irsa_policy_arn,
+    s3          = module.s3.irsa_policy_arn,
+    rds_replica = module.rds_replica.irsa_policy_arn,
+    policy      = aws_iam_policy.deploy.arn,
   }
 }
 
