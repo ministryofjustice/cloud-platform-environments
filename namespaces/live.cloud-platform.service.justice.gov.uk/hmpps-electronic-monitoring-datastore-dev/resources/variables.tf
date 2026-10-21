@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Electronic Monitoring Datastore"
+  default     = "HMPPS Electronic Monitoring Datastore"
 }
 
 variable "eks_cluster_name" {
@@ -43,7 +43,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "hmpps-electronic-monitoring"
+  default     = "hmpps-em-probation-devs"
 }
 
 variable "environment" {
@@ -80,4 +80,16 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "em_datastore_general_role" {
+  type = string
+  description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
+  default = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test"
+}
+
+variable "em_datastore_specials_role" {
+  type = string
+  description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
+  default = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test"
 }
