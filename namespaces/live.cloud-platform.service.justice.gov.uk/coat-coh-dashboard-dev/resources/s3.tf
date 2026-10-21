@@ -93,10 +93,10 @@ module "coh_export_daily_csv_bucket" {
       ],
       "Condition": {
         "StringEquals": {
-          "aws:SourceAccount": "295814833350"
+          "aws:SourceAccount": "082282578003"
         },
         "ArnLike": {
-          "aws:SourceArn": "arn:aws:bcm-data-exports:*:295814833350:export/*"
+          "aws:SourceArn": "arn:aws:bcm-data-exports:*:082282578003:export/*"
         }
       }
     }
