@@ -131,6 +131,74 @@ resource "aws_iam_policy" "bps_metadata_dynamodb" {
   })
 }
 
+resource "aws_iam_policy" "bps_irsa_metadata_dynamodb" {
+  name        = "${var.namespace}-bps-irsa-metadata-dynamodb"
+  description = "Allow BPS to read and write its payment job metadata"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ReadAndWriteBpsMetadata"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:Query",
+          "dynamodb:TransactWriteItems",
+        ]
+        Resource = [
+          aws_dynamodb_table.bps_metadata.arn,
+          "${aws_dynamodb_table.bps_metadata.arn}/index/*",
+        ]
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_irsa_transactions_audit" {
+  name        = "${var.namespace}-bps-irsa-transactions-audit"
+  description = "Allow BPS to write transaction audit records"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "WriteTransactionsAudit"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:TransactWriteItems",
+        ]
+        Resource = aws_dynamodb_table.transactions_audit.arn
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
+  name        = "${var.namespace}-bps-irsa-password-encryption-kms"
+  description = "Allow BPS to encrypt payment-file passwords and use the DynamoDB encryption key"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "UseBpsEncryptionKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # GitHub OIDC Role
 #
