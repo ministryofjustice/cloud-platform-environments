@@ -86,7 +86,8 @@ module "coh_export_daily_csv_bucket" {
         "s3:PutObject",
         "s3:ListBucket",
         "s3:GetBucketLocation",
-        "s3:GetBucketAcl"
+        "s3:GetBucketAcl",
+        "s3:GetBucketPolicy"
       ],
       "Resource": [
         "$${bucket_arn}",
