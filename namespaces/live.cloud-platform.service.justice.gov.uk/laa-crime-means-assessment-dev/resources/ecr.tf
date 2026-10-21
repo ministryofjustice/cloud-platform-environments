@@ -10,7 +10,7 @@ module "ecr_credentials" {
   repo_name = "${var.namespace}-ecr"
   namespace = var.namespace
 
-  oidc_providers = ["circleci"]
+  oidc_providers = ["github"]
 
   github_repositories = ["laa-crime-means-assessment"]
 

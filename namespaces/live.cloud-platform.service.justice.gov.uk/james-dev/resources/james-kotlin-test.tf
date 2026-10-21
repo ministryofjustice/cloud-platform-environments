@@ -16,4 +16,5 @@ module "james_kotlin_test" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   enable_ecr                    = true
+  ecr_deletion_protection       = false
 }

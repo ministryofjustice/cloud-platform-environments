@@ -55,6 +55,7 @@ locals {
     "hmpps-templates-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
+    "offender-management-staging",
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging"

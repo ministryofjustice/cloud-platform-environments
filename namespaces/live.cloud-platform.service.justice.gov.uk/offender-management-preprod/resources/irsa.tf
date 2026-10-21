@@ -15,6 +15,7 @@ module "irsa" {
     domain_events_sqs     = module.domain_events_sqs_queue.irsa_policy_arn
     domain_events_sqs_dlq = module.domain_events_sqs_dlq.irsa_policy_arn
     domain_events_sns     = data.aws_ssm_parameter.irsa_policy_arn_sns_domain_events.value
+    hmpps_audit_sqs       = data.aws_ssm_parameter.irsa_policy_arn_sqs_hmpps_audit.value
   }
 
   # Tags
@@ -28,4 +29,8 @@ module "irsa" {
 
 data "aws_ssm_parameter" "irsa_policy_arn_sns_domain_events" {
   name = "/hmpps-domain-events-preprod/sns/cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arn_sqs_hmpps_audit" {
+  name = "/hmpps-audit-preprod/sqs/Digital-Prison-Services-preprod-hmpps_audit_queue/irsa-policy-arn"
 }
