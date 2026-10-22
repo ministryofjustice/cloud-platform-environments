@@ -91,14 +91,11 @@ module "coh_export_daily_csv_bucket" {
       ],
       "Resource": [
         "$${bucket_arn}",
-        "$${bucket_arn}/coh-reports-auto/*"
+        "$${bucket_arn}/*"
       ],
       "Condition": {
         "StringEquals": {
           "aws:SourceAccount": "082282578003"
-        },
-        "ArnLike": {
-          "aws:SourceArn": "arn:aws:bcm-data-exports:*:082282578003:export/*"
         }
       }
     }
