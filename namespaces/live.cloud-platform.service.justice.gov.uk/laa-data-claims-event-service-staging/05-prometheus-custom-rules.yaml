@@ -49,3 +49,34 @@ spec:
         message: More than 50 submission errors in the last 5 minutes in laa-data-claims-event-service-staging. Check the logs for details.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+  - name: sqs-rules
+    rules:
+    - alert: SQS-oldest-message-age
+      expr: |-
+        sum(aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="laa-data-stewardship-payments-team-staging-claims-api-sqs-queue"} offset 5m) by (queue_name) > 600
+      for: 10m
+      labels:
+        severity: laa-data-claims-event-service-staging
+      annotations:
+        message: SQS - {{ $labels.queue_name }} has a message older than 600 seconds (provisional threshold) for 10 minutes, check the event service consumer is healthy.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+    - alert: SQS-backlog
+      expr: |-
+        sum(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="laa-data-stewardship-payments-team-staging-claims-api-sqs-queue"} offset 5m) by (queue_name) > 100
+      for: 15m
+      labels:
+        severity: laa-data-claims-event-service-staging
+      annotations:
+        message: SQS - {{ $labels.queue_name }} has {{ $value }} visible messages (provisional threshold 100) for 15 minutes, check the event service consumer is healthy.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
+    - alert: SQS-dlq-activity
+      expr: |-
+        sum(delta(aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="laa-data-stewardship-payments-team-staging-claims-api-sqs-queue-dlq"}[15m] offset 5m)) by (queue_name) > 0
+      labels:
+        severity: laa-data-claims-event-service-staging
+      annotations:
+        message: SQS - dead letter queue {{ $labels.queue_name }} received {{ $value }} new message(s) in the last 15 minutes, investigate failed messages.
+        runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/WHCZA/pages/5829263558/Runbook+Data+Claims
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-d-perf-pi-staging-a-claims-api/0db5b9a?orgId=1&from=now-15m&to=now&timezone=browser&var-helmInstall=laa&var-helmInstallClaimEventService=stg&var-helmInstallClaimUI=stg
