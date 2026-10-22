@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-prisoner-schedules-api-cert
+  namespace: hmpps-prisoner-schedules-dev
+spec:
+  secretName: hmpps-prisoner-schedules-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - prisoner-schedules-api-dev.hmpps.service.justice.gov.uk
