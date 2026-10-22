@@ -1,0 +1,133 @@
+module "hmpps_interventions_postgres18" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type           = "gp2"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  rds_family                   = "postgres18"
+  db_engine_version            = "18.6"
+  prepare_for_major_upgrade    = true
+  db_instance_class            = "db.m6g.2xlarge"
+  db_allocated_storage         = "50"
+  allow_major_version_upgrade  = "false"
+  performance_insights_enabled = true
+
+  providers = {
+    aws = aws.london
+  }
+
+}
+
+resource "kubernetes_secret" "hmpps_interventions_postgres18" {
+  metadata {
+    name      = "postgres14"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_interventions_postgres18.rds_instance_endpoint
+    database_name         = module.hmpps_interventions_postgres18.database_name
+    database_username     = module.hmpps_interventions_postgres18.database_username
+    database_password     = module.hmpps_interventions_postgres18.database_password
+    rds_instance_address  = module.hmpps_interventions_postgres18.rds_instance_address
+    url                   = "postgres://${module.hmpps_interventions_postgres18.database_username}:${module.hmpps_interventions_postgres18.database_password}@${module.hmpps_interventions_postgres18.rds_instance_endpoint}/${module.hmpps_interventions_postgres18.database_name}"
+  }
+}
+
+# Inject pre-prod DB credentials for refresh job running on production
+resource "kubernetes_secret" "hmpps_interventions_refresh18_secret" {
+  metadata {
+    name      = "postgres14-preprod"
+    namespace = "hmpps-interventions-prod"
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_interventions_postgres18.rds_instance_endpoint
+    database_name         = module.hmpps_interventions_postgres18.database_name
+    database_username     = module.hmpps_interventions_postgres18.database_username
+    database_password     = module.hmpps_interventions_postgres18.database_password
+    rds_instance_address  = module.hmpps_interventions_postgres18.rds_instance_address
+    url                   = "postgres://${module.hmpps_interventions_postgres18.database_username}:${module.hmpps_interventions_postgres18.database_password}@${module.hmpps_interventions_postgres18.rds_instance_endpoint}/${module.hmpps_interventions_postgres18.database_name}"
+  }
+}
+
+
+module "hmpps_interventions_postgres18_replica" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type           = "gp2"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
+  prepare_for_major_upgrade   = true
+  db_instance_class           = "db.m6g.2xlarge"
+  db_allocated_storage        = "50"
+  allow_major_version_upgrade = "false"
+
+  replicate_source_db = module.hmpps_interventions_postgres18.db_identifier
+
+  # Set to true for replica database. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
+  providers = {
+    aws = aws.london
+  }
+
+}
+
+resource "kubernetes_secret" "hmpps_interventions_postgres18_replica" {
+  metadata {
+    name      = "hmpps-interventions-postgres14-rds-replica-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    rds_instance_endpoint = module.hmpps_interventions_postgres18_replica.rds_instance_endpoint
+    database_name         = module.hmpps_interventions_postgres18.database_name
+    database_username     = module.hmpps_interventions_postgres18.database_username
+    database_password     = module.hmpps_interventions_postgres18.database_password
+    rds_instance_address  = module.hmpps_interventions_postgres18_replica.rds_instance_address
+    url                   = "postgres://${module.hmpps_interventions_postgres18.database_username}:${module.hmpps_interventions_postgres18.database_password}@${module.hmpps_interventions_postgres18_replica.rds_instance_endpoint}/${module.hmpps_interventions_postgres18.database_name}"
+
+  }
+}
+
+# Renamed from postgres14 as part of the Postgres 18 upgrade - keeps the existing resources in state
+moved {
+  from = module.hmpps_interventions_postgres14
+  to   = module.hmpps_interventions_postgres18
+}
+
+moved {
+  from = kubernetes_secret.hmpps_interventions_postgres14
+  to   = kubernetes_secret.hmpps_interventions_postgres18
+}
+
+moved {
+  from = kubernetes_secret.hmpps_interventions_refresh14_secret
+  to   = kubernetes_secret.hmpps_interventions_refresh18_secret
+}
+
+moved {
+  from = module.hmpps_interventions_postgres14_replica
+  to   = module.hmpps_interventions_postgres18_replica
+}
+
+moved {
+  from = kubernetes_secret.hmpps_interventions_postgres14_replica
+  to   = kubernetes_secret.hmpps_interventions_postgres18_replica
+}
