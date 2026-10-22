@@ -37,6 +37,8 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
+
+  prepare_for_major_upgrade = true
 }
 
 
