@@ -11,7 +11,7 @@ module "hmpps_interventions_postgres18" {
 
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
 
@@ -52,7 +52,7 @@ module "hmpps_interventions_postgres18_replica" {
 
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   allow_major_version_upgrade = "false"
   db_max_allocated_storage    = "20"
