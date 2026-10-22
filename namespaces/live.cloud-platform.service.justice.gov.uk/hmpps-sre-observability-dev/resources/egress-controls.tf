@@ -37,5 +37,7 @@ module "hmpps_egress_controls" {
     "vulndb.cyberriskanalytics.com",
   ]
 
-  envoy_extra_allowed_hosts_suffixes = []
+  envoy_extra_allowed_hosts_suffixes = [
+    ".service.justice.gov.uk",
+  ]
 }
