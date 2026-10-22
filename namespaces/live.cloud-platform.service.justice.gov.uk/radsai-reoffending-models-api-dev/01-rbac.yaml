@@ -1,0 +1,16 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: radsai-reoffending-models-api-dev-admin
+  namespace: radsai-reoffending-models-api-dev
+subjects:
+  - kind: Group
+    name: "github:radsai-reoffending-models"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:analytics-hq"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
