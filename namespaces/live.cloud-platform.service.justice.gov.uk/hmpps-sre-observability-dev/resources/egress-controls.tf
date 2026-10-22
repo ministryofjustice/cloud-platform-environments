@@ -2,7 +2,7 @@ module "hmpps_egress_controls" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.12"
 
   enable_envoy_setup     = true
-  enable_egress_controls = false
+  enable_egress_controls = true
 
   namespace = var.namespace
   vpc_name  = var.vpc_name
@@ -38,6 +38,7 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    ".service.justice.gov.uk",
+    ".service.gov.uk",
+    ".justice.gov.uk",
   ]
 }
