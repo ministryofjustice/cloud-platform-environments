@@ -10,12 +10,19 @@ module "laa_laa_rds_postgres_14" {
   environment_name       = var.environment-name
   infrastructure_support = var.email
   db_engine              = "postgres"
-  db_engine_version      = "14.24"
+  db_engine_version      = "18.6"
   db_instance_class      = "db.t4g.small"
   db_allocated_storage   = "20"
   db_name                = "laalaa"
   db_parameter           = [{ name = "rds.force_ssl", value = "0", apply_method = "immediate" }]
-  rds_family             = "postgres14"
+  rds_family             = "postgres18"
+
+  
+  # set for major Updating   
+  prepare_for_major_upgrade = true
+
+  # Use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = "false"
 
   providers = {
     aws = aws.london
