@@ -38,6 +38,7 @@ module "hmpps_egress_controls" {
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    ".service.justice.gov.uk",
+    ".service.gov.uk",
+    ".justice.gov.uk",
   ]
 }
