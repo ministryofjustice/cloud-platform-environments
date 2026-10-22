@@ -58,7 +58,8 @@ locals {
     "offender-management-staging",
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
-    "visit-someone-in-prison-frontend-svc-staging"
+    "visit-someone-in-prison-frontend-svc-staging",
+    "offender-categorisation-dev"
   ])
 }
 
