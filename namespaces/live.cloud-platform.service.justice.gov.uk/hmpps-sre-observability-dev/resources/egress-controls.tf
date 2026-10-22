@@ -26,6 +26,7 @@ module "hmpps_egress_controls" {
     "ossindex.sonatype.org",
     "osv-vulnerabilities.storage.googleapis.com",
     "packages.atlassian.com",
+    "maven.artifacts.atlassian.com",
     "proxy.golang.org",
     "pypi.org",
     "registry.npmjs.org",
