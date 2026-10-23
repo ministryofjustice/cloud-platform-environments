@@ -39,7 +39,7 @@ module "rds-instance" {
     },
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
@@ -101,7 +101,7 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   prepare_for_major_upgrade = false
-  db_engine_version         = "16.8"
+  db_engine_version         = "16.13"
   rds_family                = "postgres16"
 
   providers = {
@@ -112,7 +112,7 @@ module "rds-read-replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "1"
+      value        = "0"
       apply_method = "pending-reboot"
     },
     {
