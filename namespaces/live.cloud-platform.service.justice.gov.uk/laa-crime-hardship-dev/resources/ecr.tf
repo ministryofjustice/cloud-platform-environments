@@ -12,7 +12,7 @@ module "ecr" {
   repo_name = var.namespace
   namespace = var.namespace
 
-  oidc_providers = ["github"]
+  oidc_providers = ["circleci"]
 
   github_repositories = ["laa-crime-hardship"]
 
