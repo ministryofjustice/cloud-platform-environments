@@ -32,6 +32,12 @@ module "secrets_manager" {
       description = "Inquests API credentials from Entra",
       recovery_window_in_days = 7,
       k8s_secret_name         = "api-entra-config-staging"
+    },
+
+    "session-secret" = {
+      description             = "Express session secrets for staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "session-secret-staging"
     }
   }
 }
