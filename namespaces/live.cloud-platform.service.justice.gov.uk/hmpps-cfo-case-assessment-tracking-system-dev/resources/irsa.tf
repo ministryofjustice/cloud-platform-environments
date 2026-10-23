@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "sqs_sns" {
       module.telemetry_service_queue.sqs_arn,
       module.telemetry_service_dead_letter_queue.sqs_arn,
       module.risk_service_queue.sqs_arn,
-      module.risk_service_dead_letter_queue.sqs_arnå
+      module.risk_service_dead_letter_queue.sqs_arn
     ]
   }
 
