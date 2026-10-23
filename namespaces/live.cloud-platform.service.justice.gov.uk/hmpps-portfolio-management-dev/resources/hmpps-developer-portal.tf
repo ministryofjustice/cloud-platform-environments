@@ -1,6 +1,6 @@
 # Service account and github actions setup for hmpps-developer-portal
 module "hmpps_developer_portal" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-developer-portal"
@@ -16,11 +16,12 @@ module "hmpps_developer_portal" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  enable_ecr                    = true
 }
 
 # Service account and github actions setup for hmpps-developer-portal
 module "hmpps_developer_portal_stage" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-developer-portal"
