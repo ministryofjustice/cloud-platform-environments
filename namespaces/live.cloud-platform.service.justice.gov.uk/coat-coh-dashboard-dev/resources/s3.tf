@@ -95,7 +95,10 @@ module "coh_export_daily_csv_bucket" {
       ],
       "Condition": {
         "StringEquals": {
-          "aws:SourceAccount": "082282578003"
+          "aws:SourceAccount": [
+            "082282578003",
+            "295814833350"
+          ]
         }
       }
     }
