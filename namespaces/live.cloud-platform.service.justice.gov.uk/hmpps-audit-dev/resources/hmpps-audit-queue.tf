@@ -253,7 +253,7 @@ locals {
 
   prisoner_audit_arns_with_manage_access = [module.hmpps-audit-api-irsa.role_arn]
 
-  prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access, local.prisoner_audit_sns_topics)
+  prisoner_audit_arns_with_send_access = concat(local.prisoner_audit_client_arns, local.prisoner_audit_arns_with_manage_access)
 }
 
 data "aws_iam_policy_document" "hmpps_prisoner_audit_queue_policy" {
@@ -304,6 +304,12 @@ data "aws_iam_policy_document" "hmpps_prisoner_audit_queue_policy" {
       variable = "aws:PrincipalArn"
       values   = local.prisoner_audit_arns_with_send_access
     }
+
+    condition {
+      test     = "ArnNotEquals"
+      variable = "aws:SourceArn"
+      values   = local.prisoner_audit_sns_topics
+    }
   }
 
   # Allow send to the permitted principals
@@ -317,6 +323,26 @@ data "aws_iam_policy_document" "hmpps_prisoner_audit_queue_policy" {
     principals {
       type        = "AWS"
       identifiers = local.prisoner_audit_arns_with_send_access
+    }
+  }
+
+  # Allow send to permitted sns topics
+  statement {
+    sid       = "AllowPrisonerAuditQueueSnsSend"
+    effect    = "Allow"
+
+    actions   = ["sqs:SendMessage"]
+    resources = [module.hmpps_prisoner_audit_queue.sqs_arn]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values   = local.prisoner_audit_sns_topics
     }
   }
 
