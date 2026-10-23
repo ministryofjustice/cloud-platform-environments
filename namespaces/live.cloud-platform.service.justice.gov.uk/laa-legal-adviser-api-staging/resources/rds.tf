@@ -22,7 +22,7 @@ module "laa_laa_rds_postgres_14" {
   prepare_for_major_upgrade = true
 
   # Use "allow_major_version_upgrade" when upgrading the major version of an engine
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = "false"
 
   providers = {
     aws = aws.london
