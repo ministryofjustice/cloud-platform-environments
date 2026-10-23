@@ -28,6 +28,34 @@ module "rds" {
   enable_irsa = true
 }
 
+module "web_analytics_read_replica" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+
+  vpc_name = var.vpc_name
+
+  # PostgreSQL specifics
+  db_engine         = "postgres"
+  rds_family        = "postgres18"
+  db_engine_version = "18.6"
+  db_instance_class = "db.t4g.micro"
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # Set the db_identifier of the source db
+  replicate_source_db = module.rds.db_identifier
+
+  # Set to true. No backups or snapshots are created for read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+}
+
 resource "kubernetes_secret" "hmpps_pfs_web_analytics_rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
