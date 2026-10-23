@@ -498,6 +498,11 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
     }
 
     columns {
+      name = "position__datetime_added"
+      type = "timestamp"
+    }
+
+    columns {
       name = "device_activation_id"
       type = "bigint"
     }
