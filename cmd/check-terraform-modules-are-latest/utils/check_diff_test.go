@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"strings"
 	"testing"
 )
 
@@ -22,7 +23,7 @@ func mockGetLatestModuleVersion(mockedReturn MockedAPIReturn) func(string) (APIR
 }
 
 func generateMockedReturns(diff string, mockedResponse MockedAPIReturn) Args {
-	return Args{diff, mockedResponse}
+	return Args{"diff --git a/main.tf b/main.tf\n" + diff, mockedResponse}
 }
 
 func TestCheckModuleVersions(t *testing.T) {
@@ -43,7 +44,7 @@ func TestCheckModuleVersions(t *testing.T) {
 	}{
 		{"GIVEN no matches in the diff THEN don't fail", generateMockedReturns("no matches here", validMockedResponse), false},
 		{"GIVEN an updated module with the correct version THEN don't fail", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0"`, validMockedResponse), false},
-		{"GIVEN multiple updated modules with versions AND the api returns versions THEN pass", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0"`+`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0"`, validMockedResponse), false},
+		{"GIVEN multiple updated modules with versions AND the api returns versions THEN pass", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0"`+"\n"+`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=0.0.0"`, validMockedResponse), false},
 		{"GIVEN an updated module with no version AND the api returns no version THEN pass", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo"`, validMockedResponseNoVersion), false},
 		{"GIVEN an updated module with no version AND the api returns a version THEN fail", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo"`, invalidMockedResponseWithVersion), true},
 		{"GIVEN an updated module with a version AND the api returns a version BUT it is a different version THEN fail", generateMockedReturns(`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1"`, validMockedResponse), true},
@@ -61,5 +62,35 @@ func TestCheckModuleVersions(t *testing.T) {
 				t.Errorf("CheckModuleVersions() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
+	}
+}
+
+func TestCheckModuleVersionsReportsAllFailures(t *testing.T) {
+	latest := APIResponse{RepoName: "cloud-platform-terraform-foo", LatestVersion: "3.0.0", LatestSHA: "0123456789abcdef0123456789abcdef01234567"}
+	getVersionFn := mockGetLatestModuleVersion(MockedAPIReturn{MockResponse: latest})
+
+	diff := strings.Join([]string{
+		"diff --git a/main.tf b/main.tf",
+		`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=1.1.1"`,
+		`+ source = "github.com/ministryofjustice/cloud-platform-terraform-foo?ref=3.0.0"`,
+		`+ source = "github.com/ministryofjustice/cloud-platform-terraform-bar?ref=2.2.2"`,
+	}, "\n")
+
+	err := CheckModuleVersions(diff, getVersionFn)
+
+	if err == nil {
+		t.Fatal("CheckModuleVersions() expected an error, got nil")
+	}
+
+	msg := err.Error()
+
+	if got := strings.Count(msg, "Fail:"); got != 2 {
+		t.Errorf("expected 2 failures to be reported, got %d:\n%s", got, msg)
+	}
+
+	for _, want := range []string{"1.1.1 is not the latest 3.0.0", "2.2.2 is not the latest 3.0.0"} {
+		if !strings.Contains(msg, want) {
+			t.Errorf("expected error to mention %q:\n%s", want, msg)
+		}
 	}
 }
