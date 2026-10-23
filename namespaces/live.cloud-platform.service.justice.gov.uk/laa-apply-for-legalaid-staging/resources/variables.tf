@@ -54,6 +54,11 @@ variable "team_name" {
   default     = "laa-apply-for-legal-aid"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-apply-for-legal-aid"
+}
+
 variable "kubernetes_cluster" {}
 
 variable "service_area" {
