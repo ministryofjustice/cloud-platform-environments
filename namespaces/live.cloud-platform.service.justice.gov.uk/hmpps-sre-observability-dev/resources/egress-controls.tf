@@ -36,6 +36,8 @@ module "hmpps_egress_controls" {
     "repository.jboss.org",
     "rubygems.org",
     "vulndb.cyberriskanalytics.com",
+    "www.cisa.gov",
+    "raw.githubusercontent.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
