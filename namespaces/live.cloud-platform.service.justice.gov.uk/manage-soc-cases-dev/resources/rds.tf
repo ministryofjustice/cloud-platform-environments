@@ -2,7 +2,7 @@ resource "random_id" "id" {
   byte_length = 8
 }
 
-module "dps_rds" {
+module "manage_soc_cases_rds" {
   source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage     = 10
   storage_type             = "gp2"
@@ -12,13 +12,15 @@ module "dps_rds" {
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version = "15.19"
+  db_engine_version        = "16.15"
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500" # maximum storage for autoscaling
   environment_name         = var.environment_name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family                = "postgres15"
+  allow_major_version_upgrade = "true"
+
+  rds_family                = "postgres16"
   prepare_for_major_upgrade = true
 
 }
@@ -71,19 +73,19 @@ resource "aws_iam_user_policy" "policy" {
   user   = aws_iam_user.user.name
 }
 
-resource "kubernetes_secret" "dps_rds" {
+resource "kubernetes_secret" "manage_soc_cases_rds" {
   metadata {
     name      = "dps-rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint       = module.dps_rds.rds_instance_endpoint
-    database_name               = module.dps_rds.database_name
-    database_username           = module.dps_rds.database_username
-    database_password           = module.dps_rds.database_password
-    rds_instance_address        = module.dps_rds.rds_instance_address
-    url                         = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
+    rds_instance_endpoint       = module.manage_soc_cases_rds.rds_instance_endpoint
+    database_name               = module.manage_soc_cases_rds.database_name
+    database_username           = module.manage_soc_cases_rds.database_username
+    database_password           = module.manage_soc_cases_rds.database_password
+    rds_instance_address        = module.manage_soc_cases_rds.rds_instance_address
+    url                         = "postgres://${module.manage_soc_cases_rds.database_username}:${module.manage_soc_cases_rds.database_password}@${module.manage_soc_cases_rds.rds_instance_endpoint}/${module.manage_soc_cases_rds.database_name}"
     rds_to_s3_user_arn          = aws_iam_user.user.arn
     rds_to_s3_access_key_id     = aws_iam_access_key.user.id
     rds_to_s3_secret_access_key = aws_iam_access_key.user.secret

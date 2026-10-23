@@ -6,7 +6,7 @@ resource "aws_sns_topic_subscription" "pathfinder_api_offender_subscription" {
   filter_policy = jsonencode({
     eventType = [
       "OFFENDER_BOOKING-REASSIGNED",
-      "OFFENDER_UPDATED",
+      "OFFENDER-UPDATED",
       "BOOKING_NUMBER-CHANGED",
       "SENTENCE_DATES-CHANGED",
       "CONFIRMED_RELEASE_DATE-CHANGED"

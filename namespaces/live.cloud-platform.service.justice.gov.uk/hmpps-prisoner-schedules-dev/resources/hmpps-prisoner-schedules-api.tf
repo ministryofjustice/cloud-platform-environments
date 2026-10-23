@@ -1,0 +1,21 @@
+# For Cloud Platform deployed projects based on the hmpps-template-kotlin template:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
+
+module "hmpps_prisoner_schedules_api" {
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
+  github_repo = "hmpps-prisoner-schedules-api"
+  application = "hmpps-prisoner-schedules-api"
+  github_team = var.team_name
+  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
+  #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
+  #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
+  is_production                 = var.is_production
+  application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
+  source_template_repo          = "hmpps-template-kotlin"
+  github_token                  = var.github_token
+  namespace                     = var.namespace
+  kubernetes_cluster            = var.kubernetes_cluster
+  # enable_ecr is required only ONCE per Github repository.
+  enable_ecr                    = true
+}
