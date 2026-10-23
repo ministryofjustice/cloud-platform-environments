@@ -12,7 +12,8 @@ module "rds_instance" {
   source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=78e4bd6be96facc435409ee8e4a7a303cfe9afdf"
 
   # VPC configuration
-  vpc_name = var.vpc_name
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.db_bastion_oracle_access.id]
 
   # Database configuration
   db_engine                = "oracle-se2"
