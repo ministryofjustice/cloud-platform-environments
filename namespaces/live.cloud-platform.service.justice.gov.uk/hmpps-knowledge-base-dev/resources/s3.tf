@@ -67,6 +67,7 @@ resource "aws_s3_bucket_notification" "hmpps_knowledge_base_s3_input_to_equip_mi
     events = [
       "s3:ObjectCreated:*"
     ]
+    filter_prefix = "documents/"
   }
 
   depends_on = [
