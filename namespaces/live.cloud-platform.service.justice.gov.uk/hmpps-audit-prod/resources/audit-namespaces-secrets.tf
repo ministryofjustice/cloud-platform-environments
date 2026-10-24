@@ -40,6 +40,7 @@ locals {
     "hmpps-prisoner-finance-prod",
     "hmpps-prisoner-finance-sync-prod",
     "hmpps-registers-prod",
+    "hmpps-restricted-patients-prod",
     "hmpps-subject-access-request-prod",
     "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
