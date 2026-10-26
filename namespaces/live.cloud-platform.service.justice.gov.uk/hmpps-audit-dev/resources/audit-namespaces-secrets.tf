@@ -52,6 +52,7 @@ locals {
     "hmpps-prisoner-from-nomis-migration-dev",
     "hmpps-prisoner-profile-dev",
     "hmpps-registers-dev",
+    "hmpps-restricted-patients-dev",
     "hmpps-subject-access-request-dev",
     "hmpps-support-additional-needs-dev",
     "hmpps-templates-dev",
