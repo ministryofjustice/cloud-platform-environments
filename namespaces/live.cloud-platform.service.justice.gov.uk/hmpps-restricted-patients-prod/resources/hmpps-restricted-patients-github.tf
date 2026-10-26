@@ -4,7 +4,7 @@ module "hmpps-restricted-patients-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-restricted-patients-ui"
   application                   = "hmpps-restricted-patients-ui"
-  github_team                   = "syscon-devs"
+  github_team                   = "map-developers-devs"
   environment                   = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
@@ -14,7 +14,7 @@ module "hmpps-restricted-patients-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["syscon-devs","dps-core"]
+  reviewer_teams                = ["map-developers-live", "dps-core"]
 }
 
 module "hmpps-restricted-patients-api" {
@@ -23,7 +23,7 @@ module "hmpps-restricted-patients-api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-restricted-patients-api"
   application                   = "hmpps-restricted-patients-api"
-  github_team                   = "syscon-devs"
+  github_team                   = "map-developers-devs"
   environment                   = "prod"
   is_production                 = var.is_production
   selected_branch_patterns      = ["main"]
@@ -33,5 +33,5 @@ module "hmpps-restricted-patients-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["syscon-devs","dps-core"]
+  reviewer_teams                = ["map-developers-live", "dps-core"]
 }
