@@ -2,8 +2,6 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-pathfinder_offender_events_queue"              = "offender-events-prod"
     "Digital-Prison-Services-prod-pathfinder_offender_events_queue_dl"           = "offender-events-prod"
-    "Digital-Prison-Services-prod-pathfinder_probation_offender_events_queue"    = "offender-events-prod"
-    "Digital-Prison-Services-prod-pathfinder_probation_offender_events_queue_dl" = "offender-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
