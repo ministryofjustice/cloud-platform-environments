@@ -200,6 +200,22 @@ spec:
         action: Check the source system directly for complete results and confirm
           the on-screen warning appeared for each affected search input. Do not
           put search inputs or applicant details in Slack or alert notes.
+    - alert: OnboardingOptimisationAddressSearchResultLimitReached
+      expr: |
+        sum(increase(poirot_hmpps_address_search_limit_reached_total{
+          namespace="onboarding-optimisation-prod"
+        }[5m])) > 0
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: A production nDelius address search may have omitted results
+          beyond the first 100.
+        priority: notify
+        action: Check nDelius directly for complete results and confirm the
+          on-screen warning appeared for each affected address input. Do not
+          put addresses or applicant details in Slack or alert notes.
     - alert: OnboardingOptimisationPkceFailures
       expr: |
         sum(increase(poirot_auth_events_total{
