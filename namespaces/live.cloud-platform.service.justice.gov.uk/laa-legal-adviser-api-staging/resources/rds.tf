@@ -1,4 +1,4 @@
-module "laa_laa_rds_postgres_18" {
+module "laa_laa_rds_postgres_14" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name               = var.vpc_name
@@ -21,6 +21,9 @@ module "laa_laa_rds_postgres_18" {
   # set for major Updating   
   prepare_for_major_upgrade = true
 
+  # Use "allow_major_version_upgrade" when upgrading the major version of an engine
+  allow_major_version_upgrade = true
+
   providers = {
     aws = aws.london
   }
@@ -28,20 +31,20 @@ module "laa_laa_rds_postgres_18" {
   enable_irsa = true
 }
 
-resource "kubernetes_secret" "laa_laa_rds_postgres_18" {
+resource "kubernetes_secret" "laa_laa_rds_postgres_14" {
   metadata {
-    name      = "database-18"
+    name      = "database-14"
     namespace = var.namespace
   }
 
   data = {
-    db_identifier = module.laa_laa_rds_postgres_18.db_identifier
-    endpoint      = module.laa_laa_rds_postgres_18.rds_instance_endpoint
-    name          = module.laa_laa_rds_postgres_18.database_name
-    user          = module.laa_laa_rds_postgres_18.database_username
-    password      = module.laa_laa_rds_postgres_18.database_password
-    host          = module.laa_laa_rds_postgres_18.rds_instance_address
-    port          = module.laa_laa_rds_postgres_18.rds_instance_port
-    url           = "postgis://${module.laa_laa_rds_postgres_18.database_username}:${module.laa_laa_rds_postgres_18.database_password}@${module.laa_laa_rds_postgres_18.rds_instance_endpoint}/${module.laa_laa_rds_postgres_18.database_name}"
+    db_identifier = module.laa_laa_rds_postgres_14.db_identifier
+    endpoint      = module.laa_laa_rds_postgres_14.rds_instance_endpoint
+    name          = module.laa_laa_rds_postgres_14.database_name
+    user          = module.laa_laa_rds_postgres_14.database_username
+    password      = module.laa_laa_rds_postgres_14.database_password
+    host          = module.laa_laa_rds_postgres_14.rds_instance_address
+    port          = module.laa_laa_rds_postgres_14.rds_instance_port
+    url           = "postgis://${module.laa_laa_rds_postgres_14.database_username}:${module.laa_laa_rds_postgres_14.database_password}@${module.laa_laa_rds_postgres_14.rds_instance_endpoint}/${module.laa_laa_rds_postgres_14.database_name}"
   }
 }
