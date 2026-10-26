@@ -38,7 +38,7 @@ module "web_analytics_read_replica" {
   rds_family                   = "postgres18"
   db_engine_version            = "18.6"
   db_instance_class            = "db.t4g.micro"
-  db_max_allocated_storage     = "500"
+  db_max_allocated_storage     = "550"
 
   # Tags
   application            = var.application
