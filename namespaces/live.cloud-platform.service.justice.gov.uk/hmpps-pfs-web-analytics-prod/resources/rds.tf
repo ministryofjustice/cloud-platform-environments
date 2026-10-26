@@ -34,10 +34,11 @@ module "web_analytics_read_replica" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  rds_family        = "postgres18"
-  db_engine_version = "18.6"
-  db_instance_class = "db.t4g.micro"
+  db_engine                    = "postgres"
+  rds_family                   = "postgres18"
+  db_engine_version            = "18.6"
+  db_instance_class            = "db.t4g.micro"
+  db_max_allocated_storage     = "550"
 
   # Tags
   application            = var.application
