@@ -14,7 +14,7 @@ module "hmpps-restricted-patients-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["map-developers-live", "dps-core"]
+  reviewer_teams                = ["map-developers-live"]
 }
 
 module "hmpps-restricted-patients-api" {
@@ -33,5 +33,5 @@ module "hmpps-restricted-patients-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = ["map-developers-live", "dps-core"]
+  reviewer_teams                = ["map-developers-live"]
 }
