@@ -16,7 +16,7 @@ locals {
   }
 
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
