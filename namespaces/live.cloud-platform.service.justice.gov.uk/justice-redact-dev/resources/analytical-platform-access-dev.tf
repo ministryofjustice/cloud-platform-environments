@@ -47,8 +47,8 @@ data "aws_iam_policy_document" "ap_rds_export_access" {
       "s3:DeleteObject*"
     ]
     resources = [
-      "arn:aws:s3:::moj-reg-dev-curated/justice-redact-dev/*",
-      "arn:aws:s3:::moj-reg-dev-curated/justice-redact-dev/"
+      "arn:aws:s3:::alpha-app-justice-redact-dev/*",
+      "arn:aws:s3:::alpha-app-justice-redact-dev/"
     ]
   }
 }
@@ -60,7 +60,7 @@ resource "kubernetes_secret" "ap_aws_secret" {
   }
 
   data = {
-    destination_bucket = "s3://moj-reg-dev-curated/justice-redact-dev/"
+    destination_bucket = "s3://alpha-app-justice-redact-dev/"
     user_arn            = aws_iam_user.ap_rds_export_user.arn
     access_key_id       = aws_iam_access_key.ap_rds_export_user.id
     secret_access_key   = aws_iam_access_key.ap_rds_export_user.secret
