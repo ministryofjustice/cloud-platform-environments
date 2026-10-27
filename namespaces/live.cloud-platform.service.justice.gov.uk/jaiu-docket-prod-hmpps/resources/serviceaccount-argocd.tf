@@ -3,7 +3,7 @@
  *
  * ArgoCD registers this cluster as an external, namespace-scoped cluster: a
  * cluster Secret on the ArgoCD side carries this service account's token, the
- * API server URL and CA, `namespaces: jaiu-docket-dev` and
+ * API server URL and CA, `namespaces: jaiu-docket-prod-hmpps` and
  * `clusterResources: "false"`, so it never asks for anything outside the
  * namespace. `argocd cluster add` is not used because it creates a ClusterRole.
  *
@@ -16,9 +16,9 @@
  *
  * Reading the credential after apply (the module stores a long-lived token):
  *
- *   kubectl -n jaiu-docket-dev get secret <default_secret_name> \
+ *   kubectl -n jaiu-docket-prod-hmpps get secret <default_secret_name> \
  *     -o go-template='{{index .data "token" | base64decode}}'
- *   kubectl -n jaiu-docket-dev get secret <default_secret_name> \
+ *   kubectl -n jaiu-docket-prod-hmpps get secret <default_secret_name> \
  *     -o go-template='{{index .data "ca.crt"}}'          # already base64, as caData wants it
  *
  * The secret name is the module output `default_secret_name`
@@ -44,7 +44,7 @@ module "argocd_serviceaccount" {
   serviceaccount_token_rotated_date = "05-10-2026"
 
   # Every rule is a subset of the `admin` ClusterRole the team holds in this
-  # namespace (RoleBinding jaiu-docket-dev-admin), so the deployer can never do
+  # namespace (RoleBinding jaiu-docket-prod-hmpps-admin), so the deployer can never do
   # more than the people who own it.
   serviceaccount_rules = [
     {
