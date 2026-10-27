@@ -47,7 +47,8 @@ locals {
     "make-recall-decision-prod",
     "offender-management-production",
     "prisoner-content-hub-production",
-    "visit-someone-in-prison-frontend-svc-prod"
+    "visit-someone-in-prison-frontend-svc-prod",
+    "offender-categorisation-prod"
   ])
 }
 
