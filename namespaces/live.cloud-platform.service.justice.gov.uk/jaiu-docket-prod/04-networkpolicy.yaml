@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: jaiu-docket-prod-hmpps
+  namespace: jaiu-docket-prod
 spec:
   podSelector: {}
   policyTypes:
@@ -15,7 +15,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: jaiu-docket-prod-hmpps
+  namespace: jaiu-docket-prod
 spec:
   podSelector: {}
   policyTypes:

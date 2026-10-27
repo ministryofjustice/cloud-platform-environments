@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: jaiu-docket-prod-hmpps
+  namespace: jaiu-docket-prod
 spec:
   hard:
     pods: "50"

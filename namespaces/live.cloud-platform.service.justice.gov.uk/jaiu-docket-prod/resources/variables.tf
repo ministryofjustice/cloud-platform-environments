@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "jaiu-docket-prod-hmpps"
+  default     = "jaiu-docket-prod"
 }
 
 variable "service_area" {
