@@ -38,7 +38,10 @@ module "irsa_ap" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "hmpps-approved-premises-service-account"
   namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  role_policy_arns = merge(
+    local.sqs_policies,
+    { s3 = module.s3_bucket.irsa_policy_arn }
+  )
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
