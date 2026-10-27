@@ -1,7 +1,7 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: jaiu-docket-prod-admin
+  name: jaiu-docket-prod-hmpps-admin
   namespace: jaiu-docket-prod-hmpps
 subjects:
   - kind: Group
