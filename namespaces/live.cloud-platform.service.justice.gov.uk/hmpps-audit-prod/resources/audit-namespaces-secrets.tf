@@ -45,10 +45,10 @@ locals {
     "hmpps-support-additional-needs-prod",
     "hmpps-workload-prod",
     "make-recall-decision-prod",
+    "offender-categorisation-prod",
     "offender-management-production",
     "prisoner-content-hub-production",
-    "visit-someone-in-prison-frontend-svc-prod",
-    "offender-categorisation-prod"
+    "visit-someone-in-prison-frontend-svc-prod"
   ])
 }
 
