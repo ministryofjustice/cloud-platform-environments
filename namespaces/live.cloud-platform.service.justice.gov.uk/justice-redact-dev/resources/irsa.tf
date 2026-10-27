@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "comprehend_assume" {
     sid     = "AllowAssumeComprehendRoleInAP"
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::593291632749:role/alpha_app_justice-redact-backend"
+      local.ap_s3_role_arn
     ]
   }
 }
