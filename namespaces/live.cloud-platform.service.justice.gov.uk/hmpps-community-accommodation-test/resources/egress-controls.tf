@@ -9,6 +9,7 @@ module "hmpps_egress_controls" {
     "api.notifications.service.gov.uk",  # GOV.UK Notify
     "api.os.uk",                         # Ordnance Survey Places API
     "www.gov.uk",                        # bank-holidays.json file
+    "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com", # CAS data science report uploads
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
