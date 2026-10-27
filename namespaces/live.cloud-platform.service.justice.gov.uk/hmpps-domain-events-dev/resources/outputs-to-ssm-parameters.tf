@@ -2,12 +2,6 @@
 
 locals {
   sqs_queue_arns = {
-    (module.cvl_domain_events_queue.sqs_name)                    = module.cvl_domain_events_queue.sqs_arn,
-    (module.cvl_domain_events_dead_letter_queue.sqs_name)        = module.cvl_domain_events_dead_letter_queue.sqs_arn,
-    (module.cvl_test1_domain_events_queue.sqs_name)              = module.cvl_test1_domain_events_queue.sqs_arn,
-    (module.cvl_test1_domain_events_dead_letter_queue.sqs_name)  = module.cvl_test1_domain_events_dead_letter_queue.sqs_arn,
-    (module.cvl_test2_domain_events_queue.sqs_name)              = module.cvl_test2_domain_events_queue.sqs_arn,
-    (module.cvl_test2_domain_events_dead_letter_queue.sqs_name)  = module.cvl_test2_domain_events_dead_letter_queue.sqs_arn,
     (module.curious_queue.sqs_name)                              = module.curious_queue.sqs_arn,
     (module.curious_dead_letter_queue.sqs_name)                  = module.curious_dead_letter_queue.sqs_arn,
     (module.activities_domain_events_queue.sqs_name)             = module.activities_domain_events_queue.sqs_arn,
