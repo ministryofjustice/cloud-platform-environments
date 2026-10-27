@@ -7,8 +7,8 @@ resource "pingdom_check" "get-legal-aid-data-uat" {
   host                     = "uat-laa-get-payments-finance-data.cloud-platform.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
-  notifyagainevery         = 0
+  sendnotificationwhendown = 2
+  notifyagainevery         = 5
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
