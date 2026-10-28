@@ -11,3 +11,17 @@ spec:
   dnsNames:
     - health-kick.hmpps.service.justice.gov.uk
     - '*.health-kick.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-dependencytrack-prod-cert
+  namespace: hmpps-sre-observability-prod
+spec:
+  secretName: hmpps-dependencytrack-prod-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - dependencytrack.hmpps.service.justice.gov.uk
