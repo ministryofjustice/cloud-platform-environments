@@ -26,6 +26,9 @@ module "rds" {
   # Observability
   performance_insights_enabled = false
 
+  # Allow the service pod to manage RDS snapshots
+  enable_irsa = true
+
   # Tags (required by platform)
   application            = var.application
   business_unit          = var.business_unit
