@@ -38,7 +38,8 @@ module "hmpps_egress_controls" {
     "vulndb.cyberriskanalytics.com",
     "www.cisa.gov",
     "raw.githubusercontent.com",
-    "dl.google.com"
+    "dl.google.com",
+    "crates.io"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
