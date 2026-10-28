@@ -22,7 +22,7 @@ spec:
         ) > 300
       for: 5m
       labels:
-        severity: dpr-dev
+        severity: dpr-backend-alerts-dev
       annotations:
         message: "[DEV] DPR report {{ $labels.report_id }} via {{ $labels.query_engine }} has a p95 query time of {{ $value | humanizeDuration }} (threshold: 5m). This may indicate a performance degradation in the query layer."
         runbook_url: "https://github.com/ministryofjustice/hmpps-datahub-query-metrics"
