@@ -5,7 +5,7 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "laa-info-and-advice-datastore-${var.environment}-service-pod"
+  service_account_name = "ia-datastore-uat"
   namespace            = var.namespace
 
   role_policy_arns = {
