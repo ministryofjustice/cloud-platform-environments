@@ -45,7 +45,7 @@ spec:
         ) > 0.10
       for: 5m
       labels:
-        severity: dpr-dev
+        severity:  dpr-backend-alerts-dev
       annotations:
         message: "[DEV] DPR report {{ $labels.report_id }} via {{ $labels.query_engine }} has a {{ $value | humanizePercentage }} FAILED query rate (threshold: 10%). Check the application logs and Redshift/Athena query history for errors."
         runbook_url: "https://github.com/ministryofjustice/hmpps-datahub-query-metrics"
