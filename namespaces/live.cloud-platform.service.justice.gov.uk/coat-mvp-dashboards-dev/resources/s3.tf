@@ -75,6 +75,37 @@ module "coh_export_daily_bucket" {
 EOF
 }
 
+module "coat_mvp_dashboards_auth0_tf_state_dev_s3_bucket" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
+
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  oidc_providers = ["github"]
+  github_repositories = ["coat-mvp-dashboards"]
+  github_actions_prefix = "DEV_MVP_DASHBOARDS"
+
+  versioning = true
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-3rd-noncurrent-version"
+      abort_incomplete_multipart_upload_days = 90
+      noncurrent_version_expiration = [
+        {
+          days = 30
+          newer_noncurrent_versions = 2
+        },
+      ]
+    },
+  ]
+}
+
 resource "kubernetes_secret" "coh_export_daily_bucket" {
   metadata {
     name      = "coh-export-daily-bucket-output"
@@ -84,5 +115,17 @@ resource "kubernetes_secret" "coh_export_daily_bucket" {
   data = {
     bucket_arn  = module.coh_export_daily_bucket.bucket_arn
     bucket_name = module.coh_export_daily_bucket.bucket_name
+  }
+}
+
+resource "kubernetes_secret" "coat_coh_dashboard_auth0_tf_state_dev_s3_bucket" {
+  metadata {
+    name      = "coat-mvp-dashboards-auth0-tf-state-dev-s3-bucket-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.coat_mvp_dashboards_auth0_tf_state_dev_s3_bucket.bucket_arn
+    bucket_name = module.coat_mvp_dashboards_auth0_tf_state_dev_s3_bucket.bucket_name
   }
 }
