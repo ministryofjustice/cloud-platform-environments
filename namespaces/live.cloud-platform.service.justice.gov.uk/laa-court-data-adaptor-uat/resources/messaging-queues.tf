@@ -32,8 +32,9 @@ module "create_link_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "create-link-queue-dl"
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  sqs_name                  = "create-link-queue-dl"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
   business_unit          = var.business_unit
@@ -84,8 +85,9 @@ module "unlink_queue_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "unlink-queue-dl"
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  sqs_name                  = "unlink-queue-dl"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
   business_unit          = var.business_unit
@@ -136,8 +138,9 @@ module "hearing_resulted_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hearing-resulted-queue-dl"
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  sqs_name                  = "hearing-resulted-queue-dl"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
   business_unit          = var.business_unit
@@ -189,8 +192,9 @@ module "prosecution_concluded_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "prosecution-concluded-queue-dl"
-  encrypt_sqs_kms = var.encrypt_sqs_kms
+  sqs_name                  = "prosecution-concluded-queue-dl"
+  encrypt_sqs_kms           = var.encrypt_sqs_kms
+  message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
   business_unit          = var.business_unit
