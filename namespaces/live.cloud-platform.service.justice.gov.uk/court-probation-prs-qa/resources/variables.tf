@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Probation Reporting Service"
+  default     = "Sentencing and Allocation"
 }
 
 variable "business_unit" {
@@ -41,7 +41,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "test"
+  default     = "development"
 }
 
 variable "infrastructure_support" {
