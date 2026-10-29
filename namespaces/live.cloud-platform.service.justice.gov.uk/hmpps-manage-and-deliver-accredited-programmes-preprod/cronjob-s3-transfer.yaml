@@ -1,9 +1,23 @@
+# =============================================================================
+# APG-2664 — NEC pipeline decommissioned 2026-09-11
+# This CronJob is intentionally suspended. The NEC ingest pipeline is being
+# retired: the final .bak (backup-production-IM-dbo-only-20260908013109.bak,
+# ~32.5 GiB, uploaded 2026-09-09 04:04 UTC) has been preserved forever in the
+# prod archive S3 bucket. Both preprod and prod RDS instances have been
+# manually snapshotted (see APG-2664 ticket for snapshot ARNs + KMS key ARNs).
+# NEC's DataSync IAM role has been REVOKED from this bucket's policy in PR 2
+# (this PR) — any run would now fail with AccessDenied for NEC and would only
+# transfer already-transferred artefacts internally.
+# DO NOT unsuspend without first reviewing APG-2664.
+# =============================================================================
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hmpps-manage-and-deliver-acp-s3-transfer
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
+  # APG-2664: suspended — pipeline decommissioned. See banner above.
+  suspend: true
   #  Run every night at 05:00 UTC (06:00 BST)
   schedule: "0 5 * * *"
   concurrencyPolicy: Forbid

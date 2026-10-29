@@ -12,15 +12,16 @@ module "dps_rds" {
   application              = var.application
   is_production            = var.is_production
   namespace                = var.namespace
-  db_engine_version        = "15.12"
+  db_engine_version        = "16.15"
   db_instance_class        = "db.t4g.small"
   db_max_allocated_storage = "10000" # maximum storage for autoscaling
   environment_name         = var.environment_name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family                = "postgres15"
-  prepare_for_major_upgrade = false
+  allow_major_version_upgrade = "true"
 
+  rds_family                = "postgres16"
+  prepare_for_major_upgrade = true
 
   enable_irsa = true
 }

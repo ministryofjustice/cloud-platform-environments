@@ -4,7 +4,7 @@
 locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
-      "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -24,7 +24,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-official-visits"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     { official_visits_domain_events_queue = module.official_visits_domain_events_queue.irsa_policy_arn },
     { official_visits_domain_events_dlq = module.official_visits_domain_events_dlq.irsa_policy_arn },
     { rds = module.rds.irsa_policy_arn },

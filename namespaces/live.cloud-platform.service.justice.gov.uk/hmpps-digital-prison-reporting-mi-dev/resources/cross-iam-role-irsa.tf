@@ -14,6 +14,16 @@ locals {
     preprod = "preproduction",
     prod = "production"
   }
+
+  sqs_queues = {
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+  }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
 
 data "aws_eks_cluster" "eks_cluster" {
@@ -61,9 +71,12 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "dpr-reporting-mi-${var.environment}-cross-iam"
   namespace            = var.namespace
-  role_policy_arns     = {
-    secrets = aws_iam_policy.cross_iam_policy_mp.arn
-  }
+  role_policy_arns     = merge(
+    { 
+      secrets = aws_iam_policy.cross_iam_policy_mp.arn 
+    },
+    local.sqs_policies
+  )
 
   # Tags
   business_unit          = var.business_unit

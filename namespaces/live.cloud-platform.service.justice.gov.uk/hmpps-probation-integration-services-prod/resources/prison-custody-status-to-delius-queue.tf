@@ -81,5 +81,8 @@ module "prison-custody-status-to-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-custody-status-to-delius"
-  role_policy_arns     = { sqs = module.prison-custody-status-to-delius-queue.irsa_policy_arn }
+  role_policy_arns     = {
+    sqs = module.prison-custody-status-to-delius-queue.irsa_policy_arn
+    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+  }
 }

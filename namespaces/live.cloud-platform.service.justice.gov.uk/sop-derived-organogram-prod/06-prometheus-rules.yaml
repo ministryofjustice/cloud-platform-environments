@@ -1,0 +1,56 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prometheus-custom-rules-moj-org-chart
+  namespace: sop-derived-organogram-prod
+  labels:
+    role: alert-rules
+    prometheus: cloud-platform
+spec:
+  groups:
+    - name: moj-org-chart-availability
+      rules:
+        - alert: MojOrgChartNoReadyReplicas
+          expr: max(kube_deployment_status_replicas_available{namespace="sop-derived-organogram-prod", deployment="example-deployment"}) == 0 or absent(kube_deployment_status_replicas_available{namespace="sop-derived-organogram-prod", deployment="example-deployment"})
+          for: 2m
+          labels: {severity: sop-derived-organogram-prod, environment: prod}
+          annotations:
+            message: '[PROD] MoJ Org Chart has zero available replicas or its deployment availability metric is missing. Investigate application availability and monitoring.'
+            runbook_url: https://github.com/ministryofjustice/sop-derived-organogram/blob/main/deployments/templates/prometheus-rules.yml
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/orgchartusg1/moj-org-chart-usage?orgId=1&var-namespace=sop-derived-organogram-prod
+
+        - alert: MojOrgChartReplicasDegraded
+          expr: max(kube_deployment_status_replicas_available{namespace="sop-derived-organogram-prod", deployment="example-deployment"}) > 0 and max(kube_deployment_status_replicas_available{namespace="sop-derived-organogram-prod", deployment="example-deployment"}) < max(kube_deployment_spec_replicas{namespace="sop-derived-organogram-prod", deployment="example-deployment"})
+          for: 10m
+          labels: {severity: sop-derived-organogram-prod, environment: prod}
+          annotations:
+            message: '[PROD] MoJ Org Chart has {{ $value }} available pods, fewer than desired. Capacity and resilience are reduced.'
+            runbook_url: https://github.com/ministryofjustice/sop-derived-organogram/blob/main/deployments/templates/prometheus-rules.yml
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/orgchartusg1/moj-org-chart-usage?orgId=1&var-namespace=sop-derived-organogram-prod
+
+        - alert: MojOrgChartMetricsTargetDown
+          expr: sum(up{namespace="sop-derived-organogram-prod", service="example-service"}) == 0 or absent(up{namespace="sop-derived-organogram-prod", service="example-service"})
+          for: 3m
+          labels: {severity: sop-derived-organogram-prod, environment: prod}
+          annotations:
+            message: '[PROD] Prometheus cannot scrape MoJ Org Chart. The app may be unresponsive; app metrics are unavailable.'
+            runbook_url: https://github.com/ministryofjustice/sop-derived-organogram/blob/main/deployments/templates/prometheus-rules.yml
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/orgchartusg1/moj-org-chart-usage?orgId=1&var-namespace=sop-derived-organogram-prod
+
+        - alert: MojOrgChartPublicUrlFailing
+          expr: (sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk", status=~"50[234]"}[5m])) / sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk"}[5m]))) > 0.5 and sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk"}[5m])) > 0.05
+          for: 5m
+          labels: {severity: sop-derived-organogram-prod, environment: prod}
+          annotations:
+            message: '[PROD] Over half of requests to moj-org-chart.service.justice.gov.uk return gateway errors (502/503/504).'
+            runbook_url: https://github.com/ministryofjustice/sop-derived-organogram/blob/main/deployments/templates/prometheus-rules.yml
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/orgchartusg1/moj-org-chart-usage?orgId=1&var-namespace=sop-derived-organogram-prod
+
+        - alert: MojOrgChartServerErrors
+          expr: (sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk", status=~"5..", status!~"50[234]"}[5m])) / sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk"}[5m]))) > 0.1 and sum(rate(nginx_ingress_controller_requests{host="moj-org-chart.service.justice.gov.uk"}[5m])) > 0.05
+          for: 5m
+          labels: {severity: sop-derived-organogram-prod, environment: prod}
+          annotations:
+            message: '[PROD] More than 10% of requests return non-gateway server errors.'
+            runbook_url: https://github.com/ministryofjustice/sop-derived-organogram/blob/main/deployments/templates/prometheus-rules.yml
+            dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/orgchartusg1/moj-org-chart-usage?orgId=1&var-namespace=sop-derived-organogram-prod

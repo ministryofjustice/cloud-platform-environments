@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.probation-offender-events-prod.arn]
+      values   = [data.aws_sns_topic.probation-offender-events.arn]
     }
     resources = ["*"]
   }
@@ -132,6 +132,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-queue.sqs_arn,
       module.unpaid-work-and-delius-queue.sqs_arn,
       module.workforce-allocations-to-delius-queue.sqs_arn,
+      module.sentence-plan-and-delius-queue.sqs_arn,
     ]
     dlq = [
       module.warrant-risk-assessment-and-delius-dlq.sqs_arn,
@@ -167,10 +168,13 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.tier-to-delius-dlq.sqs_arn,
       module.unpaid-work-and-delius-dlq.sqs_arn,
       module.workforce-allocations-to-delius-dlq.sqs_arn,
+      module.sentence-plan-and-delius-dlq.sqs_arn,
     ],
     external = [
       data.aws_sqs_queue.hmpps-tier-events-queue.arn,
-      data.aws_sqs_queue.hmpps-tier-events-dlq.arn
+      data.aws_sqs_queue.hmpps-tier-events-dlq.arn,
+      data.aws_sqs_queue.supervision-packages-api-queue.arn,
+      data.aws_sqs_queue.supervision-packages-api-dlq.arn
     ]
   }
   statement {

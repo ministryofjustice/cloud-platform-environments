@@ -15,11 +15,13 @@ module "dps_rds" {
   infrastructure_support = var.infrastructure_support
 
   db_instance_class           = "db.t4g.large"
-  rds_family                  = "postgres16"
-  db_engine_version           = "16"
+  rds_family                  = "postgres18"
+  db_engine_version           = "18.6"
   deletion_protection         = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
+
+  prepare_for_major_upgrade  = false
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -57,6 +59,8 @@ module "dps_rds" {
   ]
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  enable_irsa = true
 }
 
 # To create a read replica, use the below code and update the values to specify the RDS instance
@@ -84,8 +88,8 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
@@ -98,6 +102,8 @@ module "dps_rds_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  prepare_for_major_upgrade  = false
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.
@@ -136,6 +142,8 @@ module "dps_rds_replica" {
 
   # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "dps_rds" {

@@ -30,5 +30,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "pda-r2-configuration"
     }
+    "github-deployment" = {
+      description             = "[github-deployment] Copy of GitHub environment secrets for deployment"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "github-deployment"
+    }
   }
 }

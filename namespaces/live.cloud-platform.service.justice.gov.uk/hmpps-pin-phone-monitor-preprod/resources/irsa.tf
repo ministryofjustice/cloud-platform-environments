@@ -9,6 +9,13 @@ locals {
     })
 }
 
+locals {
+  pcms_sqs_policies = {
+    pcms_communication_insights_queue                  = module.pcms_communication_insights_queue.irsa_policy_arn,
+    pcms_communication_insights_dead_letter_queue      = module.pcms_communication_insights_dead_letter_queue.irsa_policy_arn
+  }
+}
+
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
@@ -29,7 +36,8 @@ role_policy_arns = merge(
         s3_sqs     = module.hmpps_pin_phone_monitor_s3_event_queue.irsa_policy_arn
         s3_sqs_dlq = module.hmpps_pin_phone_monitor_s3_event_dead_letter_queue.irsa_policy_arn
    },
-    local.irsa_policies_api
+    local.irsa_policies_api,
+    local.pcms_sqs_policies
   )
 
   # Tags

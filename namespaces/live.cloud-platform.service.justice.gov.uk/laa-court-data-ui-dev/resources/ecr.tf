@@ -25,12 +25,12 @@ module "lcdui_ecr_credentials" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Keep the newest 10 production images",
+            "description": "Keep the newest 20 production images",
             "selection": {
                 "tagStatus": "tagged",
                 "tagPrefixList": ["main-"],
                 "countType": "imageCountMoreThan",
-                "countNumber": 10
+                "countNumber": 20
             },
             "action": {
                 "type": "expire"

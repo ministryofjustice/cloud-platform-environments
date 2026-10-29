@@ -50,6 +50,11 @@ variable "message_retention_seconds" {
   default     = "1209600"
 }
 
+variable "dead_letter_message_retention_seconds" {
+  description = "The number of seconds Amazon SQS retains a dead letter message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)."
+  default     = "1209600"
+}
+
 variable "domain" {
   default = "court-data-adaptor.service.justice.gov.uk"
 }
@@ -76,7 +81,7 @@ variable "eks_cluster_name" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-access-court-data"
+  default     = "laa-connect-public"
 }
 
 variable "kubernetes_cluster" {

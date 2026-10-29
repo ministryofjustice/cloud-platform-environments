@@ -1,8 +1,8 @@
-# Deploys Envoy HTTPS forward proxy and creates proxy environment secret
+# Deploys Envoy HTTPS forward proxy and creates proxy environment secret.
 # For guidance see: https://tech-docs.hmpps.service.justice.gov.uk/how-to-guides/retrofitting-egress-controls-with-envoy-proxy
 
 module "hmpps_egress_controls" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.5"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.11"
 
   enable_envoy_setup     = true
   enable_egress_controls = true 
@@ -12,11 +12,11 @@ module "hmpps_egress_controls" {
 
   envoy_extra_allowed_hosts_exact = [
     "www.gov.uk", # required for fetching bank-holidays.json file
-    "o345774.ingest.sentry.io"
+    "o345774.ingest.sentry.io",
+    "moj-reg-dev.s3.eu-west-2.amazonaws.com" # the purposeful activity report job exports here
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
-    
   ]
 
 }

@@ -41,6 +41,12 @@ variable "team_name" {
   default     = "manage-people-on-probation"
 }
 
+variable "github_team_name" {
+  description = "GitHub team slug used for the GithubTeam access tag"
+  type        = string
+  default     = "hmpps-manage-people-on-probation"
+}
+
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string

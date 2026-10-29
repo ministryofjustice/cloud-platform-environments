@@ -18,14 +18,17 @@ module "cla_backend_rds_postgres_14" {
 
   db_name = "cla_backend"
   # change the postgres version as you see fit.
-  db_engine_version      = "14"
+  db_engine_version      = "18.6"
   db_instance_class      = "db.t4g.small"
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
+  # set for major Updating   
+  prepare_for_major_upgrade = true
+
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres14
   # Pick the one that defines the postgres version the best
-  rds_family = "postgres14"
+  rds_family = "postgres18"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -74,9 +77,10 @@ module "cla_backend_rds_postgres_14_replica" {
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best
-  rds_family        = "postgres14"
-  db_engine_version = "14"
+  rds_family        = "postgres18"
+  db_engine_version = "18.6"
   db_instance_class = "db.t4g.small"
+
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -96,14 +100,17 @@ module "cla_backend_metabase_rds" {
   namespace     = var.namespace
 
   db_name                  = "metabase"
-  db_engine_version        = "15"
+  db_engine_version        = "18.6"
   db_instance_class        = "db.t4g.micro"
   db_allocated_storage     = "5"
   db_max_allocated_storage = "500"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
 
-  rds_family = "postgres15"
+  rds_family = "postgres18"
+
+  # set for major Updating   
+  prepare_for_major_upgrade = true
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
@@ -111,7 +118,6 @@ module "cla_backend_metabase_rds" {
   providers = {
     aws = aws.london
   }
-
 
   enable_irsa = true
 }

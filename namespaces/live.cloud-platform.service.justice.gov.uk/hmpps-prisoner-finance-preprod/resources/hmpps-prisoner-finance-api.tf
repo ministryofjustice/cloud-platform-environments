@@ -1,9 +1,9 @@
 module "hmpps_prisoner_finance_api_preprod" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-prisoner-finance-api"
-  application = "hmpps-prisoner-finance-api"
+  application = var.prisoner_finance_application_name
   github_team = "hmpps-prisoner-finance"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.

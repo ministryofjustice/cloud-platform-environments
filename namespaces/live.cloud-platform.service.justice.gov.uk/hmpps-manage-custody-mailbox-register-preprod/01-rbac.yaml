@@ -10,7 +10,7 @@ subjects:
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
-    name: "github:mailbox-register-devs"
+    name: "github:mailbox-register-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

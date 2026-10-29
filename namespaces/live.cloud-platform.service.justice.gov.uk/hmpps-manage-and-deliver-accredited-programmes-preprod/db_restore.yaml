@@ -1,9 +1,23 @@
+# =============================================================================
+# APG-2664 — NEC pipeline decommissioned 2026-09-11
+# This CronJob is intentionally suspended. The NEC ingest pipeline is being
+# retired: the final .bak (backup-production-IM-dbo-only-20260908013109.bak)
+# has been preserved forever in the prod archive S3 bucket, and both preprod
+# and prod RDS instances have been manually snapshotted (see APG-2664).
+# Both SQLSERVER_BACKUP_S3_BUCKET_NAME env vars below have been invalidated
+# to "APG-2664-DECOMMISSIONED" so any accidental unsuspend fails fast without
+# touching the DB — the find-backup-file init container will get AccessDenied
+# from S3 and the job will fail before the destructive db-restore step runs.
+# DO NOT unsuspend without first reviewing APG-2664.
+# =============================================================================
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: db-restore-cronjob
   namespace: hmpps-manage-and-deliver-accredited-programmes-preprod
 spec:
+  # APG-2664: suspended — pipeline decommissioned. See banner above.
+  suspend: true
   # Run every night at 05:45 UTC (06:45 BST) — 0:45:00 after the s3-transfer job
   schedule: "45 5 * * *"
   concurrencyPolicy: Forbid
@@ -110,10 +124,7 @@ spec:
                 - name: HOME
                   value: /tmp
                 - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: sqlserver-backup-s3-bucket-output
-                      key: bucket_name
+                  value: "APG-2664-DECOMMISSIONED"
               command:
                 - /bin/bash
                 - -c
@@ -230,10 +241,7 @@ spec:
                       name: rds-sqlserver-instance-output
                       key: database_password
                 - name: SQLSERVER_BACKUP_S3_BUCKET_NAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: sqlserver-backup-s3-bucket-output
-                      key: bucket_name
+                  value: "APG-2664-DECOMMISSIONED"
               command:
                 - /bin/bash
                 - -c

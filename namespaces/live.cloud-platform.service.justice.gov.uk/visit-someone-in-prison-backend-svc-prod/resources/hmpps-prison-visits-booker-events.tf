@@ -8,7 +8,8 @@ resource "aws_sns_topic_subscription" "hmpps_prison_visits_booker_events" {
   filter_policy = jsonencode({
     eventType = [
       "contacts-api.prisoner-contact.created",
-      "contacts-api.contact.updated"
+      "contacts-api.contact.updated",
+      "prison-offender-events.prisoner.merged",
     ]
   })
 }

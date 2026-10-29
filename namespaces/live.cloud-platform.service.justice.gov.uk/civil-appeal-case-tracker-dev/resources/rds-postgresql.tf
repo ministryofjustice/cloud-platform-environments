@@ -14,16 +14,17 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  allow_major_version_upgrade  = true
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  enable_rds_auto_start_stop   = true # turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
+  maintenance_window           = "Mon:21:00-Mon:22:00"
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14"
-  rds_family        = "postgres14"
+  db_engine_version = "16.15"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
 
   # Tags
@@ -36,6 +37,8 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
+
+  prepare_for_major_upgrade = true
 }
 
 
@@ -64,8 +67,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14"
-  rds_family        = "postgres14"
+  db_engine_version = "16.15"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 

@@ -11,19 +11,19 @@ module "secrets_manager" {
 
   secrets = {
     "auth-client-id" = {
-      description             = "Auth client ID from Entra for staging environment",
+      description             = "Auth client ID from Entra for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-client-id-staging"
     },
 
     "auth-client-secret" = {
-      description             = "Auth client secret from Entra for staging environment",
+      description             = "Auth client secret from Entra for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-client-secret-staging"
     },
 
     "auth-directory-url" = {
-      description             = "Auth directory URL from Entra for staging environment",
+      description             = "Auth directory URL from Entra for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-directory-url-staging"
     },
@@ -35,9 +35,21 @@ module "secrets_manager" {
     },
 
     "data_store_auth_scope" = {
-      description             = "Auth scope for integration with Data Store",
+      description             = "Auth scope for integration with Data Store for Staging",
       recovery_window_in_days = 7,
       k8s_secret_name         = "data-store-auth-scope-staging"
+    },
+
+    "decide_api_auth_scope" = {
+      description             = "Auth scope for integration with Civil Decide API for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "decide-api-auth-scope-staging"
+    },
+
+    "refuse_email_template_id" = {
+      description             = "Refuse Decision Template ID for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "refuse-email-template-id-staging"
     },
   }
 }

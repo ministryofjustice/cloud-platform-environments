@@ -49,7 +49,11 @@ module "manage-people-on-probation-api-service-account" {
   service_account_name = "manage-people-on-probation-api"
   role_policy_arns = merge(
     { elasticache = module.elasticache.irsa_policy_arn },
-    local.sns_policies
+    local.sns_policies,
+    {
+      sqs = module.supervision-appointments-sms-status-check-queue.irsa_policy_arn
+      sqs_dlq = module.supervision-appointments-sms-status-check-dlq.irsa_policy_arn
+    }
   )
 }
 
@@ -83,6 +87,24 @@ module "hmpps-probation-supervision-reminders-ui-service-account" {
   team_name              = var.team_name
 
   service_account_name = "hmpps-probation-supervision-reminders-ui"
+  role_policy_arns = merge(
+    { elasticache = module.elasticache.irsa_policy_arn },
+    local.sqs_policies
+  )
+}
+
+module "hmpps-probation-supervision-early-termination-ui-service-account" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  application            = var.application
+  business_unit          = var.business_unit
+  eks_cluster_name       = var.eks_cluster_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  service_account_name = "hmpps-probation-supervision-early-termination-ui"
   role_policy_arns = merge(
     { elasticache = module.elasticache.irsa_policy_arn },
     local.sqs_policies

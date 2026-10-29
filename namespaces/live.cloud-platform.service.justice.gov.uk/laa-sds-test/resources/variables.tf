@@ -142,7 +142,7 @@ variable "serviceaccount_rules" {
 
 variable "bucket_names" {
   type = list(string)
-  default = ["laa-sds-internal", "laa-sds-inquests", "laa-sds-data-access-api"]
+  default = ["laa-sds-internal", "laa-sds-inquests", "laa-sds-data-access-api", "laa-sds-glad"]
 }
 
 variable "service_area" {

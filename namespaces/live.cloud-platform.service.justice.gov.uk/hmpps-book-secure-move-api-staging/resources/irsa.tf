@@ -17,8 +17,7 @@ module "irsa" {
     s3_metrics   = module.book_a_secure_move_metrics_s3_bucket.irsa_policy_arn
     s3_reporting = module.book_a_secure_move_reporting_s3_bucket.irsa_policy_arn
     rds          = module.rds-instance.irsa_policy_arn
-
-
+    read_replica = module.rds-read-replica.irsa_policy_arn
   }
 
   # Tags

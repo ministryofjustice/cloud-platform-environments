@@ -10,7 +10,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - srrc-api-dev.hmpps.service.justice.gov.uk
+    - fingerprint-search-api-dev.biometrics.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -23,5 +23,18 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - srrc-dev.hmpps.service.justice.gov.uk
+    - improve-offender-identity-data-dev.biometrics.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: srrc-stub-ws-dev-cert
+  namespace: srrc-dev
+spec:
+  secretName: srrc-stub-ws-dev-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - srrc-stub-ws-dev.hmpps.service.justice.gov.uk
 ---

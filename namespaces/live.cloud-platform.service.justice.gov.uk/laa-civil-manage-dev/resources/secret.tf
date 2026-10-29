@@ -10,28 +10,16 @@ module "secrets_manager" {
   eks_cluster_name       = var.eks_cluster_name
 
   secrets = {
-    "auth-client-id" = {
-      description             = "Auth client ID from Entra for dev environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-client-id-dev"
-    },
-
     "auth-client-secret" = {
       description             = "Auth client secret from Entra for dev environment",
       recovery_window_in_days = 7,
       k8s_secret_name         = "auth-client-secret-dev"
     },
 
-    "auth-directory-url" = {
-      description             = "Auth directory URL from Entra for dev environment",
+    "session-secret" = {
+      description             = "Session secret for dev environment",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "auth-directory-url-dev"
-    },
-
-    "base_url_map" = {
-      description             = "API Base URL Map for dev environment",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "base-url-map-dev"
+      k8s_secret_name         = "session-secret-dev"
     },
 
     "slack-webhook-url" = {

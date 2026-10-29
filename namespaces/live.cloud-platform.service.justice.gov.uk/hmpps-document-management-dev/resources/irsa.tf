@@ -30,6 +30,7 @@ module "irsa" {
     s3       = module.s3.irsa_policy_arn
     s3images = module.s3-images.irsa_policy_arn
     cross_namespace_s3 = aws_iam_policy.cross_namespace_s3_policy.arn
+    s3probationaccounts  = module.s3-probation-accounts.irsa_policy_arn
   })
 
   # Tags

@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-release-scheduler-api-dev-cert
+  namespace: hmpps-release-scheduler-dev
+spec:
+  secretName: hmpps-release-scheduler-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - release-scheduler-api-dev.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-release-scheduler-ui-dev-cert
+  namespace: hmpps-release-scheduler-dev
+spec:
+  secretName: hmpps-release-scheduler-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - release-scheduler-dev.hmpps.service.justice.gov.uk

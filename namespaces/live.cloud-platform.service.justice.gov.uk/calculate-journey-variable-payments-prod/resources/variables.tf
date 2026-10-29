@@ -27,6 +27,11 @@ variable "github_review_team" {
   default     = "map-developers-devs"
 }
 
+variable "deployment_team_name" {
+  description = "The name of the GitHub team that can deploy to the environment."
+  default     = "map-developers-live"
+}
+
 variable "service_area" {
   type        = string
   description = "Service Area"

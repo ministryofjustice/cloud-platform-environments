@@ -31,7 +31,8 @@ resource "aws_iam_policy" "combined_local_sqs" {
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue"          = "hmpps-audit-prod",
+    "Digital-Prison-Services-prod-hmpps_prisoner_audit_queue" = "hmpps-audit-prod",
   }
 
   # The names of the SNS topics used and the namespace which created them
@@ -86,4 +87,3 @@ resource "kubernetes_secret" "irsa" {
     rolearn        = module.irsa.role_arn
   }
 }
-

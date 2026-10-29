@@ -1,9 +1,21 @@
+# =============================================================================
+# APG-2664 — NEC pipeline decommissioned 2026-09-10
+# This CronJob is intentionally suspended. The NEC ingest pipeline is being
+# retired: the final .bak was received Thu 10 Sep 2026 and both preprod and
+# prod RDS instances have been manually snapshotted (see APG-2664 ticket for
+# snapshot ARNs + KMS key ARNs).
+# DO NOT unsuspend without first reviewing APG-2664. The source upload bucket
+# will be empty (NEC's DataSync role revoked in preprod PR APG-2664/preprod-...)
+# so any run would be a no-op at best; at worst it may fire alerts.
+# =============================================================================
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hmpps-manage-and-deliver-acp-s3-transfer
   namespace: hmpps-manage-and-deliver-accredited-programmes-prod
 spec:
+  # APG-2664: suspended — pipeline decommissioned. See banner above.
+  suspend: true
   #  Run every night at 05:00 UTC (06:00 BST)
   schedule: "0 5 * * *"
   concurrencyPolicy: Forbid

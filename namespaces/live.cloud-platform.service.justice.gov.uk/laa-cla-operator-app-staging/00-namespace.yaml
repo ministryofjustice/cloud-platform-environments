@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: "laa-cla-operator-app-staging"
   labels:
+    cloud-platform.justice.gov.uk/namespace: "laa-cla-operator-app-staging"
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "staging"
     pod-security.kubernetes.io/enforce: restricted

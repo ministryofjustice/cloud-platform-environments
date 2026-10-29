@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: defendant-enrichment
+  namespace: court-probation-dev
+spec:
+  schedule: "0 3 * * *"
+  timeZone: "Europe/London"
+  suspend: true
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 3300
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: invoke-enrichment
+              image: ghcr.io/ministryofjustice/hmpps-devops-tools@sha256:1db10aea5c1d3c0ca862e4d12842c9a5f0a87b8d5f4840d40d474867e21943e7
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+                limits:
+                  cpu: 200m
+                  memory: 128Mi
+              env:
+                - name: ENRICHMENT_URL
+                  value: "http://hmpps-court-case-enrichment-worker/jobs/enrich-defendants"
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+
+                  curl --silent --show-error --fail \
+                    --connect-timeout 10 --max-time 3200 --retry 0 \
+                    --request POST \
+                    --output /dev/null \
+                    "$ENRICHMENT_URL"
+
+                  echo "Defendant enrichment invocation completed successfully"

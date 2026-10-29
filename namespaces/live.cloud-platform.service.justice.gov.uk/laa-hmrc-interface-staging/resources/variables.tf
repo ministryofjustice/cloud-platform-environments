@@ -5,8 +5,14 @@ variable "vpc_name" {
 
 variable "kubernetes_cluster" {
 }
+
 variable "application" {
   description = "Name of Application you are deploying"
+  default     = "laa-hmrc-interface-service-api"
+}
+
+variable "repo_name" {
+  description = "The name of github repo"
   default     = "laa-hmrc-interface-service-api"
 }
 
@@ -51,6 +57,68 @@ variable "github_owner" {
 variable "github_token" {
   description = "Required by the github terraform provider"
   default     = ""
+}
+
+variable "serviceaccount_github_actions_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "pods/exec",
+        "pods/portforward",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }
 
 variable "eks_cluster_name" {

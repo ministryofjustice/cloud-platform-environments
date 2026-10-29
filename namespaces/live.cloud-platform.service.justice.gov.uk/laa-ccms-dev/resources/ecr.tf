@@ -24,7 +24,8 @@ module "ecr" {
       "laa-ccms-opa-means-v23",
       "laa-ccms-opa-merits-v23",
       "laa-ccms-opa-billing-v23",
-      "laa-ccms-mock-contracts"
+      "laa-ccms-mock-contracts",
+      "oracle-policy-automation-docker"
   ]
 
   # Lifecycle policies

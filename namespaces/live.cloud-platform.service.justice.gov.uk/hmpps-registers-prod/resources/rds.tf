@@ -17,7 +17,7 @@ module "prisons_rds" {
   prepare_for_major_upgrade = false
   db_instance_class         = "db.t4g.small"
   rds_family                = "postgres18"
-  db_engine_version         = "18.3"
+  db_engine_version         = "18.6"
   deletion_protection       = true
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -35,7 +35,7 @@ module "prisons_rds" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
@@ -88,7 +88,7 @@ module "dps_rds_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "18.3"
+  db_engine_version = "18.6"
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.small"
 
@@ -109,7 +109,7 @@ module "dps_rds_replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {

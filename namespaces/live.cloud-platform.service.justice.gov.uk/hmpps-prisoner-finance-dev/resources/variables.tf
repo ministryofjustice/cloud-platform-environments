@@ -29,7 +29,7 @@ variable "environment" {
   description = "The type of environment you're deploying to."
   default     = "dev"
 }
-####################################################################################################################
+#############################infrastructure_support#######################################################################################
 
 variable "infrastructure_support" {
   description = "The team responsible for managing the infrastructure. Should be of the form team-email."
@@ -59,4 +59,49 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "service_account_name" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance"
+}
+
+variable "service_account_name_holds" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-holds"
+}
+
+variable "service_account_name_advances" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-advances"
+}
+
+
+variable "service_account_name_subscriptions" {
+  description = "The name of the service account to retrieve the OIDC information"
+  default     = "hmpps-prisoner-finance-subscriptions"
+}
+
+variable "holds_application_name" {
+  description = "The name of the holds application"
+  default = "hmpps-prisoner-finance-holds-api"
+}
+
+variable "advances_application_name" {
+  description = "The name of the advances application"
+  default = "hmpps-prisoner-finance-advances-api"
+}
+
+variable "subscriptions_application_name" {
+  description = "The name of the subscriptions application"
+  default = "hmpps-prisoner-finance-subscriptions-api"
+}
+
+variable "prisoner_finance_application_name" {
+  description = "The name of the Prisoner Finance API application"
+  default = "hmpps-prisoner-finance-api"
 }

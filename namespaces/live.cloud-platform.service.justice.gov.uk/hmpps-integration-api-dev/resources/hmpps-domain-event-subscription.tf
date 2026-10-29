@@ -159,7 +159,8 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "location.inside.prison.deleted",
       "location.inside.prison.deactivated",
       "location.inside.prison.reactivated",
-      "location.inside.prison.signed-op-cap.amended"
+      "location.inside.prison.signed-op-cap.amended",
+      "tier.calculation.changed",
     ]
   })
 }

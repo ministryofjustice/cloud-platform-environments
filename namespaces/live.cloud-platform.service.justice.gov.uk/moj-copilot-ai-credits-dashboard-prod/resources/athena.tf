@@ -1,7 +1,9 @@
 locals {
   s3_target_paths = [
     "reports-live-consolidated/credits_by_model/", 
-    "reports-live-consolidated/credits_by_user/"
+    "reports-live-consolidated/credits_by_user/",
+    "reports-live-consolidated/telemetry_by_user/",
+    "reports-live-consolidated/telemetry_by_user_activity/"
   ]
 }
 
@@ -32,7 +34,8 @@ resource "aws_glue_crawler" "copilot_credits_prod_crawler" {
     }
   })
 
-  schedule = "cron(0 7 * * ? *)"
+  # 10:20 and 16:20 UTC, about 80 minutes after each get-copilot-data run (09:00 and 15:00).
+  schedule = "cron(20 10,16 * * ? *)"
 }
 
 resource "aws_athena_workgroup" "copilot_credits_prod_workgroup" {

@@ -1,18 +1,18 @@
 module "hmpps-official-visits-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-10-19"
   github_repo                   = "hmpps-official-visits-api"
   application                   = "hmpps-official-visits-api"
-  github_team                   = "hmpps-move-and-improve"
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-prod.yaml
-  is_production                 = var.is_production
+  github_team                   = "hmpps-prison-visits-booking-live"
+  environment                   = var.environment # Should match env name in helm values file e.g. values-prod.yaml
+  reviewer_teams                = ["hmpps-prison-visits-booking-live", "hmpps-move-and-improve-squad-2-live"]
   selected_branch_patterns      = ["main"]
+  is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.team_name]
 }

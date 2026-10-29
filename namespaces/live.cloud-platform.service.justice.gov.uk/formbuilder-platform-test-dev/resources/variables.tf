@@ -55,3 +55,10 @@ variable "github_token" {
 
 variable "kubernetes_cluster" {
 }
+
+variable "db_engine_version" {
+  description = "The database engine version to use for the RDS instance"
+  type        = string
+  default     = "15.19"
+}
+

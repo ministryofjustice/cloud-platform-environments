@@ -82,18 +82,18 @@ resource "aws_iam_user" "in-cell-queue-user" {
   path = "/system/in-cell-queue-user/"
 }
 
-resource "aws_iam_access_key" "in-cell-queue-access" {
-  user = aws_iam_user.user.name
+resource "aws_iam_access_key" "in-cell-queue-access-new" {
+  user = aws_iam_user.in-cell-queue-user.name
 }
 
-resource "aws_iam_user_policy_attachment" "in-cell-queue-policy" {
+resource "aws_iam_user_policy_attachment" "in-cell-queue-policy-new" {
   policy_arn = module.in_cell_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
-resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy" {
+resource "aws_iam_user_policy_attachment" "in-cell-dlq-policy-new" {
   policy_arn = module.in_cell_dead_letter_queue.irsa_policy_arn
-  user       = aws_iam_user.user.name
+  user       = aws_iam_user.in-cell-queue-user.name
 }
 
 resource "kubernetes_secret" "in_cell_queue" {
@@ -103,8 +103,8 @@ resource "kubernetes_secret" "in_cell_queue" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.in-cell-queue-access.id
-    secret_access_key = aws_iam_access_key.in-cell-queue-access.secret
+    access_key_id     = aws_iam_access_key.in-cell-queue-access-new.id
+    secret_access_key = aws_iam_access_key.in-cell-queue-access-new.secret
     sqs_queue_url     = module.in_cell_queue.sqs_id
     sqs_queue_arn     = module.in_cell_queue.sqs_arn
     sqs_queue_name    = module.in_cell_queue.sqs_name
@@ -118,8 +118,6 @@ resource "kubernetes_secret" "in_cell_dlq" {
   }
 
   data = {
-    access_key_id     = aws_iam_access_key.in-cell-queue-access.id
-    secret_access_key = aws_iam_access_key.in-cell-queue-access.secret
     sqs_queue_url     = module.in_cell_dead_letter_queue.sqs_id
     sqs_queue_arn     = module.in_cell_dead_letter_queue.sqs_arn
     sqs_queue_name    = module.in_cell_dead_letter_queue.sqs_name
@@ -133,3 +131,4 @@ resource "aws_sns_topic_subscription" "in_cell_subscription" {
   endpoint      = module.in_cell_queue.sqs_arn
   filter_policy = "{\"eventType\":[\"prison-offender-events.prisoner.released\", \"prison-offender-events.prisoner.received\"]}"
 }
+

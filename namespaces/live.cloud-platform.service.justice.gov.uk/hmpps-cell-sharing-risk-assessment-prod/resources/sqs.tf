@@ -5,7 +5,8 @@ resource "aws_sns_topic_subscription" "prisoner_event_queue_subscription" {
   endpoint  = module.prisoner-event-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "dummy-event-will-filter-out-all-events",
+      "prisoner-offender-search.prisoner.received",
+      "prison-offender-events.prisoner.merged",
     ]
   })
 }

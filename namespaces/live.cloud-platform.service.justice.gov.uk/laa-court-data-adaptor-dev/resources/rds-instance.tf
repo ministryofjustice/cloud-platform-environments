@@ -13,9 +13,9 @@ module "court_data_adaptor_rds" {
   infrastructure_support = var.infrastructure_support
 
   rds_family                  = "postgres17"
-  db_engine_version           = "17.4"
+  db_engine_version           = "17.11"
   db_instance_class           = "db.t4g.micro"
-  db_max_allocated_storage    = "500"
+  db_max_allocated_storage    = "605"
   allow_major_version_upgrade = "true"
   enable_rds_auto_start_stop  = true
   maintenance_window          = "Mon:21:00-Mon:22:00"

@@ -17,8 +17,11 @@ module "dps_rds" {
   allow_major_version_upgrade =  false
   rds_family                   = "postgres18"
   db_engine                    = "postgres"
-  db_engine_version            = "18"
+  db_engine_version            = "18.6"
   performance_insights_enabled =  true
+
+  # Enable Cloudwatch logging
+  opt_in_xsiam_logging = false
 
   providers = {
     aws = aws.london
@@ -29,22 +32,6 @@ module "dps_rds" {
 resource "kubernetes_secret" "dps_rds" {
   metadata {
     name      = "dps-rds-instance-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    rds_instance_endpoint = module.dps_rds.rds_instance_endpoint
-    database_name         = module.dps_rds.database_name
-    database_username     = module.dps_rds.database_username
-    database_password     = module.dps_rds.database_password
-    rds_instance_address  = module.dps_rds.rds_instance_address
-    url                   = "postgres://${module.dps_rds.database_username}:${module.dps_rds.database_password}@${module.dps_rds.rds_instance_endpoint}/${module.dps_rds.database_name}"
-  }
-}
-
-resource "kubernetes_secret" "hmpps_authorization_rds" {
-  metadata {
-    name      = "authorization-rds-instance-output"
     namespace = var.namespace
   }
 

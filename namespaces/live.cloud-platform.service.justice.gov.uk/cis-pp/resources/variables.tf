@@ -185,6 +185,22 @@ variable "tags" {
   default     = {}
 }
 
+
+# -----------------------------------------------------------------------------
+# DynamoDB Variables
+# -----------------------------------------------------------------------------
+variable "dynamodb_transactions_audit_table_name" {
+  description = "Name of the DynamoDB table for transactions audit"
+  type        = string
+  default     = "preproduction-transactions-audit"
+}
+
+variable "dynamodb_bps_metadata_table_name" {
+  description = "Name of the DynamoDB table for BPS payment job metadata"
+  type        = string
+  default     = "bps_metadata_cis_preprod"
+}
+
 # -----------------------------------------------------------------------------
 # CloudFront Logging Variables
 # -----------------------------------------------------------------------------
@@ -329,11 +345,17 @@ variable "oidc_role_provider_url" {
 variable "oidc_role_workflow_file" {
   description = "The name of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
   type        = string
-  default     = ".github/workflows/application.yml"
+  default     = ".github/workflows/deploy_preprod.yml"
 }
 
 variable "oidc_role_workflow_branch" {
   description = "The branch of the workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
   type        = string
   default     = "main"
+}
+
+variable "oidc_role_frontend_deploy_workflow_file" {
+  description = "The name of the frontend-only deployment workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+  type        = string
+  default     = ".github/workflows/deploy_frontend_branch_to_preprod.yml"
 }

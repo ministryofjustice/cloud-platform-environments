@@ -1,13 +1,10 @@
 
 # Add the names of the SQS which the app needs permissions to access.
 # The value of each item should be the namespace where the SQS was created.
-# This information is used to collect the IAM policies which are used by the IRSA module.
+# This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-cvl_domain_events_queue"       = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-cvl_domain_events_queue_dl"    = "hmpps-domain-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_events_queue"       = "offender-events-dev",
-    "Digital-Prison-Services-dev-cvl_prison_events_queue_dl"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"             = "hmpps-audit-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }

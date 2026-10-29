@@ -31,11 +31,13 @@ module "create_an_order_api_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-electronic-monitoring-create-an-order-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
-     { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },   
-    {court_case_events_fifo_queue             = module.court_case_events_fifo_queue.irsa_policy_arn},    
-    {court_case_events_fifo_dead_letter_queue = module.court_case_events_fifo_dead_letter_queue.irsa_policy_arn}
+    { s3 = aws_iam_policy.cross_namespace_s3_policy.arn },
+    { court_case_events_fifo_queue = module.court_case_events_fifo_queue.irsa_policy_arn },
+    { court_case_events_fifo_dead_letter_queue = module.court_case_events_fifo_dead_letter_queue.irsa_policy_arn },
+    { returns_events_fifo_queue = module.returns_events_fifo_queue.irsa_policy_arn },
+    { returns_events_fifo_dead_letter_queue = module.returns_events_fifo_dead_letter_queue.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
@@ -53,12 +55,12 @@ module "create_an_order_ui_irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-electronic-monitoring-create-an-order"
 
-  role_policy_arns = merge(    
-    {      
-      s3 = module.uploadstore.irsa_policy_arn     
+  role_policy_arns = merge(
+    {
+      s3 = module.uploadstore.irsa_policy_arn
     }
   )
-  
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

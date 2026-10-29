@@ -40,3 +40,33 @@ spec:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: laa-data-claims-event-service-staging
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-data-claims-api
+  namespace: laa-fee-scheme-api-staging
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: laa-data-claims-api-staging
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-amend-a-claim
+  namespace: laa-fee-scheme-api-staging
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: laa-amend-a-claim-staging

@@ -18,7 +18,7 @@ module "irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-challenge-support-intervention-plan-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     {
       rds = module.rds.irsa_policy_arn
     },
@@ -27,6 +27,10 @@ module "irsa" {
     },
     {
       sqs_dlq = module.domain_events_dlq.irsa_policy_arn
+    },
+    {
+      # send audit events to the HMPPS Audit queue (policy from the sqs-hmpps-audit-secret read below)
+      audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
     },
     local.sns_policies
   )

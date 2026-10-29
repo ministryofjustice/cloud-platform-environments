@@ -10,3 +10,6 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - shared.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - kiosk.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    - private.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk

@@ -4,20 +4,43 @@ import (
 	"fmt"
 	"log"
 	"regexp"
+	"strings"
 )
 
 func CheckModuleVersions(diff string, getVersionFn func(string) (APIResponse, error)) error {
-	// diff line starts with + and contains regex that matches the "cloud-platform-terraform-*" eg. `+  source = "github.com/ministryofjustice/cloud-platform-terraform-example"`
-	r := regexp.MustCompile(`\+.*github.com/ministryofjustice/cloud-platform-terraform-.*"`)
-	matches := r.FindAllString(diff, -1)
+	fileRegex := regexp.MustCompile(`^diff --git a/(.+) b/(.+)$`)
+	moduleRegex := regexp.MustCompile(`^\+\s*source\s*=\s*"(github.com/ministryofjustice/cloud-platform-terraform-[^"]+)"`)
 
-	if matches == nil {
+	var matches []string
+	currentFile := ""
+
+	for _, line := range strings.Split(diff, "\n") {
+		fileMatch := fileRegex.FindStringSubmatch(line)
+
+		if fileMatch != nil {
+			currentFile = fileMatch[2]
+			continue
+		}
+
+		// Only inspect Terraform files.
+		if !strings.HasSuffix(currentFile, ".tf") {
+			continue
+		}
+
+		moduleMatch := moduleRegex.FindStringSubmatch(line)
+
+		if moduleMatch != nil {
+			matches = append(matches, moduleMatch[1])
+		}
+	}
+
+	if len(matches) == 0 {
 		log.Println("Pass: no modules referenced ✅")
 		return nil
 	}
 
 	for _, module := range matches {
-		moduleName, containsVersion, moduleVersion := getModuleNameAndVersion(module)
+		moduleName, containsRef, moduleRef := getModuleNameAndRef(module)
 
 		response, responseErr := getVersionFn(moduleName)
 
@@ -25,19 +48,45 @@ func CheckModuleVersions(diff string, getVersionFn func(string) (APIResponse, er
 			return responseErr
 		}
 
-		if !containsVersion {
-			// If there is no ?ref= then still lookup the module version (some modules don't have versions because they don't have releases)
+		if !containsRef {
 			if response.LatestVersion != "" {
-				return fmt.Errorf("Fail: you have not specified a module version for %v -- the latest version is %v ❌", module, response.LatestVersion)
-
+				return fmt.Errorf(
+					"Fail: you have not specified a module version for %v -- the latest version is %v ❌",
+					module,
+					response.LatestVersion,
+				)
 			}
+
 			log.Println("Pass: there is no release for this module ✅")
 			continue
 		}
 
-		if response.LatestVersion != moduleVersion {
-			return fmt.Errorf("Fail: reference to %v module is not using the latest version -- %v is not the latest %v ❌", moduleName, moduleVersion, response.LatestVersion)
+		moduleRef = strings.TrimSpace(moduleRef)
+		moduleRef = strings.Trim(moduleRef, "\"'")
+
+		moduleVersion := getModuleVersion(moduleRef)
+
+		if moduleVersion != "" {
+			if response.LatestVersion != moduleVersion {
+				return fmt.Errorf(
+					"Fail: reference to %v module is not using the latest version -- %v is not the latest %v ❌",
+					moduleName,
+					moduleVersion,
+					response.LatestVersion,
+				)
+			}
+
+			continue
 		}
+
+		if isCommitSHA(moduleRef) && moduleRef == response.LatestSHA {
+			continue
+		}
+
+		return fmt.Errorf(
+			"Fail: reference to %v module is not using the latest version or commit SHA ❌",
+			moduleName,
+		)
 	}
 
 	log.Println("Pass: you are using the latest 'cloud-platform-terraform-*' module release(s) ✅")

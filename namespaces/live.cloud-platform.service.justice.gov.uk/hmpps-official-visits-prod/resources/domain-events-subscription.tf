@@ -2,14 +2,14 @@ module "official_visits_domain_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "domain_events_queue"
-  encrypt_sqs_kms           = "true"
-  message_retention_seconds = 7 * 24 * 3600 # 1 week
+  sqs_name                   = "domain_events_queue"
+  encrypt_sqs_kms            = "true"
+  message_retention_seconds  = 7 * 24 * 3600 # 1 week
   visibility_timeout_seconds = 120
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn: module.official_visits_domain_events_dlq.sqs_arn
-    maxReceiveCount: 5
+    deadLetterTargetArn : module.official_visits_domain_events_dlq.sqs_arn
+    maxReceiveCount : 5
   })
 
   # Tags

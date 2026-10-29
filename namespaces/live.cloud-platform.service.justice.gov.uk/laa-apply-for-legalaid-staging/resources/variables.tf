@@ -54,9 +54,82 @@ variable "team_name" {
   default     = "laa-apply-for-legal-aid"
 }
 
+variable "repo_name" {
+  description = "The name of github repo"
+  default     = "laa-apply-for-legal-aid"
+}
+
 variable "kubernetes_cluster" {}
 
 variable "service_area" {
   description = "Service area responsible for this service"
   default     = "LAA Civil Apply"
+}
+
+variable "serviceaccount_rules" {
+  description = "The capabilities of this serviceaccount"
+
+  type = list(object({
+    api_groups = list(string),
+    resources  = list(string),
+    verbs      = list(string)
+  }))
+
+  # These values are default plus custom to allow for deletion of UAT branches via CI/CD pipeline
+  default = [
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "HorizontalPodAutoscaler",
+        "configmaps",
+        "persistentvolumeclaims",
+        "serviceaccounts",
+      ]
+      verbs = [
+        "patch",
+        "get",
+        "create",
+        "update",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "monitoring.coreos.com",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "poddisruptionbudgets",
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+  ]
 }

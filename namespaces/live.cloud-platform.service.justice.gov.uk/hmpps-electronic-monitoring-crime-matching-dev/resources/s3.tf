@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "allow_access" {
     #   test     = "StringEquals"
     #   variable = "aws:SourceArn"
     #   values   = [
-    #     "arn:aws:ses:eu-west-2:${data.aws_caller_identity.current.account_id}:receipt-rule-set/${aws_ses_receipt_rule_set.main.rule_set_name}:receipt-rule/store-in-s3"
+    #     "arn:aws:ses:eu-west-2:${data.aws_caller_identity.current.account_id}:receipt-rule-set/${aws_ses_receipt_rule_set.main.rule_set_name}:receipt-rule/hmpps-electronic-monitoring-crime-matching-dev"
     #   ]
     # }
   }

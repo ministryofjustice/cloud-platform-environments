@@ -113,16 +113,7 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_externalmovements_sub
   endpoint  = module.prisoner_from_nomis_externalmovements_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "EXTERNAL_MOVEMENT-CHANGED",
-      "MOVEMENT_APPLICATION-INSERTED",
-      "MOVEMENT_APPLICATION-UPDATED",
-      "MOVEMENT_APPLICATION-DELETED",
-      "SCHEDULED_EXT_MOVE-INSERTED",
-      "SCHEDULED_EXT_MOVE-UPDATED",
-      "SCHEDULED_EXT_MOVE-DELETED",
-      "ADDRESSES_OFFENDER-UPDATED",
-      "ADDRESSES_CORPORATE-UPDATED",
-      "ADDRESSES_AGENCY-UPDATED"
+      "EXTERNAL_MOVEMENT-CHANGED"
     ]
   })
 }

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: moj-org-chart-preprod-cert
+  namespace: sop-derived-organogram-preprod
+spec:
+  secretName: tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - moj-org-chart-preprod.service.justice.gov.uk

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api.cis.service.justice.gov.uk
+  namespace: cis-prd
+spec:
+  secretName: cis-prd-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - api.cis.service.justice.gov.uk

@@ -39,3 +39,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - digital-canteen-ui-preprod.hmpps.service.justice.gov.uk
+    - staff.digital-canteen-ui-preprod.hmpps.service.justice.gov.uk

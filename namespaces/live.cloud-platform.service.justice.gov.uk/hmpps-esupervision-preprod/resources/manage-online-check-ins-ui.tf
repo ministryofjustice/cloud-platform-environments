@@ -8,6 +8,7 @@ module "hmpps_manage_online_check_ins_ui" {
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"
+  reviewer_teams                = ["stg-pathfinders"]
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
   namespace                     = var.namespace

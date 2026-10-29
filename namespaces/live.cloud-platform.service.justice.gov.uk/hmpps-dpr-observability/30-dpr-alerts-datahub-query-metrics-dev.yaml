@@ -1,0 +1,52 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: dpr-alerts-datahub-query-metrics-dev
+  namespace: hmpps-dpr-observability
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: datahub-query-metrics-dev
+    rules:
+    # ============================================
+    # SLOW QUERY ALERTS
+    # ============================================
+    - alert: DPR-Dev-DatahubSlowQueryP95
+      expr: |
+        histogram_quantile(0.95,
+          sum by (le, report_id, query_engine) (
+            rate(single_query_metric_bucket{namespace="hmpps-datahub-query-metrics-dev"}[15m])
+          )
+        ) > 300
+      for: 5m
+      labels:
+        severity: dpr-backend-alerts-dev
+      annotations:
+        message: "[DEV] DPR report {{ $labels.report_id }} via {{ $labels.query_engine }} has a p95 query time of {{ $value | humanizeDuration }} (threshold: 5m). This may indicate a performance degradation in the query layer."
+        runbook_url: "https://github.com/ministryofjustice/hmpps-datahub-query-metrics"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/datahub-report-system-performance/datahub-report-system-performance?orgId=1"
+
+    # ============================================
+    # HIGH ERROR RATE ALERTS
+    # ============================================
+    - alert: DPR-Dev-DatahubHighErrorRate
+      expr: |
+        (
+          sum by (report_id, query_engine) (
+            rate(queries_total{namespace="hmpps-datahub-query-metrics-dev", status="FAILED"}[15m])
+          )
+        ) /
+        (
+          sum by (report_id, query_engine) (
+            rate(queries_total{namespace="hmpps-datahub-query-metrics-dev"}[15m])
+          )
+        ) > 0.10
+      for: 5m
+      labels:
+        severity:  dpr-backend-alerts-dev
+      annotations:
+        message: "[DEV] DPR report {{ $labels.report_id }} via {{ $labels.query_engine }} has a {{ $value | humanizePercentage }} FAILED query rate (threshold: 10%). Check the application logs and Redshift/Athena query history for errors."
+        runbook_url: "https://github.com/ministryofjustice/hmpps-datahub-query-metrics"
+        dashboard_url: "https://grafana.live.cloud-platform.service.justice.gov.uk/d/datahub-report-system-performance/datahub-report-system-performance?orgId=1"

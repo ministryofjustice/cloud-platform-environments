@@ -4,10 +4,10 @@ module "hmpps-official-visits-ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-official-visits-ui"
   application                   = "hmpps-official-visits-ui"
-  github_team                   = "hmpps-move-and-improve"
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  is_production                 = var.is_production
+  github_team                   = "hmpps-prison-visits-booking-devs"
+  environment                   = var.environment # Should match env name used in helm values e.g. values-dev.yaml
   selected_branch_patterns      = ["main"]
+  is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token

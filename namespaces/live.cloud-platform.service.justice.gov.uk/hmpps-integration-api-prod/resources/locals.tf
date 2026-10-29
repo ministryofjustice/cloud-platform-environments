@@ -20,7 +20,8 @@ locals {
     "smartinbox",
     "prisonerfacing",
     "community-campus",
-    "daso"
+    "daso",
+    "jaiu-onboarding-optimisation",
   ]
 
   client_queues = {

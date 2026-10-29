@@ -16,7 +16,7 @@ module "s3_data_bucket" {
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "PUT"]
-      allowed_origins = ["https://esupervision.hmpps.service.justice.gov.uk","https://manage-people-on-probation.hmpps.service.justice.gov.uk","https://probation-check-in.hmpps.service.justice.gov.uk"]
+      allowed_origins = ["https://esupervision.hmpps.service.justice.gov.uk","https://manage-people-on-probation.hmpps.service.justice.gov.uk","https://manage-online-check-ins.hmpps.service.justice.gov.uk","https://probation-check-in.hmpps.service.justice.gov.uk"]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
     }

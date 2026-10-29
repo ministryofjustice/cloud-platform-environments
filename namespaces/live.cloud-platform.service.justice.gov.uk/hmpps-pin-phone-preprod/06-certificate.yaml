@@ -1,0 +1,41 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-pin-phone-cert
+  namespace: hmpps-pin-phone-preprod
+spec:
+  secretName: hmpps-pin-phone-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pin-phone-preprod.prison.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-pin-phone-medusa-cert
+  namespace: hmpps-pin-phone-preprod
+spec:
+  secretName: hmpps-pin-phone-medusa-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pin-phone-medusa-preprod.prison.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-pin-phone-ui-cert
+  namespace: hmpps-pin-phone-preprod
+spec:
+  secretName: hmpps-pin-phone-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pin-phone-ui-preprod.hmpps.service.justice.gov.uk

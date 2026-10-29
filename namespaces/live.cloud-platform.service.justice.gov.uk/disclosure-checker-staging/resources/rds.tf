@@ -17,7 +17,7 @@ module "rds-instance" {
   db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
   db_engine                = "postgres"
-  db_engine_version        = "16"
+  db_engine_version        = "16.15"
   rds_family               = "postgres16"
   backup_window            = "06:00-08:00"
 

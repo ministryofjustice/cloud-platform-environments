@@ -1,7 +1,8 @@
 # Dedicated IRSA service account for hmpps-prisoner-property-api.
 # Scoped to this app rather than sharing the locations-inside-prison-api service account.
 # Grants: publish/subscribe to the hmpps-domain-events SNS topic (via local.sns_policies,
-# already computed in the existing irsa.tf in this folder) and access to its own queue + DLQ.
+# already computed in the existing irsa.tf in this folder), access to its own event queue + DLQ,
+# and send/receive on its legacy clean-up work queue + DLQ (prisoner-property-cleanup-sqs.tf).
 # The helm chart must set generic-service.serviceAccountName to match the name below.
 
 module "prisoner_property_irsa" {
@@ -14,7 +15,9 @@ module "prisoner_property_irsa" {
   role_policy_arns = merge(
     local.sns_policies, # domain-events topic publish/subscribe (shared local from irsa.tf)
     { (module.prisoner_property_event_queue.sqs_name) = module.prisoner_property_event_queue.irsa_policy_arn },
-    { (module.prisoner_property_event_dlq.sqs_name)   = module.prisoner_property_event_dlq.irsa_policy_arn },
+    { (module.prisoner_property_event_dlq.sqs_name) = module.prisoner_property_event_dlq.irsa_policy_arn },
+    { (module.prisoner_property_cleanup_queue.sqs_name) = module.prisoner_property_cleanup_queue.irsa_policy_arn },
+    { (module.prisoner_property_cleanup_dlq.sqs_name) = module.prisoner_property_cleanup_dlq.irsa_policy_arn },
   )
 
   business_unit          = var.business_unit

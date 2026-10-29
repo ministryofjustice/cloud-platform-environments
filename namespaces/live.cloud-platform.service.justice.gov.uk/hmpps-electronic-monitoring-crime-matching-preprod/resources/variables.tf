@@ -52,7 +52,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "public-ac-crime-mapping"
+  default     = "hmpps-emac-engineers"
 }
 
 variable "number_cache_clusters" {
@@ -81,4 +81,10 @@ variable "email_bucket_name" {
 
 variable "email_rule_set_name" {
   default = "email-receiving-rules"
+}
+
+variable "datastore_role" {
+  type = string
+  description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
+  default = "arn:aws:iam::443370694497:role/ac_read_emds_data_preprod"
 }

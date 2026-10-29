@@ -20,12 +20,6 @@ variable "namespace" {
   default     = "laa-get-payments-finance-data-dev"
 }
 
-variable "testing_ecr" {
-  description = "ECR Name of the namespace these resources are part of"
-  type        = string
-  default     = "laa-get-payments-finance-data-dev-testing"
-}
-
 variable "data_ecr" {
   description = "ECR Name of the namespace these resources are part of"
   type        = string

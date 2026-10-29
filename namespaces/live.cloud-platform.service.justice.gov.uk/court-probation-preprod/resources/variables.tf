@@ -38,7 +38,7 @@ variable "team_name" {
 }
 
 variable "rds_family" {
-  default = "postgres17"
+  default = "postgres18"
 }
 
 variable "db_engine" {
@@ -46,7 +46,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "17.6"
+  default = "18.6"
 }
 
 variable "db_instance_class" {

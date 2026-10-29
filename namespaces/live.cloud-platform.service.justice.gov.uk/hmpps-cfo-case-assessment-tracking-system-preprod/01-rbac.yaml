@@ -1,0 +1,30 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-cfo-case-assessment-tracking-system-preprod-admin
+  namespace: hmpps-cfo-case-assessment-tracking-system-preprod
+subjects:
+  - kind: Group
+    name: "github:hmpps-creating-future-opportunities-devs"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:hmpps-creating-future-opportunities-live"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-cfo-case-assessment-tracking-system-preprod-calico-np-access
+  namespace: hmpps-cfo-case-assessment-tracking-system-preprod
+subjects:
+  - kind: Group
+    name: "github:hmpps-creating-future-opportunities-devs"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
+  apiGroup: rbac.authorization.k8s.io

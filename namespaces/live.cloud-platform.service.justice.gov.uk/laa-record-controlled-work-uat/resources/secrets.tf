@@ -11,12 +11,12 @@ module "secrets_manager" {
 
   secrets = {
     "ccq-env-secrets" = {
-      description             = "ccq-env-secrets",
+      description             = "[UAT] ccq-env-secrets",
       recovery_window_in_days = 7,
       k8s_secret_name         = "ccq-env-secrets"
     },
     "rcw-env-secrets" = {
-      description             = "rcw-env-secrets",
+      description             = "[UAT] rcw-env-secrets",
       recovery_window_in_days = 7,
       k8s_secret_name         = "rcw-env-secrets"
     },

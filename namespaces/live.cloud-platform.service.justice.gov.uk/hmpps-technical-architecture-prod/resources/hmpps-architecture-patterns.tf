@@ -1,5 +1,5 @@
 module "hmpps_architecture_patterns" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   github_repo                   = "hmpps-architecture-patterns"
   application                   = "hmpps-architecture-patterns"
   github_team                   = "hmpps-technical-architects"

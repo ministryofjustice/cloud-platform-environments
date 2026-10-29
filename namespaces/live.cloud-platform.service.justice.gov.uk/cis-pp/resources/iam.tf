@@ -51,6 +51,154 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
   })
 }
 
+resource "aws_iam_policy" "transactions_audit_dynamodb" {
+  name        = "${var.namespace}-transactions-audit-dynamodb"
+  description = "Allow read/write access to the ${var.namespace} transactions audit DynamoDB table and its indexes"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ManageTransactionsAuditTable"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:DescribeTable",
+        ]
+        Resource = [
+          aws_dynamodb_table.transactions_audit.arn,
+          "${aws_dynamodb_table.transactions_audit.arn}/index/*",
+        ]
+      },
+      {
+        Sid    = "UseTransactionsAuditTableKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_metadata_dynamodb" {
+  name        = "${var.namespace}-bps-metadata-dynamodb"
+  description = "Allow read/write access to the ${var.namespace} BPS metadata DynamoDB table and its indexes"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ManageBpsMetadataTable"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:DescribeTable",
+        ]
+        Resource = [
+          aws_dynamodb_table.bps_metadata.arn,
+          "${aws_dynamodb_table.bps_metadata.arn}/index/*",
+        ]
+      },
+      {
+        Sid    = "UseBpsMetadataTableKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_irsa_metadata_dynamodb" {
+  name        = "${var.namespace}-bps-irsa-metadata-dynamodb"
+  description = "Allow BPS to read and write its payment job metadata"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ReadAndWriteBpsMetadata"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:Query",
+          "dynamodb:TransactWriteItems",
+        ]
+        Resource = [
+          aws_dynamodb_table.bps_metadata.arn,
+          "${aws_dynamodb_table.bps_metadata.arn}/index/*",
+        ]
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_irsa_transactions_audit" {
+  name        = "${var.namespace}-bps-irsa-transactions-audit"
+  description = "Allow BPS to write transaction audit records"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "WriteTransactionsAudit"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:TransactWriteItems",
+        ]
+        Resource = aws_dynamodb_table.transactions_audit.arn
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
+  name        = "${var.namespace}-bps-irsa-password-encryption-kms"
+  description = "Allow BPS to encrypt payment-file passwords and use the DynamoDB encryption key"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "UseBpsEncryptionKey"
+        Effect = "Allow"
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey",
+        ]
+        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+      },
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # GitHub OIDC Role
 #
@@ -63,7 +211,7 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
 # References:
 # https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-with-reusable-workflows
 # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif
-# https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/5.9.2/submodules/iam-github-oidc-role 
+# https://registry.terraform.io/modules/terraform-aws-modules/iam/aws/5.9.2/submodules/iam-github-oidc-role
 # -----------------------------------------------------------------------------
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
@@ -111,6 +259,12 @@ data "aws_iam_policy_document" "github_oidc_policy" {
       test     = "StringLike"
       variable = "${local.provider_url}:job_workflow_ref"
       values   = ["ministryofjustice/${var.github_repository}/${var.oidc_role_workflow_file}@refs/heads/${var.oidc_role_workflow_branch}"]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "${local.provider_url}:job_workflow_ref"
+      values   = ["ministryofjustice/${var.github_repository}/${var.oidc_role_frontend_deploy_workflow_file}@refs/heads/*"]
     }
   }
 }

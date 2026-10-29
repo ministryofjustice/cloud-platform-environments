@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: redis-cache-flush
+spec:
+  schedule: "00 18 * * 1-5"
+  timeZone: "Europe/London"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 300
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: redis-flush
+              image: redis:7-alpine
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+                runAsUser: 999
+                runAsGroup: 999
+              env:
+                - name: REDIS_ENDPOINT
+                  valueFrom:
+                    secretKeyRef:
+                      name: elasticache-redis
+                      key: primary_endpoint_address
+                - name: REDIS_AUTH_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: elasticache-redis
+                      key: auth_token
+              command:
+                - /bin/sh
+                - -ec
+                - |
+                  echo "Flushing Redis cache: $REDIS_ENDPOINT"
+                  redis-cli \
+                    -h "$REDIS_ENDPOINT" \
+                    -p 6379 \
+                    --no-auth-warning \
+                    -a "$REDIS_AUTH_TOKEN" \
+                    --tls \
+                    FLUSHDB
+                  echo "Redis cache flushed."

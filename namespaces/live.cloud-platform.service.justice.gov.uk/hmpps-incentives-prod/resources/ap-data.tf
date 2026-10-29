@@ -3,8 +3,13 @@ module "analytical-platform" {
 
   namespace        = var.namespace
   eks_cluster_name = var.eks_cluster_name
-  role_policy_arns = [aws_iam_policy.analytical-platform.arn]
-  service_account  = "${var.namespace}-analytical-platform"
+  role_policy_arns = [
+    aws_iam_policy.analytical-platform.arn,
+    # the incentives front end runs under this service account, so it also needs to send
+    # page-view events to the HMPPS Audit queue (policy looked up in irsa.tf)
+    data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-prod-hmpps_audit_queue"].value,
+  ]
+  service_account = "${var.namespace}-analytical-platform"
   # NB: service account name must be unique within Cloud Platform (IAM role name is derived from it)
 }
 

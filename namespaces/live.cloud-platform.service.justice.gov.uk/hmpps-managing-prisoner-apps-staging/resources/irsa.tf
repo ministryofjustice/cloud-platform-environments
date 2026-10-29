@@ -31,7 +31,8 @@ resource "aws_iam_policy" "combined_local_sqs" {
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_queue"          = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-hmpps_prisoner_audit_queue" = "hmpps-audit-dev",
   }
 
   # The names of the SNS topics used and the namespace which created them

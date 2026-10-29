@@ -53,7 +53,7 @@ module "hmpps-non-residential-locations-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.review_team_name]
+  reviewer_teams                = ["map-developers-live"] # MAP live team, as for CSRA (the namespace default is move-a-prisoner)
 }
 
 module "hmpps-prisoner-property-api" {

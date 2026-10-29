@@ -77,6 +77,15 @@ module "cfo_probation_dead_letter_queue" {
   }
 }
 
+resource "aws_iam_user" "user" {
+  name = "cfo-queue-user-preprod"
+  path = "/system/cfo-queue-user/"
+}
+
+resource "aws_iam_access_key" "user" {
+  user = aws_iam_user.user.name
+}
+
 resource "aws_iam_user_policy_attachment" "probation_policy" {
   policy_arn = module.cfo_probation_queue.irsa_policy_arn
   user       = aws_iam_user.user.name

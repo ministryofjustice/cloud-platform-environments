@@ -189,6 +189,14 @@ resource "aws_route53_record" "imb_route53_cname_applications" {
   records = ["moj-imb-lo-applications.powerappsportals.com."]
 }
 
+resource "aws_route53_record" "imb_route53_cname_surveys" {
+  zone_id = aws_route53_zone.imb_route53_zone.zone_id
+  name    = "surveys.my.imb.org.uk"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["cname.smartsurvey.co.uk"]
+}
+
 resource "aws_route53_record" "imb_route53_txt_dnsauth_applications" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
   name    = "_dnsauth.applications.imb.org.uk"

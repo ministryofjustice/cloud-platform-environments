@@ -100,6 +100,12 @@ module "secrets_manager_multiple_secrets" {
       k8s_secret_name         = "sentry-dsn"
     },
 
+    "session-secret" = {
+      description             = "Session secret",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "session-secret"
+    },
+
     "sentry-csp-uri" = {
       description             = "Sentry CSP report endpoint",
       recovery_window_in_days = 7,

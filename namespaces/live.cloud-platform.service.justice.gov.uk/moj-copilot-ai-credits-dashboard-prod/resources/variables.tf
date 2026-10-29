@@ -29,7 +29,7 @@ variable "service_area" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "OCTO"
 }
 
 variable "team_name" {
@@ -76,4 +76,9 @@ variable "github_token" {
 
 variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
+variable "domain" {
+  default = "check-my-copilot-ai-credits-usage.service.justice.gov.uk"
+  type    = string
 }

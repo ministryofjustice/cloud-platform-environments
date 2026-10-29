@@ -30,7 +30,7 @@ module "rds" {
   db_engine = "postgres"
 
   # change the postgres version as you see fit.
-  db_engine_version = "14.17"
+  db_engine_version = "14.24"
 
   # change the instance class as you see fit.
   db_instance_class = "db.t4g.small"
@@ -51,6 +51,7 @@ module "rds" {
 
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
+  allow_minor_version_upgrade = "true"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

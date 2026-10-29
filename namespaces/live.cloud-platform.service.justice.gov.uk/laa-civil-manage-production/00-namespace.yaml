@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "laa-civil-manage-production"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "true"
+    cloud-platform.justice.gov.uk/environment-name: "production"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "LAA"
+    cloud-platform.justice.gov.uk/slack-channel: "laa-manage-civil-application"
+    cloud-platform.justice.gov.uk/application: "laa-civil-manage"
+    cloud-platform.justice.gov.uk/owner: "laa-civil-manage-an-application: manageacivilapplication@justiceuk.onmicrosoft.com"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/laa-civil-manage"
+    cloud-platform.justice.gov.uk/team-name: "laa-civil-manage-an-application"
+    cloud-platform.justice.gov.uk/review-after: ""

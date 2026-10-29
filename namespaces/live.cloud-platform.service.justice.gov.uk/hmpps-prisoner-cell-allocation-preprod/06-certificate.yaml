@@ -11,3 +11,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - change-someones-cell-preprod.prison.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-change-someones-cell-api-cert
+  namespace: hmpps-prisoner-cell-allocation-preprod
+spec:
+  secretName: hmpps-change-someones-cell-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - change-someones-cell-api-preprod.hmpps.service.justice.gov.uk

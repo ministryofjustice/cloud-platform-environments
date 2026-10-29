@@ -8,7 +8,7 @@ module "hmpps-non-associations" {
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["manage-safety-live"]
   application_insights_instance = var.deployment_environment
   source_template_repo          = "hmpps-template-typescript"
   github_token                  = var.github_token
@@ -27,7 +27,7 @@ module "hmpps-non-associations-api" {
   environment                   = var.deployment_environment
   is_production                 = var.is_production
   protected_branches_only       = true
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["manage-safety-live"]
   application_insights_instance = var.deployment_environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token

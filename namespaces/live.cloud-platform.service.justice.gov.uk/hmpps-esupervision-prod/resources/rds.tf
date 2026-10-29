@@ -7,7 +7,7 @@ module "rds" {
   # RDS configuration
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
-  performance_insights_enabled = false
+  performance_insights_enabled = true
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = !var.is_production
   enable_irsa                  = true
@@ -15,7 +15,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17"
+  db_engine_version = "17.11"
   rds_family        = "postgres17"
   db_instance_class = var.postgres_instance_class
 

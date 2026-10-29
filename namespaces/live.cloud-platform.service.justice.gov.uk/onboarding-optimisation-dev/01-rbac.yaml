@@ -5,7 +5,7 @@ metadata:
   namespace: onboarding-optimisation-dev
 subjects:
   - kind: Group
-    name: "github:justice-ai-unit"
+    name: "github:jaiu-onboarding"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

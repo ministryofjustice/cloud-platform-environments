@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-book-a-video-link-preprod
 subjects:
   - kind: Group
-    name: "github:hmpps-book-a-video-link"
+    name: "github:hmpps-book-a-video-link-live"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: "github:hmpps-sre"

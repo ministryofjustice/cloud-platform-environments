@@ -3,7 +3,8 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"          = "hmpps-audit-preprod",
+    "Digital-Prison-Services-preprod-hmpps_prisoner_audit_queue" = "hmpps-audit-preprod",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
@@ -27,4 +28,16 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+resource "kubernetes_secret" "irsa" {
+  metadata {
+    name      = "irsa-output"
+    namespace = var.namespace
+  }
+  data = {
+    role           = module.irsa.role_name
+    serviceaccount = module.irsa.service_account.name
+    rolearn        = module.irsa.role_arn
+  }
 }

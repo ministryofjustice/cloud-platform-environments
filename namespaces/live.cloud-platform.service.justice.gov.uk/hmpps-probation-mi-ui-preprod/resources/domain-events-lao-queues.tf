@@ -94,3 +94,21 @@ resource "kubernetes_secret" "hmpps_probation_mi_domain_events_queue_secret_dlq"
     queue_name = module.hmpps_probation_mi_domain_events_dlq.sqs_name
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "hmpps_probation_mi_domain_events_dlq_alarm" {
+  alarm_name          = "${module.hmpps_probation_mi_domain_events_dlq.sqs_name}-age-alarm"
+  alarm_description   = "Messages have been in the lao_domain_events_dlq (preprod) for longer than 15 minutes"
+  namespace           = "AWS/SQS"
+  metric_name         = "ApproximateAgeOfOldestMessage"
+
+  dimensions = {
+    QueueName = module.hmpps_probation_mi_domain_events_dlq.sqs_name
+  }
+
+  statistic           = "Maximum"
+  period              = 900
+  evaluation_periods  = 1
+  threshold           = 0
+  comparison_operator = "GreaterThanThreshold"
+  treat_missing_data  = "notBreaching"
+}

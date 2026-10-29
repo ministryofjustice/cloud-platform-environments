@@ -2,6 +2,7 @@ locals {
   sqs_queues_oc = {
     "Digital-Prison-Services-dev-offender_categorisation_ui_events_queue_dl" = "offender-events-dev"
     "Digital-Prison-Services-dev-offender_categorisation_ui_events_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                          = "hmpps-audit-dev",
   }
   sqs_queues_rp = {
     "Digital-Prison-Services-dev-offender_categorisation_events_queue"    = "offender-events-dev"

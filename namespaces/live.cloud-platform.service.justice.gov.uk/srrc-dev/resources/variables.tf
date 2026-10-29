@@ -79,3 +79,23 @@ variable "serviceaccount_name" {
   description = "GitHub Actions service account name for srrc-dev namespace"
   default     = "srrc-dev"
 }
+
+variable "owner" {
+  default = "srrc-tech"
+  type    = string
+}
+
+variable "environment_name" {
+  default = "dev"
+  type    = string
+}
+
+variable "domain" {
+  default = "biometrics.service.justice.gov.uk"
+  type    = string
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve OIDC information for IRSA"
+  type        = string
+}
