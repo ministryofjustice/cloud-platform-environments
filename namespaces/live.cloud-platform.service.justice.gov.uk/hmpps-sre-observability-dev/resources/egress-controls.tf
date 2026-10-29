@@ -39,7 +39,8 @@ module "hmpps_egress_controls" {
     "www.cisa.gov",
     "raw.githubusercontent.com",
     "dl.google.com",
-    "crates.io"
+    "crates.io",
+    "login.microsoftonline.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
