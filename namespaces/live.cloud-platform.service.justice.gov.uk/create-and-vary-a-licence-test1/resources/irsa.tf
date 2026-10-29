@@ -1,9 +1,10 @@
 
 # Add the names of the SQS which the app needs permissions to access.
 # The value of each item should be the namespace where the SQS was created.
-# This information is used to collect the IAM policies which are used by the IRSA module.
+# This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-dev",
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
