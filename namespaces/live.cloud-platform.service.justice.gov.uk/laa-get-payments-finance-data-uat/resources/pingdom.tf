@@ -8,7 +8,7 @@ resource "pingdom_check" "get-legal-aid-data-uat" {
   resolution               = 1
   notifywhenbackup         = true
   sendnotificationwhendown = 2
-  notifyagainevery         = 5
+  notifyagainevery         = 0
   url                      = "/actuator/health"
   encryption               = true
   port                     = 443
