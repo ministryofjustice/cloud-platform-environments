@@ -40,7 +40,8 @@ module "hmpps_egress_controls" {
     "raw.githubusercontent.com",
     "dl.google.com",
     "crates.io",
-    "login.microsoftonline.com"
+    "login.microsoftonline.com",
+    "graph.microsoft.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
