@@ -38,8 +38,15 @@ variable "team_name" {
   default     = "probation-in-court-devs"
 }
 
+# Environment name must match environment name in Helm
 variable "environment" {
   description = "Name of the environment type for this service"
+  type        = string
+  default     = "qa"
+}
+
+variable "application_insights_instance" {
+  description = "Name of the application insights instance enviroment type"
   type        = string
   default     = "development"
 }
