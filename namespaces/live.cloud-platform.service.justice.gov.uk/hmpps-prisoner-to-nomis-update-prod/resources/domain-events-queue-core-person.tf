@@ -109,6 +109,9 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_coreperson_subscr
     eventType = [
       "core-person-record.prison.record.merged",
       "core-person-record.prison.religion.created",
+      "core-person-record.prison.address.created",
+      "core-person-record.prison.contact.created",
+      "core-person-record.prison.contact.updated",
     ]
   })
 }
