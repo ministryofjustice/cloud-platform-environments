@@ -74,6 +74,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  prepare_for_major_upgrade = true
 }
 
 
