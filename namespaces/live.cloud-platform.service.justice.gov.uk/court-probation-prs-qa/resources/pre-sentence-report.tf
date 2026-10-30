@@ -1,5 +1,5 @@
 module "pre-sentence-service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   github_repo                   = "pre-sentence-service"
   github_owner                  = var.github_owner
   application                   = "pre-sentence-service"
