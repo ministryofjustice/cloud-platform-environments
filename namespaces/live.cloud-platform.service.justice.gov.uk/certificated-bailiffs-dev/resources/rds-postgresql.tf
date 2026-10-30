@@ -37,8 +37,6 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
-
-  prepare_for_major_upgrade = true
 }
 
 
@@ -92,8 +90,6 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
-
-  prepare_for_major_upgrade = true
 }
 
 
