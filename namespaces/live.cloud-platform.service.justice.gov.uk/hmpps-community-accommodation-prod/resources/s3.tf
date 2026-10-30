@@ -16,16 +16,16 @@ module "s3_bucket" {
   lifecycle_rule = [
     {
       enabled                                = true
-      id                                     = "expire-files-after-30-days"
+      id                                     = "expire-files-after-90-days"
       abort_incomplete_multipart_upload_days = 90
       expiration = [
         {
-          days = 30
+          days = 90
         },
       ]
       noncurrent_version_expiration = [
         {
-          days = 30
+          days = 90
         },
       ]
     },
