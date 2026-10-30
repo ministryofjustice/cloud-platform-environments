@@ -48,7 +48,7 @@ variable "environment" {
 variable "application_insights_instance" {
   description = "Name of the application insights instance enviroment type"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
