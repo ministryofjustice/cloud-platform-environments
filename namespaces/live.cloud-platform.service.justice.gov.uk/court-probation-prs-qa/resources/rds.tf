@@ -2,7 +2,7 @@ module "pre_sentence_service_rds" {
   source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   application                  = "pre-sentence-service"
   business_unit                = var.business_unit
-  db_allocated_storage         = 10
+  db_allocated_storage         = 20
   db_engine                    = "postgres"
   db_engine_version            = "18.6"
   db_instance_class            = "db.t4g.small"
