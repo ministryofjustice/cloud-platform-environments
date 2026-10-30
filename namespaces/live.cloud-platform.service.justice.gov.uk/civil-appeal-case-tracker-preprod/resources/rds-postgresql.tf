@@ -14,7 +14,7 @@ module "rds" {
 
   # RDS configuration
   allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = true
+  allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
   enable_rds_auto_start_stop   = true # turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
@@ -37,8 +37,6 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
-
-  prepare_for_major_upgrade = true
 }
 
 
@@ -136,7 +134,6 @@ resource "kubernetes_secret" "read_replica" {
   }
   */
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 
