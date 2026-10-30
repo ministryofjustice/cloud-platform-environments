@@ -1,10 +1,10 @@
-module "event_ingestion_queue" {
+module "producer_event_queue" {
   
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
-  sqs_name                  = "event_ingestion_queue"
+  sqs_name                  = "producer_event_queue"
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.event_ingestion_dlq.sqs_arn
+    deadLetterTargetArn = module.producer_event_sqs_dlq.sqs_arn
     maxReceiveCount     = 5
   })
 
@@ -17,10 +17,10 @@ module "event_ingestion_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-module "event_ingestion_dlq" {
+module "producer_event_sqs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
-  sqs_name        = "event_ingestion_dlq"
+  sqs_name        = "producer_event_sqs_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit
@@ -32,28 +32,28 @@ module "event_ingestion_dlq" {
   infrastructure_support = var.infrastructure_support
 }
 
-resource "kubernetes_secret" "event_ingestion_queue_secret" {
+resource "kubernetes_secret" "producer_event_queue_secret" {
   metadata {
-    name      = "event-ingestion-sqs-instance-output"
+    name      = "producer-event-sqs-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.event_ingestion_queue.sqs_id
-    sqs_queue_arn  = module.event_ingestion_queue.sqs_arn
-    sqs_queue_name = module.event_ingestion_queue.sqs_name
+    sqs_queue_url  = module.producer_event_queue.sqs_id
+    sqs_queue_arn  = module.producer_event_queue.sqs_arn
+    sqs_queue_name = module.producer_event_queue.sqs_name
   }
 }
 
-resource "kubernetes_secret" "event_ingestion_queue_secret_dlq" {
+resource "kubernetes_secret" "producer_event_queue_secret_dlq" {
   metadata {
-    name      = "event-ingestion-sqs-dl-instance-output"
+    name      = "producer-event-sqs-dl-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    sqs_queue_url  = module.event_ingestion_dlq.sqs_id
-    sqs_queue_arn  = module.event_ingestion_dlq.sqs_arn
-    sqs_queue_name = module.event_ingestion_dlq.sqs_name
+    sqs_queue_url  = module.producer_event_sqs_dlq.sqs_id
+    sqs_queue_arn  = module.producer_event_sqs_dlq.sqs_arn
+    sqs_queue_name = module.producer_event_sqs_dlq.sqs_name
   }
 }
