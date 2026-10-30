@@ -14,7 +14,7 @@ module "pre_sentence_service_rds" {
   performance_insights_enabled = true
   prepare_for_major_upgrade    = false
   rds_family                   = "postgres18"
-  storage_type                 = "gp2"
+  storage_type                 = "gp3"
   allow_major_version_upgrade  = false
   allow_minor_version_upgrade  = true
   team_name                    = var.team_name
