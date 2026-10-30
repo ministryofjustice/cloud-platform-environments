@@ -54,7 +54,7 @@ variable "github_token" {
 
 variable "approved_prisoner_audit_clients" {
   type    = list(string)
-  default = ["hmpps-launchpad-preprod", "hmpps-managing-prisoner-apps-preprod"]
+  default = ["hmpps-launchpad-preprod", "hmpps-managing-prisoner-apps-preprod", "hmpps-pin-phone-preprod"]
 }
 
 variable "approved_person_on_probation_audit_clients" {
