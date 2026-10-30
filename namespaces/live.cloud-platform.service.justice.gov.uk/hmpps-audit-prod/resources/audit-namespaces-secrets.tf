@@ -1,6 +1,7 @@
 
 locals {
   namespaces = toset([
+    "create-and-vary-a-licence-prod",
     "hmpps-activities-management-prod",
     "hmpps-arns-assessment-platform-prod",
     "hmpps-assess-risks-and-needs-integrations-prod",
