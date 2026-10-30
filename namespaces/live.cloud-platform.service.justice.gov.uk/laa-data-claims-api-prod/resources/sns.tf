@@ -59,6 +59,6 @@ resource "aws_sns_topic_subscription" "claims_events_queue_subscription" {
   protocol  = "sqs"
   raw_message_delivery = true
   filter_policy = jsonencode({
-    SubmissionEventType = ["PARSE_BULK_SUBMISSION", "VALIDATE_SUBMISSION"]
+    SubmissionEventType = ["PARSE_BULK_SUBMISSION", "VALIDATE_SUBMISSION", "APPROVE_SUBMISSION"]
   })
 }
