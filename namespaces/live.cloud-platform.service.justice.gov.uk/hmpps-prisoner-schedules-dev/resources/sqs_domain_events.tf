@@ -1,6 +1,6 @@
 module "event_ingestion_queue" {
   
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name                  = "event_ingestion_queue"
   redrive_policy = jsonencode({
@@ -18,7 +18,7 @@ module "event_ingestion_queue" {
 }
 
 module "event_ingestion_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name        = "event_ingestion_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
