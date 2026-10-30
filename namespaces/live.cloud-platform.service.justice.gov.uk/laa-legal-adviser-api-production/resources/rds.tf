@@ -17,7 +17,6 @@ module "laa_laa_rds_postgres_14" {
   db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
   rds_family             = "postgres14"
 
-
   providers = {
     aws = aws.london
   }
