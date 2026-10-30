@@ -92,6 +92,8 @@ module "read_replica" {
   #     apply_method = "immediate"
   #   }
   # ]
+
+  prepare_for_major_upgrade = true
 }
 
 
