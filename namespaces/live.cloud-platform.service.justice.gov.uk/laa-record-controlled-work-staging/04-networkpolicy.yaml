@@ -1,3 +1,5 @@
+# ingress rules are configured and maintained in the RCW service helm chart
+############################################################
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -7,4 +9,223 @@ spec:
   podSelector: {}
   policyTypes:
     - Ingress
-#     - Egress
+
+
+# broad egress rules
+############################################################
+---
+kind: NetworkPolicy
+apiVersion: projectcalico.org/v3
+metadata:
+  name: block-egress
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 50.0
+  selector: all()
+  egress:
+    - action: Deny
+  types:
+    - Egress
+
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: namespace-egress-to-k8s-dns
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: all()
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == 'kube-system'
+      ports:
+      - "53"
+      selector: k8s-app in {'kube-dns', 'coredns'}
+    protocol: UDP
+  - action: Allow
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == 'kube-system'
+      ports:
+      - "53"
+      selector: k8s-app in {'kube-dns', 'coredns'}
+    protocol: TCP
+
+
+# composite egress rules
+############################################################
+---
+# no way to limit this to Cloud Platform public ingress currently
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: ccq-rcw-egress-to-https
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component in {'ccq', 'rcw'}
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      ports:
+      - "443"
+    protocol: TCP
+
+---
+# https://docs.sentry.io/security-legal-pii/security/ip-ranges/#event-ingestion
+# currently redundant due to Allow 443 rule.
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: ccq-rcw-egress-to-sentry
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component in {'ccq', 'rcw'}
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      nets:
+      - 34.160.81.0/32
+      - 34.102.210.18/32
+      ports:
+      - "443"
+    protocol: TCP
+
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: ccq-nginx-egress-to-rcw
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component in {'ccq', 'nginx'}
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      ports:
+      - "3000"
+      selector: app.kubernetes.io/component == 'rcw'
+    protocol: TCP
+
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: ccq-rcw-egress-to-redis
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component in {'ccq', 'rcw'}
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      nets:
+      - 172.20.0.0/16
+      ports:
+      - "6379"
+    protocol: TCP
+
+
+# nginx specific egress rules
+############################################################
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: nginx-egress-to-ccq
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component == 'nginx'
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      ports:
+      - "3000"
+      selector: app.kubernetes.io/component == 'ccq'
+    protocol: TCP
+
+
+# rcw specific egress rules
+############################################################
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: rcw-egress-to-rcw-api
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component == 'rcw'
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      namespaceSelector: cloud-platform.justice.gov.uk/namespace == 'laa-record-controlled-work-api-staging'
+      ports:
+      - "8081"
+      selector: app.kubernetes.io/instance == 'laa-record-controlled-work-api'
+    protocol: TCP
+---
+# https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges#microsoft-teams
+# ID 56
+# currently redundant due to Allow 443 rule.
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: rcw-egress-to-entra
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component == 'rcw'
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      nets:
+      - 20.20.32.0/19
+      - 20.190.128.0/18
+      - 20.231.128.0/19
+      - 40.126.0.0/18
+      ports:
+      - "443"
+    protocol: TCP
+
+
+# testconnection smoketest container egress rules
+############################################################
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: test-connection-egress-to-nginx
+  namespace: laa-record-controlled-work-staging
+spec:
+  order: 49.0
+  selector: app.kubernetes.io/component == 'test-connection'
+  types:
+  - Egress
+  egress:
+  - action: Allow
+    destination:
+      ports:
+      - "8080"
+      selector: app.kubernetes.io/component == 'nginx'
+    protocol: TCP
