@@ -110,6 +110,7 @@ module "hearing_resulted_queue" {
   # Queue configuration
   sqs_name                   = "hearing-resulted-queue"
   encrypt_sqs_kms            = var.encrypt_sqs_kms
+  max_message_size           = var.max_message_size
   message_retention_seconds  = var.message_retention_seconds
   visibility_timeout_seconds = var.visibility_timeout_seconds
 
@@ -140,6 +141,7 @@ module "hearing_resulted_dead_letter_queue" {
   # Queue configuration
   sqs_name                  = "hearing-resulted-queue-dl"
   encrypt_sqs_kms           = var.encrypt_sqs_kms
+  max_message_size          = var.max_message_size
   message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
