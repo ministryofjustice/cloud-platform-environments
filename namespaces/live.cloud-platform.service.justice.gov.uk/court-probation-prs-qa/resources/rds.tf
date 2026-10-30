@@ -7,7 +7,7 @@ module "pre_sentence_service_rds" {
   db_engine_version            = "18.6"
   db_instance_class            = "db.t4g.small"
   enable_rds_auto_start_stop   = true # Stops the RDS 10:00 PM - 6:00 AM for cost saving
-  environment_name             = var.environment-name
+  environment_name             = var.environment
   infrastructure_support       = var.infrastructure_support
   is_production                = var.is_production
   namespace                    = var.namespace
