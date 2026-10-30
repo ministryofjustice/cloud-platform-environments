@@ -12,9 +12,15 @@ module "hmpps_egress_controls" {
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
     "www.ppud.justice.gov.uk",
+    "github.com"
   ]
 
   envoy_extra_allowed_hosts_suffixes = [
+    ".githubusercontent.com",
+    ".cdn.mozilla.net",
+    ".firefox.com",
+    ".services.mozilla.com",
+    ".amazontrust.com",
   ]
 
 }
