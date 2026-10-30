@@ -1,0 +1,59 @@
+module "event_ingestion_queue" {
+  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  sqs_name                  = "event_ingestion_queue"
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = module.event_ingestion_dlq.sqs_arn
+    maxReceiveCount     = 5
+  })
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+module "event_ingestion_dlq" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+
+  sqs_name        = "event_ingestion_dlq"
+  message_retention_seconds = 7 * 24 * 3600 # 1 week
+
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+resource "kubernetes_secret" "event_ingestion_queue_secret" {
+  metadata {
+    name      = "event-ingestion-sqs-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.event_ingestion_queue.sqs_id
+    sqs_queue_arn  = module.event_ingestion_queue.sqs_arn
+    sqs_queue_name = module.event_ingestion_queue.sqs_name
+  }
+}
+
+resource "kubernetes_secret" "event_ingestion_queue_secret_dlq" {
+  metadata {
+    name      = "event-ingestion-sqs-dl-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    sqs_queue_url  = module.event_ingestion_dlq.sqs_id
+    sqs_queue_arn  = module.event_ingestion_dlq.sqs_arn
+    sqs_queue_name = module.event_ingestion_dlq.sqs_name
+  }
+}
