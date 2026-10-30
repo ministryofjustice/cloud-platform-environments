@@ -118,6 +118,29 @@ roleRef:
 			wantErr: false,
 		},
 		{
+			name: "rolebinding with github-named service account",
+			args: args{[]byte(
+				`kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: test-admins
+  namespace: test-namespace
+subjects:
+  - kind: Group
+    name: "github:test-team"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: "team-github-action-service-account"
+    namespace: test-namespace
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io`),
+			},
+			want:    []string{"test-team"},
+			wantErr: false,
+		},
+		{
 			name: "rolebinding with empty documents and comments",
 			args: args{[]byte(
 				`---

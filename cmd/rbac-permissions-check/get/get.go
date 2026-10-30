@@ -90,7 +90,7 @@ func getGithubTeamName(content []byte) ([]string, error) {
 		// Filtering only subjects which are in the form of "github:*", this is to
 		// protect against different kinds of subject such as ServiceAccount.
 		for _, name := range rbac.Subjects {
-			if strings.Contains(name.Name, "github") {
+			if strings.HasPrefix(name.Name, "github:") {
 				str := strings.SplitAfter(string(name.Name), ":")
 				namespaceTeams = append(namespaceTeams, str[1])
 			}
