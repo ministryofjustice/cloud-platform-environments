@@ -1,5 +1,5 @@
 module "create_link_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "create-link-queue"
@@ -29,7 +29,7 @@ module "create_link_queue" {
 }
 
 module "create_link_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "create-link-queue-dl"
@@ -52,7 +52,7 @@ module "create_link_queue_dead_letter_queue" {
 }
 
 module "unlink_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "unlink-queue"
@@ -82,7 +82,7 @@ module "unlink_queue" {
 }
 
 module "unlink_queue_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "unlink-queue-dl"
@@ -105,11 +105,12 @@ module "unlink_queue_dead_letter_queue" {
 }
 
 module "hearing_resulted_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "hearing-resulted-queue"
   encrypt_sqs_kms            = var.encrypt_sqs_kms
+  max_message_size           = var.max_message_size
   message_retention_seconds  = var.message_retention_seconds
   visibility_timeout_seconds = var.visibility_timeout_seconds
 
@@ -135,11 +136,12 @@ module "hearing_resulted_queue" {
 }
 
 module "hearing_resulted_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "hearing-resulted-queue-dl"
   encrypt_sqs_kms           = var.encrypt_sqs_kms
+  max_message_size          = var.max_message_size
   message_retention_seconds = var.dead_letter_message_retention_seconds
 
   # Tags
@@ -158,7 +160,7 @@ module "hearing_resulted_dead_letter_queue" {
 }
 
 module "prosecution_concluded_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "prosecution-concluded-queue"
@@ -189,7 +191,7 @@ module "prosecution_concluded_queue" {
 }
 
 module "prosecution_concluded_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "prosecution-concluded-queue-dl"
