@@ -7,6 +7,8 @@ locals {
     bulk_comparison_queue                   = module.bulk_comparison_queue.irsa_policy_arn,
     bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
   }
+  restore_s3_policies = {
+    db_restore_s3 = module.db_restore_s3.irsa_policy_arn
   }
 }
 
