@@ -43,7 +43,7 @@ resource "kubernetes_secret" "hmpps_interventions_postgres18" {
 module "hmpps_interventions_postgres18_replica" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage   = 10
-  storage_type           = "gp2"
+  storage_type           = "gp3"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
