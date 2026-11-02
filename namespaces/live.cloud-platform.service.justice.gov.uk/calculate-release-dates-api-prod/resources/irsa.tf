@@ -7,6 +7,9 @@ locals {
     bulk_comparison_queue                   = module.bulk_comparison_queue.irsa_policy_arn,
     bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
   }
+  restore_s3_policies = {
+    db_restore_s3 = module.db_restore_s3.irsa_policy_arn
+  }
 }
 
 module "irsa" {
@@ -22,6 +25,21 @@ module "irsa" {
       replica_rds_policy = module.read_replica.irsa_policy_arn,
     }
   )
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
+
+module "irsa-restore" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name       = var.eks_cluster_name
+  namespace              = var.namespace
+  service_account_name   = "calculate-release-dates-api-preprod-restore"
+  role_policy_arns       = local.restore_s3_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

@@ -5,7 +5,7 @@ module "hmpps-court-data-ingestion-api-rds" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  db_instance_class            = "db.t4g.micro"
+  db_instance_class            = "db.t4g.medium"
   db_max_allocated_storage     = "500"
   db_engine                    = "postgres"
   rds_family                   = "postgres18"
