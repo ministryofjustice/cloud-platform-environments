@@ -17,7 +17,8 @@ module "laa_laa_rds_postgres_14" {
   db_parameter           = [{ name = "rds.force_ssl", value = "1", apply_method = "immediate" }]
   rds_family             = "postgres18"        
 
-  allow_major_version_upgrade = true   
+  allow_major_version_upgrade = true 
+  prepare_for_major_upgrade = true 
 
   providers = {
     aws = aws.london
