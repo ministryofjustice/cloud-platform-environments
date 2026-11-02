@@ -1,0 +1,31 @@
+# The regression suite writes its own key here; leave data out of this file.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["regression-case-feed"]
+    verbs: ["get", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil
+subjects:
+  - kind: ServiceAccount
+    name: regression-case-feed
+    namespace: laa-ccms-civil
+roleRef:
+  kind: Role
+  name: regression-case-feed
+  apiGroup: rbac.authorization.k8s.io
