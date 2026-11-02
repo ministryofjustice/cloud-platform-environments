@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-electronic-monitoring-device-telemetry-ui-cert
-  namespace: hhmpps-electronic-monitoring-device-telemetry-api-dev
+  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
 spec:
   secretName: hmpps-electronic-monitoring-device-telemetry-cert
   issuerRef:

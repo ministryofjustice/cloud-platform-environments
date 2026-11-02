@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default
-  namespace: hhmpps-electronic-monitoring-device-telemetry-api-dev
+  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
 spec:
   podSelector: {}
   policyTypes:
@@ -16,7 +16,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-ingress-controllers
-  namespace: hhmpps-electronic-monitoring-device-telemetry-api-dev
+  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
 spec:
   podSelector: {}
   policyTypes:
