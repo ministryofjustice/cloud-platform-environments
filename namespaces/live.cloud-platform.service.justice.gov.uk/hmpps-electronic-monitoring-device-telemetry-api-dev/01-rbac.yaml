@@ -20,7 +20,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: hmpps-electronic-monitoring-device-telemetry-api-calico-np-access
-  namespace: -electronic-monitoring-device-telemetry-api-dev
+  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
 subjects:
   - kind: Group
     name: "github:hmpps-electronic-monitoring-devs"
