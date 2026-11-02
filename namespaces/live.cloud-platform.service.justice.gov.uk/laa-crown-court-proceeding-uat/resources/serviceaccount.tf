@@ -4,11 +4,14 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  role_name = "serviceaccount_role_gh"
+  rolebinding_name = "github-action-rolebinding"
+
   serviceaccount_token_rotated_date = "20-03-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-    github_repositories = ["laa-crown-court-proceeding"]
-    github_environments = ["uat"]
+  github_repositories = ["laa-crown-court-proceeding"]
+  github_environments = ["uat"]
 }
 
