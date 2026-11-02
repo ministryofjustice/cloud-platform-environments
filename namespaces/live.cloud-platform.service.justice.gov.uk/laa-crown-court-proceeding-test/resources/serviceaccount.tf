@@ -5,8 +5,8 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
 
   # fix role issue in build pipeline
-  role_name = "serviceaccount_role_gh"
-  rolebinding_name = "github-action-rolebinding"
+    role_name = "serviceaccount_role_gh"
+    rolebinding_name = "github-action-rolebinding"
 
   serviceaccount_token_rotated_date = "20-03-2026"
 
