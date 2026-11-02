@@ -4,6 +4,7 @@ module "serviceaccount" {
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
+  # fix role issue in build pipeline
   role_name = "serviceaccount_role_gh"
   rolebinding_name = "github-action-rolebinding"
 
