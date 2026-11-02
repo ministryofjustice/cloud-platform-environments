@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil-test
+---
+# Holds the regression suite's case feed. The suite writes its keys; leave data out of this file.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil-test
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil-test
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["regression-case-feed"]
+    verbs: ["get", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: regression-case-feed
+  namespace: laa-ccms-civil-test
+subjects:
+  - kind: ServiceAccount
+    name: regression-case-feed
+    namespace: laa-ccms-civil-test
+roleRef:
+  kind: Role
+  name: regression-case-feed
+  apiGroup: rbac.authorization.k8s.io
