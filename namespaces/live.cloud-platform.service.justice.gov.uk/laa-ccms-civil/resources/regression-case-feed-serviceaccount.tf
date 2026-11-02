@@ -8,8 +8,15 @@ module "regression_case_feed_serviceaccount" {
   role_name           = "regression-case-feed-base"
   rolebinding_name    = "regression-case-feed-base"
 
-  # Access comes from the Role in 05-case-feed.yaml, which can name a single ConfigMap
-  serviceaccount_rules = []
+  # The module needs one rule. The access that matters is the Role in 05-case-feed.yaml, which
+  # can name a single ConfigMap.
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources  = ["resourcequotas"]
+      verbs      = ["get"]
+    },
+  ]
 
   serviceaccount_token_rotated_date = "02-11-2026"
 }
