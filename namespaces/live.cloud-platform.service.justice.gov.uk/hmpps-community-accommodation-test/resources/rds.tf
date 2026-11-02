@@ -25,6 +25,34 @@ module "rds" {
 
 }
 
+module "rds_new" {
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage         = 10
+  storage_type                 = "gp2"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+  namespace                    = var.namespace
+  performance_insights_enabled = true
+  db_instance_class            = "db.t3.small"
+  allow_major_version_upgrade  = "true"
+  allow_minor_version_upgrade  = "true"
+  prepare_for_major_upgrade    = "true"
+  db_engine                    = "postgres"
+  db_engine_version            = "14"
+  rds_family                   = "postgres14"
+  snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
+
+  providers = {
+    aws = aws.london
+  }
+
+}
+
 module "read_replica" {
   count                = 0
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
@@ -47,8 +75,8 @@ module "read_replica" {
   allow_major_version_upgrade  = "true"
   allow_minor_version_upgrade  = "true"
   prepare_for_major_upgrade    = "true"
-  db_engine_version            = "18.6"
-  rds_family                   = "postgres18"
+  db_engine_version            = "14"
+  rds_family                   = "postgres14"
 
   providers = {
     aws = aws.london
