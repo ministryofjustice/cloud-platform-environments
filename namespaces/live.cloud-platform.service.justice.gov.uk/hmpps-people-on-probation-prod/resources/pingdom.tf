@@ -14,4 +14,5 @@ resource "pingdom_check" "hmpps_people_on_probation_ui_prod" {
   port                     = 443
   tags                     = "businessunit_${var.business_unit},application_${var.namespace},component_ping,isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
   probefilters             = "region:EU"
+  integrationids           = [149688]
 }
