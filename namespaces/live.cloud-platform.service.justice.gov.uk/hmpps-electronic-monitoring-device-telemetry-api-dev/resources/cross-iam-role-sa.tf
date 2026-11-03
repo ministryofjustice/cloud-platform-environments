@@ -24,6 +24,6 @@ module "service_pod" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.3.0"
 
   namespace                = var.namespace
-  override_deployment_name = var.namespace-short
+  override_deployment_name = var.namespace_short
   service_account_name     = module.irsa.service_account.name
 }

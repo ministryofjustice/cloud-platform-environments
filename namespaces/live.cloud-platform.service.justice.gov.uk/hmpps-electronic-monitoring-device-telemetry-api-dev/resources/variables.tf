@@ -17,7 +17,7 @@ variable "namespace" {
   default = "hmpps-electronic-monitoring-device-telemetry-api-dev"
 }
 
-variable "namespace-short" {
+variable "namespace_short" {
   description = "Short-form version of namespace name to get around string-length issues"
   type = string
   default = "em-telemetry-dev"
