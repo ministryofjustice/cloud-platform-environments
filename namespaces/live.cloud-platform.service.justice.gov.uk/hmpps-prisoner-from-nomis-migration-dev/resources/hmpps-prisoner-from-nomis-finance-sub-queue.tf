@@ -114,7 +114,9 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_finance_subscription"
       "OFFENDER_TRANSACTIONS-DELETED",
       "GL_TRANSACTIONS-INSERTED",
       "GL_TRANSACTIONS-UPDATED",
-      "GL_TRANSACTIONS-DELETED"
+      "GL_TRANSACTIONS-DELETED",
+      "OFFENDER_SCHEDULED_PAYMENTS-INSERTED",
+      "OFFENDER_SCHEDULED_PAYMENTS-UPDATED"
     ]
   })
 }
