@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "warrant-risk-assessment-and-delius-queue-
 }
 
 module "warrant-risk-assessment-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "warrant-risk-assessment-and-delius-queue"
@@ -36,7 +36,7 @@ resource "aws_sqs_queue_policy" "warrant-risk-assessment-and-delius-queue-policy
 }
 
 module "warrant-risk-assessment-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "warrant-risk-assessment-and-delius-dlq"
