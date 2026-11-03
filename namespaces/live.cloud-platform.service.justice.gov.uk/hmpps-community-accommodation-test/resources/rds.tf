@@ -84,22 +84,21 @@ module "read_replica" {
 
 }
 
-resource "kubernetes_secret" "rds" {
+resource "kubernetes_secret" "rds_new" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.rds.rds_instance_endpoint
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
-    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    database_name         = module.rds_new.database_name
+    database_username     = module.rds_new.database_username
+    database_password     = module.rds_new.database_password
+    rds_instance_address  = module.rds_new.rds_instance_address
+    url                   = "jdbc:postgres://${module.rds_new.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds_new.database_name}"
   }
 }
-
 
 resource "kubernetes_secret" "read_replica" {
   count = 0
@@ -110,14 +109,14 @@ resource "kubernetes_secret" "read_replica" {
   }
 }
 
-resource "kubernetes_config_map" "rds" {
+resource "kubernetes_config_map" "rds_new" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    database_name = module.rds.database_name
-    db_identifier = module.rds.db_identifier
+    database_name = module.rds_new.database_name
+    db_identifier = module.rds_new.db_identifier
   }
 }
