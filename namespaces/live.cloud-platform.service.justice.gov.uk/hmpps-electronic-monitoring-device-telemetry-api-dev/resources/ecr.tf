@@ -19,4 +19,5 @@ module "ecr" {
   github_environments    = ["development"]
 
   enable_irsa = true
+  deletion_protection = false
 }
