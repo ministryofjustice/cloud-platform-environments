@@ -8,12 +8,10 @@ data "aws_iam_policy_document" "hmpps_snyk_discovery_business_unit_ecr_pull" {
   }
 
   statement {
-    sid    = "AllowDiscoverAndPullFromHmppsTaggedEcr"
+    sid    = "AllowPullFromHmppsTaggedEcr"
     effect = "Allow"
 
     actions = [
-      "ecr:DescribeRepositories",
-      "ecr:ListImages",
       "ecr:DescribeImages",
       "ecr:BatchGetImage",
       "ecr:GetDownloadUrlForLayer",
