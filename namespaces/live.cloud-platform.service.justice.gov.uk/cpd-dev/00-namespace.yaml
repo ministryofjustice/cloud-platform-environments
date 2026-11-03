@@ -9,7 +9,7 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "Central Digital"
     cloud-platform.justice.gov.uk/slack-channel: "cpd-dev-chat"
-    cloud-platform.justice.gov.uk/application: "Core Person Record"
+    cloud-platform.justice.gov.uk/application: "Core Person Data"
     cloud-platform.justice.gov.uk/owner: "Justice Id: corepersondata@mail.com"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/cpd-matching-service"
     cloud-platform.justice.gov.uk/team-name: "justice-id"
