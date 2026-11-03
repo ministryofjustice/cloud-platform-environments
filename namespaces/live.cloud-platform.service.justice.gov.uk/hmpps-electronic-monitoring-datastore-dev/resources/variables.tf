@@ -1,75 +1,61 @@
 variable "vpc_name" {
-  description = "VPC name to create security groups in for the ElastiCache and RDS modules"
-  type        = string
 }
 
 variable "kubernetes_cluster" {
-  description = "Kubernetes cluster name for references to secrets for service accounts"
-  type        = string
 }
 
 variable "application" {
-  description = "Name of the application you are deploying"
-  type        = string
+  description = "Name of Application you are deploying"
   default     = "HMPPS Electronic Monitoring Datastore"
 }
 
-variable "eks_cluster_name" {
-  description = "The name of the eks cluster to retrieve the OIDC information"
-}
-
 variable "namespace" {
-  description = "Name of the namespace these resources are part of"
-  type        = string
-  default     = "hmpps-electronic-monitoring-datastore-dev"
+  default = "hmpps-electronic-monitoring-datastore-dev"
 }
 
 variable "namespace-short" {
-  description = "Short-form version of namespace name to get around string-length issues"
-  type = string
   default = "hmpps-em-datastore-dev"
+}
+
+variable "business_unit" {
+  description = "Area of the MOJ responsible for the service."
+  default     = "HMPPS"
+}
+
+variable "team_name" {
+  description = "The name of your development team"
+  default     = "hmpps-em-probation-devs"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Electronic Monitoring"
+}
+
+####################################################################################################################
+### Change this environment to the environment name corresponding to this namespace (as per helm/values-ENV.dev) ###
+variable "environment" {
+  description = "The type of environment you're deploying to."
+  default     = "dev"
+}
+
+variable "infrastructure_support" {
+  description = "The team responsible for managing the infrastructure. Should be of the form team-email."
+  default     = "hmpps-ems-platform-team@digital.justice.gov.uk"
+}
+
+variable "is_production" {
+  default = "false"
+}
+
+variable "slack_channel" {
+  description = "Team slack channel to use if we need to contact your team"
+  default     = "em-engineers-moj-madetech"
 }
 
 variable "number_cache_clusters" {
   default = "2"
 }
-
-variable "business_unit" {
-  description = "Area of the MOJ responsible for this service"
-  type        = string
-  default     = "HMPPS"
-}
-
-variable "team_name" {
-  description = "Name of the development team responsible for this service"
-  type        = string
-  default     = "hmpps-em-probation-devs"
-}
-
-variable "environment" {
-  description = "Name of the environment type for this service"
-  type        = string
-  default     = "dev"
-}
-
-variable "infrastructure_support" {
-  description = "Email address of the team responsible this service"
-  type        = string
-  default     = "hmpps-ems-platform-team@digital.justice.gov.uk"
-}
-
-variable "is_production" {
-  description = "Whether this environment type is production or not"
-  type        = string
-  default     = "false"
-}
-
-variable "slack_channel" {
-  description = "Slack channel name for your team, if we need to contact you about this service"
-  type        = string
-  default     = "em-engineers-moj-madetech"
-}
-
 variable "github_owner" {
   description = "The GitHub organization or individual user account containing the app's code repo. Used by the Github Terraform provider. See: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials"
   type        = string
@@ -82,14 +68,18 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the eks cluster to retrieve the OIDC information"
+}
+
 variable "em_datastore_general_role" {
-  type = string
+  type        = string
   description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
-  default = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test"
+  default     = "arn:aws:iam::396913731313:role/cmt_read_emds_data_test"
 }
 
 variable "em_datastore_specials_role" {
-  type = string
+  type        = string
   description = "Role assumed by the API and Algorithm to access the Electronic Monitoring Data Store"
-  default = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test"
+  default     = "arn:aws:iam::396913731313:role/specials_cmt_read_emds_data_test"
 }

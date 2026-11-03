@@ -1,13 +1,26 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hmpps-electronic-monitoring-datastore-cert
+  name: hmpps-electronic-monitoring-datastore-api-cert
   namespace: hmpps-electronic-monitoring-datastore-dev
 spec:
-  secretName: hmpps-electronic-monitoring-datastore-cert
+  secretName: hmpps-electronic-monitoring-datastore-api-cert
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
     - electronic-monitoring-datastore-api-dev.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-electronic-monitoring-datastore-ui-cert
+  namespace: hmpps-electronic-monitoring-datastore-dev
+spec:
+  secretName: hmpps-electronic-monitoring-datastore-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
     - electronic-monitoring-datastore-dev.hmpps.service.justice.gov.uk
