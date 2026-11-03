@@ -41,12 +41,15 @@ resource "aws_iam_policy" "hmpps_business_unit_ecr_pull" {
   policy = data.aws_iam_policy_document.hmpps_snyk_discovery_business_unit_ecr_pull.json
 }
 
-resource "aws_iam_policy_attachment" "hmpps_business_unit_ecr_pull" {
-  name       = "hmpps-portfolio-management-dev-snyk-discovery-hmpps-ecr-pull-attachment"
-  policy_arn = aws_iam_policy.hmpps_business_unit_ecr_pull.arn
-
-  roles = [
+locals {
+  hmpps_snyk_discovery_role_names = [
     for mapping in data.aws_resourcegroupstaggingapi_resources.hmpps_snyk_discovery_ecr_roles_account_wide.resource_tag_mapping_list :
     replace(mapping.resource_arn, "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/", "")
   ]
+}
+
+resource "aws_iam_role_policy_attachment" "hmpps_business_unit_ecr_pull" {
+  for_each   = toset(local.hmpps_snyk_discovery_role_names)
+  role       = each.value
+  policy_arn = aws_iam_policy.hmpps_business_unit_ecr_pull.arn
 }
