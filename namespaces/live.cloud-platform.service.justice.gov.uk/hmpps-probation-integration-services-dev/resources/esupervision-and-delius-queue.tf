@@ -14,7 +14,7 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
       "esupervision.checkin.link.delivered",
       "esupervision.checkin.link.not_delivered",
       "esupervision.checkin.cancelled",
-      "esupervision.checkin.expired"
+      "esupervision.checkin.expired",
     ]
   })
 }
