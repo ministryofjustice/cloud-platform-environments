@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "suicide-risk-form-and-delius-queue-subscr
 }
 
 module "suicide-risk-form-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "suicide-risk-form-and-delius-queue"
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "suicide-risk-form-and-delius-queue-policy" {
 }
 
 module "suicide-risk-form-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "suicide-risk-form-and-delius-dlq"
