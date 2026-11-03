@@ -10,7 +10,7 @@ resource "aws_sns_topic_subscription" "manage-supervision-and-delius-queue-subsc
 }
 
 module "manage-supervision-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "manage-supervision-and-delius-queue"
@@ -35,7 +35,7 @@ resource "aws_sqs_queue_policy" "manage-supervision-and-delius-queue-policy" {
 }
 
 module "manage-supervision-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "manage-supervision-and-delius-dlq"
