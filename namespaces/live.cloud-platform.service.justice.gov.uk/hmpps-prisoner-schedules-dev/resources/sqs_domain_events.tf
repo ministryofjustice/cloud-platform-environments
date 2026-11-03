@@ -34,7 +34,7 @@ module "producer_event_sqs_dlq" {
 
 resource "kubernetes_secret" "producer_event_sqs_queue_secret" {
   metadata {
-    name      = "producer-event-sqs-instance-output"
+    name      = "producer-event-queue"
     namespace = var.namespace
   }
 
@@ -47,7 +47,7 @@ resource "kubernetes_secret" "producer_event_sqs_queue_secret" {
 
 resource "kubernetes_secret" "producer_event_sqs_dlq_secret" {
   metadata {
-    name      = "producer-event-sqs-dlq-instance-output"
+    name      = "producer-event-dlq"
     namespace = var.namespace
   }
 
