@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hmpps-electronic-monitoring-device-telemetry-api
+  name: hmpps-electronic-monitoring-device-telemetry-api-dev
   labels:
     cloud-platform.justice.gov.uk/is-production: "false"
     cloud-platform.justice.gov.uk/environment-name: "development"
