@@ -15,7 +15,7 @@ module "hmpps_electronic_monitoring_datastore_api" {
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
-  source_template_repo          = "hmpps-electronic-monitoring-datastore-api"
+  source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
