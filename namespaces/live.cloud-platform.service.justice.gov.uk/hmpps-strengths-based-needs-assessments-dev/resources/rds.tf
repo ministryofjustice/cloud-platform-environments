@@ -75,7 +75,7 @@ provider "postgresql" {
   port             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_port
   username         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
   password         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_password
-  expected_version = "16"
+  expected_version = "18"
   sslmode          = "require"
   superuser        = false
 }
