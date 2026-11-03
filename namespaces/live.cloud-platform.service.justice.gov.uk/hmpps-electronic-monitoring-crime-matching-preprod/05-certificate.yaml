@@ -11,3 +11,4 @@ spec:
   dnsNames:
     - electronic-monitoring-crime-matching-ui-preprod.hmpps.service.justice.gov.uk
     - electronic-monitoring-crime-matching-api-preprod.hmpps.service.justice.gov.uk
+    - electronic-monitoring-crime-matching-algorithm-preprod.hmpps.service.justice.gov.uk
