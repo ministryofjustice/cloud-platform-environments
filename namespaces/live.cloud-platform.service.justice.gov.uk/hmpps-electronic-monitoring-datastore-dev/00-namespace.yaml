@@ -12,5 +12,5 @@ metadata:
     cloud-platform.justice.gov.uk/slack-alert-channel: "hmpps-em-contract-management-tool-alerts-nonprod"
     cloud-platform.justice.gov.uk/application: "Electronic Monitoring Datastore"
     cloud-platform.justice.gov.uk/owner: "Electronic Monitoring Datastore: hmpps-ems-platform-team@digital.justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-datastore-api,https://github.com/ministryofjustice/hmpps-electronic-monitoring-datastore-ui"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-datastore-api.git,https://github.com/ministryofjustice/hmpps-electronic-monitoring-datastore-ui.git"
     cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring"
