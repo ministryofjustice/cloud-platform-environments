@@ -33,8 +33,6 @@ module "rds_alfresco" {
   team_name              = var.team_name
 
   enable_irsa = true # new change from CP to allow service pods access rds instance
-
-  maintenance_window = "Wed:00:00-Wed:03:00" # Temporary value for 14.24 upgrade
 }
 
 
