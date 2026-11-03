@@ -38,6 +38,8 @@ module "supervision-appointments_elasticache_redis" {
   engine_version       = "7.0"
   parameter_group_name = "default.redis7"
 
+  enable_irsa = true
+
   providers = {
     aws = aws.london
   }
