@@ -66,6 +66,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
 data "aws_iam_policy_document" "sqs_management_policy_document" {
   for_each = {
     queue = [
+      module.single-accommodation-and-delius-queue.sqs_arn,
       module.warrant-risk-assessment-and-delius-queue.sqs_arn,
       module.core-person-record-and-delius-queue.sqs_arn,
       module.cosso-and-delius-queue.sqs_arn,
@@ -105,6 +106,7 @@ data "aws_iam_policy_document" "sqs_management_policy_document" {
       module.sentence-plan-and-delius-queue.sqs_arn,
     ]
     dlq = [
+      module.single-accommodation-and-delius-dlq.sqs_arn,
       module.warrant-risk-assessment-and-delius-dlq.sqs_arn,
       module.core-person-record-and-delius-dlq.sqs_arn,
       module.cosso-and-delius-dlq.sqs_arn,
