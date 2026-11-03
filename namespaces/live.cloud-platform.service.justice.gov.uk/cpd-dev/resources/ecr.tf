@@ -12,7 +12,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["cpd-matching-service"]
+  github_repositories = ["cpd-matching-service","cpd-record-service"]
 
   # Tags
   business_unit          = var.business_unit
