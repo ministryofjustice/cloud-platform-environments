@@ -19,7 +19,7 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.22"
+  db_engine_version         = "14.24"
   rds_family                = "postgres14"
   db_instance_class         = "db.t4g.micro"
 
@@ -33,6 +33,8 @@ module "rds_alfresco" {
   team_name              = var.team_name
 
   enable_irsa = true # new change from CP to allow service pods access rds instance
+
+  maintenance_window = "Wed:00:00-Wed:03:00" # Temporary value for 14.24 upgrade
 }
 
 
