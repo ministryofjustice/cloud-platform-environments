@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "court-case-and-delius-queue-subscription"
 }
 
 module "court-case-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "court-case-and-delius-queue"
@@ -34,7 +34,7 @@ resource "aws_sqs_queue_policy" "court-case-and-delius-queue-policy" {
 }
 
 module "court-case-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "court-case-and-delius-dlq"
