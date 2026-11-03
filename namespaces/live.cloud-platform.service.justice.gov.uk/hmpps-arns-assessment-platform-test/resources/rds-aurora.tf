@@ -6,7 +6,7 @@ module "rds_aurora" {
 
   # Database configuration
   engine         = "aurora-postgresql"
-  engine_version = "16"
+  engine_version = "18.6"
   engine_mode    = "provisioned"
   instance_type  = "db.serverless"
   replica_count  = 1
@@ -16,7 +16,7 @@ module "rds_aurora" {
     max_capacity = 8
   }
 
-  allow_major_version_upgrade = false
+  allow_major_version_upgrade = true
   auto_minor_version_upgrade  = true
 
   db_name = var.db_name
