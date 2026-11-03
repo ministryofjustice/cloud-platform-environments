@@ -10,10 +10,11 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
       "esupervision.check-in.updated",
       "esupervision.setup.completed",
       "esupervision.setup.removed",
-      "esupervision.check-in.scheduled",
-      "esupervision.check-in.link.delivered",
-      "esupervision.check-in.link.not_delivered",
-      "esupervision.check-in.cancelled",
+      "esupervision.checkin.scheduled",
+      "esupervision.checkin.link.delivered",
+      "esupervision.checkin.link.not_delivered",
+      "esupervision.checkin.cancelled",
+      "esupervision.checkin.expired"
     ]
   })
 }
