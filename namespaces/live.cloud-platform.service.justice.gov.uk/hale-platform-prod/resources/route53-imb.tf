@@ -223,7 +223,7 @@ resource "aws_route53_record" "imb_route53_cname_dnsauth_applications" {
 
 resource "aws_route53_record" "imb_route53_cname_dnsauth_www_applications" {
   zone_id = aws_route53_zone.imb_route53_zone.zone_id
-  name    = " _dnsauth.www.applications.imb.org.uk"
+  name    = "_dnsauth.www.applications.imb.org.uk"
   type    = "CNAME"
   ttl     = "300"
   records = ["_6olc7qenzsrjkfwhuentef18gvzan5p.dcv.digicert.com."]
