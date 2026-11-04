@@ -9,16 +9,6 @@ module "secrets" {
       recovery_window_in_days = 7
       k8s_secret_name         = "catalogue-dev-secrets"
     }
-    "catalogue-api-server-tls" = {
-      description             = "Catalogue dev API server TLS: tls.crt, tls.key and client issuer ca.crt"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "catalogue-dev-api-server-tls"
-    }
-    "catalogue-bff-client-tls" = {
-      description             = "Catalogue dev BFF client TLS: tls.crt, tls.key and server issuer ca.crt"
-      recovery_window_in_days = 7
-      k8s_secret_name         = "catalogue-dev-bff-client-tls"
-    }
   }
 
   business_unit          = var.business_unit
