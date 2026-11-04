@@ -13,7 +13,6 @@ module "athena_cache" {
   engine_version          = "7.0"
   parameter_group_name    = aws_elasticache_parameter_group.athena_cache.name
   node_type               = "cache.t4g.small"
-  number_cache_clusters   = "2"
   auth_token_rotated_date = "2026-11-04"
 }
 
