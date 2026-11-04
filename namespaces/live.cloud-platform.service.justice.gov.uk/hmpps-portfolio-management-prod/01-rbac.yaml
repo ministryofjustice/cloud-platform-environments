@@ -14,3 +14,17 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hmpps-portfolio-management-prod-calico-np-access
+  namespace: hmpps-portfolio-management-prod
+subjects:
+  - kind: Group
+    name: "github:hmpps-sre"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
+  apiGroup: rbac.authorization.k8s.io
