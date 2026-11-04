@@ -14,3 +14,23 @@ roleRef:
   kind: ClusterRole
   name: admin
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: laa-record-controlled-work-production-calico-np-access
+  namespace: laa-record-controlled-work-production
+subjects:
+  - kind: Group
+    name: "github:laa-record-controlled-work"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "github:laa-sre-admins"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: rcw-github-action-service-account
+    namespace: laa-record-controlled-work-production
+roleRef:
+  kind: ClusterRole
+  name: calico-network-policy-access
+  apiGroup: rbac.authorization.k8s.io

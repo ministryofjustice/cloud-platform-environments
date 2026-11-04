@@ -16,8 +16,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.24"
-  rds_family        = "postgres14"
+  db_engine_version = "16.15"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
 
   # Tags
@@ -58,8 +58,8 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "14.24"
-  rds_family        = "postgres14"
+  db_engine_version = "16.15"
+  rds_family        = "postgres16"
   db_instance_class = "db.t4g.medium"
   # It is mandatory to set the below values to create read replica instance
 
@@ -100,7 +100,6 @@ resource "kubernetes_secret" "read_replica" {
     namespace = var.namespace
   }
 }
-
 
 # Configmap to store non-sensitive data related to the RDS instance
 

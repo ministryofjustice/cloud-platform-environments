@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "community-payback-and-delius-queue-subscr
 }
 
 module "community-payback-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "community-payback-and-delius-queue"
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "community-payback-and-delius-queue-policy" {
 }
 
 module "community-payback-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "community-payback-and-delius-dlq"

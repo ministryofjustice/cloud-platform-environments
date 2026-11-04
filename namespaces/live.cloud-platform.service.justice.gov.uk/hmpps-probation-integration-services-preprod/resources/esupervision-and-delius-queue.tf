@@ -10,17 +10,16 @@ resource "aws_sns_topic_subscription" "esupervision-and-delius-queue-subscriptio
       "esupervision.check-in.updated",
       "esupervision.setup.completed",
       "esupervision.setup.removed",
-      "esupervision.checkin.scheduled",
-      "esupervision.checkin.link.delivered",
-      "esupervision.checkin.link.not_delivered",
-      "esupervision.checkin.cancelled",
-      "esupervision.checkin.expired",
+      "esupervision.check-in.scheduled",
+      "esupervision.check-in.link.delivered",
+      "esupervision.check-in.link.not_delivered",
+      "esupervision.check-in.cancelled",
     ]
   })
 }
 
 module "esupervision-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "esupervision-and-delius-queue"
@@ -45,7 +44,7 @@ resource "aws_sqs_queue_policy" "esupervision-and-delius-queue-policy" {
 }
 
 module "esupervision-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "esupervision-and-delius-dlq"

@@ -14,6 +14,11 @@ module "domain_events_queue" {
   environment_name       = var.environment
   namespace              = var.namespace
   infrastructure_support = var.infrastructure_support
+
+  delay_seconds             = 60 # 1 minute delay before our consumer (hmpps-legal-status-api) can consume messages on the queue.
+                                 # This is to prevent race conditions with other services who also consume the same message type
+                                 # from their queues, but that hmpps-legal-status-api is dependent on.
+                                 # IE. allow the other services to process messages first.
 }
 
 module "domain_events_dlq" {

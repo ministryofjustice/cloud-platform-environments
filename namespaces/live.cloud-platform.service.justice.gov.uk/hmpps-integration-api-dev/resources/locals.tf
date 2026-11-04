@@ -48,6 +48,8 @@ locals {
     "jaiu-onboarding-optimisation",
     "serco-up3",
     "phonehub",
+    "pentestnorestrictions",
+    "pentestwithrestrictions",
   ]
 
   client_queues = {

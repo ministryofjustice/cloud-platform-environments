@@ -11,7 +11,7 @@ resource "aws_sns_topic_subscription" "accredited-programmes-and-delius-queue-su
 }
 
 module "accredited-programmes-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "accredited-programmes-and-delius-queue"
@@ -36,7 +36,7 @@ resource "aws_sqs_queue_policy" "accredited-programmes-and-delius-queue-policy" 
 }
 
 module "accredited-programmes-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "accredited-programmes-and-delius-dlq"

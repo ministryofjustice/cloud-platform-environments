@@ -7,7 +7,7 @@ resource "pingdom_check" "api-get-legal-aid-data-prod" {
   host                     = "get-legal-aid-data.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
-  sendnotificationwhendown = 6
+  sendnotificationwhendown = 2
   notifyagainevery         = 0
   url                      = "/actuator/health"
   encryption               = true

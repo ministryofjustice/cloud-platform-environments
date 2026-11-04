@@ -1,0 +1,51 @@
+module "hmpps_egress_controls" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-egress-controls?ref=0.0.13"
+
+  enable_envoy_setup     = true
+  enable_egress_controls = true
+
+  namespace = var.namespace
+  vpc_name  = var.vpc_name
+
+  # See https://github.com/DependencyTrack/dependency-track/blob/main/apiserver/src/main/resources/services.bom.json
+  # for DependencyTrack's published external hosts
+
+  envoy_extra_allowed_hosts_exact = [
+    "api.github.com",
+    "api.nuget.org",
+    "api.snyk.io",
+    "channels.nixos.org",
+    "epss.empiricalsecurity.com",
+    "fastapi.metacpan.org",
+    "hackage.haskell.org",
+    "hex.pm",
+    "index.crates.io",
+    "maven.google.com",
+    "metrics.dependencytrack.org",
+    "nvd.nist.gov",
+    "ossindex.sonatype.org",
+    "osv-vulnerabilities.storage.googleapis.com",
+    "packages.atlassian.com",
+    "maven.artifacts.atlassian.com",
+    "proxy.golang.org",
+    "pypi.org",
+    "registry.npmjs.org",
+    "repo.clojars.org",
+    "repo.packagist.org",
+    "repo1.maven.org",
+    "repository.jboss.org",
+    "rubygems.org",
+    "vulndb.cyberriskanalytics.com",
+    "www.cisa.gov",
+    "raw.githubusercontent.com",
+    "dl.google.com",
+    "crates.io",
+    "login.microsoftonline.com",
+    "graph.microsoft.com"
+  ]
+
+  envoy_extra_allowed_hosts_suffixes = [
+    ".service.gov.uk",
+    ".justice.gov.uk",
+  ]
+}

@@ -8,7 +8,7 @@ resource "aws_sns_topic_subscription" "cosso-and-delius-queue-subscription" {
 }
 
 module "cosso-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "cosso-and-delius-queue"
@@ -33,7 +33,7 @@ resource "aws_sqs_queue_policy" "cosso-and-delius-queue-policy" {
 }
 
 module "cosso-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "cosso-and-delius-dlq"

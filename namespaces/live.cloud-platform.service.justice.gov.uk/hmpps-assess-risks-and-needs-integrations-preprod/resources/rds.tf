@@ -9,13 +9,13 @@ module "hmpps_assess_risks_and_needs_integrations_preprod_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  rds_family             = "postgres16"
+  rds_family             = "postgres18"
   db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
-  db_engine_version      = "16"
+  db_engine_version      = "18.6"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade = true
 
   enable_irsa = true
 

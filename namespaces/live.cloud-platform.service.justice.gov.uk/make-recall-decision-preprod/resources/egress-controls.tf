@@ -11,7 +11,6 @@ module "hmpps_egress_controls" {
 
   # Add your service's external dependencies
   envoy_extra_allowed_hosts_exact = [
-    "uat.ppud.justice.gov.uk",
   ]
 
   envoy_extra_allowed_hosts_suffixes = [

@@ -1,13 +1,17 @@
+# For Cloud Platform deployed projects based on the hmpps-template-typescript template:
+# Make a copy of this file in your namespace, then modify according to the instructions here:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
+
 module "hmpps_electronic_monitoring_datastore_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-electronic-monitoring-datastore-ui"
-  application = "hmpps-electronic-monitoring-datastore-ui"
-  github_team = "hmpps-electronic-monitoring"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-electronic-monitoring", "hmpps-em-probation-devs"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
+  github_repo                = "hmpps-electronic-monitoring-datastore-ui"
+  application                = "hmpps-electronic-monitoring-datastore-ui"
+  github_team                = "hmpps-electronic-monitoring"
+  environment                = var.environment                                            # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-electronic-monitoring", "hmpps-em-probation-devs"] # Optional team that should review deployments to this environment.
+  selected_branch_patterns   = ["main", "release/*", "feature/*"]                         # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
@@ -15,11 +19,16 @@ module "hmpps_electronic_monitoring_datastore_ui" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+  # enable_ecr is required only ONCE per Github repository.
+  # Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
+  #                 `enable_ecr = false` (or comment it out) on others
+  enable_ecr = true
 }
+
 
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

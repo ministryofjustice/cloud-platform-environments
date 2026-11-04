@@ -2,6 +2,8 @@
 locals {
   namespaces = toset([
     "create-and-vary-a-licence-dev",
+    "create-and-vary-a-licence-test1",
+    "create-and-vary-a-licence-test2",
     "hmpps-activities-management-dev",
     "hmpps-arns-assessment-platform-dev",
     "hmpps-assess-risks-and-needs-dev",
@@ -18,9 +20,7 @@ locals {
     "hmpps-court-cases-release-dates-dev",
     "hmpps-court-register-dev",
     "hmpps-digital-prison-reporting-mi-dev",
-    "hmpps-probation-mi-ui-dev",
     "hmpps-digital-prison-reporting-mi-test",
-    "hmpps-probation-mi-ui-test",
     "hmpps-digital-prison-services-dev",
     "hmpps-document-management-dev",
     "hmpps-education-and-work-plan-dev",
@@ -51,6 +51,8 @@ locals {
     "hmpps-prisoner-finance-sync-dev",
     "hmpps-prisoner-from-nomis-migration-dev",
     "hmpps-prisoner-profile-dev",
+    "hmpps-probation-mi-ui-dev",
+    "hmpps-probation-mi-ui-test",
     "hmpps-registers-dev",
     "hmpps-restricted-patients-dev",
     "hmpps-subject-access-request-dev",
@@ -58,11 +60,11 @@ locals {
     "hmpps-templates-dev",
     "hmpps-workload-dev",
     "make-recall-decision-dev",
+    "offender-categorisation-dev",
     "offender-management-staging",
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging",
-    "offender-categorisation-dev"
   ])
 }
 

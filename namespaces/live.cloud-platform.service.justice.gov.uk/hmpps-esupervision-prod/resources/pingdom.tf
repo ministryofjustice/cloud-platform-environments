@@ -9,9 +9,10 @@ resource "pingdom_check" "probation-check-in-prod" {
   notifywhenbackup         = true
   sendnotificationwhendown = 6
   notifyagainevery         = 0
-  url                      = "/"
+  url                      = "/ping"
   encryption               = true
   port                     = 443
   tags                     = "businessunit_${lower(var.business_unit)},application_${replace(lower(var.application), " ", "-")},isproduction_${var.is_production},environment_${var.environment},infrastructuresupport_${var.team_name}"
   probefilters             = "region:EU"
+  integrationids           = [149689]
 }

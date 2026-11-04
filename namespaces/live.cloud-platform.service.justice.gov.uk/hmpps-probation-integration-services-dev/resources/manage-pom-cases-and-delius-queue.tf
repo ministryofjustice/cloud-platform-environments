@@ -23,7 +23,7 @@ resource "aws_sns_topic_subscription" "manage-pom-cases-and-delius-queue-probati
 }
 
 module "manage-pom-cases-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "manage-pom-cases-and-delius-queue"
@@ -48,7 +48,7 @@ resource "aws_sqs_queue_policy" "manage-pom-cases-and-delius-queue-policy" {
 }
 
 module "manage-pom-cases-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "manage-pom-cases-and-delius-dlq"
