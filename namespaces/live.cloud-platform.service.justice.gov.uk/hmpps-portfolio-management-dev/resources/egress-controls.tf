@@ -31,7 +31,7 @@ module "hmpps_egress_controls" {
     ".service.gov.uk",
     ".justice.gov.uk",
     ".quay.io",
-    ".ecr.amazonaws.com"
+    ".amazonaws.com"
   ]
 }
 
