@@ -67,5 +67,7 @@ locals {
     daso      = module.event_daso_queue.sqs_name
     unilink   = module.event_unilink_queue.sqs_name
     phonehub  = module.event_phonehub_queue.sqs_name
+    pentestnorestrictions  = module.event_test_client_queue.sqs_name # testing
+    pentestwithrestrictions  = module.event_test_client_queue.sqs_name # testing
   }
 }
