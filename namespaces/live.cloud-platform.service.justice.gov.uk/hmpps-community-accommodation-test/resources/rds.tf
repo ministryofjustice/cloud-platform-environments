@@ -92,11 +92,11 @@ resource "kubernetes_secret" "rds_new" {
 
   data = {
     rds_instance_endpoint = module.rds_new.rds_instance_endpoint
-    database_name         = module.rds_new.database_name
-    database_username     = module.rds_new.database_username
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
     database_password     = module.rds_new.database_password
     rds_instance_address  = module.rds_new.rds_instance_address
-    url                   = "jdbc:postgres://${module.rds_new.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds_new.database_name}"
+    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
