@@ -8,12 +8,12 @@ module "hmpps_probation_mi_api_github" {
   is_production                 = var.is_production
   application_insights_instance = "preprod" # "dev", "preprod" or "prod"
   selected_branch_patterns = [
-  "main",
-  "DHS-705",
-]
-  source_template_repo          = "hmpps-template-kotlin"
-  github_token                  = var.github_token
-  namespace                     = var.namespace
-  kubernetes_cluster            = var.kubernetes_cluster
+    "main",
+    "DHS-705",
+  ]
+  source_template_repo = "hmpps-template-kotlin"
+  github_token         = var.github_token
+  namespace            = var.namespace
+  kubernetes_cluster   = var.kubernetes_cluster
 }
 

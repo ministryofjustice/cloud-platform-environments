@@ -11,12 +11,12 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
-  db_allocated_storage      = "100"
-  db_max_allocated_storage  = "2000"
+  db_allocated_storage         = "100"
+  db_max_allocated_storage     = "2000"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2025-01-10" # Uncomment to rotate your database password.
 
@@ -36,7 +36,7 @@ module "rds" {
   team_name              = var.team_name
 
   # Add DPR security group.
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable logical replication
   db_parameter = [
@@ -82,7 +82,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
@@ -95,10 +95,10 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    database_name        = module.rds.database_name
+    database_username    = module.rds.database_username
+    database_password    = module.rds.database_password
+    rds_instance_address = module.rds.rds_instance_address
   }
 }
 
@@ -123,8 +123,8 @@ data "aws_security_group" "mp_dps_sg" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -135,12 +135,12 @@ module "read_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  db_engine                 = "postgres"
-  db_engine_version         = "17.11"
-  rds_family                = "postgres17"
-  db_instance_class         = "db.t4g.micro"
-  db_allocated_storage      = "100"
-  db_max_allocated_storage  = "2000"
+  db_engine                = "postgres"
+  db_engine_version        = "17.11"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.micro"
+  db_allocated_storage     = "100"
+  db_max_allocated_storage = "2000"
 
   replicate_source_db = module.rds.db_identifier
 
@@ -149,7 +149,7 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   # Add DPR security group.
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

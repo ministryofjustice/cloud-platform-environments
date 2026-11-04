@@ -1,5 +1,5 @@
 module "hmpps_dps_reconciliation_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -17,7 +17,7 @@ module "hmpps_dps_reconciliation_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name = var.team_name # also used for naming the queue
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [
+      values = [
         data.aws_ssm_parameter.offender-events-topic-arn.value,
         data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value,
       ]
@@ -58,15 +58,15 @@ module "hmpps_dps_reconciliation_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name = "hmpps_dps_reconciliation_dl_queue"
-  message_retention_seconds  = 21600 # 6 hours
-  encrypt_sqs_kms = "true"
+  sqs_name                  = "hmpps_dps_reconciliation_dl_queue"
+  message_retention_seconds = 21600 # 6 hours
+  encrypt_sqs_kms           = "true"
 
   # Tags
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name = var.team_name # also used for naming the queue
+  team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support

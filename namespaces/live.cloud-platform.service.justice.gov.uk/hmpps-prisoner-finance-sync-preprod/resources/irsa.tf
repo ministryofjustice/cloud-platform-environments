@@ -9,7 +9,7 @@ locals {
 }
 
 module "hmpps_prisoner_finance_sync_irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
@@ -24,6 +24,6 @@ module "hmpps_prisoner_finance_sync_irsa" {
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
-   for_each = local.sqs_queues
-   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
- }
+  for_each = local.sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}

@@ -33,9 +33,9 @@ module "hmpps_pfs_web_analytics_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_pfs_web_analytics_dlq"
-  encrypt_sqs_kms = "true"
-  message_retention_seconds = 24 * 60 * 60  # 1d
+  sqs_name                  = "hmpps_pfs_web_analytics_dlq"
+  encrypt_sqs_kms           = "true"
+  message_retention_seconds = 24 * 60 * 60 # 1d
 
   # Tags
   business_unit          = var.business_unit
@@ -82,17 +82,17 @@ resource "kubernetes_secret" "hmpps_pfs_web_analytics_dlq_secret" {
 # Subscribe SQS to SNS Analytics and SNS Common
 
 resource "aws_sns_topic_subscription" "common_analytics_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps_pfs_common.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps_pfs_common.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_pfs_web_analytics_queue.sqs_arn
 }
 
 resource "aws_sns_topic_subscription" "analytics_only_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps_pfs_analytics.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  provider  = aws.london
+  topic_arn = module.hmpps_pfs_analytics.topic_arn
+  protocol  = "sqs"
+  endpoint  = module.hmpps_pfs_web_analytics_queue.sqs_arn
 }
 
 # IAM Policies
@@ -114,7 +114,7 @@ data "aws_iam_policy_document" "hmpps_pfs_web_analytics_queue_policy" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = [
+      values = [
         module.hmpps_pfs_common.topic_arn,
         module.hmpps_pfs_analytics.topic_arn
       ]

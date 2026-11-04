@@ -9,13 +9,13 @@ locals {
   s3_logging_bucket_name = "cloud-platform-${random_id.s3_logging_bucket_suffix.hex}"
 
   s3_logging_bucket_tags = {
-    "business-unit"         = var.business_unit
-    "application"           = var.application
-    "is-production"         = var.is_production
-    "environment-name"      = var.environment
+    "business-unit"          = var.business_unit
+    "application"            = var.application
+    "is-production"          = var.is_production
+    "environment-name"       = var.environment
     "infrastructure-support" = var.infrastructure_support
-    "namespace"             = var.namespace
-    "owner"                 = var.team_name
+    "namespace"              = var.namespace
+    "owner"                  = var.team_name
   }
 }
 

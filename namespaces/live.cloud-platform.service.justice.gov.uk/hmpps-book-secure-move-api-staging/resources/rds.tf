@@ -34,7 +34,7 @@ module "rds-instance" {
   }
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -47,7 +47,7 @@ module "rds-instance" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"

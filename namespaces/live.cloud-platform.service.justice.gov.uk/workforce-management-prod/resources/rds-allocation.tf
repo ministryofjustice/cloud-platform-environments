@@ -13,15 +13,15 @@ module "rds-allocation" {
   # enable performance insights
   performance_insights_enabled = true
   # instance class
-  db_instance_class = "db.t4g.small"
-  db_iops = "12000"
-  db_allocated_storage   = "750"
+  db_instance_class    = "db.t4g.small"
+  db_iops              = "12000"
+  db_allocated_storage = "750"
 
   # change the postgres version as you see fit.
   prepare_for_major_upgrade = false
-  db_engine_version = "15.19"
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+  db_engine_version         = "15.19"
+  environment_name          = var.environment
+  infrastructure_support    = var.infrastructure_support
 
   # rds_family should be one of: postgres9.4, postgres9.5, postgres9.6, postgres10, postgres11
   # Pick the one that defines the postgres version the best

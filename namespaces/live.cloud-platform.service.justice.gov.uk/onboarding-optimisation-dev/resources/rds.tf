@@ -1,9 +1,9 @@
 module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name             = var.vpc_name
-  db_engine_version    = "16"
-  rds_family           = "postgres16"
+  vpc_name                 = var.vpc_name
+  db_engine_version        = "16"
+  rds_family               = "postgres16"
   db_instance_class        = "db.t3.micro"
   db_allocated_storage     = 20
   db_max_allocated_storage = 100

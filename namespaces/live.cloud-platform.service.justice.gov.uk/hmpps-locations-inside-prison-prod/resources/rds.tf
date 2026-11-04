@@ -21,7 +21,7 @@ module "dps_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
 
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade = false
 
   backup_window      = var.rds_backup_window
   maintenance_window = var.rds_maintenance_window
@@ -72,7 +72,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -103,7 +103,7 @@ module "dps_rds_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  prepare_for_major_upgrade  = false
+  prepare_for_major_upgrade = false
 
   # If db_parameter is specified in source rds instance, use the same values.
   # If not specified you dont need to add any. It will use the default values.

@@ -20,9 +20,9 @@ module "hmpps_court_data_prisoner_created_queue" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  
+
   # Delay recieving messages for other services to process event first.
-  delay_seconds          = 600
+  delay_seconds = 600
 
   providers = {
     aws = aws.london

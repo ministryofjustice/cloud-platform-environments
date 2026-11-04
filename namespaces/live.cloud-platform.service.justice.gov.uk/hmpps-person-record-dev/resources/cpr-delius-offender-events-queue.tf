@@ -1,5 +1,5 @@
 ######################################## Delius offender events subscription
-  
+
 
 resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscription" {
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value

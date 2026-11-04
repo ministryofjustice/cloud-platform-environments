@@ -47,7 +47,7 @@ module "irsa-ui" {
   namespace            = var.namespace
   service_account_name = "hmpps-manage-and-deliver-accredited-programmes-ui"
 
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns = local.sqs_policies
 
   # Tags
   business_unit          = var.business_unit

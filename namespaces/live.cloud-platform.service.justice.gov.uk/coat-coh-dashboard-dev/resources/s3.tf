@@ -9,8 +9,8 @@ module "coat_coh_dashboard_auth0_tf_state_dev_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  oidc_providers = ["github"]
-  github_repositories = ["coat-coh-dashboard"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["coat-coh-dashboard"]
   github_actions_prefix = "DEV"
 
   bucket_policy = <<EOF
@@ -45,7 +45,7 @@ EOF
       abort_incomplete_multipart_upload_days = 90
       noncurrent_version_expiration = [
         {
-          days = 30
+          days                      = 30
           newer_noncurrent_versions = 2
         },
       ]

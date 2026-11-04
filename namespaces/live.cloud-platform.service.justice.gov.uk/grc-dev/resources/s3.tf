@@ -7,17 +7,17 @@
 
 module "s3_bucket" {
 
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace
-  logging_enabled        = var.logging_enabled
-  log_target_bucket      = module.s3_logging_bucket.bucket_name
-  log_path               = var.log_path
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  team_name                     = var.team_name
+  business_unit                 = var.business_unit
+  application                   = var.application
+  is_production                 = var.is_production
+  environment_name              = var.environment
+  infrastructure_support        = var.infrastructure_support
+  namespace                     = var.namespace
+  logging_enabled               = var.logging_enabled
+  log_target_bucket             = module.s3_logging_bucket.bucket_name
+  log_path                      = var.log_path
   enable_allow_block_pub_access = true
 
   bucket_policy = jsonencode({
@@ -45,11 +45,11 @@ module "s3_bucket" {
         ]
       },
       {
-        Sid = "AllowGetRequestsFromSpecificIPsAndReferers",
-        Effect = "Allow",
+        Sid       = "AllowGetRequestsFromSpecificIPsAndReferers",
+        Effect    = "Allow",
         Principal = "*",
-        Action = "s3:GetObject",
-        Resource = "$${bucket_arn}/*",
+        Action    = "s3:GetObject",
+        Resource  = "$${bucket_arn}/*",
         Condition = {
           Bool = {
             "aws:SecureTransport" = true

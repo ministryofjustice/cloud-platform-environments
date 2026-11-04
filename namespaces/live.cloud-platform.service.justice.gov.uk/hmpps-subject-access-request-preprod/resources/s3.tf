@@ -25,7 +25,7 @@ resource "aws_s3_bucket_object_lock_configuration" "s3_bucket_lock_configuration
   rule {
     default_retention {
       mode = "GOVERNANCE"
-        days = 1
+      days = 1
     }
   }
 

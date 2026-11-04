@@ -10,12 +10,12 @@ locals {
 
   s3_logging_bucket_tags = {
     "business-unit"          = var.business_unit
-    "application"             = var.application
-    "is-production"           = var.is_production
-    "environment-name"        = var.environment
-    "infrastructure-support"  = var.infrastructure_support
-    "namespace"               = var.namespace
-    "owner"                   = var.team_name
+    "application"            = var.application
+    "is-production"          = var.is_production
+    "environment-name"       = var.environment
+    "infrastructure-support" = var.infrastructure_support
+    "namespace"              = var.namespace
+    "owner"                  = var.team_name
   }
 }
 

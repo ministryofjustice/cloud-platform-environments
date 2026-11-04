@@ -41,13 +41,13 @@ module "redact_task_queue" {
 
 
   # Tags (standard Cloud Platform tagging variables, defined in resources/variables.tf)
-  business_unit           = var.business_unit
-  application             = var.application
-  is_production           = var.is_production
-  team_name                = var.team_name
-  namespace                = var.namespace
-  environment_name          = var.environment
-  infrastructure_support    = var.infrastructure_support
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 # ---------------------------------------------------------------------
@@ -59,13 +59,13 @@ module "redact_task_queue_dlq" {
   sqs_name        = "redact-task-queue-dlq"
   encrypt_sqs_kms = "true"
 
-  business_unit           = var.business_unit
-  application             = var.application
-  is_production           = var.is_production
-  team_name                = var.team_name
-  namespace                = var.namespace
-  environment_name          = var.environment
-  infrastructure_support    = var.infrastructure_support
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 # ---------------------------------------------------------------------
@@ -189,11 +189,11 @@ output "redact_task_queue_dlq_arn" {
 module "apply_redactions_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name         = "apply-redactions-queue"
-  encrypt_sqs_kms  = "true"
+  sqs_name        = "apply-redactions-queue"
+  encrypt_sqs_kms = "true"
 
   visibility_timeout_seconds = 900
-  receive_wait_time_seconds   = 20
+  receive_wait_time_seconds  = 20
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.apply_redactions_queue_dlq.sqs_arn

@@ -14,7 +14,7 @@ module "dps_rds" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
@@ -29,10 +29,10 @@ module "dps_rds" {
     aws = aws.london
   }
 
-# Add security groups for DPR
+  # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
-# Add parameters to enable DPR team to configure replication
+  # Add parameters to enable DPR team to configure replication
   db_parameter = [
     {
       # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
@@ -85,7 +85,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -100,11 +100,11 @@ module "dps_rds_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "18.6"
-  rds_family        = "postgres18"
+  db_engine                 = "postgres"
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
   prepare_for_major_upgrade = false
-  db_instance_class = "db.t4g.large"
+  db_instance_class         = "db.t4g.large"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db

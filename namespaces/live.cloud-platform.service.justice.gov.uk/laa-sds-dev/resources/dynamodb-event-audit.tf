@@ -17,11 +17,11 @@ module "event_audit_dynamodb" {
 
 
 
-  enable_encryption = "true"
-  enable_autoscaler = "true"
-  autoscale_max_read_capacity = 40
+  enable_encryption            = "true"
+  enable_autoscaler            = "true"
+  autoscale_max_read_capacity  = 40
   autoscale_max_write_capacity = 40
-  autoscale_min_read_capacity = 1
+  autoscale_min_read_capacity  = 1
   autoscale_min_write_capacity = 1
 
   providers = {
@@ -42,7 +42,7 @@ resource "kubernetes_secret" "event_audit_dynamodb" {
 
 data "aws_iam_policy_document" "event_audit_db_access" {
   statement {
-    actions   = [
+    actions = [
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",
@@ -62,7 +62,7 @@ resource "aws_iam_policy" "event_auditdb_policy" {
 
 data "aws_iam_policy_document" "event_audit_db_write_only_access" {
   statement {
-    actions   = [
+    actions = [
       "dynamodb:PutItem"
     ]
     resources = [module.event_audit_dynamodb.table_arn]

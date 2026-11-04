@@ -8,9 +8,9 @@ locals {
     hmpps_remand_and_sentencing_prisoner_queue             = module.hmpps_remand_and_sentencing_prisoner_queue.irsa_policy_arn,
     hmpps_remand_and_sentencing_prisoner_dead_letter_queue = module.hmpps_remand_and_sentencing_prisoner_dead_letter_queue.irsa_policy_arn,
   }
-  ui_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_ui_sqs : item.name => item.value}
+  ui_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_ui_sqs : item.name => item.value }
   ui_sqs_queues = {
-      "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
   }
   restore_s3_policies = {
     mapping_s3 = module.mapping_s3.irsa_policy_arn
@@ -54,7 +54,7 @@ module "irsa-restore" {
 
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "remand-and-sentencing-preprod-restore"
-  role_policy_arns = local.restore_s3_policies
+  role_policy_arns     = local.restore_s3_policies
 
   # Tags
   business_unit          = var.business_unit

@@ -40,10 +40,10 @@ module "rds" {
   # If you want to enable Cloudwatch logging for this postgres RDS instance, uncomment the code below:
   # opt_in_xsiam_logging = true
   db_parameter = [
-      {
-    name         = "max_connections"
-    value        = "171"
-    apply_method = "pending-reboot"
+    {
+      name         = "max_connections"
+      value        = "171"
+      apply_method = "pending-reboot"
     }
   ]
 }

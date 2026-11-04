@@ -26,7 +26,7 @@ module "elasticache_redis" {
     aws = aws.london
   }
 
-  enable_irsa            = true
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "redis_secrets" {

@@ -15,23 +15,23 @@ module "cross_irsa" {
 data "aws_iam_policy_document" "intranet_demo_s3_staging" {
   # List & location for source & destination S3 bucket.
   statement {
-    actions = [ 
+    actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation"
     ]
-    resources = [ 
+    resources = [
       module.s3_bucket.bucket_arn,
       "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u"
     ]
   }
   # Permissions on source S3 bucket contents. 
   statement {
-    actions = [ 
+    actions = [
       "s3:GetObject",
       "s3:GetObjectVersion",
       "s3:GetObjectTagging"
     ]
-    resources = [ "arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u/*" ]
+    resources = ["arn:aws:s3:::intranet2-staging-storage-h1d4c9820k0u/*"]
   }
   # Permissions on destination S3 bucket contents. 
   statement {
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "intranet_demo_s3_staging" {
       "s3:GetObject",
       "s3:DeleteObject"
     ]
-    resources = [ "${module.s3_bucket.bucket_arn}/*" ]
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
   }
 }
 

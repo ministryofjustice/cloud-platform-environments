@@ -34,8 +34,8 @@ module "coat_chatbot_auth0_tf_state_dev_s3_bucket" {
 }
 EOF
 
-  oidc_providers = ["github"]
-  github_repositories = ["coat-chatbot-frontend-v2"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["coat-chatbot-frontend-v2"]
   github_actions_prefix = "DEV"
 
   lifecycle_rule = [

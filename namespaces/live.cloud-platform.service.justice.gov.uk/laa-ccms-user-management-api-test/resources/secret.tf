@@ -13,7 +13,7 @@ module "secrets_manager" {
     "laa-ccms-user-management-api-secrets-test" = {
       description             = "Secrets for laa-ccms-user-management-api test environment" # Required
       recovery_window_in_days = 7                                                           # Required
-      k8s_secret_name         = "laa-ccms-user-management-api-secrets"                     # The name of the secret in k8s
+      k8s_secret_name         = "laa-ccms-user-management-api-secrets"                      # The name of the secret in k8s
     },
   }
 }

@@ -17,18 +17,18 @@ module "prisons_rds" {
   prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = false
-  
-  rds_family                 = "postgres18"
-  db_engine                  = "postgres"
-  db_engine_version          = "18.6"
-  enable_irsa = true
-  
+
+  rds_family        = "postgres18"
+  db_engine         = "postgres"
+  db_engine_version = "18.6"
+  enable_irsa       = true
+
 
   providers = {
     aws = aws.london
   }
 
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
 }
 

@@ -9,7 +9,7 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    s3  = aws_iam_policy.s3_restricted_access.arn
+    s3 = aws_iam_policy.s3_restricted_access.arn
   }
 
   # Tags
@@ -24,11 +24,11 @@ module "irsa" {
 data "aws_iam_policy_document" "s3_restricted_access" {
   # List & location for the S3 bucket.
   statement {
-    actions = [ 
+    actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation"
     ]
-    resources = [ 
+    resources = [
       module.s3_bucket.bucket_arn
     ]
   }
@@ -37,9 +37,9 @@ data "aws_iam_policy_document" "s3_restricted_access" {
     actions = [
       "s3:GetObject"
     ]
-    resources = [ 
-        "${module.s3_bucket.bucket_arn}/status.json",
-        "${module.s3_bucket.bucket_arn}/build-output/*"
+    resources = [
+      "${module.s3_bucket.bucket_arn}/status.json",
+      "${module.s3_bucket.bucket_arn}/build-output/*"
     ]
   }
 }

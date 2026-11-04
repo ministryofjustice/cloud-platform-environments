@@ -27,9 +27,9 @@ module "allocation-rds" {
   db_name                     = "allocations"
 
   db_password_rotated_date = "2023-04-05T11:31:27Z"
-  
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
-  
+
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -104,14 +104,14 @@ module "allocation-rds-read-replica" {
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   db_name                     = "allocations"
-  db_password_rotated_date = "2023-04-05T11:31:27Z"
-  
+  db_password_rotated_date    = "2023-04-05T11:31:27Z"
+
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   replicate_source_db        = module.allocation-rds.db_identifier
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-    
+
   db_parameter = [
     {
       name         = "rds.logical_replication"

@@ -1,10 +1,10 @@
 locals {
-###################################################################
-### Change these to the repositories managed by this namespace ###
+  ###################################################################
+  ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-manage-a-supervision-ui"]
+  github_repos = ["hmpps-manage-a-supervision-ui"]
 
-###################################################################
+  ###################################################################
   github-actions-sa_rules = [
     {
       api_groups = [""]
@@ -97,18 +97,18 @@ resource "time_rotating" "weekly" {
 
 data "github_team" "hmpps-manage-people-on-probation" {
   slug = "hmpps-manage-people-on-probation"
-}   
+}
 
 ##########################################################################
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
-# Not working - waiting for Cloud Platforms to help me fix this
-# prevent_self_review = true
+  repository  = each.key
+  # Not working - waiting for Cloud Platforms to help me fix this
+  # prevent_self_review = true
   reviewers {
-    teams = [ 
+    teams = [
       tonumber(data.github_team.hmpps-manage-people-on-probation.id)
     ]
   }
@@ -120,9 +120,9 @@ resource "github_repository_environment" "env" {
 
 # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  for_each      = toset(local.github_repos)
+  repository    = each.key
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }

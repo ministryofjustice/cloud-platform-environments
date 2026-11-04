@@ -11,7 +11,7 @@ module "hmpps_egress_controls" {
   vpc_name  = var.vpc_name
 
   vpc_egress_ports = [
-    6379  # Elasticache - Redis
+    6379 # Elasticache - Redis
   ]
 
   envoy_extra_allowed_hosts_exact = [

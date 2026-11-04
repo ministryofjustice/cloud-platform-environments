@@ -1,6 +1,6 @@
 locals {
 
-  github_repos   = ["hmpps-prison-roll-count"]
+  github_repos = ["hmpps-prison-roll-count"]
 
   github-actions-sa_rules = [
     {
@@ -122,9 +122,9 @@ resource "github_repository_environment" "env" {
 
 # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  for_each      = toset(local.github_repos)
+  repository    = each.key
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }

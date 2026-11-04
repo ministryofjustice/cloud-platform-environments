@@ -47,7 +47,7 @@ resource "kubernetes_secret" "s3_buckets" {
   data = {
     lookup_data_bucket_arn  = module.address_matcher_lookup_data_s3.bucket_arn
     lookup_data_bucket_name = module.address_matcher_lookup_data_s3.bucket_name
-    query_logs_bucket_arn = module.address_matcher_query_logs_s3.bucket_arn
-    query_logs_bucket_name = module.address_matcher_query_logs_s3.bucket_name
+    query_logs_bucket_arn   = module.address_matcher_query_logs_s3.bucket_arn
+    query_logs_bucket_name  = module.address_matcher_query_logs_s3.bucket_name
   }
 }

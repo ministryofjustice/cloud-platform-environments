@@ -6,9 +6,9 @@
  */
 module "ecr_credentials" {
   deletion_protection = false
-  source    = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
-  team_name = var.team_name
-  repo_name = "${var.namespace}-ecr"
+  source              = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  team_name           = var.team_name
+  repo_name           = "${var.namespace}-ecr"
 
   # enable the oidc implementation for GitHub
   oidc_providers = ["circleci"]

@@ -26,19 +26,19 @@ resource "kubernetes_secret" "matching_notifications_topic" {
   }
 
   data = {
-    topic_arn = module.matching_notifications_topic.topic_arn
+    topic_arn  = module.matching_notifications_topic.topic_arn
     topic_name = module.matching_notifications_topic.topic_name
   }
 }
 
 resource "aws_sns_topic_policy" "matching_notifications" {
-  arn = module.matching_notifications_topic.topic_arn
+  arn    = module.matching_notifications_topic.topic_arn
   policy = data.aws_iam_policy_document.matching_notifications_topic.json
 }
 
 data "aws_iam_policy_document" "matching_notifications_topic" {
   statement {
-    sid = "AllowPublish"
+    sid    = "AllowPublish"
     effect = "Allow"
     actions = [
       "sns:Publish",

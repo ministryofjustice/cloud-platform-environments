@@ -4,8 +4,8 @@
 
 module "make_recall_decision_api_rds" {
   prepare_for_major_upgrade = true
-  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type = "gp2"
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type              = "gp2"
 
   vpc_name               = var.vpc_name
   namespace              = var.namespace

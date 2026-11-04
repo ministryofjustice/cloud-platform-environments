@@ -4,7 +4,7 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"                           = "hmpps-audit-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
     # "eawp_assessment_events_queue"                               = "hmpps-education-and-work-plan-dev",
     # "eawp_assessment_events_dlq"                                 = "hmpps-education-and-work-plan-dev"
   }
@@ -27,11 +27,11 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     {
-      rds_policy                                  = module.hmpps_education_work_plan_rds.irsa_policy_arn,
-      sqs                                         = module.hmpps_eawp_domain_events_queue.irsa_policy_arn,
-      sqs_dlq                                     = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn,
-      (module.eawp_assessment_events_queue.sqs_name)              = module.eawp_assessment_events_queue.irsa_policy_arn
-      (module.eawp_assessment_events_dead_letter_queue.sqs_name)  = module.eawp_assessment_events_dead_letter_queue.irsa_policy_arn
+      rds_policy                                                 = module.hmpps_education_work_plan_rds.irsa_policy_arn,
+      sqs                                                        = module.hmpps_eawp_domain_events_queue.irsa_policy_arn,
+      sqs_dlq                                                    = module.hmpps_eawp_domain_events_dlq.irsa_policy_arn,
+      (module.eawp_assessment_events_queue.sqs_name)             = module.eawp_assessment_events_queue.irsa_policy_arn
+      (module.eawp_assessment_events_dead_letter_queue.sqs_name) = module.eawp_assessment_events_dead_letter_queue.irsa_policy_arn
     }
   )
 

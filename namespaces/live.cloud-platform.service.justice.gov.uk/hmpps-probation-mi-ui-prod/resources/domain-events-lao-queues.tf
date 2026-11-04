@@ -96,10 +96,10 @@ resource "kubernetes_secret" "hmpps_probation_mi_domain_events_queue_secret_dlq"
 }
 
 resource "aws_cloudwatch_metric_alarm" "hmpps_probation_mi_domain_events_dlq_alarm" {
-  alarm_name          = "${module.hmpps_probation_mi_domain_events_dlq.sqs_name}-age-alarm"
-  alarm_description   = "Messages have been in the lao_domain_events_dlq (prod) for longer than 15 minutes"
-  namespace           = "AWS/SQS"
-  metric_name         = "ApproximateAgeOfOldestMessage"
+  alarm_name        = "${module.hmpps_probation_mi_domain_events_dlq.sqs_name}-age-alarm"
+  alarm_description = "Messages have been in the lao_domain_events_dlq (prod) for longer than 15 minutes"
+  namespace         = "AWS/SQS"
+  metric_name       = "ApproximateAgeOfOldestMessage"
 
   dimensions = {
     QueueName = module.hmpps_probation_mi_domain_events_dlq.sqs_name

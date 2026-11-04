@@ -1,7 +1,7 @@
 # SNS Topics
 
 module "sns_topic_fileupload" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
   topic_display_name = "${var.namespace}-fileupload-sns"
 
   encrypt_sns_kms             = true
@@ -19,7 +19,7 @@ module "sns_topic_fileupload" {
 }
 
 module "sns_topic_personid" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
+  source             = "github.com/ministryofjustice/cloud-platform-terraform-sns-topic?ref=5.1.2"
   topic_display_name = "${var.namespace}-personid-sns"
 
   encrypt_sns_kms             = true

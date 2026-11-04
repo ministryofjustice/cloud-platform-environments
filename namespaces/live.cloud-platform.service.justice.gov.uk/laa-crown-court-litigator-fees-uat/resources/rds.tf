@@ -52,7 +52,7 @@ module "rds-instance-migrated" {
   ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
-  is_migration = true
+  is_migration           = true
 
 
   enable_irsa = true
@@ -178,7 +178,7 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
         ],
         Resource = [
           "arn:aws:s3:::hub20-test-cwa-extract-data",
-          "arn:aws:s3:::hub20-test-cwa-extract-data/*"  
+          "arn:aws:s3:::hub20-test-cwa-extract-data/*"
         ]
       }
     ]

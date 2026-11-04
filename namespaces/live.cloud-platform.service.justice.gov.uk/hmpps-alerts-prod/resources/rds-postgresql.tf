@@ -18,7 +18,7 @@ module "rds" {
   db_allocated_storage         = "100"
   db_max_allocated_storage     = "250"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  deletion_protection          = true
+  deletion_protection = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
@@ -37,7 +37,7 @@ module "rds" {
   team_name              = var.team_name
 
   # Add DPR security group.
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -93,8 +93,8 @@ data "aws_security_group" "mp_dps_sg" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -105,11 +105,11 @@ module "read_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  db_engine                 = "postgres"
-  db_engine_version         = "17.11"
-  rds_family                = "postgres17"
-  db_instance_class         = "db.t4g.medium"
-  db_max_allocated_storage  = "250"
+  db_engine                = "postgres"
+  db_engine_version        = "17.11"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.medium"
+  db_max_allocated_storage = "250"
 
   replicate_source_db = module.rds.db_identifier
 
@@ -118,7 +118,7 @@ module "read_replica" {
   db_backup_retention_period = 0
 
   # Add DPR security group.
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

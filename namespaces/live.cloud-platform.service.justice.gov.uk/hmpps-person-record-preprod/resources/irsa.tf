@@ -4,7 +4,7 @@ locals {
   }
   # *** Placeholder for incoming SNS topics ***
   sns_topics = {
-      "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -13,7 +13,7 @@ locals {
 # PiC Events SQS Policies
 data "aws_iam_policy_document" "pic_link_unlink_sqs" {
   statement {
-    sid       = "hmppsPiCPolicy"
+    sid     = "hmppsPiCPolicy"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
@@ -31,9 +31,9 @@ resource "aws_iam_policy" "pic_link_unlink_sqs" {
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
   statement {
-    sid       = "hmppsCourtCaseEventsSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsCourtCaseEventsSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.cpr_court_cases_queue.sqs_arn,
       module.cpr_court_cases_dead_letter_queue.sqs_arn,
@@ -49,9 +49,9 @@ resource "aws_iam_policy" "combined_court_case_sqs" {
 # Delius SQS Policies
 data "aws_iam_policy_document" "combined_delius_sqs" {
   statement {
-    sid       = "hmppsDeliusEventsSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsDeliusEventsSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.cpr_delius_offender_events_queue.sqs_arn,
       module.cpr_delius_offender_events_dead_letter_queue.sqs_arn,
@@ -73,9 +73,9 @@ resource "aws_iam_policy" "combined_delius_sqs" {
 # NOMIS SQS Policies
 data "aws_iam_policy_document" "combined_nomis_sqs" {
   statement {
-    sid       = "hmppsNomisEventsSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsNomisEventsSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.cpr_nomis_events_queue.sqs_arn,
       module.cpr_nomis_events_dead_letter_queue.sqs_arn,

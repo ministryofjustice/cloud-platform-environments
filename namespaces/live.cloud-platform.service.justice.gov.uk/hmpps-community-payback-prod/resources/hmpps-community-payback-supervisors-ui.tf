@@ -1,12 +1,12 @@
 module "hmpps_community_payback_supervisors_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-community-payback-supervisors-ui"
-  application = "hmpps-community-payback-supervisors-ui"
-  github_team = "hmpps-community-payback-live"
-  environment = var.environment
-  reviewer_teams                = ["hmpps-community-payback-live"]
+  github_repo                = "hmpps-community-payback-supervisors-ui"
+  application                = "hmpps-community-payback-supervisors-ui"
+  github_team                = "hmpps-community-payback-live"
+  environment                = var.environment
+  reviewer_teams             = ["hmpps-community-payback-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

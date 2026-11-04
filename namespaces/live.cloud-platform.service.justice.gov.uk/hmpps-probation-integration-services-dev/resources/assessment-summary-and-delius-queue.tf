@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "assessment-summary-and-delius-queue-subscription" {
-  
+
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.assessment-summary-and-delius-queue.sqs_arn
@@ -77,5 +77,5 @@ module "assessment-summary-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "assessment-summary-and-delius"
-  role_policy_arns = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
+  role_policy_arns     = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
 }

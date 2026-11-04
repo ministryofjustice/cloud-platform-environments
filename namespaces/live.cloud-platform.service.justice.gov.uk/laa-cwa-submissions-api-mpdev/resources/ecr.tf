@@ -3,7 +3,7 @@ module "ecr_cwa_submissions" {
   repo_name             = var.namespace
   oidc_providers        = ["github"]
   github_repositories   = ["cwa-submissions-api"]
-  github_actions_prefix = "SUBMISSIONS"  
+  github_actions_prefix = "SUBMISSIONS"
 
   business_unit          = var.business_unit
   application            = var.application
@@ -19,7 +19,7 @@ module "ecr_csv_converter" {
   repo_name             = var.namespace
   oidc_providers        = ["github"]
   github_repositories   = ["cwa-submissions-api"]
-  github_actions_prefix = "CONVERTER"    
+  github_actions_prefix = "CONVERTER"
 
   business_unit          = var.business_unit
   application            = var.application

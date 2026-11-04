@@ -81,7 +81,7 @@ module "irsa" {
 
 data "aws_iam_policy_document" "combined_prepare_a_case_sqs" {
   statement {
-    sid       = "prepareACaseSQSPolicy"
+    sid     = "prepareACaseSQSPolicy"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [

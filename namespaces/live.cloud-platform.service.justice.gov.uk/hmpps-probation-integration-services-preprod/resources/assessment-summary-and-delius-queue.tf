@@ -76,5 +76,5 @@ module "assessment-summary-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "assessment-summary-and-delius"
-  role_policy_arns = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
+  role_policy_arns     = { sqs = module.assessment-summary-and-delius-queue.irsa_policy_arn }
 }

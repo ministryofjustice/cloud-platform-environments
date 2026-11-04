@@ -25,7 +25,7 @@ resource "kubernetes_secret" "cpr_court_topic" {
   }
 
   data = {
-    topic_arn         = module.cpr_court_topic.topic_arn
+    topic_arn = module.cpr_court_topic.topic_arn
   }
 }
 

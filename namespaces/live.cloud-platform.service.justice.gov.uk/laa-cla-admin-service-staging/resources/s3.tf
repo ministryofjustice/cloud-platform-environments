@@ -22,7 +22,7 @@ resource "kubernetes_secret" "s3_k8_secrets" {
   }
 
   data = {
-    static_files_bucket_name    = module.static_files_bucket.bucket_name
-    static_files_bucket_arn     = module.static_files_bucket.bucket_arn
+    static_files_bucket_name = module.static_files_bucket.bucket_name
+    static_files_bucket_arn  = module.static_files_bucket.bucket_arn
   }
 }

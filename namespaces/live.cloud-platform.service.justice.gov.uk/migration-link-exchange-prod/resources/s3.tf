@@ -42,35 +42,35 @@ resource "kubernetes_secret" "s3_bucket" {
 # https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/sharing-aws-resources-across-namespaces-using-ssm-and-irsa.html
 
 resource "aws_ssm_parameter" "s3-bucket-name" {
-    type        = "String"
-    name        = "/${var.namespace}/s3-bucket-name"
-    # specify the module of an existing resource here
-    value       = module.s3_bucket.bucket_name
-    description = "Name of Bucket to be accessed from namespace migration-link-exchange-build-prod"
-    tags = {
-        business-unit          = var.business_unit
-        application            = var.application
-        is-production          = var.is_production
-        owner                  = var.team_name
-        environment_name       = var.environment
-        infrastructure-support = var.infrastructure_support
-        namespace              = var.namespace
-    }
+  type = "String"
+  name = "/${var.namespace}/s3-bucket-name"
+  # specify the module of an existing resource here
+  value       = module.s3_bucket.bucket_name
+  description = "Name of Bucket to be accessed from namespace migration-link-exchange-build-prod"
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment_name       = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }
 
 resource "aws_ssm_parameter" "s3-bucket-arn" {
-    type        = "String"
-    name        = "/${var.namespace}/s3-bucket-arn"
-    # specify the module of an existing resource here
-    value       = module.s3_bucket.bucket_arn
-    description = "ARN of Bucket to be accessed from migration-link-exchange-build-prod"
-    tags = {
-      business-unit          = var.business_unit
-      application            = var.application
-      is_production          = var.is_production
-      team_name              = var.team_name
-      environment            = var.environment
-      infrastructure-support = var.infrastructure_support
-      namespace              = var.namespace
-    }
+  type = "String"
+  name = "/${var.namespace}/s3-bucket-arn"
+  # specify the module of an existing resource here
+  value       = module.s3_bucket.bucket_arn
+  description = "ARN of Bucket to be accessed from migration-link-exchange-build-prod"
+  tags = {
+    business-unit          = var.business_unit
+    application            = var.application
+    is_production          = var.is_production
+    team_name              = var.team_name
+    environment            = var.environment
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
+  }
 }

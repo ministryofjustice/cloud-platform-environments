@@ -1,11 +1,11 @@
 module "hmpps_dpr_tools_api_github" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
 
-  github_repo                    = "hmpps-dpr-tools-api"
-  application                    = "hmpps-dpr-tools-api"
-  github_team                    = var.team_name
-  environment                    = "test"
-  is_production                  = var.is_production
+  github_repo                   = "hmpps-dpr-tools-api"
+  application                   = "hmpps-dpr-tools-api"
+  github_team                   = var.team_name
+  environment                   = "test"
+  is_production                 = var.is_production
   application_insights_instance = "dev"
 
   selected_branch_patterns = [

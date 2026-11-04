@@ -23,7 +23,7 @@ module "rds-instance-migrated" {
   db_name                  = "CCLF"
   license_model            = "license-included"
   db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252" 
+  character_set_name       = "WE8MSWIN1252"
   db_password_rotated_date = "29-05-2025"
   option_group_name        = aws_db_option_group.rds_s3_option_group.name
 
@@ -53,7 +53,7 @@ module "rds-instance-migrated" {
   ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
-  is_migration = true
+  is_migration           = true
 
 
   enable_irsa = true
@@ -184,7 +184,7 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
         ],
         Resource = [
           "arn:aws:s3:::hub20-production-cwa-extract-data",
-          "arn:aws:s3:::hub20-production-cwa-extract-data/*"  
+          "arn:aws:s3:::hub20-production-cwa-extract-data/*"
         ]
       }
     ]

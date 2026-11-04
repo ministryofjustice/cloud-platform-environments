@@ -6,7 +6,7 @@ module "doc_gen_irsa" {
 
   # IRSA configuration
   service_account_name = "hmpps-document-generation-api"
-  role_policy_arns     = {
+  role_policy_arns = {
     rds = module.doc_gen_postgres.irsa_policy_arn
   }
 

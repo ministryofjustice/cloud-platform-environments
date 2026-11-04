@@ -80,8 +80,8 @@ data "aws_secretsmanager_secret_version" "bmadley_filter_list" {
 }
 
 data "github_repository_file" "bmadley_subscription_filter_policy" {
-  repository          = "${var.github_owner}/${var.github_repo_name}"
-  file                = "src/main/resources/event-filter-policies/${var.environment}/bmadley-subscription-filter.json"
+  repository = "${var.github_owner}/${var.github_repo_name}"
+  file       = "src/main/resources/event-filter-policies/${var.environment}/bmadley-subscription-filter.json"
 }
 
 resource "aws_sns_topic_subscription" "event_bmadley_subscription" {
@@ -101,9 +101,9 @@ resource "kubernetes_secret" "event_bmadley_queue" {
   }
 
   data = {
-    sqs_id                        = module.event_bmadley_queue.sqs_id
-    sqs_arn                       = module.event_bmadley_queue.sqs_arn
-    sqs_name                      = module.event_bmadley_queue.sqs_name
+    sqs_id                          = module.event_bmadley_queue.sqs_id
+    sqs_arn                         = module.event_bmadley_queue.sqs_arn
+    sqs_name                        = module.event_bmadley_queue.sqs_name
     bmadley_filter_policy_secret_id = data.aws_secretsmanager_secret_version.bmadley_filter_list.secret_id
   }
 }

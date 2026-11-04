@@ -1,10 +1,10 @@
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-launchpad-home-ui"
-  role_policy_arns       = tomap({})
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-launchpad-home-ui"
+  role_policy_arns     = tomap({})
   # Tags
   business_unit          = var.business_unit
   application            = var.application

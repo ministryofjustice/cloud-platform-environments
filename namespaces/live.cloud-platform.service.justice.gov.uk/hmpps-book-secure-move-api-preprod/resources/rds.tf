@@ -51,7 +51,7 @@ module "rds-instance" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"

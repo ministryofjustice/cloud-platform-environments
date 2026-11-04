@@ -24,11 +24,11 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.small"
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  db_engine              = "postgres"
+  db_engine_version      = "16"
+  rds_family             = "postgres16"
+  db_instance_class      = "db.t4g.small"
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [
     {
       name         = "rds.logical_replication"

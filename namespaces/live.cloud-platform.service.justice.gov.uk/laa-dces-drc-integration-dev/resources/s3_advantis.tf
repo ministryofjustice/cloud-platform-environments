@@ -22,7 +22,7 @@ module "s3_advantis_bucket" {
 data "aws_iam_policy_document" "bucket-policy" {
   statement {
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_iam_user.advantis_upload_user_dev.arn
       ]
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "bucket-policy" {
 
   statement {
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_iam_user.admin_advantis_user_dev.arn
       ]
@@ -63,10 +63,10 @@ data "aws_iam_policy_document" "bucket-policy" {
 
   # Delegate S3 Access for Cross-Account Sync
   statement {
-    sid = "DelegateS3Access"
+    sid    = "DelegateS3Access"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::463470948902:user/prodadvlaadatamigr"
       ]
@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "bucket-policy" {
 
   statement {
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::463470948902:user/prodadvlaadatamigr"
       ]
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "bucket-policy" {
       "s3:GetObjectTagging"
     ]
     resources = [
-      "$${bucket_arn}/DRC/Attachments/*"  # Deny getting objects from DRC/Attachments
+      "$${bucket_arn}/DRC/Attachments/*" # Deny getting objects from DRC/Attachments
     ]
   }
 
@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "bucket-policy" {
   statement {
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_iam_role.guardduty_malware_protection_role.arn
       ]
@@ -130,12 +130,12 @@ data "aws_iam_policy_document" "bucket-policy" {
 
   # s3 put access to transfer attachments from marston bucket
   statement {
-    sid = "PutAccessForMarstonAttachments"
+    sid    = "PutAccessForMarstonAttachments"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
-         "arn:aws:iam::754256621582:user/system/laa-dces-data-migration-dev-admin-users/laa-dces-data-migration-dev-admin-user"
+        "arn:aws:iam::754256621582:user/system/laa-dces-data-migration-dev-admin-users/laa-dces-data-migration-dev-admin-user"
       ]
     }
     actions = [

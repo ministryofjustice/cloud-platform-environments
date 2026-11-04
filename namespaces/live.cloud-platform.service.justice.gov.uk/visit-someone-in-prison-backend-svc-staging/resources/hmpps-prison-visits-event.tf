@@ -44,7 +44,7 @@ module "hmpps_prison_visits_event_queue" {
   sqs_name                   = "hmpps_prison_visits_event_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 43200 # 12 hours
-  visibility_timeout_seconds = 120 # 2 minutes
+  visibility_timeout_seconds = 120   # 2 minutes
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_prison_visits_notification_alerts_dead_letter_queue.sqs_arn
@@ -98,10 +98,10 @@ module "hmpps_prison_visits_event_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name        = "hmpps_prison_visits_event_dlq"
-  encrypt_sqs_kms = "true"
+  sqs_name                   = "hmpps_prison_visits_event_dlq"
+  encrypt_sqs_kms            = "true"
   message_retention_seconds  = 21600 # 6 hours
-  visibility_timeout_seconds = 120 # 2 minutes
+  visibility_timeout_seconds = 120   # 2 minutes
 
   # Tags
   business_unit          = var.business_unit

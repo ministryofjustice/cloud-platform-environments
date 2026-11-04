@@ -43,7 +43,7 @@ module "data_ecr" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  github_actions_prefix = "data"
+  github_actions_prefix  = "data"
 
   enable_irsa = true
 }
@@ -55,8 +55,8 @@ resource "kubernetes_secret" "ecr_credentials" {
   }
 
   data = {
-    repo_arn = module.ecr.repo_arn
-    repo_url = module.ecr.repo_url
+    repo_arn      = module.ecr.repo_arn
+    repo_url      = module.ecr.repo_url
     data_repo_arn = module.data_ecr.repo_arn
     data_repo_url = module.data_ecr.repo_url
   }

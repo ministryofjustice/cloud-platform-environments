@@ -19,8 +19,8 @@ module "opensearch" {
   snapshot_bucket_arn = module.s3_snapshot_bucket.bucket_arn
 
   # Cluster configuration
-  engine_version      = "OpenSearch_2.9"
-  proxy_count         = 2
+  engine_version = "OpenSearch_2.9"
+  proxy_count    = 2
 
   # Non-production cluster configuration
   cluster_config = {

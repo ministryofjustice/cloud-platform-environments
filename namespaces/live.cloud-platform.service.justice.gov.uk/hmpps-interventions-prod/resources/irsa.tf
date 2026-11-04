@@ -22,7 +22,7 @@ module "irsa" {
   namespace            = var.namespace
   role_policy_arns = merge(local.sns_policies, {
     s3 = module.interventions_s3_bucket.irsa_policy_arn
-  },
+    },
   local.sqs_policies)
 
   # Tags

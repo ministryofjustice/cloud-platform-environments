@@ -9,9 +9,9 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    dynamodb                = module.dynamodb-cluster.irsa_policy_arn
-    dynamodb_prod           = module.dynamodb-fci-prod.irsa_policy_arn
-    xaccounts3              = aws_iam_policy.access_ap_s3_policy.arn
+    dynamodb      = module.dynamodb-cluster.irsa_policy_arn
+    dynamodb_prod = module.dynamodb-fci-prod.irsa_policy_arn
+    xaccounts3    = aws_iam_policy.access_ap_s3_policy.arn
   }
 
   # Tags
@@ -24,8 +24,8 @@ module "irsa" {
 }
 
 module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" 
-  
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0"
+
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
 }

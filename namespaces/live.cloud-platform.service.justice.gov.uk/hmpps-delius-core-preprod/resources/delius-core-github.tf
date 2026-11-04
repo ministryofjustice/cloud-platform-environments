@@ -1,7 +1,7 @@
 module "community-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "community-api"
   application                   = "community-api"
   github_team                   = var.team_name
@@ -18,8 +18,8 @@ module "community-api" {
 
 module "ndelius-new-tech" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "ndelius-new-tech"
   application                   = "ndelius-new-tech"
   github_team                   = var.team_name
@@ -36,8 +36,8 @@ module "ndelius-new-tech" {
 
 module "pdf-generator" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "pdf-generator"
   application                   = "pdf-generator"
   github_team                   = var.team_name

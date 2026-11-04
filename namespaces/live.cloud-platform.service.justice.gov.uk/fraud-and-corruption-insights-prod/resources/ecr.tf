@@ -5,11 +5,11 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["fraud-and-corruption-insights"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["fraud-and-corruption-insights"]
   github_environments   = ["prod"]
   github_actions_prefix = "prod"
-  
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

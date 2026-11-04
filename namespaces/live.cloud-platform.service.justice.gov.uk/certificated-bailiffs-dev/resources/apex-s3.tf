@@ -20,8 +20,8 @@ module "apex-migration-s3" {
         Effect = "Allow",
         Principal = {
           AWS = [
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
+            "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
+            "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
           ]
         },
         Action = [
@@ -37,8 +37,8 @@ module "apex-migration-s3" {
         Effect = "Allow",
         Principal = {
           AWS = [
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
-              "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
+            "arn:aws:sts::754256621582:assumed-role/access-via-github/Tim97eng",
+            "arn:aws:sts::754256621582:assumed-role/access-via-github/mark-butler-solirius"
           ]
         },
         Action = [
@@ -59,7 +59,7 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn           = module.apex-migration-s3.bucket_arn
-    bucket_name          = module.apex-migration-s3.bucket_name
+    bucket_arn  = module.apex-migration-s3.bucket_arn
+    bucket_name = module.apex-migration-s3.bucket_name
   }
 }

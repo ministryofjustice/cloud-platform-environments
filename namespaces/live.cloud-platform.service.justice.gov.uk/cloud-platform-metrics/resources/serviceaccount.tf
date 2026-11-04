@@ -6,6 +6,6 @@ module "service_account" {
   serviceaccount_name = "github-action-app-deployment"
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = ["cloud-platform-metrics"]
+  github_repositories               = ["cloud-platform-metrics"]
   serviceaccount_token_rotated_date = "20-03-2026"
 }

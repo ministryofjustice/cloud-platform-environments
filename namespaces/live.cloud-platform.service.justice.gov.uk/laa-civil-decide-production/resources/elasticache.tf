@@ -11,13 +11,13 @@ module "elasticache" {
   auth_token_rotated_date = "2025-10-27"
 
   # Tags
-  business_unit           = var.business_unit
-  application             = var.application
-  is_production           = var.is_production
-  team_name               = var.team_name
-  namespace               = var.namespace
-  environment_name        = var.environment
-  infrastructure_support  = var.infrastructure_support
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
 
 resource "kubernetes_secret" "elasticache" {

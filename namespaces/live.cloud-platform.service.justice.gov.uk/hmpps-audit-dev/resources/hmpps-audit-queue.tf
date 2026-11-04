@@ -236,7 +236,7 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
 
 resource "kubernetes_secret" "approved_prisoner_audit_client_arns" {
   metadata {
-    name = "approved-prisoner-audit-client-arns"
+    name      = "approved-prisoner-audit-client-arns"
     namespace = var.namespace
   }
 }
@@ -328,8 +328,8 @@ data "aws_iam_policy_document" "hmpps_prisoner_audit_queue_policy" {
 
   # Allow send to permitted sns topics
   statement {
-    sid       = "AllowPrisonerAuditQueueSnsSend"
-    effect    = "Allow"
+    sid    = "AllowPrisonerAuditQueueSnsSend"
+    effect = "Allow"
 
     actions   = ["sqs:SendMessage"]
     resources = [module.hmpps_prisoner_audit_queue.sqs_arn]

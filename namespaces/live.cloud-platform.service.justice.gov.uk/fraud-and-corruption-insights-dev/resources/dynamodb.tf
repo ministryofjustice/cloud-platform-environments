@@ -25,7 +25,7 @@ resource "kubernetes_secret" "dynamodb-cluster" {
   }
 
   data = {
-    table_name        = module.dynamodb-cluster.table_name
-    table_arn         = module.dynamodb-cluster.table_arn
+    table_name = module.dynamodb-cluster.table_name
+    table_arn  = module.dynamodb-cluster.table_arn
   }
 }

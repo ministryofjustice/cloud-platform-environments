@@ -25,7 +25,7 @@ module "redact_task_queue" {
   # Long enough that an in-flight ML job isn't picked up by a second pod
   # before the first one finishes.
   visibility_timeout_seconds = 900
-  receive_wait_time_seconds   = 20
+  receive_wait_time_seconds  = 20
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.redact_task_queue_dlq.sqs_arn
@@ -165,7 +165,7 @@ module "apply_redactions_queue" {
   encrypt_sqs_kms = "true"
 
   visibility_timeout_seconds = 900
-  receive_wait_time_seconds   = 20
+  receive_wait_time_seconds  = 20
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.apply_redactions_queue_dlq.sqs_arn

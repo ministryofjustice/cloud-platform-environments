@@ -11,9 +11,9 @@ module "secrets_manager" {
 
   secrets = {
     "cccd-env-vars" = {
-      description              = "CCCD production environment variables",
-      recovery_window_in_days  = 7,
-      k8s_secret_name          = "cccd-env-vars"
+      description             = "CCCD production environment variables",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "cccd-env-vars"
     }
   }
 }

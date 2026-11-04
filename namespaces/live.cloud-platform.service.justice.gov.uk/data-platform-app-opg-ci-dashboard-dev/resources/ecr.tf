@@ -11,8 +11,8 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["opg-ci-dashboard"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["opg-ci-dashboard"]
   github_environments   = ["dev"]
   github_actions_prefix = "dev"
 

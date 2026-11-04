@@ -8,8 +8,8 @@ module "secrets_manager" {
   secrets = {
     "cwa-schedule-uploader-api" = {
       description             = "CWA Schedule Uploader API Secrets" # required
-      recovery_window_in_days = 7                # required
-      k8s_secret_name         = "cwa-schedule-uploader-api" # the name of the secret in k8s
+      recovery_window_in_days = 7                                   # required
+      k8s_secret_name         = "cwa-schedule-uploader-api"         # the name of the secret in k8s
     },
   }
 

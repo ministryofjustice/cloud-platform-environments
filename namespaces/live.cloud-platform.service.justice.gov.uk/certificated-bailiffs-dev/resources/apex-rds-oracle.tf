@@ -51,7 +51,7 @@ module "rds_apex" {
 
   # VPC configuration
   vpc_name               = var.vpc_name
-  vpc_security_group_ids = [aws_security_group.apex-rds-out.id]   # ← This is now valid
+  vpc_security_group_ids = [aws_security_group.apex-rds-out.id] # ← This is now valid
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -60,17 +60,17 @@ module "rds_apex" {
   enable_rds_auto_start_stop   = true
 
   # Oracle specifics
-  db_engine             = "oracle-se2"
-  db_engine_version     = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
-  rds_family            = "oracle-se2-19"
-  db_instance_class     = "db.t3.small"
-  storage_type          = "gp2"
-  db_allocated_storage  = "100"
-  db_name               = "APXP"
-  license_model         = "license-included"
-  db_iops               = 0
-  character_set_name    = "WE8MSWIN1252"
-  option_group_name     = aws_db_option_group.oracle_apex.name
+  db_engine            = "oracle-se2"
+  db_engine_version    = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
+  rds_family           = "oracle-se2-19"
+  db_instance_class    = "db.t3.small"
+  storage_type         = "gp2"
+  db_allocated_storage = "100"
+  db_name              = "APXP"
+  license_model        = "license-included"
+  db_iops              = 0
+  character_set_name   = "WE8MSWIN1252"
+  option_group_name    = aws_db_option_group.oracle_apex.name
 
   db_parameter = []
 

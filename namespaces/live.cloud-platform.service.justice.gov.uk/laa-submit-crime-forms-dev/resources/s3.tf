@@ -58,7 +58,7 @@ module "s3_bucket" {
     aws = aws.london
   }
 
-  cors_rule =[
+  cors_rule = [
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET"]
@@ -117,13 +117,13 @@ module "s3_bucket" {
 
   */
 
-    /*
+  /*
   * The following are exampls of bucket and user policies. They are treated as
   * templates. Currently, the only available variable is `$${bucket_arn}`.
   *
   */
 
-    /*
+  /*
   * Allow a user (foobar) from another account (012345678901) to get objects from
   * this bucket.
   *
@@ -150,7 +150,7 @@ module "s3_bucket" {
 
   */
 
-      /*
+  /*
   * Override the default policy for the generated machine user of this bucket.
   *
 

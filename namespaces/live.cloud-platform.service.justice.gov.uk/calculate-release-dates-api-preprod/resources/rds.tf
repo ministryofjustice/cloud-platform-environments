@@ -6,24 +6,24 @@ data "aws_vpc" "this" {
 }
 
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name               = var.vpc_name
-  db_instance_class      = "db.t3.small"
-  team_name              = var.team_name
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  namespace              = var.namespace
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  db_max_allocated_storage     = "250"
-  db_allocated_storage         = "250" # required based on snapshot size even though a lot should be unused
-  db_engine              = "postgres"
-  db_engine_version      = "16.15" # may not be actual version due to auto patch
-  rds_family             = "postgres16"
-  prepare_for_major_upgrade = false
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name                    = var.vpc_name
+  db_instance_class           = "db.t3.small"
+  team_name                   = var.team_name
+  business_unit               = var.business_unit
+  application                 = var.application
+  is_production               = var.is_production
+  namespace                   = var.namespace
+  environment_name            = var.environment
+  infrastructure_support      = var.infrastructure_support
+  db_max_allocated_storage    = "250"
+  db_allocated_storage        = "250" # required based on snapshot size even though a lot should be unused
+  db_engine                   = "postgres"
+  db_engine_version           = "16.15" # may not be actual version due to auto patch
+  rds_family                  = "postgres16"
+  prepare_for_major_upgrade   = false
   allow_minor_version_upgrade = true
-  deletion_protection = true
+  deletion_protection         = true
 
   db_password_rotated_date = "14-02-2023"
 
@@ -31,7 +31,7 @@ module "calculate_release_dates_api_rds" {
     aws = aws.london
   }
 
-  vpc_security_group_ids     = [aws_security_group.data_catalogue_access_sg.id, data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [aws_security_group.data_catalogue_access_sg.id, data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -70,9 +70,9 @@ module "calculate_release_dates_api_rds" {
       apply_method = "pending-reboot"
     },
     {
-    name         = "pg_stat_statements.max"
-    value        = "10000"
-    apply_method = "pending-reboot"
+      name         = "pg_stat_statements.max"
+      value        = "10000"
+      apply_method = "pending-reboot"
     }
   ]
 
@@ -103,11 +103,11 @@ resource "aws_security_group" "data_catalogue_access_sg" {
     create_before_destroy = true
   }
 
-  ingress{
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      cidr_blocks = ["10.201.128.0/17"]
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.201.128.0/17"]
   }
 }
 

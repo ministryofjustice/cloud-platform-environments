@@ -5,9 +5,9 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = [var.namespace]
-  github_environments = ["prod"]
+  oidc_providers        = ["github"]
+  github_repositories   = [var.namespace]
+  github_environments   = ["prod"]
   github_actions_prefix = "prod"
 
   # Tags

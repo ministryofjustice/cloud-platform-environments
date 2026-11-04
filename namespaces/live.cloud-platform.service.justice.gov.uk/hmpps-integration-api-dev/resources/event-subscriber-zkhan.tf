@@ -80,8 +80,8 @@ data "aws_secretsmanager_secret_version" "zkhan_filter_list" {
 }
 
 data "github_repository_file" "zkhan_subscription_filter_policy" {
-  repository          = "${var.github_owner}/${var.github_repo_name}"
-  file                = "src/main/resources/event-filter-policies/${var.environment}/zkhan-subscription-filter.json"
+  repository = "${var.github_owner}/${var.github_repo_name}"
+  file       = "src/main/resources/event-filter-policies/${var.environment}/zkhan-subscription-filter.json"
 }
 
 resource "aws_sns_topic_subscription" "event_zkhan_subscription" {

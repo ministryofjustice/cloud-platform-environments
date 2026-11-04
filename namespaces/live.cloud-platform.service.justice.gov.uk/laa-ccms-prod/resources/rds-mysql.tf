@@ -9,7 +9,7 @@ module "opa_hub_db" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  deletion_protection = true
+  deletion_protection          = true
 
   prepare_for_major_upgrade = true
 

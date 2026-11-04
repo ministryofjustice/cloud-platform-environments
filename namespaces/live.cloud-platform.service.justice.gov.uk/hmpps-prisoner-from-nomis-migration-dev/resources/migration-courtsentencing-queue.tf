@@ -1,5 +1,5 @@
 module "migration_courtsentencing_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

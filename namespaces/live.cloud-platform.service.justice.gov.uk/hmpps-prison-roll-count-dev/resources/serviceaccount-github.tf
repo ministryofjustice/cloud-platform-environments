@@ -1,6 +1,6 @@
 locals {
 
-  github_repos   = ["hmpps-prison-roll-count"]
+  github_repos = ["hmpps-prison-roll-count"]
 
   github-actions-sa_rules = [
     {
@@ -93,7 +93,7 @@ resource "time_rotating" "weekly" {
 ### then add the variable name to the teams list below                 ###
 
 data "github_team" "hmpps-sre" {
-slug = "hmpps-sre"
+  slug = "hmpps-sre"
 }
 
 data "github_team" "move-a-prisoner" {
@@ -114,9 +114,9 @@ resource "github_repository_environment" "env" {
 
 # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  for_each      = toset(local.github_repos)
+  repository    = each.key
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }

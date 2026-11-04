@@ -24,6 +24,6 @@ resource "kubernetes_secret" "cloudfront_k8_secrets" {
   }
 
   data = {
-    cloudfront_url          = module.cloudfront_static_assets.cloudfront_url
+    cloudfront_url = module.cloudfront_static_assets.cloudfront_url
   }
 }

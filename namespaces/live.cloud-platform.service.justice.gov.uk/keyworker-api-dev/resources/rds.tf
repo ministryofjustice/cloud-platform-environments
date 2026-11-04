@@ -22,7 +22,7 @@ module "dps_rds" {
 
   enable_irsa = true
 
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

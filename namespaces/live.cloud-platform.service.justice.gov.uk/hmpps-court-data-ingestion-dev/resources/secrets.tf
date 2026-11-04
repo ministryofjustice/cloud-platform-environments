@@ -37,7 +37,7 @@ resource "aws_secretsmanager_secret_policy" "secret_ingestion_api_auth_token_pol
 
 
 resource "aws_iam_policy" "secret_ingestion_api_auth_token_irsa_policy" {
-  name        = "${var.namespace}-secret-auth-irsa-policy"
+  name = "${var.namespace}-secret-auth-irsa-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -61,6 +61,6 @@ resource "kubernetes_secret" "secret_ingestion_api_auth_token" {
   }
 
   data = {
-    secret_id  = module.secret_ingestion_api_auth_token.secret_arn
+    secret_id = module.secret_ingestion_api_auth_token.secret_arn
   }
 }

@@ -1,14 +1,14 @@
 resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_location_subscription" {
-  
+
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
   endpoint  = module.hmpps_prisoner_to_nomis_location_queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-      "location.inside.prison.created" ,
-      "location.inside.prison.amended" ,
-      "location.inside.prison.deactivated" ,
+      "location.inside.prison.created",
+      "location.inside.prison.amended",
+      "location.inside.prison.deactivated",
       "location.inside.prison.reactivated",
       "location.inside.prison.capacity.changed",
       "location.inside.prison.certification.changed",

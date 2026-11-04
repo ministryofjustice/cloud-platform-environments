@@ -1,8 +1,8 @@
 module "calculate_release_dates_api_rds" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name               = var.vpc_name
-  db_instance_class      = "db.t3.small"
-  team_name              = var.team_name
+  source            = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name          = var.vpc_name
+  db_instance_class = "db.t3.small"
+  team_name         = var.team_name
 
   # Tags
   business_unit          = var.business_unit
@@ -13,13 +13,13 @@ module "calculate_release_dates_api_rds" {
   infrastructure_support = var.infrastructure_support
 
   # Database configuration
-  db_max_allocated_storage     = "500"
-  db_engine              = "postgres"
-  db_engine_version      = "16.15" # may not be actual version due to auto patch
-  rds_family             = "postgres16"
-  
-  prepare_for_major_upgrade = false
-  allow_minor_version_upgrade  = true
+  db_max_allocated_storage = "500"
+  db_engine                = "postgres"
+  db_engine_version        = "16.15" # may not be actual version due to auto patch
+  rds_family               = "postgres16"
+
+  prepare_for_major_upgrade   = false
+  allow_minor_version_upgrade = true
 
   db_password_rotated_date = "17-02-2023"
 
@@ -76,8 +76,8 @@ resource "kubernetes_secret" "calculate_release_dates_api_rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -89,11 +89,11 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_max_allocated_storage     = "500"
-  db_engine         = "postgres"
-  db_engine_version = "16.15" # may not be actual version due to auto patch
-  rds_family        = "postgres16"
-  db_instance_class = "db.t3.small"
+  db_max_allocated_storage = "500"
+  db_engine                = "postgres"
+  db_engine_version        = "16.15" # may not be actual version due to auto patch
+  rds_family               = "postgres16"
+  db_instance_class        = "db.t3.small"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
@@ -103,7 +103,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

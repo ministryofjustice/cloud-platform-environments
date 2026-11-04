@@ -7,12 +7,12 @@ module "hmpps_probation_mi_ui_github" {
   environment                   = "probation-dev"
   is_production                 = var.is_production
   application_insights_instance = "dev"
-  selected_branch_patterns      = [
+  selected_branch_patterns = [
     "main",
     "DHS-705",
   ]
-  source_template_repo          = "hmpps-template-kotlin"
-  github_token                  = var.github_token
-  namespace                     = var.namespace
-  kubernetes_cluster            = var.kubernetes_cluster
+  source_template_repo = "hmpps-template-kotlin"
+  github_token         = var.github_token
+  namespace            = var.namespace
+  kubernetes_cluster   = var.kubernetes_cluster
 }

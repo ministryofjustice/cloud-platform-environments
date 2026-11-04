@@ -26,10 +26,10 @@ module "hmpps_education_work_plan_rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine              = "postgres"
-  db_engine_version      = "17"
-  rds_family             = "postgres17"
-  db_instance_class      = "db.t4g.micro"
+  db_engine         = "postgres"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
 
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
@@ -76,7 +76,7 @@ module "hmpps_education_work_plan_rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -99,10 +99,10 @@ module "read_replica" {
   prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
-  db_engine              = "postgres"
-  db_engine_version      = "17"
-  rds_family             = "postgres17"
-  db_instance_class      = "db.t4g.micro"
+  db_engine         = "postgres"
+  db_engine_version = "17"
+  rds_family        = "postgres17"
+  db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the database_name of the source db
@@ -199,9 +199,9 @@ resource "kubernetes_secret" "rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.hmpps_education_work_plan_rds.database_name
-    database_username     = module.hmpps_education_work_plan_rds.database_username
-    database_password     = module.hmpps_education_work_plan_rds.database_password
-    rds_instance_address  = module.hmpps_education_work_plan_rds.rds_instance_address
+    database_name        = module.hmpps_education_work_plan_rds.database_name
+    database_username    = module.hmpps_education_work_plan_rds.database_username
+    database_password    = module.hmpps_education_work_plan_rds.database_password
+    rds_instance_address = module.hmpps_education_work_plan_rds.rds_instance_address
   }
 }

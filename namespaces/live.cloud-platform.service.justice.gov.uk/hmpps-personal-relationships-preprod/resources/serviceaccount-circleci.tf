@@ -63,12 +63,12 @@ locals {
 }
 
 module "serviceaccount" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
-  namespace            = var.namespace
-  kubernetes_cluster   = var.kubernetes_cluster
-  serviceaccount_name  = "circleci"
-  role_name            = "circleci"
-  serviceaccount_rules = local.sa_rules
-  rolebinding_name     = "circleci"
+  source                            = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  namespace                         = var.namespace
+  kubernetes_cluster                = var.kubernetes_cluster
+  serviceaccount_name               = "circleci"
+  role_name                         = "circleci"
+  serviceaccount_rules              = local.sa_rules
+  rolebinding_name                  = "circleci"
   serviceaccount_token_rotated_date = "20-03-2026"
 }

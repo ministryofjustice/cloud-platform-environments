@@ -85,7 +85,7 @@ module "cas3-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "cas3-and-delius"
-  role_policy_arns     = {
+  role_policy_arns = {
     sqs = module.cas3-and-delius-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
   }

@@ -1,15 +1,15 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name
   serviceaccount_rules = [
     {
-      "api_groups": [
+      "api_groups" : [
         ""
       ],
-      "resources": [
+      "resources" : [
         "pods/portforward",
         "deployment",
         "secrets",
@@ -18,7 +18,7 @@ module "serviceaccount" {
         "persistentvolumeclaims",
         "pods"
       ],
-      "verbs": [
+      "verbs" : [
         "patch",
         "get",
         "create",
@@ -29,14 +29,14 @@ module "serviceaccount" {
       ]
     },
     {
-      "api_groups": [
+      "api_groups" : [
         "extensions",
         "apps",
         "batch",
         "networking.k8s.io",
         "policy"
       ],
-      "resources": [
+      "resources" : [
         "deployments",
         "ingresses",
         "cronjobs",
@@ -46,7 +46,7 @@ module "serviceaccount" {
         "poddisruptionbudgets",
         "networkpolicies"
       ],
-      "verbs": [
+      "verbs" : [
         "get",
         "update",
         "delete",
@@ -57,26 +57,26 @@ module "serviceaccount" {
       ]
     },
     {
-      "api_groups": [
+      "api_groups" : [
         "monitoring.coreos.com"
       ],
-      "resources": [
+      "resources" : [
         "prometheusrules",
         "servicemonitors"
       ],
-      "verbs": [
+      "verbs" : [
         "*"
       ]
     },
     {
-      "api_groups": [
+      "api_groups" : [
         "autoscaling"
       ],
-      "resources": [
+      "resources" : [
         "hpa",
         "horizontalpodautoscalers"
       ],
-      "verbs": [
+      "verbs" : [
         "get",
         "update",
         "delete",
@@ -85,13 +85,13 @@ module "serviceaccount" {
       ]
     },
     {
-      "api_groups": [
+      "api_groups" : [
         "cert-manager.io"
       ],
-      "resources": [
+      "resources" : [
         "certificates"
       ],
-      "verbs": [
+      "verbs" : [
         "get",
         "update",
         "delete",

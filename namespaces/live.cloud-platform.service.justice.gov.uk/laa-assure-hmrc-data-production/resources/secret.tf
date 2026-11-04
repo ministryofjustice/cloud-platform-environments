@@ -11,9 +11,9 @@ module "secrets" {
 
   secrets = {
     "laa-assure-hmrc-data-secrets" = {
-      description             = "laa-assure-hmrc-data-production secrets",   
-      recovery_window_in_days = 7                                
-      k8s_secret_name         = "laa-assure-hmrc-data-secrets" 
+      description             = "laa-assure-hmrc-data-production secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-assure-hmrc-data-secrets"
     },
   }
 }

@@ -8,6 +8,6 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["find-unclaimed-court-money"]
 
-  github_environments = ["production"]
+  github_environments               = ["production"]
   serviceaccount_token_rotated_date = "20-03-2026"
 }

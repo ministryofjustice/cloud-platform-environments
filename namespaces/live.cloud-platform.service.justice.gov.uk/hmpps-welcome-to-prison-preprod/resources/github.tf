@@ -1,7 +1,7 @@
 module "hmpps-welcome-people-into-prison-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-api"
   application                   = "hmpps-welcome-people-into-prison-api"
   github_team                   = var.review_team_name
@@ -14,13 +14,13 @@ module "hmpps-welcome-people-into-prison-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [ var.deployment_team_name ]
+  reviewer_teams                = [var.deployment_team_name]
 }
 
 module "hmpps-welcome-people-into-prison-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-welcome-people-into-prison-ui"
   application                   = "hmpps-welcome-people-into-prison-ui"
   github_team                   = var.review_team_name
@@ -33,5 +33,5 @@ module "hmpps-welcome-people-into-prison-ui" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [ var.deployment_team_name ]
+  reviewer_teams                = [var.deployment_team_name]
 }

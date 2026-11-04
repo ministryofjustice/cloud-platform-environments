@@ -4,28 +4,28 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "activities_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  application                 = var.application
-  is_production               = var.is_production
-  namespace                   = var.namespace
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = false
-  rds_family                  = "postgres17"
-  allow_major_version_upgrade = "false"
-  allow_minor_version_upgrade = "true"
-  db_instance_class           = "db.t4g.medium"
-  db_max_allocated_storage    = "200"
-  db_engine_version           = "17.11"
-  db_engine                   = "postgres"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  namespace                    = var.namespace
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+  prepare_for_major_upgrade    = false
+  rds_family                   = "postgres17"
+  allow_major_version_upgrade  = "false"
+  allow_minor_version_upgrade  = "true"
+  db_instance_class            = "db.t4g.medium"
+  db_max_allocated_storage     = "200"
+  db_engine_version            = "17.11"
+  db_engine                    = "postgres"
   performance_insights_enabled = true
-  deletion_protection         = true
+  deletion_protection          = true
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable DPR team to configure replication
   db_parameter = [
@@ -34,7 +34,7 @@ module "activities_api_rds" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"
@@ -101,7 +101,7 @@ module "activities_rds_read_replica" {
   db_backup_retention_period  = 0
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

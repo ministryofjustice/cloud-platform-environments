@@ -2,7 +2,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value}
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
@@ -20,7 +20,7 @@ module "historical_prisoner_irsa" {
   service_account_name = "hmpps-historical-prisoner"
   namespace            = var.namespace
 
-  role_policy_arns     = local.sqs_policies
+  role_policy_arns = local.sqs_policies
 
   # Tags
   business_unit          = var.business_unit

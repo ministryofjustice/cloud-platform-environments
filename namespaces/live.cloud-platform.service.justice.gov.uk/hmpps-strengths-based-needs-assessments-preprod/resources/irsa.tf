@@ -11,10 +11,10 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-strengths-based-needs-assessments"
-  role_policy_arns       = merge(
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-strengths-based-needs-assessments"
+  role_policy_arns = merge(
     {
       rds = module.hmpps_strengths_based_needs_assessments_preprod_rds.irsa_policy_arn
     },

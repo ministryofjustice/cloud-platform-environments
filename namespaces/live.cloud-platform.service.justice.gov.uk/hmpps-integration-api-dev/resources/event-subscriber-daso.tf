@@ -1,5 +1,5 @@
 module "event_daso_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -81,8 +81,8 @@ data "aws_secretsmanager_secret_version" "daso_filter_list" {
 }
 
 data "github_repository_file" "daso_subscription_filter_policy" {
-  repository          = "${var.github_owner}/${var.github_repo_name}"
-  file                = "src/main/resources/event-filter-policies/${var.environment}/daso-subscription-filter.json"
+  repository = "${var.github_owner}/${var.github_repo_name}"
+  file       = "src/main/resources/event-filter-policies/${var.environment}/daso-subscription-filter.json"
 }
 
 resource "aws_sns_topic_subscription" "event_daso_subscription" {
@@ -102,9 +102,9 @@ resource "kubernetes_secret" "event_daso_queue" {
   }
 
   data = {
-    sqs_id                        = module.event_daso_queue.sqs_id
-    sqs_arn                       = module.event_daso_queue.sqs_arn
-    sqs_name                      = module.event_daso_queue.sqs_name
+    sqs_id                       = module.event_daso_queue.sqs_id
+    sqs_arn                      = module.event_daso_queue.sqs_arn
+    sqs_name                     = module.event_daso_queue.sqs_name
     daso_filter_policy_secret_id = data.aws_secretsmanager_secret_version.daso_filter_list.secret_id
   }
 }

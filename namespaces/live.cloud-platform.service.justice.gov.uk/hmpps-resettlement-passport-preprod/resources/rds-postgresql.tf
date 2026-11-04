@@ -22,10 +22,10 @@ module "rds" {
 
   # PostgreSQL specifics
   prepare_for_major_upgrade = false
-  db_engine         = "postgres"
-  db_engine_version = "16"
-  rds_family        = "postgres16"
-  db_instance_class = "db.t4g.micro"
+  db_engine                 = "postgres"
+  db_engine_version         = "16"
+  rds_family                = "postgres16"
+  db_instance_class         = "db.t4g.micro"
 
   # Tags
   application            = var.application

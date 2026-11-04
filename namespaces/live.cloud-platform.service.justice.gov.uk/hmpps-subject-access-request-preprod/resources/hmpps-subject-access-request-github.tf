@@ -1,7 +1,7 @@
 module "hmpps_subject_access_request-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-subject-access-request-ui"
   application                   = "hmpps-subject-access-request-ui"
   github_team                   = var.team_name
@@ -19,8 +19,8 @@ module "hmpps_subject_access_request-ui" {
 
 module "hmpps_subject_access_request_api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-subject-access-request-api"
   application                   = "hmpps-subject-access-request-api"
   github_team                   = var.team_name
@@ -38,8 +38,8 @@ module "hmpps_subject_access_request_api" {
 
 module "hmpps_subject_access_request_worker" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-subject-access-request-worker"
   application                   = "hmpps-subject-access-request-worker"
   github_team                   = var.team_name
@@ -57,8 +57,8 @@ module "hmpps_subject_access_request_worker" {
 
 module "hmpps_subject_access_request_html_renderer" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-subject-access-request-html-renderer"
   application                   = "hmpps-subject-access-request-html-renderer"
   github_team                   = var.team_name

@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_eks_cluster" "eks_cluster" {
-name = var.eks_cluster_name
+  name = var.eks_cluster_name
 }
 
 module "iam_assumable_role" {
@@ -15,9 +15,9 @@ module "iam_assumable_role" {
   force_detach_policies      = true
   role_name                  = "${var.namespace}-live"
   role_policy_arns = {
-    dynamodb                = module.dynamodb-cluster.irsa_policy_arn
-    dynamodb_dev           = module.dynamodb-fci-dev.irsa_policy_arn
-    xaccounts3              = aws_iam_policy.access_ap_s3_policy.arn
+    dynamodb     = module.dynamodb-cluster.irsa_policy_arn
+    dynamodb_dev = module.dynamodb-fci-dev.irsa_policy_arn
+    xaccounts3   = aws_iam_policy.access_ap_s3_policy.arn
   }
 
   oidc_providers = {

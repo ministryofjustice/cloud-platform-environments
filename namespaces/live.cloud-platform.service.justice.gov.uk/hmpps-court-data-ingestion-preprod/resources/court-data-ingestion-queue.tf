@@ -1,5 +1,5 @@
 module "hmpps_court_data_ingestion_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -79,7 +79,7 @@ resource "kubernetes_secret" "hmpps_court_data_ingestion_dead_letter_queue" {
 resource "aws_sqs_queue_policy" "hmpps_court_data_ingestion_queue_mp_policy" {
   queue_url = module.hmpps_court_data_ingestion_queue.sqs_id
 
-    policy = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"

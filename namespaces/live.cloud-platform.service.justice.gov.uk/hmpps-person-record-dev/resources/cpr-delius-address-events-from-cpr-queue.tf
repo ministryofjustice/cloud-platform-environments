@@ -14,7 +14,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_address_events_from_cpr_subscr
 
 module "cpr_delius_address_events_from_cpr_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
-  
+
   sqs_name                   = "cpr_delius_address_events_from_cpr_queue"
   encrypt_sqs_kms            = "true"
   message_retention_seconds  = 1209600
@@ -66,10 +66,10 @@ resource "aws_sqs_queue_policy" "cpr_delius_address_events_from_cpr_queue_policy
 
 module "cpr_delius_address_events_from_cpr_dead_letter_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
-  
+
   sqs_name        = "cpr_delius_address_events_from_cpr_dlq"
   encrypt_sqs_kms = "true"
-  
+
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -86,7 +86,7 @@ module "cpr_delius_address_events_from_cpr_dead_letter_queue" {
 resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-address-events-from-cpr-secret"
+    name      = "sqs-cpr-delius-address-events-from-cpr-secret"
     namespace = var.namespace
   }
 
@@ -100,7 +100,7 @@ resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_queue" {
 resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-address-events-from-cpr-dlq-secret"
+    name      = "sqs-cpr-delius-address-events-from-cpr-dlq-secret"
     namespace = var.namespace
   }
 

@@ -96,5 +96,5 @@ module "prison-case-notes-to-probation-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-case-notes-to-probation"
-  role_policy_arns = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
+  role_policy_arns     = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
 }

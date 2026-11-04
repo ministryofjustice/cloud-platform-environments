@@ -11,9 +11,9 @@ module "secrets" {
 
   secrets = {
     "hmrc-interface-secrets" = {
-      description             = "laa-hmrc-interface-uat secrets",   
-      recovery_window_in_days = 7                                
-      k8s_secret_name         = "hmrc-interface-secrets" 
+      description             = "laa-hmrc-interface-uat secrets",
+      recovery_window_in_days = 7
+      k8s_secret_name         = "hmrc-interface-secrets"
     },
   }
 }

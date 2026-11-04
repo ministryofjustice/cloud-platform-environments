@@ -16,8 +16,8 @@ module "people-on-probation-ui-service-account" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  service_account_name   = "hmpps-people-on-probation-ui"
-  role_policy_arns       = local.sqs_policies
+  service_account_name = "hmpps-people-on-probation-ui"
+  role_policy_arns     = local.sqs_policies
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {

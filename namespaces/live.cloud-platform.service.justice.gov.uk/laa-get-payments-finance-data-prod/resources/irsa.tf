@@ -12,8 +12,8 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    ecr = module.ecr.irsa_policy_arn
-    data_ecr = module.data_ecr.irsa_policy_arn
+    ecr          = module.ecr.irsa_policy_arn
+    data_ecr     = module.data_ecr.irsa_policy_arn
     s3_read_only = aws_iam_policy.service_read_only_s3.arn
   }
 
@@ -40,10 +40,10 @@ module "irsa_service_pod" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    ecr = module.ecr.irsa_policy_arn
-    data_ecr = module.data_ecr.irsa_policy_arn
-    file_store = module.s3_bucket.irsa_policy_arn
-    report_store = module.s3_bucket_report_store.irsa_policy_arn
+    ecr                  = module.ecr.irsa_policy_arn
+    data_ecr             = module.data_ecr.irsa_policy_arn
+    file_store           = module.s3_bucket.irsa_policy_arn
+    report_store         = module.s3_bucket_report_store.irsa_policy_arn
     report_store_logging = module.s3_bucket_report_store_logging.irsa_policy_arn
   }
 
@@ -58,7 +58,7 @@ module "irsa_service_pod" {
 
 data "aws_iam_policy_document" "service_read_only_s3" {
   statement {
-    actions   = ["s3:ListBucket"]
+    actions = ["s3:ListBucket"]
     resources = [
       module.s3_bucket.bucket_arn,
       module.s3_bucket_report_store.bucket_arn
@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "service_read_only_s3" {
   }
 
   statement {
-    actions   = ["s3:GetObject"]
+    actions = ["s3:GetObject"]
     resources = [
       "${module.s3_bucket.bucket_arn}/*",
       "${module.s3_bucket_report_store.bucket_arn}/*"

@@ -17,7 +17,7 @@ module "ecr" {
 
   # REQUIRED: GitHub repositories that push to this container repository
   # E2E repository does have trailing "-" character, this is not a typo.
-  github_repositories = ["laa-data-claims-notify-service", "bulk-submission-and-fee-scheme-tests-"]
+  github_repositories   = ["laa-data-claims-notify-service", "bulk-submission-and-fee-scheme-tests-"]
   github_actions_prefix = "laa_data_claims_notify_service"
 
   # Lifecycle policies

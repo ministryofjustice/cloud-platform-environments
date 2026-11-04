@@ -1,11 +1,11 @@
 module "hmpps-digital-canteen-api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-digital-canteen-api"
-  application = "hmpps-digital-canteen-api"
-  github_team = "hmpps-digital-canteen-live"
-  environment = var.environment
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "hmpps-digital-canteen-api"
+  application                   = "hmpps-digital-canteen-api"
+  github_team                   = "hmpps-digital-canteen-live"
+  environment                   = var.environment
   selected_branch_patterns      = ["main"]
   reviewer_teams                = [var.github_deployment_team]
   is_production                 = var.is_production
@@ -17,13 +17,13 @@ module "hmpps-digital-canteen-api" {
 }
 
 module "hmpps-digital-canteen-medusa-service" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-digital-canteen-medusa-service"
-  application = "hmpps-digital-canteen-medusa-service"
-  github_team = "hmpps-digital-canteen-live"
-  environment = var.environment
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "hmpps-digital-canteen-medusa-service"
+  application                   = "hmpps-digital-canteen-medusa-service"
+  github_team                   = "hmpps-digital-canteen-live"
+  environment                   = var.environment
   selected_branch_patterns      = ["main"]
   reviewer_teams                = [var.github_deployment_team]
   is_production                 = var.is_production
@@ -35,13 +35,13 @@ module "hmpps-digital-canteen-medusa-service" {
 }
 
 module "hmpps-digital-canteen-ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-digital-canteen-ui"
-  application = "hmpps-digital-canteen-ui"
-  github_team = "hmpps-digital-canteen-live"
-  environment = var.environment
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "hmpps-digital-canteen-ui"
+  application                   = "hmpps-digital-canteen-ui"
+  github_team                   = "hmpps-digital-canteen-live"
+  environment                   = var.environment
   selected_branch_patterns      = ["main"]
   reviewer_teams                = [var.github_deployment_team]
   is_production                 = var.is_production

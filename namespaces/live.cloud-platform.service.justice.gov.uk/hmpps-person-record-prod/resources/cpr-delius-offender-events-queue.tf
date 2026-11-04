@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "cpr_delius_sqs_queue_policy_document" {
     }
     resources = ["*"]
   }
- }
+}
 
 resource "aws_sqs_queue_policy" "cpr_delius_offender_events_queue_policy" {
   queue_url = module.cpr_delius_offender_events_queue.sqs_id

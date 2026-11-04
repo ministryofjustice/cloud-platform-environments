@@ -1,12 +1,12 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # adding a role_name
-  role_name = "serviceaccount_role_gh"
-  rolebinding_name = "github-action-rolebinding"
+  role_name            = "serviceaccount_role_gh"
+  rolebinding_name     = "github-action-rolebinding"
   serviceaccount_rules = var.serviceaccount_rules
 
 
@@ -18,7 +18,7 @@ module "serviceaccount" {
   github_repositories = ["laa-fee-calculator"]
 
   # commenting next line out to see if its needed
-  github_environments = ["dev"] 
+  github_environments = ["dev"]
 
   github_actions_secret_kube_cert      = var.github_actions_secret_kube_cert
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token

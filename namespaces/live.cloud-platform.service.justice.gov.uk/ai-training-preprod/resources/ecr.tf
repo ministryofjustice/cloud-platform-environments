@@ -11,9 +11,9 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["ai-training"]
-  github_environments = ["preprod"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["ai-training"]
+  github_environments   = ["preprod"]
   github_actions_prefix = "preprod"
 
   # Tags

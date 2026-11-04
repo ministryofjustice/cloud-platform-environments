@@ -7,8 +7,8 @@ module "backup" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name               = var.team_name
-  namespace               = var.namespace
+  team_name              = var.team_name
+  namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
@@ -69,10 +69,10 @@ resource "aws_iam_policy" "pg_dump_backup_write" {
 }
 
 module "irsa_pg_dump_backup" {
-  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = "irsa-laa-landing-page-${var.environment}-pg-dump-backup"
-  namespace             = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "irsa-laa-landing-page-${var.environment}-pg-dump-backup"
+  namespace            = var.namespace
 
   role_policy_arns = {
     pg_dump_backup_write = aws_iam_policy.pg_dump_backup_write.arn
@@ -80,7 +80,7 @@ module "irsa_pg_dump_backup" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name               = var.team_name
+  team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
@@ -128,10 +128,10 @@ resource "aws_iam_policy" "restore_pg_dump" {
 }
 
 module "irsa_restore_pg_dump" {
-  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = "irsa-laa-landing-page-${var.environment}-restore-pg-dump"
-  namespace             = var.namespace
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "irsa-laa-landing-page-${var.environment}-restore-pg-dump"
+  namespace            = var.namespace
 
   role_policy_arns = {
     restore_pg_dump = aws_iam_policy.restore_pg_dump.arn
@@ -139,7 +139,7 @@ module "irsa_restore_pg_dump" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name               = var.team_name
+  team_name              = var.team_name
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }

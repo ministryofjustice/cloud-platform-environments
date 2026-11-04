@@ -107,11 +107,11 @@ locals {
   }
 
   onr_db_secret = {
-    username           = postgresql_role.oasys_national_reporting_user.name
-    password           = random_password.onr_password.result
-    endpoint           = module.arns_assessment_view_rds.rds_instance_address
-    port               = module.arns_assessment_view_rds.rds_instance_port
-    db_name            = module.arns_assessment_view_rds.database_name
+    username = postgresql_role.oasys_national_reporting_user.name
+    password = random_password.onr_password.result
+    endpoint = module.arns_assessment_view_rds.rds_instance_address
+    port     = module.arns_assessment_view_rds.rds_instance_port
+    db_name  = module.arns_assessment_view_rds.database_name
   }
 
   dpr_secret_arn = "arn:aws:secretsmanager:eu-west-2:004723187462:secret:external/dpr-pr-assess-view-source-secrets-3hm1aM"
@@ -222,17 +222,17 @@ resource "postgresql_grant" "onr_tables_and_views" {
   role        = postgresql_role.oasys_national_reporting_user.name
   object_type = "table"
   objects = [
-      "flyway_schema_history_vw",
-      "free_text_vw",
-      "goal_related_area_of_need_vw",
-      "goal_vw",
-      "plan_agreement_vw",
-      "sentence_plan_identifier_vw",
-      "sentence_plan_vw",
-      "step_vw",
-      "sync_state_vw",
-    ]
-  privileges  = ["SELECT"]
+    "flyway_schema_history_vw",
+    "free_text_vw",
+    "goal_related_area_of_need_vw",
+    "goal_vw",
+    "plan_agreement_vw",
+    "sentence_plan_identifier_vw",
+    "sentence_plan_vw",
+    "step_vw",
+    "sync_state_vw",
+  ]
+  privileges = ["SELECT"]
 }
 
 resource "kubernetes_secret_v1" "onr_db_credentials" {

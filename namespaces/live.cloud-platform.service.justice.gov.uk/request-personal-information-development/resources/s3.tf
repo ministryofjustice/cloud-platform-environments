@@ -9,7 +9,7 @@ module "s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  cors_rule =[
+  cors_rule = [
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "POST", "PUT"]

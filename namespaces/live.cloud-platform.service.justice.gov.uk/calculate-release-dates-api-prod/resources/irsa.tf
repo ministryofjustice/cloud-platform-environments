@@ -4,8 +4,8 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
-    bulk_comparison_queue                   = module.bulk_comparison_queue.irsa_policy_arn,
-    bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
+    bulk_comparison_queue             = module.bulk_comparison_queue.irsa_policy_arn,
+    bulk_comparison_dead_letter_queue = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
   }
   restore_s3_policies = {
     db_restore_s3 = module.db_restore_s3.irsa_policy_arn
@@ -13,15 +13,15 @@ locals {
 }
 
 module "irsa" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "calculate-release-dates-api-prod"
-  role_policy_arns       = merge(
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "calculate-release-dates-api-prod"
+  role_policy_arns = merge(
     local.sns_policies,
     local.sqs_policies,
     {
-      rds_policy = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      rds_policy         = module.calculate_release_dates_api_rds.irsa_policy_arn,
       replica_rds_policy = module.read_replica.irsa_policy_arn,
     }
   )

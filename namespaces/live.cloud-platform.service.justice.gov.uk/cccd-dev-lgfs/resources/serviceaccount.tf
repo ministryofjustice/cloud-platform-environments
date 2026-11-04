@@ -1,10 +1,10 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
-  kubernetes_cluster = var.kubernetes_cluster
-  role_name = "serviceaccount_role_gh"
-  rolebinding_name = "github-action-rolebinding"
+  namespace            = var.namespace
+  kubernetes_cluster   = var.kubernetes_cluster
+  role_name            = "serviceaccount_role_gh"
+  rolebinding_name     = "github-action-rolebinding"
   serviceaccount_rules = var.serviceaccount_rules
 
   serviceaccount_token_rotated_date = "01-01-2000"

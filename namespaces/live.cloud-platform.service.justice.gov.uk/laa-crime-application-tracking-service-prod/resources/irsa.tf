@@ -12,9 +12,9 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    rds                                                     = module.rds.irsa_policy_arn
-    process_email_notifications_queue                       = module.process_email_notifications_queue.irsa_policy_arn
-    process_email_notifications_queue_dead_letter_queue     = module.process_email_notifications_queue_dead_letter_queue.irsa_policy_arn
+    rds                                                 = module.rds.irsa_policy_arn
+    process_email_notifications_queue                   = module.process_email_notifications_queue.irsa_policy_arn
+    process_email_notifications_queue_dead_letter_queue = module.process_email_notifications_queue_dead_letter_queue.irsa_policy_arn
   }
 
   # Tags

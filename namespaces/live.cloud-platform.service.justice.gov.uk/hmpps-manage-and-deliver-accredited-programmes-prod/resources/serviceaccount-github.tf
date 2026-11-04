@@ -1,8 +1,8 @@
 
 locals {
 
-  github_repos   = [
-    "hmpps-accredited-programmes-manage-and-deliver-api", 
+  github_repos = [
+    "hmpps-accredited-programmes-manage-and-deliver-api",
     "hmpps-accredited-programmes-manage-and-deliver-ui",
     "hmpps-accredited-programmes-manage-and-deliver-data-importer"
   ]
@@ -108,7 +108,7 @@ data "github_team" "hmpps-accredited-programmes-manage-and-deliver-devs" {
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
+  repository  = each.key
   reviewers {
     teams = [
       tonumber(data.github_team.hmpps-sre.id),

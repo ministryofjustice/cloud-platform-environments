@@ -9,9 +9,9 @@ module "elasticache_redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  node_type            = "cache.t4g.micro"
-  engine_version       = "7.1"
-  parameter_group_name = "default.redis7"
+  node_type             = "cache.t4g.micro"
+  engine_version        = "7.1"
+  parameter_group_name  = "default.redis7"
   number_cache_clusters = "2"
 
   providers = {

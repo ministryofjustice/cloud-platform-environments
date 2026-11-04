@@ -8,8 +8,8 @@ locals {
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = {
-    hmpps_ccrd_cache_eviction_queue                   = module.hmpps_ccrd_cache_eviction_queue.irsa_policy_arn,
-    hmpps_ccrd_cache_eviction_dead_letter_queue       = module.hmpps_ccrd_cache_eviction_dead_letter_queue.irsa_policy_arn,
+    hmpps_ccrd_cache_eviction_queue             = module.hmpps_ccrd_cache_eviction_queue.irsa_policy_arn,
+    hmpps_ccrd_cache_eviction_dead_letter_queue = module.hmpps_ccrd_cache_eviction_dead_letter_queue.irsa_policy_arn,
   }
   audit_sqs_queues = {
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",

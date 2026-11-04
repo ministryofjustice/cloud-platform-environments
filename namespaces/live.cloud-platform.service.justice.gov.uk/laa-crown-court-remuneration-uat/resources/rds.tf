@@ -125,7 +125,7 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
         ],
         Resource = [
           "arn:aws:s3:::hub20-test-cwa-extract-data",
-          "arn:aws:s3:::hub20-test-cwa-extract-data/*"  
+          "arn:aws:s3:::hub20-test-cwa-extract-data/*"
         ]
       }
     ]

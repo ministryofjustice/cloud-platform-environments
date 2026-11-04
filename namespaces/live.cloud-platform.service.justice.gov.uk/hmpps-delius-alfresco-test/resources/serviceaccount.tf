@@ -6,6 +6,6 @@ module "serviceaccount" {
   github_repositories  = ["hmpps-delius-alfresco"]
   serviceaccount_rules = var.serviceaccount_rules
   # This GitHub environmet will need to be created manually first
-  github_environments = ["test", "test-preapproved"]
+  github_environments               = ["test", "test-preapproved"]
   serviceaccount_token_rotated_date = "20-03-2026"
 }

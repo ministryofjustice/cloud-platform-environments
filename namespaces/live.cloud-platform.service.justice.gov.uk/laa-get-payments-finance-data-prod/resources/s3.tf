@@ -5,7 +5,7 @@
  *
  */
 
- /* Bucket used to store template files and other resources needed to create Excel spreadsheets */
+/* Bucket used to store template files and other resources needed to create Excel spreadsheets */
 module "s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
 
@@ -20,7 +20,7 @@ module "s3_bucket" {
   # Buckets are private by default
 
   bucket_name = var.file_store_bucket_name
-  versioning = true
+  versioning  = true
 }
 
 resource "kubernetes_secret" "s3_bucket" {
@@ -48,7 +48,7 @@ module "s3_bucket_report_store" {
   namespace              = var.namespace
 
   bucket_name = var.report_store_bucket_name
-  versioning = false
+  versioning  = false
 
   # A file should pick the shortest rule that applies to it.
   # A file in reports/daily will have two rules, and will pick the 1 day as its shorter than the 31 days
@@ -76,9 +76,9 @@ module "s3_bucket_report_store" {
     }
   ]
 
-  logging_enabled        = true
-  log_target_bucket      = module.s3_bucket_report_store_logging.bucket_name
-  log_path               = "logs/"
+  logging_enabled   = true
+  log_target_bucket = module.s3_bucket_report_store_logging.bucket_name
+  log_path          = "logs/"
 
 }
 
@@ -109,36 +109,36 @@ module "s3_bucket_report_store_logging" {
   bucket_name = var.s3_bucket_report_store_logging
 
   bucket_policy = jsonencode({
-      Version = "2012-10-17",
-      Statement = [
-        {
-          Sid    = "S3ServerAccessLogsPolicy",
-          Effect = "Allow",
-          Principal = {
-            Service = "logging.s3.amazonaws.com"
-          },
-          Action = [
-            "s3:PutObject"
-          ],
-          Resource = "$${bucket_arn}/*"
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid    = "S3ServerAccessLogsPolicy",
+        Effect = "Allow",
+        Principal = {
+          Service = "logging.s3.amazonaws.com"
         },
-        {
-          Effect = "Allow"
-          Principal = {
-            AWS = [
-              module.irsa_service_pod.role_arn
-            ]
-          }
-          Action = [
-            "s3:GetObject"
-          ]
-          Resource = [
-            "$${bucket_arn}",
-            "$${bucket_arn}/*"
+        Action = [
+          "s3:PutObject"
+        ],
+        Resource = "$${bucket_arn}/*"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            module.irsa_service_pod.role_arn
           ]
         }
-      ]
-    })
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  })
 
   lifecycle_rule = [
     {

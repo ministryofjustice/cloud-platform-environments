@@ -15,7 +15,7 @@ module "adjustments_rds" {
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "500"
   db_engine_version           = "17.11"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london

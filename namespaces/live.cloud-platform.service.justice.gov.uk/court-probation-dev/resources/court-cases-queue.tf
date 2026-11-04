@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "court_cases_subscription" {
-  
+
   provider  = aws.london
   topic_arn = module.court-cases.topic_arn
   protocol  = "sqs"
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "court_cases_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "court_cases_queue_policy" {
   queue_url = module.court-cases-queue.sqs_id
-  policy = data.aws_iam_policy_document.court_cases_sqs_queue_policy_document.json
+  policy    = data.aws_iam_policy_document.court_cases_sqs_queue_policy_document.json
 }
 
 module "court-cases-dlq" {

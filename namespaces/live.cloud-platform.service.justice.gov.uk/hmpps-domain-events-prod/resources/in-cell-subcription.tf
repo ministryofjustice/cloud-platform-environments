@@ -118,9 +118,9 @@ resource "kubernetes_secret" "in_cell_dlq" {
   }
 
   data = {
-    sqs_queue_url     = module.in_cell_dead_letter_queue.sqs_id
-    sqs_queue_arn     = module.in_cell_dead_letter_queue.sqs_arn
-    sqs_queue_name    = module.in_cell_dead_letter_queue.sqs_name
+    sqs_queue_url  = module.in_cell_dead_letter_queue.sqs_id
+    sqs_queue_arn  = module.in_cell_dead_letter_queue.sqs_arn
+    sqs_queue_name = module.in_cell_dead_letter_queue.sqs_name
   }
 }
 

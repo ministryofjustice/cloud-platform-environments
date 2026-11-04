@@ -79,8 +79,8 @@ data "aws_secretsmanager_secret_version" "kilco_filter_list" {
 }
 
 data "github_repository_file" "kilco_subscription_filter_policy" {
-  repository          = "${var.github_owner}/${var.github_repo_name}"
-  file                = "src/main/resources/event-filter-policies/${var.environment}/kilco-subscription-filter.json"
+  repository = "${var.github_owner}/${var.github_repo_name}"
+  file       = "src/main/resources/event-filter-policies/${var.environment}/kilco-subscription-filter.json"
 }
 
 resource "aws_sns_topic_subscription" "event_kilco_subscription" {

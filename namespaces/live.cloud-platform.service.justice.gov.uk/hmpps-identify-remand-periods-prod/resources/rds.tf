@@ -15,7 +15,7 @@ module "identify_remand_periods_rds" {
   db_instance_class           = "db.t4g.small"
   db_max_allocated_storage    = "10000" # maximum storage for autoscaling
   db_engine_version           = "17.11"
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london

@@ -5,8 +5,8 @@
  *
  */
 module "rds" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type         = "gp3"
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp3"
   # VPC configuration
   vpc_name = var.vpc_name
 
@@ -80,7 +80,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
@@ -106,7 +106,7 @@ resource "kubernetes_secret" "pda-r2-pgsql-details" {
 
   data = {
     SPRING_DATASOURCE_PASSWORD = module.rds.database_password
-    SPRING_DATASOURCE_URL = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    SPRING_DATASOURCE_URL      = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
     SPRING_DATASOURCE_USERNAME = module.rds.database_username
   }
 }

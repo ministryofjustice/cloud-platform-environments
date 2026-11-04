@@ -7,8 +7,8 @@ module "secret" {
   # Secrets configuration
   secrets = {
     "experian-aws-secrets" = {
-      description             = "Experain secrets" # required
-      recovery_window_in_days = 7                # required
+      description             = "Experain secrets"     # required
+      recovery_window_in_days = 7                      # required
       k8s_secret_name         = "experian-aws-secrets" # the name of the secret in k8s
     },
   }

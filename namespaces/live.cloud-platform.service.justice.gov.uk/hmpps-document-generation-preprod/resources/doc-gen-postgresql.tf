@@ -35,7 +35,7 @@ module "doc_gen_postgres" {
   team_name              = var.team_name
   maintenance_window     = var.maintenance_window
 
-  enable_irsa            = true
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "doc_gen_rds" {
@@ -45,9 +45,9 @@ resource "kubernetes_secret" "doc_gen_rds" {
   }
 
   data = {
-    database_name         = module.doc_gen_postgres.database_name
-    database_username     = module.doc_gen_postgres.database_username
-    database_password     = module.doc_gen_postgres.database_password
-    database_server       = module.doc_gen_postgres.rds_instance_address
+    database_name     = module.doc_gen_postgres.database_name
+    database_username = module.doc_gen_postgres.database_username
+    database_password = module.doc_gen_postgres.database_password
+    database_server   = module.doc_gen_postgres.rds_instance_address
   }
 }

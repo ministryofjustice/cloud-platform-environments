@@ -100,8 +100,8 @@ data "aws_iam_policy_document" "ap_ingestion" {
 
 
   statement {
-    sid     = "AllowListBucketForAPIngestion"
-    effect  = "Allow"
+    sid    = "AllowListBucketForAPIngestion"
+    effect = "Allow"
 
     principals {
       type        = "AWS"

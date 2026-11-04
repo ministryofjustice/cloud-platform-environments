@@ -5,7 +5,7 @@ module "secrets_kms" {
   aliases                 = ["${var.namespace}-secrets"]
   description             = "KMS key for ${var.application} secrets"
   deletion_window_in_days = 7
-  
+
   key_statements = [
     {
       sid = "AllowModernisationPlatformDecrypt"
@@ -24,7 +24,7 @@ module "secrets_kms" {
 }
 
 resource "aws_iam_policy" "secret_ingestion_api_auth_token_kms_irsa_policy" {
-  name        = "${var.namespace}-secret-auth-kms-irsa-policy"
+  name = "${var.namespace}-secret-auth-kms-irsa-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"

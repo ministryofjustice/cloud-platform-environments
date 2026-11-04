@@ -1,12 +1,12 @@
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-breach-report-co-sso-ui"
-  application = "hmpps-breach-report-co-sso-ui"
-  github_team = "unilink"
-  environment = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["unilink_admin"] # Optional team that should review deployments to this environment.
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "hmpps-breach-report-co-sso-ui"
+  application                   = "hmpps-breach-report-co-sso-ui"
+  github_team                   = "unilink"
+  environment                   = var.environment_name # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["unilink_admin"]    # Optional team that should review deployments to this environment.
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"

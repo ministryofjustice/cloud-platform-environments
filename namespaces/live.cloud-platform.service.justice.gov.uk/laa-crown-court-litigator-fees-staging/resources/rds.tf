@@ -51,7 +51,7 @@ module "rds-instance-staging-migrated" {
   ]
 
   vpc_security_group_ids = [aws_security_group.rds.id]
-  is_migration = true
+  is_migration           = true
 
 
   enable_irsa = true

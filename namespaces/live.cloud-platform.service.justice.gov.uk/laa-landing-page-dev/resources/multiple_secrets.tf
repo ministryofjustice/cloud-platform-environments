@@ -9,7 +9,7 @@ module "secrets_manager_multiple_secrets" {
   infrastructure_support = var.infrastructure_support
   eks_cluster_name       = var.eks_cluster_name
 
-  secrets = {  
+  secrets = {
     "laa-landing-page-secret-azure-client-id-dev" = {
       description             = "azure client id",
       recovery_window_in_days = 7

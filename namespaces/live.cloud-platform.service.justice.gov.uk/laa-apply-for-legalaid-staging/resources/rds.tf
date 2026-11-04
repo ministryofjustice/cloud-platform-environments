@@ -7,14 +7,14 @@
 module "apply-for-legal-aid-rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name                 = var.vpc_name
-  team_name                = var.team_name
-  business_unit            = var.business_unit
-  application              = var.application
-  is_production            = var.is_production
-  namespace                = var.namespace
-  environment_name         = var.environment
-  infrastructure_support   = var.infrastructure_support
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   # Database configuration
   prepare_for_major_upgrade   = false

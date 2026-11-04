@@ -33,7 +33,7 @@ module "hmpps_education_work_plan_rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  enable_irsa = true
+  enable_irsa            = true
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   deletion_protection = true

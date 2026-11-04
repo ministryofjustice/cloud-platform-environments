@@ -18,7 +18,7 @@ module "dps_rds" {
 
   enable_rds_auto_start_stop = true
 
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.small"
   rds_family                  = "postgres18"
   db_engine_version           = "18.6"
@@ -30,10 +30,10 @@ module "dps_rds" {
     aws = aws.london
   }
 
-# Add security groups for DPR
+  # Add security groups for DPR
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
-# Add parameters to enable DPR team to configure replication
+  # Add parameters to enable DPR team to configure replication
   db_parameter = [
     {
       # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the

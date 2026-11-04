@@ -21,28 +21,28 @@ module "irsa-api" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  service_account_name   = "hmpps-community-payback-api"
-  role_policy_arns       = merge(
+  service_account_name = "hmpps-community-payback-api"
+  role_policy_arns = merge(
     {
-        sqs     = module.hmpps_cp_domain_events_queue.irsa_policy_arn
+      sqs = module.hmpps_cp_domain_events_queue.irsa_policy_arn
     },
     {
-        sqs_dlq = module.hmpps_cp_domain_events_dlq.irsa_policy_arn
+      sqs_dlq = module.hmpps_cp_domain_events_dlq.irsa_policy_arn
     },
     {
-        (module.course_completion_events_queue.sqs_name) = module.course_completion_events_queue.irsa_policy_arn
-        (module.course_completion_events_dlq.sqs_name)   = module.course_completion_events_dlq.irsa_policy_arn
+      (module.course_completion_events_queue.sqs_name) = module.course_completion_events_queue.irsa_policy_arn
+      (module.course_completion_events_dlq.sqs_name)   = module.course_completion_events_dlq.irsa_policy_arn
     },
     local.sns_policies
   )
 }
 
 module "irsa_ui" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-community-payback-ui-account"
-  namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-community-payback-ui-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -52,11 +52,11 @@ module "irsa_ui" {
 }
 
 module "irsa_supervisors_ui" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-community-payback-supervisors-ui-account"
-  namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-community-payback-supervisors-ui-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

@@ -14,11 +14,11 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0" # use the latest release
 
   # EKS configuration
-    eks_cluster_name = var.eks_cluster_name
+  eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
   service_account_name = "hmpps-mandatory-drug-testing-api"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     {
       rds = module.rds.irsa_policy_arn
     },

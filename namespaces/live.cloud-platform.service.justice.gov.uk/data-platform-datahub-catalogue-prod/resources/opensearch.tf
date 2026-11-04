@@ -24,7 +24,7 @@ module "opensearch" {
 
   cluster_config = {
     instance_count = var.opensearch_instance_count
-    instance_type  =  var.opensearch_instance_type
+    instance_type  = var.opensearch_instance_type
   }
 
   ebs_options = {

@@ -15,17 +15,17 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   deletion_protection          = true
-  opt_in_xsiam_logging = true
+  opt_in_xsiam_logging         = true
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine                 = "postgres"
-  db_engine_version         = "17.11"
-  rds_family                = "postgres17"
-  db_instance_class         = "db.t4g.small"
-  db_max_allocated_storage  = "10000"
-  db_allocated_storage      = "20"
+  db_engine                = "postgres"
+  db_engine_version        = "17.11"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.small"
+  db_max_allocated_storage = "10000"
+  db_allocated_storage     = "20"
 
   # Tags
   application            = var.application
@@ -48,7 +48,7 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -103,7 +103,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
   /* You can replace all of the above with the following, if you prefer to
      * use a single database URL value in your application code:

@@ -10,9 +10,9 @@ module "crm_elasticache" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version       = "7.0"
-  parameter_group_name = "default.redis7"
-  node_type            = "cache.t4g.micro"
+  engine_version          = "7.0"
+  parameter_group_name    = "default.redis7"
+  node_type               = "cache.t4g.micro"
   auth_token_rotated_date = "2024-10-07"
 }
 

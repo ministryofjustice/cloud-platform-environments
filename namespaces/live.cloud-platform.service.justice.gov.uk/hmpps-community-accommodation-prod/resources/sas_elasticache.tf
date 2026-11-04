@@ -28,7 +28,7 @@ resource "kubernetes_secret" "sas_elasticache_redis" {
 
   data = {
     primary_endpoint_address = module.sas_elasticache_redis.primary_endpoint_address
-    reader_endpoint_address = module.sas_elasticache_redis.reader_endpoint_address
+    reader_endpoint_address  = module.sas_elasticache_redis.reader_endpoint_address
     auth_token               = module.sas_elasticache_redis.auth_token
     member_clusters          = jsonencode(module.sas_elasticache_redis.member_clusters)
     replication_group_id     = module.sas_elasticache_redis.replication_group_id

@@ -26,11 +26,11 @@ module "rds" {
 
   db_engine_version = "18.6"
 
-  rds_family = "postgres18"
+  rds_family                 = "postgres18"
   enable_rds_auto_start_stop = true
 
   # instance class
-  db_instance_class = "db.t4g.micro"
+  db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   # Some engines can't apply some parameters without a reboot(ex postgres9.x cant apply force_ssl immediate).

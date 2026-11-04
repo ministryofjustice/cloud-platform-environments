@@ -1,23 +1,23 @@
 module "create_and_vary_a_licence_api_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type                = "gp2"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  application                 = var.application
-  is_production               = var.is_production
-  namespace                   = var.namespace
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
-  allow_minor_version_upgrade = true
-  allow_major_version_upgrade = false
-  prepare_for_major_upgrade   = false
-  enable_rds_auto_start_stop  = true
-  db_instance_class           = "db.t4g.small"
-  db_engine_version           = "17.11"
-  rds_family                  = "postgres17"
-  db_password_rotated_date    = "25-09-2024"
-  db_allocated_storage        = 50
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type                 = "gp2"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  namespace                    = var.namespace
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+  allow_minor_version_upgrade  = true
+  allow_major_version_upgrade  = false
+  prepare_for_major_upgrade    = false
+  enable_rds_auto_start_stop   = true
+  db_instance_class            = "db.t4g.small"
+  db_engine_version            = "17.11"
+  rds_family                   = "postgres17"
+  db_password_rotated_date     = "25-09-2024"
+  db_allocated_storage         = 50
   performance_insights_enabled = true
 
   providers = {
@@ -93,8 +93,8 @@ resource "kubernetes_secret" "rds_refresh_creds" {
 module "create_and_vary_a_licence_api_read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
   enable_rds_auto_start_stop  = true

@@ -12,12 +12,12 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
+    s3                   = module.s3_bucket.irsa_policy_arn
     offender-event-queue = module.offender-event-queue.irsa_policy_arn
-    offender-event-dlq = module.offender-event-dlq.irsa_policy_arn
-    document-storage-s3 = module.document_storage_s3_bucket.irsa_policy_arn
-    audit_sqs = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
-    rds = module.rds.irsa_policy_arn
+    offender-event-dlq   = module.offender-event-dlq.irsa_policy_arn
+    document-storage-s3  = module.document_storage_s3_bucket.irsa_policy_arn
+    audit_sqs            = data.kubernetes_secret.audit_secret.data.irsa_policy_arn
+    rds                  = module.rds.irsa_policy_arn
   }
 
   # Tags

@@ -19,7 +19,7 @@ resource "aws_sns_topic_subscription" "cpr_delius_probation_domain_events_subscr
     ],
     eventSource = [
       { "exists" = false },
-      { "anything-but" =  ["core-person-record"] }
+      { "anything-but" = ["core-person-record"] }
     ]
   })
 }

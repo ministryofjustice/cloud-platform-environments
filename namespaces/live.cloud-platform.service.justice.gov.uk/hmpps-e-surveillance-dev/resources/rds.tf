@@ -2,10 +2,10 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   vpc_name                 = var.vpc_name
-  db_engine               = "postgres"
-  db_engine_version       = "17"
-  rds_family              = "postgres17"
-  db_instance_class       = "db.t4g.micro"
+  db_engine                = "postgres"
+  db_engine_version        = "17"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.micro"
   db_max_allocated_storage = "500"
 
   team_name              = var.team_name
@@ -45,6 +45,6 @@ resource "kubernetes_secret" "rds-spring" {
   data = {
     SPRING_DATASOURCE_USERNAME = module.rds.database_username
     SPRING_DATASOURCE_PASSWORD = module.rds.database_password
-    SPRING_DATASOURCE_URL = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    SPRING_DATASOURCE_URL      = "jdbc:postgresql://${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }

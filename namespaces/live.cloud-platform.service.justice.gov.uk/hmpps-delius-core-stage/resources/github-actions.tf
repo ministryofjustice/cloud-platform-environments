@@ -1,9 +1,9 @@
 module "github_actions_service_account" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace            = var.namespace
-  kubernetes_cluster   = var.kubernetes_cluster
-  github_repositories  = ["hmpps-delius-docker-images", "ndelius-um"]
+  namespace           = var.namespace
+  kubernetes_cluster  = var.kubernetes_cluster
+  github_repositories = ["hmpps-delius-docker-images", "ndelius-um"]
   serviceaccount_rules = [
     {
       api_groups = [""]
@@ -89,6 +89,6 @@ module "github_actions_service_account" {
     },
   ]
   # This GitHub environment will need to be created manually first
-  github_environments = [var.environment]
+  github_environments               = [var.environment]
   serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -12,18 +12,18 @@ module "s3_data_bucket" {
   # Enable versioning to preserve old photos when updated
   versioning = true
 
-  cors_rule =[
+  cors_rule = [
     {
       allowed_headers = ["*"]
       allowed_methods = ["GET", "PUT"]
       allowed_origins = [
-      "https://esupervision-dev.hmpps.service.justice.gov.uk",
-      "https://esupervision-test.hmpps.service.justice.gov.uk",
-      "https://manage-people-on-probation-dev.hmpps.service.justice.gov.uk",
-      "https://manage-online-check-ins-ui-dev.hmpps.service.justice.gov.uk",
-      "https://probation-check-in-dev.hmpps.service.justice.gov.uk",
-      "https://probation-check-in-test.hmpps.service.justice.gov.uk",
-      "http://localhost:3000"
+        "https://esupervision-dev.hmpps.service.justice.gov.uk",
+        "https://esupervision-test.hmpps.service.justice.gov.uk",
+        "https://manage-people-on-probation-dev.hmpps.service.justice.gov.uk",
+        "https://manage-online-check-ins-ui-dev.hmpps.service.justice.gov.uk",
+        "https://probation-check-in-dev.hmpps.service.justice.gov.uk",
+        "https://probation-check-in-test.hmpps.service.justice.gov.uk",
+        "http://localhost:3000"
       ]
       expose_headers  = ["ETag"]
       max_age_seconds = 3000
@@ -39,8 +39,8 @@ resource "aws_s3_bucket_policy" "rekognition_access" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowRekognitionRoleAccess"
-        Effect    = "Allow"
+        Sid    = "AllowRekognitionRoleAccess"
+        Effect = "Allow"
         Principal = {
           AWS = var.rekognition_role_arn
         }

@@ -10,7 +10,7 @@ module "redis" {
   parameter_group_name    = "default.redis7"
   auth_token_rotated_date = "2023-08-30"
 
-  enable_irsa             = true
+  enable_irsa = true
 
   # Tags
   business_unit          = var.business_unit

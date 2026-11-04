@@ -17,5 +17,5 @@ module "hmpps_prisoner_schedules_api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   # enable_ecr is required only ONCE per Github repository.
-  enable_ecr                    = true
+  enable_ecr = true
 }

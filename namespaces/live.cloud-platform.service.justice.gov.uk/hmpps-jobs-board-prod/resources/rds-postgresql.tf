@@ -8,8 +8,8 @@ module "rds" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name = var.vpc_name
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -17,13 +17,13 @@ module "rds" {
   performance_insights_enabled = false
   db_max_allocated_storage     = "10000"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  enable_irsa                  = true
+  enable_irsa = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
-  deletion_protection          = true
+  deletion_protection = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.small"
 
@@ -92,7 +92,7 @@ module "read_replica" {
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "16"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  db_engine_version = "16" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance

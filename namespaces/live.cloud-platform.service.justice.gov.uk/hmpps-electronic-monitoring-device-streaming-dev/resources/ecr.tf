@@ -18,6 +18,6 @@ module "ecr" {
   infrastructure_support = var.infrastructure_support
   github_environments    = ["development"]
 
-  enable_irsa = true
+  enable_irsa         = true
   deletion_protection = false
 }

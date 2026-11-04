@@ -11,9 +11,9 @@ module "ecr" {
   repo_name = "${var.namespace}-ecr"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["viper-demo-app"]
-  github_environments = ["dev"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["viper-demo-app"]
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   # Tags

@@ -10,7 +10,7 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name     = var.eks_cluster_name
+  eks_cluster_name = var.eks_cluster_name
 
   service_account_name = "hmpps-departments"
   role_policy_arns     = local.sqs_policies

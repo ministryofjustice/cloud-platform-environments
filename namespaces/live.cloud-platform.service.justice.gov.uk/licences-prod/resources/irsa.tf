@@ -4,8 +4,8 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-prod-hdc_domain_events_queue"       = "hmpps-domain-events-prod",
-    "Digital-Prison-Services-prod-hdc_domain_events_dl"          = "hmpps-domain-events-prod"
+    "Digital-Prison-Services-prod-hdc_domain_events_queue" = "hmpps-domain-events-prod",
+    "Digital-Prison-Services-prod-hdc_domain_events_dl"    = "hmpps-domain-events-prod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
@@ -20,13 +20,13 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-hdc-api"
-  role_policy_arns       = merge(
-                            local.sqs_policies,
-                            local.hdc_sqs_policies
-                          )
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-hdc-api"
+  role_policy_arns = merge(
+    local.sqs_policies,
+    local.hdc_sqs_policies
+  )
   # Tags
   business_unit          = var.business_unit
   application            = var.application

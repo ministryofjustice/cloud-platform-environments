@@ -1,16 +1,16 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_token_rotated_date = "20-03-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-    github_repositories = ["opg-actor-search"]
-    github_environments = ["dev"] 
-    serviceaccount_rules = [
+  github_repositories = ["opg-actor-search"]
+  github_environments = ["dev"]
+  serviceaccount_rules = [
     {
       api_groups = [""]
       resources = [
@@ -23,61 +23,61 @@ module "serviceaccount" {
         "configmaps",
         "persistentvolumeclaims",
 
+      ]
+      verbs = [
+        "update",
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "rbac.authorization.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "servicemonitors",
+        "roles",
+        "rolebindings",
+        "poddisruptionbudgets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "prometheusrules",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
   ]
-  verbs = [
-    "update",
-    "patch",
-    "get",
-    "create",
-    "delete",
-    "list",
-    "watch",
-  ]
-},
-{
-  api_groups = [
-    "extensions",
-    "apps",
-    "batch",
-    "networking.k8s.io",
-    "rbac.authorization.k8s.io",
-    "policy",
-  ]
-  resources = [
-    "deployments",
-    "ingresses",
-    "cronjobs",
-    "jobs",
-    "replicasets",
-    "statefulsets",
-    "networkpolicies",
-    "servicemonitors",
-    "roles",
-    "rolebindings",
-    "poddisruptionbudgets",
-  ]
-  verbs = [
-    "get",
-    "update",
-    "delete",
-    "create",
-    "patch",
-    "list",
-    "watch",
-  ]
-},
-{
-  api_groups = [
-    "monitoring.coreos.com",
-  ]
-  resources = [
-    "prometheusrules",
-  ]
-  verbs = [
-    "*",
-  ]
-},
-]
 
 
 }

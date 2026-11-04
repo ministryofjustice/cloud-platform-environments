@@ -16,7 +16,7 @@ module "identify_remand_periods_rds" {
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine_version           = "17.11"
   enable_rds_auto_start_stop  = true
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london

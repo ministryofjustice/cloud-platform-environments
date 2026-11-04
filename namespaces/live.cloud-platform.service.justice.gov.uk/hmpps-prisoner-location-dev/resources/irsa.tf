@@ -2,7 +2,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value}
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {

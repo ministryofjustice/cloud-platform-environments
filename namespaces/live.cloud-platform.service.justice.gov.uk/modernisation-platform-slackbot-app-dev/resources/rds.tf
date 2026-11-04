@@ -81,7 +81,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  vpc_security_group_ids     = [aws_security_group.rds.id]
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   db_parameter = [
     {
@@ -134,10 +134,10 @@ resource "kubernetes_secret" "rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name                     = var.vpc_name
-  prepare_for_major_upgrade    = false
-  allow_minor_version_upgrade  = true
-  allow_major_version_upgrade  = false
+  vpc_name                    = var.vpc_name
+  prepare_for_major_upgrade   = false
+  allow_minor_version_upgrade = true
+  allow_major_version_upgrade = false
 
   # Tags
   application            = var.application
@@ -148,11 +148,11 @@ module "read_replica" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  db_engine                 = "postgres"
-  db_engine_version         = "18"
-  rds_family                = "postgres18"
-  db_instance_class         = "db.t4g.small"
-  db_max_allocated_storage  = "30"
+  db_engine                = "postgres"
+  db_engine_version        = "18"
+  rds_family               = "postgres18"
+  db_instance_class        = "db.t4g.small"
+  db_max_allocated_storage = "30"
 
   replicate_source_db = module.rds.db_identifier
 
@@ -160,7 +160,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [aws_security_group.rds.id]
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   db_parameter = [
     {

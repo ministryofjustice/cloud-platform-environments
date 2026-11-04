@@ -11,9 +11,9 @@ module "secrets_manager" {
 
   secrets = {
     "moj-components-prod-secrets" = {
-      description             = "moj-components-prod secrets",   
-      recovery_window_in_days = 7,                       
-      k8s_secret_name         = "moj-components-prod-secrets" 
+      description             = "moj-components-prod secrets",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "moj-components-prod-secrets"
     },
   }
 }

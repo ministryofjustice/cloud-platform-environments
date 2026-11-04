@@ -23,41 +23,41 @@ module "opensearch_alert_ip_prefix" {
   environment_name       = var.environment
   alert_query = jsonencode(
     {
-      "sort": [
+      "sort" : [
         {
-          "@timestamp": {
-            "order": "desc",
-            "unmapped_type": "boolean"
+          "@timestamp" : {
+            "order" : "desc",
+            "unmapped_type" : "boolean"
           }
         }
       ],
-      "size":0,
-      "query": {
-        "bool": {
-          "must": [],
-          "filter": [
+      "size" : 0,
+      "query" : {
+        "bool" : {
+          "must" : [],
+          "filter" : [
             {
-              "multi_match": {
-                "type": "phrase",
-                "query": "InsufficientCidrBlocks",
-                "lenient": true
+              "multi_match" : {
+                "type" : "phrase",
+                "query" : "InsufficientCidrBlocks",
+                "lenient" : true
               }
             },
             {
-              "range": {
-                "@timestamp": {
-                    "from": "{{period_end}}||-1m",
-                    "to": "{{period_end}}",
-                    "include_lower": true,
-                    "include_upper": true,
-                    "format": "epoch_millis",
-                    "boost": 1
+              "range" : {
+                "@timestamp" : {
+                  "from" : "{{period_end}}||-1m",
+                  "to" : "{{period_end}}",
+                  "include_lower" : true,
+                  "include_upper" : true,
+                  "format" : "epoch_millis",
+                  "boost" : 1
                 }
               }
             }
           ],
-          "should": [],
-          "must_not": []
+          "should" : [],
+          "must_not" : []
         }
       }
     }
@@ -95,41 +95,41 @@ EOT
   environment_name       = var.environment
   alert_query = jsonencode(
     {
-      "sort": [
+      "sort" : [
         {
-          "@timestamp": {
-            "order": "desc",
-            "unmapped_type": "boolean"
+          "@timestamp" : {
+            "order" : "desc",
+            "unmapped_type" : "boolean"
           }
         }
       ],
-      "size":1,
-      "query": {
-        "bool": {
-          "must": [],
-          "filter": [
+      "size" : 1,
+      "query" : {
+        "bool" : {
+          "must" : [],
+          "filter" : [
             {
-              "multi_match": {
-                "type": "phrase",
-                "query": "error loading seccomp filter: errno 524",
-                "lenient": true
+              "multi_match" : {
+                "type" : "phrase",
+                "query" : "error loading seccomp filter: errno 524",
+                "lenient" : true
               }
             },
             {
-              "range": {
-                "@timestamp": {
-                    "from": "{{period_end}}||-10m",
-                    "to": "{{period_end}}",
-                    "include_lower": true,
-                    "include_upper": true,
-                    "format": "epoch_millis",
-                    "boost": 1
+              "range" : {
+                "@timestamp" : {
+                  "from" : "{{period_end}}||-10m",
+                  "to" : "{{period_end}}",
+                  "include_lower" : true,
+                  "include_upper" : true,
+                  "format" : "epoch_millis",
+                  "boost" : 1
                 }
               }
             }
           ],
-          "should": [],
-          "must_not": []
+          "should" : [],
+          "must_not" : []
         }
       }
     }

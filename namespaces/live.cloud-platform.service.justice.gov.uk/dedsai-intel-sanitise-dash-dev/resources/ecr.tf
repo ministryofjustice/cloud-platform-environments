@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["intel-sanitise-dash"]
 
-  github_environments = ["dev"]
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   # Tags

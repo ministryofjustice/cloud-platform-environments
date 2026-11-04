@@ -1,18 +1,18 @@
 
 module "hmpps-court-data-ingestion-api-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   # VPC configuration
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  db_instance_class            = "db.t4g.medium"
-  db_max_allocated_storage     = "500"
-  db_engine                    = "postgres"
-  rds_family                   = "postgres18"
-  db_engine_version            = "18.6"
-  prepare_for_major_upgrade    = false
-  enable_rds_auto_start_stop   = false
-  storage_type                 = "gp3"
+  db_instance_class          = "db.t4g.medium"
+  db_max_allocated_storage   = "500"
+  db_engine                  = "postgres"
+  rds_family                 = "postgres18"
+  db_engine_version          = "18.6"
+  prepare_for_major_upgrade  = false
+  enable_rds_auto_start_stop = false
+  storage_type               = "gp3"
 
   # Tags
   application            = var.application

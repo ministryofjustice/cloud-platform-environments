@@ -1,7 +1,7 @@
 locals {
 
   # Add more repos when they move from circle-ci to github actions
-  github_repos   = ["hmpps-visit-allocation-api", "prisoner-contact-registry", "hmpps-notifications-alerts-vsip", "hmpps-prison-visit-booker-registry", "hmpps-prison-visits-testing-helper-api", "hmpps-manage-prison-visits-orchestration", "visit-scheduler"]
+  github_repos = ["hmpps-visit-allocation-api", "prisoner-contact-registry", "hmpps-notifications-alerts-vsip", "hmpps-prison-visit-booker-registry", "hmpps-prison-visits-testing-helper-api", "hmpps-manage-prison-visits-orchestration", "visit-scheduler"]
 
   github-actions-sa_rules = [
     {
@@ -92,19 +92,19 @@ resource "time_rotating" "weekly" {
 ##########################################################################
 
 data "github_team" "hmpps-prison-visits-booking-devs" {
-slug = "hmpps-prison-visits-booking-devs"
-}   
+  slug = "hmpps-prison-visits-booking-devs"
+}
 
 ##########################################################################
 
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
+  repository  = each.key
   # Not working - waiting for Cloud Platforms to fix this
   # prevent_self_review = true
   reviewers {
-    teams = [ 
+    teams = [
       tonumber(data.github_team.hmpps-prison-visits-booking-devs.id)
     ]
   }
@@ -117,9 +117,9 @@ resource "github_repository_environment" "env" {
 ##########################################################################
 
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  for_each      = toset(local.github_repos)
+  repository    = each.key
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }

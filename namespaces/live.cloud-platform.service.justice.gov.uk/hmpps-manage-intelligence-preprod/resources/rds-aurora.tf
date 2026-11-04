@@ -87,9 +87,9 @@ resource "kubernetes_secret" "dps_rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.rds_aurora.database_name
-    database_username     = module.rds_aurora.database_username
-    database_password     = module.rds_aurora.database_password
-    rds_instance_address  = module.rds_aurora.rds_cluster_endpoint
+    database_name        = module.rds_aurora.database_name
+    database_username    = module.rds_aurora.database_username
+    database_password    = module.rds_aurora.database_password
+    rds_instance_address = module.rds_aurora.rds_cluster_endpoint
   }
 }

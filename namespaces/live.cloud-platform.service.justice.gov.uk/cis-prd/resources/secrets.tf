@@ -8,22 +8,22 @@ module "cis_prd_entra_prod_external_client_secret" {
   secrets = {
     "cis-prd-entra-prod-external-client-secret" = {
       description             = "CIS PRD Entra Prod External Client Secret" # required
-      recovery_window_in_days = 7                                          # required
+      recovery_window_in_days = 7                                           # required
       k8s_secret_name         = "cis-prd-entra-prod-external-client-secret" # the name of the secret in k8s
     },
     "cis-prd-entra-prod-external-client-id" = {
       description             = "CIS PRD Entra Prod External Client ID" # required
-      recovery_window_in_days = 7                                      # required
+      recovery_window_in_days = 7                                       # required
       k8s_secret_name         = "cis-prd-entra-prod-external-client-id" # the name of the secret in k8s
     },
     "cis-prd-entra-prod-external-tenant-id" = {
       description             = "CIS PRD Entra Prod External Tenant ID" # required
-      recovery_window_in_days = 7                                      # required
+      recovery_window_in_days = 7                                       # required
       k8s_secret_name         = "cis-prd-entra-prod-external-tenant-id" # the name of the secret in k8s
     },
     "cis-prd-cognito-test-user-secret" = {
       description             = "CIS PRD Cognito Test User Secret" # required
-      recovery_window_in_days = 7                                 # required
+      recovery_window_in_days = 7                                  # required
       k8s_secret_name         = "cis-prd-cognito-test-user-secret" # the name of the secret in k8s
     },
     "slack-webhook-url" = {

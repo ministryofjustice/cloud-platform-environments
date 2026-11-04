@@ -5,11 +5,11 @@ module "laa-cla-admin-service-ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-cla-admin-service"]
-  github_actions_prefix="CLA_ADMIN_SERVICE"
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-cla-admin-service"]
+  github_actions_prefix = "CLA_ADMIN_SERVICE"
 
-    # Production images are tagged with "main". Other images are tagged "branch".
+  # Production images are tagged with "main". Other images are tagged "branch".
   lifecycle_policy = <<EOF
 {
     "rules": [

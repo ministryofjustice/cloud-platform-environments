@@ -1,15 +1,15 @@
 module "sqs_queue" {
-  source                            = "./modules/sqs"
-  queue_name                        = "${var.namespace}-sqs-queue"
-  sns_topic_arn                     = module.claims_events_sns_topic.topic_arn
+  source                          = "./modules/sqs"
+  queue_name                      = "${var.namespace}-sqs-queue"
+  sns_topic_arn                   = module.claims_events_sns_topic.topic_arn
   sqs_queue_subscriber_namespaces = ["laa-data-claims-event-service-uat"]
-  business_unit                     = var.business_unit
-  application                       = var.application
-  is_production                     = var.is_production
-  team_name                         = var.team_name
-  namespace                         = var.namespace
-  environment                       = var.environment
-  infrastructure_support            = var.infrastructure_support
+  business_unit                   = var.business_unit
+  application                     = var.application
+  is_production                   = var.is_production
+  team_name                       = var.team_name
+  namespace                       = var.namespace
+  environment                     = var.environment
+  infrastructure_support          = var.infrastructure_support
 
   providers = {
     aws = aws.london

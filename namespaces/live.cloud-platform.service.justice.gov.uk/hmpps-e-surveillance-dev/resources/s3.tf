@@ -35,8 +35,8 @@ resource "aws_sns_topic_policy" "fileupload" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowS3Publish"
-        Effect    = "Allow"
+        Sid    = "AllowS3Publish"
+        Effect = "Allow"
         Principal = {
           Service = "s3.amazonaws.com"
         }

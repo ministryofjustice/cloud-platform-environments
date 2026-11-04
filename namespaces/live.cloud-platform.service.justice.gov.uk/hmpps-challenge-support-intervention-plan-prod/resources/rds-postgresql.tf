@@ -18,7 +18,7 @@ module "rds" {
   db_max_allocated_storage     = "500"
   db_allocated_storage         = "100"
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  deletion_protection          = true
+  deletion_protection = true
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
@@ -36,7 +36,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -96,8 +96,8 @@ resource "kubernetes_secret" "rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -109,13 +109,13 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_engine                = "postgres"
-  db_engine_version        = "18.6"
-  rds_family               = "postgres18"
+  db_engine                 = "postgres"
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
   prepare_for_major_upgrade = false
-  db_instance_class        = "db.t4g.medium"
-  db_max_allocated_storage = "500"
-  db_allocated_storage     = "100"
+  db_instance_class         = "db.t4g.medium"
+  db_max_allocated_storage  = "500"
+  db_allocated_storage      = "100"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
@@ -125,7 +125,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {

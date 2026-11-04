@@ -13,10 +13,10 @@ module "irsa-appservice" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
 
-    sqsappqueue    = module.claim-criminal-injuries-application-queue.irsa_policy_arn
-    sqstempusqueue = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
+    sqsappqueue            = module.claim-criminal-injuries-application-queue.irsa_policy_arn
+    sqstempusqueue         = module.claim-criminal-injuries-tempus-queue.irsa_policy_arn
     sqscorrespondencequeue = module.claim-criminal-injuries-correspondence-queue.irsa_policy_arn
-    policy         = aws_iam_policy.app_service_S3_access_policy.arn
+    policy                 = aws_iam_policy.app_service_S3_access_policy.arn
 
   }
 
@@ -177,7 +177,7 @@ module "irsa-cronjob" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-     s3  = module.cica-versions-bucket.irsa_policy_arn
+    s3 = module.cica-versions-bucket.irsa_policy_arn
   }
 
   # Tags

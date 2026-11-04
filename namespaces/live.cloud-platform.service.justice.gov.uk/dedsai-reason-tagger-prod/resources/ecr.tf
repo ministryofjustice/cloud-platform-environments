@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["dedsai-reason-tagger"]
 
-  github_environments = ["prod"]
+  github_environments   = ["prod"]
   github_actions_prefix = "prod"
 
   # Tags

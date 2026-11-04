@@ -11,7 +11,7 @@ module "rds" {
   vpc_name = var.vpc_name
 
   # RDS configuration
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade    = false
   allow_minor_version_upgrade  = true
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
@@ -34,7 +34,7 @@ module "rds" {
   namespace              = var.namespace
   team_name              = var.team_name
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -100,10 +100,10 @@ resource "kubernetes_secret" "rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    database_name        = module.rds.database_name
+    database_username    = module.rds.database_username
+    database_password    = module.rds.database_password
+    rds_instance_address = module.rds.rds_instance_address
   }
 }
 

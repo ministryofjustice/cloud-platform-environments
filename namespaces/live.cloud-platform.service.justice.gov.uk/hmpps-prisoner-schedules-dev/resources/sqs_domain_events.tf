@@ -1,8 +1,8 @@
 module "producer_event_sqs_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
-  sqs_name                  = "producer_event_sqs_queue"
+  sqs_name = "producer_event_sqs_queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.producer_event_sqs_dlq.sqs_arn
     maxReceiveCount     = 5
@@ -20,7 +20,7 @@ module "producer_event_sqs_queue" {
 module "producer_event_sqs_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
-  sqs_name        = "producer_event_sqs_dlq"
+  sqs_name                  = "producer_event_sqs_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit

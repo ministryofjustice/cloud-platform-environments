@@ -1,13 +1,13 @@
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  application                 = var.application
-  is_production               = var.is_production
-  namespace                   = var.namespace
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
   db_instance_class           = "db.t4g.large"
   rds_family                  = "postgres18"
@@ -18,15 +18,15 @@ module "ma_rds" {
   allow_minor_version_upgrade = "true"
   enable_irsa                 = true
 
-  storage_type                = "gp3"
-  db_iops                     = 12000 # gp3 baseline at 400 GB or more (no extra cost); the module requires it to be set
-  db_allocated_storage        = "1500"
+  storage_type         = "gp3"
+  db_iops              = 12000 # gp3 baseline at 400 GB or more (no extra cost); the module requires it to be set
+  db_allocated_storage = "1500"
 
-  db_engine                   = "postgres"
-  prepare_for_major_upgrade   = false
+  db_engine                 = "postgres"
+  prepare_for_major_upgrade = false
 
-  backup_window               = var.backup_window
-  maintenance_window          = var.maintenance_window
+  backup_window      = var.backup_window
+  maintenance_window = var.maintenance_window
 
 
   providers = {
@@ -82,7 +82,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -97,11 +97,11 @@ module "dps_rds_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "18.6"
-  rds_family        = "postgres18"
+  db_engine                 = "postgres"
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
   prepare_for_major_upgrade = false
-  db_instance_class = "db.t4g.large"
+  db_instance_class         = "db.t4g.large"
 
   # It is mandatory to set the below values to create read replica instance
 

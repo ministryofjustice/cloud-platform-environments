@@ -18,7 +18,7 @@ module "cloudfront" {
   enable_ordered_cache_behavior = true # default is false
 
   ordered_cache_behavior = {
-    path_pattern = "/uploads/sites/*/*colours*.css"
+    path_pattern    = "/uploads/sites/*/*colours*.css"
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
   }
 
@@ -32,6 +32,6 @@ resource "kubernetes_secret" "cloudfront_url" {
   }
 
   data = {
-    cloudfront_url   = module.cloudfront.cloudfront_url
+    cloudfront_url = module.cloudfront.cloudfront_url
   }
 }

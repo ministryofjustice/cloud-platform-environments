@@ -8,9 +8,9 @@ locals {
     hmpps_remand_and_sentencing_prisoner_queue             = module.hmpps_remand_and_sentencing_prisoner_queue.irsa_policy_arn,
     hmpps_remand_and_sentencing_prisoner_dead_letter_queue = module.hmpps_remand_and_sentencing_prisoner_dead_letter_queue.irsa_policy_arn,
   }
-  ui_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_ui_sqs : item.name => item.value}
+  ui_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_ui_sqs : item.name => item.value }
   ui_sqs_queues = {
-      "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
   }
 }
 

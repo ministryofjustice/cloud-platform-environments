@@ -23,7 +23,7 @@ module "rds_instance" {
 
 resource "kubernetes_secret" "rds_instance" {
   metadata {
-    name      = "rds-instance-output" 
+    name      = "rds-instance-output"
     namespace = var.namespace
   }
 

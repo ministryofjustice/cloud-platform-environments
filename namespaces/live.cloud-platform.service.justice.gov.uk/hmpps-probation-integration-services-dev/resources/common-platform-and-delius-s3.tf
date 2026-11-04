@@ -22,8 +22,8 @@ resource "kubernetes_secret" "common-platform-and-delius-s3-bucket" {
 }
 
 data "github_repository_file" "offence_priority_csv" {
-  repository          = "moj-analytical-services/lookup_offence"
-  file                = "data/offence_priority/offence_priority.csv"
+  repository = "moj-analytical-services/lookup_offence"
+  file       = "data/offence_priority/offence_priority.csv"
 }
 
 resource "aws_s3_object" "offence_priority" {

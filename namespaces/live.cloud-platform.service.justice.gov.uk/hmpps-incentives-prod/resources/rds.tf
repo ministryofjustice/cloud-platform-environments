@@ -85,7 +85,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -99,7 +99,7 @@ module "dps_rds_replica" {
   # If any other inputs of the RDS is passed in the source db which are different from defaults,
   # add them to the replica
 
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"

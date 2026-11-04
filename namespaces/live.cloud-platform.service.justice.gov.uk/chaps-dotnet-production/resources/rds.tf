@@ -78,8 +78,8 @@ resource "aws_db_option_group" "sqlserver_backup_restore" {
   option {
     option_name = "SQLSERVER_BACKUP_RESTORE"
     option_settings {
-      name = "IAM_ROLE_ARN"
-      value  = aws_iam_role.rds_s3_backup_restore.arn
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.rds_s3_backup_restore.arn
     }
   }
 }
@@ -94,9 +94,9 @@ resource "aws_iam_role" "rds_s3_backup_restore" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = { Service = "rds.amazonaws.com" },
-      Action   = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
@@ -108,7 +108,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
   role = aws_iam_role.rds_s3_backup_restore.id
 
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Sid      = "BucketLocation"
@@ -117,12 +117,12 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Resource = aws_s3_bucket.db_migration.arn
       },
       {
-        Sid             = "ListBucket"
-        Effect          = "Allow"
-        Action          = ["s3:ListBucket"]
-        Resource        = aws_s3_bucket.db_migration.arn
-        Condition       = {
-          StringLike    = { 
+        Sid      = "ListBucket"
+        Effect   = "Allow"
+        Action   = ["s3:ListBucket"]
+        Resource = aws_s3_bucket.db_migration.arn
+        Condition = {
+          StringLike = {
             "s3:prefix" = [
               local.db_migration_prefix,
               "${local.db_migration_prefix}/",
@@ -133,9 +133,9 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         }
       },
       {
-        Sid     = "ReadWriteBackupObjects"
-        Effect  = "Allow"
-        Action  = [
+        Sid    = "ReadWriteBackupObjects"
+        Effect = "Allow"
+        Action = [
           "s3:GetObject",
           "s3:GetObjectAttributes",
           "s3:ListMultipartUploadParts",
@@ -145,9 +145,9 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Resource = local.db_migration_objects_prefix_arn
       },
       {
-        Sid     = "UseCpBackupKmsKey"
-        Effect  = "Allow"
-        Action  = [
+        Sid    = "UseCpBackupKmsKey"
+        Effect = "Allow"
+        Action = [
           "kms:Decrypt",
           "kms:Encrypt",
           "kms:DescribeKey",

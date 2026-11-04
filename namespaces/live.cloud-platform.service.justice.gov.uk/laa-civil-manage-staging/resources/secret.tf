@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -20,7 +20,7 @@ module "secrets_manager" {
       description             = "Session secret for staging environment",
       recovery_window_in_days = 7,
       k8s_secret_name         = "session-secret-staging"
-    },    
+    },
     "slack-webhook-url" = {
       description             = "Slack webhook URL for non-production environment",
       recovery_window_in_days = 7,

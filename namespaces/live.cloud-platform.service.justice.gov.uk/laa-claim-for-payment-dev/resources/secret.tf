@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7" # use the latest release
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7" # use the latest release
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -11,13 +11,13 @@ module "secrets_manager" {
 
   secrets = {
     "entra-secret" = {
-      description             = "Auth secret for Dev",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "auth-secret-dev" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+      description             = "Auth secret for Dev", # Required
+      recovery_window_in_days = 7,                     # Required
+      k8s_secret_name         = "auth-secret-dev"      # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
-     "laa-claim-for-payment-sentry-dsn-dev" = {
-      description             = "Dev Sentry DSN",   # Required
-      recovery_window_in_days = 7,               # Required
+    "laa-claim-for-payment-sentry-dsn-dev" = {
+      description             = "Dev Sentry DSN",                  # Required
+      recovery_window_in_days = 7,                                 # Required
       k8s_secret_name         = "laa-claim-for-payment-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }

@@ -24,7 +24,7 @@ module "secrets_kms" {
 }
 
 resource "aws_iam_policy" "secret_ingestion_api_auth_token_kms_irsa_policy" {
-  name        = "${var.namespace}-secret-auth-kms-irsa-policy"
+  name = "${var.namespace}-secret-auth-kms-irsa-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"

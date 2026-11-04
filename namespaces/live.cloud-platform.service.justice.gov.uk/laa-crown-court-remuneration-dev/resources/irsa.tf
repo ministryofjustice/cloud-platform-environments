@@ -27,7 +27,7 @@ module "irsa" {
 data "aws_iam_policy_document" "ccr_claims_policy" {
   # Inbound queues: CCR polls for claims and deletes after processing
   statement {
-    sid  = "CCRPolicySQSDevReceive"
+    sid    = "CCRPolicySQSDevReceive"
     effect = "Allow"
     actions = [
       "sqs:ReceiveMessage",
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "ccr_claims_policy" {
 
   # Outbound queues: CCR sends success/failure responses back to CCCD
   statement {
-    sid  = "CCRPolicySQSDevSend"
+    sid    = "CCRPolicySQSDevSend"
     effect = "Allow"
     actions = [
       "sqs:SendMessage",
@@ -74,7 +74,7 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
+    role = module.irsa.role_name
 
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn

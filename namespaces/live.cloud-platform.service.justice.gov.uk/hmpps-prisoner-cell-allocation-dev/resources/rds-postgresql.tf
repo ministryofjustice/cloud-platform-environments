@@ -27,7 +27,7 @@ module "rds" {
   db_instance_class         = "db.t4g.small"
   prepare_for_major_upgrade = false
 
-  enable_irsa            = true
+  enable_irsa = true
 
   # Tags
   application            = "hmpps-change-someones-cell-api"

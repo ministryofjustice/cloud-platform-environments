@@ -29,7 +29,7 @@ module "cross-irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   service_account_name = "laa-sds-serviceaccount-migration-${var.environment}"
-  role_policy_arns       = { s3 = aws_iam_policy.s3_migrate_policy.arn }
+  role_policy_arns     = { s3 = aws_iam_policy.s3_migrate_policy.arn }
 
   business_unit          = var.business_unit
   application            = var.application
@@ -93,7 +93,7 @@ data "aws_iam_policy_document" "s3_migrate_policy" {
       "s3:GetObjectVersion",
       "s3:GetObjectTagging"
     ]
-    resources = [ "arn:aws:s3:::cloud-platform-b988a47b75caeabd901c79c3565f642a/*" ]   # take note of trailing /* here
+    resources = ["arn:aws:s3:::cloud-platform-b988a47b75caeabd901c79c3565f642a/*"] # take note of trailing /* here
   }
   # Permissions on destination S3 bucket contents.
   statement {
@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "s3_migrate_policy" {
       "s3:GetObject",
       "s3:DeleteObject"
     ]
-    resources = [ "${module.s3_bucket.bucket_arn}/*" ]
+    resources = ["${module.s3_bucket.bucket_arn}/*"]
   }
 }
 

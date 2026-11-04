@@ -22,7 +22,7 @@ resource "kubernetes_secret" "s3_bucket" {
   }
 
   data = {
-    bucket_arn           = module.apex-migration-s3.bucket_arn
-    bucket_name          = module.apex-migration-s3.bucket_name
+    bucket_arn  = module.apex-migration-s3.bucket_arn
+    bucket_name = module.apex-migration-s3.bucket_name
   }
 }

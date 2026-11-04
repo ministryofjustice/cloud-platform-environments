@@ -1,12 +1,12 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # next 2 distinguish gha versions from any circleci already in namespace
-  role_name = "serviceaccount_role_gh"
-  rolebinding_name = "github-action-rolebinding"
+  role_name            = "serviceaccount_role_gh"
+  rolebinding_name     = "github-action-rolebinding"
   serviceaccount_rules = var.serviceaccount_rules
 
   serviceaccount_token_rotated_date = "01-01-2000"

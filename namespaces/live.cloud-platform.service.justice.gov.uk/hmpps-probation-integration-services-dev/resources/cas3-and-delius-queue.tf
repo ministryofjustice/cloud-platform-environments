@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "cas3-and-delius-queue-subscription" {
-  
+
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.cas3-and-delius-queue.sqs_arn
@@ -86,7 +86,7 @@ module "cas3-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "cas3-and-delius"
-  role_policy_arns     = {
+  role_policy_arns = {
     sqs = module.cas3-and-delius-queue.irsa_policy_arn
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
   }

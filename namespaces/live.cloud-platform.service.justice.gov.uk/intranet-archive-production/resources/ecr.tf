@@ -3,7 +3,7 @@ module "ecr" {
 
   repo_name = "${var.namespace}-ecr"
 
-  oidc_providers = ["github"]
+  oidc_providers      = ["github"]
   github_repositories = ["intranet-archive"]
 
   # Tags

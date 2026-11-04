@@ -1,10 +1,10 @@
 locals {
-###################################################################
-### Change these to the repositories managed by this namespace ###
+  ###################################################################
+  ### Change these to the repositories managed by this namespace ###
 
-  github_repos   = ["hmpps-learner-records-api", "hmpps-match-learner-record-ui"]
+  github_repos = ["hmpps-learner-records-api", "hmpps-match-learner-record-ui"]
 
-###################################################################
+  ###################################################################
   github-actions-sa_rules = [
     {
       api_groups = [""]
@@ -96,11 +96,11 @@ resource "time_rotating" "weekly" {
 ### then add the variable name to the teams list below                 ###
 
 data "github_team" "hmpps-sre" {
-slug = "hmpps-sre"
+  slug = "hmpps-sre"
 }
 
 data "github_team" "hmpps-lrs-devs" {
-slug = "hmpps-lrs-devs"
+  slug = "hmpps-lrs-devs"
 }
 
 data "github_team" "education-skills-and-work-live" {
@@ -112,9 +112,9 @@ data "github_team" "education-skills-and-work-live" {
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
+  repository  = each.key
   reviewers {
-    teams = [ 
+    teams = [
       tonumber(data.github_team.hmpps-sre.id),
       tonumber(data.github_team.hmpps-lrs-devs.id),
       tonumber(data.github_team.education-skills-and-work-live.id)
@@ -128,9 +128,9 @@ resource "github_repository_environment" "env" {
 
 # The following environment variable is used by "hmpps-github-discovery" to map the application to a namespace.
 resource "github_actions_environment_variable" "namespace_env_var" {
-  for_each    = toset(local.github_repos)
-  repository  = each.key
-  environment = var.environment
+  for_each      = toset(local.github_repos)
+  repository    = each.key
+  environment   = var.environment
   variable_name = "KUBE_NAMESPACE"
-  value = var.namespace
+  value         = var.namespace
 }

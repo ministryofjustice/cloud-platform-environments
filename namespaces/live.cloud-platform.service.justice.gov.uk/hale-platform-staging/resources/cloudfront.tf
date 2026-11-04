@@ -4,8 +4,8 @@ module "cloudfront" {
   # Configuration
   bucket_id          = module.s3_bucket.bucket_name
   bucket_domain_name = "${module.s3_bucket.bucket_name}.s3.eu-west-2.amazonaws.com"
-  aliases           = [var.cloudfront_alias]
-  aliases_cert_arn     = aws_acm_certificate_validation.cloudfront_alias_cert_validation.certificate_arn
+  aliases            = [var.cloudfront_alias]
+  aliases_cert_arn   = aws_acm_certificate_validation.cloudfront_alias_cert_validation.certificate_arn
 
   # Tags
   business_unit          = var.business_unit
@@ -20,7 +20,7 @@ module "cloudfront" {
   enable_ordered_cache_behavior = true # default is false
 
   ordered_cache_behavior = {
-    path_pattern = "/uploads/sites/*/*colours*.css"
+    path_pattern    = "/uploads/sites/*/*colours*.css"
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
   }
 

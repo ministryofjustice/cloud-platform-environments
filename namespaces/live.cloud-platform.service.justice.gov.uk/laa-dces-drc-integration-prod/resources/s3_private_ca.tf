@@ -35,12 +35,12 @@ resource "aws_iam_access_key" "dces_ca-admin_user_prod_key" {
 data "aws_iam_policy_document" "ca-bucket-policy" {
   statement {
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         aws_iam_user.dces_ca_admin_user_prod.arn
       ]
     }
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "s3:GetBucketLocation",
       "s3:ListBucket",
@@ -53,8 +53,8 @@ data "aws_iam_policy_document" "ca-bucket-policy" {
     ]
   }
   statement {
-    effect    = "Deny"
-    actions   = ["s3:*"]
+    effect  = "Deny"
+    actions = ["s3:*"]
     resources = [
       "$${bucket_arn}",
       "$${bucket_arn}/*"

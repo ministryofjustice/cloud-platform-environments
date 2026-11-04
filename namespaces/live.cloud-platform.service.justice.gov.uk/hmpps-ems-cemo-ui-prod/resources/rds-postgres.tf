@@ -53,7 +53,7 @@ module "read_replica" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  namespace              = var.namespace  
+  namespace              = var.namespace
 
   # Set the database_name of the source db
   db_name = module.rds.database_name
@@ -64,7 +64,7 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
-  
+
 }
 
 

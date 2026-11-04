@@ -5,10 +5,10 @@ module "irsa" {
   eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name = "${var.namespace}-${var.environment}"  
+  service_account_name = "${var.namespace}-${var.environment}"
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
-    rds_mssql         = module.rds_mssql.irsa_policy_arn
+    s3        = module.s3_bucket.irsa_policy_arn
+    rds_mssql = module.rds_mssql.irsa_policy_arn
   }
 
   # Tags

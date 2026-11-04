@@ -1,5 +1,5 @@
 module "cvl_prison_events_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -95,7 +95,7 @@ resource "kubernetes_secret" "cvl_prison_events_queue" {
   }
 
   data = {
-    sqs_queue_url   = module.cvl_prison_events_queue.sqs_id
+    sqs_queue_url  = module.cvl_prison_events_queue.sqs_id
     sqs_queue_arn  = module.cvl_prison_events_queue.sqs_arn
     sqs_queue_name = module.cvl_prison_events_queue.sqs_name
   }
@@ -108,7 +108,7 @@ resource "kubernetes_secret" "cvl_prison_events_dead_letter_queue" {
   }
 
   data = {
-    sqs_queue_url   = module.cvl_prison_events_dead_letter_queue.sqs_id
+    sqs_queue_url  = module.cvl_prison_events_dead_letter_queue.sqs_id
     sqs_queue_arn  = module.cvl_prison_events_dead_letter_queue.sqs_arn
     sqs_queue_name = module.cvl_prison_events_dead_letter_queue.sqs_name
   }

@@ -26,7 +26,7 @@ module "rds" {
   prepare_for_major_upgrade = false
   # Window for minor version upgrades in UTC.
   # (upgrades and associated backups may cause resource spikes)
-  maintenance_window        = "Sun:03:00-Sun:04:00"
+  maintenance_window = "Sun:03:00-Sun:04:00"
 
   # overwrite db_parameters
   db_parameter = [

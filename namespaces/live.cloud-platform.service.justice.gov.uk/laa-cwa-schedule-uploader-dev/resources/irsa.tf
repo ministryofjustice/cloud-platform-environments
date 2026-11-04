@@ -1,11 +1,11 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name = var.eks_cluster_name
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
   service_account_name = "laa-cwa-schedule-uploader-api-runtime"
   namespace            = var.namespace # this is also used as a tag
 
   role_policy_arns = {
-    s3  = module.s3_bucket.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   # Tags

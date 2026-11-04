@@ -10,13 +10,13 @@ module "elasticache" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version         = "7.1"
-  parameter_group_name   = "default.redis7"
-  number_cache_clusters  = "2"
-  node_type              = "cache.t4g.medium"
+  engine_version        = "7.1"
+  parameter_group_name  = "default.redis7"
+  number_cache_clusters = "2"
+  node_type             = "cache.t4g.medium"
 
-  snapshot_window        = "03:30-04:30"
-  maintenance_window     = "sat:00:00-sat:01:00"
+  snapshot_window    = "03:30-04:30"
+  maintenance_window = "sat:00:00-sat:01:00"
 }
 
 resource "kubernetes_secret" "elasticache" {

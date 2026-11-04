@@ -6,7 +6,7 @@ resource "aws_sns_topic_subscription" "warrant-risk-assessment-and-delius-queue-
     eventType = [
       "probation-case.warrant-risk-assessment.created",
       "probation-case.warrant-risk-assessment.deleted"
-    ] 
+    ]
   })
 }
 

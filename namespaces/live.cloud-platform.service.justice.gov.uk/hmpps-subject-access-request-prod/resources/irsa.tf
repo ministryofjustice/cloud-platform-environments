@@ -16,7 +16,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-subject-access-request"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     {
       s3 = module.hmpps-subject-access-request_s3_bucket.irsa_policy_arn

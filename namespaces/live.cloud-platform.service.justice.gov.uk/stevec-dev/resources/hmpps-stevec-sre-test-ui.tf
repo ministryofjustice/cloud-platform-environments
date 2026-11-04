@@ -3,15 +3,15 @@
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-stevec-sre-test-ui"
-  application = "hmpps-stevec-sre-test-ui"
-  github_team = "hmpps-sre"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-sre-nondevs","hmpps-move-and-improve-squad-2-live"] #Used for testing against HEAT-1615
-  selected_branch_patterns      = ["main", "**/**", "**"]           # Optional
+  github_repo                = "hmpps-stevec-sre-test-ui"
+  application                = "hmpps-stevec-sre-test-ui"
+  github_team                = "hmpps-sre"
+  environment                = var.environment                                              # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-sre-nondevs", "hmpps-move-and-improve-squad-2-live"] #Used for testing against HEAT-1615
+  selected_branch_patterns   = ["main", "**/**", "**"]                                      # Optional
   #protected_branches_only      = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
@@ -34,7 +34,7 @@ module "elasticache_redis" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 
-  number_cache_clusters = var.number_cache_clusters
+  number_cache_clusters       = var.number_cache_clusters
   preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"] #Pinned due to availability issues on 18/6/26
 
 

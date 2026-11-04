@@ -78,7 +78,7 @@ module "manage-supervision-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "manage-supervision-and-delius"
-  role_policy_arns     = {
+  role_policy_arns = {
     sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
     sqs = module.manage-supervision-and-delius-queue.irsa_policy_arn
   }

@@ -1,6 +1,6 @@
 module "secrets_manager" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
-  
+
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -12,9 +12,9 @@ module "secrets_manager" {
 
   secrets = {
     "opensearch-low-priority-webhook" = {
-      description             = "Webhook for opensearch to send notifications into low-priority-alerts",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "opensearch-low-priority-webhook" # The name of the secret in k8s
+      description             = "Webhook for opensearch to send notifications into low-priority-alerts", # Required
+      recovery_window_in_days = 7,                                                                       # Required
+      k8s_secret_name         = "opensearch-low-priority-webhook"                                        # The name of the secret in k8s
     },
   }
 }

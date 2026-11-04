@@ -1,9 +1,9 @@
 module "hmpps-electronic-monitoring-data-insights-ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  github_repo = "hmpps-electronic-monitoring-data-insights-ui"
-  application = "hmpps-electronic-monitoring-data-insights-ui"
-  github_team = var.team_name
-  environment = var.environment 
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  github_repo                   = "hmpps-electronic-monitoring-data-insights-ui"
+  application                   = "hmpps-electronic-monitoring-data-insights-ui"
+  github_team                   = var.team_name
+  environment                   = var.environment
   selected_branch_patterns      = ["main"]
   is_production                 = var.is_production
   application_insights_instance = var.environment

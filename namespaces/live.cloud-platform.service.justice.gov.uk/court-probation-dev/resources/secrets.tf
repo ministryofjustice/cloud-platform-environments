@@ -12,14 +12,14 @@ module "secrets_manager" {
 
   secrets = {
     "case-tracking-pre-pilot-users" = {
-      description             = "Pilot Users for Case Tracking",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "case-tracking-pre-pilot-users" # The name of the secret in k8s
+      description             = "Pilot Users for Case Tracking", # Required
+      recovery_window_in_days = 7,                               # Required
+      k8s_secret_name         = "case-tracking-pre-pilot-users"  # The name of the secret in k8s
     },
     "liverpool-pre-pilot-users" = {
-      description             = "Liverpool pre pilot users",   # Required
-      recovery_window_in_days = 7,               # Required
-      k8s_secret_name         = "liverpool-pre-pilot-users" # The name of the secret in k8s
+      description             = "Liverpool pre pilot users", # Required
+      recovery_window_in_days = 7,                           # Required
+      k8s_secret_name         = "liverpool-pre-pilot-users"  # The name of the secret in k8s
     },
     "probation-in-court-slack-webhook" = {
       description             = "Contains the slack webhook url to send notifications",

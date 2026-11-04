@@ -1,7 +1,7 @@
 
 locals {
 
-  github_repos   = ["hmpps-community-support-api", "hmpps-community-support-ui"]
+  github_repos = ["hmpps-community-support-api", "hmpps-community-support-ui"]
 
   github-actions-sa_rules = [
     {
@@ -104,7 +104,7 @@ data "github_team" "hmpps-community-support-devs" {
 resource "github_repository_environment" "env" {
   for_each    = toset(local.github_repos)
   environment = var.environment
-  repository  = each.key  
+  repository  = each.key
   reviewers {
     teams = [
       tonumber(data.github_team.hmpps-sre.id),

@@ -1,13 +1,13 @@
 module "help-with-prison-visits-asynchronous-worker" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "help-with-prison-visits-asynchronous-worker"
-  application = "help-with-prison-visits-asynchronous-worker"
-  github_team = "hmpps-help-with-prison-visits-live"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  github_repo                = "help-with-prison-visits-asynchronous-worker"
+  application                = "help-with-prison-visits-asynchronous-worker"
+  github_team                = "hmpps-help-with-prison-visits-live"
+  environment                = var.environment                        # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
+  selected_branch_patterns   = ["main", "**/**", "**"]                # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
@@ -18,15 +18,15 @@ module "help-with-prison-visits-asynchronous-worker" {
 }
 
 module "help-with-prison-visits-external" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "help-with-prison-visits-external"
-  application = "help-with-prison-visits-external"
-  github_team = "hmpps-help-with-prison-visits-live"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  github_repo                = "help-with-prison-visits-external"
+  application                = "help-with-prison-visits-external"
+  github_team                = "hmpps-help-with-prison-visits-live"
+  environment                = var.environment                        # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
+  selected_branch_patterns   = ["main", "**/**", "**"]                # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
@@ -37,15 +37,15 @@ module "help-with-prison-visits-external" {
 }
 
 module "help-with-prison-visits-internal" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "help-with-prison-visits-internal"
-  application = "help-with-prison-visits-internal"
-  github_team = "hmpps-help-with-prison-visits-live"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
-  selected_branch_patterns      = ["main", "**/**", "**"] # Optional
+  github_repo                = "help-with-prison-visits-internal"
+  application                = "help-with-prison-visits-internal"
+  github_team                = "hmpps-help-with-prison-visits-live"
+  environment                = var.environment                        # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-help-with-prison-visits-live"] # Optional team that should review deployments to this environment.
+  selected_branch_patterns   = ["main", "**/**", "**"]                # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"

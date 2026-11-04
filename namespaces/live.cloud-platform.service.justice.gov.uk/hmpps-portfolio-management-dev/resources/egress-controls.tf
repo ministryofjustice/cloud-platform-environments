@@ -15,7 +15,7 @@ module "hmpps_egress_controls" {
     "graph.microsoft.com",
     "slack.com",
     "github.com",
-    "api.applicationinsights.io", 
+    "api.applicationinsights.io",
     "ghcr.io",
     "api.snyk.io",
     "quay.io"

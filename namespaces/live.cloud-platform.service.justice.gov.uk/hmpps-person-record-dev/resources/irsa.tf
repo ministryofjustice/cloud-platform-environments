@@ -4,7 +4,7 @@ locals {
   }
   # *** Placeholder for incoming SNS topics ***
   sns_topics = {
-      "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -14,7 +14,7 @@ locals {
 # PiC Events SQS Policies
 data "aws_iam_policy_document" "pic_link_unlink_sqs" {
   statement {
-    sid       = "hmppsPiCPolicy"
+    sid     = "hmppsPiCPolicy"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
@@ -32,7 +32,7 @@ resource "aws_iam_policy" "pic_link_unlink_sqs" {
 # Court Case Events SQS Policies
 data "aws_iam_policy_document" "combined_court_case_sqs" {
   statement {
-    sid       = "hmppsCourtCasePolicy"
+    sid     = "hmppsCourtCasePolicy"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [
@@ -74,7 +74,7 @@ resource "aws_iam_policy" "combined_delius_sqs" {
 # NOMIS SQS Policies
 data "aws_iam_policy_document" "combined_nomis_sqs" {
   statement {
-    sid       = "hmppsNomisQueuePolicy"
+    sid     = "hmppsNomisQueuePolicy"
     effect  = "Allow"
     actions = ["sqs:*"]
     resources = [

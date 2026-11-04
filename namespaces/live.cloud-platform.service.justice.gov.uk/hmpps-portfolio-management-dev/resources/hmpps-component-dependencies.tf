@@ -1,13 +1,13 @@
 module "hmpps_component_dependencies" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-component-dependencies"
   application                   = "hmpps-component-dependencies"
   github_team                   = "hmpps-sre"
-  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment         # Should match environment name used in helm values file e.g. values-dev.yaml
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
-  protected_branches_only       = false # Optional, defaults to true unless selected_branch_patterns is set
+  protected_branches_only       = false                   # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev"
   source_template_repo          = "none"

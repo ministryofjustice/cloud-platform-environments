@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
+  oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-crime-court-message-processor"]

@@ -121,12 +121,12 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "read_replica" {
-  count                = 1
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type         = "gp2"
+  count        = 1
+  source       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type = "gp2"
 
   # Add security group id
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_max_allocated_storage = "550"
 

@@ -1,7 +1,7 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   #serviceaccount_name = "cd-serviceaccount"
@@ -9,7 +9,7 @@ module "serviceaccount" {
   #rolebinding_name    = "serviceaccount-rolebinding"
 
   serviceaccount_token_rotated_date = "20-03-2026"
-  serviceaccount_rules = var.serviceaccount_rules
+  serviceaccount_rules              = var.serviceaccount_rules
 
   github_repositories = var.github_repository_names
   github_environments = [var.github_environment_name, "prod_auto_without_approval"]
@@ -23,7 +23,7 @@ module "serviceaccount" {
 module "deployer_serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "deployer-serviceaccount"
@@ -31,7 +31,7 @@ module "deployer_serviceaccount" {
   rolebinding_name    = "deployer-rolebinding"
 
   serviceaccount_token_rotated_date = "20-07-2026"
-  serviceaccount_rules = var.deployer_serviceaccount_rules
+  serviceaccount_rules              = var.deployer_serviceaccount_rules
 
   github_repositories = var.github_repository_names
   github_environments = [var.github_environment_name]
@@ -45,7 +45,7 @@ module "deployer_serviceaccount" {
 module "e2etester_serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "e2etester-serviceaccount"
@@ -53,7 +53,7 @@ module "e2etester_serviceaccount" {
   rolebinding_name    = "e2etester-rolebinding"
 
   serviceaccount_token_rotated_date = "20-07-2026"
-  serviceaccount_rules = var.e2etester_serviceaccount_rules
+  serviceaccount_rules              = var.e2etester_serviceaccount_rules
 
   github_repositories = var.github_repository_names
   github_environments = [var.github_environment_name, "prod_auto_without_approval"]
@@ -67,7 +67,7 @@ module "e2etester_serviceaccount" {
 module "maintainer_serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "maintainer-serviceaccount"
@@ -75,7 +75,7 @@ module "maintainer_serviceaccount" {
   rolebinding_name    = "maintainer-rolebinding"
 
   serviceaccount_token_rotated_date = "10-08-2026"
-  serviceaccount_rules = var.maintainer_serviceaccount_rules
+  serviceaccount_rules              = var.maintainer_serviceaccount_rules
 
   github_repositories = var.github_repository_names
   github_environments = [var.github_environment_name, "prod_auto_without_approval"]
@@ -89,7 +89,7 @@ module "maintainer_serviceaccount" {
 module "pacttester_serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "pacttester-serviceaccount"
@@ -97,7 +97,7 @@ module "pacttester_serviceaccount" {
   rolebinding_name    = "pacttester-rolebinding"
 
   serviceaccount_token_rotated_date = "10-08-2026"
-  serviceaccount_rules = var.pacttester_serviceaccount_rules
+  serviceaccount_rules              = var.pacttester_serviceaccount_rules
 
   github_repositories = var.github_repository_names
   github_environments = [var.github_environment_name]

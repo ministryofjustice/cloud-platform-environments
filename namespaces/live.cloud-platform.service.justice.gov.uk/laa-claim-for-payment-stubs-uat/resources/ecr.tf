@@ -11,8 +11,8 @@ module "stub-civil-claims-api-ecr" {
   repo_name = "claim-for-payment-stubs-civil-claims-api"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment-stubs","claim-assess-regression-tests"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-claim-for-payment-stubs", "claim-assess-regression-tests"]
   github_actions_prefix = "stub_civil_claims_api"
   # Tags
   business_unit          = var.business_unit
@@ -31,8 +31,8 @@ module "stub-oidc-server-ecr" {
   repo_name = "claim-for-payment-stubs-oidc-server"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["laa-claim-for-payment-stubs","claim-assess-regression-tests"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["laa-claim-for-payment-stubs", "claim-assess-regression-tests"]
   github_actions_prefix = "stub_oidc_server"
   # Tags
   business_unit          = var.business_unit

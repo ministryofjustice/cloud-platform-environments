@@ -4,7 +4,7 @@ module "fileupload_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "fileuploadqueue"
-  encrypt_sqs_kms          = true
+  encrypt_sqs_kms           = true
   message_retention_seconds = 86400
 
   redrive_policy = <<EOF
@@ -27,8 +27,8 @@ module "fileupload_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "fileuploadqueuedlq"
-  encrypt_sqs_kms          = true
-  message_retention_seconds = 1209600  # 14 days
+  encrypt_sqs_kms           = true
+  message_retention_seconds = 1209600 # 14 days
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -43,8 +43,8 @@ module "personid_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "personidqueue"
-  encrypt_sqs_kms          = true
-  fifo_queue               = true
+  encrypt_sqs_kms           = true
+  fifo_queue                = true
   message_retention_seconds = 86400
 
   redrive_policy = <<EOF
@@ -67,9 +67,9 @@ module "personid_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   sqs_name                  = "personidqueuedlq"
-  encrypt_sqs_kms          = true
-  fifo_queue               = true
-  message_retention_seconds = 1209600  # 14 days
+  encrypt_sqs_kms           = true
+  fifo_queue                = true
+  message_retention_seconds = 1209600 # 14 days
 
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -106,8 +106,8 @@ resource "aws_sqs_queue_policy" "fileupload_policy" {
         Principal = {
           Service = "sns.amazonaws.com"
         }
-        Action    = "sqs:SendMessage"
-        Resource  = module.fileupload_queue.sqs_arn
+        Action   = "sqs:SendMessage"
+        Resource = module.fileupload_queue.sqs_arn
         Condition = {
           ArnEquals = {
             "aws:SourceArn" = module.sns_topic_fileupload.topic_arn
@@ -128,8 +128,8 @@ resource "aws_sqs_queue_policy" "personid_policy" {
         Principal = {
           Service = "sns.amazonaws.com"
         }
-        Action    = "sqs:SendMessage"
-        Resource  = module.personid_queue.sqs_arn
+        Action   = "sqs:SendMessage"
+        Resource = module.personid_queue.sqs_arn
         Condition = {
           ArnEquals = {
             "aws:SourceArn" = module.sns_topic_personid.topic_arn

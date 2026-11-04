@@ -1,5 +1,5 @@
 module "hmpps_prisoner_to_nomis_coreperson_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration

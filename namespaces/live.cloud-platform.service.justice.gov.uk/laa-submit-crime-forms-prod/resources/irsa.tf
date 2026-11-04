@@ -12,7 +12,7 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    s3 = module.s3_bucket.irsa_policy_arn
+    s3  = module.s3_bucket.irsa_policy_arn
     rds = module.rds.irsa_policy_arn
   }
 
@@ -32,7 +32,7 @@ module "service_pod" {
   # Configuration
   namespace            = var.namespace
   service_account_name = module.irsa.service_account.name
-  service_pod_count = 0
+  service_pod_count    = 0
 }
 
 resource "kubernetes_secret" "irsa" {

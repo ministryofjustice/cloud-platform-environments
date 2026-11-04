@@ -24,11 +24,11 @@ module "rds" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.small"
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  db_engine              = "postgres"
+  db_engine_version      = "17.11"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.t4g.small"
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
   db_parameter = [
     {
       name         = "rds.logical_replication"
@@ -68,14 +68,14 @@ module "rds" {
   team_name              = var.team_name
 
   # Enable service account access
-  enable_irsa            = true
+  enable_irsa = true
 }
 
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -87,11 +87,11 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.small"
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  db_engine              = "postgres"
+  db_engine_version      = "17.11"
+  rds_family             = "postgres17"
+  db_instance_class      = "db.t4g.small"
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
@@ -192,9 +192,9 @@ resource "kubernetes_secret" "rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    database_name        = module.rds.database_name
+    database_username    = module.rds.database_username
+    database_password    = module.rds.database_password
+    rds_instance_address = module.rds.rds_instance_address
   }
 }

@@ -23,7 +23,7 @@ module "prisoner_pay_rds" {
   db_max_allocated_storage    = "50"
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable DPR team to configure replication
   db_parameter = [
@@ -32,7 +32,7 @@ module "prisoner_pay_rds" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"

@@ -17,7 +17,7 @@ module "rds_metabase" {
   db_max_allocated_storage     = "500"
   db_allocated_storage         = "20"
   deletion_protection          = true
-  opt_in_xsiam_logging = true
+  opt_in_xsiam_logging         = true
   # enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -49,7 +49,7 @@ resource "kubernetes_secret" "rds_metabase" {
     database_username     = module.rds_metabase.database_username
     database_password     = module.rds_metabase.database_password
     rds_instance_address  = module.rds_metabase.rds_instance_address
-    jdbc_url = "jdbc:postgresql://${module.rds_metabase.rds_instance_endpoint}/${module.rds_metabase.database_name}?user=${module.rds_metabase.database_username}&password=${module.rds_metabase.database_password}"
+    jdbc_url              = "jdbc:postgresql://${module.rds_metabase.rds_instance_endpoint}/${module.rds_metabase.database_name}?user=${module.rds_metabase.database_username}&password=${module.rds_metabase.database_password}"
   }
   /* You can replace all of the above with the following, if you prefer to
    * use a single database URL value in your application code:

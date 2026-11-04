@@ -1,8 +1,8 @@
 module "moj_dashboard_prod_s3_read_irsa" {
-  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name      = var.eks_cluster_name
-  namespace             = var.namespace
-  service_account_name  = "moj-dashboard-prod-s3-read"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "moj-dashboard-prod-s3-read"
   role_policy_arns = {
     s3_read_policy = aws_iam_policy.moj_dashboard_prod_s3_read.arn
   }
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "moj_dashboard_prod_s3_read" {
       "${module.s3_bucket.bucket_arn}/*"
     ]
   }
-  
+
   statement {
     effect = "Allow"
     actions = [

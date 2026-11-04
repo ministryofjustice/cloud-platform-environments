@@ -40,7 +40,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-book-a-video-link"
-  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, {combined_local_sqs = aws_iam_policy.combined_local_sqs.arn}, {rds_policy = module.rds.irsa_policy_arn})
+  role_policy_arns     = merge(local.sqs_policies, local.sns_policies, { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn }, { rds_policy = module.rds.irsa_policy_arn })
 
   # Tags
   business_unit          = var.business_unit

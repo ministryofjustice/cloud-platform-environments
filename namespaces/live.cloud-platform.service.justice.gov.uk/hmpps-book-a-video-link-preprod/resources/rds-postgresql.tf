@@ -80,9 +80,9 @@ resource "kubernetes_secret" "rds_refresh_creds" {
   }
 
   data = {
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    rds_instance_address  = module.rds.rds_instance_address
+    database_name        = module.rds.database_name
+    database_username    = module.rds.database_username
+    database_password    = module.rds.database_password
+    rds_instance_address = module.rds.rds_instance_address
   }
 }

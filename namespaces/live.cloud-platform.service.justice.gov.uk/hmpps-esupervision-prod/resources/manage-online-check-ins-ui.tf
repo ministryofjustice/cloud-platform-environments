@@ -1,11 +1,11 @@
 module "hmpps_manage_online_check_ins_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-06-20"
-  github_repo = "hmpps-manage-online-check-ins-ui"
-  application = "hmpps-manage-online-check-ins-ui"
-  github_team = "stg-pathfinders"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-06-20"
+  github_repo                   = "hmpps-manage-online-check-ins-ui"
+  application                   = "hmpps-manage-online-check-ins-ui"
+  github_team                   = "stg-pathfinders"
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   reviewer_teams                = ["stg-pathfinders"]

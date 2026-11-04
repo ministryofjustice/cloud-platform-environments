@@ -55,7 +55,7 @@ resource "kubernetes_config_map" "rds" {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
   }
-} 
+}
 
 # This places a secret for this preprod RDS instance in the production namespace,
 # this can then be used by a kubernetes job which will refresh the preprod data.

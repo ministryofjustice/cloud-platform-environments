@@ -3,7 +3,7 @@ data "aws_ssm_parameter" "audit_irsa_policy_arn" {
 }
 
 data "aws_ssm_parameter" "domain_events_policy_arn" {
-  name     = "/hmpps-domain-events-${var.environment_name}/sns/${var.domain_events_topic_name}/irsa-policy-arn"
+  name = "/hmpps-domain-events-${var.environment_name}/sns/${var.domain_events_topic_name}/irsa-policy-arn"
 }
 
 module "irsa" {

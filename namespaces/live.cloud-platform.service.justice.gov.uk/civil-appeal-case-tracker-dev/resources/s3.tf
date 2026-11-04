@@ -20,7 +20,7 @@ module "s3_bucket" {
 # --------------------------------------------------------
 data "aws_iam_policy_document" "merged_bucket_policy" {
 
-    # --- VPCE-restricted for apps running in VPC ---
+  # --- VPCE-restricted for apps running in VPC ---
   statement {
     sid    = "AllowApplicationS3AccessFromVPCE"
     effect = "Allow"
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceVpce"
-      values = ["vpce-0f82cc8809dc37503"]
+      values   = ["vpce-0f82cc8809dc37503"]
     }
   }
 

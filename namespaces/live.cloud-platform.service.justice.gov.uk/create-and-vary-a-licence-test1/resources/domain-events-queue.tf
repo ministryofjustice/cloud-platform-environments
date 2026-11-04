@@ -1,10 +1,10 @@
 module "cvl_domain_events_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name                   = "cvl_domain_events_queue"
-  encrypt_sqs_kms            = "true"
-  message_retention_seconds  = 1209600
+  sqs_name                  = "cvl_domain_events_queue"
+  encrypt_sqs_kms           = "true"
+  message_retention_seconds = 1209600
 
   redrive_policy = <<EOF
   {

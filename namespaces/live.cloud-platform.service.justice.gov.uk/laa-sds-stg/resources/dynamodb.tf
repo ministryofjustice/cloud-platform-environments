@@ -38,7 +38,7 @@ resource "kubernetes_secret" "audit_dynamodb" {
 
 data "aws_iam_policy_document" "audit_db_access" {
   statement {
-    actions   = [
+    actions = [
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",

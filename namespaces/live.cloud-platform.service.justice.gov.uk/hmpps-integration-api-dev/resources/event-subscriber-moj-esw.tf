@@ -1,5 +1,5 @@
 module "event_moj_esw_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -81,8 +81,8 @@ data "aws_secretsmanager_secret_version" "moj_esw_filter_list" {
 }
 
 data "github_repository_file" "moj_esw_subscription_filter_policy" {
-  repository          = "${var.github_owner}/${var.github_repo_name}"
-  file                = "src/main/resources/event-filter-policies/${var.environment}/moj-esw-subscription-filter.json"
+  repository = "${var.github_owner}/${var.github_repo_name}"
+  file       = "src/main/resources/event-filter-policies/${var.environment}/moj-esw-subscription-filter.json"
 }
 
 resource "aws_sns_topic_subscription" "event_moj_esw_subscription" {
@@ -102,9 +102,9 @@ resource "kubernetes_secret" "event_moj_esw_queue" {
   }
 
   data = {
-    sqs_id                      = module.event_moj_esw_queue.sqs_id
-    sqs_arn                     = module.event_moj_esw_queue.sqs_arn
-    sqs_name                    = module.event_moj_esw_queue.sqs_name
+    sqs_id                          = module.event_moj_esw_queue.sqs_id
+    sqs_arn                         = module.event_moj_esw_queue.sqs_arn
+    sqs_name                        = module.event_moj_esw_queue.sqs_name
     moj_esw_filter_policy_secret_id = data.aws_secretsmanager_secret_version.moj_esw_filter_list.secret_id
   }
 }

@@ -8,7 +8,7 @@ module "serviceaccount" {
   github_actions_secret_kube_token     = var.github_actions_secret_kube_token
   github_actions_secret_kube_cluster   = var.github_actions_secret_kube_cluster
   github_actions_secret_kube_namespace = var.github_actions_secret_kube_namespace
-  serviceaccount_token_rotated_date = "20-03-2026"
+  serviceaccount_token_rotated_date    = "20-03-2026"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
@@ -17,70 +17,70 @@ module "serviceaccount" {
   github_environments = ["dev"]
 
   serviceaccount_rules = [
-      {
-        api_groups = [""]
-        resources = [
-          "pods/portforward",
-          "deployment",
-          "secrets",
-          "services",
-          "pods",
-          "serviceaccounts",
-          "configmaps",
-          "persistentvolumeclaims",
-        ]
-        verbs = [
-          "update",
-          "patch",
-          "get",
-          "create",
-          "delete",
-          "list",
-          "watch",
-        ]
-      },
-      {
-        api_groups = [
-          "extensions",
-          "apps",
-          "batch",
-          "networking.k8s.io",
-          "rbac.authorization.k8s.io",
-          "policy",
-        ]
-        resources = [
-          "deployments",
-          "ingresses",
-          "cronjobs",
-          "jobs",
-          "replicasets",
-          "statefulsets",
-          "networkpolicies",
-          "roles",
-          "rolebindings",
-          "poddisruptionbudgets",
-        ]
-        verbs = [
-          "get",
-          "update",
-          "delete",
-          "create",
-          "patch",
-          "list",
-          "watch",
-        ]
-      },
-      {
-        api_groups = [
-          "monitoring.coreos.com",
-        ]
-        resources = [
-          "servicemonitors",
-          "prometheusrules",
-        ]
-        verbs = [
-          "*",
-        ]
-      },
-    ]
-  }
+    {
+      api_groups = [""]
+      resources = [
+        "pods/portforward",
+        "deployment",
+        "secrets",
+        "services",
+        "pods",
+        "serviceaccounts",
+        "configmaps",
+        "persistentvolumeclaims",
+      ]
+      verbs = [
+        "update",
+        "patch",
+        "get",
+        "create",
+        "delete",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "extensions",
+        "apps",
+        "batch",
+        "networking.k8s.io",
+        "rbac.authorization.k8s.io",
+        "policy",
+      ]
+      resources = [
+        "deployments",
+        "ingresses",
+        "cronjobs",
+        "jobs",
+        "replicasets",
+        "statefulsets",
+        "networkpolicies",
+        "roles",
+        "rolebindings",
+        "poddisruptionbudgets",
+      ]
+      verbs = [
+        "get",
+        "update",
+        "delete",
+        "create",
+        "patch",
+        "list",
+        "watch",
+      ]
+    },
+    {
+      api_groups = [
+        "monitoring.coreos.com",
+      ]
+      resources = [
+        "servicemonitors",
+        "prometheusrules",
+      ]
+      verbs = [
+        "*",
+      ]
+    },
+  ]
+}

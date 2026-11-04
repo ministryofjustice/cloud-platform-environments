@@ -16,8 +16,8 @@ module "hmpps-prisoner-location_s3_bucket" {
 
   lifecycle_rule = [
     {
-      enabled = true
-      id      = "expire all locations after 14 days"
+      enabled    = true
+      id         = "expire all locations after 14 days"
       expiration = [{ days = 14 }]
     },
   ]

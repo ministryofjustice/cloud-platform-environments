@@ -31,7 +31,7 @@ resource "kubernetes_secret" "laa_ccms_documents" {
 
 data "aws_iam_policy_document" "laa_ccms_documents_access" {
   statement {
-    actions   = [
+    actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject",

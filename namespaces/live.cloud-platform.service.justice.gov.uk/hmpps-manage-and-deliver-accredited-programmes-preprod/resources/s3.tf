@@ -32,7 +32,7 @@ module "upload_s3_bucket" {
 }
 
 resource "aws_s3_bucket_policy" "upload_s3_bucket_policy" {
-  bucket = module.upload_s3_bucket.bucket_name
+  bucket     = module.upload_s3_bucket.bucket_name
   depends_on = [module.irsa-cronjob]
 
   policy = jsonencode({

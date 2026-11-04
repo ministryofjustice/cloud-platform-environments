@@ -14,11 +14,11 @@ module "create_link_queue_m" {
   EOF
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -36,11 +36,11 @@ module "create_link_queue_m_dead_letter_queue" {
   encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -66,11 +66,11 @@ module "unlink_queue_m" {
   EOF
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -88,11 +88,11 @@ module "unlink_queue_m_dead_letter_queue" {
   encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -118,11 +118,11 @@ module "hearing_resulted_queue" {
   EOF
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -140,11 +140,11 @@ module "hearing_resulted_dead_letter_queue" {
   encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -170,11 +170,11 @@ module "prosecution_concluded_queue" {
   EOF
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -192,11 +192,11 @@ module "prosecution_concluded_dl_queue" {
   encrypt_sqs_kms = var.encrypt_sqs_kms
 
   # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
+  business_unit = var.business_unit
+  application   = var.application
+  is_production = var.is_production
   # TODO: Switch this to var.team_name when we are ready to switch the queue
-  team_name = "crime-apps"
+  team_name              = "crime-apps"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support

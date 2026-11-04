@@ -3,16 +3,16 @@
 # https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps_template_typescript" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "health-kick"
-  application = "health-kick"
-  github_team = "hmpps-sre"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-sre"] # Optional team that should review deployments to this environment.
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "health-kick"
+  application                   = "health-kick"
+  github_team                   = "hmpps-sre"
+  environment                   = var.environment         # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams                = ["hmpps-sre"]           # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
-  protected_branches_only       = false # Optional, defaults to true unless selected_branch_patterns is set
+  protected_branches_only       = false                   # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"

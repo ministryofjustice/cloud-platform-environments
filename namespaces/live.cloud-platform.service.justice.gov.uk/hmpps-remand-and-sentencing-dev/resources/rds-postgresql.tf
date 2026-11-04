@@ -1,20 +1,20 @@
 
 module "remand-and-sentencing-api-rds" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   # VPC configuration
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  prepare_for_major_upgrade = false
+  prepare_for_major_upgrade   = false
   allow_minor_version_upgrade = true
-  db_engine                 = "postgres"
-  db_engine_version         = "18.6"
-  rds_family                = "postgres18"
-  db_instance_class         = "db.t4g.small"
-  db_allocated_storage      = 100
-  db_max_allocated_storage  = 500
-  storage_type         = "gp3"
-  enable_rds_auto_start_stop = true
+  db_engine                   = "postgres"
+  db_engine_version           = "18.6"
+  rds_family                  = "postgres18"
+  db_instance_class           = "db.t4g.small"
+  db_allocated_storage        = 100
+  db_max_allocated_storage    = 500
+  storage_type                = "gp3"
+  enable_rds_auto_start_stop  = true
 
   # Tags
   application            = var.application

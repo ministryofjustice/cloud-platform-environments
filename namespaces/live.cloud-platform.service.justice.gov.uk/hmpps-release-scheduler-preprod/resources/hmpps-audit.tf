@@ -26,7 +26,7 @@ module "ui_irsa" {
   service_account_name = "hmpps-release-scheduler-ui"
   namespace            = var.namespace
   role_policy_arns = {
-    audit_queue         = data.aws_ssm_parameter.audit_irsa_policy_arn.value,
+    audit_queue = data.aws_ssm_parameter.audit_irsa_policy_arn.value,
   }
 
   # Tags

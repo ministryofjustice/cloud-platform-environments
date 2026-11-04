@@ -4,12 +4,12 @@
 locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
-    "Digital-Prison-Services-preprod-hmpps_audit_queue"                             = "hmpps-audit-preprod",
-    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"            = "visit-someone-in-prison-backend-svc-preprod",
-    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"              = "visit-someone-in-prison-backend-svc-preprod",
-    "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"          = "hmpps-education-and-work-plan-preprod",
-    "locations-inside-prison-preprod-update_from_external_system_events_queue"      = "hmpps-locations-inside-prison-preprod",
-    "activities-and-appointments-preprod-update_from_external_system_events_queue"  = "hmpps-activities-management-preprod"
+    "Digital-Prison-Services-preprod-hmpps_audit_queue"                            = "hmpps-audit-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_queue"           = "visit-someone-in-prison-backend-svc-preprod",
+    "book-a-prison-visit-preprod-hmpps_prison_visits_write_events_dlq"             = "visit-someone-in-prison-backend-svc-preprod",
+    "hmpps-farsight-reduce-re-offend-preprod-eawp_assessment_events_queue"         = "hmpps-education-and-work-plan-preprod",
+    "locations-inside-prison-preprod-update_from_external_system_events_queue"     = "hmpps-locations-inside-prison-preprod",
+    "activities-and-appointments-preprod-update_from_external_system_events_queue" = "hmpps-activities-management-preprod"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
@@ -29,10 +29,10 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     {
-      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      event_topic = module.hmpps-integration-events.irsa_policy_arn,
-      event_queues = aws_iam_policy.integration_events_sqs.arn,
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues                                    = aws_iam_policy.integration_events_sqs.arn,
     }
   )
 

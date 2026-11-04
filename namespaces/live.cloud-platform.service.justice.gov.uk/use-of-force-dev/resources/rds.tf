@@ -4,15 +4,15 @@ data "aws_security_group" "mp_dps_sg" {
 }
 
 module "dps_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  application                 = var.application
-  is_production               = var.is_production
-  namespace                   = var.namespace
-  environment_name            = var.environment-name
-  infrastructure_support      = var.infrastructure_support
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
 
   prepare_for_major_upgrade   = false
   allow_major_version_upgrade = "false"
@@ -20,8 +20,8 @@ module "dps_rds" {
   db_engine_version           = "18.6"
   rds_family                  = "postgres18"
   db_password_rotated_date    = "14-02-2023"
-  enable_rds_auto_start_stop = true
-  
+  enable_rds_auto_start_stop  = true
+
 
   providers = {
     aws = aws.london
@@ -35,7 +35,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application

@@ -26,7 +26,7 @@ module "rds_mssql" {
   db_instance_class    = "db.t3.2xlarge"
   db_allocated_storage = 32 # minimum of 20GiB for SQL Server
   option_group_name    = aws_db_option_group.sqlserver_backup_restore.name
-  enable_irsa          = true 
+  enable_irsa          = true
   deletion_protection  = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
@@ -82,23 +82,23 @@ resource "aws_db_option_group" "sqlserver_backup_restore" {
   option {
     option_name = "SQLSERVER_BACKUP_RESTORE"
     option_settings {
-      name = "IAM_ROLE_ARN"
-      value  = aws_iam_role.rds_s3_backup_restore.arn
+      name  = "IAM_ROLE_ARN"
+      value = aws_iam_role.rds_s3_backup_restore.arn
     }
   }
 }
 
-variable "backup_bucket" { 
-  type = string 
-  default = "tp-dbbackups"
-  description = "S3 bucket that stores SQL Server .bak files" 
-}        
+variable "backup_bucket" {
+  type        = string
+  default     = "tp-dbbackups"
+  description = "S3 bucket that stores SQL Server .bak files"
+}
 
-variable "backup_prefix" { 
-  type = string 
-  default = "chaps-dev/"
-  description = "Key prefix within the backup bucket" 
-} 
+variable "backup_prefix" {
+  type        = string
+  default     = "chaps-dev/"
+  description = "Key prefix within the backup bucket"
+}
 
 
 resource "aws_iam_role" "rds_s3_backup_restore" {
@@ -106,9 +106,9 @@ resource "aws_iam_role" "rds_s3_backup_restore" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = { Service = "rds.amazonaws.com" },
-      Action   = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
@@ -126,7 +126,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
   role = aws_iam_role.rds_s3_backup_restore.id
 
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Sid      = "BucketLocation"
@@ -135,14 +135,14 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Resource = local.bucket_arn
       },
       {
-        Sid             = "ListBucket"
-        Effect          = "Allow"
-        Action          = ["s3:ListBucket"]
-        Resource        = local.bucket_arn
-        Condition       = {
-          StringLike    = { 
+        Sid      = "ListBucket"
+        Effect   = "Allow"
+        Action   = ["s3:ListBucket"]
+        Resource = local.bucket_arn
+        Condition = {
+          StringLike = {
             "s3:prefix" = [
-              format("%s*", var.backup_prefix), 
+              format("%s*", var.backup_prefix),
               var.backup_prefix
             ]
           }
@@ -151,7 +151,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
       {
         Sid      = "RWPrefix",
         Effect   = "Allow",
-        Action   = ["s3:GetObject","s3:PutObject","s3:DeleteObject"]
+        Action   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
         Resource = local.objects_prefix_arn
       }
     ]

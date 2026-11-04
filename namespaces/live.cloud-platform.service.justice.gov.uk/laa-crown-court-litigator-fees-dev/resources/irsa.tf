@@ -12,8 +12,8 @@ module "irsa" {
   # If you're using Cloud Platform provided modules (e.g. SNS, S3), these
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
-    sqs_cclf_claims = aws_iam_policy.cclf_policy.arn
-    rds = module.rds-instance-migrated.irsa_policy_arn
+    sqs_cclf_claims    = aws_iam_policy.cclf_policy.arn
+    rds                = module.rds-instance-migrated.irsa_policy_arn
     cclf_copy_snapshot = aws_iam_policy.cclf_copy_snapshot_policy.arn
   }
 
@@ -29,8 +29,8 @@ module "irsa" {
 data "aws_iam_policy_document" "cclf_claims_policy" {
   # Inbound queues: CCLF polls for claims and deletes after processing
   statement {
-    sid     = "CCLFPolicySQSDevReceive"
-    effect  = "Allow"
+    sid    = "CCLFPolicySQSDevReceive"
+    effect = "Allow"
     actions = [
       "sqs:ReceiveMessage",
       "sqs:DeleteMessage",
@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "cclf_claims_policy" {
 
   # Outbound queues: CCLF sends success/failure responses back to CCCD
   statement {
-    sid     = "CCLFPolicySQSDevSend"
-    effect  = "Allow"
+    sid    = "CCLFPolicySQSDevSend"
+    effect = "Allow"
     actions = [
       "sqs:SendMessage",
     ]
@@ -74,7 +74,7 @@ resource "aws_iam_policy" "cclf_policy" {
 data "aws_iam_policy_document" "cclf_copy_snapshot_policy_document" {
   # Provide list of permissions and target AWS account resources to allow access to
   statement {
-    sid  = "CCLFPolicyCopySnapshotDev"
+    sid    = "CCLFPolicyCopySnapshotDev"
     effect = "Allow"
     actions = [
       "rds:CopyDBSnapshot",
@@ -119,7 +119,7 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
+    role = module.irsa.role_name
 
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn

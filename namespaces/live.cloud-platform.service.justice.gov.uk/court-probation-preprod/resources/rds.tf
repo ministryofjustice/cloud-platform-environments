@@ -1,21 +1,21 @@
 module "court_case_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type                = "gp2"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  namespace                   = var.namespace
-  application                 = var.application
-  environment_name            = var.environment-name
-  infrastructure_support      = var.infrastructure_support
-  is_production               = var.is_production
-  prepare_for_major_upgrade   = false
-  db_engine                   = var.db_engine
-  db_engine_version           = var.db_engine_version
-  db_instance_class           = var.db_instance_class
-  rds_family                  = var.rds_family
-  db_allocated_storage        = "35"
-  enable_rds_auto_start_stop  = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  storage_type               = "gp2"
+  vpc_name                   = var.vpc_name
+  team_name                  = var.team_name
+  business_unit              = var.business_unit
+  namespace                  = var.namespace
+  application                = var.application
+  environment_name           = var.environment-name
+  infrastructure_support     = var.infrastructure_support
+  is_production              = var.is_production
+  prepare_for_major_upgrade  = false
+  db_engine                  = var.db_engine
+  db_engine_version          = var.db_engine_version
+  db_instance_class          = var.db_instance_class
+  rds_family                 = var.rds_family
+  db_allocated_storage       = "35"
+  enable_rds_auto_start_stop = true
 
   snapshot_identifier = "court-case-service-manual-snapshot-1670251827"
 

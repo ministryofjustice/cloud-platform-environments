@@ -27,7 +27,7 @@ module "serviceaccount" {
     },
     {
       api_groups = ["extensions", "apps", "batch", "networking.k8s.io",
-        "rbac.authorization.k8s.io", "policy"]
+      "rbac.authorization.k8s.io", "policy"]
       resources = [
         "deployments",
         "ingresses",

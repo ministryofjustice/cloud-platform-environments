@@ -9,7 +9,7 @@ module "prisons_rds" {
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
 
-  enable_rds_auto_start_stop  = false
+  enable_rds_auto_start_stop = false
 
   prepare_for_major_upgrade   = false
   db_instance_class           = "db.t4g.micro"
@@ -19,7 +19,7 @@ module "prisons_rds" {
   deletion_protection         = true
   allow_major_version_upgrade = "false"
 
-  db_max_allocated_storage    = "500"
+  db_max_allocated_storage = "500"
 
   enable_irsa = true
 
@@ -27,7 +27,7 @@ module "prisons_rds" {
     aws = aws.london
   }
 
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -63,7 +63,7 @@ module "dps_rds_replica" {
   count  = 1
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.prison-application

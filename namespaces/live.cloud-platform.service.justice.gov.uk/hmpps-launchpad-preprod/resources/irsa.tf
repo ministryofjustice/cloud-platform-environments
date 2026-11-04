@@ -12,10 +12,10 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "${var.team_name}-${var.environment}"
-  role_policy_arns       = merge(local.sqs_policies, local.rds_policies)
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "${var.team_name}-${var.environment}"
+  role_policy_arns     = merge(local.sqs_policies, local.rds_policies)
   # Tags
   business_unit          = var.business_unit
   application            = var.application

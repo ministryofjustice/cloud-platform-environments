@@ -35,7 +35,7 @@ module "rds" {
   team_name              = var.team_name
   maintenance_window     = var.maintenance_window
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -75,10 +75,10 @@ resource "kubernetes_secret" "postgres" {
   }
 
   data = {
-    database_name         = module.rds.database_name
-    database_username     = module.rds.database_username
-    database_password     = module.rds.database_password
-    database_server       = module.rds.rds_instance_address
+    database_name     = module.rds.database_name
+    database_username = module.rds.database_username
+    database_password = module.rds.database_password
+    database_server   = module.rds.rds_instance_address
   }
 }
 

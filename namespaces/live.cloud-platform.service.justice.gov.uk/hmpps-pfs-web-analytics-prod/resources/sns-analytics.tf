@@ -33,6 +33,6 @@ data "aws_iam_policy_document" "web_analytics_analytics_sns_client_policy" {
 }
 
 resource "aws_sns_topic_policy" "web_analytics_analytics_sns_client_policy" {
-  arn       = module.hmpps_pfs_analytics.topic_arn
-  policy    = data.aws_iam_policy_document.web_analytics_analytics_sns_client_policy.json
+  arn    = module.hmpps_pfs_analytics.topic_arn
+  policy = data.aws_iam_policy_document.web_analytics_analytics_sns_client_policy.json
 }

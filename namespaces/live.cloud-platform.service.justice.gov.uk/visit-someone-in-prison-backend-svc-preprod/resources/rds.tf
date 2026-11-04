@@ -133,15 +133,15 @@ module "visit_allocation_rds" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  allow_major_version_upgrade = "false"
-  allow_minor_version_upgrade = "true"
-  prepare_for_major_upgrade   = false
-  db_engine                   = "postgres"
-  db_engine_version           = "18.6"
-  rds_family                  = "postgres18"
-  db_instance_class           = "db.t4g.small"
-  db_max_allocated_storage    = "200"
-  storage_type                = "gp3"
+  allow_major_version_upgrade  = "false"
+  allow_minor_version_upgrade  = "true"
+  prepare_for_major_upgrade    = false
+  db_engine                    = "postgres"
+  db_engine_version            = "18.6"
+  rds_family                   = "postgres18"
+  db_instance_class            = "db.t4g.small"
+  db_max_allocated_storage     = "200"
+  storage_type                 = "gp3"
   performance_insights_enabled = true
 
   providers = {

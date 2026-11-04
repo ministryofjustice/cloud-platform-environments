@@ -16,15 +16,15 @@ module "irsa" {
   service_account_name = "hmpps-community-accommodation-api-service-account"
   namespace            = var.namespace
   role_policy_arns = merge(
-    { cas-sqs      = module.cas-domain-events-listener-queue.irsa_policy_arn },
-    { cas-sqs-dlq  = module.cas-domain-events-listener-dlq.irsa_policy_arn },
-    { cas-2-sqs           = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
-    { cas-2-sqs-dlq    = module.cas-2-domain-events-listener-dlq.irsa_policy_arn },
-    { adda-sqs    = module.adda_domain_events_queue.irsa_policy_arn },
-    { adda-sqs-dlq    = module.adda_domain_events_dlq.irsa_policy_arn },
-    { sas-sqs    = module.sas_domain_events_queue.irsa_policy_arn },
-    { sas-sqs-dlq    = module.sas_domain_events_dlq.irsa_policy_arn },
-    { s3         = module.s3_bucket.irsa_policy_arn },
+    { cas-sqs = module.cas-domain-events-listener-queue.irsa_policy_arn },
+    { cas-sqs-dlq = module.cas-domain-events-listener-dlq.irsa_policy_arn },
+    { cas-2-sqs = module.cas-2-domain-events-listener-queue.irsa_policy_arn },
+    { cas-2-sqs-dlq = module.cas-2-domain-events-listener-dlq.irsa_policy_arn },
+    { adda-sqs = module.adda_domain_events_queue.irsa_policy_arn },
+    { adda-sqs-dlq = module.adda_domain_events_dlq.irsa_policy_arn },
+    { sas-sqs = module.sas_domain_events_queue.irsa_policy_arn },
+    { sas-sqs-dlq = module.sas_domain_events_dlq.irsa_policy_arn },
+    { s3 = module.s3_bucket.irsa_policy_arn },
     local.sns_policies
   )
   business_unit          = var.business_unit
@@ -53,11 +53,11 @@ module "irsa_ap" {
 }
 
 module "irsa_cas2" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-community-accommodation-tier-2-service-account"
-  namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-community-accommodation-tier-2-service-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -67,11 +67,11 @@ module "irsa_cas2" {
 }
 
 module "irsa_cas2_bail" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-community-accommodation-tier-2-bail-service-account"
-  namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-community-accommodation-tier-2-bail-service-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
@@ -81,11 +81,11 @@ module "irsa_cas2_bail" {
 }
 
 module "irsa_ta" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "hmpps-temporary-accommodation-service-account"
-  namespace            = var.namespace
-  role_policy_arns = local.sqs_policies
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  service_account_name   = "hmpps-temporary-accommodation-service-account"
+  namespace              = var.namespace
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production

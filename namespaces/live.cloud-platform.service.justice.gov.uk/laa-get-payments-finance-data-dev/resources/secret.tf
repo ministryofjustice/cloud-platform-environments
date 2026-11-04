@@ -13,7 +13,7 @@ module "secrets_manager" {
 
   secrets = {
     "gpfd-test-secret-01" = {
-      description             = "gpfd secrets",   # Required
+      description             = "gpfd secrets",       # Required
       recovery_window_in_days = 7,                    # Required
       k8s_secret_name         = "gpfd-test-secret-01" # The name of the secret in k8s
     },

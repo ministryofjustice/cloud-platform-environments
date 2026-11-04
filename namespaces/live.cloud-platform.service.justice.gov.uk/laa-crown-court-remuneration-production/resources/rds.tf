@@ -36,7 +36,7 @@ module "migrated-rds-instance" {
 
   # enable performance insights
   performance_insights_enabled = false
-  
+
   snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:ccr-to-cp-prod-cutover-181124-snapshot-final"
 
   providers = {
@@ -149,7 +149,7 @@ resource "aws_iam_policy" "rds_s3_access_policy" {
         ],
         Resource = [
           "arn:aws:s3:::hub20-production-cwa-extract-data",
-          "arn:aws:s3:::hub20-production-cwa-extract-data/*"  
+          "arn:aws:s3:::hub20-production-cwa-extract-data/*"
         ]
       }
     ]

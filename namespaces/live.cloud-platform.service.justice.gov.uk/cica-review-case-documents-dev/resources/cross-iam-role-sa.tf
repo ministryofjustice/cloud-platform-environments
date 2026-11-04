@@ -2,9 +2,9 @@
 module "irsa-cica-s3" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name      = var.eks_cluster_name
-  service_account_name  = "irsa-cica-s3"
-  namespace             = var.namespace
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "irsa-cica-s3"
+  namespace            = var.namespace
 
   role_policy_arns = {
     s3kms = aws_iam_policy.cica_s3_kms_access.arn

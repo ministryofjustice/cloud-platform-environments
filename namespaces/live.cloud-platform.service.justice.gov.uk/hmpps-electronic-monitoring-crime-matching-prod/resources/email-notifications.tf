@@ -25,19 +25,19 @@ resource "kubernetes_secret" "email_notifications_topic" {
   }
 
   data = {
-    topic_arn = module.email_notifications_topic.topic_arn
+    topic_arn  = module.email_notifications_topic.topic_arn
     topic_name = module.email_notifications_topic.topic_name
   }
 }
 
 resource "aws_sns_topic_policy" "email_notifications" {
-  arn = module.email_notifications_topic.topic_arn
+  arn    = module.email_notifications_topic.topic_arn
   policy = data.aws_iam_policy_document.email_notifications_topic.json
 }
 
 data "aws_iam_policy_document" "email_notifications_topic" {
   statement {
-    sid = "AllowSESPublish"
+    sid    = "AllowSESPublish"
     effect = "Allow"
     actions = [
       "sns:Publish"
@@ -48,14 +48,14 @@ data "aws_iam_policy_document" "email_notifications_topic" {
     ]
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["ses.amazonaws.com"]
     }
 
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values = [data.aws_caller_identity.current.account_id]
+      values   = [data.aws_caller_identity.current.account_id]
     }
   }
 }

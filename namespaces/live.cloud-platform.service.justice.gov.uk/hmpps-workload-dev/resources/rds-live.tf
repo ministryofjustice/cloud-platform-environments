@@ -14,9 +14,9 @@ module "rds-live" {
   # enable performance insights
   performance_insights_enabled = true
   # db instance class
-  db_instance_class = "db.t4g.small"
+  db_instance_class    = "db.t4g.small"
   db_allocated_storage = "750"
-  db_iops = "12000"
+  db_iops              = "12000"
 
   # change the postgres version as you see fit.
   db_engine_version      = "15.19"

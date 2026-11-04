@@ -1,7 +1,7 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets
@@ -9,6 +9,6 @@ module "serviceaccount" {
   github_repositories = ["laa-legal-adviser-api"]
   # GitHub environment in which to create github actions secrets
   github_environments = ["production"]
-  role_name = "serviceaccount-role-github"
-  rolebinding_name = "serviceaccount-rolebinding-github"
+  role_name           = "serviceaccount-role-github"
+  rolebinding_name    = "serviceaccount-rolebinding-github"
 }

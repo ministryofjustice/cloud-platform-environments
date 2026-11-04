@@ -1,7 +1,7 @@
 module "document-generation-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-05-27"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-05-27"
   github_repo                   = "hmpps-document-generation-api"
   application                   = "hmpps-document-generation-api"
   github_team                   = var.team_name
@@ -19,8 +19,8 @@ module "document-generation-api" {
 
 module "document-generation-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-05-27"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-05-27"
   github_repo                   = "hmpps-document-generation-ui"
   application                   = "hmpps-document-generation-ui"
   github_team                   = var.team_name

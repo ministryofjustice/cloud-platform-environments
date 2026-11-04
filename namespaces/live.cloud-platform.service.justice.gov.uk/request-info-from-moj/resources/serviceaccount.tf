@@ -3,7 +3,7 @@ module "serviceaccount" {
 
   namespace = var.namespace
 
-  github_repositories = [var.namespace]
-  kubernetes_cluster  = var.kubernetes_cluster
+  github_repositories               = [var.namespace]
+  kubernetes_cluster                = var.kubernetes_cluster
   serviceaccount_token_rotated_date = "20-03-2026"
 }

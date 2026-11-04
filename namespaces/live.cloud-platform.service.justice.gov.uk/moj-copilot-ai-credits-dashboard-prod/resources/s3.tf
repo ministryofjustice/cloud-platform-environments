@@ -146,8 +146,8 @@ module "copilot_credits_auth0_tf_state_prod_s3_bucket" {
 }
 EOF
 
-  oidc_providers = ["github"]
-  github_repositories = ["moj-copilot-ai-credits-dashboard"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["moj-copilot-ai-credits-dashboard"]
   github_actions_prefix = "PROD"
 
   # Lifecycle is managed below. This module's lifecycle_rule cannot retain a

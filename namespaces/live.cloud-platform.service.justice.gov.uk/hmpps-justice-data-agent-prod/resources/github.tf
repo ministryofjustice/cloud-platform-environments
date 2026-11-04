@@ -1,5 +1,5 @@
 module "hmpps-justice-data-agent-worker" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
   github_repo                   = "hmpps-justice-data-agent-worker"
   application                   = "hmpps-justice-data-agent-worker"
   github_team                   = var.team_name

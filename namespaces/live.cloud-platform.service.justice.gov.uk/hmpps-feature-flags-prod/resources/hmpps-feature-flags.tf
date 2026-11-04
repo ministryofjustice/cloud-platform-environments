@@ -1,12 +1,12 @@
 module "hmpps-feature-flags" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-feature-flags"
-  application = "hmpps-feature-flags"
-  github_team = "hmpps-lead-developers"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
+  github_repo                   = "hmpps-feature-flags"
+  application                   = "hmpps-feature-flags"
+  github_team                   = "hmpps-lead-developers"
   reviewer_teams                = ["hmpps-lead-developers"]
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  environment                   = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   is_production                 = var.is_production
   application_insights_instance = "prod" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"

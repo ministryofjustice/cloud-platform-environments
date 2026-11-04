@@ -9,15 +9,15 @@ module "laa_data_access_api_dynamodb" {
   is_production          = var.is_production
   namespace              = var.namespace
 
-  hash_key               = "pk"
-  hash_key_type          = "S"
-  range_key              = "sk"
-  range_key_type         = "S"
-  enable_encryption      = "true"
-  enable_autoscaler      = "true"
-  autoscale_max_read_capacity = 40
+  hash_key                     = "pk"
+  hash_key_type                = "S"
+  range_key                    = "sk"
+  range_key_type               = "S"
+  enable_encryption            = "true"
+  enable_autoscaler            = "true"
+  autoscale_max_read_capacity  = 40
   autoscale_max_write_capacity = 40
-  autoscale_min_read_capacity = 1
+  autoscale_min_read_capacity  = 1
   autoscale_min_write_capacity = 1
 
   attributes = [
@@ -86,7 +86,7 @@ resource "kubernetes_secret" "laa_data_access_api_dynamodb" {
 
 data "aws_iam_policy_document" "laa_data_access_api_db_access" {
   statement {
-    actions   = [
+    actions = [
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",

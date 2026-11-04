@@ -11,10 +11,10 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-# REQUIRED: GitHub repositories that push to this container repository
-# E2E repository does have trailing "-" character, this is not a typo.
-  github_repositories = ["laa-data-claims-certificated-api"]
+  oidc_providers = ["github"]
+  # REQUIRED: GitHub repositories that push to this container repository
+  # E2E repository does have trailing "-" character, this is not a typo.
+  github_repositories   = ["laa-data-claims-certificated-api"]
   github_actions_prefix = "laa_data_claims_certificated_api"
 
   # Lifecycle policy to manage ECR image retention

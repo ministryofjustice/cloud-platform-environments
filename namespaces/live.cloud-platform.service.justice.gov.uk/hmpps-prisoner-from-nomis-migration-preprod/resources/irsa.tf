@@ -8,16 +8,16 @@ locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
-  sns_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
 }
 
 data "aws_iam_policy_document" "combined_local_sqs_migration" {
   version = "2012-10-17"
   statement {
-    sid       = "hmppsPrisonerFromNomisMigrationSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsPrisonerFromNomisMigrationSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.migration_appointments_queue.sqs_arn,
       module.migration_appointments_dead_letter_queue.sqs_arn,
@@ -69,9 +69,9 @@ resource "aws_iam_policy" "combined_local_sqs_migration" {
 data "aws_iam_policy_document" "combined_local_sqs_events" {
   version = "2012-10-17"
   statement {
-    sid       = "hmppsPrisonerFromNomisEventSqs"
-    effect    = "Allow"
-    actions   = ["sqs:*"]
+    sid     = "hmppsPrisonerFromNomisEventSqs"
+    effect  = "Allow"
+    actions = ["sqs:*"]
     resources = [
       module.prisoner_from_nomis_locations_queue.sqs_arn,
       module.prisoner_from_nomis_locations_dead_letter_queue.sqs_arn,
@@ -134,7 +134,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-from-nomis-migration"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
     { combined_local_sqs_migration = aws_iam_policy.combined_local_sqs_migration.arn },

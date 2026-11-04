@@ -46,7 +46,7 @@ module "court_data_adaptor_rds_read_replica" {
   rds_family               = "postgres17"
   db_max_allocated_storage = "550"
 
-  db_instance_class         = "db.t4g.micro"
+  db_instance_class = "db.t4g.micro"
 
   replicate_source_db        = module.court_data_adaptor_rds.db_identifier
   skip_final_snapshot        = "true"

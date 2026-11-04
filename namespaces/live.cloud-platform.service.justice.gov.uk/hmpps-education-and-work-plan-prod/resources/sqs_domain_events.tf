@@ -1,19 +1,19 @@
 module "hmpps_eawp_domain_events_queue" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name                  = "eawp_domain_events_queue"
+  sqs_name = "eawp_domain_events_queue"
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.hmpps_eawp_domain_events_dlq.sqs_arn
     maxReceiveCount     = 3
   })
 
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  namespace              = var.namespace
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
+  business_unit             = var.business_unit
+  application               = var.application
+  is_production             = var.is_production
+  team_name                 = var.team_name
+  namespace                 = var.namespace
+  environment_name          = var.environment
+  infrastructure_support    = var.infrastructure_support
   delay_seconds             = 5
   receive_wait_time_seconds = 20
 }
@@ -26,7 +26,7 @@ resource "aws_sqs_queue_policy" "hmpps_eawp_domain_events_queue_policy" {
 module "hmpps_eawp_domain_events_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
-  sqs_name        = "eawp_domain_events_dlq"
+  sqs_name                  = "eawp_domain_events_dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
 
   business_unit          = var.business_unit

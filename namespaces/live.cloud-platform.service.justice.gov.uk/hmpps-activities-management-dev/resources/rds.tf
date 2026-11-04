@@ -39,7 +39,7 @@ module "activities_rds" {
   deletion_protection         = true
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   # Add parameters to enable DPR team to configure replication
   db_parameter = [
@@ -48,7 +48,7 @@ module "activities_rds" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"
@@ -114,7 +114,7 @@ module "activities_rds_read_replica" {
   db_backup_retention_period  = 0
 
   # Add security groups for DPR
-  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
     {
@@ -122,7 +122,7 @@ module "activities_rds_read_replica" {
       value        = "1"
       apply_method = "pending-reboot"
     },
-     {
+    {
       name         = "shared_preload_libraries"
       value        = "pglogical"
       apply_method = "pending-reboot"

@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     sqs_cclf_claims = aws_iam_policy.cclf_prod_policy.arn
-    rds = module.rds-instance-migrated.irsa_policy_arn
+    rds             = module.rds-instance-migrated.irsa_policy_arn
   }
 
   # Tags
@@ -28,7 +28,7 @@ module "irsa" {
 data "aws_iam_policy_document" "cclf_claims_policy" {
   # Inbound queues: CCLF polls for claims and deletes after processing
   statement {
-    sid  = "CCLFPolicySQSProdReceive"
+    sid    = "CCLFPolicySQSProdReceive"
     effect = "Allow"
     actions = [
       "sqs:ReceiveMessage",
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "cclf_claims_policy" {
 
   # Outbound queues: CCLF sends success/failure responses back to CCCD
   statement {
-    sid  = "CCLFPolicySQSProdSend"
+    sid    = "CCLFPolicySQSProdSend"
     effect = "Allow"
     actions = [
       "sqs:SendMessage",
@@ -84,7 +84,7 @@ resource "kubernetes_secret" "irsa" {
     namespace = var.namespace
   }
   data = {
-    role           = module.irsa.role_name
+    role = module.irsa.role_name
 
     serviceaccount = module.irsa.service_account.name
     rolearn        = module.irsa.role_arn

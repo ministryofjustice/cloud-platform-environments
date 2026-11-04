@@ -1,19 +1,19 @@
 module "pre_sentence_service_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage        = 10
-  storage_type                = "gp2"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  namespace                   = var.namespace
-  application                 = "pre-sentence-service"
-  environment_name            = var.environment-name
-  infrastructure_support      = var.infrastructure_support
-  is_production               = var.is_production
-  rds_family                  = "postgres14"
-  db_instance_class           = "db.t3.small"
-  db_engine_version           = "14.24"
-  prepare_for_major_upgrade   = false
+  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage      = 10
+  storage_type              = "gp2"
+  vpc_name                  = var.vpc_name
+  team_name                 = var.team_name
+  business_unit             = var.business_unit
+  namespace                 = var.namespace
+  application               = "pre-sentence-service"
+  environment_name          = var.environment-name
+  infrastructure_support    = var.infrastructure_support
+  is_production             = var.is_production
+  rds_family                = "postgres14"
+  db_instance_class         = "db.t3.small"
+  db_engine_version         = "14.24"
+  prepare_for_major_upgrade = false
   # To upgrade major DB see Cloud Platform user guide
   allow_major_version_upgrade = false # Setting to true can break teraform build.
   enable_rds_auto_start_stop  = true

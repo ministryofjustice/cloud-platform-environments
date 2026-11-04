@@ -41,7 +41,7 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-pay"
 
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     local.sns_policies,
     { sqs_all = aws_iam_policy.combined_local_sqs.arn },

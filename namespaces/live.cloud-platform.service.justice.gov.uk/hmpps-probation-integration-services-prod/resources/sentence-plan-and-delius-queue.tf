@@ -4,8 +4,8 @@ resource "aws_sns_topic_subscription" "sentence-plan-and-delius-queue-subscripti
   endpoint  = module.sentence-plan-and-delius-queue.sqs_arn
   filter_policy = jsonencode({
     eventType = [
-            "arns.sentence.plan.goals.added",
-            "arns.sentence.plan.goals.completed",
+      "arns.sentence.plan.goals.added",
+      "arns.sentence.plan.goals.completed",
     ]
   })
 }

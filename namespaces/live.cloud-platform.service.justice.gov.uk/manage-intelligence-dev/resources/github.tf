@@ -1,6 +1,6 @@
 module "manage-intelligence-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "manage-intelligence-api"
   application                   = "manage-intelligence-api"
@@ -18,7 +18,7 @@ module "manage-intelligence-api" {
 
 module "manage-intelligence-ui" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "manage-intelligence"
   application                   = "manage-intelligence-ui"
@@ -36,8 +36,8 @@ module "manage-intelligence-ui" {
 
 module "hmpps-submit-ims-report" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-submit-ims-report"
   application                   = "hmpps-submit-ims-report"
   github_team                   = var.team_name
@@ -54,7 +54,7 @@ module "hmpps-submit-ims-report" {
 
 module "hmpps-ims-ai-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-ims-ai-api"
   application                   = "hmpps-ims-ai-api"

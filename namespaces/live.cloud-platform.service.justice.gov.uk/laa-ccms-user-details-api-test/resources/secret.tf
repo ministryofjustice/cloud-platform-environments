@@ -12,8 +12,8 @@ module "secrets_manager" {
   secrets = {
     "laa-ccms-staging-api-test" = {
       description             = "Secrets for laa-ccms-user-details-api test environment", # Required
-      recovery_window_in_days = 7,                                                                      # Required
-      k8s_secret_name         = "laa-ccms-user-details-api-secrets"                                      # The name of the secret in k8s
+      recovery_window_in_days = 7,                                                        # Required
+      k8s_secret_name         = "laa-ccms-user-details-api-secrets"                       # The name of the secret in k8s
     },
   }
 }

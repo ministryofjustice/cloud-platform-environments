@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
 
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/*", # Temporary
-      "arn:aws:glue:eu-west-2:*:table/*/*", # Temporary
+      "arn:aws:glue:eu-west-2:*:table/*/*",  # Temporary
 
       aws_glue_catalog_database.audit_glue_catalog_database.arn,
       aws_glue_catalog_table.audit_event_table.arn,

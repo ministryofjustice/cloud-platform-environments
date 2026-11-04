@@ -30,7 +30,7 @@ module "rds" {
   # Team Note: could be useful but since we are likely to be using overnight
   # scheduled jobs we are not enabling on non UAT environments for now.
   #
-  enable_rds_auto_start_stop  = false
+  enable_rds_auto_start_stop = false
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"

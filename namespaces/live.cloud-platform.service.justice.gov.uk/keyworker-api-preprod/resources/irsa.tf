@@ -3,8 +3,8 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-preprod-keyworker_api_queue"                       = "offender-events-preprod",
-    "Digital-Prison-Services-preprod-keyworker_api_queue_dl"                    = "offender-events-preprod",
+    "Digital-Prison-Services-preprod-keyworker_api_queue"    = "offender-events-preprod",
+    "Digital-Prison-Services-preprod-keyworker_api_queue_dl" = "offender-events-preprod",
   }
 
   sns_topics = {

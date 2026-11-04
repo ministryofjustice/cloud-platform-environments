@@ -84,9 +84,9 @@ module "hmpps-content-hub-ui-redis" {
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
-  node_type            = "cache.t4g.small"
-  engine_version       = "7.0"
-  parameter_group_name = "default.redis7"
+  node_type             = "cache.t4g.small"
+  engine_version        = "7.0"
+  parameter_group_name  = "default.redis7"
 
   providers = {
     aws = aws.london

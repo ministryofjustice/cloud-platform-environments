@@ -1,5 +1,5 @@
 module "secrets_manager" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
   team_name              = var.team_name
   application            = var.application
   business_unit          = var.business_unit
@@ -15,7 +15,7 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "slack-webhook-url-alerts-non-prod"
     },
-    
+
     "azure-entra-api-client-secret" = {
       description             = "Client secret for Civil Manage API Entra ID OBO authentication",
       recovery_window_in_days = 7,

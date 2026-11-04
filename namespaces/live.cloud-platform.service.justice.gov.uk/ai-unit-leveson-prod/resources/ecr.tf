@@ -22,7 +22,7 @@ module "ecr_credentials" {
   }
   EOF
 
-  oidc_providers = ["github"]
+  oidc_providers      = ["github"]
   github_repositories = [var.app_repo]
 
   # Tags

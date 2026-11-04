@@ -4,7 +4,7 @@
 locals {
   # The names of the queues used and the namespace which created them
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue"                           = "hmpps-audit-prod",
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
@@ -25,9 +25,9 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     {
-      rds_policy                                  = module.rds.irsa_policy_arn,
-      sqs                                         = module.hmpps_san_domain_events_queue.irsa_policy_arn,
-      sqs_dlq                                     = module.hmpps_san_domain_events_dlq.irsa_policy_arn,
+      rds_policy = module.rds.irsa_policy_arn,
+      sqs        = module.hmpps_san_domain_events_queue.irsa_policy_arn,
+      sqs_dlq    = module.hmpps_san_domain_events_dlq.irsa_policy_arn,
     }
   )
 

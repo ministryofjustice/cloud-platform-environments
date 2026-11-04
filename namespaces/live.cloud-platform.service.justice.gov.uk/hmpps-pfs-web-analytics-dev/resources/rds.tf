@@ -35,11 +35,11 @@ module "web_analytics_read_replica" {
   vpc_name = var.vpc_name
 
   # PostgreSQL specifics
-  db_engine                    = "postgres"
-  rds_family                   = "postgres18"
-  db_engine_version            = "18.6"
-  db_instance_class            = "db.t4g.micro"
-  db_max_allocated_storage     = "550"
+  db_engine                = "postgres"
+  rds_family               = "postgres18"
+  db_engine_version        = "18.6"
+  db_instance_class        = "db.t4g.micro"
+  db_max_allocated_storage = "550"
 
   # Tags
   application            = var.application
@@ -70,6 +70,6 @@ resource "kubernetes_secret" "hmpps_pfs_web_analytics_rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }

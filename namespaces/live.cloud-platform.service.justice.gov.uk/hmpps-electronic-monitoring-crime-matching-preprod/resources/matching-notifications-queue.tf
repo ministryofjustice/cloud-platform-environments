@@ -30,7 +30,7 @@ module "matching_notifications_dlq" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
-  sqs_name                  = "matching-notifications-dlq"
+  sqs_name = "matching-notifications-dlq"
 
   # Tags
   business_unit          = var.business_unit
@@ -70,14 +70,14 @@ resource "kubernetes_secret" "matching_notifications_dlq" {
 
 data "aws_iam_policy_document" "matching_notifications_queue" {
   statement {
-    sid     = "AllowMatchingNotificationsToQueue"
-    effect  = "Allow"
+    sid    = "AllowMatchingNotificationsToQueue"
+    effect = "Allow"
     actions = [
       "sqs:SendMessage",
     ]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "*",
       ]
@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "matching_notifications_queue" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [
+      values = [
         module.matching_notifications_topic.topic_arn,
       ]
     }
@@ -97,11 +97,11 @@ data "aws_iam_policy_document" "matching_notifications_queue" {
   }
 
   statement {
-    sid     = "AllowReadDelete"
-    effect  = "Allow"
+    sid    = "AllowReadDelete"
+    effect = "Allow"
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "*"
       ]
@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "matching_notifications_queue" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [
+      values = [
         module.crime_matching_algorithm_irsa.role_arn,
       ]
     }
@@ -136,11 +136,11 @@ resource "aws_sqs_queue_policy" "matching_notifications" {
 
 data "aws_iam_policy_document" "matching_notifications_dlq" {
   statement {
-    sid     = "AllowReadDelete"
-    effect  = "Allow"
+    sid    = "AllowReadDelete"
+    effect = "Allow"
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "*"
       ]
@@ -161,7 +161,7 @@ data "aws_iam_policy_document" "matching_notifications_dlq" {
     condition {
       variable = "aws:SourceArn"
       test     = "ArnEquals"
-      values   = [
+      values = [
         module.crime_matching_algorithm_irsa.role_arn,
       ]
     }
@@ -174,7 +174,7 @@ resource "aws_sqs_queue_policy" "matching_notifications_dlq" {
 }
 
 resource "aws_sns_topic_subscription" "matching_notifications" {
-  topic_arn     = module.matching_notifications_topic.topic_arn
-  endpoint      = module.matching_notifications_queue.sqs_arn
-  protocol      = "sqs"
+  topic_arn = module.matching_notifications_topic.topic_arn
+  endpoint  = module.matching_notifications_queue.sqs_arn
+  protocol  = "sqs"
 }

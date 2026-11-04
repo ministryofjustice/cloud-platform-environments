@@ -16,15 +16,15 @@ module "rds_mssql" {
   db_max_allocated_storage     = "1000"
 
   # SQL Server specifics
-  db_engine                   = "sqlserver-web"
-  db_engine_version           = "14.00.3520.4.v1"
-  rds_family                  = "sqlserver-web-14.0"
-  db_instance_class           = "db.t3.medium"
-  db_allocated_storage        = 20 # minimum of 20GiB for SQL Server
-  option_group_name           = aws_db_option_group.sqlserver_backup_restore.name
-  enable_irsa                 = true
-  deletion_protection         = true
-  enable_rds_auto_start_stop  = true
+  db_engine                  = "sqlserver-web"
+  db_engine_version          = "14.00.3520.4.v1"
+  rds_family                 = "sqlserver-web-14.0"
+  db_instance_class          = "db.t3.medium"
+  db_allocated_storage       = 20 # minimum of 20GiB for SQL Server
+  option_group_name          = aws_db_option_group.sqlserver_backup_restore.name
+  enable_irsa                = true
+  deletion_protection        = true
+  enable_rds_auto_start_stop = true
 
   # Some engines can't apply some parameters without a reboot(ex SQL Server cant apply force_ssl immediate).
   # You will need to specify "pending-reboot" here, as default is set to "immediate".
@@ -97,9 +97,9 @@ resource "aws_iam_role" "rds_s3_backup_restore" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = { Service = "rds.amazonaws.com" },
-      Action   = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
@@ -111,7 +111,7 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
   role = aws_iam_role.rds_s3_backup_restore.id
 
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Sid      = "BucketLocation"
@@ -120,12 +120,12 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Resource = aws_s3_bucket.db_migration.arn
       },
       {
-        Sid             = "ListBucket"
-        Effect          = "Allow"
-        Action          = ["s3:ListBucket"]
-        Resource        = aws_s3_bucket.db_migration.arn
-        Condition       = {
-          StringLike    = { 
+        Sid      = "ListBucket"
+        Effect   = "Allow"
+        Action   = ["s3:ListBucket"]
+        Resource = aws_s3_bucket.db_migration.arn
+        Condition = {
+          StringLike = {
             "s3:prefix" = [
               local.db_migration_prefix,
               "${local.db_migration_prefix}/",
@@ -136,9 +136,9 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         }
       },
       {
-        Sid     = "ReadWriteBackupObjects"
-        Effect  = "Allow"
-        Action  = [
+        Sid    = "ReadWriteBackupObjects"
+        Effect = "Allow"
+        Action = [
           "s3:GetObject",
           "s3:GetObjectAttributes",
           "s3:ListMultipartUploadParts",
@@ -148,9 +148,9 @@ resource "aws_iam_role_policy" "rds_s3_backup_restore" {
         Resource = local.db_migration_objects_prefix_arn
       },
       {
-        Sid     = "UseCpBackupKmsKey"
-        Effect  = "Allow"
-        Action  = [
+        Sid    = "UseCpBackupKmsKey"
+        Effect = "Allow"
+        Action = [
           "kms:Decrypt",
           "kms:Encrypt",
           "kms:DescribeKey",

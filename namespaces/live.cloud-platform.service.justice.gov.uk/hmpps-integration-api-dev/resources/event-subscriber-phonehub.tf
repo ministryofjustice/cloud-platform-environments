@@ -1,5 +1,5 @@
 module "event_phonehub_queue" {
-  
+
   source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
 
   # Queue configuration
@@ -77,9 +77,9 @@ resource "kubernetes_secret" "event_phonehub_queue" {
   }
 
   data = {
-    sqs_id                        = module.event_phonehub_queue.sqs_id
-    sqs_arn                       = module.event_phonehub_queue.sqs_arn
-    sqs_name                      = module.event_phonehub_queue.sqs_name
+    sqs_id   = module.event_phonehub_queue.sqs_id
+    sqs_arn  = module.event_phonehub_queue.sqs_arn
+    sqs_name = module.event_phonehub_queue.sqs_name
   }
 }
 

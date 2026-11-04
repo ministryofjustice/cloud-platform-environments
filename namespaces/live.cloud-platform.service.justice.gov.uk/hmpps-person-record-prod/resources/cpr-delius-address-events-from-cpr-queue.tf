@@ -86,7 +86,7 @@ module "cpr_delius_address_events_from_cpr_dead_letter_queue" {
 resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-address-events-from-cpr-secret"
+    name      = "sqs-cpr-delius-address-events-from-cpr-secret"
     namespace = var.namespace
   }
 
@@ -100,7 +100,7 @@ resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_queue" {
 resource "kubernetes_secret" "cpr_delius_address_events_from_cpr_dead_letter_queue" {
   ## For metadata use - not _
   metadata {
-    name = "sqs-cpr-delius-address-events-from-cpr-dlq-secret"
+    name      = "sqs-cpr-delius-address-events-from-cpr-dlq-secret"
     namespace = var.namespace
   }
 

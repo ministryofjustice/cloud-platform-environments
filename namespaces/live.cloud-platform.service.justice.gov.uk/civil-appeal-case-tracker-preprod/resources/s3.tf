@@ -19,7 +19,7 @@ module "s3_bucket" {
 # BUCKET POLICY (Allow the external user + applications in VPC)
 # --------------------------------------------------------
 data "aws_iam_policy_document" "merged_bucket_policy" {
-    # --- VPCE-restricted for apps running in VPC ---
+  # --- VPCE-restricted for apps running in VPC ---
   statement {
     sid    = "AllowApplicationS3AccessFromVPCE"
     effect = "Allow"
@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "merged_bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceVpce"
-      values = ["vpce-0f82cc8809dc37503"]
+      values   = ["vpce-0f82cc8809dc37503"]
     }
   }
 
@@ -92,11 +92,11 @@ resource "aws_iam_user" "user" {
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 
-    lifecycle {
-      replace_triggered_by = [
-        null_resource.access_key_rotation
-      ]
-    }
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.access_key_rotation
+    ]
+  }
 }
 
 # --------------------------------------------------------

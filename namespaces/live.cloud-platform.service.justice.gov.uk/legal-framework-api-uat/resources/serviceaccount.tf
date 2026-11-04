@@ -13,5 +13,5 @@ module "serviceaccount" {
   github_actions_secret_kube_token     = "KUBE_UAT_TOKEN"
   github_actions_secret_kube_cluster   = "KUBE_UAT_CLUSTER"
   github_actions_secret_kube_namespace = "KUBE_UAT_NAMESPACE"
-  serviceaccount_token_rotated_date = "07-09-2026"
+  serviceaccount_token_rotated_date    = "07-09-2026"
 }

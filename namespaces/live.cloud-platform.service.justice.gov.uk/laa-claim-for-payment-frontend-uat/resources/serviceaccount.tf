@@ -1,7 +1,7 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_token_rotated_date = "20-03-2026"
@@ -12,5 +12,5 @@ module "serviceaccount" {
   # containing the ca.crt and token for use in github actions CI/CD pipelines
   github_repositories = ["laa-claim-for-payment-frontend"]
   github_environments = ["uat"]
-  
+
 }

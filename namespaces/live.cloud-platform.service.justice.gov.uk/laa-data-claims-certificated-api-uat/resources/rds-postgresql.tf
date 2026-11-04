@@ -38,10 +38,10 @@ module "rds" {
   ]
 
   # PostgreSQL specifics
-  db_engine                 = "postgres"
-  db_engine_version         = "18.6"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family                = "postgres18"
-  db_instance_class         = "db.t4g.micro"
+  db_engine         = "postgres"
+  db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.micro"
 
   # Tags
   application            = var.application
@@ -62,7 +62,7 @@ module "read_replica" {
   count  = 0
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -77,10 +77,10 @@ module "read_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine                 = "postgres"
-  db_engine_version         = "18.6"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
-  rds_family                = "postgres18"
-  db_instance_class         = "db.t4g.micro"
+  db_engine         = "postgres"
+  db_engine_version = "18.6" # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
+  rds_family        = "postgres18"
+  db_instance_class = "db.t4g.micro"
   # It is mandatory to set the below values to create read replica instance
 
   # Set the db_identifier of the source db

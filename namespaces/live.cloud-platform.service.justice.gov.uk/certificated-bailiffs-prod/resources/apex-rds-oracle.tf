@@ -4,7 +4,7 @@
  * releases page of this repository.
  *
  */
- locals {
+locals {
   application = "apex certificated bailiffs"
 }
 
@@ -52,11 +52,11 @@ resource "aws_vpc_security_group_egress_rule" "rds_to_aop" {
 
 # 3. RDS Module (now correctly references the SG)
 module "rds_apex" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name = var.vpc_name
-  vpc_security_group_ids = [aws_security_group.apex-rds-out.id]   # ← This is now valid
+  vpc_name               = var.vpc_name
+  vpc_security_group_ids = [aws_security_group.apex-rds-out.id] # ← This is now valid
 
   # RDS configuration
   allow_minor_version_upgrade  = true
@@ -66,17 +66,17 @@ module "rds_apex" {
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # Oracle specifics
-  db_engine                = "oracle-se2"
-  db_engine_version        = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.m5.xlarge"
-  storage_type             = "gp2"
-  db_allocated_storage     = "100"
-  db_name                  = "APXP"
-  license_model            = "license-included"
-  db_iops                  = 0
-  character_set_name       = "WE8MSWIN1252"
-  option_group_name        = aws_db_option_group.oracle_apex.name
+  db_engine            = "oracle-se2"
+  db_engine_version    = "19.0.0.0.ru-2026-07.mrp-2026-07.r1"
+  rds_family           = "oracle-se2-19"
+  db_instance_class    = "db.m5.xlarge"
+  storage_type         = "gp2"
+  db_allocated_storage = "100"
+  db_name              = "APXP"
+  license_model        = "license-included"
+  db_iops              = 0
+  character_set_name   = "WE8MSWIN1252"
+  option_group_name    = aws_db_option_group.oracle_apex.name
 
   # Avoid default parameters set my MOJ ( rds.force_ssl)
   db_parameter = []
@@ -99,11 +99,11 @@ resource "kubernetes_secret" "rds_apex" {
   }
 
   data = {
-    database_name         = module.rds_apex.database_name
-    database_host         = module.rds_apex.rds_instance_address
-    database_port         = module.rds_apex.rds_instance_port
-    database_username     = module.rds_apex.database_username
-    database_password     = module.rds_apex.database_password
+    database_name     = module.rds_apex.database_name
+    database_host     = module.rds_apex.rds_instance_address
+    database_port     = module.rds_apex.rds_instance_port
+    database_username = module.rds_apex.database_username
+    database_password = module.rds_apex.database_password
   }
 }
 

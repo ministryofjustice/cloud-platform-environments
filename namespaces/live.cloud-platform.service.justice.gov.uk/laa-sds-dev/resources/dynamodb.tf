@@ -17,11 +17,11 @@ module "audit_dynamodb" {
 
 
 
-  enable_encryption = "true"
-  enable_autoscaler = "true"
-  autoscale_max_read_capacity = 40
+  enable_encryption            = "true"
+  enable_autoscaler            = "true"
+  autoscale_max_read_capacity  = 40
   autoscale_max_write_capacity = 40
-  autoscale_min_read_capacity = 1
+  autoscale_min_read_capacity  = 1
   autoscale_min_write_capacity = 1
 
   providers = {
@@ -42,7 +42,7 @@ resource "kubernetes_secret" "audit_dynamodb" {
 
 data "aws_iam_policy_document" "audit_db_access" {
   statement {
-    actions   = [
+    actions = [
       "dynamodb:GetItem",
       "dynamodb:PutItem",
       "dynamodb:UpdateItem",

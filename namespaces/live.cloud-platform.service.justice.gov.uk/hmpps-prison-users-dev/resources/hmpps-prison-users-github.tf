@@ -1,7 +1,7 @@
 module "hmpps-prison-users-api" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
-  custom_token_rotation_date = "2026-03-20"
+  force_rotate_token            = true
+  custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-prison-users-api"
   application                   = "hmpps-prison-users-api"
   github_team                   = var.team_name

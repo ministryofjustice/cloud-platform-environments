@@ -5,12 +5,12 @@ module "serviceaccount-github" {
   kubernetes_cluster = var.kubernetes_cluster
 
   serviceaccount_name = "github-serviceaccount"
-  role_name = "github-serviceaccount"
-  rolebinding_name = "github-serviceaccount"
+  role_name           = "github-serviceaccount"
+  rolebinding_name    = "github-serviceaccount"
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ca.crt and token for use in github actions CI/CD pipelines
-  github_repositories = [var.repo_name]
-  github_environments = ["production"]
+  github_repositories               = [var.repo_name]
+  github_environments               = ["production"]
   serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -12,7 +12,7 @@ module "evidencelibrary_rds" {
 
   # enable performance insights
   performance_insights_enabled = true
-  
+
   # Upgrading Postgres to 17.9
   prepare_for_major_upgrade = false
 

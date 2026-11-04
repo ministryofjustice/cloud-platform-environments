@@ -3,7 +3,7 @@
 # This information is used to collect the IAM policies which are used by the IRSA module.
 locals {
   sqs_queues = {
-#    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
+    #    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
     "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}",
   }
 
@@ -14,9 +14,9 @@ locals {
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-find-and-refer-intervention"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-find-and-refer-intervention"
 
   role_policy_arns = merge(
     { elasticache = module.elasticache_redis.irsa_policy_arn },

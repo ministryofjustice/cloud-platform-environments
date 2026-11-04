@@ -5,7 +5,7 @@ locals {
   sqs_queues = {
     "syscon-devs-${var.environment}-prisoner_from_nomis_courtsentencing_queue" = "hmpps-prisoner-from-nomis-migration-${var.environment}"
   }
-  sqs_policies = {for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value}
+  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
 
 data "aws_iam_policy_document" "combined_local_sqs" {
@@ -81,7 +81,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = "hmpps-prisoner-to-nomis-update"
-  role_policy_arns     = merge(
+  role_policy_arns = merge(
     local.sqs_policies,
     { combined_local_sqs = aws_iam_policy.combined_local_sqs.arn },
   )

@@ -10,10 +10,10 @@ module "elasticache" {
   namespace              = var.namespace
   business_unit          = var.business_unit
 
-  engine_version          = "7.1"
-  parameter_group_name    = "default.redis7"
-  number_cache_clusters   = "2"
-  node_type               = "cache.t3.micro"
+  engine_version        = "7.1"
+  parameter_group_name  = "default.redis7"
+  number_cache_clusters = "2"
+  node_type             = "cache.t3.micro"
 }
 
 resource "kubernetes_secret" "elasticache" {

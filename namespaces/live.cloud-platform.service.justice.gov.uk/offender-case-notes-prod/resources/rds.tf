@@ -1,23 +1,23 @@
 module "dps_rds" {
-  source                    = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name                  = var.vpc_name
-  team_name                 = var.team_name
-  business_unit             = var.business_unit
-  application               = var.application
-  is_production             = var.is_production
-  namespace                 = var.namespace
-  environment_name          = var.environment-name
-  infrastructure_support    = var.infrastructure_support
-  db_instance_class         = "db.t4g.xlarge"
-  db_iops                   = "12000"
-  db_allocated_storage      = "512"
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  namespace                    = var.namespace
+  environment_name             = var.environment-name
+  infrastructure_support       = var.infrastructure_support
+  db_instance_class            = "db.t4g.xlarge"
+  db_iops                      = "12000"
+  db_allocated_storage         = "512"
   db_max_allocated_storage     = "2000"
-  deletion_protection       = true
-  prepare_for_major_upgrade = false
-  rds_family                = "postgres16"
-  db_engine                 = "postgres"
-  db_engine_version         = "16.15"
-  performance_insights_enabled  = true
+  deletion_protection          = true
+  prepare_for_major_upgrade    = false
+  rds_family                   = "postgres16"
+  db_engine                    = "postgres"
+  db_engine_version            = "16.15"
+  performance_insights_enabled = true
 
   db_parameter = [
     {
@@ -69,8 +69,8 @@ resource "kubernetes_secret" "dps_rds" {
 module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  vpc_name               = var.vpc_name
-  allow_minor_version_upgrade  = true
+  vpc_name                    = var.vpc_name
+  allow_minor_version_upgrade = true
 
   # Tags
   application            = var.application
@@ -82,13 +82,13 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_engine             = "postgres"
-  db_engine_version     = "16.15"
-  rds_family            = "postgres16"
-  db_instance_class     = "db.t4g.xlarge"
-  db_allocated_storage      = "512"
-  db_max_allocated_storage  = "2000"
-  db_iops                   = "12000"
+  db_engine                = "postgres"
+  db_engine_version        = "16.15"
+  rds_family               = "postgres16"
+  db_instance_class        = "db.t4g.xlarge"
+  db_allocated_storage     = "512"
+  db_max_allocated_storage = "2000"
+  db_iops                  = "12000"
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
@@ -98,7 +98,7 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 }
 
 data "aws_security_group" "mp_dps_sg" {

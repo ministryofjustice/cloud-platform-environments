@@ -12,11 +12,11 @@ module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   # EKS configuration
-  eks_cluster_name       = var.eks_cluster_name
+  eks_cluster_name = var.eks_cluster_name
 
   # IRSA configuration
-  service_account_name   = "hmpps-audit-sa"
-  role_policy_arns       = local.sqs_policies
+  service_account_name = "hmpps-audit-sa"
+  role_policy_arns     = local.sqs_policies
 
   # Tags
   business_unit          = var.business_unit

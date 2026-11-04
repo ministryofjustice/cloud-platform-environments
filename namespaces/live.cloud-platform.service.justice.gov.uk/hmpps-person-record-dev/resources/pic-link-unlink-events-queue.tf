@@ -88,7 +88,7 @@ module "pic_link_unlink_dead_letter_queue" {
 
 resource "kubernetes_secret" "pic_link_unlink_queue" {
   metadata {
-    name = "sqs-cpr-pic-link-unlink-secret"
+    name      = "sqs-cpr-pic-link-unlink-secret"
     namespace = var.namespace
   }
 
@@ -101,7 +101,7 @@ resource "kubernetes_secret" "pic_link_unlink_queue" {
 
 resource "kubernetes_secret" "pic_link_unlink_dead_letter_queue" {
   metadata {
-    name = "sqs-cpr-pic-link-unlink-dlq-secret"
+    name      = "sqs-cpr-pic-link-unlink-dlq-secret"
     namespace = var.namespace
   }
 

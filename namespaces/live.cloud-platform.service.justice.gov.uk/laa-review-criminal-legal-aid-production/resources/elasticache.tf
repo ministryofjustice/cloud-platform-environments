@@ -5,9 +5,9 @@ module "redis" {
   vpc_name = var.vpc_name
 
   # Redis cluster configuration
-  node_type               = "cache.t4g.small"
-  engine_version          = "7.0"
-  parameter_group_name    = "default.redis7"
+  node_type            = "cache.t4g.small"
+  engine_version       = "7.0"
+  parameter_group_name = "default.redis7"
   # auth_token_rotated_date = "2023-07-04" # Uncomment to rotate the auth token
 
   # Tags

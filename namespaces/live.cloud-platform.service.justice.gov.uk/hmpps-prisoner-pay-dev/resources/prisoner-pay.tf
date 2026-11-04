@@ -1,11 +1,11 @@
 module "hmpps_prisoner_pay_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-prisoner-pay-api"
-  application = "hmpps-prisoner-pay-api"
-  github_team = "activities-and-appointments"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  github_repo                = "hmpps-prisoner-pay-api"
+  application                = "hmpps-prisoner-pay-api"
+  github_team                = "activities-and-appointments"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -17,13 +17,13 @@ module "hmpps_prisoner_pay_api" {
 }
 
 module "hmpps_prisoner_pay_orchestrator_api" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-prisoner-pay-orchestrator-api"
-  application = "hmpps-prisoner-pay-orchestrator-api"
-  github_team = "activities-and-appointments"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  github_repo                = "hmpps-prisoner-pay-orchestrator-api"
+  application                = "hmpps-prisoner-pay-orchestrator-api"
+  github_team                = "activities-and-appointments"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -35,13 +35,13 @@ module "hmpps_prisoner_pay_orchestrator_api" {
 }
 
 module "hmpps_prisoner_pay_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-prisoner-pay-ui"
-  application = "hmpps-prisoner-pay-ui"
-  github_team = "activities-and-appointments"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  github_repo                = "hmpps-prisoner-pay-ui"
+  application                = "hmpps-prisoner-pay-ui"
+  github_team                = "activities-and-appointments"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

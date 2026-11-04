@@ -16,7 +16,7 @@ module "ecr" {
   namespace              = var.namespace # also used for creating a Kubernetes ConfigMap
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  enable_irsa = true
+  enable_irsa            = true
 }
 
 resource "kubernetes_secret" "ecr_credentials" {

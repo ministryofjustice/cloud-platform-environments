@@ -11,8 +11,8 @@ module "ecr" {
   repo_name = var.namespace
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["data-platform-app-release-in-error"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["data-platform-app-release-in-error"]
   github_environments   = ["prod"]
   github_actions_prefix = "prod"
 

@@ -9,7 +9,7 @@ module "ap_irsa" {
 resource "aws_iam_policy" "ap_policy" {
   name   = "${var.namespace}-ap-policy"
   policy = data.aws_iam_policy_document.ap_access.json
-  tags   = {
+  tags = {
     business_unit          = var.business_unit
     application            = var.application
     is_production          = var.is_production

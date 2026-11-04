@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "export_bucket" {
   restrictions {
     geo_restriction {
       restriction_type = "none"
-      locations = []
+      locations        = []
     }
   }
 

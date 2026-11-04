@@ -11,23 +11,23 @@ module "secrets_manager" {
 
   secrets = {
     "laa-portal-stabilisation-prototype-secret-azure-client-id-dev" = {
-      description             = "azure client id",   # Required
-      recovery_window_in_days = 7,               # Required
+      description             = "azure client id",                                       # Required
+      recovery_window_in_days = 7,                                                       # Required
       k8s_secret_name         = "laa-portal-stabilisation-prototype-azure-client-id-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "laa-portal-stabilisation-prototype-secret-azure-client-secret-dev" = {
-      description             = "azure client secret",   # Required
-      recovery_window_in_days = 7,               # Required
+      description             = "azure client secret",                                       # Required
+      recovery_window_in_days = 7,                                                           # Required
       k8s_secret_name         = "laa-portal-stabilisation-prototype-azure-client-secret-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "laa-portal-stabilisation-prototype-secret-azure-tenant-secret-dev" = {
-      description             = "azure tenant secret",   # Required
-      recovery_window_in_days = 7,               # Required
+      description             = "azure tenant secret",                                       # Required
+      recovery_window_in_days = 7,                                                           # Required
       k8s_secret_name         = "laa-portal-stabilisation-prototype-azure-tenant-secret-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "laa-portal-stabilisation-prototype-secret-gov-notify-api-key-dev" = {
-      description             = "gov notification api key",   # Required
-      recovery_window_in_days = 7,               # Required
+      description             = "gov notification api key",                                        # Required
+      recovery_window_in_days = 7,                                                                 # Required
       k8s_secret_name         = "laa-portal-stabilisation-prototype-secret-gov-notify-api-key-k8s" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
   }

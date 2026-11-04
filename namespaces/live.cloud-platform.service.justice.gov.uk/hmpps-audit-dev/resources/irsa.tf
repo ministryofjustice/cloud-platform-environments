@@ -35,7 +35,7 @@ module "service_pod_irsa" {
   service_account_name = "audit-s3-${var.environment-name}"
   namespace            = var.namespace # this is also used as a tag
   role_policy_arns = {
-    s3 = aws_iam_policy.allow-irsa-read-write.arn
+    s3  = aws_iam_policy.allow-irsa-read-write.arn
     iam = aws_iam_policy.allow-read-iam-roles.arn
   }
 
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "service_pod_policy_document" {
 
       "arn:aws:glue:eu-west-2:*:catalog",
       "arn:aws:glue:eu-west-2:*:database/*", # Temporary
-      "arn:aws:glue:eu-west-2:*:table/*/*", # Temporary
+      "arn:aws:glue:eu-west-2:*:table/*/*",  # Temporary
 
       aws_glue_catalog_database.audit_glue_catalog_database.arn,
       aws_glue_catalog_table.audit_event_table.arn,

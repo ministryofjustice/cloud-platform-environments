@@ -14,11 +14,11 @@ module "rds" {
   db_password_rotated_date     = "2025-09-24"
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "18.6"
-  rds_family        = "postgres18"
-  db_instance_class = "db.t4g.large"
-  db_iops = "12000"
+  db_engine            = "postgres"
+  db_engine_version    = "18.6"
+  rds_family           = "postgres18"
+  db_instance_class    = "db.t4g.large"
+  db_iops              = "12000"
   db_allocated_storage = "400"
 
   # Naming

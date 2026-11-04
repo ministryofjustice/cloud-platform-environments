@@ -1,21 +1,21 @@
 module "ma_rds" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  vpc_name                    = var.vpc_name
-  team_name                   = var.team_name
-  business_unit               = var.business_unit
-  application                 = var.application
-  is_production               = var.is_production
-  namespace                   = var.namespace
-  environment_name            = var.environment
-  infrastructure_support      = var.infrastructure_support
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  vpc_name               = var.vpc_name
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 
-  db_instance_class           = "db.t4g.small"
-  rds_family                  = "postgres18"
-  db_engine_version           = "18.6"
-  deletion_protection         = true
-  db_engine                   = "postgres"
-  db_password_rotated_date    = "15-02-2023"
-  enable_irsa                 = true
+  db_instance_class        = "db.t4g.small"
+  rds_family               = "postgres18"
+  db_engine_version        = "18.6"
+  deletion_protection      = true
+  db_engine                = "postgres"
+  db_password_rotated_date = "15-02-2023"
+  enable_irsa              = true
 
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
@@ -26,44 +26,44 @@ module "ma_rds" {
     aws = aws.london
   }
 
-  vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
   db_parameter = [
-      {
-        # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
-        # module default. (The postgres18 family already defaults it to 1.)
-        # pending-reboot, not immediate: AWS reports a parameter left at its default as
-        # pending-reboot, so "immediate" shows as a change on every plan (IR-2033).
-        name         = "rds.force_ssl"
-        value        = "1"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "rds.logical_replication"
-        value        = "1"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "shared_preload_libraries"
-        value        = "pg_tle,pg_stat_statements,pglogical"
-        apply_method = "pending-reboot"
-      },
-      {
-        name         = "max_wal_size"
-        value        = "1024"
-        apply_method = "immediate"
-      },
-      {
-        name         = "wal_sender_timeout"
-        value        = "0"
-        apply_method = "immediate"
-      },
-      {
-        name         = "max_slot_wal_keep_size"
-        value        = "40000"
-        apply_method = "immediate"
-      }
-    ]
+    {
+      # Restated so it is explicit, as for prisoner property and CSRA: our own list replaces the
+      # module default. (The postgres18 family already defaults it to 1.)
+      # pending-reboot, not immediate: AWS reports a parameter left at its default as
+      # pending-reboot, so "immediate" shows as a change on every plan (IR-2033).
+      name         = "rds.force_ssl"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "rds.logical_replication"
+      value        = "1"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "shared_preload_libraries"
+      value        = "pg_tle,pg_stat_statements,pglogical"
+      apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_wal_size"
+      value        = "1024"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_sender_timeout"
+      value        = "0"
+      apply_method = "immediate"
+    },
+    {
+      name         = "max_slot_wal_keep_size"
+      value        = "40000"
+      apply_method = "immediate"
+    }
+  ]
 }
 
 resource "kubernetes_secret" "dps_rds" {

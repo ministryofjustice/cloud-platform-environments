@@ -1,12 +1,12 @@
 module "hmpps_electronic_monitoring_crime_matching_ui" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-electronic-monitoring-crime-matching-ui"
-  application = "hmpps-electronic-monitoring-crime-matching-ui"
-  github_team = "hmpps-em-probation-devs"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams = ["hmpps-em-probation-devs"]
+  github_repo                = "hmpps-electronic-monitoring-crime-matching-ui"
+  application                = "hmpps-electronic-monitoring-crime-matching-ui"
+  github_team                = "hmpps-em-probation-devs"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-em-probation-devs"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -31,7 +31,7 @@ module "elasticache_redis" {
   infrastructure_support = var.infrastructure_support
 
   preferred_cache_cluster_azs = ["eu-west-2a", "eu-west-2c"]
-  number_cache_clusters = var.number_cache_clusters
+  number_cache_clusters       = var.number_cache_clusters
   # sized for micro in dev, preprod, suggest small for production
   node_type            = "cache.t4g.small"
   engine_version       = "7.0"

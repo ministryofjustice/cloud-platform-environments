@@ -20,7 +20,7 @@ module "rds" {
   deletion_protection          = true
   enable_rds_auto_start_stop   = true # Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   db_password_rotated_date     = "07-10-2024"
-  opt_in_xsiam_logging = true
+  opt_in_xsiam_logging         = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -62,11 +62,11 @@ module "read_replica" {
   # add them to the replica
 
   # PostgreSQL specifics
-  db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
-  db_instance_class = "db.t4g.micro"
-  db_max_allocated_storage     = "1000"
+  db_engine                = "postgres"
+  db_engine_version        = "17.11"
+  rds_family               = "postgres17"
+  db_instance_class        = "db.t4g.micro"
+  db_max_allocated_storage = "1000"
 
   # It is mandatory to set the below values to create read replica instance
 

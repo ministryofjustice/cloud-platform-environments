@@ -12,7 +12,7 @@ module "secrets_manager" {
   secrets = {
     "laa-mock-smtp-server-secrets-dev" = {
       description             = "Db urls and credentials for laa-mock-smtp-server dev environment", # Required
-      recovery_window_in_days = 7,                                                                      # Required
+      recovery_window_in_days = 7,                                                                  # Required
       k8s_secret_name         = "laa-mock-smtp-server-secrets"                                      # The name of the secret in k8s
     },
   }

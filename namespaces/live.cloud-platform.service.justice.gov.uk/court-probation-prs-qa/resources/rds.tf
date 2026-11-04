@@ -19,7 +19,7 @@ module "pre_sentence_service_rds" {
   allow_minor_version_upgrade  = true
   team_name                    = var.team_name
   vpc_name                     = var.vpc_name
-  
+
   providers = {
     aws = aws.london
   }

@@ -4,7 +4,7 @@ locals {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  
+
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
@@ -45,10 +45,10 @@ module "irsa" {
 module "esupervision-ui-service-account" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-esupervision"
-  role_policy_arns       = local.sqs_policies
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-esupervision"
+  role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application

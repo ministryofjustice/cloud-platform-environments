@@ -1,5 +1,5 @@
 module "hmpps_pin_phone_monitor_document_s3_bucket" {
-  
+
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
   team_name              = var.team_name
   acl                    = "private"
@@ -101,17 +101,17 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        "Sid": "DenyBucketLevelUnlessVpceOrAllowedIPs",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": ["s3:List*"],
-        "Resource": [
+        "Sid" : "DenyBucketLevelUnlessVpceOrAllowedIPs",
+        "Effect" : "Deny",
+        "Principal" : "*",
+        "Action" : ["s3:List*"],
+        "Resource" : [
           module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
         ],
-        "Condition": {
-          "NotIpAddress": {
-            "aws:SourceIp": [
+        "Condition" : {
+          "NotIpAddress" : {
+            "aws:SourceIp" : [
               # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
@@ -122,36 +122,36 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
               "35.176.93.186/32",
             ]
           },
-          "StringNotEqualsIfExists": {
-            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
+          "StringNotEqualsIfExists" : {
+            "aws:sourceVpce" : ["vpce-0f82cc8809dc37503"],
           },
-          "StringNotEquals": {
-            "aws:PrincipalArn": [
+          "StringNotEquals" : {
+            "aws:PrincipalArn" : [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
               aws_iam_user.bt_upload_user.arn,
               aws_iam_role.unify_s3_upload_role.arn
             ]
           },
-          "Bool": { "aws:ViaAWSService": "false" }
+          "Bool" : { "aws:ViaAWSService" : "false" }
         }
       },
       {
-        "Sid": "DenyObjectLevelUnlessVpceOrAllowedIPs",
-        "Effect": "Deny",
-        "Principal": "*",
-        "Action": [
+        "Sid" : "DenyObjectLevelUnlessVpceOrAllowedIPs",
+        "Effect" : "Deny",
+        "Principal" : "*",
+        "Action" : [
           "s3:GetObject*",
           "s3:PutObject*",
           "s3:DeleteObject*"
         ],
-        "Resource": [
+        "Resource" : [
           module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn,
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/*",
         ],
-        "Condition": {
-          "NotIpAddress": {
-            "aws:SourceIp": [
+        "Condition" : {
+          "NotIpAddress" : {
+            "aws:SourceIp" : [
               # Live-1 IP and MoJ VPN addresses
               "35.178.209.113",
               "3.8.51.207",
@@ -162,18 +162,18 @@ resource "aws_s3_bucket_policy" "hmpps_pin_phone_monitor_s3_ip_deny_policy" {
               "35.176.93.186/32",
             ]
           },
-          "StringNotEqualsIfExists": {
-            "aws:sourceVpce": ["vpce-0f82cc8809dc37503"],
+          "StringNotEqualsIfExists" : {
+            "aws:sourceVpce" : ["vpce-0f82cc8809dc37503"],
           },
-          "StringNotEquals": {
-            "aws:PrincipalArn": [
+          "StringNotEquals" : {
+            "aws:PrincipalArn" : [
               aws_iam_role.translate_s3_data_role.arn,
               aws_iam_role.transcribe_s3_data_role.arn,
               aws_iam_user.bt_upload_user.arn,
               aws_iam_role.unify_s3_upload_role.arn
             ]
           },
-          "Bool": { "aws:ViaAWSService": "false" }
+          "Bool" : { "aws:ViaAWSService" : "false" }
         }
       }
     ]
@@ -316,7 +316,7 @@ resource "aws_iam_role_policy" "unify_s3_upload_role_policy" {
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_metadata/*",
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_recordings/*",
           "${module.hmpps_pin_phone_monitor_document_s3_bucket.bucket_arn}/unify_transcripts/*",
-        ]      
+        ]
       }
     ]
   })

@@ -5,9 +5,9 @@ module "ecr-repo" {
   repo_name = "${var.namespace}-ecr"
 
   # OpenID Connect configuration
-  oidc_providers      = ["github"]
-  github_repositories = ["justice-data-agent-beta"]
-  github_environments = ["dev"]
+  oidc_providers        = ["github"]
+  github_repositories   = ["justice-data-agent-beta"]
+  github_environments   = ["dev"]
   github_actions_prefix = "dev"
 
   # Tags

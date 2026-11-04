@@ -4,17 +4,17 @@
 locals {
   # The names of the queues used and the namespace which created them.
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue"                                 = "hmpps-audit-dev",
-    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"                = "visit-someone-in-prison-backend-svc-dev",
-    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"                  = "visit-someone-in-prison-backend-svc-dev",
-    "locations-inside-prison-development-update_from_external_system_events_queue"  = "hmpps-locations-inside-prison-dev"
-    "hmpps-farsight-reduce-re-offend-development-eawp_assessment_events_queue"      = "hmpps-education-and-work-plan-dev",
-    "activities-and-appointments-dev-update_from_external_system_events_queue"      = "hmpps-activities-management-dev",
-    "hmpps-community-payback-devs-dev-course_completion_events_queue"               = "hmpps-community-payback-dev",
+    "Digital-Prison-Services-dev-hmpps_audit_queue"                                = "hmpps-audit-dev",
+    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_queue"               = "visit-someone-in-prison-backend-svc-dev",
+    "book-a-prison-visit-dev-hmpps_prison_visits_write_events_dlq"                 = "visit-someone-in-prison-backend-svc-dev",
+    "locations-inside-prison-development-update_from_external_system_events_queue" = "hmpps-locations-inside-prison-dev"
+    "hmpps-farsight-reduce-re-offend-development-eawp_assessment_events_queue"     = "hmpps-education-and-work-plan-dev",
+    "activities-and-appointments-dev-update_from_external_system_events_queue"     = "hmpps-activities-management-dev",
+    "hmpps-community-payback-devs-dev-course_completion_events_queue"              = "hmpps-community-payback-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev",
+    "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573"          = "hmpps-domain-events-dev",
     "cloud-platform-hmpps-electronic-monitoring-2df41de5fd9a2640f879551b653cc8cd.fifo" = "hmpps-ems-cemo-ui-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
@@ -30,10 +30,10 @@ module "irsa" {
     local.sqs_policies,
     local.sns_policies,
     {
-      integration_api_domain_events_queue = module.integration_api_domain_events_queue.irsa_policy_arn,
+      integration_api_domain_events_queue             = module.integration_api_domain_events_queue.irsa_policy_arn,
       integration_api_domain_events_dead_letter_queue = module.integration_api_domain_events_dead_letter_queue.irsa_policy_arn,
-      event_topic = module.hmpps-integration-events.irsa_policy_arn,
-      event_queues = aws_iam_policy.integration_events_sqs.arn,
+      event_topic                                     = module.hmpps-integration-events.irsa_policy_arn,
+      event_queues                                    = aws_iam_policy.integration_events_sqs.arn,
     }
   )
   # Tags

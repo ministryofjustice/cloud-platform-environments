@@ -29,7 +29,7 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine                 = "postgres"
-  db_engine_version         =  "17.11"
+  db_engine_version         = "17.11"
   rds_family                = "postgres17"
   db_instance_class         = "db.t4g.micro"
   prepare_for_major_upgrade = false
@@ -46,7 +46,7 @@ module "read_replica" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
   # VPC configuration
-  vpc_name               = var.vpc_name
+  vpc_name = var.vpc_name
 
   # Tags
   application            = var.application
@@ -108,7 +108,7 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
-    url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+    url                   = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 

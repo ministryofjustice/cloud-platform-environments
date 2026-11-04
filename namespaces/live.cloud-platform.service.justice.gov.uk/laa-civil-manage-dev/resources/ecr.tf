@@ -14,7 +14,7 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["laa-civil-manage", "laa-civil-manage-e2e"]
 
-    lifecycle_policy = <<EOF
+  lifecycle_policy = <<EOF
 {
     "rules": [
         {

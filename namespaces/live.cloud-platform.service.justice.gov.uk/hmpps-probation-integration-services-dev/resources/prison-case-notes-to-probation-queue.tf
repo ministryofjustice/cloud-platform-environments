@@ -1,5 +1,5 @@
 resource "aws_sns_topic_subscription" "prison-case-notes-created-updated-subscription" {
-  
+
   topic_arn = data.aws_sns_topic.hmpps-domain-events.arn
   protocol  = "sqs"
   endpoint  = module.prison-case-notes-to-probation-queue.sqs_arn
@@ -97,5 +97,5 @@ module "prison-case-notes-to-probation-service-account" {
   team_name              = var.team_name
 
   service_account_name = "prison-case-notes-to-probation"
-  role_policy_arns = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
+  role_policy_arns     = { sqs = module.prison-case-notes-to-probation-queue.irsa_policy_arn }
 }

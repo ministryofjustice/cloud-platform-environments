@@ -1,12 +1,12 @@
 module "hmpps_template_kotlin" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-community-payback-api"
-  application = "hmpps-community-payback-api"
-  github_team = "hmpps-community-payback-live"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-community-payback-live"]
+  github_repo                = "hmpps-community-payback-api"
+  application                = "hmpps-community-payback-api"
+  github_team                = "hmpps-community-payback-live"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  reviewer_teams             = ["hmpps-community-payback-live"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -29,9 +29,9 @@ module "api_elasticache_redis" {
   infrastructure_support = var.infrastructure_support
 
   number_cache_clusters = var.number_cache_clusters
-  node_type            = "cache.t4g.small"
-  engine_version       = "7.0"
-  parameter_group_name = "default.redis7"
+  node_type             = "cache.t4g.small"
+  engine_version        = "7.0"
+  parameter_group_name  = "default.redis7"
 
   providers = {
     aws = aws.london

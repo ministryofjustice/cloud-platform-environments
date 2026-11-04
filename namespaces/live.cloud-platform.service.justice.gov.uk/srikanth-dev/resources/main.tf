@@ -54,7 +54,7 @@ module "irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-  s3 = module.s3_bucket.irsa_policy_arn
+    s3 = module.s3_bucket.irsa_policy_arn
   }
 
   business_unit          = var.business_unit

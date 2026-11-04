@@ -24,6 +24,6 @@ resource "kubernetes_secret" "uploadstore_secret" {
     namespace = var.namespace
   }
   data = {
-    bucket_name                        = module.uploadstore.bucket_name   
+    bucket_name = module.uploadstore.bucket_name
   }
 }

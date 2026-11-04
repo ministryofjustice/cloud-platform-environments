@@ -3,7 +3,7 @@ module "s3_bucket" {
 
   bucket_name = "cloud-platform-vulnerability-reports"
 
-lifecycle_rule = [
+  lifecycle_rule = [
     {
       enabled = true
       id      = "remove old vulnerabilities after 180 days for live"
@@ -15,7 +15,7 @@ lifecycle_rule = [
         },
       ]
     },
-{
+    {
       enabled = true
       id      = "remove old vulnerabilities after 180 days for manager"
       prefix  = "manager"

@@ -235,7 +235,7 @@ resource "kubernetes_secret" "hmpps_audit_users_dead_letter_queue_secret" {
 
 resource "kubernetes_secret" "approved_prisoner_audit_client_arns" {
   metadata {
-    name = "approved-prisoner-audit-client-arns"
+    name      = "approved-prisoner-audit-client-arns"
     namespace = var.namespace
   }
 }

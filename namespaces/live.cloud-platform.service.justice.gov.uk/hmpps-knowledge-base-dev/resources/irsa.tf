@@ -7,17 +7,17 @@ locals {
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
   irsa_policies = {
-    equip_migration_queue  = module.equip_migration_queue.irsa_policy_arn
-    hmpps_knowledge_base_s3_input = module.hmpps_knowledge_base_s3_input.irsa_policy_arn
+    equip_migration_queue              = module.equip_migration_queue.irsa_policy_arn
+    hmpps_knowledge_base_s3_input      = module.hmpps_knowledge_base_s3_input.irsa_policy_arn
     hmpps_knowledge_base_s3_data_store = module.hmpps_knowledge_base_s3_data_store.irsa_policy_arn
-    hmpps_knowledge_base_s3_archive = module.hmpps_knowledge_base_s3_archive.irsa_policy_arn
+    hmpps_knowledge_base_s3_archive    = module.hmpps_knowledge_base_s3_archive.irsa_policy_arn
   }
 }
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
-  eks_cluster_name     = var.eks_cluster_name
+  eks_cluster_name = var.eks_cluster_name
 
   service_account_name = "hmpps-knowledge-base"
   role_policy_arns     = merge(local.sqs_policies, local.irsa_policies)

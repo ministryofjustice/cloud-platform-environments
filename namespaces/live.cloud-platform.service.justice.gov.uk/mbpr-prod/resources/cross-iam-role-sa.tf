@@ -1,8 +1,8 @@
 module "mbpr_prod_irsa" {
-  source                = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name      = var.eks_cluster_name
-  namespace             = var.namespace
-  service_account_name  = "mbpr-prod-cp-data-access"
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "mbpr-prod-cp-data-access"
   role_policy_arns = {
     data_access_policy = aws_iam_policy.mbpr_prod.arn
   }

@@ -25,7 +25,7 @@ module "serviceaccount" {
   # Environment secrets require the GitHub environment to exist first.
   depends_on = [github_repository_environment.env]
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets

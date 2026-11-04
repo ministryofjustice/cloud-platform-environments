@@ -21,7 +21,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
-    s3 = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
+    s3  = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
   }
 
   # Tags

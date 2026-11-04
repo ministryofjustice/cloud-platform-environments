@@ -6,8 +6,8 @@
 module "serviceaccount" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
-  namespace           = "dpr-bodmis-port-forwarder"
-  github_repositories = ["dpr-bodmis-port-forwarder"]
-  kubernetes_cluster  = var.kubernetes_cluster
+  namespace                         = "dpr-bodmis-port-forwarder"
+  github_repositories               = ["dpr-bodmis-port-forwarder"]
+  kubernetes_cluster                = var.kubernetes_cluster
   serviceaccount_token_rotated_date = "20-03-2026"
 }

@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "court_cases_sqs_queue_policy_document" {
 
 resource "aws_sqs_queue_policy" "court_cases_queue_policy" {
   queue_url = module.court-cases-queue.sqs_id
-  policy = data.aws_iam_policy_document.court_cases_sqs_queue_policy_document.json
+  policy    = data.aws_iam_policy_document.court_cases_sqs_queue_policy_document.json
 }
 
 module "court-cases-dlq" {

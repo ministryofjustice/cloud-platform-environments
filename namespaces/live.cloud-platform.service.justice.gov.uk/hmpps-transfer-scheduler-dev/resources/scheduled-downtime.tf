@@ -4,9 +4,9 @@ module "scheduled_downtime_service_account" {
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
-  serviceaccount_name  = "scheduled-downtime-serviceaccount"
-  role_name            = "scheduled-downtime-serviceaccount-role"
-  rolebinding_name     = "scheduled-downtime-serviceaccount-rolebinding"
+  serviceaccount_name = "scheduled-downtime-serviceaccount"
+  role_name           = "scheduled-downtime-serviceaccount-role"
+  rolebinding_name    = "scheduled-downtime-serviceaccount-rolebinding"
   serviceaccount_rules = [
     {
       api_groups = ["apps"]

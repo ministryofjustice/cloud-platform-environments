@@ -1,9 +1,9 @@
 module "irsa" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name = var.eks_cluster_name
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
   service_account_name = "irsa-laa-landing-page-${var.environment}"
   namespace            = var.namespace
-  
+
   role_policy_arns = {
     sqs         = data.aws_ssm_parameter.sqs_policy_arn.value
     sqs_preprod = data.aws_ssm_parameter.sqs_policy_arn_preprod.value
@@ -32,12 +32,12 @@ resource "aws_iam_policy" "rds_backup_check_policy" {
   policy      = data.aws_iam_policy_document.rds_backup_check_assume_role_policy.json
 }
 
-module "irsa_rds_backup_check"{
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+module "irsa_rds_backup_check" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
   eks_cluster_name     = var.eks_cluster_name
   service_account_name = "irsa-laa-landing-page-${var.environment}-rds-backup-check"
   namespace            = var.namespace
-  
+
   role_policy_arns = {
     rds_backup_check = aws_iam_policy.rds_backup_check_policy.arn
   }
