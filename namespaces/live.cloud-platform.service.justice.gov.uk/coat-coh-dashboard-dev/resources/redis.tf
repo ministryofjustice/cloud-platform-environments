@@ -9,15 +9,12 @@ module "athena_cache" {
   team_name               = var.team_name
   business_unit           = var.business_unit
   namespace               = var.namespace
+
   engine_version          = "7.0"
   parameter_group_name    = aws_elasticache_parameter_group.athena_cache.name
   node_type               = "cache.t4g.small"
   number_cache_clusters   = "2"
   auth_token_rotated_date = "2026-11-04"
-
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "aws_elasticache_parameter_group" "athena_cache" {
@@ -38,8 +35,9 @@ resource "kubernetes_secret" "athena_cache" {
   }
 
   data = {
-    host     = module.athena_cache.primary_endpoint_address
-    port     = "6379"
-    password = module.athena_cache.auth_token
+    primary_endpoint_address = module.athena_cache.primary_endpoint_address
+    auth_token = module.athena_cache.auth_token
+    member_clusters = jsonencode(module.athena_cache.member_clusters)
+    url = "rediss://:${module.athena_cache.auth_token}@${module.athena_cache.primary_endpoint_address}:6379"
   }
 }
