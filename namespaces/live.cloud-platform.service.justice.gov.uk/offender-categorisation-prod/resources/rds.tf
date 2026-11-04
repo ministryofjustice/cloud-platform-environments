@@ -10,10 +10,10 @@ module "dps_rds" {
   infrastructure_support      = var.infrastructure_support
   rds_family                  = var.rds-family
   db_instance_class           = "db.t4g.medium"
-  db_engine_version           = "17.11"
+  db_engine_version           = "16.15"
   allow_major_version_upgrade = "true"
   performance_insights_enabled = "true"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   enable_irsa = true
 }
