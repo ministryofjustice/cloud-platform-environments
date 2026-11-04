@@ -28,7 +28,7 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
+/*
 # ---------------------------------------------------------------------------
 # ADDED: IAM policy that allows the pod to assume the cross-account role in
 # the Analytical Platform account that grants AWS Comprehend access.
@@ -79,3 +79,4 @@ module "service_pod" {
   namespace             = var.namespace
   service_account_name  = module.irsa.service_account.name
 }
+*/
