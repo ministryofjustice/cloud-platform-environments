@@ -46,7 +46,7 @@ module "rds_new" {
   db_engine_version            = "14"
   rds_family                   = "postgres14"
   snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
-
+  deletion_protection          = true
   providers = {
     aws = aws.london
   }
