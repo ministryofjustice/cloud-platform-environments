@@ -18,4 +18,8 @@ provider "aws" {
   }
 }
 
+# Keep the supported ECR module's GitHub provider constrained; its repository
+# integration is disabled, so this provider creates no GitHub resources.
+provider "github" {}
+
 provider "kubernetes" {}
