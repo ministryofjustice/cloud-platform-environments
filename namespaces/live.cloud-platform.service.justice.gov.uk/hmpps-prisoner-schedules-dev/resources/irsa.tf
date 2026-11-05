@@ -16,6 +16,7 @@ module "irsa" {
   eks_cluster_name     = var.eks_cluster_name
 
   service_account_name = "hmpps-prisoner-schedules-api"
+  role_policy_arns     = local.sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
@@ -24,15 +25,6 @@ module "irsa" {
   namespace              = var.namespace # this is also used to attach your service account to your namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  role_policy_arns = merge(
-    {
-    sqs = module.producer_event_sqs_queue.irsa_policy_arn
-    },
-    {
-    sqs_dlq = module.producer_event_sqs_dlq.irsa_policy_arn
-    },
-    local.sqs_policies,
-  )
 }
 
 data "aws_ssm_parameter" "irsa_policy_arns" {
