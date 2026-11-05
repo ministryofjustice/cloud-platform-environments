@@ -39,4 +39,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              component: ingress-controllers
+              allow-maat-api-use: test
