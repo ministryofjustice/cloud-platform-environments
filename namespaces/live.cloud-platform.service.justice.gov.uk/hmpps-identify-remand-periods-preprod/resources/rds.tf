@@ -17,7 +17,7 @@ module "identify_remand_periods_rds" {
   db_engine                   = "postgres"
   db_engine_version           = "18.6"
   enable_rds_auto_start_stop  = true
-  prepare_for_major_upgrade   = true
+  prepare_for_major_upgrade   = false
 
   providers = {
     aws = aws.london
