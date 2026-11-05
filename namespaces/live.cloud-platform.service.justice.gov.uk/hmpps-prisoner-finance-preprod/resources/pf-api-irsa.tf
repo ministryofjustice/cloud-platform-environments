@@ -1,4 +1,3 @@
-
 locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
