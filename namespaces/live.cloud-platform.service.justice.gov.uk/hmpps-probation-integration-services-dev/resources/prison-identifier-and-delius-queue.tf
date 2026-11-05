@@ -25,7 +25,7 @@ resource "aws_sns_topic_subscription" "prison-identifier-and-delius-queue-probat
 }
 
 module "prison-identifier-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "prison-identifier-and-delius-queue"
@@ -50,7 +50,7 @@ resource "aws_sqs_queue_policy" "prison-identifier-and-delius-queue-policy" {
 }
 
 module "prison-identifier-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "prison-identifier-and-delius-dlq"

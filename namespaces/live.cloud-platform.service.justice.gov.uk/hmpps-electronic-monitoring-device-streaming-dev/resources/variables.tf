@@ -6,7 +6,7 @@ variable "kubernetes_cluster" {
 
 variable "application" {
   description = "Name of Application you are deploying"
-  default     = "HMPPS Electronic Monitoring Device Telemetry"
+  default     = "HMPPS Electronic Monitoring Device Streamingß"
 }
 
 variable "eks_cluster_name" {
@@ -14,13 +14,13 @@ variable "eks_cluster_name" {
 }
 
 variable "namespace" {
-  default = "hmpps-electronic-monitoring-device-telemetry-api-dev"
+  default = "hmpps-electronic-monitoring-device-streaming-dev"
 }
 
 variable "namespace-short" {
   description = "Short-form version of namespace name to get around string-length issues"
   type = string
-  default = "em-telemetry-dev"
+  default = "em-device-streaming-dev"
 }
 
 variable "business_unit" {
@@ -72,5 +72,5 @@ variable "github_token" {
 }
 
 variable "domain" {
-  default = "device-telemetry-dev.electronic-monitoring.service.justice.gov.uk"
+  default = "device-streaming-dev.electronic-monitoring.service.justice.gov.uk"
 }

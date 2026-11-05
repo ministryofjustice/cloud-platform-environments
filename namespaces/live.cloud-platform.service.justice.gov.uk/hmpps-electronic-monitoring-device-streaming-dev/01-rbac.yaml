@@ -2,8 +2,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-electronic-monitoring-device-telemetry-api-dev-admin
-  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
+  name: hmpps-electronic-monitoring-device-streaming-dev-admin
+  namespace: hmpps-electronic-monitoring-device-streaming-dev
 subjects:
   - kind: Group
     name: "github:hmpps-electronic-monitoring-devs"
@@ -19,15 +19,15 @@ roleRef:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: hmpps-electronic-monitoring-device-telemetry-api-calico-np-access
-  namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
+  name: hmpps-electronic-monitoring-device-streaming-calico-np-access
+  namespace: hmpps-electronic-monitoring-device-streaming-dev
 subjects:
   - kind: Group
     name: "github:hmpps-electronic-monitoring-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
     name: serviceaccount-hmpps-electronic-monitoring-data-store
-    namespace: hmpps-electronic-monitoring-device-telemetry-api-dev
+    namespace: hmpps-electronic-monitoring-device-streaming-dev
 roleRef:
   kind: ClusterRole
   name: calico-network-policy-access

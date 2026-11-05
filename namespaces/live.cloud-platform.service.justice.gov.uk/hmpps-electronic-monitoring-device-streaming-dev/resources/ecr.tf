@@ -6,7 +6,7 @@ module "ecr" {
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["hmpps-electronic-monitoring-device-telemetry-api"]
+  github_repositories = ["hmpps-electronic-monitoring-device-streaming"]
 
   # Tags
   business_unit          = var.business_unit

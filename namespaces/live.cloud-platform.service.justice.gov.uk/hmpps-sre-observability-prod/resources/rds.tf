@@ -16,7 +16,7 @@ module "hmpps_dependencytrack_postgresql_rds" {
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine                   = "postgres"
-  db_engine_version           = "17"
+  db_engine_version           = "17.11"
   rds_family                  = "postgres17"
 
   providers = {

@@ -30,7 +30,8 @@ module "hmpps_egress_controls" {
     ".slack.com",
     ".service.gov.uk",
     ".justice.gov.uk",
-    ".quay.io"
+    ".quay.io",
+    ".amazonaws.com"
   ]
 }
 

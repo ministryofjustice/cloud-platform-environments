@@ -15,7 +15,7 @@ resource "aws_sns_topic_subscription" "core-person-record-and-delius-queue-subsc
 }
 
 module "core-person-record-and-delius-queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name = "core-person-record-and-delius-queue"
@@ -40,7 +40,7 @@ resource "aws_sqs_queue_policy" "core-person-record-and-delius-queue-policy" {
 }
 
 module "core-person-record-and-delius-dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "core-person-record-and-delius-dlq"

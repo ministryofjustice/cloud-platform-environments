@@ -14,6 +14,9 @@ module "ecr" {
   oidc_providers      = ["github"]
   github_repositories = ["cpd-matching-service","cpd-record-service"]
 
+  github_environments = ["preprod"]
+
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

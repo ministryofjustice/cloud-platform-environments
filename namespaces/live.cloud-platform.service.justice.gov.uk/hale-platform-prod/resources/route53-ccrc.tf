@@ -38,14 +38,6 @@ resource "aws_route53_record" "ccrc_route53_a_record_connect" {
   records = ["178.239.100.157"]
 }
 
-resource "aws_route53_record" "ccrc_route53_a_record_mail" {
-  zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
-  name    = "mail.ccrc.gov.uk"
-  type    = "A"
-  ttl     = "300"
-  records = ["79.170.44.57"]
-}
-
 resource "aws_route53_record" "ccrc_route53_a_record_mail2" {
   zone_id = aws_route53_zone.ccrc_route53_zone.zone_id
   name    = "mail2.ccrc.gov.uk"
