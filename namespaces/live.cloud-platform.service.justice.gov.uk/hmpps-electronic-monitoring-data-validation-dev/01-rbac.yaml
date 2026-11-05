@@ -23,7 +23,7 @@ metadata:
   namespace: hmpps-electronic-monitoring-data-validation-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-electronic-monitoring-data-huv-"
+    name: "github:hmpps-electronic-monitoring-data-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: ServiceAccount
     name: serviceaccount-hmpps-electronic-monitoring-data-store
