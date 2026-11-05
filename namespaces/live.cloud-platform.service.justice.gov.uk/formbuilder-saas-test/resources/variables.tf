@@ -1,4 +1,16 @@
+variable "application" {
+  default = "fb-editor"
+}
+
+variable "business_unit" {
+  default = "central-digital-product-team"
+}
+
 variable "environment_name" {
+  default = "test"
+}
+
+variable "environment" {
   default = "test"
 }
 
