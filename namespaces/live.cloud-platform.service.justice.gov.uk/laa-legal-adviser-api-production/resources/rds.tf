@@ -21,7 +21,7 @@ module "laa_laa_rds_postgres_14" {
     aws = aws.london
   }
 
-  allow_major_version_upgrade = False 
+  allow_major_version_upgrade = true  
   prepare_for_major_upgrade = true 
 
   enable_irsa = true
