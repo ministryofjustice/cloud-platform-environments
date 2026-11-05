@@ -13,7 +13,7 @@ module "irsa" {
   service_account_name = "hmpps-prison-users-api"
   role_policy_arns = merge(
     local.sns_policies,
-    { rds_policy = module.dps_rds.irsa_policy_arn }
+    { rds_policy = module.prison_users_rds.irsa_policy_arn }
   )
   # Tags
   business_unit          = var.business_unit
