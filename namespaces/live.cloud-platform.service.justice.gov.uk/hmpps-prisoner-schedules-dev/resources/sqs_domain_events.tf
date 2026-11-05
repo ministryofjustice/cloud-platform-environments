@@ -44,46 +44,27 @@ resource "kubernetes_secret" "producer_event_sqs_queue_secret" {
     sqs_queue_name = module.producer_event_sqs_queue.sqs_name
   }
 }
+resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
+  queue_url = module.producer_event_sqs_queue.sqs_id
 
-locals {
-  sqs_queue_arns = {
-    "${module.producer_event_sqs_queue.sqs_name}" = module.producer_event_sqs_queue.sqs_arn
-    "${module.producer_event_sqs_dlq.sqs_name}"   = module.producer_event_sqs_dlq.sqs_arn
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Id": "${module.producer_event_sqs_queue.sqs_arn}/SQSDefaultPolicy",
+    "Statement":
+      [
+        {
+          "Effect": "Allow",
+          "Principal": {"AWS": "*"},
+          "Resource": "${module.producer_event_sqs_queue.sqs_arn}",
+          "Action": "SQS:SendMessage"
+        }
+      ]
   }
 
-  sqs_irsa_policies = {
-    for k, v in aws_iam_policy.producer_event_sqs_irsa_policy : k => v.arn
-  }
+EOF
+
 }
-
-resource "aws_iam_policy" "producer_event_sqs_irsa_policy" {
-  for_each = local.sqs_queue_arns
-
-  name   = "${var.namespace}-${each.key}-queue"
-  path   = "/cloud-platform/sqs/"
-  policy = data.aws_iam_policy_document.sqs_irsa_policy[each.key].json
-
-  tags = local.tags
-}
-
-resource "aws_ssm_parameter" "producer_event_sqs_irsa_policy_arn" {
-  for_each = local.sqs_irsa_policies
-
-  type  = "String"
-  name  = "/${var.namespace}/sqs/${each.key}/irsa-policy-arn"
-  value = each.value
-
-  tags = {
-    business-unit          = var.business_unit
-    application            = var.application
-    is-production          = var.is_production
-    owner                  = var.team_name
-    environment-name       = var.environment
-    infrastructure-support = var.infrastructure_support
-    namespace              = var.namespace
-  }
-}
-
 resource "kubernetes_secret" "producer_event_sqs_dlq_secret" {
   metadata {
     name      = "producer-event-dlq"
