@@ -29,6 +29,6 @@ data "aws_iam_policy_document" "hmpps_snyk_discovery_business_unit_ecr_pull" {
 }
 
 resource "aws_iam_policy" "hmpps_business_unit_ecr_pull" {
-  name   = "hmpps-portfolio-management-dev-snyk-discovery-hmpps-ecr-pull"
+  name   = "hmpps-portfolio-management-prod-snyk-discovery-hmpps-ecr-pull"
   policy = data.aws_iam_policy_document.hmpps_snyk_discovery_business_unit_ecr_pull.json
 }
