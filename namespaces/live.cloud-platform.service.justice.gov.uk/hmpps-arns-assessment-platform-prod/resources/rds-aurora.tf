@@ -16,7 +16,7 @@ module "rds_aurora" {
     max_capacity = 16
   }
 
-  allow_major_version_upgrade = true
+  allow_major_version_upgrade = false
   auto_minor_version_upgrade  = true
 
   db_name = var.db_name
