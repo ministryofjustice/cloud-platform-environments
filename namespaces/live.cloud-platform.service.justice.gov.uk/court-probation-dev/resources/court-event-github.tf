@@ -1,5 +1,5 @@
 module "court-hearing-event" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "court-hearing-event-receiver"
@@ -17,7 +17,7 @@ module "court-hearing-event" {
 }
 
 module "crime-portal-gateway" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "crime-portal-gateway"
@@ -35,7 +35,7 @@ module "crime-portal-gateway" {
 }
 
 module "pre-sentence-service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "pre-sentence-service"
@@ -53,7 +53,7 @@ module "pre-sentence-service" {
 }
 
 module "hmpps-court-case-service-api" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-court-case-service-api"
@@ -87,7 +87,7 @@ module "hmpps-court-case-enrichment-worker" {
 }
 
 module "hmpps-court-case-data-migration-service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-court-case-data-migration-service"
@@ -105,7 +105,7 @@ module "hmpps-court-case-data-migration-service" {
 }
 
 module "hmpps-probation-in-court-automation-tests-service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "hmpps-probation-in-court-automation-tests-service"
@@ -123,7 +123,7 @@ module "hmpps-probation-in-court-automation-tests-service" {
 }
 
 module "prepare-a-case" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "prepare-a-case"
@@ -141,7 +141,7 @@ module "prepare-a-case" {
 }
 
 module "court-case-service" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                   = "court-case-service"
@@ -159,7 +159,7 @@ module "court-case-service" {
 }
 
 module "court-case-matcher" {
-  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source      = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
   github_repo = "court-case-matcher"
