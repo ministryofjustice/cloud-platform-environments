@@ -44,27 +44,27 @@ resource "kubernetes_secret" "producer_event_sqs_queue_secret" {
     sqs_queue_name = module.producer_event_sqs_queue.sqs_name
   }
 }
-resource "aws_sqs_queue_policy" "claims_for_ccr_policy" {
-  queue_url = module.producer_event_sqs_queue.sqs_id
 
-  policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Id": "${module.producer_event_sqs_queue.sqs_arn}/SQSDefaultPolicy",
-    "Statement":
-      [
-        {
-          "Effect": "Allow",
-          "Principal": {"AWS": "*"},
-          "Resource": "${module.producer_event_sqs_queue.sqs_arn}",
-          "Action": "SQS:SendMessage"
-        }
-      ]
+
+data "aws_iam_policy_document" "sqs_queue_policy_document" {
+  policy_id = "${module.producer_event_sqs_queue.sqs_arn}/SQSDefaultPolicy"
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    resources = [module.producer_event_sqs_queue.sqs_arn]
+    actions   = ["SQS:SendMessage"]
   }
-
-EOF
-
 }
+
+
+resource "aws_sqs_queue_policy" "producer_event_sqs_queue_policy" {
+  queue_url = module.producer_event_sqs_queue.sqs_id
+  policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
+}
+
 resource "kubernetes_secret" "producer_event_sqs_dlq_secret" {
   metadata {
     name      = "producer-event-dlq"
