@@ -4,6 +4,8 @@
 locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
+    "hmpps-move-and-improve-dev-producer_event_sqs_queue" = "hmpps-move-and-improve-dev"
+    "hmpps-move-and-improve-dev-producer_event_sqs_dlq"   = "hmpps-move-and-improve-dev"
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
 }
