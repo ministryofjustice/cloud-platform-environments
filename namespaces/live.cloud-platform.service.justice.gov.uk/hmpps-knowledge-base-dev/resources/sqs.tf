@@ -1,5 +1,5 @@
 module "equip_migration_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "equip_migration_queue"
@@ -42,7 +42,7 @@ resource "kubernetes_secret" "equip_migration_queue" {
 
 
 module "equip_migration_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "equip_migration_dlq"
@@ -75,7 +75,7 @@ resource "kubernetes_secret" "equip_migration_dlq" {
 }
 
 module "equip_data_quality_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "equip_data_quality_dlq"
@@ -108,7 +108,7 @@ resource "kubernetes_secret" "equip_data_quality_dlq" {
 }
 
 module "equip_data_quality_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "equip_data_quality_queue"
