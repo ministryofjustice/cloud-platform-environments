@@ -59,7 +59,6 @@ data "aws_iam_policy_document" "sqs_queue_policy_document" {
   }
 }
 
-
 resource "aws_sqs_queue_policy" "producer_event_sqs_queue_policy" {
   queue_url = module.producer_event_sqs_queue.sqs_id
   policy    = data.aws_iam_policy_document.sqs_queue_policy_document.json
