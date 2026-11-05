@@ -20,7 +20,7 @@ module "laa_laa_rds_postgres_14" {
   providers = {
     aws = aws.london
   }
-
+  # allow
   allow_major_version_upgrade = true  
   prepare_for_major_upgrade = true 
 
