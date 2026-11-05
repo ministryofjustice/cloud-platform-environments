@@ -1,8 +1,8 @@
 
 module "hmpps_assess_risks_and_needs_prod_rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  db_allocated_storage   = 10
-  storage_type           = "gp2"
+  db_allocated_storage   = 20
+  storage_type           = "gp3"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit
@@ -15,9 +15,6 @@ module "hmpps_assess_risks_and_needs_prod_rds" {
   db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
   db_engine_version      = "18.6"
-
-  allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = true
 
   providers = {
     aws = aws.london
