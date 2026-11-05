@@ -1,4 +1,3 @@
-
 locals {
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
@@ -12,6 +11,9 @@ locals {
   })
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
+  }
+  prisoner_finance_api_irsa_policies = {
+    rds = module.prisoner_finance_api_rds.irsa_policy_arn
   }
 }
 
