@@ -3,7 +3,7 @@ data "aws_sns_topic" "manage_soc_cases_api_probation_offender_events" {
 }
 
 module "manage_soc_cases_api_probation_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name                  = "manage_soc_cases_api_probation_offender_events_queue"
   encrypt_sqs_kms           = "true"
@@ -25,7 +25,7 @@ module "manage_soc_cases_api_probation_offender_events_queue" {
 }
 
 module "manage_soc_cases_api_probation_offender_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name        = "manage_soc_cases_api_probation_offender_events_dlq"
   encrypt_sqs_kms = "true"

@@ -20,7 +20,7 @@ resource "aws_sns_topic_subscription" "manage_soc_cases_api_offender_events_subs
 }
 
 module "manage_soc_cases_api_offender_events_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name                  = "manage_soc_cases_api_offender_events_queue"
   encrypt_sqs_kms           = "true"
@@ -64,7 +64,7 @@ resource "aws_sqs_queue_policy" "manage_soc_cases_api_offender_events_queue_poli
 }
 
 module "manage_soc_cases_api_offender_events_dlq" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name        = "manage_soc_cases_api_offender_events_dlq"
   encrypt_sqs_kms = "true"
