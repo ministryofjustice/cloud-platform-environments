@@ -1,5 +1,5 @@
 module "migration_bedassignment_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                   = "migration_bedassignment_queue"
@@ -25,7 +25,7 @@ EOF
 }
 
 module "migration_bedassignment_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name        = "migration_bedassignment_dlq"
