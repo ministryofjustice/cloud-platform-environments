@@ -13,6 +13,9 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
   }
+  prisoner_finance_api_irsa_policies = {
+    rds = module.prisoner_finance_api_rds.irsa_policy_arn
+  }
 }
 
 module "irsa" {
