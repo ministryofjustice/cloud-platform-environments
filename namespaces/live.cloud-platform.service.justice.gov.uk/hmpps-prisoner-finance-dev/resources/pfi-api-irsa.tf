@@ -15,6 +15,9 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev",
   }
+  prisoner_finance_api_irsa_policies = {
+    rds = module.prisoner_finance_api_rds.irsa_policy_arn
+  }
 }
 
 data "aws_iam_policy_document" "combined_sqs" {
@@ -46,7 +49,7 @@ data "aws_iam_policy_document" "combined_sqs" {
 
 resource "aws_iam_policy" "combined_sqs" {
   name        = "${var.namespace}-hmpps-prisoner-finance-combined-sqs"
-  description = "Combined SQS access policy for ${var.application}"
+  description = "Combined SQS access policy for ${var.prisoner_finance_application_name}"
   policy      = data.aws_iam_policy_document.combined_sqs.json
 }
 
