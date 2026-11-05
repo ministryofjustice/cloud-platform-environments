@@ -16,6 +16,18 @@ resource "aws_wafv2_web_acl" "frontend" {
   name  = "${var.namespace}-frontend-waf"
   scope = "CLOUDFRONT"
 
+  # Shared response body for deliberate access-control blocks (IP allowlist,
+  # geo restriction) below. These are given their own fixed 403 response so
+  # the CloudFront distribution's 403 -> /index.html custom_error_response
+  # (added to recover from expired-session/origin 403s) can never mask them:
+  # a WAF rule's own custom_response always takes precedence over a
+  # distribution's custom_error_response for the same status code.
+  custom_response_body {
+    key          = "access_denied"
+    content      = "<html><body><h1>403 Forbidden</h1><p>Access to this resource is restricted.</p></body></html>"
+    content_type = "TEXT_HTML"
+  }
+
   default_action {
     dynamic "allow" {
       for_each = length(var.waf_allowed_ips) > 0 ? [] : [1]
@@ -24,7 +36,12 @@ resource "aws_wafv2_web_acl" "frontend" {
 
     dynamic "block" {
       for_each = length(var.waf_allowed_ips) > 0 ? [1] : []
-      content {}
+      content {
+        custom_response {
+          response_code            = 403
+          custom_response_body_key = "access_denied"
+        }
+      }
     }
   }
 
@@ -52,9 +69,56 @@ resource "aws_wafv2_web_acl" "frontend" {
     }
   }
 
+  # Geo restriction, enforced here (with its own custom response) instead of
+  # via the CloudFront distribution's native `restrictions.geo_restriction`,
+  # which has no custom-response option and would otherwise be masked by the
+  # distribution's 403 -> /index.html custom_error_response below.
+  dynamic "rule" {
+    for_each = var.geo_restriction_type != "none" ? [1] : []
+    content {
+      name     = "GeoRestriction"
+      priority = 2
+
+      action {
+        block {
+          custom_response {
+            response_code            = 403
+            custom_response_body_key = "access_denied"
+          }
+        }
+      }
+
+      statement {
+        dynamic "not_statement" {
+          for_each = var.geo_restriction_type == "whitelist" ? [1] : []
+          content {
+            statement {
+              geo_match_statement {
+                country_codes = var.geo_restriction_locations
+              }
+            }
+          }
+        }
+
+        dynamic "geo_match_statement" {
+          for_each = var.geo_restriction_type == "blacklist" ? [1] : []
+          content {
+            country_codes = var.geo_restriction_locations
+          }
+        }
+      }
+
+      visibility_config {
+        cloudwatch_metrics_enabled = true
+        metric_name                = "${var.namespace}-geo-restriction"
+        sampled_requests_enabled   = true
+      }
+    }
+  }
+
   rule {
     name     = "AWSManagedRulesCommonRuleSet"
-    priority = length(var.waf_allowed_ips) > 0 ? 2 : 1
+    priority = 3
 
     override_action {
       none {}

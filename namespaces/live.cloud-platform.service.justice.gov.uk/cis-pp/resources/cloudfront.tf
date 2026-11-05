@@ -102,10 +102,13 @@ resource "aws_cloudfront_distribution" "frontend" {
     error_caching_min_ttl = 0
   }
 
+  # Geo restriction is enforced via the GeoRestriction rule in the WAF web ACL
+  # (waf.tf) instead of here, so it can carry its own custom 403 response and
+  # isn't masked by the 403 -> /index.html custom_error_response above.
   restrictions {
     geo_restriction {
-      restriction_type = var.geo_restriction_type
-      locations        = var.geo_restriction_locations
+      restriction_type = "none"
+      locations        = []
     }
   }
 
