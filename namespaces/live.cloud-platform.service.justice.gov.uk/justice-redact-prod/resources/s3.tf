@@ -60,7 +60,7 @@ resource "aws_s3_bucket_acl" "s3_logging_bucket" {
 # -----------------------------------------------------------------------------
 module "s3_bucket" {
   # Always check for the latest release tag in cloud-platform-terraform-s3-bucket
-  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
