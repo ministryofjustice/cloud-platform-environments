@@ -1,5 +1,5 @@
 ########################################################################
-# SQS queue(s) for justice-redact-dev
+# SQS queue(s) for justice-redact-prod
 #
 # Purpose: task queue used to schedule document-redaction jobs out to
 # k8s pods running the AI/ML redaction models (e.g. consumed by pods
@@ -7,7 +7,7 @@
 #
 # Module docs: https://github.com/ministryofjustice/cloud-platform-terraform-sqs
 #
-# Pinned to ref=5.1.2. Check
+# Pinned to ref=5.1.3. Check
 # https://github.com/ministryofjustice/cloud-platform-terraform-sqs/releases
 # periodically for newer releases and bump deliberately.
 ########################################################################
@@ -44,10 +44,10 @@ module "redact_task_queue" {
   business_unit           = var.business_unit
   application             = var.application
   is_production           = var.is_production
-  team_name                = var.team_name
-  namespace                = var.namespace
-  environment_name          = var.environment
-  infrastructure_support    = var.infrastructure_support
+  team_name               = var.team_name
+  namespace               = var.namespace
+  environment_name        = var.environment
+  infrastructure_support  = var.infrastructure_support
 }
 
 # ---------------------------------------------------------------------
@@ -62,10 +62,10 @@ module "redact_task_queue_dlq" {
   business_unit           = var.business_unit
   application             = var.application
   is_production           = var.is_production
-  team_name                = var.team_name
-  namespace                = var.namespace
-  environment_name          = var.environment
-  infrastructure_support    = var.infrastructure_support
+  team_name               = var.team_name
+  namespace               = var.namespace
+  environment_name        = var.environment
+  infrastructure_support  = var.infrastructure_support
 }
 
 # ---------------------------------------------------------------------
