@@ -159,12 +159,27 @@ resource "aws_ssm_parameter" "s3_bucket_name" {
   value       = module.s3_opensearch_snapshots_bucket.bucket_arn
   description = "ARN of opensearch snapshot s3 bucket"
   tags = {
-      business-unit          = var.business_unit
-      application            = var.application
-      is-production          = var.is_production
-      owner                  = var.team_name
-      environment-name       = var.environment_name
-      infrastructure-support = var.infrastructure_support
-      namespace              = var.namespace
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
+}
+
+data "aws_iam_policy_document" "opensearch_snapshot" {
+  statement {
+    sid       = "AllowPassOpenSearchSnapshotRole"
+    effect    = "Allow"
+    actions   = ["iam:PassRole"]
+    resources = [module.opensearch.snapshot_role_arn]
+  }
+}
+
+resource "aws_iam_policy" "opensearch_snapshot" {
+  name        = "${var.namespace}--opensearch-snapshot"
+  description = "Allow OpenSearch snapshot repository creation"
+  policy      = data.aws_iam_policy_document.opensearch_snapshot.json
 }

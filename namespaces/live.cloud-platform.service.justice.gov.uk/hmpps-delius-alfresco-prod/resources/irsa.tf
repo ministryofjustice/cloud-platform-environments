@@ -7,10 +7,11 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment_name}"
   role_policy_arns = {
-    s3        = module.s3_bucket.irsa_policy_arn
-    migration = aws_iam_policy.migration_policy.arn
-    athena    = aws_iam_policy.athena_allow_irsa.arn
-    rds       = module.rds_alfresco.irsa_policy_arn
+    s3                  = module.s3_bucket.irsa_policy_arn
+    migration           = aws_iam_policy.migration_policy.arn
+    athena              = aws_iam_policy.athena_allow_irsa.arn
+    rds                 = module.rds_alfresco.irsa_policy_arn
+    opensearch_snapshot = aws_iam_policy.opensearch_snapshot.arn
   }
 
   # Tags
