@@ -25,6 +25,8 @@ module "rds" {
     aws = aws.london
   }
 
+  # Enable service account access
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prisoner_schedules_rds" {
