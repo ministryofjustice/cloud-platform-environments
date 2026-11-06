@@ -1,4 +1,4 @@
-module "hmpps_health_ping" {
+module "hmpps_san_health_ping" {
   source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token = true
   custom_token_rotation_date = "2026-03-20"
