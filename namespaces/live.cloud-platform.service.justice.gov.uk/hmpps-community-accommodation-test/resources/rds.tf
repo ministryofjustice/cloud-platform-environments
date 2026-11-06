@@ -135,7 +135,7 @@ resource "kubernetes_config_map" "rds" {
     pg18_database_name = module.rds.database_name
     pg18_db_identifier = module.rds.db_identifier
 
-    pg14_database_name = module.rds.database_name
-    pg14_db_identifier = module.rds.db_identifier
+    pg14_database_name = module.rds_new.database_name
+    pg14_db_identifier = module.rds_new.db_identifier
   }
 }
