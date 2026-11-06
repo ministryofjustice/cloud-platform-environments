@@ -3,6 +3,12 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+  type        = string
+  default = "live"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
@@ -72,4 +78,10 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "ap_account_id" {
+  description = "AWS account ID of the MoJ Analytical Platform"
+  type        = string
+  default     = "593291632749"
 }
