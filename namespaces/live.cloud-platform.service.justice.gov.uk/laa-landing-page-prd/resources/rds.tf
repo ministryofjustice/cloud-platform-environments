@@ -17,6 +17,7 @@ module "rds" {
   db_backup_retention_period   = "35"
   deletion_protection          = true
   enable_irsa = true
+  db_password_rotated_date     = "2026-11-06"
 
   # RDS logging
   opt_in_xsiam_logging  = true
