@@ -15,7 +15,9 @@ module "s3_bucket" {
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal":{"AWS":"754256621582"},
+        "Principal": {
+          "AWS": "arn:aws:iam::754256621582:role/formbuilder-saas-test-live"
+        },
         "Action": [
           "s3:*"
         ],
