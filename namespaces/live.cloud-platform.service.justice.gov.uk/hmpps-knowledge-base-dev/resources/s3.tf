@@ -128,3 +128,80 @@ resource "kubernetes_secret" "hmpps_knowledge_base_s3_archive_secret" {
     bucket_name = module.hmpps_knowledge_base_s3_archive.bucket_name
   }
 }
+
+module "hmpps_knowledge_base_s3_qa_workspace" {
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
+  team_name              = var.team_name
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  namespace              = var.namespace
+
+  providers = {
+    aws = aws.london
+  }
+}
+
+resource "kubernetes_secret" "hmpps_knowledge_base_s3_qa_workspace_secret" {
+  metadata {
+    name      = "hmpps-knowledge-base-s3-qa-workspace"
+    namespace = var.namespace
+  }
+
+  data = {
+    bucket_arn  = module.hmpps_knowledge_base_s3_qa_workspace.bucket_arn
+    bucket_name = module.hmpps_knowledge_base_s3_qa_workspace.bucket_name
+  }
+}
+
+data "aws_iam_policy_document" "hmpps_knowledge_base_s3_qa_workspace_to_equip_data_quality_queue" {
+  statement {
+    sid    = "AllowS3SendMessage"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["s3.amazonaws.com"]
+    }
+
+    actions = [
+      "sqs:SendMessage"
+    ]
+
+    resources = [
+      module.equip_data_quality_queue.sqs_arn
+    ]
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+
+      values = [
+        module.hmpps_knowledge_base_s3_qa_workspace.bucket_arn
+      ]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "hmpps_knowledge_base_s3_qa_workspace_to_equip_data_quality_queue_policy" {
+  queue_url = module.equip_data_quality_queue.sqs_id
+  policy    = data.aws_iam_policy_document.hmpps_knowledge_base_s3_qa_workspace_to_equip_data_quality_queue.json
+}
+
+resource "aws_s3_bucket_notification" "hmpps_knowledge_base_s3_qa_workspace_to_equip_data_quality_queue_notification" {
+  bucket = module.hmpps_knowledge_base_s3_qa_workspace.bucket_name
+
+  queue {
+    queue_arn = module.equip_data_quality_queue.sqs_arn
+    events = [
+      "s3:ObjectCreated:*"
+    ]
+    filter_prefix = "input/"
+  }
+
+  depends_on = [
+    aws_sqs_queue_policy.hmpps_knowledge_base_s3_qa_workspace_to_equip_data_quality_queue_policy
+  ]
+}

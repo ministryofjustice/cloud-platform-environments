@@ -1,7 +1,6 @@
-
 locals {
   sns_topics = {
-    "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
@@ -11,7 +10,10 @@ locals {
     prisoner_finance_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
   })
   sqs_queues = {
-    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",
+    "Digital-Prison-Services-preprod-hmpps_audit_queue" = "hmpps-audit-preprod",
+  }
+  prisoner_finance_api_irsa_policies = {
+    rds = module.prisoner_finance_api_rds.irsa_policy_arn
   }
 }
 
@@ -24,7 +26,7 @@ module "irsa" {
   role_policy_arns     = local.irsa_policies
   # Tags
   business_unit          = var.business_unit
-  application            = var.application
+  application            = var.prisoner_finance_application_name
   is_production          = var.is_production
   team_name              = var.team_name
   environment_name       = var.environment
