@@ -101,6 +101,7 @@ resource "postgresql_role" "readonly" {
   lifecycle {
     ignore_changes = [roles]
   }
+  depends_on = [ module.rds ]
 }
 
 # Read every current and future table/schema in the database.
@@ -171,6 +172,7 @@ resource "postgresql_role" "app" {
   lifecycle {
     ignore_changes = [roles]
   }
+  depends_on = [ module.rds ]
 }
 
 resource "postgresql_grant" "app_connect" {
