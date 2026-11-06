@@ -13,7 +13,7 @@ module "hmpps_strengths_based_needs_assessments_dev_rds" {
   rds_family             = "postgres18"
   db_instance_class      = "db.t4g.small"
   db_engine              = "postgres"
-  db_engine_version      = "18.6"
+  db_engine_version      = "18.6" 
 
   allow_major_version_upgrade = "true"
   prepare_for_major_upgrade   = false
@@ -75,7 +75,7 @@ provider "postgresql" {
   port             = module.hmpps_strengths_based_needs_assessments_dev_rds.rds_instance_port
   username         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_username
   password         = module.hmpps_strengths_based_needs_assessments_dev_rds.database_password
-  expected_version = "16"
+  expected_version = "18"
   sslmode          = "require"
   superuser        = false
 }
