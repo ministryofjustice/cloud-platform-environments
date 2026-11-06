@@ -187,7 +187,7 @@ output "redact_task_queue_dlq_arn" {
 # ---------------------------------------------------------------------
 
 module "apply_redactions_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name         = "apply-redactions-queue"
   encrypt_sqs_kms  = "true"
