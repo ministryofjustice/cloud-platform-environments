@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "hmpps_domain_events_topic" {
   metadata {
-    name      = "hmpps-domain-events-topic"
+    name      = "domain-events-topic"
     namespace = var.namespace
   }
 

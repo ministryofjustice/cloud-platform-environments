@@ -1,4 +1,4 @@
-module "hmpps_prisoner-schedules_rds" {
+module "rds" {
   source               = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage = 10
   storage_type         = "gp2"
@@ -27,17 +27,17 @@ module "hmpps_prisoner-schedules_rds" {
 
 }
 
-resource "kubernetes_secret" "hmpps_prisoner-schedules_rds" {
+resource "kubernetes_secret" "prisoner_schedules_rds" {
   metadata {
     name      = "rds-instance-output"
     namespace = var.namespace
   }
 
   data = {
-    rds_instance_endpoint = module.hmpps_prisoner-schedules_rds.rds_instance_endpoint
-    database_name         = module.hmpps_prisoner-schedules_rds.database_name
-    database_username     = module.hmpps_prisoner-schedules_rds.database_username
-    database_password     = module.hmpps_prisoner-schedules_rds.database_password
-    rds_instance_address  = module.hmpps_prisoner-schedules_rds.rds_instance_address
+    rds_instance_endpoint = module.rds.rds_instance_endpoint
+    database_name         = module.rds.database_name
+    database_username     = module.rds.database_username
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
   }
 }
