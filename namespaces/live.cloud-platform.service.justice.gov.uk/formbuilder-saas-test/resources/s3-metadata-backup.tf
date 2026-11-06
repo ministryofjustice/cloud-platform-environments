@@ -15,6 +15,9 @@ module "s3_bucket" {
     "Statement": [
       {
         "Effect": "Allow",
+        "Principal": {
+            "AWS": "*"
+        },
         "Action": [
           "s3:*"
         ],
