@@ -49,6 +49,8 @@ module "rds_new" {
   db_engine                    = "postgres"
   db_engine_version            = "14"
   rds_family                   = "postgres14"
+  snapshot_identifier          = "rashad-pre-pg18-upgrade"
+  deletion_protection          = true
 
   providers = {
     aws = aws.london
@@ -88,7 +90,7 @@ module "read_replica" {
 
 }
 
-resource "kubernetes_secret" "rds_new" {
+resource "kubernetes_secret" "rds" {
   metadata {
     name      = "rds-postgresql-instance-output"
     namespace = var.namespace
@@ -98,9 +100,9 @@ resource "kubernetes_secret" "rds_new" {
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
     database_username     = module.rds.database_username
-    database_password     = module.rds_new.database_password
-    rds_instance_address  = module.rds_new.rds_instance_address
-    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds.database_name}"
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
+    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
 
@@ -115,9 +117,21 @@ resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
     rds_instance_endpoint = module.rds.rds_instance_endpoint
     database_name         = module.rds.database_name
     database_username     = module.rds.database_username
-    database_password     = module.rds_new.database_password
-    rds_instance_address  = module.rds_new.rds_instance_address
+    database_password     = module.rds.database_password
+    rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds.database_name}"
+
+    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    pg_14_database_name         = module.rds_new.database_name
+    pg_14_database_username     = module.rds_new.database_username
+    pg_14_database_password     = module.rds_new.database_password
+    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
+
+    pg_18_rds_instance_endpoint = module.rds.rds_instance_endpoint
+    pg_18_database_name         = module.rds.database_name
+    pg_18_database_username     = module.rds.database_username
+    pg_18_database_password     = module.rds.database_password
+    pg_18_rds_instance_address  = module.rds.rds_instance_address
   }
 }
 
@@ -140,5 +154,12 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds_new.database_name
     db_identifier = module.rds_new.db_identifier
+
+    pg14_database_name = module.rds_new.database_name
+    pg14_db_identifier = module.rds_new.db_identifier
+
+    pg18_database_name = module.rds.database_name
+    pg18_db_identifier = module.rds.db_identifier
+
   }
 }
