@@ -25,6 +25,8 @@ module "hmpps_prisoner-schedules_rds" {
     aws = aws.london
   }
 
+  # Enable service account access
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "hmpps_prisoner-schedules_rds" {
