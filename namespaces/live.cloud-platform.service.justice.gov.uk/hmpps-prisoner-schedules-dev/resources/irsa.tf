@@ -27,7 +27,7 @@ module "irsa" {
       { prisoner_schedules_domain_events_dlq = module.prisoner_schedules_domain_events_dlq.irsa_policy_arn },
       { prisoner_schedules_internal_message_queue = module.prisoner_schedules_internal_message_queue.irsa_policy_arn },
       { prisoner_schedules_internal_message_dlq = module.prisoner_schedules_internal_message_dlq.irsa_policy_arn },
-      { rds = module.rds.irsa_policy_arn },
+      { rds = module.hmpps_prisoner-schedules_rds.irsa_policy_arn },
       local.sqs_policies,
       local.sns_policies
     )
