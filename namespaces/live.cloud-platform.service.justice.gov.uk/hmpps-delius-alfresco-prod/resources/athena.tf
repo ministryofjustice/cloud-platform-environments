@@ -27,13 +27,13 @@ resource "aws_glue_catalog_table" "s3_inventory" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    classification               = "parquet"
-    EXTERNAL                     = "TRUE"
-    "projection.enabled"         = "true"
-    "projection.dt.type"         = "date"
-    "projection.dt.range"        = "2016-01-01,NOW"
-    "projection.dt.format"       = "yyyy-MM-dd"
-    "storage.location.template"  = "${local.inventory_base}/dt=$${dt}/"
+    classification              = "parquet"
+    EXTERNAL                    = "TRUE"
+    "projection.enabled"        = "true"
+    "projection.dt.type"        = "date"
+    "projection.dt.range"       = "2016-01-01,NOW"
+    "projection.dt.format"      = "yyyy-MM-dd"
+    "storage.location.template" = "${local.inventory_base}/dt=$${dt}/"
   }
 
   partition_keys {
@@ -48,7 +48,7 @@ resource "aws_glue_catalog_table" "s3_inventory" {
     compressed    = true
     ser_de_info {
       serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"
-      parameters = { "serialization.format" = "1" }
+      parameters            = { "serialization.format" = "1" }
     }
     columns {
       name = "bucket"
@@ -96,9 +96,9 @@ resource "aws_glue_catalog_table" "expected_keys" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    EXTERNAL                  = "TRUE"
-    "skip.header.line.count"  = "0"
-    classification            = "csv"
+    EXTERNAL                 = "TRUE"
+    "skip.header.line.count" = "0"
+    classification           = "csv"
   }
 
   storage_descriptor {
@@ -107,10 +107,10 @@ resource "aws_glue_catalog_table" "expected_keys" {
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     ser_de_info {
       serialization_library = "org.apache.hadoop.hive.serde2.OpenCSVSerde"
-      parameters = { 
-          separatorChar = ",", 
-          quoteChar = "\"", 
-          escapeChar = "\\" 
+      parameters = {
+        separatorChar = ",",
+        quoteChar     = "\"",
+        escapeChar    = "\\"
       }
     }
     columns {
@@ -126,8 +126,8 @@ resource "aws_glue_catalog_table" "expected_keys" {
 
 # K8s secrets (same shapes/names as audit)
 resource "kubernetes_secret" "glue_database_name" {
-  metadata { 
-    name = "glue-database-name"
+  metadata {
+    name      = "glue-database-name"
     namespace = var.namespace
   }
   data = {
@@ -137,8 +137,8 @@ resource "kubernetes_secret" "glue_database_name" {
 }
 
 resource "kubernetes_secret" "glue_catalog_table_name" {
-  metadata { 
-    name = "glue-catalog-table-name"
+  metadata {
+    name      = "glue-catalog-table-name"
     namespace = var.namespace
   }
   data = {
@@ -148,8 +148,8 @@ resource "kubernetes_secret" "glue_catalog_table_name" {
 }
 
 resource "kubernetes_secret" "expected_keys_glue_catalog_table_name" {
-  metadata { 
-    name = "expected-keys-glue-catalog-table-name"
+  metadata {
+    name      = "expected-keys-glue-catalog-table-name"
     namespace = var.namespace
   }
   data = {
@@ -159,8 +159,8 @@ resource "kubernetes_secret" "expected_keys_glue_catalog_table_name" {
 }
 
 resource "kubernetes_secret" "athena_workgroup" {
-  metadata { 
-    name = "athena-workgroup-secret"
+  metadata {
+    name      = "athena-workgroup-secret"
     namespace = var.namespace
   }
   data = {
@@ -170,8 +170,8 @@ resource "kubernetes_secret" "athena_workgroup" {
 }
 
 resource "kubernetes_secret" "athena_output_location" {
-  metadata { 
-    name = "athena-output-location-secret"
+  metadata {
+    name      = "athena-output-location-secret"
     namespace = var.namespace
   }
   data = { output_location = local.athena_results_location }

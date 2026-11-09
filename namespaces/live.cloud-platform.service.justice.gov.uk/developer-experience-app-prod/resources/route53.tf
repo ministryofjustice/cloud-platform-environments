@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "blueprint" {
-  name = "development.blueprint.service.justice.gov.uk"
+  name = "blueprint.service.justice.gov.uk"
 
   tags = {
     business_unit          = var.business_unit

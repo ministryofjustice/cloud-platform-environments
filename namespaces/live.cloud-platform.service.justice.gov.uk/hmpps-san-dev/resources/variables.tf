@@ -8,16 +8,19 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Gov.UK Prototype Kit"
+  default     = "hmpps-health-ping"
 }
 
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-official-visits-prototype"
+  default     = "hmpps-san-dev"
 }
 
 variable "business_unit" {
@@ -29,19 +32,24 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "official-visits-design"
+  default     = "hmpps-sre"
+}
+
+variable "service_area" {
+  description = "Service area responsible for this service"
+  default     = "Live Support"
 }
 
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "platforms@digital.justice.gov.uk"
+  default     = "dps-hmpps@digital.justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +61,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "managing-contacts"
+  default     = "hmpps_dev"
 }
 
 variable "github_owner" {
@@ -68,14 +76,6 @@ variable "github_token" {
   default     = ""
 }
 
-## Prototype kit variables
-
-variable "basic-auth-username" {
-  description = "Basic auth. username of the deployed prototype website"
-  default     = "officialvisits"
-}
-
-variable "basic-auth-password" {
-  description = "Basic auth. password of the deployed prototype website"
-  default     = "0fficial123"
+variable "number_cache_clusters" {
+  default = "2"
 }

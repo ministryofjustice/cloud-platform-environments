@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: hmpps-official-visits-prototype
+  namespace: hmpps-san-dev
 spec:
   hard:
     pods: "50"

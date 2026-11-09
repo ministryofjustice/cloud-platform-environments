@@ -52,7 +52,7 @@ module "prisoner_finance_api_rds" {
 
 resource "kubernetes_secret" "prisoner_finance_api_rds" {
   metadata {
-    name      = "advances-rds-postgresql-instance-output"
+    name      = "prisoner-finance-api-rds-postgresql-instance-output"
     namespace = var.namespace
   }
 
