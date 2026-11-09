@@ -66,7 +66,6 @@ variable "approved_person_on_probation_audit_clients" {
   default = ["hmpps-people-on-probation-prod-1"]
 }
 
-
 variable "kubernetes_cluster" {}
 
 variable "eks_cluster_name" {}
