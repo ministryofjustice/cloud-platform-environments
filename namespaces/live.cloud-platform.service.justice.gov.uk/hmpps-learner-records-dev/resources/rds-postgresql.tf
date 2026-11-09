@@ -18,7 +18,6 @@ module "rds" {
   db_engine_version = "18.6"
   rds_family        = "postgres18"
   db_instance_class = "db.t4g.micro"
-  prepare_for_major_upgrade = true
 
   # Tags
   application            = var.application
