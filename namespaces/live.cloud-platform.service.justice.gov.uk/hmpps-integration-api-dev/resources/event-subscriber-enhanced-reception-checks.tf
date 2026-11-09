@@ -72,7 +72,7 @@ resource "aws_sqs_queue_policy" "event_enhanced_reception_checks_queue_policy" {
 
 resource "kubernetes_secret" "event_enhanced_reception_checks_queue" {
   metadata {
-    name      = "event-enhanced_reception_checks-queue"
+    name      = "event-enhanced-reception-checks-queue"
     namespace = var.namespace
   }
 
@@ -85,7 +85,7 @@ resource "kubernetes_secret" "event_enhanced_reception_checks_queue" {
 
 resource "kubernetes_secret" "event_enhanced_reception_checks_dead_letter_queue" {
   metadata {
-    name      = "event-enhanced_reception_checks-dl-queue"
+    name      = "event-enhanced-reception-checks-dl-queue"
     namespace = var.namespace
   }
 
