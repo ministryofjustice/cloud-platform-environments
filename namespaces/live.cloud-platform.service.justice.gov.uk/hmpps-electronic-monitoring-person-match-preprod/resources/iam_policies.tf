@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "ssm_policy" {
       "ssm:PutParameter"
     ]
     resources = [
-      aws_ssm_parameter.data_store_cpr_ingestion_role_arn.arn,
+      aws_ssm_parameter.data_store_cpr_ingestion_role_arn_preprod.arn,
     ]
   }
 
