@@ -107,7 +107,7 @@ resource "aws_iam_user_policy_attachment" "opensearch_snapshots" {
 }
 
 resource "aws_ssm_parameter" "opensearch_snapshot_role_arn" {
-  name  = "/${var.namespace}/opensearch_snapshot_role_arn"
+  name  = "/${var.namespace}/opensearch-snapshot-role-arn"
   type  = "String"
   value = module.opensearch.snapshot_role_arn
 }
