@@ -53,7 +53,7 @@ variable "is_production" {
 
 variable "slack_channel" {
   description = "Team slack channel to use if we need to contact your team"
-  default     = "incentives-dev"
+  default     = "manage-safety-dev"
 }
 
 variable "github_owner" {
