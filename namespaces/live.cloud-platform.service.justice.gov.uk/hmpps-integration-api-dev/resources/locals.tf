@@ -69,5 +69,6 @@ locals {
     phonehub  = module.event_phonehub_queue.sqs_name
     pentestnorestrictions  = module.event_test_client_queue.sqs_name # testing
     pentestwithrestrictions  = module.event_test_client_queue.sqs_name # testing
+    enhanced-reception-checks = module.event_enhanced_reception_checks_queue.sqs_name
   }
 }
