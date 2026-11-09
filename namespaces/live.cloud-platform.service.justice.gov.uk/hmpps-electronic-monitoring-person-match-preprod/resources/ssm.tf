@@ -1,5 +1,5 @@
-data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn" {
-  name = "/${var.namespace}/data_store_cpr_ingestion_role_arn"
+data  "aws_ssm_parameter" "data_store_cpr_ingestion_role_arn_preprod" {
+  name = "/${var.namespace}/data_store_cpr_ingestion_role_arn_preprod"
   with_decryption = true
 }
 
