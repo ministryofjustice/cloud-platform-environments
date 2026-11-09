@@ -28,11 +28,3 @@ data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
 }
-
-# set up the service pod
-module "service_pod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.2.0" # use the latest release
-  # Configuration
-  namespace            = var.namespace
-  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
-}
