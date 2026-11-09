@@ -26,7 +26,7 @@ module "rds-instance" {
   db_engine_version = "18.6"
   rds_family        = "postgres18"
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "false"
@@ -39,7 +39,7 @@ module "rds-instance" {
     },
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
@@ -100,7 +100,7 @@ module "rds-read-replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   db_engine_version         = "18.6"
   rds_family                = "postgres18"
 
@@ -112,7 +112,7 @@ module "rds-read-replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
