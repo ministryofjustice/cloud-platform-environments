@@ -103,6 +103,18 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+
+    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    pg_14_database_name         = module.rds_new.database_name
+    pg_14_database_username     = module.rds_new.database_username
+    pg_14_database_password     = module.rds_new.database_password
+    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
+
+    pg_18_rds_instance_endpoint = module.rds.rds_instance_endpoint
+    pg_18_database_name         = module.rds.database_name
+    pg_18_database_username     = module.rds.database_username
+    pg_18_database_password     = module.rds.database_password
+    pg_18_rds_instance_address  = module.rds.rds_instance_address
   }
 }
 
@@ -120,18 +132,6 @@ resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
-
-    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
-    pg_14_database_name         = module.rds_new.database_name
-    pg_14_database_username     = module.rds_new.database_username
-    pg_14_database_password     = module.rds_new.database_password
-    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
-
-    pg_18_rds_instance_endpoint = module.rds.rds_instance_endpoint
-    pg_18_database_name         = module.rds.database_name
-    pg_18_database_username     = module.rds.database_username
-    pg_18_database_password     = module.rds.database_password
-    pg_18_rds_instance_address  = module.rds.rds_instance_address
   }
 }
 
