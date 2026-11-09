@@ -42,8 +42,6 @@ locals {
     "hmpps-managing-prisoner-apps-dev",
     "hmpps-managing-prisoner-apps-staging",
     "hmpps-non-associations-dev",
-    "hmpps-pin-phone-dev",
-    "hmpps-pin-phone-test",
     "hmpps-prison-roll-count-dev",
     "hmpps-prisoner-cell-allocation-dev",
     "hmpps-prisoner-pay-dev",
