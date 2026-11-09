@@ -14,7 +14,7 @@ module "holds-restore-s3-bucket" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "s3-db-restore" {
+resource "kubernetes_secret" "s3-holds-db-restore" {
   metadata {
     name      = "holds-restore-s3-bucket"
     namespace = var.namespace
@@ -43,7 +43,7 @@ module "advances-restore-s3-bucket" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "s3-db-restore" {
+resource "kubernetes_secret" "s3-advances-db-restore" {
   metadata {
     name      = "advances-restore-s3-bucket"
     namespace = var.namespace
@@ -72,7 +72,7 @@ module "subscriptions-restore-s3-bucket" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "s3-db-restore" {
+resource "kubernetes_secret" "s3-subscriptions-db-restore" {
   metadata {
     name      = "subscriptions-restore-s3-bucket"
     namespace = var.namespace
@@ -101,7 +101,7 @@ module "pf-api-restore-s3-bucket" {
   team_name              = var.team_name
 }
 
-resource "kubernetes_secret" "s3-db-restore" {
+resource "kubernetes_secret" "s3-pf-api-db-restore" {
   metadata {
     name      = "pf-api-restore-s3-bucket"
     namespace = var.namespace
