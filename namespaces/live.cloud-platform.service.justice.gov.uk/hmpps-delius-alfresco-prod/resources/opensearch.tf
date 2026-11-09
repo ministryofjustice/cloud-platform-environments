@@ -87,7 +87,7 @@ module "s3_opensearch_snapshots_bucket" {
           AWS = [
             module.irsa.role_arn,
             module.opensearch.snapshot_role_arn,
-            data.aws_ssm_parameter.stage_opensearch_snapshot_role_arn
+            data.aws_ssm_parameter.stage_opensearch_snapshot_role_arn.value
           ]
         }
 
