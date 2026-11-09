@@ -45,7 +45,7 @@ variable "is_production" {
 }
 
 variable "slack_channel" {
-  default = "incident-reporting-service-dev"
+  default = "manage-safety-dev"
 }
 
 variable "github_owner" {
