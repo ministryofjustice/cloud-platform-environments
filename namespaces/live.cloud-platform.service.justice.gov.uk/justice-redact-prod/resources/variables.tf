@@ -3,6 +3,10 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  default = "live"
+}
+
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
