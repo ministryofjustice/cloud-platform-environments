@@ -11,7 +11,6 @@ module "irsa" {
     migration           = aws_iam_policy.migration_policy.arn
     athena              = aws_iam_policy.athena_allow_irsa.arn
     rds                 = module.rds_alfresco.irsa_policy_arn
-    opensearch_snapshot = aws_iam_policy.opensearch_snapshot.arn
   }
 
   # Tags
@@ -64,11 +63,4 @@ resource "aws_iam_policy" "athena_allow_irsa" {
   path        = "/cloud-platform/"
   description = "IRSA policy to run Athena queries for S3 Inventory checker"
   policy      = data.aws_iam_policy_document.athena_irsa.json
-}
-
-data "kubernetes_service_account" "prod_irsa" {
-  metadata {
-    name      = "hmpps-migration-prod"
-    namespace = "hmpps-delius-alfresco-prod"
-  }
 }
