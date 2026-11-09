@@ -86,8 +86,8 @@ module "s3_opensearch_snapshots_bucket" {
         Principal = {
           AWS = [
             module.irsa.role_arn,
-            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"],
-            module.opensearch.snapshot_role_arn
+            module.opensearch.snapshot_role_arn,
+            data.asw_ssm_parameter.stage_opensearch_snapshot_role_arn
           ]
         }
 
@@ -169,17 +169,6 @@ resource "aws_ssm_parameter" "s3_bucket_name" {
   }
 }
 
-data "aws_iam_policy_document" "opensearch_snapshot" {
-  statement {
-    sid       = "AllowPassOpenSearchSnapshotRole"
-    effect    = "Allow"
-    actions   = ["iam:PassRole"]
-    resources = [module.opensearch.snapshot_role_arn]
-  }
-}
-
-resource "aws_iam_policy" "opensearch_snapshot" {
-  name        = "${var.namespace}--opensearch-snapshot"
-  description = "Allow OpenSearch snapshot repository creation"
-  policy      = data.aws_iam_policy_document.opensearch_snapshot.json
+data "aws_ssm_parameter" "stage_opensearch_snapshot_role_arn" {
+  name = "/hmpps-delius-alfresco-stage/opensearch-snapshot-role-arn"
 }
