@@ -1,6 +1,7 @@
 locals {
   advances_irsa_policies = {
     rds = module.advances_rds.irsa_policy_arn
+    s3  = module.advances-restore-s3-bucket.irsa_policy_arn
   }
 }
 

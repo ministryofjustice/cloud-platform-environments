@@ -8,6 +8,7 @@ locals {
   irsa_policies = merge(local.sns_policies, local.sqs_policies, {
     prisoner_finance_queue_for_domain_events                   = module.prisoner_finance_queue_for_domain_events.irsa_policy_arn
     prisoner_finance_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
+    s3  = module.pf-api-restore-s3-bucket.irsa_policy_arn
   })
   sqs_queues = {
     "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod",

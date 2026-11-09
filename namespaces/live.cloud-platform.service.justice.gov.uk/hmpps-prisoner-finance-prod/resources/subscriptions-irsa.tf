@@ -1,6 +1,7 @@
 locals {
   subscriptions_irsa_policies = {
     rds = module.subscriptions_rds.irsa_policy_arn
+    s3  = module.subscriptions-restore-s3-bucket.irsa_policy_arn
   }
 }
 
