@@ -22,7 +22,35 @@ module "rds" {
   providers = {
     aws = aws.london
   }
+}
 
+module "rds_new" {
+  source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  db_allocated_storage         = 10
+  storage_type                 = "gp2"
+  vpc_name                     = var.vpc_name
+  team_name                    = var.team_name
+  business_unit                = var.business_unit
+  application                  = var.application
+  is_production                = var.is_production
+  environment_name             = var.environment
+  infrastructure_support       = var.infrastructure_support
+  namespace                    = var.namespace
+  performance_insights_enabled = true
+  db_instance_class            = "db.t3.small"
+
+  allow_major_version_upgrade  = "true"
+  allow_minor_version_upgrade  = "true"
+  prepare_for_major_upgrade    = "true"
+  db_engine                    = "postgres"
+  db_engine_version            = "14"
+  rds_family                   = "postgres14"
+  rds_name                     = "hmpps-approved-premises-test-pg14"
+  snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
+
+  providers = {
+    aws = aws.london
+  }
 }
 
 module "read_replica" {
@@ -72,6 +100,27 @@ resource "kubernetes_secret" "rds" {
   }
 }
 
+resource "kubernetes_secret" "rds_new" {
+  metadata {
+    name      = "rds-new-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    pg_14_database_name         = module.rds_new.database_name
+    pg_14_database_username     = module.rds_new.database_username
+    pg_14_database_password     = module.rds_new.database_password
+    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
+
+    pg_18_rds_instance_endpoint = module.rds.rds_instance_endpoint
+    pg_18_database_name         = module.rds.database_name
+    pg_18_database_username     = module.rds.database_username
+    pg_18_database_password     = module.rds.database_password
+    pg_18_rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
 resource "kubernetes_secret" "read_replica" {
   count = 0
 
@@ -90,5 +139,20 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
+
+resource "kubernetes_config_map" "rds_new" {
+  metadata {
+    name      = "rds-new-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
+    pg14_database_name = module.rds_new.database_name
+    pg14_db_identifier = module.rds_new.db_identifier
+
+    pg18_database_name = module.rds.database_name
+    pg18_db_identifier = module.rds.db_identifier
   }
 }
