@@ -35,6 +35,7 @@ module "iam_assumable_role" {
   role_policy_arns = {
     s3     = data.kubernetes_secret.s3_bucket_arns.data.service_metadata_bucket_irsa
     s3prod = data.kubernetes_secret.s3_bucket_arns_live.data.service_metadata_bucket_irsa
+    s3_fb_metadata_backup_test = module.s3_bucket.irsa_policy_arn
   }
 
   oidc_providers = {
