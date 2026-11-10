@@ -1,9 +1,17 @@
+module "service_pod_pf_ui" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.3.0" # use the latest release
+
+  # Configuration
+  namespace            = var.namespace
+  service_account_name = module.hmpps_prisoner_finance_ui_irsa.service_account.name # this uses the service account name from the irsa module
+}
+
 module "service_pod_pf_api" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-service-pod?ref=1.3.0" # use the latest release
 
   # Configuration
   namespace            = var.namespace
-  service_account_name = module.irsa.service_account.name # this uses the service account name from the irsa module
+  service_account_name = module.hmpps_prisoner_finance_api_irsa.service_account.name # this uses the service account name from the irsa module
 }
 
 module "service_pod_holds" {
