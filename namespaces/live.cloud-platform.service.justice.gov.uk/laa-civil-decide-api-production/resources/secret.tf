@@ -59,5 +59,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,
       k8s_secret_name         = "grant-email-template-id-prod"
     },
+    "slack-webhook-url" = {
+      description             = "Slack webhook URL for Prometheus alerts to #laa-civil-decide-alerts-production (Production)",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "slack-webhook-url-alerts"
+    },
   }
 }
