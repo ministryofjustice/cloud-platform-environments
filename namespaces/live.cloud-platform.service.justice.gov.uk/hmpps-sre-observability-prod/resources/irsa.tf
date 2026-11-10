@@ -13,9 +13,9 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
 
   # RDS and ECR are used in this namespace.
-  role_policy_arns = {
-    rds           = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
-  }
+  #role_policy_arns = {
+  #  rds           = module.hmpps_dependencytrack_postgresql_rds.irsa_policy_arn
+  #}
 
   # Tags
   business_unit          = var.business_unit
