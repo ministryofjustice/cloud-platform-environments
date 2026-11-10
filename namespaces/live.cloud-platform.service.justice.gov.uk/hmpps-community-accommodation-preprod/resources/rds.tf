@@ -49,8 +49,10 @@ module "rds_new" {
   db_engine                    = "postgres"
   db_engine_version            = "14"
   rds_family                   = "postgres14"
+  rds_name                     = "dbf3a9f9984df2d0e7"
   snapshot_identifier          = "rashad-pre-pg18-upgrade"
-  deletion_protection          = true
+  # Temp remove deletion protection.
+  #deletion_protection          = true
 
   providers = {
     aws = aws.london
