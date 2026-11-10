@@ -28,7 +28,7 @@ module "irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
-
+/*
 # ---------------------------------------------------------------------------
 # ADDED: IAM policy that allows the pod to assume the cross-account role in
 # the Analytical Platform account that grants AWS Comprehend access.
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "irsa" {
     serviceaccount = module.irsa.service_account.name
   }
 }
-
+*/
 # ---------------------------------------------------------------------------
 # ADDED: service pod for running AWS CLI commands (e.g. aws ecr
 # describe-image-scan-findings) against resources this namespace's IRSA
