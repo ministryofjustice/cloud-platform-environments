@@ -155,7 +155,6 @@ rules:
   - replicationcontrollers/scale
   - replicationcontrollers/status
   - runtimeclasses
-  - serviceaccounts
   - services
   - services/proxy
   - services/status
