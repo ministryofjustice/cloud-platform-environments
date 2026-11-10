@@ -102,7 +102,7 @@ resource "kubernetes_secret" "rds" {
 
 resource "kubernetes_secret" "rds_new" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-new-postgresql-instance-output"
     namespace = var.namespace
   }
 
@@ -144,7 +144,7 @@ resource "kubernetes_config_map" "rds" {
 
 resource "kubernetes_config_map" "rds_new" {
   metadata {
-    name      = "rds-postgresql-instance-output"
+    name      = "rds-new-postgresql-instance-output"
     namespace = var.namespace
   }
 
