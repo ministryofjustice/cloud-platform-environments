@@ -44,8 +44,8 @@ data "aws_iam_policy_document" "reporting_hub" {
       "s3:ListBucket"
     ]
     resources = [
-      "arn:aws:s3:::cloud-platform-6293a7f130b18a3f7ac96f73e039da13",
-      "arn:aws:s3:::cloud-platform-6293a7f130b18a3f7ac96f73e039da13/*"
+      "arn:aws:s3:::cloud-platform-bff85ed3a938a56c0bcca51bd6b9c24c",
+      "arn:aws:s3:::cloud-platform-bff85ed3a938a56c0bcca51bd6b9c24c/*"
     ]
   }
 }
