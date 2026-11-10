@@ -15,7 +15,6 @@ module "edu_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
