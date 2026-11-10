@@ -10,12 +10,11 @@ module "edu_rds" {
   namespace                   = var.namespace
   environment_name            = var.environment
   infrastructure_support      = var.infrastructure_support
-  rds_family                  = "postgres16"
-  prepare_for_major_upgrade   = false
-  allow_major_version_upgrade = false
   db_instance_class           = "db.t4g.micro"
   db_max_allocated_storage    = "500"
-  db_engine_version           = "16"
+  db_engine_version           = "18.6"
+  rds_family                  = "postgres18"
+  prepare_for_major_upgrade   = true
   enable_rds_auto_start_stop  = true
   enable_irsa                 = true
 
