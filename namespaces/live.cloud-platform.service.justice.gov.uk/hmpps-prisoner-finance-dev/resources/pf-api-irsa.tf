@@ -4,9 +4,8 @@ locals {
     "cloud-platform-Digital-Prison-Services-e29fb030a51b3576dd645aa5e460e573" = "hmpps-domain-events-dev"
   }
   sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
-  sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 
-  irsa_policies = merge(local.sns_policies, local.sqs_policies, {
+  pf_api_irsa_policies = merge(local.sns_policies, {
     prisoner_finance_queue_for_domain_events                   = module.prisoner_finance_queue_for_domain_events.irsa_policy_arn
     prisoner_finance_queue_for_domain_events_dead_letter_queue = module.prisoner_finance_queue_for_domain_events_dead_letter_queue.irsa_policy_arn
   })
@@ -22,7 +21,7 @@ module "hmpps_prisoner_finance_api_irsa" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.service_account_name_api
-  role_policy_arns     = local.irsa_policies
+  role_policy_arns     = local.pf_api_irsa_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.prisoner_finance_application_name
