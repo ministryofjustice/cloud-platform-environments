@@ -47,8 +47,8 @@ module "read_replica" {
   allow_major_version_upgrade  = "true"
   allow_minor_version_upgrade  = "true"
   prepare_for_major_upgrade    = "true"
-  db_engine_version            = "14"
-  rds_family                   = "postgres14"
+  db_engine_version            = "18.6"
+  rds_family                   = "postgres18"
 
   providers = {
     aws = aws.london
