@@ -97,7 +97,16 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+  }
+}
 
+resource "kubernetes_secret" "rds_new" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
     pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
     pg_14_database_name         = module.rds_new.database_name
     pg_14_database_username     = module.rds_new.database_username
@@ -130,7 +139,16 @@ resource "kubernetes_config_map" "rds" {
   data = {
     database_name = module.rds.database_name
     db_identifier = module.rds.db_identifier
+  }
+}
 
+resource "kubernetes_config_map" "rds_new" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+
+  data = {
     pg14_database_name = module.rds_new.database_name
     pg14_db_identifier = module.rds_new.db_identifier
 
