@@ -13,7 +13,7 @@ module "hmpps_dependencytrack_postgresql_rds" {
   allow_major_version_upgrade = "false"
   allow_minor_version_upgrade = "true"
   maintenance_window          = var.rds_maintenance_window
-  db_instance_class           = "db.t4g.micro"
+  db_instance_class           = "db.t4g.medium"
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine                   = "postgres"
   db_engine_version           = "17.11"
