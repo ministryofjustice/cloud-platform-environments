@@ -49,9 +49,8 @@ module "rds_pg14" {
   db_engine                    = "postgres"
   db_engine_version            = "14"
   rds_family                   = "postgres14"
-  rds_name                     = "dbf3a9f9984df2d0e7"
+  rds_name                     = "dbe683abb0b1eddb61"
   snapshot_identifier          = "rashad-pre-pg18-upgrade"
-  # Temp remove deletion protection.
   #deletion_protection          = true
 
   providers = {

@@ -25,7 +25,7 @@ module "rds" {
 
 }
 
-module "rds_new" {
+module "rds_pg14" {
   source                       = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
   db_allocated_storage         = 10
   storage_type                 = "gp2"
@@ -44,9 +44,10 @@ module "rds_new" {
   prepare_for_major_upgrade    = "true"
   db_engine                    = "postgres"
   db_engine_version            = "14"
+  rds_name                     = "dbf3a9f9984df2d0e7"
   rds_family                   = "postgres14"
   snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
-  deletion_protection          = true
+  #deletion_protection          = true
   providers = {
     aws = aws.london
   }
@@ -91,18 +92,18 @@ resource "kubernetes_secret" "rds" {
   }
 
   data = {
-    rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    rds_instance_endpoint = module.rds_pg14.rds_instance_endpoint
     database_name         = module.rds.database_name
     database_username     = module.rds.database_username
-    database_password     = module.rds_new.database_password
-    rds_instance_address  = module.rds_new.rds_instance_address
-    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds_new.database_password}@${module.rds_new.rds_instance_endpoint}/${module.rds.database_name}"
+    database_password     = module.rds_pg14.database_password
+    rds_instance_address  = module.rds_pg14.rds_instance_address
+    url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds_pg14.database_password}@${module.rds_pg14.rds_instance_endpoint}/${module.rds.database_name}"
 
-    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
-    pg_14_database_name         = module.rds_new.database_name
-    pg_14_database_username     = module.rds_new.database_username
-    pg_14_database_password     = module.rds_new.database_password
-    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
+    pg_14_rds_instance_endpoint = module.rds_pg14.rds_instance_endpoint
+    pg_14_database_name         = module.rds_pg14.database_name
+    pg_14_database_username     = module.rds_pg14.database_username
+    pg_14_database_password     = module.rds_pg14.database_password
+    pg_14_rds_instance_address  = module.rds_pg14.rds_instance_address
 
     pg_18_rds_instance_endpoint = module.rds.rds_instance_endpoint
     pg_18_database_name         = module.rds.database_name
@@ -129,11 +130,11 @@ resource "kubernetes_config_map" "rds" {
   }
 
   data = {
-    database_name = module.rds_new.database_name
-    db_identifier = module.rds_new.db_identifier
+    database_name = module.rds_pg14.database_name
+    db_identifier = module.rds_pg14.db_identifier
 
-    pg14_database_name = module.rds_new.database_name
-    pg14_db_identifier = module.rds_new.db_identifier
+    pg14_database_name = module.rds_pg14.database_name
+    pg14_db_identifier = module.rds_pg14.db_identifier
 
     pg18_database_name = module.rds.database_name
     pg18_db_identifier = module.rds.db_identifier
