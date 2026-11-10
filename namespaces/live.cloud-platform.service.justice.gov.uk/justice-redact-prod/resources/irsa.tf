@@ -13,7 +13,7 @@ module "irsa" {
     s3 = module.s3_bucket.irsa_policy_arn
     # ADDED: grants this pod the right to assume the Comprehend role
     # that the Analytical Platform team will create in their AWS account.
-    comprehend = aws_iam_policy.comprehend_assume.arn
+    # comprehend = aws_iam_policy.comprehend_assume.arn
     sqs           = module.redact_task_queue.irsa_policy_arn
     redaction_sqs = module.apply_redactions_queue.irsa_policy_arn
     ecr        = module.ecr.irsa_policy_arn
