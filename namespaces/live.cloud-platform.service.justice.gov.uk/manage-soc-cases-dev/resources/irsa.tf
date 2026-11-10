@@ -7,10 +7,10 @@ locals {
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
   api_sqs_topics = {
-    "Digital-Prison-Services-dev-manage_soc_cases_api_offender_events_queue"           = "offender-events-dev"
-    "Digital-Prison-Services-dev-manage_soc_cases_api_offender_events_queue_dl"        = "offender-events-dev"
-    "Digital-Prison-Services-dev-manage_soc_cases_api_probation_events_queue" = "offender-events-dev"
-    "Digital-Prison-Services-dev-manage_soc_cases_api_probation_events_dlq"   = "offender-events-dev"
+    "Digital-Prison-Services-dev-manage_soc_cases_api_offender_events_queue"    = "offender-events-dev"
+    "Digital-Prison-Services-dev-manage_soc_cases_api_offender_events_queue_dl" = "offender-events-dev"
+    "Digital-Prison-Services-dev-manage_soc_cases_api_probation_events_queue"   = "offender-events-dev"
+    "Digital-Prison-Services-dev-manage_soc_cases_api_probation_events_dlq"     = "offender-events-dev"
   }
   api_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_api_sqs : item.name => item.value }
 }
