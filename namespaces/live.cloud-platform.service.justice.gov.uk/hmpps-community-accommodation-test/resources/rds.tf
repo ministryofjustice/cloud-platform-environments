@@ -47,7 +47,7 @@ module "rds_new" {
   rds_family                   = "postgres14"
   rds_name                     = "hmpps-approved-premises-test-pg14"
   snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
-  deletion_protection          = true
+
   providers = {
     aws = aws.london
   }
