@@ -55,6 +55,7 @@ locals {
     "hmpps-prisoner-profile-dev",
     "hmpps-probation-mi-ui-dev",
     "hmpps-probation-mi-ui-test",
+    "hmpps-prisoner-monies-dev",
     "hmpps-registers-dev",
     "hmpps-restricted-patients-dev",
     "hmpps-subject-access-request-dev",
