@@ -5,9 +5,6 @@ metadata:
   namespace: hmpps-electronic-monitoring-api-dev
 subjects:
   - kind: Group
-    name: "github:hmpps-electronic-monitoring"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
     name: "github:hmpps-electronic-monitoring-devs"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
