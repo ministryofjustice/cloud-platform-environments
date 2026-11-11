@@ -9,6 +9,7 @@ module "rds_source" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   enable_rds_auto_start_stop   = true
+  db_max_allocated_storage     = "500" # db.t4g.micro allows up to 6 TiB, the module default is 10000 GiB
 
   # PostgreSQL specifics
   db_engine         = "postgres"
@@ -37,6 +38,7 @@ module "rds_target" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   enable_rds_auto_start_stop   = true
+  db_max_allocated_storage     = "500" # db.t4g.micro allows up to 6 TiB, the module default is 10000 GiB
 
   # PostgreSQL specifics
   db_engine         = "postgres"
