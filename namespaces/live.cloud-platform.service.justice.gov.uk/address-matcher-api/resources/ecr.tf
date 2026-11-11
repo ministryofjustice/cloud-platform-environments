@@ -5,7 +5,7 @@
  *
  */
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
   repo_name = var.namespace
@@ -35,7 +35,7 @@ module "ecr" {
 # (PROD_ECR_ROLE_TO_ASSUME, PROD_ECR_REGION, PROD_ECR_REPOSITORY), used by the prod
 # deploy workflow.
 module "ecr_prod" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
   repo_name = "${var.namespace}-prod"
