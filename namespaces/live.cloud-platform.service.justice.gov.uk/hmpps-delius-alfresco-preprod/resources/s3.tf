@@ -60,3 +60,11 @@ resource "kubernetes_secret" "s3_bucket" {
     SECRETKEY   = aws_iam_access_key.alfresco_user_access.secret
   }
 }
+
+# Required for Alfresco S3 Prod refresh
+resource "aws_ssm_parameter" "s3_bucket_arn" {
+  type        = "String"
+  name        = "/${var.namespace}/s3-bucket-arn"
+  value       = module.s3_bucket.bucket_arn
+  description = "ARN of ${var.environment_name} S3 Bucket"
+}
