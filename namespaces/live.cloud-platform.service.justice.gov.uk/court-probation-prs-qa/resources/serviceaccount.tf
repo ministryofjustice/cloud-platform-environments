@@ -1,6 +1,7 @@
 module "court-case-service" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
+  serviceaccount_name = "court-case-service"
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
