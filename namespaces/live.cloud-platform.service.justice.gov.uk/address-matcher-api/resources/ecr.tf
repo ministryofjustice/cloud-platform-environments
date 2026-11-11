@@ -30,3 +30,28 @@ module "ecr" {
 
   # enable_irsa = true
 }
+
+# Prod gets its own repository and its own GitHub `prod` environment values
+# (PROD_ECR_ROLE_TO_ASSUME, PROD_ECR_REGION, PROD_ECR_REPOSITORY), used by the prod
+# deploy workflow.
+module "ecr_prod" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+
+  # Repository configuration
+  repo_name = "${var.namespace}-prod"
+
+  # OpenID Connect configuration
+  oidc_providers        = ["github"]
+  github_repositories   = ["address-matcher-api"]
+  github_environments   = ["prod"]
+  github_actions_prefix = "prod"
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
