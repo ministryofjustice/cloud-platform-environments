@@ -1,4 +1,4 @@
-module "cpd-record-service" {
+module "cpd-matching-service" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
 
   github_repo  = "cpd-matching-service"
