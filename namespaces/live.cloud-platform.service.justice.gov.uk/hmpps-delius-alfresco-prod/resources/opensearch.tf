@@ -87,7 +87,8 @@ module "s3_opensearch_snapshots_bucket" {
           AWS = [
             module.irsa.role_arn,
             module.opensearch.snapshot_role_arn,
-            data.aws_ssm_parameter.stage_opensearch_snapshot_role_arn.value
+            data.aws_ssm_parameter.stage_opensearch_snapshot_role_arn.value,
+            data.aws_ssm_parameter.preprod_opensearch_snapshot_role_arn.value
           ]
         }
 
@@ -171,4 +172,8 @@ resource "aws_ssm_parameter" "s3_bucket_name" {
 
 data "aws_ssm_parameter" "stage_opensearch_snapshot_role_arn" {
   name = "/hmpps-delius-alfresco-stage/opensearch-snapshot-role-arn"
+}
+
+data "aws_ssm_parameter" "preprod_opensearch_snapshot_role_arn" {
+  name = "/hmpps-delius-alfresco-preprod/opensearch-snapshot-role-arn"
 }
