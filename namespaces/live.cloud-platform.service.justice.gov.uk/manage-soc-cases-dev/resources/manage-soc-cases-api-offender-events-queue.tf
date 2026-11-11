@@ -22,9 +22,6 @@ module "manage_soc_cases_api_offender_events_queue" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
-  providers = {
-    aws = aws.london
-  }
 }
 
 module "manage_soc_cases_api_offender_events_dlq" {
@@ -41,9 +38,6 @@ module "manage_soc_cases_api_offender_events_dlq" {
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
 
-  providers = {
-    aws = aws.london
-  }
 }
 
 resource "aws_sqs_queue_policy" "manage_soc_cases_api_offender_events_queue_policy" {
@@ -69,7 +63,6 @@ resource "aws_sqs_queue_policy" "manage_soc_cases_api_offender_events_queue_poli
 }
 
 resource "aws_sns_topic_subscription" "manage_soc_cases_api_offender_events_subscription" {
-  provider  = aws.london
   topic_arn = data.aws_ssm_parameter.manage_soc_cases_api_offender_events_topic_arn.value
   protocol  = "sqs"
   endpoint  = module.manage_soc_cases_api_offender_events_queue.sqs_arn
