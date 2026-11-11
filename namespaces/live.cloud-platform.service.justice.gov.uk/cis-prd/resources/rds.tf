@@ -1,6 +1,6 @@
 
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=78e4bd6be96facc435409ee8e4a7a303cfe9afdf"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=7c08a19006b3495bc717338fc7b9fb5ac42fc2c6"
 
   # VPC configuration
   vpc_name = var.vpc_name
