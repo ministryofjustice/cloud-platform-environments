@@ -27,6 +27,25 @@ module "irsa_manage_soc_cases" {
   infrastructure_support = var.infrastructure_support
 }
 
+module "irsa_manage_soc_cases_api" {
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  namespace            = var.namespace
+  eks_cluster_name     = var.eks_cluster_name
+  service_account_name = "manage-soc-cases-api"
+  role_policy_arns = {
+    "offender-events-queue"  = module.manage_soc_cases_api_offender_events_queue.irsa_policy_arn
+    "offender-events-dlq"    = module.manage_soc_cases_api_offender_events_dlq.irsa_policy_arn
+    "probation-events-queue" = module.manage_soc_cases_api_probation_offender_events_queue.irsa_policy_arn
+    "probation-events-dlq"   = module.manage_soc_cases_api_probation_offender_events_dlq.irsa_policy_arn
+  }
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment_name
+  infrastructure_support = var.infrastructure_support
+}
+
 data "aws_ssm_parameter" "irsa_policy_arns_sqs" {
   for_each = local.sqs_topics
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
