@@ -21,7 +21,6 @@ module "dps_rds" {
   infrastructure_support      = var.infrastructure_support
   prepare_for_major_upgrade   = false
   allow_minor_version_upgrade = "true"
-
   rds_family = "postgres14"
 
   enable_irsa = true
