@@ -218,7 +218,6 @@ rules:
   - namespaces/status
   - networkpolicies
   - nodes
-  - nodes/proxy
   - nodes/status
   - persistentvolumeclaims
   - persistentvolumeclaims/status
