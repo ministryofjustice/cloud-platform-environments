@@ -17,7 +17,7 @@ module "manage_soc_cases_api_probation_offender_events_queue" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name
+  team_name              = "Sec-and-Int"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
@@ -33,7 +33,7 @@ module "manage_soc_cases_api_probation_offender_events_dlq" {
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
-  team_name              = var.team_name
+  team_name              = "Sec-and-Int"
   namespace              = var.namespace
   environment_name       = var.environment_name
   infrastructure_support = var.infrastructure_support
