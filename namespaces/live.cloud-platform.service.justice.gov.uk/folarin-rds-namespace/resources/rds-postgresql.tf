@@ -32,6 +32,7 @@ module "rds_target" {
 
   # Restore from a manual snapshot of rds_source
   snapshot_identifier = "folarin-rds-source-pg16-11-11-2026"
+  is_migration        = true # Copy the snapshot and encrypt it with this module's KMS key
   db_name             = null # Inherit the database name from the snapshot
 
   # VPC configuration
