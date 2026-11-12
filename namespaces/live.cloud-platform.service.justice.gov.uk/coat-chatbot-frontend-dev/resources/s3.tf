@@ -9,31 +9,6 @@ module "coat_chatbot_auth0_tf_state_dev_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
-  bucket_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "COATMPDevAccess",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-developer_3ce90653088957a1"
-      },
-      "Action": [
-        "s3:PutObject",
-        "s3:ListBucket",
-        "s3:GetObject",
-        "s3:DeleteObject"
-      ],
-      "Resource": [
-        "$${bucket_arn}",
-        "$${bucket_arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
   oidc_providers = ["github"]
   github_repositories = ["coat-chatbot-frontend-v2"]
   github_actions_prefix = "DEV"
