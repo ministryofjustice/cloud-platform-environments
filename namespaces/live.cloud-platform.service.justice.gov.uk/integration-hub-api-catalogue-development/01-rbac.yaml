@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: integration-hub-api-catalogue-development-admin
+  namespace: integration-hub-api-catalogue-development
+subjects:
+  - kind: Group
+    name: "github:integration-hub"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
