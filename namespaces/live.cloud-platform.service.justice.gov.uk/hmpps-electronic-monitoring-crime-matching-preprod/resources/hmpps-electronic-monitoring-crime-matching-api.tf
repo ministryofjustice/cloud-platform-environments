@@ -4,9 +4,9 @@ module "hmpps_electronic_monitoring_crime_matching_api" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-electronic-monitoring-crime-matching-api"
   application = "hmpps-electronic-monitoring-crime-matching-api"
-  github_team = "hmpps-em-probation-devs"
+  github_team = "hmpps-electronic-monitoring-devs"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams                = ["hmpps-em-probation-devs"] # Optional team that should review deployments to this environment.
+  reviewer_teams                = [] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main"] # Optional
   is_production                 = var.is_production
   application_insights_instance = "preprod" # Either "dev", "preprod" or "prod"

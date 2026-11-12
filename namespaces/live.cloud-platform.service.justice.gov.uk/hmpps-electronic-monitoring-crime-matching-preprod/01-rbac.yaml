@@ -9,6 +9,9 @@ subjects:
     name: "github:hmpps-em-probation-devs"
     apiGroup: rbac.authorization.k8s.io
   - kind: Group
+    name: "github:hmpps-electronic-monitoring-acquisitive-crime-live"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
     name: "github:hmpps-sre"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
