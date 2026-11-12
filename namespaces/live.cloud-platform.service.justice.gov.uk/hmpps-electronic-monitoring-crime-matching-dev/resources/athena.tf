@@ -222,6 +222,16 @@ resource "aws_glue_catalog_table" "device_activations" {
     }
 
     columns {
+      name = "is_device_activation_open"
+      type = "boolean"
+    }
+
+    columns {
+      name = "is_device_deactivation_date_imputed"
+      type = "boolean"
+    }
+
+    columns {
       name = "person_id"
       type = "bigint"
     }
@@ -234,6 +244,16 @@ resource "aws_glue_catalog_table" "device_activations" {
     columns {
       name = "device_serial_number"
       type = "string"
+    }
+
+    columns {
+      name = "device_model_name"
+      type = "string"
+    }
+
+    columns {
+      name = "__datetime_added"
+      type = "timestamp"
     }
 
     location      = "s3://${module.data_bucket.bucket_name}/device_activations/"
