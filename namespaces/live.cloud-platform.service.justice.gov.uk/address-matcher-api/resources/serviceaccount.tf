@@ -64,6 +64,16 @@ module "serviceaccount" {
       ]
     },
     {
+      # The dev benchmark job runs a command in a dev pod to mint a benchmark token.
+      api_groups = [""]
+      resources = [
+        "pods/exec",
+      ]
+      verbs = [
+        "create",
+      ]
+    },
+    {
       api_groups = [
         "monitoring.coreos.com",
       ]
