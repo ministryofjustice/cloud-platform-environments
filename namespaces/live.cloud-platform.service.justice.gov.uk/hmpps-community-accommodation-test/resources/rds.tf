@@ -45,8 +45,10 @@ module "rds_new" {
   db_engine                    = "postgres"
   db_engine_version            = "14"
   rds_family                   = "postgres14"
-  rds_name                     = "hmpps-approved-premises-test-pg14"
-  snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
+
+  snapshot_identifier          = "arn:aws:rds:eu-west-2:754256621582:snapshot:rashad-pre-pg18-23-10-2026"
+  is_migration                 = true
+  db_name                      = null # inherited from the snapshot
 
   providers = {
     aws = aws.london
