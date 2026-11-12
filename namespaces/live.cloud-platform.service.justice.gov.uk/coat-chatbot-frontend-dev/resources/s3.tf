@@ -9,6 +9,8 @@ module "coat_chatbot_auth0_tf_state_dev_s3_bucket" {
   infrastructure_support = var.infrastructure_support
   namespace              = var.namespace
 
+  bucket_policy = ""
+
   oidc_providers = ["github"]
   github_repositories = ["coat-chatbot-frontend-v2"]
   github_actions_prefix = "DEV"
