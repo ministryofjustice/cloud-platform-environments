@@ -7,7 +7,7 @@
 
 module "prison-visits-rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type           = "gp2"
+  storage_type           = "gp3"
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
   business_unit          = "HMPPS"
