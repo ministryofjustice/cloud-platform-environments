@@ -80,7 +80,7 @@ resource "aws_glue_catalog_table" "caseload" {
 
     columns {
       name = "date_of_birth"
-      type = "string"
+      type = "date"
     }
 
     columns {
@@ -285,17 +285,7 @@ resource "aws_glue_catalog_table" "position" {
 
   storage_descriptor {
     columns {
-      name = "client_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "device_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "location_id"
+      name = "position_id"
       type = "bigint"
     }
 
@@ -305,7 +295,32 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
-      name = "position_circulation_id"
+      name = "device_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_gps_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_recorded_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_uploaded_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_speed"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_satellite"
       type = "bigint"
     }
 
@@ -315,28 +330,8 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
-      name = "position_geometry"
-      type = "string"
-    }
-
-    columns {
-      name = "position_gps_date"
-      type = "timestamp"
-    }
-
-    columns {
-      name = "position_hdop"
+      name = "position_precision"
       type = "bigint"
-    }
-
-    columns {
-      name = "position_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "position_latitude"
-      type = "double"
     }
 
     columns {
@@ -345,32 +340,72 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
+      name = "position_hdop"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_geometry"
+      type = "string"
+    }
+
+    columns {
+      name = "position_latitude"
+      type = "double"
+    }
+
+    columns {
       name = "position_longitude"
       type = "double"
     }
 
     columns {
-      name = "position_precision"
+      name = "client_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_recorded_date"
-      type = "timestamp"
-    }
-
-    columns {
-      name = "position_satellite"
+      name = "location_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_speed"
+      name = "_file_name"
+      type = "string"
+    }
+
+    columns {
+      name = "_feed_type"
+      type = "string"
+    }
+
+    columns {
+      name = "_delivery_date"
+      type = "date"
+    }
+
+    columns {
+      name = "position_circulation_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_uploaded_date"
+      name = "_source_bucket"
+      type = "string"
+    }
+
+    columns {
+      name = "_source_key"
+      type = "string"
+    }
+
+    columns {
+      name = "_source_etag"
+      type = "string"
+    }
+
+    columns {
+      name = "__datetime_added"
       type = "timestamp"
     }
 
