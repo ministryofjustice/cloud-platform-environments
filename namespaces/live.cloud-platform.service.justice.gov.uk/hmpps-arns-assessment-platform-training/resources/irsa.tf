@@ -1,21 +1,15 @@
 locals {
-  sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
-  }
+  # Audit queue access is added once the HAAR team agrees to training sharing it
+  sqs_queues   = {}
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sqs : item.name => item.value }
 }
 
 module "irsa" {
-  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name     = var.eks_cluster_name
-  namespace            = var.namespace
-  service_account_name = "hmpps-arns-assessment-platform-service-account"
-  role_policy_arns = merge(
-    {
-      rds = module.rds.irsa_policy_arn
-    },
-    local.sqs_policies
-  )
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name       = var.eks_cluster_name
+  namespace              = var.namespace
+  service_account_name   = "hmpps-arns-assessment-platform-service-account"
+  role_policy_arns       = local.sqs_policies
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
