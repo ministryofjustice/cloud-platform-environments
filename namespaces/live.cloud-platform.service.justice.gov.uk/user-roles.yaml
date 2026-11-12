@@ -168,7 +168,6 @@ rules:
   - mutatingwebhookconfigurations
   - volumeattachments
   - apiservices
-  - certificatesigningrequests
   - flowschemas
   - prioritylevelconfigurations
   verbs: ["*"]
