@@ -17,7 +17,7 @@ module "rds_postgresql" {
   db_max_allocated_storage     = "100"
   db_parameter                 = []
   db_password_rotated_date     = "2023-09-05"
-  deletion_protection          = true
+  deletion_protection          = false
   enable_rds_auto_start_stop   = true
   maintenance_window           = "Mon:00:00-Mon:03:00"
   performance_insights_enabled = true
