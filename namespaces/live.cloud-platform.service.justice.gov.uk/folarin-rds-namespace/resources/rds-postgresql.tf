@@ -30,8 +30,8 @@ module "rds_source" {
 module "rds_target" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
 
-  # Restore from a manual snapshot of rds_source
-  snapshot_identifier = "folarin-rds-source-pg16-11-11-2026"
+  # Restore from a manual snapshot of rds_source, using the ARN so the snapshot copy is not replaced on every apply
+  snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:folarin-rds-source-pg16-11-11-2026"
   is_migration        = true # Copy the snapshot and encrypt it with this module's KMS key
   db_name             = null # Inherit the database name from the snapshot
 
