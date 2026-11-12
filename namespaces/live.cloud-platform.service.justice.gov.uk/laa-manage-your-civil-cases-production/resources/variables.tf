@@ -89,3 +89,9 @@ variable "github_team" {
   type        = string
   default     = "manage-your-civil-cases"
   }
+
+variable "domain" {
+  description = "Custom domain for the Route 53 zone delegated to Cloud Platform"
+  type        = string
+  default     = "manage-your-civil-legal-advice-cases.service.justice.gov.uk"
+}
