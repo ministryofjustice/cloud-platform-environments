@@ -40,6 +40,12 @@ module "secrets_manager" {
       k8s_secret_name         = "data-store-auth-scope-staging"
     },
 
+    "decide_api_base_url" = {
+      description             = "Civil Decide API base URL for Staging",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "decide-api-base-url-staging"
+    },
+
     "decide_api_auth_scope" = {
       description             = "Auth scope for integration with Civil Decide API for Staging",
       recovery_window_in_days = 7,
