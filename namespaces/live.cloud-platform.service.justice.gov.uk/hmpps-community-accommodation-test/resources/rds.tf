@@ -45,8 +45,10 @@ module "rds_new" {
   db_engine                    = "postgres"
   db_engine_version            = "14"
   rds_family                   = "postgres14"
-  rds_name                     = "hmpps-approved-premises-test-pg14"
-  snapshot_identifier          = "rashad-pre-pg18-23-10-2026"
+
+  snapshot_identifier          = "arn:aws:rds:eu-west-2:754256621582:snapshot:rashad-pre-pg18-23-10-2026"
+  is_migration                 = true
+  db_name                      = null # inherited from the snapshot
 
   providers = {
     aws = aws.london
@@ -97,6 +99,12 @@ resource "kubernetes_secret" "rds" {
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
+
+    pg_14_rds_instance_endpoint = module.rds_new.rds_instance_endpoint
+    pg_14_database_name         = module.rds_new.database_name
+    pg_14_database_username     = module.rds_new.database_username
+    pg_14_database_password     = module.rds_new.database_password
+    pg_14_rds_instance_address  = module.rds_new.rds_instance_address
   }
 }
 
