@@ -5,7 +5,7 @@ locals {
   mock_datastore_prefix = "crime-matching-mock-datastore"
 
   data_bucket_name = "${local.mock_datastore_prefix}-test-data"
-  workgroup_name = "${local.mock_datastore_prefix}-workgroup"
+  workgroup_name   = "${local.mock_datastore_prefix}-workgroup"
 }
 
 module "data_bucket" {
@@ -27,9 +27,9 @@ module "data_bucket" {
 }
 
 resource "aws_glue_catalog_database" "mock_datastore_database" {
-  name = local.mock_datastore_database_name
+  name         = local.mock_datastore_database_name
   location_uri = "s3://${module.data_bucket.bucket_name}/"
-  tags = local.tags
+  tags         = local.tags
 }
 
 resource "aws_athena_workgroup" "mock_datastore_workgroup" {
@@ -59,11 +59,6 @@ resource "aws_glue_catalog_table" "caseload" {
 
   storage_descriptor {
     columns {
-      name = "grouped_date"
-      type = "timestamp"
-    }
-
-    columns {
       name = "unique_device_wearer_id"
       type = "string"
     }
@@ -85,7 +80,7 @@ resource "aws_glue_catalog_table" "caseload" {
 
     columns {
       name = "date_of_birth"
-      type = "date"
+      type = "string"
     }
 
     columns {
@@ -178,18 +173,23 @@ resource "aws_glue_catalog_table" "caseload" {
       type = "boolean"
     }
 
+    columns {
+      name = "__datetime_added"
+      type = "timestamp"
+    }
+
     location      = "s3://${module.data_bucket.bucket_name}/caseload/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "caseload-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -240,14 +240,14 @@ resource "aws_glue_catalog_table" "device_activations" {
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "device-activations-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -358,14 +358,14 @@ resource "aws_glue_catalog_table" "position" {
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "position-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -552,7 +552,7 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
       type = "bigint"
     }
 
-  columns {
+    columns {
       name = "location_id"
       type = "bigint"
     }
@@ -631,14 +631,14 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "orders_activations_positions-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -703,7 +703,7 @@ data "aws_iam_policy_document" "mock_datastore_assume_role_policy" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         module.irsa.role_arn,
         module.crime_matching_algorithm_irsa.role_arn,
