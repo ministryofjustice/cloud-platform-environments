@@ -7,10 +7,10 @@ module "irsa" {
   # IRSA configuration
   service_account_name = "${var.team_name}-${var.environment_name}"
   role_policy_arns = {
-    s3        = module.s3_bucket.irsa_policy_arn
-    migration = aws_iam_policy.migration_policy.arn
-    athena    = aws_iam_policy.athena_allow_irsa.arn
-    rds       = module.rds_alfresco.irsa_policy_arn
+    s3                  = module.s3_bucket.irsa_policy_arn
+    migration           = aws_iam_policy.migration_policy.arn
+    athena              = aws_iam_policy.athena_allow_irsa.arn
+    rds                 = module.rds_alfresco.irsa_policy_arn
   }
 
   # Tags
@@ -63,11 +63,4 @@ resource "aws_iam_policy" "athena_allow_irsa" {
   path        = "/cloud-platform/"
   description = "IRSA policy to run Athena queries for S3 Inventory checker"
   policy      = data.aws_iam_policy_document.athena_irsa.json
-}
-
-data "kubernetes_service_account" "prod_irsa" {
-  metadata {
-    name      = "hmpps-migration-prod"
-    namespace = "hmpps-delius-alfresco-prod"
-  }
 }

@@ -74,6 +74,11 @@ resource "aws_glue_catalog_table" "caseload" {
     }
 
     columns {
+      name = "middle_name"
+      type = "string"
+    }
+
+    columns {
       name = "last_name"
       type = "string"
     }
@@ -389,6 +394,11 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
 
     columns {
       name = "first_name"
+      type = "string"
+    }
+
+    columns {
+      name = "middle_name"
       type = "string"
     }
 

@@ -178,7 +178,8 @@ resource "aws_sns_topic_subscription" "hmpps_prisoner_to_nomis_agencyregisters_s
       "register.approvedpremises.address.deleted",
       "register.approvedpremises.phone.inserted",
       "register.approvedpremises.phone.amended",
-      "register.approvedpremises.phone.deleted"
+      "register.approvedpremises.phone.deleted",
+      "register.prison.area.amended"
     ]
   })
 }

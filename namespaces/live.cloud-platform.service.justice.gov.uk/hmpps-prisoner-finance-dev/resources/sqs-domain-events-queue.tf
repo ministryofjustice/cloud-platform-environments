@@ -63,7 +63,7 @@ resource "aws_sqs_queue_policy" "prisoner_finance_queue_for_domain_events_queue_
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": {"AWS": "${module.irsa.role_arn}"},
+        "Principal": {"AWS": "${module.hmpps_prisoner_finance_api_irsa.role_arn}"},
         "Resource": "${module.prisoner_finance_queue_for_domain_events_dead_letter_queue.sqs_arn}",
         "Action": [
           "sqs:StartMessageMoveTask",

@@ -1,5 +1,4 @@
 resource "aws_sns_topic_subscription" "common-platform-and-delius-queue-subscription" {
-  
   topic_arn = data.aws_ssm_parameter.court-topic.value
   protocol  = "sqs"
   endpoint  = module.common-platform-and-delius-queue.sqs_arn
@@ -79,12 +78,12 @@ module "common-platform-and-delius-service-account" {
   team_name              = var.team_name
 
   service_account_name = "common-platform-and-delius"
-  role_policy_arns     = {
-    sqs = module.common-platform-and-delius-queue.irsa_policy_arn
-    sqs_fifo = module.common-platform-and-delius-fifo-queue.irsa_policy_arn
-    sns = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
-    s3 = module.common-platform-and-delius-s3-bucket.irsa_policy_arn
-    large_cases_s3 = aws_iam_policy.court_hearings_large_messages_bucket_policy-dev.arn
+  role_policy_arns = {
+    sqs            = module.common-platform-and-delius-queue.irsa_policy_arn
+    sqs_fifo       = module.common-platform-and-delius-fifo-queue.irsa_policy_arn
+    sns            = data.aws_ssm_parameter.hmpps-domain-events-policy-arn.value
+    s3             = module.common-platform-and-delius-s3-bucket.irsa_policy_arn
+    large_cases_s3 = aws_iam_policy.court_hearings_large_messages_bucket_policy.arn
   }
 }
 

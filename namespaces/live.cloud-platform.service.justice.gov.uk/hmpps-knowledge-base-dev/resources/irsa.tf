@@ -8,9 +8,13 @@ locals {
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
   irsa_policies = {
     equip_migration_queue  = module.equip_migration_queue.irsa_policy_arn
+    equip_migration_dlq  = module.equip_migration_dlq.irsa_policy_arn
+    equip_data_quality_queue  = module.equip_data_quality_queue.irsa_policy_arn
+    equip_data_quality_dlq  = module.equip_data_quality_dlq.irsa_policy_arn
     hmpps_knowledge_base_s3_input = module.hmpps_knowledge_base_s3_input.irsa_policy_arn
     hmpps_knowledge_base_s3_data_store = module.hmpps_knowledge_base_s3_data_store.irsa_policy_arn
     hmpps_knowledge_base_s3_archive = module.hmpps_knowledge_base_s3_archive.irsa_policy_arn
+    hmpps_knowledge_base_s3_qa_workspace = module.hmpps_knowledge_base_s3_qa_workspace.irsa_policy_arn
   }
 }
 

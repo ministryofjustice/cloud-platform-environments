@@ -24,7 +24,6 @@ module "rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 module "read_replica" {
@@ -56,7 +55,6 @@ module "read_replica" {
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "rds" {
@@ -91,7 +89,6 @@ resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
-
 
 resource "kubernetes_secret" "read_replica" {
   count = 0

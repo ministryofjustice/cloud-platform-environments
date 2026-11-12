@@ -29,7 +29,7 @@ module "flipt-db" {
   namespace                    = var.namespace
   rds_name                     = "hmpps-feature-flags-flipt-db-${var.environment}"
   rds_family                   = "postgres16"
-  db_engine_version            = "16.8"
+  db_engine_version            = "16.13"
   db_instance_class            = "db.t4g.small"
   prepare_for_major_upgrade    = false
   allow_major_version_upgrade  = true
