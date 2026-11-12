@@ -17,7 +17,7 @@ module "coat_chatbot_auth0_tf_state_dev_s3_bucket" {
       "Sid": "COATMPDevAccess",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-sandbox_befb4340ef5f2771"
+        "AWS": "arn:aws:iam::082282578003:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_modernisation-platform-developer_3ce90653088957a1"
       },
       "Action": [
         "s3:PutObject",
