@@ -438,11 +438,6 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
 
   storage_descriptor {
     columns {
-      name = "grouped_date"
-      type = "timestamp"
-    }
-
-    columns {
       name = "unique_device_wearer_id"
       type = "string"
     }
