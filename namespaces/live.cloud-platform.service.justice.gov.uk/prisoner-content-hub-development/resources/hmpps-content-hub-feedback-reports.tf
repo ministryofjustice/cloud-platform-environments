@@ -4,7 +4,7 @@ module "hmpps_content-hub-feedback-reports" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-content-hub-feedback-reports"
   application = "hmpps-content-hub-feedback-reports"
-  github_team = "hmpps-launchpad"
+  github_team = "hmpps-launchpad-devs"
   environment = var.environment-name # Should match environment name used in helm values file e.g. values-dev.yaml
   reviewer_teams                = ["hmpps-launchpad"] # Optional team that should review deployments to this environment.
   selected_branch_patterns      = ["main", "**/**", "**"] # Optional
