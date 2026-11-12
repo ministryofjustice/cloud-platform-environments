@@ -1,5 +1,5 @@
 data "aws_sns_topic" "manage_soc_cases_api_probation_offender_events" {
-  name = "cloud-platform-Digital-Prison-Services-453cac1179377186788c5fcd12525870"
+  name = "cloud-platform-Digital-Prison-Services-c2d997878cd24eef94e60f1404977153"
 }
 
 module "manage_soc_cases_api_probation_offender_events_queue" {
