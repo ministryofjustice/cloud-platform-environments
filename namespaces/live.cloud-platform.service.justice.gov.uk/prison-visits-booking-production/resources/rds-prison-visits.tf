@@ -7,7 +7,7 @@
 
 module "prison-visits-rds" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type           = "gp2"
+  storage_type           = "gp3"
   vpc_name               = var.vpc_name
   team_name              = "prison-visits-booking"
   business_unit          = "HMPPS"
@@ -18,10 +18,10 @@ module "prison-visits-rds" {
   namespace              = var.namespace
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
   db_engine                   = "postgres"
-  db_engine_version = "15.17"
-  rds_family                  = "postgres15"
+  db_engine_version = "18.6"
+  rds_family                  = "postgres18"
 
   db_instance_class        = "db.m5.xlarge"
   db_allocated_storage     = "50"
