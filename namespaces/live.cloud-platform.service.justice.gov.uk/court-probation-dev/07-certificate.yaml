@@ -16,3 +16,4 @@ spec:
     - court-case-matcher-dev.apps.live-1.cloud-platform.service.justice.gov.uk
     - hmpps-court-case-service-api-dev.hmpps.service.justice.gov.uk
     - hmpps-court-case-data-migration-service-dev.hmpps.service.justice.gov.uk
+    - court-case-enrichment-worker-dev.hmpps.service.justice.gov.uk
