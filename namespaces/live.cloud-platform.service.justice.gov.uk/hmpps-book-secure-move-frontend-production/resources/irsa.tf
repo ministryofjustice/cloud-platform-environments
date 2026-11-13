@@ -1,6 +1,6 @@
 locals {
   sqs_queues = {
-    "Digital-Prison-Services-dev-hmpps_audit_queue" = "hmpps-audit-dev"
+    "Digital-Prison-Services-prod-hmpps_audit_queue" = "hmpps-audit-prod"
   }
 }
 
@@ -44,7 +44,7 @@ module "hmpps-book-secure-move-frontend-service-account-audit" {
   namespace            = var.namespace
   service_account_name = "hmpps-book-secure-move-frontend-audit"
   role_policy_arns = {
-    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-dev-hmpps_audit_queue"].value
+    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-prod-hmpps_audit_queue"].value
   }
 
   # Tags
