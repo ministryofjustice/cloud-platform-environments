@@ -29,7 +29,7 @@ variable "service_area" {
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Platforms"
+  default     = "OCTO"
 }
 
 variable "team_name" {
