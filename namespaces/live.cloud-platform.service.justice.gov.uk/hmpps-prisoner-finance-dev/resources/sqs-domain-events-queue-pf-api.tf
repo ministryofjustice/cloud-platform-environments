@@ -1,6 +1,6 @@
 module "pf_queue_for_domain_events_pf_api" {
 
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                  = "pf_queue_for_domain_events_pf_api"
@@ -80,7 +80,7 @@ resource "aws_sqs_queue_policy" "pf_queue_for_domain_events_queue_dlq_policy_pf_
 
 
 module "pf_queue_for_domain_events_dead_letter_queue_pf_api" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name        = "pf_queue_for_domain_events_dl_pf_api"
