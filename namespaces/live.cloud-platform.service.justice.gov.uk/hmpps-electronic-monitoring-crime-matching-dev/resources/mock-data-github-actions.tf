@@ -44,12 +44,12 @@ data "aws_iam_policy_document" "github_trust" {
 }
 
 resource "aws_iam_role" "github_role" {
-  name               = "${var.namespace}-synthetic-data-uploader"
+  name               = "${var.namespace}-mock-data-role"
   assume_role_policy = data.aws_iam_policy_document.github_trust.json
   tags               = local.tags
 }
 
-data "aws_iam_policy_document" "synthetic_data_upload" {
+data "aws_iam_policy_document" "mock_data_upload" {
   statement {
     sid     = "UploadSyntheticMonitoringData"
     actions = ["s3:PutObject"]
@@ -66,7 +66,7 @@ data "aws_iam_policy_document" "synthetic_data_upload" {
 resource "aws_iam_role_policy" "mock_data_upload" {
   name   = "upload-mock-data"
   role   = aws_iam_role.github_role.id
-  policy = data.aws_iam_policy_document.synthetic_data_upload.json
+  policy = data.aws_iam_policy_document.mock_data_upload.json
 }
 
 resource "github_actions_environment_variable" "mock_data_role_arn" {
