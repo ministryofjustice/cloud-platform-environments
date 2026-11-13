@@ -5,11 +5,14 @@ locals {
 }
 
 module "irsa" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-  eks_cluster_name       = var.eks_cluster_name
-  namespace              = var.namespace
-  service_account_name   = "hmpps-arns-assessment-platform-service-account"
-  role_policy_arns       = local.sqs_policies
+  source               = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-arns-assessment-platform-service-account"
+  role_policy_arns = merge(
+    { arns_coordinator_queue = module.arns_coordinator_queue.irsa_policy_arn },
+    local.sqs_policies
+  )
   business_unit          = var.business_unit
   application            = var.application
   is_production          = var.is_production
