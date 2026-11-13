@@ -13,6 +13,7 @@ locals {
     "hmpps-auth-dev",
     "hmpps-auth-stage",
     "hmpps-book-a-video-link-dev",
+    "hmpps-book-secure-move-frontend-staging",
     "hmpps-community-accommodation-dev",
     "hmpps-community-payback-dev",
     "hmpps-community-payback-test",
