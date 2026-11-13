@@ -218,5 +218,5 @@ resource "aws_route53_record" "imb_route53_cname_dnsauth_applications" {
   name    = "_dnsauth.applications.imb.org.uk"
   type    = "CNAME"
   ttl     = "300"
-  records = ["_6olc7qenzsrjkfwhuentef18gvzan5p.dcv.digicert.com."]
+  records = ["_ullrh20jpnxw5u4hunzrwcx1b3k9r8c"]
 }
