@@ -35,7 +35,7 @@ module "rds" {
   team_name              = var.team_name
   maintenance_window     = var.maintenance_window
 
-  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id]
+  vpc_security_group_ids     = [data.aws_security_group.mp_dps_sg.id, aws_security_group.data_factory_rds.id]
 
   db_parameter = [
     {
@@ -80,8 +80,4 @@ resource "kubernetes_secret" "postgres" {
     database_password     = module.rds.database_password
     database_server       = module.rds.rds_instance_address
   }
-}
-
-data "aws_security_group" "mp_dps_sg" {
-  name = var.mp_dps_sg_name
 }
