@@ -1,8 +1,8 @@
 locals {
   holds_irsa_policies = merge(local.sns_policies, {
-    prisoner_finance_queue_for_domain_events_holds_api                   = module.prisoner_finance_queue_for_domain_events_holds_api.irsa_policy_arn
-    prisoner_finance_queue_for_domain_events_dead_letter_queue_holds_api = module.prisoner_finance_queue_for_domain_events_dead_letter_queue_holds_api.irsa_policy_arn
-    rds                                                                  = module.holds_rds.irsa_policy_arn
+    pf_queue_for_domain_events_holds_api                   = module.pf_queue_for_domain_events_holds_api.irsa_policy_arn
+    pf_queue_for_domain_events_dead_letter_queue_holds_api = module.pf_queue_for_domain_events_dead_letter_queue_holds_api.irsa_policy_arn
+    rds                                                    = module.holds_rds.irsa_policy_arn
   })
 }
 

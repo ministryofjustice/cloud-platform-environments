@@ -8,7 +8,7 @@ module "pf_queue_for_domain_events_holds_api" {
   message_retention_seconds = 1209600
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = module.pf_queue_for_domain_events_dead_letter_queue.sqs_arn
+    deadLetterTargetArn = module.pf_queue_for_domain_events_dead_letter_queue_holds_api.sqs_arn
     maxReceiveCount     = 5
   })
 
@@ -130,7 +130,7 @@ resource "aws_sns_topic_subscription" "pf_queue_for_domain_events_subscription_d
   provider  = aws.london
   topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   protocol  = "sqs"
-  endpoint  = module.pf_queue_for_domain_events.sqs_arn
+  endpoint  = module.pf_queue_for_domain_events_holds_api.sqs_arn
   filter_policy = jsonencode({
     eventType = [
       "prison-offender-events.prisoner.merged",
