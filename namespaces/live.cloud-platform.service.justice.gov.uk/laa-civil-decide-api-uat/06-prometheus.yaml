@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: laa-civil-decide-api-uat-alerts
+  namespace: laa-civil-decide-api-uat
+  labels:
+    role: alert-rules
+spec:
+  groups:
+    - name: infra
+      rules:
+        - alert: SqsDlqNotEmpty
+          expr: max by (queue_name) (aws_sqs_approximate_number_of_messages_visible_maximum{queue_name="laa-decide-uat-application-submitted-queue-dlq"}) > 0
+          for: 5m
+          labels:
+            severity: REPLACE_WITH_CP_SEVERITY
+          annotations:
+            summary: "CRITICAL: {{ $labels.queue_name }} has {{ $value }} message(s) on the DLQ"
+            description: An application-submitted event failed permanently, so the application was not auto-assessed. Check the API consumer logs for the failed application id, fix the cause, then redrive the DLQ.
+        - alert: SqsOldestMessageAge
+          expr: max by (queue_name) (aws_sqs_approximate_age_of_oldest_message_maximum{queue_name="laa-decide-uat-application-submitted-queue"}) > 900
+          for: 10m
+          labels:
+            severity: REPLACE_WITH_CP_SEVERITY
+          annotations:
+            summary: "Warning: oldest message on {{ $labels.queue_name }} is {{ $value }}s old"
+            description: The application-submitted consumer looks stalled, so auto-grant is delayed. Check the API pods are running and the consumer logs for errors or repeated retries.

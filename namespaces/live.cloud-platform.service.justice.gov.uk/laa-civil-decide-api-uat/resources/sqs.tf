@@ -145,39 +145,3 @@ resource "kubernetes_secret" "application_submitted_dlq" {
     sqs_queue_name = module.application_submitted_dlq.sqs_name
   }
 }
-
-resource "aws_cloudwatch_metric_alarm" "application_submitted_queue_age" {
-  alarm_name        = "${module.application_submitted_queue.sqs_name}-oldest-message-age"
-  alarm_description = "Application Submitted messages are older than five minutes; owned by ${var.team_name}"
-  namespace         = "AWS/SQS"
-  metric_name       = "ApproximateAgeOfOldestMessage"
-
-  dimensions = {
-    QueueName = module.application_submitted_queue.sqs_name
-  }
-
-  statistic           = "Maximum"
-  period              = 300
-  evaluation_periods  = 1
-  threshold           = 300
-  comparison_operator = "GreaterThanThreshold"
-  treat_missing_data  = "notBreaching"
-}
-
-resource "aws_cloudwatch_metric_alarm" "application_submitted_dlq_depth" {
-  alarm_name        = "${module.application_submitted_dlq.sqs_name}-visible-messages"
-  alarm_description = "The Application Submitted DLQ contains messages requiring investigation; owned by ${var.team_name}"
-  namespace         = "AWS/SQS"
-  metric_name       = "ApproximateNumberOfMessagesVisible"
-
-  dimensions = {
-    QueueName = module.application_submitted_dlq.sqs_name
-  }
-
-  statistic           = "Maximum"
-  period              = 300
-  evaluation_periods  = 1
-  threshold           = 0
-  comparison_operator = "GreaterThanThreshold"
-  treat_missing_data  = "notBreaching"
-}
