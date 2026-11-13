@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: laa-civil-decide-uat-alerts
+  namespace: laa-civil-decide-uat
+  labels:
+    role: alert-rules
+spec:
+  groups:
+    - name: infra
+      rules:
+        - alert: RedisMemoryHigh
+          expr: max by (cache_cluster_id) (aws_elasticache_database_memory_usage_percentage_maximum{cache_cluster_id=~"cp-a83f08beaa27b467-00[12]"}) > 80
+          for: 15m
+          labels:
+            severity: REPLACE_WITH_CP_SEVERITY
+          annotations:
+            summary: "CRITICAL: Redis {{ $labels.cache_cluster_id }} memory usage is {{ $value }}%"
+            description: Redis is close to evicting keys, so sessions could be lost and users logged out. Check the session count and key growth, and whether session TTLs are being applied.
+        - alert: RedisEngineCpuHigh
+          expr: max by (cache_cluster_id) (aws_elasticache_engine_cpuutilization_maximum{cache_cluster_id=~"cp-a83f08beaa27b467-00[12]"}) > 80
+          for: 15m
+          labels:
+            severity: REPLACE_WITH_CP_SEVERITY
+          annotations:
+            summary: "Warning: Redis {{ $labels.cache_cluster_id }} engine CPU is {{ $value }}%"
+            description: Redis is slow, so every Frontend request is slow. Check Frontend traffic for a spike and for expensive or high-volume Redis commands.
