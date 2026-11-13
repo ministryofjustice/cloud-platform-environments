@@ -102,7 +102,7 @@ module "pf_queue_for_domain_events_dead_letter_queue_holds_api" {
 
 resource "kubernetes_secret" "pf_queue_for_domain_events_holds_api" {
   metadata {
-    name      = "domain-events-prisoner-finance-queue-pf-api"
+    name      = "domain-events-prisoner-finance-queue-holds-api"
     namespace = var.namespace
   }
 
@@ -115,7 +115,7 @@ resource "kubernetes_secret" "pf_queue_for_domain_events_holds_api" {
 
 resource "kubernetes_secret" "pf_queue_for_domain_events_dead_letter_queue_holds_api" {
   metadata {
-    name      = "domain-events-prisoner-finance-dlq-pf-api"
+    name      = "domain-events-prisoner-finance-dlq-holds-api"
     namespace = var.namespace
   }
 
