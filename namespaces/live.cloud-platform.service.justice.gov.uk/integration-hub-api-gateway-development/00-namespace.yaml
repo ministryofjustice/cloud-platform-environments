@@ -7,10 +7,10 @@ metadata:
     cloud-platform.justice.gov.uk/environment-name: "development"
     pod-security.kubernetes.io/enforce: restricted
   annotations:
-    cloud-platform.justice.gov.uk/business-unit: "Central Digital"
+    cloud-platform.justice.gov.uk/business-unit: "OCTO"
     cloud-platform.justice.gov.uk/slack-channel: "ask-integration-hub"
     cloud-platform.justice.gov.uk/application: "api-gateway"
     cloud-platform.justice.gov.uk/owner: "Integration Hub: integration-hub@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/integration-hub-api-platform"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/integration-hub-api-gateway"
     cloud-platform.justice.gov.uk/team-name: "integration-hub"
     cloud-platform.justice.gov.uk/review-after: "2027-02-12"
