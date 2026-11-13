@@ -91,3 +91,176 @@ rules:
 - apiGroups: ["crd.projectcalico.org"]
   resources: ["networkpolicies"]
   verbs: ["get", "list", "describe", "create", "delete", "watch", "update"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: developer-superuser
+rules:
+- apiGroups: ["*"]
+  resources:
+  - bindings
+  - configmaps
+  - controllerrevisions
+  - cronjobs
+  - csidrivers
+  - csinodes
+  - csistoragecapacities
+  - customresourcedefinitions
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - deployments/status
+  - endpoints
+  - endpointslices
+  - events
+  - horizontalpodautoscalers
+  - ingresses
+  - ingressclasses
+  - jobs
+  - leases
+  - limitranges
+  - namespaces
+  - namespaces/finalize
+  - namespaces/status
+  - networkpolicies
+  - nodes
+  - nodes/proxy
+  - nodes/status
+  - persistentvolumeclaims
+  - persistentvolumeclaims/status
+  - persistentvolumes
+  - persistentvolumes/status
+  - pods
+  - pods/attach
+  - pods/ephemeralcontainers
+  - pods/exec
+  - pods/log
+  - pods/portforward
+  - pods/proxy
+  - pods/status
+  - poddisruptionbudgets
+  - priorityclasses
+  - prometheus
+  - prometheuses
+  - alertmanager
+  - alertmanagers
+  - prometheusrules
+  - resourcequotas
+  - resourcequotas/status
+  - replicasets
+  - replicasets/scale
+  - replicasets/status
+  - replicationcontrollers
+  - replicationcontrollers/scale
+  - replicationcontrollers/status
+  - runtimeclasses
+  - services
+  - services/proxy
+  - services/status
+  - servicemonitors
+  - statefulsets
+  - statefulsets/scale
+  - statefulsets/status
+  - storageclasses
+  - tzcronjobs
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  - volumeattachments
+  - apiservices
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs: ["*"]
+- apiGroups: [""]
+  resources: ["serviceaccounts"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: developer-read-only
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["get", "list", "watch"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: developer-read-only-no-secrets
+rules:
+- apiGroups: ["*"]
+  resources:
+  - bindings
+  - configmaps
+  - controllerrevisions
+  - cronjobs
+  - csidrivers
+  - csinodes
+  - csistoragecapacities
+  - customresourcedefinitions
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - deployments/status
+  - endpoints
+  - endpointslices
+  - events
+  - horizontalpodautoscalers
+  - ingresses
+  - ingressclasses
+  - jobs
+  - leases
+  - limitranges
+  - namespaces
+  - namespaces/finalize
+  - namespaces/status
+  - networkpolicies
+  - nodes
+  - nodes/status
+  - persistentvolumeclaims
+  - persistentvolumeclaims/status
+  - persistentvolumes
+  - persistentvolumes/status
+  - pods
+  - pods/attach
+  - pods/ephemeralcontainers
+  - pods/exec
+  - pods/log
+  - pods/portforward
+  - pods/proxy
+  - pods/status
+  - poddisruptionbudgets
+  - priorityclasses
+  - prometheus
+  - prometheuses
+  - alertmanager
+  - alertmanagers
+  - prometheusrules
+  - resourcequotas
+  - resourcequotas/status
+  - replicasets
+  - replicasets/scale
+  - replicasets/status
+  - replicationcontrollers
+  - replicationcontrollers/scale
+  - replicationcontrollers/status
+  - runtimeclasses
+  - serviceaccounts
+  - services
+  - services/proxy
+  - services/status
+  - servicemonitors
+  - statefulsets
+  - statefulsets/scale
+  - statefulsets/status
+  - storageclasses
+  - tzcronjobs
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  - volumeattachments
+  - apiservices
+  - certificatesigningrequests
+  - flowschemas
+  - prioritylevelconfigurations
+  verbs: ["get", "list", "watch"]
