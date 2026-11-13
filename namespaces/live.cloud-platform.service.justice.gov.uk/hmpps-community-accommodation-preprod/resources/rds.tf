@@ -13,10 +13,6 @@ module "rds" {
   performance_insights_enabled = true
   db_instance_class            = "db.t3.xlarge"
   enable_irsa                  = true
-
-  allow_major_version_upgrade  = "true"
-  allow_minor_version_upgrade  = "true"
-  prepare_for_major_upgrade    = "true"
   db_engine                    = "postgres"
   db_engine_version            = "18.6"
   rds_family                   = "postgres18"
@@ -46,9 +42,6 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  allow_major_version_upgrade  = "true"
-  allow_minor_version_upgrade  = "true"
-  prepare_for_major_upgrade    = "true"
   db_engine_version            = "18.6"
   rds_family                   = "postgres18"
 
