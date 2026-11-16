@@ -21,9 +21,6 @@ module "irsa" {
   role_policy_arns       = merge(
     local.sns_policies,
     local.sqs_policies,
-    {
-      rds_policy = module.calculate_release_dates_api_rds.irsa_policy_arn,
-    }
   )
   business_unit          = var.business_unit
   application            = var.application
