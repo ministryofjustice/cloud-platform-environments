@@ -7,7 +7,6 @@ module "cap_dynamodb" {
   is_production          = var.is_production
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  aws_region             = "eu-west-2"
   namespace              = var.namespace
 
   hash_key       = "userId"
