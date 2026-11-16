@@ -39,7 +39,7 @@ module "activities_rds" {
     },
     {
       name         = "max_wal_size"
-      value        = "1024"
+      value        = "2048"
       apply_method = "immediate"
     },
     {
