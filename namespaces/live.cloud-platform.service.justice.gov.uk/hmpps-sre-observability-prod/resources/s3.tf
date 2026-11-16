@@ -1,4 +1,4 @@
-module "s3_bucket" {
+module "dependencytrack_backup_s3_bucket" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.1"
 
   providers = {
@@ -24,16 +24,16 @@ module "s3_bucket" {
 
 }
 
-resource "kubernetes_secret" "s3_bucket" {
+resource "kubernetes_secret" "dependencytrack_backup_s3_bucket" {
   metadata {
     name      = "s3-bucket-output"
     namespace = var.namespace
   }
 
   data = {
-    bucket_arn           = module.s3_bucket.bucket_arn
-    bucket_name          = module.s3_bucket.bucket_name
-    role_arn             = aws_iam_role.s3_role.arn
-    service_account_name = kubernetes_service_account.s3_sa.metadata[0].name
+    bucket_arn           = module.dependencytrack_backup_s3_bucket.bucket_arn
+    bucket_name          = module.dependencytrack_backup_s3_bucket.bucket_name
+    role_arn             = module.irsa.role_arn
+    service_account_name = module.irsa.service_account_name
   }
 }
