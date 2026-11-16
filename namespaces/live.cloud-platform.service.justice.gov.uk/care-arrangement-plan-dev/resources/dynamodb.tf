@@ -25,7 +25,5 @@ resource "kubernetes_secret" "cap_dynamodb" {
   data = {
     table_name       = module.cap_dynamodb.table_name
     table_arn        = module.cap_dynamodb.table_arn
-    access_key_id    = module.cap_dynamodb.access_key_id
-    secret_access_key = module.cap_dynamodb.secret_access_key
   }
 }
