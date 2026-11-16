@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: jaiu-ppud-prod-admin
-  namespace: jaiu-ppud-prod
+  name: jaiu-ppx-prod-admin
+  namespace: jaiu-ppx-prod
 subjects:
   - kind: Group
     name: "github:justice-ai-unit"

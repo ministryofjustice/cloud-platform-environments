@@ -17,7 +17,7 @@ variable "kubernetes_cluster" {
 variable "namespace" {
   description = "Namespace managed by this Terraform root"
   type        = string
-  default     = "jaiu-ppud-prod"
+  default     = "jaiu-ppx-prod"
 }
 
 variable "application" {
