@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mcc-production-cert
+  namespace: laa-manage-your-civil-cases-production
+spec:
+  secretName: mcc-tls-certificate
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - manage-your-civil-legal-advice-cases.service.justice.gov.uk
