@@ -28,18 +28,6 @@ module "secrets_manager" {
       k8s_secret_name         = "auth-directory-url-production"
     },
 
-    "base_url_map" = {
-      description             = "API Base URL Map for Prod",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "base-url-map-production"
-    },
-
-    "data_store_auth_scope" = {
-      description             = "Auth scope for integration with Data Store for Prod",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "data-store-auth-scope-production"
-    },
-
     "decide_api_base_url" = {
       description             = "Civil Decide API base URL for Prod",
       recovery_window_in_days = 7,
