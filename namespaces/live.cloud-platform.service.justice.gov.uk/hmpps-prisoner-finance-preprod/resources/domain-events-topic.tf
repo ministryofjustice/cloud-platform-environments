@@ -1,3 +1,11 @@
+
+locals {
+  sns_topics = {
+    "cloud-platform-Digital-Prison-Services-15b2b4a6af7714848baeaf5f41c85fcd" = "hmpps-domain-events-preprod"
+  }
+  sns_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_sns : item.name => item.value }
+}
+
 resource "kubernetes_secret" "hmpps_domain_events_topic" {
   metadata {
     name      = "hmpps-domain-events-topic"
@@ -5,10 +13,15 @@ resource "kubernetes_secret" "hmpps_domain_events_topic" {
   }
 
   data = {
-    topic_arn  = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
+    topic_arn = data.aws_ssm_parameter.hmpps-domain-events-topic-arn.value
   }
 }
 
 data "aws_ssm_parameter" "hmpps-domain-events-topic-arn" {
   name = "/hmpps-domain-events-${var.environment}/topic-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_sns" {
+  for_each = local.sns_topics
+  name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
