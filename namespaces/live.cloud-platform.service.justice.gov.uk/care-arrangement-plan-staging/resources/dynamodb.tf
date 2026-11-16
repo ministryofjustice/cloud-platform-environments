@@ -1,5 +1,5 @@
 module "cap_dynamodb" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=3.3.1"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.1.0"
 
   team_name              = var.team_name
   business_unit          = var.business_unit
