@@ -24,6 +24,8 @@ module "rds" {
     }
   ]
 
+  db_name                = "ppx"
+
   application            = var.application
   business_unit          = var.business_unit
   environment_name       = var.environment
@@ -33,14 +35,14 @@ module "rds" {
   team_name              = var.team_name
 }
 
-resource "random_password" "ppud_app" {
+resource "random_password" "ppx_app" {
   length  = 32
   special = false
 }
 
 resource "kubernetes_secret" "database_admin" {
   metadata {
-    name      = "ppud-database-admin"
+    name      = "ppx-database-admin"
     namespace = var.namespace
   }
 
@@ -57,14 +59,14 @@ resource "kubernetes_secret" "database_admin" {
 
 resource "kubernetes_secret" "database_runtime" {
   metadata {
-    name      = "ppud-database-runtime"
+    name      = "ppx-database-runtime"
     namespace = var.namespace
   }
 
   data = {
-    username          = "ppud_app"
-    password          = random_password.ppud_app.result
-    connection_string = "postgresql://${urlencode("ppud_app")}:${urlencode(random_password.ppud_app.result)}@${module.rds.rds_instance_address}:5432/${urlencode(module.rds.database_name)}?sslmode=verify-full&sslrootcert=/etc/ssl/certs/rds-ca-bundle.pem"
+    username          = "ppx_app"
+    password          = random_password.ppx_app.result
+    connection_string = "postgresql://${urlencode("ppx_app")}:${urlencode(random_password.ppx_app.result)}@${module.rds.rds_instance_address}:5432/${urlencode(module.rds.database_name)}?sslmode=verify-full&sslrootcert=/etc/ssl/certs/rds-ca-bundle.pem"
   }
 
   type = "Opaque"

@@ -23,7 +23,7 @@ variable "namespace" {
 variable "application" {
   description = "Application name"
   type        = string
-  default     = "PPUD Replacement"
+  default     = "PPX"
 }
 
 variable "business_unit" {

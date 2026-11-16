@@ -16,7 +16,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: ppud
+      app.kubernetes.io/name: ppx
     matchExpressions:
       - key: app.kubernetes.io/component
         operator: In
@@ -44,7 +44,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: ppud
+      app.kubernetes.io/name: ppx
       app.kubernetes.io/component: backend
   policyTypes:
     - Ingress
@@ -52,7 +52,7 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/name: ppud
+              app.kubernetes.io/name: ppx
               app.kubernetes.io/component: frontend
       ports:
         - protocol: TCP

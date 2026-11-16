@@ -51,7 +51,7 @@ module "legacy_exports_bucket" {
 
 resource "kubernetes_secret" "object_storage" {
   metadata {
-    name      = "ppud-object-storage"
+    name      = "ppx-object-storage"
     namespace = var.namespace
   }
 
@@ -67,7 +67,7 @@ resource "kubernetes_secret" "object_storage" {
 # No production workload or loader role is granted access to this bucket.
 resource "kubernetes_secret" "legacy_exports" {
   metadata {
-    name      = "ppud-legacy-export-operations"
+    name      = "ppx-legacy-export-operations"
     namespace = var.namespace
   }
 

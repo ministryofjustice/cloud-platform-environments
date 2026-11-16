@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "ppud_document_storage" {
+data "aws_iam_policy_document" "ppx_document_storage" {
   statement {
     sid    = "DocumentBucketMetadata"
     effect = "Allow"
@@ -22,10 +22,10 @@ data "aws_iam_policy_document" "ppud_document_storage" {
   }
 }
 
-resource "aws_iam_policy" "ppud_document_storage" {
+resource "aws_iam_policy" "ppx_document_storage" {
   name   = "${var.namespace}-document-storage"
-  path   = "/cloud-platform/ppud/"
-  policy = data.aws_iam_policy_document.ppud_document_storage.json
+  path   = "/cloud-platform/ppx/"
+  policy = data.aws_iam_policy_document.ppx_document_storage.json
 
   tags = {
     business-unit = var.business_unit
@@ -36,14 +36,14 @@ resource "aws_iam_policy" "ppud_document_storage" {
   }
 }
 
-module "ppud_backend_irsa" {
+module "ppx_backend_irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
 
   eks_cluster_name     = var.eks_cluster_name
-  service_account_name = "ppud-backend"
+  service_account_name = "ppx-backend"
   namespace            = var.namespace
   role_policy_arns = {
-    document_storage = aws_iam_policy.ppud_document_storage.arn
+    document_storage = aws_iam_policy.ppx_document_storage.arn
   }
 
   business_unit          = var.business_unit
