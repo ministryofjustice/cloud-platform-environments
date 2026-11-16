@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitrange
+  namespace: hmpps-probation-demo-ui-dev
+spec:
+  limits:
+  - default:
+      cpu: 200m
+      memory: 256Mi
+    defaultRequest:
+      cpu: 10m
+      memory: 128Mi
+    type: Container

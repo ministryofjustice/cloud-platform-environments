@@ -23,13 +23,13 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "API gateway"
+  default     = "Integration Hub"
 }
 
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
-  default     = "Central Digital"
+  default     = "OCTO"
 }
 
 variable "team_name" {
