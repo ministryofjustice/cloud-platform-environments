@@ -97,84 +97,101 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: developer-superuser
 rules:
-- apiGroups: ["*"]
-  resources:
-  - bindings
-  - configmaps
-  - controllerrevisions
-  - cronjobs
-  - csidrivers
-  - csinodes
-  - csistoragecapacities
-  - customresourcedefinitions
-  - daemonsets
-  - deployments
-  - deployments/scale
-  - deployments/status
-  - endpoints
-  - endpointslices
-  - events
-  - horizontalpodautoscalers
-  - ingresses
-  - ingressclasses
-  - jobs
-  - leases
-  - limitranges
-  - namespaces
-  - namespaces/finalize
-  - namespaces/status
-  - networkpolicies
-  - nodes
-  - nodes/proxy
-  - nodes/status
-  - persistentvolumeclaims
-  - persistentvolumeclaims/status
-  - persistentvolumes
-  - persistentvolumes/status
-  - pods
-  - pods/attach
-  - pods/ephemeralcontainers
-  - pods/exec
-  - pods/log
-  - pods/portforward
-  - pods/proxy
-  - pods/status
-  - poddisruptionbudgets
-  - priorityclasses
-  - prometheus
-  - prometheuses
-  - alertmanager
-  - alertmanagers
-  - prometheusrules
-  - resourcequotas
-  - resourcequotas/status
-  - replicasets
-  - replicasets/scale
-  - replicasets/status
-  - replicationcontrollers
-  - replicationcontrollers/scale
-  - replicationcontrollers/status
-  - runtimeclasses
-  - services
-  - services/proxy
-  - services/status
-  - servicemonitors
-  - statefulsets
-  - statefulsets/scale
-  - statefulsets/status
-  - storageclasses
-  - tzcronjobs
-  - validatingwebhookconfigurations
-  - mutatingwebhookconfigurations
-  - volumeattachments
-  - apiservices
-  - flowschemas
-  - prioritylevelconfigurations
-  verbs: ["*"]
 - apiGroups: [""]
-  resources: ["serviceaccounts"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - configmaps
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups: [""]
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - pods/log
+  verbs:
+  - get
+- apiGroups: [""]
+  resources:
+  - pods/exec
+  - pods/portforward
+  verbs:
+  - create
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - apps
+  resources:
+  - deployments/scale
+  - replicasets/scale
+  - statefulsets/scale
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
 ---
+
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -184,6 +201,7 @@ rules:
   resources: ["*"]
   verbs: ["get", "list", "watch"]
 ---
+# This role is also intended for namespace-scoped RoleBindings.
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -195,10 +213,7 @@ rules:
   - configmaps
   - controllerrevisions
   - cronjobs
-  - csidrivers
-  - csinodes
   - csistoragecapacities
-  - customresourcedefinitions
   - daemonsets
   - deployments
   - deployments/scale
@@ -208,30 +223,17 @@ rules:
   - events
   - horizontalpodautoscalers
   - ingresses
-  - ingressclasses
   - jobs
   - leases
   - limitranges
-  - namespaces
-  - namespaces/finalize
-  - namespaces/status
   - networkpolicies
-  - nodes
-  - nodes/status
   - persistentvolumeclaims
   - persistentvolumeclaims/status
-  - persistentvolumes
-  - persistentvolumes/status
+  - podtemplates
   - pods
-  - pods/attach
-  - pods/ephemeralcontainers
-  - pods/exec
   - pods/log
-  - pods/portforward
-  - pods/proxy
   - pods/status
   - poddisruptionbudgets
-  - priorityclasses
   - prometheus
   - prometheuses
   - alertmanager
@@ -245,22 +247,14 @@ rules:
   - replicationcontrollers
   - replicationcontrollers/scale
   - replicationcontrollers/status
-  - runtimeclasses
+  - roles
+  - rolebindings
   - serviceaccounts
   - services
-  - services/proxy
   - services/status
   - servicemonitors
   - statefulsets
   - statefulsets/scale
   - statefulsets/status
-  - storageclasses
   - tzcronjobs
-  - validatingwebhookconfigurations
-  - mutatingwebhookconfigurations
-  - volumeattachments
-  - apiservices
-  - certificatesigningrequests
-  - flowschemas
-  - prioritylevelconfigurations
   verbs: ["get", "list", "watch"]
