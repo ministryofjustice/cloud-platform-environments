@@ -35,3 +35,4 @@ module "irsa" {
   team_name              = var.team_name
   environment_name       = var.environment-name
   infrastructure_support = var.infrastructure_support
+}
