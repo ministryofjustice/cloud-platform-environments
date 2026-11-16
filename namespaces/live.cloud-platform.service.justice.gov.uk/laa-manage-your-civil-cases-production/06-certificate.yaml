@@ -4,7 +4,7 @@ metadata:
   name: mcc-production-cert
   namespace: laa-manage-your-civil-cases-production
 spec:
-  secretName: mcc-tls-certificate
+  secretName: tls-certificate
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
