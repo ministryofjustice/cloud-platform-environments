@@ -28,12 +28,6 @@ module "secrets_manager" {
       k8s_secret_name         = "auth-directory-url-uat"
     },
 
-    "data_store_auth_scope" = {
-      description             = "Auth scope for integration with Data Store for UAT",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "data-store-auth-scope-uat"
-    },
-
     "decide_api_base_url" = {
       description             = "Civil Decide API base URL for UAT",
       recovery_window_in_days = 7,
