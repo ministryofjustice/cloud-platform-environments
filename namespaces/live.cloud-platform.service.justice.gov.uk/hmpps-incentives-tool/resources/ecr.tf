@@ -7,7 +7,7 @@ module "ecr-repo" {
   github_repositories = [var.namespace]
 
   # In preparation for deleting this namespace
-  delete_protection = false
+  deletion_protection = false
 
   # Tags
   business_unit          = var.business_unit
