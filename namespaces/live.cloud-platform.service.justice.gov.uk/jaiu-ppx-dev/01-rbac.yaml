@@ -1,14 +1,11 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: laa-civil-case-api-dev-admin
-  namespace: laa-civil-case-api-dev
+  name: jaiu-ppx-dev-admin
+  namespace: jaiu-ppx-dev
 subjects:
   - kind: Group
-    name: "github:laa-get-access"
-    apiGroup: rbac.authorization.k8s.io
-  - kind: Group
-    name: "github:laa-sre-admins"
+    name: "github:justice-ai-unit"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
