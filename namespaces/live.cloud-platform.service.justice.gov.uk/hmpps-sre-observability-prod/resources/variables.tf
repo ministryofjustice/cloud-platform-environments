@@ -75,3 +75,14 @@ variable "rds_maintenance_window" {
   description = "When to schedule maintenance for RDS DBs (e.g. minor version upgrades)"
   default     = "Tue:02:20-Tue:03:30"
 }
+
+variable "cluster_oidc_issuer_url" {
+  type        = string
+  description = "The URL on the EKS cluster OIDC identity provider"
+}
+
+variable "service_account_name" {
+  type        = string
+  description = "The name of the Kubernetes service account for S3 access"
+  default     = "s3-bucket-access"
+}

@@ -13,27 +13,12 @@ module "s3_bucket" {
   infrastructure_support        = var.infrastructure_support
   namespace                     = var.namespace
   versioning                    = true
-  enable_allow_block_pub_access = false
+  enable_allow_block_pub_access = true
 
   bucket_policy = <<EOF
   {
     "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "AllowBucketAccess",
-        "Effect": "Allow",
-        "Principal": {
-          "AWS": "${aws_iam_user.s3_user.arn}"
-        },
-        "Action": [
-          "s3:*"
-        ],
-        "Resource": [
-          "$${bucket_arn}",
-          "$${bucket_arn}/*"
-        ]
-      }
-    ]
+    "Statement": []
   }
   EOF
 
@@ -48,22 +33,7 @@ resource "kubernetes_secret" "s3_bucket" {
   data = {
     bucket_arn           = module.s3_bucket.bucket_arn
     bucket_name          = module.s3_bucket.bucket_name
-    s3_access_user_arn   = aws_iam_user.s3_user.arn
-    s3_access_key_id     = aws_iam_access_key.s3_user.id
-    s3_secret_access_key = aws_iam_access_key.s3_user.secret
-  }
-}
-
-resource "kubernetes_secret" "s3_bucket_user" {
-  metadata {
-    name      = "s3-bucket-user-output"
-    namespace = var.namespace
-  }
-
-  data = {
-    aws_region            = data.aws_region.current.name
-    account_id            = data.aws_caller_identity.current.account_id
-    aws_access_key_id     = aws_iam_access_key.s3_user.id
-    aws_secret_access_key = aws_iam_access_key.s3_user.secret
+    role_arn             = aws_iam_role.s3_role.arn
+    service_account_name = kubernetes_service_account.s3_sa.metadata[0].name
   }
 }
