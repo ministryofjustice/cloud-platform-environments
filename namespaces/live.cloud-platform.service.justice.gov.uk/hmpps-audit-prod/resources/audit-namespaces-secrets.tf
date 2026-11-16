@@ -8,6 +8,7 @@ locals {
     "hmpps-assess-risks-and-needs-prod",
     "hmpps-assessments-prod",
     "hmpps-book-a-video-link-prod",
+    "hmpps-book-secure-move-frontend-production",
     "hmpps-community-accommodation-prod",
     "hmpps-community-payback-prod",
     "hmpps-contacts-prod",
