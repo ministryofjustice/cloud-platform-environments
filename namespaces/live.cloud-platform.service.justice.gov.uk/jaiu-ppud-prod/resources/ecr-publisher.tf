@@ -55,8 +55,8 @@ data "aws_iam_policy_document" "ppud_image_publisher_trust" {
       test     = "ForAnyValue:StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:JusticeAIUnit/ppudreplacement:environment:cloud-platform-prod",
-        "repo:JusticeAIUnit@215010991/ppudreplacement@1321823112:environment:cloud-platform-prod",
+        "repo:JusticeAIUnit/ppx:environment:cloud-platform-prod",
+        "repo:JusticeAIUnit@215010991/ppx@1321823112:environment:cloud-platform-prod",
       ]
     }
   }
