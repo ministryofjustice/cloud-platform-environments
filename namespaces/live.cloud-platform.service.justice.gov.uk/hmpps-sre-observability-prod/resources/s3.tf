@@ -34,6 +34,6 @@ resource "kubernetes_secret" "dependencytrack_backup_s3_bucket" {
     bucket_arn           = module.dependencytrack_backup_s3_bucket.bucket_arn
     bucket_name          = module.dependencytrack_backup_s3_bucket.bucket_name
     role_arn             = module.irsa.role_arn
-    service_account_name = module.irsa.service_account_name
+    service_account_name = module.irsa.service_account.name
   }
 }
