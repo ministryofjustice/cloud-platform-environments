@@ -24,27 +24,8 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     redis = module.redis-elasticache.irsa_policy_arn
-  }
-
-  # Tags
-  business_unit          = var.business_unit
-  application            = var.application
-  is_production          = var.is_production
-  team_name              = var.team_name
-  environment_name       = var.environment-name
-  infrastructure_support = var.infrastructure_support
-}
-
-# Service account for the book a secure move front end, so it can send page-view
-# events to the HMPPS Audit queue
-module "hmpps-book-secure-move-frontend-service-account-audit" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
-
-  eks_cluster_name     = var.eks_cluster_name
-  namespace            = var.namespace
-  service_account_name = "hmpps-book-secure-move-frontend-audit"
-  role_policy_arns = {
     audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-preprod-hmpps_audit_queue"].value
+
   }
 
   # Tags
