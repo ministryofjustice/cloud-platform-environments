@@ -17,7 +17,7 @@ module "rds" {
   rds_family        = "postgres16"
   db_instance_class = "db.t4g.small"
   storage_type      = "gp3"
-  db_name           = "ppud"
+  db_name           = "ppx"
   db_parameter = [
     {
       name         = "rds.force_ssl"
@@ -35,14 +35,14 @@ module "rds" {
   team_name              = var.team_name
 }
 
-resource "random_password" "ppud_app" {
+resource "random_password" "ppx_app" {
   length  = 32
   special = false
 }
 
 resource "kubernetes_secret" "database_administrator" {
   metadata {
-    name      = "ppud-database-administrator"
+    name      = "ppx-database-administrator"
     namespace = var.namespace
   }
 
@@ -57,13 +57,13 @@ resource "kubernetes_secret" "database_administrator" {
 
 resource "kubernetes_secret" "database_runtime" {
   metadata {
-    name      = "ppud-database-runtime"
+    name      = "ppx-database-runtime"
     namespace = var.namespace
   }
 
   data = {
-    username          = "ppud_app"
-    password          = random_password.ppud_app.result
-    connection_string = "postgresql://${urlencode("ppud_app")}:${urlencode(random_password.ppud_app.result)}@${module.rds.rds_instance_address}:${module.rds.rds_instance_port}/${urlencode(module.rds.database_name)}"
+    username          = "ppx_app"
+    password          = random_password.ppx_app.result
+    connection_string = "postgresql://${urlencode("ppx_app")}:${urlencode(random_password.ppx_app.result)}@${module.rds.rds_instance_address}:${module.rds.rds_instance_port}/${urlencode(module.rds.database_name)}"
   }
 }

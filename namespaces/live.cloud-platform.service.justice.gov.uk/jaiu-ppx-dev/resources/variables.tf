@@ -16,7 +16,7 @@ variable "eks_cluster_name" {
 variable "application" {
   description = "Name of the application deployed in this namespace"
   type        = string
-  default     = "PPUD Replacement"
+  default     = "PPX"
 }
 
 variable "namespace" {
