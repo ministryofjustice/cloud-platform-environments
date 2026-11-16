@@ -4,9 +4,9 @@ module "cap_dynamodb" {
   team_name              = var.team_name
   business_unit          = var.business_unit
   application            = var.application
-  is-production          = var.is_production
-  environment-name       = var.environment
-  infrastructure-support = var.infrastructure_support
+  is_production          = var.is_production
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
   aws_region             = "eu-west-2"
   namespace              = var.namespace
 
