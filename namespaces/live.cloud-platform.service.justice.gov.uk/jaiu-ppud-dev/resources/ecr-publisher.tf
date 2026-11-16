@@ -23,8 +23,8 @@ data "aws_iam_policy_document" "ppud_ecr_publisher_assume_role" {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:JusticeAIUnit/ppudreplacement:environment:cloud-platform-dev",
-        "repo:JusticeAIUnit@215010991/ppudreplacement@1321823112:environment:cloud-platform-dev",
+        "repo:JusticeAIUnit/ppx:environment:cloud-platform-dev",
+        "repo:JusticeAIUnit@215010991/ppx@1321823112:environment:cloud-platform-dev",
       ]
     }
   }
