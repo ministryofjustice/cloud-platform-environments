@@ -28,12 +28,6 @@ module "secrets_manager" {
       k8s_secret_name         = "auth-directory-url-staging"
     },
 
-    "base_url_map" = {
-      description             = "API Base URL Map for Staging",
-      recovery_window_in_days = 7,
-      k8s_secret_name         = "base-url-map-staging"
-    },
-
     "data_store_auth_scope" = {
       description             = "Auth scope for integration with Data Store for Staging",
       recovery_window_in_days = 7,
