@@ -72,3 +72,22 @@ module "hmpps-prisoner-property-ui-service-account" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+# Service account for the non-residential locations front end, so it can send page-view events to the HMPPS Audit queue
+module "hmpps-non-residential-locations-ui-service-account" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-non-residential-locations-ui"
+  role_policy_arns = {
+    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-prod-hmpps_audit_queue"].value
+  }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}
