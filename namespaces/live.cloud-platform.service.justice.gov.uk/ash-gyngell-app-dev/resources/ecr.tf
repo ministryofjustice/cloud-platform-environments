@@ -5,6 +5,8 @@ module "ecr_credentials" {
 
   github_repositories = [var.namespace]
 
+  deletion_protection = false
+
   # Tags
   business_unit          = var.business_unit
   application            = var.application

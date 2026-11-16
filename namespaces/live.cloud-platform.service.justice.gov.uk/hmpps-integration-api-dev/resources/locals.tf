@@ -50,6 +50,7 @@ locals {
     "phonehub",
     "pentestnorestrictions",
     "pentestwithrestrictions",
+    "justiceid-jpp"
   ]
 
   client_queues = {

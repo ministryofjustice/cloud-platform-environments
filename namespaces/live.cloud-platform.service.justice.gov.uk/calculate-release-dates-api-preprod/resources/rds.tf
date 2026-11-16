@@ -16,16 +16,17 @@ module "calculate_release_dates_api_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  db_max_allocated_storage     = "250"
-  db_allocated_storage         = "250" # required based on snapshot size even though a lot should be unused
-  db_engine              = "postgres"
-  db_engine_version      = "16.15" # may not be actual version due to auto patch
-  rds_family             = "postgres16"
-  prepare_for_major_upgrade = false
+  db_allocated_storage       = 20
+  db_max_allocated_storage   = "500"
+  db_engine                  = "postgres"
+  db_engine_version          = "16.15"
+  rds_family                 = "postgres16"
+  prepare_for_major_upgrade  = false
   allow_minor_version_upgrade = true
-  deletion_protection = true
+  deletion_protection        = true
+  skip_final_snapshot        = true
 
-  db_password_rotated_date = "14-02-2023"
+  db_password_rotated_date = "16-11-2026"
 
   providers = {
     aws = aws.london

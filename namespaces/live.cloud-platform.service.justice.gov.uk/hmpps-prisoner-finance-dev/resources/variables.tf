@@ -93,20 +93,20 @@ variable "service_account_name_subscriptions" {
 
 variable "holds_application_name" {
   description = "The name of the holds application"
-  default = "hmpps-prisoner-finance-holds-api"
+  default     = "hmpps-prisoner-finance-holds-api"
 }
 
 variable "advances_application_name" {
   description = "The name of the advances application"
-  default = "hmpps-prisoner-finance-advances-api"
+  default     = "hmpps-prisoner-finance-advances-api"
 }
 
 variable "subscriptions_application_name" {
   description = "The name of the subscriptions application"
-  default = "hmpps-prisoner-finance-subscriptions-api"
+  default     = "hmpps-prisoner-finance-subscriptions-api"
 }
 
 variable "prisoner_finance_application_name" {
   description = "The name of the Prisoner Finance API application"
-  default = "hmpps-prisoner-finance-api"
+  default     = "hmpps-prisoner-finance-api"
 }
