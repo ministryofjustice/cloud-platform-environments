@@ -7,7 +7,8 @@ provider "aws" {
   region = "eu-west-2"
 
   default_tags {
-    tags = {
+    tags = 
+      GithubTeam    = "integration-hub"
       business-unit = var.business_unit
       application   = var.application
       is-production = var.is_production
@@ -26,6 +27,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      GithubTeam    = "integration-hub"
       business-unit = var.business_unit
       application   = var.application
       is-production = var.is_production
@@ -44,6 +46,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      GithubTeam    = "integration-hub"
       business-unit = var.business_unit
       application   = var.application
       is-production = var.is_production
