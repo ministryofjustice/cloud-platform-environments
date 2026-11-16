@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "laa_inquests_route53_zone" {
+resource "aws_route53_zone" "laa_inquests_internal_route53_zone" {
   name = var.domain
 
   tags = {
@@ -13,14 +13,14 @@ resource "aws_route53_zone" "laa_inquests_route53_zone" {
   }
 }
 
-resource "kubernetes_secret" "laa_inquests_route53_zone_sec" {
+resource "kubernetes_secret" "laa_inquests_internal_route53_zone_sec" {
   metadata {
-    name      = "laa-inquests-route53-zone-output"
+    name      = "laa-inquests-internal-route53-zone-output"
     namespace = var.namespace
   }
 
   data = {
-    zone_id = aws_route53_zone.laa_inquests_route53_zone.zone_id
-    nameservers = join("\n", aws_route53_zone.laa_inquests_route53_zone.name_servers)
+    zone_id = aws_route53_zone.laa_inquests_internal_route53_zone.zone_id
+    nameservers = join("\n", aws_route53_zone.laa_inquests_internal_route53_zone.name_servers)
   }
 }
