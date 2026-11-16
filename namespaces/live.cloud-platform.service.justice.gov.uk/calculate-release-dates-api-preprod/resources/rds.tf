@@ -23,7 +23,7 @@ module "calculate_release_dates_api_rds" {
   rds_family             = "postgres16"
   prepare_for_major_upgrade = false
   allow_minor_version_upgrade = true
-  deletion_protection = true
+  deletion_protection = false
 
   db_password_rotated_date = "14-02-2023"
 
