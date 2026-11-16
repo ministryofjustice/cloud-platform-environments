@@ -22,7 +22,7 @@ variable "application" {
 variable "namespace" {
   description = "Namespace these resources belong to"
   type        = string
-  default     = "jaiu-ppud-dev"
+  default     = "jaiu-ppx-dev"
 }
 
 variable "service_area" {
