@@ -1,12 +1,12 @@
 module "hmpps-pfs-web-analytics" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   github_repo                   = "hmpps-pfs-web-analytics"
   application                   = "hmpps-pfs-web-analytics"
   github_team                   = var.team_name
-  environment                   = var.environment-name
+  environment                   = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main", "**"]
-  application_insights_instance = var.environment-name
+  application_insights_instance = var.environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace
