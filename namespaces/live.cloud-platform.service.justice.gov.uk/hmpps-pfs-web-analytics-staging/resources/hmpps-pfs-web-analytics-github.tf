@@ -6,7 +6,7 @@ module "hmpps-pfs-web-analytics" {
   environment                   = var.environment
   is_production                 = var.is_production
   selected_branch_patterns      = ["main", "**"]
-  application_insights_instance = var.environment
+  application_insights_instance = var.app_insights_environment
   source_template_repo          = "hmpps-template-kotlin"
   github_token                  = var.github_token
   namespace                     = var.namespace

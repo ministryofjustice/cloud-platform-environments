@@ -49,6 +49,12 @@ variable "environment" {
   default     = "staging"
 }
 
+variable "app_insights_environment" {
+  description = "Name of the environment type for this service"
+  type        = string
+  default     = "dev"
+}
+
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
