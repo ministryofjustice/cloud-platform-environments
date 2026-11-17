@@ -65,6 +65,7 @@ resource "kubernetes_role" "deploy" {
     verbs      = ["patch"]
     resource_names = [
       "transaction-uploader",
+      "parity-load-data",
     ]
   }
 
@@ -376,7 +377,7 @@ resource "kubernetes_role_binding" "emails" {
 }
 
 module "service-account-circleci" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -412,7 +413,7 @@ module "service-account-circleci" {
 }
 
 module "service-account-github-actions" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -428,6 +429,54 @@ module "service-account-github-actions" {
       api_groups = [""]
       resources  = ["configmaps"]
       verbs      = ["get"]
+    },
+  ]
+}
+# Service account for the app repos' "Deploy to parity" GitHub Actions job.
+# Cloud Platform writes its credentials into each repo's `parity` GitHub Environment
+# as KUBE_CERT, KUBE_TOKEN, KUBE_CLUSTER and KUBE_NAMESPACE.
+module "service-account-github-actions-deploy" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+
+  namespace          = var.namespace
+  kubernetes_cluster = var.kubernetes_cluster
+
+  serviceaccount_name = "github-actions-deploy"
+  role_name           = "github-actions-deploy"
+  rolebinding_name    = "github-actions-deploy"
+
+  serviceaccount_token_rotated_date = "28-09-2026"
+
+  github_repositories = [
+    "money-to-prisoners-api",
+    "money-to-prisoners-cashbook",
+    "money-to-prisoners-bank-admin",
+    "money-to-prisoners-noms-ops",
+    "money-to-prisoners-transaction-uploader",
+    "money-to-prisoners-send-money",
+    "money-to-prisoners-start-page",
+    "money-to-prisoners-emails",
+    "money-to-prisoners-api",
+  ]
+  github_environments = ["parity"]
+
+  serviceaccount_rules = [
+    {
+      # the module cannot limit a rule to named resources, so this covers every
+      # config map in the namespace; the same is true of the existing test account
+      api_groups = [""]
+      resources  = ["configmaps"]
+      verbs      = ["get", "patch"]
+    },
+    {
+      api_groups = ["apps"]
+      resources  = ["deployments"]
+      verbs      = ["get", "list", "watch", "patch"]
+    },
+    {
+      api_groups = ["batch"]
+      resources  = ["cronjobs"]
+      verbs      = ["get", "patch"]
     },
   ]
 }
@@ -488,14 +537,6 @@ resource "kubernetes_role_binding" "github-actions" {
     name      = "github-actions"
   }
 
-  subject {
-    kind      = "ServiceAccount"
-    namespace = "money-to-prisoners-parity"
-    name      = "github-actions"
-  }
-
-  # money-to-prisoners-deploy restarts the tools in every environment with the test
-  # namespace's account, as it does in prod
   subject {
     kind      = "ServiceAccount"
     namespace = "money-to-prisoners-test"
