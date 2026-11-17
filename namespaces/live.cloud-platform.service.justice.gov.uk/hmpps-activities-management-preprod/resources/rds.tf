@@ -130,7 +130,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_wal_size"
-      value        = "1024"
+      value        = "2048"
       apply_method = "immediate"
     },
     {
