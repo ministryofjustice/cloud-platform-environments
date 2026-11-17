@@ -21,7 +21,8 @@ resource "kubernetes_manifest" "github_app_secret" {
       "dataFrom" = [
         {
           "extract" = {
-            "key" = "github-sts/github-app"
+            "key"              = "github-sts/github-app"
+            "decodingStrategy" = "Base64"
           }
         }
       ]
