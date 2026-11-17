@@ -1,4 +1,4 @@
-resource "kubernetes_manifest" "github_app" {
+resource "kubernetes_manifest" "github_app_secret" {
   manifest = {
     "apiVersion" = "external-secrets.io/v1"
     "kind"       = "ExternalSecret"
