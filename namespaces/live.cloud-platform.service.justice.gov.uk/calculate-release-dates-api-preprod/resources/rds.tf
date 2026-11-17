@@ -16,7 +16,7 @@ module "calculate_release_dates_api_rds" {
   namespace              = var.namespace
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
-  db_allocated_storage       = 150
+  db_allocated_storage       = 80
   db_max_allocated_storage   = "500"
   db_engine                  = "postgres"
   db_engine_version          = "16.15"
