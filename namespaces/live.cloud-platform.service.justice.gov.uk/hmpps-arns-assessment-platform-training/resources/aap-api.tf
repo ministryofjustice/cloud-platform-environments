@@ -17,7 +17,7 @@ module "hmpps_arns_assessment_platform_api" {
 
 # Note, redis is used for the cache of hot assessments
 module "assessment-query-cache-elasticache-redis" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.2.0"
   vpc_name               = var.vpc_name
   team_name              = var.team_name
   business_unit          = var.business_unit

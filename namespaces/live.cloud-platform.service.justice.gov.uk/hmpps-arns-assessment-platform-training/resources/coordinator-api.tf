@@ -81,7 +81,7 @@ resource "kubernetes_secret" "coordinator_api_rds" {
 }
 
 module "arns_coordinator_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name                   = "arns_coordinator_queue"
   encrypt_sqs_kms            = true
@@ -103,7 +103,7 @@ module "arns_coordinator_queue" {
 }
 
 module "arns_coordinator_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   sqs_name        = "arns_coordinator_dlq"
   encrypt_sqs_kms = true
