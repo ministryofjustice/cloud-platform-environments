@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-glad-new-data-store-test-uat"
+  default     = "laa-glad-data-source-spike-uat"
 }
 
 variable "business_unit" {
