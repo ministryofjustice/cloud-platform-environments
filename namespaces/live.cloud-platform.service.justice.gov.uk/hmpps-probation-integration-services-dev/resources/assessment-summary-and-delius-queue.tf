@@ -13,7 +13,7 @@ module "assessment-summary-and-delius-queue" {
 
   # Queue configuration
   sqs_name = "assessment-summary-and-delius-queue"
-  delay_seconds =  5
+  delay_seconds = 5
   redrive_policy = jsonencode({
     deadLetterTargetArn = module.assessment-summary-and-delius-dlq.sqs_arn
     maxReceiveCount     = 3
@@ -40,7 +40,7 @@ module "assessment-summary-and-delius-dlq" {
   # Queue configuration
   sqs_name                  = "assessment-summary-and-delius-dlq"
   message_retention_seconds = 7 * 24 * 3600 # 1 week
-  delay_seconds =  5
+  delay_seconds = 5
   # Tags
   application            = "assessment-summary-and-delius"
   business_unit          = var.business_unit
