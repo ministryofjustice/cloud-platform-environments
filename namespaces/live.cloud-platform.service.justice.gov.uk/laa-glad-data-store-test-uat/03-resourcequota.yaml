@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: namespace-quota
-  namespace: laa-glad-new-data-store-test-uat
+  namespace: laa-glad-data-store-test-uat
 spec:
   hard:
     pods: "50"

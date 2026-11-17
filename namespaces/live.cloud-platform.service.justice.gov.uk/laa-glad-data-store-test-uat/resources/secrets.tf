@@ -11,14 +11,14 @@ module "secrets_manager" {
 
   secrets = {
     "laa-data-claims-reporting-service-secrets" = {
-      description             = "laa-glad-new-data-store-test ${var.environment} secrets",
+      description             = "laa-glad-data-store-test ${var.environment} secrets",
       recovery_window_in_days = 7,
-      k8s_secret_name         = "laa-glad-new-data-store-test-secrets"
+      k8s_secret_name         = "laa-glad-data-store-test-secrets"
     },
-    "laa-glad-new-data-store-test-alert-webhook-uat" = {
-      description             = "[laa-glad-new-data-store-test-alert-webhook-uat] Slack webhook"
+    "laa-glad-data-store-test-alert-webhook-uat" = {
+      description             = "[laa-glad-data-store-test-alert-webhook-uat] Slack webhook"
       recovery_window_in_days = 7
-      k8s_secret_name         = "laa-glad-new-data-store-test-alert-webhook-uat"
+      k8s_secret_name         = "laa-glad-data-store-test-alert-webhook-uat"
     }
   }
 }

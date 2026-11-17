@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "laa-glad-new-data-store-test-uat"
+  default     = "laa-glad-data-store-test-uat"
 }
 
 variable "business_unit" {
@@ -76,6 +76,6 @@ variable "eks_cluster_name" {
 variable "serviceaccount_name" {
   type        = string
   description = "Name of the service account used by GitHub Actions to deploy the applications to cloud-platform"
-  default     = "laa-glad-new-data-store-test-uat-sa"
+  default     = "laa-glad-data-store-test-uat-sa"
 }
 
