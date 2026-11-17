@@ -10,7 +10,10 @@ module "irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-arns-assessment-platform-service-account"
   role_policy_arns = merge(
-    { arns_coordinator_queue = module.arns_coordinator_queue.irsa_policy_arn },
+    {
+      arns_coordinator_queue         = module.arns_coordinator_queue.irsa_policy_arn
+      hmpps_arns_training_audit_sink = module.hmpps_arns_training_audit_sink.irsa_policy_arn
+    },
     local.sqs_policies
   )
   business_unit          = var.business_unit
