@@ -6,7 +6,14 @@ module "serviceaccount" {
 
   serviceaccount_name               = "terraform-deployer"
   serviceaccount_token_rotated_date = "13-11-2026"
+}
 
-  # Credentials will be stored in Modernisation Platform AWS Secrets Manager.
-  github_repositories = []
+resource "kubernetes_service_account_v1" "eso" {
+  metadata {
+    namespace = var.namespace
+    name      = "github-sts-eso"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::031879841473:role/github-sts-cloud-platform-eso"
+    }
+  }
 }
