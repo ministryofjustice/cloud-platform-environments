@@ -14,7 +14,7 @@ module "pf_queue_for_domain_events_holds_api" {
 
   # Tags
   business_unit          = var.business_unit
-  application            = var.application
+  application            = var.holds_application_name
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
@@ -88,7 +88,7 @@ module "pf_queue_for_domain_events_dead_letter_queue_holds_api" {
 
   # Tags
   business_unit          = var.business_unit
-  application            = var.application
+  application            = var.holds_application_name
   is_production          = var.is_production
   team_name              = var.team_name # also used for naming the queue
   namespace              = var.namespace
