@@ -59,7 +59,6 @@ data "aws_iam_policy_document" "service_read_only_s3" {
   statement {
     actions   = ["s3:ListBucket"]
     resources = [
-      module.s3_bucket.bucket_arn,
       module.s3_bucket_report_store.bucket_arn
     ]
   }
@@ -67,7 +66,6 @@ data "aws_iam_policy_document" "service_read_only_s3" {
   statement {
     actions   = ["s3:GetObject"]
     resources = [
-      "${module.s3_bucket.bucket_arn}/*",
       "${module.s3_bucket_report_store.bucket_arn}/*"
     ]
   }
