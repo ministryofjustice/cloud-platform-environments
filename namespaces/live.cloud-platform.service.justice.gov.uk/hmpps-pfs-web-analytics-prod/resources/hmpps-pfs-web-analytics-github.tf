@@ -12,4 +12,5 @@ module "hmpps-pfs-web-analytics" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = ["hmpps-launchpad-devs"]
 }
