@@ -9,6 +9,6 @@ spec:
       app.kubernetes.io/instance: laa-crown-court-litigator-fees-uat
       app.kubernetes.io/name: laa-crown-court-litigator-fees-app
   endpoints:
-    - port: http
-      path: /cclf/metrics
-      interval: 30s
+  - port: management
+    path: /service/prometheus
+    interval: 30s

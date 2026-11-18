@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "migration_policy" {
     ]
   }
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["s3:*"]
     resources = [
       "${module.s3_bucket.bucket_arn}/*",

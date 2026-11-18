@@ -13,10 +13,6 @@ module "rds" {
   performance_insights_enabled = true
   db_instance_class            = "db.t3.xlarge"
   enable_irsa                  = true
-
-  allow_major_version_upgrade  = "true"
-  allow_minor_version_upgrade  = "true"
-  prepare_for_major_upgrade    = "true"
   db_engine                    = "postgres"
   db_engine_version            = "18.6"
   rds_family                   = "postgres18"
@@ -24,7 +20,6 @@ module "rds" {
   providers = {
     aws = aws.london
   }
-
 }
 
 module "read_replica" {
@@ -47,16 +42,12 @@ module "read_replica" {
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
 
-  allow_major_version_upgrade  = "true"
-  allow_minor_version_upgrade  = "true"
-  prepare_for_major_upgrade    = "true"
   db_engine_version            = "18.6"
   rds_family                   = "postgres18"
 
   providers = {
     aws = aws.london
   }
-
 }
 
 resource "kubernetes_secret" "rds" {
@@ -91,7 +82,6 @@ resource "kubernetes_secret" "rds_prod_refresh_job_secret" {
     url                   = "jdbc:postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
 }
-
 
 resource "kubernetes_secret" "read_replica" {
   count = 0

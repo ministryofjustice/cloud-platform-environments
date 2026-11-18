@@ -29,7 +29,7 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-submit-a-bulk-claim"
+  default     = "laa-controlled-work-claims"
 }
 
 variable "environment" {
@@ -41,7 +41,7 @@ variable "environment" {
 variable "infrastructure_support" {
   description = "Email address of the team responsible this service"
   type        = string
-  default     = "ccmspuimodernisation@justice.gov.uk"
+  default     = "controlledworkclaims@justice.gov.uk"
 }
 
 variable "is_production" {
@@ -53,7 +53,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-ccms-pui-teamonly"
+  default     = "laa-controlled-work-claims"
 }
 
 variable "github_owner" {

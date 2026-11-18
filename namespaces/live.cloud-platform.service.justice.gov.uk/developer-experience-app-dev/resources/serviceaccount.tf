@@ -13,3 +13,13 @@ module "serviceaccount" {
   github_actions_secret_kube_cert      = "DEV_KUBE_CERT"
   github_actions_secret_kube_token     = "DEV_KUBE_TOKEN"
 }
+
+resource "kubernetes_service_account_v1" "eso" {
+  metadata {
+    namespace = var.namespace
+    name      = "app-eso"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::453348321010:role/app-cloud-platform-eso"
+    }
+  }
+}

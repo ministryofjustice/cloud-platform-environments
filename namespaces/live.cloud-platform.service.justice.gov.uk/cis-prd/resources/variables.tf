@@ -186,6 +186,21 @@ variable "tags" {
 }
 
 # -----------------------------------------------------------------------------
+# DynamoDB Variables
+# -----------------------------------------------------------------------------
+variable "dynamodb_transactions_audit_table_name" {
+  description = "Name of the DynamoDB table for transactions audit"
+  type        = string
+  default     = "production-transactions-audit"
+}
+
+variable "dynamodb_bps_metadata_table_name" {
+  description = "Name of the DynamoDB table for BPS payment job metadata"
+  type        = string
+  default     = "bps_metadata_cis_prod"
+}
+
+# -----------------------------------------------------------------------------
 # CloudFront Logging Variables
 # -----------------------------------------------------------------------------
 variable "cloudfront_log_retention_days" {
@@ -337,3 +352,9 @@ variable "oidc_role_workflow_branch" {
   type        = string
   default     = "prd"
 }
+
+# variable "oidc_role_frontend_deploy_workflow_file" {
+#   description = "The name of the frontend-only deployment workflow file that is allowed to assume this role. This is used in the job_workflow_ref condition key."
+#   type        = string
+#   default     = ".github/workflows/deploy_frontend_branch_to_production.yml"
+# }

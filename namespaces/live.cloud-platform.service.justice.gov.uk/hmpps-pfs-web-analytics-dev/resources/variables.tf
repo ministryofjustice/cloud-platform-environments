@@ -46,7 +46,7 @@ variable "team_name" {
 variable "environment" {
   description = "Name of the environment type for this service"
   type        = string
-  default     = "development"
+  default     = "dev"
 }
 
 variable "infrastructure_support" {
@@ -77,6 +77,12 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "mp_dps_sg_name" {
+  type        = string
+  description = "Required MP DPR Traffic ingress into DPS"
+  default     = "cloudplatform-mp-dps-sg"
 }
 
 variable "additional_topic_clients" {
