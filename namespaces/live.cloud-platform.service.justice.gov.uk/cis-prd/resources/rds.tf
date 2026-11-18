@@ -1,28 +1,29 @@
+
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=7c08a19006b3495bc717338fc7b9fb5ac42fc2c6"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
-  db_engine                = "oracle-se2"
-  db_engine_version        = "19"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.m5.xlarge"
-  db_allocated_storage     = "1000"
-  db_iops                  = 12000
-  rds_name                 = "cis-rds-prd"
-  db_name                  = "CIS"
-  license_model            = "license-included"
-  snapshot_identifier      = "cis-rds-20260925"
-  opt_in_xsiam_logging     = true
-  skip_final_snapshot      = true
-  
+  db_engine            = "oracle-se2"
+  db_engine_version    = "19"
+  rds_family           = "oracle-se2-19"
+  db_instance_class    = "db.m5.xlarge"
+  db_allocated_storage = "1000"
+  db_iops              = 12000
+  rds_name             = "cis-rds-prd"
+  db_name              = "CIS"
+  license_model        = "license-included"
+  snapshot_identifier  = "cis-rds-20260925"
+  opt_in_xsiam_logging = true
+  skip_final_snapshot  = true
+
   # Avoid default parameters set by MOJ
   db_parameter = [{
-    "apply_method": "immediate",
-    "name": "max_string_size",
-    "value": "EXTENDED"
+    "apply_method" : "immediate",
+    "name" : "max_string_size",
+    "value" : "EXTENDED"
   }]
 
   # Tags

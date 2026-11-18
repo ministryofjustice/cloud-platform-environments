@@ -1,16 +1,19 @@
 
 locals {
   namespaces = toset([
+    "create-and-vary-a-licence-preprod",
     "hmpps-activities-management-preprod",
     "hmpps-arns-assessment-platform-preprod",
     "hmpps-assess-risks-and-needs-integrations-preprod",
     "hmpps-assess-risks-and-needs-preprod",
     "hmpps-assessments-preprod",
     "hmpps-book-a-video-link-preprod",
+    "hmpps-book-secure-move-frontend-preprod",
     "hmpps-community-accommodation-preprod",
     "hmpps-community-payback-preprod",
     "hmpps-contacts-preprod",
     "hmpps-court-cases-release-dates-preprod",
+    "hmpps-digital-canteen-preprod",
     "hmpps-digital-prison-reporting-mi-preprod",
     "hmpps-probation-mi-ui-preprod",
     "hmpps-digital-prison-services-preprod",

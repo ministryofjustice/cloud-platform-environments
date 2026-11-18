@@ -80,7 +80,7 @@ resource "aws_sns_topic_subscription" "notify" {
   raw_message_delivery = true
 
   filter_policy = jsonencode({
-    SubmissionEventType = ["SUBMISSION_VALIDATION_SUCCEEDED"]
+    SubmissionEventType = ["SUBMISSION_VALIDATION_SUCCEEDED", "DRAFT_SUBMISSION_DELETED"]
   })
 }
 

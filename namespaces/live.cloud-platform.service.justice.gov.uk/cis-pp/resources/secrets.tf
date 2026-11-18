@@ -42,3 +42,38 @@ module "cis_pp_entra_prod_external_client_secret" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+
+module "cis_pp_sds_prod_internal_client_secrets" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-secrets-manager?ref=3.0.7"
+
+  # EKS configuration
+  eks_cluster_name = var.eks_cluster_name
+
+  # Secrets configuration
+  secrets = {
+    "cis-pp-sds-prod-internal-client-secret" = {
+      description             = "CIS PP SDS Prod Internal Client Secret" # required
+      recovery_window_in_days = 7                                          # required
+      k8s_secret_name         = "cis-pp-sds-prod-internal-client-secret" # the name of the secret in k8s
+    },
+    "cis-pp-sds-prod-internal-client-id" = {
+      description             = "CIS PP SDS Prod Internal Entra Client ID" # required
+      recovery_window_in_days = 7                                      # required
+      k8s_secret_name         = "cis-pp-sds-prod-internal-client-id" # the name of the secret in k8s
+    },
+    "cis-pp-sds-prod-internal-tenant-id" = {
+      description             = "CIS PP SDS Prod Internal Entra Tenant ID" # required
+      recovery_window_in_days = 7                                      # required
+      k8s_secret_name         = "cis-pp-sds-prod-internal-tenant-id" # the name of the secret in k8s
+    }
+  }
+
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  namespace              = var.namespace
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+}

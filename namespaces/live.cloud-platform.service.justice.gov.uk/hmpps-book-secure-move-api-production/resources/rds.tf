@@ -23,8 +23,8 @@ module "rds-instance" {
   db_instance_class    = "db.t4g.2xlarge"
 
   db_engine         = "postgres"
-  db_engine_version = "16.8"
-  rds_family        = "postgres16"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
 
   prepare_for_major_upgrade = false
   # use "allow_major_version_upgrade" when upgrading the major version of an engine
@@ -39,7 +39,7 @@ module "rds-instance" {
     },
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {
@@ -101,8 +101,8 @@ module "rds-read-replica" {
   db_backup_retention_period = 0
 
   prepare_for_major_upgrade = false
-  db_engine_version         = "16.13"
-  rds_family                = "postgres16"
+  db_engine_version         = "18.6"
+  rds_family                = "postgres18"
 
   providers = {
     # Can be either "aws.london" or "aws.ireland"
@@ -112,7 +112,7 @@ module "rds-read-replica" {
   db_parameter = [
     {
       name         = "rds.logical_replication"
-      value        = "0"
+      value        = "1"
       apply_method = "pending-reboot"
     },
     {

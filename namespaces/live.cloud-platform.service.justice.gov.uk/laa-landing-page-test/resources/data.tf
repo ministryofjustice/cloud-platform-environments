@@ -9,3 +9,7 @@ data "aws_ssm_parameter" "sqs_policy_arn" {
 data "aws_ssm_parameter" "sqs_policy_arn_preprod" {
   name = "/laa-ccms-user-management-api-preprod/sqs-policy-arn"
 }
+
+data "aws_ssm_parameter" "sqs_policy_arn_feasibility" {
+  name = "/laa-ccms-uma-feasibility/sqs-policy-arn"
+}
