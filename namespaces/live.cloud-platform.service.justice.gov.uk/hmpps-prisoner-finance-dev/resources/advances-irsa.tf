@@ -1,7 +1,9 @@
 locals {
-  advances_irsa_policies = {
+  advances_irsa_policies = merge(local.sns_policies,{
     rds = module.advances_rds.irsa_policy_arn
-  }
+    pf_queue_for_domain_events_advances_api                   = module.pf_queue_for_domain_events_advances_api.irsa_policy_arn
+    pf_queue_for_domain_events_dead_letter_queue_advances_api = module.pf_queue_for_domain_events_dead_letter_queue_advances_api.irsa_policy_arn
+  })
 }
 
 module "hmpps_prisoner_finance_advances_irsa" {

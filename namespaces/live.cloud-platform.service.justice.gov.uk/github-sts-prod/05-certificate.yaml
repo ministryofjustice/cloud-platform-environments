@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: github-sts-prod
+  namespace: github-sts-prod
+spec:
+  secretName: github-sts-prod-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - sts.github.engineering.justice.gov.uk

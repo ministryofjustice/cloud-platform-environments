@@ -18,6 +18,7 @@ module "rds" {
   db_backup_retention_period   = "35"
   deletion_protection          = false
   enable_irsa = true
+  db_password_rotated_date     = "2026-11-06"
 
   # RDS logging
   opt_in_xsiam_logging  = true
@@ -112,12 +113,19 @@ resource "kubernetes_secret" "rds_temp" {
 # Read-only user for the main RDS instance (module.rds)
 # ---------------------------------------------------------------------------
 
+data "kubernetes_secret" "rds_admin" {
+  metadata {
+    name      = "rds-postgresql-instance-output"
+    namespace = var.namespace
+  }
+}
+
 provider "postgresql" {
   host             = module.rds.rds_instance_address
   port             = module.rds.rds_instance_port
   database         = module.rds.database_name
   username         = module.rds.database_username
-  password         = module.rds.database_password
+  password         = data.kubernetes_secret.rds_admin.data["database_password"]
   expected_version = "16"
   sslmode          = "require"
   superuser        = false

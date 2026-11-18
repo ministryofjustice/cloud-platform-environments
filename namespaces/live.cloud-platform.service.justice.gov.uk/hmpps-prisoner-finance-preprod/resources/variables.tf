@@ -65,42 +65,48 @@ variable "eks_cluster_name" {
   description = "The name of the eks cluster to retrieve the OIDC information"
 }
 
-variable "service_account_name" {
-  description = "The name of the service account to retrieve the OIDC information"
-  default     = "hmpps-prisoner-finance"
+variable "service_account_name_ui" {
+  description = "The name of the service account used by PF UI"
+  default     = "hmpps-prisoner-finance-ui"
 }
+
+variable "service_account_name_api" {
+  description = "The name of the service account used by PF API"
+  default     = "hmpps-prisoner-finance-api"
+}
+
 variable "service_account_name_holds" {
-  description = "The name of the service account to retrieve the OIDC information"
+  description = "The name of the service account used by PF Holds"
   default     = "hmpps-prisoner-finance-holds"
 }
 
 variable "service_account_name_advances" {
-  description = "The name of the service account to retrieve the OIDC information"
+  description = "The name of the service account used by PF Advances"
   default     = "hmpps-prisoner-finance-advances"
 }
 
 
 variable "service_account_name_subscriptions" {
-  description = "The name of the service account to retrieve the OIDC information"
+  description = "The name of the service account used by PF Subscriptions"
   default     = "hmpps-prisoner-finance-subscriptions"
 }
 
 variable "holds_application_name" {
   description = "The name of the holds application"
-  default = "hmpps-prisoner-finance-holds-api"
+  default     = "hmpps-prisoner-finance-holds-api"
 }
 
 variable "advances_application_name" {
   description = "The name of the advances application"
-  default = "hmpps-prisoner-finance-advances-api"
+  default     = "hmpps-prisoner-finance-advances-api"
 }
 
 variable "subscriptions_application_name" {
   description = "The name of the subscriptions application"
-  default = "hmpps-prisoner-finance-subscriptions-api"
+  default     = "hmpps-prisoner-finance-subscriptions-api"
 }
 
 variable "prisoner_finance_application_name" {
   description = "The name of the Prisoner Finance API application"
-  default = "hmpps-prisoner-finance-api"
+  default     = "hmpps-prisoner-finance-api"
 }

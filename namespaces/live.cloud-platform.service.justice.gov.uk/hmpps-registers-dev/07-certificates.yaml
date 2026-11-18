@@ -11,6 +11,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - prison-register-dev.hmpps.service.justice.gov.uk
+    - agency-register-dev.hmpps.service.justice.gov.uk
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

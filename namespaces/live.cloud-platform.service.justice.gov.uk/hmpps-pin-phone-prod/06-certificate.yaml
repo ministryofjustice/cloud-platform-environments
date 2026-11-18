@@ -39,3 +39,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - pin-phone-ui.hmpps.service.justice.gov.uk
+    - staff.pin-phone-ui.hmpps.service.justice.gov.uk

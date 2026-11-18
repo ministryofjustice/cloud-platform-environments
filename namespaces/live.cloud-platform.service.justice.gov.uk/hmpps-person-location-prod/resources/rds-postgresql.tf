@@ -16,14 +16,14 @@ module "rds" {
   allow_major_version_upgrade  = true
   performance_insights_enabled = false
   storage_type                 = "gp3"
-  db_max_allocated_storage     = "200"
-  db_allocated_storage         = "50"
+  db_max_allocated_storage     = "250"
+  db_allocated_storage         = "100"
 
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "18"
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.large"
+  db_instance_class = "db.r8g.large"
 
   # Tags
   application            = var.application

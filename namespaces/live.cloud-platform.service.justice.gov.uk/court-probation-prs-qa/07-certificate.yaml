@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: court-probation-cert
+  namespace: court-probation-prs-qa
+spec:
+  secretName: court-probation-cert-secret
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - pre-sentence-service-test.hmpps.service.justice.gov.uk
+    - pre-sentence-service-wproofreader-qa.hmpps.service.justice.gov.uk

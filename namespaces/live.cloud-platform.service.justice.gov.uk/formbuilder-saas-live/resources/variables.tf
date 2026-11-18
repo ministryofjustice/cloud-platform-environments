@@ -1,4 +1,12 @@
+variable "business_unit" {
+  default = "central-digital-product-team"
+}
+
 variable "environment_name" {
+  default = "live"
+}
+
+variable "environment" {
   default = "live"
 }
 
@@ -56,4 +64,10 @@ variable "eks_cluster_name" {}
 variable "kubernetes_cluster" {
   description = "Kubernetes cluster name for references to secrets for service accounts"
   type        = string
+}
+
+variable "db_engine_version" {
+  description = "The database engine version to use for the RDS instance"
+  type        = string
+  default     = "15.19"
 }

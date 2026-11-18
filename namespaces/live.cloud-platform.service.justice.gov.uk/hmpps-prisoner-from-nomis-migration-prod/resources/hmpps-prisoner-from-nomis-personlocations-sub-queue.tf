@@ -104,3 +104,18 @@ resource "kubernetes_secret" "prisoner_from_nomis_personlocations_dead_letter_qu
     sqs_name = module.prisoner_from_nomis_personlocations_dead_letter_queue.sqs_name
   }
 }
+
+resource "aws_sns_topic_subscription" "prisoner_from_nomis_personlocations_subscription" {
+  provider  = aws.london
+  topic_arn = data.aws_ssm_parameter.offender-events-topic-arn.value
+  protocol  = "sqs"
+  endpoint  = module.prisoner_from_nomis_personlocations_queue.sqs_arn
+  filter_policy = jsonencode({
+    eventType = [
+      "EXTERNAL_MOVEMENT-CHANGED",
+      "BOOKING_STATUS-INSERTED",
+      "BOOKING_STATUS-UPDATED",
+      "BOOKING_STATUS-DELETED"
+    ]
+  })
+}

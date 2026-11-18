@@ -14,7 +14,7 @@ module "hmpps-uof-data-api" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.deployment_team_name]
+  reviewer_teams                = [var.deployment_team_name, "manage-safety-live"]
 }
 
 module "use-of-force" {
@@ -33,5 +33,5 @@ module "use-of-force" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
-  reviewer_teams                = [var.deployment_team_name]
+  reviewer_teams                = [var.deployment_team_name, "manage-safety-live"]
 }

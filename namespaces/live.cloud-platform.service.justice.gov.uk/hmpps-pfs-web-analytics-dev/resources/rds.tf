@@ -27,6 +27,10 @@ module "rds" {
   team_name              = var.team_name
 
   enable_irsa = true
+
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+
 }
 
 module "web_analytics_read_replica" {
@@ -56,6 +60,10 @@ module "web_analytics_read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  # Add security groups for DPR
+  vpc_security_group_ids      = [data.aws_security_group.mp_dps_sg.id]
+  
 }
 
 resource "kubernetes_secret" "hmpps_pfs_web_analytics_rds" {
@@ -72,4 +80,10 @@ resource "kubernetes_secret" "hmpps_pfs_web_analytics_rds" {
     rds_instance_address  = module.rds.rds_instance_address
     url = "postgres://${module.rds.database_username}:${module.rds.database_password}@${module.rds.rds_instance_endpoint}/${module.rds.database_name}"
   }
+}
+
+# Retrieve mp_dps_sg_name SG group ID, CP-MP-INGRESS
+
+data "aws_security_group" "mp_dps_sg" {
+  name = var.mp_dps_sg_name
 }

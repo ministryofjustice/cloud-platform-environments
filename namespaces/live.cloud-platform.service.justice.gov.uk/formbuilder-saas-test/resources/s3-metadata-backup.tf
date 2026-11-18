@@ -9,6 +9,27 @@ module "s3_bucket" {
 
   versioning = true
 
+  bucket_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::754256621582:role/formbuilder-saas-test-live"
+        },
+        "Action": [
+          "s3:*"
+        ],
+        "Resource": [
+          "$${bucket_arn}",
+          "$${bucket_arn}/*"
+        ]
+      }
+    ]
+  }
+  EOF
+
   # Tags
   team_name              = var.team_name
   business_unit          = var.business_unit

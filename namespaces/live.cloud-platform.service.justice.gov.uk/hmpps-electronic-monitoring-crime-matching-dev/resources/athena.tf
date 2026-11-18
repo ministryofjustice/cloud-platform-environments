@@ -5,7 +5,7 @@ locals {
   mock_datastore_prefix = "crime-matching-mock-datastore"
 
   data_bucket_name = "${local.mock_datastore_prefix}-test-data"
-  workgroup_name = "${local.mock_datastore_prefix}-workgroup"
+  workgroup_name   = "${local.mock_datastore_prefix}-workgroup"
 }
 
 module "data_bucket" {
@@ -27,9 +27,9 @@ module "data_bucket" {
 }
 
 resource "aws_glue_catalog_database" "mock_datastore_database" {
-  name = local.mock_datastore_database_name
+  name         = local.mock_datastore_database_name
   location_uri = "s3://${module.data_bucket.bucket_name}/"
-  tags = local.tags
+  tags         = local.tags
 }
 
 resource "aws_athena_workgroup" "mock_datastore_workgroup" {
@@ -59,17 +59,17 @@ resource "aws_glue_catalog_table" "caseload" {
 
   storage_descriptor {
     columns {
-      name = "grouped_date"
-      type = "timestamp"
-    }
-
-    columns {
       name = "unique_device_wearer_id"
       type = "string"
     }
 
     columns {
       name = "first_name"
+      type = "string"
+    }
+
+    columns {
+      name = "middle_name"
       type = "string"
     }
 
@@ -173,18 +173,23 @@ resource "aws_glue_catalog_table" "caseload" {
       type = "boolean"
     }
 
+    columns {
+      name = "__datetime_added"
+      type = "timestamp"
+    }
+
     location      = "s3://${module.data_bucket.bucket_name}/caseload/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "caseload-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -217,6 +222,16 @@ resource "aws_glue_catalog_table" "device_activations" {
     }
 
     columns {
+      name = "is_device_activation_open"
+      type = "boolean"
+    }
+
+    columns {
+      name = "is_device_deactivation_date_imputed"
+      type = "boolean"
+    }
+
+    columns {
       name = "person_id"
       type = "bigint"
     }
@@ -231,18 +246,28 @@ resource "aws_glue_catalog_table" "device_activations" {
       type = "string"
     }
 
+    columns {
+      name = "device_model_name"
+      type = "string"
+    }
+
+    columns {
+      name = "__datetime_added"
+      type = "timestamp"
+    }
+
     location      = "s3://${module.data_bucket.bucket_name}/device_activations/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "device-activations-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -260,17 +285,7 @@ resource "aws_glue_catalog_table" "position" {
 
   storage_descriptor {
     columns {
-      name = "client_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "device_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "location_id"
+      name = "position_id"
       type = "bigint"
     }
 
@@ -280,7 +295,32 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
-      name = "position_circulation_id"
+      name = "device_id"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_gps_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_recorded_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_uploaded_date"
+      type = "timestamp"
+    }
+
+    columns {
+      name = "position_speed"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_satellite"
       type = "bigint"
     }
 
@@ -290,28 +330,8 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
-      name = "position_geometry"
-      type = "string"
-    }
-
-    columns {
-      name = "position_gps_date"
-      type = "timestamp"
-    }
-
-    columns {
-      name = "position_hdop"
+      name = "position_precision"
       type = "bigint"
-    }
-
-    columns {
-      name = "position_id"
-      type = "bigint"
-    }
-
-    columns {
-      name = "position_latitude"
-      type = "double"
     }
 
     columns {
@@ -320,32 +340,72 @@ resource "aws_glue_catalog_table" "position" {
     }
 
     columns {
+      name = "position_hdop"
+      type = "bigint"
+    }
+
+    columns {
+      name = "position_geometry"
+      type = "string"
+    }
+
+    columns {
+      name = "position_latitude"
+      type = "double"
+    }
+
+    columns {
       name = "position_longitude"
       type = "double"
     }
 
     columns {
-      name = "position_precision"
+      name = "client_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_recorded_date"
-      type = "timestamp"
-    }
-
-    columns {
-      name = "position_satellite"
+      name = "location_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_speed"
+      name = "_file_name"
+      type = "string"
+    }
+
+    columns {
+      name = "_feed_type"
+      type = "string"
+    }
+
+    columns {
+      name = "_delivery_date"
+      type = "date"
+    }
+
+    columns {
+      name = "position_circulation_id"
       type = "bigint"
     }
 
     columns {
-      name = "position_uploaded_date"
+      name = "_source_bucket"
+      type = "string"
+    }
+
+    columns {
+      name = "_source_key"
+      type = "string"
+    }
+
+    columns {
+      name = "_source_etag"
+      type = "string"
+    }
+
+    columns {
+      name = "__datetime_added"
       type = "timestamp"
     }
 
@@ -353,14 +413,14 @@ resource "aws_glue_catalog_table" "position" {
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "position-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -389,6 +449,11 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
 
     columns {
       name = "first_name"
+      type = "string"
+    }
+
+    columns {
+      name = "middle_name"
       type = "string"
     }
 
@@ -542,7 +607,7 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
       type = "bigint"
     }
 
-  columns {
+    columns {
       name = "location_id"
       type = "bigint"
     }
@@ -621,14 +686,14 @@ resource "aws_glue_catalog_table" "orders_activations_positions" {
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     compressed    = false
-    
+
     ser_de_info {
       name                  = "orders_activations_positions-csv-serde"
       serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
 
       parameters = {
-        "field.delim"            = ","
-        "serialization.format"   = ","
+        "field.delim"          = ","
+        "serialization.format" = ","
       }
     }
   }
@@ -693,7 +758,7 @@ data "aws_iam_policy_document" "mock_datastore_assume_role_policy" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         module.irsa.role_arn,
         module.crime_matching_algorithm_irsa.role_arn,

@@ -85,3 +85,17 @@ resource "kubernetes_config_map" "prisoner_finance_api_rds" {
     db_identifier = module.prisoner_finance_api_rds.db_identifier
   }
 }
+
+resource "kubernetes_secret" "dps_rds_refresh_creds_pf_api" {
+  metadata {
+    name      = "pf-api-rds-postgresql-instance-output-preprod"
+    namespace = "hmpps-prisoner-finance-prod"
+  }
+
+  data = {
+    database_name        = module.prisoner_finance_api_rds.database_name
+    database_username    = module.prisoner_finance_api_rds.database_username
+    database_password    = module.prisoner_finance_api_rds.database_password
+    rds_instance_address = module.prisoner_finance_api_rds.rds_instance_address
+  }
+}

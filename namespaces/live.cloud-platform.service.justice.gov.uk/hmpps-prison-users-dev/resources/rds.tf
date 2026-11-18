@@ -25,6 +25,8 @@ module "prison_users_rds" {
   providers = {
     aws = aws.london
   }
+
+  enable_irsa = true
 }
 
 resource "kubernetes_secret" "prison_users_rds" {

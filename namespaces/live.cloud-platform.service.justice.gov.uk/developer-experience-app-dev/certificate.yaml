@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: blueprint
+  namespace: developer-experience-app-dev
+spec:
+  secretName: blueprint-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - development.blueprint.service.justice.gov.uk

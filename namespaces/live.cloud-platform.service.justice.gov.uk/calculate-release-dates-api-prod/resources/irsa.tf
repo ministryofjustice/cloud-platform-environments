@@ -6,6 +6,8 @@ locals {
   sqs_policies = {
     bulk_comparison_queue                   = module.bulk_comparison_queue.irsa_policy_arn,
     bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
+    calculate_release_dates_prisoner_queue   = module.calculate_release_dates_prisoner_queue.irsa_policy_arn,
+    calculate_release_dates_prisoner_dead_letter_queue   = module.calculate_release_dates_prisoner_dead_letter_queue.irsa_policy_arn,
   }
   restore_s3_policies = {
     db_restore_s3 = module.db_restore_s3.irsa_policy_arn
