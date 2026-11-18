@@ -13,7 +13,7 @@ module "irsa" {
   # provide an output called `irsa_policy_arn` that can be used.
   role_policy_arns = {
     rds = module.rds.irsa_policy_arn
-    gpfd_s3 = aws_iam_policy.upload_to_s3_bucket_in_gpfd_dev_namespace_policy.arn
+    gpfd_s3 = aws_iam_policy.upload_to_s3_bucket_in_gpfddev_namespace_policy.arn
   }
 
   # Tags
@@ -63,8 +63,8 @@ data "aws_iam_policy_document" "upload_to_s3_bucket_in_gpfd_dev_namespace" {
   }
 }
 
-resource "aws_iam_policy" "upload_to_s3_bucket_in_gpfd_dev_namespace_policy" {
-  name   = "upload_to_s3_bucket_in_gpfd_dev_namespace_policy"
+resource "aws_iam_policy" "upload_to_s3_bucket_in_gpfddev_namespace_policy" {
+  name   = "upload_to_s3_bucket_in_gpfddev_namespace_policy"
   policy = data.aws_iam_policy_document.upload_to_s3_bucket_in_gpfd_dev_namespace.json
 
   tags = {
