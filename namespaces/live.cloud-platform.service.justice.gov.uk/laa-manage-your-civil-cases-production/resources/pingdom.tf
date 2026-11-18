@@ -4,7 +4,7 @@ provider "pingdom" {
 resource "pingdom_check" "laa-manage-your-civil-cases-production" {
   type                     = "http"
   name                     = "Manage your civil cases - production - ping"
-  host                     = "manage-your-civil-cases.cloud-platform.service.justice.gov.uk"
+  host                     = "manage-your-civil-legal-advice-cases.service.justice.gov.uk"
   resolution               = 1
   notifywhenbackup         = true
   notifyagainevery         = 0
