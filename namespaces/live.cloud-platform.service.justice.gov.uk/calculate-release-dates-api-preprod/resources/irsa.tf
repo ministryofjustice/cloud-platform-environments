@@ -22,7 +22,8 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     {
-      rds_policy = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      rds_policy         = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      replica_rds_policy = module.read_replica.irsa_policy_arn,
     }
   )
   business_unit          = var.business_unit
