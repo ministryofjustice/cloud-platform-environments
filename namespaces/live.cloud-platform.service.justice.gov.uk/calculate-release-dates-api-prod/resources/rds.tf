@@ -14,12 +14,12 @@ module "calculate_release_dates_api_rds" {
 
   # Database configuration
   db_max_allocated_storage     = "500"
-  db_engine              = "postgres"
-  db_engine_version      = "16.15" # may not be actual version due to auto patch
-  rds_family             = "postgres16"
-  
-  prepare_for_major_upgrade = false
-  allow_minor_version_upgrade  = true
+  db_engine                   = "postgres"
+  db_engine_version           = "18.6"
+  rds_family                  = "postgres18"
+  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = true
+  allow_minor_version_upgrade = true
 
   db_password_rotated_date = "17-02-2023"
 
@@ -89,11 +89,13 @@ module "read_replica" {
   team_name              = var.team_name
 
   # PostgreSQL specifics
-  db_max_allocated_storage     = "500"
-  db_engine         = "postgres"
-  db_engine_version = "16.15" # may not be actual version due to auto patch
-  rds_family        = "postgres16"
-  db_instance_class = "db.t3.small"
+  db_max_allocated_storage    = "500"
+  db_engine                   = "postgres"
+  db_engine_version           = "18.6"
+  rds_family                  = "postgres18"
+  db_instance_class           = "db.t3.small"
+  prepare_for_major_upgrade   = true
+  allow_major_version_upgrade = true
 
   # It is mandatory to set the below values to create read replica instance
   # Set the db_identifier of the source db
