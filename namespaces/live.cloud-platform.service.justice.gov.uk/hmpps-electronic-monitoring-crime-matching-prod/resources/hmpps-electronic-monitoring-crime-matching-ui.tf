@@ -4,9 +4,9 @@ module "hmpps_electronic_monitoring_crime_matching_ui" {
   custom_token_rotation_date = "2026-03-20"
   github_repo = "hmpps-electronic-monitoring-crime-matching-ui"
   application = "hmpps-electronic-monitoring-crime-matching-ui"
-  github_team = "hmpps-em-probation-devs"
+  github_team = "hmpps-electronic-monitoring-devs"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  reviewer_teams = ["hmpps-em-probation-devs"]
+  reviewer_teams = ["hmpps-electronic-monitoring-devs"]
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production

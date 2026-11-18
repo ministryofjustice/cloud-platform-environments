@@ -150,6 +150,7 @@ resource "aws_sns_topic_subscription" "integration_api_domain_events_subscriptio
       "location.inside.prison.reactivated",
       "location.inside.prison.signed-op-cap.amended",
       "tier.calculation.changed",
+      "probation-case.personal-details.updated",
     ]
   })
 }

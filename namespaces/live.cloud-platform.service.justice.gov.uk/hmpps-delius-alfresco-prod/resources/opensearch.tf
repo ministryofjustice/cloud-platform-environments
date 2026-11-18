@@ -86,8 +86,9 @@ module "s3_opensearch_snapshots_bucket" {
         Principal = {
           AWS = [
             module.irsa.role_arn,
-            data.kubernetes_service_account.prod_irsa.metadata[0].annotations["eks.amazonaws.com/role-arn"],
-            module.opensearch.snapshot_role_arn
+            module.opensearch.snapshot_role_arn,
+            data.aws_ssm_parameter.stage_opensearch_snapshot_role_arn.value,
+            data.aws_ssm_parameter.preprod_opensearch_snapshot_role_arn.value
           ]
         }
 
@@ -159,12 +160,20 @@ resource "aws_ssm_parameter" "s3_bucket_name" {
   value       = module.s3_opensearch_snapshots_bucket.bucket_arn
   description = "ARN of opensearch snapshot s3 bucket"
   tags = {
-      business-unit          = var.business_unit
-      application            = var.application
-      is-production          = var.is_production
-      owner                  = var.team_name
-      environment-name       = var.environment_name
-      infrastructure-support = var.infrastructure_support
-      namespace              = var.namespace
+    business-unit          = var.business_unit
+    application            = var.application
+    is-production          = var.is_production
+    owner                  = var.team_name
+    environment-name       = var.environment_name
+    infrastructure-support = var.infrastructure_support
+    namespace              = var.namespace
   }
+}
+
+data "aws_ssm_parameter" "stage_opensearch_snapshot_role_arn" {
+  name = "/hmpps-delius-alfresco-stage/opensearch-snapshot-role-arn"
+}
+
+data "aws_ssm_parameter" "preprod_opensearch_snapshot_role_arn" {
+  name = "/hmpps-delius-alfresco-preprod/opensearch-snapshot-role-arn"
 }

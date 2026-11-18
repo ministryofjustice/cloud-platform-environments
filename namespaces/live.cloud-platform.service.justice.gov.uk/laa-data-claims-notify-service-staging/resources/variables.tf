@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Data Stewardship"
+  default     = "Controlled Work Claims"
 }
 
 variable "business_unit" {
@@ -35,13 +35,13 @@ variable "business_unit" {
 variable "team_name" {
   description = "Name of the development team responsible for this service"
   type        = string
-  default     = "laa-data-stewardship-payments-team"
+  default     = "laa-controlled-work-claims"
 }
 
 variable "github_team" {
   description = "GitHub team with access to the SQS queue via the AWS Console"
   type        = string
-  default     = "laa-amend-a-claim"
+  default     = "laa-controlled-work-claims"
 }
 
 variable "environment" {
@@ -65,7 +65,7 @@ variable "is_production" {
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "laa-data-stewardship-payments"
+  default     = "laa-controlled-work-claims"
 }
 
 variable "github_owner" {

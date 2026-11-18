@@ -156,25 +156,6 @@ resource "kubernetes_secret" "ims_ai_response_dlq" {
   }
 }
 
-# The IMS app needs extra permissions, in addition to the default policy in the s3 module.
-data "aws_iam_policy_document" "ims_ai_bucket_additional_policy" {
-  version = "2012-10-17"
-  statement {
-    sid    = "AllowAiBucketLifecycleActions"
-    effect = "Allow"
-    actions = [
-      "s3:PutLifecycleConfiguration"
-    ]
-    resources = [module.ims_ai_bucket.bucket_arn]
-  }
-}
-
-resource "aws_iam_policy" "irsa_additional_ai_s3_policy" {
-  name   = "cloud-platform-s3-${module.ims_ai_bucket.bucket_name}"
-  path   = "/cloud-platform/s3/"
-  policy = data.aws_iam_policy_document.ims_ai_bucket_additional_policy.json
-}
-
 # ----- S3 Buckets -----
 module "ims_ai_bucket" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-s3-bucket?ref=5.3.0"
@@ -191,6 +172,19 @@ module "ims_ai_bucket" {
   providers = {
     aws = aws.london
   }
+
+  lifecycle_rule = [
+    {
+      id      = "ims-ai-expire-objects"
+      enabled = true
+      prefix  = "ims-ai/"
+      expiration = [
+        {
+          days = 30
+        },
+      ]
+    },
+  ]
 }
 
 resource "kubernetes_secret" "ims_ai_bucket" {

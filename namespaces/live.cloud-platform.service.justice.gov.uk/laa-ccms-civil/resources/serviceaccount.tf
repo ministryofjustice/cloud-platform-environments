@@ -1,5 +1,5 @@
 module "serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.1.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -33,6 +33,11 @@ module "serviceaccount" {
         "list",
         "watch",
       ]
+    },
+    {
+      api_groups = [""]
+      resources  = ["pods/exec"]
+      verbs      = ["create"]
     },
     {
       api_groups = [

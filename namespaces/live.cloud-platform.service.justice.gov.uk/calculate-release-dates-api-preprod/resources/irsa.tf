@@ -8,6 +8,8 @@ locals {
     bulk_comparison_dead_letter_queue       = module.bulk_comparison_dead_letter_queue.irsa_policy_arn,
     bulk_comparison_alt_queue               = module.bulk_comparison_alt_queue.irsa_policy_arn,
     bulk_comparison_alt_dead_letter_queue   = module.bulk_comparison_alt_dead_letter_queue.irsa_policy_arn,
+    calculate_release_dates_prisoner_queue   = module.calculate_release_dates_prisoner_queue.irsa_policy_arn,
+    calculate_release_dates_prisoner_dead_letter_queue   = module.calculate_release_dates_prisoner_dead_letter_queue.irsa_policy_arn,
   }
 }
 
@@ -20,7 +22,8 @@ module "irsa" {
     local.sns_policies,
     local.sqs_policies,
     {
-      rds_policy = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      rds_policy         = module.calculate_release_dates_api_rds.irsa_policy_arn,
+      replica_rds_policy = module.read_replica.irsa_policy_arn,
     }
   )
   business_unit          = var.business_unit

@@ -78,3 +78,8 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "domain" {
+  default = "manage-inquest-legal-aid.service.justice.gov.uk"
+  type    = string
+}
