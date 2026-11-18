@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ai-enablement-wrapped-prod-admin
+  namespace: ai-enablement-wrapped-prod
+subjects:
+  - kind: Group
+    name: "github:ai-enablement"
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
