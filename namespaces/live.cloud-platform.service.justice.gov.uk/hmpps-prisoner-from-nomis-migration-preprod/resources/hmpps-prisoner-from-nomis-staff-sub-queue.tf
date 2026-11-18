@@ -123,7 +123,10 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_staff_subscription" {
       "USER_CASELOAD_ROLES-INSERTED",
       "USER_CASELOAD_ROLES-DELETED",
       "LAA_ADMINISTRATORS-INSERTED",
-      "LAA_ADMINISTRATORS-UPDATED"
+      "LAA_ADMINISTRATORS-UPDATED",
+      "LAA_GENERAL_USERS-INSERTED",
+      "LAA_GENERAL_USERS-UPDATED",
+      "LAA_GENERAL_USERS-DELETED"
     ]
   })
 }
