@@ -17,7 +17,7 @@ module "serviceaccount" {
 resource "kubernetes_service_account_v1" "eso" {
   metadata {
     namespace = var.namespace
-    name      = "github-sts-eso"
+    name      = "app-eso"
     annotations = {
       "eks.amazonaws.com/role-arn" = "arn:aws:iam::453348321010:role/app-cloud-platform-eso"
     }
