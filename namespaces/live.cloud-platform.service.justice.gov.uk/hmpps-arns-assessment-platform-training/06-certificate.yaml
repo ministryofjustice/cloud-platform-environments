@@ -1,0 +1,57 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-arns-assessment-platform-ui-training
+  namespace: hmpps-arns-assessment-platform-training
+spec:
+  secretName: hmpps-arns-assessment-platform-ui-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-assessment-platform-training.hmpps.service.justice.gov.uk
+    - '*.arns-assessment-platform-training.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-arns-assessment-platform-api-training
+  namespace: hmpps-arns-assessment-platform-training
+spec:
+  secretName: hmpps-arns-assessment-platform-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-assessment-platform-api-training.hmpps.service.justice.gov.uk
+    - '*.arns-assessment-platform-api-training.hmpps.service.justice.gov.uk'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-handover-service-training
+  namespace: hmpps-arns-assessment-platform-training
+spec:
+  secretName: hmpps-assess-risks-and-needs-handover-service-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-handover-service-training.hmpps.service.justice.gov.uk
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-assess-risks-and-needs-coordinator-api-training
+  namespace: hmpps-arns-assessment-platform-training
+spec:
+  secretName: hmpps-assess-risks-and-needs-coordinator-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - arns-coordinator-api-training.hmpps.service.justice.gov.uk
