@@ -81,7 +81,9 @@ module "serviceaccount" {
         "update",
         "delete",
         "create",
-        "patch"
+        "patch",
+        "list",
+        "watch"
       ]
     }
   ]
