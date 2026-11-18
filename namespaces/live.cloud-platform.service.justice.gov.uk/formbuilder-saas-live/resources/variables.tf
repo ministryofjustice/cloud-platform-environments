@@ -1,4 +1,12 @@
+variable "business_unit" {
+  default = "central-digital-product-team"
+}
+
 variable "environment_name" {
+  default = "live"
+}
+
+variable "environment" {
   default = "live"
 }
 
