@@ -15,13 +15,6 @@ module "dependencytrack_backup_s3_bucket" {
   versioning                    = true
   enable_allow_block_pub_access = true
 
-  bucket_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": []
-  }
-  EOF
-
 }
 
 resource "kubernetes_secret" "dependencytrack_backup_s3_bucket" {
