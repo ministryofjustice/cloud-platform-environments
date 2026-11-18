@@ -147,6 +147,7 @@ resource "aws_iam_policy" "bps_irsa_metadata_dynamodb" {
           "dynamodb:UpdateItem",
           "dynamodb:Query",
           "dynamodb:TransactWriteItems",
+          "dynamodb:ConditionCheckItem"
         ]
         Resource = [
           aws_dynamodb_table.bps_metadata.arn,
@@ -170,6 +171,9 @@ resource "aws_iam_policy" "bps_irsa_transactions_audit" {
         Action = [
           "dynamodb:PutItem",
           "dynamodb:TransactWriteItems",
+          "dynamodb:Scan",
+          "dynamodb:Query",
+          "dynamodb:UpdateItem"
         ]
         Resource = aws_dynamodb_table.transactions_audit.arn
       },
