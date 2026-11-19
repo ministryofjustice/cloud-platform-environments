@@ -25,7 +25,7 @@ module "rds_alfresco" {
   # PostgreSQL specifics
   db_engine                 = "postgres"
   prepare_for_major_upgrade = false
-  db_engine_version         = "14.22"
+  db_engine_version         = "14.24"
   rds_family                = "postgres14"
   db_instance_class         = "db.m8g.2xlarge"
   deletion_protection       = true
