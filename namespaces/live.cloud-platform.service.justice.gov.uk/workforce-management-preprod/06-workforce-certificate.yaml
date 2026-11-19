@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - workforce-management-preprod.hmpps.service.justice.gov.uk
+    - workload-measurement-preprod.hmpps.service.justice.gov.uk
