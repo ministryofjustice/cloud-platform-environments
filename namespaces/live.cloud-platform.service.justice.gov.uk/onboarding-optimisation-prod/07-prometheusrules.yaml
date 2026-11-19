@@ -60,37 +60,103 @@ spec:
         priority: notify
         action: Inspect rollout status, readiness failures, scheduling events and
           the desired-versus-available replicas panel.
-    - alert: OnboardingOptimisationBackendHigh5xxRatio
+    - alert: OnboardingOptimisationBackend5xxResponse
+      # The creation-time branch also catches the first error on a new counter
+      # series, which increase() alone cannot detect without an earlier sample.
       expr: |
         (
-          sum(rate(poirot_http_requests_total{
-            namespace="onboarding-optimisation-prod",
-            status_code=~"5.."
-          }[10m]))
-          /
-          clamp_min(
-            sum(rate(poirot_http_requests_total{
-              namespace="onboarding-optimisation-prod"
-            }[10m])),
-            0.001
-          )
-        ) > 0.20
-        and
-        sum(increase(poirot_http_requests_total{
-          namespace="onboarding-optimisation-prod"
-        }[10m])) >= 20
-      for: 10m
+          sum by (method, route, status_code) (
+            increase(poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"5.."
+            }[5m])
+          ) > 0
+        )
+        or
+        (
+          sum by (method, route, status_code) (
+            poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"5.."
+            }
+            and ignoring (__name__)
+            (
+              poirot_http_requests_created{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"5.."
+              } > time() - 300
+            )
+          ) > 0
+        )
       labels:
         severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-        message: More than 20% of production backend requests have returned 5xx responses
-          for ten minutes.
+        message: 'Production backend returned HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} within the last five minutes.'
         priority: page
-        action: Use the per-route 5xx panel to identify the failing route, then inspect
-          correlated backend logs and recent deployments. Threshold is provisional
-          pending k6 baselining.
+        action: Inspect the route and backend logs for the failing request and recent deployments. A single observed 5xx triggers this alert, with no traffic minimum or sustained-error delay.
+    - alert: OnboardingOptimisationBackend4xxResponse
+      # Only explicitly reviewed expected reasons are quiet. Legacy replicas
+      # without the classification marker retain conservative all-4xx alerting.
+      # Keep target labels until after the marker match for mixed-version pods.
+      expr: |
+        (
+          sum by (method, route, status_code, reason) (
+            increase(poirot_http_client_errors_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"4..", classification!="expected"
+            }[5m])
+            or
+            label_replace(
+              increase(poirot_http_requests_total{
+                namespace="onboarding-optimisation-prod", status_code=~"4.."
+              }[5m])
+              unless ignoring (method, route, status_code)
+              (poirot_http_error_classification_info{namespace="onboarding-optimisation-prod"} == 1),
+              "reason", "unclassified", "route", ".*"
+            )
+          ) > 0
+        )
+        or
+        (
+          sum by (method, route, status_code, reason) (
+            (
+              poirot_http_client_errors_total{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"4..", classification!="expected"
+              }
+              and ignoring (__name__)
+              (poirot_http_client_errors_created{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"4..", classification!="expected"
+              } > time() - 300)
+            )
+            or
+            label_replace(
+              (
+                poirot_http_requests_total{
+                  namespace="onboarding-optimisation-prod", status_code=~"4.."
+                }
+                and ignoring (__name__)
+                (poirot_http_requests_created{
+                  namespace="onboarding-optimisation-prod", status_code=~"4.."
+                } > time() - 300)
+              )
+              unless ignoring (method, route, status_code)
+              (poirot_http_error_classification_info{namespace="onboarding-optimisation-prod"} == 1),
+              "reason", "unclassified", "route", ".*"
+            )
+          ) > 0
+        )
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: 'Production backend returned unexpected HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} (reason: {{ $labels.reason }}) within the last five minutes.'
+        priority: notify
+        action: Inspect the route and bounded reason code. Unexpected or unclassified 4xx responses notify on a single occurrence; reviewed expected reasons remain visible in Grafana without notifying. Replicas without classification retain all-4xx alerting until upgraded.
     - alert: OnboardingOptimisationBackendHighLatency
       expr: |
         histogram_quantile(
@@ -184,22 +250,6 @@ spec:
         priority: notify
         action: Check HMPPS credential validity, certificate/configuration changes
           and upstream authentication status.
-    - alert: OnboardingOptimisationPersonSearchResultLimitReached
-      expr: |
-        sum(increase(poirot_hmpps_person_search_limit_reached_total{
-          namespace="onboarding-optimisation-prod"
-        }[5m])) > 0
-      labels:
-        severity: poirot-alerts
-      annotations:
-        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-        message: A production HMPPS person search may have omitted results beyond
-          the first 100.
-        priority: notify
-        action: Check the source system directly for complete results and confirm
-          the on-screen warning appeared for each affected search input. Do not
-          put search inputs or applicant details in Slack or alert notes.
     - alert: OnboardingOptimisationAddressSearchResultLimitReached
       expr: |
         sum(increase(poirot_hmpps_address_search_limit_reached_total{
