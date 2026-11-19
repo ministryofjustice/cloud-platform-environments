@@ -45,6 +45,7 @@ module "bps_irsa" {
     bps_metadata_dynamodb   = aws_iam_policy.bps_irsa_metadata_dynamodb.arn
     transactions_audit      = aws_iam_policy.bps_irsa_transactions_audit.arn
     password_encryption_kms = aws_iam_policy.bps_irsa_password_encryption_kms.arn
+    payment_reconciliation  = aws_iam_policy.bps_irsa_payment_reconciliation_sqs.arn
   }
 
   business_unit          = var.business_unit

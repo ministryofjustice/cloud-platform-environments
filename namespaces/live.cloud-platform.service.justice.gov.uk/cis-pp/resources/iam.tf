@@ -203,6 +203,39 @@ resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
   })
 }
 
+resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
+  name        = "${var.namespace}-bps-irsa-payment-reconciliation-sqs"
+  description = "Allow BPS to consume payment reconciliation messages"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ConsumeReconciliationMessages"
+        Effect = "Allow"
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:ChangeMessageVisibility",
+          "sqs:GetQueueAttributes",
+        ]
+        Resource = module.bps_payment_reconciliation_queue.sqs_arn
+      },
+      {
+        Sid      = "DecryptReconciliationMessages"
+        Effect   = "Allow"
+        Action   = "kms:Decrypt"
+        Resource = data.aws_kms_alias.bps_payment_reconciliation_queue.target_key_arn
+        Condition = {
+          StringEquals = {
+            "kms:ViaService" = "sqs.eu-west-2.amazonaws.com"
+          }
+        }
+      },
+    ]
+  })
+}
+
 # -----------------------------------------------------------------------------
 # GitHub OIDC Role
 #
