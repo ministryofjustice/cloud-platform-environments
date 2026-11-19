@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - workforce-management.hmpps.service.justice.gov.uk
+    - workload-measurement.hmpps.service.justice.gov.uk
