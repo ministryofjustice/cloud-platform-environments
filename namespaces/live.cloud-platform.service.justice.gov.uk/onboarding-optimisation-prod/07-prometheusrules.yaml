@@ -60,37 +60,78 @@ spec:
         priority: notify
         action: Inspect rollout status, readiness failures, scheduling events and
           the desired-versus-available replicas panel.
-    - alert: OnboardingOptimisationBackendHigh5xxRatio
+    - alert: OnboardingOptimisationBackend5xxResponse
+      # The creation-time branch also catches the first error on a new counter
+      # series, which increase() alone cannot detect without an earlier sample.
       expr: |
         (
-          sum(rate(poirot_http_requests_total{
-            namespace="onboarding-optimisation-prod",
-            status_code=~"5.."
-          }[10m]))
-          /
-          clamp_min(
-            sum(rate(poirot_http_requests_total{
-              namespace="onboarding-optimisation-prod"
-            }[10m])),
-            0.001
-          )
-        ) > 0.20
-        and
-        sum(increase(poirot_http_requests_total{
-          namespace="onboarding-optimisation-prod"
-        }[10m])) >= 20
-      for: 10m
+          sum by (method, route, status_code) (
+            increase(poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"5.."
+            }[5m])
+          ) > 0
+        )
+        or
+        (
+          sum by (method, route, status_code) (
+            poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"5.."
+            }
+            and ignoring (__name__)
+            (
+              poirot_http_requests_created{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"5.."
+              } > time() - 300
+            )
+          ) > 0
+        )
       labels:
         severity: poirot-alerts
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-        message: More than 20% of production backend requests have returned 5xx responses
-          for ten minutes.
+        message: 'Production backend returned HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} within the last five minutes.'
         priority: page
-        action: Use the per-route 5xx panel to identify the failing route, then inspect
-          correlated backend logs and recent deployments. Threshold is provisional
-          pending k6 baselining.
+        action: Inspect the route and backend logs for the failing request and recent deployments. A single observed 5xx triggers this alert, with no traffic minimum or sustained-error delay.
+    - alert: OnboardingOptimisationBackend4xxResponse
+      # The creation-time branch also catches the first error on a new counter
+      # series, which increase() alone cannot detect without an earlier sample.
+      expr: |
+        (
+          sum by (method, route, status_code) (
+            increase(poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"4.."
+            }[5m])
+          ) > 0
+        )
+        or
+        (
+          sum by (method, route, status_code) (
+            poirot_http_requests_total{
+              namespace="onboarding-optimisation-prod",
+              status_code=~"4.."
+            }
+            and ignoring (__name__)
+            (
+              poirot_http_requests_created{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"4.."
+              } > time() - 300
+            )
+          ) > 0
+        )
+      labels:
+        severity: poirot-alerts
+      annotations:
+        runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
+        message: 'Production backend returned HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} within the last five minutes.'
+        priority: notify
+        action: Inspect the route and status to distinguish a user-facing fault from an expected expired session, access restriction or validation response. Every observed 4xx is notified, including expected responses.
     - alert: OnboardingOptimisationBackendHighLatency
       expr: |
         histogram_quantile(
