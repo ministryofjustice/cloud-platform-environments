@@ -1284,6 +1284,143 @@ data:
           },
           "title": "Investigation links",
           "type": "text"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 100
+          },
+          "id": 1007,
+          "panels": [],
+          "title": "8. Adoption",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Estimated clicks in the preceding rolling hour, from batched authenticated browser interactions. Anonymous aggregate only; no button text, page URLs, case details or user identifiers. Browser closure, offline sessions and telemetry failures can undercount. Collection starts with the adoption instrumentation deployment.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 101
+          },
+          "id": 1001,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(increase(poirot_adoption_clicks_total{namespace=\"$namespace\"}[1h]))",
+              "legendFormat": "Clicks per hour",
+              "refId": "A"
+            }
+          ],
+          "title": "Clicks per hour",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Durable completion count across the last 60 complete UTC minutes (up to one minute reporting lag). max across backend replicas avoids double counting the shared database. Backfilled from retained completion events; already purged history cannot be reconstructed.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 101
+          },
+          "id": 1002,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(poirot_adoption_completed_cases_last_hour{namespace=\"$namespace\"})",
+              "legendFormat": "Completed cases per hour",
+              "refId": "A"
+            }
+          ],
+          "title": "Completed cases per hour",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Durable aggregate across retained historical completion events at migration and all subsequent completions. Survives case retention and backend restarts. Historical records purged before instrumentation are unavailable. max across replicas avoids double counting the shared database.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 101
+          },
+          "id": 1003,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(poirot_adoption_completed_cases{namespace=\"$namespace\"})",
+              "legendFormat": "Total completed cases",
+              "refId": "A"
+            }
+          ],
+          "title": "Total completed cases",
+          "type": "stat"
         }
       ],
       "refresh": "30s",
