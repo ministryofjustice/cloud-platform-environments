@@ -73,6 +73,23 @@ module "coh_export_daily_bucket" {
   ]
 }
 EOF
+
+  # COH deliveries are full snapshots under date=YYYY-MM-DD. Overwrite does not
+  # remove previous days, so drop objects older than 3 days and keep a spare
+  # day if a refresh is late.
+  lifecycle_rule = [
+    {
+      enabled                                = true
+      id                                     = "expire-coh-exports"
+      prefix                                 = "coh-reports-auto-root-account/"
+      abort_incomplete_multipart_upload_days = 7
+      expiration = [
+        {
+          days = 3
+        },
+      ]
+    },
+  ]
 }
 
 module "coat_mvp_dashboards_auth0_tf_state_dev_s3_bucket" {
