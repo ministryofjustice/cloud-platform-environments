@@ -30,5 +30,10 @@ module "secrets_manager" {
       recovery_window_in_days = 7,               # Required
       k8s_secret_name         = "oidc-issuer-url-dev" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
+    "laa-assess-a-claim-frontend-sentry-dsn-dev" = {
+      description             = "Dev Sentry DSN",   # Required
+      recovery_window_in_days = 7,               # Required
+      k8s_secret_name         = "laa-assess-a-claim-frontend-sentry-dsn" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
+    },
   }
 }
