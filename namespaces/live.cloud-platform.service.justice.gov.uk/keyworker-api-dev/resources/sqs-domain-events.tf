@@ -48,7 +48,9 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
       "person.case-note.created",
       "person.case-note.updated",
       "person.case-note.moved",
-      "person.case-note.deleted"
+      "person.case-note.deleted",
+      "register.prison.inserted",
+      "register.prison.amended"
     ]
   })
 }
