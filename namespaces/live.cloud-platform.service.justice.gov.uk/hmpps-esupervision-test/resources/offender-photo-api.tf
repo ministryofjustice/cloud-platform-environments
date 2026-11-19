@@ -15,5 +15,4 @@ module "offender_photo_api" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  enable_ecr                    = true
 }
