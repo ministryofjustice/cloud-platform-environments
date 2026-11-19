@@ -14,6 +14,7 @@ module "ecr_credentials" {
 
   # specify which GitHub repository you're pushing from
   github_repositories = ["laa-dces-dummy-drc"]
+  deletion_protection = false
 
   # Uncomment and provide repository names to create github actions secrets
   # containing the ECR name, AWS access key, and AWS secret key, for use in
