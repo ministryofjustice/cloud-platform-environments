@@ -8,7 +8,7 @@ module "rds_aurora" {
   engine         = "aurora-postgresql"
   engine_version = "14.20"
   engine_mode    = "provisioned"
-  instance_type  = "db.r6g.large"
+  instance_type  = "db.r6g.xlarge"
   replica_count  = 2
 
   performance_insights_enabled = true
