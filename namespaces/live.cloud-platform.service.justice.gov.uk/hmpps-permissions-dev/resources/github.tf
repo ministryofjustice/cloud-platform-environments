@@ -1,5 +1,5 @@
 module "github-automation" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.1"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-permissions-api"
@@ -14,4 +14,8 @@ module "github-automation" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  # enable_ecr is required only ONCE per Github repository.
+  # Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
+  #                 `enable_ecr = false` (or comment it out) on others
+  enable_ecr                    = true
 }
