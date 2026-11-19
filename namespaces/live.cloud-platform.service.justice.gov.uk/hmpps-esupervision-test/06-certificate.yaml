@@ -54,7 +54,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: hmpps-offender-photo-api
-  namespace: hmpps-esupervision-dev
+  namespace: hmpps-esupervision-test
 spec:
   secretName: hmpps-offender-photo-api
   issuerRef:
