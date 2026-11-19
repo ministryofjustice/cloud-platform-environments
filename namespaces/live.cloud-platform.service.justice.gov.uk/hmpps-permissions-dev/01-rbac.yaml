@@ -3,7 +3,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: hmpps-permissions-dev-admin
-  namespace: hmpps-permissions-api-dev
+  namespace: hmpps-permissions-dev
 subjects:
   - kind: Group
     name: "github:connect-dps-devs"
