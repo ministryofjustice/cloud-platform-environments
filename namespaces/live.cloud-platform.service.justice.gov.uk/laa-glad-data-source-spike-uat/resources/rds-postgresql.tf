@@ -21,15 +21,6 @@ module "rds" {
   # Manually set so to the default so that AutoUpgrade is turned on.
   db_backup_retention_period = 7
 
-  #Enable logical replication from claims-api database
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    }
-  ]
-
   # PostgreSQL specifics
   db_engine                 = "postgres"
   db_engine_version         = "18.6"   # If you are managing minor version updates, refer to user guide: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/relational-databases/upgrade.html#upgrading-a-database-version-or-changing-the-instance-type
