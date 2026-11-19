@@ -97,30 +97,55 @@ spec:
         priority: page
         action: Inspect the route and backend logs for the failing request and recent deployments. A single observed 5xx triggers this alert, with no traffic minimum or sustained-error delay.
     - alert: OnboardingOptimisationBackend4xxResponse
-      # The creation-time branch also catches the first error on a new counter
-      # series, which increase() alone cannot detect without an earlier sample.
+      # Only explicitly reviewed expected reasons are quiet. Legacy replicas
+      # without the classification marker retain conservative all-4xx alerting.
+      # Keep target labels until after the marker match for mixed-version pods.
       expr: |
         (
-          sum by (method, route, status_code) (
-            increase(poirot_http_requests_total{
+          sum by (method, route, status_code, reason) (
+            increase(poirot_http_client_errors_total{
               namespace="onboarding-optimisation-prod",
-              status_code=~"4.."
+              status_code=~"4..", classification!="expected"
             }[5m])
+            or
+            label_replace(
+              increase(poirot_http_requests_total{
+                namespace="onboarding-optimisation-prod", status_code=~"4.."
+              }[5m])
+              unless ignoring (method, route, status_code)
+              (poirot_http_error_classification_info{namespace="onboarding-optimisation-prod"} == 1),
+              "reason", "unclassified", "route", ".*"
+            )
           ) > 0
         )
         or
         (
-          sum by (method, route, status_code) (
-            poirot_http_requests_total{
-              namespace="onboarding-optimisation-prod",
-              status_code=~"4.."
-            }
-            and ignoring (__name__)
+          sum by (method, route, status_code, reason) (
             (
-              poirot_http_requests_created{
+              poirot_http_client_errors_total{
                 namespace="onboarding-optimisation-prod",
-                status_code=~"4.."
-              } > time() - 300
+                status_code=~"4..", classification!="expected"
+              }
+              and ignoring (__name__)
+              (poirot_http_client_errors_created{
+                namespace="onboarding-optimisation-prod",
+                status_code=~"4..", classification!="expected"
+              } > time() - 300)
+            )
+            or
+            label_replace(
+              (
+                poirot_http_requests_total{
+                  namespace="onboarding-optimisation-prod", status_code=~"4.."
+                }
+                and ignoring (__name__)
+                (poirot_http_requests_created{
+                  namespace="onboarding-optimisation-prod", status_code=~"4.."
+                } > time() - 300)
+              )
+              unless ignoring (method, route, status_code)
+              (poirot_http_error_classification_info{namespace="onboarding-optimisation-prod"} == 1),
+              "reason", "unclassified", "route", ".*"
             )
           ) > 0
         )
@@ -129,9 +154,9 @@ spec:
       annotations:
         runbook_url: https://github.com/ministryofjustice/onboarding-optimisation/blob/main/README.md#observability
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/onboarding-optimisation/onboarding-optimisation
-        message: 'Production backend returned HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} within the last five minutes.'
+        message: 'Production backend returned unexpected HTTP {{ $labels.status_code }} for {{ $labels.method }} {{ $labels.route }} (reason: {{ $labels.reason }}) within the last five minutes.'
         priority: notify
-        action: Inspect the route and status to distinguish a user-facing fault from an expected expired session, access restriction or validation response. Every observed 4xx is notified, including expected responses.
+        action: Inspect the route and bounded reason code. Unexpected or unclassified 4xx responses notify on a single occurrence; reviewed expected reasons remain visible in Grafana without notifying. Replicas without classification retain all-4xx alerting until upgraded.
     - alert: OnboardingOptimisationBackendHighLatency
       expr: |
         histogram_quantile(

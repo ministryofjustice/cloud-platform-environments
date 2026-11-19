@@ -454,7 +454,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 24,
+            "w": 12,
             "x": 0,
             "y": 18
           },
@@ -492,6 +492,51 @@ data:
           ],
           "title": "Latency by registered route and method",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "decimals": 0,
+              "min": 0
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 18
+          },
+          "id": 1004,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (classification, reason) (\n  max without (count_source) (\n  label_replace(\n    increase(poirot_http_client_errors_total{namespace=\"$namespace\", status_code=~\"4..\"}[1h]),\n    \"count_source\", \"increase\", \"route\", \".*\"\n  )\n  or\n  label_replace(\n    poirot_http_client_errors_total{namespace=\"$namespace\", status_code=~\"4..\"}\n    and ignoring (__name__)\n    (poirot_http_client_errors_created{namespace=\"$namespace\", status_code=~\"4..\"} > time() - 3600),\n    \"count_source\", \"initial\", \"route\", \".*\"\n  )\n)\n  or\n  label_replace(\n    label_replace(\n      (max without (count_source) (\n  label_replace(\n    increase(poirot_http_requests_total{namespace=\"$namespace\", status_code=~\"4..\"}[1h]),\n    \"count_source\", \"increase\", \"route\", \".*\"\n  )\n  or\n  label_replace(\n    poirot_http_requests_total{namespace=\"$namespace\", status_code=~\"4..\"}\n    and ignoring (__name__)\n    (poirot_http_requests_created{namespace=\"$namespace\", status_code=~\"4..\"} > time() - 3600),\n    \"count_source\", \"initial\", \"route\", \".*\"\n  )\n))\n      unless ignoring (method, route, status_code)\n      (poirot_http_error_classification_info{namespace=\"$namespace\"} == 1),\n      \"classification\", \"unexpected\", \"route\", \".*\"\n    ),\n    \"reason\", \"unclassified\", \"route\", \".*\"\n  )\n)",
+              "legendFormat": "{{classification}} / {{reason}}",
+              "refId": "A"
+            }
+          ],
+          "title": "4xx responses by classification and reason per hour",
+          "type": "timeseries",
+          "description": "All classified client errors, grouped into reviewed expected reasons and unexpected/unclassified reasons. Expected errors stay visible here without notifications. Older backend replicas without the classification marker are conservatively shown and alerted as unexpected/unclassified. Counts are estimates over the preceding rolling hour; no error text, case IDs or user IDs are recorded."
         },
         {
           "collapsed": false,
