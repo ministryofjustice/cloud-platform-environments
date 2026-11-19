@@ -8,6 +8,11 @@ variable "kubernetes_cluster" {
   type        = string
 }
 
+variable "eks_cluster_name" {
+  description = "Name of the AWS EKS cluster used by the Secrets Manager module"
+  type        = string
+}
+
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
