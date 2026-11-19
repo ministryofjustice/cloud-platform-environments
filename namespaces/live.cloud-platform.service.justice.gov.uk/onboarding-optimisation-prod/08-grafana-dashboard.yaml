@@ -1344,7 +1344,7 @@ data:
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "description": "Durable completion count across the last 60 complete UTC minutes (up to one minute reporting lag). max across backend replicas avoids double counting the shared database. Backfilled from retained completion events; already purged history cannot be reconstructed.",
+          "description": "Durable completion count across the last 60 complete UTC minutes (up to 90 seconds reporting lag). max across backend replicas avoids double counting the shared database. Backfilled from retained completion events; already purged history cannot be reconstructed.",
           "fieldConfig": {
             "defaults": {
               "decimals": 0,
