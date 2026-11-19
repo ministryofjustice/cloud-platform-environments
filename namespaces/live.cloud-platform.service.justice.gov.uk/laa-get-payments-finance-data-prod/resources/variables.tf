@@ -110,12 +110,6 @@ variable "domain" {
   type    = string
 }
 
-variable "file_store_bucket_name" {
-  description = "The name of the S3 bucket used for storing templates"
-  default     = "laa-get-payments-finance-data-prod-file-store"
-  type        = string
-}
-
 variable "report_store_bucket_name" {
   description = "The name of the S3 bucket used for storing complete reports"
   default     = "laa-get-payments-finance-data-prod-report-store"

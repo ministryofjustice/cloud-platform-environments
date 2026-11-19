@@ -42,7 +42,6 @@ module "irsa_service_pod" {
   role_policy_arns = {
     ecr = module.ecr.irsa_policy_arn
     data_ecr = module.data_ecr.irsa_policy_arn
-    file_store = module.s3_bucket.irsa_policy_arn
     report_store = module.s3_bucket_report_store.irsa_policy_arn
     report_store_logging = module.s3_bucket_report_store_logging.irsa_policy_arn
   }
@@ -60,7 +59,6 @@ data "aws_iam_policy_document" "service_read_only_s3" {
   statement {
     actions   = ["s3:ListBucket"]
     resources = [
-      module.s3_bucket.bucket_arn,
       module.s3_bucket_report_store.bucket_arn
     ]
   }
@@ -68,7 +66,6 @@ data "aws_iam_policy_document" "service_read_only_s3" {
   statement {
     actions   = ["s3:GetObject"]
     resources = [
-      "${module.s3_bucket.bucket_arn}/*",
       "${module.s3_bucket_report_store.bucket_arn}/*"
     ]
   }
