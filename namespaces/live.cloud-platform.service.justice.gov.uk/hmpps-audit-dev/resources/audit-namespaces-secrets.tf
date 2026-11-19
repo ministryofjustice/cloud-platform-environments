@@ -63,6 +63,7 @@ locals {
     "hmpps-support-additional-needs-dev",
     "hmpps-templates-dev",
     "hmpps-workload-dev",
+    "licences-dev",
     "make-recall-decision-dev",
     "offender-categorisation-dev",
     "offender-management-staging",
