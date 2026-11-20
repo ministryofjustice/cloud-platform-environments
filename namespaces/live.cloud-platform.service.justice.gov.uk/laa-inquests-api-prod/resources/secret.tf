@@ -34,6 +34,11 @@ module "secrets_manager" {
       description = "API application details from Entra"
       recovery_window_in_days = 7,
       k8s_secret_name         = "entra-api-config-prod"
+    },
+    "slack-webhook" = {
+      description             = "Contains the slack webhook url to send notifications",
+      recovery_window_in_days = 7,
+      k8s_secret_name         = "laa-inquests-api-slack-webhook"
     }
   }
 }
