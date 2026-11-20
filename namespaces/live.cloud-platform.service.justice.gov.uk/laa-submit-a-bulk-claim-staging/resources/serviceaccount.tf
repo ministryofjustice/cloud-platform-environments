@@ -8,13 +8,13 @@ module "serviceaccount" {
   serviceaccount_rules = [
     {
       api_groups = [""]
-      resources  = ["pods/portforward", "deployment", "secrets", "services", "configmaps", "persistentvolumeclaims", "pods"]
+      resources  = ["pods/portforward", "deployment", "secrets", "services", "configmaps", "pods"]
       verbs      = ["patch", "get", "create", "update", "delete", "list", "watch"]
     },
     # This is required for the two cron jobs which scale up/down SaBC every day
     {
       api_groups = ["extensions", "apps", "batch", "networking.k8s.io", "policy"]
-      resources  = ["deployments", "deployments/scale", "ingresses", "cronjobs", "jobs", "replicasets", "statefulsets", "poddisruptionbudgets", "networkpolicies"]
+      resources  = ["deployments", "deployments/scale", "ingresses", "cronjobs", "jobs", "replicasets", "poddisruptionbudgets", "networkpolicies"]
       verbs      = ["get", "update", "delete", "create", "patch", "list", "watch"]
     },
     {
