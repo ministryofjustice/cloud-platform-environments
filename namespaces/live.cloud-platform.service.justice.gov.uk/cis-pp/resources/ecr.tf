@@ -30,18 +30,6 @@ module "ecr" {
             "action": {
                 "type": "expire"
             }
-        },
-        {
-            "rulePriority": 2,
-            "description": "Keep the newest 30 images and mark the rest for expiration",
-            "selection": {
-                "tagStatus": "any",
-                "countType": "imageCountMoreThan",
-                "countNumber": 30
-            },
-            "action": {
-                "type": "expire"
-            }
         }
     ]
 }
