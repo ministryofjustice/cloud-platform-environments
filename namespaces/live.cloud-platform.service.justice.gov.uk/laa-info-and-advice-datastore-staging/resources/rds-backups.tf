@@ -85,10 +85,7 @@ data "aws_iam_policy_document" "rds_backups" {
       }
 
       dynamic "condition" {
-        for_each = concat(
-          ["recovery-point-time", "expires-at"],
-          statement.key == "daily" ? ["source-snapshot"] : []
-        )
+        for_each = statement.key == "daily" ? ["source-snapshot"] : []
 
         content {
           test     = "Null"
@@ -103,6 +100,7 @@ data "aws_iam_policy_document" "rds_backups" {
     for_each = local.rds_backup_tiers
 
     content {
+      # Required for tags supplied on create/copy, without later retagging.
       sid       = "Tag${title(statement.key)}Backup"
       actions   = ["rds:AddTagsToResource"]
       resources = ["${local.rds_backup_arn_prefix}:snapshot:${statement.value.snapshot_prefix}*"]
@@ -121,10 +119,7 @@ data "aws_iam_policy_document" "rds_backups" {
       }
 
       dynamic "condition" {
-        for_each = concat(
-          ["recovery-point-time", "expires-at"],
-          statement.key == "daily" ? ["source-snapshot"] : []
-        )
+        for_each = statement.key == "daily" ? ["source-snapshot"] : []
 
         content {
           test     = "Null"
@@ -157,10 +152,7 @@ data "aws_iam_policy_document" "rds_backups" {
       }
 
       dynamic "condition" {
-        for_each = concat(
-          ["recovery-point-time", "expires-at"],
-          statement.key == "daily" ? ["source-snapshot"] : []
-        )
+        for_each = statement.key == "daily" ? ["source-snapshot"] : []
 
         content {
           test     = "Null"
