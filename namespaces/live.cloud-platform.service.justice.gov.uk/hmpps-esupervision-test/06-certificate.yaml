@@ -48,4 +48,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - manage-online-check-ins-ui-test.hmpps.service.justice.gov.uk
+  - manage-online-check-ins-test.hmpps.service.justice.gov.uk
