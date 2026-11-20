@@ -436,7 +436,7 @@ module "service-account-github-actions" {
 # Cloud Platform writes its credentials into each repo's `parity` GitHub Environment
 # as KUBE_CERT, KUBE_TOKEN, KUBE_CLUSTER and KUBE_NAMESPACE.
 module "service-account-github-actions-deploy" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.1"
 
   namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
