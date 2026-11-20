@@ -4,6 +4,65 @@
  * releases page of this repository.
  *
  */
+locals {
+  cache_rule = {
+    rulePriority = 1
+    description  = "Retain service build caches"
+
+    selection = {
+      tagStatus      = "tagged"
+      tagPatternList = ["*-buildcache"]
+      countType      = "imageCountMoreThan"
+      countNumber    = length(var.services)
+    }
+
+    action = {
+      type = "expire"
+    }
+  }
+
+  untagged_rule = {
+    rulePriority = 2
+    description  = "Expire untagged images older than 14 days"
+
+    selection = {
+      tagStatus   = "untagged"
+      countType   = "sinceImagePushed"
+      countUnit   = "days"
+      countNumber = 14
+    }
+
+    action = {
+      type = "expire"
+    }
+  }
+
+  service_rules = [
+    for index, service in var.services : {
+      rulePriority = index + 3
+      description  = "Retain ${service} images and cache"
+
+      selection = {
+        tagStatus      = "tagged"
+        tagPatternList = ["${service}-*"]
+        countType      = "imageCountMoreThan"
+        countNumber    = 3
+      }
+
+      action = {
+        type = "expire"
+      }
+    }
+  ]
+
+  ecr_lifecycle_policy = jsonencode({
+    rules = concat(
+      [local.cache_rule, local.untagged_rule],
+      local.service_rules,
+    )
+  })
+}
+
 module "ecr" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.1"
 
@@ -15,25 +74,7 @@ module "ecr" {
   github_repositories = [var.github_repository]
   github_environments = [var.github_environment]
 
-  lifecycle_policy = <<EOF
-{
-    "rules": [
-        {
-            "rulePriority": 1,
-            "description": "Expire untagged images older than 14 days",
-            "selection": {
-                "tagStatus": "untagged",
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
-            },
-            "action": {
-                "type": "expire"
-            }
-        }
-    ]
-}
-EOF
+  lifecycle_policy = local.ecr_lifecycle_policy
 
   # Tags
   business_unit          = var.business_unit

@@ -85,6 +85,23 @@ variable "github_repository" {
   default     = "cis-modernisation"
 }
 
+variable "services" {
+  description = "Services with container images in ECR."
+  type        = list(string)
+
+  default = [
+    "health-check",
+    "case-summary",
+    "transactions",
+    "vhcc-summary",
+    "vhcc-notification",
+    "vhcc-search",
+    "unified-search",
+    "civil-bills",
+    "bulk-payments-service",
+  ]
+}
+
 variable "github_environment" {
   description = "GitHub environment name for deploy secrets"
   type        = string
