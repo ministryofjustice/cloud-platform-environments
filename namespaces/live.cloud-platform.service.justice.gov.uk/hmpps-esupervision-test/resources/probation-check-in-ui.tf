@@ -6,7 +6,8 @@ module "hmpps_probation_check_in_ui" {
   application = "hmpps-probation-check-in-ui"
   github_team = "stg-pathfinders"
   environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  selected_branch_patterns      = ["**"] # Allow any branch to deploy to test
+  reviewer_teams                = ["stg-pathfinders"]
+  selected_branch_patterns      = ["main", "*", "*/*"] # Any branch can deploy to test. "*" does not match "/", so "*/*" covers branches like ESUP/my-change
   is_production                 = var.is_production
   application_insights_instance = "dev" # Either "dev", "preprod" or "prod"
   source_template_repo          = "hmpps-template-typescript"
