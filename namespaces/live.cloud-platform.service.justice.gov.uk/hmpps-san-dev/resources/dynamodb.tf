@@ -117,7 +117,7 @@ data "aws_iam_policy_document" "hmpps_san_health_ping_dynamodb_dml" {
       module.hmpps_san_health_dynamodb.table_arn,
       "${module.hmpps_san_health_dynamodb.table_arn}/index/*",
       module.hmpps_san_version_dynamodb.table_arn,
-      "${module.hmpps_san_version_dynamodb.table_arn}/index/*"
+      "${module.hmpps_san_version_dynamodb.table_arn}/index/*",
       module.hmpps_san_dependency_dynamodb.table_arn,
       "${module.hmpps_san_dependency_dynamodb.table_arn}/index/*"
     ]
