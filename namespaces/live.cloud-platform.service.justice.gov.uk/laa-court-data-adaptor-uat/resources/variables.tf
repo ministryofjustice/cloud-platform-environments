@@ -45,6 +45,11 @@ variable "encrypt_sqs_kms" {
   default     = "false"
 }
 
+variable "max_message_size" {
+  description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 1048576 bytes (1 MiB)."
+  default     = "1048576"
+}
+
 variable "message_retention_seconds" {
   description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)."
   default     = "1209600"
