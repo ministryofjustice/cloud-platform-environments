@@ -20,7 +20,7 @@ variable "business_unit" {
 
 variable "team_name" {
   description = "The name of your development team"
-  default     = "hmpps-em-probation-devs"
+  default     = "hmpps-electronic-monitoring-devs"
 }
 
 variable "service_area" {
