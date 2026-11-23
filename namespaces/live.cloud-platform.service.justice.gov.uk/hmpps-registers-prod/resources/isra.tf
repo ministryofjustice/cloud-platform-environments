@@ -56,7 +56,7 @@ module "hmpps_registers_ui_irsa" {
   namespace            = var.namespace
   service_account_name = "hmpps-registers-ui"
   role_policy_arns = {
-    audit_sqs = local.sqs_policies["Digital-Prison-Services-prod-hmpps_audit_queue"]
+    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-prod-hmpps_audit_queue"].value
   }
   # Tags
   business_unit          = var.business_unit
