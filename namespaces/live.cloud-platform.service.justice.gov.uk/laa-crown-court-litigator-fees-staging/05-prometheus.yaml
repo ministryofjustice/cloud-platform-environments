@@ -61,7 +61,7 @@ spec:
 
     - alert: CCLF-RDS-High-Write-IOPS
       expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 300
-      for: 1m
+      for: 5m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
@@ -71,7 +71,7 @@ spec:
 
     - alert: CCLF-RDS-High-Read-IOPS
       expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-13395076eb682423"} > 300
-      for: 1m
+      for: 5m
       labels:
         severity: laa-crown-court-litigator-fees-staging
       annotations:
