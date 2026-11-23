@@ -130,7 +130,6 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_coreperson_subscripti
       "OFFENDER_EMAIL-INSERTED",
       "OFFENDER_EMAIL-UPDATED",
       "OFFENDER_EMAIL-DELETED",
-      "OFFENDER-INSERTED",
     ]
   })
 }
