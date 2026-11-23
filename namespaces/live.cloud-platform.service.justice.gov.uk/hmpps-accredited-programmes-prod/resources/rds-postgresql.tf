@@ -85,6 +85,10 @@ module "read_replica" {
   rds_name            = "${var.namespace}-read-replica"
   replicate_source_db = module.rds.db_identifier
 
+  # No backups or snapshots are needed for a read replica
+  skip_final_snapshot        = "true"
+  db_backup_retention_period = 0
+
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "16.15"
@@ -152,6 +156,19 @@ resource "kubernetes_secret" "rds" {
     database_username     = module.rds.database_username
     database_password     = module.rds.database_password
     rds_instance_address  = module.rds.rds_instance_address
+  }
+}
+
+resource "kubernetes_secret" "read_replica" {
+  metadata {
+    name      = "rds-postgresql-read-replica-output"
+    namespace = var.namespace
+  }
+
+  # database_username, database_password and database_name are the same as the source RDS instance
+  data = {
+    rds_instance_endpoint = module.read_replica.rds_instance_endpoint
+    rds_instance_address  = module.read_replica.rds_instance_address
   }
 }
 
