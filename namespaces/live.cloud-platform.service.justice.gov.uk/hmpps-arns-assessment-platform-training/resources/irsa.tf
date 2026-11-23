@@ -12,6 +12,7 @@ module "irsa" {
   role_policy_arns = merge(
     {
       arns_coordinator_queue         = module.arns_coordinator_queue.irsa_policy_arn
+      arns_coordinator_dlq           = module.arns_coordinator_dead_letter_queue.irsa_policy_arn
       hmpps_arns_training_audit_sink = module.hmpps_arns_training_audit_sink.irsa_policy_arn
     },
     local.sqs_policies
