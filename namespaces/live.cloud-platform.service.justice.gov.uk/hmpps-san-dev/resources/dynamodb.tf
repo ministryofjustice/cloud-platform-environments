@@ -70,6 +70,30 @@ module "hmpps_san_version_dynamodb" {
   }
 }
 
+module "hmpps_san_dependency_dynamodb" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-dynamodb-cluster?ref=4.1.0"
+
+  team_name              = var.team_name
+  application            = "san-health-ping-dependency"
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+
+  hash_key       = "environment_component"
+  hash_key_type  = "S"
+  range_key      = "entity_type_name"
+  range_key_type = "S"
+
+  enable_encryption = "true"
+  enable_autoscaler = "true"
+
+  providers = {
+    aws = aws.london
+  }
+}
+
 data "aws_iam_policy_document" "hmpps_san_health_ping_dynamodb_dml" {
   statement {
     actions = [
@@ -93,7 +117,9 @@ data "aws_iam_policy_document" "hmpps_san_health_ping_dynamodb_dml" {
       module.hmpps_san_health_dynamodb.table_arn,
       "${module.hmpps_san_health_dynamodb.table_arn}/index/*",
       module.hmpps_san_version_dynamodb.table_arn,
-      "${module.hmpps_san_version_dynamodb.table_arn}/index/*"
+      "${module.hmpps_san_version_dynamodb.table_arn}/index/*",
+      module.hmpps_san_dependency_dynamodb.table_arn,
+      "${module.hmpps_san_dependency_dynamodb.table_arn}/index/*"
     ]
   }
 }
@@ -117,6 +143,8 @@ resource "kubernetes_secret" "hmpps_san_dynamodb" {
     health_table_arn   = module.hmpps_san_health_dynamodb.table_arn
     version_table_name = module.hmpps_san_version_dynamodb.table_name
     version_table_arn  = module.hmpps_san_version_dynamodb.table_arn
+    dependency_table_name  = module.hmpps_san_dependency_dynamodb.table_name
+    dependency_table_arn   = module.hmpps_san_dependency_dynamodb.table_arn
   }
 }
 
@@ -138,3 +166,4 @@ module "hmpps_san_health_ping_dynamodb_irsa" {
   environment_name       = var.environment
   infrastructure_support = var.infrastructure_support
 }
+

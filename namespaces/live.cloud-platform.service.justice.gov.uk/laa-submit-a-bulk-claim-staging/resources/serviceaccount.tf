@@ -5,6 +5,30 @@ module "serviceaccount" {
   kubernetes_cluster = var.kubernetes_cluster
   serviceaccount_name = var.serviceaccount_name
 
+  serviceaccount_rules = [
+    {
+      api_groups = [""]
+      resources  = ["pods/portforward", "deployment", "secrets", "services", "configmaps", "pods"]
+      verbs      = ["patch", "get", "create", "update", "delete", "list", "watch"]
+    },
+    # This is required for the two cron jobs which scale up/down SaBC every day
+    {
+      api_groups = ["extensions", "apps", "batch", "networking.k8s.io", "policy"]
+      resources  = ["deployments", "deployments/scale", "ingresses", "cronjobs", "jobs", "replicasets", "poddisruptionbudgets", "networkpolicies"]
+      verbs      = ["get", "update", "delete", "create", "patch", "list", "watch"]
+    },
+    {
+      api_groups = ["monitoring.coreos.com"]
+      resources  = ["prometheusrules", "servicemonitors"]
+      verbs      = ["*"]
+    },
+    {
+      api_groups = ["autoscaling"]
+      resources  = ["hpa", "horizontalpodautoscalers"]
+      verbs      = ["get", "update", "delete", "create", "patch", "list", "watch"]
+    },
+  ]
+
   github_repositories = ["laa-submit-a-bulk-claim"]
   github_environments = ["staging"]
   serviceaccount_token_rotated_date = "20-03-2026"

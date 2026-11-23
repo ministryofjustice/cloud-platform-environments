@@ -454,7 +454,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 24,
+            "w": 12,
             "x": 0,
             "y": 18
           },
@@ -494,6 +494,51 @@ data:
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "decimals": 0,
+              "min": 0
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 18
+          },
+          "id": 1004,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum by (classification, reason) (\n  max without (count_source) (\n  label_replace(\n    increase(poirot_http_client_errors_total{namespace=\"$namespace\", status_code=~\"4..\"}[1h]),\n    \"count_source\", \"increase\", \"route\", \".*\"\n  )\n  or\n  label_replace(\n    poirot_http_client_errors_total{namespace=\"$namespace\", status_code=~\"4..\"}\n    and ignoring (__name__)\n    (poirot_http_client_errors_created{namespace=\"$namespace\", status_code=~\"4..\"} > time() - 3600),\n    \"count_source\", \"initial\", \"route\", \".*\"\n  )\n)\n  or\n  label_replace(\n    label_replace(\n      (max without (count_source) (\n  label_replace(\n    increase(poirot_http_requests_total{namespace=\"$namespace\", status_code=~\"4..\"}[1h]),\n    \"count_source\", \"increase\", \"route\", \".*\"\n  )\n  or\n  label_replace(\n    poirot_http_requests_total{namespace=\"$namespace\", status_code=~\"4..\"}\n    and ignoring (__name__)\n    (poirot_http_requests_created{namespace=\"$namespace\", status_code=~\"4..\"} > time() - 3600),\n    \"count_source\", \"initial\", \"route\", \".*\"\n  )\n))\n      unless ignoring (method, route, status_code)\n      (poirot_http_error_classification_info{namespace=\"$namespace\"} == 1),\n      \"classification\", \"unexpected\", \"route\", \".*\"\n    ),\n    \"reason\", \"unclassified\", \"route\", \".*\"\n  )\n)",
+              "legendFormat": "{{classification}} / {{reason}}",
+              "refId": "A"
+            }
+          ],
+          "title": "4xx responses by classification and reason per hour",
+          "type": "timeseries",
+          "description": "All classified client errors, grouped into reviewed expected reasons and unexpected/unclassified reasons. Expected errors stay visible here without notifications. Older backend replicas without the classification marker are conservatively shown and alerted as unexpected/unclassified. Counts are estimates over the preceding rolling hour; no error text, case IDs or user IDs are recorded."
+        },
+        {
           "collapsed": false,
           "gridPos": {
             "h": 1,
@@ -502,10 +547,8 @@ data:
             "y": 26
           },
           "id": 102,
-          "panels": [
-
-          ],
-          "title": "3. Key workflow performance",
+          "panels": [],
+          "title": "3. Feature Tracking",
           "type": "row"
         },
         {
@@ -515,11 +558,11 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "unit": "reqps"
+              "unit": "short",
+              "decimals": 0,
+              "min": 0
             },
-            "overrides": [
-
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 8,
@@ -544,13 +587,14 @@ data:
           },
           "targets": [
             {
-              "expr": "sum by (format, outcome) (rate(poirot_screening_imports_total{namespace=\"$namespace\"}[15m]))",
-              "legendFormat": "{{format}} {{outcome}}",
+              "expr": "sum(increase(poirot_hmpps_person_search_limit_reached_total{namespace=\"$namespace\"}[1h]))",
+              "legendFormat": "100-person search limit hits per hour",
               "refId": "A"
             }
           ],
-          "title": "Screening import rate and outcome",
-          "type": "timeseries"
+          "title": "100-person search limit hits per hour",
+          "type": "timeseries",
+          "description": "Number of HMPPS person-search responses that hit the 100-result limit in the preceding rolling hour. Counts limited searches, not people. Uses the existing anonymous counter; replaces the person-limit notification alert. Prometheus increases are estimates."
         },
         {
           "datasource": {
@@ -559,11 +603,11 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "unit": "s"
+              "unit": "short",
+              "decimals": 0,
+              "min": 0
             },
-            "overrides": [
-
-            ]
+            "overrides": []
           },
           "gridPos": {
             "h": 8,
@@ -588,101 +632,14 @@ data:
           },
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_duration_seconds_bucket{namespace=\"$namespace\"}[15m])))",
-              "legendFormat": "{{format}} {{outcome}}",
+              "expr": "sum(increase(poirot_adoption_feature_actions_total{namespace=\"$namespace\",action=\"email_open_mail\"}[1h]))",
+              "legendFormat": "Email feature uses per hour",
               "refId": "A"
             }
           ],
-          "title": "Screening import p95 duration",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "unit": "short"
-            },
-            "overrides": [
-
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 35
-          },
-          "id": 23,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_rows_bucket{namespace=\"$namespace\"}[15m])))",
-              "legendFormat": "{{format}} {{outcome}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Screening import p95 rows",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "unit": "bytes"
-            },
-            "overrides": [
-
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 35
-          },
-          "id": 24,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "expr": "histogram_quantile(0.95, sum by (le, format, outcome) (rate(poirot_screening_import_bytes_bucket{namespace=\"$namespace\"}[15m])))",
-              "legendFormat": "{{format}} {{outcome}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Screening import p95 size",
-          "type": "timeseries"
+          "title": "Email feature uses per hour",
+          "type": "timeseries",
+          "description": "Clicks on Open mail to hand a valid draft to the default email app, in the preceding rolling hour. Starts at deployment of the email feature instrumentation. Best-effort anonymous telemetry; does not confirm the email app opened or a message was sent. No email content, user or case identifiers are recorded."
         },
         {
           "collapsed": false,
@@ -690,7 +647,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 43
+            "y": 35
           },
           "id": 103,
           "panels": [
@@ -716,7 +673,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 44
+            "y": 36
           },
           "id": 25,
           "options": {
@@ -762,7 +719,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 44
+            "y": 36
           },
           "id": 28,
           "options": {
@@ -795,7 +752,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 52
+            "y": 44
           },
           "id": 104,
           "panels": [
@@ -821,7 +778,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 53
+            "y": 45
           },
           "id": 26,
           "options": {
@@ -865,7 +822,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 53
+            "y": 45
           },
           "id": 27,
           "options": {
@@ -909,7 +866,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 61
+            "y": 53
           },
           "id": 10,
           "options": {
@@ -952,7 +909,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 61
+            "y": 53
           },
           "id": 11,
           "options": {
@@ -995,7 +952,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 69
+            "y": 61
           },
           "id": 12,
           "options": {
@@ -1038,7 +995,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 69
+            "y": 61
           },
           "id": 13,
           "options": {
@@ -1070,7 +1027,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 77
+            "y": 69
           },
           "id": 105,
           "panels": [
@@ -1096,7 +1053,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 78
+            "y": 70
           },
           "id": 7,
           "options": {
@@ -1140,7 +1097,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 78
+            "y": 70
           },
           "id": 8,
           "options": {
@@ -1184,7 +1141,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 86
+            "y": 78
           },
           "id": 9,
           "options": {
@@ -1228,7 +1185,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 86
+            "y": 78
           },
           "id": 19,
           "options": {
@@ -1261,7 +1218,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 94
+            "y": 86
           },
           "id": 106,
           "panels": [
@@ -1275,7 +1232,7 @@ data:
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 95
+            "y": 87
           },
           "id": 20,
           "options": {
@@ -1284,6 +1241,143 @@ data:
           },
           "title": "Investigation links",
           "type": "text"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 92
+          },
+          "id": 1007,
+          "panels": [],
+          "title": "8. Adoption",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Estimated clicks in the preceding rolling hour, from batched authenticated browser interactions. Anonymous aggregate only; no button text, page URLs, case details or user identifiers. Browser closure, offline sessions and telemetry failures can undercount. Collection starts with the adoption instrumentation deployment.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 93
+          },
+          "id": 1001,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(increase(poirot_adoption_clicks_total{namespace=\"$namespace\"}[1h]))",
+              "legendFormat": "Clicks per hour",
+              "refId": "A"
+            }
+          ],
+          "title": "Clicks per hour",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Durable completion count across the last 60 complete UTC minutes (up to 90 seconds reporting lag). max across backend replicas avoids double counting the shared database. Backfilled from retained completion events; already purged history cannot be reconstructed.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 93
+          },
+          "id": 1002,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(poirot_adoption_completed_cases_last_hour{namespace=\"$namespace\"})",
+              "legendFormat": "Completed cases per hour",
+              "refId": "A"
+            }
+          ],
+          "title": "Completed cases per hour",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Durable aggregate across retained historical completion events at migration and all subsequent completions. Survives case retention and backend restarts. Historical records purged before instrumentation are unavailable. max across replicas avoids double counting the shared database.",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 0,
+              "min": 0,
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 93
+          },
+          "id": 1003,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(poirot_adoption_completed_cases{namespace=\"$namespace\"})",
+              "legendFormat": "Total completed cases",
+              "refId": "A"
+            }
+          ],
+          "title": "Total completed cases",
+          "type": "stat"
         }
       ],
       "refresh": "30s",

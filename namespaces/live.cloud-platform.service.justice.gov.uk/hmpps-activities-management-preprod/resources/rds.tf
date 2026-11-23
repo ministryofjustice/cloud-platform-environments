@@ -39,7 +39,17 @@ module "activities_rds" {
     },
     {
       name         = "max_wal_size"
-      value        = "2048"
+      value        = "8192"
+      apply_method = "immediate"
+    },
+    {
+      name         = "wal_compression"
+      value        = "on"
+      apply_method = "immediate"
+    },
+    {
+      name         = "maintenance_work_mem"
+      value        = "262144"
       apply_method = "immediate"
     },
     {
@@ -130,7 +140,7 @@ module "activities_rds_read_replica" {
     },
     {
       name         = "max_wal_size"
-      value        = "2048"
+      value        = "8192"
       apply_method = "immediate"
     },
     {

@@ -15,6 +15,7 @@ module "hmpps_security_assurance_toolkit_rds" {
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine_version           = "17.11"
   rds_family                  = "postgres17"
+  db_password_rotated_date    = "19-11-2026"
 
   providers = {
     aws = aws.london

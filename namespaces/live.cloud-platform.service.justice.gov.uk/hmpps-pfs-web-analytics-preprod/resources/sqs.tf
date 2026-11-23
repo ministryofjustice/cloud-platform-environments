@@ -82,17 +82,19 @@ resource "kubernetes_secret" "hmpps_pfs_web_analytics_dlq_secret" {
 # Subscribe SQS to SNS Analytics and SNS Common
 
 resource "aws_sns_topic_subscription" "common_analytics_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps_pfs_common.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  provider             = aws.london
+  topic_arn            = module.hmpps_pfs_common.topic_arn
+  protocol             = "sqs"
+  endpoint             = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  raw_message_delivery = true
 }
 
 resource "aws_sns_topic_subscription" "analytics_only_subscription" {
-  provider      = aws.london
-  topic_arn     = module.hmpps_pfs_analytics.topic_arn
-  protocol      = "sqs"
-  endpoint      = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  provider             = aws.london
+  topic_arn            = module.hmpps_pfs_analytics.topic_arn
+  protocol             = "sqs"
+  endpoint             = module.hmpps_pfs_web_analytics_queue.sqs_arn
+  raw_message_delivery = true
 }
 
 # IAM Policies
