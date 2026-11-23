@@ -55,10 +55,26 @@ locals {
     }
   ]
 
+  tagged_images_catch_all_rule = {
+    rulePriority = length(var.services) + 3
+    description  = "Retain the 30 newest tagged images"
+
+    selection = {
+      tagStatus   = "tagged"
+      countType   = "imageCountMoreThan"
+      countNumber = 30
+    }
+
+    action = {
+      type = "expire"
+    }
+  }
+
   ecr_lifecycle_policy = jsonencode({
     rules = concat(
       [local.cache_rule, local.untagged_rule],
       local.service_rules,
+      [local.tagged_images_catch_all_rule],
     )
   })
 }
