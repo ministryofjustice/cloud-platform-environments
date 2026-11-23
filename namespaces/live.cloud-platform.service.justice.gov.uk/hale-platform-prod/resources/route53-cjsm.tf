@@ -43,7 +43,7 @@ resource "aws_route53_record" "cjsm_route53_mx_record" {
   name    = "cjsm.justice.gov.uk"
   type    = "MX"
   ttl     = "3600"
-  records = ["0 cjsm-justice-gov-uk.mail.protection.outlook.com."]
+  records = ["10 inbound-smtp.eu-west-2.amazonaws.com"]
 }
 
 resource "aws_route53_record" "cjsm_route53_cname_record_autodiscover" {
