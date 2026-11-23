@@ -61,7 +61,7 @@ spec:
 
     - alert: CCR-RDS-High-Write-IOPS
       expr: aws_rds_write_iops_average{dbinstance_identifier="cloud-platform-bb83da2ed8245f4d"} > 300
-      for: 1m
+      for: 5m
       labels:
         severity: laa_crown_court_renumeration_alerts_dev
       annotations:
@@ -71,7 +71,7 @@ spec:
 
     - alert: CCR-RDS-High-Read-IOPS
       expr: aws_rds_read_iops_average{dbinstance_identifier="cloud-platform-bb83da2ed8245f4d"} > 900
-      for: 1m
+      for: 5m
       labels:
         severity: laa_crown_court_renumeration_alerts_dev
       annotations:
