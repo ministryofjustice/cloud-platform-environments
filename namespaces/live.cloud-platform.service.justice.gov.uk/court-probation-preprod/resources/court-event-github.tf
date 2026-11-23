@@ -84,6 +84,7 @@ module "hmpps-court-case-enrichment-worker" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
   github_owner                  = var.github_owner
+  reviewer_teams                = ["probation-in-court-live", "probation-in-court-devs"]
 }
 
 module "hmpps-court-case-data-migration-service" {
