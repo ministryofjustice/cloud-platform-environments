@@ -49,3 +49,16 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - manage-online-check-ins-test.hmpps.service.justice.gov.uk
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-offender-photo-api
+  namespace: hmpps-esupervision-test
+spec:
+  secretName: hmpps-offender-photo-api
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - offender-photo-api-test.hmpps.service.justice.gov.uk
