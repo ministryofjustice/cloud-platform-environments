@@ -3,6 +3,7 @@ module "hmpps_egress_controls" {
 
   namespace          = var.namespace
   enable_envoy_setup = true
+  enable_egress_controls = true
   vpc_name           = var.vpc_name
 
   # Add your service's external dependencies
