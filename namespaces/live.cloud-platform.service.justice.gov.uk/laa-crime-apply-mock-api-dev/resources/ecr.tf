@@ -11,7 +11,7 @@ module "ecr" {
   repo_name = var.namespace
 
   # REQUIRED: OIDC providers to configure, either "github", "circleci", or both
-  oidc_providers = ["circleci"]
+  oidc_providers = ["github"]
 
   # REQUIRED: GitHub repositories that push to this container repository
   github_repositories = ["laa-crime-apply-mock-api"]
