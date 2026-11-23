@@ -12,7 +12,7 @@ resource "aws_sns_topic_subscription" "court_case_events_fifo_subscription" {
 }
 
 module "court_case_events_fifo_queue" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
   sqs_name                    = "court_case_events_queue"
   encrypt_sqs_kms             = "true"
   message_retention_seconds   = 1209600
@@ -69,7 +69,7 @@ EOF
 ######## Dead letter queue
 
 module "court_case_events_fifo_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                    = "court_case_events_dlq"

@@ -1,5 +1,5 @@
 module "returns_events_fifo_queue" {
-  source                      = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source                      = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
   sqs_name                    = "returns_events_queue"
   encrypt_sqs_kms             = "true"
   message_retention_seconds   = 1209600
@@ -70,7 +70,7 @@ resource "kubernetes_secret" "returns_events_fifo_queue" {
 ######## Dead letter queue
 
 module "returns_events_fifo_dead_letter_queue" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-sqs?ref=5.1.3"
 
   # Queue configuration
   sqs_name                    = "returns_events_dlq"
