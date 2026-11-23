@@ -57,12 +57,12 @@ locals {
 
   tagged_images_catch_all_rule = {
     rulePriority = length(var.services) + 3
-    description  = "Retain the 30 newest tagged images"
+    description  = "Retain the 10 newest tagged images not covered by other rules"
 
     selection = {
       tagStatus   = "tagged"
       countType   = "imageCountMoreThan"
-      countNumber = 30
+      countNumber = 46
     }
 
     action = {
