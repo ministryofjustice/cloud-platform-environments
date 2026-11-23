@@ -46,7 +46,7 @@ resource "aws_sns_topic_subscription" "domain_events_subscription" {
         ]
       },
       {
-        eventType = ["person.case-note.created", "person.case-note.updated"]
+        eventType = ["person.case-note.created", "person.case-note.updated", "person.case-note.deleted"]
         type      = [{ "anything-but" = ["ALERT"] }]
       }
     ]
