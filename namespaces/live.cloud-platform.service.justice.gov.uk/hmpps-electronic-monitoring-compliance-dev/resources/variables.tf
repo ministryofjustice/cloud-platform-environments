@@ -73,3 +73,9 @@ variable "github_token" {
   description = "Required by the GitHub Terraform provider"
   default     = ""
 }
+
+variable "datastore_role_arn" {
+  description = "ARN of the role to assume for the Electronic Monitoring Data Store"
+  type        = string
+  default     = "arn:aws:iam::800964199911:role/em-compliance-dev"
+}
