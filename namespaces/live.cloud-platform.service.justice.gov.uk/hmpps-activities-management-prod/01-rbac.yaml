@@ -27,7 +27,7 @@ metadata:
   namespace: hmpps-activities-management-prod
 subjects:
   - kind: Group
-    name: "github:activities-and-appointments"
+    name: "github:activities-and-appointments-live"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
