@@ -57,6 +57,9 @@ module "coordinator_api_rds" {
   db_engine         = "postgres"
   db_engine_version = "18.6"
 
+  # Module default (10000) exceeds the micro instance ceiling and AWS rejects CreateDBInstance
+  db_max_allocated_storage = "500"
+
   allow_major_version_upgrade = false
   prepare_for_major_upgrade   = false
 
