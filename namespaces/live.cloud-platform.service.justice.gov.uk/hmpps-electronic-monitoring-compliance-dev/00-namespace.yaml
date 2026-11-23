@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "hmpps-electronic-monitoring-compliance-dev"
+  labels:
+    cloud-platform.justice.gov.uk/is-production: "false"
+    cloud-platform.justice.gov.uk/environment-name: "development"
+    pod-security.kubernetes.io/enforce: restricted
+  annotations:
+    cloud-platform.justice.gov.uk/business-unit: "HMPPS"
+    cloud-platform.justice.gov.uk/slack-channel: "hmpps-electronic-monitoring-compliance-platform"
+    cloud-platform.justice.gov.uk/application: "hmpps-electronic-monitoring-compliance"
+    cloud-platform.justice.gov.uk/owner: "Electronic Monitoring Redesign: ben.carter@justice.gov.uk"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-electronic-monitoring-compliance-api.git,https://github.com/ministryofjustice/hmpps-electronic-monitoring-compliance-ui.git"
+    cloud-platform.justice.gov.uk/team-name: "hmpps-electronic-monitoring-devs"
+    cloud-platform.justice.gov.uk/review-after: ""
