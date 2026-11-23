@@ -55,7 +55,7 @@ module "pre-sentence-service" {
 }
 
 module "hmpps-court-case-enrichment-worker" {
-  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
+  source                        = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
   github_repo                   = "hmpps-court-case-enrichment-worker"
   application                   = "hmpps-court-case-enrichment-worker"
   github_team                   = "hmpps-probation-in-court"
