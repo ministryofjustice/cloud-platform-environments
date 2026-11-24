@@ -42,3 +42,26 @@ data "aws_ssm_parameter" "irsa_policy_arns_sns" {
   for_each = local.sns_topics
   name     = "/${each.value}/sns/${each.key}/irsa-policy-arn"
 }
+
+# Service account for the HMPPS Registers front end (hmpps-registers), so it can send
+# page-view events to the HMPPS Audit queue. Kept separate from the hmpps-registers
+# service account above, which the prison-register API uses, so the front end does not
+# get the API's RDS, Redis and SNS access.
+# The front end's helm chart must set generic-service.serviceAccountName to match the name below.
+module "hmpps_registers_ui_irsa" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = "hmpps-registers-ui"
+  role_policy_arns = {
+    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_sqs["Digital-Prison-Services-preprod-hmpps_audit_queue"].value
+  }
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.hmpps-registers-application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment-name
+  infrastructure_support = var.infrastructure_support
+}
