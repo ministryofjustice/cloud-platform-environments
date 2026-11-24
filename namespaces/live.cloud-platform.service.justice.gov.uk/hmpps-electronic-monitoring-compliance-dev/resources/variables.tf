@@ -74,6 +74,11 @@ variable "github_token" {
   default     = ""
 }
 
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster to retrieve the OIDC information"
+  type        = string
+}
+
 variable "datastore_role_arn" {
   description = "ARN of the role to assume for the Electronic Monitoring Data Store"
   type        = string
