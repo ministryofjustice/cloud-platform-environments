@@ -12,6 +12,7 @@ module "hmpps_audit_rds" {
   infrastructure_support = var.infrastructure_support
 
   db_instance_class            = "db.t4g.xlarge"
+  db_iops                      = 12000
   db_engine                    = "postgres"
   db_engine_version            = "18.6"
   rds_family                   = "postgres18"
