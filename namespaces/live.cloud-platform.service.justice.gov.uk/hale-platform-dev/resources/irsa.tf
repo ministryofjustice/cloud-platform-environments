@@ -52,7 +52,8 @@ data "aws_iam_policy_document" "s3_cross_bucket_policy" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:GetObjectAcl",
-      "s3:PutObjectAcl"
+      "s3:PutObjectAcl",
+      "s3:GetObjectTagging"
     ]
     resources = [
       "arn:aws:s3:::cloud-platform-e218f50a4812967ba1215eaecede923f/*", # prod
