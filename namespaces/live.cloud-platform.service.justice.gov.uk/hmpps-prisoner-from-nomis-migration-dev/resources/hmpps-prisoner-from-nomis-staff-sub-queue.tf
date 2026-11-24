@@ -129,6 +129,6 @@ resource "aws_sns_topic_subscription" "prisoner_from_nomis_staff_subscription" {
       "LAA_GENERAL_USERS-INSERTED",
       "LAA_GENERAL_USERS-UPDATED",
       "LAA_GENERAL_USERS-DELETED"
-     ]
+    ]
   })
 }
