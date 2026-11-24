@@ -17,7 +17,7 @@ variable "application" {
 variable "namespace" {
   description = "Name of the namespace these resources are part of"
   type        = string
-  default     = "hmpps-ems-cemo-ui-dev"
+  default     = "hmpps-ems-cemo-ui-test"
 }
 
 variable "number_cache_clusters" {
