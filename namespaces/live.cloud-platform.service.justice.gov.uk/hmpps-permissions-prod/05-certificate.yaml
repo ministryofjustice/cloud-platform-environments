@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-permissions-cert
+  namespace: hmpps-permissions-prod
+spec:
+  secretName: hmpps-permissions-api-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - permissions-api.hmpps.service.justice.gov.uk
