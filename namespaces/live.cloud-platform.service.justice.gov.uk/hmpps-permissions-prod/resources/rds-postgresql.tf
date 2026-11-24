@@ -11,14 +11,14 @@ module "rds" {
   performance_insights_enabled = false
   db_allocated_storage         = "100"
   db_max_allocated_storage     = "2000"
-  enable_rds_auto_start_stop   = true # Turns off database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
-  # db_password_rotated_date     = "2025-01-10" # Uncomment to rotate your database password.
+  enable_rds_auto_start_stop   = false
+  deletion_protection          = true
 
   # PostgreSQL specifics
   db_engine         = "postgres"
   db_engine_version = "18.6"
   rds_family        = "postgres18"
-  db_instance_class = "db.t4g.micro"
+  db_instance_class = "db.t4g.small"
 
   # Tags
   application            = var.application
