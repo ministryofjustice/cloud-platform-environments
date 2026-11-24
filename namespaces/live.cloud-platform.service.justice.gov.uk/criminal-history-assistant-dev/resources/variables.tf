@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "Criminal History Assistant (Justice Data)"
+  default     = "Criminal History Assistant - Justice Data"
 }
 
 variable "namespace" {
@@ -23,7 +23,7 @@ variable "namespace" {
 variable "service_area" {
   description = "Service area responsible for this service"
   type        = string
-  default     = "Data Platform App, Justice Data"
+  default     = "Data Platform App - Justice Data"
 }
 
 variable "business_unit" {
