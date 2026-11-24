@@ -9,8 +9,8 @@ module "irsa" {
   role_policy_arns = {
     s3                    = aws_iam_policy.frontend_s3_deploy.arn
     cloudfront            = aws_iam_policy.frontend_cloudfront_invalidate.arn
-    dynamodb              = aws_iam_policy.transactions_audit_dynamodb.arn
-    bps_metadata_dynamodb = aws_iam_policy.bps_metadata_dynamodb.arn
+    # dynamodb              = aws_iam_policy.transactions_audit_dynamodb.arn
+    # bps_metadata_dynamodb = aws_iam_policy.bps_metadata_dynamodb.arn
   }
 
   business_unit          = var.business_unit
@@ -42,8 +42,8 @@ module "bps_irsa" {
   namespace            = var.namespace
 
   role_policy_arns = {
-    bps_metadata_dynamodb   = aws_iam_policy.bps_irsa_metadata_dynamodb.arn
-    transactions_audit      = aws_iam_policy.bps_irsa_transactions_audit.arn
+    # bps_metadata_dynamodb   = aws_iam_policy.bps_irsa_metadata_dynamodb.arn
+    # transactions_audit      = aws_iam_policy.bps_irsa_transactions_audit.arn
     password_encryption_kms = aws_iam_policy.bps_irsa_password_encryption_kms.arn
     payment_reconciliation  = aws_iam_policy.bps_irsa_payment_reconciliation_sqs.arn
   }

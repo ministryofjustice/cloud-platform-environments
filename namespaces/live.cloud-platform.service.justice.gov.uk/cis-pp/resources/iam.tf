@@ -51,6 +51,7 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
   })
 }
 
+/*
 resource "aws_iam_policy" "transactions_audit_dynamodb" {
   name        = "${var.namespace}-transactions-audit-dynamodb"
   description = "Allow read/write access to the ${var.namespace} transactions audit DynamoDB table and its indexes"
@@ -181,6 +182,7 @@ resource "aws_iam_policy" "bps_irsa_transactions_audit" {
   })
 }
 
+*/
 resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
   name        = "${var.namespace}-bps-irsa-password-encryption-kms"
   description = "Allow BPS to encrypt payment-file passwords and use the DynamoDB encryption key"

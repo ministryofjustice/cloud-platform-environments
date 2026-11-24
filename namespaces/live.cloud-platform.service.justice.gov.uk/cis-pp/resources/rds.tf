@@ -8,6 +8,7 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
   kms_key_id                    = data.aws_kms_alias.rds.target_key_arn
 }
 
+/*
 module "rds_instance" {
   source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=78e4bd6be96facc435409ee8e4a7a303cfe9afdf"
 
@@ -60,3 +61,4 @@ resource "kubernetes_secret" "rds" {
     database_port         = module.rds_instance.rds_instance_port
   }
 }
+*/
