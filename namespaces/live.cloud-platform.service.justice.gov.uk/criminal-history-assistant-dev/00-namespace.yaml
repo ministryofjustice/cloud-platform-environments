@@ -9,8 +9,8 @@ metadata:
   annotations:
     cloud-platform.justice.gov.uk/business-unit: "HQ"
     cloud-platform.justice.gov.uk/slack-channel: "radsai-support"
-    cloud-platform.justice.gov.uk/application: "Criminal History Assistant (Justice Data)"
-    cloud-platform.justice.gov.uk/owner: "Risk Assessment Data Science and AI, Justice Data: radsaipmo@justice.gov.uk"
+    cloud-platform.justice.gov.uk/application: "Criminal History Assistant - Justice Data"
+    cloud-platform.justice.gov.uk/owner: "Risk Assessment Data Science and AI - Justice Data: radsaipmo@justice.gov.uk"
     cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/criminal-history-assistant/"
     cloud-platform.justice.gov.uk/team-name: "radsai"
     cloud-platform.justice.gov.uk/review-after: ""
