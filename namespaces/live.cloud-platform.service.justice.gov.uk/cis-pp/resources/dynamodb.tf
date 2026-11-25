@@ -1,4 +1,3 @@
-/*
 # -----------------------------------------------------------------------------
 # DynamoDB Table for Transactions Audit
 # -----------------------------------------------------------------------------
@@ -58,7 +57,7 @@ resource "aws_dynamodb_table" "transactions_audit" {
 
   server_side_encryption {
     enabled     = true
-    kms_key_arn = data.aws_kms_alias.cis-pp-key.target_key_arn
+    kms_key_arn = aws_kms_alias.rds.target_key_arn
   }
 
   ttl {
@@ -131,7 +130,7 @@ resource "aws_dynamodb_table" "bps_metadata" {
 
   server_side_encryption {
     enabled     = true
-    kms_key_arn = data.aws_kms_alias.cis-pp-key.target_key_arn
+    kms_key_arn = aws_kms_alias.rds.target_key_arn
   }
 
   tags = merge(var.tags, {
@@ -150,4 +149,3 @@ resource "kubernetes_secret" "bps_metadata_dynamodb_output" {
     table_name = aws_dynamodb_table.bps_metadata.name
   }
 }
-*/

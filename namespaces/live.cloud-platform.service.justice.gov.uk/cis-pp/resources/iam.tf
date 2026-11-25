@@ -51,7 +51,6 @@ resource "aws_iam_policy" "frontend_cloudfront_invalidate" {
   })
 }
 
-/*
 resource "aws_iam_policy" "transactions_audit_dynamodb" {
   name        = "${var.namespace}-transactions-audit-dynamodb"
   description = "Allow read/write access to the ${var.namespace} transactions audit DynamoDB table and its indexes"
@@ -86,7 +85,7 @@ resource "aws_iam_policy" "transactions_audit_dynamodb" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -126,7 +125,7 @@ resource "aws_iam_policy" "bps_metadata_dynamodb" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -182,7 +181,6 @@ resource "aws_iam_policy" "bps_irsa_transactions_audit" {
   })
 }
 
-*/
 resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
   name        = "${var.namespace}-bps-irsa-password-encryption-kms"
   description = "Allow BPS to encrypt payment-file passwords and use the DynamoDB encryption key"
@@ -199,7 +197,7 @@ resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -227,7 +225,7 @@ resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
         Sid      = "DecryptReconciliationMessages"
         Effect   = "Allow"
         Action   = "kms:Decrypt"
-        Resource = data.aws_kms_alias.bps_payment_reconciliation_queue.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
         Condition = {
           StringEquals = {
             "kms:ViaService" = "sqs.eu-west-2.amazonaws.com"
