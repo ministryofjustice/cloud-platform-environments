@@ -70,6 +70,7 @@ locals {
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging",
+    "court-probation-dev",
   ])
 }
 
