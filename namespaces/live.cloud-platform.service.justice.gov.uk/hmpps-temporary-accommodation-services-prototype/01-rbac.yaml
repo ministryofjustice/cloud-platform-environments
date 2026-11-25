@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-temporary-accommodation-services-prototype
 subjects:
   - kind: Group
-    name: "github:transitional-accommodation-services"
+    name: "github:hmpps-temporary-accommodation"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
