@@ -18,7 +18,7 @@ resource "aws_kms_alias" "alias" {
   target_key_id = aws_kms_key.kms.key_id
 }
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=4203d8eaecd5583c7e09408663edfa3a91a84cc8"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=decfdf1b2c7562318ec2dbaee858fde884e888a4"
 
   # VPC configuration
   vpc_name = var.vpc_name
