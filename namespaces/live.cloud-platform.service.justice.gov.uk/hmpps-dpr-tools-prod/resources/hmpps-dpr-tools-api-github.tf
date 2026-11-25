@@ -1,5 +1,5 @@
 module "hmpps_dpr_tools_api_github" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.2.2"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
 
   github_repo                   = "hmpps-dpr-tools-api"
   application                   = "hmpps-dpr-tools-api"
