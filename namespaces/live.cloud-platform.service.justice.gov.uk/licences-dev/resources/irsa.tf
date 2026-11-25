@@ -30,7 +30,6 @@ module "irsa" {
   role_policy_arns       = merge(
                             local.sqs_policies,
                             local.hdc_sqs_policies,
-                            local.audit_sqs_policies
                           )
   # Tags
   business_unit          = var.business_unit
@@ -57,9 +56,7 @@ module "licences-service-account" {
   eks_cluster_name     = var.eks_cluster_name
   namespace            = var.namespace
   service_account_name = var.application
-  role_policy_arns = {
-    audit_sqs = data.aws_ssm_parameter.irsa_policy_arns_audit_sqs["Digital-Prison-Services-dev-hmpps_audit_queue"].value
-  }
+  role_policy_arns = local.audit_sqs_policies
   # Tags
   business_unit          = var.business_unit
   application            = var.application
