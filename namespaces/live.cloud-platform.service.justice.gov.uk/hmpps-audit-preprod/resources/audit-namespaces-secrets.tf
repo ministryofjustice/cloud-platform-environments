@@ -50,7 +50,8 @@ locals {
     "make-recall-decision-preprod",
     "offender-categorisation-preprod",
     "offender-management-preprod",
-    "visit-someone-in-prison-frontend-svc-preprod"
+    "visit-someone-in-prison-frontend-svc-preprod",
+    "court-probation-preprod",
   ])
 }
 
