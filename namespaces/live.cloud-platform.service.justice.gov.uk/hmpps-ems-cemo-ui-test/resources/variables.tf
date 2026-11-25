@@ -26,6 +26,10 @@ variable "service_area" {
   default     = "hmpps-electronic-monitoring"
 }
 
+variable "number_cache_clusters" {
+  default = "2"
+}
+
 variable "business_unit" {
   description = "Area of the MOJ responsible for this service"
   type        = string
@@ -72,4 +76,17 @@ variable "github_token" {
   type        = string
   description = "Required by the GitHub Terraform provider"
   default     = ""
+}
+
+variable "eks_cluster_name" {
+  description = "The name of the cluster"
+}
+
+variable "github_repositories" {
+  type        = list(string)
+  description = "GitHub repositories deployed to this namespace"
+  default     = [
+    "hmpps-electronic-monitoring-create-an-order",
+    "hmpps-electronic-monitoring-create-an-order-api"
+  ]
 }
