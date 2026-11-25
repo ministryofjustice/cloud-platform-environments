@@ -5,7 +5,7 @@ metadata:
   namespace: hmpps-community-accommodation-tier-2-bail-prototypes
 subjects:
   - kind: Group
-    name: "github:hmpps-cas-bail-alpha"
+    name: "github:hmpps-community-accommodation-tier-2"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
