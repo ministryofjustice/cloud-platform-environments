@@ -7,32 +7,42 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
   target_db_snapshot_identifier = "cis-rds-20260925"
   kms_key_id                    = data.aws_kms_alias.rds.target_key_arn
 }
+resource "aws_kms_key" "kms" {
+  description = "${var.namespace}-rds"
 
+  tags = var.tags
+}
+
+resource "aws_kms_alias" "alias" {
+  name          = "alias/${var.namespace}-rds"
+  target_key_id = aws_kms_key.kms.key_id
+}
 module "rds_instance" {
-  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=78e4bd6be96facc435409ee8e4a7a303cfe9afdf"
+  source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=4203d8eaecd5583c7e09408663edfa3a91a84cc8"
 
   # VPC configuration
   vpc_name = var.vpc_name
 
   # Database configuration
-  db_engine                = "oracle-se2"
-  db_engine_version        = "19"
-  rds_family               = "oracle-se2-19"
-  db_instance_class        = "db.m5.xlarge"
-  db_allocated_storage     = "1000"
-  db_iops                  = 12000
-  rds_name                 = "cis-rds"
-  db_name                  = "CIS"
-  license_model            = "license-included"
-  snapshot_identifier      = aws_db_snapshot_copy.cis_rds_shared_snapshot_copy.id
-  opt_in_xsiam_logging     = true
-  skip_final_snapshot      = true
+  db_engine            = "oracle-se2"
+  db_engine_version    = "19"
+  rds_family           = "oracle-se2-19"
+  db_instance_class    = "db.m5.xlarge"
+  db_allocated_storage = "1000"
+  db_iops              = 12000
+  rds_name             = "cis-rds"
+  db_name              = "CIS"
+  license_model        = "license-included"
+  snapshot_identifier  = aws_db_snapshot_copy.cis_rds_shared_snapshot_copy.id
+  opt_in_xsiam_logging = true
+  skip_final_snapshot  = true
+  kms_key_id           = aws_kms_key.kms.arn
 
   # Avoid default parameters set by MOJ
   db_parameter = [{
-    "apply_method": "immediate",
-    "name": "max_string_size",
-    "value": "EXTENDED"
+    "apply_method" : "immediate",
+    "name" : "max_string_size",
+    "value" : "EXTENDED"
   }]
 
   # Tags
