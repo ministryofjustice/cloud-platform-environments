@@ -3,7 +3,7 @@ module "hmpps-security-assurance-toolkit" {
   force_rotate_token            = true
   custom_token_rotation_date    = "2026-03-20"
   github_repo                   = "hmpps-security-assurance-toolkit"
-  application                   = "hmpps-security-assurance-toolkit"
+  application                   = var.application
   github_team                   = "hmpps-sre"
   environment                   = var.environment         # Should match environment name used in helm values file e.g. values-prod.yaml
   selected_branch_patterns      = ["main"] # Optional but required if protected_branches_only is false

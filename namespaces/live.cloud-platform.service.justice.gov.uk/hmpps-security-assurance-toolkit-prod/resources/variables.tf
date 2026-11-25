@@ -11,7 +11,7 @@ variable "kubernetes_cluster" {
 variable "application" {
   description = "Name of the application you are deploying"
   type        = string
-  default     = "HMPPS Security Assurance Tool Kit"
+  default     = "hmpps-security-assurance-toolkit"
 }
 
 variable "namespace" {

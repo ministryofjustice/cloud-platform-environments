@@ -5,7 +5,7 @@ module "hmpps_security_assurance_toolkit_rds" {
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
-  application                 = "hmpps-security-assurance-toolkit-prod"
+  application                 = "${var.application}-prod"
   is_production               = var.is_production
   namespace                   = var.namespace
   environment_name            = var.environment
@@ -15,7 +15,7 @@ module "hmpps_security_assurance_toolkit_rds" {
   db_max_allocated_storage    = "500" # maximum storage for autoscaling
   db_engine_version           = "17.11"
   rds_family                  = "postgres17"
-  db_password_rotated_date    = "19-11-2026"
+  db_password_rotated_date    = "25-11-2026"
 
   providers = {
     aws = aws.london
