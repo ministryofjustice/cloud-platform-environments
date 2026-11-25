@@ -15,7 +15,6 @@ module "edu_rds" {
   db_max_allocated_storage    = "10000"
   db_engine_version           = "18.6"
   rds_family                  = "postgres18"
-  prepare_for_major_upgrade   = true
   deletion_protection         = true
   enable_irsa                 = true
 
