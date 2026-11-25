@@ -29,8 +29,8 @@ module "irsa" {
   service_account_name   = "hmpps-hdc-api"
   role_policy_arns       = merge(
                             local.sqs_policies,
-                            local.hdc_sqs_policies
-                            local.audit_sqs_policies,
+                            local.hdc_sqs_policies,
+                            local.audit_sqs_policies
                           )
   # Tags
   business_unit          = var.business_unit
