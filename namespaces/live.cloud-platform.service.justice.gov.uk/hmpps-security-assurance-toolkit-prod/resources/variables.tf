@@ -53,13 +53,13 @@ variable "infrastructure_support" {
 variable "is_production" {
   description = "Whether this environment type is production or not"
   type        = string
-  default     = "false"
+  default     = "true"
 }
 
 variable "slack_channel" {
   description = "Slack channel name for your team, if we need to contact you about this service"
   type        = string
-  default     = "hmpps-sre-alerts-nonprod"
+  default     = "hmpps-sre-alerts-prod"
 }
 
 variable "github_owner" {
