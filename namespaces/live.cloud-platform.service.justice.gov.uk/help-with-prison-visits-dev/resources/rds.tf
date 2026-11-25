@@ -1,6 +1,6 @@
 module "hwpv_sqlserver" {
   source                   = "github.com/ministryofjustice/cloud-platform-terraform-rds-instance?ref=9.2.0"
-  storage_type             = "gp2"
+  storage_type             = "gp3"
   vpc_name                 = var.vpc_name
   team_name                = var.team_name
   business_unit            = var.business_unit
@@ -8,18 +8,18 @@ module "hwpv_sqlserver" {
   is_production            = var.is_production
   namespace                = var.namespace
   db_engine                = "sqlserver-web"
-  db_engine_version        = "15.00.4345.5.v1"
+  db_engine_version        = "17.00.5035.5.v1"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "20"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
-  rds_family               = "sqlserver-web-15.0"
+  rds_family               = "sqlserver-web-17.0"
   db_parameter             = []
   license_model            = "license-included"
   db_password_rotated_date = "2023-03-22"
 
   allow_major_version_upgrade = "true"
-  prepare_for_major_upgrade   = false
+  prepare_for_major_upgrade   = true
 
   providers = {
     aws = aws.london
