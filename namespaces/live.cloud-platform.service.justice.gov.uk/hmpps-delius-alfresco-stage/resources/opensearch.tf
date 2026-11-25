@@ -111,3 +111,45 @@ resource "aws_ssm_parameter" "opensearch_snapshot_role_arn" {
   type  = "String"
   value = module.opensearch.snapshot_role_arn
 }
+
+# Enable stage snapshot role to access prod snapshot S3 bucket
+data "aws_ssm_parameter" "s3_bucket_arn" {
+  name = "/hmpps-delius-alfresco-prod/opensearch-snapshot-s3bucket"
+}
+
+resource "aws_iam_policy" "opensearch_s3_listbucket" {
+  name        = "${var.namespace}-opensearch-s3"
+  description = "Allow OpenSearch snapshot role to pull S3 bucket snapshots"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ]
+        Resource = data.aws_ssm_parameter.s3_bucket_arn.value
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${data.aws_ssm_parameter.s3_bucket_arn.value}/*"
+      }
+    ]
+  })
+}
+
+locals {
+  snapshot_role_name = element(split("/", module.opensearch.snapshot_role_arn), 1)
+}
+
+resource "aws_iam_role_policy_attachment" "attach_snapshot_listbucket" {
+  role       = local.snapshot_role_name
+  policy_arn = aws_iam_policy.opensearch_s3_listbucket.arn
+}
