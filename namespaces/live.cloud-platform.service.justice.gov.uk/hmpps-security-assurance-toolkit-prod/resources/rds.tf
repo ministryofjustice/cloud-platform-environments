@@ -5,7 +5,7 @@ module "hmpps_security_assurance_toolkit_rds" {
   vpc_name                    = var.vpc_name
   team_name                   = var.team_name
   business_unit               = var.business_unit
-  application                 = "hmpps-security-assurance-toolkit"
+  application                 = "hmpps-security-assurance-toolkit-prod"
   is_production               = var.is_production
   namespace                   = var.namespace
   environment_name            = var.environment
@@ -27,7 +27,7 @@ module "hmpps_security_assurance_toolkit_rds" {
 resource "kubernetes_secret" "hmpps_security_assurance_toolkit_rds" {
   metadata {
     name      = "rds-instance-output"
-    namespace = "hmpps-security-assurance-toolkit"
+    namespace = "hmpps-security-assurance-toolkit-prod"
   }
 
   data = {
