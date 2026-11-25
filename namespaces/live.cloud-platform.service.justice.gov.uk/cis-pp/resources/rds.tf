@@ -1,21 +1,20 @@
-data "aws_kms_alias" "rds" {
-  name = "alias/cloud-platform-d719359696236437"
-}
-
 resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
   source_db_snapshot_identifier = "arn:aws:rds:eu-west-2:185926004630:snapshot:cis-22042026-encrypted-with-new-kms"
   target_db_snapshot_identifier = "cis-rds-20260925"
-  kms_key_id                    = data.aws_kms_alias.rds.target_key_arn
+
+  lifecycle {
+    ignore_changes = [kms_key_id]
+  }
 }
-resource "aws_kms_key" "kms" {
+resource "aws_kms_key" "rds" {
   description = "${var.namespace}-rds"
 
   tags = var.tags
 }
 
-resource "aws_kms_alias" "alias" {
+resource "aws_kms_alias" "rds" {
   name          = "alias/${var.namespace}-rds"
-  target_key_id = aws_kms_key.kms.key_id
+  target_key_id = aws_kms_key.rds.key_id
 }
 module "rds_instance" {
   source = "github.com/ministryofjustice/cis-cloud-platform-terraform-rds-instance?ref=decfdf1b2c7562318ec2dbaee858fde884e888a4"
@@ -36,7 +35,7 @@ module "rds_instance" {
   snapshot_identifier  = aws_db_snapshot_copy.cis_rds_shared_snapshot_copy.id
   opt_in_xsiam_logging = true
   skip_final_snapshot  = true
-  kms_key_id           = aws_kms_key.kms.arn
+  kms_key_id           = aws_kms_key.rds.arn
 
   # Avoid default parameters set by MOJ
   db_parameter = [{
