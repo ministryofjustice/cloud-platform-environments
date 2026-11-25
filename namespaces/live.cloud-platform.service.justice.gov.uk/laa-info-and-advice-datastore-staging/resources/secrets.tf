@@ -14,6 +14,11 @@ module "secrets_manager" {
       recovery_window_in_days = 7
       k8s_secret_name         = "laa-info-and-advice-datastore-claims-api"
     }
+    "laa-info-and-advice-datastore-metabase-google-staging" = {
+      description             = "Google Sign-In client ID for Metabase staging"
+      recovery_window_in_days = 7
+      k8s_secret_name         = "laa-info-and-advice-datastore-metabase-google"
+    }
   }
 
   application            = var.application
