@@ -6,6 +6,13 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
     ignore_changes = [kms_key_id]
   }
 }
+
+resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_new_kms" {
+  source_db_snapshot_identifier = "cis-rds-20260925"
+  target_db_snapshot_identifier = "cis-rds-20261125"
+  kms_key_id                    = aws_kms_alias.rds.target_key_arn
+}
+
 resource "aws_kms_key" "rds" {
   description = "${var.namespace}-rds"
 
@@ -32,7 +39,7 @@ module "rds_instance" {
   rds_name             = "cis-rds"
   db_name              = "CIS"
   license_model        = "license-included"
-  snapshot_identifier  = aws_db_snapshot_copy.cis_rds_shared_snapshot_copy.id
+  snapshot_identifier  = aws_db_snapshot_copy.cis_rds_shared_snapshot_new_kms.id
   opt_in_xsiam_logging = true
   skip_final_snapshot  = true
   kms_key_id           = aws_kms_key.rds.arn
