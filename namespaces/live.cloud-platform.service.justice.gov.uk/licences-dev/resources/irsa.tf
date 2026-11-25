@@ -6,9 +6,12 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-dev-hdc_domain_events_queue"       = "hmpps-domain-events-dev",
     "Digital-Prison-Services-dev-hdc_domain_events_dl"          = "hmpps-domain-events-dev"
+  }
+  audit_sqs_queues = {
     "Digital-Prison-Services-dev-hmpps_audit_queue"             = "hmpps-audit-dev",
   }
   sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns : item.name => item.value }
+  audit_sqs_policies = { for item in data.aws_ssm_parameter.irsa_policy_arns_audit_sqs : item.name => item.value }
 }
 
 locals {
@@ -17,7 +20,6 @@ locals {
     hmpps_hdc_api_dead_letter_queue = module.hmpps_hdc_api_dead_letter_queue.irsa_policy_arn
   }
 }
-
 
 module "irsa" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
@@ -41,4 +43,25 @@ module "irsa" {
 data "aws_ssm_parameter" "irsa_policy_arns" {
   for_each = local.sqs_queues
   name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+data "aws_ssm_parameter" "irsa_policy_arns_audit_sqs" {
+  for_each = local.audit_sqs_queues
+  name     = "/${each.value}/sqs/${each.key}/irsa-policy-arn"
+}
+
+module "licences-service-account" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-irsa?ref=2.1.0"
+
+  eks_cluster_name     = var.eks_cluster_name
+  namespace            = var.namespace
+  service_account_name = var.application
+  role_policy_arns = local.audit_sqs_policies
+  # Tags
+  business_unit          = var.business_unit
+  application            = var.application
+  is_production          = var.is_production
+  team_name              = var.team_name
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
 }
