@@ -18,6 +18,9 @@ module "hwpv_sqlserver" {
   license_model            = "license-included"
   db_password_rotated_date = "2023-03-22"
 
+  allow_major_version_upgrade = "true"
+  prepare_for_major_upgrade   = false
+
   providers = {
     aws = aws.london
   }
