@@ -9,6 +9,11 @@ module "secrets_manager" {
       recovery_window_in_days = 30
       k8s_secret_name         = "laa-info-and-advice-datastore-entra"
     }
+    "laa-info-and-advice-datastore-metabase-google-prod" = {
+      description             = "Google Sign-In client ID for Metabase production"
+      recovery_window_in_days = 30
+      k8s_secret_name         = "laa-info-and-advice-datastore-metabase-google"
+    }
   }
 
   application            = var.application
