@@ -20,7 +20,7 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
   # enable_rds_auto_start_stop   = true - Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
@@ -58,7 +58,7 @@ module "read_replica" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
-  prepare_for_major_upgrade = true
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
