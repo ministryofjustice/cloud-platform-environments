@@ -1,4 +1,3 @@
-/*
 # -----------------------------------------------------------------------------
 # DynamoDB Table for Transactions Audit
 # -----------------------------------------------------------------------------
@@ -150,4 +149,3 @@ resource "kubernetes_secret" "bps_metadata_dynamodb_output" {
     table_name = aws_dynamodb_table.bps_metadata.name
   }
 }
-*/
