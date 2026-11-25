@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "cross_account_policy" {
       "sts:AssumeRole"
     ]
     resources = [
-      # data.aws_ssm_parameter.data_store_cpr_ingestion_role_arn.value,
+      data.aws_ssm_parameter.data_store_cpr_ingestion_role_arn.value,
       data.aws_ssm_parameter.data_store_cemo_ingestion_role_arn.value,
     ]
   }
