@@ -29,34 +29,6 @@ module "rds" {
   rds_family             = "postgres17"
   db_instance_class      = "db.t4g.small"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
-    },
-  ]
 
   # Tags
   application            = var.application
@@ -101,39 +73,6 @@ module "read_replica" {
 
   # Add DPR security group.
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
-
-  db_parameter = [
-    {
-      name         = "rds.logical_replication"
-      value        = "1"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "shared_preload_libraries"
-      value        = "pglogical"
-      apply_method = "pending-reboot"
-    },
-    {
-      name         = "max_wal_size"
-      value        = "1024"
-      apply_method = "immediate"
-    },
-    {
-      name         = "wal_sender_timeout"
-      value        = "0"
-      apply_method = "immediate"
-    },
-    {
-      name         = "max_slot_wal_keep_size"
-      value        = "40000"
-      apply_method = "immediate"
-    },
-    {
-      name         = "hot_standby_feedback"
-      value        = "1"
-      apply_method = "immediate"
-    }
-  ]
 }
 
 resource "kubernetes_secret" "rds" {
