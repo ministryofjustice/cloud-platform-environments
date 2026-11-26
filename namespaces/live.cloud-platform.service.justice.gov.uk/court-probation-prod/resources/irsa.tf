@@ -2,6 +2,7 @@ locals {
   sqs_queues = {
     "Digital-Prison-Services-prod-pic_probation_offender_events_queue"    = "offender-events-prod"
     "Digital-Prison-Services-prod-pic_probation_offender_events_queue_dl" = "offender-events-prod"
+    "Digital-Prison-Services-${var.environment}-hmpps_audit_queue" = "hmpps-audit-${var.environment}"
   }
   sns_topics = {
     "cloud-platform-Digital-Prison-Services-97e6567cf80881a8a52290ff2c269b08" = "hmpps-domain-events-prod"
