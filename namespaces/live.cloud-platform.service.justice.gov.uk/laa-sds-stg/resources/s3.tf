@@ -64,7 +64,7 @@ resource "aws_s3_bucket_notification" "cis_staging_s3_notification" {
     # Matches objects such as:
     # issuance/file.pdf
     # issuance/2024/test.json
-    filter_prefix = "issuance/"
+    filter_prefix = "reconciliation/"
   }
 }
 
