@@ -25,8 +25,8 @@ module "rds" {
 
   # PostgreSQL specifics
   db_engine              = "postgres"
-  db_engine_version      = "17.11"
-  rds_family             = "postgres17"
+  db_engine_version      = "18.6"
+  rds_family             = "postgres18"
   db_instance_class      = "db.t4g.small"
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
 
@@ -38,6 +38,8 @@ module "rds" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+
+  prepare_for_major_upgrade    = true
 
   # Enable service account access
   enable_irsa = true
@@ -59,8 +61,8 @@ module "read_replica" {
   team_name              = var.team_name
 
   db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.small"
   # It is mandatory to set the below values to create read replica instance
 
@@ -70,6 +72,8 @@ module "read_replica" {
   # Set to true. No backups or snapshots are created for read replica
   skip_final_snapshot        = "true"
   db_backup_retention_period = 0
+
+  prepare_for_major_upgrade    = true
 
   # Add DPR security group.
   vpc_security_group_ids = [data.aws_security_group.mp_dps_sg.id]
