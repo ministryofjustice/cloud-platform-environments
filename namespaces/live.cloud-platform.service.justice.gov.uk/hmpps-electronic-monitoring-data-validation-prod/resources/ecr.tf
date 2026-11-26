@@ -1,12 +1,12 @@
 module "ecr" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-ecr-credentials?ref=8.0.2"
 
   # Repository configuration
   repo_name = var.namespace
 
   # OpenID Connect configuration
   oidc_providers      = ["github"]
-  github_repositories = ["electronic-monitoring-data-dashboard"]
+  github_repositories = ["hmpps-electronic-monitoring-data-dashboard"]
 
   # Tags
   business_unit          = var.business_unit
