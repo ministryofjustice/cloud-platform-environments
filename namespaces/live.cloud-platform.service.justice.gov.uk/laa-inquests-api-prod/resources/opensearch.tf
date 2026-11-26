@@ -1,12 +1,12 @@
 module "opensearch_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alerts?ref=1.0.0" #use the latest version
 
-    secret_name                    = "laa-inquests-api-slack-webhook"
+    secret_name                    = "live-laa-inquests-api-prod-c9e03dbf85274561"
     secret_key                     = "url"
     environment_name               = var.environment
     slack_channel_name             = "laa-inquests-prod-alerts"
     slack_channel_name_description = "Channel for laa inquests production alerts "
-    opensearch_alert_name          = "laa-inquests-prod-alert"
+    opensearch_alert_name          = "laa-inquests-api-prod-alert"
     opensearch_alert_enabled       = true
     monitor_period_interval        = "5"
     monitor_period_unit            = "MINUTES"
@@ -149,11 +149,11 @@ module "opensearch_alert" {
         }
         }
   )
-    trigger_name                   = "laa-inquests-prod-trigger"
+    trigger_name                   = "laa-inquests-api-prod-trigger"
     serverity                      = "1"
     query_source                   = "ctx.results[0].hits.total.value > 1"
-    action_name                    = "laa-inquests-prod-action"
-    slack_message_subject          = ":alert: Errors detected in laa-iqnuests-*-prod application :alert:"
+    action_name                    = "laa-inquests-api-prod-action"
+    slack_message_subject          = ":alert: Errors detected in laa-iqnuests-api-prod application :alert:"
     slack_message_template         = "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.\n- Trigger: {{ctx.trigger.name}}\n- Severity: {{ctx.trigger.severity}}" 
     alert_throttle_enabled         = true
     throttle_value                 = 30
