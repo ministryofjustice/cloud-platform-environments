@@ -70,13 +70,35 @@ module "opensearch_alert" {
                     },
                     {
                         "bool": {
-                        "should": [
+                        "filter": [
                             {
                             "bool": {
                                 "should": [
                                 {
-                                    "match_phrase": {
-                                    "log": "level error"
+                                    "bool": {
+                                    "should": [
+                                        {
+                                        "match_phrase": {
+                                            "log": "level error"
+                                        }
+                                        }
+                                    ],
+                                    "minimum_should_match": 1
+                                    }
+                                },
+                                {
+                                    "bool": {
+                                    "should": [
+                                        {
+                                        "query_string": {
+                                            "fields": [
+                                            "log.keyword"
+                                            ],
+                                            "query": "ERROR*"
+                                        }
+                                        }
+                                    ],
+                                    "minimum_should_match": 1
                                     }
                                 }
                                 ],
@@ -85,21 +107,77 @@ module "opensearch_alert" {
                             },
                             {
                             "bool": {
-                                "should": [
-                                {
-                                    "query_string": {
-                                    "fields": [
-                                        "log.keyword"
-                                    ],
-                                    "query": "ERROR*"
+                                "must_not": {
+                                "bool": {
+                                    "filter": [
+                                    {
+                                        "bool": {
+                                        "should": [
+                                            {
+                                            "match_phrase": {
+                                                "log": "exception_message\\:invalid csrf token, event\\:http_request_failed"
+                                            }
+                                            }
+                                        ],
+                                        "minimum_should_match": 1
+                                        }
+                                    },
+                                    {
+                                        "bool": {
+                                        "should": [
+                                            {
+                                            "bool": {
+                                                "should": [
+                                                {
+                                                    "match_phrase": {
+                                                    "log": "route\"\\: \"\\/\"\\,\"method"
+                                                    }
+                                                }
+                                                ],
+                                                "minimum_should_match": 1
+                                            }
+                                            },
+                                            {
+                                            "bool": {
+                                                "should": [
+                                                {
+                                                    "bool": {
+                                                    "should": [
+                                                        {
+                                                        "match_phrase": {
+                                                            "log": "route\"\\:\"\\/mcp\\/"
+                                                        }
+                                                        }
+                                                    ],
+                                                    "minimum_should_match": 1
+                                                    }
+                                                },
+                                                {
+                                                    "bool": {
+                                                    "should": [
+                                                        {
+                                                        "match_phrase": {
+                                                            "log": "route\"\\:\"\\/api\\/mcp\\/"
+                                                        }
+                                                        }
+                                                    ],
+                                                    "minimum_should_match": 1
+                                                    }
+                                                }
+                                                ],
+                                                "minimum_should_match": 1
+                                            }
+                                            }
+                                        ],
+                                        "minimum_should_match": 1
+                                        }
                                     }
+                                    ]
                                 }
-                                ],
-                                "minimum_should_match": 1
+                                }
                             }
                             }
-                        ],
-                        "minimum_should_match": 1
+                        ]
                         }
                     }
                     ]
