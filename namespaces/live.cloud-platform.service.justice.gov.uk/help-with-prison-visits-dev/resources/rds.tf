@@ -11,7 +11,6 @@ module "hwpv_sqlserver" {
   db_engine_version        = "16.00.4295.3.v1"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "20"
-  db_iops                   = "12000"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
   rds_family               = "sqlserver-web-16.0"
