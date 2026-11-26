@@ -5,7 +5,7 @@ metadata:
   namespace: cvl-improvements-prototype
 subjects:
   - kind: Group
-    name: "github:cvl-improvements-prototype-admin-team"
+    name: "github:hmpps-carm-prototype-admins"
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
