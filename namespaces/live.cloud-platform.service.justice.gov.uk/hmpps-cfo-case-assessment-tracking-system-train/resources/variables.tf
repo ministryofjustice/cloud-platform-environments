@@ -53,7 +53,7 @@ variable "require_deployment_reviewers" {
 variable "deployment_reviewer_teams" {
   description = "GitHub team slugs allowed to approve deployments"
   type        = set(string)
-  default     = ["hmpps-creating-future-opportunities-devs"]
+  default     = ["hmpps-creating-future-opportunities-devs", "hmpps-creating-future-opportunities-support"]
   nullable    = false
 
   validation {
