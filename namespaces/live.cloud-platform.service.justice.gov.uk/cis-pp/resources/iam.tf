@@ -225,7 +225,7 @@ resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
         Sid      = "ReadReconciliationFiles"
         Effect   = "Allow"
         Action   = "s3:GetObject"
-        Resource = "${local.bps_reconciliation_bucket_arn}/reconciliation*"
+        Resource = "${data.aws_s3_bucket.bps_reconciliation.arn}/reconciliation*"
       },
       {
         Sid      = "DecryptReconciliationMessages"

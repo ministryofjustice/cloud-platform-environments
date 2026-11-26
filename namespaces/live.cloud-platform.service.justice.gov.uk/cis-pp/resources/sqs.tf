@@ -1,5 +1,5 @@
-locals {
-  bps_reconciliation_bucket_arn = "arn:aws:s3:::laa-sds-cis-staging"
+data "aws_s3_bucket" "bps_reconciliation" {
+  bucket = "laa-sds-cis-staging"
 }
 
 module "bps_payment_reconciliation_queue" {
@@ -34,7 +34,7 @@ resource "aws_sqs_queue_policy" "bps_payment_reconciliation_queue" {
         Resource  = module.bps_payment_reconciliation_queue.sqs_arn
         Condition = {
           ArnEquals = {
-            "aws:SourceArn" = local.bps_reconciliation_bucket_arn
+            "aws:SourceArn" = data.aws_s3_bucket.bps_reconciliation.arn
           }
           StringEquals = {
             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
