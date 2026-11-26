@@ -16,13 +16,6 @@ module "bps_payment_reconciliation_queue" {
   infrastructure_support = var.infrastructure_support
 }
 
-data "aws_kms_alias" "bps_payment_reconciliation_queue" {
-  # The module creates a KMS alias from the queue name but does not export the key ARN.
-  name = "alias/${module.bps_payment_reconciliation_queue.sqs_name}"
-
-  depends_on = [module.bps_payment_reconciliation_queue]
-}
-
 resource "kubernetes_secret" "bps_payment_reconciliation_sqs_output" {
   metadata {
     name      = "bps-payment-reconciliation-sqs-output"

@@ -1,0 +1,14 @@
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hmpps-electronic-monitoring-synthetic-data-ui-cert
+  namespace: hmpps-electronic-monitoring-synthetic-data-dev
+spec:
+  secretName: hmpps-electronic-monitoring-synthetic-data-cert
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - electronic-monitoring-synthetic-data-api-dev.hmpps.service.justice.gov.uk
+    - electronic-monitoring-synthetic-data-api-dev.internal-non-prod.cloud-platform.service.justice.gov.uk

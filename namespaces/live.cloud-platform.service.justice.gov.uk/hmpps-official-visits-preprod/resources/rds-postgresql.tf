@@ -20,22 +20,35 @@ module "rds" {
   allow_major_version_upgrade  = false
   performance_insights_enabled = false
   db_max_allocated_storage     = "500"
+  prepare_for_major_upgrade = false
   # enable_rds_auto_start_stop   = true - Uncomment to turn off your database overnight between 10PM and 6AM UTC / 11PM and 7AM BST.
   # db_password_rotated_date     = "2023-04-17" # Uncomment to rotate your database password.
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.small"
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
+
+  # Tags
+  application            = var.application
+  business_unit          = var.business_unit
+  environment_name       = var.environment
+  infrastructure_support = var.infrastructure_support
+  is_production          = var.is_production
+  namespace              = var.namespace
+  team_name              = var.team_name
+
+  # Enable service account access
+  enable_irsa            = true
+
   db_parameter = [
     {
       name         = "rds.logical_replication"
       value        = "1"
       apply_method = "pending-reboot"
     },
-
     {
       name         = "shared_preload_libraries"
       value        = "pglogical"
@@ -55,20 +68,8 @@ module "rds" {
       name         = "max_slot_wal_keep_size"
       value        = "40000"
       apply_method = "immediate"
-    },
+    }
   ]
-
-  # Tags
-  application            = var.application
-  business_unit          = var.business_unit
-  environment_name       = var.environment
-  infrastructure_support = var.infrastructure_support
-  is_production          = var.is_production
-  namespace              = var.namespace
-  team_name              = var.team_name
-
-  # Enable service account access
-  enable_irsa            = true
 }
 
 module "read_replica" {
@@ -85,11 +86,12 @@ module "read_replica" {
   is_production          = var.is_production
   namespace              = var.namespace
   team_name              = var.team_name
+  prepare_for_major_upgrade = false
 
   # PostgreSQL specifics
   db_engine         = "postgres"
-  db_engine_version = "17.11"
-  rds_family        = "postgres17"
+  db_engine_version = "18.6"
+  rds_family        = "postgres18"
   db_instance_class = "db.t4g.small"
   vpc_security_group_ids       = [data.aws_security_group.mp_dps_sg.id]
 

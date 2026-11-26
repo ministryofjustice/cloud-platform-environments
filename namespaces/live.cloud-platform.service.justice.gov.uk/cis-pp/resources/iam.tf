@@ -85,7 +85,7 @@ resource "aws_iam_policy" "transactions_audit_dynamodb" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -125,7 +125,7 @@ resource "aws_iam_policy" "bps_metadata_dynamodb" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -197,7 +197,7 @@ resource "aws_iam_policy" "bps_irsa_password_encryption_kms" {
           "kms:GenerateDataKey",
           "kms:DescribeKey",
         ]
-        Resource = data.aws_kms_alias.cis-pp-key.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
       },
     ]
   })
@@ -225,7 +225,7 @@ resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
         Sid      = "DecryptReconciliationMessages"
         Effect   = "Allow"
         Action   = "kms:Decrypt"
-        Resource = data.aws_kms_alias.bps_payment_reconciliation_queue.target_key_arn
+        Resource = aws_kms_alias.rds.target_key_arn
         Condition = {
           StringEquals = {
             "kms:ViaService" = "sqs.eu-west-2.amazonaws.com"

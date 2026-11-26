@@ -1,8 +1,9 @@
 locals {
-  subscriptions_irsa_policies = {
-    rds = module.subscriptions_rds.irsa_policy_arn
-    s3  = module.subscriptions-restore-s3-bucket.irsa_policy_arn
-  }
+  subscriptions_irsa_policies = merge(local.sns_policies, {
+    pf_queue_for_domain_events_subscriptions_api                   = module.pf_queue_for_domain_events_subscriptions_api.irsa_policy_arn
+    pf_queue_for_domain_events_dead_letter_queue_subscriptions_api = module.pf_queue_for_domain_events_dead_letter_queue_subscriptions_api.irsa_policy_arn
+    rds                                                    = module.subscriptions_rds.irsa_policy_arn
+  })
 }
 
 module "hmpps_prisoner_finance_subscriptions_irsa" {
