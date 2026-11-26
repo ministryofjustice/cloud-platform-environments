@@ -8,12 +8,12 @@ module "hwpv_sqlserver" {
   is_production            = var.is_production
   namespace                = var.namespace
   db_engine                = "sqlserver-web"
-  db_engine_version        = "17.00.5035.5.v1"
+  db_engine_version        = "16.00.4295.3.v1"
   db_instance_class        = "db.t3.small"
   db_allocated_storage     = "20"
   environment_name         = var.environment-name
   infrastructure_support   = var.infrastructure_support
-  rds_family               = "sqlserver-web-17.0"
+  rds_family               = "sqlserver-web-16.0"
   license_model            = "license-included"
   db_password_rotated_date = "2023-03-22"
 
