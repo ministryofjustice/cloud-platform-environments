@@ -1,14 +1,16 @@
 # For Cloud Platform deployed projects based on the hmpps-template-kotlin template:
+# Make a copy of this file in your namespace, then modify according to the instructions here:
+# https://tech-docs.hmpps.service.justice.gov.uk/creating-new-services/creating-resources-in-cloud-platform
 
 module "hmpps_template_kotlin" {
-  source      = "https://github.com/ministryofjustice/hmpps-pds-platform-prototype-api"
-  force_rotate_token = true
+  source                     = "github.com/ministryofjustice/cloud-platform-terraform-hmpps-template?ref=1.3.0"
+  force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
-  github_repo = "hmpps-pds-platform-prototype-api"
-  application = "hmpps-reference-data"
-  github_team = "hmpps-pds-platform-devs"
-  environment = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
-  #reviewer_teams                = ["hmpps-pds-platform-devs"] # Optional team that should review deployments to this environment.
+  github_repo                = "hmpps-template-kotlin"
+  application                = "hmpps-template-kotlin"
+  github_team                = "hmpps-sre"
+  environment                = var.environment # Should match environment name used in helm values file e.g. values-dev.yaml
+  #reviewer_teams                = ["hmpps-dev-team-1", "hmpps-dev-team-2"] # Optional team that should review deployments to this environment.
   #selected_branch_patterns      = ["main", "release/*", "feature/*"] # Optional
   #protected_branches_only       = true # Optional, defaults to true unless selected_branch_patterns is set
   is_production                 = var.is_production
@@ -20,5 +22,5 @@ module "hmpps_template_kotlin" {
   # enable_ecr is required only ONCE per Github repository. 
   # Recommendation: `enable_ecr = true` on your initial namespace (eg dev)
   #                 `enable_ecr = false` (or comment it out) on others
-  enable_ecr                    = true
+  enable_ecr = true
 }

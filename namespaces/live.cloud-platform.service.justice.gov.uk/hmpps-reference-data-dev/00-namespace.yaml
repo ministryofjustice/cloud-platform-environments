@@ -11,6 +11,6 @@ metadata:
     cloud-platform.justice.gov.uk/slack-channel: "hmpps-reference-data"
     cloud-platform.justice.gov.uk/application: "hmpps-reference-data"
     cloud-platform.justice.gov.uk/owner: "Probation: ministryofjustice@justice.gov.uk"
-    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-pds-platform-prototype-api"
+    cloud-platform.justice.gov.uk/source-code: "https://github.com/ministryofjustice/hmpps-reference-data-api"
     cloud-platform.justice.gov.uk/team-name: "hmpps-pds-platform-devs"
     cloud-platform.justice.gov.uk/review-after: "2027-02-25"
