@@ -45,9 +45,21 @@ variable "github_environment_name" {
 }
 
 variable "require_deployment_reviewers" {
-  description = "Whether deployments to this GitHub Actions environment require approval from team_name reviewers"
+  description = "Whether deployments to this GitHub Actions environment require approval from a reviewer team"
   type        = bool
   default     = true
+}
+
+variable "deployment_reviewer_teams" {
+  description = "GitHub team slugs allowed to approve deployments"
+  type        = set(string)
+  default     = ["hmpps-creating-future-opportunities-devs"]
+  nullable    = false
+
+  validation {
+    condition     = length(var.deployment_reviewer_teams) >= 1 && length(var.deployment_reviewer_teams) <= 6 && alltrue([for team in var.deployment_reviewer_teams : length(trimspace(team)) > 0])
+    error_message = "deployment_reviewer_teams must contain between one and six non-empty team slugs."
+  }
 }
 
 variable "infrastructure_support" {
