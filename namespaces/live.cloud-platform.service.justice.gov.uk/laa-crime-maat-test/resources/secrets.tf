@@ -14,17 +14,17 @@ module "secrets_manager" {
   # and pods can consume it with envFrom/secretRef. Values are set in AWS, not here.
   secrets = {
     "maat-functional-tests-dev" = {
-      description             = "Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the dev target",
+      description             = "[maat-functional-tests-dev] Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the dev target",
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-functional-tests-dev" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "maat-functional-tests-tst" = {
-      description             = "Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the tst target",
+      description             = "[maat-functional-tests-tst] Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the tst target",
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-functional-tests-tst" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
     "maat-functional-tests-uat" = {
-      description             = "Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the uat target",
+      description             = "[maat-functional-tests-uat] Functional test suite secrets (Cognito clients, mock JWT, HMCTS API key, Slack webhook, MAAT test user passwords) for the uat target",
       recovery_window_in_days = 7
       k8s_secret_name         = "maat-functional-tests-uat" # The name of the secret in k8s and must only contain lowercase alphanumeric characters, dots and dashes
     },
