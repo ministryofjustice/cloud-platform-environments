@@ -1,6 +1,7 @@
 
 locals {
   namespaces = toset([
+    "court-probation-dev",
     "create-and-vary-a-licence-dev",
     "create-and-vary-a-licence-test1",
     "create-and-vary-a-licence-test2",
@@ -70,7 +71,6 @@ locals {
     "prisoner-content-hub-development",
     "visit-someone-in-prison-frontend-svc-dev",
     "visit-someone-in-prison-frontend-svc-staging",
-    "court-probation-dev",
   ])
 }
 
