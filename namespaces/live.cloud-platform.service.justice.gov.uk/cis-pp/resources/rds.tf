@@ -8,7 +8,7 @@ resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_copy" {
 }
 
 resource "aws_db_snapshot_copy" "cis_rds_shared_snapshot_new_kms" {
-  source_db_snapshot_identifier = "cis-rds-20260925"
+  source_db_snapshot_identifier = "arn:aws:rds:eu-west-2:754256621582:snapshot:cis-rds-20260925"
   target_db_snapshot_identifier = "cis-rds-20261125"
   kms_key_id                    = aws_kms_alias.rds.target_key_arn
 }
