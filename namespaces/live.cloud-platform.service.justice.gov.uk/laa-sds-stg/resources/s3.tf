@@ -46,5 +46,25 @@ resource "kubernetes_secret" "equiniti_s3" {
   }
 }
 
+data "aws_sqs_queue" "cis" {
+  name = "v1-cis-mod-preproduction-cis-pp-payment-reconciliation"
+}
 
+# Additional S3 bucket features
+# The bucket names specified here need to match the generated names
+# from s3.tf which can depend on bucket_names specified in variables.tf
+
+resource "aws_s3_bucket_notification" "cis_staging_s3_notification" {
+  bucket = "laa-sds-cis-staging"
+
+  queue {
+    queue_arn = data.aws_sqs_queue.cis.arn
+    events    = ["s3:ObjectCreated:*"]
+
+    # Matches objects such as:
+    # issuance/file.pdf
+    # issuance/2024/test.json
+    filter_prefix = "reconciliation/"
+  }
+}
 
