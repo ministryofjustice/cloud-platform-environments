@@ -29,5 +29,6 @@ locals {
     pnd       = module.event_pnd_queue.sqs_name
     cats      = module.event_cats_queue.sqs_name
     ctrlo     = module.event_ctrlo_queue.sqs_name
+    enhanced-reception-checks = module.event_enhanced_reception_checks_queue.sqs_name
   }
 }
