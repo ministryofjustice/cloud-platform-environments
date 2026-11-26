@@ -1,6 +1,7 @@
 
 locals {
   namespaces = toset([
+    "court-probation-prod",
     "create-and-vary-a-licence-prod",
     "hmpps-activities-management-prod",
     "hmpps-arns-assessment-platform-prod",
@@ -51,8 +52,7 @@ locals {
     "offender-categorisation-prod",
     "offender-management-production",
     "prisoner-content-hub-production",
-    "visit-someone-in-prison-frontend-svc-prod",
-    "court-probation-prod"
+    "visit-someone-in-prison-frontend-svc-prod"
   ])
 }
 
