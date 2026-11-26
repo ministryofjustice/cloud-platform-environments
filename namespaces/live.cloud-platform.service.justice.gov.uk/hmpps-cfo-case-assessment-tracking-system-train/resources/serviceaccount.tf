@@ -3,18 +3,18 @@ locals {
 }
 
 data "github_team" "reviewers" {
-  slug = var.team_name
+  for_each = var.require_deployment_reviewers ? var.deployment_reviewer_teams : toset([])
+  slug     = each.value
 }
 
 resource "github_repository_environment" "env" {
   environment = var.github_environment_name
   repository  = local.github_repo
 
-  # Require review from the responsible team before deploys to this environment can proceed.
   dynamic "reviewers" {
-    for_each = var.require_deployment_reviewers ? [data.github_team.reviewers.id] : []
+    for_each = var.require_deployment_reviewers ? [1] : []
     content {
-      teams = [reviewers.value]
+      teams = [for team in data.github_team.reviewers : team.id]
     }
   }
 }
@@ -25,7 +25,7 @@ module "serviceaccount" {
   # Environment secrets require the GitHub environment to exist first.
   depends_on = [github_repository_environment.env]
 
-  namespace = var.namespace
+  namespace          = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
 
   # Uncomment and provide repository names to create github actions secrets
