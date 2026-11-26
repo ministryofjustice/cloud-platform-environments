@@ -48,6 +48,7 @@ locals {
     "hmpps-subject-access-request-preprod",
     "hmpps-support-additional-needs-preprod",
     "hmpps-workload-preprod",
+    "licences-preprod",
     "make-recall-decision-preprod",
     "offender-categorisation-preprod",
     "offender-management-preprod",
