@@ -51,11 +51,11 @@ variable "is_production" {
 }
 
 variable "rds-family" {
-  default = "postgres14"
+  default = "postgres18"
 }
 
 variable "db_engine_version" {
-  default = "14.22"
+  default = "18.6"
 }
 
 variable "number_cache_clusters" {
