@@ -40,9 +40,9 @@ resource "random_password" "ppx_app" {
   special = false
 }
 
-resource "kubernetes_secret" "database_administrator" {
+resource "kubernetes_secret" "database_admin" {
   metadata {
-    name      = "ppx-database-administrator"
+    name      = "ppx-database-admin"
     namespace = var.namespace
   }
 
