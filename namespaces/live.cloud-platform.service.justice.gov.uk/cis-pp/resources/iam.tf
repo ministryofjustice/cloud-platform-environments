@@ -222,10 +222,16 @@ resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
         Resource = module.bps_payment_reconciliation_queue.sqs_arn
       },
       {
+        Sid      = "ReadReconciliationFiles"
+        Effect   = "Allow"
+        Action   = "s3:GetObject"
+        Resource = "${data.aws_s3_bucket.bps_reconciliation.arn}/reconciliation*"
+      },
+      {
         Sid      = "DecryptReconciliationMessages"
         Effect   = "Allow"
         Action   = "kms:Decrypt"
-        Resource = aws_kms_alias.rds.target_key_arn
+        Resource = data.aws_kms_alias.bps_payment_reconciliation_queue.target_key_arn
         Condition = {
           StringEquals = {
             "kms:ViaService" = "sqs.eu-west-2.amazonaws.com"
