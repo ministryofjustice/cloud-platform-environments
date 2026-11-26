@@ -5,7 +5,7 @@ module "hmpps_ref_data_kotlin" {
   force_rotate_token         = true
   custom_token_rotation_date = "2026-03-20"
   github_repo                = "hmpps-reference-data-api"
-  application                = "hmpps-reference-data"
+  application                = "hmpps-reference-data-api"
   github_team                = "hmpps-pds-platform-devs"
   environment                = var.environment
 
