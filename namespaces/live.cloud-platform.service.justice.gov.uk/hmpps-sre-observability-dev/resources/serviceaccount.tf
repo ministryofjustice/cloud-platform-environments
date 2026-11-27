@@ -2,7 +2,7 @@
 # This allows team members to get and update networkpolicies
 
 module "networkpolicies_serviceaccount" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.0"
+  source = "github.com/ministryofjustice/cloud-platform-terraform-serviceaccount?ref=1.2.1"
 
   namespace = var.namespace
   kubernetes_cluster = var.kubernetes_cluster
@@ -13,7 +13,7 @@ module "networkpolicies_serviceaccount" {
   serviceaccount_rules = [
     {
       api_groups = ["crd.projectcalico.org"]
-      resources  = ["networkpolicies"]
+      resources  = ["networkpcoolicies"]
       verbs      = ["get", "list", "describe", "create", "delete", "watch", "update"]
     },
     {
