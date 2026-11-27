@@ -36,6 +36,23 @@ module "s3" {
         },
       ]
     },
+    {
+      enabled = true
+      id      = "delete private estate attachments after configured retention"
+      prefix  = "private-estate-credits-v2/"
+
+      abort_incomplete_multipart_upload_days = 2
+      noncurrent_version_expiration = [
+        {
+          days = 70
+        },
+      ]
+      expiration = [
+        {
+          days = 70
+        },
+      ]
+    },
   ]
 }
 
