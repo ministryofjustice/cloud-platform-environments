@@ -7,41 +7,43 @@ provider "aws" {
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
+      GithubTeam    = var.team_name
     }
   }
   region = "eu-west-2"
 }
 
 provider "aws" {
-  alias  = "london"
+  alias = "london"
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
+      GithubTeam    = var.team_name
     }
   }
   region = "eu-west-2"
 }
 
 provider "aws" {
-  alias  = "ireland"
+  alias = "ireland"
   default_tags {
     tags = {
       business-unit = var.business_unit
-      application = var.application
+      application   = var.application
       is-production = var.is_production
-      owner = var.team_name
-      namespace = var.namespace
-      service-area = var.service_area
+      owner         = var.team_name
+      namespace     = var.namespace
+      service-area  = var.service_area
     }
   }
   region = "eu-west-1"
