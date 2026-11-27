@@ -5,7 +5,7 @@ module "hmpps_assess_risks_and_needs_handover_service" {
   github_repo                   = "hmpps-assess-risks-and-needs-handover-service"
   application                   = "hmpps-assess-risks-and-needs-handover-service"
   github_team                   = "hmpps-assessments-devs"
-  reviewer_teams                = ["hmpps-assessments-devs"]
+  reviewer_teams                = ["hmpps-assessments-live"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "preprod"

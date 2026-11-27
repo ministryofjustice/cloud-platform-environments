@@ -5,7 +5,7 @@ module "hmpps_assess_risks_and_needs" {
   github_repo                   = "hmpps-assess-risks-and-needs"
   application                   = "hmpps-assess-risks-and-needs"
   github_team                   = var.team_name
-  reviewer_teams                = ["hmpps-assessments-devs"]
+  reviewer_teams                = [var.team_name]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "preprod"

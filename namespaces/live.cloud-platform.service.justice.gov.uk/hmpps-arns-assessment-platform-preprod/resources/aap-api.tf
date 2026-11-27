@@ -13,7 +13,7 @@ module "hmpps_arns_assessment_platform_api" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = ["hmpps-assessments-devs"]
+  reviewer_teams                = [var.team_name]
 }
 
 # Allow the release pipeline (triggered by publishing a v* tag) to deploy to this environment
