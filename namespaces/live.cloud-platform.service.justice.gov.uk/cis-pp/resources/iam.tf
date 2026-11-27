@@ -169,6 +169,7 @@ resource "aws_iam_policy" "bps_irsa_transactions_audit" {
         Sid    = "WriteTransactionsAudit"
         Effect = "Allow"
         Action = [
+          "dynamodb:GetItem",
           "dynamodb:PutItem",
           "dynamodb:TransactWriteItems",
           "dynamodb:Scan",
