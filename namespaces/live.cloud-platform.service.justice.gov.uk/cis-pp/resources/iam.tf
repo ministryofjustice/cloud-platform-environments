@@ -239,6 +239,17 @@ resource "aws_iam_policy" "bps_irsa_payment_reconciliation_sqs" {
           }
         }
       },
+      {
+        Sid      = "UsePaymentPasswordKey"
+        Effect   = "Allow"
+        Action   = ["kms:Encrypt", "kms:Decrypt"]
+        Resource = aws_kms_key.bps_payment_password.arn
+        Condition = {
+          StringEquals = {
+            "kms:EncryptionContext:purpose" = "civil-payment-file-password"
+          }
+        }
+      },
     ]
   })
 }
