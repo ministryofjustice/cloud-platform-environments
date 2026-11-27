@@ -18,7 +18,7 @@ module "s3_opa" {
 
 resource "kubernetes_secret" "s3_opa" {
   metadata {
-    name      = "s3-bucket"
+    name      = "s3-bucket-opa"
     namespace = var.namespace
   }
 
