@@ -13,7 +13,15 @@ module "hmpps_arns_assessment_platform_ui" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-assessments-live"]
+}
+
+resource "github_repository_environment_deployment_policy" "hmpps_arns_assessment_platform_ui_release_tags" {
+  repository  = "hmpps-arns-assessment-platform-ui"
+  environment = var.environment
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_arns_assessment_platform_ui]
 }
 
 # Note, redis is a requirement for hmpps-template-typescript application.
