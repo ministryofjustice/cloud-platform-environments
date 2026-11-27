@@ -10,6 +10,7 @@ provider "aws" {
     tags = {
       business-unit = var.business_unit
       application   = var.application
+      environment   = var.environment
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
@@ -28,6 +29,7 @@ provider "aws" {
     tags = {
       business-unit = var.business_unit
       application   = var.application
+      environment   = var.environment
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
@@ -46,6 +48,7 @@ provider "aws" {
     tags = {
       business-unit = var.business_unit
       application   = var.application
+      environment   = var.environment
       is-production = var.is_production
       owner         = var.team_name
       namespace     = var.namespace
