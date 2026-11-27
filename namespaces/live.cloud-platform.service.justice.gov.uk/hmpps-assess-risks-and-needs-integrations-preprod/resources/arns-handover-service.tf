@@ -5,12 +5,22 @@ module "hmpps_assess_risks_and_needs_handover_service" {
   github_repo                   = "hmpps-assess-risks-and-needs-handover-service"
   application                   = "hmpps-assess-risks-and-needs-handover-service"
   github_team                   = "hmpps-assessments-devs"
-  reviewer_teams                = ["hmpps-assessments-live", "hmpps-sentence-planning"]
+  reviewer_teams                = ["hmpps-assessments-devs"]
   environment                   = var.environment
   is_production                 = var.is_production
   application_insights_instance = "preprod"
   source_template_repo          = "hmpps-template-kotlin"
+  selected_branch_patterns      = ["main"]
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+}
+
+# Allow the release pipeline (triggered by publishing a v* tag) to deploy to this environment
+resource "github_repository_environment_deployment_policy" "hmpps_assess_risks_and_needs_handover_service_release_tags" {
+  repository  = "hmpps-assess-risks-and-needs-handover-service"
+  environment = var.environment
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_assess_risks_and_needs_handover_service]
 }

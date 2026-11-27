@@ -5,7 +5,7 @@ module "hmpps_assess_risks_and_needs" {
   github_repo                   = "hmpps-assess-risks-and-needs"
   application                   = "hmpps-assess-risks-and-needs"
   github_team                   = var.team_name
-  reviewer_teams                = [var.team_name]
+  reviewer_teams                = ["hmpps-assessments-devs"]
   environment                   = var.environment_name
   is_production                 = var.is_production
   application_insights_instance = "preprod"
@@ -14,4 +14,13 @@ module "hmpps_assess_risks_and_needs" {
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+}
+
+# Allow the release pipeline (triggered by publishing a v* tag) to deploy to this environment
+resource "github_repository_environment_deployment_policy" "hmpps_assess_risks_and_needs_release_tags" {
+  repository  = "hmpps-assess-risks-and-needs"
+  environment = var.environment_name
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_assess_risks_and_needs]
 }
