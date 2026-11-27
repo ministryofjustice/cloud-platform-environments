@@ -16,6 +16,14 @@ module "hmpps_arns_assessment_platform_api" {
   reviewer_teams                = [var.team_name]
 }
 
+resource "github_repository_environment_deployment_policy" "hmpps_arns_assessment_platform_api_release_tags" {
+  repository  = "hmpps-arns-assessment-platform-api"
+  environment = var.environment
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_arns_assessment_platform_api]
+}
+
 # Note, redis is used for the cache of hot assessments
 module "assessment-query-cache-elasticache-redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.1.0"

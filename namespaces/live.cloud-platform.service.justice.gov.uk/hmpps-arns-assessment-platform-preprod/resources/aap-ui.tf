@@ -16,6 +16,14 @@ module "hmpps_arns_assessment_platform_ui" {
   reviewer_teams                = [var.team_name]
 }
 
+resource "github_repository_environment_deployment_policy" "hmpps_arns_assessment_platform_ui_release_tags" {
+  repository  = "hmpps-arns-assessment-platform-ui"
+  environment = var.environment
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_arns_assessment_platform_ui]
+}
+
 # Note, redis is a requirement for hmpps-template-typescript application.
 module "elasticache_redis" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-elasticache-cluster?ref=8.0.0"
