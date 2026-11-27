@@ -10,7 +10,16 @@ module "hmpps_assess_risks_and_needs" {
   is_production                 = var.is_production
   application_insights_instance = "prod"
   source_template_repo          = "hmpps-template-kotlin"
+  selected_branch_patterns      = ["main"]
   github_token                  = var.github_token
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
+}
+
+resource "github_repository_environment_deployment_policy" "hmpps_assess_risks_and_needs_release_tags" {
+  repository  = "hmpps-assess-risks-and-needs"
+  environment = var.environment_name
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_assess_risks_and_needs]
 }
