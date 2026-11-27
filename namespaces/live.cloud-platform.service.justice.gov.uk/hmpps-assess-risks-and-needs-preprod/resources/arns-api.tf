@@ -15,3 +15,11 @@ module "hmpps_assess_risks_and_needs" {
   namespace                     = var.namespace
   kubernetes_cluster            = var.kubernetes_cluster
 }
+
+resource "github_repository_environment_deployment_policy" "hmpps_assess_risks_and_needs_release_tags" {
+  repository  = "hmpps-assess-risks-and-needs"
+  environment = var.environment_name
+  tag_pattern = "v*"
+
+  depends_on = [module.hmpps_assess_risks_and_needs]
+}
