@@ -83,3 +83,9 @@ variable "serviceaccount_name" {
 variable "number_cache_clusters" {
   default = "2"
 }
+
+variable "github_team" {
+  description = "The GitHub team responsible for this service"
+  type        = string
+  default     = "manage-your-civil-cases"
+}
