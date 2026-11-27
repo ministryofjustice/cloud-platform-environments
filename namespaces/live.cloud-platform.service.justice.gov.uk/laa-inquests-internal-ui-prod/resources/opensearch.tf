@@ -1,6 +1,6 @@
 module "opensearch_alert" {
     source = "github.com/ministryofjustice/cloud-platform-terraform-opensearch-alert?ref=1.0.2" #use the latest version
-    secret_name                    = "live-laa-inquests-internal-ui-prod-1c7c229b26e1dd53"
+    secret_name                    = "live-laa-inquests-internal-ui-prod-807fc725ad085900"
     secret_key                     = "url"
     environment_name               = var.environment
     slack_channel_name             = "laa-inquests-prod-alerts"
