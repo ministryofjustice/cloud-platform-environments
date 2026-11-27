@@ -51,7 +51,8 @@ module "irsa_laa_data_user_api" {
   infrastructure_support = var.infrastructure_support
 
   role_policy_arns = {
-    s3_read = aws_iam_policy.s3_read_opa.arn
+    s3_read  = aws_iam_policy.s3_read_opa.arn
+    s3_write = aws_iam_policy.s3_write_opa.arn # Temporary IRSA for S3 write access for POC
   }
 }
 
